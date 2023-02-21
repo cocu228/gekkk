@@ -1,0 +1,84 @@
+.ant-input-prefix, .ant-input-number-prefix {
+  margin-right: 8px !important;
+}
+
+.ant-picker-input {
+  flex-direction: row-reverse;
+
+  .ant-picker-suffix {
+    margin-right: 8px;
+    margin-left: 0;
+  }
+}
+
+.ant-form-item-explain-error {
+  font-size: 10px;
+  padding-left: 16px;
+}
+
+.ant-btn {
+  box-shadow: none;
+  border: none;
+
+  &.ant-btn {
+    &-lg {
+      height: 56px;
+    }
+
+    &-sm {
+      height: 30px;
+    }
+  }
+
+  &-default, &-primary {
+    background: var(--bssecondary);
+    color: var(--bswhite);
+
+    &:hover, &:active, &:disabled {
+      color: var(--bswhite) !important;
+      border-color: transparent !important;
+    }
+  }
+
+  &-default {
+    background: #1789FC;
+
+    &:hover {
+      background: #5FB8FF;
+    }
+
+    &:not(:disabled):active {
+      background: #1D65D6;
+    }
+
+    &:disabled {
+      background: #8FCCFF;
+    }
+  }
+
+  &-primary {
+    background: #00A254;
+
+    &:hover {
+      background: #6CC98E;
+    }
+
+    &:not(:disabled):active {
+      background: #007F3C;
+    }
+
+    &:disabled {
+      background: #98D7AE;
+    }
+  }
+
+  &.ant-btn-icon-only {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.anticon {
+  font-size: 20px;
+}

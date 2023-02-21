@@ -1,0 +1,23 @@
+$left: 18px;
+
+.Select {
+  :global {
+    .ant-select-selection-placeholder {
+      padding-left: calc($left + 14px) !important;
+    }
+
+    .ant-select-arrow {
+      inset-inline-end: 24px;
+    }
+
+    .ant-select-selection-item {
+      padding-inline-start: calc($left + 14px) !important;
+    }
+  }
+
+  &PrefixIcon {
+    position: absolute;
+    left: $left;
+    z-index: 10;
+  }
+}

@@ -14,6 +14,7 @@ export const MASK_PHONE: AnyMaskedOptions = {
 };
 
 function Authorization() {
+
     const {onInput} = useMask(MASK_PHONE);
     const {phoneValidator} = useValidation();
     const [toggle, setToggle] = useState(true)
@@ -54,6 +55,7 @@ function Authorization() {
                     </div>
                 </div>
                 {toggle && <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
+                    <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center" >Login to your account</h2>
                     <FormItem name="phone" label="Телефон" preserve
                               rules={[{required: true, ...phoneMessage}, phoneValidator]}>
                         <Input

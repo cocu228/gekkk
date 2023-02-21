@@ -1,84 +1,114 @@
-.ant-input-prefix, .ant-input-number-prefix {
-  margin-right: 8px !important;
-}
+//.ant-input-prefix, .ant-input-number-prefix {
+//  margin-right: 8px !important;
+//}
+//
+//.ant-picker-input {
+//  flex-direction: row-reverse;
+//
+//  .ant-picker-suffix {
+//    margin-right: 8px;
+//    margin-left: 0;
+//  }
+//}
+//
+//.ant-form-item-explain-error {
+//  font-size: 10px;
+//  padding-left: 16px;
+//}
+//
+//.ant-btn {
+//  box-shadow: none;
+//  border: none;
+//
+//  &.ant-btn {
+//    &-lg {
+//      height: 56px;
+//    }
+//
+//    &-sm {
+//      height: 30px;
+//    }
+//  }
+//
+//  &-default, &-primary {
+//    background: var(--bssecondary);
+//    color: var(--bswhite);
+//
+//    &:hover, &:active, &:disabled {
+//      color: var(--bswhite) !important;
+//      border-color: transparent !important;
+//    }
+//  }
+//
+//  &-default {
+//    background: #1789FC;
+//
+//    &:hover {
+//      background: #5FB8FF;
+//    }
+//
+//    &:not(:disabled):active {
+//      background: #1D65D6;
+//    }
+//
+//    &:disabled {
+//      background: #8FCCFF;
+//    }
+//  }
+//
+//  &-primary {
+//    background: #00A254;
+//
+//    &:hover {
+//      background: #6CC98E;
+//    }
+//
+//    &:not(:disabled):active {
+//      background: #007F3C;
+//    }
+//
+//    &:disabled {
+//      background: #98D7AE;
+//    }
+//  }
+//
+//  &.ant-btn-icon-only {
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//  }
+//}
+//
+//.anticon {
+//  font-size: 20px;
+//}
 
-.ant-picker-input {
-  flex-direction: row-reverse;
-
-  .ant-picker-suffix {
-    margin-right: 8px;
-    margin-left: 0;
-  }
-}
-
-.ant-form-item-explain-error {
-  font-size: 10px;
-  padding-left: 16px;
-}
-
-.ant-btn {
-  box-shadow: none;
-  border: none;
-
-  &.ant-btn {
-    &-lg {
-      height: 56px;
-    }
-
-    &-sm {
-      height: 30px;
-    }
-  }
-
-  &-default, &-primary {
-    background: var(--bssecondary);
-    color: var(--bswhite);
-
-    &:hover, &:active, &:disabled {
-      color: var(--bswhite) !important;
-      border-color: transparent !important;
-    }
-  }
-
-  &-default {
-    background: #1789FC;
-
-    &:hover {
-      background: #5FB8FF;
-    }
-
-    &:not(:disabled):active {
-      background: #1D65D6;
-    }
-
-    &:disabled {
-      background: #8FCCFF;
-    }
-  }
-
-  &-primary {
-    background: #00A254;
-
-    &:hover {
-      background: #6CC98E;
-    }
-
-    &:not(:disabled):active {
-      background: #007F3C;
-    }
-
-    &:disabled {
-      background: #98D7AE;
-    }
-  }
-
-  &.ant-btn-icon-only {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
+  padding: 20px 12px 20px 12px;
 }
 
 .anticon {
   font-size: 20px;
+}
+
+
+.ant-input-affix-wrapper > .ant-input[type="password"], .ant-input-affix-wrapper > .ant-input[type="text"] {
+  padding-top: 16px;
+  padding-left: 0;
+  padding-bottom: 16px;
+}
+
+.ant-btn[type="button"], .ant-btn[type="submit"] {
+  height: auto;
+  color: white !important;
+  font-weight: 600;
+  outline: none;
+  background-color: #00AEEF;
+  border: none;
+  border-radius: 28px;
+  padding: 15px 15px;
+
+  &:focus {
+    outline: none;
+  }
 }

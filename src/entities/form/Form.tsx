@@ -2,7 +2,7 @@ import {memo, PropsWithChildren} from 'react';
 import {Form as FormAntd, FormProps} from 'antd';
 
 interface Props extends FormProps {
-    title: string;
+    title?: string;
     subtitle?: string;
     wrapperClassName?: string;
 }
@@ -10,14 +10,13 @@ interface Props extends FormProps {
 const Form = memo<PropsWithChildren<Props>>(
     ({title, subtitle, wrapperClassName = '', children, ...props}): JSX.Element | null => {
         return (
-            <div className={`${wrapperClassName} d-flex flex-column gap-24`}>
-                <div className="d-flex flex-column row-gap-4">
-                    <h3 className="fs-20 fw-bold">{title}</h3>
+            <div className={`${wrapperClassName} flex flex-col gap-24`}>
+                {(title || subtitle) && <div className="flex flex-col row-gap-4">
+                    <h3 className="text-xl font-bold">{title}</h3>
+                    {subtitle && <span className="mt-1 text-base leading-4 text-gray-200">{subtitle}</span>}
+                </div>}
 
-                    {subtitle && <span className="mt-1 fs-16 lh-base text-gray">{subtitle}</span>}
-                </div>
-
-                <FormAntd className="d-flex flex-column gap-8" {...props}>
+                <FormAntd className="flex flex-col gap-2" {...props}>
                     {children}
                 </FormAntd>
             </div>

@@ -1,0 +1,133 @@
+.Button {
+  &.Ghost {
+    color: var(--bsdark);
+
+    &:hover {
+      color: var(--bsgray-500) !important;
+
+      &:not(:disabled):active {
+        color: var(--bsdark) !important;
+      }
+    }
+
+    &:disabled {
+      background: var(--bsgray-100) !important;
+      color: var(--bsgray-500) !important;
+    }
+
+    &:global(.ant-btn-default) {
+      background: var(--bssoft-blue);
+
+      &:active {
+        background: #BBDFFF;
+      }
+    }
+
+    &:global(.ant-btn-primary) {
+      background: var(--bssoft-green);
+
+      &:active {
+        background: #C1E7CD;
+      }
+    }
+  }
+
+  &.Cancel {
+    background: var(--bssoft-gray);
+    color: var(--bsdark);
+
+    --antd-wave-shadow-color: var(--bssoft-gray);
+
+    &:hover {
+      background: var(--bsgray-100);
+      color: var(--bsdark-soft) !important;
+    }
+
+    &:not(:disabled):active {
+      background: var(--bsgray-300);
+      color: var(--bsdark-soft) !important;
+    }
+
+    &:disabled {
+      color: var(--bsgray-500) !important;
+    }
+  }
+
+  &.Gradient {
+    &:global(.ant-btn-default) {
+      background: linear-gradient(to bottom, #2AABEE, #229ED9);
+
+      &:hover {
+        background: linear-gradient(to bottom, #3CB6F1, #28ADE7);
+      }
+
+      &:not(:disabled):active {
+        background: linear-gradient(to bottom, #269BDF, #1A8CC6);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+      }
+    }
+
+    &:global(.ant-btn-primary) {
+      background: linear-gradient(to bottom, #60D66A, #20B038);
+
+      &:hover {
+        background: linear-gradient(to bottom, #81DF87, #4CBC58);
+      }
+
+      &:not(:disabled):active {
+        background: linear-gradient(to bottom, #3DCD4C, #13A12F);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &.Light {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    line-height: 1;
+    color: var(--bssecondary);
+    background: var(--bssoft-blue);
+
+    &:global(.ant-btn-sm) {
+      height: 24px;
+      border-radius: 12px;
+    }
+
+    &:global(:not(.ant-btn-sm):not(.ant-btn-lg)) {
+      height: 36px;
+      border-radius: 100px;
+    }
+
+    &:hover {
+      color: #5FB8FF !important;
+      background: var(--bssoft-blue);
+    }
+
+    &:not(:disabled):active {
+      color: #1B77E8 !important;
+      background: #BBDFFF;
+    }
+
+    &:disabled {
+      color: #8FCCFF !important;
+      background: var(--bssoft-blue);
+    }
+  }
+
+  &.WithIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.Gradient, &.Light {
+      column-gap: 8px;
+    }
+  }
+}

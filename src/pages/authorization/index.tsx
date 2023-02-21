@@ -6,7 +6,7 @@ import {AnyMaskedOptions} from 'imask';
 import useMask from '../../features/useMask';
 import useValidation from '../../features/useValidation';
 import Button from "../../entities/button/Button";
-import {passwordMessage, phoneMessage} from "../../processes/message";
+import {emailMessage, passwordMessage, phoneMessage} from "../../processes/message";
 import {RuleRender} from "antd/es/form";
 
 export const MASK_PHONE: AnyMaskedOptions = {
@@ -16,7 +16,7 @@ export const MASK_PHONE: AnyMaskedOptions = {
 function Authorization() {
 
     const {onInput} = useMask(MASK_PHONE);
-    const {phoneValidator} = useValidation();
+    const {phoneValidator, emailValidator} = useValidation();
     const [toggle, setToggle] = useState(true)
 
     const validationPassword = useCallback<RuleRender>(
@@ -54,8 +54,9 @@ function Authorization() {
                               className={`${!toggle ? "active text-center border-b-2 border-b-blue-600" : "text-center"}`}>Create</span>
                     </div>
                 </div>
-                {toggle && <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
-                    <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center" >Login to your account</h2>
+                {toggle ? <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
+                    <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Login to your
+                        account</h2>
                     <FormItem name="phone" label="Телефон" preserve
                               rules={[{required: true, ...phoneMessage}, phoneValidator]}>
                         <Input
@@ -63,6 +64,27 @@ function Authorization() {
                             placeholder="Phone number"
                             onInput={onInput}
                             autoComplete="tel"
+                        />
+                    </FormItem>
+                    <FormItem name="password" label="Password"
+                              rules={[{required: true, ...passwordMessage}, validationPassword]}>
+                        <Input.Password placeholder="Password"/>
+                    </FormItem>
+                    <div className="row text-right mb-9">
+                        <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>
+                    </div>
+                    <div className="row">
+                        <Button htmlType="submit" className={"w-full"}>Login</Button>
+                    </div>
+                </Form> : <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
+                    <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Create your account</h2>
+                    <FormItem name="email" label="Email" preserve
+                              rules={[{required: true, ...emailMessage}, emailValidator]}>
+                        <Input
+                            type="email"
+                            placeholder="Email"
+                            onInput={onInput}
+                            autoComplete="email"
                         />
                     </FormItem>
                     <FormItem name="password" label="Password"

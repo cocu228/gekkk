@@ -1,0 +1,35 @@
+.Checkbox {
+  display: inline-block;
+  padding-left: 24px;
+  position: relative;
+}
+
+.Title {
+  &::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #5D5D5D;
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+
+.Input {
+  display: none;
+
+  &:checked ~ .Title {
+    &::before {
+      background-color: #00A254;
+      border-color: #00A254;
+      background-image: url("/public/img/check-true_white.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}

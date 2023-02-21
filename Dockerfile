@@ -7,4 +7,4 @@ EXPOSE 80
 EXPOSE 443
 
 RUN npm install 
-CMD npm run dev --host
+CMD npm run dev -- --host

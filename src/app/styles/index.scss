@@ -1,5 +1,12 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-stretch: 25% 151%;
+}
+
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
@@ -77,6 +84,8 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+
+@import "cs-antd";
 
 @tailwind base;
 @tailwind components;

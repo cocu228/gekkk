@@ -1,0 +1,11 @@
+.FormItemHideLabel {
+  :global {
+    .ant-form-item-label {
+      display: none;
+    }
+  }
+}
+
+.FormItemNoMargin {
+  margin-bottom: 0;
+}

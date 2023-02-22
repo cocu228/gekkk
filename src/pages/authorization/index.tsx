@@ -1,38 +1,18 @@
 import {Input} from 'antd';
-import Form from "../../entities/form/Form";
-import FormItem from "../../entities/form/form-item/FormItem";
-import React, {useCallback, useState} from "react";
-import {AnyMaskedOptions} from 'imask';
-import useMask from '../../features/useMask';
-import useValidation from '../../features/useValidation';
-import Button from "../../entities/button/Button";
-import {emailMessage, passwordMessage, phoneMessage} from "../../processes/message";
-import {RuleRender, RuleObject} from "antd/es/form";
-import CheckboxItem from "../../shared/checkbox-item/CheckboxItem";
-import {FormInstance} from "rc-field-form/lib/interface";
+import Form from "../../shared/ui/form/Form";
+import FormItem from "../../shared/ui/form/form-item/FormItem";
+import React, {memo, useState} from "react";
+import useMask from '../../shared/model/hooks/useMask';
+import useValidation from '../../shared/model/hooks/useValidation';
+import Button from "../../shared/ui/button/Button";
+import {emailMessage, passwordMessage, phoneMessage} from "../../shared/config/message";
+import {MASK_PHONE} from "../../shared/config/mask";
+import Checkbox from "../../shared/ui/checkbox/Checkbox";
 
-export const MASK_PHONE: AnyMaskedOptions = {
-    mask: '+{7} (000) 000-00-00',
-};
 
 function Authorization() {
+
     const [toggle, setToggle] = useState("Login")
-
-    const validationPassword = useCallback<RuleRender>(
-        () => ({
-            validator(rule, value = '') {
-
-                return new Promise((resolve, reject) => {
-                    if (value) {
-                        resolve('');
-                    } else {
-                        reject();
-                    }
-                });
-            },
-        }),
-        [],
-    );
 
 
     return (
@@ -45,39 +25,41 @@ function Authorization() {
                 </div>
                 <div className="grid justify-center pb-10">
                     <div className="gap-2 inline-grid grid-cols-2 grid-rows-1">
-                    <span onClick={() => setToggle(prev => "Login")}
-                          className={`${toggle === "Login" ? "active border-b-2 text-center border-b-blue-600" : "text-center"}`}>Login</span>
+                        <span onClick={() => setToggle(prev => "Login")}
+                              className={`${toggle === "Login" ? "active border-b-2 text-center border-b-blue-600" : "text-center"}`}>Login</span>
                         <span onClick={() => setToggle(prev => "Create")}
                               className={`${toggle === "Create" ? "active text-center border-b-2 border-b-blue-600" : "text-center"}`}>Create</span>
                     </div>
                 </div>
-                <FormLoginAccount show={toggle === "Login"} validationPassword={validationPassword}/>
-                <FormCreateAccount show={toggle === "Create"} validationPassword={validationPassword}/>
+                <div className={`wrapper ${toggle === "Login" ? "" : "hidden"}`}>
+                    <FormLoginAccount/>
+                </div>
+                <div className={`wrapper ${toggle === "Create" ? "" : "hidden"}`}>
+                    <FormCreateAccount/>
+                </div>
             </div>
         </div>
     )
 }
 
-const FormLoginAccount = ({
-                              validationPassword, show
-                          }: { validationPassword: (form: FormInstance) => RuleObject, show: boolean }) => {
+const FormLoginAccount = memo(() => {
 
     const {onInput} = useMask(MASK_PHONE);
-    const {phoneValidator} = useValidation();
+
+    const {phoneValidator, validationPassword} = useValidation();
     const onSubmit = (event: unknown) => {
         console.log(event)
     }
 
-    return <Form className={show ? "" : "hidden"} onFinishFailed={onSubmit} onFinish={onSubmit}>
+    return <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
         <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Login to your
             account</h2>
         <FormItem className={"mb-2"} name="phone" label="Телефон" preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-            <Input
-                type="tel"
-                placeholder="Phone number"
-                onInput={onInput}
-                autoComplete="tel"
+            <Input type="tel"
+                   placeholder="Phone number"
+                   onInput={onInput}
+                   autoComplete="tel"
             />
         </FormItem>
         <FormItem name="password" label="Password"
@@ -91,26 +73,21 @@ const FormLoginAccount = ({
             <Button htmlType="submit" className={"w-full"}>Login</Button>
         </div>
     </Form>
-}
-const FormCreateAccount = ({
-                               validationPassword,
-                               show
-                           }: { validationPassword: (form: FormInstance) => RuleObject, show: boolean }) => {
+})
+const FormCreateAccount = memo(() => {
 
-    const {onInput} = useMask(MASK_PHONE);
-    const {emailValidator} = useValidation();
+    const {emailValidator, validationPassword} = useValidation();
     const onSubmit = (event: unknown) => {
         console.log(event)
     }
 
-    return <Form className={show ? "" : "hidden"} onFinishFailed={onSubmit} onFinish={onSubmit}>
+    return <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
         <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Create your account</h2>
-        <FormItem className={"mb-2"} name="email" label="Email" preserve
+        <FormItem className="mb-2" name="email" label="Email" preserve
                   rules={[{required: true, ...emailMessage}, emailValidator]}>
             <Input
                 type="email"
                 placeholder="Email"
-                // onInput={onInput}
                 autoComplete="email"
             />
         </FormItem>
@@ -122,16 +99,20 @@ const FormCreateAccount = ({
             <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>
         </div>
         <div className="row">
-            <Button htmlType="submit" className={"w-full"}>Create</Button>
+            <Button htmlType="submit" className="w-full">Create</Button>
         </div>
         <div className="row">
-            <CheckboxItem onChange={() => null} title={"I certify that I’m 18 or older and I agree\n" +
-                "to the User Agreement and Privacy Policy of Adventarium LTD"}/>
+            <Checkbox className="top-1" onChange={() => null}>
+                <span className="text-xs">I certify that I’m 18 or older and I agree\n" +
+                "to the User Agreement and Privacy Policy of Adventarium LTD</span>
+            </Checkbox>
         </div>
         <div className="row">
-            <CheckboxItem onChange={() => null} title={"I agree to the Terms and conditions of AtlantEX OU"}/>
+            <Checkbox className="top-1" onChange={() => null}>
+                <span className="text-xs">I agree to the Terms and conditions of AtlantEX OU</span>
+            </Checkbox>
         </div>
     </Form>
-}
+})
 
 export default Authorization;

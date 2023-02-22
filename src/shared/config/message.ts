@@ -1,5 +1,3 @@
-/* eslint-disable no-template-curly-in-string */
-
 import {ConfigProviderProps} from 'antd/es/config-provider';
 import {Rule} from 'antd/es/form';
 

@@ -9,6 +9,7 @@ import {Input} from "antd";
 import Button from "../../shared/ui/button/Button";
 
 const FormLoginAccount = memo(() => {
+
     const {onInput} = useMask(MASK_PHONE);
     const {phoneValidator, validationPassword} = useValidation();
     const onSubmit = (event: unknown) => {

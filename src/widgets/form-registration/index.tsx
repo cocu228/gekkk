@@ -26,7 +26,7 @@ const FormCreateAccount = memo(() => {
         </FormItem>
         <FormItem name="password" label="Password"
                   rules={[{required: true, ...passwordMessage}, validationPassword]}>
-            <Input.Password placeholder="Password"/>
+            <Input.Password id="password2" placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
             <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>

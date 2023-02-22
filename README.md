@@ -22,9 +22,9 @@ _package.json_
 }
 ```
 
-## Code style:
+## Style Guide:
 
-В проэкте с большим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
+В проекте с большим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
 Это предпочтительный способ описания стилей и присвоения классов.
 
 Структура папок и файлов именуется в `kebab-case`, кроме `.jsx` (`PascalCase`);

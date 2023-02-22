@@ -1,7 +1,7 @@
 import {Input} from 'antd';
 import Form from "../../entities/form/Form";
 import FormItem from "../../entities/form/form-item/FormItem";
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useContext, useState} from 'react';
 import {AnyMaskedOptions} from 'imask';
 import useMask from '../../features/useMask';
 import useValidation from '../../features/useValidation';
@@ -10,13 +10,18 @@ import {emailMessage, passwordMessage, phoneMessage} from "../../processes/messa
 import {RuleRender, RuleObject} from "antd/es/form";
 import CheckboxItem from "../../shared/checkbox-item/CheckboxItem";
 import {FormInstance} from "rc-field-form/lib/interface";
+import {Outlet} from 'react-router'
+import {createBrowserRouter} from 'react-router-dom'
+import {AuthContext} from '../../contexts/AuthorizationContext'
+import useMaskedInput from '../../features/useMaskedInput'
 
 export const MASK_PHONE: AnyMaskedOptions = {
     mask: '+{7} (000) 000-00-00',
 };
 
-function Authorization() {
-    const [toggle, setToggle] = useState("Login")
+export function Auth() {
+
+    const [toggle, setToggle] = useState('Login' as 'Login' | 'Create')
 
     const validationPassword = useCallback<RuleRender>(
         () => ({
@@ -36,7 +41,7 @@ function Authorization() {
 
 
     return (
-        <div className="w-full h-full relative">
+
             <div className="wrapper absolute top-0 left-0 right-0 px-4 pt-6">
                 <div className="wrapper">
                     <div className="grid grid-rows-1 justify-center pb-6">
@@ -54,7 +59,7 @@ function Authorization() {
                 <FormLoginAccount show={toggle === "Login"} validationPassword={validationPassword}/>
                 <FormCreateAccount show={toggle === "Create"} validationPassword={validationPassword}/>
             </div>
-        </div>
+
     )
 }
 
@@ -62,10 +67,13 @@ const FormLoginAccount = ({
                               validationPassword, show
                           }: { validationPassword: (form: FormInstance) => RuleObject, show: boolean }) => {
 
-    const {onInput} = useMask(MASK_PHONE);
+    const auth = useContext(AuthContext)
+    const [phone, onInput] = useMaskedInput(MASK_PHONE);
+    const [password, setPassword] = useState('')
     const {phoneValidator} = useValidation();
-    const onSubmit = (event: unknown) => {
-        console.log(event)
+    const onSubmit = async (event: unknown) => {
+
+       await auth.doLogin(auth.doLogin({phone, password}))
     }
 
     return <Form className={show ? "" : "hidden"} onFinishFailed={onSubmit} onFinish={onSubmit}>
@@ -82,7 +90,7 @@ const FormLoginAccount = ({
         </FormItem>
         <FormItem name="password" label="Password"
                   rules={[{required: true, ...passwordMessage}, validationPassword]}>
-            <Input.Password placeholder="Password"/>
+            <Input.Password placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
         </FormItem>
         <div className="row text-right mb-9">
             <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>
@@ -134,4 +142,4 @@ const FormCreateAccount = ({
     </Form>
 }
 
-export default Authorization;
+export default Auth;

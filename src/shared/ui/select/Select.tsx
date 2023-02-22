@@ -1,9 +1,7 @@
 import {ComponentType, memo, SVGProps} from 'react';
-import {Select as SelectAntd, SelectProps} from 'antd';
+import {SelectProps} from 'antd';
 // import {inputIconStyle} from '@/components/icons';
-
 // import ArrowDownIcon from '@/public/next-static/icons/arrow-down.svg';
-
 import styles from './style.module.scss';
 
 interface Props extends SelectProps {

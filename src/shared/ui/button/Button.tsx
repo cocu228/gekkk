@@ -1,5 +1,5 @@
 import {memo, useMemo} from 'react';
-import {ButtonProps, Button as ButtonAntd} from 'antd';
+import {Button as ButtonAntd, ButtonProps} from 'antd';
 import styles from './style.module.scss';
 
 export interface Props extends ButtonProps {

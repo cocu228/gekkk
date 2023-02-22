@@ -1,5 +1,5 @@
 import {memo, PropsWithChildren} from 'react';
-import {FormItemProps, Form} from "antd";
+import {Form, FormItemProps} from 'antd';
 import styles from './style.module.scss';
 
 interface Props extends FormItemProps {

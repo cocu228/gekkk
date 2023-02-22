@@ -1,8 +1,12 @@
-import Authorization from "../pages/authorization";
+import AppRouter from '../pages/AppRouter'
+import {AuthProvider} from '../contexts/AuthContext'
 
 function App() {
     return (
-            <Authorization/>
+        <AuthProvider >
+            <AppRouter/>
+        </AuthProvider>
+
     )
 }
 

@@ -1,22 +1,28 @@
-import React, {memo} from "react";
-import useMask from "../../shared/model/hooks/useMask";
-import {MASK_PHONE} from "../../shared/config/mask";
-import useValidation from "../../shared/model/hooks/useValidation";
-import Form from "../../shared/ui/form/Form";
-import FormItem from "../../shared/ui/form/form-item/FormItem";
-import {passwordMessage, phoneMessage} from "../../shared/config/message";
-import {Input} from "antd";
-import Button from "../../shared/ui/button/Button";
+import React, {memo} from 'react';
+import useMask from '../../shared/model/hooks/useMask';
+import {MASK_PHONE} from '../../shared/config/mask';
+import useValidation from '../../shared/model/hooks/useValidation';
+import Form from '../../shared/ui/form/Form';
+import FormItem from '../../shared/ui/form/form-item/FormItem';
+import {passwordMessage, phoneMessage} from '../../shared/config/message';
+import {Input} from 'antd';
+import Button from '../../shared/ui/button/Button';
+import {useAuth} from '../../pages/auth/RequireAuth'
+import {Credentials} from '../../api/authApi'
 
 const FormLoginAccount = memo(() => {
 
+    const auth = useAuth()
     const {onInput} = useMask(MASK_PHONE);
     const {phoneValidator, validationPassword} = useValidation();
-    const onSubmit = (event: unknown) => {
-        console.log(event)
+
+    const onSubmit = async ({phone,password}: Credentials) => {
+        const formatAsNumber = (str:string) => str.replace(/\D/g, "")
+        console.log('omSubmit', event)
+        await auth.doLogin({phone: formatAsNumber(phone), password})
     }
 
-    return <Form onFinishFailed={onSubmit} onFinish={onSubmit}>
+    return <Form onFinishFailed={console.log} onFinish={onSubmit}>
         <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Login to your
             account</h2>
         <FormItem className={"mb-2"} name="phone" label="Телефон" preserve

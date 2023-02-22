@@ -1,11 +1,11 @@
-import React, {memo} from "react";
-import useValidation from "../../shared/model/hooks/useValidation";
-import Form from "../../shared/ui/form/Form";
-import FormItem from "../../shared/ui/form/form-item/FormItem";
-import {emailMessage, passwordMessage} from "../../shared/config/message";
-import {Input} from "antd";
-import Button from "../../shared/ui/button/Button";
-import Checkbox from "../../shared/ui/checkbox/Checkbox";
+import React, {memo} from 'react';
+import useValidation from '../../shared/model/hooks/useValidation';
+import Form from '../../shared/ui/form/Form';
+import FormItem from '../../shared/ui/form/form-item/FormItem';
+import {emailMessage, passwordMessage} from '../../shared/config/message';
+import {Input} from 'antd';
+import Button from '../../shared/ui/button/Button';
+import Checkbox from '../../shared/ui/checkbox/Checkbox';
 
 const FormCreateAccount = memo(() => {
 

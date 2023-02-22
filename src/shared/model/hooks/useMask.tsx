@@ -1,4 +1,4 @@
-import {FormEvent, useCallback, useMemo} from "react";
+import {FormEvent, useCallback, useMemo} from 'react';
 import {AnyMaskedOptions, createMask} from 'imask';
 
 function useMask(rule: AnyMaskedOptions) {

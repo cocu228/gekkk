@@ -1,5 +1,5 @@
-import {useCallback} from "react";
-import {RuleRender} from "antd/es/form";
+import {useCallback} from 'react';
+import {RuleRender} from 'antd/es/form';
 
 function useValidator() {
 

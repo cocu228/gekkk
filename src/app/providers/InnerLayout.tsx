@@ -6,7 +6,7 @@ export default () => {
     const auth = useAuth()
     const location = useLocation()
 
-    if(auth.isAuthorized)
+    if(!auth.isAuthorized)
         return <Navigate to={'/auth'} replace={true}/>
 
 

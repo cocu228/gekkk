@@ -8,7 +8,7 @@ const IndexRedirect = () => {
 
     console.log('render '+indexHandler.name+' auth '+auth+ '  location='+location)
 
-    return <Navigate to={ auth.isAuthorized ? '/in/dashboard' : '/auth'}/>
+    return <Navigate to={ !auth.isAuthorized ? '/in/' : '/auth'}/>
 
 }
 

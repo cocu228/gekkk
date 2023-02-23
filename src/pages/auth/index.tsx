@@ -11,7 +11,7 @@ function AuthPage() {
             <div className="wrapper absolute top-0 left-0 right-0 px-4 pt-6">
                 <div className="wrapper">
                     <div className="grid grid-rows-1 justify-center pb-6">
-                        <img width={72} height={24} src="public/logo.png" alt="logo"/>
+                        <img width={72} height={24} src="/public/logo.png" alt="logo"/>
                     </div>
                 </div>
                 <div className="grid justify-center pb-10">

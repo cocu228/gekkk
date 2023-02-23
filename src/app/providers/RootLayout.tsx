@@ -1,4 +1,6 @@
 import {Outlet} from 'react-router'
+import Header from "../../widgets/header";
+import Footer from "../../widgets/footer";
 //import {useAuth} from './auth/RequireAuth'
 
 export default () => {
@@ -16,7 +18,8 @@ export default () => {
 
 
     return <div className="w-full h-full relative">
-                <div>Root</div>
-                <Outlet />
-            </div>
+        <Header/>
+        <Outlet/>
+        <Footer/>
+    </div>
 }

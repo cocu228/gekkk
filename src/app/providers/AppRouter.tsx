@@ -1,12 +1,13 @@
 import React from 'react'
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import RootLayout from './RootLayout'
-import AuthPage from '../../pages/auth/AuthPage'
+import AuthPage from '../../pages/auth'
 import InnerLayout from './InnerLayout'
-import Dashboard from '../../pages/dashboard/Dashboard'
+import Dashboard from '../../pages/dashboard'
 import IndexRedirect from './IndexRedirect'
 import FormLoginAccount from '../../entities/auth/ui/form-authorization'
 import FormCreateAccount from '../../entities/auth/ui/form-registration'
+import Deposit from "../../pages/deposit";
 
 
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                 {
                     path: 'dashboard',
                     element: <Dashboard/>
+                },
+                {
+                    path: 'deposit',
+                    element: <Deposit/>
                 }
             ]
         }

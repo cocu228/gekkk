@@ -60,7 +60,7 @@ const baseURL = 'http://10.7.14.10' //import.meta.env.GEKKOIN_REACT_AUTH_URL
 
 export const authApi = createHttpClient(authApiSchema, { baseURL });
 
-export const hashCredentials = ({phone, password}:Credential) => ({
+export const hashCredentials = ({phone , password}:Credential) => ({
     phone,
     password: md5(`${password}_${phone}`)})
 

@@ -1,5 +1,5 @@
 import {Navigate, Outlet, useLocation} from 'react-router'
-import {useAuth} from './auth/RequireAuth'
+import {useAuth} from '../../entities/auth/model/RequireAuth'
 
 export default () => {
     const auth = useAuth()

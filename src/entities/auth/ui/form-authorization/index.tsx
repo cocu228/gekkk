@@ -1,14 +1,14 @@
 import React, {memo} from 'react';
-import useMask from '../../shared/model/hooks/useMask';
-import {MASK_PHONE} from '../../shared/config/mask';
-import useValidation from '../../shared/model/hooks/useValidation';
-import Form from '../../shared/ui/form/Form';
-import FormItem from '../../shared/ui/form/form-item/FormItem';
-import {passwordMessage, phoneMessage} from '../../shared/config/message';
+import useMask from '../../../../shared/model/hooks/useMask';
+import {MASK_PHONE} from '../../../../shared/config/mask';
+import useValidation from '../../../../shared/model/hooks/useValidation';
+import Form from '../../../../shared/ui/form/Form';
+import FormItem from '../../../../shared/ui/form/form-item/FormItem';
+import {passwordMessage, phoneMessage} from '../../../../shared/config/message';
 import {Input} from 'antd';
-import Button from '../../shared/ui/button/Button';
-import {useAuth} from '../../pages/auth/RequireAuth'
-import {Credentials} from '../../api/authApi'
+import Button from '../../../../shared/ui/button/Button';
+import {useAuth} from '../../model/RequireAuth'
+import {Credentials} from '../../api/auth-api'
 
 const FormLoginAccount = memo(() => {
 
@@ -38,7 +38,7 @@ const FormLoginAccount = memo(() => {
             <Input.Password placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
-            <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>
+            <a className="text-sm text-blue-700 font-bold" href="src/entities/auth/ui/form-authorization#">Forgot password?</a>
         </div>
         <div className="row">
             <Button htmlType="submit" className={"w-full"}>Login</Button>

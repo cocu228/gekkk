@@ -1,11 +1,11 @@
 import React, {memo} from 'react';
-import useValidation from '../../shared/model/hooks/useValidation';
-import Form from '../../shared/ui/form/Form';
-import FormItem from '../../shared/ui/form/form-item/FormItem';
-import {emailMessage, passwordMessage} from '../../shared/config/message';
+import useValidation from '../../../../shared/model/hooks/useValidation';
+import Form from '../../../../shared/ui/form/Form';
+import FormItem from '../../../../shared/ui/form/form-item/FormItem';
+import {emailMessage, passwordMessage} from '../../../../shared/config/message';
 import {Input} from 'antd';
-import Button from '../../shared/ui/button/Button';
-import Checkbox from '../../shared/ui/checkbox/Checkbox';
+import Button from '../../../../shared/ui/button/Button';
+import Checkbox from '../../../../shared/ui/checkbox/Checkbox';
 
 const FormCreateAccount = memo(() => {
 
@@ -29,7 +29,7 @@ const FormCreateAccount = memo(() => {
             <Input.Password id="password2" placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
-            <a className="text-sm text-blue-700 font-bold" href="#">Forgot password?</a>
+            <a className="text-sm text-blue-700 font-bold" href="src/entities/auth/ui/form-registration#">Forgot password?</a>
         </div>
         <div className="row">
             <Button htmlType="submit" className="w-full">Create</Button>

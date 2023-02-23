@@ -1,5 +1,5 @@
 import React, {ComponentProps, PropsWithChildren, useCallback, useState} from 'react';
-import {authApi, Credentials} from '../api/authApi'
+import {authApi, Credentials} from '../api/auth-api'
 
 export type Token = string
 

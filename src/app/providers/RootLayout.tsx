@@ -18,8 +18,6 @@ export default () => {
 
 
     return <div className="w-full h-full relative">
-        <Header/>
         <Outlet/>
-        <Footer/>
     </div>
 }

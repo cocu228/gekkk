@@ -6,8 +6,6 @@ import Button from "../../shared/ui/button/Button";
 function Deposit() {
 
     const [radio, setRadio] = useState(1)
-
-
     const onChange = (event: RadioChangeEvent) => {
         setRadio(event.target.value)
     }
@@ -52,10 +50,13 @@ function Deposit() {
             </div>
             <div className="row flex my-10 gap-2">
                 <div className="wrapper w-1/2">
-                    <Input className={""}/>
+                    <Input.Group>
+                        <Input className={""}/>
+                    </Input.Group>
                 </div>
                 <div className="wrapper w-1/2 h-inherit">
-                    <Button ghost className={"w-full min-h-full text-black !text-black !border-1 !border-solid !border-black"}>Apply</Button>
+                    <Button ghost
+                            className={"w-full min-h-full text-black !text-black !border-1 !border-solid !border-black"}>Apply</Button>
                 </div>
             </div>
             <div className="row flex my-10">

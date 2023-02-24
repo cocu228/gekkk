@@ -1,8 +1,9 @@
 import {Navigate, useLocation} from 'react-router'
-import {useAuth} from '../../entities/auth/model/RequireAuth'
+import {useAuth} from '../../entities/auth/model/AuthRequire'
 import indexHandler from './IndexRedirect'
 
 const IndexRedirect = () => {
+
     const auth = useAuth()
     const location = useLocation()
 

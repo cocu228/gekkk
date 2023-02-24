@@ -1,6 +1,6 @@
-import {createHttpSchema, t} from 'http-schemas'
-import md5 from 'md5'
-import {createHttpClient} from 'http-schemas/client'
+import {createHttpSchema, t} from 'http-schemas';
+import md5 from 'md5';
+import {createHttpClient} from 'http-schemas/client';
 
 export const ErrorBody = t.object({error: t.string})
 
@@ -60,8 +60,9 @@ const baseURL = 'http://10.7.14.10' //import.meta.env.GEKKOIN_REACT_AUTH_URL
 
 export const authApi = createHttpClient(authApiSchema, { baseURL });
 
-export const hashCredentials = ({phone , password}:Credential) => ({
+export const hashCredentials = ({phone, password}: Credentials) => ({
     phone,
-    password: md5(`${password}_${phone}`)})
+    password: md5(`${password}_${phone}`)
+})
 
 export default authApi

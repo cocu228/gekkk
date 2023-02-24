@@ -7,7 +7,7 @@ import FormItem from '../../../../shared/ui/form/form-item/FormItem';
 import {passwordMessage, phoneMessage} from '../../../../shared/config/message';
 import {Input} from 'antd';
 import Button from '../../../../shared/ui/button/Button';
-import {useAuth} from '../../model/RequireAuth'
+import {useAuth} from '../../model/AuthRequire'
 import {Credentials} from '../../api/auth-api'
 
 const FormLoginAccount = memo(() => {

@@ -9,6 +9,7 @@ import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
 import {useAuth} from '@/processes/auth/model/AuthRequire'
 import Credentials from '../../api'
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 const FormLoginAccount = memo(() => {
 
@@ -17,8 +18,6 @@ const FormLoginAccount = memo(() => {
     const {phoneValidator, validationPassword} = useValidation();
 
     const onSubmit = async ({phone, password}: Credentials) => {
-        const formatAsNumber = (str: string) => str.replace(/\D/g, "")
-        console.log('omSubmit', event)
         await auth.doLogin({phone: formatAsNumber(phone), password})
     }
 

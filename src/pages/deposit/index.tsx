@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
 import {Outlet} from 'react-router'
-import {Input as InputAnt, Radio, RadioChangeEvent} from 'antd';
-import Button from "@/shared/ui/button/Button";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
-import PromoCode from "@/features/promo-code/ui/PromoCode";
 import ChooseDeposit from "@/widgets/choose-deposit/ui/ChooseDeposit";
 
 

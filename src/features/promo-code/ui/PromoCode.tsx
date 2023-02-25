@@ -1,11 +1,10 @@
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import {Input as InputAnt} from "antd";
 import Button from "@/shared/ui/button/Button";
-import React, {useState} from "react";
+import React, {memo, useState} from "react";
 import api from "../api"
-import {throws} from "assert";
 
-const PromoCode = () => {
+const PromoCode = memo(() => {
 
 
     const [code, setCode] = useState("")
@@ -44,6 +43,6 @@ const PromoCode = () => {
             </div>
         </div>
     </>
-}
+})
 
 export default PromoCode

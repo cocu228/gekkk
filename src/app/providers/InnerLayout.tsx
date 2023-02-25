@@ -3,7 +3,7 @@ import {useAuth} from '@/processes/auth/model/AuthRequire'
 import Header from "@/widgets/header";
 import Footer from "@/widgets/footer";
 // @ts-ignore
-import Layout from "@/app/providers/layout/ui/{{MODE}}/";
+import Layout from "@/widgets/layout/ui/{{MODE}}/";
 
 
 export default () => {

@@ -2,7 +2,9 @@ import React, {PropsWithChildren} from "react";
 
 
 const Layout = ({children}: { children: PropsWithChildren }) => {
-    console.log("ionic")
+
+    console.log("default")
+
     return <>
         {children}
     </>

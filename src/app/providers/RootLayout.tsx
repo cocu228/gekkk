@@ -1,6 +1,6 @@
 import {Outlet} from 'react-router'
-import Header from "../../widgets/header";
-import Footer from "../../widgets/footer";
+import Header from "@/widgets/header";
+import Footer from "@/widgets/footer";
 //import {useAuth} from './auth/RequireAuth'
 
 export default () => {

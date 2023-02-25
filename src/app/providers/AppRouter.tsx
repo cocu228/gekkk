@@ -1,12 +1,12 @@
 import React from 'react'
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import RootLayout from './RootLayout'
-import AuthPage from '../../pages/auth'
+import AuthPage from '@/pages/auth'
 import InnerLayout from './InnerLayout'
-import Dashboard from '../../pages/dashboard'
-import FormLoginAccount from '../../entities/auth/ui/form-authorization'
-import FormCreateAccount from '../../entities/auth/ui/form-registration'
-import Deposit from "../../pages/deposit";
+import Dashboard from '@/pages/dashboard'
+import FormLoginAccount from '@/entities/auth/ui/form-authorization'
+import FormCreateAccount from '@/entities/auth/ui/form-registration'
+import Deposit from "@/pages/deposit";
 
 
 const router = createBrowserRouter([

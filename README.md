@@ -22,16 +22,36 @@ _package.json_
 }
 ```
 
+## Архитектура
+
+Структура папок и файлов именуется в `kebab-case`, кроме `.jsx` (`PascalCase`);
+
+```
+└── src/
+    ├── app/                    # Initializing application logic
+    |    ├── index.tsx          #    Entrypoint for connecting the application (formerly App. tsx)
+    |    └── index.css          #    Global application styles
+    ├── pages/                  #
+    ├── widgets/                #
+    ├── features/               #
+    ├── entities/               #
+    ├── shared/                 #
+    └── index.tsx               # Connecting and rendering the application
+```
+![Image alt](etc/img.png)
+![Image alt](etc/img_1.png)
+
+
+
 ## Style Guide:
 
 В проекте с большим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
 Это предпочтительный способ описания стилей и присвоения классов.
 
-Структура папок и файлов именуется в `kebab-case`, кроме `.jsx` (`PascalCase`);
-
 #### cs-
-cs- (custom) - в начале имени файла или папки, говорит о кастомных изменениях сторонних зависимотей проекта. (_Прим. cs-antd.scss_)
 
+cs- (custom) - в начале имени файла или папки, говорит о кастомных изменениях сторонних зависимотей проекта. (_Прим.
+cs-antd.scss_)
 
 #### .wrapper
 

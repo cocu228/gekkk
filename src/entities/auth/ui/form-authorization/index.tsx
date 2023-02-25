@@ -1,12 +1,12 @@
 import React, {memo} from 'react';
-import useMask from '../../../../shared/model/hooks/useMask';
-import {MASK_PHONE} from '../../../../shared/config/mask';
-import useValidation from '../../../../shared/model/hooks/useValidation';
-import Form from '../../../../shared/ui/form/Form';
-import FormItem from '../../../../shared/ui/form/form-item/FormItem';
-import {passwordMessage, phoneMessage} from '../../../../shared/config/message';
+import useMask from '@/shared/model/hooks/useMask';
+import {MASK_PHONE} from '@/shared/config/mask';
+import useValidation from '@/shared/model/hooks/useValidation';
+import Form from '@/shared/ui/form/Form';
+import FormItem from '@/shared/ui/form/form-item/FormItem';
+import {passwordMessage, phoneMessage} from '@/shared/config/message';
 import {Input} from 'antd';
-import Button from '../../../../shared/ui/button/Button';
+import Button from '@/shared/ui/button/Button';
 import {useAuth} from '../../model/AuthRequire'
 import {Credentials} from '../../api/auth-api'
 

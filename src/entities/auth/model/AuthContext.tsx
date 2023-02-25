@@ -23,7 +23,7 @@ export const AuthContext = React.createContext({
     doLogout: undefined as any as {() : any},
 });
 
-export const AuthProvider = ({children}:PropsWithChildren) => {
+export const AuthProvider = ({children}:`PropsWithChildren`) => {
 
     const [state, setState] = useState(defaultAuthState)
 

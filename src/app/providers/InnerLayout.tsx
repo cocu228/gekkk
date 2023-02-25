@@ -1,9 +1,13 @@
 import {Navigate, Outlet, useLocation} from 'react-router'
-import {useAuth} from '../../entities/auth/model/AuthRequire'
-import Header from "../../widgets/header";
-import Footer from "../../widgets/footer";
+import {useAuth} from '@/entities/auth/model/AuthRequire'
+import Header from "@/widgets/header";
+import Footer from "@/widgets/footer";
+// @ts-ignore
+import Layout from "@/entities/layout/ui/{{MODE}}/";
+
 
 export default () => {
+
     const auth = useAuth()
     const location = useLocation()
 
@@ -12,8 +16,10 @@ export default () => {
 
 
     return <div>
-        <Header/>
-        <Outlet/>
-        <Footer/>
-        </div>
+        <Layout>
+            <Header/>
+            <Outlet/>
+            <Footer/>
+        </Layout>
+    </div>
 }

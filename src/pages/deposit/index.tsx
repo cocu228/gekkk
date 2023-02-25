@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Outlet} from 'react-router'
 import {Input, Radio, RadioChangeEvent} from 'antd';
-import Button from "../../shared/ui/button/Button";
+import Button from "@/shared/ui/button/Button";
 
 function Deposit() {
 

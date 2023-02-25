@@ -1,9 +1,9 @@
 import {Navigate, Outlet, useLocation} from 'react-router'
-import {useAuth} from '@/entities/auth/model/AuthRequire'
+import {useAuth} from '@/processes/auth/model/AuthRequire'
 import Header from "@/widgets/header";
 import Footer from "@/widgets/footer";
 // @ts-ignore
-import Layout from "@/entities/layout/ui/{{MODE}}/";
+import Layout from "@/app/providers/layout/ui/{{MODE}}/";
 
 
 export default () => {

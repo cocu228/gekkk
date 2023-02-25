@@ -7,8 +7,8 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {passwordMessage, phoneMessage} from '@/shared/config/message';
 import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
-import {useAuth} from '../../model/AuthRequire'
-import {Credentials} from '../../api/auth-api'
+import {useAuth} from '@/processes/auth/model/AuthRequire'
+import Credentials from '../../api'
 
 const FormLoginAccount = memo(() => {
 
@@ -16,8 +16,8 @@ const FormLoginAccount = memo(() => {
     const {onInput} = useMask(MASK_PHONE);
     const {phoneValidator, validationPassword} = useValidation();
 
-    const onSubmit = async ({phone,password}: Credentials) => {
-        const formatAsNumber = (str:string) => str.replace(/\D/g, "")
+    const onSubmit = async ({phone, password}: Credentials) => {
+        const formatAsNumber = (str: string) => str.replace(/\D/g, "")
         console.log('omSubmit', event)
         await auth.doLogin({phone: formatAsNumber(phone), password})
     }
@@ -38,7 +38,8 @@ const FormLoginAccount = memo(() => {
             <Input.Password placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
-            <a className="text-sm text-blue-700 font-bold" href="src/entities/auth/ui/form-authorization#">Forgot password?</a>
+            <a className="text-sm text-blue-700 font-bold" href="@/processes/auth/ui/form-authorization/index#">Forgot
+                password?</a>
         </div>
         <div className="row">
             <Button htmlType="submit" className={"w-full"}>Login</Button>

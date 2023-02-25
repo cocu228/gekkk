@@ -4,8 +4,8 @@ import RootLayout from './RootLayout'
 import AuthPage from '@/pages/auth'
 import InnerLayout from './InnerLayout'
 import Dashboard from '@/pages/dashboard'
-import FormLoginAccount from '@/entities/auth/ui/form-authorization'
-import FormCreateAccount from '@/entities/auth/ui/form-registration'
+import FormLoginAccount from '@/widgets/auth/ui/form-authorization'
+import FormCreateAccount from '@/widgets/auth/ui/form-registration'
 import Deposit from "@/pages/deposit";
 
 

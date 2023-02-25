@@ -1,5 +1,5 @@
 import AppRouter from './providers/AppRouter'
-import {AuthProvider} from '../entities/auth/model/AuthContext'
+import {AuthProvider} from '../processes/auth/model/AuthContext'
 
 function App() {
     return (

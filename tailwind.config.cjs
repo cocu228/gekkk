@@ -6,7 +6,8 @@ module.exports = {
         important: true,
 
         height: {
-            inherit: "inherit"
+            inherit: "inherit",
+            full: "100%"
         },
         borderWidth: {
             1: "1px"

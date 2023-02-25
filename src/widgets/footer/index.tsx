@@ -2,7 +2,7 @@ import styles from "./style.module.scss"
 
 const Footer = () => {
     return <>
-        <footer className="bg-gray-200 py-4">
+        <footer className="bg-gray-50 py-4">
             <div className="row flex justify-center mb-2">
                 <span className="text-center text-gray-500 text-bold">© Gekkoin. v.0.9</span>
             </div>

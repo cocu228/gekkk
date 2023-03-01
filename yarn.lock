@@ -394,24 +394,24 @@
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.3.3.tgz"
   integrity sha512-YRHie1yQEj0kqqCTCJEfHqYSSNlZQ696QJG+MMiW4mxSl9I0ojz/eRhJS4fs88Z5i6D1SmoF9d3K99/QOhI8/w==
 
-"@types/node@^18.14.1", "@types/node@>= 14":
-  version "18.14.1"
-  resolved "https://registry.npmjs.org/@types/node/-/node-18.14.1.tgz"
-  integrity sha512-QH+37Qds3E0eDlReeboBxfHbX9omAcBCXEzswCu6jySP642jiM3cYSIkU/REqwhCUqXdonHFuBfJDiAJxMNhaQ==
+"@types/node@>= 14", "@types/node@18.14.2":
+  version "18.14.2"
+  resolved "https://registry.npmjs.org/@types/node/-/node-18.14.2.tgz"
+  integrity sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==
 
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
-"@types/react-dom@^18.0.10":
+"@types/react-dom@18.0.11":
   version "18.0.11"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.0.11.tgz"
   integrity sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.27":
+"@types/react@*", "@types/react@18.0.28":
   version "18.0.28"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.28.tgz"
   integrity sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==
@@ -425,7 +425,7 @@
   resolved "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
-"@vitejs/plugin-react@^3.1.0":
+"@vitejs/plugin-react@3.1.0":
   version "3.1.0"
   resolved "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-3.1.0.tgz"
   integrity sha512-AfgcRL8ZBhAlc3BFdigClmTUMISmmzHn7sB2h9U1odvc5U/MjWXsAaz18b/WoppUTDBzxOJwo2VdClfUcItu9g==
@@ -462,10 +462,10 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.npmjs.org/antd/-/antd-5.2.2.tgz"
-  integrity sha512-IHuMyGvgI+pPmoZNJFfhVykb0eW6+iO/39/9qPE0ub9gKAnI4vaK+hA5li6aX+mjM/EqgckdWgLpaIP98kGrvw==
+antd@5.2.3:
+  version "5.2.3"
+  resolved "https://registry.npmjs.org/antd/-/antd-5.2.3.tgz"
+  integrity sha512-mUSVH4ZhzC8h3eLNyL7PWquKUmvDcWAVRZYi060MOw6uiKl0pqsB/FC8OpfwntpBlVYgGMk+y3GB0loqTMSmJA==
   dependencies:
     "@ant-design/colors" "^7.0.0"
     "@ant-design/cssinjs" "^1.5.6"
@@ -543,7 +543,7 @@ asynckit@^0.4.0:
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
-autoprefixer@^10.4.13:
+autoprefixer@10.4.13:
   version "10.4.13"
   resolved "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.13.tgz"
   integrity sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==
@@ -555,7 +555,7 @@ autoprefixer@^10.4.13:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-axios@^1.3.4:
+axios@1.3.4:
   version "1.3.4"
   resolved "https://registry.npmjs.org/axios/-/axios-1.3.4.tgz"
   integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
@@ -850,7 +850,7 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-imask@^6.4.3:
+imask@6.4.3:
   version "6.4.3"
   resolved "https://registry.npmjs.org/imask/-/imask-6.4.3.tgz"
   integrity sha512-aH2GHemGkr3cbRBfhogHMIx05eUxdHrZNlKTTLmz8VxpSopuHHJ8+85FsDlBVQqxPlDLhZuwj4lpHHWbLOdBSw==
@@ -1009,7 +1009,7 @@ path-parse@^1.0.7:
   resolved "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
-path@^0.12.7:
+path@0.12.7:
   version "0.12.7"
   resolved "https://registry.npmjs.org/path/-/path-0.12.7.tgz"
   integrity sha512-aXXC6s+1w7otVF9UletFkFcDsJeO7lSZBPUQhtb5O0xJe8LtYhj/GxldoL09bBj9+ZmE2hNoHqQSFMN5fikh4Q==
@@ -1076,7 +1076,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.2.0:
   resolved "https://registry.npmjs.org/postcss-value-parser/-/postcss-value-parser-4.2.0.tgz"
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
-postcss@^8.0.0, postcss@^8.0.9, postcss@^8.1.0, postcss@^8.2.14, postcss@^8.4.21, postcss@>=8.0.9:
+postcss@^8.0.0, postcss@^8.0.9, postcss@^8.1.0, postcss@^8.2.14, postcss@^8.4.21, postcss@>=8.0.9, postcss@8.4.21:
   version "8.4.21"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.4.21.tgz"
   integrity sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==
@@ -1477,7 +1477,7 @@ rc-virtual-list@^3.4.13, rc-virtual-list@^3.4.8:
     rc-resize-observer "^1.0.0"
     rc-util "^5.15.0"
 
-react-dom@*, react-dom@^18.2.0, react-dom@>=16.0.0, react-dom@>=16.11.0, react-dom@>=16.8, react-dom@>=16.9.0:
+react-dom@*, react-dom@>=16.0.0, react-dom@>=16.11.0, react-dom@>=16.8, react-dom@>=16.9.0, react-dom@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -1495,7 +1495,7 @@ react-refresh@^0.14.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.0.tgz"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react-router-dom@^6.8.2:
+react-router-dom@6.8.2:
   version "6.8.2"
   resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.8.2.tgz"
   integrity sha512-N/oAF1Shd7g4tWy+75IIufCGsHBqT74tnzHQhbiUTYILYF0Blk65cg+HPZqwC+6SqEyx033nKqU7by38v3lBZg==
@@ -1510,7 +1510,7 @@ react-router@6.8.2:
   dependencies:
     "@remix-run/router" "1.3.3"
 
-react@*, "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, react@>=16.0.0, react@>=16.11.0, react@>=16.8, react@>=16.9.0:
+react@*, "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, react@>=16.0.0, react@>=16.11.0, react@>=16.8, react@>=16.9.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -1569,7 +1569,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-sass@*, sass@^1.58.3:
+sass@*, sass@1.58.3:
   version "1.58.3"
   resolved "https://registry.npmjs.org/sass/-/sass-1.58.3.tgz"
   integrity sha512-Q7RaEtYf6BflYrQ+buPudKR26/lH+10EmO9bBqbmPh/KeLqv8bjpTNqxe71ocONqXq+jYiCbpPUmQMS+JJPk4A==
@@ -1624,7 +1624,7 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-tailwindcss@^3.2.7:
+tailwindcss@3.2.7:
   version "3.2.7"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.2.7.tgz"
   integrity sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==
@@ -1675,7 +1675,7 @@ toggle-selection@^1.0.6:
   resolved "https://registry.npmjs.org/toggle-selection/-/toggle-selection-1.0.6.tgz"
   integrity sha512-BiZS+C1OS8g/q2RRbJmy59xpyghNBqrr6k5L/uKBGRsTfxmu3ffiRnd8mlGPUVayg8pvfi5urfnu8TU7DVOkLQ==
 
-typescript@^4.9.3:
+typescript@4.9.5:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
@@ -1700,10 +1700,10 @@ util@^0.10.3:
   dependencies:
     inherits "2.0.3"
 
-vite@^4.1.0, vite@^4.1.0-beta.0:
-  version "4.1.3"
-  resolved "https://registry.npmjs.org/vite/-/vite-4.1.3.tgz"
-  integrity sha512-0Zqo4/Fr/swSOBmbl+HAAhOjrqNwju+yTtoe4hQX9UsARdcuc9njyOdr6xU0DDnV7YP0RT6mgTTOiRtZgxfCxA==
+vite@^4.1.0-beta.0, vite@4.1.4:
+  version "4.1.4"
+  resolved "https://registry.npmjs.org/vite/-/vite-4.1.4.tgz"
+  integrity sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==
   dependencies:
     esbuild "^0.16.14"
     postcss "^8.4.21"

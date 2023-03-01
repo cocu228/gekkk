@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import "@/app/styles/index.scss"
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
+import FormCode from "@/widgets/auth/ui/form-code/inedx";
+
+export type S = "authorization" | "code"
 
 const AuthPage = () => {
+
+    const [view, setView] = useState<S>("authorization")
+
+    const handleView = (val: S): void => setView(val)
 
     return (
         <div className="wrapper absolute top-0 left-0 right-0 px-4 pt-6">
@@ -12,9 +19,9 @@ const AuthPage = () => {
                     <img width={72} height={24} src="/public/logo.png" alt="logo"/>
                 </div>
             </div>
-            <FormLoginAccount/>
+            {view === "authorization" ? <FormLoginAccount handleView={handleView}/> :
+                <FormCode handleView={handleView}/>}
         </div>
-
     )
 }
 

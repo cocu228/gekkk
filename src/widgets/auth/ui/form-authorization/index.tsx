@@ -9,12 +9,15 @@ import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {randomId} from "@/shared/lib/helpers";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {S} from "@/pages/auth/ui";
 
 
-const setSessionId = (id: string, phone: string): void => {
+export type sessionAuth = "session-auth"
+const setSessionAuth = (sessionId: string, phone: string): void => {
 
-    sessionStorage.setItem("sessid", JSON.stringify({
-        sessid: id,
+    sessionStorage.setItem("session-auth", JSON.stringify({
+        sessionId,
         phone: phone,
         currentTime: Date.now(),
         id: randomId()
@@ -22,51 +25,54 @@ const setSessionId = (id: string, phone: string): void => {
 
 }
 
-const FormLoginAccount = memo(() => {
+const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 
     const {onInput} = useMask(MASK_PHONE);
 
     const [state, setState] = useState({
         phone: "",
         password: "",
-        sessionId: null
+        loading: false
     });
 
     const {phoneValidator, validationPassword} = useValidation();
 
     const onFinish = () => {
 
-        apiCheckPassword(state.phone, state.password).then(res => {
-            console.log(res)
-            console.log("res?.data?.status")
-            console.log(res?.data?.status)
-            console.log("res?.data?.data?.status")
-            console.log(res?.data?.data?.status)
+        const phone = formatAsNumber(state.phone)
+        setState(prev => ({...prev, loading: true}))
 
-            if (res?.data?.status === "ok") {
+        apiCheckPassword(phone, state.password).then(res => {
 
-                apiRequestCode(state.phone).then(res => {
+            if (res.data?.status === "ok") {
+
+                apiRequestCode(phone).then(res => {
+
                     console.log(res)
-                    console.log("res?.data?.success")
-                    console.log(res?.data?.success)
-                    console.log("res?.data?.data?.success")
-                    console.log(res?.data?.data?.success)
-                    if (res?.data?.success) {
-                        setSessionId(res?.data?.sessid, state.phone)
-                        setState(prev => ({
-                            ...prev,
-                            sessionId: res?.data?.sessid
-                        }))
+
+                    if (res.data?.success) {
+
+                        setSessionAuth(res.data.sessid, phone)
+
+                        handleView("code")
+
+                    } else {
+                        setState(prev => ({...prev, loading: false}))
                     }
+                }).catch(err => {
+                    alert(err.response?.data?.errors[0]?.type)
+                    setState(prev => ({...prev, loading: false}))
                 })
 
+            } else {
+                setState(prev => ({...prev, loading: false}))
             }
 
+        }).catch(err => {
+            alert(err.response?.data?.errors[0]?.type)
+            setState(prev => ({...prev, loading: false}))
         })
     }
-
-
-    console.log(state)
 
     return <Form onFinish={onFinish}>
         <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Login to your
@@ -95,7 +101,7 @@ const FormLoginAccount = memo(() => {
                 password?</a>
         </div>
         <div className="row">
-            <Button htmlType="submit" className={"w-full"}>Login</Button>
+            <Button disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5 !text-white"}>Login</Button>
         </div>
     </Form>
 })

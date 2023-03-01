@@ -37,6 +37,10 @@ export const phoneMessage: Rule = {
     message: 'Пожалуйста, введите свой номер',
 };
 
+export const codeMessage: Rule = {
+    message: 'Неверный код подтверждения',
+};
+
 export const emailMessage: Rule = {
     message: 'Пожалуйста, укажите E-mail',
 };

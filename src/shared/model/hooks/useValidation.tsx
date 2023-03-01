@@ -3,8 +3,7 @@ import {RuleRender} from 'antd/es/form';
 
 function useValidator() {
 
-
-    const validationPassword = useCallback<RuleRender>(
+    const passwordValidator = useCallback<RuleRender>(
         () => ({
             validator(rule, value = '') {
 
@@ -55,7 +54,7 @@ function useValidator() {
         [],
     );
 
-    return {phoneValidator, emailValidator, validationPassword};
+    return {phoneValidator, emailValidator, validationPassword: passwordValidator};
 }
 
 export default useValidator;

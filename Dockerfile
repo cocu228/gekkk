@@ -6,6 +6,6 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-RUN rm package-lock.json && npm i
-#RUN npm install 
+#RUN rm package-lock.json && npm i
+RUN npm install 
 CMD npm run dev -- --host

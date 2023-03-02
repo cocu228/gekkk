@@ -7,7 +7,7 @@ const $axios = axios.create({
         'Content-Type': 'application/json;charset=UTF-8',
         'applicationId': 'BLACK_CAT_CARD'
     },
-    baseURL: "http://localhost:5173"
+    baseURL: import.meta.env.MODE === "DEV" ? "http://10.7.5.173:2223" : "http://localhost:5173"
 });
 
 export default $axios;

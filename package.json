@@ -7,7 +7,7 @@
     "local": "vite --mode LOCAL",
     "dev": "vite --mode DEV",
     "start": "vite --host",
-    "build": "tsc && vite build",
+    "build": "tsc && vite --mode PROD build",
     "preview": "vite preview"
   },
   "npm": " > 8",

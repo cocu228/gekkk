@@ -6,10 +6,9 @@ import Deposit from "@/pages/deposit";
 
 
 const router = createBrowserRouter([
-
 {
-    element: <RootLayout />,
-    path: '/',
+    path: "/",
+    element: <RootLayout/> ,
     children: [
         {
             path: 'dashboard',
@@ -25,9 +24,6 @@ const router = createBrowserRouter([
 
 export default () => {
     return (
-        <RouterProvider
-            router={router}
-            fallbackElement={<b>404</b>}
-        />
+        <RouterProvider router={router}/>
     )
 }

@@ -97,7 +97,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
             }))} placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
-            <a className="text-sm text-blue-700 font-bold" href="#">Forgot
+            <a className="text-sm text-linkBlue font-bold" href="#">Forgot
                 password?</a>
         </div>
         <div className="row">

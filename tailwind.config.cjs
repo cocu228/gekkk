@@ -5,14 +5,30 @@ module.exports = {
         prefix: 'tw-',
         important: true,
 
+        screens: {
+            'desktop': {max: '1280px'},
+            'laptop': {max: '1024px'},
+            'tablet': {max: '768px'},
+            'phone': {max: '640px'}
+        },
+
+        width: {
+            sm: '756px'
+        },
+
         height: {
             inherit: "inherit",
-            full: "100%"
+            full: "100%",
+            m: '750px'
         },
         borderWidth: {
             1: "1px"
         },
-        extend: {},
+        extend: {
+            colors: {
+                linkBlue: '#00AEEF'
+            }
+        },
     },
     plugins: [],
 }

@@ -5,6 +5,8 @@
   font-stretch: 25% 151%;
 }
 
-html {
-  font-family: 'Montserrat', Arial, sans-serif;
+@layer base {
+  html {
+    font-family: 'Montserrat', Arial, sans-serif;
+  }
 }

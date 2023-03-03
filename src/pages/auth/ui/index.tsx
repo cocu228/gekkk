@@ -14,14 +14,41 @@ const AuthPage = () => {
     const handleView = (val: S): void => setView(val)
 
     return (
-        <div className="wrapper absolute top-0 left-0 right-0 px-4 pt-6">
-            <div className="wrapper">
-                <div className="grid grid-rows-1 justify-center pb-6">
-                    <img width={72} height={24} src="/public/logo.png" alt="logo"/>
+        <div className='grid justify-center w-screen h-full'>
+            <div className='bg-white w-sm h-m rounded-lg my-auto'>
+                <div className="grid justify-center py-24">
+                    <img width={120} height={40} src="/public/logo.png" alt="logo"/>
                 </div>
+                {view === "authorization" ? <FormLoginAccount handleView={handleView}/> :
+                    <FormCode handleView={handleView}/>}
             </div>
-            {view === "authorization" ? <FormLoginAccount handleView={handleView}/> :
-                <FormCode handleView={handleView}/>}
+
+            <footer className='text-center font-light'>
+                <p>
+                    <a
+                        href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >General terms and conditions</a>
+                    {' | '}
+                    <a
+                        href="https://gekkoin.com/source/Privacy_policy.pdf"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >Privacy policy</a>
+                    {' | '}
+                    <a
+                        href="https://gekkoin.com/source/Cookies_policy.pdf"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >Cookie policy</a>
+                </p>
+
+                <p>
+                    Crypto exchange service is powered by AtlantEX OU
+                    (licensed partner for crypto wallet and exchange)
+                </p>
+            </footer>
         </div>
     )
 }

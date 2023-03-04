@@ -1,6 +1,7 @@
-import styles from "./style.module.scss"
+import styles from "./mobile.module.scss"
 
-const Header = () => {
+const HeaderMobile = () => {
+
     return <>
         <header className="flex justify-between">
             <div className="flex items-center">
@@ -16,4 +17,4 @@ const Header = () => {
 
 }
 
-export default Header
+export default HeaderMobile

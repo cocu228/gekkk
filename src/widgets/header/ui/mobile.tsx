@@ -5,7 +5,12 @@ const HeaderMobile = () => {
     return <>
         <header className="flex justify-between">
             <div className="flex items-center">
-                <button className={styles.NavBtn}/>
+                <button onClick={({currentTarget}: { currentTarget: HTMLButtonElement }) => {
+                    //todo change in context
+                    currentTarget.classList.toggle("active")
+                    document.getElementById("sidebar")?.classList.toggle("active")
+                }}
+                        className={styles.NavBtn}/>
                 <img style={{objectFit: "contain"}} src="/public/logo.png" width={72}
                      height={24} alt="logo"/>
             </div>

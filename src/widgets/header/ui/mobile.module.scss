@@ -5,6 +5,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   margin: 12px 15px;
+
+
+  //todo change in context
+  &:global(.active) {
+    background-image: url("/public/img/icon/CloseIcon.svg");
+  }
 }
 
 .ArrowBtn {

@@ -1,17 +1,14 @@
-.NavBtn {
-  background-image: url("/public/img/icon/MenuIcon.svg");
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 12px 15px;
-}
+.Sidebar {
+  position: absolute;
+  top: 48px;
+  left: -100%;
+  width: 100%;
+  height: calc(100% - 48px);
+  background-color: #ffffff;
+  z-index: 40;
+  transition: left ease-out 1s;
 
-.ArrowBtn {
-  background-image: url("/public/img/icon/DropdownTriangleIcon.svg");
-  width: 24px;
-  height: 24px;
-  margin: 12px 15px;
-  background-repeat: no-repeat;
-  background-size: cover;
+  &:global(.active) {
+    left: 0;
+  }
 }

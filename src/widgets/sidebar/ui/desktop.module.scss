@@ -1,0 +1,9 @@
+.Sidebar {
+  width: 346px;
+  min-width: 346px;
+  flex-basis: 346px;
+  //todo
+  height: calc(100vh - 80px);
+  border-top: 4px solid #F9F9FA;
+  background-color: #ffffff;
+}

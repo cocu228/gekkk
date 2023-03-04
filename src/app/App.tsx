@@ -1,8 +1,10 @@
 import AppRouter from './providers/AppRouter'
+import BreakpointsProvider from "@/app/providers/BreakpointsProvider";
 
 function App() {
-    return <AppRouter/>
-    // return <div>Hello</div>
+    return <BreakpointsProvider>
+        <AppRouter/>
+    </BreakpointsProvider>
 }
 
 export default App

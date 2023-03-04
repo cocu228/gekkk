@@ -29,14 +29,14 @@ _package.json_
 ```
 └── src/
     ├── app/                    # Initializing application logic
-    |    ├── index.tsx          #    Entrypoint for connecting the application (formerly App. tsx)
+    |    ├── mobile.tsx          #    Entrypoint for connecting the application (formerly App. tsx)
     |    └── index.css          #    Global application styles
     ├── pages/                  #
     ├── widgets/                #
     ├── features/               #
     ├── entities/               #
     ├── shared/                 #
-    └── index.tsx               # Connecting and rendering the application
+    └── mobile.tsx               # Connecting and rendering the application
 ```
 ![Image alt](etc/img.png)
 ![Image alt](etc/img_1.png)

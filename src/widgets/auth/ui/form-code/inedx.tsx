@@ -58,7 +58,7 @@ const FormCode = memo(({handleView}: {
             />
         </FormItem>
         <div className="row text-right mb-9">
-            <button onClick={onBack} className="text-sm text-linkBlue font-bold">Back to the input of the number
+            <button onClick={onBack} className="text-sm text-gekLinkBlue font-bold">Back to the input of the number
             </button>
         </div>
         <div className="row">

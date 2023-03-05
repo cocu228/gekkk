@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ["./src/**/*.{html,tsx,js,ts,jsx}", "*.html"],
+    content: ['./src/**/*.{html,tsx,js,ts,jsx}', '*.html'],
     theme: {
         prefix: 'tw-',
         important: true,
@@ -13,20 +13,33 @@ module.exports = {
         },
 
         width: {
+            full: '100%',
             sm: '756px'
         },
 
         height: {
-            inherit: "inherit",
-            full: "100%",
+            inherit: 'inherit',
+            full: '100%',
             m: '750px'
         },
-        borderWidth: {
-            1: "1px"
+
+        maxWidth: {
+            sm: '756px',
         },
+
+        borderWidth: {
+            1: '1px'
+        },
+
         extend: {
             colors: {
-                linkBlue: '#00AEEF'
+                gekLinkBlue: '#00AEEF',
+                gekGray: '#888A92',
+                gekDarkGray: '#3A3A3A'
+            },
+
+            fontWeight: {
+                inherit: 'inherit',
             }
         },
     },

@@ -20,6 +20,12 @@ a {
     text-decoration: inherit;
 }
 
+p {
+    font-weight: 400;
+    font-size: 14px;
+    color: #b4c0cd;
+}
+
 a:hover {
     text-decoration: underline;
 }
@@ -37,6 +43,13 @@ body {
     width: 100%;
     height: initial;
     //display: flex;
+}
+
+@layer components {
+    .text-header {
+        font-size: 32px;
+        line-height: 48px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {

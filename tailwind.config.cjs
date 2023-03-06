@@ -35,7 +35,8 @@ module.exports = {
             colors: {
                 gekLinkBlue: '#00AEEF',
                 gekGray: '#888A92',
-                gekDarkGray: '#3A3A3A'
+                gekDarkGray: '#3A3A3A',
+                gekLightGray: '#b4c0cd'
             },
 
             fontWeight: {

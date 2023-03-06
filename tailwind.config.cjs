@@ -2,9 +2,6 @@
 module.exports = {
     content: ["./src/**/*.{html,tsx,js,ts,jsx}", "*.html"],
     theme: {
-        prefix: 'tw-',
-        important: true,
-
         screens: {
             'desktop': {max: '1280px'},
             'laptop': {max: '1024px'},
@@ -36,25 +33,22 @@ module.exports = {
                 gekLinkBlue: '#00AEEF',
                 gekGray: '#888A92',
                 gekDarkGray: '#3A3A3A',
-                gekLightGray: '#b4c0cd'
+                gekLightGray: '#b4c0cd',
+                'blue': '#1fb6ff',
+                'purple': '#7e5bef',
+                'pink': '#ff49db',
+                'orange': '#ff7849',
+                'green': '#13ce66',
+                'yellow': '#ffc82c',
+                'gray-dark': '#273444',
+                'gray': '#B4C0CD',
+                'gray-light': '#d3dce6'
             },
 
             fontWeight: {
                 inherit: 'inherit',
             }
-        },
-        colors: {
-            'blue': '#1fb6ff',
-            'purple': '#7e5bef',
-            'pink': '#ff49db',
-            'orange': '#ff7849',
-            'green': '#13ce66',
-            'yellow': '#ffc82c',
-            'gray-dark': '#273444',
-            'gray': '#B4C0CD',
-            'gray-light': '#d3dce6',
-        },
-        extend: {},
+        }
     },
     plugins: [],
 }

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import "@/app/styles/index.scss"
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
-import FormCode from "@/widgets/auth/ui/form-code/inedx";
+import FormCode from "@/widgets/auth/ui/form-code/index";
 import { ConfigProvider } from 'antd'
 
 export type S = "authorization" | "code"

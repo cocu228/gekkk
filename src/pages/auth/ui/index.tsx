@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import ReactDOM from 'react-dom/client'
 import "@/app/styles/index.scss"
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
-import FormCode from "@/widgets/auth/ui/form-code/inedx";
+import FormCode from "@/widgets/auth/ui/form-code/index";
 import { ConfigProvider } from 'antd'
 
 export type S = "authorization" | "code"
@@ -16,8 +16,8 @@ const AuthPage = () => {
     return (
         <div className='grid justify-center w-screen h-full'>
             <div className='bg-white w-sm h-m rounded-lg px-40 pt-10 pb-12 my-auto'>
-                <div className="grid justify-center pt-10 pb-12">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="120px" viewBox="0 0 105.466 35.07" enable-background="new 0 0 105.466 35.07" xmlSpace={"preserve"}>
+                <div className="grid justify-center pt-8 pb-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" width="120px" viewBox="0 0 105.466 35.07" enableBackground="new 0 0 105.466 35.07" xmlSpace={"preserve"}>
                         <g>
                         	<g fill="#262262">
                         		<path d="M45.021,12.855c0-0.854,0.427-1.487,1.333-1.487h4.238c0.82,0,1.213,0.581,1.213,1.179    c0,0.581-0.41,1.179-1.213,1.179h-3.007v2.495h2.802c0.838,0,1.248,0.581,1.248,1.179c0,0.581-0.427,1.179-1.248,1.179h-2.802    v2.597h3.161c0.82,0,1.213,0.582,1.213,1.179c0,0.581-0.411,1.179-1.213,1.179h-4.408c-0.752,0-1.316-0.512-1.316-1.281V12.855z"/>

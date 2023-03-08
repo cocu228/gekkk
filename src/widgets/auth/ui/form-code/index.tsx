@@ -22,13 +22,15 @@ const FormCode = memo(({handleView}: {
         loading: false
     });
 
+    //TODO: настроить номер телефона
+    const phoneNumber = "+7 (911) 111-11-11"
 
     const onBack = () => handleView("authorization")
 
     const onFinish = () => {
         setState(prev => ({...prev, loading: true}))
 
-        const {sessionId, phone} = JSON.parse(sessionStorage.getItem("session-auth") || "")
+        const {sessionId, phone} = JSON.parse(sessionStorage.getItem("session-auth") ?? "")
 
         apiRequestCode(phone, formatAsNumber(state.code), sessionId).then(res => {
             console.log(res)
@@ -44,7 +46,17 @@ const FormCode = memo(({handleView}: {
     }
 
     return <Form onFinish={onFinish}>
-        <h2 className="text-2xl pt-8 pb-4 font-extrabold text-gray-600 text-center">Send code</h2>
+        <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">One-time code</h1>
+
+        <p className='text-center mb-9 text-gekGray'>
+            SMS with one-time code was sent to
+            
+            <br/>
+            <b>
+                {phoneNumber}
+            </b>
+        </p>
+
         <FormItem className={"mb-2"} name="code" label="Code" preserve
                   rules={[{required: true, ...codeMessage}]}>
             <Input type="text"
@@ -57,12 +69,15 @@ const FormCode = memo(({handleView}: {
                    autoComplete="off"
             />
         </FormItem>
+
         <div className="row text-right mb-9">
-            <button onClick={onBack} className="text-sm text-gekLinkBlue font-bold">Back to the input of the number
+            <button onClick={onBack} className="text-sm text-gekGray underline">
+                Re-send one-time code again
             </button>
         </div>
+        
         <div className="row">
-            <Button disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Send</Button>
+            <Button disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
         </div>
     </Form>
 })

@@ -118,7 +118,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                 password?</a>
         </div>
 
-        <div className="row mb-12">
+        <div className="row mb-8">
             <Button disabled={state.loading} htmlType="submit" className="w-full disabled:opacity-5 !text-white">Login</Button>
         </div>
 

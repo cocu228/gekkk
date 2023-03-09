@@ -14,7 +14,7 @@ export default () => {
             <Sidebar/>
             {/*todo*/}
             <main className="w-full" style={sm ? {} : {
-                padding: "24px 170px 56px 110px",
+                padding: "24px 140px 20px 140px",
                 backgroundColor: "#F2F2F2",
                 flexBasis: "100%"
             }}>

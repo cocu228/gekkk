@@ -13,7 +13,7 @@ export default () => {
         <div className="flex">
             <Sidebar/>
             {/*todo*/}
-            <main style={sm ? {} : {
+            <main className="w-full" style={sm ? {} : {
                 padding: "24px 170px 56px 110px",
                 backgroundColor: "#F2F2F2",
                 flexBasis: "100%"

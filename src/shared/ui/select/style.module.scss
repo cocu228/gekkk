@@ -1,7 +1,7 @@
 $left: 18px;
 
 .Select {
-  :global {
+  &.withPrefix :global {
     .ant-select-selection-placeholder {
       padding-left: calc($left + 14px) !important;
     }

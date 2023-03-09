@@ -1,45 +1,45 @@
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
+
 function Wallet() {
 
     const params = useParams();
 
     return (
-        <div className="flex flex-auto">
-            <div className="w-full mx-auto my-0 max-w-[1332px] px-4">
-                <div className="flex justify-center py-6">
+        <div className="flex flex-col">
+            <div className="w-full">
+                <div className="flex justify-center">
                     <div className="flex justify-start my-auto">
-                        <div className="mr-6">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="50px"
-                                height="50px"
-                                viewBox="0 0 50 50">
-                                <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M25 50c13.807 0 25-11.193 25-25S38.807 0 25 0C14.056 0 4.754 7.033 1.367 16.826h8.789A16.99 16.99 0 0125.04 8.052c6.13 0 11.479 3.24 14.476 8.087.399.52.641 1.17.641 1.875a3.125 3.125 0 01-3.126 3.118 3.13 3.13 0 01-2.761-1.647 10.74 10.74 0 00-9.23-5.214c-5.937 0-10.758 4.804-10.758 10.73 0 5.931 4.82 10.735 10.758 10.735 4.276 0 7.96-2.481 9.698-6.076h-7.711a3.115 3.115 0 010-6.229h11.828v.007a3.114 3.114 0 013.073 3.462c-.944 8.465-8.143 15.048-16.888 15.048a16.99 16.99 0 01-14.883-8.768H1.37C4.757 42.97 14.057 50 25 50zM.075 26.951h8.088a17.087 17.087 0 010-3.897H.075a25.348 25.348 0 000 3.897z"
-                                    fill="url(#EurgIcon_svg__paint0_linear)"
-                                />
-                                <defs>
-                                    <linearGradient
-                                        id="EurgIcon_svg__paint0_linear"
-                                        x1={75}
-                                        y1={25}
-                                        x2={25}
-                                        y2={-25}
-                                        gradientUnits="userSpaceOnUse"
-                                    >
-                                        <stop stopColor="#00AEEF" />
-                                        <stop offset={1} stopColor="#72BF44" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
+                        <div className="mr-6 w-[50px] h-[50px]">
+                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
                         </div>
 
-                        <div>
-                            Wallet
+                        <div className="content-around">
+                            <div className="text-sm font-medium text-gekLightGray">
+                                Wallet balance
+                            </div>
+
+                            <div className="text-2xl font-bold text-gekDarkGray cursor-help">
+                                317.95 EURG
+                            </div>
+                        </div>
+
+                        <div className='flex flex-col content-around ml-[50px]'>
+                            <div className="text-sm font-medium text-gekLightGray">
+                                Rate
+
+                                <Tooltip text={"We pay you 3% per annum of EURG on your balance under following conditions:\n(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG."}>
+                                    <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                                        <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
+                                    </div>
+                                </Tooltip>
+                            </div>
+
+                            <div className='text-gekDarkGray text-2xl'>
+                                3% per annum
+                            </div>
                         </div>
                     </div>
 

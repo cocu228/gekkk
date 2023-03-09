@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import RootLayout from './RootLayout'
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/deposit";
+import Wallet from '@/pages/wallet';
 
 
 const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         {
             path: 'deposit',
             element: <Deposit/>
+        },
+        {
+            path: 'wallet',
+            element: <Wallet/>
         }
     ],
 },

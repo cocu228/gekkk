@@ -43,7 +43,7 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/>}
             </div>
 
-            <footer className='text-gekLightGray text-center font-light mt-auto mb-10 mb max-w-sm'>
+            <footer className='text-gray text-center font-light mt-auto mb-10 mb max-w-sm'>
                 <p className='mb-4'>
                     <a
                         className='font-inherit'

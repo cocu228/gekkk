@@ -33,7 +33,6 @@ module.exports = {
                 gekLinkBlue: '#00AEEF',
                 gekGray: '#888A92',
                 gekDarkGray: '#3A3A3A',
-                gekLightGray: '#b4c0cd',
                 'blue': '#1fb6ff',
                 'purple': '#7e5bef',
                 'pink': '#ff49db',

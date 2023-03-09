@@ -2,8 +2,9 @@ import styles from "./mobile.module.scss"
 
 const HeaderMobile = () => {
 
+
     return <>
-        <header className="flex justify-between">
+        <header className="flex justify-between bg-white">
             <div className="flex items-center">
                 <button onClick={({currentTarget}: { currentTarget: HTMLButtonElement }) => {
                     //todo change in context

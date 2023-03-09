@@ -5,7 +5,7 @@ import './styles/index.scss'
 import { ConfigProvider } from 'antd'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ConfigProvider theme = {{
             token: {
                 fontFamily: 'inherit'
@@ -13,5 +13,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }}>
             <App/>
         </ConfigProvider>
-    </React.StrictMode>
+    // </React.StrictMode>
 )

@@ -7,3 +7,35 @@
   border-top: 4px solid #F9F9FA;
   background-color: #ffffff;
 }
+
+.Coin {
+  height: 88px;
+  display: flex;
+  cursor: pointer;
+  pointer-events: all;
+
+  &:hover {
+    .Icon {
+      pointer-events: none;
+      filter: saturate(10%) invert(20%);
+
+      &:hover {
+        filter: saturate(100%) invert(0%);
+      }
+    }
+  }
+}
+
+.Wrapper:global(.active) {
+  .Collapse {
+    max-height: 300px;
+  }
+}
+
+.Collapse {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.7s linear;
+  display: flex;
+  flex-direction: column;
+}

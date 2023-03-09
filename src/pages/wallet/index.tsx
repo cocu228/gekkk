@@ -1,4 +1,10 @@
+import {useParams} from "react-router-dom";
+import {useEffect} from "react";
+
 function Wallet() {
+
+    const params = useParams();
+
     return (
         <div className="flex flex-auto">
             <div className="w-full mx-auto my-0 max-w-[1332px] px-4">
@@ -39,9 +45,12 @@ function Wallet() {
 
                     <div className="ml-auto text-right">
                         <div className="font-bold text-[32px] leading-[48px] text-gekDarkGray mb-4">
+                            {params.coin}
+                        </div>
+                        <div className="font-bold text-[32px] leading-[48px] text-gekDarkGray mb-4">
                             Gekkoin Europe wallet
                         </div>
-                        <div className="max-w-[450px] font-medium text-sm text-gekLightGray whitespace-pre-line">
+                        <div className="max-w-[450px] font-medium text-sm text-gray whitespace-pre-line">
                             Utility token with a fixed rate
                             <br/>
                             1 EURG = 1 euro

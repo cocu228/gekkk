@@ -18,6 +18,9 @@ const router = createBrowserRouter([
         {
             path: 'deposit',
             element: <Deposit/>
+        }, {
+            path: 'wallet/:coin',
+            element: <Wallet/>
         },
         {
             path: 'wallet',

@@ -2,9 +2,9 @@ import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 function Wallet() {
     return (
-        <div className="flex flex-auto">
-            <div className="w-full mx-auto my-0 max-w-[1332px] px-4">
-                <div className="flex justify-center py-6">
+        <div className="flex flex-col">
+            <div className="w-full">
+                <div className="flex justify-center">
                     <div className="flex justify-start my-auto">
                         <div className="mr-6 w-[50px] h-[50px]">
                             <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
@@ -25,7 +25,7 @@ function Wallet() {
                                 Rate
 
                                 <Tooltip text={"We pay you 3% per annum of EURG on your balance under following conditions:\n(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG."}>
-                                    <div className="inline-block relative align-middle w-[15px] ml-1 cursor-help">
+                                    <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                                         <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
                                     </div>
                                 </Tooltip>

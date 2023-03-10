@@ -1,6 +1,6 @@
 .ContainerLogo {
-  width: 346px;
-  min-width: 346px;
+  width: var(--sidebar-width);
+  //min-width: 342px;
   border-right: 1px solid #F9F9FA;
   padding-left: 21px;
 }

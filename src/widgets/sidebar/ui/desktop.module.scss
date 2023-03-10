@@ -1,18 +1,17 @@
 .Sidebar {
-  width: 332px;
-  min-width: 332px;
-  flex-basis: 346px;
-  //todo
-  height: calc(100vh - 80px);
-  border-top: 4px solid #F9F9FA;
+  flex-basis: var(--sidebar-width);
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: auto;
   background-color: #ffffff;
 }
 
-.Coin {
+.Item {
   height: 88px;
   display: flex;
   cursor: pointer;
   pointer-events: all;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
   &:hover {
     .Icon {
@@ -24,18 +23,4 @@
       }
     }
   }
-}
-
-.Wrapper:global(.active) {
-  .Collapse {
-    max-height: 300px;
-  }
-}
-
-.Collapse {
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height 0.7s linear;
-  display: flex;
-  flex-direction: column;
 }

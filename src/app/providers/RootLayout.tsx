@@ -4,18 +4,17 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import Main from "@/app/layouts/Main";
+import Content from "@/app/layouts/Content";
 
 export default () => {
 
-    const {sm} = useContext(BreakpointsContext)
-
     return <>
         <Header/>
-        <div className="flex">
+        <Main>
             <Sidebar/>
-            <Main>
+            <Content>
                 <Outlet/>
-            </Main>
-        </div>
+            </Content>
+        </Main>
     </>
 }

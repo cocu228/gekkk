@@ -14,11 +14,10 @@ const SidebarDesktop = () => {
     const {phone, sessionId} = sessionAuth
 
     const [state, setState] = useState([])
-    const [collapse, setCollapse] = useState(false)
-    const [mainCoin, setMainCoin] = useState("EURG")
 
 
     useEffect(() => {
+
 
         (async () => {
 
@@ -44,42 +43,71 @@ const SidebarDesktop = () => {
         })()
     }, [])
 
-    const handleCollapse = () => {
-        setCollapse(prevState => !prevState)
-    }
-    const handleMainCoin = (val: string) => {
-        setMainCoin(val)
-        setCollapse(false)
-    }
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
-            <div className={`wrapper flex-col ml-4 pt-12 pb-8 flex ${collapse ? "active" : ""} ${styles.Wrapper}`}>
-                <div onClick={handleCollapse} className="row cursor-pointer flex justify-between w-full">
+            <div className={`wrapper flex-col ml-4 pt-12 pb-8 flex ${styles.Wrapper}`}>
+                <div className="row flex justify-between w-full">
                     <div className="col">
                         <div className="row mb-2">
-                            <span className="text-gray text-sm font-semibold">Total balance</span>
+                            <span className="text-gray text-sm font-semibold">Asset valuation</span>
                         </div>
                         <div className="row"></div>
-                        <span className="text-lg font-bold">1000.00 {mainCoin}</span>
+                        <span className="text-lg font-bold">0 €  (0.00000 ₿)</span>
                     </div>
-                    <div className="col ml-auto">
-                        <span className={`arrow-down-xs ${collapse ? "rotate-180" : ""}`}></span>
-                    </div>
+
                 </div>
-                <div className="row">
-                    <div className={`wrapper ${styles.Collapse} bg-gray -ml-4`}>
-                        <div onClick={() => handleMainCoin("EUR")}
-                             className="row p-3 cursor-pointer border-black border-b-1 border-solid">
-                            <span>EUR</span>
-                        </div>
-                        <div onClick={() => handleMainCoin("EURG")} className="row p-3 cursor-pointer">
-                            <span>EURG</span>
-                        </div>
+            </div>
+            <div className={styles.Item}>
+                <div className="col flex items-center pl-4">
+                    <img width={50} height={50} className={styles.Icon} src={`/public/img/coins/EurgIcon.svg`}
+                         alt="EURG"/>
+                </div>
+                <div className="col flex items-center justify-center flex-col pl-6">
+                    <div className="row w-full mb-1"><span>EURG Gekkoin</span></div>
+                    <div className="row w-full"><span
+                        className="text-gray text-sm">1000.00 EURG</span>
                     </div>
                 </div>
             </div>
+            <div className={styles.Item}>
+                <div className="col flex items-center pl-4">
+                    <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/ExchangeIcon.svg`}
+                         alt="EURG"/>
+                </div>
+                <div className="col flex items-center justify-center flex-col pl-6">
+                    <div className="row w-full mb-1"><span>Exchange</span></div>
+
+                </div>
+            </div>
+            <div className={styles.Item}>
+                <div className="col flex items-center pl-4">
+                    <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/NewDepositIcon.svg`}
+                         alt="EURG"/>
+                </div>
+                <div className="col flex items-center justify-center flex-col pl-6">
+                    <div className="row w-full mb-1"><span>New deposit</span></div>
+
+                </div>
+            </div>
+            <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
+                <span className="text-gray text-sm mr-2">Currents deposit</span>
+                <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
+            </div>
+            <div className={styles.Item}>
+                <div className="col flex items-center pl-4">
+                    <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/Invest.svg`}
+                         alt="EURG"/>
+                </div>
+                <div className="col flex items-center justify-center flex-col pl-6">
+                    <div className="row w-full mb-1"><span>Crypto assets</span></div>
+                </div>
+            </div>
+            <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
+                <span className="text-gray text-sm mr-2">Assets</span>
+                <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
+            </div>
             {state.map((item, i) => <NavLink to={`wallet/${item.currency}`}>
-                <div key={i + "-coin"} className={styles.Coin}>
+                <div key={i + "-coin"} className={styles.Item}>
                     <div className="col flex items-center pl-4">
                         <img className={styles.Icon} src={`/public/img/coins/${CoinsNameList[item.currency].icon}`}
                              alt={item.currency}/>

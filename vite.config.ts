@@ -29,19 +29,6 @@ export default defineConfig(({mode}) => ({
           });
         },
       },
-    },
-    input: {
-      main: path.resolve(__dirname, 'index.html'),
-      authorization: path.resolve(__dirname, 'src/pages/auth/ui/index.html'),
-    },
-  },
-
-  build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-        authorization: path.resolve(__dirname, 'src/pages/auth/ui/index.html'),
-      },
     }
   },
   plugins: [react()]

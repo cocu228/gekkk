@@ -10,10 +10,10 @@ interface Props extends SelectProps {
 
 const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null => {
     return (
-        <div className={`${styles.Select} relative flex items-center`}>
+        <div className={`${styles.Select} ${!!Icon ? styles.withPrefix : ''} relative flex items-center`}>
             {/*<Icon className={styles.SelectPrefixIcon} style={ArrowDown} />*/}
 
-            <SelectAntd suffixIcon={ArrowDown} {...props} />
+            <SelectAntd suffixIcon={<img src={ArrowDown} alt=""/>} {...props} />
         </div>
     );
 });

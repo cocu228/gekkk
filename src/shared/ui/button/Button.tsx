@@ -7,6 +7,7 @@ export interface Props extends ButtonProps {
     ghost?: boolean;
     gradient?: boolean;
     light?: boolean;
+    gray?: boolean;
 }
 
 const Button = memo<Props>(
@@ -17,6 +18,7 @@ const Button = memo<Props>(
         ghost = false,
         gradient = false,
         light = false,
+        gray = false,
         children,
         className = '',
         ...props
@@ -36,6 +38,8 @@ const Button = memo<Props>(
                         ? styles.Gradient
                         : light
                         ? styles.Light
+                        : gray
+                        ? styles.Gray
                         : ''
                 }`}
                 type={type}

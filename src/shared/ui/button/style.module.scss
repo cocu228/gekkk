@@ -130,4 +130,30 @@
       column-gap: 8px;
     }
   }
+
+  &.Gray {
+    padding: 2px 12px !important;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: #B4C0CD !important;
+    background: none !important;
+    border: 1px solid #B4C0CD !important;
+    box-shadow: none;
+
+    &:global(.ant-btn-sm) {
+      height: 32px;
+      border-radius: 16px;
+    }
+
+    &:hover {
+      color: #fff !important;
+      background: #00AEEF !important;
+      border-color: #00AEEF !important;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }

@@ -17,6 +17,9 @@ const SidebarDesktop = () => {
     const [state, setState] = useState<unknown>(null)
 
 
+    console.log(token)
+
+
     useEffect(() => {
 
         (async () => {
@@ -28,8 +31,6 @@ const SidebarDesktop = () => {
         })()
 
     }, [])
-
-    console.log(state)
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">

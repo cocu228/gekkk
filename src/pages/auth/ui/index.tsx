@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import "@/app/styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code/index";
+import QRCode from "@/widgets/auth/ui/qr-code/index";
 
-export type S = "authorization" | "code"
+export type S = "authorization" | "code" | "qr-code"
 
 const AuthPage = () => {
 
@@ -12,14 +13,14 @@ const AuthPage = () => {
     const handleView = (val: S): void => setView(val)
 
     return (
-        <div className='grid justify-center w-screen h-full'>
-            <div className='bg-white w-sm h-m rounded-lg px-40 pt-10 pb-12 my-auto'>
-                <div className="grid justify-center pt-8 pb-10">
-                    <img src="/public/logo.svg" width={120} height={40} alt="logo"/>
+        <div className='flex items-center w-screen h-full flex-col'>
+            <div className='bg-white w-sm min-h-m rounded-lg px-40 pt-10 pb-12 my-auto'>
+                <div className="flex justify-center pt-8 pb-10">
+                    <img src="/public/img/logo.svg" width={120} height={40} alt="logo"/>
                 </div>
 
-                {view === "authorization" ? <FormLoginAccount handleView={handleView}/> :
-                    <FormCode handleView={handleView}/>}
+                {view === "authorization" ? <FormLoginAccount handleView={handleView}/> : view === "code" ?
+                    <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
             <footer className='text-gray text-center font-light mt-auto mb-10 mb max-w-sm'>

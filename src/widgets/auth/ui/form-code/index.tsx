@@ -44,15 +44,25 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 setSessionGlobal({sessionId: res.data.sessid})
 
-                await apiSignIn(state.code, sessionId, phone).then(res => {
+                await apiSignIn(state.code, sessionId, phone).then((res) => {
+
+                    if (res.data.errors) throw new Error(res.data.errors[0].message)
+
                     setSessionGlobal(prev => ({
                         ...prev,
                         token: res.data.token
                     }))
 
-                }).catch(e => console.warn(e))
+                    login(res.data.sessid)
 
-                login(res.data.sessid)
+                }).catch(e => {
+
+                    alert(e)
+                    setState(prev => ({...prev, loading: false}))
+                    onBack()
+                    console.warn(e)
+
+                })
 
             } else {
                 setState(prev => ({...prev, loading: false}))
@@ -63,10 +73,8 @@ const FormCode = memo(({handleView}: TProps) => {
 
     return <Form onFinish={onFinish}>
         <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">One-time code</h1>
-
         <p className='text-center mb-9 text-gekGray'>
             SMS with one-time code was sent to
-            
             <br/>
             <b>
                 {phone}

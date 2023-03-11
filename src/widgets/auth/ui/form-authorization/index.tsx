@@ -129,7 +129,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                 <li>
                     <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
                         <img
-                            src='/google-play.svg'
+                            src='/img/google-play.svg'
                             height="40px"
                             alt="Google play"
                         />
@@ -139,7 +139,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                 <li>
                     <a href={APP_STORE_GEKKARD} target={"_blank"}>
                         <img
-                            src='/app-store.svg'
+                            src='/img/app-store.svg'
                             height="40px"
                             alt="App store"
                         />

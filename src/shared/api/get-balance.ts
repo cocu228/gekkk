@@ -8,6 +8,9 @@ export const apiGetBalance = (clientId: string, phone: string, token: string, cu
         "Authorization": phone,
         "productId": "BLACK_CAT_CARD",
         token
-    }
+    },
+    transformResponse: [(data) => {
+        return JSON.parse(data)
+    }],
 })
 

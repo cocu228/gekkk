@@ -1,15 +1,17 @@
 import styles from "./desktop.module.scss"
+import {useAuth} from "@/app/providers/AuthRouter";
 // import Button from "@/shared/ui/button/Button";
 
 const HeaderDesktop = () => {
 
+    const {logout} = useAuth()
 
     const onBtnProfile = () => {
 
     }
 
     const onBtnLogout = () => {
-
+        logout()
     }
 
     return <>

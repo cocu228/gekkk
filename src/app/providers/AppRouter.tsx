@@ -4,30 +4,32 @@ import RootLayout from './RootLayout'
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/deposit";
 import Wallet from '@/pages/wallet';
-
+import {AuthProvider} from "@/app/providers/AuthRouter";
 
 const router = createBrowserRouter([
-{
-    path: "/",
-    element: <RootLayout/> ,
-    children: [
-        {
-            path: 'dashboard',
-            element: <Dashboard/>
-        },
-        {
-            path: 'deposit',
-            element: <Deposit/>
-        }, {
-            path: 'wallet/:coin',
-            element: <Wallet/>
-        },
-        {
-            path: 'wallet',
-            element: <Wallet/>
-        }
-    ],
-},
+    {
+        path: "/",
+        element: <AuthProvider>
+            <RootLayout/>
+        </AuthProvider>,
+        children: [
+            {
+                path: '',
+                element: <Dashboard/>
+            },
+            {
+                path: 'deposit',
+                element: <Deposit/>
+            }, {
+                path: 'wallet/:coin',
+                element: <Wallet/>
+            },
+            {
+                path: 'wallet',
+                element: <Wallet/>
+            }
+        ],
+    },
 ]);
 
 export default () => {

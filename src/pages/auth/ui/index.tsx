@@ -1,9 +1,7 @@
-import React, {useState} from 'react'
-import ReactDOM from 'react-dom/client'
-import "@/app/styles/index.scss"
+import React, {useState} from 'react';
+import "@/app/styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code/index";
-import { ConfigProvider } from 'antd'
 
 export type S = "authorization" | "code"
 
@@ -56,15 +54,5 @@ const AuthPage = () => {
         </div>
     )
 }
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <ConfigProvider theme = {{
-        token: {
-            fontFamily: 'inherit'
-        },
-    }}>
-        <AuthPage/>
-    </ConfigProvider>
-)
 
 export default AuthPage;

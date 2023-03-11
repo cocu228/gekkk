@@ -13,14 +13,17 @@
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
-  &:hover {
-    .Icon {
-      pointer-events: none;
-      filter: saturate(10%) invert(20%);
+  .Coin {
+    pointer-events: none;
+    filter: saturate(10%) invert(0%);
+    opacity: 0.3;
+  }
 
-      &:hover {
-        filter: saturate(100%) invert(0%);
-      }
+  &:hover {
+    .Coin {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
     }
   }
 }

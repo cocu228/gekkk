@@ -9,12 +9,13 @@ import Button from '@/shared/ui/button/Button';
 import {S} from "@/pages/auth/ui";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {useAuth} from "@/app/providers/AuthRouter";
 
 
 const FormCode = memo(({handleView}: {
     handleView: (val: S) => void
 }) => {
-
+    const {login} = useAuth();
     const {onInput} = useMask(MASK_CODE);
 
     const [state, setState] = useState({
@@ -38,8 +39,8 @@ const FormCode = memo(({handleView}: {
                 sessionStorage.setItem("session-global", JSON.stringify({
                     sessionId: res.data.sessid
                 }))
-
-                window.location.href = "/dashboard"
+                login(res.data.sessid)
+                // window.location.href = "/dashboard"
             }
 
         })

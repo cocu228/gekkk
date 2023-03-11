@@ -1,10 +1,10 @@
 import {FC, PropsWithChildren, useContext} from "react";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import styles from "./content.module.scss"
 
 const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
 
     return <>
-        <div className="flex">
+        <div className={styles.Content}>
             {children}
         </div>
     </>

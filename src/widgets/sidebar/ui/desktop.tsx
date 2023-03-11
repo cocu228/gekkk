@@ -4,20 +4,22 @@ import {useEffect, useState} from "react";
 import {apiSignIn, apiGetBalance} from "@/shared/api";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import CoinsNameList from "@/shared/config/coins-name-list";
-import {NavLink} from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
 const SidebarDesktop = () => {
 
     const [sessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: ""})
 
     const [sessionGlobal, setSessionGlobal] = useSessionStorage("session-global", {token: ""})
+
     const {phone, sessionId} = sessionAuth
+
+    const navigate = useNavigate()
 
     const [state, setState] = useState([])
 
 
     useEffect(() => {
-
 
         (async () => {
 
@@ -59,7 +61,7 @@ const SidebarDesktop = () => {
             </div>
             <div className={styles.Item}>
                 <div className="col flex items-center pl-4">
-                    <img width={50} height={50} className={styles.Icon} src={`/public/img/coins/EurgIcon.svg`}
+                    <img width={50} height={50} className={styles.Coin} src={`/public/img/coins/EurgIcon.svg`}
                          alt="EURG"/>
                 </div>
                 <div className="col flex items-center justify-center flex-col pl-6">
@@ -106,27 +108,31 @@ const SidebarDesktop = () => {
                 <span className="text-gray text-sm mr-2">Assets</span>
                 <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
-            {state.map((item, i) => <NavLink to={`wallet/${item.currency}`}>
-                <div key={i + "-coin"} className={styles.Item}>
+            {state.map((item, i) => item.currency === "EURG" ? <></> :
+                <div onClick={() => navigate(`wallet/${item.currency}`)} key={i + "-coin"}
+                     className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img className={styles.Icon} src={`/public/img/coins/${CoinsNameList[item.currency].icon}`}
+                        <img className={styles.Coin + " mr-3"} width={14} height={14}
+                             src={`/public/img/icon/DepositAngleArrowIcon.svg`}
+                             alt={item.currency}/>
+                        <img className={styles.Coin} width={50}
+                             src={`/public/img/coins/${CoinsNameList[item.currency].icon}`}
                              alt={item.currency}/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span>{CoinsNameList[item.currency].name}</span></div>
+                        <div className="row w-full mb-1"><span
+                            className="text-gray text-xs">{CoinsNameList[item.currency].name}</span></div>
                         <div className="row w-full"><span
-                            className="text-gray text-sm">{`${(item.free_balance).toFixed(4)} ${item.currency}`}</span>
+                            className="text-lg">{`${(item.free_balance).toFixed(4)} ${item.currency}`}</span>
                         </div>
                         <div className="row w-full"><span
-                            className="text-gray text-sm">{`(${(item.lock_orders + item.lock_out_balance).toFixed(4)} on hold)`}</span>
+                            className="text-gray text-sm">{`${(item.lock_orders + item.lock_out_balance).toFixed(4)} EURG`}</span>
                         </div>
                     </div>
-                </div>
-            </NavLink>)}
+                </div>)}
         </div>
         <Footer/>
     </div>;
-
 }
 
 export default SidebarDesktop

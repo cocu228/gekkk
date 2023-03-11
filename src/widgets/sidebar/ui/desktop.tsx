@@ -1,49 +1,35 @@
 import styles from "./desktop.module.scss"
 import Footer from "@/widgets/footer";
 import {useEffect, useState} from "react";
-import {apiSignIn, apiGetBalance} from "@/shared/api";
+import {apiGetBalance} from "@/shared/api";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
-import CoinsNameList from "@/shared/config/coins-name-list";
 import {useNavigate} from 'react-router-dom';
+import {generation} from "@/widgets/sidebar/module/helper";
 
 const SidebarDesktop = () => {
 
-    const [sessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: ""})
+    const [{phone}] = useSessionStorage("session-auth", {phone: "", sessionId: "", code: ""})
+    const [{token}] = useSessionStorage("session-global", {token: ""})
 
-    const [sessionGlobal, setSessionGlobal] = useSessionStorage("session-global", {token: ""})
-
-    const {phone, sessionId} = sessionAuth
 
     const navigate = useNavigate()
 
-    const [state, setState] = useState([])
+    const [state, setState] = useState<unknown>(null)
 
 
     useEffect(() => {
 
         (async () => {
 
-            let {token} = sessionGlobal
-
-            if (!token) {
-                await apiSignIn("000000", sessionId, phone).then(res => {
-                    setSessionGlobal(prev => ({
-                        ...prev,
-                        token: res.data.token
-                    }))
-                    res.data.token ? token = res.data.token : null
-
-                }).catch(e => console.warn(e))
-            }
-            //todo getClientId
-            const {data} = await apiGetBalance("gek235263273468", phone, token);
-
-            setState(prev => {
-                return data
-            })
+            const {data} = await apiGetBalance(phone, token);
+            const result = generation(data)
+            setState(result)
 
         })()
+
     }, [])
+
+    console.log(state)
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -67,14 +53,14 @@ const SidebarDesktop = () => {
                 <div className="col flex items-center justify-center flex-col pl-6">
                     <div className="row w-full mb-1"><span>EURG Gekkoin</span></div>
                     <div className="row w-full"><span
-                        className="text-gray text-sm">1000.00 EURG</span>
+                        className="text-gray text-sm">{state?.eurg.balance ?? 0} EURG</span>
                     </div>
                 </div>
             </div>
             <div className={styles.Item}>
                 <div className="col flex items-center pl-4">
                     <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/ExchangeIcon.svg`}
-                         alt="EURG"/>
+                         alt="ExchangeIcon"/>
                 </div>
                 <div className="col flex items-center justify-center flex-col pl-6">
                     <div className="row w-full mb-1"><span>Exchange</span></div>
@@ -84,7 +70,7 @@ const SidebarDesktop = () => {
             <div className={styles.Item}>
                 <div className="col flex items-center pl-4">
                     <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/NewDepositIcon.svg`}
-                         alt="EURG"/>
+                         alt="NewDepositIcon"/>
                 </div>
                 <div className="col flex items-center justify-center flex-col pl-6">
                     <div className="row w-full mb-1"><span>New deposit</span></div>
@@ -98,7 +84,7 @@ const SidebarDesktop = () => {
             <div className={styles.Item}>
                 <div className="col flex items-center pl-4">
                     <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/Invest.svg`}
-                         alt="EURG"/>
+                         alt="Invest"/>
                 </div>
                 <div className="col flex items-center justify-center flex-col pl-6">
                     <div className="row w-full mb-1"><span>Crypto assets</span></div>
@@ -108,30 +94,33 @@ const SidebarDesktop = () => {
                 <span className="text-gray text-sm mr-2">Assets</span>
                 <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
-            {state.map((item, i) => item.currency === "EURG" ? <></> :
-                <div onClick={() => navigate(`wallet/${item.currency}`)} key={i + "-coin"}
+
+            {state?.coins.map((item, i) =>
+                <div onClick={() => navigate(`wallet/${item.name}`)} key={item.id}
                      className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img className={styles.Coin + " mr-3"} width={14} height={14}
+                        <img className={`${styles.Coin} mr-3`} width={14} height={14}
                              src={`/public/img/icon/DepositAngleArrowIcon.svg`}
-                             alt={item.currency}/>
+                             alt={"DepositAngleArrowIcon"}/>
                         <img className={styles.Coin} width={50}
-                             src={`/public/img/coins/${CoinsNameList[item.currency].icon}`}
-                             alt={item.currency}/>
+                             src={`/public/img/coins/${item.icon}`}
+                             alt={item.name}/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1"><span
-                            className="text-gray text-xs">{CoinsNameList[item.currency].name}</span></div>
+                            className="text-gray text-xs">{item.name}</span></div>
                         <div className="row w-full"><span
-                            className="text-lg">{`${(item.free_balance).toFixed(4)} ${item.currency}`}</span>
+                            className="text-lg">{`${item.balance} ${item.abbreviation}`}</span>
                         </div>
                         <div className="row w-full"><span
-                            className="text-gray text-sm">{`${(item.lock_orders + item.lock_out_balance).toFixed(4)} EURG`}</span>
+                            className="text-gray text-sm">{`${item.holdBalance} EURG`}</span>
                         </div>
                     </div>
                 </div>)}
         </div>
+
         <Footer/>
+
     </div>;
 }
 

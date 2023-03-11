@@ -1,16 +1,23 @@
 import $axios from "@/shared/lib/(cs)axios";
+export type TCoinAbbreviation = "XMR" | "BTC" | "ETH" | "EURG";
+export interface IApiGetBalance {
+    currency: TCoinAbbreviation;
+    lock_out_balance: number;
+    lock_in_balance: number;
+    lock_orders: number;
+    free_balance: number;
+}
 
-
-export const apiGetBalance = (clientId: string, phone: string, token: string, currency?: string) => $axios.get('/gek/v1/client/get_balance', {
-    headers: {
-        "client_id": clientId,
-        currency,
-        "Authorization": phone,
-        "productId": "BLACK_CAT_CARD",
-        token
-    },
-    transformResponse: [(data) => {
-        return JSON.parse(data)
-    }],
-})
+export const apiGetBalance = (phone: string, token: string, currency?: string) =>
+    $axios.get<IApiGetBalance[]>('/gek/v1/client/get_balance', {
+        headers: {
+            currency,
+            "Authorization": phone,
+            "productId": "BLACK_CAT_CARD",
+            token
+        },
+        transformResponse: [(data) => {
+            return JSON.parse(data)
+        }],
+    })
 

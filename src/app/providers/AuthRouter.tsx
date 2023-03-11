@@ -1,4 +1,4 @@
-import {createContext, useContext, useMemo} from "react";
+import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSessionStorage} from "usehooks-ts";
 
@@ -11,13 +11,13 @@ interface IValue {
     logout: () => void;
 }
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const [user, setUser] = useSessionStorage("user", null);
+    const [user, setUser] = useSessionStorage<null | string>("user", null);
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
-    const login = async (data) => {
+    const login = async (data: string) => {
         setUser(data);
         navigate("/");
     };

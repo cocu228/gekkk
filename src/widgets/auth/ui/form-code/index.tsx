@@ -44,7 +44,9 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 setSessionGlobal({sessionId: res.data.sessid})
 
-                await apiSignIn(state.code, sessionId, phone).then((res) => {
+                console.log(state.code)
+
+                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then((res) => {
 
                     if (res.data.errors) throw new Error(res.data.errors[0].message)
 
@@ -53,7 +55,7 @@ const FormCode = memo(({handleView}: TProps) => {
                         token: res.data.token
                     }))
 
-                    login(res.data.sessid)
+                    login(res.data.token)
 
                 }).catch(e => {
 

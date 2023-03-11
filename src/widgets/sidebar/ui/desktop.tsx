@@ -17,8 +17,6 @@ const SidebarDesktop = () => {
     const [state, setState] = useState<unknown>(null)
 
 
-    console.log(token)
-
 
     useEffect(() => {
 

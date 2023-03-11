@@ -50,8 +50,6 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
 
                 apiRequestCode(phone).then(res => {
 
-                    console.log(res)
-
                     if (res.data?.success) {
 
                         setSessionAuth(res.data.sessid, phone)
@@ -114,8 +112,9 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <a className="text-sm text-gekLinkBlue underline" href="#">Forgot
-                password?</a>
+            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-gekLinkBlue">Forgot your
+                PIN? Log in with a QR code
+            </button>
         </div>
 
         <div className="row mb-8">

@@ -9,9 +9,9 @@ import AuthPage from "@/pages/auth/ui";
 
 export default () => {
 
-    const {user, login} = useAuth();
+    const {token, login} = useAuth();
 
-    if (!user) {
+    if (!token) {
         return <AuthPage/>;
     }
 

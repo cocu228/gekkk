@@ -1,6 +1,7 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import {S} from "@/pages/auth/ui";
 import ReactQRCode from "react-qr-code";
+import {apiQRCode} from "@/widgets/auth/api";
 
 
 type TProps = {
@@ -9,7 +10,28 @@ type TProps = {
 
 const QRCode = memo(({handleView}: TProps) => {
 
+    const [hash, setHash] = useState<null | string>(null)
+    const ref = useRef<unknown>(null)
     // const {login} = useAuth();
+
+    useEffect(() => {
+
+        (async () => {
+            apiQRCode().then(res => {
+                if (typeof res.data === "string") {
+                    setHash(res.data)
+                    // ref.current = setInterval(() => {
+                    //     apiQRCode(hash).then(res => {
+                    //         console.log(res)
+                    //     })
+                    // }, 3000)
+                }
+            })
+        })()
+
+        // return () => clearInterval(ref.current)
+
+    }, [])
 
     return <>
         <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">Forgot your PIN?</h1>
@@ -39,18 +61,18 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
         </div>
 
-        <div className="row text-right pb-10 flex justify-center">
+        {hash && <div className="row text-right pb-10 flex justify-center">
             <div className="wrapper w-[max-content] border-1 border-blue border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                     <ReactQRCode
                         size={148}
                         style={{height: "auto", maxWidth: "100%", width: "100%"}}
-                        value={"value"}
+                        value={hash}
                         viewBox={`0 0 148 148`}
                     />
                 </div>
             </div>
-        </div>
+        </div>}
     </>
 })
 

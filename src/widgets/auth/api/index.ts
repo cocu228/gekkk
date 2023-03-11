@@ -6,6 +6,12 @@ export const apiCheckPassword = (phone: string, password: string) => $axios.post
 })
 
 
+export const apiQRCode = (hash?: string, sessionData?: string) => $axios.post('/gek/v1/auth', hash ? {Auth: {hash}}
+    :
+    undefined
+)
+
+
 export const apiRequestCode = (phone: string, code?: string, sessionId?: string) => $axios.post('/api/v1/requestCode', {
     phone,
     code,

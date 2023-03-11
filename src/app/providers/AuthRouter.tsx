@@ -13,28 +13,29 @@ interface IValue {
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const [user, setUser] = useSessionStorage<null | string>("user", null);
+    const [{token}, setSessionGlobal] = useSessionStorage<null | string>("session-global", {});
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
     const login = async (data: string) => {
-        setUser(data);
+        setSessionGlobal(prev => ({...prev, token: data}));
+
         navigate("/");
     };
 
     // call this function to sign out logged in user
     const logout = () => {
-        setUser(null);
+        setSessionGlobal({});
         navigate("/", {replace: true});
     };
 
     const value = useMemo(
         () => ({
-            user,
+            token,
             login,
             logout
         }),
-        [user]
+        [token]
     );
     return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
 };

@@ -1,23 +1,30 @@
-import {useParams} from "react-router-dom";
-import {useEffect} from "react";
-
+import {useState} from 'react';
+import Tab from './ui/tab/Tab';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
+
+const allTabs = {
+    topup: 'Top up',
+    withdraw: 'Withdraw',
+    transfer: 'Transfer to contact',
+    history: 'History',
+    about: 'About'
+};
 
 function Wallet() {
 
-    const params = useParams();
+    let [activeTab, setActiveTab] = useState('topup');
 
     return (
-        <div className="flex flex-col">
-            <div className="w-full">
-                <div className="flex justify-center">
-                    <div className="flex justify-start my-auto">
-                        <div className="mr-6 w-[50px] h-[50px]">
-                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
+        <div className="flex flex-col grow shrink-0 basis-auto w-full">
+            <div className="container flex mx-auto px-4">
+                <div className='flex w-inherit py-6 items-center'>
+                    <div className="flex justify-start">
+                        <div className="mr-6">
+                            <img className='icon' src="/public/img/coins/EurgIcon.svg" alt="logo"/>
                         </div>
 
-                        <div className="content-around">
-                            <div className="text-sm font-medium text-gekLightGray">
+                        <div className="flex flex-col content-around">
+                            <div className="text-sm font-medium text-gray">
                                 Wallet balance
                             </div>
 
@@ -27,7 +34,7 @@ function Wallet() {
                         </div>
 
                         <div className='flex flex-col content-around ml-[50px]'>
-                            <div className="text-sm font-medium text-gekLightGray">
+                            <div className="text-sm font-medium text-gray">
                                 Rate
 
                                 <Tooltip text={"We pay you 3% per annum of EURG on your balance under following conditions:\n(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG."}>
@@ -45,9 +52,6 @@ function Wallet() {
 
                     <div className="ml-auto text-right">
                         <div className="font-bold text-[32px] leading-[48px] text-gekDarkGray mb-4">
-                            {params.coin}
-                        </div>
-                        <div className="font-bold text-[32px] leading-[48px] text-gekDarkGray mb-4">
                             Gekkoin Europe wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray whitespace-pre-line">
@@ -58,8 +62,24 @@ function Wallet() {
                     </div>
                 </div>
             </div>
+
+            <div className='flex relative pt-4 mb-8 after:bg-gekGrayLine after:mt-9 after:block after:w-full after:h-[2px] after:absolute'>
+                <div className='container mx-auto px-4'>
+                    <div className='flex pb-[10px]'>
+                        {Object.keys(allTabs).map(tab => (
+                            <Tab onClick={() => setActiveTab(tab)}
+                                 isActive={activeTab === tab}>
+                                {
+                                    // @ts-ignore
+                                    allTabs[tab]
+                                }
+                            </Tab>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default Wallet;

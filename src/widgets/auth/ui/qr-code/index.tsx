@@ -11,7 +11,7 @@ type TProps = {
 const QRCode = memo(({handleView}: TProps) => {
 
     const [hash, setHash] = useState<null | string>(null)
-    const ref = useRef<unknown>(null)
+    const ref = useRef<ReturnType<typeof setInterval> | null>(null)
     // const {login} = useAuth();
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const QRCode = memo(({handleView}: TProps) => {
             })
         })()
 
-        return () => clearInterval(ref.current)
+        return () => clearInterval(ref.current !== null ? ref.current : undefined)
 
     }, [])
 

@@ -6,14 +6,14 @@ const AuthContext = createContext({});
 
 
 interface IValue {
-    user: string;
-    login: () => void;
+    token: string;
+    login: (data: string) => void;
     logout: () => void;
 }
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const [{token}, setSessionGlobal] = useSessionStorage<null | string>("session-global", {});
+    const [{token}, setSessionGlobal] = useSessionStorage<Partial<Record<string, any>>>("session-global", {});
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
@@ -29,7 +29,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         navigate("/", {replace: true});
     };
 
-    const value = useMemo(
+    const value = useMemo<IValue>(
         () => ({
             token,
             login,
@@ -41,5 +41,5 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 };
 
 export const useAuth = () => {
-    return useContext<IValue | {}>(AuthContext);
+    return useContext<Partial<IValue>>(AuthContext);
 };

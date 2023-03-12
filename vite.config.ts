@@ -16,6 +16,12 @@ export default defineConfig(({mode}) => ({
         target: 'https://api-dev.gekkoin.com',
         changeOrigin: true,
         secure: false,
+      },
+      '^/TEMP-API': {
+        target: 'http://10.7.14.10/pub/v1/auth',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/TEMP-API/, ''),
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
             console.log('proxy error', err);

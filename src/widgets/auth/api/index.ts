@@ -6,7 +6,7 @@ export const apiCheckPassword = (phone: string, password: string) => $axios.post
 })
 
 
-export const apiQRCode = (hash?: string, sessionData?: string) => $axios.post('/gek/v1/auth',
+export const apiQRCode = (hash?: string, sessionData?: string) => $axios.post('/TEMP-API',
     null, {
         params: {
             key: hash

@@ -19,17 +19,19 @@ const QRCode = memo(({handleView}: TProps) => {
         (async () => {
             apiQRCode().then(res => {
                 if (typeof res.data === "string") {
+
                     setHash(res.data)
-                    // ref.current = setInterval(() => {
-                    //     apiQRCode(hash).then(res => {
-                    //         console.log(res)
-                    //     })
-                    // }, 3000)
+
+                    ref.current = setInterval(() => {
+                        apiQRCode(res.data).then(res => {
+                            console.log(res)
+                        })
+                    }, 3000)
                 }
             })
         })()
 
-        // return () => clearInterval(ref.current)
+        return () => clearInterval(ref.current)
 
     }, [])
 

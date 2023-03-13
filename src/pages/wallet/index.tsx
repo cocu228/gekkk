@@ -1,19 +1,15 @@
-import {useState} from 'react';
-import Tab from './ui/Tab';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import History from '@/widgets/history/ui/History';
+import PrimaryTabGroup, {Tab} from '@/shared/ui/primary-tab-group';
 
-const allTabs = {
-    topup: 'Top up',
-    withdraw: 'Withdraw',
-    transfer: 'Transfer to contact',
-    history: 'History',
-    about: 'About'
-};
+const walletTabs: Tab[] = [
+    {key: 'topup', title: 'Top up'},
+    {key: 'withdraw', title: 'Withdraw'},
+    {key: 'transfer', title: 'Transfer to contact'},
+    {key: 'history', title: 'History'},
+    {key: 'about', title: 'About'}
+];
 
 function Wallet() {
-
-    let [activeTab, setActiveTab] = useState('topup');
 
     return (
         <div className="flex flex-col grow shrink-0 basis-auto w-full">
@@ -64,27 +60,13 @@ function Wallet() {
                 </div>
             </div>
 
-            <div className='flex relative pt-4 mb-8 after:bg-gekGrayLine after:mt-9 after:block after:w-full after:h-[2px] after:absolute'>
-                <div className='container mx-auto px-4'>
-                    <div className='flex pb-[10px]'>
-                        {Object.keys(allTabs).map(tab => (
-                            <Tab onClick={() => setActiveTab(tab)}
-                                 isActive={activeTab === tab}>
-                                {
-                                    // @ts-ignore
-                                    allTabs[tab]
-                                }
-                            </Tab>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            <PrimaryTabGroup tabs={walletTabs}>
+                
+            </PrimaryTabGroup>
 
             <div className='flex container mx-auto px-4'>
                 <div className=''>
-                    <History>
 
-                    </History>
                 </div>
             </div>
         </div>

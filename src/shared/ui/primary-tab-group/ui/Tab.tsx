@@ -2,7 +2,7 @@ import {MouseEventHandler} from 'react';
 import styles from './tab.module.scss';
 
 type TabParams = {
-    children: JSX.Element | null,
+    children: JSX.Element | string | null,
     isActive?: boolean,
     onClick?: MouseEventHandler,
 }

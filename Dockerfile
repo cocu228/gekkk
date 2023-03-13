@@ -8,4 +8,4 @@ EXPOSE 443
 
 #RUN rm package-lock.json && npm i
 RUN npm install 
-CMD npm run dev -- --host
+CMD npm run start

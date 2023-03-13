@@ -11,7 +11,8 @@ export default defineConfig(({mode}) => ({
     ],
   },
   server: {
-    hmr:{
+    strictPort: true,
+    hmr: {
       clientPort: 3010,
     },
     proxy: {

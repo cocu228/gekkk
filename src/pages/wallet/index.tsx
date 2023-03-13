@@ -1,23 +1,23 @@
-import {useState} from 'react';
-import Tab from './ui/tab/Tab';
+import { useState } from "react";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import {useNavigate, useParams} from "react-router-dom";
+import PrimaryTabGroup from '@/shared/ui/primary-tab-group';
 
-const allTabs = {
-    topup: 'Top up',
-    withdraw: 'Withdraw',
-    transfer: 'Transfer to contact',
-    history: 'History',
-    about: 'About'
+const walletTabs = {
+    'topup': 'Top up',
+    'withdraw': 'Withdraw',
+    'transfer': 'Transfer to contact',
+    'history': 'History',
+    'about': 'About'
 };
 
-function Wallet() {
+const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
-    const params = useParams()
+const getInitialTab = (tab: string) =>
+    Object.keys(initialTabs).includes(tab) ? tab : 'topup';
 
-    console.log(params)
+function Wallet(tabKey: string) {
 
-    let [activeTab, setActiveTab] = useState('topup');
+    let [activeTab, setActiveTab] = useState(getInitialTab(tabKey));
 
     return (
         <div className="flex flex-col grow shrink-0 basis-auto w-full">
@@ -68,19 +68,15 @@ function Wallet() {
                 </div>
             </div>
 
-            <div className='flex relative pt-4 mb-8 after:bg-gekGrayLine after:mt-9 after:block after:w-full after:h-[2px] after:absolute'>
-                <div className='container mx-auto px-4'>
-                    <div className='flex pb-[10px]'>
-                        {Object.keys(allTabs).map(tab => (
-                            <Tab onClick={() => setActiveTab(tab)}
-                                 isActive={activeTab === tab}>
-                                {
-                                    // @ts-ignore
-                                    allTabs[tab]
-                                }
-                            </Tab>
-                        ))}
-                    </div>
+            <PrimaryTabGroup
+                tabs={walletTabs}
+                setActiveTab={setActiveTab}
+                activeTab={activeTab}
+            />
+
+            <div className='flex container mx-auto px-4'>
+                <div className=''>
+
                 </div>
             </div>
         </div>

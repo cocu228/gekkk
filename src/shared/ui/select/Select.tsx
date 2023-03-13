@@ -1,7 +1,5 @@
 import {ComponentType, memo, SVGProps} from 'react';
 import {Select as SelectAntd, SelectProps} from 'antd';
-import ArrowDown from '@public/img/icon/ArrowDown.svg';
-// import ArrowDownIcon from '@/public/next-static/icons/arrow-down.svg';
 import styles from './style.module.scss';
 
 interface Props extends SelectProps {
@@ -13,7 +11,7 @@ const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null =>
         <div className={`${styles.Select} ${!!Icon ? styles.withPrefix : ''} relative flex items-center`}>
             {/*<Icon className={styles.SelectPrefixIcon} style={ArrowDown} />*/}
 
-            <SelectAntd suffixIcon={<img src={ArrowDown} alt=""/>} {...props} />
+            <SelectAntd suffixIcon={<img src={'/public/img/icon/ArrowDown.svg'} alt=""/>} {...props} />
         </div>
     );
 });

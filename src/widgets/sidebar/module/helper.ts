@@ -37,8 +37,8 @@ export const generation = (data: IApiGetBalance[]) => {
             id: randomId(),
             abbreviation: item.currency,
             holdBalance: (item.lock_orders + item.lock_out_balance).toFixed(4),
-            icon: list[item.currency].icon,
-            name: list[item.currency].name
+            icon: list[item.currency]?.icon ?? "",
+            name: list[item.currency]?.name ?? "NoName"
         }
     })
 

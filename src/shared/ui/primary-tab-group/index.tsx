@@ -1,37 +1,32 @@
-import { useState } from "react";
 import Tab from "./ui/Tab";
 
-export type Tab = {
-    key: string,
-    title: string
-}
-
-type TabGroupParams = {
-    tabs: Tab[],
-    initialTabs?: Tab[],
-    children: never[]
+interface TabGroupParams {
+    tabs: any
+    setActiveTab: any,
+    activeTab: string,
 }
 
 const PrimaryTabGroup = ({
     tabs,
+    setActiveTab,
+    activeTab
 }: TabGroupParams) => {
     if (!tabs) return null;
 
-    let [activeTab, setActiveTab] = useState('topup');
-
     return (
-        <div className='flex relative pt-4 mb-8 after:bg-gekGrayLine after:mt-9 after:block after:w-full after:h-[2px] after:absolute'>
+        <div className='flex relative pt-4 mb-8'>
             <div className='container mx-auto px-4'>
                 <div className='flex pb-[10px]'>
-                    {tabs.map(tab => (
+                    {Object.keys(tabs).map(key => (
                         <Tab
-                            onClick={() => setActiveTab(tab.key)}
-                            isActive={activeTab === tab.key}>
-                            {tab.title}
+                            onClick={() => setActiveTab(key)}
+                            isActive={key === activeTab}>
+                            {tabs[key]}
                         </Tab>
                 ))}
             </div>
         </div>
+        <div className="bg-gekGrayLine mt-9 block w-full h-[2px] absolute"/>
     </div>
 )}
 

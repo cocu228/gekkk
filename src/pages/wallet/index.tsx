@@ -1,15 +1,23 @@
+import { useState } from "react";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import PrimaryTabGroup, {Tab} from '@/shared/ui/primary-tab-group';
+import PrimaryTabGroup from '@/shared/ui/primary-tab-group';
 
-const walletTabs: Tab[] = [
-    {key: 'topup', title: 'Top up'},
-    {key: 'withdraw', title: 'Withdraw'},
-    {key: 'transfer', title: 'Transfer to contact'},
-    {key: 'history', title: 'History'},
-    {key: 'about', title: 'About'}
-];
+const walletTabs = {
+    'topup': 'Top up',
+    'withdraw': 'Withdraw',
+    'transfer': 'Transfer to contact',
+    'history': 'History',
+    'about': 'About'
+};
 
-function Wallet() {
+const initialTabs: string[] = ['topup', 'withdraw', 'about'];
+
+const getInitialTab = (tab: string) =>
+    Object.keys(initialTabs).includes(tab) ? tab : 'topup';
+
+function Wallet(tabKey: string) {
+    
+    let [activeTab, setActiveTab] = useState(getInitialTab(tabKey));
 
     return (
         <div className="flex flex-col grow shrink-0 basis-auto w-full">
@@ -60,9 +68,11 @@ function Wallet() {
                 </div>
             </div>
 
-            <PrimaryTabGroup tabs={walletTabs}>
-                
-            </PrimaryTabGroup>
+            <PrimaryTabGroup
+                tabs={walletTabs}
+                setActiveTab={setActiveTab}
+                activeTab={activeTab}
+            />
 
             <div className='flex container mx-auto px-4'>
                 <div className=''>

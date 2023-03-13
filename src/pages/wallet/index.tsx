@@ -1,6 +1,7 @@
 import {useState} from 'react';
-import Tab from './ui/tab/Tab';
+import Tab from './ui/Tab';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
+import History from '@/widgets/history/ui/History';
 
 const allTabs = {
     topup: 'Top up',
@@ -76,6 +77,14 @@ function Wallet() {
                             </Tab>
                         ))}
                     </div>
+                </div>
+            </div>
+
+            <div className='flex container mx-auto px-4'>
+                <div className=''>
+                    <History>
+
+                    </History>
                 </div>
             </div>
         </div>

@@ -4,16 +4,23 @@ interface TabGroupParams {
     tabs: any
     setActiveTab: any,
     activeTab: string,
+interface TabGroupParams {
+    tabs: any
+    setActiveTab: any,
+    activeTab: string,
 }
 
 const PrimaryTabGroup = ({
     tabs,
     setActiveTab,
     activeTab
+    setActiveTab,
+    activeTab
 }: TabGroupParams) => {
     if (!tabs) return null;
 
     return (
+        <div className='flex relative pt-4 mb-8'>
         <div className='flex relative pt-4 mb-8'>
             <div className='container mx-auto px-4'>
                 <div className='flex pb-[10px]'>
@@ -26,6 +33,7 @@ const PrimaryTabGroup = ({
                 ))}
             </div>
         </div>
+        <div className="bg-gekGrayLine mt-9 block w-full h-[2px] absolute"/>
         <div className="bg-gekGrayLine mt-9 block w-full h-[2px] absolute"/>
     </div>
 )}

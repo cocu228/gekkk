@@ -24,7 +24,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                 <thead className="tablet:hidden">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
                     {data.labels.map((l, index) => (
-                        <th key={index} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
+                        <th key={index + "_th"} key={index} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
                     ))}
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                 {data.rows && data.rows.length ? (
                     <>
                         {data.rows.map((row, index) => (
-                            <tr key={index} className={`
+                            <tr key={index + "_tr"} className={`
                                 tablet:flex
                                 tablet:flex-wrap
                                 tablet:gap-[10px]
@@ -44,7 +44,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                             `}>
                                 {row.map((cell, cellIndex) => (
                                     <td
-                                        key={cellIndex}
+                                        key={cellIndex + "_td"}
                                         className={`
                                             align-middle py-[10px] px-[20px] text-[14px] tablet:p-0
                                             ${cell.options?.nowrap ? 'whitespace-nowrap' : ''}

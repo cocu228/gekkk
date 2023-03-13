@@ -3,6 +3,7 @@ import {useState} from "react";
 import Deposits from "@/widgets/deposits/ui/Deposits";
 import CryptoAssets from "@/widgets/crypto-assets/ui/CryptoAssets";
 import History from "@/widgets/history/ui/History";
+import {randomId} from "@/shared/lib/helpers";
 
 enum TabType {
     DEPOSIT,
@@ -46,7 +47,7 @@ export default () => {
             </div>
 
             {TABS.map(({type, content: TabContent}, index) => (
-                <div className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
+                <div key={randomId()} className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
                     <TabContent/>
                 </div>
             ))}

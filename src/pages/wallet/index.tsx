@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Tab from './ui/tab/Tab';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
+import {useNavigate, useParams} from "react-router-dom";
 
 const allTabs = {
     topup: 'Top up',
@@ -11,6 +12,10 @@ const allTabs = {
 };
 
 function Wallet() {
+
+    const params = useParams()
+
+    console.log(params)
 
     let [activeTab, setActiveTab] = useState('topup');
 

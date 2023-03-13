@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {apiGetBalance} from "@/shared/api";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import {useNavigate} from 'react-router-dom';
-import {generation} from "@/widgets/sidebar/module/helper";
+import {generation, IResult} from "@/widgets/sidebar/module/helper";
 
 const SidebarDesktop = () => {
 
@@ -14,7 +14,7 @@ const SidebarDesktop = () => {
 
     const navigate = useNavigate()
 
-    const [state, setState] = useState<unknown>(null)
+    const [state, setState] = useState<IResult | null>(null)
 
 
 
@@ -95,7 +95,7 @@ const SidebarDesktop = () => {
             </div>
 
             {state?.coins.map((item, i) =>
-                <div onClick={() => navigate(`wallet/${item.name}`)} key={item.id}
+                <div onClick={() => navigate(`wallet/${item.name}`)} key={item.id.toString()}
                      className={styles.Item}>
                     <div className="col flex items-center pl-4">
                         <img className={`${styles.Coin} mr-3`} width={14} height={14}

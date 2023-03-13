@@ -12,7 +12,7 @@ interface TCoinsNameListParams {
 const list: Record<TCoinAbbreviation, TCoinsNameListParams> = CoinsNameList
 
 export interface IResult {
-    eurg: Omit<TParamsResult, "holdBalance"> | [];
+    eurg: Omit<TParamsResult, "holdBalance">;
     coins: Array<TParamsResult> | []
 }
 
@@ -24,8 +24,8 @@ type TParamsResult = {
     icon: string
     name: string
 }
-
-export const generation = (data: IApiGetBalance[]) => {
+//todo
+export const generation: IResult | null = (data: IApiGetBalance[]) => {
 
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -37,8 +37,8 @@ export const generation = (data: IApiGetBalance[]) => {
             id: randomId(),
             abbreviation: item.currency,
             holdBalance: (item.lock_orders + item.lock_out_balance).toFixed(4),
-            icon: list[item.currency].icon,
-            name: list[item.currency].name
+            icon: list[item.currency]?.icon ?? "",
+            name: list[item.currency]?.name ?? "No name"
         }
     })
 

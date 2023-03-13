@@ -24,7 +24,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                 <thead className="tablet:hidden">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
                     {data.labels.map((l, index) => (
-                        <th key={index + "_th"} key={index} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
+                        <th key={index + "_th"} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
                     ))}
                 </tr>
                 </thead>

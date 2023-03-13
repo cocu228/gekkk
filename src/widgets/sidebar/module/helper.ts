@@ -12,7 +12,7 @@ interface TCoinsNameListParams {
 const list: Record<TCoinAbbreviation, TCoinsNameListParams> = CoinsNameList
 
 export interface IResult {
-    eurg: Omit<TParamsResult, "holdBalance"> | [];
+    eurg: Omit<TParamsResult, "holdBalance">;
     coins: Array<TParamsResult> | []
 }
 
@@ -25,7 +25,7 @@ type TParamsResult = {
     name: string
 }
 
-export const generation = (data: IApiGetBalance[]) => {
+export const generation = (data: IApiGetBalance[]): IResult | null => {
 
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -33,10 +33,10 @@ export const generation = (data: IApiGetBalance[]) => {
 
     const coins = data.filter(item => item.currency !== "EURG").map(item => {
         return {
-            balance: item.free_balance.toFixed(4),
+            balance: +item.free_balance.toFixed(4),
             id: randomId(),
             abbreviation: item.currency,
-            holdBalance: (item.lock_orders + item.lock_out_balance).toFixed(4),
+            holdBalance: +(item.lock_orders + item.lock_out_balance).toFixed(4),
             icon: list[item.currency]?.icon ?? "",
             name: list[item.currency]?.name ?? "NoName"
         }
@@ -45,7 +45,7 @@ export const generation = (data: IApiGetBalance[]) => {
 
     return {
         eurg: {
-            balance: eurg.free_balance.toFixed(4),
+            balance: +eurg.free_balance.toFixed(4),
             icon: CoinsNameList["EURG"].icon,
             name: CoinsNameList["EURG"].name,
             id: randomId(),

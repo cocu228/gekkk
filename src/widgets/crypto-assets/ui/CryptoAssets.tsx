@@ -11,8 +11,8 @@ function CryptoAssets() {
                 <CryptoAssetCard
                     title="EURG Gekkoin"
                     iconUrl="/public/img/icon/XmrIcon.svg"
-                    balance="0.0000"
-                    currency="EUR"
+                    balance="1000.00"
+                    currency="EURG"
                     price="1000.00 €"
                     onTopUp={() => {console.log('top up')}}
                     onWithdraw={() => {console.log('withdraw')}}
@@ -20,8 +20,8 @@ function CryptoAssets() {
                 <CryptoAssetCard
                     title="EURG Gekkoin"
                     iconUrl="/public/img/icon/XmrIcon.svg"
-                    balance="0.0000"
-                    currency="EUR"
+                    balance="1000.00"
+                    currency="EURG"
                     price="1000.00 €"
                     onTopUp={() => {console.log('top up')}}
                     onWithdraw={() => {console.log('withdraw')}}

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
+import {Link} from 'react-router-dom';
 
 interface Props {
     title: string,
@@ -8,10 +9,11 @@ interface Props {
     price: string,
     currency: string,
     onOpenDeposit: () => void,
-    readMoreUrl: string
+    linkUrl: string,
+    isDeposit?: boolean,
 }
 
-function DepositCard({title, subtitle, price, currency, onOpenDeposit, readMoreUrl}: Props) {
+function DepositCard({title, subtitle, price, currency, onOpenDeposit, isDeposit, linkUrl}: Props) {
     return (
         <Card>
             <p className="text-[14px] font-semibold">{title}</p>
@@ -23,9 +25,9 @@ function DepositCard({title, subtitle, price, currency, onOpenDeposit, readMoreU
                 <div className="flex gap-[16px] mt-[16px]">
                     <Button className="flex-1" gray size="small" onClick={onOpenDeposit}>Open deposit</Button>
                     <div className="flex items-center flex-1 justify-center">
-                        <a href={readMoreUrl} className="text-[14px] font-medium underline text-gray hover:text-blue">
-                            Read more →
-                        </a>
+                        <Link to={linkUrl} className="text-[14px] font-medium underline text-gray hover:text-blue">
+                            {isDeposit ? 'Read more →' : 'Interest rates →'}
+                        </Link>
                     </div>
                 </div>
             </div>

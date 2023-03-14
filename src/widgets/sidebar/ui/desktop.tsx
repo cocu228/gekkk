@@ -108,7 +108,7 @@ const SidebarDesktop = () => {
                 <span className="text-gray text-sm mr-2">Assets</span>
                 <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
-            {state.map((item, i) => item.currency === "EURG" ? <></> :
+            {/* {state.map((item, i) => item.currency === "EURG" ? <></> :
                 <div onClick={() => navigate(`wallet/${item.currency}`)} key={i + "-coin"}
                      className={styles.Item}>
                     <div className="col flex items-center pl-4">
@@ -129,7 +129,7 @@ const SidebarDesktop = () => {
                             className="text-gray text-sm">{`${(item.lock_orders + item.lock_out_balance).toFixed(4)} EURG`}</span>
                         </div>
                     </div>
-                </div>)}
+                </div>)} */}
         </div>
         <Footer/>
     </div>;

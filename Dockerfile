@@ -7,4 +7,4 @@ EXPOSE 5173
 
 #RUN rm package-lock.json && npm i
 RUN npm install 
-CMD npm build && npm preview
+CMD npm run build && npm run preview

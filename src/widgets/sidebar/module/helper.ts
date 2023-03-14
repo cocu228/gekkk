@@ -1,5 +1,5 @@
 import {IApiGetBalance, TCoinAbbreviation} from "@/shared/api";
-import CoinsNameList from "@/shared/config/coins-name-list";
+import CoinsNameList from "@/shared/config/coins-icons-list";
 import {randomId} from "@/shared/lib/helpers";
 
 

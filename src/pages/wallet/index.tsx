@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/primary-tab-group';
+import About from "@/widgets/wallet-tabs/about/ui/About";
 
 const walletTabs = {
     'topup': 'Top up',
@@ -10,17 +12,23 @@ const walletTabs = {
     'about': 'About'
 };
 
+const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
+(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
+(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.`
+
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
-const getInitialTab = (tab: string) =>
-    Object.keys(initialTabs).includes(tab) ? tab : 'topup';
+const getInitialTab = (tab: string | undefined) => 
+    (tab && Object.keys(initialTabs).includes(tab)) ? tab : 'topup';
 
-function Wallet(tabKey: string) {
+function Wallet() {
+    //const { currency, tab } = useParams<string>();
 
-    let [activeTab, setActiveTab] = useState(getInitialTab(tabKey));
+    const currency = "ADA", tab = undefined
+    let [activeTab, setActiveTab] = useState(getInitialTab(tab));
 
     return (
-        <div className="flex flex-col grow shrink-0 basis-auto w-full">
+        <div className="flex flex-col w-full">
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
@@ -34,7 +42,7 @@ function Wallet(tabKey: string) {
                             </div>
 
                             <div className="text-2xl font-bold text-gray-dark cursor-help">
-                                317.95 EURG
+                                317.95 {currency}
                             </div>
                         </div>
 
@@ -42,7 +50,7 @@ function Wallet(tabKey: string) {
                             <div className="text-sm font-medium text-gray">
                                 Rate
 
-                                <Tooltip text={"We pay you 3% per annum of EURG on your balance under following conditions:\n(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG."}>
+                                <Tooltip text={EurgTooltipText}>
                                     <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                                         <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
                                     </div>
@@ -75,8 +83,13 @@ function Wallet(tabKey: string) {
             />
 
             <div className='flex container mx-auto px-4'>
-                <div className=''>
-
+                <div className="bg-white rounded-l-[6px] p-[15px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
+                    {activeTab === 'about' && (
+                        <About
+                            currency={currency}
+                            name={'ADA'}
+                        />
+                    )}
                 </div>
             </div>
         </div>

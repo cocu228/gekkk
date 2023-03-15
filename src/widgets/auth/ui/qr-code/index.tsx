@@ -36,7 +36,7 @@ const QRCode = memo(({handleView}: TProps) => {
     }, [])
 
     return <>
-        <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">Forgot your PIN?</h1>
+        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">Forgot your PIN?</h1>
         <div className="wrapper flex justify-center">
             <img width={240} src="/public/img/picture-mobile-app.png" alt="picture-mobile-app"/>
         </div>

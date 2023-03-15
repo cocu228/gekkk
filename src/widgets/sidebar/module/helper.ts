@@ -1,5 +1,5 @@
 import {IApiGetBalance, TCoinAbbreviation} from "@/shared/api";
-import CoinsNameList from "@/shared/config/coins-name-list";
+import Coins from "@/shared/config/coins/coins";
 import {randomId} from "@/shared/lib/helpers";
 
 
@@ -9,7 +9,7 @@ interface TCoinsNameListParams {
 }
 
 
-const list: Record<TCoinAbbreviation, TCoinsNameListParams> = CoinsNameList
+const list: Record<TCoinAbbreviation, TCoinsNameListParams> = Coins
 
 export interface IResult {
     eurg: Omit<TParamsResult, "holdBalance">;
@@ -24,8 +24,8 @@ type TParamsResult = {
     icon: string
     name: string
 }
-
-export const generation = (data: IApiGetBalance[]): IResult | null => {
+//todo
+export const generation: IResult | null = (data: IApiGetBalance[]) => {
 
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -33,21 +33,21 @@ export const generation = (data: IApiGetBalance[]): IResult | null => {
 
     const coins = data.filter(item => item.currency !== "EURG").map(item => {
         return {
-            balance: +item.free_balance.toFixed(4),
+            balance: item.free_balance.toFixed(4),
             id: randomId(),
             abbreviation: item.currency,
-            holdBalance: +(item.lock_orders + item.lock_out_balance).toFixed(4),
+            holdBalance: (item.lock_orders + item.lock_out_balance).toFixed(4),
             icon: list[item.currency]?.icon ?? "",
-            name: list[item.currency]?.name ?? "NoName"
+            name: list[item.currency]?.name ?? "No name"
         }
     })
 
 
     return {
         eurg: {
-            balance: +eurg.free_balance.toFixed(4),
-            icon: CoinsNameList["EURG"].icon,
-            name: CoinsNameList["EURG"].name,
+            balance: eurg.free_balance.toFixed(4),
+            icon: Coins["EURG"].icon,
+            name: Coins["EURG"].name,
             id: randomId(),
             abbreviation: eurg.currency,
         },

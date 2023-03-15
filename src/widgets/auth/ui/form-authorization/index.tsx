@@ -75,11 +75,11 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
     }
 
     return <Form onFinish={onFinish}>
-        <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">
+        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">
             Login to your account
         </h1>
 
-        <p className='text-center mb-9 text-gekGray'>
+        <p className='text-center mb-9 text-gray'>
             Login to your personal account is carried out through the
             <a
                 className='font-inherit underline'
@@ -112,7 +112,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-gekLinkBlue">Forgot your
+            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light">Forgot your
                 PIN? Log in with a QR code
             </button>
         </div>
@@ -122,7 +122,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </div>
 
         <div className='text-center'>
-            <p className='text-gekDarkGray mb-6'>No Gekkard credentials? Download the app and register:</p>
+            <p className='text-gray-dark mb-6'>No Gekkard credentials? Download the app and register:</p>
 
             <ul className='flex justify-center gap-4'>
                 <li>

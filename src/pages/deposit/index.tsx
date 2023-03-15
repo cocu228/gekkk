@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Outlet} from 'react-router'
-import ChooseDeposit from "@/widgets/choose-deposit/ui/ChooseDeposit";
+import ChooseDeposit from "@/widgets/deposit/ui/ChooseDeposit";
 
 
 function Deposit() {

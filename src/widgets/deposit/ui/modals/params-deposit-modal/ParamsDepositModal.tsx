@@ -1,6 +1,6 @@
 import {Modal} from "antd";
 import Button from "@/shared/ui/button/Button";
-import styles from "./styles.module.scss"
+import styles from "./style.module.scss"
 
 interface IParamsDepositModal {
     isModalOpen: boolean,

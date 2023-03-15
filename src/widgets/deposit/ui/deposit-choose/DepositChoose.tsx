@@ -5,7 +5,7 @@ import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {MASK_SUM} from "@/shared/config/mask";
-import styles from "./styles.module.scss"
+import styles from "./style.module.scss"
 import ParamsDepositModal from "@/widgets/deposit/ui/modals/params-deposit-modal/ParamsDepositModal";
 import ResultDepositModal from "@/widgets/deposit/ui/modals/ResultDepositModal";
 import ClosingConditionsModal from "@/widgets/deposit/ui/modals/ClosingConditionsModal";

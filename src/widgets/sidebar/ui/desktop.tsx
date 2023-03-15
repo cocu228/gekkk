@@ -95,7 +95,7 @@ const SidebarDesktop = () => {
             </div>
 
             {state?.coins.map((item, i) =>
-                <div onClick={() => navigate(`wallet/${item.name}`)} key={item.id}
+                <div onClick={() => navigate(`wallet/${item.name}`)} key={item.id.toString()}
                      className={styles.Item}>
                     <div className="col flex items-center pl-4">
                         <img className={`${styles.Coin} mr-3`} width={14} height={14}

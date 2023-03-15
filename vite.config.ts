@@ -11,7 +11,10 @@ export default defineConfig(({mode}) => ({
     ],
   },
   server: {
-
+    strictPort: true,
+    hmr: {
+      clientPort: 8010
+    },
     proxy: {
       '^/(api|gek|pub/)': {
         target: 'https://api-dev.gekkoin.com',

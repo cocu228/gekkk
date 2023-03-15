@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import Filter from "@/shared/ui/filter/Filter";
 import Table from "@/shared/ui/table/Table";
+import styles from './style.module.scss';
 
 const historyFilters = [
     { value: 'month', label: 'This month'},
@@ -11,13 +12,20 @@ const historyFilters = [
     { value: 'custom', label: 'Custom period'},
 ];
 
-function History() {
+interface Props {
+    title?: string,
+    withSurface?: boolean
+}
+
+function History({title, withSurface = true}: Props) {
     const [selectedOption, setSelectedOption] = useState(historyFilters[0].value);
 
     return (
         <div className="wrapper">
-            <SectionTitle>History</SectionTitle>
-            <div className="bg-white rounded-[6px] p-[15px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
+            {title && (
+                <SectionTitle>{title}</SectionTitle>
+            )}
+            <div className={withSurface ? `bg-bgPrimary rounded-md p-4 ${styles.surface}` : ''}>
                 <Filter options={historyFilters} selected={selectedOption} onChange={setSelectedOption}/>
                 <Table
                     data={{

@@ -5,9 +5,9 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 const Header = () => {
 
-    const {sm} = useContext(BreakpointsContext)
+    const {md} = useContext(BreakpointsContext)
 
-    return sm ? <HeaderMobile/> : <HeaderDesktop/>
+    return md ? <HeaderMobile/> : <HeaderDesktop/>
 
 }
 

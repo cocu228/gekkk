@@ -3,13 +3,11 @@ import React from 'react';
 function CardsGrid({children}: any) {
     return (
         <div className="
-            grid grid-cols-4
-            desktopXl:grid-cols-3
-            desktopXl:grid-cols-2
-            desktop:grid-cols-1
-            gap-[20px]
-            gap-y-[38px]
-            desktop:gap-y-[20px]
+            flex
+            flex-wrap
+            gap-5
+            gap-y-10
+            xl:gap-5
         ">
             {children}
         </div>

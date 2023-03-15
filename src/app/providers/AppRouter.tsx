@@ -4,6 +4,7 @@ import RootLayout from './RootLayout'
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/deposit";
 import Wallet from '@/pages/wallet';
+import Exchange from '@/pages/exchange';
 import {AuthProvider} from "@/app/providers/AuthRouter";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: 'wallet',
                 element: <Wallet/>
+            },
+            {
+                path: 'exchange',
+                element: <Exchange/>
             }
         ],
     },

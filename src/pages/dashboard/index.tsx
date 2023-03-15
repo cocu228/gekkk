@@ -3,6 +3,7 @@ import {useState} from "react";
 import Deposits from "@/widgets/deposits/ui/Deposits";
 import CryptoAssets from "@/widgets/crypto-assets/ui/CryptoAssets";
 import History from "@/widgets/history/ui/History";
+import PageHead from '@/shared/ui/page-head/PageHead';
 
 enum TabType {
     DEPOSIT,
@@ -11,9 +12,9 @@ enum TabType {
 };
 
 const TABS = [
-    {type: TabType.DEPOSIT, title: 'Deposits', content: Deposits},
-    {type: TabType.ASSETS, title: 'Crypto assets', content: CryptoAssets},
-    {type: TabType.HISTORY, title: 'History', content: History}
+    {type: TabType.DEPOSIT, title: 'Deposits', content: <Deposits/>},
+    {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
+    {type: TabType.HISTORY, title: 'History', content: <History title="History"/>}
 ];
 
 export default () => {
@@ -24,12 +25,14 @@ export default () => {
     };
 
     return (
-        <div className="phone:px-[15px]">
-            <h1 className="text-[32px] phone:text-[24px] font-bold mb-[5px]">Personal account</h1>
-            <p className="text-[14px] font-medium">Open your <a className="underline hover:text-blue" href="#">fixed or crypto deposit</a></p>
+        <div className="wrapper">
+            <PageHead
+                title={"Personal account"}
+                subtitle={<>Open your <a className="underline hover:text-blue" href="#">fixed or crypto deposit</a></>}
+            />
 
             <div className="w-full">
-                <div className="mx-[-15px] hidden phone:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray">
+                <div className="mx-[-15px] hidden sm:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray">
                     {TABS.map(t => (
                         <button
                             className={`
@@ -45,9 +48,9 @@ export default () => {
                 </div>
             </div>
 
-            {TABS.map(({type, content: TabContent}, index) => (
-                <div className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
-                    <TabContent/>
+            {TABS.map(({type, content}, index) => (
+                <div className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
+                    {content}
                 </div>
             ))}
         </div>

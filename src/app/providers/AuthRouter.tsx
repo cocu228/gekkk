@@ -23,7 +23,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         navigate("/");
     };
 
-    // call this function to sign out logged in user
+    // call this function to sign out logged in userx
     const logout = () => {
         setSessionGlobal({});
         navigate("/", {replace: true});

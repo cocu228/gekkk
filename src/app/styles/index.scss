@@ -1,26 +1,22 @@
 @import "fonts";
 @import "reset";
 @import "global";
+@import "variables";
+@import "mixins";
 
 :root {
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
-    color: rgb(58, 58, 58);
-    background-color: #F5F5F5;
+    color: var(--color-primary);
+    background-color: var(--color-main-bg);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-
-
-    --sidebar-width: 342px;
-    --content-pad-left: 110px;
-    --content-pad-right: 170px;
-    --content-pad-top: 55px;
 }
 
 a {
@@ -46,7 +42,13 @@ body {
     width: 100%;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 #root {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: initial;
     //display: flex;

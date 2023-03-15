@@ -12,7 +12,8 @@ function Card({children}: any) {
             shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]
             hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]
             min-h-[195px]
-            phone:min-h-[216px]
+            sm:min-h-[216px]
+            min-w-[310px]
             flex
             flex-col
             transition-all

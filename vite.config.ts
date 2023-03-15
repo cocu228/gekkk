@@ -7,6 +7,7 @@ export default defineConfig(({mode}) => ({
     alias: [
       {find: '@', replacement: path.resolve(__dirname, 'src')},
       {find: '@public', replacement: path.resolve(__dirname, 'public')},
+      {find: '@styles', replacement: path.resolve(__dirname, 'src/app/styles')},
       {find: /\{\{MODE\}\}/, replacement: mode},
     ],
   },

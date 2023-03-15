@@ -14,7 +14,7 @@ function Filter({options, selected, onChange}: Props) {
 
     return (
         <div className="wrapper">
-            <div className="inline-flex flex-wrap bg-[#F9F9FA] rounded-[4px] phone:hidden">
+            <div className="inline-flex flex-wrap bg-[#F9F9FA] rounded-[4px] sm:hidden">
                 {options.map(opt => (
                     <button
                         key={opt.value}
@@ -28,7 +28,7 @@ function Filter({options, selected, onChange}: Props) {
                     </button>
                 ))}
             </div>
-            <div className="hidden phone:block">
+            <div className="hidden sm:block">
                 <Select
                     defaultValue={selected}
                     style={{ width: 120 }}

@@ -1,0 +1,10 @@
+.SplitGrid {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.Left {
+  &:not(:last-child) {
+    box-shadow: 0 0 30px 5px rgba(41, 117, 215, 0.15);
+  }
+}

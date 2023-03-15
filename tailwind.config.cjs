@@ -14,17 +14,12 @@ module.exports = {
         width: {
             inherit: 'inherit',
             full: '100%',
-            sm: '756px'
         },
 
         height: {
             inherit: 'inherit',
             full: '100%',
             m: '750px'
-        },
-
-        maxWidth: {
-            sm: '756px',
         },
 
         borderWidth: {

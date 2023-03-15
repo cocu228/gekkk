@@ -6,12 +6,12 @@ import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {MASK_SUM} from "@/shared/config/mask";
 import styles from "./styles.module.scss"
-import ParamsDepositModal from "@/widgets/params-deposit-modal/ui/ParamsDepositModal";
-import ResultDepositModal from "@/widgets/result-deposit-modal/ui/ResultDepositModal";
-import ClosingConditionsModal from "@/widgets/closing-conditions-modal/ui/ClosingConditionsModal";
-import ClosingDepositModal from "@/widgets/closing-deposit-modal/ui/ClosingDepositModal";
+import ParamsDepositModal from "@/widgets/deposit/ui/modals/params-deposit-modal/ParamsDepositModal";
+import ResultDepositModal from "@/widgets/deposit/ui/modals/ResultDepositModal";
+import ClosingConditionsModal from "@/widgets/deposit/ui/modals/ClosingConditionsModal";
+import ClosingDepositModal from "@/widgets/deposit/ui/modals/ClosingDepositModal";
 
-const ChooseDeposit = () => {
+const DepositChoose = () => {
 
     const {onInput} = useMask(MASK_SUM)
     const {isModalOpen, handleCancel, showModal} = useModal()
@@ -102,4 +102,4 @@ const ChooseDeposit = () => {
     )
 }
 
-export default ChooseDeposit
+export default DepositChoose

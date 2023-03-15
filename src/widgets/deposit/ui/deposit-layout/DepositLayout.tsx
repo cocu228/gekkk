@@ -3,7 +3,7 @@ import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import DepositCard from "@/widgets/deposit/ui/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 
-function Deposits() {
+export default function () {
     return (
         <div className="wrapper">
             <SectionTitle>Deposits</SectionTitle>
@@ -13,12 +13,12 @@ function Deposits() {
                     subtitle="Structural Deposit, until 09.09.2021"
                     price="0.0000"
                     currency="EUR"
-                    onOpenDeposit={() => {console.log('Open deposit')}}
+                    onOpenDeposit={() => {
+                        console.log('Open deposit')
+                    }}
                     readMoreUrl="/"
                 />
             </CardsGrid>
         </div>
     );
 }
-
-export default Deposits;

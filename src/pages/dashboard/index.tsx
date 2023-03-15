@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState} from "react";
-import Deposits from "@/widgets/deposit/ui/Deposits";
+import Deposits from "@/widgets/deposit/ui/deposit-layout/DepositLayout";
 import CryptoAssets from "@/widgets/deposit/ui/CryptoAssets";
 import History from "@/widgets/deposit/ui/History";
 import {randomId} from "@/shared/lib/helpers";

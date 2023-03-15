@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss"
 
-const InfoDeposit = () => {
+const DepositInfo = () => {
 
     return (
         <div className={`${styles.InfoDeposit} col-span-2 bg-white p-7`}>
@@ -29,4 +29,4 @@ const InfoDeposit = () => {
     )
 }
 
-export default InfoDeposit
+export default DepositInfo

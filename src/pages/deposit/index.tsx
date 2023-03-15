@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ChooseDeposit from "@/widgets/choose-deposit/ui/ChooseDeposit";
-import InfoDeposit from "@/widgets/info-deposit/ui/InfoDeposit";
+import DepositInfo from "@/widgets/deposit/ui/deposit-info/DepositInfo";
 
 
 function Deposit() {
@@ -24,7 +24,7 @@ function Deposit() {
 
             <div className='grid grid-cols-5'>
                 <ChooseDeposit/>
-                <InfoDeposit/>
+                <DepositInfo/>
             </div>
         </div>
 

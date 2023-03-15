@@ -1,15 +1,9 @@
-import {IApiGetBalance, TCoinAbbreviation} from "@/shared/api";
-import Coins from "@/shared/config/coins/coins";
+import {IApiGetBalance} from "@/shared/api";
+import $const from "@/shared/config/coins/constants";
 import {randomId} from "@/shared/lib/helpers";
 
 
-interface TCoinsNameListParams {
-    name: string;
-    icon: string;
-}
-
-
-const list: Record<TCoinAbbreviation, TCoinsNameListParams> = Coins
+// const list: Record<TCoinAbbreviation, TCoinsNameListParams> = Coins
 
 export interface IResult {
     eurg: Omit<TParamsResult, "holdBalance">;
@@ -20,7 +14,7 @@ type TParamsResult = {
     balance: number
     holdBalance: number
     id: string | Array<string>
-    abbreviation: TCoinAbbreviation
+    abbreviation: $const
     icon: string
     name: string
 }

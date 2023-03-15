@@ -1,7 +1,7 @@
 import styles from "./desktop.module.scss"
 import Footer from "@/widgets/footer";
 import {useEffect, useState} from "react";
-import {apiGetBalance} from "@/shared/api";
+import {apiGetBalance, apiMarketAssets} from "@/shared/api";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import {NavLink, useNavigate} from 'react-router-dom';
 import {generation, IResult} from "@/widgets/sidebar/module/helper";
@@ -23,6 +23,7 @@ const SidebarDesktop = () => {
         (async () => {
 
             const {data} = await apiGetBalance(phone, token);
+            const api = await apiMarketAssets(phone, token);
             const result = generation(data)
             setState(result)
 

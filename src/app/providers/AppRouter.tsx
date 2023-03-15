@@ -1,18 +1,15 @@
 import React from 'react'
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
-import RootLayout from './RootLayout'
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/deposit";
 import Wallet from '@/pages/wallet';
-import {AuthProvider} from "@/app/providers/AuthRouter";
 import Exchange from "@/pages/exchange";
+import AppInit from "@/app/providers/AppInit";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <AuthProvider>
-            <RootLayout/>
-        </AuthProvider>,
+        element: <AppInit/>,
         children: [
             {
                 path: '',
@@ -27,7 +24,7 @@ const router = createBrowserRouter([
                 element: <Exchange/>
             },
             {
-                path: 'wallet/:coin',
+                path: 'wallet/:coin/:tab?',
                 element: <Wallet/>
             }
         ],

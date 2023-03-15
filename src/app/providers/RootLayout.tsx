@@ -1,27 +1,33 @@
 import {Outlet, Navigate} from 'react-router'
 import Header from "@/widgets/header/ui/";
 import Sidebar from "@/widgets/sidebar/ui/";
-import {useAuth} from "./AuthRouter";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import Main from "@/app/layouts/Main";
 import Content from "@/app/layouts/Content";
-import AuthPage from "@/pages/auth/ui";
+import {useEffect} from "react";
+import {assetsRootLayout} from "@/shared/store";
+import {useSessionStorage} from "usehooks-ts";
+import Loader from "@/shared/ui/loader";
 
 export default () => {
 
-    const {token, login} = useAuth();
+    const [{phone}] = useSessionStorage("session-auth", {phone: ""})
+    const [{token}] = useSessionStorage("session-global", {token: "", phone: ""})
+    const assets = assetsRootLayout(state => state.assets)
 
-    if (!token) {
-        return <AuthPage/>;
-    }
+
+    const useAssetsRootLayout = assetsRootLayout(state => state.getAssets)
+
+    useEffect(() => {
+        useAssetsRootLayout(phone, token)
+    }, [])
 
     return <>
         <Header/>
-        <Main>
+        {assets.length > 0 ? <Main>
             <Sidebar/>
             <Content>
                 <Outlet/>
             </Content>
-        </Main>
+        </Main> : <Loader/>}
     </>
 }

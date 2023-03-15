@@ -7,8 +7,6 @@ export const apiSignIn = (code: string, sessId: string, phone: string) => $axios
 }, {
     headers: {
         Authorization: phone,
-        productId: "BLACK_CAT_CARD",
-        applicationId: "BLACK_CAT_CARD"
     }
 })
 

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import ChooseDeposit from "@/widgets/choose-deposit/ui/ChooseDeposit";
-import DepositInfo from "@/widgets/dashboard/ui/deposit-info/DepositInfo";
+import ChooseDeposit from "@/widgets/deposit/ui/deposit-choose/DepositChoose";
+import DepositInfo from "@/widgets/deposit/ui/deposit-info/DepositInfo";
 
 
 function Deposit() {

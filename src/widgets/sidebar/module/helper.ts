@@ -1,5 +1,5 @@
 import {IApiGetBalance, TCoinAbbreviation} from "@/shared/api";
-import CoinsNameList from "@/shared/config/coins/coins";
+import {Coins} from "@/shared/config/coins/coins";
 import {randomId} from "@/shared/lib/helpers";
 
 
@@ -9,7 +9,7 @@ interface TCoinsNameListParams {
 }
 
 
-const list: Record<TCoinAbbreviation, TCoinsNameListParams> = CoinsNameList
+const list: Record<TCoinAbbreviation, TCoinsNameListParams> = Coins
 
 export interface IResult {
     eurg: Omit<TParamsResult, "holdBalance">;
@@ -46,8 +46,8 @@ export const generation: IResult | null = (data: IApiGetBalance[]) => {
     return {
         eurg: {
             balance: eurg.free_balance.toFixed(4),
-            icon: CoinsNameList["EURG"].icon,
-            name: CoinsNameList["EURG"].name,
+            icon: Coins["EURG"].icon,
+            name: Coins["EURG"].name,
             id: randomId(),
             abbreviation: eurg.currency,
         },

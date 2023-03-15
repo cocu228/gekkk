@@ -24,8 +24,8 @@ function Wallet(tabKey: string) {
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
-                        <div className="mr-6">
-                            <img className='icon' src="/public/img/coins/EurgIcon.svg" alt="logo"/>
+                        <div className="mr-6 h-[50px] w-[50px]">
+                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
                         </div>
 
                         <div className="flex flex-col content-around">

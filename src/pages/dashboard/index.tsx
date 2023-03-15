@@ -35,7 +35,7 @@ export default () => {
                         <button
                             className={`
                             mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-[14px]
-                            ${activeTab === t.type ? 'border-blue font-bold' : 'border-transparent text-gray font-medium'}
+                            ${activeTab === t.type ? 'border-gekLinkBlue font-bold' : 'border-transparent text-gray font-medium'}
                         `}
                             key={t.type}
                             onClick={handleChangeTab(t.type)}

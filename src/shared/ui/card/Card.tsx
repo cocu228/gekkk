@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({children}: any) {
+function Card({children}: unknown) {
     return (
         <div className="
             bg-white

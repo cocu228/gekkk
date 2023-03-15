@@ -1,14 +1,20 @@
-import {Input as InputAnt, Radio, RadioChangeEvent} from "antd";
+import {Input as InputAnt, Radio, RadioChangeEvent, Modal} from "antd";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import React, {useState} from "react";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
+import useModal from "@/shared/model/hooks/useModal";
 import {MASK_SUM} from "@/shared/config/mask";
 import styles from "./styles.module.scss"
+import ParamsDepositModal from "@/widgets/params-deposit-modal/ui/ParamsDepositModal";
+import ResultDepositModal from "@/widgets/result-deposit-modal/ui/ResultDepositModal";
+import ClosingConditionsModal from "@/widgets/closing-conditions-modal/ui/ClosingConditionsModal";
+import ClosingDepositModal from "@/widgets/closing-deposit-modal/ui/ClosingDepositModal";
 
 const ChooseDeposit = () => {
 
     const {onInput} = useMask(MASK_SUM)
+    const {isModalOpen, handleCancel, showModal} = useModal()
 
     const [radio, setRadio] = useState(1)
     const [sum, setSum] = useState<string>("0")
@@ -20,7 +26,6 @@ const ChooseDeposit = () => {
     const onChangeSum = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.target.value !== sum ? setSum(event.target.value) : null
     }
-
 
     return (
     <div className='col-span-3 bg-white rounded-l-md p-10'>
@@ -67,8 +72,7 @@ const ChooseDeposit = () => {
         </div>
 
         <div className="row flex mt-10 mb-5">
-            <Button disabled={+sum.replace(" ", "") < 5}
-                    className={"w-full !text-white rounded-b bg-blue-600 disabled:opacity-50"}>Open deposit</Button>
+            <Button className={"w-full !text-white rounded-b bg-blue-600 disabled:opacity-50"} onClick={showModal}>Open deposit</Button>
         </div>
 
         <div className="row mb-44">
@@ -89,6 +93,11 @@ const ChooseDeposit = () => {
         <div className="row">
             <p className="text-base text-gray underline">Early closing conditions →</p>
         </div>
+
+        {/* <ParamsDepositModal isModalOpen={isModalOpen} handleCancel={handleCancel}/> */}
+        {/* <ResultDepositModal isModalOpen={isModalOpen} handleCancel={handleCancel}/> */}
+        {/* <ClosingConditionsModal isModalOpen={isModalOpen} handleCancel={handleCancel}/> */}
+        <ClosingDepositModal isModalOpen={isModalOpen} handleCancel={handleCancel}/>
     </div>
     )
 }

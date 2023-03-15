@@ -1,17 +1,17 @@
 import {create} from 'zustand'
-import {immer} from "zustand/middleware/immer";
+// import {immer} from "zustand/middleware/immer";
 import {devtools} from "zustand/middleware";
 import {persist} from "zustand/middleware";
 import {apiMarketAssets, IApiMarketAssets} from "@/shared/api";
-import {AxiosResponse} from "axios";
+// import {AxiosResponse} from "axios";
 
-interface IResponse {
+export interface IAssetsCoinsName {
     assets: Array<IApiMarketAssets> | [];
     getAssets: (phone: string, token: string) => void
 
 }
 
-export const assetsRootLayout = create<IResponse>()(persist(devtools((set) => ({
+export const assetsCoinsName = create<IAssetsCoinsName>()(persist(devtools((set) => ({
     assets: [],
     getAssets: async (phone: string, token: string) => {
 

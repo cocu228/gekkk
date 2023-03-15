@@ -1,21 +1,21 @@
 import styles from "./desktop.module.scss"
 import {useAuth} from "@/app/providers/AuthRouter";
-import {Dropdown} from "antd";
-// import {DropdownMenuItem} from "../module/dropdown-menu";
+import {Dropdown, MenuProps} from "antd";
+import {useNavigate} from "react-router-dom";
 
 
 const items = [
-    {label: 'Dashboard', key: 'item-1'},
-    {label: 'Deposit types', key: 'item-2'},
+    {label: 'Dashboard', key: '/'},
+    {label: 'Deposit types', key: 'deposit'},
     {label: 'Limits', key: 'item-3'},
     {label: 'Settings', key: 'item-4'},
     {label: 'Contacts', key: 'item-5'},
-    {label: 'Logout', key: 'item-6'},
+    {label: 'Logout', key: 'logout'},
 ]
 const HeaderDesktop = () => {
 
     const {logout} = useAuth()
-
+    const navigation = useNavigate()
     const onBtnProfile = () => {
 
     }
@@ -23,6 +23,15 @@ const HeaderDesktop = () => {
     const onBtnLogout = () => {
         logout()
     }
+
+    const onClick: MenuProps['onClick'] = ({key}) => {
+
+        if (key === "logout") {
+            logout()
+        } else {
+            navigation(key)
+        }
+    };
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -32,7 +41,7 @@ const HeaderDesktop = () => {
                 </a>
             </div>
             <button className="ml-auto" onClick={onBtnProfile}>
-                <Dropdown trigger={['click']} menu={{items}}>
+                <Dropdown trigger={['click']} menu={{items, onClick}}>
                     <div className="flex items-center justify-end">
                         <div className="wrapper mr-2">
                             <img width={26} height={26} src="/public/img/icon/UserIcon.svg" alt="UserIcon"/>
@@ -44,6 +53,8 @@ const HeaderDesktop = () => {
                             </div>
                             <div className="row">
                                 <span className="text-xs text-gray font-semibold">Your current status: Start</span>
+                                <img className="inline-flex" src="/public/img/icon/DropdownTriangleIcon.svg"
+                                     alt="DropdownTriangleIcon"/>
                             </div>
                         </div>
                     </div>

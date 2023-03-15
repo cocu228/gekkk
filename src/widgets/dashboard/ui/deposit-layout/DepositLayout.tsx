@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import DepositCard from "@/widgets/deposit-card/ui/DepositCard";
+import DepositCard from "@/widgets/dashboard/ui/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {useNavigate} from 'react-router-dom';
 

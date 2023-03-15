@@ -1,4 +1,4 @@
-enum Coins {
+enum constants {
     ONEINCH = "1INCH",
     AAVE = "AAVE",
     ADA = "ADA",
@@ -103,4 +103,4 @@ enum Coins {
     ZEC = "ZEC"
 }
 
-export default Coins
+export default constants

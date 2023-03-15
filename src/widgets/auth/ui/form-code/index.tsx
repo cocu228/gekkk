@@ -11,7 +11,7 @@ import {apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useSessionStorage} from "usehooks-ts";
-import {apiSignIn} from "@/shared/api";
+import {apiSignIn} from "@/widgets/auth/api/";
 
 
 type TProps = {

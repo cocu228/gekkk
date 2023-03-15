@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/primary-tab-group';
+import {useParams} from "react-router-dom";
 
 const walletTabs = {
     'topup': 'Top up',
@@ -15,9 +16,14 @@ const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 const getInitialTab = (tab: string) =>
     Object.keys(initialTabs).includes(tab) ? tab : 'topup';
 
-function Wallet(tabKey: string) {
+function Wallet() {
 
-    let [activeTab, setActiveTab] = useState(getInitialTab(tabKey));
+    const {coin, tab = ""} = useParams()
+
+    console.log(coin)
+    console.log(tab)
+
+    let [activeTab, setActiveTab] = useState(getInitialTab(tab));
 
     return (
         <div className="flex flex-col grow shrink-0 basis-auto w-full">

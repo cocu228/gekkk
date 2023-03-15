@@ -1,6 +1,7 @@
+import styles from "./style.module.scss"
+
 const Loader = () => {
-    return null
-    // return <div className="arc-loader arc-loader--primary "
-    //             style={"position: absolute; top: 250px; left: calc(50% - 0.75em)"}></div>
+    return <div className={styles.Loader}>
+    </div>
 }
 export default Loader

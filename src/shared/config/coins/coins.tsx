@@ -1,6 +1,6 @@
-enum Coins {
-    AAVE = "AAVE",
+enum Constants {
     ONEINCH = "1INCH",
+    AAVE = "AAVE",
     ADA = "ADA",
     AGLD = "AGLD",
     ALICE = "ALICE",
@@ -102,3 +102,5 @@ enum Coins {
     YGG = "YGG",
     ZEC = "ZEC"
 }
+
+export default Constants

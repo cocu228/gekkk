@@ -14,8 +14,8 @@ const PrimaryTabGroup = ({
     if (!tabs) return null;
 
     return (
-        <div className='flex relative pt-4 mb-8'>
-            <div className='container mx-auto px-4'>
+        <div className='flex relative pt-4 mb-8 ml-[calc(-1*var(--content-pad-left))] mr-[calc(-1*var(--content-pad-right))]'>
+            <div className='w-full px-4 ml-[var(--content-pad-left)] mr-[var(--content-pad-right)]'>
                 <div className='flex pb-[10px]'>
                     {Object.keys(tabs).map(key => (
                         <Tab
@@ -24,10 +24,11 @@ const PrimaryTabGroup = ({
                             {tabs[key]}
                         </Tab>
                 ))}
+                </div>
             </div>
+
+            <div className="block justify-center h-[2px] absolute bg-gray-light mt-9 w-full"/>
         </div>
-        <div className="bg-gekGrayLine mt-9 block w-full h-[2px] absolute"/>
-    </div>
 )}
 
 export default PrimaryTabGroup;

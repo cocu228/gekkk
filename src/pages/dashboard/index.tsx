@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState} from "react";
-import Deposits from "@/widgets/deposit/ui/deposit-layout/DepositLayout";
-import CryptoAssets from "@/widgets/deposit/ui/CryptoAssets";
-import History from "@/widgets/deposit/ui/History";
+import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
+import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
+import History from "@/widgets/dashboard/ui/History";
 import {randomId} from "@/shared/lib/helpers";
 
 enum TabType {

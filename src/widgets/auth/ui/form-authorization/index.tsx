@@ -50,8 +50,6 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
 
                 apiRequestCode(phone).then(res => {
 
-                    console.log(res)
-
                     if (res.data?.success) {
 
                         setSessionAuth(res.data.sessid, phone)
@@ -114,8 +112,9 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <a className="text-sm text-gekLinkBlue underline" href="#">Forgot
-                password?</a>
+            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-gekLinkBlue">Forgot your
+                PIN? Log in with a QR code
+            </button>
         </div>
 
         <div className="row mb-8">
@@ -129,7 +128,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                 <li>
                     <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
                         <img
-                            src='/google-play.svg'
+                            src='/img/google-play.svg'
                             height="40px"
                             alt="Google play"
                         />
@@ -139,7 +138,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                 <li>
                     <a href={APP_STORE_GEKKARD} target={"_blank"}>
                         <img
-                            src='/app-store.svg'
+                            src='/img/app-store.svg'
                             height="40px"
                             alt="App store"
                         />

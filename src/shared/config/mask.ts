@@ -5,7 +5,7 @@ export const MASK_PHONE: AnyMaskedOptions = {
 };
 
 export const MASK_CODE: AnyMaskedOptions = {
-    mask: '0 0 0 0',
+    mask: '0 0 0 0 0 0',
 };
 
 

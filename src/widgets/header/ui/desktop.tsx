@@ -18,7 +18,7 @@ const HeaderDesktop = () => {
         <header className={`flex ${styles.Header}`}>
             <div className={`flex items-center ${styles.ContainerLogo}`}>
                 <a href="/">
-                    <img src="/public/logo.svg" width={165} height={55} alt="logo"/>
+                    <img src="/public/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
             <button className="ml-auto" onClick={onBtnProfile}>

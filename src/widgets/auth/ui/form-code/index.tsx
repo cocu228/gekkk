@@ -10,12 +10,18 @@ import {S} from "@/pages/auth/ui";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useAuth} from "@/app/providers/AuthRouter";
+import {useSessionStorage} from "usehooks-ts";
+import {apiSignIn} from "@/shared/api";
 
 
-const FormCode = memo(({handleView}: {
+type TProps = {
     handleView: (val: S) => void
-}) => {
+}
+
+const FormCode = memo(({handleView}: TProps) => {
+
     const {login} = useAuth();
+
     const {onInput} = useMask(MASK_CODE);
 
     const [state, setState] = useState({
@@ -23,24 +29,45 @@ const FormCode = memo(({handleView}: {
         loading: false
     });
 
-    //TODO: настроить номер телефона
-    const phoneNumber = "+7 (911) 111-11-11"
+    const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""})
+    const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
     const onBack = () => handleView("authorization")
 
     const onFinish = () => {
+
         setState(prev => ({...prev, loading: true}))
 
-        const {sessionId, phone} = JSON.parse(sessionStorage.getItem("session-auth") ?? "")
+        apiRequestCode(phone, formatAsNumber(state.code), sessionId).then(async res => {
 
-        apiRequestCode(phone, formatAsNumber(state.code), sessionId).then(res => {
-            console.log(res)
             if (res.data?.success) {
-                sessionStorage.setItem("session-global", JSON.stringify({
-                    sessionId: res.data.sessid
-                }))
-                login(res.data.sessid)
-                // window.location.href = "/dashboard"
+
+                setSessionGlobal({sessionId: res.data.sessid})
+
+                console.log(state.code)
+
+                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then((res) => {
+
+                    if (res.data.errors) throw new Error(res.data.errors[0].message)
+
+                    setSessionGlobal(prev => ({
+                        ...prev,
+                        token: res.data.token
+                    }))
+
+                    login(res.data.token)
+
+                }).catch(e => {
+
+                    alert(e)
+                    setState(prev => ({...prev, loading: false}))
+                    onBack()
+                    console.warn(e)
+
+                })
+
+            } else {
+                setState(prev => ({...prev, loading: false}))
             }
 
         })
@@ -48,13 +75,11 @@ const FormCode = memo(({handleView}: {
 
     return <Form onFinish={onFinish}>
         <h1 className="text-header font-extrabold text-center text-gekDarkGray pb-4">One-time code</h1>
-
         <p className='text-center mb-9 text-gekGray'>
             SMS with one-time code was sent to
-            
             <br/>
             <b>
-                {phoneNumber}
+                {phone}
             </b>
         </p>
 

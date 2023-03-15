@@ -6,6 +6,14 @@ export const apiCheckPassword = (phone: string, password: string) => $axios.post
 })
 
 
+export const apiQRCode = (hash?: string, sessionData?: string) => $axios.post('/pub/v1/auth',
+    null, {
+        params: {
+            key: hash
+        }
+    })
+
+
 export const apiRequestCode = (phone: string, code?: string, sessionId?: string) => $axios.post('/api/v1/requestCode', {
     phone,
     code,

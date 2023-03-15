@@ -12,7 +12,7 @@ const HeaderMobile = () => {
                     document.getElementById("sidebar")?.classList.toggle("active")
                 }}
                         className={styles.NavBtn}/>
-                <img style={{objectFit: "contain"}} src="/public/logo.png" width={72}
+                <img style={{objectFit: "contain"}} src="/public/img/logo.svg" width={72}
                      height={24} alt="logo"/>
             </div>
             <div className="wrapper">

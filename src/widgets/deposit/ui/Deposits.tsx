@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import DepositCard from "@/shared/ui/deposit-card/DepositCard";
+import DepositCard from "@/widgets/deposit/ui/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 
 function Deposits() {

@@ -1,4 +1,4 @@
-import {createContext, useContext, useMemo} from "react";
+import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSessionStorage} from "usehooks-ts";
 
@@ -6,39 +6,40 @@ const AuthContext = createContext({});
 
 
 interface IValue {
-    user: string;
-    login: () => void;
+    token: string;
+    login: (data: string) => void;
     logout: () => void;
 }
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const [user, setUser] = useSessionStorage("user", null);
+    const [{token}, setSessionGlobal] = useSessionStorage<Partial<Record<string, any>>>("session-global", {});
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
-    const login = async (data) => {
-        setUser(data);
+    const login = async (data: string) => {
+        setSessionGlobal(prev => ({...prev, token: data}));
+
         navigate("/");
     };
 
     // call this function to sign out logged in user
     const logout = () => {
-        setUser(null);
+        setSessionGlobal({});
         navigate("/", {replace: true});
     };
 
-    const value = useMemo(
+    const value = useMemo<IValue>(
         () => ({
-            user,
+            token,
             login,
             logout
         }),
-        [user]
+        [token]
     );
     return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
 };
 
 export const useAuth = () => {
-    return useContext<IValue | {}>(AuthContext);
+    return useContext<Partial<IValue>>(AuthContext);
 };

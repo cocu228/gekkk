@@ -24,8 +24,8 @@ function Wallet(tabKey: string) {
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
-                        <div className="mr-6">
-                            <img className='icon' src="/public/img/coins/EurgIcon.svg" alt="logo"/>
+                        <div className="mr-6 h-[50px] w-[50px]">
+                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
                         </div>
 
                         <div className="flex flex-col content-around">
@@ -33,7 +33,7 @@ function Wallet(tabKey: string) {
                                 Wallet balance
                             </div>
 
-                            <div className="text-2xl font-bold text-gekDarkGray cursor-help">
+                            <div className="text-2xl font-bold text-gray-dark cursor-help">
                                 317.95 EURG
                             </div>
                         </div>
@@ -49,14 +49,14 @@ function Wallet(tabKey: string) {
                                 </Tooltip>
                             </div>
 
-                            <div className='text-gekDarkGray text-2xl'>
+                            <div className='text-gray-dark text-2xl'>
                                 3% per annum
                             </div>
                         </div>
                     </div>
 
                     <div className="ml-auto text-right">
-                        <div className="font-bold text-[32px] leading-[48px] text-gekDarkGray mb-4">
+                        <div className="font-bold text-[32px] leading-[48px] text-gray-dark mb-4">
                             Gekkoin Europe wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray whitespace-pre-line">

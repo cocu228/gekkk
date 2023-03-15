@@ -1,5 +1,5 @@
 import {MouseEventHandler} from 'react';
-import styles from './tab.module.scss';
+import styles from './style.module.scss';
 
 type TabParams = {
     children: JSX.Element | string | null,

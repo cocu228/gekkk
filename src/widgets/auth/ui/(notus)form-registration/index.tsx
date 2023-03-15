@@ -29,7 +29,7 @@ const FormCreateAccount = memo(() => {
             <Input.Password id="password2" placeholder="Password"/>
         </FormItem>
         <div className="row text-right mb-9">
-            <a className="text-sm text-gekLinkBlue font-bold" href="@/processes/auth/ui/form-registration/index#">Forgot password?</a>
+            <a className="text-sm text-blue-light font-bold" href="@/processes/auth/ui/form-registration/index#">Forgot password?</a>
         </div>
         <div className="row">
             <Button htmlType="submit" className="w-full">Create</Button>

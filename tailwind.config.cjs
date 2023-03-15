@@ -14,7 +14,6 @@ module.exports = {
         width: {
             inherit: 'inherit',
             full: '100%',
-            sm: '756px'
         },
 
         height: {
@@ -23,29 +22,22 @@ module.exports = {
             m: '750px'
         },
 
-        maxWidth: {
-            sm: '756px',
-        },
-
         borderWidth: {
             1: "1px"
         },
 
         extend: {
             colors: {
-                gekLinkBlue: '#00AEEF',
-                gekGray: '#888A92',
-                gekDarkGray: '#3A3A3A',
-                gekGrayLine: '#dee2e7',
+                'blue-light': '#00AEEF',
+                'gray': '#888A92',
+                'gray-dark': '#3A3A3A',
+                'gray-light': '#dee2e7',
                 'blue': '#1fb6ff',
                 'purple': '#7e5bef',
                 'pink': '#ff49db',
                 'orange': '#ff7849',
                 'green': '#13ce66',
-                'yellow': '#ffc82c',
-                'gray-dark': '#273444',
-                'gray': '#B4C0CD',
-                'gray-light': '#d3dce6'
+                'yellow': '#ffc82c'
             },
 
             fontWeight: {

@@ -1,12 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "@/app/styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code/index";
 import QRCode from "@/widgets/auth/ui/qr-code/index";
+import {apiQRCode} from "@/widgets/auth/api";
 
 export type S = "authorization" | "code" | "qr-code"
 
 const AuthPage = () => {
+
+    useEffect(() => {
+        let url = document.location.toString()
+        let params = new URL(url).searchParams;
+        let sessionId = params.get("sessionId");
+
+        if (sessionId) {
+            apiQRCode(sessionId).then(res => {
+                console.log(res)
+            }).catch(e => console.warn(e))
+        }
+
+    }, [])
 
     const [view, setView] = useState<S>("authorization")
 

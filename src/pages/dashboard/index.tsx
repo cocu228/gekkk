@@ -1,8 +1,9 @@
 import React from 'react';
 import {useState} from "react";
-import Deposits from "@/widgets/deposits/ui/Deposits";
-import CryptoAssets from "@/widgets/crypto-assets/ui/CryptoAssets";
-import History from "@/widgets/history/ui/History";
+import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
+import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
+import History from "@/widgets/dashboard/ui/History";
+import {randomId} from "@/shared/lib/helpers";
 
 enum TabType {
     DEPOSIT,
@@ -34,7 +35,7 @@ export default () => {
                         <button
                             className={`
                             mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-[14px]
-                            ${activeTab === t.type ? 'border-blue font-bold' : 'border-transparent text-gray font-medium'}
+                            ${activeTab === t.type ? 'border-gekLinkBlue font-bold' : 'border-transparent text-gray font-medium'}
                         `}
                             key={t.type}
                             onClick={handleChangeTab(t.type)}
@@ -46,7 +47,7 @@ export default () => {
             </div>
 
             {TABS.map(({type, content: TabContent}, index) => (
-                <div className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
+                <div key={randomId()} className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
                     <TabContent/>
                 </div>
             ))}

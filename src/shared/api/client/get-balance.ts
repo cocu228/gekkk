@@ -1,7 +1,7 @@
 import $axios from "@/shared/lib/(cs)axios";
-export type TCoinAbbreviation = "XMR" | "BTC" | "ETH" | "EURG";
+import $const from "@/shared/config/coins/constants";
 export interface IApiGetBalance {
-    currency: TCoinAbbreviation;
+    currency: $const;
     lock_out_balance: number;
     lock_in_balance: number;
     lock_orders: number;
@@ -13,7 +13,6 @@ export const apiGetBalance = (phone: string, token: string, currency?: string) =
         headers: {
             currency,
             "Authorization": phone,
-            "productId": "BLACK_CAT_CARD",
             token
         },
         transformResponse: [(data) => {

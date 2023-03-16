@@ -1,24 +1,33 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import Filter from "@/shared/ui/filter/Filter";
 import Table from "@/shared/ui/table/Table";
+import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
+import styles from './style.module.scss';
 
-const historyFilters = [
-    { value: 'month', label: 'This month'},
-    { value: '30_days', label: 'Last 30 days'},
-    { value: '90_days', label: 'Last 90 days'},
-    { value: 'year', label: 'This year'},
-    { value: 'custom', label: 'Custom period'},
-];
+const historyTabs: {[key: string]: string} = {
+    'month': 'This month',
+    '30_days': 'Last 30 days',
+    '90_days': 'Last 90 days',
+    'year': 'This year',
+    'custom': 'Custom period',
+};
 
-function History() {
-    const [selectedOption, setSelectedOption] = useState(historyFilters[0].value);
+interface Props {
+    title?: string,
+    withSurface?: boolean,
+    className?: string
+}
+
+function History({title, withSurface = true, className}: Props) {
+    const [activeTab, setActiveTab] = useState('month');
 
     return (
         <div className="wrapper">
-            <SectionTitle>History</SectionTitle>
-            <div className="bg-white rounded-[6px] p-[15px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
-                <Filter options={historyFilters} selected={selectedOption} onChange={setSelectedOption}/>
+            {title && (
+                <SectionTitle>{title}</SectionTitle>
+            )}
+            <div className={withSurface ? `bg-white rounded-md p-4 ${className} ${styles.surface}` : ''}>
+                <SecondaryTabGroup tabs={historyTabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
                 <Table
                     data={{
                         labels: [{text: 'Data'}, {text: 'Flow of funds'}, {text: 'Information'}],

@@ -7,7 +7,7 @@
     "dev": "vite",
     "start": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview --host"
+    "preview": "vite build && vite preview --host"
   },
   "npm": " > 8",
   "node": " > 16",

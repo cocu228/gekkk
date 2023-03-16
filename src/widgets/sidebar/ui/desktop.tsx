@@ -65,7 +65,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/EURG"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/public/img/icon/EurgIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/EurgIcon.svg`}
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -79,7 +79,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/USDG"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/public/img/icon/UsdgIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/UsdgIcon.svg`}
                              alt="UsdgIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -93,7 +93,7 @@ const SidebarDesktop = () => {
             <NavLink to={"exchange"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/ExchangeIcon.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
                              alt="ExchangeIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -105,7 +105,7 @@ const SidebarDesktop = () => {
             <NavLink to={"deposit"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/NewDepositIcon.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/NewDepositIcon.svg`}
                              alt="NewDepositIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -116,12 +116,12 @@ const SidebarDesktop = () => {
             </NavLink>
             <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
                 <span className="text-gray text-sm mr-2">Currents deposit</span>
-                <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
+                <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
             <NavLink to={""}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/public/img/icon/Invest.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
                              alt="Invest"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -131,7 +131,7 @@ const SidebarDesktop = () => {
             </NavLink>
             <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
                 <span className="text-gray text-sm mr-2">Assets</span>
-                <img width={8} src="/public/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
+                <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
 
             {state?.coins.map((item, i) =>
@@ -139,13 +139,15 @@ const SidebarDesktop = () => {
                          className={styles.Item}>
                     <div className="col flex items-center pl-4">
                         <img className={`${styles.Coin} mr-3`} width={14} height={14}
-                             src={`/public/img/icon/DepositAngleArrowIcon.svg`}
+                             src={`/img/icon/DepositAngleArrowIcon.svg`}
                              alt={"DepositAngleArrowIcon"}/>
                         <img className={styles.Coin} width={50}
-                             src={`/public/img/icon/${item.icon}`}
+                             src={`/img/icon/${item.icon}`}
                              onError={({currentTarget}) => {
+                                 if (currentTarget.getAttribute("data-icon") === "empty") return null
                                  currentTarget.onerror = null
-                                 currentTarget.src = "/public/img/icon/HelpIcon.svg"
+                                 currentTarget.setAttribute("data-icon", "empty")
+                                 currentTarget.src = "/img/icon/HelpIcon.svg"
                              }
                              }
                              alt={item.name}/>

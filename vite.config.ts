@@ -5,17 +5,12 @@ import path from "path";
 export default defineConfig(({mode}) => {
 
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
-  console.log(process.env.VITE_DEV_DOCKER)
-
-  const disabledHmr = process.env.VITE_DEV_DOCKER !== undefined ? {
-    strictPort: true,
-    hmr: {
-      clientPort: 8010
-    },
-  } : {}
 
   return {
-    ...disabledHmr,
+    build: {
+      outDir: path.join(__dirname, "dist"),
+    },
+    publicDir: "public",
     resolve: {
       alias: [
         {find: '@', replacement: path.resolve(__dirname, 'src')},

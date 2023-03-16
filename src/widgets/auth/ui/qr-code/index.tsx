@@ -38,7 +38,7 @@ const QRCode = memo(({handleView}: TProps) => {
     return <>
         <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">Forgot your PIN?</h1>
         <div className="wrapper flex justify-center">
-            <img width={240} src="/public/img/picture-mobile-app.png" alt="picture-mobile-app"/>
+            <img width={240} src="/img/picture-mobile-app.png" alt="picture-mobile-app"/>
         </div>
         <div className="wrapper">
             <div className="row flex flex-nowrap mt-10 mb-4 relative">
@@ -47,10 +47,10 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
             <div className="row flex flex-nowrap justify-center mb-6">
                 <div className="col m-2">
-                    <img src="/public/img/app-store.svg" alt="app-store"/>
+                    <img src="/img/app-store.svg" alt="app-store"/>
                 </div>
                 <div className="col m-2">
-                    <img src="/public/img/google-play.svg" alt="google-play"/>
+                    <img src="/img/google-play.svg" alt="google-play"/>
                 </div>
             </div>
             <div className="row flex flex-nowrap mb-10 relative">

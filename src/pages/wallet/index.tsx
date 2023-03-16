@@ -31,7 +31,7 @@ function Wallet() {
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
                         <div className="mr-6 h-[50px] w-[50px]">
-                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
+                            <img src="/img/icon/EurgIcon.svg" alt="logo"/>
                         </div>
 
                         <div className="flex flex-col content-around">
@@ -50,7 +50,7 @@ function Wallet() {
 
                                 <Tooltip text={"We pay you 3% per annum of EURG on your balance under following conditions:\n(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG."}>
                                     <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                        <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
+                                        <img src="/img/icon/HelpIcon.svg" alt="logo"/>
                                     </div>
                                 </Tooltip>
                             </div>

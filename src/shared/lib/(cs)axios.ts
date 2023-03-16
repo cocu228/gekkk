@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const {DEV} = import.meta.env
+const {DEV, VITE_DEV_DOCKER} = import.meta.env
 
 const $axios = axios.create({
     withCredentials: true,
@@ -9,7 +9,7 @@ const $axios = axios.create({
         'applicationId': 'BLACK_CAT_CARD',
         'productId': "BLACK_CAT_CARD"
     },
-    baseURL: DEV ? window.location.origin : "https://api-dev.gekkoin.com"
+    baseURL: (DEV || VITE_DEV_DOCKER) ? window.location.origin : "https://api-dev.gekkoin.com"
 });
 
 export default $axios;

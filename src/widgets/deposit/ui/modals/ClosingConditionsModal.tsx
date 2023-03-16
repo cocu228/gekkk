@@ -15,7 +15,7 @@ const ClosingConditionsModal = ({isModalOpen, handleCancel}: IClosingConditionsM
                 <div className="mb-10">
                     <p className="mb-4 font-medium">For the fixed rate deposits:</p>
                     <div className="relative">
-                        <img className="absolute -left-7 top-0" src="/public/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
+                        <img className="absolute -left-7 top-0" src="/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
                         <p className="text-gray font-medium">the loss of interest in the current month.</p>
                     </div>
                 </div>
@@ -23,7 +23,7 @@ const ClosingConditionsModal = ({isModalOpen, handleCancel}: IClosingConditionsM
                 <div>
                     <p className="mb-4 font-medium">For the structured deposits:</p>
                     <div className="relative">
-                        <img className="absolute -left-7 top-0" src="/public/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
+                        <img className="absolute -left-7 top-0" src="/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
                         <p className="text-gray mb-4 font-medium">
                             in case of zero or positive growth
                             of the cryptocurrency rate: the nominal amount of deposit is returned to the Client minus the largest allowed percentage
@@ -31,7 +31,7 @@ const ClosingConditionsModal = ({isModalOpen, handleCancel}: IClosingConditionsM
                         </p>
                     </div>
                     <div className="relative">
-                        <img className="absolute -left-7 top-0" src="/public/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
+                        <img className="absolute -left-7 top-0" src="/img/icon/CheckMark.svg" width={18} height={16} alt="check"/>
                         <p className="text-gray font-medium">
                             in case of negative growth (fall)
                             of the cryptocurrency rate: the nominal amount of deposit is returned to the Client with a correspondent percentage

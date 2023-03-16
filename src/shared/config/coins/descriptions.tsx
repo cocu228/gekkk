@@ -85,7 +85,7 @@ export default {
     </div>,
 
     [$const.BCH]: <div>
-        <p>Bitcoin Cash BCH holds an important place in the history of alt$const because it is one of the earliest
+        <p>Bitcoin Cash BCH holds an important place in the history of altcoins because it is one of the earliest
             and
             most successful hard forks of the original Bitcoin. In the cryptocurrency world, a fork takes place as
             the
@@ -116,7 +116,7 @@ export default {
             the Binance chain.</p>
 
         <p>Every quarter, Binance uses one-fifth of its profits to repurchase and permanently destroy, or "burn,"
-            Binance $const held in its treasury.</p>
+            Binance coins held in its treasury.</p>
 
         <p>Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded to
             numerous applications, including payments for transaction fees (on the Binance Chain), travel bookings,
@@ -393,7 +393,7 @@ export default {
         <p>As the ecosystem expands, we see a huge potential of TON coin and numerous ways for it to work in the new
             economy. We expect it to go beyond a means of payment.</p>
 
-        <p>Stakes deposited by validators to be eligible to validate transactions and generate new blocks and $const.
+        <p>Stakes deposited by validators to be eligible to validate transactions and generate new blocks and coins.
             Voting power to support or oppose changes in the parameters of the protocol. Income (gas) paid to
             validator
             nodes as reward for processing transactions and smart contracts under the PoS consensus. Loans to

@@ -16,8 +16,9 @@ _package.json_
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite build && vite preview --host"
   }
 }
 ```
@@ -28,15 +29,12 @@ _package.json_
 
 ```
 └── src/
-    ├── app/                    # Initializing application logic
-    |    ├── mobile.tsx          #    Entrypoint for connecting the application (formerly App. tsx)
+    ├── app/                    #    Initializing application logic        #    Entrypoint for connecting the application (formerly App. tsx)
     |    └── index.css          #    Global application styles
     ├── pages/                  #
     ├── widgets/                #
-    ├── features/               #
-    ├── entities/               #
-    ├── shared/                 #
-    └── mobile.tsx               # Connecting and rendering the application
+    ├── features/               #               
+    └── shared                  #
 ```
 ![Image alt](etc/img.png)
 ![Image alt](etc/img_1.png)
@@ -46,17 +44,16 @@ _package.json_
 ## Style Guide:
 
 В проекте с большим приоритетом используется утилита [**tailwindcss**](https://tailwindcss.com/).
-Это предпочтительный способ описания стилей и присвоения классов.
+Это предпочтительный способ описания стилей и присвоения классов. При этом, следует использовать уже заложенный набор классов и при необходимости добавлять инструкции новых.
 
-#### cs-
+#### (cs) | (notuse)
 
-cs- (custom) - в начале имени файла или папки, говорит о кастомных изменениях сторонних зависимотей проекта. (_Прим.
-cs-antd.scss_)
+(cs) - [custom] - в начале имени файла или папки, говорит о кастомных изменениях сторонних зависимотей проекта. (_Прим.
+(cs)antd.scss_)
 
-#### .wrapper
+#### .wrapper | .row | .col
 
-Класс `.wrapper` не имеет описания свойств и служит для понимания структуры html кода, там где вложенность требует блок
-обертку.
+Класс `.wrapper` не имеет описания свойств и служит для понимания структуры html кода, там где блок требует вложенность. Аналогично этому в проекте допускаются классы без свойств - `.row` `.col`.
 
 #### .Class (:components using)
 
@@ -70,5 +67,23 @@ cs-antd.scss_)
 
 `camelCase` stylized
 
-См. документацию по [**React**](https://reactjs.org/docs/getting-started.html), [**TypeScript
-**](https://www.typescriptlang.org/docs/) (tsconfig.json)
+См. документацию по [**React**](https://reactjs.org/docs/getting-started.html), [**TypeScript**](https://www.typescriptlang.org/docs/) (tsconfig.json)
+
+## Docker Stage
+
+Для стенда используется команда `npm run preview` и параллельно с этим на стороне сервера `.env.local` файл с переменной `VITE_DEV_DOCKER='true'`.
+
+## State Manager ([Zustand](https://github.com/pmndrs/zustand))
+
+    "zustand": "4.3.6"
+
+Multi-storage который предусматривает опционально middleware:
+
+    - persist; 
+    - devtools;
+    - immer;
+
+
+## Операции с числами ([Decimal.js](https://github.com/MikeMcl/decimal.js/))
+
+Экземпляр Decimal увеличивает точность вычислений JavaScript. Полнофункциональный API Повторяет многие методы объектов JavaScript Number.prototype и Math

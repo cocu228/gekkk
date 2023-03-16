@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import PrimaryTabGroup from '@/shared/ui/primary-tab-group';
+import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-tabs/about/ui/About";
+import History from "@/widgets/history/ui/History";
 
-const walletTabs = {
+const walletTabs: {[key: string]: string} = {
     'topup': 'Top up',
     'withdraw': 'Withdraw',
     'transfer': 'Transfer to contact',
-    'history': 'History',
+    //'history': 'History', TODO: Show only in mobile version
     'about': 'About'
 };
 
@@ -19,12 +20,12 @@ const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
 const getInitialTab = (tab: string | undefined) => 
-    (tab && Object.keys(initialTabs).includes(tab)) ? tab : 'topup';
+    (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
 function Wallet() {
-    //const { currency, tab } = useParams<string>();
+    const { currency, tab = ''} = useParams<string>();
+    if (!currency) return null;
 
-    const currency = "ADA", tab = undefined
     let [activeTab, setActiveTab] = useState(getInitialTab(tab));
 
     return (
@@ -33,7 +34,7 @@ function Wallet() {
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
                         <div className="mr-6 h-[50px] w-[50px]">
-                            <img src="/public/img/icon/EurgIcon.svg" alt="logo"/>
+                            <img src={`/public/img/icon/${currency}Icon.svg`} alt="logo"/>
                         </div>
 
                         <div className="flex flex-col content-around">
@@ -46,21 +47,23 @@ function Wallet() {
                             </div>
                         </div>
 
-                        <div className='flex flex-col content-around ml-[50px]'>
-                            <div className="text-sm font-medium text-gray">
-                                Rate
+                        {currency === 'EURG' && (
+                            <div className='flex flex-col content-around ml-[50px]'>
+                                <div className="text-sm font-medium text-gray">
+                                    Rate
 
-                                <Tooltip text={EurgTooltipText}>
-                                    <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                        <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
-                                    </div>
-                                </Tooltip>
-                            </div>
+                                    <Tooltip text={EurgTooltipText}>
+                                        <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                                            <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
+                                        </div>
+                                    </Tooltip>
+                                </div>
 
-                            <div className='text-gray-dark text-2xl'>
-                                3% per annum
+                                <div className='text-gray-dark text-2xl'>
+                                    3% per annum
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     <div className="ml-auto text-right">
@@ -86,11 +89,13 @@ function Wallet() {
                 <div className="bg-white rounded-l-[6px] p-[15px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'about' && (
                         <About
-                            currency={currency}
-                            name={'ADA'}
+                        currency={currency}
+                        name={'NAME FROM ASSETS'}
                         />
-                    )}
+                        )}
                 </div>
+                
+                <History className={`rounded-l-none shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
             </div>
         </div>
     );

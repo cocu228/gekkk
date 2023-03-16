@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from "react";
 import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
 import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
-import History from "@/widgets/dashboard/ui/History";
+import History from "@/widgets/history/ui/History";
 import {randomId} from "@/shared/lib/helpers";
 
 enum TabType {
@@ -12,9 +12,9 @@ enum TabType {
 };
 
 const TABS = [
-    {type: TabType.DEPOSIT, title: 'Deposits', content: Deposits},
-    {type: TabType.ASSETS, title: 'Crypto assets', content: CryptoAssets},
-    {type: TabType.HISTORY, title: 'History', content: History}
+    {type: TabType.DEPOSIT, title: 'Deposits', content: <Deposits/>},
+    {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
+    {type: TabType.HISTORY, title: 'History', content: <History title="History"/>}
 ];
 
 export default () => {
@@ -30,12 +30,12 @@ export default () => {
             <p className="text-[14px] font-medium">Open your <a className="underline hover:text-blue" href="#">fixed or crypto deposit</a></p>
 
             <div className="w-full">
-                <div className="mx-[-15px] hidden phone:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray">
+                <div className="mx-[-15px] hidden sm:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray">
                     {TABS.map(t => (
                         <button
                             className={`
                             mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-[14px]
-                            ${activeTab === t.type ? 'border-gekLinkBlue font-bold' : 'border-transparent text-gray font-medium'}
+                            ${activeTab === t.type ? 'border-blue font-bold' : 'border-transparent text-gray font-medium'}
                         `}
                             key={t.type}
                             onClick={handleChangeTab(t.type)}
@@ -46,9 +46,9 @@ export default () => {
                 </div>
             </div>
 
-            {TABS.map(({type, content: TabContent}, index) => (
-                <div key={randomId()} className={`phone:mt-0 ${activeTab !== type ? 'phone:hidden' : ''} ${index === 0 ? 'mt-[38px]' : 'mt-[63px]'}`}>
-                    <TabContent/>
+            {TABS.map(({type, content}, index) => (
+                <div className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
+                    {content}
                 </div>
             ))}
         </div>

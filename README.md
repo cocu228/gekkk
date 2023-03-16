@@ -23,9 +23,12 @@ _package.json_
 }
 ```
 
-## Архитектура
+## Архитектура ([Feature-Sliced Design](https://feature-sliced.design/ru/docs/get-started/overview))
 
 Структура папок и файлов именуется в `kebab-case`, кроме `.jsx` (`PascalCase`);
+#### Для статики используется `publicPath: "public"` при указании абсолютного пути, папка не учитывается _(прим. **`<img src="/img/icon/ApeCoin.svg">`**)_
+
+
 
 ```
 └── src/

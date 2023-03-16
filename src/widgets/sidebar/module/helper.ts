@@ -2,6 +2,7 @@ import {IApiGetBalance} from "@/shared/api";
 import $const from "@/shared/config/coins/constants";
 import {randomId} from "@/shared/lib/helpers";
 import {IAssetsCoinsName} from "@/shared/store";
+import Decimal from "decimal.js";
 
 
 // const list: Record<TCoinAbbreviation, TCoinsNameListParams> = Coins
@@ -20,7 +21,7 @@ type TParamsResult = {
     name: string
 }
 //todo
-export const generation: IResult | null = (data: IApiGetBalance[], assets: IAssetsCoinsName['assets']) => {
+export const generation = (data: IApiGetBalance[], assets: IAssetsCoinsName['assets']): IResult | null => {
 
     if (!Array.isArray(data) || data.length === 0) return null
 
@@ -29,7 +30,7 @@ export const generation: IResult | null = (data: IApiGetBalance[], assets: IAsse
     const coins = data.filter(item => item.currency !== "EURG").map(item => {
 
         return {
-            balance: item.free_balance.toFixed(4),
+            balance: +item.free_balance.toFixed(4),
             id: randomId(),
             abbreviation: item.currency,
             holdBalance: (item.lock_orders + item.lock_out_balance).toFixed(4),
@@ -41,7 +42,7 @@ export const generation: IResult | null = (data: IApiGetBalance[], assets: IAsse
 
     return {
         eurg: {
-            balance: eurg.free_balance.toFixed(4),
+            balance: +eurg.free_balance.toFixed(4),
             // icon: "",
             // name: "",
             id: randomId(),

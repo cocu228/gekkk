@@ -27,7 +27,7 @@ const About = ({currency, name}: AboutParams) => {
                 </h1>
             </div>
 
-            <div className='text-gray'>
+            <div className='text-gray text-sm font-medium'>
                 {
                     // @ts-ignore
                     descriptions[currency]?? `Description for this token is not done yet.`

@@ -97,8 +97,8 @@ function Wallet() {
                 activeTab={activeTab}
             />
 
-            <div className='flex container mx-auto h-full mb-5 px-4'>
-                <div className="bg-white rounded-l-[6px] p-[15px] h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
+            <div className='flex grow shrink text-gray container mx-auto h-full mb-5 px-4'>
+                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <Topup
                             isFiat={isFiat}
@@ -112,7 +112,7 @@ function Wallet() {
                     )}
                 </div>
                 
-                <History className={`rounded-l-none h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
+                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
             </div>
         </div>
     );

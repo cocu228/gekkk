@@ -6,6 +6,9 @@ export default defineConfig(({mode}) => {
 
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
+  console.log("process.env.VITE_DEV_DOCKER")
+  console.log(process.env.VITE_DEV_DOCKER)
+
   return {
     build: {
       outDir: path.join(__dirname, "dist"),

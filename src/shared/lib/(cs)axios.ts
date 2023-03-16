@@ -4,6 +4,7 @@ const {DEV, VITE_DEV_DOCKER} = import.meta.env
 
 console.log("VITE_DEV_DOCKER")
 console.log(VITE_DEV_DOCKER)
+console.log(import.meta.env)
 
 const $axios = axios.create({
     withCredentials: true,

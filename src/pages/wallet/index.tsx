@@ -52,7 +52,7 @@ function Wallet() {
                         </div>
 
                         <div className="flex flex-col content-around">
-                            <div className="text-sm font-medium text-gray">
+                            <div className="text-sm font-medium text-gray-semilight">
                                 Wallet balance
                             </div>
 
@@ -63,7 +63,7 @@ function Wallet() {
 
                         {isFiat && (
                             <div className='flex flex-col content-around ml-[50px]'>
-                                <div className="text-sm font-medium text-gray">
+                                <div className="text-sm font-medium text-semilight">
                                     Rate
 
                                     <Tooltip text={EurgTooltipText}>
@@ -84,7 +84,7 @@ function Wallet() {
                         <div className="font-bold text-[32px] leading-[48px] text-gray-dark mb-4">
                             {walletAsset.name} wallet
                         </div>
-                        <div className="max-w-[450px] font-medium text-sm text-gray whitespace-pre-line">
+                        <div className="max-w-[450px] font-medium text-sm text-gray-semilight whitespace-pre-line">
                             {isFiat ? EurgDescriptionText : getDescriptionText(walletAsset.name, currency)}  
                         </div>
                     </div>

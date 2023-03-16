@@ -15,7 +15,9 @@ const About = ({currency, name}: AboutParams) => {
                         src={`/public/img/icon/${currency}Icon.svg`}
                         onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
-                            currentTarget.src="/public/img/icon/EurgIcon.svg";
+                            currentTarget.src='/public/img/icon/HelpIcon.svg';
+                            currentTarget.height = 50;
+                            currentTarget.width = 50;
                         }}
                     />
                 </div>
@@ -28,7 +30,7 @@ const About = ({currency, name}: AboutParams) => {
             <div className='text-gray'>
                 {
                     // @ts-ignore
-                    descriptions[currency]
+                    descriptions[currency]?? `Description for this token is not done yet.`
                 }
             </div>
         </div>

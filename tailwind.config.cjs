@@ -38,6 +38,7 @@ module.exports = {
                 'pink': '#ff49db',
                 'orange': '#ff7849',
                 'green': '#13ce66',
+                'green-light': '#2bb673',
                 'yellow': '#ffc82c'
             },
 

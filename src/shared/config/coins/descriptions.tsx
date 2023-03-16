@@ -237,14 +237,16 @@ export default {
     </div>,
 
     [$const.EURG]: <div>
-        <p>Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
+        <p>
+            Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
             All EURG tokens are subject to exchange for fiat money in accordance 
-            with the conditions on this site and the <a>Gekkard App</a>.</p>
-
-        <p>The exchange rate is fixed: <a>1 EURG = 1 EUR.</a></p>
+            with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer'>Gekkard App</a>.
+        </p>
         <br/>
-        <div>
-            <p>3% AER interest on account balance</p>
+        <p>The exchange rate is fixed: <a className='font-bold'>1 EURG = 1 EUR.</a></p>
+        <br/>
+        <div className='bg-green-light rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
+            <p className='font-bold mb-4'>3% AER interest on account balance</p>
             <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
             <p>(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG;</p>
             <p>(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.</p>

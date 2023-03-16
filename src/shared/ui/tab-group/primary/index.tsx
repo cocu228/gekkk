@@ -1,16 +1,16 @@
 import Tab from "./ui/Tab";
 
 interface TabGroupParams {
-    tabs: any
-    setActiveTab: any,
+    tabs: {[key: string]: string},
     activeTab: string,
+    setActiveTab: (key: string) => void,
 }
 
-const PrimaryTabGroup = ({
+function PrimaryTabGroup ({
     tabs,
     setActiveTab,
     activeTab
-}: TabGroupParams) => {
+}: TabGroupParams) {
     if (!tabs) return null;
 
     return (

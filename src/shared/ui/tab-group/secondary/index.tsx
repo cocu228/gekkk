@@ -21,7 +21,7 @@ function SecondaryTabGroup({
                     <button
                         key={tab}
                         className={`
-                            bg-none px-[20px] rounded-[6px] py-[8px] text-[14px] font-medium border-solid border-1 
+                            bg-none px-[10px] rounded-[4px] py-[6px] text-[14px] font-medium border-solid border-1 
                             ${tab === activeTab ? 'text-gray-dark border-blue' : 'text-gray border-[#F9F9FA]'}
                         `}
                         onClick={() => setActiveTab(tab)}

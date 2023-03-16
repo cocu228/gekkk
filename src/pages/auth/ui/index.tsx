@@ -37,31 +37,31 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
-            <footer className='text-gray text-center font-light mt-auto mb-10 mb max-w-[756px]'>
-                <p className='mb-4'>
+            <footer className='text-gray text-center text-sm font-normal mt-auto mb-10 mb max-w-[756px]'>
+                <p className='mb-4 font-inherit text-inherit'>
                     <a
-                        className='font-inherit'
+                        className='hover:underline'
                         href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >General terms and conditions</a>
                     {' | '}
                     <a
-                        className='font-inherit'
+                        className='hover:underline'
                         href="https://gekkoin.com/source/Privacy_policy.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >Privacy policy</a>
                     {' | '}
                     <a
-                        className='font-inherit'
+                        className='hover:underline'
                         href="https://gekkoin.com/source/Cookies_policy.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >Cookie policy</a>
                 </p>
 
-                <p>
+                <p className='font-inherit text-inherit'>
                     Crypto exchange service is powered by AtlantEX OU
                     (licensed partner for crypto wallet and exchange)
                 </p>

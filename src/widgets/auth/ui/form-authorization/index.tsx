@@ -79,10 +79,10 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
             Login to your account
         </h1>
 
-        <p className='text-center mb-9 text-gray'>
+        <p className='text-center text-sm mb-9 text-gray font-normal'>
             Login to your personal account is carried out through the
             <a
-                className='font-inherit underline'
+                className='underline font-medium'
                 href={APP_STORE_GEKKARD}
                 target={'_blank'}> Gekkard application
             </a> credentials
@@ -112,7 +112,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light">Forgot your
+            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light hover:underline">Forgot your
                 PIN? Log in with a QR code
             </button>
         </div>

@@ -83,7 +83,7 @@ const FormCode = memo(({handleView}: TProps) => {
             </b>
         </p>
 
-        <FormItem className={"mb-2"} name="code" label="Code" preserve
+        <FormItem name="code" label="Code" preserve
                   rules={[{required: true, ...codeMessage}]}>
             <Input type="text"
                    placeholder="Phone code"
@@ -97,7 +97,7 @@ const FormCode = memo(({handleView}: TProps) => {
         </FormItem>
 
         <div className="row text-right mb-9">
-            <button onClick={onBack} className="text-sm text-gray underline">
+            <button onClick={onBack} className="text-sm text-gray hover:underline">
                 Re-send one-time code again
             </button>
         </div>

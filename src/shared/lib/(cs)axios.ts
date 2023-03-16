@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const {DEV, VITE_DEV_DOCKER} = import.meta.env
 
+console.log("VITE_DEV_DOCKER")
+console.log(VITE_DEV_DOCKER)
+
 const $axios = axios.create({
     withCredentials: true,
     headers: {

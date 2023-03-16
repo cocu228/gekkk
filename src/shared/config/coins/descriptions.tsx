@@ -53,6 +53,21 @@ export default {
             DAO members can decide how this intellectual property is used.</p>
     </div>,
 
+    
+    [$const.ATOM]: <div>
+        <p>Cosmos is an ecosystem of blockchains that can scale and interoperate with each other. Before Cosmos,
+            blockchains were siloed and unable to communicate with each other. They were hard to build and could
+            only
+            handle a small amount of transactions per second. Cosmos solves these problems with a new technical
+            vision.</p>
+
+        <p>Cosmos (ATOM) is a cryptocurrency that powers an ecosystem of blockchains designed to scale and
+            interoperate
+            with each other. The team aims to "create an Internet of Blockchains, a network of blockchains able to
+            communicate with each other in a decentralized way." Cosmos is a proof-of-stake chain. ATOM holders can
+            stake their tokens in order to maintain the network and receive more ATOM as a reward.</p>
+    </div>,
+
     [$const.AVAX]: <div>
         <p>Avalanche (AVAX) is a cryptocurrency and blockchain platform that rivals Ethereum. AVAX is the native
             token
@@ -108,18 +123,18 @@ export default {
             entertainment, online services, and financial services.</p>
     </div>,
 
-    [$const.ATOM]: <div>
-        <p>Cosmos is an ecosystem of blockchains that can scale and interoperate with each other. Before Cosmos,
-            blockchains were siloed and unable to communicate with each other. They were hard to build and could
-            only
-            handle a small amount of transactions per second. Cosmos solves these problems with a new technical
-            vision.</p>
+    [$const.BTC]: <div>
+        <p>The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on 
+            the Internet through the digital ledger known as the blockchain.</p>
 
-        <p>Cosmos (ATOM) is a cryptocurrency that powers an ecosystem of blockchains designed to scale and
-            interoperate
-            with each other. The team aims to "create an Internet of Blockchains, a network of blockchains able to
-            communicate with each other in a decentralized way." Cosmos is a proof-of-stake chain. ATOM holders can
-            stake their tokens in order to maintain the network and receive more ATOM as a reward.</p>
+        <p>The value of bitcoin is formed by several factors:</p>
+        
+        <ul>
+            <li>The ideology of cryptocurrency creation is independence from the state.</li>
+            <li>The demand for bitcoin is increasing and the number of released coins is gradually decreasing.</li>
+            <li>Bitcoin emission is limited to 21,000,000 coins. No more can be created.</li>
+            <li>Mining of coins requires labor, computing resources, and electricity.</li>
+        </ul>
     </div>,
 
     [$const.DAI]: <div>
@@ -199,6 +214,41 @@ export default {
             roll back the blockchain, effectively creating a bailout for The DAO's investors. Ethereum Classic is
             the
             name of the original, smaller blockchain.</p>
+    </div>,
+
+    [$const.ETH]: <div>
+        <p>Ethereum (ETH) is both a cryptocurrency and a decentralized computing platform. 
+            Developers can use the platform to create decentralized applications 
+            and issue new crypto assets known as Ethereum tokens.</p>
+
+        <p> Ethereum is similar to Bitcoin and other coins. But Ether is 
+            much more than just a blockchain-platform, which performs a 
+            direct function of currency services. It's a complex system 
+            of smart contracts, the idea of which is to combine completely 
+            different areas and improve processes, optimize routine operations.</p>
+        
+        <ul>
+            <li>Smart contracts are algorithms in the network that track if-then type operations. 
+                They oversee the compliance of all parties with the terms of the transaction 
+                (performing actions, transferring money, etc.).</li>
+            <li>Smart contracts eliminate the need for an intermediary, which increases speed, 
+                increases safety, and reduces the costs of transaction processing.</li>
+        </ul>
+    </div>,
+
+    [$const.EURG]: <div>
+        <p>Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
+            All EURG tokens are subject to exchange for fiat money in accordance 
+            with the conditions on this site and the <a>Gekkard App</a>.</p>
+
+        <p>The exchange rate is fixed: <a>1 EURG = 1 EUR.</a></p>
+        <br/>
+        <div>
+            <p>3% AER interest on account balance</p>
+            <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
+            <p>(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG;</p>
+            <p>(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.</p>
+        </div>
     </div>,
 
     [$const.EVER]: <div>
@@ -391,6 +441,23 @@ export default {
 
         <p>Tether is used by investors who want to avoid the volatility typical of cryptocurrencies while holding
             funds within the crypto system.</p>
+    </div>,
+
+    [$const.XMR]: <div>
+        <p>Monero (XMR) is a private, secure, and untraceable cryptocurrency. With Monero, you are in complete 
+            control of your funds and privacy, no one else can see anyone else’s balances or transactions.</p>
+
+        <p>The main features of the coin:</p>
+
+        <ul>
+            <li><a>Anonymity.</a> Monero transactions are anonymous. It's impossible to find 
+                out the balance through its blockchain.</li>
+            <li><a>Security.</a> Complex mathematical solutions protect users' wallets and 
+            transactions conducted in Monero coins.</li>
+            <li><a>Decentralization.</a> Monero is not controlled by anyone, 
+            there are no controlling bodies or centralized servers in this system. 
+            The coin is managed by the community of the network.</li>
+        </ul>
     </div>,
 
     [$const.XRP]: <div>

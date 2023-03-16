@@ -17,6 +17,7 @@ const SidebarDesktop = () => {
 
 
     const [state, setState] = useState<IResult | null>(null)
+
     const [globalSum, setGlobalSum] = useState<number>(0.0000)
 
 
@@ -28,21 +29,27 @@ const SidebarDesktop = () => {
 
             const result = generation(data, assets)
 
+            if (result !== null) {
+
+                const value: Decimal.Value = result.coins.reduce((prev: Decimal.Value, acc, i) => {
+
+                    const course = rates.data[acc.abbreviation]
+
+                    const value = new Decimal(course).times(acc.balance)
+
+                    return value.plus(prev)
+
+                }, new Decimal(0))
+
+                setGlobalSum(+value)
+            }
+
             const rates = await apiMarketGetRates(phone, token)
 
-            const rates2 = await apiMarketGetRates(phone, token, "BTC")
+            // const rates2 = await apiMarketGetRates(phone, token, "BTC")
 
-            console.log(rates2)
-
-            const val = result.coins.reduce((prev, acc, i) => {
-                const course = rates.data[acc.abbreviation]
-                const value = new Decimal(course).times(acc.balance)
-                return value.plus(prev)
-            }, 0).plus(result.eurg.balance).toFixed(4)
 
             setState(result)
-
-            setGlobalSum(val)
 
         })()
 
@@ -70,8 +77,8 @@ const SidebarDesktop = () => {
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1"><span>EURG Gekkoin</span></div>
-                        <div className="row w-full"><span
-                            className="text-gray text-sm">{state?.eurg.balance ?? 0} EURG</span>
+                        <div className="row w-full">
+                            <span className="text-gray text-sm">{+state?.eurg.balance ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>

@@ -29,10 +29,12 @@ module.exports = {
         extend: {
             colors: {
                 'blue-light': '#00AEEF',
-                'gray': '#888A92',
-                'gray-dark': '#3A3A3A',
-                'gray-semilight': '#b4c0cd',
-                'gray-light': '#dee2e7',
+                gray: {
+                    DEFAULT: '#888A92',
+                    200: '#dee2e7',
+                    400: '#b4c0cd',
+                    dark: '#3A3A3A',
+                },
                 'blue': '#1fb6ff',
                 'purple': '#7e5bef',
                 'pink': '#ff49db',

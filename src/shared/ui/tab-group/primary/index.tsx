@@ -27,7 +27,7 @@ function PrimaryTabGroup ({
                 </div>
             </div>
 
-            <div className="block justify-center h-[2px] absolute bg-gray-light mt-9 w-full"/>
+            <div className="block justify-center h-[2px] absolute bg-gray-200 mt-9 w-full"/>
         </div>
 )}
 

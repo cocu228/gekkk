@@ -37,7 +37,7 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
-            <footer className='text-gray-semilight text-center text-sm font-normal mt-auto mb-10 mb max-w-[756px]'>
+            <footer className='text-gray-400 text-center text-sm font-normal mt-auto mb-10 mb max-w-[756px]'>
                 <p className='mb-4 font-inherit text-inherit'>
                     <a
                         className='hover:underline'

@@ -1,4 +1,4 @@
-import Tab from "./ui/Tab";
+import styles from './style.module.scss'
 
 interface TabGroupParams {
     tabs: Record<string, string>,
@@ -17,13 +17,18 @@ function PrimaryTabGroup ({
         <div className='flex relative pt-4 mb-8 ml-[calc(-1*var(--content-pad-left))] mr-[calc(-1*var(--content-pad-right))]'>
             <div className='w-full px-4 ml-[var(--content-pad-left)] mr-[var(--content-pad-right)]'>
                 <div className='flex pb-[10px]'>
-                    {Object.keys(tabs).map(key => (
-                        <Tab
-                            onClick={() => setActiveTab(key)}
-                            isActive={key === activeTab}>
-                            {tabs[key]}
-                        </Tab>
-                ))}
+                    {Object.keys(tabs).map(tab => (
+                        <button
+                            key={tab}
+                            className={`
+                                ${styles.Tab}
+                                ${tab === activeTab ? 'active' : ''}
+                            `}
+                            onClick={() => setActiveTab(tab)}
+                        >
+                            {tabs[tab]}
+                        </button>
+                    ))}
                 </div>
             </div>
 

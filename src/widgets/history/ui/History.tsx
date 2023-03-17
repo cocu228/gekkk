@@ -26,7 +26,7 @@ function History({title, withSurface = true, className}: Props) {
             {title && (
                 <SectionTitle>{title}</SectionTitle>
             )}
-            <div className={withSurface ? `bg-white rounded-md p-4 ${className} ${styles.surface}` : ''}>
+            <div className={withSurface ? `bg-white rounded-md p-4 ${className} ${styles.Surface}` : ''}>
                 <SecondaryTabGroup tabs={historyTabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
                 <Table
                     data={{

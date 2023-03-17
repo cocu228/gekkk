@@ -1,5 +1,4 @@
-import React from 'react';
-import Select from "@/shared/ui/select/Select";
+import styles from './style.module.scss'
 
 interface TabGroupParams {
     tabs: Record<string, string>,
@@ -16,13 +15,13 @@ function SecondaryTabGroup({
 
     return (
         <div className="wrapper">
-            <div className="inline-flex flex-wrap bg-[#F9F9FA] rounded-[4px] phone:hidden">
+            <div className="inline-flex flex-wrap rounded-[4px] phone:hidden">
                 {Object.keys(tabs).map(tab => (
                     <button
                         key={tab}
                         className={`
-                            bg-none px-[10px] rounded-[4px] py-[6px] text-[14px] font-medium border-solid border-1 
-                            ${tab === activeTab ? 'text-gray-dark border-blue' : 'text-gray border-[#F9F9FA]'}
+                            ${styles.Tab}
+                            ${tab === activeTab ? 'active' : ''}
                         `}
                         onClick={() => setActiveTab(tab)}
                     >

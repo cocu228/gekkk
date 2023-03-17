@@ -18,12 +18,19 @@ const walletTabs: Record<string, string> = {
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
-(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.`
+(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.`;
 
-const EurgDescriptionText: string = `Utility token with a fixed rate\n1 EURG = 1 euro`
+const EurgDescriptionText: string = `Utility token with a fixed rate\n1 EURG = 1 euro`;
 
-function getDescriptionText(name: string, currency: string) {
-    return `Top up, Exchange and Send your ${name} (${currency}) directly from your Gekkoin account`
+function getDescriptionText(name: string, currency: string, flags: number) {
+    let methods: string;
+
+    if (flags === 8 || flags === 2)
+        methods = flags === 8 ? 'Top up, Exchange and Send' : 'Buy or Sell';
+    else
+        return 'Short description for this currency is not done yet.';
+
+    return `${methods} your ${name} (${currency}) directly from your Gekkoin account`;
 }
 
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
@@ -36,11 +43,16 @@ function Wallet() {
     let [activeTab, setActiveTab] = useState(getInitialTab(tab));
 
     const walletAsset = assetsCoinsName<IApiMarketAssets[]>(state => state.assets)
-    ?.find(asset => asset.code === currency);
+        ?.find(asset => asset.code === currency);
 
     if (!currency || !walletAsset) return null;
 
-    const isFiat: boolean = ['EURG', 'USDG'].includes(currency);
+    const isEURG: boolean = currency === 'EURG';
+    const {
+        name,
+        decimal_prec,
+        flags
+    } = walletAsset
 
     return (
         <div className="flex flex-col w-full">
@@ -69,7 +81,7 @@ function Wallet() {
                             </div>
                         </div>
 
-                        {isFiat && (
+                        {isEURG && (
                             <div className='flex flex-col content-around ml-[50px]'>
                                 <div className="text-sm font-medium text-semilight">
                                     Rate
@@ -90,10 +102,10 @@ function Wallet() {
 
                     <div className="ml-auto text-right">
                         <div className="font-bold text-[32px] leading-[48px] text-gray-dark mb-4">
-                            {walletAsset.name} wallet
+                            {name} wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
-                            {isFiat ? EurgDescriptionText : getDescriptionText(walletAsset.name, currency)}  
+                            {isEURG ? EurgDescriptionText : getDescriptionText(name, currency, flags)}  
                         </div>
                     </div>
                 </div>
@@ -109,13 +121,15 @@ function Wallet() {
                 <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <Topup
-                            isFiat={isFiat}
+                            isFiat={false}
+                            //flags={flags}
                         />
                     )}
                     {activeTab === 'about' && (
                         <About
                             currency={currency}
-                            name={walletAsset.name}
+                            name={name}
+                            flags={flags}
                         />
                     )}
                 </div>

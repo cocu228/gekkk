@@ -48,7 +48,15 @@ function Wallet() {
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
                         <div className="mr-6 h-[50px] w-[50px]">
-                            <img src={`/public/img/icon/${currency}Icon.svg`} alt="logo"/>
+                            <img 
+                                src={`/public/img/icon/${currency}Icon.svg`}
+                                onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src='/public/img/icon/HelpIcon.svg';
+                                    currentTarget.height = 50;
+                                    currentTarget.width = 50;
+                                }}
+                                alt={currency}/>
                         </div>
 
                         <div className="flex flex-col content-around">
@@ -68,7 +76,7 @@ function Wallet() {
 
                                     <Tooltip text={EurgTooltipText}>
                                         <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                            <img src="/public/img/icon/HelpIcon.svg" alt="logo"/>
+                                            <img src="/public/img/icon/HelpIcon.svg" alt="tooltip"/>
                                         </div>
                                     </Tooltip>
                                 </div>

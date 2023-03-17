@@ -19,6 +19,7 @@ const About = ({currency, name}: AboutParams) => {
                             currentTarget.height = 50;
                             currentTarget.width = 50;
                         }}
+                        alt={currency}
                     />
                 </div>
 

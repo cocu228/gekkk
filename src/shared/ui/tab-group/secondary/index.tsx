@@ -2,7 +2,7 @@ import React from 'react';
 import Select from "@/shared/ui/select/Select";
 
 interface TabGroupParams {
-    tabs: {[key: string]: string},
+    tabs: Record<string, string>,
     activeTab: string,
     setActiveTab: (key: string) => void,
 }

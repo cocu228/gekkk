@@ -4,7 +4,7 @@ import Table from "@/shared/ui/table/Table";
 import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
 import styles from './style.module.scss';
 
-const historyTabs: {[key: string]: string} = {
+const historyTabs: Record<string, string> = {
     'month': 'This month',
     '30_days': 'Last 30 days',
     '90_days': 'Last 90 days',

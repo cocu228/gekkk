@@ -8,7 +8,7 @@ import Topup from "@/widgets/wallet-tabs/topup/ui/Topup";
 import { assetsCoinsName } from "@/shared/store";
 import { IApiMarketAssets } from "@/shared/api/market/market-assets";
 
-const walletTabs: {[key: string]: string} = {
+const walletTabs: Record<string, string> = {
     'topup': 'Top up',
     'withdraw': 'Withdraw',
     'transfer': 'Transfer to contact',

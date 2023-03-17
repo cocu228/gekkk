@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
 
-const fiatTabs: {[key: string]: string} = {
+const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
     'bank_card': 'Bank Card',
     'crypto': 'Blockchain wallet',
 }
 
-const cryptoTabs: {[key: string]: string} = {
+const cryptoTabs: Record<string, string> = {
     'crypto': 'Blockchain wallet',
 }
 

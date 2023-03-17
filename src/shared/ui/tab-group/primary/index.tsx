@@ -1,7 +1,7 @@
 import Tab from "./ui/Tab";
 
 interface TabGroupParams {
-    tabs: {[key: string]: string},
+    tabs: Record<string, string>,
     activeTab: string,
     setActiveTab: (key: string) => void,
 }

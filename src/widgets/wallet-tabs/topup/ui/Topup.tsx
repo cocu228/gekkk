@@ -12,11 +12,11 @@ const cryptoTabs: Record<string, string> = {
 }
 
 interface TopUpParams {
-    isFiat: boolean,
+    flags: number
 }
 
-const Topup = ({isFiat}: TopUpParams) => {
-    let availableMethods = isFiat ? fiatTabs : cryptoTabs
+const Topup = ({flags}: TopUpParams) => {
+    let availableMethods = flags === 8 ? fiatTabs : cryptoTabs
     const [activeTab, setActiveTab] = useState('gek_card')
 
     if (!Object.keys(availableMethods).includes(activeTab)) {

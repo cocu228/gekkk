@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { assetsCoinsName } from "@/shared/store";
+import { IApiMarketAssets } from "@/shared/api/market/market-assets";
+
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-tabs/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import Topup from "@/widgets/wallet-tabs/topup/ui/Topup";
-import { assetsCoinsName } from "@/shared/store";
-import { IApiMarketAssets } from "@/shared/api/market/market-assets";
 
 const walletTabs: Record<string, string> = {
     'topup': 'Top up',
@@ -121,8 +122,7 @@ function Wallet() {
                 <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <Topup
-                            isFiat={false}
-                            //flags={flags}
+                            flags={flags}
                         />
                     )}
                     {activeTab === 'about' && (

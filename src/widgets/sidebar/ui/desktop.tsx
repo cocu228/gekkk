@@ -57,7 +57,7 @@ const SidebarDesktop = () => {
                 </div>
             </div>
             <NavLink to={"wallet/EURG"}>
-                <div className={styles.Item}>
+                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Coin} src={`/img/icon/EurgIcon.svg`}
                              alt="EURG"/>
@@ -71,7 +71,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavLink to={"wallet/USDG"}>
-                <div className={styles.Item}>
+            <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Coin} src={`/img/icon/UsdgIcon.svg`}
                              alt="UsdgIcon"/>
@@ -85,7 +85,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavLink to={"exchange"}>
-                <div className={styles.Item}>
+                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
                              alt="ExchangeIcon"/>
@@ -97,7 +97,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavLink to={"deposit"}>
-                <div className={styles.Item}>
+                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/NewDepositIcon.svg`}
                              alt="NewDepositIcon"/>
@@ -113,7 +113,7 @@ const SidebarDesktop = () => {
                 <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
             <NavLink to={""}>
-                <div className={styles.Item}>
+                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
                              alt="Invest"/>
@@ -130,7 +130,7 @@ const SidebarDesktop = () => {
 
             {state?.coins.map((item, i) =>
                 <NavLink to={`wallet/${item.abbreviation}`} key={item.id}
-                         className={styles.Item}>
+                className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img className={`${styles.Coin} mr-3`} width={14} height={14}
                              src={`/img/icon/DepositAngleArrowIcon.svg`}

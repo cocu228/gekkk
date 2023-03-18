@@ -90,3 +90,7 @@ Multi-storage который предусматривает опциональн
 ## Операции с числами ([Decimal.js](https://github.com/MikeMcl/decimal.js/))
 
 Экземпляр Decimal увеличивает точность вычислений JavaScript. Полнофункциональный API Повторяет многие методы объектов JavaScript Number.prototype и Math
+
+## Работа с датами ([Date-fns](https://date-fns.org/docs/Getting-Started))
+
+date-fns предоставляет наиболее полный, но простой и последовательный набор инструментов для управления датами JavaScript в браузере и Node.js.

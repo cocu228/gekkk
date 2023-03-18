@@ -10,9 +10,9 @@ export type S = "authorization" | "code" | "qr-code"
 const AuthPage = () => {
 
     useEffect(() => {
-        let url = document.location.toString()
-        let params = new URL(url).searchParams;
-        let sessionId = params.get("sessionId");
+        let url = document.location.toString(),
+            params = new URL(url).searchParams,
+            sessionId = params.get("sessionId");
 
         if (sessionId) {
             apiQRCode(sessionId).then(res => {

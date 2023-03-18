@@ -5,7 +5,7 @@ import Button from "@/shared/ui/button/Button";
 interface Props {
     title: string,
     iconUrl: string,
-    balance: string,
+    balance: number,
     currency: string,
     price: string,
     onTopUp: () => void,

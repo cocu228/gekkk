@@ -2,11 +2,11 @@ import {create} from 'zustand'
 // import {immer} from "zustand/middleware/immer";
 import {devtools} from "zustand/middleware";
 import {persist} from "zustand/middleware";
-import {apiMarketAssets, IApiMarketAssets} from "@/shared/api";
+import {apiGetMarketAssets, IResMarketAssets} from "@/shared/api";
 // import {AxiosResponse} from "axios";
 
 export interface IAssetsCoinsName {
-    assets: Array<IApiMarketAssets> | [];
+    assets: Array<IResMarketAssets>;
     getAssets: (phone: string, token: string) => void
 
 }
@@ -14,10 +14,8 @@ export interface IAssetsCoinsName {
 export const assetsCoinsName = create<IAssetsCoinsName>()(persist(devtools((set) => ({
     assets: [],
     getAssets: async (phone: string, token: string) => {
-
-        const result = await apiMarketAssets(phone, token)
+        const result = await apiGetMarketAssets()
         const {data} = result
-
         //todo creat errorHandler
         set((state) => ({...state, assets: data ?? []}))
     },

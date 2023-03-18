@@ -1,7 +1,7 @@
 import $axios from "@/shared/lib/(cs)axios";
 import $const from "@/shared/config/coins/constants";
 
-export interface IApiMarketAssets {
+export interface IResMarketAssets {
     code: $const;
     name: string;
     unified_cryptoasset_id: number;
@@ -13,12 +13,10 @@ export interface IApiMarketAssets {
     flags: number;
 }
 
-export const apiMarketAssets = (phone: string, token: string, currency?: string) =>
-    $axios.get<Array<IApiMarketAssets>>('/gek/v1/market/assets', {
+export const apiGetMarketAssets = (currency?: string) =>
+    $axios.get<Array<IResMarketAssets>>('/gek/v1/market/assets', {
         headers: {
             currency,
-            token,
-            "Authorization": phone
         },
         transformResponse: [(data) => {
             return JSON.parse(data)

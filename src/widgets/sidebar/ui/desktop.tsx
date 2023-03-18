@@ -1,8 +1,7 @@
 import styles from "./desktop.module.scss"
 import Footer from "@/widgets/footer";
 import {useEffect, useState} from "react";
-import {apiGetBalance, apiMarketGetRates} from "@/shared/api";
-import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
+import {apiGetBalance, apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
 import {generation, IResult} from "@/widgets/sidebar/module/helper";
 import {assetsCoinsName} from "@/shared/store";
@@ -10,11 +9,7 @@ import Decimal from "decimal.js";
 
 const SidebarDesktop = () => {
 
-    const [{phone}] = useSessionStorage("session-auth", {phone: "", sessionId: "", code: ""})
-    const [{token}] = useSessionStorage("session-global", {token: ""})
-
     const assets = assetsCoinsName(state => state.assets)
-
 
     const [state, setState] = useState<IResult | null>(null)
 
@@ -24,27 +19,19 @@ const SidebarDesktop = () => {
     useEffect(() => {
 
         (async () => {
-
-            const {data} = await apiGetBalance(phone, token);
-
+            const {data} = await apiGetBalance();
             const result = generation(data, assets)
+            const rates = await apiGetRates()
 
             if (result !== null) {
+                const value: number = result.coins.reduce<Decimal>((previousValue: Decimal.Value, currentValue, i) => {
+                    const course = rates.data[currentValue.abbreviation]
+                    const value = new Decimal(course).times(currentValue.balance)
+                    return value.plus(previousValue)
+                }, new Decimal(0)).toDecimalPlaces(4).toNumber()
 
-                const value: Decimal.Value = result.coins.reduce((prev: Decimal.Value, acc, i) => {
-
-                    const course = rates.data[acc.abbreviation]
-
-                    const value = new Decimal(course).times(acc.balance)
-
-                    return value.plus(prev)
-
-                }, new Decimal(0))
-
-                setGlobalSum(+value)
+                setGlobalSum(value)
             }
-
-            const rates = await apiMarketGetRates(phone, token)
 
             // const rates2 = await apiMarketGetRates(phone, token, "BTC")
 
@@ -152,11 +139,10 @@ const SidebarDesktop = () => {
                              src={`/img/icon/${item.icon}`}
                              onError={({currentTarget}) => {
                                  if (currentTarget.getAttribute("data-icon") === "empty") return null
-                                 currentTarget.onerror = null
                                  currentTarget.setAttribute("data-icon", "empty")
                                  currentTarget.src = "/img/icon/HelpIcon.svg"
-                             }
-                             }
+                                 currentTarget.onerror = null
+                             }}
                              alt={item.name}/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">

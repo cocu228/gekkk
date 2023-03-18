@@ -112,13 +112,15 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light">Forgot your
+            <a onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light">Forgot
+                your
                 PIN? Log in with a QR code
-            </button>
+            </a>
         </div>
 
         <div className="row mb-8">
-            <Button disabled={state.loading} htmlType="submit" className="w-full disabled:opacity-5 !text-white">Login</Button>
+            <Button disabled={state.loading} tabIndex={0} htmlType="submit"
+                    className="w-full disabled:opacity-5 !text-white">Login</Button>
         </div>
 
         <div className='text-center'>

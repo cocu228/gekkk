@@ -97,13 +97,13 @@ const FormCode = memo(({handleView}: TProps) => {
         </FormItem>
 
         <div className="row text-right mb-9">
-            <button onClick={onBack} className="text-sm text-gray underline">
+            <a onClick={onBack} className="text-sm text-gray underline">
                 Re-send one-time code again
-            </button>
+            </a>
         </div>
         
         <div className="row">
-            <Button disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
+            <Button tabIndex={0} disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
         </div>
     </Form>
 })

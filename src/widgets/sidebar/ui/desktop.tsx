@@ -70,16 +70,16 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            <NavLink to={"wallet/USDG"}>
+            <NavLink to={"wallet/GKE"}>
             <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/UsdgIcon.svg`}
-                             alt="UsdgIcon"/>
+                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/GKEIcon.svg`}
+                             alt="GKE"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span>USD Gekkoin</span></div>
+                        <div className="row w-full mb-1"><span>Gekkoin Invest Token</span></div>
                         <div className="row w-full"><span
-                            className="text-gray text-sm">0.0000 USDG</span>
+                            className="text-gray text-sm">0.0000 GKE</span>
                         </div>
                     </div>
                 </div>

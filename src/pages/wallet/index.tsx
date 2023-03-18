@@ -60,14 +60,15 @@ function Wallet() {
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
-                        <div className="mr-6 h-[50px] w-[50px]">
+                        <div className="mr-6">
                             <img 
+                                className="h-[50px] w-[50px]"
                                 src={`/public/img/icon/${currency}Icon.svg`}
                                 onError={({ currentTarget }) => {
-                                    currentTarget.onerror = null;
-                                    currentTarget.src='/public/img/icon/HelpIcon.svg';
-                                    currentTarget.height = 50;
-                                    currentTarget.width = 50;
+                                    if (currentTarget.getAttribute("data-icon") === "empty")
+                                        return null
+
+                                    currentTarget.setAttribute("data-icon", "empty")
                                 }}
                                 alt={currency}/>
                         </div>

@@ -16,8 +16,10 @@ const About = ({currency, name, flags}: AboutParams) => {
                         className='h-[50px] w-[50px]'
                         src={`/public/img/icon/${currency}Icon.svg`}
                         onError={({ currentTarget }) => {
-                            currentTarget.onerror = null;
-                            currentTarget.src='/public/img/icon/HelpIcon.svg';
+                            if (currentTarget.getAttribute("data-icon") === "empty")
+                                return null
+
+                            currentTarget.setAttribute("data-icon", "empty")
                         }}
                         alt={currency}
                     />

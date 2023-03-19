@@ -12,13 +12,13 @@ function CryptoAssets() {
         <div className="wrapper">
             <SectionTitle>Crypto assets</SectionTitle>
             <CardsGrid>
-                {sortedListBalance.coins.map((item, i) => <CryptoAssetCard
+                {sortedListBalance.map((item, i) => <CryptoAssetCard
                     title="EURG Gekkoin"
                     key={"CryptoAssetCard-" + i}
-                    iconName={item.icon}
+                    iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}
                     coinName={item.name}
-                    balance={item.balance.toNumber()}
-                    currency={item.abbreviation}
+                    balance={item.availableBalance.toNumber()}
+                    currency={item.const}
                     price=""
                     onTopUp={() => {
                         console.log('top up')

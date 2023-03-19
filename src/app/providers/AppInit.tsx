@@ -4,7 +4,7 @@ import RootLayout from "@/app/providers/RootLayout";
 
 const AppInit = () => {
 
-    const {token, login} = useAuth();
+    const {token} = useAuth();
 
     if (!token) {
         return <AuthPage/>;

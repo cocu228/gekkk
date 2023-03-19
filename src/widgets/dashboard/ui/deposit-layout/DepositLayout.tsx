@@ -42,6 +42,7 @@ function Deposits() {
             <CardsGrid>
                 {state.map((item, i) => <DepositCard
                     title={strategyTypes[item.dep_type]}
+                    key={"DepositCard-" + i}
                     subtitle={`Opened ${format(new Date(item.date_start), "dd MMMM yyyy")}`}
                     price={new Decimal(item.amount).toNumber()}
                     currency={item.currency_id}

@@ -1,12 +1,12 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {apiGetBalance, IResBalance, IResMarketAssets} from "@/shared/api";
-import {generation, ISortedListBalance} from "@/widgets/sidebar/module/helper";
+import {sortingListBalance, ISortedListBalance} from "@/widgets/sidebar/module/sorting-list-balance";
 
 export interface IAvailableBalance {
     defaultListBalance: Array<IResBalance>;
     // filterListBalance: null,
-    sortedListBalance: ISortedListBalance | null,
+    sortedListBalance: Array<ISortedListBalance> | null,
     getDefaultListBalance: () => Promise<boolean>;
     setSortedListBalance: (value: Array<IResMarketAssets>) => boolean;
 
@@ -33,7 +33,7 @@ export const storeListAvailableBalance = create<IAvailableBalance>()(devtools((s
     setSortedListBalance: (value) => {
 
         set((state) => {
-            const result = generation(state.defaultListBalance, value)
+            const result = sortingListBalance(state.defaultListBalance, value)
             return {...state, sortedListBalance: result}
         })
 

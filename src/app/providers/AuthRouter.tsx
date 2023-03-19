@@ -1,6 +1,7 @@
 import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSessionStorage} from "usehooks-ts";
+import $axios from "@/shared/lib/(cs)axios";
 
 const AuthContext = createContext({});
 
@@ -19,24 +20,33 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string) => {
 
-        const listener = function (event) {
+        // const listener = function (event) {
+        //
+        //     window.removeEventListener('click', listener, false);
+        // };
+        //
+        // window.addEventListener('click', listener, false);
 
-            sessionStorage.removeItem("session-auth")
+        sessionStorage.removeItem("session-auth")
 
-            navigate("/");
+        setSessionGlobal(prev => ({token, phone}))
 
-            window.removeEventListener('click', listener, false);
-        };
+        $axios.defaults.headers.common['token'] = token;
+        $axios.defaults.headers.common['Authorization'] = phone;
 
-        window.addEventListener('click', listener, false);
+        navigate("/");
 
-        setSessionGlobal(prev => ({phone, token}))
 
     };
 
     // call this function to sign out logged in user
     const logout = () => {
+
+        $axios.defaults.headers.common['token'] = undefined;
+        $axios.defaults.headers.common['Authorization'] = undefined;
+
         setSessionGlobal({});
+
         navigate("/", {replace: true});
     };
 

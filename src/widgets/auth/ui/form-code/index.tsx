@@ -18,6 +18,8 @@ type TProps = {
     handleView: (val: S) => void
 }
 
+const sessionKey = "session-auth"
+
 const FormCode = memo(({handleView}: TProps) => {
 
     const {login} = useAuth();
@@ -29,7 +31,7 @@ const FormCode = memo(({handleView}: TProps) => {
         loading: false
     });
 
-    const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""})
+    const [{phone, sessionId}] = useSessionStorage(sessionKey, {phone: "", sessionId: ""})
     const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
     const onBack = () => handleView("authorization")
@@ -44,18 +46,11 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 setSessionGlobal({sessionId: res.data.sessid})
 
-                console.log(state.code)
-
-                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then((res) => {
+                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then(async (res) => {
 
                     if (res.data.errors) throw new Error(res.data.errors[0].message)
 
-                    setSessionGlobal(prev => ({
-                        ...prev,
-                        token: res.data.token
-                    }))
-
-                    login(res.data.token)
+                    login(phone, res.data.token)
 
                 }).catch(e => {
 

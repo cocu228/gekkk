@@ -7,7 +7,7 @@ const AuthContext = createContext({});
 
 interface IValue {
     token: string;
-    login: (data: string) => void;
+    login: (phone: string, token: string) => void;
     logout: () => void;
 }
 
@@ -17,10 +17,21 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
-    const login = async (data: string) => {
-        setSessionGlobal(prev => ({...prev, token: data}));
+    const login = (phone: string, token: string) => {
 
-        navigate("/");
+        const listener = function (event) {
+
+            sessionStorage.removeItem("session-auth")
+
+            navigate("/");
+
+            window.removeEventListener('click', listener, false);
+        };
+
+        window.addEventListener('click', listener, false);
+
+        setSessionGlobal(prev => ({phone, token}))
+
     };
 
     // call this function to sign out logged in user

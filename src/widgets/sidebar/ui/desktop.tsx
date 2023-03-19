@@ -1,30 +1,26 @@
 import styles from "./desktop.module.scss"
 import Footer from "@/widgets/footer";
 import {useEffect, useState} from "react";
-import {apiGetBalance, apiGetRates} from "@/shared/api";
+import {apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
-import {generation, IResult} from "@/widgets/sidebar/module/helper";
-import {assetsCoinsName} from "@/shared/store";
+import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
 import Decimal from "decimal.js";
+import {ParentClassForCoin, IconCoin} from "@/shared/ui/icon-coin";
 
 const SidebarDesktop = () => {
 
-    const assets = assetsCoinsName(state => state.assets)
-
-    const [state, setState] = useState<IResult | null>(null)
-
+    const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const [globalSum, setGlobalSum] = useState<number>(0.0000)
 
 
     useEffect(() => {
 
         (async () => {
-            const {data} = await apiGetBalance();
-            const result = generation(data, assets)
+
             const rates = await apiGetRates()
 
-            if (result !== null) {
-                const value: number = result.coins.reduce<Decimal>((previousValue: Decimal.Value, currentValue, i) => {
+            if (sortedListBalance !== null) {
+                const value: number = sortedListBalance.coins.reduce<Decimal>((previousValue: Decimal.Value, currentValue, i) => {
                     const course = rates.data[currentValue.abbreviation]
                     const value = new Decimal(course).times(currentValue.balance)
                     return value.plus(previousValue)
@@ -35,8 +31,6 @@ const SidebarDesktop = () => {
 
             // const rates2 = await apiMarketGetRates(phone, token, "BTC")
 
-
-            setState(result)
 
         })()
 
@@ -65,7 +59,7 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1"><span>EURG Gekkoin</span></div>
                         <div className="row w-full">
-                            <span className="text-gray text-sm">{+state?.eurg.balance ?? 0} EURG</span>
+                            <span className="text-gray text-sm">{+sortedListBalance?.eurg.balance ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -128,22 +122,14 @@ const SidebarDesktop = () => {
                 <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
 
-            {state?.coins.map((item, i) =>
+            {sortedListBalance?.coins.map((item, i) =>
                 <NavLink to={`wallet/${item.abbreviation}`} key={item.id}
-                         className={styles.Item}>
+                         className={styles.Item + " " + ParentClassForCoin}>
                     <div className="col flex items-center pl-4">
                         <img className={`${styles.Coin} mr-3`} width={14} height={14}
                              src={`/img/icon/DepositAngleArrowIcon.svg`}
                              alt={"DepositAngleArrowIcon"}/>
-                        <img className={styles.Coin} width={50}
-                             src={`/img/icon/${item.icon}`}
-                             onError={({currentTarget}) => {
-                                 if (currentTarget.getAttribute("data-icon") === "empty") return null
-                                 currentTarget.setAttribute("data-icon", "empty")
-                                 currentTarget.src = "/img/icon/HelpIcon.svg"
-                                 currentTarget.onerror = null
-                             }}
-                             alt={item.name}/>
+                        <IconCoin coinName={item.name} iconName={item.icon}/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1"><span

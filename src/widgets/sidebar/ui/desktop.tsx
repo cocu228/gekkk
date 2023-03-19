@@ -112,7 +112,7 @@ const SidebarDesktop = () => {
                 <span className="text-gray text-sm mr-2">Currents deposit</span>
                 <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
-            <NavLink to={""}>
+            <NavLink to={"assets"}>
                 <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}

@@ -5,6 +5,7 @@ import Deposit from "@/pages/deposit";
 import Wallet from '@/pages/wallet';
 import Exchange from "@/pages/exchange";
 import AppInit from "@/app/providers/AppInit";
+import Assets from '@/pages/assets';
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: 'exchange',
                 element: <Exchange/>
+            },
+            {
+                path: 'assets',
+                element: <Assets/>
             },
             {
                 path: 'wallet/:coin/:tab?',

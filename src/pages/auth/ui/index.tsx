@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "@/app/styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code/index";
 import QRCode from "@/widgets/auth/ui/qr-code/index";
 import {apiQRCode} from "@/widgets/auth/api";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
 export type S = "authorization" | "code" | "qr-code"
 
 const AuthPage = () => {
+    const { md, sm } = useContext(BreakpointsContext);
 
     useEffect(() => {
         let url = document.location.toString(),
@@ -28,7 +30,11 @@ const AuthPage = () => {
 
     return (
         <div className='flex items-center w-screen h-full flex-col'>
-            <div className='bg-white w-[756px] min-h-m rounded-lg px-40 pt-10 pb-12 my-auto'>
+            <div className={
+                `bg-white min-h-m rounded-lg my-auto pb-12
+                ${  sm ? 'rounded-none px-16' :
+                    md ? 'max-w-[576px] px-20 pt-5' : 'max-w-[756px] px-40 pt-10'}`
+            }>
                 <div className="flex justify-center pt-8 pb-10">
                     <img src="/img/logo.svg" width={120} height={40} alt="logo"/>
                 </div>
@@ -37,7 +43,8 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
-            <footer className='text-gray text-center font-light mt-auto mb-10 mb max-w-[756px]'>
+            <footer className={`text-gray text-center font-light mt-auto mb-10 mb max-w-[756px]
+            ${!md ? '' : 'px-4'}`}>
                 <p className='mb-4'>
                     <a
                         className='font-inherit'

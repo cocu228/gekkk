@@ -18,6 +18,8 @@ type TProps = {
     handleView: (val: S) => void
 }
 
+const sessionKey = "session-auth"
+
 const FormCode = memo(({handleView}: TProps) => {
 
     const {login} = useAuth();
@@ -29,7 +31,7 @@ const FormCode = memo(({handleView}: TProps) => {
         loading: false
     });
 
-    const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""})
+    const [{phone, sessionId}] = useSessionStorage(sessionKey, {phone: "", sessionId: ""})
     const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
     const onBack = () => handleView("authorization")
@@ -44,18 +46,11 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 setSessionGlobal({sessionId: res.data.sessid})
 
-                console.log(state.code)
-
-                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then((res) => {
+                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then(async (res) => {
 
                     if (res.data.errors) throw new Error(res.data.errors[0].message)
 
-                    setSessionGlobal(prev => ({
-                        ...prev,
-                        token: res.data.token
-                    }))
-
-                    login(res.data.token)
+                    login(phone, res.data.token)
 
                 }).catch(e => {
 
@@ -97,13 +92,13 @@ const FormCode = memo(({handleView}: TProps) => {
         </FormItem>
 
         <div className="row text-right mb-9">
-            <button onClick={onBack} className="text-sm text-gray underline">
+            <a onClick={onBack} className="text-sm text-gray underline">
                 Re-send one-time code again
-            </button>
+            </a>
         </div>
         
         <div className="row">
-            <Button disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
+            <Button tabIndex={0} disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
         </div>
     </Form>
 })

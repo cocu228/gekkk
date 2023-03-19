@@ -1,10 +1,10 @@
 import {IResBalance} from "@/shared/api";
 import $const from "@/shared/config/coins/constants";
 import {randomId} from "@/shared/lib/helpers";
-import {IAssetsCoinsName} from "@/shared/store";
+import {IListAllCryptoName} from "@/shared/store/crypto-assets";
 import Decimal from "decimal.js";
 
-export interface IResult {
+export interface ISortedListBalance {
     eurg: Omit<TParamsResult, "holdBalance" | "name" | "icon">;
     coins: Array<TParamsResult>
 }
@@ -17,7 +17,7 @@ type TParamsResult = {
     icon: string
     name: string
 }
-export const generation = (data: IResBalance[], assets: IAssetsCoinsName['assets']): IResult | null => {
+export const generation = (data: IResBalance[], assets: IListAllCryptoName['listAllCryptoName']): ISortedListBalance | null => {
 
     if (!Array.isArray(data) || data.length === 0) return null
 

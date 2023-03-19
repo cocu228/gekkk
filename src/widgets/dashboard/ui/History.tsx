@@ -3,6 +3,7 @@ import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import Filter from "@/shared/ui/filter/Filter";
 import Table from "@/shared/ui/table/Table";
 import {apiHistoryTransactions} from "@/shared/api";
+import {sameOrAfter} from "@/shared/lib/date-helper";
 import {format, isSameSecond, isAfter, isBefore, subDays, subYears} from "date-fns";
 
 const historyFilters = [
@@ -12,13 +13,6 @@ const historyFilters = [
     {value: 'year', label: 'This year'},
     {value: 'custom', label: 'Custom period'},
 ];
-
-export const sameOrBefore = (d1 = new Date(), d2 = new Date()) => {
-    return isSameSecond(d1, d2) || isBefore(d1, d2);
-}
-export const sameOrAfter = (d1 = new Date(), d2 = new Date()) => {
-    return isSameSecond(d1, d2) || isAfter(d1, d2);
-}
 const filter = (historyList, selectedOption) => {
 
     switch (selectedOption) {

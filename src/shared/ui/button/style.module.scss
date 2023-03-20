@@ -156,4 +156,22 @@
       opacity: 0.5;
     }
   }
+
+  &.Text {
+    padding: 0px 4px !important;
+    font-size: 16px;
+    font-weight: 500;
+    color: #B4C0CD !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
 }

@@ -1,0 +1,19 @@
+.Tab {
+    background: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #F9F9FA;
+    border-color: #F9F9FA;
+    color: #888A92;
+    margin-bottom: 8px;
+}
+
+:global(.active) {
+    border-color: #00aeef;
+    font-weight: 500;
+    color: #3a3a3a;
+}

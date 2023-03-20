@@ -19,7 +19,7 @@ interface Props {
 
 function Table({data, noDataText = 'No data'}: Props) {
     return (
-        <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-[25px]">
+        <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
             {data.labels && (
                 <thead className="tablet:hidden">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">

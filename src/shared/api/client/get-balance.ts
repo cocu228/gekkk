@@ -1,6 +1,6 @@
 import $axios from "@/shared/lib/(cs)axios";
 import $const from "@/shared/config/coins/constants";
-export interface IApiGetBalance {
+export interface IResBalance {
     currency: $const;
     lock_out_balance: number;
     lock_in_balance: number;
@@ -8,12 +8,10 @@ export interface IApiGetBalance {
     free_balance: number;
 }
 
-export const apiGetBalance = (phone: string, token: string, currency?: string) =>
-    $axios.get<IApiGetBalance[]>('/gek/v1/client/get_balance', {
+export const apiGetBalance = (currency?: string) =>
+    $axios.get<IResBalance[]>('/gek/v1/client/get_balance', {
         headers: {
-            currency,
-            "Authorization": phone,
-            token
+            currency
         },
         transformResponse: [(data) => {
             return JSON.parse(data)

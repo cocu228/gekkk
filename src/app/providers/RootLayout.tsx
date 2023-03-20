@@ -1,29 +1,47 @@
-import {Outlet, Navigate} from 'react-router'
+import {Outlet} from 'react-router'
 import Header from "@/widgets/header/ui/";
 import Sidebar from "@/widgets/sidebar/ui/";
 import Main from "@/app/layouts/Main";
 import Content from "@/app/layouts/Content";
-import {useEffect} from "react";
-import {assetsCoinsName} from "@/shared/store";
-import {useSessionStorage} from "usehooks-ts";
+import {useEffect, useState} from "react";
 import Loader from "@/shared/ui/loader";
-import Decimal from 'decimal.js';
+import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
+import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";
 
 export default () => {
 
-    const [{phone}] = useSessionStorage("session-auth", {phone: ""})
-    const [{token}] = useSessionStorage("session-global", {token: "", phone: ""})
+    // const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
-    const assets = assetsCoinsName(state => state.assets)
-    const useAssetsRootLayout = assetsCoinsName(state => state.getAssets)
+    const getListAllCryptoName = storeListAllCryptoName(state => state.getListAllCryptoName)
+    const getDefaultListBalance = storeListAvailableBalance(state => state.getDefaultListBalance)
+    const setSortedListBalance = storeListAvailableBalance(state => state.setSortedListBalance)
+
+    const [state, setState] = useState({
+        loading: true
+    })
 
     useEffect(() => {
-        useAssetsRootLayout(phone, token)
+
+        (async function () {
+
+
+            const listAllCryptoName = await getListAllCryptoName()
+
+            // setSessionGlobal(prevState => ({...prevState, listAllCryptoName: listAllCryptoName}))
+
+            if (await getDefaultListBalance()) {
+                setSortedListBalance(listAllCryptoName) ? setState(prevState => ({
+                    ...prevState,
+                    loading: false
+                })) : null
+
+            }
+        })()
     }, [])
 
     return <>
         <Header/>
-        {assets.length > 0 ? <Main>
+        {!state.loading ? <Main>
             <Sidebar/>
             <Content>
                 <Outlet/>

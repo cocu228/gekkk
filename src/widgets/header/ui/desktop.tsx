@@ -37,14 +37,14 @@ const HeaderDesktop = () => {
         <header className={`flex ${styles.Header}`}>
             <div className={`flex items-center ${styles.ContainerLogo}`}>
                 <a href="/">
-                    <img src="/public/img/logo.svg" width={165} height={55} alt="logo"/>
+                    <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
             <button className="ml-auto" onClick={onBtnProfile}>
                 <Dropdown trigger={['click']} menu={{items, onClick}}>
                     <div className="flex items-center justify-end">
                         <div className="wrapper mr-2">
-                            <img width={26} height={26} src="/public/img/icon/UserIcon.svg" alt="UserIcon"/>
+                            <img width={26} height={26} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                         </div>
                         <div className="wrapper">
                             <div className="row">
@@ -53,7 +53,7 @@ const HeaderDesktop = () => {
                             </div>
                             <div className="row">
                                 <span className="text-xs text-gray font-semibold">Your current status: Start</span>
-                                <img className="inline-flex" src="/public/img/icon/DropdownTriangleIcon.svg"
+                                <img className="inline-flex" src="/img/icon/DropdownTriangleIcon.svg"
                                      alt="DropdownTriangleIcon"/>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ const HeaderDesktop = () => {
             </button>
             <button onClick={onBtnLogout}>
                 <div className="flex items-center justify-end ml-10">
-                    <img width={26} height={26} src="/public/img/icon/LogoutIcon.svg" alt="UserIcon"/>
+                    <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
                 </div>
             </button>
         </header>

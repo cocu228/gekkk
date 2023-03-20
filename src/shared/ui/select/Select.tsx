@@ -11,7 +11,7 @@ const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null =>
         <div className={`${styles.Select} ${!!Icon ? styles.withPrefix : ''} relative flex items-center`}>
             {/*<Icon className={styles.SelectPrefixIcon} style={ArrowDown} />*/}
 
-            <SelectAntd suffixIcon={<img src={'/public/img/icon/ArrowDown.svg'} alt=""/>} {...props} />
+            <SelectAntd suffixIcon={<img src={'/img/icon/ArrowDown.svg'} alt=""/>} {...props} />
         </div>
     );
 });

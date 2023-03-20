@@ -60,8 +60,13 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, SetValue<T>] {
 
             // We dispatch a custom event so every useSessionStorage hook are notified
             window.dispatchEvent(new Event('session-storage'))
+
+            return true
+
         } catch (error) {
             console.warn(`Error setting sessionStorage key “${key}”:`, error)
+
+            return false
         }
     })
 

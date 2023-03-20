@@ -3,9 +3,17 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/index.scss'
 import {ConfigProvider} from 'antd'
+import "./index"
+
+
+declare global {
+    interface String {
+        capitalize(): String;
+    }
+}
 
 Object.defineProperty(String.prototype, 'capitalize', {
-    value: function () {
+    value: function (this: string): string {
         return this.charAt(0).toUpperCase() + this.slice(1);
     },
     enumerable: false

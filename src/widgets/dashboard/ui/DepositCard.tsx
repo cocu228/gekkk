@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 interface Props {
     title: string,
     subtitle: string,
-    price: string,
+    price: number,
     currency: string,
     onOpenDeposit: () => void,
     linkUrl: string,

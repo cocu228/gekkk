@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import useMask from '@/shared/model/hooks/useMask';
 import {MASK_PHONE} from '@/shared/config/mask';
 import useValidation from '@/shared/model/hooks/useValidation';
@@ -11,25 +11,17 @@ import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {randomId} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {S} from "@/pages/auth/ui";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import {useSessionStorage} from "usehooks-ts";
 
-const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973'
-const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard'
-
-export type sessionAuth = "session-auth"
-const setSessionAuth = (sessionId: string, phone: string): void => {
-
-    sessionStorage.setItem("session-auth", JSON.stringify({
-        sessionId,
-        phone: phone,
-        currentTime: Date.now(),
-        id: randomId()
-    }));
-
-}
+const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973';
+const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard';
 
 const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 
     const {onInput} = useMask(MASK_PHONE);
+
+    const {md} = useContext(BreakpointsContext);
 
     const [state, setState] = useState({
         phone: "",
@@ -38,7 +30,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
     });
 
     const {phoneValidator, validationPassword} = useValidation();
-
+    const [, setSessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: "", currentTime: new Date()})
     const onFinish = () => {
 
         const phone = formatAsNumber(state.phone)
@@ -49,13 +41,9 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
             if (res.data?.status === "ok") {
 
                 apiRequestCode(phone).then(res => {
-
                     if (res.data?.success) {
-
-                        setSessionAuth(res.data.sessid, phone)
-
+                        setSessionAuth({sessionId: res.data.sessid, phone, currentTime: new Date()})
                         handleView("code")
-
                     } else {
                         setState(prev => ({...prev, loading: false}))
                     }
@@ -75,14 +63,15 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
     }
 
     return <Form onFinish={onFinish}>
-        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">
+        <h1 className={`font-extrabold text-center text-gray-dark pb-4
+                ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
         </h1>
 
-        <p className='text-center text-sm mb-9 text-gray font-normal'>
+        <p className='text-center mb-9 text-gray'>
             Login to your personal account is carried out through the
             <a
-                className='underline font-medium'
+                className='font-inherit underline'
                 href={APP_STORE_GEKKARD}
                 target={'_blank'}> Gekkard application
             </a> credentials
@@ -112,13 +101,15 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <button onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light hover:underline">Forgot your
+            <a onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-light">Forgot
+                your
                 PIN? Log in with a QR code
-            </button>
+            </a>
         </div>
 
         <div className="row mb-8">
-            <Button disabled={state.loading} htmlType="submit" className="w-full disabled:opacity-5 !text-white">Login</Button>
+            <Button disabled={state.loading} tabIndex={0} htmlType="submit"
+                    className="w-full disabled:opacity-5 !text-white">Login</Button>
         </div>
 
         <div className='text-center'>

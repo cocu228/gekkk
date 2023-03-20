@@ -10,7 +10,7 @@ function CryptoAssets() {
             <CardsGrid>
                 <CryptoAssetCard
                     title="EURG Gekkoin"
-                    iconUrl="/public/img/icon/XmrIcon.svg"
+                    iconUrl="/public/img/tokens/XmrIcon.svg"
                     balance="1000.00"
                     currency="EURG"
                     price="1000.00 €"
@@ -19,7 +19,7 @@ function CryptoAssets() {
                 />
                 <CryptoAssetCard
                     title="EURG Gekkoin"
-                    iconUrl="/public/img/icon/XmrIcon.svg"
+                    iconUrl="/public/img/tokens/XmrIcon.svg"
                     balance="1000.00"
                     currency="EURG"
                     price="1000.00 €"

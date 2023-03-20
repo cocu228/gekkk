@@ -63,7 +63,7 @@ function Wallet() {
                         <div className="mr-6">
                             <img 
                                 className="h-[50px] w-[50px]"
-                                src={`/public/img/icon/${currency}Icon.svg`}
+                                src={`/public/img/tokens/${currency}Icon.svg`}
                                 onError={({ currentTarget }) => {
                                     if (currentTarget.getAttribute("data-icon") === "empty")
                                         return null

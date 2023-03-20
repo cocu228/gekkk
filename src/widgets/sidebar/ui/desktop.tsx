@@ -65,7 +65,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/EURG"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/public/img/icon/EurgIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/public/img/tokens/EurgIcon.svg`}
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -79,7 +79,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/USDG"}>
                 <div className={styles.Item}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/public/img/icon/UsdgIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/public/img/tokens/UsdgIcon.svg`}
                              alt="UsdgIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -142,7 +142,7 @@ const SidebarDesktop = () => {
                              src={`/public/img/icon/DepositAngleArrowIcon.svg`}
                              alt={"DepositAngleArrowIcon"}/>
                         <img className={styles.Coin} width={50}
-                             src={`/public/img/icon/${item.icon}`}
+                             src={`/public/img/tokens/${item.icon}`}
                              onError={({currentTarget}) => {
                                  currentTarget.onerror = null
                                  currentTarget.src = "/public/img/icon/HelpIcon.svg"

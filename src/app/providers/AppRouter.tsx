@@ -29,7 +29,7 @@ const router = createBrowserRouter([
                 element: <Assets/>
             },
             {
-                path: 'wallet/:coin/:tab?',
+                path: 'wallet/:currency/:tab?',
                 element: <Wallet/>
             }
         ],

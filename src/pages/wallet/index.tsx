@@ -7,7 +7,7 @@ import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-tabs/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import Topup from "@/widgets/wallet-tabs/topup/ui/Topup";
+import TopUp from "@/widgets/wallet-tabs/topup/ui/TopUp";
 import { IApiGetBalance, apiGetBalance } from "@/shared/api";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
@@ -150,7 +150,7 @@ function Wallet() {
             <div className='flex grow shrink text-gray container mx-auto h-full mb-5 px-4'>
                 <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
-                        <Topup
+                        <TopUp
                             flags={flags}
                         />
                     )}

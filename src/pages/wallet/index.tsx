@@ -66,7 +66,7 @@ function Wallet() {
     const walletData = storeListAvailableBalance(state => state.defaultListBalance)
         ?.find(b => b.currency === currency);
 
-    const balance = walletData.free_balance?? 0;
+    const balance = walletData ? walletData.free_balance : 0;
 
     return (
         <div className="flex flex-col w-full">

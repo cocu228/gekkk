@@ -1,4 +1,5 @@
-import {Modal, Button} from "antd";
+import {Modal, Button as AntdButton} from "antd";
+import Button from "@/shared/ui/button/Button";
 
 interface IClosingDepositModal {
     isModalOpen: boolean,
@@ -33,9 +34,9 @@ const ClosingDepositModal = ({isModalOpen, handleCancel}: IClosingDepositModal) 
                     <p className="font-medium">1000 EURG</p>
                 </div>
 
-                <div className="flex gap-5">
-                    <Button className="w-full !text-white rounded-b bg-blue-600 disabled:opacity-50" onClick={handleCancel}>Close deposit</Button>
-                    <Button className="w-full !text-white rounded-b bg-blue-600 disabled:opacity-50" onClick={handleCancel}>Cancel</Button>
+                <div className="grid grid-cols-2 gap-6">
+                    <Button className="w-full flex-1" gray onClick={handleCancel}>Close deposit</Button>
+                    <AntdButton className="w-full !text-white rounded-b bg-blue-600 disabled:opacity-50" onClick={handleCancel}>Cancel</AntdButton>
                 </div>
             </div>
         </Modal>

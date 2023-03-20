@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { assetsCoinsName } from "@/shared/store";
-import { IApiMarketAssets } from "@/shared/api/market/market-assets";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {storeListAllCryptoName, storeListAvailableBalance} from "@/shared/store/crypto-assets";
+import {IResMarketAssets} from "@/shared/api/market/market-assets";
 
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
-import About from "@/widgets/wallet-tabs/about/ui/About";
+import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import TopUp from "@/widgets/wallet-tabs/topup/ui/TopUp";
-import { IApiGetBalance, apiGetBalance } from "@/shared/api";
+import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
+import {IResBalance} from "@/shared/api";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -32,20 +32,23 @@ function getDescriptionText(name: string, currency: string, flags: number) {
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
 function Wallet() {
-    const { currency, tab = '' } = useParams<string>();
+    const {currency, tab = ''} = useParams<string>();
     if (!currency) return null;
 
-    const walletAssets = assetsCoinsName<IApiMarketAssets[]>(state => state.assets)
-    ?.find(asset => asset.code === currency);
-    if (!walletAssets) return null;
-    
+    const listAllCryptoName = storeListAllCryptoName<IResMarketAssets[]>(state => state.listAllCryptoName)
+    const defaultListBalance = storeListAvailableBalance<IResBalance[]>(state => state.defaultListBalance)
+
+    const currentCryptoName = listAllCryptoName.find(asset => asset.code === currency);
+
+    if (!currentCryptoName) return null;
+
     const isEURG: boolean = currency === 'EURG';
     const {
         name,
         decimal_prec,
         flags
-    } = walletAssets
-    
+    } = currentCryptoName
+
     const walletTabs: Record<string, string> = {
         ...(flags === 8 && {
             'topup': 'Top up',
@@ -64,24 +67,9 @@ function Wallet() {
     if (!walletTabs[activeTab])
         setActiveTab(Object.keys(walletTabs)[0]);
 
-    //TODO: Remove this when state will be updated
-    const [state, setState] = useState<IApiGetBalance[] | null>(null)
-    useEffect(() => {
-
-        const phone: string = '79111111111';
-        const token: string = '78369b77ff788eac15326e420bf8a6ba';
-
-        (async () => {
-            const {data} = await apiGetBalance(phone, token);
-            setState(data);
-        })()
-    }, [])
-
-    if (!state) return null;
-
     const {
         free_balance: balance,
-    } = state?.find(w => w.currency === currency);
+    } = defaultListBalance.find(w => w.currency === currency) ?? {};
 
     return (
         <div className="flex flex-col w-full">

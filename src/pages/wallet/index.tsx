@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { assetsCoinsName } from "@/shared/store";
-import { IApiMarketAssets } from "@/shared/api/market/market-assets";
-
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
-import About from "@/widgets/wallet-tabs/about/ui/About";
+import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import TopUp from "@/widgets/wallet-tabs/topup/ui/TopUp";
-import { IApiGetBalance, apiGetBalance } from "@/shared/api";
+import TopUp from "@/widgets/wallet-stage/topup/ui/TopUp";
+import { storeListAvailableBalance, storeListAllCryptoName } from "@/shared/store/crypto-assets";
+import { IResMarketAssets } from "@/shared/api";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -33,18 +31,19 @@ const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
 function Wallet() {
     const { currency, tab = '' } = useParams<string>();
-    if (!currency) return null;
 
-    const walletAssets = assetsCoinsName<IApiMarketAssets[]>(state => state.assets)
-    ?.find(asset => asset.code === currency);
+    // TODO: Удалить заглушку GKE
+    if (currency === 'GKE') return null;
+
+    const walletAssets: IResMarketAssets[] = storeListAllCryptoName(state => state.listAllCryptoName);
+
     if (!walletAssets) return null;
-    
+
     const isEURG: boolean = currency === 'EURG';
     const {
         name,
-        decimal_prec,
         flags
-    } = walletAssets
+    } = walletAssets?.find(asset => asset.code === currency)
     
     const walletTabs: Record<string, string> = {
         ...(flags === 8 && {
@@ -64,24 +63,10 @@ function Wallet() {
     if (!walletTabs[activeTab])
         setActiveTab(Object.keys(walletTabs)[0]);
 
-    //TODO: Remove this when state will be updated
-    const [state, setState] = useState<IApiGetBalance[] | null>(null)
-    useEffect(() => {
+    const walletData = storeListAvailableBalance(state => state.defaultListBalance)
+        ?.find(b => b.currency === currency);
 
-        const phone: string = '79111111111';
-        const token: string = '78369b77ff788eac15326e420bf8a6ba';
-
-        (async () => {
-            const {data} = await apiGetBalance(phone, token);
-            setState(data);
-        })()
-    }, [])
-
-    if (!state) return null;
-
-    const {
-        free_balance: balance,
-    } = state?.find(w => w.currency === currency);
+    const balance = walletData.free_balance?? 0;
 
     return (
         <div className="flex flex-col w-full">
@@ -107,7 +92,7 @@ function Wallet() {
                             </div>
 
                             <div className="text-2xl font-bold text-gray-dark cursor-help">
-                                {balance?? 0} {currency}
+                                {balance} {currency}
                             </div>
                         </div>
 

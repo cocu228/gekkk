@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import useMask from '@/shared/model/hooks/useMask';
 import {MASK_PHONE} from '@/shared/config/mask';
 import useValidation from '@/shared/model/hooks/useValidation';
@@ -11,9 +11,10 @@ import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {randomId} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {S} from "@/pages/auth/ui";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
-const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973'
-const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard'
+const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973';
+const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard';
 
 export type sessionAuth = "session-auth"
 const setSessionAuth = (sessionId: string, phone: string): void => {
@@ -30,6 +31,8 @@ const setSessionAuth = (sessionId: string, phone: string): void => {
 const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 
     const {onInput} = useMask(MASK_PHONE);
+
+    const {md} = useContext(BreakpointsContext);
 
     const [state, setState] = useState({
         phone: "",
@@ -75,7 +78,8 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
     }
 
     return <Form onFinish={onFinish}>
-        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">
+        <h1 className={`font-extrabold text-center text-gray-dark pb-4
+                ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
         </h1>
 

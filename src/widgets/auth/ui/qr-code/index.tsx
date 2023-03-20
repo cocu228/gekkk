@@ -1,18 +1,21 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, {memo, useContext, useEffect, useRef, useState} from 'react';
 import {S} from "@/pages/auth/ui";
 import ReactQRCode from "react-qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
 
 type TProps = {
-    handleView: (val: S) => void
+    handleView: (val: S) => void;
 }
 
 const QRCode = memo(({handleView}: TProps) => {
 
-    const [hash, setHash] = useState<null | string>(null)
-    const ref = useRef<ReturnType<typeof setInterval> | null>(null)
+    const [hash, setHash] = useState<null | string>(null);
+    const ref = useRef<ReturnType<typeof setInterval> | null>(null);
     // const {login} = useAuth();
+
+    const {md} = useContext(BreakpointsContext);
 
     useEffect(() => {
 
@@ -20,23 +23,24 @@ const QRCode = memo(({handleView}: TProps) => {
             apiQRCode().then(res => {
                 if (typeof res.data === "string") {
 
-                    setHash(res.data)
+                    setHash(res.data);
 
                     ref.current = setInterval(() => {
                         apiQRCode(res.data).then(res => {
                             console.log(res)
-                        })
-                    }, 3000)
+                        });
+                    }, 3000);
                 }
             })
-        })()
+        })();
 
-        return () => clearInterval(ref.current !== null ? ref.current : undefined)
+        return () => clearInterval(ref.current !== null ? ref.current : undefined);
 
-    }, [])
+    }, []);
 
     return <>
-        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">Forgot your PIN?</h1>
+        <h1 className={`font-extrabold text-center text-gray-dark pb-4
+                ${md ? 'text-2xl' : 'text-header'}`}>Forgot your PIN?</h1>
         <div className="wrapper flex justify-center">
             <img width={240} src="/img/picture-mobile-app.png" alt="picture-mobile-app"/>
         </div>
@@ -78,4 +82,4 @@ const QRCode = memo(({handleView}: TProps) => {
     </>
 })
 
-export default QRCode
+export default QRCode;

@@ -1,0 +1,21 @@
+.Btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  padding: 0 5px;
+  min-width: 36px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--color-bgSecondary);
+  color: var(--color-secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--color-accent);
+    color: white;
+  }
+}

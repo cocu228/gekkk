@@ -8,7 +8,7 @@ interface Props {
 
 function SplitGrid({leftColumn, rightColumn}: Props) {
     return (
-        <div className={`flex bg-bgPrimary ${styles.SplitGrid}`}>
+        <div className={`flex bg-bgPrimary xxxl:flex-col ${styles.SplitGrid}`}>
             {leftColumn && (
                 <div className={`flex-1 ${styles.Left}`}>{leftColumn}</div>
             )}

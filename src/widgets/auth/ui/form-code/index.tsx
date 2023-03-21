@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useContext, useState} from 'react';
 import useMask from '@/shared/model/hooks/useMask';
 import {MASK_CODE} from '@/shared/config/mask';
 import Form from '@/shared/ui/form/Form';
@@ -12,10 +12,11 @@ import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useSessionStorage} from "usehooks-ts";
 import {apiSignIn} from "@/widgets/auth/api/";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
 
 type TProps = {
-    handleView: (val: S) => void
+    handleView: (val: S) => void;
 }
 
 const sessionKey = "session-auth"
@@ -24,6 +25,8 @@ const FormCode = memo(({handleView}: TProps) => {
 
     const {login} = useAuth();
 
+    const {md} = useContext(BreakpointsContext);
+
     const {onInput} = useMask(MASK_CODE);
 
     const [state, setState] = useState({
@@ -31,18 +34,19 @@ const FormCode = memo(({handleView}: TProps) => {
         loading: false
     });
 
-    const [{phone, sessionId}] = useSessionStorage(sessionKey, {phone: "", sessionId: ""})
-    const [, setSessionGlobal] = useSessionStorage("session-global", {})
+    const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""});
+    const [, setSessionGlobal] = useSessionStorage("session-global", {});
 
-    const onBack = () => handleView("authorization")
+    const onBack = () => handleView("authorization");
 
     const onFinish = () => {
 
-        setState(prev => ({...prev, loading: true}))
+        setState(prev => ({...prev, loading: true}));
 
         apiRequestCode(phone, formatAsNumber(state.code), sessionId).then(async res => {
 
             if (res.data?.success) {
+
 
                 setSessionGlobal({sessionId: res.data.sessid})
 
@@ -54,22 +58,23 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 }).catch(e => {
 
-                    alert(e)
-                    setState(prev => ({...prev, loading: false}))
-                    onBack()
-                    console.warn(e)
+                    alert(e);
+                    setState(prev => ({...prev, loading: false}));
+                    onBack();
+                    console.warn(e);
 
                 })
 
             } else {
-                setState(prev => ({...prev, loading: false}))
+                setState(prev => ({...prev, loading: false}));
             }
 
-        })
+        });
     }
 
     return <Form onFinish={onFinish}>
-        <h1 className="text-header font-extrabold text-center text-gray-dark pb-4">One-time code</h1>
+        <h1 className={`font-extrabold text-center text-gray-dark pb-4
+                ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray'>
             SMS with one-time code was sent to
             <br/>

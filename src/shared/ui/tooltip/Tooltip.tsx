@@ -11,7 +11,7 @@ const Tooltip = ({children, text}: TooltipParams) => {
             <div className={`${styles.Child}`}>
                 {children}
             </div>
-            <div className={`${styles.TooltipContent} absolute z-10 invisible w-[300px] ease-out duration-500 bg-white text-gekLightGray text-left p-[10px] border-r-[4px] shadow-md whitespace-pre-line text-sm`}>
+            <div className={`${styles.TooltipContent} absolute z-20 invisible w-[300px] ease-out duration-500 bg-white text-gray-400 text-left p-[10px] border-r-[4px] shadow-md whitespace-pre-line text-sm`}>
                 {text}
             </div>
         </div>

@@ -17,7 +17,7 @@
     }
 }
 
-.ActiveTab {
+:global(.active) {
     border-color: #00aeef;
     font-weight: 500;
     color: #3a3a3a;

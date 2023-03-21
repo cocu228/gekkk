@@ -51,7 +51,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/EURG"}>
                 <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/EurgIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/img/tokens/EurgIcon.svg`}
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -66,7 +66,7 @@ const SidebarDesktop = () => {
             <NavLink to={"wallet/GKE"}>
             <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/img/icon/GKEIcon.svg`}
+                        <img width={50} height={50} className={styles.Coin} src={`/img/tokens/GkeIcon.svg`}
                              alt="GKE"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">

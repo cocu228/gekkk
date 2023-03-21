@@ -2,6 +2,7 @@ import React from 'react'
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/deposit";
+import DepositFixed from "@/pages/deposit-fixed";
 import Wallet from '@/pages/wallet';
 import Exchange from "@/pages/exchange";
 import AppInit from "@/app/providers/AppInit";
@@ -29,9 +30,13 @@ const router = createBrowserRouter([
                 element: <Assets/>
             },
             {
-                path: 'wallet/:coin/:tab?',
+                path: 'wallet/:currency/:tab?',
                 element: <Wallet/>
-            }
+            },
+            {
+                path: 'deposit-fixed',
+                element: <DepositFixed/>
+            },
         ],
     },
 ]);

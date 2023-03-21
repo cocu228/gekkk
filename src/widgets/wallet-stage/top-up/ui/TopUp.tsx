@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
+import CryptoTopUp from './crypto/CryptoTopUp';
 
 const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
@@ -31,7 +32,9 @@ const TopUp = ({flags}: TopUpParams) => {
                 setActiveTab={setActiveTab}
             />
 
-
+            {activeTab === 'crypto' && (
+                <CryptoTopUp/>
+            )}
         </div>
     );
 };

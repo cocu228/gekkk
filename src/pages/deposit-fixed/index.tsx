@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Parameter from '@/shared/ui/parameter';
+import InlineProperty from '@/shared/ui/inline-property';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import ClosingDepositModal from '@/widgets/deposit/ui/modals/ClosingDepositModal';
@@ -36,9 +36,9 @@ function DepositFixed() {
 
             <div className='row flex-1 bg-white flex justify-between px-10 py-16 rounded-md'>
                 <div className="column w-[26rem] h-[6rem]">
-                    <Parameter left="Opened" right="25.01.2023 at 16:04"/>
-                    <Parameter left="Amount" right="1000 EURG"/>
-                    <Parameter left="Term" right="360 days (until 22.02.24 at 16:04)"/>
+                    <InlineProperty left="Opened" right="25.01.2023 at 16:04"/>
+                    <InlineProperty left="Amount" right="1000 EURG"/>
+                    <InlineProperty left="Term" right="360 days (until 22.02.24 at 16:04)"/>
                 </div>
                 <div className='column flex flex-col items-center w-[26rem] h-[6rem]'>
                     <Button className="w-full flex-1 mb-4" gray onClick={closingModal.showModal}>Close deposit</Button>

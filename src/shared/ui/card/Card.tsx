@@ -12,8 +12,8 @@ const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
             shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]
             hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]
             min-h-[195px]
-            w-[310px]
-            phone:min-h-[216px]
+            sm:min-h-[216px]
+            min-w-[310px]
             flex
             flex-col
             transition-all

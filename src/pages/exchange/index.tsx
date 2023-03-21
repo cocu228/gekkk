@@ -1,21 +1,30 @@
 import React from 'react';
+import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
+import PageHead from '@/shared/ui/page-head/PageHead';
+import History from '@/widgets/history/ui/History';
+import Exchange from '@/widgets/exchange/ui/Exchange';
 
-
-function Exchange() {
-
+export default () => {
     return (
-
-        <div className="wrapper p-4">
-            <div className="-mx-4 bg-gray-50 px-4 py-2 mb-10">
-                <div className="row mb-2">
-                    <h2 className="text-3xl font-bold">
-                        Exchange
-                    </h2>
-                </div>
-            </div>
+        <div className="wrapper">
+            <PageHead
+                title={"Exchange"}
+                subtitle={"Cryptocurrency exchange - fast and easily"}
+            />
+            <SplitGrid
+                leftColumn={
+                    <div className="py-5 px-10">
+                        <Exchange/>
+                    </div>
+                }
+                rightColumn={
+                    <div className="py-5 px-10">
+                        <History
+                            withSurface={false}
+                        />
+                    </div>
+                }
+            />
         </div>
-
-    )
+    );
 }
-
-export default Exchange;

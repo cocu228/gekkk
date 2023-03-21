@@ -1,0 +1,11 @@
+.Result {
+  padding: 1rem 0.625rem;
+  color: var(--color-orange);
+  border: 1px solid var(--color-orange);
+  background: rgba(var(--orange) / 0.08);
+  border-radius: 4px;
+
+  strong {
+    font-weight: 600;
+  }
+}

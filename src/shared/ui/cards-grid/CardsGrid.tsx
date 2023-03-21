@@ -5,9 +5,9 @@ function CardsGrid({children}: any) {
         <div className="
             flex
             flex-wrap
-            gap-[20px]
-            gap-y-[38px]
-            desktop:gap-y-[20px]
+            gap-4
+            gap-y-10
+            xl:gap-5
         ">
             {children}
         </div>

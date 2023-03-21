@@ -1,7 +1,23 @@
+@import "@styles/mixins";
+
 .Content {
-  display: flex;
+  width: 100%;
   padding-left: var(--content-pad-left);
   padding-right: var(--content-pad-right);
   padding-top: var(--content-pad-top);
-  width: 100%;
+
+  @include devices(xl) {
+    padding-left: var(--content-pad-left-xl);
+    padding-right: var(--content-pad-right-xl);
+  }
+
+  @include devices(md) {
+    padding-left: var(--content-pad-horizontal-md);
+    padding-right: var(--content-pad-horizontal-md);
+    padding-top: var(--content-pad-top-md);
+  }
 }
+
+//.Mobile {
+//
+//}

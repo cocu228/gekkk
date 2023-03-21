@@ -1,0 +1,24 @@
+.Tab {
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #b4c0cd;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 3px solid transparent;
+    padding: 0 10px 16px;
+    text-transform: capitalize;
+    z-index: 1;
+    :focus {
+        outline: none;
+    }
+}
+
+.ActiveTab {
+    border-color: #00aeef;
+    font-weight: 500;
+    color: #3a3a3a;
+}

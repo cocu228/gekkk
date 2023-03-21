@@ -1,26 +1,51 @@
-import {Outlet, Navigate} from 'react-router'
+import {Outlet} from 'react-router'
 import Header from "@/widgets/header/ui/";
 import Sidebar from "@/widgets/sidebar/ui/";
-import {useAuth} from "./AuthRouter";
 import Main from "@/app/layouts/Main";
 import Content from "@/app/layouts/Content";
-import AuthPage from "@/pages/auth/ui";
+import {useEffect, useState} from "react";
+import Loader from "@/shared/ui/loader";
+import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
+import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";
 
 export default () => {
 
-    const {token, login} = useAuth();
+    // const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
-    if (!token) {
-        return <AuthPage/>;
-    }
+    const getListAllCryptoName = storeListAllCryptoName(state => state.getListAllCryptoName)
+    const getDefaultListBalance = storeListAvailableBalance(state => state.getDefaultListBalance)
+    const setSortedListBalance = storeListAvailableBalance(state => state.setSortedListBalance)
+
+    const [state, setState] = useState({
+        loading: true
+    })
+
+    useEffect(() => {
+
+        (async function () {
+
+
+            const listAllCryptoName = await getListAllCryptoName()
+
+            // setSessionGlobal(prevState => ({...prevState, listAllCryptoName: listAllCryptoName}))
+
+            if (await getDefaultListBalance()) {
+                setSortedListBalance(listAllCryptoName) ? setState(prevState => ({
+                    ...prevState,
+                    loading: false
+                })) : null
+
+            }
+        })()
+    }, [])
 
     return <>
         <Header/>
-        <Main>
+        {!state.loading ? <Main>
             <Sidebar/>
             <Content>
                 <Outlet/>
             </Content>
-        </Main>
+        </Main> : <Loader/>}
     </>
 }

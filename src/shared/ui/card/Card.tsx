@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC, PropsWithChildren, ReactPortal} from 'react';
 
-function Card({children}: any) {
+const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
     return (
         <div className="
             bg-white

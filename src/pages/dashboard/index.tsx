@@ -1,8 +1,9 @@
 import React from 'react';
 import {useState} from "react";
-import Deposits from "@/widgets/deposits/ui/Deposits";
-import CryptoAssets from "@/widgets/crypto-assets/ui/CryptoAssets";
-import History from "@/widgets/history/ui/History";
+import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
+import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
+import History from "@/widgets/dashboard/ui/History";
+import {randomId} from "@/shared/lib/helpers";
 import PageHead from '@/shared/ui/page-head/PageHead';
 
 enum TabType {
@@ -49,7 +50,7 @@ export default () => {
             </div>
 
             {TABS.map(({type, content}, index) => (
-                <div className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
+                <div key={randomId()} className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
                     {content}
                 </div>
             ))}

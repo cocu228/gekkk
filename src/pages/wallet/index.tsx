@@ -74,7 +74,7 @@ function Wallet() {
                         <div className="mr-6">
                             <img 
                                 className="h-[50px] w-[50px]"
-                                src={`/public/img/tokens/${currency}Icon.svg`}
+                                src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
                                 onError={({ currentTarget }) => {
                                     if (currentTarget.getAttribute("data-icon") === "empty")
                                         return null
@@ -101,7 +101,7 @@ function Wallet() {
 
                                     <Tooltip text={EurgTooltipText}>
                                         <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                            <img src="/public/img/icon/HelpIcon.svg" alt="tooltip"/>
+                                            <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                                         </div>
                                     </Tooltip>
                                 </div>

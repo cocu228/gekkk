@@ -14,7 +14,7 @@ const About = ({currency, name, flags}: AboutParams) => {
                 <div className="mr-4">
                     <img
                         className='h-[50px] w-[50px]'
-                        src={`/public/img/tokens/${currency}Icon.svg`}
+                        src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
                         onError={({ currentTarget }) => {
                             if (currentTarget.getAttribute("data-icon") === "empty")
                                 return null

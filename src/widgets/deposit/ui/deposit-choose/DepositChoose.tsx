@@ -70,7 +70,7 @@ const DepositChoose = () => {
                             onInput={onInput}
                             suffix={
                                 <>
-                                    <img className="!mr-3" src="/public/img/tokens/EurgIcon.svg" width={30} height={30} alt="eurg"/>
+                                    <img className="!mr-3" src="/img/tokens/EurgIcon.svg" width={30} height={30} alt="eurg"/>
                                     <span className="text-sm font-medium">EURG</span>
                                 </>
                             }

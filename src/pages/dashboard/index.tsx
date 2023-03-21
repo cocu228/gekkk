@@ -2,8 +2,9 @@ import React from 'react';
 import {useState} from "react";
 import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
 import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
-import History from "@/widgets/history/ui/History";
+import History from "@/widgets/dashboard/ui/History";
 import {randomId} from "@/shared/lib/helpers";
+import PageHead from '@/shared/ui/page-head/PageHead';
 
 enum TabType {
     DEPOSIT,
@@ -25,9 +26,11 @@ export default () => {
     };
 
     return (
-        <div className="phone:px-[15px]">
-            <h1 className="text-[32px] phone:text-[24px] font-bold mb-[5px]">Personal account</h1>
-            <p className="text-[14px] font-medium">Open your <a className="underline hover:text-blue" href="#">fixed or crypto deposit</a></p>
+        <div className="wrapper">
+            <PageHead
+                title={"Personal account"}
+                subtitle={<>Open your <a className="underline hover:text-blue" href="#">fixed or crypto deposit</a></>}
+            />
 
             <div className="w-full">
                 <div className="mx-[-15px] hidden sm:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray">
@@ -47,7 +50,7 @@ export default () => {
             </div>
 
             {TABS.map(({type, content}, index) => (
-                <div className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
+                <div key={randomId()} className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
                     {content}
                 </div>
             ))}

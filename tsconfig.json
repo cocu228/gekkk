@@ -4,9 +4,12 @@
       "@/*": [
         "./src/*"
       ],
+      "@styles/*": [
+        "./src/app/styles/*"
+      ],
       "@public/*": [
         "./public/*"
-      ]
+      ],
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

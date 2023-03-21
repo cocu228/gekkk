@@ -7,6 +7,7 @@ interface Props {
     className: string;
     name: string;
     defaultChecked: boolean;
+    disabled?: boolean;
 }
 
 const Checkbox = ({
@@ -14,16 +15,18 @@ const Checkbox = ({
                       children,
                       className = "",
                       name = undefined,
-                      defaultChecked = false
+                      defaultChecked = false,
+                      disabled = false
                   }: Partial<Props>) => {
     return (
-        <label className={styles.Label}>
+        <label className={`${styles.Label} ${disabled ? styles.disabled : ''}`}>
             <input
                 type="checkbox"
                 className={styles.Input}
                 name={name}
                 onChange={onChange}
                 defaultChecked={defaultChecked}
+                disabled={disabled}
             />
             <span className={`${styles.Checkbox} ${className}`}/>
             {children}

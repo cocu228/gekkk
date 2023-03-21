@@ -1,0 +1,5 @@
+.Item {
+  &:nth-child(even) {
+    background: var(--color-bgSecondary);
+  }
+}

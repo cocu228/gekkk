@@ -29,13 +29,20 @@ function getDescriptionText(name: string, currency: string, flags: number) {
 
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
+const getInitialTab = (tab: string | undefined) => 
+    (tab && initialTabs.includes(tab)) ? tab : 'topup';
+
+const getWalletAssets = (currency: string) => 
+    storeListAllCryptoName(state => state.listAllCryptoName)
+        ?.find(asset => asset.code === currency);
+
+const getWalletData = (currency: string) =>
+    storeListAvailableBalance(state => state.defaultListBalance)
+        ?.find(b => b.currency === currency);
+
 function Wallet() {
     const { currency, tab = '' } = useParams<string>();
-
-    // TODO: Удалить заглушку GKE
-    if (currency === 'GKE') return null;
-
-    const walletAssets: IResMarketAssets[] = storeListAllCryptoName(state => state.listAllCryptoName);
+    const walletAssets = getWalletAssets(currency);
 
     if (!walletAssets) return null;
 
@@ -43,7 +50,7 @@ function Wallet() {
     const {
         name,
         flags
-    } = walletAssets?.find(asset => asset.code === currency)
+    } = walletAssets;
     
     const walletTabs: Record<string, string> = {
         ...(flags === 8 && {
@@ -54,19 +61,12 @@ function Wallet() {
         //'history': 'History', TODO: Show only in mobile version
         'about': 'About'
     }
-    
-    const getInitialTab = (tab: string | undefined) => 
-        (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
     let [activeTab, setActiveTab] = useState(getInitialTab(tab));
+    const walletData = getWalletData(currency);
 
     if (!walletTabs[activeTab])
         setActiveTab(Object.keys(walletTabs)[0]);
-
-    const walletData = storeListAvailableBalance(state => state.defaultListBalance)
-        ?.find(b => b.currency === currency);
-
-    const balance = walletData ? walletData.free_balance : 0;
 
     return (
         <div className="flex flex-col w-full">
@@ -92,7 +92,7 @@ function Wallet() {
                             </div>
 
                             <div className="text-2xl font-bold text-gray-dark cursor-help">
-                                {balance} {currency}
+                                {walletData? walletData.free_balance : 0} {currency}
                             </div>
                         </div>
 

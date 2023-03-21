@@ -146,7 +146,7 @@ function Wallet() {
                     )}
                 </div>
                 
-                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
+                <History />
             </div>
         </div>
     );

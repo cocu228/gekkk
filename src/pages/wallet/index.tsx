@@ -4,7 +4,7 @@ import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import TopUp from "@/widgets/wallet-stage/topup/ui/TopUp";
+import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
 import { storeListAvailableBalance, storeListAllCryptoName } from "@/shared/store/crypto-assets";
 import { IResMarketAssets } from "@/shared/api";
 

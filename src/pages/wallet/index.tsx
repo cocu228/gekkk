@@ -1,14 +1,12 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useParams} from "react-router-dom";
-import {storeListAllCryptoName, storeListAvailableBalance} from "@/shared/store/crypto-assets";
-import {IResMarketAssets} from "@/shared/api/market/market-assets";
-
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
-import {IResBalance} from "@/shared/api";
+import TopUp from "@/widgets/wallet-stage/topup/ui/TopUp";
+import { storeListAvailableBalance, storeListAllCryptoName } from "@/shared/store/crypto-assets";
+import { IResMarketAssets } from "@/shared/api";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -31,23 +29,26 @@ function getDescriptionText(name: string, currency: string, flags: number) {
 
 const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 
+const getInitialTab = (tab: string | undefined) => 
+    (tab && initialTabs.includes(tab)) ? tab : 'topup';
+
+const getWalletAssets = (currency: string) => 
+    storeListAllCryptoName(state => state.listAllCryptoName)
+        ?.find(asset => asset.code === currency);
+
+const getWalletData = (currency: string) =>
+    storeListAvailableBalance(state => state.defaultListBalance)
+        ?.find(b => b.currency === currency);
+
 function Wallet() {
-    const {currency, tab = ''} = useParams<string>();
-    if (!currency) return null;
-
-    const listAllCryptoName = storeListAllCryptoName<IResMarketAssets[]>(state => state.listAllCryptoName)
-    const defaultListBalance = storeListAvailableBalance<IResBalance[]>(state => state.defaultListBalance)
-
-    const currentCryptoName = listAllCryptoName.find(asset => asset.code === currency);
-
-    if (!currentCryptoName) return null;
+    const { currency, tab = '' } = useParams<string>();
+    const walletAssets = getWalletAssets(currency);
 
     const isEURG: boolean = currency === 'EURG';
     const {
         name,
-        decimal_prec,
         flags
-    } = currentCryptoName
+    } = walletAssets;
 
     const walletTabs: Record<string, string> = {
         ...(flags === 8 && {
@@ -58,18 +59,12 @@ function Wallet() {
         //'history': 'History', TODO: Show only in mobile version
         'about': 'About'
     }
-    
-    const getInitialTab = (tab: string | undefined) => 
-        (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
     let [activeTab, setActiveTab] = useState(getInitialTab(tab));
+    const walletData = getWalletData(currency);
 
     if (!walletTabs[activeTab])
         setActiveTab(Object.keys(walletTabs)[0]);
-
-    const {
-        free_balance: balance,
-    } = defaultListBalance.find(w => w.currency === currency) ?? {};
 
     return (
         <div className="flex flex-col w-full">
@@ -95,7 +90,7 @@ function Wallet() {
                             </div>
 
                             <div className="text-2xl font-bold text-gray-dark cursor-help">
-                                {balance?? 0} {currency}
+                                {walletData? walletData.free_balance : 0} {currency}
                             </div>
                         </div>
 

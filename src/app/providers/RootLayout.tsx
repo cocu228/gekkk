@@ -7,6 +7,7 @@ import {useEffect, useState} from "react";
 import Loader from "@/shared/ui/loader";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";
+import {storeListAddresses} from "@/shared/store/crypto-assets/list-addresses";
 
 export default () => {
 
@@ -15,6 +16,7 @@ export default () => {
     const getListAllCryptoName = storeListAllCryptoName(state => state.getListAllCryptoName)
     const getDefaultListBalance = storeListAvailableBalance(state => state.getDefaultListBalance)
     const setSortedListBalance = storeListAvailableBalance(state => state.setSortedListBalance)
+    const getListAddresses = storeListAddresses(state => state.getListAddresses)
 
     const [state, setState] = useState({
         loading: true
@@ -36,6 +38,8 @@ export default () => {
                 })) : null
 
             }
+            // TODO: Переместить в wallet
+            await getListAddresses()
         })()
     }, [])
 

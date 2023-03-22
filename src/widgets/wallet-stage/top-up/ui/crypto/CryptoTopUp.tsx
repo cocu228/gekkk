@@ -4,14 +4,15 @@ import Select from "@/shared/ui/select/Select";
 import ReactQRCode from 'react-qr-code';
 import { Input, InputRef } from 'antd';
 import Loader from '@/shared/ui/loader';
-import { IResTokenNetworks, apiTokenNetworks } from '@/shared/api';
+import { IResListAddresses, IResTokenNetworks, apiTokenNetworks } from '@/shared/api';
 
 interface CryptoTopUpParams {
-    currency: string;
+    currency: string,
+    listAddresses: IResListAddresses[],
 }
 
-const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
-    const [networksList, setNetworksList] = useState<IResTokenNetworks[]>([])
+const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
+    const [networksList, setNetworksList] = useState<IResTokenNetworks[]>([]);
     const [activeNetwork, setActiveNetwork] = useState<Number>(null);
     const inputRef = useRef<InputRef>(null);
     
@@ -20,7 +21,7 @@ const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
         const {data} = result;
 
         setNetworksList(data);
-        setActiveNetwork(data[0]?.id)
+        setActiveNetwork(data[0]?.id);
     }
 
     useEffect(() => {
@@ -29,7 +30,10 @@ const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
         getNetworks();
     }, [currency]);
 
-    const walletAddress = '7Basgq7cazmjDXb43jQPrS82sZFWGXiyCBm4miA5MacNdX1WB4SNpfj7mUdoKFTpVPLBF5zjFNPUgZcDRTvsqpySCHtUeeM';
+    // TODO: Переделать, неэффективный код
+    const walletAddress = listAddresses.find(address =>
+        address.network.includes(networksList.find(network =>
+            network.id === activeNetwork)?.type_network_name))?.address;
 
     return (
         <div className="flex flex-col items-center mt-2">
@@ -51,7 +55,7 @@ const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
                 <Loader/>
             )}
 
-            {activeNetwork === 68 && (
+            {!walletAddress && (
                 <div className="row mt-8 px-4 w-full">
                     <Button tabIndex={0} htmlType="submit" className="w-full disabled:opacity-5 !text-white">
                         Generate address
@@ -59,7 +63,7 @@ const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
                 </div>
             )}
             
-            {activeNetwork === 0 && (
+            {walletAddress && (
                 <div className='flex flex-col items-center'>
                     <div className="text-2xl text-gray-dark font-bold my-4 text-center">
                         Send a transaction to this ADDRESS_TYPE address

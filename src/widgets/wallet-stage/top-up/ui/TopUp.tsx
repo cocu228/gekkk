@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
 import CryptoTopUp from './crypto/CryptoTopUp';
+import { IResListAddresses } from '@/shared/api';
 
 const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
@@ -14,10 +15,11 @@ const cryptoTabs: Record<string, string> = {
 
 interface TopUpParams {
     flags: number,
-    currency: string
+    currency: string,
+    listAddresses: IResListAddresses[];
 }
 
-const TopUp = ({flags, currency}: TopUpParams) => {
+const TopUp = ({flags, currency, listAddresses}: TopUpParams) => {
     let availableMethods = flags === 8 ? fiatTabs : cryptoTabs
     const [activeTab, setActiveTab] = useState('gek_card')
 
@@ -34,7 +36,10 @@ const TopUp = ({flags, currency}: TopUpParams) => {
             />
 
             {activeTab === 'crypto' && (
-                <CryptoTopUp currency={currency}/>
+                <CryptoTopUp
+                    currency={currency}
+                    listAddresses={listAddresses}
+                />
             )}
         </div>
     );

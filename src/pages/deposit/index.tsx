@@ -7,9 +7,9 @@ function Deposit() {
     return (
 
         <div className="wrapper flex-1 flex flex-col pb-14">
-            <div className="wrapper -mx-4 px-4 py-2 mb-10">
+            <div className="wrapper -mx-4 px-4 mb-10">
                 <h2 className="text-3xl font-bold mb-4">New deposit</h2>
-                <p className="text-sm font-light">
+                <p className="text-sm">
                     A modern alternative to a bank deposit.<br/>
                     Invest in a cryptocurrency with full or partial protection of investments
                 </p>

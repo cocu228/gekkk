@@ -41,7 +41,6 @@ module.exports = {
                 red: 'rgb(var(--red) / <alpha-value>)',
                 orange: 'rgb(var(--orange) / <alpha-value>)',
 
-
                 gekLinkBlue: '#00AEEF',
                 gekGray: '#888A92',
                 gekDarkGray: '#3A3A3A',

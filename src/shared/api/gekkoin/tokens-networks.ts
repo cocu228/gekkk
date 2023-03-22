@@ -1,6 +1,6 @@
 import $axios from "@/shared/lib/(cs)axios";
 
-interface IResTokenNetworks {
+export interface IResTokenNetworks {
     id: number,
     type_network: number,
     type_network_name?: string,

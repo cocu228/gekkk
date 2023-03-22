@@ -13,10 +13,11 @@ const cryptoTabs: Record<string, string> = {
 }
 
 interface TopUpParams {
-    flags: number
+    flags: number,
+    currency: string
 }
 
-const TopUp = ({flags}: TopUpParams) => {
+const TopUp = ({flags, currency}: TopUpParams) => {
     let availableMethods = flags === 8 ? fiatTabs : cryptoTabs
     const [activeTab, setActiveTab] = useState('gek_card')
 
@@ -25,7 +26,7 @@ const TopUp = ({flags}: TopUpParams) => {
     }
 
     return (
-        <div>
+        <div className='h-full'>
             <SecondaryTabGroup
                 tabs={availableMethods}
                 activeTab={activeTab}
@@ -33,7 +34,7 @@ const TopUp = ({flags}: TopUpParams) => {
             />
 
             {activeTab === 'crypto' && (
-                <CryptoTopUp/>
+                <CryptoTopUp currency={currency}/>
             )}
         </div>
     );

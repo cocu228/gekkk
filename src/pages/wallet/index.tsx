@@ -135,6 +135,7 @@ function Wallet() {
                     {activeTab === 'topup' && (
                         <TopUp
                             flags={flags}
+                            currency={currency}
                         />
                     )}
                     {activeTab === 'about' && (

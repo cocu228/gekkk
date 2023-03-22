@@ -8,6 +8,7 @@ const DepositInput = ({onChange, onInput}: InputProps) => {
         <InputAnt 
           onChange={onChange} 
           onInput={onInput}
+          className="mb-1"
           suffix={
               <>
                   <img className="!mr-3" src="/img/tokens/EurgIcon.svg" width={30} height={30} alt="eurg"/>

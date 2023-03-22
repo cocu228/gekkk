@@ -1,5 +1,11 @@
+@import "@styles/mixins";
+
 .InvestBlock {
   background: #F9F9FA;
   border-radius: 0.375rem;
   padding: 1.2rem;
+
+  @include devices(xxl) {
+    padding: 0.8rem;
+  }
 }

@@ -6,6 +6,11 @@
   padding-right: var(--content-pad-right);
   padding-top: var(--content-pad-top);
 
+  @include devices(xxl) {
+    padding-left: var(--content-pad-left-xxl);
+    padding-right: var(--content-pad-right-xxl);
+  }
+
   @include devices(xl) {
     padding-left: var(--content-pad-left-xl);
     padding-right: var(--content-pad-right-xl);

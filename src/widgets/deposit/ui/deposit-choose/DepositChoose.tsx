@@ -22,10 +22,10 @@ const DepositChoose = () => {
     }
 
     return (
-    <div className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-between items-start md:col-span-5`}>
-        <p className="text-base font-medium text-gray mb-6">Choose deposit types</p>
+    <div className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-between items-start xxl:py-3 xxl:px-4 xl:col-span-5 md:bg-transparent md:p-0`}>
+        <p className="text-base font-medium text-gray mb-6 md:text-sm md:mb-4">Choose deposit types</p>
 
-        <div className="wrapper grid grid-cols-2 gap-5">
+        <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between">
             <DepositRadio 
                 title="Fixed rate" 
                 subtitle={<><span className="font-bold">9,6%</span> per annum (<span className="font-bold">0,8%</span> per month)</>}
@@ -44,13 +44,13 @@ const DepositChoose = () => {
             />
         </div>
 
-        <div className="wrapper mt-9 mb-4 hidden md:block">
+        <div className="wrapper mb-8 hidden xl:block md:mb-5">
             <InfoBlock />
         </div>
 
-        <div className="wrapper my-10 md:my-8 w-full">
-            <div className="row flex justify-between mb-2">
-                <p className="text-gray font-medium text-base">Enter deposit amount</p>
+        <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
+            <div className="row flex justify-between mb-2 md:mb-1">
+                <p className="text-gray font-medium text-base md:text-sm">Enter deposit amount</p>
 
                 <div className="row flex gap-1">
                     <PercentBtn>25%</PercentBtn>
@@ -63,9 +63,9 @@ const DepositChoose = () => {
             <DepositInput />
         </div>
 
-        <Button className="w-full mb-5" onClick={paramsModal.showModal}>Open deposit</Button>
+        <Button className="w-full mb-5 md:mb-3" onClick={paramsModal.showModal}>Open deposit</Button>
 
-        <div className="row mb-80 md:mb-8">
+        <div className="row mb-60 xxl:mb-40 xl:mb-8 md:mb-6">
             <p className="text-gekGray text-center text-xs">
                 The deposit services are provided by Adventarium PTE.LTD. 
                 By pressing button "Open deposit" 

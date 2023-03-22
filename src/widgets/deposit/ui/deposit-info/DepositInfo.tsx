@@ -5,7 +5,7 @@ import styles from "./styles.module.scss"
 const DepositInfo = () => {
 
     return (
-        <div className={`wrapper col-span-2 bg-white p-7 md:hidden`}>
+        <div className="wrapper col-span-2 bg-white p-7 xl:hidden xxl:p-5">
             <div className='wrapper mt-10 mb-20'>
                 <InfoBlock />
             </div>

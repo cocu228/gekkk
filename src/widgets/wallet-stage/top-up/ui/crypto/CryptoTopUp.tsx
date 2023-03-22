@@ -1,27 +1,35 @@
-import {useState, useRef} from 'react'
+import {useState, useRef, useEffect} from 'react'
 import Button from "@/shared/ui/button/Button";
 import Select from "@/shared/ui/select/Select";
 import ReactQRCode from 'react-qr-code';
 import { Input, InputRef } from 'antd';
+import Loader from '@/shared/ui/loader';
+import { IResTokenNetworks, apiTokenNetworks } from '@/shared/api';
 
-const CryptoTopUp = () => {
-    const [activeNetwork, setActiveNetwork] = useState('Test1');
+interface CryptoTopUpParams {
+    currency: string;
+}
+
+const CryptoTopUp = ({currency}: CryptoTopUpParams) => {
+    const [networksList, setNetworksList] = useState<IResTokenNetworks[]>([])
+    const [activeNetwork, setActiveNetwork] = useState<Number>(null);
     const inputRef = useRef<InputRef>(null);
-    const walletAddress = '7Basgq7cazmjDXb43jQPrS82sZFWGXiyCBm4miA5MacNdX1WB4SNpfj7mUdoKFTpVPLBF5zjFNPUgZcDRTvsqpySCHtUeeM';
+    
+    const getNetworks = async () => {
+        const result = await apiTokenNetworks(currency);
+        const {data} = result;
 
-    let tokenNetworks: {label: string, value: string}[] = [
-        {label: 'Test1', value: 'Test1'},
-        {label: 'Test2', value: 'Test2'},
-        {label: 'Test3', value: 'Test3'}
-    ];
-
-    const copyAddress = () => {
-        inputRef.current.focus({
-            cursor: 'all',
-        });
-
-        navigator.clipboard.writeText(walletAddress)
+        setNetworksList(data);
+        setActiveNetwork(data[0]?.id)
     }
+
+    useEffect(() => {
+        setNetworksList([]);
+        setActiveNetwork(null);
+        getNetworks();
+    }, [currency]);
+
+    const walletAddress = '7Basgq7cazmjDXb43jQPrS82sZFWGXiyCBm4miA5MacNdX1WB4SNpfj7mUdoKFTpVPLBF5zjFNPUgZcDRTvsqpySCHtUeeM';
 
     return (
         <div className="flex flex-col items-center mt-2">
@@ -29,15 +37,21 @@ const CryptoTopUp = () => {
                 Select network
 
                 <Select
+                    disabled={!networksList.length}
                     className="w-full mt-2"
-                    options={tokenNetworks}
-                    onSelect={setActiveNetwork}
                     value={activeNetwork}
-                    defaultValue={tokenNetworks[0].value}
+                    onSelect={setActiveNetwork}
+                    options={networksList.map(network => {
+                        return {label: network.name, value: network.id};
+                    })}
                 />
             </div>
 
-            {activeNetwork === 'Test1' && (
+            {!networksList.length && (
+                <Loader/>
+            )}
+
+            {activeNetwork === 68 && (
                 <div className="row mt-8 px-4 w-full">
                     <Button tabIndex={0} htmlType="submit" className="w-full disabled:opacity-5 !text-white">
                         Generate address
@@ -45,7 +59,7 @@ const CryptoTopUp = () => {
                 </div>
             )}
             
-            {activeNetwork === 'Test2' && (
+            {activeNetwork === 0 && (
                 <div className='flex flex-col items-center'>
                     <div className="text-2xl text-gray-dark font-bold my-4 text-center">
                         Send a transaction to this ADDRESS_TYPE address
@@ -70,10 +84,16 @@ const CryptoTopUp = () => {
                             value={walletAddress}
                             suffix={
                                 <img
-                                    onClick={copyAddress}
                                     className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100'
                                     src={`/img/icon/Copy.svg`}
                                     alt='copy'
+                                    onClick={() => {
+                                        inputRef.current.focus({
+                                            cursor: 'all',
+                                        });
+
+                                        navigator.clipboard.writeText(walletAddress)
+                                    }}
                                 />
                             }
                         />

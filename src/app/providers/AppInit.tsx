@@ -1,17 +1,18 @@
 import {AuthProvider, useAuth} from "./AuthRouter";
 import AuthPage from "@/pages/auth/ui";
 import RootLayout from "@/app/providers/RootLayout";
+import ErrorsProvider from "@/app/providers/ErrorsProvider";
 
 const AppInit = () => {
 
     const {token} = useAuth();
 
-    if (!token) {
-        return <AuthPage/>;
-    }
+    const content = !token ? <AuthPage/> : <RootLayout/>
 
-    return <RootLayout/>
+    return <ErrorsProvider>{content}</ErrorsProvider>
 }
 
 
-export default () => <AuthProvider><AppInit/></AuthProvider>
+export default () => <AuthProvider>
+    <AppInit/>
+</AuthProvider>

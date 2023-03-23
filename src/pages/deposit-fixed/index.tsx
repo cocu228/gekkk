@@ -10,7 +10,7 @@ function DepositFixed() {
     const conditionsModal = useModal();
 
     return (
-        <div className="wrapper flex flex-col flex-1 pb-14">
+        <div className="wrapper flex flex-col flex-1">
             <div className='wrapper flex justify-between mb-10 lg:flex-col md:mb-8'>
                 <div className='column flex gap-5 lg:mb-6 md:items-center md:mb-4'>
                     <img className='h-[3.2rem] md:h-[2.6rem]' src="/public/img/icon/DepositGradientIcon.svg" alt="strategy"/>
@@ -34,7 +34,7 @@ function DepositFixed() {
                 </div>
             </div>
 
-            <div className='wrapper flex-1 bg-white flex justify-between px-10 py-16 rounded-md xxxl:px-8 xxxl:py-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10 md:bg-transparent md:p-0'>
+            <div className='wrapper flex-1 bg-white flex justify-between px-10 pt-16 pb-80 rounded-md xxxl:px-8 xxxl:pt-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10 md:bg-transparent md:p-0'>
                 <div className="column w-[24rem] h-[6rem] xxxl:w-[22rem] xxl:w-[20rem] xl:w-full">
                     <InlineProperty left="Opened" right="25.01.2023 at 16:04"/>
                     <InlineProperty left="Amount" right="1000 EURG"/>

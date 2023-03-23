@@ -19,9 +19,6 @@ export const apiInvestments = (start?: string, end?: string) =>
         params: {
             start,
             end
-        },
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
+        }
     })
 

@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {apiGetBalance, IResBalance, IResMarketAssets} from "@/shared/api";
-import {sortingListBalance, ISortedListBalance} from "@/widgets/sidebar/module/sorting-list-balance";
+import {sortingListBalance, ISortedListBalance} from "@/shared/model/sorting-list-balance";
 
 export interface IAvailableBalance {
     defaultListBalance: Array<IResBalance>;

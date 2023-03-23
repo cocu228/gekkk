@@ -1,14 +1,14 @@
+import {memo, useEffect, useRef, useState} from 'react'
 import {Outlet} from 'react-router'
 import Header from "@/widgets/header/ui/";
 import Sidebar from "@/widgets/sidebar/ui/";
 import Main from "@/app/layouts/Main";
 import Content from "@/app/layouts/Content";
-import {useEffect, useState} from "react";
 import Loader from "@/shared/ui/loader";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";
 
-export default () => {
+export default memo(function () {
 
     // const [, setSessionGlobal] = useSessionStorage("session-global", {})
 
@@ -24,7 +24,6 @@ export default () => {
 
         (async function () {
 
-
             const listAllCryptoName = await getListAllCryptoName()
 
             // setSessionGlobal(prevState => ({...prevState, listAllCryptoName: listAllCryptoName}))
@@ -36,7 +35,7 @@ export default () => {
                 })) : null
 
             }
-        })()
+        })();
     }, [])
 
     return <>
@@ -48,4 +47,4 @@ export default () => {
             </Content>
         </Main> : <Loader/>}
     </>
-}
+})

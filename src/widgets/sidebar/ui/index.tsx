@@ -4,6 +4,7 @@ import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 const Sidebar = () => {
+
     const {md} = useContext(BreakpointsContext)
 
     return md ? <SidebarMobile/> : <SidebarDesktop/>

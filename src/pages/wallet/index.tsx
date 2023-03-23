@@ -32,13 +32,9 @@ const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 const getInitialTab = (tab: string | undefined) => 
     (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
-const getWalletAssets = (currency: string) => 
-    storeListAllCryptoName(state => state.listAllCryptoName)
-        ?.find(asset => asset.code === currency);
+const getWalletAssets = (currency: string) => storeListAllCryptoName(state => state.listAllCryptoName).find(asset => asset.code === currency);
 
-const getWalletData = (currency: string) =>
-    storeListAvailableBalance(state => state.defaultListBalance)
-        ?.find(b => b.currency === currency);
+const getWalletData = (currency: string) => storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
 
 function Wallet() {
     const { currency, tab = '' } = useParams<string>();

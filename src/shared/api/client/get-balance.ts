@@ -12,9 +12,6 @@ export const apiGetBalance = (currency?: string) =>
     $axios.get<IResBalance[]>('/gek/v1/client/get_balance', {
         headers: {
             currency
-        },
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
+        }
     })
 

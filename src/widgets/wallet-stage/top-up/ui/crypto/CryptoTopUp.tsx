@@ -4,7 +4,7 @@ import Select from "@/shared/ui/select/Select";
 import ReactQRCode from 'react-qr-code';
 import { Input, InputRef } from 'antd';
 import Loader from '@/shared/ui/loader';
-import { IResListAddresses, IResTokenNetworks, apiTokenNetworks } from '@/shared/api';
+import { IResListAddresses, IResTokenNetwork, apiTokenNetworks } from '@/shared/api';
 
 interface CryptoTopUpParams {
     currency: string,
@@ -12,7 +12,7 @@ interface CryptoTopUpParams {
 }
 
 const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
-    const [networksList, setNetworksList] = useState<IResTokenNetworks[]>([]);
+    const [networksList, setNetworksList] = useState<IResTokenNetwork[]>([]);
     const [activeNetwork, setActiveNetwork] = useState<Number>(null);
     const inputRef = useRef<InputRef>(null);
     

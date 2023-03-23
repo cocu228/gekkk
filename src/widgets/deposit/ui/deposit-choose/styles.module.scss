@@ -1,0 +1,10 @@
+@import "@styles/mixins";
+
+.DepositChoose {
+  box-shadow: 0 0 30px 5px rgb(41 117 215 / 15%);
+  position: relative;
+
+  @include devices(md) {
+    box-shadow: none;
+  }
+}

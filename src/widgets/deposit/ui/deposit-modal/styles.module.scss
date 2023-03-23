@@ -1,0 +1,36 @@
+@import "@styles/mixins";
+
+.Modal {
+  @include devices(md) {
+    --md-border-radius: 16px;
+
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    max-width: 100%;
+    top: initial !important;
+    position: absolute !important;
+    bottom: 0 !important;
+
+    & > div:nth-child(2) {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-top-right-radius: var(--md-border-radius);
+      border-top-left-radius: var(--md-border-radius);
+      padding: 1rem !important;
+    }
+  }
+
+  & > div:nth-child(2) {
+    & > button {
+      width: 26px;
+      height: 26px;
+      background-image: url('/img/icon/CloseIcon.svg');
+      background-position: center;
+
+      span {
+        display: none;
+      }
+    }
+  }
+}

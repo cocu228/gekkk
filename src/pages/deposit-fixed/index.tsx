@@ -46,8 +46,8 @@ function DepositFixed() {
                 </div>
             </div>
 
-            <ClosingDepositModal isModalOpen={closingModal.isModalOpen} handleCancel={closingModal.handleCancel}/>
-            <ClosingConditionsModal isModalOpen={conditionsModal.isModalOpen} handleCancel={conditionsModal.handleCancel}/>
+            <ClosingDepositModal open={closingModal.isModalOpen} onCancel={closingModal.handleCancel}/>
+            <ClosingConditionsModal open={conditionsModal.isModalOpen} onCancel={conditionsModal.handleCancel}/>
         </div>
     )
 }

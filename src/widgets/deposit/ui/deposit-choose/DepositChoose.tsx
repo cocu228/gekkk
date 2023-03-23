@@ -84,8 +84,8 @@ const DepositChoose = () => {
 
         <Button text><span className="underline underline-offset-4" onClick={conditionsModal.showModal}>Early closing conditions →</span></Button>
 
-        <ParamsDepositModal isModalOpen={paramsModal.isModalOpen} handleCancel={paramsModal.handleCancel}/>
-        <ClosingConditionsModal isModalOpen={conditionsModal.isModalOpen} handleCancel={conditionsModal.handleCancel}/>
+        <ParamsDepositModal open={paramsModal.isModalOpen} onCancel={paramsModal.handleCancel}/>
+        <ClosingConditionsModal open={conditionsModal.isModalOpen} onCancel={conditionsModal.handleCancel}/>
     </div>
     )
 }

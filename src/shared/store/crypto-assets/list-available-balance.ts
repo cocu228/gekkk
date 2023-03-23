@@ -24,16 +24,17 @@ export const storeListAvailableBalance = create<IAvailableBalance>()(devtools((s
 
         const {data} = result
 
+
         set((state) => ({...state, defaultListBalance: data ?? []}))
 
         return true
 
     },
 
-    setSortedListBalance: (value) => {
+    setSortedListBalance: (allCryptoNames) => {
 
         set((state) => {
-            const result = sortingListBalance(state.defaultListBalance, value)
+            const result = sortingListBalance(state.defaultListBalance, allCryptoNames)
             return {...state, sortedListBalance: result}
         })
 

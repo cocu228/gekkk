@@ -13,15 +13,15 @@ interface CryptoTopUpParams {
 
 const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
     const [networksList, setNetworksList] = useState<IResTokenNetwork[]>([]);
-    const [activeNetwork, setActiveNetwork] = useState<Number>(null);
+    const [activeNetwork, setActiveNetwork] = useState<string>(null);
     const inputRef = useRef<InputRef>(null);
-    
+
     const getNetworks = async () => {
         const result = await apiTokenNetworks(currency);
         const {data} = result;
 
         setNetworksList(data);
-        setActiveNetwork(data[0]?.id);
+        setActiveNetwork(data[0]?.type_network_name);
     }
 
     useEffect(() => {
@@ -30,10 +30,8 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
         getNetworks();
     }, [currency]);
 
-    // TODO: Переделать, неэффективный код
     const walletAddress = listAddresses.find(address =>
-        address.network.includes(networksList.find(network =>
-            network.id === activeNetwork)?.type_network_name))?.address;
+        address.network.includes(activeNetwork))?.address;
 
     return (
         <div className="flex flex-col items-center mt-2">
@@ -46,7 +44,7 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
                     value={activeNetwork}
                     onSelect={setActiveNetwork}
                     options={networksList.map(network => {
-                        return {label: network.name, value: network.id};
+                        return {label: network.name, value: network.type_network_name};
                     })}
                 />
             </div>
@@ -55,7 +53,7 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
                 <Loader/>
             )}
 
-            {!walletAddress && (
+            {!walletAddress && activeNetwork && (
                 <div className="row mt-8 px-4 w-full">
                     <Button tabIndex={0} htmlType="submit" className="w-full disabled:opacity-5 !text-white">
                         Generate address

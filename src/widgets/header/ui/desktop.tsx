@@ -52,7 +52,7 @@ const HeaderDesktop = () => {
                                 <span>$</span>
                             </div>
                             <div className="row">
-                                <span className="text-xs text-gray font-semibold">Your current status: Start</span>
+                                <span className="text-xs text-gray-500 font-semibold">Your current status: Start</span>
                                 <img className="inline-flex" src="/img/icon/DropdownTriangleIcon.svg"
                                      alt="DropdownTriangleIcon"/>
                             </div>

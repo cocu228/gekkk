@@ -20,7 +20,7 @@ function Filter({options, selected, onChange}: Props) {
                         key={opt.value}
                         className={`
                             bg-none px-[20px] rounded-[6px] py-[8px] text-[14px] font-medium border-solid border-1 
-                            ${opt.value === selected ? 'text-gray-dark border-blue' : 'text-gray border-[#F9F9FA]'}
+                            ${opt.value === selected ? 'text-gray-600 border-blue-400' : 'text-gray-500 border-[#F9F9FA]'}
                         `}
                         onClick={handleClickOptionBtn(opt.value)}
                     >

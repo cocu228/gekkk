@@ -68,7 +68,7 @@ const QRCode = memo(({handleView}: TProps) => {
         </div>
 
         {hash && <div className="row text-right pb-10 flex justify-center">
-            <div className="wrapper w-[max-content] border-1 border-blue border-solid p-4 rounded-md">
+            <div className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                     <ReactQRCode
                         size={148}

@@ -47,7 +47,7 @@ const SidebarDesktop = () => {
                 <div className="row flex justify-between w-full">
                     <div className="col">
                         <div className="row mb-2">
-                            <span className="text-gray text-sm font-semibold">Asset valuation</span>
+                            <span className="text-gray-400 text-sm font-semibold">Asset valuation</span>
                         </div>
                         <div className="row"></div>
                         <span className="text-lg font-bold">{totalSum.EUR} €  ({totalSum.BTC} ₿)</span>
@@ -62,10 +62,10 @@ const SidebarDesktop = () => {
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span>EURG Gekkoin</span></div>
+                        <div className="row text-gray-400 w-full mb-1"><span>EURG Gekkoin</span></div>
                         <div className="row w-full">
                             <span
-                                className="text-gray text-sm">{+EURG?.availableBalance ?? 0} EURG</span>
+                                className="text-gray-600 text-sm">{+EURG?.availableBalance ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -77,9 +77,9 @@ const SidebarDesktop = () => {
                              alt="GKE"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span>Gekkoin Invest Token</span></div>
+                        <div className="row text-gray-400 w-full mb-1"><span>Gekkoin Invest Token</span></div>
                         <div className="row w-full"><span
-                            className="text-gray text-sm">0.0000 GKE</span>
+                            className="text-gray-600 text-sm">0.0000 GKE</span>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
-                <span className="text-gray text-sm mr-2">Currents deposit</span>
+                <span className="text-gray-400 text-sm mr-2">Currents deposit</span>
                 <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
             <NavLink onClick={NavLinkEvent} to={"assets"}>
@@ -124,7 +124,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
-                <span className="text-gray text-sm mr-2">Assets</span>
+                <span className="text-gray-400 text-sm mr-2">Assets</span>
                 <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
 
@@ -141,12 +141,12 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="col flex items-center justify-center flex-col pl-6">
                             <div className="row w-full mb-1"><span
-                                className="text-gray text-xs">{item.name}</span></div>
+                                className="text-gray-400 text-xs">{item.name}</span></div>
                             <div className="row w-full"><span
-                                className="text-lg">{`${item.availableBalance} ${item.const}`}</span>
+                                className="text-lg text-gray-600">{`${item.availableBalance} ${item.const}`}</span>
                             </div>
                             <div className="row w-full"><span
-                                className="text-gray text-sm">{`${item.freezeBalance} (hold)`}</span>
+                                className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>
                             </div>
                         </div>
                     </div>

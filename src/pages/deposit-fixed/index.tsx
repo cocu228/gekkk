@@ -15,7 +15,7 @@ function DepositFixed() {
                 <div className='column flex gap-5 lg:mb-6 md:items-center md:mb-4'>
                     <img className='h-[3.2rem] md:h-[2.6rem]' src="/public/img/icon/DepositGradientIcon.svg" alt="strategy"/>
                     <div className='column'>
-                        <p className='font-medium text-gray mb-2 md:font-bold md:text-sm md:mb-1'>Current balance</p>
+                        <p className='font-medium text-gray-500 mb-2 md:font-bold md:text-sm md:mb-1'>Current balance</p>
                         <p className='font-bold text-2xl whitespace-nowrap'>1 000.00 EURG</p>
                     </div>
                 </div>

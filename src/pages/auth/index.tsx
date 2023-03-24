@@ -42,7 +42,7 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
-            <footer className={`text-center text-gray-400 mt-auto mb-10 mb max-w-[756px]
+            <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]
             ${!md ? '' : 'px-4'}`}>
                 <p className='mb-4'>
                     <a

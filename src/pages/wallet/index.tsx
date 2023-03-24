@@ -86,7 +86,7 @@ function Wallet() {
                                 Wallet balance
                             </div>
 
-                            <div className="text-2xl font-bold text-gray-dark cursor-help">
+                            <div className="text-2xl font-bold text-gray-600 cursor-help">
                                 {walletData? walletData.free_balance : 0} {currency}
                             </div>
                         </div>
@@ -103,7 +103,7 @@ function Wallet() {
                                     </Tooltip>
                                 </div>
 
-                                <div className='text-gray-dark text-2xl'>
+                                <div className='text-gray-600 text-2xl'>
                                     3% per annum
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ function Wallet() {
                     </div>
 
                     <div className="ml-auto text-right">
-                        <div className="font-bold text-[32px] leading-[48px] text-gray-dark mb-4">
+                        <div className="font-bold text-[32px] leading-[48px] text-gray-600 mb-4">
                             {name} wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
@@ -127,7 +127,7 @@ function Wallet() {
                 activeTab={activeTab}
             />
 
-            <div className='flex grow shrink text-gray container mx-auto h-full mb-5 px-4'>
+            <div className='flex grow shrink text-gray-500 container mx-auto h-full mb-5 px-4'>
                 <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <TopUp

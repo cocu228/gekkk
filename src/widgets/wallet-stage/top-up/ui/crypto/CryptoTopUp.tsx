@@ -63,11 +63,11 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
             
             {walletAddress && (
                 <div className='flex flex-col items-center'>
-                    <div className="text-2xl text-gray-dark font-bold my-4 text-center">
+                    <div className="text-2xl text-gray-600 font-bold my-4 text-center">
                         Send a transaction to this ADDRESS_TYPE address
                     </div>
                 
-                    <div className="w-[max-content] mb-8 border-1 border-blue border-solid p-4 rounded-md">
+                    <div className="w-[max-content] mb-8 border-1 border-blue-400 border-solid p-4 rounded-md">
                         <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                             <ReactQRCode
                                 size={148}

@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from "react";
 import Deposits from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
 import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
-import History from "@/widgets/dashboard/ui/History";
+import History from "@/widgets/history/ui/History";
 import {randomId} from "@/shared/lib/helpers";
 import PageHead from '@/shared/ui/page-head/PageHead';
 
@@ -15,7 +15,7 @@ enum TabType {
 const TABS = [
     {type: TabType.DEPOSIT, title: 'Deposits', content: <Deposits/>},
     {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
-    {type: TabType.HISTORY, title: 'History', content: <History />}
+    {type: TabType.HISTORY, title: 'History', content: <History title='History' />}
 ];
 
 export default () => {

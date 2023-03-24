@@ -19,9 +19,7 @@ export default () => {
                 }
                 rightColumn={
                     <div className="py-5 px-10">
-                        <History
-                            withSurface={false}
-                        />
+                        <History className='bg-none shadow-none'/>
                     </div>
                 }
             />

@@ -5,7 +5,6 @@ import { IResListAddresses } from '@/shared/api';
 
 const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
-    'bank_card': 'Bank Card',
     'crypto': 'Blockchain wallet',
 }
 

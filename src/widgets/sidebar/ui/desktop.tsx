@@ -129,22 +129,25 @@ const SidebarDesktop = () => {
             </div>
 
             {sortedListBalance.map((item, i) =>
-                <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}
-                         className={`${styles.Item + " " + ParentClassForCoin} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
-                    <div className="col flex items-center pl-4">
-                        <img className={`${styles.Coin} mr-3`} width={14} height={14}
-                             src={`/img/icon/DepositAngleArrowIcon.svg`}
-                             alt={"DepositAngleArrowIcon"}/>
-                        <IconCoin coinName={item.name} iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
-                    </div>
-                    <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span
-                            className="text-gray text-xs">{item.name}</span></div>
-                        <div className="row w-full"><span
-                            className="text-lg">{`${item.availableBalance} ${item.const}`}</span>
+                <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
+                    <div
+                        className={`${styles.Item + " " + ParentClassForCoin} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                        <div className="col flex items-center pl-4">
+                            <img className={`${styles.Coin} mr-3`} width={14} height={14}
+                                 src={`/img/icon/DepositAngleArrowIcon.svg`}
+                                 alt={"DepositAngleArrowIcon"}/>
+                            <IconCoin className={styles.Coin} coinName={item.name}
+                                      iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
                         </div>
-                        <div className="row w-full"><span
-                            className="text-gray text-sm">{`${item.freezeBalance} (hold)`}</span>
+                        <div className="col flex items-center justify-center flex-col pl-6">
+                            <div className="row w-full mb-1"><span
+                                className="text-gray text-xs">{item.name}</span></div>
+                            <div className="row w-full"><span
+                                className="text-lg">{`${item.availableBalance} ${item.const}`}</span>
+                            </div>
+                            <div className="row w-full"><span
+                                className="text-gray text-sm">{`${item.freezeBalance} (hold)`}</span>
+                            </div>
                         </div>
                     </div>
                 </NavLink>)}

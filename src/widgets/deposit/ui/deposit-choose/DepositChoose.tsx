@@ -72,7 +72,7 @@ const DepositChoose = () => {
                 I confirm that I have read carefully and fully accepted
                 {' '}
                 <a
-                    className='font-inherit text-gekLinkBlue underline'
+                    className='font-inherit text-blue-300 underline'
                     href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
                     target="_blank"
                     rel="noreferrer noopener"

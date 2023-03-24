@@ -1,11 +1,11 @@
-import {FC, PropsWithChildren, useContext, useEffect, useState} from "react";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {FC, PropsWithChildren} from "react";
+// import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import styles from "./main.module.scss"
 
 const Main: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
-    const {md} = useContext(BreakpointsContext)
+    // const {md} = useContext(BreakpointsContext)
     return <>
-        <main className={md ? styles.Mobile : styles.Desktop}>
+        <main className={styles.Main}>
             {children}
         </main>
     </>

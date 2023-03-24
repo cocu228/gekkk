@@ -64,7 +64,7 @@ function Wallet() {
         setActiveTab(Object.keys(walletTabs)[0]);
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col h-full w-full">
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
@@ -127,8 +127,8 @@ function Wallet() {
                 activeTab={activeTab}
             />
 
-            <div className='flex grow shrink text-gray-500 container mx-auto h-full mb-5 px-4'>
-                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
+            <div className='flex grow shrink text-gray-500 container mx-auto mb-5 px-4'>
+                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <TopUp
                             flags={flags}
@@ -145,7 +145,7 @@ function Wallet() {
                     )}
                 </div>
                 
-                <History />
+                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
             </div>
         </div>
     );

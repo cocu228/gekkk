@@ -22,10 +22,6 @@ module.exports = {
             m: '750px'
         },
 
-        maxWidth: {
-            sm: '756px',
-        },
-
         borderWidth: {
             1: "1px"
         },

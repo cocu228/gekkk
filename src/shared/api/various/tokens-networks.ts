@@ -22,8 +22,5 @@ export const apiTokenNetworks = (currency: string) =>
     $axios.get<IResTokenNetworks[]>('/gek/v1/tokens_networks', {
         params: {
             currency
-        },
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
+        }
     })

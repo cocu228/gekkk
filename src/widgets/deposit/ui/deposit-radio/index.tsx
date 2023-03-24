@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import {Radio, RadioProps} from "antd";
-import styles from './styles.module.scss';
+import styles from './style.module.scss';
 
 interface IDepositRadio extends RadioProps {
   title: string | ReactNode,

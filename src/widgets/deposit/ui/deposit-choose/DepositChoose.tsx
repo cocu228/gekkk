@@ -8,7 +8,7 @@ import ClosingConditionsModal from "@/widgets/deposit/ui/modals/ClosingCondition
 import DepositRadio from "../deposit-radio";
 import DepositInput from "../deposit-input";
 import InfoBlock from "../info-block";
-import styles from "./styles.module.scss"
+import styles from "./style.module.scss"
 
 const DepositChoose = () => {
 

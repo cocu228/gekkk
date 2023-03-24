@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from 'react';
-import "@/app/styles/index.scss";
+import "@styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
-import FormCode from "@/widgets/auth/ui/form-code/index";
-import QRCode from "@/widgets/auth/ui/qr-code/index";
+import FormCode from "@/widgets/auth/ui/form-code";
+import QRCode from "@/widgets/auth/ui/qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 

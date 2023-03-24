@@ -1,6 +1,6 @@
 import InlineProperty from "@/shared/ui/inline-property"
 import InfoBlock from "../info-block"
-import styles from "./styles.module.scss"
+import styles from "./style.module.scss"
 
 const DepositInfo = () => {
 

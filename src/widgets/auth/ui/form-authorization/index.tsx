@@ -10,7 +10,7 @@ import Button from '@/shared/ui/button/Button';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {randomId} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {S} from "@/pages/auth/ui";
+import {S} from "@/pages/auth";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
 

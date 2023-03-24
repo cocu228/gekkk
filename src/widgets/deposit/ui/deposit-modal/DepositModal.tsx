@@ -1,5 +1,5 @@
 import {Modal, ModalProps} from "antd";
-import styles from './styles.module.scss'
+import styles from './style.module.scss'
 import { ReactNode } from "react";
 
 const DepositModal = ({open, onCancel, children, ...props}: ModalProps) => {

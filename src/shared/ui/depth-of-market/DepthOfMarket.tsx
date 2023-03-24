@@ -18,7 +18,7 @@ function DepthOfMarket() {
                             width={22}
                             height={24}
                             className={styles.Icon}
-                            src={`/public/img/icon/ExchangeOrange.svg`}
+                            src={`/img/icon/ExchangeOrange.svg`}
                             alt="ExchangeIcon"
                         />
                     </span>

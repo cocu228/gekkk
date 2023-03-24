@@ -13,7 +13,7 @@ function DepositFixed() {
         <div className="wrapper flex flex-col flex-1">
             <div className='wrapper flex justify-between mb-10 lg:flex-col md:mb-8'>
                 <div className='column flex gap-5 lg:mb-6 md:items-center md:mb-4'>
-                    <img className='h-[3.2rem] md:h-[2.6rem]' src="/public/img/icon/DepositGradientIcon.svg" alt="strategy"/>
+                    <img className='h-[3.2rem] md:h-[2.6rem]' src="/img/icon/DepositGradientIcon.svg" alt="strategy"/>
                     <div className='column'>
                         <p className='font-medium text-gray-500 mb-2 md:font-bold md:text-sm md:mb-1'>Current balance</p>
                         <p className='font-bold text-2xl whitespace-nowrap'>1 000.00 EURG</p>
@@ -23,11 +23,11 @@ function DepositFixed() {
                     <p className='text-3xl font-bold mb-4 md:hidden'>Fixed rate deposit</p>
                     <div className='row flex justify-between lg:justify-start lg:gap-8'>
                         <div className='flex gap-2 items-center'>
-                            <img src="/public/img/icon/DepositStrategyIcon.svg" alt="strategy"/>
+                            <img src="/img/icon/DepositStrategyIcon.svg" alt="strategy"/>
                             <p className='font-medium'>Fixed rate</p>
                         </div>
                         <div className='flex gap-2 items-center'>
-                            <img src="/public/img/icon/DepositPercentIcon.svg" alt="percent"/>
+                            <img src="/img/icon/DepositPercentIcon.svg" alt="percent"/>
                             <p className='font-medium'>0,8% per month</p>
                         </div>
                     </div>

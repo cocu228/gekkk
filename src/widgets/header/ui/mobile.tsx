@@ -1,5 +1,5 @@
 import styles from "./mobile.module.scss"
-import {storyToggleSidebar} from "@/widgets/sidebar/module/story";
+import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {useRef} from "react";
 
 const HeaderMobile = () => {

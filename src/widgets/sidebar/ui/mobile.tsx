@@ -1,14 +1,12 @@
 import styles from "./mobile.module.scss"
-import {useContext} from "react";
-import SidebarContext from "../module/context"
+import {storyToggleSidebar} from "../model/story"
 import SidebarDesktop from "@/widgets/sidebar/ui/desktop";
 
 const SidebarMobile = () => {
 
+    const isOpen = storyToggleSidebar(state => state.isOpen)
 
-    const {active} = useContext(SidebarContext)
-    //todo change in context
-    return <div id="sidebar" className={`${styles.Sidebar} ${active ? "active" : ""}`}>
+    return <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
         <SidebarDesktop/>
     </div>
 

@@ -19,9 +19,6 @@ export const apiHistoryTransactions = (start?: string, end?: string, currency?: 
             tx_type,
             start,
             end
-        },
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
+        }
     })
 

@@ -1,0 +1,97 @@
+.Field {
+  margin-top: 0.4rem;
+  height: 60px;
+  padding: 0 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+
+  &Input {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    line-height: 1;
+    outline: none;
+
+    &:not(:last-child) {
+      padding-bottom: 0.3rem;
+    }
+  }
+
+  &InfoText {
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    color: var(--color-secondary);
+    font-size: 0.625rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  &SelectBtn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    height: 100%;
+    gap: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+
+    svg {
+      width: 7px;
+      height: 17px;
+      fill: var(--color-secondary);
+    }
+  }
+
+  &MaxLabel {
+    margin-right: 10px;
+    padding-right: 10px;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    border-right: 1px solid var(--color-secondary);
+  }
+
+  &TokenIcon {
+    width: 34px;
+    min-width: 34px;
+  }
+
+  &TokenTitle {
+    min-width: 2.8rem;
+    text-align: left;
+  }
+
+  &PriceLabel {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    gap: 0.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &SwitchBtn {
+    display: inline-flex;
+    padding: 0;
+    background: none;
+    border: none;
+    white-space: nowrap;
+
+    img {
+      min-width: 22px;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background: var(--color-bgSecondary);
+  }
+}

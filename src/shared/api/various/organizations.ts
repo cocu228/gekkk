@@ -10,10 +10,6 @@ interface IResOrganizations {
 }
 
 export const apiOrganizations = () => {
-    return $axios.get<IResOrganizations[]>('/api/v2/organizations', {
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
-    })
+    return $axios.get<IResOrganizations[]>('/api/v2/organizations')
 }
 

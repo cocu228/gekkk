@@ -8,9 +8,5 @@ export interface IResListAddresses {
 }
 
 export const apiListAddresses = () =>
-    $axios.get<IResListAddresses[]>('/gek/v1/client/list_addresses', {
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
-    })
+    $axios.get<IResListAddresses[]>('/gek/v1/client/list_addresses')
 

@@ -1,0 +1,22 @@
+.Radio {
+  input ~ span {
+    border: 1px solid #00AEEF !important;
+    background: none !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      content: '';
+      position: static !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #00AEEF !important;
+      transform: scale(1) !important;
+      width: 14px !important;
+      height: 14px !important;
+    }
+  }
+}

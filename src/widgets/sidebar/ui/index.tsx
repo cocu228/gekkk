@@ -4,9 +4,10 @@ import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 const Sidebar = () => {
-    const {sm} = useContext(BreakpointsContext)
 
-    return sm ? <SidebarMobile/> : <SidebarDesktop/>
+    const {md} = useContext(BreakpointsContext)
+
+    return md ? <SidebarMobile/> : <SidebarDesktop/>
 
 }
 

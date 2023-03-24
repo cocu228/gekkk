@@ -19,9 +19,6 @@ export const apiGetMarketAssets = (currency?: string, filter_flag?: number) =>
         params: {
             currency,
             filter_flag,
-        },
-        transformResponse: [(data) => {
-            return JSON.parse(data)
-        }],
+        }
     })
 

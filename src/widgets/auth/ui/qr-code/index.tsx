@@ -1,5 +1,5 @@
 import React, {memo, useContext, useEffect, useRef, useState} from 'react';
-import {S} from "@/pages/auth/ui";
+import {S} from "@/pages/auth";
 import ReactQRCode from "react-qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';

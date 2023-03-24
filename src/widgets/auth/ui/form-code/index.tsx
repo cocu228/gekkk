@@ -6,7 +6,7 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {codeMessage} from '@/shared/config/message';
 import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
-import {S} from "@/pages/auth/ui";
+import {S} from "@/pages/auth";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useAuth} from "@/app/providers/AuthRouter";

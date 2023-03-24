@@ -1,16 +1,16 @@
 import styles from "./mobile.module.scss"
+import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
+import {useRef} from "react";
 
 const HeaderMobile = () => {
 
+    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
+    const isOpen = storyToggleSidebar(state => state.isOpen)
 
     return <>
         <header className="flex justify-between bg-white">
             <div className="flex items-center">
-                <button onClick={({currentTarget}: { currentTarget: HTMLButtonElement }) => {
-                    //todo change in context
-                    currentTarget.classList.toggle("active")
-                    document.getElementById("sidebar")?.classList.toggle("active")
-                }}
+                <button onClick={() => toggleSidebar.current(!isOpen)}
                         className={styles.NavBtn}/>
                 <img style={{objectFit: "contain"}} src="/img/logo.svg" width={72}
                      height={24} alt="logo"/>

@@ -24,6 +24,7 @@ const sessionHeader = () => {
 const $axios = axios.create({
     withCredentials: true,
     headers: sessionHeader(),
+    responseType: 'json',
     baseURL: (DEV || VITE_DEV_DOCKER) ? window.location.origin : "https://api-dev.gekkoin.com"
 });
 

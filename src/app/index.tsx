@@ -19,6 +19,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
     enumerable: false
 });
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
     <ConfigProvider theme={{

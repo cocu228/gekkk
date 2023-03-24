@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ChooseDeposit from "@/widgets/deposit/ui/deposit-choose/DepositChoose";
 import DepositInfo from "@/widgets/deposit/ui/deposit-info/DepositInfo";
 

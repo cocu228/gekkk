@@ -2,8 +2,8 @@ import {memo, useEffect, useRef, useState} from 'react'
 import {Outlet} from 'react-router'
 import Header from "@/widgets/header/ui/";
 import Sidebar from "@/widgets/sidebar/ui/";
-import Main from "@/app/layouts/Main";
-import Content from "@/app/layouts/Content";
+import Main from "@/app/layouts/main/Main";
+import Content from "@/app/layouts/content/Content";
 import Loader from "@/shared/ui/loader";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";

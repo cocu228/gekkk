@@ -1,0 +1,24 @@
+.Header {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  justify-content: end;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:global(.active) {
+    img.Arrow {
+      transform: rotate(-180deg);
+    }
+
+    & + .List {
+      max-height: 700px;
+    }
+  }
+}
+
+
+.List {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out;
+}

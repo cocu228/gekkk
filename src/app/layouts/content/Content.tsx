@@ -1,5 +1,5 @@
 import {FC, PropsWithChildren, useContext} from "react";
-import styles from "./content.module.scss"
+import styles from "./style.module.scss"
 
 const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
 

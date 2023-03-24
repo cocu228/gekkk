@@ -1,14 +1,14 @@
-import styles from "./desktop.module.scss"
+import styles from "./style.module.scss";
 import Footer from "@/widgets/footer";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icon-coin";
-import totalizeAmount from "../model/totalize-amount";
+import totalizeAmount from "../../model/totalize-amount";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-
+import CollapseNav from "@/widgets/sidebar/ui/collapse-nav-link/CollapseNav";
 
 const SidebarDesktop = () => {
 
@@ -37,9 +37,9 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, [])
+    }, []);
 
-    const EURG = sortedListBalance.find(it => it.const === "EURG")
+    const EURG = sortedListBalance.find(it => it.const === "EURG");
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -84,6 +84,44 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
+            <NavLink onClick={NavLinkEvent} to={"assets"}>
+                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                    <div className="col flex items-center pl-4">
+                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
+                             alt="Invest"/>
+                    </div>
+                    <div className="col flex items-center justify-center flex-col pl-6">
+                        <div className="row w-full mb-1"><span>Crypto assets</span></div>
+                    </div>
+                </div>
+            </NavLink>
+            <CollapseNav header={"Assets"} id={"assets"}>
+                {sortedListBalance.map((item, i) =>
+                    <NavLink className={({isActive}) => {
+                        return isActive ? "active" : ""
+                    }} onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
+                        <div
+                            className={`${styles.Item + " " + ParentClassForCoin} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                            <div className="col flex items-center pl-4">
+                                <img className={`${styles.Coin} mr-3`} width={14} height={14}
+                                     src={`/img/icon/DepositAngleArrowIcon.svg`}
+                                     alt={"DepositAngleArrowIcon"}/>
+                                <IconCoin className={styles.Coin} coinName={item.name}
+                                          iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
+                            </div>
+                            <div className="col flex items-center justify-center flex-col pl-6">
+                                <div className="row w-full mb-1"><span
+                                    className="text-gray-400 text-xs">{item.name}</span></div>
+                                <div className="row w-full"><span
+                                    className="text-lg text-gray-600">{`${item.availableBalance} ${item.const}`}</span>
+                                </div>
+                                <div className="row w-full"><span
+                                    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </NavLink>)}
+            </CollapseNav>
             <NavLink onClick={NavLinkEvent} to={"exchange"}>
                 <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
@@ -96,6 +134,9 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
+            <CollapseNav header={"Private exchange rooms"} id={"exchange"}>
+                <p>Private exchange rooms</p>
+            </CollapseNav>
             <NavLink onClick={NavLinkEvent} to={"deposit"}>
                 <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
                     <div className="col flex items-center pl-4">
@@ -108,53 +149,11 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
-                <span className="text-gray-400 text-sm mr-2">Currents deposit</span>
-                <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
-            </div>
-            <NavLink onClick={NavLinkEvent} to={"assets"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
-                    <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
-                             alt="Invest"/>
-                    </div>
-                    <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1"><span>Crypto assets</span></div>
-                    </div>
-                </div>
-            </NavLink>
-            <div className={`flex flex-nowrap justify-end pr-4 pt-3`}>
-                <span className="text-gray-400 text-sm mr-2">Assets</span>
-                <img width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
-            </div>
-
-            {sortedListBalance.map((item, i) =>
-                <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
-                    <div
-                        className={`${styles.Item + " " + ParentClassForCoin} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
-                        <div className="col flex items-center pl-4">
-                            <img className={`${styles.Coin} mr-3`} width={14} height={14}
-                                 src={`/img/icon/DepositAngleArrowIcon.svg`}
-                                 alt={"DepositAngleArrowIcon"}/>
-                            <IconCoin className={styles.Coin} coinName={item.name}
-                                      iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-6">
-                            <div className="row w-full mb-1"><span
-                                className="text-gray-400 text-xs">{item.name}</span></div>
-                            <div className="row w-full"><span
-                                className="text-lg text-gray-600">{`${item.availableBalance} ${item.const}`}</span>
-                            </div>
-                            <div className="row w-full"><span
-                                className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>
-                            </div>
-                        </div>
-                    </div>
-                </NavLink>)}
+            <CollapseNav header={"Current deposit"} id={"deposit"}>
+                <p>Current deposit</p>
+            </CollapseNav>
         </div>
-
         <Footer/>
-
     </div>;
 }
 

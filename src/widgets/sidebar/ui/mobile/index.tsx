@@ -1,5 +1,5 @@
-import styles from "./mobile.module.scss"
-import {storyToggleSidebar} from "../model/story"
+import styles from "./style.module.scss"
+import {storyToggleSidebar} from "../../model/story"
 import SidebarDesktop from "@/widgets/sidebar/ui/desktop";
 
 const SidebarMobile = () => {

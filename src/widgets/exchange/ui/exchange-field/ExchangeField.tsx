@@ -61,7 +61,7 @@ function ExchangeField({value, infoText, disabled, labelType, tokenLabelTitle, t
                                 <img
                                     width={22}
                                     height={24}
-                                    src={`/public/img/icon/ExchangeOrange.svg`}
+                                    src={`/img/icon/ExchangeOrange.svg`}
                                     alt="ExchangeIcon"
                                 />
                             </button>

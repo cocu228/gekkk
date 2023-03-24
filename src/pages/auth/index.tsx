@@ -42,32 +42,32 @@ const AuthPage = () => {
                     <FormCode handleView={handleView}/> : <QRCode handleView={handleView}/>}
             </div>
 
-            <footer className={`text-center text-gray-400 mt-auto mb-10 mb max-w-[756px]
+            <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]
             ${!md ? '' : 'px-4'}`}>
-                <p className='mb-4 font-light'>
+                <p className='mb-4'>
                     <a
-                        className={`${md ? 'text-xs' : ''} font-light hover:underline`}
+                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
                         href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >General terms and conditions</a>
                     {' | '}
                     <a
-                        className={`${md ? 'text-xs' : ''} font-light hover:underline`}
+                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
                         href="https://gekkoin.com/source/Privacy_policy.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >Privacy policy</a>
                     {' | '}
                     <a
-                        className={`${md ? 'text-xs' : ''} font-light hover:underline`}
+                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
                         href="https://gekkoin.com/source/Cookies_policy.pdf"
                         target="_blank"
                         rel="noreferrer noopener"
                     >Cookie policy</a>
                 </p>
 
-                <p className='font-light'>
+                <p className={` ${md ? 'text-xs' : 'text-sm'}`}>
                     Crypto exchange service is powered by AtlantEX OU
                     (licensed partner for crypto wallet and exchange)
                 </p>

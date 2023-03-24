@@ -23,7 +23,7 @@ const DepositChoose = () => {
 
     return (
     <div className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-between items-start xxl:py-3 xxl:px-4 xl:col-span-5 md:bg-transparent md:p-0`}>
-        <p className="text-base font-medium text-gray mb-6 md:text-sm md:mb-4">Choose deposit types</p>
+        <p className="text-base font-medium text-gray-500 mb-6 md:text-sm md:mb-4">Choose deposit types</p>
 
         <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between">
             <DepositRadio 
@@ -50,7 +50,7 @@ const DepositChoose = () => {
 
         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
             <div className="row flex justify-between mb-2 md:mb-1">
-                <p className="text-gray font-medium text-base md:text-sm">Enter deposit amount</p>
+                <p className="text-gray-500 font-medium text-base md:text-sm">Enter deposit amount</p>
 
                 <div className="row flex gap-1">
                     <PercentBtn>25%</PercentBtn>

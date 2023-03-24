@@ -25,7 +25,7 @@
 
   &:checked ~ .Checkbox {
     border-color: var(--color-accent);
-    background-image: url("/public/img/check-true-accent.svg");
+    background-image: url("/img/check-true-accent.svg");
     background-position: center;
     background-repeat: no-repeat;
   }

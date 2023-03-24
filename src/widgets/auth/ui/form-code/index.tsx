@@ -73,9 +73,9 @@ const FormCode = memo(({handleView}: TProps) => {
     }
 
     return <Form onFinish={onFinish}>
-        <h1 className={`font-extrabold text-center text-gray-dark pb-4
+        <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
-        <p className='text-center mb-9 text-gray'>
+        <p className='text-center mb-9 text-gray-500'>
             SMS with one-time code was sent to
             <br/>
             <b>
@@ -97,7 +97,7 @@ const FormCode = memo(({handleView}: TProps) => {
         </FormItem>
 
         <div className="row text-right mb-9">
-            <a onClick={onBack} className="text-sm text-gray underline">
+            <a onClick={onBack} className="text-sm text-gray-500 underline">
                 Re-send one-time code again
             </a>
         </div>

@@ -288,7 +288,7 @@ export default {
         <br/>
         <p>The exchange rate is fixed: <a className='font-bold'>1 EURG = 1 EUR.</a></p>
         <br/>
-        <div className='bg-green-light rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
+        <div className='bg-green rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
             <p className='font-bold mb-4'>3% AER interest on account balance</p>
             <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
             <p>(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG;</p>

@@ -24,7 +24,7 @@ const PromoCode = memo(() => {
     // }
 
     return <>
-        <div className="row flex my-10 gap-2">
+        <div className="row flex gap-2">
             <div className="wrapper w-1/2">
                 <FormItem>
                     <InputAnt.Group>

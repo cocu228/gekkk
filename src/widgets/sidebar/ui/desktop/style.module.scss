@@ -7,7 +7,7 @@
   box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
 }
 
-:global(.active) {
+:global(a.active) {
 
   & > .Item {
 
@@ -15,6 +15,11 @@
       opacity: 1;
       pointer-events: none;
       filter: saturate(100%) invert(0%);
+    }
+
+    .Name {
+      color: var(--color-blue-400);
+      font-weight: 500;
     }
 
     &:after {
@@ -44,6 +49,8 @@
   }
 
   &:hover {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
     .Coin {
       opacity: 1;
       pointer-events: none;

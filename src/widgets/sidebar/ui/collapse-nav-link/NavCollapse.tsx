@@ -2,7 +2,7 @@ import styles from "./style.module.scss"
 import {useState} from "react";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 
-const CollapseNav = ({children, id, header}) => {
+const NavCollapse = ({children, id, header}) => {
 
     const [value, setValue] = useSessionStorage("collapse-nav", [])
     const initActiveStorage = value.indexOf(id) !== -1
@@ -30,4 +30,4 @@ const CollapseNav = ({children, id, header}) => {
         </div>
     </>
 }
-export default CollapseNav
+export default NavCollapse

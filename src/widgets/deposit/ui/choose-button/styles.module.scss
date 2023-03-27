@@ -1,0 +1,11 @@
+.ChooseButton {
+  border: 1px solid #B4C0CD;
+  padding: 0.875rem 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+
+  &:active, &:focus {
+    border-color:#00AEEF;
+  }
+}

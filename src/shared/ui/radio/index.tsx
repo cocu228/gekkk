@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
-import {Radio, RadioProps} from "antd";
+import {Radio as RadioAntd, RadioProps} from "antd";
 import styles from './styles.module.scss';
 
-interface IDepositRadio extends RadioProps {
+interface IRadio extends RadioProps {
   title: string | ReactNode,
   subtitle: string | ReactNode,
 }
 
-const DepositRadio = ({title, subtitle, value, onChange, checked, name}: IDepositRadio) => {
+const Radio = ({title, subtitle, value, onChange, checked, name}: IRadio) => {
 
     return (
       <label className="flex gap-2 xl:flex-col">
         <div className="wrapper">
-          <Radio className={styles.Radio} name={name} value={value} checked={checked} onChange={onChange}/>
+          <RadioAntd className={styles.Radio} name={name} value={value} checked={checked} onChange={onChange}/>
         </div>
 
         <div className="row">
@@ -23,4 +23,4 @@ const DepositRadio = ({title, subtitle, value, onChange, checked, name}: IDeposi
     )
 }
 
-export default DepositRadio
+export default Radio

@@ -37,6 +37,7 @@ const About = ({currency, name, flags}: AboutParams) => {
             {flags === 2 && (
                 <div className='grid gap-5 grid-cols-2 mt-10'>
                     <Button gray size="small" href="/exchange">
+
                         <span className='pt-1 font-semibold'>Buy</span>
                     </Button>
                     <Button gray size="small" href="/exchange">

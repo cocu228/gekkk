@@ -5,6 +5,7 @@ import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
+import Withdraw from "@/widgets/wallet-stage/withdraw/Withdraw";
 import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
 import { IResListAddresses } from "@/shared/api";
 
@@ -134,6 +135,12 @@ function Wallet() {
                             flags={flags}
                             currency={currency}
                             listAddresses={listAddresses}
+                        />
+                    )}
+                    {activeTab === 'withdraw' && (
+                        <Withdraw
+                            flags={flags}
+                            currency={currency}
                         />
                     )}
                     {activeTab === 'about' && (

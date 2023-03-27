@@ -7,6 +7,7 @@ import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
 import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
 import { IResListAddresses } from "@/shared/api";
+import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -134,6 +135,11 @@ function Wallet() {
                             flags={flags}
                             currency={currency}
                             listAddresses={listAddresses}
+                        />
+                    )}
+                    {activeTab === 'transfer' && (
+                        <Transfer
+                            currency={currency}
                         />
                     )}
                     {activeTab === 'about' && (

@@ -14,6 +14,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
     useLayoutEffect(() => {
 
         $axios.interceptors.response.use(function (response) {
+
             return response;
         }, function (error) {
 
@@ -30,9 +31,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     }, [])
 
-    const closeErrorMessage = (id) => useCallback(() => {
-        setErrorForState(prevState => [...prevState.filter(it => it.id !== id)])
-    }, [id])
+    const closeErrorMessage = (id) => setErrorForState(prevState => [...prevState.filter(it => it.id !== id)])
 
     return <>
         {errors.length > 0 ?
@@ -49,10 +48,9 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
 const ErrorMessage = ({onClick, message, id}: { onClick: (val: string) => void, message: string, id: string }) => {
 
-    return <div className="flex justify-center items-center relative rounded-xl m-1 w-[400px] min-h-[40px] bg-gray">
-        <span onClick={() => onClick(id)}
-              className="absolute right-[24px] m-auto min-h-min cursor-pointer">
-        <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
+    return <div className="flex justify-center items-center relative rounded-xl m-1 w-[400px] min-h-[40px] bg-gray-500">
+        <span onClick={() => onClick(id)} className="absolute right-[24px] m-auto min-h-min cursor-pointer">
+            <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
             </span>
         <p>{message}</p>
     </div>

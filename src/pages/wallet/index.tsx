@@ -5,8 +5,9 @@ import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
-import { storeListAvailableBalance, storeListAllCryptoName } from "@/shared/store/crypto-assets";
-import { IResMarketAssets } from "@/shared/api";
+import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
+import { IResListAddresses } from "@/shared/api";
+import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -39,6 +40,7 @@ const getWalletData = (currency: string) => storeListAvailableBalance(state => s
 function Wallet() {
     const { currency, tab = '' } = useParams<string>();
     const walletAssets = getWalletAssets(currency);
+    const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
 
     const isEURG: boolean = currency === 'EURG';
     const {
@@ -63,7 +65,7 @@ function Wallet() {
         setActiveTab(Object.keys(walletTabs)[0]);
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col h-full w-full">
             <div className="container flex mx-auto px-4">
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
@@ -85,7 +87,7 @@ function Wallet() {
                                 Wallet balance
                             </div>
 
-                            <div className="text-2xl font-bold text-gray-dark cursor-help">
+                            <div className="text-2xl font-bold text-gray-600 cursor-help">
                                 {walletData? walletData.free_balance : 0} {currency}
                             </div>
                         </div>
@@ -102,7 +104,7 @@ function Wallet() {
                                     </Tooltip>
                                 </div>
 
-                                <div className='text-gray-dark text-2xl'>
+                                <div className='text-gray-600 text-2xl'>
                                     3% per annum
                                 </div>
                             </div>
@@ -110,7 +112,7 @@ function Wallet() {
                     </div>
 
                     <div className="ml-auto text-right">
-                        <div className="font-bold text-[32px] leading-[48px] text-gray-dark mb-4">
+                        <div className="font-bold text-[32px] leading-[48px] text-gray-600 mb-4">
                             {name} wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
@@ -126,11 +128,18 @@ function Wallet() {
                 activeTab={activeTab}
             />
 
-            <div className='flex grow shrink text-gray container mx-auto h-full mb-5 px-4'>
-                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 h-full w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
+            <div className='flex grow shrink text-gray-500 container mx-auto mb-5 px-4'>
+                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
                     {activeTab === 'topup' && (
                         <TopUp
                             flags={flags}
+                            currency={currency}
+                            listAddresses={listAddresses}
+                        />
+                    )}
+                    {activeTab === 'transfer' && (
+                        <Transfer
+                            currency={currency}
                         />
                     )}
                     {activeTab === 'about' && (
@@ -142,7 +151,7 @@ function Wallet() {
                     )}
                 </div>
                 
-                <History />
+                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
             </div>
         </div>
     );

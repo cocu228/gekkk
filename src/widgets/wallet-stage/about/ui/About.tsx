@@ -25,12 +25,12 @@ const About = ({currency, name, flags}: AboutParams) => {
                     />
                 </div>
 
-                <h1 className="font-bold text-base text-gray-dark">
+                <h1 className="font-bold text-base text-gray-600">
                     {name}
                 </h1>
             </div>
 
-            <div className='text-gray text-sm font-medium'>
+            <div className='text-gray-500 text-sm font-medium'>
                 {descriptions[currency]?? `Description for this token is not done yet.`}
             </div>
 

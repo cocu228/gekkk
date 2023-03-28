@@ -27,7 +27,7 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
                         <p className="text-[14px] font-medium uppercase">
                             <strong className="text-[32px] font-bold">{balance}</strong> {currency}
                         </p>
-                        <p className="text-[12px] text-gray font-medium">{price}</p>
+                        <p className="text-[12px] text-gray-500 font-medium">{price}</p>
                     </div>
                     <div className="flex gap-[16px] mt-[16px]">
                         <Button className="flex-1" gray size="small" onClick={onTopUp}>Top up</Button>

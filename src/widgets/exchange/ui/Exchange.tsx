@@ -34,7 +34,7 @@ function Exchange() {
             value="00.00"
             infoText="Balance: 1000 EURG"
             labelType={ExchangeFieldType.TOKEN}
-            tokenLabelIconUrl="/public/img/icon/EurgIcon.svg"
+            tokenLabelIconUrl="/img/tokens/EurgIcon.svg"
             tokenLabelTitle="EURG"
             tokenLabelMax
           />
@@ -46,7 +46,7 @@ function Exchange() {
             value="00.00"
             infoText="Balance: "
             labelType={ExchangeFieldType.TOKEN}
-            tokenLabelIconUrl="/public/img/icon/XmrIcon.svg"
+            tokenLabelIconUrl="/img/tokens/XmrIcon.svg"
             tokenLabelTitle="XMR"
           />
           <div className="mt-3">

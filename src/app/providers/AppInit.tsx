@@ -1,5 +1,5 @@
 import {AuthProvider, useAuth} from "./AuthRouter";
-import AuthPage from "@/pages/auth/ui";
+import AuthPage from "@/pages/auth";
 import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
 

@@ -1,52 +1,73 @@
-import React, {useState} from 'react';
+import {useEffect, useState} from 'react';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import Filter from "@/shared/ui/filter/Filter";
+import SecondaryTabGroup from "@/shared/ui/tab-group/secondary";
 import Table from "@/shared/ui/table/Table";
-import styles from './style.module.scss';
+import {apiHistoryTransactions} from "@/shared/api";
+import {sameOrAfter} from "@/shared/lib/date-helper";
+import {format, subDays, subYears} from "date-fns";
 
-const historyFilters = [
-    { value: 'month', label: 'This month'},
-    { value: '30_days', label: 'Last 30 days'},
-    { value: '90_days', label: 'Last 90 days'},
-    { value: 'year', label: 'This year'},
-    { value: 'custom', label: 'Custom period'},
-];
+const historyTabs: Record<string, string> = {
+    'month': 'This month',
+    '30_days': 'Last 30 days',
+    '90_days': 'Last 90 days',
+    'year': 'This year',
+    'custom': 'Custom period',
+};
+
+const filter = (historyList, selectedOption) => {
+
+    switch (selectedOption) {
+        case 'month':
+            return historyList.filter(item => +format(new Date(item.datetime), "yyyyMM") ===
+                +format(new Date(), "yyyyMM"))
+        case '30_days':
+            return historyList.filter(item => sameOrAfter(new Date(item.datetime), subDays(new Date(), 30)))
+        case '90_days':
+            return historyList.filter(item => sameOrAfter(new Date(item.datetime), subDays(new Date(), 90)))
+        case 'year':
+            return historyList.filter(item => sameOrAfter(new Date(item.datetime), subYears(new Date(), 1)))
+        case 'custom':
+            console.log('custom');
+            return [];
+        default:
+            throw Error("Нет таких значений");
+    }
+}
 
 interface Props {
     title?: string,
-    withSurface?: boolean
+    className?: string
 }
 
-function History({title, withSurface = true}: Props) {
-    const [selectedOption, setSelectedOption] = useState(historyFilters[0].value);
+function History({title, className}: Props) {
+    const [activeTab, setActiveTab] = useState(Object.keys(historyTabs)[0]);
+    const [historyList, setHistoryList] = useState([]);
+
+    useEffect(() => {
+
+        (async () => {
+            const {data} = await apiHistoryTransactions()
+            setHistoryList(data)
+        })()
+    }, [])
+
+    let filterList = filter(historyList, activeTab)
+
+    const sortedList = filterList.map((item) => ([{text: format(new Date(item.datetime), "dd MMMM yyyy HH:mm")}, {
+        text: <span className="text-green">{item.amount + " " + item.currency}</span>
+    }, {text: ""}]))
 
     return (
         <div className="wrapper">
             {title && (
                 <SectionTitle>{title}</SectionTitle>
             )}
-            <div className={withSurface ? `bg-bgPrimary rounded-md p-4 ${styles.surface}` : ''}>
-                <Filter options={historyFilters} selected={selectedOption} onChange={setSelectedOption}/>
+            <div className={`${className} bg-white rounded-[10px] p-[15px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}>
+                <SecondaryTabGroup tabs={historyTabs} activeTab={activeTab} setActiveTab={setActiveTab}/>
                 <Table
                     data={{
                         labels: [{text: 'Data'}, {text: 'Flow of funds'}, {text: 'Information'}],
-                        rows: [
-                            [
-                                {text: '16.05.2022 11:01 AM', options: {nowrap: true}},
-                                {text: <span className="text-green">8.00 EUR</span>},
-                                {text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores', options: {wFull: true}},
-                            ],
-                            [
-                                {text: '16.05.2022 11:01 AM', options: {nowrap: true}},
-                                {text: '-128.00 EUR'},
-                                {text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores', options: {wFull: true}},
-                            ],
-                            [
-                                {text: '16.05.2022 11:01 AM', options: {nowrap: true}},
-                                {text: <span className="text-green">8.00 EUR</span>},
-                                {text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores', options: {wFull: true}},
-                            ],
-                        ]
+                        rows: sortedList
                     }}
                     noDataText="You dont have any history"
                 />

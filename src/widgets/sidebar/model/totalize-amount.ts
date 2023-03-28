@@ -1,4 +1,4 @@
-import {ISortedListBalance} from "@/widgets/sidebar/module/sorting-list-balance";
+import {ISortedListBalance} from "@/shared/model/sorting-list-balance";
 import $const from "@/shared/config/coins/constants";
 import Decimal from "decimal.js";
 

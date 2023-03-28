@@ -17,7 +17,7 @@ const Radio = ({title, subtitle, value, onChange, checked, name}: IRadio) => {
 
         <div className="row">
             <p className="text-base font-medium mb-2 md:text-sm md:mb-1">{title}</p>
-            <p className="text-gray text-sm md:text-xs">{subtitle}</p>
+            <p className="text-gray-500 text-sm md:text-xs">{subtitle}</p>
         </div>
       </label>
     )

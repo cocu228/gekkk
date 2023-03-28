@@ -79,7 +79,7 @@ function Wallet() {
     } = walletAssets;
 
     const walletTabs: Array<WalletTab> = [
-        ...(flags === 8 && [
+        ...(flags === 8 ? [
             {
                 Key: TabKey.TOPUP,
                 Title: 'Top Up',
@@ -104,7 +104,7 @@ function Wallet() {
                         currency={currency}
                     />
             },
-        ]),
+        ] : []),
         /* TODO: Show only in mobile version
         {
             Key: Tabs.ABOUT,

@@ -1,16 +1,16 @@
 import React from 'react';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
-import ExchangeField, {
-  ExchangeFieldType,
-} from '@/widgets/exchange/ui/exchange-field/ExchangeField';
 import OpenDepositModal from '../../modals/OpenDepositModal';
 import ClosingConditionsModal from '../../modals/ClosingConditionsModal';
-import ChooseButton from '../../choose-button/ChooseButton';
+import ChooseButton from '../choose-button/ChooseButton';
+import ChooseTokenModal from '../../modals/choose-token-modal/ChooseTokenModal';
+import TokenButton from '../token-button/TokenButton';
 
 const StructuredTypeBlock = () => {
   const openDepositModal = useModal();
   const conditionsModal = useModal();
+  const chooseTokenModal = useModal();
 
   const depositParams = {
     deposit: 'Safe strategy 16/4 XMR',
@@ -139,15 +139,11 @@ const StructuredTypeBlock = () => {
       </div>
 
       <div className="wrapper w-full mb-8">
-        <p className="text-gray font-medium text-base md:text-sm">
+        <p className="text-gray mb-2 font-medium text-base md:text-sm">
           Choose a token to invest
         </p>
-        <ExchangeField
-          value="00.00"
-          labelType={ExchangeFieldType.TOKEN}
-          tokenLabelIconUrl="/public/img/tokens/XmrIcon.svg"
-          tokenLabelTitle="XMR"
-        />
+
+        <TokenButton onClick={chooseTokenModal.showModal} />
       </div>
 
       <div className="wrapper">
@@ -181,6 +177,10 @@ const StructuredTypeBlock = () => {
         </span>
       </Button>
 
+      <ChooseTokenModal
+        open={chooseTokenModal.isModalOpen}
+        onCancel={chooseTokenModal.handleCancel}
+      />
       <OpenDepositModal
         open={openDepositModal.isModalOpen}
         onCancel={openDepositModal.handleCancel}

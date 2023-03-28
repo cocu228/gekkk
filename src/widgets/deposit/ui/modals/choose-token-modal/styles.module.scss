@@ -1,0 +1,16 @@
+.ChooseTokenModal {
+  & > div:nth-child(2) {
+    padding: 0;
+
+    & > div {
+      & > div {
+        padding: 17px 0;
+      }
+    }
+  }
+
+  .TokensList {
+    max-height: 400px;
+    overflow-y: scroll;
+  }
+}

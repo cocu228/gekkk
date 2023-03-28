@@ -1,7 +1,11 @@
 import styles from "./style.module.scss"
 
-const Loader = () => {
-    return <div className={styles.Loader}>
+interface LoaderParams {
+    className?: string;
+}
+
+const Loader = ({className}: LoaderParams) => {
+    return <div className={`${className} ${styles.Loader}`}>
     </div>
 }
-export default Loader
+export default Loader;

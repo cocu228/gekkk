@@ -19,7 +19,6 @@ module.exports = {
         height: {
             inherit: 'inherit',
             full: '100%',
-            m: '750px'
         },
 
         borderWidth: {

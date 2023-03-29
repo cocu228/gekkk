@@ -5,6 +5,12 @@
   justify-content: end;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
+  &:hover {
+    span {
+      color: var(--color-blue-400)
+    }
+  }
+
   &:global(.active) {
     img.Arrow {
       transform: rotate(-180deg);

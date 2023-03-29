@@ -19,7 +19,7 @@ const SidebarDesktop = () => {
 
     const {sm, md} = useContext(BreakpointsContext)
 
-    const NavLinkEvent = useCallback(() => sm ? toggleSidebar.current(false) : null, [sm])
+    const NavLinkEvent = useCallback(() => (sm || md) ? toggleSidebar.current(false) : null, [sm, md])
 
     useEffect(() => {
 
@@ -44,7 +44,7 @@ const SidebarDesktop = () => {
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
-            <div className={`wrapper flex-col ml-4 pt-4 pb-12 flex ${styles.Wrapper}`}>
+            <div className={`wrapper flex-col ml-4 pt-4 pb-5 flex ${styles.Wrapper}`}>
                 <div className="row flex justify-between w-full">
                     <div className="col">
                         <div className="row mb-2">
@@ -58,9 +58,9 @@ const SidebarDesktop = () => {
                 </div>
             </div>
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/img/tokens/EurgIcon.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurgIcon.svg`}
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -74,9 +74,9 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Coin} src={`/img/tokens/GkeIcon.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/GkeIcon.svg`}
                              alt="GKE"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -89,7 +89,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavLink onClick={NavLinkEvent} to={"assets"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
                              alt="Invest"/>
@@ -105,12 +105,12 @@ const SidebarDesktop = () => {
                     <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
                         <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                             <div className="col flex items-center pl-4">
-                                <img className={`${styles.Coin} mr-3`}
+                                <img className={`${styles.Icon} mr-3`}
                                      width={14}
                                      height={14}
                                      src={`/img/icon/DepositAngleArrowIcon.svg`}
                                      alt={"DepositAngleArrowIcon"}/>
-                                <IconCoin className={styles.Coin}
+                                <IconCoin className={styles.Icon}
                                           coinName={item.name}
                                           iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
                             </div>
@@ -128,7 +128,7 @@ const SidebarDesktop = () => {
                     </NavLink>)}
             </NavCollapse>
             <NavLink onClick={NavLinkEvent} to={"exchange"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
                              alt="ExchangeIcon"/>
@@ -136,7 +136,6 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>Exchange</span>
                         </div>
-
                     </div>
                 </div>
             </NavLink>
@@ -144,9 +143,9 @@ const SidebarDesktop = () => {
             {/*    <p>Private exchange rooms</p>*/}
             {/*</NavCollapse>*/}
             <NavLink onClick={NavLinkEvent} to={"deposit"}>
-                <div className={`${styles.Item} hover:shadow-[0_10px_27px_0px_rgba(0,0,0,0.16)]`}>
+                <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/NewDepositIcon.svg`}
+                        <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}
                              alt="NewDepositIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">

@@ -3,7 +3,7 @@ import styles from "./style.module.scss"
 const Footer = ({textAlight}: { textAlight: string }) => {
 
     return <>
-        <footer className="bg-gray-50 py-4">
+        <footer className="py-4">
             <div className="row mb-2 px-4">
                 <span
                     className={`${textAlight} text-gray-500 font-semibold text-sm w-full block`}>© Gekkoin. v.1.3</span>

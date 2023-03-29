@@ -50,7 +50,7 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
             </div>
 
             {!networksList.length && (
-                <Loader/>
+                <Loader className='relative my-20'/>
             )}
 
             {!walletAddress && activeNetwork && (

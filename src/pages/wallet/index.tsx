@@ -5,6 +5,7 @@ import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
+import Withdraw from "@/widgets/wallet-stage/withdraw/Withdraw";
 import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
 import { IResListAddresses } from "@/shared/api";
 import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
@@ -33,9 +34,38 @@ const initialTabs: string[] = ['topup', 'withdraw', 'about'];
 const getInitialTab = (tab: string | undefined) => 
     (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
-const getWalletAssets = (currency: string) => storeListAllCryptoName(state => state.listAllCryptoName).find(asset => asset.code === currency);
+const getWalletAssets = (currency: string) =>
+    storeListAllCryptoName(state => state.listAllCryptoName).find(asset => asset.code === currency);
 
-const getWalletData = (currency: string) => storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
+const getWalletData = (currency: string) =>
+    storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
+
+function getTabsAsRecord (tabs: Array<WalletTab>) {
+    let list: Record<string, string>;
+
+    tabs.forEach(tab => {
+        list = {
+            ...list,
+            [tab.Key]: tab.Title
+        }
+    })
+
+    return list;
+}
+
+enum TabKey {
+    TOPUP = 'topup',
+    WITHDRAW = 'withdraw',
+    TRANSFER = 'transfer',
+    HISTORY = 'history',
+    ABOUT = 'about'
+}
+
+type WalletTab = {
+    Key: TabKey;
+    Title: string;
+    Tab: JSX.Element;
+}
 
 function Wallet() {
     const { currency, tab = '' } = useParams<string>();
@@ -48,21 +78,60 @@ function Wallet() {
         flags
     } = walletAssets;
 
-    const walletTabs: Record<string, string> = {
-        ...(flags === 8 && {
-            'topup': 'Top up',
-            'withdraw': 'Withdraw',
-            'transfer': 'Transfer to contact',
-        }),
-        //'history': 'History', TODO: Show only in mobile version
-        'about': 'About'
-    }
+    const walletTabs: Array<WalletTab> = [
+        ...(flags === 8 ? [
+            {
+                Key: TabKey.TOPUP,
+                Title: 'Top Up',
+                Tab: <TopUp
+                        listAddresses={listAddresses}
+                        currency={currency}
+                        flags={flags}
+                    />
+            },
+            {
+                Key: TabKey.WITHDRAW,
+                Title: 'Withdraw',
+                Tab: <Withdraw
+                        currency={currency}
+                        flags={flags}
+                    />
+            },
+            {
+                Key: TabKey.TRANSFER,
+                Title: 'Transfer to Contact',
+                Tab: <Transfer
+                        currency={currency}
+                    />
+            },
+        ] : []),
+        /* TODO: Show only in mobile version
+        {
+            Key: Tabs.ABOUT,
+            Title: 'About',
+            Tab: <About
+                    currency={currency}
+                    name={name}
+                    flags={flags}
+                />
+        }
+        */
+        {
+            Key: TabKey.ABOUT,
+            Title: 'About',
+            Tab: <About
+                    currency={currency}
+                    name={name}
+                    flags={flags}
+                />
+        }
+    ]
 
     let [activeTab, setActiveTab] = useState(getInitialTab(tab));
     const walletData = getWalletData(currency);
 
-    if (!walletTabs[activeTab])
-        setActiveTab(Object.keys(walletTabs)[0]);
+    if (!walletTabs.find(t => t.Key === activeTab))
+        setActiveTab(walletTabs[0].Key);
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -123,32 +192,14 @@ function Wallet() {
             </div>
 
             <PrimaryTabGroup
-                tabs={walletTabs}
+                tabs={getTabsAsRecord(walletTabs)}
                 setActiveTab={setActiveTab}
                 activeTab={activeTab}
             />
 
             <div className='flex grow shrink text-gray-500 container mx-auto mb-5 px-4'>
                 <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
-                    {activeTab === 'topup' && (
-                        <TopUp
-                            flags={flags}
-                            currency={currency}
-                            listAddresses={listAddresses}
-                        />
-                    )}
-                    {activeTab === 'transfer' && (
-                        <Transfer
-                            currency={currency}
-                        />
-                    )}
-                    {activeTab === 'about' && (
-                        <About
-                            currency={currency}
-                            name={name}
-                            flags={flags}
-                        />
-                    )}
+                    {walletTabs.find(tab => tab.Key === activeTab)?.Tab}
                 </div>
                 
                 <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>

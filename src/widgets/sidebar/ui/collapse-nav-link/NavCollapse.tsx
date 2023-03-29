@@ -21,7 +21,7 @@ const NavCollapse = ({children, id, header}) => {
     return <>
         <button onClick={handlerToggle} className={styles.Header + (isActive ? " active" : "")}>
             <div className={`flex flex-nowrap justify-end pr-4 pt-1 pb-1`}>
-                <span className="text-gray-400 text-sm mr-2">{header}</span>
+                <span className="text-gray-400 text-sm mr-2 hover:text-blue-400 hover:font-medium">{header}</span>
                 <img className={styles.Arrow} width={8} src="/img/icon/PrevDepositsIcon.svg" alt="green-array"/>
             </div>
         </button>

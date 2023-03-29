@@ -11,6 +11,8 @@
     }
 
     & + .List {
+      opacity: 1;
+      overflow: visible;
       max-height: 700px;
     }
   }
@@ -18,7 +20,8 @@
 
 
 .List {
+  opacity: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.7s ease-in-out;
+  transition: max-height 0.7s ease-in-out, opacity 0.2s ease-in-out 0.2s;
 }

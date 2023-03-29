@@ -64,7 +64,7 @@ const SidebarDesktop = () => {
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>EURG Gekkoin</span>
+                        <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Europe</span>
                         </div>
                         <div className="row w-full">
                             <span

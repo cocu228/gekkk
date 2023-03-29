@@ -4,7 +4,7 @@ interface LoaderParams {
     className?: string;
 }
 
-const Loader = ({className}: LoaderParams) => {
+const Loader = ({className = ""}: LoaderParams) => {
     return <div className={`${className} ${styles.Loader}`}>
     </div>
 }

@@ -40,17 +40,17 @@ const StructuredTypeBlock = () => {
                 <div className="flex items-center gap-2">
                   <p className="text-gray text-sm">Risk</p>
                   <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="text-gray text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
               </div>
@@ -67,8 +67,8 @@ const StructuredTypeBlock = () => {
                   <p className="text-gray text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -76,7 +76,7 @@ const StructuredTypeBlock = () => {
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
               </div>
@@ -96,7 +96,7 @@ const StructuredTypeBlock = () => {
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-light rounded-full" />
+                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
                 <div className="flex items-center gap-2">

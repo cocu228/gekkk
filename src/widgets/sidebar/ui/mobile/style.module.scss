@@ -7,7 +7,7 @@
   height: 100%;
   background-color: #ffffff;
   z-index: 40;
-  transition: left ease-out 1s;
+  transition: left ease-out 0.4s;
 
   &:global(.active) {
     left: 0;

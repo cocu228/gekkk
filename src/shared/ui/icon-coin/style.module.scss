@@ -1,4 +1,4 @@
-.Coin {
+.Icon {
   pointer-events: none;
   filter: saturate(10%) invert(0%);
   opacity: 0.3;
@@ -6,7 +6,7 @@
 
 .ParentClassForCoin {
   &:hover {
-    .Coin {
+    .Icon {
       opacity: 1;
       pointer-events: none;
       filter: saturate(100%) invert(0%);

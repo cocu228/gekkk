@@ -8,6 +8,6 @@ export default (sortedListBalance: Array<ISortedListBalance>, rates: Record<$con
         const course = rates[currentValue.const]
         const value = new Decimal(course).times(currentValue.availableBalance)
         return value.plus(previousValue)
-    }, new Decimal(0)).toDecimalPlaces(4).toNumber()
+    }, new Decimal(0))
 
 }

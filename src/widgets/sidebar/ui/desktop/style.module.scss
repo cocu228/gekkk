@@ -7,17 +7,34 @@
   box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
 }
 
+.Name {
+  color: var(--color-gray-400);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.Sum {
+  color: var(--color-gray-600);
+  //font-weight: 400;
+  font-size: 18px;
+}
+
 :global(a.active) {
 
   & > .Item {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
 
-    .Coin {
+    .Sum {
+      text-shadow: 0.5px 0 #000;
+    }
+
+    .Icon {
       opacity: 1;
       pointer-events: none;
       filter: saturate(100%) invert(0%);
     }
 
-    .Name {
+    .Name, .NavName {
       color: var(--color-blue-400);
       font-weight: 500;
     }
@@ -25,7 +42,7 @@
     &:after {
       position: absolute;
       height: 100%;
-      width: 8px;
+      width: 4px;
       content: "";
       background-color: var(--color-blue-400);
       left: 0;
@@ -35,14 +52,14 @@
 }
 
 .Item {
-  height: 88px;
+  height: 85px;
   position: relative;
   display: flex;
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
-  .Coin {
+  .Icon {
     pointer-events: none;
     filter: saturate(10%) invert(0%);
     opacity: 0.3;
@@ -51,7 +68,16 @@
   &:hover {
     box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
 
-    .Coin {
+    .Name, .NavName {
+      color: var(--color-blue-400);
+      font-weight: 500;
+    }
+
+    .Sum {
+      text-shadow: 0.5px 0 #000;
+    }
+
+    .Icon {
       opacity: 1;
       pointer-events: none;
       filter: saturate(100%) invert(0%);

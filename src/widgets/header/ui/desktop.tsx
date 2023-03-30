@@ -1,9 +1,7 @@
 import styles from "./desktop.module.scss"
 import {useAuth} from "@/app/providers/AuthRouter";
 import React from "react";
-import PromoCode from "@/features/promo-code/ui/PromoCode";
 import HeaderMenu from "@/widgets/header/ui/header-menu";
-
 import headerMenuList from "../model/header-menu-list"
 
 const HeaderDesktop = () => {
@@ -13,6 +11,7 @@ const HeaderDesktop = () => {
     const onBtnLogout = () => {
         logout()
     }
+
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -28,14 +27,15 @@ const HeaderDesktop = () => {
                     </div>
                     <div className="wrapper">
                         <div className="row">
-                            <span className="text-sm font-bold">ID: 208294110048 </span>
+                            <span className="text-sm font-bold">ID: 208294110048</span>
                             <span>
                                     <img className="inline-flex" src="/img/icon/DropdownTriangleIcon.svg"
                                          alt="DropdownTriangleIcon"/>
                                 </span>
                         </div>
-                        <div className="row text-start">
-                            <span className="text-xs text-start text-gray-400 font-bold">Alexandr Semikov</span>
+                        <div className="row text-start flex">
+                            <span
+                                className="text-xs text-start text-gray-400 font-bold leading-3">Alexandr Semikov</span>
                         </div>
                     </div>
                 </div>

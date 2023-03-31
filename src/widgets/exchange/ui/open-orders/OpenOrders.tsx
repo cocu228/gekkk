@@ -20,7 +20,7 @@ function OpenOrders() {
     }, []);
 
     const currencyPrecision = (value: number, currency: string) =>
-        value.toFixed(assets.find(a => a.code === currency)?.orders_prec);
+        Number(value.toFixed(assets.find(a => a.code === currency)?.orders_prec));
 
     return (
         <>
@@ -42,10 +42,10 @@ function OpenOrders() {
                         <div className="flex justify-between">
                             <div className="text-orange bg-orange bg-opacity-10 rounded-md">
                                 <strong>
-                                    {+currencyPrecision(volume_source, sourceCurrency)}
+                                    {currencyPrecision(volume_source, sourceCurrency)}
                                 </strong> {sourceCurrency} &rarr; <strong>
                                     {type === 'Market' && '~'}
-                                    {+currencyPrecision(volume_dest, targetCurrency)}
+                                    {currencyPrecision(volume_dest, targetCurrency)}
                                 </strong> {targetCurrency}
                             </div>
                             <div className="text-secondary">{
@@ -57,7 +57,7 @@ function OpenOrders() {
                                 <div className="text-secondary">Price: </div>
                                 <div>
                                     <span>1 {sourceCurrency} ~ {
-                                        +currencyPrecision(volume_dest / volume_source, targetCurrency)
+                                        currencyPrecision(volume_dest / volume_source, targetCurrency)
                                     } {targetCurrency}</span>&nbsp;
                                     {type === 'Market' && (
                                         <span>(sale at current market rate)</span>

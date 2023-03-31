@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
@@ -35,7 +35,7 @@ const getInitialTab = (tab: string | undefined) =>
     (tab && initialTabs.includes(tab)) ? tab : 'topup';
 
 const getWalletAssets = (currency: string) =>
-    storeListAllCryptoName(state => state.listAllCryptoName).find(asset => asset.code === currency);
+    storeListAllCryptoName(state => state.listAllCryptoName)?.find(asset => asset.code === currency);
 
 const getWalletData = (currency: string) =>
     storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
@@ -71,6 +71,10 @@ function Wallet() {
     const { currency, tab = '' } = useParams<string>();
     const walletAssets = getWalletAssets(currency);
     const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
+
+    if (!walletAssets) {
+        return <Navigate to={''}/>;
+    }
 
     const isEURG: boolean = currency === 'EURG';
     const {

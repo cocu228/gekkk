@@ -23,7 +23,7 @@ const StructuredTypeBlock = () => {
   return (
     <div className="wrapper w-full">
       <div className="wrapper mb-8">
-        <p className="text-gray mb-2 font-medium text-base md:text-sm">
+        <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
           Choose the risk level
         </p>
 
@@ -32,13 +32,13 @@ const StructuredTypeBlock = () => {
             <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
               <div>
                 <p className="font-medium text-xl mb-1">Safe strategy</p>
-                <p className="text-gray text-sm">
+                <p className="text-gray-400 text-sm">
                   Guaranteed profit and risk protection
                 </p>
               </div>
               <div className="flex justify-between w-full">
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Risk</p>
+                  <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
@@ -46,7 +46,7 @@ const StructuredTypeBlock = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Return</p>
+                  <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
@@ -60,11 +60,11 @@ const StructuredTypeBlock = () => {
             <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
               <div>
                 <p className="font-medium text-xl mb-1">Balanced strategy</p>
-                <p className="text-gray text-sm">Minimal risk</p>
+                <p className="text-gray-400 text-sm">Minimal risk</p>
               </div>
               <div className="flex justify-between w-full">
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Risk</p>
+                  <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
@@ -72,7 +72,7 @@ const StructuredTypeBlock = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Return</p>
+                  <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
@@ -86,13 +86,13 @@ const StructuredTypeBlock = () => {
             <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
               <div>
                 <p className="font-medium text-xl mb-1">Dynamic strategy</p>
-                <p className="text-gray text-sm">
+                <p className="text-gray-400 text-sm">
                   Good percentage and perdectible risk
                 </p>
               </div>
               <div className="flex justify-between w-full">
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Risk</p>
+                  <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
@@ -100,7 +100,7 @@ const StructuredTypeBlock = () => {
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-gray text-sm">Return</p>
+                  <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
@@ -114,7 +114,7 @@ const StructuredTypeBlock = () => {
       </div>
 
       <div className="wrapper mb-8">
-        <p className="text-gray mb-2 font-medium text-base mb-1 md:text-sm">
+        <p className="text-gray-400 mb-2 font-medium text-base mb-1 md:text-sm">
           Choose the rate of return
         </p>
 
@@ -126,7 +126,7 @@ const StructuredTypeBlock = () => {
       </div>
 
       <div className="wrapper mb-8">
-        <p className="text-gray mb-2 font-medium text-base mb-1 md:text-sm">
+        <p className="text-gray-400 mb-2 font-medium text-base mb-1 md:text-sm">
           Choose the deposit term (in days)
         </p>
 
@@ -139,7 +139,7 @@ const StructuredTypeBlock = () => {
       </div>
 
       <div className="wrapper w-full mb-8">
-        <p className="text-gray mb-2 font-medium text-base md:text-sm">
+        <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
           Choose a token to invest
         </p>
 
@@ -156,7 +156,7 @@ const StructuredTypeBlock = () => {
       </div>
 
       <div className="row mb-20">
-        <p className="text-gekGray text-center text-xs">
+        <p className="text-gray-500 text-center text-xs">
           The deposit services are provided by Adventarium PTE.LTD. By pressing
           button "Open deposit" I confirm that I have read carefully and fully
           accepted{' '}

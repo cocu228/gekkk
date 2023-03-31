@@ -23,7 +23,7 @@ const FixedTypeBlock = () => {
       </Button>
 
       <div className="row mb-60 xxl:mb-40 xl:mb-8 md:mb-6">
-        <p className="text-gekGray text-center text-xs">
+        <p className="text-gray-500 text-center text-xs">
           The deposit services are provided by Adventarium PTE.LTD. By pressing
           button "Open deposit" I confirm that I have read carefully and fully
           accepted{' '}

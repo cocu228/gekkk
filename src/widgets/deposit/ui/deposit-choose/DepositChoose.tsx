@@ -13,7 +13,7 @@ const DepositChoose = ({ type, setType }) => {
       className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-start items-start xxl:py-3 xxl:px-4 xl:col-span-5 md:bg-transparent md:p-0`}
     >
       <div>
-        <p className="text-base font-medium text-gray mb-6 md:text-sm md:mb-4">
+        <p className="text-base font-medium text-gray-400 mb-6 md:text-sm md:mb-4">
           Choose deposit types
         </p>
 
@@ -47,7 +47,7 @@ const DepositChoose = ({ type, setType }) => {
 
         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
           <div className="row flex justify-between mb-2 md:mb-1">
-            <p className="text-gray font-medium text-base md:text-sm">
+            <p className="text-gray-400 font-medium text-base md:text-sm">
               Enter deposit amount
             </p>
 

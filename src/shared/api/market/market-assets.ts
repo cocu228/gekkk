@@ -8,6 +8,7 @@ export interface IResMarketAssets {
     decimal_prec: number,
     round_prec: number,
     min_order: number,
+    orders_prec: number,
     default_token_network: number,
     maker_fee: number,
     taker_fee: number,

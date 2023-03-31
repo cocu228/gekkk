@@ -7,3 +7,5 @@ export function randomId(value = 12): string {
 
     return text;
 }
+
+export const isActiveClass = (value: boolean): string => value ? "active" : ""

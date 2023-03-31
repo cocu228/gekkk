@@ -1,5 +1,5 @@
-import HeaderDesktop from "./desktop"
-import HeaderMobile from "./mobile"
+import HeaderDesktop from "./desktop/desktop"
+import HeaderMobile from "./mobile/mobile"
 import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 

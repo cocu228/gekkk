@@ -10,6 +10,7 @@ import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/collapse-nav-link/NavCollapse";
 import Decimal from "decimal.js";
+import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 
 const SidebarDesktop = () => {
 
@@ -105,11 +106,7 @@ const SidebarDesktop = () => {
                     <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
                         <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                             <div className="col flex items-center pl-4">
-                                <img className={`${styles.Icon} mr-3`}
-                                     width={14}
-                                     height={14}
-                                     src={`/img/icon/DepositAngleArrowIcon.svg`}
-                                     alt={"DepositAngleArrowIcon"}/>
+                                <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                 <IconCoin className={styles.Icon}
                                           coinName={item.name}
                                           iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>

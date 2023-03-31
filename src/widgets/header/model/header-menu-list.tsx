@@ -1,5 +1,5 @@
 import React from "react";
-import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/header-menu-items";
+import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/header-menu-items";
 
 export default [
     {

@@ -1,8 +1,8 @@
-import styles from "./desktop.module.scss"
+import styles from "./style.module.scss"
 import {useAuth} from "@/app/providers/AuthRouter";
 import React from "react";
-import HeaderMenu from "@/widgets/header/ui/header-menu";
-import headerMenuList from "../model/header-menu-list"
+import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
+import headerMenuList from "../../model/header-menu-list"
 
 const HeaderDesktop = () => {
 

@@ -108,7 +108,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
 
         <div className="row mb-8">
             <Button disabled={state.loading} tabIndex={0} htmlType="submit"
-                    className="w-full disabled:opacity-5 !text-white">Login</Button>
+                    className="w-full">Login</Button>
         </div>
 
         <div className='text-center'>

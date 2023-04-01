@@ -1,5 +1,5 @@
 import React from "react";
-import {ItemOrganization, ItemPerson, PromoCode} from "@/widgets/header/ui/menu/header-menu-items";
+import {ItemOrganization, ItemPerson, PromoCodeModal} from "@/widgets/header/ui/menu/header-menu-items";
 
 export default [
     {
@@ -32,7 +32,7 @@ export default [
     {item: 'Limits', id: 'limits'},
     {item: 'Partnership program', id: 'item-4'},
     {
-        item: <PromoCode/>, id: 'item-4',
+        item: <PromoCodeModal/>, id: 'item-4',
         event: {action: "onclick", value: null}
     },
     {item: 'Settings', id: 'item-4'},

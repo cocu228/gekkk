@@ -1,57 +1,30 @@
-import {memo, useMemo} from 'react';
-import {Button as ButtonAntd, ButtonProps} from 'antd';
+import React, {memo, useMemo} from 'react';
 import styles from './style.module.scss';
 
-export interface Props extends ButtonProps {
-    cancel?: boolean;
-    ghost?: boolean;
-    gradient?: boolean;
-    light?: boolean;
-    gray?: boolean;
-    text?: boolean;
+
+interface Props {
+    htmlType: "button" | "submit" | "reset";
+    disabled: boolean;
+    onClick: React.MouseEventHandler;
+    onSubmit: React.FormEventHandler;
+    children: React.ReactNode;
+    className: string
 }
 
-const Button = memo<Props>(
+const Button = memo<Partial<Props>>(
     ({
-        type: typeProp,
-        size,
-        cancel = false,
-        ghost = false,
-        gradient = false,
-        light = false,
-        gray = false,
-        text = false,
-        children,
-        className = '',
-        ...props
-    }): JSX.Element | null => {
-        const type = useMemo(() => (cancel ? 'default' : typeProp), [cancel, typeProp]);
-
+         children,
+         htmlType = "button",
+         className = '',
+         ...props
+     }): JSX.Element | null => {
         return (
-            <ButtonAntd
-                className={`${className} ${styles.Button} ${
-                    typeof props.icon !== 'undefined' && type !== 'link' ? styles.WithIcon : ''
-                } ${
-                    cancel
-                        ? styles.Cancel
-                        : ghost
-                        ? styles.Ghost
-                        : gradient
-                        ? styles.Gradient
-                        : light
-                        ? styles.Light
-                        : gray
-                        ? styles.Gray
-                        : text
-                        ? styles.Text
-                        : ''
-                }`}
-                type={type}
-                size={size}
-                {...props}
+            <button className={`${className} ${styles.Button}`}
+                    type={htmlType}
+                    {...props}
             >
                 {children}
-            </ButtonAntd>
+            </button>
         );
     },
 );

@@ -1,46 +1,32 @@
-import FormItem from "@/shared/ui/form/form-item/FormItem";
-import {Input as InputAnt} from "antd";
+import {Input} from "antd";
 import Button from "@/shared/ui/button/Button";
 import React, {memo, useState} from "react";
-// import api from "../api"
+import {apiPromoCode} from "../api"
 
 const PromoCode = memo(() => {
 
-
-    const [code, setCode] = useState("")
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCode(e.target.value)
+    const [valInput, setValInput] = useState("")
+    const [loading, setLoading] = useState(false)
+    const handlerInput = ({target}) => {
+        setValInput(target.value)
     }
 
+    const onSubmit = async () => {
+        setLoading(true)
+        const res = await apiPromoCode(valInput)
 
-    // const onClick = async () => {
-    //     api.get('/api/v1/promo-code/:code', {params: {code}}).then(result => {
-    //         alert(result)
-    //     }).catch(err => {
-    //         throw err
-    //     });
-    //
-    // }
+        console.log(res)
+
+        setLoading(false)
+    }
 
     return <>
-        <div className="row flex gap-2">
-            <div className="wrapper w-1/2">
-                <FormItem>
-                    <InputAnt.Group>
-                        <InputAnt value={code} onChange={onChange} placeholder={"Promo code"}/>
-                    </InputAnt.Group>
-                </FormItem>
-            </div>
-
-            <div className="wrapper w-1/2 h-inherit">
-                <Button
-                    // onClick={onClick}
-                    disabled={code === ""}
-                    className={"w-full !h-full disabled:opacity-50 rounded-b !bg-transparent !border-1 !border-solid !border-black !text-black !important"}>
-                    Apply
-                </Button>
-            </div>
+        <div className="py-10 px-8 md:px-0 md:pb-0">
+            <h2 className="text-[var(--color-gray-600)] font-bold text-lg mb-10">Enter Promo Code</h2>
+            <Input value={valInput} disabled={loading} onChange={handlerInput} type={"text"} className={"mb-10"}/>
+            <Button onClick={onSubmit} disabled={valInput === "" || loading} className={"w-full"}>
+                Apply
+            </Button>
         </div>
     </>
 })

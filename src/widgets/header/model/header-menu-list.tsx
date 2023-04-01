@@ -1,5 +1,7 @@
 import React from "react";
-import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/header-menu-items";
+import {ItemOrganization, ItemPerson, PromoCode} from "@/widgets/header/ui/menu/header-menu-items";
+import {Modal, ModalProps} from "antd";
+import styles from "@/widgets/deposit/ui/deposit-modal/style.module.scss";
 
 export default [
     {
@@ -31,6 +33,10 @@ export default [
     {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit"}},
     {item: 'Limits', id: 'limits'},
     {item: 'Partnership program', id: 'item-4'},
+    {
+        item: <PromoCode/>, id: 'item-4',
+        event: {action: "onclick", value: null}
+    },
     {item: 'Settings', id: 'item-4'},
     {
         item: 'Logout', id: 'logout',

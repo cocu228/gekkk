@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
+import {Input, Modal} from "antd";
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
 
 const hClassName = new HelperClassName(styles)
 
@@ -62,4 +65,30 @@ export const ItemOrganization = ({active = false}) => {
             </div>
         </div>
     </div>
+}
+
+export const PromoCode = ({active = false}) => {
+
+    const {showModal, handleCancel, isModalOpen} = useModal()
+    const [valInput, setValInput] = useState("")
+    const handlerInput = ({target}) => {
+        setValInput(target.value)
+    }
+
+    console.log(valInput)
+
+    return <>
+        <button className="w-full text-left" onClick={showModal}>
+            PromoCode
+        </button>
+        <Modal onCancel={handleCancel} open={!isModalOpen} footer={null} width="454px">
+            <div className="py-10 px-8 text-gekDarkGray md:px-0 md:pb-0">
+                <h2 className="text-[var(--color-gray-600)] font-bold text-lg mb-10">Enter Promo Code</h2>
+                <Input value={valInput} onChange={handlerInput} type={"text"} className={"mb-10"}/>
+                <Button disabled={valInput === ""} className={"w-full"}>
+                    Apply
+                </Button>
+            </div>
+        </Modal>
+    </>
 }

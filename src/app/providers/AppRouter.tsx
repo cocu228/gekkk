@@ -7,6 +7,7 @@ import Wallet from '@/pages/wallet';
 import Exchange from "@/pages/exchange";
 import AppInit from "@/app/providers/AppInit";
 import Assets from '@/pages/assets';
+import P404 from '@/pages/404/404';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
                 element: <CurrentDeposit/>
             },
         ],
+    },
+    {
+        path: "*",
+        element: <P404/>
     },
 ]);
 

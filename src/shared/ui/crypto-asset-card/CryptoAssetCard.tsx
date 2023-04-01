@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
-import {ParentClassForCoin, IconCoin} from "@/shared/ui/icon-coin";
+import {ParentClassForCoin, IconCoin} from "../icons/icon-coin";
 
 interface Props {
     title: string,

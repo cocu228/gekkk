@@ -1,38 +1,27 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { IResOrder, apiGetOrders } from '@/shared/api';
+import { storeListAllCryptoName } from '@/shared/store/crypto-assets';
 import styles from './style.module.scss';
 
-const orders = [
-    {
-        id: 1,
-        payValue: '62,5',
-        payToken: 'EURG',
-        getValue: '0,5',
-        getToken: 'XMR',
-        date: '01/12/2022, 17:45',
-        price: '125,04',
-        info: '(sale at the current market rate)'
-    },
-    {
-        id: 2,
-        payValue: '62,5',
-        payToken: 'EURG',
-        getValue: '0,5',
-        getToken: 'XMR',
-        date: '01/12/2022, 17:45',
-        price: '125,04'
-    },
-    {
-        id: 3,
-        payValue: '62,5',
-        payToken: 'EURG',
-        getValue: '0,5',
-        getToken: 'XMR',
-        date: '01/12/2022, 17:45',
-        price: '125,04'
-    }
-];
-
 function OpenOrders() {
+    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+
+        (async () => {
+
+            const response = await apiGetOrders();
+            setOrders(response.data);
+
+        })()
+
+    }, []);
+
+    const currencyPrecision = (value: number, currency: string) =>
+        Number(value.toFixed(assets.find(a => a.code === currency)?.orders_prec));
+
     return (
         <>
             <div className="flex justify-between">
@@ -40,21 +29,38 @@ function OpenOrders() {
                 <a className="text-xs text-secondary font-medium" href="">All</a>
             </div>
             <div className="mt-1.5">
-                {orders.map(orderItem => (
-                    <div className={`py-2 text-xs rounded-md ${styles.Item}`} key={orderItem.id}>
+                {orders.map(({
+                    id,
+                    from: sourceCurrency,
+                    to: targetCurrency,
+                    volume_dest,
+                    volume_source,
+                    type_order: type,
+                    time_created: createDate
+                }: IResOrder) => (
+                    <div className={`py-2 text-xs rounded-md ${styles.Item}`} key={id}>
                         <div className="flex justify-between">
                             <div className="text-orange bg-orange bg-opacity-10 rounded-md">
-                                <strong>{orderItem.payValue}</strong> ${orderItem.payToken} &rarr; <strong>{orderItem.getValue}</strong> {orderItem.getToken}
+                                <strong>
+                                    {currencyPrecision(volume_source, sourceCurrency)}
+                                </strong> {sourceCurrency} &rarr; <strong>
+                                    {type === 'Market' && '~'}
+                                    {currencyPrecision(volume_dest, targetCurrency)}
+                                </strong> {targetCurrency}
                             </div>
-                            <div className="text-secondary">{orderItem.date}</div>
+                            <div className="text-secondary">{
+                                format(new Date(createDate), 'dd/MM/yyyy HH:mm')
+                            }</div>
                         </div>
                         <div className="flex justify-between mt-1">
                             <div className="flex gap-2.5">
                                 <div className="text-secondary">Price: </div>
                                 <div>
-                                    <span>1 ${orderItem.payToken} ~ ${orderItem.price} ${orderItem.getToken}</span>&nbsp;
-                                    {orderItem.info && (
-                                        <span>{orderItem.info}</span>
+                                    <span>1 {sourceCurrency} ~ {
+                                        currencyPrecision(volume_dest / volume_source, targetCurrency)
+                                    } {targetCurrency}</span>&nbsp;
+                                    {type === 'Market' && (
+                                        <span>(sale at current market rate)</span>
                                     )}
                                 </div>
                             </div>

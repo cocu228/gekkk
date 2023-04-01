@@ -1,7 +1,7 @@
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useNavigate} from "react-router-dom";
 import React, {useRef, useState} from "react";
-import styles from "@/widgets/header/ui/desktop.module.scss";
+import styles from "@/widgets/header/ui/menu/style.module.scss";
 
 const HeaderMenu = ({children, items, className = ""}) => {
 
@@ -43,10 +43,13 @@ const HeaderMenu = ({children, items, className = ""}) => {
         }
     }
 
+    console.log(isActive)
+
     return <>
         <button ref={ref} disabled={isActive} onClick={handlerOpen} className={className}>
             <div className={`wrapper relative pl-7 pr-7 ${isActive ? "active" : ""}`}>
-                {isActive && <span data-menu="event-helper" className="absolute cursor-pointer w-full h-[100%] top-[0] left-[0]"/>}
+                {isActive && <span data-menu="event-helper"
+                                   className="absolute cursor-pointer w-full h-[100%] top-[0] left-[0]"/>}
                 {children}
 
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>

@@ -1,7 +1,9 @@
 import React from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
+import SvgSchema from "@/shared/ui/icons/IconSchema";
+import styles from "@/widgets/header/ui/menu/style.module.scss";
 
-const hClassName = new HelperClassName({})
+const hClassName = new HelperClassName(styles)
 
 // переопределяем метод String.raw
 // const originalStringRaw = String.raw;
@@ -46,11 +48,9 @@ export const ItemPerson = ({active = false}) => {
 
 
 export const ItemOrganization = ({active = false}) => {
-
-
     return <div className="flex items-center justify-end">
         <div className="wrapper mr-2">
-            <img src="/img/(temp)org.png" width={26} height={22} alt="org"/>
+            <SvgSchema className={hClassName.scss("SvgSchema")} width={32} height={22}/>
         </div>
         <div className="wrapper">
             <div className="row">

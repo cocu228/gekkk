@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
-import {Input, Modal} from "antd";
+import { Modal} from "antd";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 

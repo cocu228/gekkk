@@ -1,10 +1,11 @@
-import React, {memo, useMemo} from 'react';
+import React, {memo} from 'react';
 import styles from './style.module.scss';
 
 
 interface Props {
     htmlType: "button" | "submit" | "reset";
     disabled: boolean;
+    tabIndex: number;
     onClick: React.MouseEventHandler;
     onSubmit: React.FormEventHandler;
     children: React.ReactNode;

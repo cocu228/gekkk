@@ -1,5 +1,6 @@
 import descriptions from '@/shared/config/coins/descriptions'
 import Button from '@/shared/ui/button/Button';
+import {useNavigate} from "react-router-dom";
 
 type AboutParams = {
     currency: string,
@@ -8,14 +9,17 @@ type AboutParams = {
 }
 
 const About = ({currency, name, flags}: AboutParams) => {
+
+    const navigate = useNavigate()
+
     return (
         <div>
-            <div className="flex mb-[22px] items-center">
+            <div className="flex mb-6 items-center">
                 <div className="mr-4">
                     <img
                         className='h-[50px] w-[50px]'
                         src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
-                        onError={({ currentTarget }) => {
+                        onError={({currentTarget}) => {
                             if (currentTarget.getAttribute("data-icon") === "empty")
                                 return null
 
@@ -36,12 +40,10 @@ const About = ({currency, name, flags}: AboutParams) => {
 
             {flags === 2 && (
                 <div className='grid gap-5 grid-cols-2 mt-10'>
-                    <Button gray size="small" href="/exchange">
-
-                        <span className='pt-1 font-semibold'>Buy</span>
+                    <Button gray size="sm" onClick={() => navigate("/exchange")}>Buy
                     </Button>
-                    <Button gray size="small" href="/exchange">
-                        <span className='pt-1 font-semibold'>Sell</span>
+                    <Button onClick={() => navigate("/exchange")} className="relative" gray size="sm">
+                        Sell
                     </Button>
                 </div>
             )}

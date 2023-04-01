@@ -6,7 +6,8 @@ import {useNavigate} from 'react-router-dom';
 import {apiInvestments} from "@/shared/api";
 import Decimal from "decimal.js";
 import {format} from 'date-fns'
-
+import {Skeleton} from 'antd';
+import Card from "@/shared/ui/card/Card";
 
 const strategyTypes = {
     1: 'Balanced strategy',
@@ -23,7 +24,7 @@ const strategyTypes = {
 
 function Deposits() {
 
-    const [state, setState] = useState([])
+    const [state, setState] = useState(null)
 
     useEffect(() => {
 
@@ -38,9 +39,14 @@ function Deposits() {
 
     return (
         <div className="wrapper">
+
             <SectionTitle>Deposits</SectionTitle>
+
             <CardsGrid>
-                {state.map((item, i) => <DepositCard
+
+                {state === null && [1, 2, 3, 4].map(it => <Card><Skeleton active/></Card>)}
+
+                {Array.isArray(state) && state.map((item, i) => <DepositCard
                     title={strategyTypes[item.dep_type]}
                     key={"DepositCard-" + i}
                     subtitle={`Opened ${format(new Date(item.date_start), "dd MMMM yyyy")}`}
@@ -52,6 +58,7 @@ function Deposits() {
                     }}
                     linkUrl="/tariffs"
                 />)}
+
             </CardsGrid>
         </div>
     );

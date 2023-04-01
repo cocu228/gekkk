@@ -23,7 +23,7 @@ function DepositCard({title, subtitle, price, currency, onOpenDeposit, isDeposit
                     <strong className="text-[32px] font-bold">{price}</strong> {currency}
                 </p>
                 <div className="flex gap-[16px] mt-[16px]">
-                    <Button className="flex-1" gray size="small" onClick={onOpenDeposit}>Open deposit</Button>
+                    <Button className="flex-1" gray size="sm" onClick={onOpenDeposit}>Open deposit</Button>
                     <div className="flex items-center flex-1 justify-center">
                         <Link to={linkUrl} className="text-[14px] font-medium underline text-gray-400 hover:text-blue-400">
                             {isDeposit ? 'Read more →' : 'Interest rates →'}

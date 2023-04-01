@@ -73,7 +73,7 @@ function Wallet() {
     const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
 
     if (!walletAssets) {
-        return <Navigate to={''}/>;
+        return <Navigate to={'/'}/>;
     }
 
     const isEURG: boolean = currency === 'EURG';

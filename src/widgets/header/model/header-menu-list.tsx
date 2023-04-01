@@ -1,7 +1,5 @@
 import React from "react";
 import {ItemOrganization, ItemPerson, PromoCode} from "@/widgets/header/ui/menu/header-menu-items";
-import {Modal, ModalProps} from "antd";
-import styles from "@/widgets/deposit/ui/deposit-modal/style.module.scss";
 
 export default [
     {

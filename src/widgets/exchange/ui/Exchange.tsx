@@ -76,7 +76,7 @@ function Exchange() {
             <OperationResult get="62,5  EURG" pay="0,5  XMR" />
           </div>
           <div className="mt-8">
-            <Button className="w-full" size="large">
+            <Button className="w-full" size="lg">
               Buy XMR
             </Button>
           </div>

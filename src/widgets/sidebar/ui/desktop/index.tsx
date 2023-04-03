@@ -4,7 +4,7 @@ import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
-import {ParentClassForCoin, IconCoin} from "../../../../shared/ui/icons/icon-coin";
+import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import totalizeAmount from "../../model/totalize-amount";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";

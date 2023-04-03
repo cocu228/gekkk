@@ -21,7 +21,7 @@ function Table({data, noDataText = 'No data'}: Props) {
     return (
         <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
             {data.labels && (
-                <thead className="md:hidden">
+                <thead className="md:hidden text-gray-600">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
                     {data.labels.map((l, index) => (
                         <th key={index + "_th"} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>

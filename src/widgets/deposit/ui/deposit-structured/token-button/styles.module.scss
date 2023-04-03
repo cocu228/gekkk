@@ -1,0 +1,13 @@
+.TokenButton {
+  border: 1px solid #B4C0CD;
+
+  &:active, &:focus {
+    border-color:#00AEEF;
+  }
+
+  svg {
+    width: 7px;
+    height: 17px;
+    fill: var(--color-secondary);
+  }
+}

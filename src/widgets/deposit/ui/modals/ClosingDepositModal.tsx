@@ -1,11 +1,11 @@
 import Button from "@/shared/ui/button/Button";
 import { ModalProps } from "antd";
-import DepositModal from "../deposit-modal/DepositModal";
+import Modal from "@/shared/ui/modal/Modal";
 
 const ClosingDepositModal = ({open, onCancel, ...props}: ModalProps) => {
 
     return (
-        <DepositModal open={open} onCancel={onCancel} {...props}>
+        <Modal open={open} onCancel={onCancel} {...props}>
             <p className="font-bold text-xl mb-6 md:text-lg md:mb-5">Closing your deposit</p>
             <div className="mb-4">
                 <p className="font-medium text-gray-500 mb-1">Deposit:</p>
@@ -32,7 +32,7 @@ const ClosingDepositModal = ({open, onCancel, ...props}: ModalProps) => {
                 <Button className="w-full flex-1" gray onClick={onCancel as () => void}>Close deposit</Button>
                 <Button className="w-full !text-white rounded-b bg-blue-600 disabled:opacity-50" onClick={onCancel as () => void}>Cancel</Button>
             </div>
-        </DepositModal>
+        </Modal>
     )
 }
 

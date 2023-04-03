@@ -16,7 +16,7 @@ const DepositInput = ({onChange, onInput}: InputProps) => {
               </>
           }
         />
-        <p className="text-xs text-gray-500 absolute top-11 left-3 z-10">Balance: 1000 EURG</p>
+        <p className="text-xs text-gray-400 absolute top-11 left-3 z-10">Balance: 1000 EURG</p>
       </FormItem>
     )
 }

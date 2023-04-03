@@ -42,9 +42,9 @@ const getWalletData = (currency: string) =>
 
 function getTabsAsRecord (tabs: Array<WalletTab>) {
     let list: Record<string, string> = {};
-
+    
     tabs.forEach(tab => Object.assign(list, {
-            [tab.Key]: tab.Title
+        [tab.Key]: tab.Title
     }));
 
     return list;
@@ -199,7 +199,10 @@ function Wallet() {
                     {walletTabs.find(tab => tab.Key === activeTab)?.Tab}
                 </div>
                 
-                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
+                <History
+                    className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}
+                    currency={currency}
+                />
             </div>
         </div>
     );

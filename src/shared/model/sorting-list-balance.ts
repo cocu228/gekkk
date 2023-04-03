@@ -4,7 +4,7 @@ import {IListAllCryptoName} from "@/shared/store/crypto-assets";
 import Decimal from "decimal.js";
 
 export interface ISortedListBalance {
-    decimalPlaces: number;
+    roundingValue: number;
     availableBalance: Decimal,
     freezeBalance: Decimal,
     id: string,
@@ -19,14 +19,14 @@ export const sortingListBalance = (data: IResBalance[], assets: IListAllCryptoNa
     return data.map((item, i) => {
 
         const infoToken = assets.find(it => it.code === item.currency)
-        const decimalPlaces = infoToken.decimal_prec ?? 4
+
 
         return {
             availableBalance: new Decimal(item.free_balance),
             freezeBalance: new Decimal(item.free_balance),
             id: item.currency + "-" + i,
             const: item.currency,
-            decimalPlaces,
+            roundingValue: infoToken.round_prec,
             name: infoToken.name ?? "No name"
         }
 

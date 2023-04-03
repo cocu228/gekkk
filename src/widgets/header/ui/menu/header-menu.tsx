@@ -1,7 +1,8 @@
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useNavigate} from "react-router-dom";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
+import {apiOrganizations} from "@/shared/api";
 
 const HeaderMenu = ({children, items, className = ""}) => {
 
@@ -9,6 +10,19 @@ const HeaderMenu = ({children, items, className = ""}) => {
     const navigation = useNavigate()
     const [isActive, toggleActive] = useState(false)
     const ref = useRef(null)
+    const [orgList, setOrgList] = useState([])
+
+
+    useEffect(() => {
+        (async () => {
+
+            // const organizationList = await apiOrganizations()
+            //
+            // console.log(organizationList)
+            // console.log("organizationList")
+
+        })()
+    }, [])
 
     const handlerClickOutside = useRef(({target}) => {
 

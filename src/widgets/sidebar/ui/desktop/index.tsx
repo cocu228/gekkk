@@ -8,7 +8,7 @@ import {ParentClassForCoin, IconCoin} from "../../../../shared/ui/icons/icon-coi
 import totalizeAmount from "../../model/totalize-amount";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import NavCollapse from "@/widgets/sidebar/ui/collapse-nav-link/NavCollapse";
+import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import Decimal from "decimal.js";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 
@@ -68,7 +68,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{EURG?.availableBalance.toDecimalPlaces(EURG.decimalPlaces).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{EURG?.availableBalance.toDecimalPlaces(EURG.roundingValue).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@ const SidebarDesktop = () => {
                                 <div className="row w-full mb-1"><span
                                     className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                 <div className="row w-full"><span
-                                    className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.decimalPlaces)} ${item.const}`}</span>
+                                    className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundingValue)} ${item.const}`}</span>
                                 </div>
                                 {/*<div className="row w-full"><span*/}
                                 {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}

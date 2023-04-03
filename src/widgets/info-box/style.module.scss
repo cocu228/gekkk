@@ -1,0 +1,20 @@
+.Wrapper {
+  border: 2px solid var(--color-orange);
+  background: rgba(252, 154, 23, 0.08);
+  padding: 6px 14px;
+  position: relative;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.Text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--color-orange);
+}
+
+.Link {
+
+}

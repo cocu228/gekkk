@@ -53,7 +53,7 @@ function Deposits() {
                     price={new Decimal(item.amount).toNumber()}
                     currency={item.currency_id}
                     onOpenDeposit={() => {
-                        console.log('Open deposit')
+                        // console.log('Open deposit')
                         navigate("/new-deposit");
                     }}
                     linkUrl="/tariffs"

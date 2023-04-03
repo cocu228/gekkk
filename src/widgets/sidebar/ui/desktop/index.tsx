@@ -42,7 +42,7 @@ const SidebarDesktop = () => {
     }, []);
 
     const EURG = sortedListBalance.find(it => it.const === "EURG");
-    console.log(EURG)
+
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
             <div className={`wrapper flex-col ml-4 pt-4 pb-5 flex ${styles.Wrapper}`}>

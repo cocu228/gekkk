@@ -27,7 +27,7 @@ const filter = (historyList, selectedOption) => {
         case 'year':
             return historyList.filter(item => sameOrAfter(new Date(item.datetime), subYears(new Date(), 1)))
         case 'custom':
-            console.log('custom');
+            // console.log('custom');
             return [];
         default:
             throw Error("Нет таких значений");

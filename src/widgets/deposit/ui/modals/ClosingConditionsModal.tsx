@@ -1,10 +1,10 @@
+import Modal from "@/shared/ui/modal/Modal";
 import {ModalProps} from "antd";
-import DepositModal from "../deposit-modal/DepositModal";
 
 const ClosingConditionsModal = ({open, onCancel, ...props}: ModalProps) => {
 
     return (
-        <DepositModal open={open} onCancel={onCancel} {...props}>
+        <Modal open={open} onCancel={onCancel} {...props}>
             <p className="mb-5 font-medium">Opened deposit can be closed before its closing date by the Client according to the following conditions:</p>
 
             <div className="mb-10 md:pl-7">
@@ -34,7 +34,7 @@ const ClosingConditionsModal = ({open, onCancel, ...props}: ModalProps) => {
                     </p>
                 </div>
             </div>
-        </DepositModal>
+        </Modal>
     )
 }
 

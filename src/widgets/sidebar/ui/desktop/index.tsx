@@ -42,6 +42,8 @@ const SidebarDesktop = () => {
     }, []);
 
     const EURG = sortedListBalance.find(it => it.const === "EURG");
+    const GKE = sortedListBalance.find(it => it.const === "GKE");
+
     console.log(EURG)
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -52,7 +54,7 @@ const SidebarDesktop = () => {
                             <span className="text-gray-400 text-sm font-semibold">Asset valuation</span>
                         </div>
                         <div className="row"></div>
-                        <span className="text-lg font-bold">{totalSum.EUR.toDecimalPlaces(8).toNumber()} € ({totalSum.BTC.toDecimalPlaces(12).toNumber()} ₿)</span>
+                        <span className="text-lg font-bold">{totalSum.EUR.toDecimalPlaces(2).toNumber()} € <br/> ({totalSum.BTC.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
 
                 </div>
@@ -68,7 +70,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{EURG?.availableBalance.toDecimalPlaces(EURG.roundingValue).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{EURG?.availableBalance.toDecimalPlaces(EURG.token.round_prec).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -83,7 +85,7 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
                         <div className="row w-full"><span
-                            className={styles.Sum}>0.0000 GKE</span>
+                            className={styles.Sum}>{GKE?.availableBalance.toDecimalPlaces(GKE.token.round_prec).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>
@@ -114,7 +116,7 @@ const SidebarDesktop = () => {
                                 <div className="row w-full mb-1"><span
                                     className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                 <div className="row w-full"><span
-                                    className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundingValue)} ${item.const}`}</span>
+                                    className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.token.round_prec)} ${item.const}`}</span>
                                 </div>
                                 {/*<div className="row w-full"><span*/}
                                 {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}

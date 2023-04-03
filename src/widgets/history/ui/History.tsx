@@ -1,11 +1,12 @@
+import dayjs from 'dayjs';
 import {useEffect, useState} from 'react';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import SecondaryTabGroup from "@/shared/ui/tab-group/secondary";
 import Table from "@/shared/ui/table/Table";
+import Button from '@/shared/ui/button/Button';
 import { DatePicker } from 'antd';
 import {apiHistoryTransactions} from "@/shared/api";
 import {format, startOfMonth, subDays, subYears} from "date-fns";
-import Button from '@/shared/ui/button/Button';
 
 const { RangePicker } = DatePicker;
 
@@ -77,15 +78,25 @@ interface Props {
 function History({title, currency, className}: Props) {
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     const [historyList, setHistoryList] = useState([]);
+    const [isUserRequest, setUserRequest] = useState(false);
+    const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
+        [dayjs(startOfMonth(new Date())), dayjs()]
+    )
 
     useEffect(() => {
         (async () => {
-            const {StartDate: start, EndDate: end} = historyTabs.find(tab => tab.Key === activeTab);
+            if (activeTab === TabKey.CUSTOM && !isUserRequest) return;
+
+            const {
+                StartDate: start = apiDate(customDate[0].toDate()),
+                EndDate: end = apiDate(customDate[1].toDate())
+            } = historyTabs.find(tab => tab.Key === activeTab);
 
             const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
             setHistoryList(data)
+            setUserRequest(false)
         })();
-    }, [activeTab, currency])
+    }, [activeTab, currency, isUserRequest])
 
     return (
         <div className="wrapper">
@@ -99,12 +110,18 @@ function History({title, currency, className}: Props) {
                     <div className='flex flex-col mt-3 mb-5'>
                         Enter period or choose from calendar
 
-                        <div className='flex grow-0 w-[75%]'>
+                        <div className='flex grow-0 max-w-[400px]'>
                             <RangePicker
                                 className='mt-2 w-full'
+                                value={customDate}
+                                onChange={setCustomDate}
                             />
 
-                            <Button className='ml-5'>Apply</Button>
+                            <Button
+                                className='ml-5'
+                                disabled={isUserRequest}
+                                onClick={() => setUserRequest(true)}
+                            >Apply</Button>
                         </div>
                     </div>
                 )}

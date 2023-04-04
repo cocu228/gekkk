@@ -3,11 +3,11 @@ import PercentBtn from '@/shared/ui/percent-btn/PercentBtn';
 import DepositInput from '../deposit-input';
 import InfoBlock from '../deposit-fixed/info-block';
 import styles from './styles.module.scss';
-import FixedTypeBlock from '../deposit-fixed/fixed-type-block/FixedTypeBlock';
-import StructuredTypeBlock from '../deposit-structured/structured-type-block/StructuredTypeBlock';
+import FixedVariant from '../deposit-fixed/fixed-variant/FixedVariant';
+import StructuredVariant from '../deposit-structured/structured-variant/StructuredVariant';
 import Radio from '@/shared/ui/radio';
 
-const DepositChoose = ({ type, setType }) => {
+const DepositChoose = ({ variant, setVariant }) => {
   return (
     <div
       className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-start items-start xxl:py-3 xxl:px-4 xl:col-span-5 md:bg-transparent md:p-0`}
@@ -27,22 +27,22 @@ const DepositChoose = ({ type, setType }) => {
               </>
             }
             value="fixed"
-            checked={type === 'fixed'}
-            onChange={setType}
+            checked={variant === 'fixed'}
+            onChange={setVariant}
             name="deposit-fixed"
           />
           <Radio
             title="Structured"
             subtitle="Crypto investments with customizable risk/profit"
             value="structured"
-            checked={type === 'structured'}
-            onChange={setType}
+            checked={variant === 'structured'}
+            onChange={setVariant}
             name="deposit-structured"
           />
         </div>
 
         <div className="wrapper mb-8 hidden xl:block md:mb-5">
-          <InfoBlock />
+          <InfoBlock variant={variant} />
         </div>
 
         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
@@ -63,7 +63,7 @@ const DepositChoose = ({ type, setType }) => {
         </div>
       </div>
 
-      {type === 'structured' ? <StructuredTypeBlock /> : <FixedTypeBlock />}
+      {variant === 'structured' ? <StructuredVariant /> : <FixedVariant />}
     </div>
   );
 };

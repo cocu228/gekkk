@@ -6,8 +6,9 @@ import ClosingConditionsModal from '../../modals/ClosingConditionsModal';
 import ChooseButton from '../choose-button/ChooseButton';
 import ChooseTokenModal from '../../modals/choose-token-modal/ChooseTokenModal';
 import TokenButton from '../token-button/TokenButton';
+import StructuredProperties from '@/widgets/deposit/ui/deposit-structured/structured-properties/StructuredProperties';
 
-const StructuredTypeBlock = () => {
+const StructuredVariant = () => {
   const openDepositModal = useModal();
   const conditionsModal = useModal();
   const chooseTokenModal = useModal();
@@ -29,15 +30,15 @@ const StructuredTypeBlock = () => {
 
         <div className="flex">
           <ChooseButton>
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
+            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
               <div>
-                <p className="font-medium text-xl mb-1">Safe strategy</p>
-                <p className="text-gray-400 text-sm">
+                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Safe strategy</p>
+                <p className="text-gray-400 text-sm md:hidden">
                   Guaranteed profit and risk protection
                 </p>
               </div>
-              <div className="flex justify-between w-full">
-                <div className="flex items-center gap-2">
+              <div className="flex justify-between w-full md:flex-col md:gap-1">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
@@ -45,7 +46,7 @@ const StructuredTypeBlock = () => {
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
@@ -57,13 +58,13 @@ const StructuredTypeBlock = () => {
             </div>
           </ChooseButton>
           <ChooseButton>
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
+            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
               <div>
-                <p className="font-medium text-xl mb-1">Balanced strategy</p>
-                <p className="text-gray-400 text-sm">Minimal risk</p>
+                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Balanced strategy</p>
+                <p className="text-gray-400 text-sm md:hidden">Minimal risk</p>
               </div>
-              <div className="flex justify-between w-full">
-                <div className="flex items-center gap-2">
+              <div className="flex justify-between w-full md:flex-col md:gap-1">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
@@ -71,7 +72,7 @@ const StructuredTypeBlock = () => {
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
@@ -83,15 +84,15 @@ const StructuredTypeBlock = () => {
             </div>
           </ChooseButton>
           <ChooseButton>
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full">
+            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
               <div>
-                <p className="font-medium text-xl mb-1">Dynamic strategy</p>
-                <p className="text-gray-400 text-sm">
+                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Dynamic strategy</p>
+                <p className="text-gray-400 text-sm md:hidden">
                   Good percentage and perdectible risk
                 </p>
               </div>
-              <div className="flex justify-between w-full">
-                <div className="flex items-center gap-2">
+              <div className="flex justify-between w-full md:flex-col md:gap-1">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-red rounded-full" />
@@ -99,7 +100,7 @@ const StructuredTypeBlock = () => {
                     <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Return</p>
                   <div className="flex gap-1">
                     <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
@@ -144,6 +145,10 @@ const StructuredTypeBlock = () => {
         </p>
 
         <TokenButton onClick={chooseTokenModal.showModal} />
+      </div>
+
+      <div className="hidden w-full md:flex md:mb-8">
+        <StructuredProperties/>
       </div>
 
       <div className="wrapper">
@@ -194,4 +199,4 @@ const StructuredTypeBlock = () => {
   );
 };
 
-export default StructuredTypeBlock;
+export default StructuredVariant;

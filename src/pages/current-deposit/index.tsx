@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import Balance from '@/widgets/deposit/ui/current-deposit/Balance';
-import CurrentDepositType from '@/widgets/deposit/ui/current-deposit/CurrentDepositType';
-import CurrentDepositProperties from '@/widgets/deposit/ui/current-deposit/CurrentDepositProperties';
-import CurrentDepositActionsBlock from '@/widgets/deposit/ui/current-deposit/CurrentDepositActionsBlock';
-import DepositStats from '@/widgets/deposit/ui/current-deposit/DepositStats';
+import Balance from '@/widgets/current-deposit/ui/Balance';
+import CurrentDepositType from '@/widgets/current-deposit/ui/CurrentDepositType';
+import CurrentDepositProperties from '@/widgets/current-deposit/ui/CurrentDepositProperties';
+import CurrentDepositActionsBlock from '@/widgets/current-deposit/ui/CurrentDepositActionsBlock';
+import DepositStats from '@/widgets/current-deposit/ui/DepositStats';
 
 function CurrentDeposit() {
     return (

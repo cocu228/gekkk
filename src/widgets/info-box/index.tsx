@@ -4,7 +4,7 @@ import {HelperClassName} from "@/shared/lib/helper-class-name";
 const hClassName = new HelperClassName(styles)
 
 
-const InfoBox = () => {
+const InfoBox = ({message, children}) => {
 
     return <div className={hClassName.scss("Wrapper")}>
         <div className="col shrink-0 flex mr-3 col-auto">
@@ -12,10 +12,10 @@ const InfoBox = () => {
                  alt="AlertWaring"/>
         </div>
         <div className="col">
-            <p className={hClassName.scss("Text")}>You have unrepaired transactions. Please check them <a
-                    className="underline text-[var(--color-blue-400)]" href="/">here</a>.
+            <p className={hClassName.scss("Text")}>{message}
             </p>
         </div>
+        {children}
     </div>
 
 }

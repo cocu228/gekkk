@@ -1,10 +1,17 @@
+import React from "react"
 import styles from "./style.module.scss"
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 
 const hClassName = new HelperClassName(styles)
 
 
-const InfoBox = ({message, children}) => {
+type Props = {
+    message?: string,
+    children?: React.ReactNode
+}
+
+
+const InfoBox = ({message, children}: Props) => {
 
     return <div className={hClassName.scss("Wrapper")}>
         <div className="col shrink-0 flex mr-3 col-auto">

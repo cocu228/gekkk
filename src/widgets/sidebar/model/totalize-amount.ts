@@ -9,7 +9,7 @@ export default (sortedListBalance: Array<ISortedListBalance>, rates: Record<$con
         const course = rates[currentValue.const]
         const value = new Decimal(course).times(currentValue.availableBalance)
 
-        return i + 1 === list.length ? value.plus(previousValue).toDecimalPlaces(currentValue.decimalPlaces) : value.plus(previousValue)
+        return i + 1 === list.length ? value.plus(previousValue).toDecimalPlaces(currentValue.token.decimal_prec) : value.plus(previousValue)
 
     }, new Decimal(0))
 

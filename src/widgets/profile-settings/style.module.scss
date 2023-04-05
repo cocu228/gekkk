@@ -1,0 +1,20 @@
+@import "@styles/mixins";
+
+.Wrapper {
+  padding: 2.5rem;
+
+  @include devices("xl") {
+    padding: 1.5rem;
+  }
+
+  @include devices("md") {
+    margin: 0 var(--content-margin-horizontal-negative-md);
+    padding: var(--content-pad-horizontal-md);
+  }
+}
+
+.Grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, calc((100% - 6rem)/4)));
+}

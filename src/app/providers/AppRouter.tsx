@@ -8,6 +8,8 @@ import Exchange from "@/pages/exchange";
 import AppInit from "@/app/providers/AppInit";
 import Assets from '@/pages/assets';
 import P404 from '@/pages/404/404';
+import ProfileSettings from "@/pages/profile-settings";
+
 
 const router = createBrowserRouter([
     {
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: 'wallet/:currency/:tab?',
                 element: <Wallet/>
+            },
+            {
+                path: 'profile-settings',
+                element: <ProfileSettings/>
             },
             {
                 path: 'current-deposit',

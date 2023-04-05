@@ -19,18 +19,20 @@ interface Props {
 
 function Table({data, noDataText = 'No data'}: Props) {
     return (
-        <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
-            {data.labels && (
-                <thead className="md:hidden">
-                <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
-                    {data.labels.map((l, index) => (
-                        <th key={index + "_th"} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
-                    ))}
-                </tr>
-                </thead>
-            )}
+        <div className="overflow-x-auto w-full">
+            <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-[25px]">
+                {data.labels && (
+                    <thead className="md:hidden">
+                    <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
+                        {data.labels.map((l, index) => (
+                            <th key={index + "_th"}
+                                className="py-2.5 px-5 lg:py-2 lg:px-2 text-sm font-semibold">{l.text}</th>
+                        ))}
+                    </tr>
+                    </thead>
+                )}
 
-            <tbody className="md:flex md:flex-col">
+                <tbody className="md:flex md:flex-col">
                 {data.rows && data.rows.length ? (
                     <>
                         {data.rows.map((row, index) => (
@@ -46,7 +48,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                                     <td
                                         key={cellIndex + "_td"}
                                         className={`
-                                            align-middle py-[10px] px-[20px] text-[14px] md:p-0
+                                            align-middle py-2.5 px-5 lg:py-2 lg:px-2 text-sm md:p-0
                                             ${cell.options?.nowrap ? 'whitespace-nowrap' : ''}
                                             ${cell.options?.wFull ? 'md:min-w-[100%]' : ''}
                                         `}
@@ -62,8 +64,9 @@ function Table({data, noDataText = 'No data'}: Props) {
                         <td className="align-middle py-[15px] px-[20px] text-[14px]">{noDataText}</td>
                     </tr>
                 )}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     );
 }
 

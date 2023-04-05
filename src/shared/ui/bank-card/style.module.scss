@@ -1,0 +1,10 @@
+.CardData {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    width: 100%;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, white 28.56%, white 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, white 85.68%, white 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -1,8 +1,12 @@
-import React, {FC, PropsWithChildren, ReactPortal} from 'react';
+interface CardParams {
+    children: JSX.Element|JSX.Element[],
+    className?: string
+}
 
-const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
+const Card = ({children, className = ''}: CardParams) => {
     return (
-        <div className="
+        <div className={`
+            ${className}
             bg-white
             p-[16px]
             rounded-[4px]
@@ -17,7 +21,7 @@ const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
             flex
             flex-col
             transition-all
-        ">
+        `}>
             {children}
         </div>
     );

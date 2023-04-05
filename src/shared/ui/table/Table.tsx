@@ -18,8 +18,7 @@ interface Props {
 }
 
 function Table({data, noDataText = 'No data'}: Props) {
-    return (
-        <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
+    return <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
             {data.labels && (
                 <thead className="md:hidden text-gray-600">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
@@ -46,7 +45,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                                     <td
                                         key={cellIndex + "_td"}
                                         className={`
-                                            align-middle py-2.5 px-5 lg:py-2 lg:px-2 text-sm md:p-0
+                                            align-middle py-[10px] px-[20px] text-[14px] md:p-0
                                             ${cell.options?.nowrap ? 'whitespace-nowrap' : ''}
                                             ${cell.options?.wFull ? 'md:min-w-[100%]' : ''}
                                         `}
@@ -64,8 +63,6 @@ function Table({data, noDataText = 'No data'}: Props) {
                 )}
                 </tbody>
             </table>
-        </div>
-    );
 }
 
 export default Table;

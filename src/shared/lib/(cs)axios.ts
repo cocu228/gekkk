@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-const {DEV, VITE_DEV_DOCKER} = import.meta.env
+const {MODE} = import.meta.env
+const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
 
 
+console.log(MODE)
+console.log(API_URL_MODE)
+console.log(!!API_URL_MODE)
 const sessionHeader = () => {
+
     const sessionGlobal = sessionStorage.getItem("session-global")
 
     const {token = undefined, phone = undefined} = sessionGlobal !== null ? JSON.parse(sessionGlobal) : {}
@@ -25,7 +30,7 @@ const $axios = axios.create({
     withCredentials: true,
     headers: sessionHeader(),
     responseType: 'json',
-    baseURL: (DEV || VITE_DEV_DOCKER) ? window.location.origin : "https://api-dev.gekkoin.com"
+    baseURL: !!API_URL_MODE ? API_URL_MODE : window.location.origin
 });
 
 export default $axios;

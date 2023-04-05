@@ -15,7 +15,7 @@ const PromoCode = memo(() => {
         setLoading(true)
         const res = await apiPromoCode(valInput)
 
-        console.log(res)
+        // console.log(res)
 
         setLoading(false)
     }

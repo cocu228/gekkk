@@ -1,11 +1,12 @@
 .Wrapper {
   border: 2px solid var(--color-orange);
   background: rgba(252, 154, 23, 0.08);
-  padding: 6px 14px;
+  padding: 6px 44px 6px 14px;
   position: relative;
   display: flex;
   margin-bottom: 20px;
   border-radius: 4px;
+  z-index: 20;
 }
 
 .Text {

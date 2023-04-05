@@ -2,6 +2,7 @@ import {FC, memo, PropsWithChildren, useCallback, useLayoutEffect, useMemo, useS
 import $axios from "@/shared/lib/(cs)axios";
 import {randomId} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
+import InfoBox from "@/widgets/info-box";
 
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
@@ -35,12 +36,10 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     return <>
         {errors.length > 0 ?
-            <div className="flex z-50 flex-col items-center absolute top-[24px] left-0 right-0 m-auto">
+            <div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
                 {errors.map((item, i) => <ErrorMessage key={"ErrorMessage" + i} id={item.id} message={item.message}
                                                        onClick={closeErrorMessage}/>)}
-            </div>
-            :
-            null
+            </div> : null
         }
         {props.children}
     </>
@@ -48,12 +47,13 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
 const ErrorMessage = ({onClick, message, id}: { onClick: (val: string) => void, message: string, id: string }) => {
 
-    return <div className="flex justify-center items-center relative rounded-xl m-1 w-[400px] min-h-[40px] bg-gray-500">
-        <span onClick={() => onClick(id)} className="absolute right-[24px] m-auto min-h-min cursor-pointer">
-            <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
+    return <InfoBox message={message}>
+        <span onClick={() => onClick(id)}
+              className="absolute right-[14px] m-auto min-h-min cursor-pointer">
+        <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
             </span>
-        <p>{message}</p>
-    </div>
+    </InfoBox>
+
 }
 
 export default ErrorsProvider

@@ -19,18 +19,16 @@ interface Props {
 
 function Table({data, noDataText = 'No data'}: Props) {
     return (
-        <div className="overflow-x-auto w-full">
-            <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-[25px]">
-                {data.labels && (
-                    <thead className="md:hidden">
-                    <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
-                        {data.labels.map((l, index) => (
-                            <th key={index + "_th"}
-                                className="py-2.5 px-5 lg:py-2 lg:px-2 text-sm font-semibold">{l.text}</th>
-                        ))}
-                    </tr>
-                    </thead>
-                )}
+        <table className="table-auto w-full border-solid border-1 border-[#EEEFF2] bg-[#F9F9FA] mt-4">
+            {data.labels && (
+                <thead className="md:hidden text-gray-600">
+                <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
+                    {data.labels.map((l, index) => (
+                        <th key={index + "_th"} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
+                    ))}
+                </tr>
+                </thead>
+            )}
 
                 <tbody className="md:flex md:flex-col">
                 {data.rows && data.rows.length ? (

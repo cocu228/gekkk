@@ -18,7 +18,7 @@ const AuthPage = () => {
 
         if (sessionId) {
             apiQRCode(sessionId).then(res => {
-                console.log(res)
+                // console.log(res)
             }).catch(e => console.warn(e))
         }
 

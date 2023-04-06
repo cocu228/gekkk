@@ -1,6 +1,13 @@
+@import "@styles/mixins";
+@import "@styles/variables";
+
 .SplitGrid {
   border-radius: 4px;
   overflow: hidden;
+
+  @include devices("md") {
+    margin: 0 var(--content-margin-horizontal-negative-md);
+  }
 }
 
 .Left {

@@ -6,9 +6,9 @@ import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
 import Withdraw from "@/widgets/wallet-stage/withdraw/Withdraw";
-import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
-import { IResListAddresses } from "@/shared/api";
 import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
+import { IResListAddresses } from "@/shared/api";
+import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -41,14 +41,11 @@ const getWalletData = (currency: string) =>
     storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
 
 function getTabsAsRecord (tabs: Array<WalletTab>) {
-    let list: Record<string, string>;
-
-    tabs.forEach(tab => {
-        list = {
-            ...list,
-            [tab.Key]: tab.Title
-        }
-    })
+    let list: Record<string, string> = {};
+    
+    tabs.forEach(tab => Object.assign(list, {
+        [tab.Key]: tab.Title
+    }));
 
     return list;
 }
@@ -131,7 +128,7 @@ function Wallet() {
         }
     ]
 
-    let [activeTab, setActiveTab] = useState(getInitialTab(tab));
+    let [activeTab, setActiveTab] = useState<string>(getInitialTab(tab));
     const walletData = getWalletData(currency);
 
     if (!walletTabs.find(t => t.Key === activeTab))
@@ -206,7 +203,10 @@ function Wallet() {
                     {walletTabs.find(tab => tab.Key === activeTab)?.Tab}
                 </div>
                 
-                <History className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}/>
+                <History
+                    className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}
+                    currency={currency}
+                />
             </div>
         </div>
     );

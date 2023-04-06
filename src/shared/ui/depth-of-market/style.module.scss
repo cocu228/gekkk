@@ -1,9 +1,20 @@
+@import "@styles/mixins";
+
 .Wrapper {
   min-width: 200px;
+
+  @include devices("lg") {
+    min-width: 154px;
+  }
 }
 
 .Pair {
   font-size: 0.7rem;
+
+  @include devices("md") {
+    margin: -0.4em 0;
+    font-size: 0.5rem;
+  }
 }
 
 .RedWrapper {
@@ -16,8 +27,8 @@
 
 .Rate {
   svg {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1em;
+    height: 1em;
     fill: inherit;
   }
 

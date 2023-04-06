@@ -14,7 +14,7 @@ function DepthItem({price, amount, color = 'red', percent}: Props) {
             {percent && (
                 <span className={styles.ItemPercent} style={{width: `${percent}%`}}/>
             )}
-            <div className={`flex justify-between p-1 text-md ${styles.ItemText}`}>
+            <div className={`flex justify-between p-1 text-md lg:text-sm md:text-xs ${styles.ItemText}`}>
                 <span>{price || '-'}</span>
                 <span>{amount || '-'}</span>
             </div>

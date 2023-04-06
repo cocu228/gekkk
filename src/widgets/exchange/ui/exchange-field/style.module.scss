@@ -1,9 +1,18 @@
+@import "@styles/mixins";
+
 .Field {
+  position: relative;
   margin-top: 0.4rem;
   height: 60px;
   padding: 0 12px;
   border: 1px solid var(--color-secondary);
   border-radius: 4px;
+
+  @include devices("md") {
+    height: 56px;
+    padding-right: 8px;
+    margin-top: 0.3rem;
+  }
 
   &Input {
     display: inline-flex;
@@ -18,7 +27,7 @@
     outline: none;
 
     &:not(:last-child) {
-      padding-bottom: 0.3rem;
+      padding-bottom: 0.1rem;
     }
   }
 
@@ -30,6 +39,10 @@
     font-size: 0.625rem;
     line-height: 1;
     white-space: nowrap;
+
+    @include devices("md") {
+      font-size: 0.5rem;
+    }
   }
 
   &SelectBtn {
@@ -42,10 +55,20 @@
     font-weight: 500;
     white-space: nowrap;
 
+    @include devices("md") {
+      gap: 0.3rem;
+      font-size: 0.56rem;
+    }
+
     svg {
       width: 7px;
       height: 17px;
       fill: var(--color-secondary);
+
+      @include devices("md") {
+        width: 5px;
+        height: 14px;
+      }
     }
   }
 
@@ -57,16 +80,46 @@
     text-transform: uppercase;
     color: var(--color-secondary);
     border-right: 1px solid var(--color-secondary);
+
+    @include devices("lg") {
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      margin: 0;
+      padding: 0;
+      text-transform: none;
+      font-size: 0.625rem;
+      line-height: 1;
+      border: none;
+    }
+
+    @include devices("md") {
+      font-size: 0.5rem;
+    }
   }
 
   &TokenIcon {
     width: 34px;
     min-width: 34px;
+
+    @include devices("lg") {
+      width: 28px;
+      min-width: 28px;
+    }
+
+    @include devices("md") {
+      width: 20px;
+      min-width: 20px;
+    }
   }
 
   &TokenTitle {
     min-width: 2.8rem;
     text-align: left;
+
+    @include devices("md") {
+      min-width: 1.875rem;
+    }
   }
 
   &PriceLabel {
@@ -76,6 +129,18 @@
     gap: 0.25rem;
     font-weight: 500;
     white-space: nowrap;
+    text-align: right;
+
+    @include devices("lg") {
+      font-size: 0.875rem;
+      flex-shrink: initial;
+      white-space: initial;
+    }
+
+    @include devices("md") {
+      margin-right: -0.3rem;
+      font-size: 0.56rem;
+    }
   }
 
   &SwitchBtn {

@@ -1,0 +1,33 @@
+@import "@styles/mixins.scss";
+
+.Wrapper {
+  max-height: calc(100vh - 10rem);
+}
+
+.ItemsList {
+  margin: 0 var(--modal-pad-horizontal-negative);
+  overflow-y: auto;
+
+  @include devices('sm') {
+    margin: 0 var(--modal-pad-horizontal-sm-negative);
+  }
+}
+
+.Item {
+  padding: 0.875rem var(--modal-pad-horizontal);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+
+  &:nth-child(odd) {
+    background: var(--color-bgSecondary);
+  }
+
+  @include devices('sm') {
+    padding: 0.875rem var(--modal-pad-horizontal-sm);
+  }
+}

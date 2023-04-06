@@ -21,12 +21,12 @@ function CreateRoom() {
                         {
                             value: '1',
                             label: 'Gekkoin Europe (EURG)',
-                            icon: '/public/img/icon/EurgIcon.svg'
+                            icon: '/img/icon/EurgIcon.svg'
                         },
                         {
                             value: '2',
                             label: 'XMR',
-                            icon: '/public/img/icon/XmrIcon.svg'
+                            icon: '/img/icon/XmrIcon.svg'
                         },
                     ]}
                     defaultValue="1"
@@ -41,13 +41,13 @@ function CreateRoom() {
                         {
                             value: '1',
                             label: 'Gekkoin Europe (EURG)',
-                            icon: '/public/img/icon/EurgIcon.svg',
+                            icon: '/img/icon/EurgIcon.svg',
                             disabled: true
                         },
                         {
                             value: '2',
                             label: 'XMR',
-                            icon: '/public/img/icon/XmrIcon.svg'
+                            icon: '/img/icon/XmrIcon.svg'
                         },
                     ]}
                     placeholder="Select the token"

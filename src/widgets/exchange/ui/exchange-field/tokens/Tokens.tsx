@@ -21,7 +21,7 @@ function Tokens({onSelect}: Props) {
                             <img
                                 width={29}
                                 height={29}
-                                src="/public/img/icon/EurgIcon.svg"
+                                src="/img/icon/EurgIcon.svg"
                                 alt="ExchangeIcon"
                             />
                             <span>Gekkoin Europe (EURG)</span>

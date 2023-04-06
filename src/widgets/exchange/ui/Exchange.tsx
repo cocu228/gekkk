@@ -51,14 +51,6 @@ function Exchange() {
                         infoText="Balance: "
                         labelType={ExchangeFieldType.TOKEN}
                     />
-                    <ExchangeField
-                        value="00.00"
-                        infoText="Balance: 1000 EURG"
-                        labelType={ExchangeFieldType.TOKEN}
-                        tokenLabelIconUrl="/public/img/icon/EurgIcon.svg"
-                        tokenLabelTitle="EURG"
-                        tokenLabelMax
-                    />
                     <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                         <IconChevronDown/>
                     </div>
@@ -67,15 +59,12 @@ function Exchange() {
                         value="00.00"
                         infoText="Balance: "
                         labelType={ExchangeFieldType.TOKEN}
-                        tokenLabelIconUrl="/public/img/icon/XmrIcon.svg"
-                        tokenLabelTitle="XMR"
                     />
                     <div className="mt-3 md:mt-2">
                         <div className="font-medium text-md lg:text-sm md:text-xs">Price</div>
                         <ExchangeField
-                            value="125.00"
-                            labelType={ExchangeFieldType.PRICE}
-                            priceLabelTitle="EURG per 1 XMR"
+                            disabled
+                            value=""
                         />
                     </div>
                     <div className="flex justify-between items-baseline gap-x-2.5 mt-1 text-secondary flex-wrap">

@@ -18,7 +18,7 @@ function DepthOfMarket() {
                             width={22}
                             height={24}
                             className={styles.Icon}
-                            src={`/public/img/icon/ExchangeOrange.svg`}
+                            src={`/img/icon/ExchangeOrange.svg`}
                             alt="ExchangeIcon"
                         />
                     </span>
@@ -33,13 +33,13 @@ function DepthOfMarket() {
                 <DepthItem color={"red"} />
                 <DepthItem percent={50} price={"125"} amount={5} color={"red"} />
             </div>
-            <div className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md ${styles.Rate}`}>
-                -
-            </div>
-            <div className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md ${styles.Rate} ${styles.RateUp}`}>
-                125
-                <IconArrowUp />
-            </div>
+            {/*<div className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md ${styles.Rate}`}>*/}
+            {/*    -*/}
+            {/*</div>*/}
+            {/*<div className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md ${styles.Rate} ${styles.RateUp}`}>*/}
+            {/*    125*/}
+            {/*    <IconArrowUp />*/}
+            {/*</div>*/}
             <div className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md ${styles.Rate} ${styles.RateDown}`}>
                 130
                 <IconArrowUp />

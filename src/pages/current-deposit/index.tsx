@@ -13,7 +13,7 @@ function CurrentDeposit() {
                 <CurrentDepositType title="Structured deposit" strategy="Safe strategy" percent="16/4" token="Monero (XMR)" />
             </div>
 
-            <div className='wrapper flex-1 bg-white flex flex-wrap justify-between px-10 pt-16 pb-80 rounded-md xxxl:px-8 xxxl:pt-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10 md:bg-transparent md:p-0'>
+            <div className='wrapper flex-1 bg-white flex flex-wrap justify-between px-10 pt-16 pb-80 rounded-md xxxl:px-8 xxxl:pt-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10'>
                 <DepositStats 
                     startingRate="1 XMR ~ 141.68€" 
                     currentRate="1 XMR ~ 185.03€" 

@@ -1,6 +1,6 @@
 const InfoBlock = ({variant}) => {
     return (
-      <p className="leading-6 md:text-xs md:leading-5">
+      <p className="leading-6 md:text-xs md:leading-5 w-full">
         {
           variant === 'structured' ?
           <>

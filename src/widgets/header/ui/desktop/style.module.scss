@@ -4,6 +4,14 @@
   width: var(--sidebar-width);
   padding-left: 21px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.06);
+
+  @include devices(xxxl) {
+    flex-basis: var(--sidebar-width-xxxl);
+  }
+
+  @include devices(xxl) {
+    flex-basis: var(--sidebar-width-xxl);
+  }
 }
 
 .Header {

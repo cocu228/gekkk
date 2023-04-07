@@ -37,7 +37,7 @@ const StructuredVariant = () => {
                   Guaranteed profit and risk protection
                 </p>
               </div>
-              <div className="flex justify-between w-full md:flex-col md:gap-1">
+              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
                 <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
@@ -63,7 +63,7 @@ const StructuredVariant = () => {
                 <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Balanced strategy</p>
                 <p className="text-gray-400 text-sm md:hidden">Minimal risk</p>
               </div>
-              <div className="flex justify-between w-full md:flex-col md:gap-1">
+              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
                 <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">
@@ -91,7 +91,7 @@ const StructuredVariant = () => {
                   Good percentage and perdectible risk
                 </p>
               </div>
-              <div className="flex justify-between w-full md:flex-col md:gap-1">
+              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
                 <div className="flex items-center gap-2 md:flex-col">
                   <p className="text-gray-400 text-sm">Risk</p>
                   <div className="flex gap-1">

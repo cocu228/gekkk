@@ -10,7 +10,7 @@ import Radio from '@/shared/ui/radio';
 const DepositChoose = ({ variant, setVariant }) => {
   return (
     <div
-      className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-start items-start xxl:py-3 xxl:px-4 xl:col-span-5 md:bg-transparent md:p-0`}
+      className={`${styles.DepositChoose} wrapper col-span-3 bg-white rounded-l-md p-10 flex flex-col justify-start items-start xxl:py-3 xxl:px-4 xl:col-span-5`}
     >
       <div>
         <p className="text-base font-medium text-gray-400 mb-6 md:text-sm md:mb-4">

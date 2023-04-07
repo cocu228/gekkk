@@ -1,0 +1,24 @@
+@import "@styles/mixins";
+
+.Input {
+  display: flex;
+
+  :global(.ant-input) {
+    padding: 1.25rem;
+    border-radius: 0.25rem;
+    border-color: var(--color-secondary);
+    font-weight: 500;
+
+    @include devices('sm') {
+      padding: 1rem 1.25rem;
+    }
+
+    &::placeholder {
+      color: var(--color-secondary);
+    }
+
+    &:focus {
+      border-color: var(--color-accent);
+    }
+  }
+}

@@ -58,7 +58,7 @@ const FormCode = memo(({handleView}: TProps) => {
 
                 }).catch(e => {
 
-                    alert(e);
+                    // alert(e);
                     setState(prev => ({...prev, loading: false}));
                     onBack();
                     console.warn(e);

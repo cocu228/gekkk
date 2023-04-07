@@ -47,7 +47,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                         setState(prev => ({...prev, loading: false}))
                     }
                 }).catch(err => {
-                    alert(err.response?.data?.errors[0]?.type)
+                    // alert(err.response?.data?.errors[0]?.type)
                     setState(prev => ({...prev, loading: false}))
                 })
 
@@ -56,7 +56,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
             }
 
         }).catch(err => {
-            alert(err.response?.data?.errors[0]?.type)
+            // alert(err.response?.data?.errors[0]?.type)
             setState(prev => ({...prev, loading: false}))
         })
     }

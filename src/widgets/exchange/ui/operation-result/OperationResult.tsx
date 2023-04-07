@@ -8,12 +8,12 @@ interface Props {
 
 function OperationResult({pay, get}: Props) {
     return (
-        <div className={`flex flex-col gap-2 font-medium ${styles.Result}`}>
-            <div className="flex justify-between">
+        <div className={`flex flex-col gap-2 md:gap-1 font-medium ${styles.Result}`}>
+            <div className="flex flex-wrap justify-between gap-0.5">
                 <span>You will pay</span>
                 <strong>{pay || '-'}</strong>
             </div>
-            <div className="flex justify-between">
+            <div className="flex flex-wrap justify-between gap-0.5">
                 <span>You will get</span>
                 <strong>{get || '-'}</strong>
             </div>

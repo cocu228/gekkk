@@ -21,10 +21,10 @@ function CryptoAssets() {
                     currency={item.const}
                     price=""
                     onTopUp={() => {
-                        console.log('top up')
+                        // console.log('top up')
                     }}
                     onWithdraw={() => {
-                        console.log('withdraw')
+                        // console.log('withdraw')
                     }}
                 />)}
             </CardsGrid>

@@ -53,11 +53,11 @@ const HeaderMenu = ({children, items, className = ""}) => {
             logout()
             remEvent()
         } else if (event?.action === undefined) {
-            console.log("hello")
+            // console.log("hello")
         }
     }
 
-    console.log(isActive)
+    // console.log(isActive)
 
     return <>
         <button ref={ref} disabled={isActive} onClick={handlerOpen} className={className}>

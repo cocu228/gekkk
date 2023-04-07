@@ -9,6 +9,7 @@ $breakpoints: (
 
 :root {
   --accent: 0 174 239;
+  --accent-light: 239 243 248;
   --primary: 58 58 58;
   --secondary: 180 192 205;
   --bgPrimary: 255 255 255;
@@ -18,6 +19,7 @@ $breakpoints: (
   --orange: 252 154 23;
 
   --color-accent: rgb(var(--accent));
+  --color-accent-light: rgb(var(--accent-light));
   --color-primary: rgb(var(--primary));
   --color-secondary: rgb(var(--secondary));
   --color-bgPrimary: rgb(var(--bgPrimary));
@@ -47,6 +49,7 @@ $breakpoints: (
   --content-pad-right-xl: 2.4rem;
   --content-pad-top-md: 1rem;
   --content-pad-horizontal-md: 1rem;
+  --content-margin-horizontal-negative-md: -16px;
 
   --border-radius: 6px;
 

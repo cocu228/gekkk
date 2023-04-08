@@ -3,6 +3,7 @@ import {S} from "@/pages/auth";
 import ReactQRCode from "react-qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import InputCopy from "@/shared/ui/input-copy/InputCopy";
 
 
 type TProps = {
@@ -67,7 +68,7 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
         </div>
 
-        {hash && <div className="row text-right pb-10 flex justify-center">
+        {hash && <div className="row text-right pb-10 flex justify-center items-center flex-col">
             <div className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                     <ReactQRCode
@@ -77,6 +78,9 @@ const QRCode = memo(({handleView}: TProps) => {
                         viewBox={`0 0 148 148`}
                     />
                 </div>
+            </div>
+            <div className="row mt-4">
+                <InputCopy value={hash}/>
             </div>
         </div>}
     </>

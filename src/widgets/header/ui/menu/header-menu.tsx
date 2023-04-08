@@ -18,14 +18,13 @@ const HeaderMenu = ({children, items, className = ""}) => {
 
             // const organizationList = await apiOrganizations()
             //
-            // console.log(organizationList)
-            // console.log("organizationList")
+            //
+            //
 
         })()
     }, [])
 
     const handlerClickOutside = useRef(({target}) => {
-
 
         if (target !== undefined
             && ref.current !== null
@@ -53,25 +52,26 @@ const HeaderMenu = ({children, items, className = ""}) => {
             logout()
             remEvent()
         } else if (event?.action === undefined) {
-            // console.log("hello")
+            //
         }
     }
 
-    // console.log(isActive)
+    //
 
     return <>
-        <button ref={ref} disabled={isActive} onClick={handlerOpen} className={className}>
+        <div ref={ref} onClick={handlerOpen} className={className + " flex items-center cursor-pointer h-full"}>
             <div className={`wrapper relative pl-7 pr-7 ${isActive ? "active" : ""}`}>
                 {isActive && <span data-menu="event-helper"
                                    className="absolute cursor-pointer w-full h-[100%] top-[0] left-[0]"/>}
                 {children}
 
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
-                    {items.map((obj, i) => <button style={obj.style ?? {}} onClick={() => handlerClick(obj.event)}
-                                                   className={`${styles.DropdownItem}`}> {obj.item} </button>)}
+                    {items.map((obj, i) => <span key={"ItemMenu_" + i} style={obj.style ?? {}}
+                                                 onClick={() => handlerClick(obj.event)}
+                                                 className={`${styles.DropdownItem} h-full`}> {obj.item} </span>)}
                 </div>
             </div>
-        </button>
+        </div>
     </>
 }
 

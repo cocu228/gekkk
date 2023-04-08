@@ -64,7 +64,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         })
     }
 
-    // console.log(ref)
+    //
 
     return <Form onFinish={onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4

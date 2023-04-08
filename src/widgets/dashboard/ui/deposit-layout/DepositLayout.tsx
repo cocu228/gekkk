@@ -44,7 +44,7 @@ function Deposits() {
 
             <CardsGrid>
 
-                {state === null && [1, 2, 3, 4].map(it => <Card><Skeleton active/></Card>)}
+                {state === null && [1, 2, 3, 4].map((it, i) => <Card key={"Card_" + i}><Skeleton active/></Card>)}
 
                 {Array.isArray(state) && state.map((item, i) => <DepositCard
                     title={strategyTypes[item.dep_type]}
@@ -53,7 +53,7 @@ function Deposits() {
                     price={new Decimal(item.amount).toNumber()}
                     currency={item.currency_id}
                     onOpenDeposit={() => {
-                        // console.log('Open deposit')
+                        //
                         navigate("/new-deposit");
                     }}
                     linkUrl="/tariffs"

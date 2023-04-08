@@ -27,7 +27,7 @@ const QRCode = memo(({handleView}: TProps) => {
 
                     ref.current = setInterval(() => {
                         apiQRCode(res.data).then(res => {
-                            // console.log(res)
+                            //
                         });
                     }, 3000);
                 }

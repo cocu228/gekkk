@@ -1,17 +1,18 @@
 .DropdownMenu {
   max-height: 0;
-  transition: max-height 0.6s ease, border 0.6s ease;
+  transition: all 0.6s ease, border 0.6s ease;
   overflow: hidden;
   position: absolute;
   z-index: 100;
   left: 0;
-  background-color: #ffffff;
+  background-color: transparent;
   width: 100%;
   border: 1px solid transparent;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 
   &:global(.active) {
+    background-color: #ffffff;
     max-height: 700px;
     border: 1px solid var(--color-gray-400);
   }

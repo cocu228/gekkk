@@ -35,7 +35,9 @@ const AuthPage = () => {
                 ${  md ? 'w-full mt-0 px-4 rounded-none' : 'max-w-[756px] px-40 pt-10'}`
             }>
                 <div className={`flex justify-center ${md ? 'pt-6 pb-5' : 'pt-8 pb-10'}`}>
-                    <img src="/img/logo.svg" width={md ? 72 : 120} alt="logo"/>
+                    <a href="/">
+                        <img src="/img/logo.svg" width={md ? 72 : 120} alt="logo"/>
+                    </a>
                 </div>
 
                 {view === "authorization" ? <FormLoginAccount handleView={handleView}/> : view === "code" ?

@@ -14,7 +14,6 @@ const QRCode = memo(({handleView}: TProps) => {
 
     const [hash, setHash] = useState<null | string>(null);
     const ref = useRef<ReturnType<typeof setInterval> | null>(null);
-    // const {login} = useAuth();
 
     const {md} = useContext(BreakpointsContext);
 
@@ -52,10 +51,14 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
             <div className="row flex flex-nowrap justify-center mb-6">
                 <div className="col m-2">
-                    <img src="/img/app-store.svg" alt="app-store"/>
+                    <a href="/">
+                        <img src="/img/app-store.svg" alt="app-store"/>
+                    </a>
                 </div>
                 <div className="col m-2">
-                    <img src="/img/google-play.svg" alt="google-play"/>
+                    <a href="/">
+                        <img src="/img/google-play.svg" alt="google-play"/>
+                    </a>
                 </div>
             </div>
             <div className="row flex flex-nowrap mb-10 relative">

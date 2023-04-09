@@ -4,99 +4,47 @@ import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import SecondaryTabGroup from "@/shared/ui/tab-group/secondary";
 import Table from "@/shared/ui/table/Table";
 import Button from '@/shared/ui/button/Button';
-import { DatePicker } from 'antd';
+import {DatePicker} from 'antd';
 import {apiHistoryTransactions} from "@/shared/api";
-import {format, startOfMonth, subDays, subYears} from "date-fns";
+import {Props, TabKey} from "../model/types";
+import {historyTabs, formatForApiReq, getTabsAsRecord, formatForCustomer} from "../model/helpers";
+import {startOfMonth} from "date-fns";
 
-const { RangePicker } = DatePicker;
+const {RangePicker} = DatePicker;
 
-enum TabKey {
-    MONTH = 'month',
-    DAYS_30 = 'days_30',
-    DAYS_90 = 'days_90',
-    YEAR = 'year', 
-    CUSTOM = 'custom', 
-}
+function History({title, currency, className}: Partial<Props>) {
 
-type HistoryTab = {
-    Key: TabKey;
-    Title: string;
-    StartDate?: string;
-    EndDate?: string;
-}
-
-const apiDate = (value: Date) =>
-    format(value, 'yyyy-MM-dd');
-
-const historyTabs: Array<HistoryTab> = [
-    {
-        Key: TabKey.MONTH,
-        Title: 'This month',
-        StartDate: apiDate(startOfMonth(new Date())),
-        EndDate: apiDate(new Date())
-    },
-    {
-        Key: TabKey.DAYS_30,
-        Title: 'Last 30 days',
-        StartDate: apiDate(subDays(new Date(), 30)),
-        EndDate: apiDate(new Date())
-    },
-    {
-        Key: TabKey.DAYS_90,
-        Title: 'Last 90 days',
-        StartDate: apiDate(subDays(new Date(), 90)),
-        EndDate: apiDate(new Date())
-    },
-    {
-        Key: TabKey.YEAR,
-        Title: 'This year',
-        StartDate: apiDate(subYears(new Date(), 1)),
-        EndDate: apiDate(new Date())
-    },
-    {
-        Key: TabKey.CUSTOM,
-        Title: 'Custom period',
-    }
-];
-
-function getTabsAsRecord (tabs: Array<HistoryTab>) {
-    let list: Record<string, string> = {};
-    
-    tabs.forEach(tab => Object.assign(list, {
-        [tab.Key]: tab.Title
-    }));
-
-    return list;
-}
-
-interface Props {
-    title?: string,
-    currency?: string,
-    className?: string
-}
-
-function History({title, currency, className}: Props) {
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     const [historyList, setHistoryList] = useState([]);
-    const [isUserRequest, setUserRequest] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
 
+    const requestHistory = async () => {
+
+        setLoading(true)
+
+        const {
+            StartDate: start = formatForApiReq(customDate[0].toDate()),
+            EndDate: end = formatForApiReq(customDate[1].toDate())
+        } = historyTabs.find(tab => tab.Key === activeTab);
+
+        const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
+
+        setHistoryList(data)
+
+        setLoading(false)
+
+    }
+
     useEffect(() => {
-        (async () => {
-            if (activeTab === TabKey.CUSTOM && !isUserRequest) return;
 
-            const {
-                StartDate: start = apiDate(customDate[0].toDate()),
-                EndDate: end = apiDate(customDate[1].toDate())
-            } = historyTabs.find(tab => tab.Key === activeTab);
+        if (activeTab !== TabKey.CUSTOM) {
+            requestHistory()
+        }
 
-            const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
-            setHistoryList(data)
-            setUserRequest(false)
-        })();
-    }, [activeTab, currency, isUserRequest])
+    }, [activeTab, currency])
 
     return (
         <div className="wrapper">
@@ -119,8 +67,8 @@ function History({title, currency, className}: Props) {
 
                             <Button
                                 className='ml-5'
-                                disabled={isUserRequest}
-                                onClick={() => setUserRequest(true)}
+                                disabled={loading}
+                                onClick={() => requestHistory()}
                             >Apply</Button>
                         </div>
                     </div>
@@ -133,16 +81,16 @@ function History({title, currency, className}: Props) {
                             {text: 'Flow of funds'},
                             {text: 'Information'}
                         ],
-                        rows: historyList.map((item) => 
-                        [
-                            {text: format(new Date(item.datetime), "dd MMMM yyyy HH:mm")},
-                            {
-                                text: <span className="text-green">
+                        rows: historyList.map((item) =>
+                            [
+                                {text: formatForCustomer(item.datetime)},
+                                {
+                                    text: <span className="text-green">
                                     {item.amount + " " + item.currency}
                                 </span>
-                            },
-                            {text: ""}
-                        ])
+                                },
+                                {text: ""}
+                            ])
                     }}
                     noDataText="You don't have any transactions for this time."
                 />

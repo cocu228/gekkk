@@ -57,7 +57,7 @@ export const PromoCodeModal = ({active = false}) => {
 
     return <>
         <button className="w-full text-left" onClick={showModal}>
-            PromoCode
+            Promo-code
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
             <PromoCode/>

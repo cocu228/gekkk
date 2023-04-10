@@ -35,7 +35,7 @@ export default [
         item: <PromoCodeModal/>, id: 'item-4',
         event: {action: "onclick", value: null}
     },
-    {item: 'Settings', id: 'item-4'},
+    {item: 'Support', id: 'item-4', event: {action: "link", value: "support"}},
     {
         item: 'Logout', id: 'logout',
         event: {action: "logout", value: null},

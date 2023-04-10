@@ -12,12 +12,22 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         response: Record<string, unknown>
     }>>([])
 
+    const navigate = useNavigate()
+
     useLayoutEffect(() => {
 
         $axios.interceptors.response.use(function (response) {
 
             return response;
+
         }, function (error) {
+            if (error.response?.status === 500) {
+                navigate("error", {
+                    state: 500
+                });
+                return Promise.reject(error);
+            }
+
 
             setErrorForState(prevState => [...prevState, {
                 id: randomId(),
@@ -25,7 +35,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
                 response: error.response
             }])
 
-            useNavigate()("/")
+            // navigate("/")
 
             return Promise.reject(error);
         });

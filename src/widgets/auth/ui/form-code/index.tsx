@@ -19,8 +19,6 @@ type TProps = {
     handleView: (val: S) => void;
 }
 
-const sessionKey = "session-auth"
-
 const FormCode = memo(({handleView}: TProps) => {
 
     const {login} = useAuth();
@@ -103,7 +101,7 @@ const FormCode = memo(({handleView}: TProps) => {
         </div>
         
         <div className="row">
-            <Button tabIndex={0} disabled={state.loading} htmlType="submit" className={"w-full disabled:opacity-5"}>Next</Button>
+            <Button tabIndex={0} disabled={state.loading} className={"w-full"} size={"lg"} htmlType="submit">Next</Button>
         </div>
     </Form>
 })

@@ -3,6 +3,7 @@ import {S} from "@/pages/auth";
 import ReactQRCode from "react-qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import InputCopy from "@/shared/ui/input-copy/InputCopy";
 
 
 type TProps = {
@@ -13,7 +14,6 @@ const QRCode = memo(({handleView}: TProps) => {
 
     const [hash, setHash] = useState<null | string>(null);
     const ref = useRef<ReturnType<typeof setInterval> | null>(null);
-    // const {login} = useAuth();
 
     const {md} = useContext(BreakpointsContext);
 
@@ -27,7 +27,7 @@ const QRCode = memo(({handleView}: TProps) => {
 
                     ref.current = setInterval(() => {
                         apiQRCode(res.data).then(res => {
-                            // console.log(res)
+                            //
                         });
                     }, 3000);
                 }
@@ -51,10 +51,14 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
             <div className="row flex flex-nowrap justify-center mb-6">
                 <div className="col m-2">
-                    <img src="/img/app-store.svg" alt="app-store"/>
+                    <a href="/">
+                        <img src="/img/app-store.svg" alt="app-store"/>
+                    </a>
                 </div>
                 <div className="col m-2">
-                    <img src="/img/google-play.svg" alt="google-play"/>
+                    <a href="/">
+                        <img src="/img/google-play.svg" alt="google-play"/>
+                    </a>
                 </div>
             </div>
             <div className="row flex flex-nowrap mb-10 relative">
@@ -67,7 +71,7 @@ const QRCode = memo(({handleView}: TProps) => {
             </div>
         </div>
 
-        {hash && <div className="row text-right pb-10 flex justify-center">
+        {hash && <div className="row text-right pb-10 flex justify-center items-center flex-col">
             <div className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                     <ReactQRCode
@@ -77,6 +81,9 @@ const QRCode = memo(({handleView}: TProps) => {
                         viewBox={`0 0 148 148`}
                     />
                 </div>
+            </div>
+            <div className="row mt-4">
+                <InputCopy value={hash}/>
             </div>
         </div>}
     </>

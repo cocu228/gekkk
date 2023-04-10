@@ -3,10 +3,6 @@ import axios from 'axios';
 const {MODE} = import.meta.env
 const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
 
-
-console.log(MODE)
-console.log(API_URL_MODE)
-console.log(!!API_URL_MODE)
 const sessionHeader = () => {
 
     const sessionGlobal = sessionStorage.getItem("session-global")

@@ -12,8 +12,13 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
 import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/healpers";
 
-import PhoneInput from "react-phone-input-2";
+import ReactPhoneInput from "react-phone-input-2";
 import '@styles/(cs)react-phone-input.scss'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
+
+
 
 const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 

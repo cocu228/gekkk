@@ -2,9 +2,10 @@ import {useState, useRef, useEffect} from 'react'
 import Button from "@/shared/ui/button/Button";
 import Select from "@/shared/ui/select/Select";
 import ReactQRCode from 'react-qr-code';
-import { Input, InputRef } from 'antd';
+import {Input, InputRef} from 'antd';
 import Loader from '@/shared/ui/loader';
-import { IResListAddresses, IResTokenNetwork, apiTokenNetworks } from '@/shared/api';
+import {IResListAddresses, IResTokenNetwork, apiTokenNetworks} from '@/shared/api';
+import InputCopy from "@/shared/ui/input-copy/InputCopy";
 
 interface CryptoTopUpParams {
     currency: string,
@@ -63,6 +64,7 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
             
             {walletAddress && (
                 <div className='flex flex-col items-center'>
+
                     <div className="text-2xl text-gray-600 font-bold my-4 text-center">
                         Send a transaction to this ADDRESS_TYPE address
                     </div>
@@ -77,28 +79,8 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
                             />
                         </div>
                     </div>
-
                     <div className='flex grow shrink container h-full'>
-                        <Input
-                            ref={inputRef}
-                            className='flex !border-[#d9d9d9] !shadow-none'
-                            readOnly={true}
-                            value={walletAddress}
-                            suffix={
-                                <img
-                                    className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100'
-                                    src={`/img/icon/Copy.svg`}
-                                    alt='copy'
-                                    onClick={() => {
-                                        inputRef.current.focus({
-                                            cursor: 'all',
-                                        });
-
-                                        navigator.clipboard.writeText(walletAddress)
-                                    }}
-                                />
-                            }
-                        />
+                        <InputCopy value={walletAddress}/>
                     </div>
                 </div>
             )}

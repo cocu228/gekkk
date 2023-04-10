@@ -1,5 +1,5 @@
 .TokenButton {
-  border: 1px solid #B4C0CD;
+  border: 1px solid var(--color-gray-400);
 
   &:active, &:focus {
     border-color:#00AEEF;

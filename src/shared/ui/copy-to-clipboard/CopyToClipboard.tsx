@@ -26,7 +26,7 @@ function CopyToClipboard({text}: Props) {
                 }, 1500);
             })
             .catch((err) => {
-                console.log(err);
+
             });
     }
 

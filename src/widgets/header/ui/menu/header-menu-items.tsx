@@ -2,7 +2,7 @@ import React from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
-import { Modal} from "antd";
+import {Modal} from "antd";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 
@@ -57,7 +57,7 @@ export const PromoCodeModal = ({active = false}) => {
 
     return <>
         <button className="w-full text-left" onClick={showModal}>
-            PromoCode
+            Promo-code
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
             <PromoCode/>

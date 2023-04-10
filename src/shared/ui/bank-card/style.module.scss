@@ -1,4 +1,21 @@
-.CardData {
+.Card {
+    display: flex;
+    opacity: 95%;
+    background: url(/img/payment-card/payment-card-background.png);
+    min-height: 195px;
+    max-width: 310px;
+    min-width: 310px;
+    border-radius: 4px;
+    transition: all;    
+
+    &:hover {
+        background: url(/img/payment-card/payment-card-background.png);
+        opacity: 100%;
+        box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
+    }
+}
+
+.Data {
     font-weight: 600;
     font-size: 16px;
     line-height: 22px;

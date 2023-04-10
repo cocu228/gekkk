@@ -8,7 +8,7 @@ interface CardData {
 
 const BankCard = ({cardNumber, expiresAt, holderName}: CardData) => {
     return (
-        <div className={`${styles.Card} sm:min-h-[216px]`}>
+        <div className={styles.Card}>
             <img
                 src='/img/payment-card/payment-card.svg'
                 className='absolute'

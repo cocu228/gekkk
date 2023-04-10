@@ -4,16 +4,16 @@ import {Rule} from 'antd/es/form';
 type validateMessages = Required<Required<ConfigProviderProps>['form']>['validateMessages'];
 
 export const validateMessages: validateMessages = {
-    required: 'Пожалуйста, заполните поле "${label}"',
-    whitespace: 'Поле не поддерживает пробелы',
+    required: 'Please fill in the field "${label}"',
+    whitespace: 'The field does not support spaces',
 
     string: {
-        min: "'${label}' не менее ${min} символов",
-        max: "'${label}' не более ${max} символов",
-        range: "'${label}' от ${min} до ${max} символов",
-        len: "'${label}' состоит из ${len} символов",
+        min: "'${label}' at least ${min} characters",
+        max: "'${label}' no more than ${max} characters",
+        range: "'${label}' ${min} to ${max} characters",
+        len: "'${label}' consists of ${len} characters",
     },
-
+//todo ru -en
     number: {
         min: "Значение '${label}' не менее ${min}",
         max: "Значение '${label}' не более ${max}",
@@ -30,19 +30,19 @@ export const validateMessages: validateMessages = {
 };
 
 export const nameMessage: Rule = {
-    message: 'Пожалуйста, введите своё имя',
+    message: 'Please enter your name',
 };
 
 export const phoneMessage: Rule = {
-    message: 'Пожалуйста, введите свой номер',
+    message: 'Please enter your number',
 };
 
 export const codeMessage: Rule = {
-    message: 'Неверный код подтверждения',
+    message: 'Invalid confirmation code',
 };
 
 export const emailMessage: Rule = {
-    message: 'Пожалуйста, укажите E-mail',
+    message: 'Please enter an E-mail',
 };
 
 export const dateMessage: Rule = {
@@ -50,5 +50,5 @@ export const dateMessage: Rule = {
 };
 
 export const passwordMessage: Rule = {
-    message: 'Пожалуйста, введите пароль',
+    message: 'Please enter a password',
 };

@@ -1,20 +1,8 @@
-import {Input, notification, Form} from "antd";
+import {Input, Form} from "antd";
 import Button from "@/shared/ui/button/Button";
 import React, {memo, useState} from "react";
 import {apiPromoCode} from "../api"
-
-
-const validateStatus = (status) => {
-    if (status === null) {
-        return undefined
-    } else {
-        return status === "SUCCESS" ? "success" : "error"
-    }
-}
-
-const alarmText = (status) => status === "INVALID" ?
-    "The code is invalid" : status === null ? "" :
-        status === "SUCCESS" ? "The code is applied" : ""
+import {alarmText, validateStatus} from "@/features/promo-code/model";
 
 const PromoCode = memo(() => {
 

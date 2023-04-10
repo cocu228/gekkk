@@ -5,8 +5,9 @@ import SecondaryTabGroup from "@/shared/ui/tab-group/secondary";
 import Table from "@/shared/ui/table/Table";
 import Button from '@/shared/ui/button/Button';
 import { DatePicker } from 'antd';
-import {apiHistoryTransactions} from "@/shared/api";
+import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {format, startOfMonth, subDays, subYears} from "date-fns";
+import Loader from '@/shared/ui/loader';
 
 const { RangePicker } = DatePicker;
 
@@ -77,7 +78,7 @@ interface Props {
 
 function History({title, currency, className}: Props) {
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    const [historyList, setHistoryList] = useState([]);
+    const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>(null);
     const [isUserRequest, setUserRequest] = useState(false);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
@@ -87,16 +88,18 @@ function History({title, currency, className}: Props) {
         (async () => {
             if (activeTab === TabKey.CUSTOM && !isUserRequest) return;
 
+            setHistoryList(null);
+
             const {
                 StartDate: start = apiDate(customDate[0].toDate()),
                 EndDate: end = apiDate(customDate[1].toDate())
             } = historyTabs.find(tab => tab.Key === activeTab);
 
-            const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
+            const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency);
             setHistoryList(data)
             setUserRequest(false)
         })();
-    }, [activeTab, currency, isUserRequest])
+    }, [activeTab, currency, isUserRequest]);
 
     return (
         <div className="wrapper">
@@ -126,26 +129,34 @@ function History({title, currency, className}: Props) {
                     </div>
                 )}
 
-                <Table
-                    data={{
-                        labels: [
-                            {text: 'Data'},
-                            {text: 'Flow of funds'},
-                            {text: 'Information'}
-                        ],
-                        rows: historyList.map((item) => 
-                        [
-                            {text: format(new Date(item.datetime), "dd MMMM yyyy HH:mm")},
-                            {
-                                text: <span className="text-green">
-                                    {item.amount + " " + item.currency}
-                                </span>
-                            },
-                            {text: ""}
-                        ])
-                    }}
-                    noDataText="You don't have any transactions for this time."
-                />
+                {!historyList && (
+                    <div className='mt-5'>
+                        <Loader className='relative'/>
+                    </div>
+                )}
+
+                {historyList && (
+                    <Table
+                        data={{
+                            labels: [
+                                {text: 'Data'},
+                                {text: 'Flow of funds'},
+                                {text: 'Information'}
+                            ],
+                            rows: historyList.map((item) => 
+                            [
+                                {text: format(new Date(item.datetime), "dd MMMM yyyy HH:mm")},
+                                {
+                                    text: <span className="text-green">
+                                        {item.amount + " " + item.currency}
+                                    </span>
+                                },
+                                {text: ""}
+                            ])
+                        }}
+                        noDataText="You don't have any transactions for this time."
+                    />
+                )}
             </div>
         </div>
     );

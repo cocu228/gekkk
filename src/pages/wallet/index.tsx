@@ -182,7 +182,7 @@ function Wallet() {
                     </div>
 
                     <div className="ml-auto text-right">
-                        <div className="font-bold text-[32px] leading-[48px] text-gray-600 mb-4">
+                        <div className="font-bold text-fs32 leading-[48px] text-gray-600 mb-4">
                             {name} wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">

@@ -37,7 +37,7 @@ export default () => {
                     {TABS.map(t => (
                         <button
                             className={`
-                            mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-[14px]
+                            mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-fs14
                             ${activeTab === t.type ? 'border-blue-400 font-bold' : 'border-transparent text-gray-500 font-medium'}
                         `}
                             key={t.type}

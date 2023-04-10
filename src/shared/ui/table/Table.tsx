@@ -23,7 +23,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                 <thead className="md:hidden text-gray-600">
                 <tr className="bg-[#EEEFF2] whitespace-nowrap text-left">
                     {data.labels.map((l, index) => (
-                        <th key={index + "_th"} className="py-[10px] px-[20px] text-[14px] font-semibold">{l.text}</th>
+                        <th key={index + "_th"} className="py-[10px] px-[20px] text-fs14 font-semibold">{l.text}</th>
                     ))}
                 </tr>
                 </thead>
@@ -45,7 +45,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                                     <td
                                         key={cellIndex + "_td"}
                                         className={`
-                                            align-middle py-[10px] px-[20px] text-[14px] md:p-0
+                                            align-middle py-[10px] px-[20px] text-fs14 md:p-0
                                             ${cell.options?.nowrap ? 'whitespace-nowrap' : ''}
                                             ${cell.options?.wFull ? 'md:min-w-[100%]' : ''}
                                         `}
@@ -58,7 +58,7 @@ function Table({data, noDataText = 'No data'}: Props) {
                     </>
                 ) : (
                     <tr>
-                        <td className="align-middle py-[15px] px-[20px] text-[14px]">{noDataText}</td>
+                        <td className="align-middle py-[15px] px-[20px] text-fs14">{noDataText}</td>
                     </tr>
                 )}
                 </tbody>

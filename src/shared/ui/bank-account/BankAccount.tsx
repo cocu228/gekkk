@@ -14,7 +14,7 @@ const BankAccount = ({iban, balance, currency}: AccoundData) => {
             <div className='font-semibold text-lg mb-auto'>IBAN: {formattedIBAN}</div>
             <div className='font-semibold text-gray-400'>Balance:</div>
             <div className='font-medium uppercase text-sm'>
-                <span className="text-[32px] font-bold">{balance}</span> {currency}
+                <span className="text-fs32 font-bold">{balance}</span> {currency}
             </div>
         </Card>
     )

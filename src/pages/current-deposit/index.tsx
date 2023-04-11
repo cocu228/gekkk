@@ -4,6 +4,7 @@ import CurrentDepositType from '@/widgets/current-deposit/ui/CurrentDepositType'
 import CurrentDepositProperties from '@/widgets/current-deposit/ui/CurrentDepositProperties';
 import CurrentDepositActionsBlock from '@/widgets/current-deposit/ui/CurrentDepositActionsBlock';
 import DepositStats from '@/widgets/current-deposit/ui/DepositStats';
+import styles from './styles.module.scss';
 
 function CurrentDeposit() {
     return (
@@ -13,7 +14,7 @@ function CurrentDeposit() {
                 <CurrentDepositType title="Structured deposit" strategy="Safe strategy" percent="16/4" token="Monero (XMR)" />
             </div>
 
-            <div className='wrapper flex-1 bg-white flex flex-wrap justify-between px-10 pt-16 pb-80 rounded-md xxxl:px-8 xxxl:pt-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10'>
+            <div className={`wrapper flex-1 bg-white flex flex-wrap justify-between px-10 pt-16 pb-80 rounded-md xxxl:px-8 xxxl:pt-14 xl:px-4 xl:py-6 xl:flex-col xl:gap-10 ${styles.CurrentDeposit}`}>
                 <DepositStats 
                     startingRate="1 XMR ~ 141.68€" 
                     currentRate="1 XMR ~ 185.03€" 

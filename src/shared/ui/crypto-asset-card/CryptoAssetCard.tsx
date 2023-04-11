@@ -15,6 +15,7 @@ interface Props {
 }
 
 function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, onWithdraw}: Props) {
+
     return (
         <Card>
             <div className={`wrapper ${ParentClassForCoin}`}>

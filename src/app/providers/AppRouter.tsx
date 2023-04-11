@@ -12,6 +12,7 @@ import Assets from '@/pages/assets';
 import P404 from '@/pages/404/404';
 import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support";
+import CryptoDeposits from "@/pages/crypto-deposits";
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,15 @@ const router = createBrowserRouter([
             },
             {
                 path: 'deposit',
-                element: <Deposit/>
+                children: [
+                    {
+                        path: '',
+                        element: <Deposit/>,
+                    }, {
+                        path: 'crypto',
+                        element: <CryptoDeposits/>,
+                    }
+                ]
             },
             {
                 path: 'exchange',

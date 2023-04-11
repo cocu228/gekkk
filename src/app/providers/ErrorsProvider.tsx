@@ -3,10 +3,18 @@ import $axios from "@/shared/lib/(cs)axios";
 import {randomId} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
 import InfoBox from "@/widgets/info-box";
+import {useLocation} from "react-router";
+import PageProblems from "@/pages/page-problems/PageProblems";
 
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
-    const [errors, setErrorForState] = useState<Array<{
+
+    if (useLocation().state === 500) {
+        window.history.replaceState({}, document.title)
+        return <PageProblems code={500}/>
+    }
+
+    const [state, setState] = useState<Array<{
         id: string,
         message: string,
         response: Record<string, unknown>
@@ -21,15 +29,18 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             return response;
 
         }, function (error) {
+
             if (error.response?.status === 500) {
-                navigate("error", {
+
+                navigate("/", {
                     state: 500
                 });
+
                 return Promise.reject(error);
             }
 
 
-            setErrorForState(prevState => [...prevState, {
+            setState(prevState => [...prevState, {
                 id: randomId(),
                 message: error.message,
                 response: error.response
@@ -42,20 +53,17 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     }, [])
 
-    const closeErrorMessage = (id) => setErrorForState(prevState => [...prevState.filter(it => it.id !== id)])
+    const onClose = (id) => setState(prevState => [...prevState.filter(it => it.id !== id)])
 
     return <>
-        {errors.length > 0 ?
-            <div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
-                {errors.map((item, i) => <ErrorMessage key={"ErrorMessage" + i} id={item.id} message={item.message}
-                                                       onClick={closeErrorMessage}/>)}
-            </div> : null
-        }
+        {<div
+            className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">{state.map((item, i) =>
+            <Item key={"ErrorMessage" + i} id={item.id} message={item.message} onClick={onClose}/>)}</div>}
         {props.children}
     </>
 }
 
-const ErrorMessage = ({onClick, message, id}: { onClick: (val: string) => void, message: string, id: string }) => {
+const Item = ({onClick, message, id}: { onClick: (val: string) => void, message: string, id: string }) => {
 
     return <InfoBox message={message}>
         <span onClick={() => onClick(id)}

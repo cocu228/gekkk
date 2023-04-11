@@ -1,6 +1,6 @@
 import React from 'react';
-import DepthItem from '@/shared/ui/depth-of-market/depth-item/DepthItem';
-import IconArrowUp from '../icons/IconArrowUp';
+import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
+import IconArrowUp from '../../../../shared/ui/icons/IconArrowUp';
 import styles from './style.module.scss';
 
 function DepthOfMarket() {

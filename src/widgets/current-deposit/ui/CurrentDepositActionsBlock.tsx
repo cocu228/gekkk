@@ -9,7 +9,7 @@ function CurrentDepositActionsBlock() {
     const conditionsModal = useModal();
 
     return (
-      <div className='column flex flex-col items-center w-[24rem] h-[6rem] xxxl:w-[22rem] xxl:w-[20rem] xl:w-full'>
+      <div className='column flex flex-col items-center w-[24rem] h-[6rem] xxxl:w-[22rem] xxl:w-[20rem] xl:w-full md:order-2'>
         <Button className="w-full flex-1 mb-4" gray onClick={closingModal.showModal}>Close deposit</Button>
         <Button text><span className="underline underline-offset-4" onClick={conditionsModal.showModal}>Early closing conditions →</span></Button>
 

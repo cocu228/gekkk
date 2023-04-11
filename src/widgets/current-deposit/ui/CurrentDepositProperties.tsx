@@ -9,7 +9,7 @@ interface IOpenDepositProperties {
 
 function CurrentDepositProperties({opened, amount, term}:IOpenDepositProperties) {
     return (
-      <div className="column w-[24rem] h-[6rem] xxxl:w-[22rem] xxl:w-[20rem] xl:w-full">
+      <div className="flex flex-col gap-3 md:gap-2 column w-[24rem] h-[6rem] xxxl:w-[22rem] xxl:w-[20rem] xl:w-full">
         <InlineProperty left="Opened" right={opened}/>
         <InlineProperty left="Amount" right={`${amount} EURG`}/>
         <InlineProperty left="Term" right={term}/>

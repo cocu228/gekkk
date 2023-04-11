@@ -13,12 +13,12 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
 
       <div>
         <div className="flex justify-between mb-2 px-10">
-          <p className="text-gray">Name</p>
-          <p className="text-gray">Price</p>
+          <p className="text-gray-400">Name</p>
+          <p className="text-gray-400">Price</p>
         </div>
 
         <div className={styles.TokensList}>
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BtcIcon.svg" alt="btc"/>
               <p className='font-medium'>Bitcoin (BTC)</p>
@@ -27,7 +27,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>20 856,44 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/EthIcon.svg" alt="eth"/>
               <p className='font-medium'>Ethereum (ETH)</p>
@@ -36,7 +36,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>1 426,75 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -45,7 +45,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -54,7 +54,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -63,7 +63,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -72,7 +72,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -81,7 +81,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -90,7 +90,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -99,7 +99,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -108,7 +108,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>
@@ -117,7 +117,7 @@ const ChooseTokenModal = ({ open, onCancel, ...props }: ModalProps) => {
             <p className='font-medium'>319.94 €</p>
           </div>
 
-          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-light">
+          <div className="flex justify-between items-center px-10 py-4 even:bg-gray-100">
             <div className="flex gap-3 items-center">
               <img width={30} height={30} src="/img/tokens/BnbIcon.svg" alt="bnb"/>
               <p className='font-medium'>BNB (BNB)</p>

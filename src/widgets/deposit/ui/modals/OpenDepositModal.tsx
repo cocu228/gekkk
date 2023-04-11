@@ -20,7 +20,7 @@ const OpenDepositModal = ({open, onCancel, depositParams, ...props}: IOpenDeposi
         <Modal open={open} onCancel={onCancel} {...props}>
             <p className="font-bold text-xl">Your deposit parameters</p>
             
-            <div className="pt-5 pb-8">
+            <div className="flex flex-col gap-3 md:gap-2 pt-5 pb-8">
                 <InlineProperty left="Deposit" right={depositParams.deposit}/>
                 <InlineProperty left="Opened" right={depositParams.opened}/>
                 <InlineProperty left="Deposit amount" right={depositParams.amount}/>

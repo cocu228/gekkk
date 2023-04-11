@@ -54,6 +54,12 @@ module.exports = {
 
             fontWeight: {
                 inherit: 'inherit',
+            },
+
+            fontSize: {
+                fs12: '12px',
+                fs14: '14px',
+                fs32: '32px',
             }
         }
     },

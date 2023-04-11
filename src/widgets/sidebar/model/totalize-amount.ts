@@ -3,7 +3,7 @@ import $const from "@/shared/config/coins/constants";
 import Decimal from "decimal.js";
 
 export default (sortedListBalance: Array<ISortedListBalance>, rates: Record<$const, number>) => {
-    console.log(rates)
+
     return sortedListBalance.reduce<Decimal>((previousValue: Decimal.Value, currentValue, i, list) => {
 
         const course = rates[currentValue.const]

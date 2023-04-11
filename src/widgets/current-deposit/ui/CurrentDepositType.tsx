@@ -10,7 +10,7 @@ interface ICurrentDepositType {
 function CurrentDepositType({title, strategy, percent, token}:ICurrentDepositType) {
     return (
       <div className='column'>
-        <p className='text-3xl text-end font-bold mb-4 md:hidden'>{title}</p>
+        <p className='text-3xl text-end font-bold mb-4 lg:hidden'>{title}</p>
         <div className='row flex justify-between gap-6 lg:justify-start'>
             <div className='flex gap-2 items-center'>
                 <img width={24} height={24} src="/img/icon/DepositStrategyIcon.svg" alt="strategy"/>

@@ -11,6 +11,7 @@ import AppInit from "@/app/providers/AppInit";
 import Assets from '@/pages/assets';
 import P404 from '@/pages/404/404';
 import ProfileSettings from "@/pages/profile-settings";
+import Support from "@/pages/support";
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: 'room-creator',
                 element: <RoomCreator/>
+            },
+            {
+                path: 'support',
+                element: <Support/>
             },
             {
                 path: 'room-visitor',

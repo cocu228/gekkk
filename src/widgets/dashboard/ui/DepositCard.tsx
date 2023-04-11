@@ -16,16 +16,16 @@ interface Props {
 function DepositCard({title, subtitle, price, currency, onOpenDeposit, isDeposit, linkUrl}: Props) {
     return (
         <Card>
-            <p className="text-[14px] font-semibold">{title}</p>
-            <p className="text-[12px] mt-[4px] font-medium text-gray-400">{subtitle}</p>
+            <p className="text-fs14 font-semibold">{title}</p>
+            <p className="text-fs12 mt-[4px] font-medium text-gray-400">{subtitle}</p>
             <div className="mt-auto pt-[20px]">
-                <p className="text-[14px] font-medium uppercase">
-                    <strong className="text-[32px] font-bold">{price}</strong> {currency}
+                <p className="text-fs14 font-medium uppercase">
+                    <strong className="text-fs32 font-bold">{price}</strong> {currency}
                 </p>
                 <div className="flex gap-[16px] mt-[16px]">
                     <Button className="flex-1" gray size="sm" onClick={onOpenDeposit}>Open deposit</Button>
                     <div className="flex items-center flex-1 justify-center">
-                        <Link to={linkUrl} className="text-[14px] font-medium underline text-gray-400 hover:text-blue-400">
+                        <Link to={linkUrl} className="text-fs14 font-medium underline text-gray-400 hover:text-blue-400">
                             {isDeposit ? 'Read more →' : 'Interest rates →'}
                         </Link>
                     </div>

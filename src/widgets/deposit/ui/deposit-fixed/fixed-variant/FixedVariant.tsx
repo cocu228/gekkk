@@ -4,7 +4,7 @@ import useModal from '@/shared/model/hooks/useModal';
 import OpenDepositModal from '@/widgets/deposit/ui/modals/OpenDepositModal';
 import ClosingConditionsModal from '@/widgets/deposit/ui/modals/ClosingConditionsModal';
 
-const FixedTypeBlock = () => {
+const FixedVariant = () => {
   const openDepositModal = useModal();
   const conditionsModal = useModal();
 
@@ -60,4 +60,4 @@ const FixedTypeBlock = () => {
   );
 };
 
-export default FixedTypeBlock;
+export default FixedVariant;

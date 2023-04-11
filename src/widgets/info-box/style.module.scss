@@ -1,12 +1,26 @@
+@import "@styles/mixins";
+
 .Wrapper {
   border: 2px solid var(--color-orange);
-  background: rgba(252, 154, 23, 0.08);
+  background-color: #F9F1E8;
   padding: 6px 44px 6px 14px;
   position: relative;
   display: flex;
-  margin-bottom: 20px;
+  margin-left: var(--content-pad-left);
+  margin-right: var(--content-pad-right);
   border-radius: 4px;
   z-index: 20;
+
+  @include devices(xl) {
+    margin-left: var(--content-pad-left-xl);
+    margin-right: var(--content-pad-right-xl);
+  }
+
+  @include devices(md) {
+    margin-left: var(--content-pad-horizontal-md);
+    margin-right: var(--content-pad-horizontal-md);
+  }
+
 }
 
 .Text {

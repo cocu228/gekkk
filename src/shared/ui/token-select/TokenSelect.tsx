@@ -30,7 +30,7 @@ function TokenSelect({tokens, ...props}: Props & SelectProps) {
     }, [tokens, value]);
 
 
-    console.log('selected => ', selectedToken);
+
 
     return (
         <div className={styles.Select}>

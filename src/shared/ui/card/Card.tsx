@@ -1,5 +1,3 @@
-import React, {FC, PropsWithChildren, ReactPortal} from 'react';
-
 const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
     return (
         <div className="

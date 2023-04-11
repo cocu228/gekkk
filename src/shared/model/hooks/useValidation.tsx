@@ -23,12 +23,13 @@ function useValidator() {
         () => ({
             validator(rule, value = '') {
                 return new Promise((resolve, reject) => {
-                    const isPhone = new RegExp(/^((\+7|7|8)+([0-9]){10})$/gi).test(value.replace(/\D+/g, ''));
+                    const isPhone = value.length > 5
+                    // const isRusPhone = new RegExp(/^((\+7|7|8)+([0-9]){10})$/gi).test(value.replace(/\D+/g, ''));
 
                     if (!value || isPhone) {
                         resolve('');
                     } else {
-                        reject(new Error('Пожалуйста, введите свой номер полностью'));
+                        reject(new Error('Please enter your number in full'));
                     }
                 });
             },
@@ -46,7 +47,7 @@ function useValidator() {
                     if (!value || isEmail) {
                         resolve('');
                     } else {
-                        reject(new Error('Введите корректный E-mail'));
+                        reject(new Error('Enter correct E-mail'));
                     }
                 });
             },

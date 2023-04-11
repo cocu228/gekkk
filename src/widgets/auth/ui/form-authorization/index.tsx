@@ -1,6 +1,4 @@
-import React, {memo, useContext, useState} from 'react';
-import useMask from '@/shared/model/hooks/useMask';
-import {MASK_PHONE} from '@/shared/config/mask';
+import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
 import useValidation from '@/shared/model/hooks/useValidation';
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -10,17 +8,22 @@ import Button from '@/shared/ui/button/Button';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {S} from "@/pages/auth";
-import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
+import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/healpers";
 
-const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973';
-const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard';
+import ReactPhoneInput from "react-phone-input-2";
+import '@styles/(cs)react-phone-input.scss'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
+
+
 
 const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 
-    const {onInput} = useMask(MASK_PHONE);
-
     const {md} = useContext(BreakpointsContext);
+    // const ref = useRef(null)
 
     const [state, setState] = useState({
         phone: "",
@@ -28,7 +31,12 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         loading: false
     });
 
+    useLayoutEffect(() => {
+        // ref.current.focus()
+    }, [])
+
     const {phoneValidator, validationPassword} = useValidation();
+
     const [, setSessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: "", currentTime: new Date()})
     const onFinish = () => {
 
@@ -61,6 +69,8 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         })
     }
 
+    //
+
     return <Form onFinish={onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
@@ -77,18 +87,14 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </p>
 
 
-
         <FormItem className="mb-2" name="phone" label="Телефон" preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-            <Input type="tel"
-                   placeholder="Phone number"
-                   onInput={onInput}
-                   onChange={({target}) => setState(prev => ({
-                       ...prev,
-                       phone: target.value
-                   }))}
-                   autoComplete="tel"
-            />
+            <PhoneInput
+                // inputProps={{ref: ref}}
+                placeholder="Enter phone number"
+                value={state.phone}
+                onChange={(value) => setState(prevState =>
+                    ({...prevState, phone: value}))}/>
         </FormItem>
 
         <FormItem name="password" label="Password"

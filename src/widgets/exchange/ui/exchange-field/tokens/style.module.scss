@@ -7,6 +7,23 @@
 .ItemsList {
   margin: 0 var(--modal-pad-horizontal-negative);
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-secondary) transparent;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-secondary);
+    border-radius: 0;
+    border: none;
+  }
 
   @include devices('sm') {
     margin: 0 var(--modal-pad-horizontal-sm-negative);

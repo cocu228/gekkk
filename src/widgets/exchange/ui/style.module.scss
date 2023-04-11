@@ -1,5 +1,16 @@
 @import "@styles/mixins";
 
+.Head {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 2.812rem;
+
+  @include devices("md") {
+    min-height: 2.187rem;
+  }
+}
+
 .FieldsSpacer {
   margin: 0.5rem 0 -0.8rem;
 
@@ -12,5 +23,16 @@
       width: 18px;
       height: 18px;
     }
+  }
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.GridFooter {
+  @include devices("md") {
+    grid-column: span 2;
   }
 }

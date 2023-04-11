@@ -1,8 +1,10 @@
 .Label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding-left: 24px;
   position: relative;
   user-select: none;
+
 
   &.disabled {
     color: var(--color-secondary);

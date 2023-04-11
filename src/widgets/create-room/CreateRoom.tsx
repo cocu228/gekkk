@@ -63,7 +63,7 @@ function CreateRoom() {
                 <Input placeholder="If it is empty, then the limit is not set"/>
             </div>
             <div className="mt-12 sm:mt-11">
-                <Button disabled size="lg" className="w-full">Open private exchange room</Button>
+              <Button disabled size="xl" className="w-full">Open private exchange room</Button>
             </div>
         </div>
     );

@@ -27,7 +27,7 @@ function Confirm({payValue, payToken, getValue, getToken, price, info, onConfirm
                 </div>
             </div>
             <div className="mt-6 md:mt-12">
-                <Button className="w-full" onClick={onConfirm}>Confirm</Button>
+              <Button size="xl" className="w-full" onClick={onConfirm}>Confirm</Button>
             </div>
         </div>
     );

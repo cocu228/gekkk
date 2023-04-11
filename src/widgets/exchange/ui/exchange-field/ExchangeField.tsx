@@ -2,7 +2,6 @@ import React, {PropsWithChildren, useContext, useState} from 'react';
 import styles from './style.module.scss';
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import {Button} from 'antd';
 import Modal from '@/shared/ui/modal/Modal';
 import Tokens from '@/widgets/exchange/ui/exchange-field/tokens/Tokens';
 

@@ -49,7 +49,13 @@ $breakpoints: (
   --content-pad-horizontal-md: 1rem;
   --content-margin-horizontal-negative-md: -16px;
 
+  --modal-pad-horizontal: 3.5rem;
+  --modal-pad-horizontal-sm: 1.56rem;
+  --modal-pad-horizontal-negative: -3.5rem;
+  --modal-pad-horizontal-sm-negative: -1.56rem;
+
   --border-radius: 6px;
 
   --card-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+  --dropdown-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
 }

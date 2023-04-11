@@ -38,8 +38,8 @@ function OpenOrders() {
                     type_order: type,
                     time_created: createDate
                 }: IResOrder) => (
-                    <div className={`py-2 rounded-md md:rounded-none ${styles.Item}`} key={id}>
-                        <div className="flex justify-between">
+                  <div className={`py-2.5 rounded-md md:rounded-none ${styles.Item}`} key={id}>
+                  <div className="flex justify-between">
                             <div className="text-orange bg-orange bg-opacity-10 rounded-md">
                                 <strong>
                                     {currencyPrecision(volume_source, sourceCurrency)}
@@ -52,8 +52,8 @@ function OpenOrders() {
                                 format(new Date(createDate), 'dd/MM/yyyy HH:mm')
                             }</div>
                         </div>
-                        <div className="flex justify-between gap-0.5 mt-1">
-                            <div className="flex gap-2.5">
+                    <div className="flex justify-between gap-0.5 mt-1.5">
+                    <div className="flex gap-2.5">
                                 <div className="text-secondary">Price: </div>
                                 <div>
                                     <span>1 {sourceCurrency} ~ {

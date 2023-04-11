@@ -13,6 +13,8 @@ type Props = {
 
 const InfoBox = ({message, children}: Props) => {
 
+    if (!message) return null
+
     return <div className={hClassName.scss("Wrapper")}>
         <div className="col shrink-0 flex mr-3 col-auto">
             <img width={20} height={20} src="/img/icon/AlertWaring.svg"

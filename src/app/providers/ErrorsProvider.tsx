@@ -6,6 +6,36 @@ import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
 import PageProblems from "@/pages/page-problems/PageProblems";
 
+
+interface IState {
+    id: string,
+    message: string,
+    response: Record<string, unknown>
+}
+
+function Hunter(error) {
+
+    if (error.response?.status === 500) {
+
+        this.navigate("/", {
+            state: 500
+        });
+
+        return Promise.reject(error);
+    }
+
+
+    this.setState(prevState => [...prevState, {
+        id: randomId(),
+        message: error.message,
+        response: error.response
+    }])
+
+    // navigate("/")
+
+    return Promise.reject(error);
+}
+
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
 
@@ -14,43 +44,16 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         return <PageProblems code={500}/>
     }
 
-    const [state, setState] = useState<Array<{
-        id: string,
-        message: string,
-        response: Record<string, unknown>
-    }>>([])
+    const [state, setState] = useState<Array<IState>>([])
 
     const navigate = useNavigate()
 
     useLayoutEffect(() => {
 
-        $axios.interceptors.response.use(function (response) {
-
-            return response;
-
-        }, function (error) {
-
-            if (error.response?.status === 500) {
-
-                navigate("/", {
-                    state: 500
-                });
-
-                return Promise.reject(error);
-            }
-
-
-            setState(prevState => [...prevState, {
-                id: randomId(),
-                message: error.message,
-                response: error.response
-            }])
-
-            // navigate("/")
-
-            return Promise.reject(error);
-
-        });
+        $axios.interceptors.response.use((response) => response, Hunter.bind({
+            navigate: navigate,
+            setState: setState
+        }));
 
     }, [])
 

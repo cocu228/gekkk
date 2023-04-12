@@ -6,8 +6,6 @@ import Footer from "@/widgets/footer";
 const Main: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
     const {md, sm} = useContext(BreakpointsContext)
 
-    //
-    //
     return <>
         <main className={styles.Main}>
             {children}

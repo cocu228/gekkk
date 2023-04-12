@@ -10,12 +10,12 @@ const StructuredProperties = () => {
                 <div className="flex flex-col gap-3 md:gap-2">
                     <InlineProperty left="Current rate" right="1 XMR ~ 141.68 EUR"/>
                     <InlineProperty left="Risk level" right="Safe strategy"/>
-                    <InlineProperty left="Returns rate" right="16% rates growth XMR"/>
+                    <InlineProperty left="Returns" right="16% rates growth XMR or 4% p.a"/>
                 </div>
                 <p className="text-gray-400 text-xs text-end">(The biggest is chosen)</p>
             </div>
 
-            <p className="text-gray-400 text-sm">We use the crypto broker AtlantEX exchange rates to open and close structured deposits.</p>
+            <p className="text-gray-400 text-sm md:text-xs">We use the crypto broker AtlantEX exchange rates to open and close structured deposits.</p>
         </div>
     )
 }

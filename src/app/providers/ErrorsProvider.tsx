@@ -49,6 +49,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             // navigate("/")
 
             return Promise.reject(error);
+
         });
 
     }, [])

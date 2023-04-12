@@ -91,6 +91,7 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
             <PhoneInput
                 // inputProps={{ref: ref}}
+                disableDropdown
                 placeholder="Enter phone number"
                 value={state.phone}
                 onChange={(value) => setState(prevState =>

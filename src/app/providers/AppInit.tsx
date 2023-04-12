@@ -12,6 +12,7 @@ const AppInit = () => {
     const content = !token ? <AuthPage/> : <RootLayout/>
 
     return <ErrorsProvider>{content}</ErrorsProvider>
+
 }
 
 

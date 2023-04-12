@@ -19,14 +19,10 @@ const AuthPage = () => {
             params = new URL(url).searchParams,
             sessionId = params.get("sessionId");
 
-        console.log(sessionId)
-
         if (sessionId) {
             apiQRCode(sessionId).then(res => {
 
-                console.log(res)
-
-                if (res.data?.success) {
+                if (res.data?.token) {
                     const {authorization, token, tokenHeaderName} = res.data
                     login(authorization, token, tokenHeaderName)
                 }

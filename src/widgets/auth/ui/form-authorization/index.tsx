@@ -2,7 +2,7 @@ import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react'
 import useValidation from '@/shared/model/hooks/useValidation';
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {passwordMessage, phoneMessage} from '@/shared/config/message';
+import {pinMessage, phoneMessage} from '@/shared/config/message';
 import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
@@ -31,11 +31,11 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         loading: false
     });
 
-    useLayoutEffect(() => {
-        // ref.current.focus()
-    }, [])
+    // useLayoutEffect(() => {
+    //     ref.current.focus()
+    // }, [])
 
-    const {phoneValidator, validationPassword} = useValidation();
+    const {phoneValidator, pinValidator} = useValidation();
 
     const [, setSessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: "", currentTime: new Date()})
     const onFinish = () => {
@@ -99,11 +99,11 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <FormItem name="password" label="Password"
-                  rules={[{required: true, ...passwordMessage}, validationPassword]}>
+                  rules={[{required: true, ...pinMessage}, pinValidator]}>
             <Input.Password onChange={({target}) => setState(prev => ({
                 ...prev,
                 password: target.value
-            }))} placeholder="Password"/>
+            }))} placeholder="PIN"/>
         </FormItem>
 
         <div className="row text-right mb-4">

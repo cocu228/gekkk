@@ -52,3 +52,6 @@ export const dateMessage: Rule = {
 export const passwordMessage: Rule = {
     message: 'Please enter a password',
 };
+export const pinMessage: Rule = {
+    message: 'Please enter a pin',
+};

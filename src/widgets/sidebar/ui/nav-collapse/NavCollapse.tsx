@@ -4,17 +4,17 @@ import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 
 const NavCollapse = ({children, id, header}) => {
 
-    const [value, setValue] = useSessionStorage("collapse-nav", [])
-    const initActiveStorage = value.indexOf(id) !== -1
+    const [value, setValue] = useSessionStorage("collapse-nav", {
+        [id]: null
+    })
+    const initActiveStorage = value[id] === "true"
     const [isActive, toggleActive] = useState(initActiveStorage)
 
     const handlerToggle = () => {
 
-        setValue(prevState => isActive ?
-            prevState.filter(it => it !== id) :
-            [...prevState, id])
+        setValue(prevState => ({[id]: !isActive}));
 
-        toggleActive(prev => !prev)
+        toggleActive(prev => !prev);
 
     }
 

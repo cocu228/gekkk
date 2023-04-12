@@ -20,7 +20,6 @@ const AuthPage = () => {
             sessionId = params.get("sessionId");
 
         console.log(sessionId)
-        console.log(JSON.parse(sessionId))
 
         if (sessionId) {
             apiQRCode(sessionId).then(res => {

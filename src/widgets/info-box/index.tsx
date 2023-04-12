@@ -6,12 +6,12 @@ const hClassName = new HelperClassName(styles)
 
 
 type Props = {
-    message?: string,
-    children?: React.ReactNode
+    message: string,
+    children: React.ReactNode
 }
 
 
-const InfoBox = ({message, children}: Props) => {
+const InfoBox = ({message, children}: Partial<Props>) => {
 
     if (!message) return null
 

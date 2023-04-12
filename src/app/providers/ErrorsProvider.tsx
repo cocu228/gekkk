@@ -1,4 +1,4 @@
-import {FC, memo, PropsWithChildren, useCallback, useLayoutEffect, useMemo, useState} from "react";
+import {FC, memo, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
 import $axios from "@/shared/lib/(cs)axios";
 import {randomId} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
@@ -13,7 +13,13 @@ interface IState {
     response: Record<string, unknown>
 }
 
-function Hunter(error) {
+interface IItem {
+    onClick: (val: string) => void,
+    message: string,
+    id: string
+}
+
+function hunter(error) {
 
     if (error.response?.status === 500) {
 
@@ -50,7 +56,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     useLayoutEffect(() => {
 
-        $axios.interceptors.response.use((response) => response, Hunter.bind({
+        $axios.interceptors.response.use((response) => response, hunter.bind({
             navigate: navigate,
             setState: setState
         }));
@@ -67,8 +73,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
     </>
 }
 
-const Item = ({onClick, message, id}: { onClick: (val: string) => void, message: string, id: string }) => {
-
+const Item = ({onClick, message, id}: IItem) => {
     return <InfoBox message={message}>
         <span onClick={() => onClick(id)}
               className="absolute right-[14px] m-auto min-h-min cursor-pointer">

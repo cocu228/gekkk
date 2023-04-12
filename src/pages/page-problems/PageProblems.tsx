@@ -20,16 +20,9 @@ const text = {
             the moment. We’ll be back online shortly!</p>
     }
 }
-const P404 = () => {
+const PageProblems = ({code = 404}: { code?: number }) => {
 
     const {md} = useContext(BreakpointsContext);
-    let {
-        state = 404
-    } = useLocation();
-
-    if (state === null) {
-        state = 404
-    }
 
     return (
         <div className="flex items-center flex-col">
@@ -39,10 +32,10 @@ const P404 = () => {
                         <img src="/img/logo.svg" alt="logo"/>
                     </a></div>
                 <div className="row pt-20">
-                    <h1 className={hClassName.scss("Title")}>{text.title[state]}</h1>
+                    <h1 className={hClassName.scss("Title")}>{text.title[code]}</h1>
                 </div>
                 <div className="row pt-4">
-                    {text.subscribe[state]}
+                    {text.subscribe[code]}
                 </div>
             </div>
             <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]
@@ -79,4 +72,4 @@ const P404 = () => {
     )
 }
 
-export default P404;
+export default PageProblems;

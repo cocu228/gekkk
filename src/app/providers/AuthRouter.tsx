@@ -39,7 +39,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     };
 
-    // call this function to sign out logged in userx
     const logout = () => {
 
         $axios.defaults.headers.common['token'] = undefined;

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PercentBtn from '@/widgets/exchange/ui/percent-btn/PercentBtn';
 import ExchangeField, {ExchangeFieldType} from '@/widgets/exchange/ui/exchange-field/ExchangeField';
-import DepthOfMarket from '@/shared/ui/depth-of-market/DepthOfMarket';
+import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import styles from './style.module.scss';
 import IconChevronDown from '@/shared/ui/icons/IconChevronDown';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';

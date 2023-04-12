@@ -7,16 +7,16 @@ import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import History from '@/widgets/history/ui/History';
 
-export default () => {
-  const [leaveRoomOpen, setLeaveRoomOpen] = useState<boolean>(false);
+const RoomVisitor = (props) => {
+    const [leaveRoomOpen, setLeaveRoomOpen] = useState<boolean>(false);
 
-  const handleOpenLeaveRoom = () => {
-    setLeaveRoomOpen(true);
-  };
+    const handleOpenLeaveRoom = () => {
+        setLeaveRoomOpen(true);
+    };
 
-  const handleCloseLeaveRoom = () => {
-    setLeaveRoomOpen(false);
-  };
+    const handleCloseLeaveRoom = () => {
+        setLeaveRoomOpen(false);
+    };
 
   return (
     <div className="wrapper">
@@ -44,12 +44,16 @@ export default () => {
         }
       />
 
-      <Modal width={450} title="Close private exchange room" open={leaveRoomOpen} onCancel={handleCloseLeaveRoom}>
-        <div className="pt-5 text-sm">Are you sure you want to close the current EUR - XMR private exchange room? All unclosed orders will be canceled.</div>
-        <div className="mt-16 sm:mt-14">
-          <Button size="xl" className="w-full">Close private exchange room</Button>
-        </div>
-      </Modal>
+        <Modal width={450} title="Close private exchange room" open={leaveRoomOpen} onCancel={handleCloseLeaveRoom}>
+            <div className="pt-5 text-sm">Are you sure you want to close the current EUR - XMR private exchange room?
+                All unclosed orders will be canceled.
+            </div>
+            <div className="mt-16 sm:mt-14">
+                <Button size="xl" className="w-full">Close private exchange room</Button>
+            </div>
+        </Modal>
     </div>
   );
 }
+
+export default RoomVisitor

@@ -9,7 +9,7 @@ import RoomCreator from "@/pages/room-creator";
 import RoomVisitor from "@/pages/room-visitor";
 import AppInit from "@/app/providers/AppInit";
 import Assets from '@/pages/assets';
-import P404 from '@/pages/404/404';
+import PageProblems from '@/pages/page-problems/PageProblems';
 import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support";
 import CryptoDeposits from "@/pages/crypto-deposits";
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
     },
     {
         path: "*",
-        element: <P404/>
+        element: <PageProblems/>
     },
 ]);
 

@@ -8,17 +8,18 @@ import Modal from '@/shared/ui/modal/Modal';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import Button from '@/shared/ui/button/Button';
 
-export default () => {
-  const [inviteLinkOpen, setInviteLinkOpen] = useState<boolean>(false);
-  const [leaveRoomOpen, setLeaveRoomOpen] = useState<boolean>(false);
+const RoomCreator = (props) => {
 
-  const handleOpenInviteLink = () => {
-    setInviteLinkOpen(true);
-  };
+    const [inviteLinkOpen, setInviteLinkOpen] = useState<boolean>(false);
+    const [leaveRoomOpen, setLeaveRoomOpen] = useState<boolean>(false);
 
-  const handleCloseInviteLink = () => {
-    setInviteLinkOpen(false);
-  };
+    const handleOpenInviteLink = () => {
+        setInviteLinkOpen(true);
+    };
+
+    const handleCloseInviteLink = () => {
+        setInviteLinkOpen(false);
+    };
 
   const handleOpenLeaveRoom = () => {
     setLeaveRoomOpen(true);
@@ -64,12 +65,16 @@ export default () => {
         <InviteLink link="gekkoin.com/+rewrlnvnk987323 "/>
       </Modal>
 
-      <Modal width={450} title="Close private exchange room" open={leaveRoomOpen} onCancel={handleCloseLeaveRoom}>
-        <div className="pt-5 text-sm">Are you sure you want to close the current EUR - XMR private exchange room? All unclosed orders will be canceled.</div>
-        <div className="mt-16 sm:mt-14">
-          <Button size="xl" className="w-full">Close private exchange room</Button>
-        </div>
-      </Modal>
+        <Modal width={450} title="Close private exchange room" open={leaveRoomOpen} onCancel={handleCloseLeaveRoom}>
+            <div className="pt-5 text-sm">Are you sure you want to close the current EUR - XMR private exchange room?
+                All unclosed orders will be canceled.
+            </div>
+            <div className="mt-16 sm:mt-14">
+                <Button size="xl" className="w-full">Close private exchange room</Button>
+            </div>
+        </Modal>
     </div>
   );
 }
+
+export default RoomCreator

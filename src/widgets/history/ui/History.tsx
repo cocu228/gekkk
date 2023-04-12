@@ -9,6 +9,7 @@ import {apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
 import {historyTabs, formatForApiReq, getTabsAsRecord, formatForCustomer} from "../model/helpers";
 import {startOfMonth} from "date-fns";
+import Loader from '@/shared/ui/loader';
 
 const {RangePicker} = DatePicker;
 
@@ -74,26 +75,32 @@ function History({title, currency, className}: Partial<Props>) {
                     </div>
                 )}
 
-                <Table
-                    data={{
-                        labels: [
-                            {text: 'Data'},
-                            {text: 'Flow of funds'},
-                            {text: 'Information'}
-                        ],
-                        rows: historyList.map((item) =>
-                            [
-                                {text: formatForCustomer(item.datetime)},
-                                {
-                                    text: <span className="text-green">
-                                    {item.amount + " " + item.currency}
-                                </span>
-                                },
-                                {text: ""}
-                            ])
-                    }}
-                    noDataText="You don't have any transactions for this time."
-                />
+                {loading && (
+                    <Loader className='relative mt-10'/>
+                )}
+
+                {!loading && (
+                    <Table
+                        data={{
+                            labels: [
+                                {text: 'Data'},
+                                {text: 'Flow of funds'},
+                                {text: 'Information'}
+                            ],
+                            rows: historyList.map((item) =>
+                                [
+                                    {text: formatForCustomer(item.datetime)},
+                                    {
+                                        text: <span className="text-green">
+                                        {item.amount + " " + item.currency}
+                                    </span>
+                                    },
+                                    {text: ""}
+                                ])
+                        }}
+                        noDataText="You don't have any transactions for this time."
+                    />
+                )}
             </div>
         </div>
     );

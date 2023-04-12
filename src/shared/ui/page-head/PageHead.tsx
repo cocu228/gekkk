@@ -12,7 +12,7 @@ function PageHead({title, subtitle, rightContent}: Partial<Props>) {
       <div className="mb-14 md:mb-8">
         <div className="flex lg:flex-col justify-between items-center lg:items-start gap-6">
           <div className="wrapper">
-            <h1 className="mb-1 text-3xl md:text-2xl font-bold">{title}</h1>
+            <h1 className="mb-1 text-fs32 md:text-2xl font-bold">{title}</h1>
             <p className="font-medium">{subtitle}</p>
           </div>
           {rightContent && (

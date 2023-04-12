@@ -18,9 +18,9 @@
     }
 
     &:global(.active) {
-        border-color: #00aeef;
+        border-color: var(--color-blue-400);
         font-weight: 500;
-        color: #3a3a3a;
+        color: var(--color-gray-600);
     }
 
 }

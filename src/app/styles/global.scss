@@ -1,3 +1,5 @@
+@import "mixins";
+
 
 .arrow-down-xs {
   background-image: url("/img/icon/DropdownTriangleIcon.svg");
@@ -14,4 +16,44 @@
   border-radius: 10px;
   box-shadow: 0 10px 20px var(--color-gray-200);
   padding: 40px;
+}
+
+//.ellipsis:not(.ellipsis-lg):hover::after {
+//  content: none;
+//}
+//
+//.ellipsis:not(.ellipsis-lg) > p, .ellipsis:not(.ellipsis-lg) > span, .ellipsis:not(.ellipsis-lg) > a {
+//  text-overflow: initial;
+//  white-space: initial;
+//  display: initial;
+//  overflow: initial;
+//}
+
+.ellipsis {
+  position: relative;
+
+  & > p, span, a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
+
+  &:hover::after {
+    content: attr(data-text); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 10%;
+    top: 100%; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    font-family: inherit; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 8px 18px; /* Поля */
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 0 var(--color-gray-400);
+    word-wrap: break-word;
+    max-width: 700px;
+    height: auto;
+    white-space: normal;
+  }
 }

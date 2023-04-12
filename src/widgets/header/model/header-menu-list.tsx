@@ -28,7 +28,7 @@ export default [
             borderTop: "1px solid var(--color-gray-400)"
         }
     },
-    {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "crypto-deposits"}},
+    {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit/type"}},
     {item: 'Limits', id: 'limits'},
     {item: 'Partnership program', id: 'item-4'},
     {

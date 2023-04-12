@@ -2,7 +2,7 @@
   border: 1px solid var(--color-gray-400);
 
   &:active, &:focus {
-    border-color:#00AEEF;
+    border-color:var(--color-blue-400);
   }
 
   svg {

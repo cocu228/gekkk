@@ -31,7 +31,7 @@ const router = createBrowserRouter([
                         path: '',
                         element: <Deposit/>,
                     }, {
-                        path: 'crypto',
+                        path: 'type',
                         element: <CryptoDeposits/>,
                     }
                 ]

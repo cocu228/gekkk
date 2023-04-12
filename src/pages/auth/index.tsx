@@ -16,11 +16,13 @@ const AuthPage = () => {
             params = new URL(url).searchParams,
             sessionId = params.get("sessionId");
 
-        if (sessionId) {
-            apiQRCode(sessionId).then(res => {
-                //
-            }).catch(e => console.warn(e))
-        }
+        console.log(sessionId)
+
+        // if (sessionId) {
+        //     apiQRCode(sessionId).then(res => {
+        //         //
+        //     }).catch(e => console.warn(e))
+        // }
 
     }, []);
 

@@ -22,9 +22,9 @@ const AuthPage = () => {
         if (sessionId) {
             apiQRCode(sessionId).then(res => {
 
-                if (res.data?.token) {
-                    const {authorization, token, tokenHeaderName} = res.data
-                    login(authorization, token, tokenHeaderName)
+                if (res.data?.Token) {
+                    const {Authorization, Token, TokenHeaderName} = res.data
+                    login(Authorization, Token, TokenHeaderName)
                 }
 
             }).catch(e => console.warn(e))

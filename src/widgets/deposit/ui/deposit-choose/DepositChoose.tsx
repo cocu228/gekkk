@@ -17,7 +17,7 @@ const DepositChoose = ({ variant, setVariant }) => {
           Choose deposit types
         </p>
 
-        <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between">
+        <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between md:mb-4">
           <Radio
             title="Fixed rate"
             subtitle={
@@ -47,7 +47,7 @@ const DepositChoose = ({ variant, setVariant }) => {
 
         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
           <div className="row flex justify-between mb-2 md:mb-1">
-            <p className="text-gray-400 font-medium text-base md:text-sm">
+            <p className="text-gray-400 font-medium text-base md:text-sm sm:text-xs">
               Enter deposit amount
             </p>
 

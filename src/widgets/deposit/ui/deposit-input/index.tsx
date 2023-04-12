@@ -4,7 +4,7 @@ import FormItem from "@/shared/ui/form/form-item/FormItem";
 const DepositInput = ({onChange, onInput}: InputProps) => {
 
     return (
-      <FormItem className="relative" extra={<span className="text-green">The minimum deposit amount is 100 EURG</span>}>
+      <FormItem className="relative" extra={<span className="text-green md:text-xs">The minimum deposit amount is 100 EURG</span>}>
         <InputAnt 
           onChange={onChange} 
           onInput={onInput}

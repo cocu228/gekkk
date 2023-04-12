@@ -7,7 +7,8 @@ const NavCollapse = ({children, id, header}) => {
     const [value, setValue] = useSessionStorage("collapse-nav", {
         [id]: null
     })
-    const initActiveStorage = value[id] === "true"
+    const initActiveStorage = value[id] === null ? true : value[id]
+
     const [isActive, toggleActive] = useState(initActiveStorage)
 
     const handlerToggle = () => {

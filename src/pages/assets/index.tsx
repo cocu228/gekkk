@@ -140,7 +140,7 @@ const TableRow = ({
             <IconCoin width={29} height={29} iconName={code.toLowerCase().capitalize() + "Icon.svg"} coinName={code}/>
             <span>{name}</span>
         </div>
-        <div className="col flex items-center">
+        <div data-text={price} className="col flex items-center ellipsis">
             <span>{price}</span>
         </div>
         <div className="col flex items-center">

@@ -66,7 +66,6 @@ const CryptoDeposits = () => {
                     <div className="row grid gap-3 xxxl:grid-cols-3 xxl:grid-cols-2 xl:grid-cols-1">
                         <div className="col h-full flex flex-col justify-between">
                             <div className="wrapper">
-
                                 <div className="row mt-6">
                                     <div className="col">
                                         <h4 className="font-bold text-lg mb-2">

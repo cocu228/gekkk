@@ -11,10 +11,10 @@ module.exports = {
             'sm': {max: '576px'}
         },
 
-        width: {
-            inherit: 'inherit',
-            full: '100%',
-        },
+        // width: {
+        //     inherit: 'inherit',
+        //     full: '100%',
+        // },
 
         height: {
             inherit: 'inherit',

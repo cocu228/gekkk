@@ -9,3 +9,7 @@ export function randomId(value = 12): string {
 }
 
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
+
+export function evenOrOdd(number) {
+    return number % 2 === 0
+}

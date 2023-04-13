@@ -11,10 +11,10 @@ module.exports = {
             'sm': {max: '576px'}
         },
 
-        width: {
-            inherit: 'inherit',
-            full: '100%',
-        },
+        // width: {
+        //     inherit: 'inherit',
+        //     full: '100%',
+        // },
 
         height: {
             inherit: 'inherit',
@@ -41,9 +41,11 @@ module.exports = {
                     400: "var(--color-blue-400)"
                 },
                 gray: {
+                    main: 'var(--color-main-bg)',
                     200: 'var(--color-gray-200)',
                     300: 'var(--color-gray-300)',
                     400: 'var(--color-gray-400)',
+                    450: 'var(--color-gray-450)',
                     500: 'var(--color-gray-500)',
                     600: 'var(--color-gray-600)'
                 },

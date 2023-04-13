@@ -6,8 +6,8 @@
     font-weight: 500;
     border-style: solid;
     border-width: 1px;
-    background-color: #F9F9FA;
-    border-color: #F9F9FA;
+    background-color: var(--color-main-bg);
+    border-color: var(--color-main-bg);
     color: #888A92;
     margin-bottom: 8px;
     &:global(.active) {

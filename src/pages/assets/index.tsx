@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {apiGetRates} from '@/shared/api/market';
 import $const from "@/shared/config/coins/constants";
 import PageHead from "@/shared/ui/page-head/PageHead";
@@ -6,6 +6,8 @@ import Button from "@/shared/ui/button/Button";
 import {evenOrOdd} from "@/shared/lib/helpers";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 
 const items = [{
@@ -19,6 +21,7 @@ function Assets() {
 
     const [rates, setRates] = useState<Record<$const, number>>();
     const listAllCryptoName = storeListAllCryptoName(state => state.listAllCryptoName);
+    const {xl} = useContext(BreakpointsContext);
 
     useEffect(() => {
         (async () => {
@@ -35,7 +38,10 @@ function Assets() {
     return (
         <>
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
-            <div className="wrapper grid grid-cols-2 md:grid-cols-1 gap-2 h-full">
+            <div className="wrapper grid grid-cols-2 xl:grid-cols-1 gap-2 h-full">
+
+                {xl && <InfoBox/>}
+
                 <div className="substrate h-full">
                     <TableGroup>
                         <TableHead items={["Name", "Price", "Balance", "Actions"]}/>
@@ -45,7 +51,8 @@ function Assets() {
                                                                           key={"TableRow" + index}/>)}
                     </TableGroup>
                 </div>
-                <div className="substrate h-full text-gray-600">
+
+                {!xl && <div className="substrate h-full text-gray-600">
                     <div className="row mb-5 flex justify-center">
                         <div className="col">
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
@@ -69,27 +76,38 @@ function Assets() {
                     </div>
                     <div className="row mb-5">
                         <div className="col text-sm">
-                            <p>Bitcoin is the first and most popular cryptocurrency in the world.</p>
+                            <p className="leading-6">Bitcoin is the first and most popular cryptocurrency in the
+                                world.</p>
                             <br/>
-                            <p>In the wake of the success of BTC, other alternative cryptocurrencies began to appear,
+                            <p className="leading-6">In the wake of the success of BTC, other alternative
+                                cryptocurrencies began to appear,
                                 which are called "altcoins". Keeping the essence of the Bitcoin idea, most altcoins are
                                 trying to find competitive advantages in their versions.</p>
                             <br/>
-                            <p>At the moment, there are more than 17 thousand different altcoins.
+                            <p className="leading-6">At the moment, there are more than 17 thousand different altcoins.
                                 Here you can purchase the most interesting and popular ones.</p>
                         </div>
                     </div>
-                    <div className='bg-green rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
-                        <p className='font-bold mb-4'>3% AER interest on account balance</p>
-                        <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
-                        <p>(i) your weighted average balance for the reporting period is equal to or higher than 300
-                            EURG;</p>
-                        <p>(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.</p>
+                    <div className="row">
+                        <div className="col">
+                            <InfoBox/>
+                        </div>
                     </div>
-                </div>
+                </div>}
             </div>
         </>
     )
+}
+
+const InfoBox = () => {
+    return <div className='bg-green rounded-md mb-4 py-5 px-4 text-white border-[#c3e6cb] text-sm'>
+        <p className="leading-6">
+            By purchasing tokens, you take on all the risks associated with the volatility of cryptocurrencies.
+            If you are interested in safer investment instruments, we recommend that you use <a
+            className="font-bold underline" href="/">structured or
+            fixed
+            deposits.</a></p>
+    </div>
 }
 
 const TableGroup = ({children}) => {
@@ -118,7 +136,7 @@ const TableRow = ({
 
     return <div
         className={`row grid grid-cols-4 ${evenOrOdd(index) ? "bg-gray-main" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
-        <div className="col flex items-center gap-3 ellipsis">
+        <div data-text={name} className="col flex items-center gap-3 ellipsis">
             <IconCoin width={29} height={29} iconName={code.toLowerCase().capitalize() + "Icon.svg"} coinName={code}/>
             <span>{name}</span>
         </div>

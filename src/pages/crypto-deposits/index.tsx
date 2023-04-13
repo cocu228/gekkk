@@ -63,67 +63,83 @@ const CryptoDeposits = () => {
                             <h2 className="text-gray-600 text-fs32 font-bold">Structured deposits</h2>
                         </div>
                     </div>
-                    <div className="row flex flex-wrap">
-                        <div className="col xxxl:w-[33,3%] xxl:w-[50%] xl:w-[100%]">
-                            <div className="row mt-6">
-                                <div className="col">
-                                    <h4 className="font-bold text-lg mb-2">
-                                        Safe strategy
-                                    </h4>
-                                    <p className="text-gray-400">You profit even if the rate drops or grows slowly</p>
+                    <div className="row grid gap-3 xxxl:grid-cols-3 xxl:grid-cols-2 xl:grid-cols-1">
+                        <div className="col h-full flex flex-col justify-between">
+                            <div className="wrapper">
+
+                                <div className="row mt-6">
+                                    <div className="col">
+                                        <h4 className="font-bold text-lg mb-2">
+                                            Safe strategy
+                                        </h4>
+                                        <p className="text-gray-400">You profit even if the rate drops or grows
+                                            slowly</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
-                                <R/>
-                                <R/>
-                            </div>
-                            <div className="row flex flex-wrap">
-                                <div className="col">
-                                    <Row bgGray/>
-                                    <Row/>
-                                    <Row bgGray/>
+                            <div className="wrapper">
+                                <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
+                                    <R/>
+                                    <R/>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col xxxl:w-[33,3%] xxl:w-[50%] xl:w-[100%]">
-                            <div className="row mt-6">
-                                <div className="col">
-                                    <h4 className="font-bold text-lg mb-2">
-                                        Safe strategy
-                                    </h4>
-                                    <p className="text-gray-400">You profit even if the rate drops or grows slowly</p>
-                                </div>
-                            </div>
-                            <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
-                                <R/>
-                                <R/>
-                            </div>
-                            <div className="row flex flex-wrap">
-                                <div className="col">
-                                    <Row bgGray/>
-                                    <Row/>
-                                    <Row bgGray/>
+                                <div className="row">
+                                    <div className="col">
+                                        <Row bgGray/>
+                                        <Row/>
+                                        <Row bgGray/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col xxxl:w-[33,3%] xxl:w-[50%] xl:w-[100%]">
-                            <div className="row mt-6">
-                                <div className="col">
-                                    <h4 className="font-bold text-lg mb-2">
-                                        Safe strategy
-                                    </h4>
-                                    <p className="text-gray-400">You profit even if the rate drops or grows slowly</p>
+                        <div className="col h-full flex flex-col justify-between">
+                            <div className="wrapper">
+                                <div className="row mt-6">
+                                    <div className="col">
+                                        <h4 className="font-bold text-lg mb-2">
+                                            Balanced strategy
+                                        </h4>
+                                        <p className="text-gray-400">Minimal risk</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
-                                <R/>
-                                <R/>
+                            <div className="wrapper">
+                                <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
+                                    <R/>
+                                    <R/>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <Row bgGray/>
+                                        <Row/>
+                                        <Row bgGray/>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="row flex flex-wrap">
-                                <div className="col">
-                                    <Row bgGray/>
-                                    <Row/>
-                                    <Row bgGray/>
+                        </div>
+                        <div className="col h-full flex flex-col justify-between">
+                            <div className="wrapper">
+                                <div className="row mt-6">
+                                    <div className="col">
+                                        <h4 className="font-bold text-lg mb-2">
+                                            Dynamic strategy
+                                        </h4>
+                                        <p className="text-gray-400">Good percentage when the rate is rising, limited
+                                            loss
+                                            when the rate is falling</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="wrapper">
+                                <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
+                                    <R/>
+                                    <R/>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <Row bgGray/>
+                                        <Row/>
+                                        <Row bgGray/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -150,9 +166,9 @@ const R = () => {
 }
 
 const Row = ({bgGray = false}) => {
+
     return <div
-        style={bgGray ? {backgroundColor: "var(--color-main-bg)"} : {}}
-        className="row py-6 px-10 grid grid-flow-col justify-start items-center gap-3">
+        className={`row ${bgGray ? "bg-gray-main" : ""} py-6 px-6 grid grid-flow-col justify-start items-center gap-3`}>
         <div className="col row-auto justify-start flex h-full">
             <div className="row">
                 <div className="col">
@@ -187,7 +203,7 @@ const Row = ({bgGray = false}) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div data-text={"4% annual"} className="col ellipsis">
+                    <div data-text={"4% annual"} className="col ellipsis inline-grid">
                         <p className="font-bold text-normal">4% annual</p>
                     </div>
                 </div>

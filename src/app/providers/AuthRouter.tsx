@@ -8,7 +8,7 @@ const AuthContext = createContext({});
 
 interface IValue {
     token: string;
-    login: (phone: string, token: string) => void;
+    login: (phone: string, token: string, tokenHeaderName?: string) => void;
     logout: () => void;
 }
 
@@ -18,7 +18,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
-    const login = (phone: string, token: string) => {
+    const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
 
         // const listener = function (event) {
         //
@@ -30,8 +30,8 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         sessionStorage.removeItem("session-auth")
 
         setSessionGlobal(prev => ({token, phone}))
-
-        $axios.defaults.headers.common['token'] = token;
+        console.log(tokenHeaderName)
+        $axios.defaults.headers.common[tokenHeaderName] = token;
         $axios.defaults.headers.common['Authorization'] = phone;
 
         navigate("/");

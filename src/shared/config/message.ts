@@ -55,3 +55,6 @@ export const passwordMessage: Rule = {
 export const pinMessage: Rule = {
     message: 'Please enter a pin',
 };
+export const promoCodeMessage: Rule = {
+    message: 'Only latin letters and numbers',
+};

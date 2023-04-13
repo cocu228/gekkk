@@ -3,10 +3,28 @@ import {RuleRender} from 'antd/es/form';
 
 function useValidator() {
 
+
+    const promoCodeValidator = useCallback<RuleRender>(
+        () => ({
+            validator(rule, value = '') {
+                return new Promise((resolve, reject) => {
+
+                    const isAlphaNumeric = /^[0-9A-Z]+$/i.test(value)
+
+                    if (isAlphaNumeric) {
+                        resolve('');
+                    } else {
+                        reject(new Error('Only latin letters and numbers'));
+                    }
+                });
+            },
+        }),
+        [],
+    );
+
     const pinValidator = useCallback<RuleRender>(
         () => ({
             validator(rule, value = '') {
-
                 return new Promise((resolve, reject) => {
                     const test = /\D/.test(value)
                     if (!test && value.length >= 4) {
@@ -57,7 +75,7 @@ function useValidator() {
         [],
     );
 
-    return {phoneValidator, emailValidator, pinValidator};
+    return {phoneValidator, emailValidator, pinValidator, promoCodeValidator};
 }
 
 export default useValidator;

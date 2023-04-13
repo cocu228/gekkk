@@ -40,7 +40,7 @@ const FixedVariant = () => {
 
       <Button text>
         <span
-          className="underline underline-offset-4"
+          className="underline underline-offset-4 text-gray-400 md:text-sm"
           onClick={conditionsModal.showModal}
         >
           Early closing conditions →

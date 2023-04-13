@@ -1,3 +1,5 @@
+@import "@styles/mixins";
+
 .Btn {
   display: inline-flex;
   align-items: center;
@@ -13,6 +15,11 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.2s;
+
+  @include devices(sm) {
+    padding: 0;
+    font-size: 0.6rem;
+  }
 
   &:hover {
     background: var(--color-accent);

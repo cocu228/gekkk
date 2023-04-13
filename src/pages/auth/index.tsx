@@ -4,25 +4,31 @@ import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code";
 import QRCode from "@/widgets/auth/ui/qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
-import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {useAuth} from "@/app/providers/AuthRouter";
 
 export type S = "authorization" | "code" | "qr-code";
 
 const AuthPage = () => {
-    const { md } = useContext(BreakpointsContext);
+
+    const {md} = useContext(BreakpointsContext);
+    const {login} = useAuth()
 
     useEffect(() => {
         let url = document.location.toString(),
             params = new URL(url).searchParams,
             sessionId = params.get("sessionId");
 
-        console.log(sessionId)
+        if (sessionId) {
+            apiQRCode(sessionId).then(res => {
 
-        // if (sessionId) {
-        //     apiQRCode(sessionId).then(res => {
-        //         //
-        //     }).catch(e => console.warn(e))
-        // }
+                if (res.data?.Token) {
+                    const {Authorization, Token, TokenHeaderName} = res.data
+                    login(Authorization, Token, TokenHeaderName)
+                }
+
+            }).catch(e => console.warn(e))
+        }
 
     }, []);
 

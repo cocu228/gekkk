@@ -21,7 +21,7 @@ function Assets() {
 
     const [rates, setRates] = useState<Record<$const, number>>();
     const listAllCryptoName = storeListAllCryptoName(state => state.listAllCryptoName);
-    const {xl} = useContext(BreakpointsContext);
+    const {xl, md} = useContext(BreakpointsContext);
 
     useEffect(() => {
         (async () => {
@@ -40,7 +40,8 @@ function Assets() {
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                <div className="substrate h-full col-span-3 z-10 -xl:rounded-r-none">
+                <div
+                    className={`substrate col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[920px] overflow-auto" : ""}`}>
                     <TableGroup>
                         <TableHead items={["Name", "Price", "Balance", "Actions"]}/>
                         {listAllCryptoName.map((item, index) => <TableRow

@@ -147,14 +147,17 @@ const TableRow = ({
             <span>{name}</span>
         </div>
         <div data-text={price} className="col col-span-2 flex items-center justify-center ellipsis">
-            <span>{price}</span>
+            <span>{price} €</span>
         </div>
-        <div className="col col-span-2 flex items-center justify-center">
-            <span>{balance}</span>
+        <div data-text={`${balance} ${code}`} className="col col-span-2 flex items-center justify-center ellipsis">
+            <span>{balance} {code}</span>
         </div>
         <div className="col col-span-3 flex items-center justify-end gap-3">
-            <a href="">
-                <img width={32} height={14} src="/img/icon/Download.svg" alt="Download"/>
+            <a className="ellipsis" data-text={"Receive"} href="">
+                <img width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
+            </a>
+            <a className="ellipsis" data-text={"Withdraw"} href="">
+                <img className="rotate-180" width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
             </a>
             <Button size={"sm"} gray>Buy</Button>
         </div>

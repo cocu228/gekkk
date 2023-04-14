@@ -6,8 +6,8 @@ import Button from "@/shared/ui/button/Button";
 import {evenOrOdd} from "@/shared/lib/helpers";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import useBreakpoint from "antd/es/grid/hooks/useBreakpoint";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import useModal from "@/shared/model/hooks/useModal";
 
 
 const items = [{
@@ -21,7 +21,7 @@ function Assets() {
 
     const [rates, setRates] = useState<Record<$const, number>>();
     const listAllCryptoName = storeListAllCryptoName(state => state.listAllCryptoName);
-    const {xl} = useContext(BreakpointsContext);
+    const {xl, md} = useContext(BreakpointsContext);
 
     useEffect(() => {
         (async () => {
@@ -38,21 +38,21 @@ function Assets() {
     return (
         <>
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
-            <div className="wrapper grid grid-cols-2 xl:grid-cols-1 gap-2 h-full">
-
+            <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-
-                <div className="substrate h-full">
+                <div
+                    className={`substrate col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[920px] overflow-auto" : ""}`}>
                     <TableGroup>
                         <TableHead items={["Name", "Price", "Balance", "Actions"]}/>
-                        {listAllCryptoName.map((item, index) => <TableRow price={"0.12312"} index={index}
-                                                                          code={item.code}
-                                                                          name={item.name}
-                                                                          key={"TableRow" + index}/>)}
+                        {listAllCryptoName.map((item, index) => <TableRow
+                            price={"0.12312"}
+                            index={index}
+                            code={item.code}
+                            name={item.name}
+                            key={"TableRow" + index}/>)}
                     </TableGroup>
                 </div>
-
-                {!xl && <div className="substrate h-full text-gray-600">
+                {!xl && <div className="substrate h-full -ml-4 z-0 col-span-2 text-gray-600">
                     <div className="row mb-5 flex justify-center">
                         <div className="col">
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
@@ -117,8 +117,15 @@ const TableGroup = ({children}) => {
 }
 
 const TableHead = ({items}) => {
-    return <div className="row grid grid-cols-4 mb-4 items-center">
-        {items.map((item, i) => <div key={"TableHead" + i} className="col">
+
+    const firstCol = index => index === 0
+    const lastCol = index => index === (items.length - 1)
+    const setClassPosEdge = index => firstCol(index) ? "col-span-5" : lastCol(index) ? "col-span-3" : "col-span-2"
+
+
+    return <div className="row grid grid-cols-12 mb-4 items-center justify-start">
+        {items.map((item, index) => <div key={"TableHead" + index}
+                                         className={`col flex justify-center ${setClassPosEdge(index)}`}>
             <span className="text-gray-400 font-medium">{item}</span>
         </div>)}
     </div>
@@ -129,26 +136,29 @@ const TableRow = ({
                       code,
                       name,
                       price,
-                      balance = 0,
+                      balance = 2.232,
                       actions = null
                   }) => {
 
 
     return <div
-        className={`row grid grid-cols-4 ${evenOrOdd(index) ? "bg-gray-main" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
-        <div data-text={name} className="col flex items-center gap-3 ellipsis">
+        className={`row grid grid-cols-12 ${evenOrOdd(index) ? "bg-gray-main" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
+        <div data-text={name} className="col col-span-5 flex items-center gap-3  ellipsis">
             <IconCoin width={29} height={29} iconName={code.toLowerCase().capitalize() + "Icon.svg"} coinName={code}/>
             <span>{name}</span>
         </div>
-        <div className="col flex items-center">
-            <span>{price}</span>
+        <div data-text={price} className="col col-span-2 flex items-center justify-center ellipsis">
+            <span>{price} €</span>
         </div>
-        <div className="col flex items-center">
-            <span>{balance}</span>
+        <div data-text={`${balance} ${code}`} className="col col-span-2 flex items-center justify-center ellipsis">
+            <span>{balance} {code}</span>
         </div>
-        <div className="col flex items-center gap-3">
-            <a href="">
-                <img width={32} height={14} src="/img/icon/Download.svg" alt="Download"/>
+        <div className="col col-span-3 flex items-center justify-end gap-3">
+            <a className="ellipsis" data-text={"Receive"} href="">
+                <img width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
+            </a>
+            <a className="ellipsis" data-text={"Withdraw"} href="">
+                <img className="rotate-180" width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
             </a>
             <Button size={"sm"} gray>Buy</Button>
         </div>

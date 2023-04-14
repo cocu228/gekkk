@@ -9,7 +9,6 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 const hClassName = new HelperClassName(styles)
 export const ItemPerson = ({active = false}) => {
 
-
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
         <div className="wrapper mr-2">

@@ -1,7 +1,8 @@
 import React from "react";
 import {ItemOrganization, ItemPerson, PromoCodeModal} from "@/widgets/header/ui/menu/header-menu-items";
 
-export default [
+const HeaderMenuList = [
+
     {
         item: <ItemPerson active={true}/>,
         id: 'id',
@@ -44,3 +45,5 @@ export default [
         }
     },
 ]
+
+export default HeaderMenuList

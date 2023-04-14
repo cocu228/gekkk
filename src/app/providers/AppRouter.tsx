@@ -53,7 +53,7 @@ const router = createBrowserRouter([
                 element: <RoomVisitor/>
             },
             {
-                path: 'assets',
+                path: 'crypto-assets',
                 element: <Assets/>
             },
             {

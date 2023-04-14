@@ -41,7 +41,7 @@ function Assets() {
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
                 <div
-                    className={`substrate col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[920px] overflow-auto" : ""}`}>
+                    className={`substrate col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <TableGroup>
                         <TableHead items={["Name", "Price", "Balance", "Actions"]}/>
                         {listAllCryptoName.map((item, index) => <TableRow
@@ -52,7 +52,7 @@ function Assets() {
                             key={"TableRow" + index}/>)}
                     </TableGroup>
                 </div>
-                {!xl && <div className="substrate h-full -ml-4 z-0 col-span-2 text-gray-600">
+                {!xl && <div className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <div className="row mb-5 flex justify-center">
                         <div className="col">
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>

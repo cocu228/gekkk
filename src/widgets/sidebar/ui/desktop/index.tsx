@@ -91,7 +91,7 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            <NavLink onClick={NavLinkEvent} to={"assets"}>
+            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}

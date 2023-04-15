@@ -30,7 +30,8 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         sessionStorage.removeItem("session-auth")
 
         setSessionGlobal(prev => ({token, phone}))
-        console.log(tokenHeaderName)
+
+
         $axios.defaults.headers.common[tokenHeaderName] = token;
         $axios.defaults.headers.common['Authorization'] = phone;
 

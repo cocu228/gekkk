@@ -13,8 +13,8 @@ import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/heal
 const AuthPage = () => {
 
     const {md} = useContext(BreakpointsContext);
-    const {login} = useAuth()
-    const {stage} = storyDisplayStage(state => state)
+    const {login} = useAuth();
+    const {stage} = storyDisplayStage(state => state);
 
 
     useEffect(() => {

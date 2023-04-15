@@ -16,6 +16,11 @@ export const helperApiTokenHash = function (response) {
 export const helperApiQRCode = function (response) {
     return actionSuccessConstructor(typeof response.data === "string")
 }
+export const helperApiCheckPassword = function (response) {
+    return actionSuccessConstructor(response.data?.status === "ok")
+}
+
+
 export const authForTokenHashUrl = function () {
 
     const url = document.location.toString(),
@@ -25,10 +30,6 @@ export const authForTokenHashUrl = function () {
     return actionSuccessConstructor.call(sessionId, typeof sessionId === "string")
 
 }
-export const helperApiCheckPassword = function (response) {
-    return actionSuccessConstructor(response.data?.status === "ok")
-}
-
 const actionSuccessConstructor = function (value) {
     if (value) {
         return {

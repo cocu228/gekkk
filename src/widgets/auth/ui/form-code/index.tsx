@@ -17,7 +17,8 @@ import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/healpe
 
 
 const FormCode = memo(() => {
-    const {toggleStage} = storyDisplayStage(state => state)
+
+    const {toggleStage} = storyDisplayStage(state => state);
     const {login} = useAuth();
     const {md} = useContext(BreakpointsContext);
     const {onInput} = useMask(MASK_CODE);
@@ -32,16 +33,18 @@ const FormCode = memo(() => {
 
         apiRequestCode(phone, formatAsNumber(code), sessionId)
             .then(res =>
-                helperApiRequestCode(res).success(
-                    () => {
-                        setSessionGlobal({sessionId: res.data.sessid})
-                        apiSignIn(formatAsNumber(code), sessionId, phone)
-                            .then(res => helperApiSignIn(res)
-                                .success(
-                                () => login(phone, res.data.token))).catch(e => {
-                            toggleStage("authorization");
+                helperApiRequestCode(res)
+                    .success(
+                        () => {
+                            setSessionGlobal({sessionId: res.data.sessid})
+                            apiSignIn(formatAsNumber(code), sessionId, phone)
+                                .then(res => helperApiSignIn(res)
+                                    .success(
+                                        () => login(phone, res.data.token))
+                                ).catch(e => {
+                                toggleStage("authorization");
+                            })
                         })
-                    })
             )
     }
 

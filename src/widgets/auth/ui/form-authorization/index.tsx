@@ -26,24 +26,19 @@ type TState = {
 
 
 const FormLoginAccount = memo(() => {
+
     const {toggleStage} = storyDisplayStage(state => state)
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", sessionId: "", currentTime: new Date()})
 
-    // const ref = useRef(null)
 
     const [state, setState] = useState<TState>({
         phone: "",
         password: ""
     });
     const [loading, setLoading] = useState<boolean>(false);
-
-    // useLayoutEffect(() => {
-    //     ref.current.focus()
-    // }, [])
-
     const onFinish = () => {
 
         const {phone, password} = state

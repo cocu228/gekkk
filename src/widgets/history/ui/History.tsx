@@ -7,7 +7,8 @@ import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
 import {apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
-import {historyTabs, formatForApiReq, getTabsAsRecord, formatForCustomer} from "../model/helpers";
+import {historyTabs, getTabsAsRecord} from "../model/helpers";
+import {formatForDisplay, formatForCustomer} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import Loader from '@/shared/ui/loader';
 
@@ -27,8 +28,8 @@ function History({title, currency, className}: Partial<Props>) {
         setLoading(true)
 
         const {
-            StartDate: start = formatForApiReq(customDate[0].toDate()),
-            EndDate: end = formatForApiReq(customDate[1].toDate())
+            StartDate: start = formatForDisplay(customDate[0].toDate()),
+            EndDate: end = formatForDisplay(customDate[1].toDate())
         } = historyTabs.find(tab => tab.Key === activeTab);
 
         const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
@@ -37,12 +38,16 @@ function History({title, currency, className}: Partial<Props>) {
 
         setLoading(false)
 
+        return null
+
     }
 
     useEffect(() => {
 
         if (activeTab !== TabKey.CUSTOM) {
-            requestHistory()
+            (async () => {
+                await requestHistory()
+            })()
         }
 
     }, [activeTab, currency])

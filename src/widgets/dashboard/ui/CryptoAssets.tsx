@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
+import {getCryptoIconName, getRoundingValue} from "@/shared/lib/helpers"
 
 function CryptoAssets() {
 
@@ -15,9 +16,9 @@ function CryptoAssets() {
                 {sortedListBalance.map((item, i) => <CryptoAssetCard
                     title="EURG Gekkoin"
                     key={"CryptoAssetCard-" + i}
-                    iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}
+                    iconName={getCryptoIconName(item.const)}
                     coinName={item.name}
-                    balance={item.availableBalance.toNumber()}
+                    balance={getRoundingValue(item.availableBalance, item.roundingValue)}
                     currency={item.const}
                     price=""
                     onTopUp={() => {

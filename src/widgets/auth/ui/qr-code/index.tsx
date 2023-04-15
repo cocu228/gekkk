@@ -4,6 +4,7 @@ import ReactQRCode from "react-qr-code";
 import {apiQRCode} from "@/widgets/auth/api";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
+import {useAuth} from "@/app/providers/AuthRouter";
 
 
 type TProps = {
@@ -14,7 +15,7 @@ const QRCode = memo(({handleView}: TProps) => {
 
     const [hash, setHash] = useState<null | string>(null);
     const ref = useRef<ReturnType<typeof setInterval> | null>(null);
-
+    const {login} = useAuth()
     const {md} = useContext(BreakpointsContext);
 
     useEffect(() => {
@@ -26,8 +27,14 @@ const QRCode = memo(({handleView}: TProps) => {
                     setHash(res.data);
 
                     ref.current = setInterval(() => {
+
                         apiQRCode(res.data).then(res => {
-                            //
+
+                            if (res.data?.Token) {
+                                const {Authorization, Token, TokenHeaderName} = res.data
+                                login(Authorization, Token, TokenHeaderName)
+                            }
+
                         });
                     }, 3000);
                 }

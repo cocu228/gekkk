@@ -7,66 +7,70 @@ import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {S} from "@/pages/auth";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
+import {helperApiCheckPassword, helperApiRequestCode} from "../../model/healpers";
 import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/healpers";
-
 import ReactPhoneInput from "react-phone-input-2";
 import '@styles/(cs)react-phone-input.scss'
+import {storyDisplayStage} from "@/widgets/auth/model/story";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 
+type TState = {
+    phone: string,
+    password: string
+}
 
-const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) => {
 
+const FormLoginAccount = memo(() => {
+    const {toggleStage} = storyDisplayStage(state => state)
     const {md} = useContext(BreakpointsContext);
+    const {phoneValidator, pinValidator} = useValidation();
+    const [, setSessionAuth] = useSessionStorage("session-auth",
+        {phone: "", sessionId: "", currentTime: new Date()})
+
     // const ref = useRef(null)
 
-    const [state, setState] = useState({
+    const [state, setState] = useState<TState>({
         phone: "",
-        password: "",
-        loading: false
+        password: ""
     });
+    const [loading, setLoading] = useState<boolean>(false);
 
     // useLayoutEffect(() => {
     //     ref.current.focus()
     // }, [])
 
-    const {phoneValidator, pinValidator} = useValidation();
-
-    const [, setSessionAuth] = useSessionStorage("session-auth", {phone: "", sessionId: "", currentTime: new Date()})
     const onFinish = () => {
 
-        const phone = formatAsNumber(state.phone)
-        setState(prev => ({...prev, loading: true}))
+        const {phone, password} = state
+        const $phone = formatAsNumber(phone)
 
-        apiCheckPassword(phone, state.password).then(res => {
+        setLoading(true)
 
-            if (res.data?.status === "ok") {
-
-                apiRequestCode(phone).then(res => {
-                    if (res.data?.success) {
-                        setSessionAuth({sessionId: res.data.sessid, phone, currentTime: new Date()})
-                        handleView("code")
-                    } else {
-                        setState(prev => ({...prev, loading: false}))
-                    }
-                }).catch(err => {
-                    // alert(err.response?.data?.errors[0]?.type)
-                    setState(prev => ({...prev, loading: false}))
-                })
-
-            } else {
-                setState(prev => ({...prev, loading: false}))
-            }
-
-        }).catch(err => {
-            // alert(err.response?.data?.errors[0]?.type)
-            setState(prev => ({...prev, loading: false}))
-        })
+        apiCheckPassword($phone, password)
+            .then(res => helperApiCheckPassword(res)
+                .success(
+                    () => apiRequestCode($phone)
+                        .then(res => helperApiRequestCode(res)
+                            .success(
+                                () => {
+                                    setSessionAuth({
+                                        sessionId: res.data.sessid,
+                                        phone: $phone, currentTime: new Date()
+                                    })
+                                    toggleStage("code")
+                                }
+                            )).catch(err => {
+                            setLoading(false)
+                        })
+                ))
+            .catch(err => {
+                setLoading(false)
+            })
     }
 
     //
@@ -107,13 +111,13 @@ const FormLoginAccount = memo(({handleView}: { handleView: (val: S) => void }) =
         </FormItem>
 
         <div className="row text-right mb-4">
-            <a onClick={() => handleView("qr-code")} className="text-sm font-semibold text-blue-400">Forgot
+            <a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot
                 your PIN? Log in with a QR code
             </a>
         </div>
 
         <div className="row mb-8">
-            <Button disabled={state.loading} tabIndex={0} htmlType="submit"
+            <Button disabled={loading} tabIndex={0} htmlType="submit"
                     className="w-full">Login</Button>
         </div>
 

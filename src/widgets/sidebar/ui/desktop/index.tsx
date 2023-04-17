@@ -11,7 +11,7 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import Decimal from "decimal.js";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
-import UpdateAmounts from "@/widgets/update-amounts";
+import UpdateAmounts from "../../../../features/update-amounts";
 
 const SidebarDesktop = () => {
 

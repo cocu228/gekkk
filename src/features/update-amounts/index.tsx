@@ -17,7 +17,7 @@ const UpdateAmounts = () => {
     }
 
     return <>
-        <span className="cursor-pointer" onClick={onClick}>
+        <span data-text={"Update"} className="cursor-pointer ellipsis" onClick={onClick}>
             <img width={20} height={20} src="/img/icon/DepositCurrentRateIcon.svg" alt="DepositCurrentRateIcon"/>
         </span>
     </>

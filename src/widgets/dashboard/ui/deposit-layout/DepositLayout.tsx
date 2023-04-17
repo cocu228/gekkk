@@ -46,18 +46,21 @@ function Deposits() {
 
                 {state === null && [1, 2, 3, 4].map((it, i) => <Card key={"Card_" + i}><Skeleton active/></Card>)}
 
-                {Array.isArray(state) && state.map((item, i) => <DepositCard
-                    title={strategyTypes[item.dep_type]}
-                    key={"DepositCard-" + i}
-                    subtitle={`Opened ${formatForDisplay(item.datetime)}`}
-                    price={new Decimal(item.amount).toNumber()}
-                    currency={item.currency_id}
-                    onOpenDeposit={() => {
-                        //
-                        navigate("/new-deposit");
-                    }}
-                    linkUrl="/tariffs"
-                />)}
+                {Array.isArray(state) && state.map((item, i) => {
+                    console.log(item.datetime)
+                    return <DepositCard
+                        title={strategyTypes[item.dep_type]}
+                        key={"DepositCard-" + i}
+                        subtitle={`Opened ${formatForDisplay(item.date_start)}`}
+                        price={new Decimal(item.amount).toNumber()}
+                        currency={item.currency_id}
+                        onOpenDeposit={() => {
+                            //
+                            navigate("/new-deposit");
+                        }}
+                        linkUrl="/tariffs"
+                    />
+                })}
 
             </CardsGrid>
         </div>

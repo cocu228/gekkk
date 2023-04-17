@@ -65,15 +65,13 @@ type WalletTab = {
 }
 
 function Wallet() {
-    const { currency, tab = '' } = useParams<string>();
+
+    const { currency, tab = '' } = useParams();
     const walletAssets = getWalletAssets(currency);
     const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
 
-    if (!walletAssets) {
-        return <Navigate to={'/'}/>;
-    }
-
     const isEURG: boolean = currency === 'EURG';
+
     const {
         name,
         flags

@@ -30,10 +30,17 @@ interface Params {
 function getTokensList(
     wallets: ISortedListBalance[],
     assets: IResMarketAssets[],
+    filter: string,
     excludedCurrencies: Array<string>
 ): IExchangeToken[] {
     return assets.reduce(function(sortedAssets, asset) {
         if (excludedCurrencies.includes(asset.code)) return sortedAssets;
+
+        if (filter.trim().length &&
+            !(asset.code.toLowerCase().includes(filter.toLowerCase()) ||
+            asset.name.toLowerCase().includes(filter.toLowerCase()))) {
+            return sortedAssets;
+        }
 
         const wallet = wallets.find(w => w.const === asset.code);
 
@@ -58,12 +65,8 @@ const AssetsTable = ({
     const [filter, setFilter] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>();
 
-    const tableColumns = [
-        'Name',
-        ExcludableColumns.PRICE,
-        ExcludableColumns.BALANCE,
-        ExcludableColumns.ACTIONS
-    ].filter(e => !excludedColumns.includes(e));
+    const tableColumns = ['Name', ...Object.values(ExcludableColumns)]
+        .filter(e => !excludedColumns.includes(e));
 
     useEffect(() => {
         (async () => {
@@ -80,14 +83,7 @@ const AssetsTable = ({
     const assets = storeListAllCryptoName(state => state.listAllCryptoName)
         .sort((a, b) => a.name.localeCompare(b.name));
 
-    const tokensList: Array<IExchangeToken> = getTokensList(wallets, assets, excludedCurrencies).filter(token =>
-        token.currency
-            .toLowerCase()
-            .includes(filter.toLowerCase()) ||
-        token.name
-            .toLowerCase()
-            .includes(filter.toLowerCase())
-    );
+    const tokensList: Array<IExchangeToken> = getTokensList(wallets, assets, filter, excludedCurrencies);
 
     return (
         <div className={`${className}`}>

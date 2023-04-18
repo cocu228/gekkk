@@ -157,7 +157,7 @@ const TableRow = ({
     onSelect,
     currency,
     tableColumns,
-    balance = 2.232
+    balance
 }) => {
     const {md} = useContext(BreakpointsContext);
 

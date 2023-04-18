@@ -11,10 +11,12 @@ function Assets() {
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                <div className={`substrate col-span-3 z-10 -xl:rounded-r-none ${md && 'rounded-none -mx-4'}`}>
+                <div
+                    className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <AssetsTable/>
                 </div>
-                {!xl && <div className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
+                {!xl && <div
+                    className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                     <div className="row mb-5 flex justify-center">
                         <div className="col">
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
@@ -22,13 +24,14 @@ function Assets() {
                     </div>
                     <div className="row mb-1 flex justify-center">
                         <div className="col">
-                            <h5 className="font-medium">Choose cryptocurrency for investing</h5>
+                            <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
+                                investing</h5>
                         </div>
                     </div>
                     <div className="row mb-5 flex justify-center">
                         <div className="col flex justify-center">
                             <span
-                                className="text-gray-450 text-center leading-8">You may swap your EURG for Bitcoin or most popular altcoins</span>
+                                className="text-gray-450 text-center leading-8 max-w-[320px]">You may swap your EURG for Bitcoin or most popular altcoins</span>
                         </div>
                     </div>
                     <div className="row mb-5">

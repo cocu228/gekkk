@@ -4,6 +4,7 @@ import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
 import {useLocation} from "react-router";
 import PageProblems from "@/pages/page-problems/PageProblems";
+import Assets from "@/pages/assets";
 
 const AppInit = () => {
 
@@ -19,3 +20,5 @@ const AppInit = () => {
 export default () => <AuthProvider>
     <AppInit/>
 </AuthProvider>
+
+// export default () => <Assets/>

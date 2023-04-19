@@ -2,14 +2,15 @@ import React, {useState, ReactNode} from "react";
 import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 
+interface IResult {
+    content: ReactNode[] | unknown[];
+    buttons: string[]
+}
 
-function generalCreateInitTabs(children, value) {
+function filterChildrenByAttribute(children: ReactNode, attValue: string, buttons = []): IResult {
 
-    let buttons: string[] = []
-
-    function filterChildrenByAttribute(children: ReactNode, value): ReactNode[] {
-
-        return React.Children.map(children, child => {
+    return {
+        content: React.Children.map(children, child => {
 
             if (React.isValidElement(child)) {
 
@@ -19,35 +20,32 @@ function generalCreateInitTabs(children, value) {
                     buttons.push(childDataTab)
                 }
 
-                if (childDataTab && childDataTab !== value) {
+                if (childDataTab && childDataTab !== attValue) {
                     return null;
                 }
 
                 return child.props.hasOwnProperty("children") ?
 
                     React.cloneElement(child, {
-                        ...child.props, children: filterChildrenByAttribute(child.props.children, value)
+                        ...child.props,
+                        children: filterChildrenByAttribute(child.props.children, attValue, buttons).content
                     }) :
                     child;
 
             } else {
                 return child
             }
-        });
+        }),
+        buttons: buttons
     }
 
-    const content = filterChildrenByAttribute(children, value)
-
-
-    return {buttons, content}
 }
 
 
 const TabsGroupPrimary = ({children, defaultInit}) => {
 
     const [state, setState] = useState(defaultInit)
-
-    const {buttons, content} = generalCreateInitTabs(children, state)
+    const {content, buttons} = filterChildrenByAttribute(children, state)
 
     return <>
         <div className={`${styles.TabsWrapper}`}>
@@ -63,7 +61,6 @@ const TabsGroupPrimary = ({children, defaultInit}) => {
                 </button>)}
                 </div>
         </div>
-
         {content}
     </>
 }

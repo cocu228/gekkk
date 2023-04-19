@@ -50,23 +50,18 @@ const TabsGroupPrimary = ({children, defaultInit}) => {
     const {buttons, content} = generalCreateInitTabs(children, state)
 
     return <>
-        <div
-            className='flex relative pt-4 mb-8 ml-[calc(-1*var(--content-pad-left))] mr-[calc(-1*var(--content-pad-right))]'>
-            <div className='w-full px-4 ml-[var(--content-pad-left)] mr-[var(--content-pad-right)]'>
-                <div className='flex pb-[10px]'>
-                    {buttons.map((item, i) => <button
-                        key={"tabs-primary-button" + i}
-                        className={`
-                                ${styles.Tab}
+        <div className={`${styles.TabsWrapper}`}>
+            <div className='flex pb-[10px]'>
+                {buttons.map((item, i) => <button
+                    key={"tabs-primary-button" + i}
+                    className={`
+                                ${styles.TabBtn}
                                 ${isActiveClass(item === state)}
                             `}
-                        onClick={() => setState(item)}>
-                        {item.capitalize()}
-                    </button>)}
+                    onClick={() => setState(item)}>
+                    {item.capitalize()}
+                </button>)}
                 </div>
-            </div>
-
-            <div className="block justify-center h-[2px] absolute bg-gray-200 mt-9 w-full"/>
         </div>
 
         {content}

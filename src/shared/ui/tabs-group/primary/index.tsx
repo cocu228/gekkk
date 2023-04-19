@@ -51,7 +51,7 @@ const TabsGroupPrimary = ({children, defaultInit}) => {
 
     return <>
         <div className={`${styles.TabsWrapper}`}>
-            <div className='flex pb-[10px]'>
+            <div className='flex'>
                 {buttons.map((item, i) => <button
                     key={"tabs-primary-button" + i}
                     className={`

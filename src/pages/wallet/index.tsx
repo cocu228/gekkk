@@ -1,14 +1,14 @@
-import {useState} from "react";
-import {Navigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import PrimaryTabGroup from '@/shared/ui/tab-group/primary';
 import About from "@/widgets/wallet-stage/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
 import Withdraw from "@/widgets/wallet-stage/withdraw/Withdraw";
 import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
-import { IResListAddresses } from "@/shared/api";
-import { storeListAvailableBalance, storeListAllCryptoName, storeListAddresses } from "@/shared/store/crypto-assets";
+import {IResListAddresses} from "@/shared/api";
+import {storeListAvailableBalance, storeListAddresses} from "@/shared/store/crypto-assets";
+import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
+import {IconCoin} from "@/shared/ui/icons/icon-coin";
 
 const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
@@ -29,108 +29,16 @@ function getDescriptionText(name: string, currency: string, flags: number) {
     return `${actions} your ${name} (${currency}) directly from your Gekkoin account`;
 }
 
-const initialTabs: string[] = ['topup', 'withdraw', 'about'];
-
-const getInitialTab = (tab: string | undefined) => 
-    (tab && initialTabs.includes(tab)) ? tab : 'topup';
-
-const getWalletAssets = (currency: string) =>
-    storeListAllCryptoName(state => state.listAllCryptoName)?.find(asset => asset.code === currency);
-
-const getWalletData = (currency: string) =>
-    storeListAvailableBalance(state => state.defaultListBalance).find(b => b.currency === currency);
-
-function getTabsAsRecord (tabs: Array<WalletTab>) {
-    let list: Record<string, string> = {};
-    
-    tabs.forEach(tab => Object.assign(list, {
-        [tab.Key]: tab.Title
-    }));
-
-    return list;
-}
-
-enum TabKey {
-    TOPUP = 'topup',
-    WITHDRAW = 'withdraw',
-    TRANSFER = 'transfer',
-    HISTORY = 'history',
-    ABOUT = 'about'
-}
-
-type WalletTab = {
-    Key: TabKey;
-    Title: string;
-    Tab: JSX.Element;
-}
-
 function Wallet() {
 
-    const { currency, tab = '' } = useParams();
-    const walletAssets = getWalletAssets(currency);
+    const params = useParams();
+    const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
+    const currency = sortedListBalance.find(item => item.const === params.currency)
     const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
 
-    const isEURG: boolean = currency === 'EURG';
+    if (!currency) return null
 
-    const {
-        name,
-        flags
-    } = walletAssets;
-
-    const walletTabs: Array<WalletTab> = [
-        ...(flags === 8 ? [
-            {
-                Key: TabKey.TOPUP,
-                Title: 'Top Up',
-                Tab: <TopUp
-                        listAddresses={listAddresses}
-                        currency={currency}
-                        flags={flags}
-                    />
-            },
-            {
-                Key: TabKey.WITHDRAW,
-                Title: 'Withdraw',
-                Tab: <Withdraw
-                        currency={currency}
-                        flags={flags}
-                    />
-            },
-            {
-                Key: TabKey.TRANSFER,
-                Title: 'Transfer to Contact',
-                Tab: <Transfer
-                        currency={currency}
-                    />
-            },
-        ] : []),
-        /* TODO: Show only in mobile version
-        {
-            Key: Tabs.ABOUT,
-            Title: 'About',
-            Tab: <About
-                    currency={currency}
-                    name={name}
-                    flags={flags}
-                />
-        }
-        */
-        {
-            Key: TabKey.ABOUT,
-            Title: 'About',
-            Tab: <About
-                    currency={currency}
-                    name={name}
-                    flags={flags}
-                />
-        }
-    ]
-
-    let [activeTab, setActiveTab] = useState<string>(getInitialTab(tab));
-    const walletData = getWalletData(currency);
-
-    if (!walletTabs.find(t => t.Key === activeTab))
-        setActiveTab(walletTabs[0].Key);
+    const isEURG: boolean = currency.const === 'EURG';
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -138,16 +46,7 @@ function Wallet() {
                 <div className='flex w-inherit py-6 items-center'>
                     <div className="flex justify-start">
                         <div className="mr-6">
-                            <img 
-                                className="h-[50px] w-[50px]"
-                                src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
-                                onError={({ currentTarget }) => {
-                                    if (currentTarget.getAttribute("data-icon") === "empty")
-                                        return null
-
-                                    currentTarget.setAttribute("data-icon", "empty")
-                                }}
-                                alt={currency}/>
+                            <IconCoin code={currency.const}/>
                         </div>
 
                         <div className="flex flex-col content-around">
@@ -156,7 +55,7 @@ function Wallet() {
                             </div>
 
                             <div className="text-2xl font-bold text-gray-600 cursor-help">
-                                {walletData? walletData.free_balance : 0} {currency}
+                                {currency.const}
                             </div>
                         </div>
 
@@ -181,31 +80,47 @@ function Wallet() {
 
                     <div className="ml-auto text-right">
                         <div className="font-bold text-fs32 leading-[48px] text-gray-600 mb-4">
-                            {name} wallet
+                            {currency.name} wallet
                         </div>
                         <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
-                            {isEURG ? EurgDescriptionText : getDescriptionText(name, currency, flags)}  
+                            {isEURG ? EurgDescriptionText : getDescriptionText(currency.name, currency.const, currency.defaultInfoToken.flags)}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <PrimaryTabGroup
-                tabs={getTabsAsRecord(walletTabs)}
-                setActiveTab={setActiveTab}
-                activeTab={activeTab}
-            />
+            <TabsGroupPrimary defaultInit={"TopUp"}>
+                <div className='grid grid-cols-2'>
+                    <div className="substrate">
+                        <TopUp
+                            data-tab={"TopUp"}
+                            listAddresses={listAddresses}
+                            currency={currency.const}
+                            flags={currency.defaultInfoToken.flags}
+                        />
+                        <Withdraw
+                            data-tab={"Withdraw"}
+                            currency={currency.const}
+                            flags={currency.defaultInfoToken.flags}
+                        />
+                        <Transfer
+                            data-tab={"Transfer"}
+                            currency={currency.const}
+                        />
 
-            <div className='flex grow shrink text-gray-500 container mx-auto mb-5 px-4'>
-                <div className="bg-white inline-block z-10 rounded-l-[10px] px-[40px] py-10 w-[585px] shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]">
-                    {walletTabs.find(tab => tab.Key === activeTab)?.Tab}
+                        <About
+                            data-tab={"About"}
+                            name={currency.name}
+                            flags={currency.defaultInfoToken.flags}
+                            currency={currency.const}
+                        />
+                    </div>
+
+                    <History className={`substrate -ml-4 h-full`}
+                             currency={currency.const}
+                    />
                 </div>
-                
-                <History
-                    className={`rounded-l-none inline-block h-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.12)]`}
-                    currency={currency}
-                />
-            </div>
+            </TabsGroupPrimary>
         </div>
     );
 };

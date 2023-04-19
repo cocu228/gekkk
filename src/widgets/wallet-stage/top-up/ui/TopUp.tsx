@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
+import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import CryptoTopUp from './crypto/CryptoTopUp';
 import { IResListAddresses } from '@/shared/api';
 

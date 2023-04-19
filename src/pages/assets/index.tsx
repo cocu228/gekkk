@@ -146,7 +146,7 @@ const TableRow = ({
     return <div
         className={`row grid grid-cols-12 ${evenOrOdd(index) ? "bg-gray-main" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
         <div data-text={name} className="col col-span-5 flex items-center gap-3  ellipsis">
-            <IconCoin width={29} height={29} iconName={code.toLowerCase().capitalize() + "Icon.svg"} coinName={code}/>
+            <IconCoin width={29} height={29} code={code} />
             <span>{name}</span>
         </div>
         <div data-text={price} className="col col-span-2 flex items-center justify-center ellipsis">

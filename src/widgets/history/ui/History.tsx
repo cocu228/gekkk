@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import {useEffect, useState} from 'react';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import SecondaryTabGroup from "@/shared/ui/tab-group/secondary";
+import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Table from "@/shared/ui/table/Table";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';

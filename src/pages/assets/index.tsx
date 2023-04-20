@@ -43,7 +43,8 @@ function Assets() {
                 <div
                     className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <TableGroup>
-                        <TableHead items={["Name", "Price", "Balance", "Actions"]}/>
+                        <TableHead items={md ? ["Name", "Price", "Actions"] :
+                            ["Name", "Price", "Balance", "Actions"]}/>
                         {listAllCryptoName.map((item, index) => <TableRow
                             price={"0.12312"}
                             index={index}
@@ -142,25 +143,28 @@ const TableRow = ({
                       actions = null
                   }) => {
 
+    const {xl, md} = useContext(BreakpointsContext);
 
     return <div
-        className={`row grid grid-cols-12 ${evenOrOdd(index) ? "bg-gray-main" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
+        className={`row grid grid-cols-12 justify-between  ${evenOrOdd(index) ? "bg-gray-main" : ""} ${md ? "justify-between" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
         <div data-text={name} className="col col-span-5 flex items-center gap-3  ellipsis">
-            <IconCoin width={29} height={29} code={code} />
+            <IconCoin width={29} height={29} code={code}/>
             <span>{name}</span>
         </div>
         <div data-text={price} className="col col-span-2 flex items-center justify-center ellipsis">
             <span>{price} €</span>
         </div>
-        <div data-text={`${balance} ${code}`} className="col col-span-2 flex items-center justify-center ellipsis">
-            <span>{balance} {code}</span>
-        </div>
-        <div className="col col-span-3 flex items-center justify-end gap-3">
+        {!md &&
+            <div data-text={`${balance} ${code}`} className="col col-span-2 flex items-center justify-center ellipsis">
+                <span>{balance} {code}</span>
+            </div>}
+        <div className={`col col-span-3 ${md ? "col-end-12" : ""} grid grid-flow-col items-center justify-end gap-3`}>
             <a className="ellipsis" data-text={"Receive"} href="">
-                <img width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
+                <img className="max-w-max" width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
             </a>
             <a className="ellipsis" data-text={"Withdraw"} href="">
-                <img className="rotate-180" width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
+                <img className="rotate-180 max-w-max" width={14} height={14} src="/img/icon/Download.svg"
+                     alt="Download"/>
             </a>
             <Button size={"sm"} gray>Buy</Button>
         </div>

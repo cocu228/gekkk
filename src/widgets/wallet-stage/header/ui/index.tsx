@@ -40,7 +40,7 @@ const WalletHeader = ({currency}) => {
                 </div>)}
             </div>
 
-            <div className="text-right auto-cols-fr">
+            <div className="text-right grid auto-cols-fr">
                 <div data-text={`${currency.name} wallet`} className="mb-4 ellipsis -mt-1.5">
                     <span className="font-bold text-fs32 leading-1 text-gray-600">
                         {currency.name} wallet

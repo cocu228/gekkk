@@ -59,7 +59,7 @@ const TabsGroupPrimary = ({children, defaultInit}) => {
                     onClick={() => setState(item)}>
                     {item.capitalize()}
                 </button>)}
-                </div>
+            </div>
         </div>
         {content}
     </>

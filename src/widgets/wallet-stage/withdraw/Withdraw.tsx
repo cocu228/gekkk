@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SecondaryTabGroup from '@/shared/ui/tab-group/secondary';
+import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import CryptoWithdraw from './crypto/CryptoWithdraw'
 
 const fiatTabs: Record<string, string> = {

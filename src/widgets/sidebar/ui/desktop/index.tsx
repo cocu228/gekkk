@@ -113,8 +113,7 @@ const SidebarDesktop = () => {
                             <div className="col flex items-center pl-4">
                                 <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                 <IconCoin className={styles.Icon}
-                                          coinName={item.name}
-                                          iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
+                                          code={item.const}/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-6">
                                 <div className="row w-full mb-1"><span

@@ -17,7 +17,6 @@ function Wallet() {
     const params = useParams();
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const currency = sortedListBalance.find(item => item.const === params.currency)
-    const listAddresses: IResListAddresses[] = storeListAddresses(state => state.listAddresses);
     const {xl, md} = useContext(BreakpointsContext);
 
     if (!currency) return null
@@ -27,12 +26,10 @@ function Wallet() {
             <WalletHeader currency={currency}/>
             <TabsGroupPrimary defaultInit={"TopUp"}>
                 <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
-                    <div className="substrate z-10">
+                    <div className="substrate z-10 w-inherit relative">
                         <TopUp
                             data-tab={"TopUp"}
-                            listAddresses={listAddresses}
-                            currency={currency.const}
-                            flags={currency.defaultInfoToken.flags}
+                            currency={currency}
                         />
                         <Withdraw
                             data-tab={"Withdraw"}

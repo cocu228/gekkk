@@ -24,3 +24,19 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
     const result = typeof balance === "number" || typeof balance === "string" ? new Decimal(balance) : balance
     return result.toDecimalPlaces(roundingValue).toNumber()
 }
+
+export const actionSuccessConstructor = function (value) {
+    if (value) {
+        return {
+            success: (val) => {
+                val(this)
+            }
+        }
+    } else {
+        return {
+            success: (val) => {
+                return new Error("Response error")
+            }
+        }
+    }
+}

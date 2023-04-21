@@ -22,7 +22,6 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
         const {data} = result;
 
         setNetworksList(data);
-        setActiveNetwork(data[0]?.type_network_name);
     }
 
     useEffect(() => {
@@ -37,12 +36,10 @@ const CryptoTopUp = ({currency, listAddresses}: CryptoTopUpParams) => {
     return (
         <div className="flex flex-col items-center mt-2">
             <div className="w-full">
-                Select network
-
                 <Select
                     disabled={!networksList.length}
                     className="w-full mt-2"
-                    value={activeNetwork}
+                    value={activeNetwork ?? "Select network"}
                     onSelect={setActiveNetwork}
                     options={networksList.map(network => {
                         return {label: network.name, value: network.type_network_name};

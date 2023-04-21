@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import CryptoTopUp from './crypto/CryptoTopUp';
-import { IResListAddresses } from '@/shared/api';
+import {IResListAddresses} from '@/shared/api';
+import {storeListAddresses} from "@/shared/store/crypto-assets";
+import Loader from "@/shared/ui/loader";
 
 const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
@@ -13,35 +15,23 @@ const cryptoTabs: Record<string, string> = {
 }
 
 interface TopUpParams {
-    flags: number,
+    // flags: number,
     currency: string,
-    listAddresses: IResListAddresses[];
+    // listAddresses: IResListAddresses[];
 }
 
-const TopUp = ({flags, currency, listAddresses}: TopUpParams) => {
-    let availableMethods = flags === 8 ? fiatTabs : cryptoTabs
-    const [activeTab, setActiveTab] = useState('gek_card')
+const TopUp = ({currency}: TopUpParams) => {
 
-    if (!Object.keys(availableMethods).includes(activeTab)) {
-        setActiveTab(Object.keys(availableMethods)[0]);
-    }
+    const listAddresses = storeListAddresses(state => state.listAddresses)
+    const getListAddresses = storeListAddresses(state => state.getListAddresses)
 
-    return (
-        <div className='h-full'>
-            <SecondaryTabGroup
-                tabs={availableMethods}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-            />
+    return (<div className="wrapper relative">
+        {listAddresses === null ? <Loader/> : <CryptoTopUp
+            currency={currency}
+            listAddresses={listAddresses}
+        />
+        }</div>)
 
-            {activeTab === 'crypto' && (
-                <CryptoTopUp
-                    currency={currency}
-                    listAddresses={listAddresses}
-                />
-            )}
-        </div>
-    );
 };
 
 export default TopUp;

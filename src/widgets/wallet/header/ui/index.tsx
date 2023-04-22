@@ -2,7 +2,7 @@ import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {getDescriptionText, EurgTooltipText, EurgDescriptionText} from "../module/description";
 import {useContext} from "react";
-import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
+import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
 const WalletHeader = () => {
 

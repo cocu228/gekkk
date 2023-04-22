@@ -1,18 +1,18 @@
 import {useParams} from "react-router-dom";
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
-import About from "@/widgets/wallet-stage/about/ui/About";
+import About from "@/widgets/wallet/about/ui/About";
 import History from "@/widgets/history/ui/History";
-import TopUp from "@/widgets/wallet-stage/top-up/ui/TopUp";
-import Withdraw from "@/widgets/wallet-stage/withdraw/Withdraw";
-import Transfer from "@/widgets/wallet-stage/transfer/Transfer";
+import TopUp from "@/widgets/wallet/top-up/ui/TopUp";
+import Withdraw from "@/widgets/wallet/withdraw/Withdraw";
+import Transfer from "@/widgets/wallet/transfer/Transfer";
 import {IResListAddresses} from "@/shared/api";
 import {storeListAvailableBalance, storeListAddresses} from "@/shared/store/crypto-assets";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
-import WalletHeader from "@/widgets/wallet-stage/header/ui";
+import WalletHeader from "@/widgets/wallet/header/ui";
 import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import NetworkHOC from "@/widgets/wallet-stage/top-up/model/NetworkHOC";
-import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
+import NetworkHOC from "@/widgets/wallet/model/NetworkHOC";
+import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
 function Wallet() {
 

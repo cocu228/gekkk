@@ -2,7 +2,7 @@ import descriptions from '@/shared/config/coins/descriptions'
 import Button from '@/shared/ui/button/Button';
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
-import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
+import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
 
 const About = () => {

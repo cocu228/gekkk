@@ -1,7 +1,7 @@
 import Button from "@/shared/ui/button/Button";
 import { Input } from "antd";
 import {useContext} from "react";
-import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
+import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
 const {TextArea} = Input;
 

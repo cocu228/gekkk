@@ -1,11 +1,11 @@
 import $axios from "@/shared/lib/(cs)axios";
 
-export interface IResCreateAddress {
+export interface IResCreateWithdraw {
 
 }
 
 export const apiCreateNetwork = (type_network: number) =>
-    $axios.get<IResCreateAddress>('/gek/v1/client/create_address', {
+    $axios.get<IResCreateWithdraw>('/gek/v1/client/create_withdraw', {
         params: {
             type_network
         }

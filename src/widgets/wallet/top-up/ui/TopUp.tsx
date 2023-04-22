@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from 'react';
 import Loader from "@/shared/ui/loader";
-import ChoseNetwork from "@/widgets/wallet-stage/top-up/ui/ChoseNetwork";
-import {CtxWalletNetworks} from "@/widgets/wallet-stage/top-up/model/context";
-import TopUpQR from "@/widgets/wallet-stage/top-up/ui/TopUpQR";
+import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
+import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 
 // const fiatTabs: Record<string, string> = {
 //     'gek_card': 'Payment Card',
@@ -16,15 +16,13 @@ import TopUpQR from "@/widgets/wallet-stage/top-up/ui/TopUpQR";
 
 const TopUp = () => {
 
-    const [hash, setHash] = useState(null)
-
     const {loading} = useContext(CtxWalletNetworks)
 
 
     return (<div className="wrapper">
         {loading ? <Loader/> : <>
-            <ChoseNetwork setHash={setHash} hash={hash}/>
-            <TopUpQR hash={hash}/>
+            <ChoseNetwork/>
+            <TopUpQR/>
         </>}
     </div>)
 

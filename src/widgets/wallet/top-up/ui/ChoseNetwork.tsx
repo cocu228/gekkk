@@ -1,47 +1,23 @@
 import Select from "@/shared/ui/select/Select";
 import React, {useContext} from "react";
-import Button from "@/shared/ui/button/Button";
-import {apiCreateNetwork} from "@/shared/api/client/create-address";
-import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet-stage/top-up/model/context";
-import {randomId} from "@/shared/lib/helpers";
+import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
-const ChoseNetwork = ({hash, setHash}) => {
+const ChoseNetwork = () => {
 
-    const {setState, addressesForSelector} = useContext(CtxWalletNetworks)
-    const currency = useContext(CtxWalletCurrency)
-    const onCreateNetwork = async () => {
-
-        setState(prev => ({
-            ...prev,
-            loading: true
-        }))
-
-        const {data} = await apiCreateNetwork(currency.defaultInfoToken.default_token_network)
-
-        setState(prev => ({
-            ...prev,
-            refreshKey: randomId()
-        }))
-
-    }
+    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
 
     return <>
-        {addressesForSelector.length !== 0 ? <div className="row mb-8 w-full">
+        <div className="row mb-8 w-full">
             <div className="col">
                 Select network
                 <Select className="w-full mt-2"
                         placeholder={"Chose Network"}
-                        value={hash}
-                        onSelect={setHash}
-                        options={addressesForSelector}
+                        value={networkIdSelect}
+                        onSelect={setNetworkId}
+                        options={networksForSelector}
                 />
             </div>
-        </div> : <div className="row mt-8 px-4 mb-8 w-full">
-            <Button tabIndex={0} onClick={onCreateNetwork} htmlType="submit"
-                    className="w-full disabled:opacity-5 !text-white">
-                Generate address
-            </Button>
-        </div>}
+        </div>
 
         <div className="row mb-10">
             <div className="col">

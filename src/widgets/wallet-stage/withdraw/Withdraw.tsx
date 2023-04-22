@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import CryptoWithdraw from './crypto/CryptoWithdraw'
+import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet-stage/top-up/model/context";
+import Loader from "@/shared/ui/loader";
 
 const fiatTabs: Record<string, string> = {
     'gek_card': 'Payment Card',
@@ -11,12 +13,14 @@ const cryptoTabs: Record<string, string> = {
     'crypto': 'Blockchain wallet',
 }
 
-interface TopUpParams {
-    flags: number,
-    currency: string
-}
 
-const Withdraw = ({flags, currency}: TopUpParams) => {
+const Withdraw = () => {
+
+    const currency = useContext(CtxWalletCurrency)
+    const {flags} = currency.defaultInfoToken
+
+    const {loading} = useContext(CtxWalletNetworks)
+
     let availableMethods = flags === 8 ? fiatTabs : cryptoTabs
     const [activeTab, setActiveTab] = useState('gek_card')
 
@@ -24,7 +28,7 @@ const Withdraw = ({flags, currency}: TopUpParams) => {
         setActiveTab(Object.keys(availableMethods)[0]);
     }
 
-    return (
+    return loading ? <Loader/> : (
         <div className='h-full'>
             <SecondaryTabGroup
                 tabs={availableMethods}
@@ -33,9 +37,7 @@ const Withdraw = ({flags, currency}: TopUpParams) => {
             />
 
             {activeTab === 'crypto' && (
-                <CryptoWithdraw
-                    currency={currency}
-                />
+                <CryptoWithdraw/>
             )}
         </div>
     );

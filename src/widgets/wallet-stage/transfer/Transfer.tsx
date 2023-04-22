@@ -1,13 +1,14 @@
 import Button from "@/shared/ui/button/Button";
 import { Input } from "antd";
+import {useContext} from "react";
+import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
 
 const {TextArea} = Input;
 
-interface TopUpParams {
-    currency: string
-}
+const Transfer = () => {
 
-const Transfer = ({currency}: TopUpParams) => {
+    const currency = useContext(CtxWalletCurrency)
+
     return (
         <div className="h-full flex flex-col items-center">
             <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
@@ -17,7 +18,7 @@ const Transfer = ({currency}: TopUpParams) => {
                         suffix={
                             <img
                                 className='mx-2 h-[30px]'
-                                src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
+                                src={`/img/tokens/${currency.const.toLowerCase().capitalize()}Icon.svg`}
                                 alt='currency'
                             />
                         }
@@ -29,7 +30,7 @@ const Transfer = ({currency}: TopUpParams) => {
                         inputMode='decimal'
                         suffix={
                             <div className='mx-1 text-gray-400 text-base align-middle'>
-                                {currency}
+                                {currency.name}
                             </div>
                         }
                     />

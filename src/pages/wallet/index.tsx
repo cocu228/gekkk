@@ -11,6 +11,8 @@ import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import WalletHeader from "@/widgets/wallet-stage/header/ui";
 import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import NetworkHOC from "@/widgets/wallet-stage/top-up/model/NetworkHOC";
+import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
 
 function Wallet() {
 
@@ -23,39 +25,27 @@ function Wallet() {
 
     return (
         <div className="flex flex-col h-full w-full">
-            <WalletHeader currency={currency}/>
-            <TabsGroupPrimary defaultInit={"TopUp"}>
-                <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
-                    <div className="substrate z-10 w-inherit relative">
-                        <TopUp
-                            data-tab={"TopUp"}
-                            currency={currency}
-                        />
-                        <Withdraw
-                            data-tab={"Withdraw"}
-                            currency={currency.const}
-                            flags={currency.defaultInfoToken.flags}
-                        />
-                        <Transfer
-                            data-tab={"Transfer"}
-                            currency={currency.const}
-                        />
+            <CtxWalletCurrency.Provider value={currency}>
+                <WalletHeader/>
+                <TabsGroupPrimary defaultInit={"TopUp"}>
+                    <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
+                        <div className="substrate z-10 w-inherit relative">
+                            <NetworkHOC>
+                                <TopUp data-tab={"TopUp"}/>
+                                <Withdraw data-tab={"Withdraw"}/>
+                            </NetworkHOC>
 
-                        <About
-                            data-tab={"About"}
-                            name={currency.name}
-                            flags={currency.defaultInfoToken.flags}
-                            currency={currency.const}
-                        />
+                            <Transfer data-tab={"Transfer"}/>
+                            <About data-tab={"About"}/>
+                            {xl && <History data-tab={"History"}/>}
 
-                        {xl && <History data-tab={"History"} currency={currency.const}/>}
-
+                        </div>
+                        {!xl && <div className="substrate z-0 -ml-4 h-full">
+                            <History/>
+                        </div>}
                     </div>
-                    {!xl && <div className="substrate z-0 -ml-4 h-full">
-                        <History currency={currency.const}/>
-                    </div>}
-                </div>
-            </TabsGroupPrimary>
+                </TabsGroupPrimary>
+            </CtxWalletCurrency.Provider>
         </div>
     );
 };

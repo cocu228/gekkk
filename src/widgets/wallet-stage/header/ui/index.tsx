@@ -1,9 +1,13 @@
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {getDescriptionText, EurgTooltipText, EurgDescriptionText} from "../module/description";
+import {useContext} from "react";
+import {CtxWalletCurrency} from "@/widgets/wallet-stage/top-up/model/context";
 
-const WalletHeader = ({currency}) => {
-    console.log(currency)
+const WalletHeader = () => {
+
+    const currency = useContext(CtxWalletCurrency)
+
     const isEURG: boolean = currency.const === 'EURG';
 
     return <>

@@ -1,10 +1,8 @@
-import {useEffect, useState} from 'react';
-import {storeListAddresses} from "@/shared/store/crypto-assets";
+import {useContext, useEffect, useState} from 'react';
 import Loader from "@/shared/ui/loader";
 import ChoseNetwork from "@/widgets/wallet-stage/top-up/ui/ChoseNetwork";
-import {CtxTopUp} from "@/widgets/wallet-stage/top-up/model/context";
-import {apiTokenNetworks} from "@/shared/api";
-import {helperApiTokenNetworks, helperSortingList} from "@/widgets/wallet-stage/top-up/model/helper";
+import {CtxWalletNetworks} from "@/widgets/wallet-stage/top-up/model/context";
+import TopUpQR from "@/widgets/wallet-stage/top-up/ui/TopUpQR";
 
 // const fiatTabs: Record<string, string> = {
 //     'gek_card': 'Payment Card',
@@ -16,43 +14,18 @@ import {helperApiTokenNetworks, helperSortingList} from "@/widgets/wallet-stage/
 // }
 
 
-const TopUp = ({currency}) => {
-    const getListAddresses = storeListAddresses(state => state.getListAddresses)
+const TopUp = () => {
 
-    const [state, setState] = useState({
-        list: null,
-        loading: true,
-        hash: null,
-        isUpdateNow: ""
-    })
+    const [hash, setHash] = useState(null)
 
+    const {loading} = useContext(CtxWalletNetworks)
 
-    useEffect(() => {
-
-        (async () => {
-
-            setState(prevState => ({...prevState, list: null, hash: null, loading: true}))
-
-            const listAddresses = await getListAddresses()
-
-            const response = await apiTokenNetworks(currency.const);
-
-            helperApiTokenNetworks(response).success((data) => {
-                setState(prev => ({
-                    ...prev,
-                    list: helperSortingList(listAddresses, data),
-                    loading: false
-                }))
-            })
-
-        })()
-
-    }, [currency, state.isUpdateNow])
 
     return (<div className="wrapper">
-        <CtxTopUp.Provider value={{...state, setState}}>
-            {state.loading ? <Loader/> : <ChoseNetwork currency={currency}/>}
-        </CtxTopUp.Provider>
+        {loading ? <Loader/> : <>
+            <ChoseNetwork setHash={setHash} hash={hash}/>
+            <TopUpQR hash={hash}/>
+        </>}
     </div>)
 
 };

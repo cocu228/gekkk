@@ -17,7 +17,9 @@ const WithdrawConfirm = ({
     const currency = useContext(CtxWalletCurrency)
 
     const onClick = async () => {
-        const res = await apiCreateNetwork(currency.const, networkIdSelect, new Decimal(amount).toNumber(), withdraw_fee, isNull(address) ? "" : address, receiver, description)
+        const res = await apiCreateNetwork(currency.const, networkIdSelect, new Decimal(amount).toNumber(),
+            withdraw_fee, isNull(address) ? "" : address, receiver, description)
+
         console.log(res)
     }
 

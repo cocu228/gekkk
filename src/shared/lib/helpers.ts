@@ -11,6 +11,7 @@ export function randomId(value = 12): string {
 }
 
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
+export const isNull = (value: any): boolean => value === null
 
 export function evenOrOdd(number) {
     return number % 2 === 0
@@ -23,4 +24,20 @@ export const getCryptoIconName = ($const, extension = "svg") => {
 export const getRoundingValue = (balance: Decimal | number | string, roundingValue: number) => {
     const result = typeof balance === "number" || typeof balance === "string" ? new Decimal(balance) : balance
     return result.toDecimalPlaces(roundingValue).toNumber()
+}
+
+export const actionSuccessConstructor = function (value) {
+    if (value) {
+        return {
+            success: (val) => {
+                val(this)
+            }
+        }
+    } else {
+        return {
+            success: (val) => {
+                return new Error("Response error")
+            }
+        }
+    }
 }

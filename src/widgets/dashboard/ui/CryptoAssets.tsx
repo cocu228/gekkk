@@ -16,7 +16,7 @@ function CryptoAssets() {
                 {sortedListBalance.map((item, i) => <CryptoAssetCard
                     title="EURG Gekkoin"
                     key={"CryptoAssetCard-" + i}
-                    iconName={getCryptoIconName(item.const)}
+                    iconName={item.const}
                     coinName={item.name}
                     balance={getRoundingValue(item.availableBalance, item.roundingValue)}
                     currency={item.const}

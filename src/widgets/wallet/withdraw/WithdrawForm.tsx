@@ -83,7 +83,7 @@ const WithdrawForm = () => {
 
                 <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
                        open={isModalOpen}>
-                    <WithdrawConfirm {...inputs}/>
+                    <WithdrawConfirm {...inputs} withdraw_fee={withdraw_fee}/>
                 </Modal>
 
 

@@ -1,4 +1,5 @@
 import {apiRequestCode, apiSignIn} from "@/widgets/auth/api";
+import {actionSuccessConstructor} from "@/shared/lib/helpers";
 
 export const APP_STORE_GEKKARD = 'https://apps.apple.com/MT/app/id1493274973';
 export const GOOGLE_PLAY_GEKKARD = 'https://play.google.com/store/apps/details?id=com.papaya.gekkard';
@@ -29,19 +30,4 @@ export const authForTokenHashUrl = function () {
 
     return actionSuccessConstructor.call(sessionId, typeof sessionId === "string")
 
-}
-const actionSuccessConstructor = function (value) {
-    if (value) {
-        return {
-            success: (val) => {
-                val(this)
-            }
-        }
-    } else {
-        return {
-            success: (val) => {
-                return new Error("Response error")
-            }
-        }
-    }
 }

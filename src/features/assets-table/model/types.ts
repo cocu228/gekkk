@@ -6,3 +6,12 @@ export interface IExchangeToken {
     name: string,
     roundTo?: number
 }
+
+export enum AssetTableKeys {
+    NAME = 'Name',
+    PRICE = 'Price',
+    BALANCE = 'Balance',
+    CURRENCY = 'Currency',
+    ACTIONS = 'Actions'
+}
+

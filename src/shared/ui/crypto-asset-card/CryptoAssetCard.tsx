@@ -20,7 +20,7 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
         <Card>
             <div className={`wrapper ${ParentClassForCoin}`}>
                 <div className="flex gap-[8px] items-start">
-                    <IconCoin iconName={iconName} coinName={""}/>
+                    <IconCoin code={iconName}/>
                     <p className="flex items-center text-fs14 font-semibold min-h-[32px]">{title}</p>
                 </div>
                 <div className="mt-auto pt-[20px]">

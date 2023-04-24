@@ -4,9 +4,9 @@ import DepositCard from "@/widgets/dashboard/ui/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {useNavigate} from 'react-router-dom';
 import {apiInvestments} from "@/shared/api";
-import Decimal from "decimal.js";
-import {format} from 'date-fns'
+import {formatForDisplay} from "@/shared/lib/date-helper";
 import {Skeleton} from 'antd';
+import Decimal from 'decimal.js';
 import Card from "@/shared/ui/card/Card";
 
 const strategyTypes = {
@@ -43,13 +43,12 @@ function Deposits() {
             <SectionTitle>Deposits</SectionTitle>
 
             <CardsGrid>
-
                 {state === null && [1, 2, 3, 4].map((it, i) => <Card key={"Card_" + i}><Skeleton active/></Card>)}
 
                 {Array.isArray(state) && state.map((item, i) => <DepositCard
                     title={strategyTypes[item.dep_type]}
                     key={"DepositCard-" + i}
-                    subtitle={`Opened ${format(new Date(item.date_start), "dd MMMM yyyy")}`}
+                    subtitle={`Opened ${formatForDisplay(item.date_start)}`}
                     price={new Decimal(item.amount).toNumber()}
                     currency={item.currency_id}
                     onOpenDeposit={() => {

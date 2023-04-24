@@ -16,7 +16,6 @@ export default memo(function () {
     const getListAllCryptoName = storeListAllCryptoName(state => state.getListAllCryptoName)
     const getDefaultListBalance = storeListAvailableBalance(state => state.getDefaultListBalance)
     const setSortedListBalance = storeListAvailableBalance(state => state.setSortedListBalance)
-    const getListAddresses = storeListAddresses(state => state.getListAddresses)
 
     const [state, setState] = useState({
         loading: true
@@ -37,8 +36,6 @@ export default memo(function () {
                 })) : null
 
             }
-            // TODO: Перемеѝтить в wallet
-            await getListAddresses()
         })()
     }, [])
 

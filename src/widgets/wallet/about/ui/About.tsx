@@ -1,14 +1,17 @@
 import descriptions from '@/shared/config/coins/descriptions'
 import Button from '@/shared/ui/button/Button';
 import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
-type AboutParams = {
-    currency: string,
-    name: string,
-    flags: number
-}
 
-const About = ({currency, name, flags}: AboutParams) => {
+const About = () => {
+
+    const currency = useContext(CtxWalletCurrency),
+        {
+            name,
+            defaultInfoToken: {flags}
+        } = currency
 
     const navigate = useNavigate()
 
@@ -18,14 +21,14 @@ const About = ({currency, name, flags}: AboutParams) => {
                 <div className="mr-4">
                     <img
                         className='h-[50px] w-[50px]'
-                        src={`/img/tokens/${currency.toLowerCase().capitalize()}Icon.svg`}
+                        src={`/img/tokens/${currency.const.toLowerCase().capitalize()}Icon.svg`}
                         onError={({currentTarget}) => {
                             if (currentTarget.getAttribute("data-icon") === "empty")
                                 return null
 
                             currentTarget.setAttribute("data-icon", "empty")
                         }}
-                        alt={currency}
+                        alt={currency.const}
                     />
                 </div>
 
@@ -35,7 +38,7 @@ const About = ({currency, name, flags}: AboutParams) => {
             </div>
 
             <div className='text-gray-500 text-sm font-medium'>
-                {descriptions[currency]?? `Description for this token is not done yet.`}
+                {descriptions[currency.const] ?? `Description for this token is not done yet.`}
             </div>
 
             {flags === 2 && (

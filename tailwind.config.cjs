@@ -40,7 +40,10 @@ module.exports = {
                 bgPrimary: 'rgb(var(--bgPrimary) / <alpha-value>)',
                 bgSecondary: 'rgb(var(--bgSecondary) / <alpha-value>)',
                 green: 'rgb(var(--green) / <alpha-value>)',
-                red: 'rgb(var(--red) / <alpha-value>)',
+                red: {
+                    main: 'rgb(var(--red) / <alpha-value>)',
+                    800: "var(--color-red-800)"
+                },
                 orange: 'rgb(var(--orange) / <alpha-value>)',
 
                 blue: {

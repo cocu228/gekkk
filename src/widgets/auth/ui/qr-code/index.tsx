@@ -1,40 +1,40 @@
 import React, {memo, useContext, useEffect, useRef, useState} from 'react';
-import {S} from "@/pages/auth";
 import ReactQRCode from "react-qr-code";
-import {apiQRCode} from "@/widgets/auth/api";
-import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import {apiTokenHash} from "@/widgets/auth/api";
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
+import {useAuth} from "@/app/providers/AuthRouter";
+import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/healpers";
 
-
-type TProps = {
-    handleView: (val: S) => void;
-}
-
-const QRCode = memo(({handleView}: TProps) => {
+const QRCode = memo(() => {
 
     const [hash, setHash] = useState<null | string>(null);
-    const ref = useRef<ReturnType<typeof setInterval> | null>(null);
-
+    const ref = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+    const {login} = useAuth()
     const {md} = useContext(BreakpointsContext);
+    const setRecursiveReq = (f) => ref.current = setInterval(f, 3000)
+
 
     useEffect(() => {
-
-        (async () => {
-            apiQRCode().then(res => {
-                if (typeof res.data === "string") {
-
+        apiTokenHash().then(res => helperApiQRCode(res)
+            .success(
+                () => {
                     setHash(res.data);
-
-                    ref.current = setInterval(() => {
-                        apiQRCode(res.data).then(res => {
-                            //
-                        });
-                    }, 3000);
+                    setRecursiveReq(
+                        apiTokenHash(res.data)
+                            .then(res => helperApiTokenHash(res)
+                                .success(
+                                    () => login(res.data.Authorization, res.data.Token, res.data.TokenHeaderName)
+                                )
+                            ).catch(e => {
+                            clearInterval(ref.current)
+                            console.warn(e)
+                        })
+                    );
                 }
-            })
-        })();
+            ))
 
-        return () => clearInterval(ref.current !== null ? ref.current : undefined);
+        return () => clearInterval(ref.current);
 
     }, []);
 

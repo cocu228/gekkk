@@ -11,11 +11,13 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import Decimal from "decimal.js";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
+import UpdateAmounts from "../../../../features/update-amounts";
 
 const SidebarDesktop = () => {
 
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
+
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
 
     const {sm, md} = useContext(BreakpointsContext)
@@ -40,7 +42,7 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, []);
+    }, [sortedListBalance]);
 
     const EURG = sortedListBalance.find(it => it.const === "EURG");
     // const GKE = sortedListBalance.find(it => it.const === "GKE");
@@ -50,8 +52,9 @@ const SidebarDesktop = () => {
             <div className={`wrapper flex-col ml-4 pt-4 pb-5 flex ${styles.Wrapper}`}>
                 <div className="row flex justify-between w-full">
                     <div className="col">
-                        <div className="row mb-2">
-                            <span className="text-gray-400 text-sm font-semibold">Asset valuation</span>
+                        <div className="row mb-2 flex">
+                            <span className="text-gray-400 text-sm font-semibold mr-3">Asset valuation</span>
+                            <UpdateAmounts/>
                         </div>
                         <div className="row"></div>
                         <span
@@ -110,8 +113,7 @@ const SidebarDesktop = () => {
                             <div className="col flex items-center pl-4">
                                 <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                 <IconCoin className={styles.Icon}
-                                          coinName={item.name}
-                                          iconName={`${item.const.toLowerCase().capitalize()}Icon.svg`}/>
+                                          code={item.const}/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-6">
                                 <div className="row w-full mb-1"><span

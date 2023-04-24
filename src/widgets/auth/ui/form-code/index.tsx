@@ -6,68 +6,46 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {codeMessage} from '@/shared/config/message';
 import {Input} from 'antd';
 import Button from '@/shared/ui/button/Button';
-import {S} from "@/pages/auth";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useSessionStorage} from "usehooks-ts";
 import {apiSignIn} from "@/widgets/auth/api/";
-import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/healpers";
 
 
-type TProps = {
-    handleView: (val: S) => void;
-}
+const FormCode = memo(() => {
 
-const FormCode = memo(({handleView}: TProps) => {
-
+    const {toggleStage} = storyDisplayStage(state => state);
     const {login} = useAuth();
-
     const {md} = useContext(BreakpointsContext);
-
     const {onInput} = useMask(MASK_CODE);
-
-    const [state, setState] = useState({
-        code: "",
-        loading: false
-    });
-
+    const [code, setCode] = useState("");
+    const [loading, setLoading] = useState<boolean>(false);
     const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""});
     const [, setSessionGlobal] = useSessionStorage("session-global", {});
 
-    const onBack = () => handleView("authorization");
-
     const onFinish = () => {
 
-        setState(prev => ({...prev, loading: true}));
+        setLoading(true);
 
-        apiRequestCode(phone, formatAsNumber(state.code), sessionId).then(async res => {
-
-            if (res.data?.success) {
-
-
-                setSessionGlobal({sessionId: res.data.sessid})
-
-                await apiSignIn(formatAsNumber(state.code), sessionId, phone).then(async (res) => {
-
-                    if (res.data.errors) throw new Error(res.data.errors[0].message)
-
-                    login(phone, res.data.token)
-
-                }).catch(e => {
-
-                    // alert(e);
-                    setState(prev => ({...prev, loading: false}));
-                    onBack();
-                    console.warn(e);
-
-                })
-
-            } else {
-                setState(prev => ({...prev, loading: false}));
-            }
-
-        });
+        apiRequestCode(phone, formatAsNumber(code), sessionId)
+            .then(res =>
+                helperApiRequestCode(res)
+                    .success(
+                        () => {
+                            setSessionGlobal({sessionId: res.data.sessid})
+                            apiSignIn(formatAsNumber(code), sessionId, phone)
+                                .then(res => helperApiSignIn(res)
+                                    .success(
+                                        () => login(phone, res.data.token))
+                                ).catch(e => {
+                                toggleStage("authorization");
+                            })
+                        })
+            )
     }
 
     return <Form onFinish={onFinish}>
@@ -86,22 +64,20 @@ const FormCode = memo(({handleView}: TProps) => {
             <Input type="text"
                    placeholder="Phone code"
                    onInput={onInput}
-                   onChange={({target}) => setState(prev => ({
-                       ...prev,
-                       code: target.value
-                   }))}
+                   onChange={({target}) => setCode(target.value)}
                    autoComplete="off"
             />
         </FormItem>
 
         <div className="row text-right mb-9">
-            <a onClick={onBack} className="text-sm text-gray-500 underline">
+            <a onClick={() => toggleStage("authorization")} className="text-sm text-gray-500 underline">
                 Re-send one-time code again
             </a>
         </div>
-        
+
         <div className="row">
-            <Button tabIndex={0} disabled={state.loading} className={"w-full"} size={"lg"} htmlType="submit">Next</Button>
+            <Button tabIndex={0} disabled={loading || code === ""} className={"w-full"} size={"lg"}
+                    htmlType="submit">Next</Button>
         </div>
     </Form>
 })

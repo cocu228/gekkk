@@ -3,14 +3,19 @@
 .Item {
     margin: 0px -40px;
     padding: 12px 40px;
+    
+    @include devices('md') {
+      padding: 6px 20px;
+    }
 }
 
 .ItemsList {
     box-shadow:
-        inset 0px 11px 8px -10px rgba(0,0,0,0.1),
-        inset 0px -11px 8px -10px rgba(0,0,0,0.1);
-    scrollbar-width: thin;
+      inset 0px 11px 8px -10px rgba(0,0,0,0.1),
+      inset 0px -11px 8px -10px rgba(0,0,0,0.1);
     scrollbar-color: var(--color-secondary) transparent;
+    scrollbar-width: thin;
+    overflow: overlay;
     margin: 0 -40px;
     padding: 0 40px;
     
@@ -29,7 +34,7 @@
       border: none;
     }
     
-    @include devices('sm') {
-      margin: 0 var(--modal-pad-horizontal-sm-negative);
+    @include devices('md') {
+      margin: 0;
     }
 }

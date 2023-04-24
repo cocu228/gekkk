@@ -8,9 +8,11 @@ import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
 import Modal from '@/shared/ui/modal/Modal';
 import CreateRoom from '@/widgets/create-room/CreateRoom';
 import History from '@/widgets/history/ui/History';
+import {useParams} from 'react-router-dom';
 
 export default () => {
   const [createRoomOpen, setCreateRoomOpen] = useState<boolean>(false);
+  const {to} = useParams();
 
   const handleOpenCreateRoom = () => {
     setCreateRoomOpen(true);

@@ -1,33 +1,35 @@
 import {useContext} from 'react'
+import {useNavigate} from 'react-router-dom';
 import PageHead from "@/shared/ui/page-head/PageHead";
 import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import { storeListAllCryptoName } from '@/shared/store/crypto-assets';
-import { evenOrOdd } from '@/shared/lib/helpers';
-import { IconCoin } from '@/shared/ui/icons/icon-coin';
-import Button from '@/shared/ui/button/Button';
+import {AssetTableKeys, IExchangeToken} from '@/features/assets-table/model/types';
 
 function Assets() {
     const {xl, md} = useContext(BreakpointsContext);
-    const listAllCryptoName = storeListAllCryptoName(state => state.listAllCryptoName)
+    const redirect = useNavigate();
+
+    let columns = !md ? [
+        AssetTableKeys.NAME,
+        AssetTableKeys.CURRENCY,
+        AssetTableKeys.PRICE,
+        AssetTableKeys.ACTIONS
+    ] : [
+        AssetTableKeys.NAME,
+        AssetTableKeys.PRICE,
+        AssetTableKeys.ACTIONS
+    ];
 
     return (
         <>
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                <div
-                    className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
-                    <TableGroup>
-                        <TableHead items={md ? ["Name", "Price", "Actions"] :
-                            ["Name", "Price", "Balance", "Actions"]}/>
-                        {listAllCryptoName.map((item, index) => <TableRow
-                            price={"0.12312"}
-                            index={index}
-                            code={item.code}
-                            name={item.name}
-                            key={"TableRow" + index}/>)}
-                    </TableGroup>
+                <div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
+                    <AssetsTable
+                        columnKeys={columns}
+                        onSelect={(token: IExchangeToken) => redirect(`/wallet/${token.currency}`)}
+                    />
                 </div>
                 {!xl && <div
                     className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
@@ -86,64 +88,6 @@ const InfoBox = () => {
             className="font-bold underline" href="/">structured or
             fixed
             deposits.</a></p>
-    </div>
-}
-
-const TableGroup = ({children}) => {
-    return <div>
-        {children}
-    </div>
-}
-
-const TableHead = ({items}) => {
-
-    const firstCol = index => index === 0
-    const lastCol = index => index === (items.length - 1)
-    const setClassPosEdge = index => firstCol(index) ? "col-span-5" : lastCol(index) ? "col-span-3" : "col-span-2"
-
-
-    return <div className="row grid grid-cols-12 mb-4 items-center justify-start">
-        {items.map((item, index) => <div key={"TableHead" + index}
-                                         className={`col flex justify-center ${setClassPosEdge(index)}`}>
-            <span className="text-gray-400 font-medium">{item}</span>
-        </div>)}
-    </div>
-}
-
-const TableRow = ({
-                      index,
-                      code,
-                      name,
-                      price,
-                      balance = 2.232,
-                      actions = null
-                  }) => {
-
-    const {xl, md} = useContext(BreakpointsContext);
-
-    return <div
-        className={`row grid grid-cols-12 justify-between  ${evenOrOdd(index) ? "bg-gray-main" : ""} ${md ? "justify-between" : ""} pt-1.5 pb-4 pr-3 pl-3 font-medium`}>
-        <div data-text={name} className="col col-span-5 flex items-center gap-3  ellipsis">
-            <IconCoin width={29} height={29} code={code}/>
-            <span>{name}</span>
-        </div>
-        <div data-text={price} className="col col-span-2 flex items-center justify-center ellipsis">
-            <span>{price} €</span>
-        </div>
-        {!md &&
-            <div data-text={`${balance} ${code}`} className="col col-span-2 flex items-center justify-center ellipsis">
-                <span>{balance} {code}</span>
-            </div>}
-        <div className={`col col-span-3 ${md ? "col-end-12" : ""} grid grid-flow-col items-center justify-end gap-3`}>
-            <a className="ellipsis" data-text={"Receive"} href="">
-                <img className="max-w-max" width={14} height={14} src="/img/icon/Download.svg" alt="Download"/>
-            </a>
-            <a className="ellipsis" data-text={"Withdraw"} href="">
-                <img className="rotate-180 max-w-max" width={14} height={14} src="/img/icon/Download.svg"
-                     alt="Download"/>
-            </a>
-            <Button size={"sm"} gray>Buy</Button>
-        </div>
     </div>
 }
 

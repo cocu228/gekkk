@@ -8,6 +8,7 @@ import {storeListAllCryptoName} from "@/shared/store/crypto-assets";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import useModal from "@/shared/model/hooks/useModal";
+import Loader from "@/shared/ui/loader";
 
 
 const items = [{
@@ -32,15 +33,12 @@ function Assets() {
         })();
     }, []);
 
-
-    if (!rates) return <div>Loading...</div>;
-
     return (
         <>
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                <div
+                {!rates ? <Loader/> : <div
                     className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <TableGroup>
                         <TableHead items={md ? ["Name", "Price", "Actions"] :
@@ -52,7 +50,7 @@ function Assets() {
                             name={item.name}
                             key={"TableRow" + index}/>)}
                     </TableGroup>
-                </div>
+                </div>}
                 {!xl && <div
                     className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                     <div className="row mb-5 flex justify-center">
@@ -103,7 +101,7 @@ function Assets() {
 }
 
 const InfoBox = () => {
-    return <div className='bg-green rounded-md mb-4 py-5 px-4 text-white border-[#c3e6cb] text-sm'>
+    return <div className='bg-green h-[min-content] rounded-md mb-4 py-5 px-4 text-white border-[#c3e6cb] text-sm'>
         <p className="leading-6">
             By purchasing tokens, you take on all the risks associated with the volatility of cryptocurrencies.
             If you are interested in safer investment instruments, we recommend that you use <a

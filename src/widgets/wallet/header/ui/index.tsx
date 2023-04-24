@@ -19,12 +19,12 @@ const WalletHeader = () => {
                 <div className="flex flex-col content-around">
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                            <span>
-                               Wallet balance
+                               Account balance
                            </span>
                     </div>
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {currency.const}
+                        {currency.availableBalance.toNumber()}
                     </div>
                 </div>
 

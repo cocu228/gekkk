@@ -3,11 +3,11 @@ import PageHead from '@/shared/ui/page-head/PageHead';
 
 const Support = () => {
     return (
-        <div className="wrapper">
+        <div className="wrapper h-inherit w-full">
             <PageHead
                 subtitle={"If you have any questions or difficulties, please let us know in any of the following way:"}
                 title={"Support"}/>
-            <div className="substrate flex flex-col">
+            <div className="substrate flex flex-col h-inherit w-full">
                 <div className="row flex flex-wrap gap-8">
                     <div className="col w-25 flex flex-col">
                         <div className="row mb-3 flex flex-wrap gap-2">

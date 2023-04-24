@@ -45,7 +45,7 @@ const SidebarDesktop = () => {
     }, [sortedListBalance]);
 
     const EURG = sortedListBalance.find(it => it.const === "EURG");
-    // const GKE = sortedListBalance.find(it => it.const === "GKE");
+    const GKE = sortedListBalance.find(it => it.const === "GKE");
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -88,8 +88,8 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
-                        <div className="row w-full"><span
-                            className={styles.Sum}>0 GKE</span>
+                        <div className="row w-full">   <span
+                            className={styles.Sum}>{GKE?.availableBalance.toDecimalPlaces(GKE.roundingValue).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>

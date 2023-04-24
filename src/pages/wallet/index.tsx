@@ -19,7 +19,7 @@ function Wallet() {
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const currency = sortedListBalance.find(item => item.const === params.currency)
     const {xl, md} = useContext(BreakpointsContext);
-
+    console.log(currency)
     if (!currency) return null
 
     return (

@@ -185,7 +185,7 @@ const Row = ({bgGray = false, val, md=false}) => {
                 </div>
             </div>
             <div className="row">
-                <div className="col">
+                <div  data-text={val[0]} className="col ellipsis">
                     <p className="font-bold text-normal">{val[0]}</p>
                 </div>
             </div>
@@ -205,7 +205,7 @@ const Row = ({bgGray = false, val, md=false}) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div data-text={"4% annual"} className="col ellipsis inline-grid">
+                    <div data-text={val[1]} className="col ellipsis inline-grid">
                         <p className="font-bold text-normal">{val[1]}</p>
                     </div>
                 </div>

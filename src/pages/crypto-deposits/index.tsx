@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import Button from "@/shared/ui/button/Button";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 const CryptoDeposits = () => {
-
+    const {xl, md} = useContext(BreakpointsContext);
     return (
         <div className="wrapper">
             <PageHead
@@ -12,7 +13,7 @@ const CryptoDeposits = () => {
                 title={"Crypto deposits"}/>
 
             <div className="substrate flex flex-col">
-                <section className="max-w-[400px]">
+                <section className={!md ? "max-w-[400px]" : ""}>
                     <div className="row flex flex-wrap gap-8">
                         <div className="col w-25 flex flex-col">
                             <h2 className="text-gray-600 text-fs32 font-bold">Fixed rate deposits</h2>
@@ -31,7 +32,7 @@ const CryptoDeposits = () => {
                                 savings over a specific period</p>
                         </div>
                     </div>
-                    <div className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
+                    <div  className="row flex flex-wrap mt-6 px-10 mb-3 gap-7">
                         <div className="col">
                             <div className="flex items-center gap-2 md:flex-col">
                                 <p className="text-gray-400 text-sm">Return</p>
@@ -53,7 +54,7 @@ const CryptoDeposits = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="wrapper bg-[var(--color-main-bg)] py-6 px-10 flex items-center">
+                    <div style={md ? {border: "1px solid #B4C0CD", borderRadius: "4px 4px 0px 0px"} : {}} className="wrapper bg-[var(--color-main-bg)] py-6 px-10 flex items-center">
                         <p className="font-bold mr-4">0,8% per month (9,6% annual)</p>
                         <Button gray size="sm" className="!text-black !font-normal whitespace-nowrap !h-[auto]">Open
                             deposit</Button>
@@ -83,10 +84,10 @@ const CryptoDeposits = () => {
                                     <R val={[true, false, false]}/>
                                     <R val={[false, false, false]}/>
                                 </div>
-                                <div className="row">
+                                <div style={md ? {border: "1px solid #B4C0CD", borderRadius: "4px 4px 0px 0px"} : {}} className="row">
                                     <div className="col">
-                                        <Row val={["16%", "4% annual"]} bgGray/>
-                                        <Row val={["17%", "3% annual"]}/>
+                                        <Row md={md} val={["16%", "4% annual"]} bgGray/>
+                                        <Row md={md} val={["17%", "3% annual"]}/>
                                         <Row val={["18%", "2% annual"]} bgGray/>
                                     </div>
                                 </div>
@@ -108,10 +109,10 @@ const CryptoDeposits = () => {
                                     <R val={[true, false, false]}/>
                                     <R val={[null, false, false]}/>
                                 </div>
-                                <div className="row">
+                                <div style={md ? {border: "1px solid #B4C0CD", borderRadius: "4px 4px 0px 0px"} : {}} className="row">
                                     <div className="col">
-                                        <Row val={["20%", "0"]} bgGray/>
-                                        <Row val={["23%", "up to 3%"]}/>
+                                        <Row md={md} val={["20%", "0"]} bgGray/>
+                                        <Row md={md} val={["23%", "up to 3%"]}/>
                                         <Row val={["25%", "up to 5%"]} bgGray/>
                                     </div>
                                 </div>
@@ -135,10 +136,10 @@ const CryptoDeposits = () => {
                                     <R val={[true, true, true]}/>
                                     <R val={[null, null, false]}/>
                                 </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <Row val={["30%", "up to -10%"]} bgGray/>
-                                        <Row val={["40%", "up to -20%"]}/>
+                                <div style={md ? {border: "1px solid #B4C0CD", borderRadius: "4px 4px 0px 0px"} : {}} className="row">
+                                    <div className="col ">
+                                        <Row md={md} val={["30%", "up to -10%"]} bgGray/>
+                                        <Row md={md} val={["40%", "up to -20%"]}/>
                                         <Row val={["50%", "up to -30%"]} bgGray/>
                                     </div>
                                 </div>
@@ -165,10 +166,11 @@ const R = ({val}) => {
     </div>
 }
 
-const Row = ({bgGray = false, val}) => {
+const Row = ({bgGray = false, val, md=false}) => {
 
     return <div
-        className={`row ${bgGray ? "bg-gray-main" : ""} py-6 px-6 grid grid-flow-col justify-start items-center gap-3`}>
+        style={md ? {borderBottom: "1px solid #B4C0CD"} : {}}
+        className={`row ${!md && bgGray ? "bg-gray-main" : ""} py-6 px-6 grid grid-flow-col justify-start items-center gap-3`}>
         <div className="col row-auto justify-start flex h-full">
             <div className="row">
                 <div className="col">

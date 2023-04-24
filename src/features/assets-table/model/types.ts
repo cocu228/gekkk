@@ -1,7 +1,4 @@
-import Decimal from "decimal.js";
-
 export interface IExchangeToken {
-    balance: Decimal,
     currency: string,
     name: string,
     roundTo?: number
@@ -15,3 +12,7 @@ export enum AssetTableKeys {
     ACTIONS = 'Actions'
 }
 
+export type AssetTableColumn = {
+    key: AssetTableKeys,
+    template: JSX.Element
+}

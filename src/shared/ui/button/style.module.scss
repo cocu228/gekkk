@@ -53,8 +53,10 @@
     box-shadow: none;
 
     &[data-size="sm"] {
-      height: 32px;
+      //height: 32px;
+      font-size: 12px;
       border-radius: 16px;
+      padding: 10px 8px;
     }
 
     &:hover {

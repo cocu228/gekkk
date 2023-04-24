@@ -4,7 +4,7 @@ import InfoBox from "@/widgets/info-box";
 
 const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
 
-    return <div className="w-inherit">
+    return <div className="w-full h-full">
         <InfoBox/>
         <div className={styles.Content}>
             {children}

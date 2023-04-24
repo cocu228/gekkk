@@ -1,16 +1,13 @@
 import styles from './style.module.scss';
-import { DefaultOptionType } from 'antd/es/select';
 import {ComponentType, memo, SVGProps} from 'react';
 import {Select as SelectAntd, SelectProps} from 'antd';
 import IconDropdownArrow from '../icons/IconDropdownArrow';
-const {Option} = SelectAntd;
 
 interface Props extends SelectProps {
     prefixIcon?: ComponentType<SVGProps<SVGSVGElement>>;
-    options?: Array<DefaultOptionType>;
 }
 
-const Select = memo<Props>(({prefixIcon: Icon, options, ...props}): JSX.Element | null => {
+const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null => {
     return (
         <div className={styles.Select}>
             <SelectAntd
@@ -25,16 +22,7 @@ const Select = memo<Props>(({prefixIcon: Icon, options, ...props}): JSX.Element 
                         <IconDropdownArrow/>
                     </div>
                 }
-            >
-                {options.map((option) => (
-                    <Option
-                        key={option.value}
-                        value={option.value}
-                    >
-                            {option.label}
-                    </Option>
-                ))}
-            </SelectAntd>
+            />
         </div>
     );
 });

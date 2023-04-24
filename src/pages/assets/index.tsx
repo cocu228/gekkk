@@ -27,7 +27,7 @@ function Assets() {
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                {!rates ? <Loader/> : <div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
+                {<div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
                     <AssetsTable
                         columnKeys={columns}
                         onSelect={(token: IExchangeToken) => redirect(`/wallet/${token.currency}`)}

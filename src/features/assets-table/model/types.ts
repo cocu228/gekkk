@@ -7,7 +7,6 @@ export interface IExchangeToken {
 export enum AssetTableKeys {
     NAME = 'Name',
     PRICE = 'Price',
-    BALANCE = 'Balance',
     CURRENCY = 'Currency',
     ACTIONS = 'Actions'
 }

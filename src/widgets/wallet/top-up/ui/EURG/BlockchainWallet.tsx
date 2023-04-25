@@ -1,29 +1,28 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
+import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
 const BlockchainWallet = () => {
 
+    const {setNetworkId, networksForSelector, networksDefault, networkIdSelect} = useContext(CtxWalletNetworks)
+    if (networksDefault.length > 0 && networkIdSelect === null) {
+        setNetworkId(networksDefault[0]?.id)
+    } else {
+
+    }
+
     return (<>
-            <div className="row mb-10">
-                <div className="col">
-                    <div className="p-4 bg-gray-300">
-                        <div className="wrapper flex flex-col">
-                            <div className="row mb-1">
-                                <div className="col">
-                                    <span className="text-red-800">Please note</span>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                        <span className="text-gray-400">
-                            You should send only BTC to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.
-                        </span>
-                                </div>
-                            </div>
-                        </div>
+            <div className="info-box-note mb-10">
+                <div className="row mb-3">
+                    <div className="col">
+                        <span className="text-red-800">Please note</span>
                     </div>
                 </div>
-
+                <div className="row mb-1">
+                    <div className="col">
+                        <span className="text-gray-400">You should send only <b>EURG</b> to this <b>ERC-20</b> deposit address. If you are top up via another network or other tokens your assets may be lost. </span>
+                    </div>
+                </div>
             </div>
             <TopUpQR/>
         </>

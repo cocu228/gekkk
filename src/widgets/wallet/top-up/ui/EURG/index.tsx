@@ -31,7 +31,6 @@ const TopUpEURG = () => {
         {btnTabs === "gekkard-account" && <GekkardAccount/>}
         {btnTabs === "blockchain-wallet" && <BlockchainWallet/>}
 
-        <TopUpQR/>
     </div>)
 
 };

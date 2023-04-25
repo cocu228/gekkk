@@ -9,15 +9,6 @@ import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import useModal from "@/shared/model/hooks/useModal";
 import Loader from "@/shared/ui/loader";
-
-
-const items = [{
-    name: "",
-    price: "",
-    balance: "",
-    actions: ""
-}]
-
 function Assets() {
 
     const [rates, setRates] = useState<Record<$const, number>>();
@@ -101,7 +92,7 @@ function Assets() {
 }
 
 const InfoBox = () => {
-    return <div className='bg-green h-[min-content] rounded-md mb-4 py-5 px-4 text-white border-[#c3e6cb] text-sm'>
+    return <div className='info-box-description'>
         <p className="leading-6">
             By purchasing tokens, you take on all the risks associated with the volatility of cryptocurrencies.
             If you are interested in safer investment instruments, we recommend that you use <a

@@ -7,7 +7,7 @@ import Button from "@/shared/ui/button/Button";
 const GekkardAccount = () => {
 
     return (<div className="wrapper">
-        <div className={`row mb-8 flex flex-col gap-2 md:gap-1 font-medium ${styles.Result}`}>
+        <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
             <div className="col text-xl font-bold">
                 <span>1 EUR = 1 EURG*</span>
             </div>

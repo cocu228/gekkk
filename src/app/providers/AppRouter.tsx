@@ -37,7 +37,7 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: 'exchange/:to?',
+                path: 'exchange',
                 element: <Exchange/>
             },
             {

@@ -5,7 +5,6 @@ import {useContext} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 
 const WalletHeader = () => {
-
     const currency = useContext(CtxWalletCurrency)
 
     const isEURG: boolean = currency.const === 'EURG';

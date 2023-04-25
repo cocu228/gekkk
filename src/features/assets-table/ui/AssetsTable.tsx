@@ -1,3 +1,4 @@
+import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {apiGetRates} from "@/shared/api";
 import Input from "@/shared/ui/input/Input";
@@ -48,19 +49,21 @@ const AssetsTable = ({
 
                 <TableHead keys={columnKeys}/>
             </div>
-            <div className={`${styles.ItemsList} ${modal ? `max-h-[550px]` : 'max-h-[625px]'} overflow-auto`}>
-                <TableGroup>
-                    {tokensList.sort(tokenSorter).map((token, index) =>
-                        <TableRow
-                            index={index}
-                            token={token}
-                            rates={rates}
-                            keys={columnKeys}
-                            onSelect={onSelect}
-                        />
-                    )}
-                </TableGroup>
-            </div>
+            {!rates && <Loader className='relative mt-10'/> || (
+                <div className={`${styles.ItemsList} ${modal ? `max-h-[550px]` : 'max-h-[1080px]'} overflow-auto`}>
+                    <TableGroup>
+                        {tokensList.sort(tokenSorter).map((token, index) =>
+                            <TableRow
+                                index={index}
+                                token={token}
+                                rates={rates}
+                                keys={columnKeys}
+                                onSelect={onSelect}
+                            />
+                        )}
+                    </TableGroup>
+                </div>
+            )}
 
             {!tokensList.length && (
                 <div className="text-center text-gray-400 my-4">

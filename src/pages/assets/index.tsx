@@ -4,20 +4,14 @@ import PageHead from "@/shared/ui/page-head/PageHead";
 import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {AssetTableKeys, IExchangeToken} from '@/features/assets-table/model/types';
-import useModal from "@/shared/model/hooks/useModal";
-import Loader from "@/shared/ui/loader";
 
 function Assets() {
     const {xl, md} = useContext(BreakpointsContext);
     const redirect = useNavigate();
 
-    let columns = !md ? [
+    let columns = [
         AssetTableKeys.NAME,
-        AssetTableKeys.CURRENCY,
-        AssetTableKeys.PRICE,
-        AssetTableKeys.ACTIONS
-    ] : [
-        AssetTableKeys.NAME,
+        ...(!md ? [AssetTableKeys.CURRENCY] : []),
         AssetTableKeys.PRICE,
         AssetTableKeys.ACTIONS
     ];

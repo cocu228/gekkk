@@ -26,11 +26,11 @@ function Wallet() {
         <div className="flex flex-col h-full w-full">
             <CtxWalletCurrency.Provider value={currency}>
                 <WalletHeader/>
-                <TabsGroupPrimary defaultInit={"TopUp"}>
+                <TabsGroupPrimary defaultInit={"Top Up"}>
                     <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
                         <div className="substrate z-10 w-inherit relative">
                             <NetworkHOC>
-                                <TopUp data-tab={"TopUp"}/>
+                                <TopUp data-tab={"Top Up"}/>
                                 <Withdraw data-tab={"Withdraw"}/>
                             </NetworkHOC>
                             <Transfer data-tab={"Funds transfer"}/>

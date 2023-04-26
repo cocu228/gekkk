@@ -44,8 +44,7 @@ const WithdrawForm = () => {
                     <Input value={inputs.address} onChange={onInput}
                            disabled={!networkIdSelect}
                            placeholder={"Enter the withdrawal address"}
-                           name={"address"}
-                           suffix={<IconCoin code={currency.const}/>}/>
+                           name={"address"}/>
                 </div>
 
                 <div className='flex flex-col gap-2'>
@@ -76,7 +75,7 @@ const WithdrawForm = () => {
                               rows={2}/>
                 </div>
 
-                <Button onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
+                <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>

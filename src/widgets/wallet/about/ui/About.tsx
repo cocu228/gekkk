@@ -3,6 +3,7 @@ import Button from '@/shared/ui/button/Button';
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 
 const About = () => {
@@ -12,7 +13,7 @@ const About = () => {
             name,
             defaultInfoToken: {flags}
         } = currency
-
+    const {xl, md} = useContext(BreakpointsContext);
     const navigate = useNavigate()
 
     return (
@@ -40,16 +41,13 @@ const About = () => {
             <div className='text-gray-500 text-sm font-medium'>
                 {descriptions[currency.const] ?? `Description for this token is not done yet.`}
             </div>
-
-            {flags === 2 && (
-                <div className='grid gap-5 grid-cols-2 mt-10'>
-                    <Button gray size="sm" onClick={() => navigate("/exchange")}>Buy
-                    </Button>
-                    <Button onClick={() => navigate("/exchange")} className="relative" gray size="sm">
-                        Sell
-                    </Button>
-                </div>
-            )}
+            <div className={`grid gap-5 grid-cols-2 mt-10 ${!md ? "max-w-[320px]" : ""}`}>
+                <Button gray size="sm" onClick={() => navigate("/exchange")}>Buy
+                </Button>
+                <Button onClick={() => navigate("/exchange")} className="relative" gray size="sm">
+                    Sell
+                </Button>
+            </div>
         </div>
     );
 };

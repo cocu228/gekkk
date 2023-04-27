@@ -10,6 +10,10 @@ import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import Loader from '@/shared/ui/loader';
 import styles from "./style.module.scss"
+import useModal from "@/shared/model/hooks/useModal";
+import Modal from "@/shared/ui/modal/Modal";
+import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
+import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 
 const {RangePicker} = DatePicker;
 
@@ -101,12 +105,18 @@ function History({currency}: Partial<Props>) {
     );
 }
 
-const TableRow = ({amount, datetime, type_transaction}) => {
-    const dataCustomer = formatForCustomer(datetime)
+const TableRow = ({amount, datetime, type_transaction, id_transaction}) => {
+
+    const dataCustomer = formatForCustomer(datetime);
+    const {isModalOpen, showModal, handleCancel} = useModal();
 
     return <div className={`row grid grid-cols-12 ${styles.Row} gap-4`}>
         <div data-text={dataCustomer} className="col col-span-5 ellipsis">
-            <span>{dataCustomer}</span>
+            <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
+            <Modal width={450} title="Transaction info" onCancel={handleCancel}
+                   open={isModalOpen}>
+                <TransactionInfo id={id_transaction}/>
+            </Modal>
         </div>
         <div data-text={amount} className="col col-span-3 ellipsis">
             <span className="text-green">{amount}</span>

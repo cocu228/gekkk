@@ -34,12 +34,6 @@ export function getTokensList(
     }, Array<IExchangeToken>());
 }
 
-export function getGridCols(keys: Array<string>): string {
-    return keys.length === 2 ? 'grid-cols-2' :
-        keys.length === 3 ? 'grid-cols-3' :
-        'grid-cols-4';
-}
-
 export function getAlignment(array: Array<string>, key: string): string {
     return array.indexOf(key) === 0 ? 'justify-start' :
         array.indexOf(key) === array.length - 1 ? 'justify-end' :

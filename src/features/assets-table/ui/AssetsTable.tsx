@@ -9,10 +9,10 @@ import $const from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useContext, useEffect, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {getAlignment, getTokensList, tokenSorter} from "../model/helpers";
 import {AssetTableColumn, AssetTableKeys, IExchangeToken} from "../model/types";
-import {getAlignment, getGridCols, getTokensList, tokenSorter} from "../model/helpers";
 
-interface Params {
+interface IParams {
     className?: string,
     columnKeys?: Array<AssetTableKeys>,
     excludedCurrencies?: Array<string>,
@@ -26,7 +26,7 @@ const AssetsTable = ({
     className = '',
     excludedCurrencies = [],
     modal
-}: Params) => {
+}: IParams) => {
     const {md} = useContext(BreakpointsContext);
     const [filter, setFilter] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>();
@@ -49,8 +49,10 @@ const AssetsTable = ({
 
                 <TableHead keys={columnKeys}/>
             </div>
-            {!rates && <Loader className='relative mt-10'/> || (
-                <div className={`${styles.ItemsList} ${modal ? `max-h-[550px]` : 'max-h-[1080px]'} overflow-auto`}>
+            {!rates ? (
+                <Loader className='relative mt-10'/>
+            ) : (
+                <div className={`${styles.ItemsList} ${modal ? `max-h-[550px]` : 'max-h-[1080px]'} overflow-[overlay]`}>
                     <TableGroup>
                         {tokensList.sort(tokenSorter).map((token, index) =>
                             <TableRow
@@ -84,7 +86,12 @@ const TableGroup = ({children}) => {
 
 const TableHead = ({keys}) => {
     return (
-        <div className={`grid ${getGridCols(keys)} mt-4 items-center`}>
+        <div
+            className={`grid mt-4 items-center`}
+            style={{
+                gridTemplateColumns: `repeat(${keys.length}, minmax(0, 1fr))`
+            }}
+        >
             {keys.map((item: string, index: number) => (
                 <div key={"TableHead" + index}
                      className={`flex ${getAlignment(keys, item)}`}>
@@ -148,8 +155,11 @@ const TableRow = ({
 
     return (
         <div
-            className={`grid ${getGridCols(keys)} ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer`}
+            className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer`}
             onClick={() => onSelect(token)}
+            style={{
+                gridTemplateColumns: `repeat(${keys.length}, minmax(0, 1fr))`
+            }}
         >
             {keys.map((key: string) => {
                 return (

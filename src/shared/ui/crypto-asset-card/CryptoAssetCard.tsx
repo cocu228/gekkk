@@ -23,18 +23,23 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
                     <IconCoin code={iconName}/>
                     <p className="flex items-center text-fs14 font-semibold min-h-[32px]">{title}</p>
                 </div>
-                <div className="mt-auto pt-[20px]">
-                    <div className="flex justify-between items-baseline flex-wrap">
-                        <p className="text-fs14 font-medium uppercase">
-                            <strong className="text-fs32 font-bold">{balance}</strong> {currency}
-                        </p>
-                        <p className="text-fs12 text-gray-500 font-medium">{price}</p>
-                    </div>
-                    <div className="flex gap-[16px] mt-[16px]">
-                        <Button className="flex-1" gray size="sm" onClick={onTopUp}>Top up</Button>
-                        <Button className="flex-1" gray size="sm" onClick={onWithdraw}>Withdraw</Button>
-                    </div>
-                </div>
+                {balance === 0 ? <div className="row max-w-[220px] mt-4 info-box-warning">
+                        <div className="col">
+                            <p className="leading-5">At the moment there is not a single option for depositing/withdrawing an
+                            asset</p></div>
+                    </div> :
+                    <div className="mt-auto pt-[20px]">
+                        <div className="flex justify-between items-baseline flex-wrap">
+                            <p className="text-fs14 font-medium uppercase">
+                                <strong className="text-fs32 font-bold">{balance}</strong> {currency}
+                            </p>
+                            <p className="text-fs12 text-gray-500 font-medium">{price}</p>
+                        </div>
+                        <div className="flex gap-[16px] mt-[16px]">
+                            <Button className="flex-1" gray size="sm" onClick={onTopUp}>Top up</Button>
+                            <Button className="flex-1" gray size="sm" onClick={onWithdraw}>Withdraw</Button>
+                        </div>
+                    </div>}
             </div>
         </Card>
     );

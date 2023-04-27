@@ -1,0 +1,1 @@
+export const helperFilterList = (list) => list.filter(it => (it.const !== "EURG" && it.const !== "GKE") && !it.availableBalance.equals(0))

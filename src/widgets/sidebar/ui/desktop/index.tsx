@@ -12,6 +12,7 @@ import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import Decimal from "decimal.js";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
+import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 
 const SidebarDesktop = () => {
 
@@ -107,7 +108,7 @@ const SidebarDesktop = () => {
                 </div>
             </NavLink>
             <NavCollapse header={"Assets"} id={"assets"}>
-                {sortedListBalance.filter(it => it.const !== "EURG" && !it.availableBalance.equals(0)).map((item, i) =>
+                {helperFilterList(sortedListBalance).map((item, i) =>
                     <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
                         <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                             <div className="col flex items-center pl-4">

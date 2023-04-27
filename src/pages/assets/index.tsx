@@ -29,29 +29,32 @@ function Assets() {
             <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0 h-full">
                 {xl && <InfoBox/>}
-                {!rates ? <Loader/> : <div
-                    className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
-                    <TableGroup>
-                        <TableHead items={md ? ["Name", "Price", "Actions"] :
-                            ["Name", "Price", "Balance", "Actions"]}/>
-                        {listAllCryptoName.map((item, index) => <TableRow
-                            price={"0.12312"}
-                            index={index}
-                            code={item.code}
-                            name={item.name}
-                            key={"TableRow" + index}/>)}
-                    </TableGroup>
-                </div>}
-                {!xl && <div
-                    className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
-                    <div className="row mb-5 flex justify-center">
-                        <div className="col">
-                            <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
-                        </div>
+                {!rates ? <Loader/> : <>
+
+                    <div
+                        className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none ${!md ? "max-h-[1280px] overflow-auto" : ""}`}>
+                        <TableGroup>
+                            <TableHead items={md ? ["Name", "Price", "Actions"] :
+                                ["Name", "Price", "Balance", "Actions"]}/>
+                            {listAllCryptoName.map((item, index) => <TableRow
+                                price={"0.12312"}
+                                index={index}
+                                code={item.code}
+                                name={item.name}
+                                key={"TableRow" + index}/>)}
+                        </TableGroup>
                     </div>
-                    <div className="row mb-1 flex justify-center">
-                        <div className="col">
-                            <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
+                    {!xl && <div
+                        className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
+                        <div className="row mb-5 flex justify-center">
+                            <div className="col">
+                                <img width={46} height={46} src="/img/icon/InvestTokenRight.svg"
+                                     alt="InvestTokenRight"/>
+                            </div>
+                        </div>
+                        <div className="row mb-1 flex justify-center">
+                            <div className="col">
+                                <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
                                 investing</h5>
                         </div>
                     </div>
@@ -80,12 +83,13 @@ function Assets() {
                                 Here you can purchase the most interesting and popular ones.</p>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
-                            <InfoBox/>
+                        <div className="row">
+                            <div className="col">
+                                <InfoBox/>
+                            </div>
                         </div>
-                    </div>
-                </div>}
+                    </div>}
+                </>}
             </div>
         </>
     )

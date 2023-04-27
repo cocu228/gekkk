@@ -8,7 +8,7 @@ import {getCryptoIconName, getRoundingValue} from "@/shared/lib/helpers"
 function CryptoAssets() {
 
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
-    console.log(sortedListBalance)
+
     return (
         <div className="wrapper">
             <SectionTitle>Crypto assets</SectionTitle>

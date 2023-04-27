@@ -12,6 +12,7 @@ import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NetworkHOC from "@/widgets/wallet/model/NetworkHOC";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {testRightsUser, constRights} from "@/shared/config/chmod-user";
 
 function Wallet() {
 
@@ -19,20 +20,22 @@ function Wallet() {
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const currency = sortedListBalance.find(item => item.const === params.currency)
     const {xl, md} = useContext(BreakpointsContext);
-    console.log(currency)
+
     if (!currency) return null
+    console.log(currency.defaultInfoToken.flags)
+    const rights = testRightsUser(currency.defaultInfoToken.flags, constRights.ACCOUNT_AVAILABLE)
 
     return (
         <div className="flex flex-col h-full w-full">
             <CtxWalletCurrency.Provider value={currency}>
                 <WalletHeader/>
-                <TabsGroupPrimary defaultInit={"Top Up"}>
+                <TabsGroupPrimary initValue={"About"}>
                     <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
                         <div className="substrate z-10 w-inherit relative">
-                            <NetworkHOC>
+                            {rights && <NetworkHOC>
                                 <TopUp data-tab={"Top Up"}/>
                                 <Withdraw data-tab={"Withdraw"}/>
-                            </NetworkHOC>
+                            </NetworkHOC>}
                             <Transfer data-tab={"Funds transfer"}/>
                             <About data-tab={"About"}/>
                             {xl && <History data-tab={"History"}/>}

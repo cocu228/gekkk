@@ -21,7 +21,7 @@ const GekkardAccount = () => {
                     <div className="row flex justify-between mb-2 md:mb-1 items-center">
                         <div className="wrapper flex text-xs gap-1">
                             <p className="text-gray-400 font-medium md:text-sm sm:text-xs">
-                                I will
+                                I want to
                             </p>
                             <PercentBtn>give</PercentBtn>
                             <PercentBtn>recieve</PercentBtn>

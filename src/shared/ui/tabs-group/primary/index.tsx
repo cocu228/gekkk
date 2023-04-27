@@ -1,4 +1,4 @@
-import React, {useState, ReactNode} from "react";
+import React, {useState, ReactNode, useEffect} from "react";
 import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 
@@ -42,10 +42,14 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
 }
 
 
-const TabsGroupPrimary = ({children, defaultInit}) => {
+const TabsGroupPrimary = ({children, initValue = null}) => {
 
-    const [state, setState] = useState(defaultInit)
+    const [state, setState] = useState(initValue)
     const {content, buttons} = filterChildrenByAttribute(children, state)
+
+    useEffect(() => {
+
+    })
 
     return <>
         <div className={`${styles.TabsWrapper}`}>

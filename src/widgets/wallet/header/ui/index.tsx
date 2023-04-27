@@ -25,7 +25,7 @@ const WalletHeader = () => {
                     </div>
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {currency.availableBalance.toNumber()}
+                        {currency.availableBalance.toNumber()} {currency.const}
                     </div>
                 </div>}
                 {md && <div className="flex flex-col content-around">

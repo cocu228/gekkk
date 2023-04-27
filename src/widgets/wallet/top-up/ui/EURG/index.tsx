@@ -13,7 +13,7 @@ const TopUpEURG = () => {
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("gekkard-account")
 
     return (<div className="wrapper">
-        <div className="row flex gap-4 mb-7">
+        <div className="row flex mb-7">
             <div className="col">
                 <button onClick={() => setBtnTabs("gekkard-account")}
                         className={`${styles.Tab} ${isActiveClass(btnTabs === "gekkard-account")} whitespace-nowrap`}>

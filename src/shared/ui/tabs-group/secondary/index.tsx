@@ -34,10 +34,10 @@ function SecondaryTabGroup({
                 ))}
             </div>
 
-            <div className={sm ? 'block' : 'hidden'}>
+            <div className={sm ? 'block mb-4' : 'hidden'}>
                 <Select
                     defaultValue={activeTab}
-                    style={{ width: 120 }}
+                    style={{ width: '100%' }}
                     options={Object.keys(tabs).map(tab => {
                         return { value: tab, label: tabs[tab] };
                     })}

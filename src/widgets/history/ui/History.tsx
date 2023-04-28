@@ -8,8 +8,12 @@ import {Props, TabKey} from "../model/types";
 import {historyTabs, getTabsAsRecord} from "../model/helpers";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
-import Loader from '@/shared/ui/loader';
 import styles from "./style.module.scss"
+import {GTable} from '@/shared/ui/grid-table/GTable';
+import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
+import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
+import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
+import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 
 const {RangePicker} = DatePicker;
 
@@ -76,45 +80,51 @@ function History({currency}: Partial<Props>) {
                     </div>
                 </div>
             )}
-            <div className={`${styles.Table}`}>
-                <div className={styles.TableHead}>
-                    <div data-text={"Data"} className="col col-span-5 ellipsis">
-                        <span>Data</span>
-                    </div>
-                    <div data-text={"Flow of funds"} className="col col-span-3 ellipsis">
-                        <span>Flow of funds</span>
-                    </div>
-                    <div data-text={"Information"} className="col col-span-4 ellipsis">
-                        <span>Information</span>
-                    </div>
-                </div>
-                <div className={styles.TableBody}>
-                    {loading ?
-                        <Loader/> : historyList.length > 0 ? historyList.map((item, i) =>
-                                <TableRow {...item}/>) :
-                            <div className={styles.Row}>
-                                <span>You don't have any transaction for this time.</span>
-                            </div>}
-                </div>
-            </div>
+            
+            <GTable>
+                <GTHead className={styles.TableHead}>
+                    <GTRow>
+                        {['Data', 'Flow of funds', 'Information'].map(label =>
+                            <GTCol data-text={label} className="text-start ellipsis">
+                                <span>{label}</span>
+                            </GTCol>
+                        )}
+                    </GTRow>
+                </GTHead>
+                <GTBody loading={loading} className={styles.TableBody}>
+                    {historyList.length > 0 ? historyList.map((item) => {
+                        const dataCustomer = formatForCustomer(item.datetime)
+
+                        return (
+                            <GTRow className={`${styles.Row} gap-4`}>
+                                <GTCol>
+                                    <div data-text={dataCustomer} className="ellipsis">
+                                        <span>{dataCustomer}</span>
+                                    </div>
+                                </GTCol>
+                                    
+                                <GTCol>
+                                    <div data-text={item.amount} className="ellipsis">
+                                        <span className="text-green">{item.amount}</span>
+                                    </div>    
+                                </GTCol>
+                                    
+                                <GTCol>
+                                    <div data-text={item.type_transaction} className="ellipsis">
+                                        <span>{item.type_transaction}</span>
+                                    </div>
+                                </GTCol>
+                            </GTRow>
+                        );
+                    }) : (
+                        <div className={styles.Row}>
+                            <span>You don't have any transaction for this time.</span>
+                        </div>
+                    )}
+                </GTBody>
+            </GTable>
         </div>
     );
-}
-
-const TableRow = ({amount, datetime, type_transaction}) => {
-    const dataCustomer = formatForCustomer(datetime)
-
-    return <div className={`row grid grid-cols-12 ${styles.Row} gap-4`}>
-        <div data-text={dataCustomer} className="col col-span-5 ellipsis">
-            <span>{dataCustomer}</span>
-        </div>
-        <div data-text={amount} className="col col-span-3 ellipsis">
-            <span className="text-green">{amount}</span>
-        </div>
-        <div data-text={type_transaction} className="col col-span-4 ellipsis">
-            <span>{type_transaction}</span>
-        </div>
-    </div>
 }
 
 export default History;

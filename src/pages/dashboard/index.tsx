@@ -15,7 +15,11 @@ enum TabType {
 const TABS = [
     {type: TabType.DEPOSIT, title: 'Deposits', content: <Deposits/>},
     {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
-    {type: TabType.HISTORY, title: 'History', content: <History title='History'/>}
+    {type: TabType.HISTORY, title: 'History', content: (
+        <div className='substrate'>
+            <History title='History'/>
+        </div>
+    )}
 ];
 
 export default () => {

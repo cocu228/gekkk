@@ -1,14 +1,33 @@
 import Button from "@/shared/ui/button/Button";
 import {Form, Input} from "antd";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import styles from "@/widgets/history/ui/style.module.scss";
+import {apiListTxCodes} from "@/widgets/wallet/transfer/api/list-tx-codes";
+import {AxiosResponse} from "axios";
+import {formatForCustomer} from "@/shared/lib/date-helper";
+import Modal from "@/shared/ui/modal/Modal";
+import CreateCode from "@/widgets/wallet/transfer/CreateCode";
+import useModal from "@/shared/model/hooks/useModal";
 
 const {TextArea} = Input;
 
 const Transfer = () => {
 
-    const currency = useContext(CtxWalletCurrency)
+    const currency = useContext(CtxWalletCurrency);
+
+    const [list, setList] = useState([]);
+    const {isModalOpen, showModal, handleCancel} = useModal();
+
+    useEffect(() => {
+        (async () => {
+            const res: AxiosResponse = await apiListTxCodes()
+            if (res?.data) {
+                setList(res.data)
+            }
+            console.log(res)
+        })()
+    }, [])
 
     return (<>
             <div className="row mb-9">
@@ -45,7 +64,9 @@ const Transfer = () => {
                 </div>
             </Form>
             <div className="row mb-5">
-                <Button size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
+                <Button onClick={showModal} size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
+                <Modal width={450} title="Transaction info" onCancel={handleCancel}
+                       open={isModalOpen}><CreateCode/></Modal>
             </div>
             <div className="row mb-2">
                 <h3 className="text-lg font-bold">
@@ -69,11 +90,11 @@ const Transfer = () => {
                         </div>
                     </div>
                     <div className={styles.TableBody}>
-                        <div className="row grid grid-cols-12 px-4 py-3 gap-3">
+                        {list.map((it, i) => <div key={"tx-row" + i} className="row grid grid-cols-12 px-4 py-3 gap-3">
                             <div className="col col-span-3">
                                 <div className="row flex items-center">
                                     <div className="col mr-2">
-                                        <span className="text-gra-600 font-bold">23frG45</span>
+                                        <span className="text-gra-600 font-bold">{it.code}</span>
                                     </div>
                                     <div className="col">
                                         <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
@@ -81,46 +102,46 @@ const Transfer = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>
+                                        <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="col col-span-3">
-                                <span className="text-gra-600 text-xs">23frG45</span>
+                                <span className="text-gra-600 text-xs">{it.amount} {it.currency}</span>
                             </div>
                             <div className="col col-span-3"><span className="text-gray-600 text-xs">
-                                Without confirmation. The code not used yet
+                           {it.state}
                             </span></div>
                             <div className="col col-span-3 flex justify-center items-center">
                                 <Button size={"lg"} className={"!py-3 !h-[fit-content]"}>Delete</Button>
                             </div>
-                        </div>
-                        <div className="row grid grid-cols-12 px-4 py-3 gap-3">
-                            <div className="col col-span-3">
-                                <div className="row flex">
-                                    <div className="col mr-2">
-                                        <span className="text-gra-600 font-bold">23frG45</span>
-                                    </div>
-                                    <div className="col">
-                                        <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col col-span-3">
-                                <span className="text-gra-600 text-xs">23frG45</span>
-                            </div>
-                            <div className="col col-span-3"><span className="text-orange text-xs">
-                                Your confirmation required
-                            </span></div>
-                            <div className="col col-span-3 flex justify-center items-center">
-                                <Button gray disabled className="!py-3 !h-[fit-content]">Confirm</Button>
-                            </div>
-                        </div>
+                        </div>)}
+                        {/*<div className="row grid grid-cols-12 px-4 py-3 gap-3">*/}
+                        {/*    <div className="col col-span-3">*/}
+                        {/*        <div className="row flex">*/}
+                        {/*            <div className="col mr-2">*/}
+                        {/*                <span className="text-gra-600 font-bold">23frG45</span>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="col">*/}
+                        {/*                <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="row">*/}
+                        {/*            <div className="col">*/}
+                        {/*                <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="col col-span-3">*/}
+                        {/*        <span className="text-gra-600 text-xs">23frG45</span>*/}
+                        {/*    </div>*/}
+                        {/*    <div className="col col-span-3"><span className="text-orange text-xs">*/}
+                        {/*        Your confirmation required*/}
+                        {/*    </span></div>*/}
+                        {/*    <div className="col col-span-3 flex justify-center items-center">*/}
+                        {/*        <Button gray disabled className="!py-3 !h-[fit-content]">Confirm</Button>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>

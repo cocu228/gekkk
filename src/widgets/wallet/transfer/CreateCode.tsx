@@ -1,9 +1,6 @@
-import descriptions from '@/shared/config/coins/descriptions'
 import Button from '@/shared/ui/button/Button';
-import {useNavigate} from "react-router-dom";
 import React, {useContext} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import DepositInput from "@/widgets/deposit/ui/deposit-input";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";

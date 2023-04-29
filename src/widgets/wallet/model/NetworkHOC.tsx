@@ -62,7 +62,7 @@ const NetworkHOC = ({children}: IProps) => {
 
             await getListAddresses()
 
-            const response: AxiosResponse = await apiTokenNetworks(currency.const);
+            const response: AxiosResponse = await apiTokenNetworks(currency.const, true);
 
             helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
 

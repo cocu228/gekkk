@@ -12,8 +12,6 @@ export interface IResTokenNetwork {
     min_withdraw: number,
     min_topup: number,
     max_withdraw: number,
-    can_withdraw: boolean,
-    can_topup: boolean,
     is_memo: boolean
 }
 

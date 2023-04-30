@@ -3,6 +3,7 @@ import $axios from "@/shared/lib/(cs)axios";
 export interface IResTokenNetwork {
     id: number,
     network_name: string,
+    network_type:number,
     contract_name: string,
     withdraw_fee: number,
     percent_fee:number,    

@@ -8,13 +8,14 @@ import {evenOrOdd} from "@/shared/lib/helpers";
 import $const from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {GTable} from '@/shared/ui/grid-table/GTable';
-import {useContext, useEffect, useState} from "react";
 import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
+import {getAlignment, getTokensList} from "../model/helpers";
 import {AssetTableKeys, IExchangeToken} from "../model/types";
+import {useContext, useEffect, useMemo, useState} from "react";
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
+import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {getAlignment, getTokensList, tokenSorter} from "../model/helpers";
 
 interface IParams {
     className?: string,
@@ -34,10 +35,19 @@ const AssetsTable = ({
     const navigate = useNavigate();
     let maxHeight = modal ? 550 : 1080;
     const {md} = useContext(BreakpointsContext);
-    const [filter, setFilter] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
+    const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>();
-    const tokensList: Array<IExchangeToken> = getTokensList(filter, excludedCurrencies);
+    const assets = storeListAllCryptoName(state => state.listAllCryptoName)
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+    const tokensList = useMemo<Array<IExchangeToken>>(() =>
+        getTokensList(assets, excludedCurrencies), [assets]);
+
+    function searchFilter(token: IExchangeToken) {
+        return token.currency.toLowerCase().includes(searchValue) ||
+            token.name.toLowerCase().includes(searchValue);
+    }
 
     useEffect(() => {
         (async () => {
@@ -52,7 +62,9 @@ const AssetsTable = ({
             <div className={`${md && 'mx-5'} mb-2`}>
                 <Input
                     placeholder="Search name"
-                    onChange={(e) => setFilter(e.target.value)}
+                    onChange={(e) => {
+                        setSearchValue(e.target.value.trim().toLowerCase());
+                    }}
                 />
 
                 <IndependendHeader keys={columnKeys}/>
@@ -70,7 +82,7 @@ const AssetsTable = ({
                         maxHeight={maxHeight}
                     >
                         <GTBody loading={loading}>
-                            {tokensList.sort(tokenSorter).map((token, index) => (
+                            {tokensList.filter(searchFilter).map((token, index) => (
                                 <GTRow
                                     className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                     onClick={() => onSelect(token)}
@@ -112,7 +124,7 @@ const AssetsTable = ({
 
             {!tokensList.length && (
                 <div className="text-center text-gray-400 my-4">
-                    {filter.trim().length ? `Token "${filter}" not found` : 'Tokens not found'}
+                    {searchValue.trim().length ? `Token "${searchValue}" not found` : 'Tokens not found'}
                 </div>
             )}
         </div>

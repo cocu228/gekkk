@@ -1,28 +1,14 @@
 import {IExchangeToken} from "./types";
+import {IResMarketAssets} from "@/shared/api";
 import $const from "@/shared/config/coins/constants";
-import {storeListAllCryptoName} from "@/shared/store/crypto-assets";
-
-export function tokenSorter(a: IExchangeToken, b: IExchangeToken): number {
-    if (a.currency === $const.EURG) return -1;
-
-    return a.name.localeCompare(b.name);
-}
 
 export function getTokensList(
-    filter: string,
+    assets: Array<IResMarketAssets>,
     excludedCurrencies: Array<string>
 ): IExchangeToken[] {
-    const assets = storeListAllCryptoName(state => state.listAllCryptoName)
-        .sort((a, b) => a.name.localeCompare(b.name));
 
-    return assets.reduce(function(sortedAssets, asset) {
+    const result = assets.reduce(function(sortedAssets, asset) {
         if (excludedCurrencies.includes(asset.code)) return sortedAssets;
-
-        if (filter.trim().length &&
-            !(asset.code.toLowerCase().includes(filter.toLowerCase()) ||
-            asset.name.toLowerCase().includes(filter.toLowerCase()))) {
-            return sortedAssets;
-        }
 
         sortedAssets.push({
             currency: asset.code,
@@ -32,6 +18,8 @@ export function getTokensList(
 
         return sortedAssets;
     }, Array<IExchangeToken>());
+
+    return result.sort((a) => a.currency === $const.EURG ? -1 : 0);
 }
 
 export function getAlignment(array: Array<string>, key: string): string {

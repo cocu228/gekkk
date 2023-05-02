@@ -113,7 +113,7 @@ function History({currency}: Partial<Props>) {
                                     <div data-text={item.amount} className="ellipsis">
                                         <span className="text-green">
                                             {item.amount.toFixed(assets.find(a =>
-                                                a.code === currency)?.round_prec)} {item.currency}
+                                                a.code === item.currency)?.round_prec)} {item.currency}
                                         </span>
                                     </div>    
                                 </GTCol>

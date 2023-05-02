@@ -34,9 +34,9 @@ function Assets() {
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
                         </div>
                     </div>
-                    <div className="row mb-1 flex justify-center">
-                        <div className="col">
-                            <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
+                        <div className="row mb-1 flex justify-center">
+                            <div className="col">
+                                <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
                                 investing</h5>
                         </div>
                     </div>
@@ -65,9 +65,9 @@ function Assets() {
                                 Here you can purchase the most interesting and popular ones.</p>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
-                            <InfoBox/>
+                        <div className="row">
+                            <div className="col">
+                                <InfoBox/>
                         </div>
                     </div>
                 </div>}
@@ -77,7 +77,7 @@ function Assets() {
 }
 
 const InfoBox = () => {
-    return <div className='bg-green h-[min-content] rounded-md mb-4 py-5 px-4 text-white border-[#c3e6cb] text-sm'>
+    return <div className='info-box-description'>
         <p className="leading-6">
             By purchasing tokens, you take on all the risks associated with the volatility of cryptocurrencies.
             If you are interested in safer investment instruments, we recommend that you use <a

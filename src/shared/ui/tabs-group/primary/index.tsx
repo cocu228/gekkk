@@ -42,9 +42,9 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
 }
 
 
-const TabsGroupPrimary = ({children, defaultInit}) => {
+const TabsGroupPrimary = ({children, initValue}) => {
 
-    const [state, setState] = useState(defaultInit)
+    const [state, setState] = useState(initValue)
     const {content, buttons} = filterChildrenByAttribute(children, state)
 
     return <>

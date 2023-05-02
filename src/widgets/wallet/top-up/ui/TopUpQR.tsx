@@ -28,7 +28,7 @@ const TopUpQR = () => {
             <h3 className="font-medium text-xxl mb-7">Send a transaction to
                 this <b>{currency.const} {currency.name}</b> address</h3>
 
-            <div className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
+            <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                     <ReactQRCode
                         size={148}
@@ -38,7 +38,7 @@ const TopUpQR = () => {
                     />
                 </div>
             </div>
-            <div className="row mt-4">
+            <div className="row mt-4 w-full">
                 <InputCopy value={addressesForQR.address}/>
             </div>
         </div>

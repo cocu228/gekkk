@@ -30,11 +30,12 @@ const router = createBrowserRouter([
                     {
                         path: '',
                         element: <Deposit/>,
-                    }, {
-                        path: 'type',
-                        element: <CryptoDeposits/>,
                     }
                 ]
+            },
+            {
+                path: 'deposit-types',
+                element: <CryptoDeposits/>,
             },
             {
                 path: 'exchange/:to?',

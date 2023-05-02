@@ -14,12 +14,18 @@ import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
 import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
+import useModal from "@/shared/model/hooks/useModal";
+import Modal from "@/shared/ui/modal/Modal";
+import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
+import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
 
 const {RangePicker} = DatePicker;
 
 function History({currency}: Partial<Props>) {
 
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
+    
+    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
 
     const [historyList, setHistoryList] = useState([]);
 
@@ -49,14 +55,18 @@ function History({currency}: Partial<Props>) {
     }
 
     useEffect(() => {
-
         if (activeTab !== TabKey.CUSTOM) {
             (async () => {
                 await requestHistory()
             })()
         }
+    }, [activeTab])
 
-    }, [activeTab, currency])
+    useEffect(() => {
+        (async () => {
+            await requestHistory()
+        })()
+    }, [currency])
 
     return (
         <div className="wrapper">
@@ -93,22 +103,21 @@ function History({currency}: Partial<Props>) {
                 </GTHead>
                 <GTBody loading={loading} className={styles.TableBody}>
                     {historyList.length > 0 ? historyList.map((item) => {
-                        const dataCustomer = formatForCustomer(item.datetime)
-
                         return (
                             <GTRow className={`${styles.Row} gap-4`}>
                                 <GTCol>
-                                    <div data-text={dataCustomer} className="ellipsis">
-                                        <span>{dataCustomer}</span>
-                                    </div>
+                                    <TransactionModalLink item={item}/>
                                 </GTCol>
-                                    
+
                                 <GTCol>
                                     <div data-text={item.amount} className="ellipsis">
-                                        <span className="text-green">{item.amount}</span>
+                                        <span className="text-green">
+                                            {item.amount.toFixed(assets.find(a =>
+                                                a.code === currency)?.round_prec)} {item.currency}
+                                        </span>
                                     </div>    
                                 </GTCol>
-                                    
+
                                 <GTCol>
                                     <div data-text={item.type_transaction} className="ellipsis">
                                         <span>{item.type_transaction}</span>
@@ -125,6 +134,19 @@ function History({currency}: Partial<Props>) {
             </GTable>
         </div>
     );
+}
+
+const TransactionModalLink = ({item}) => {
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const dataCustomer = formatForCustomer(item.datetime);
+
+    return <>
+        <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
+        <Modal width={450} title="Transaction info" onCancel={handleCancel}
+               open={isModalOpen}>
+            <TransactionInfo id={item.id_transaction}/>
+        </Modal>
+    </>
 }
 
 export default History;

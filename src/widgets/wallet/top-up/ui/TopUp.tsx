@@ -1,29 +1,22 @@
 import {useContext, useEffect, useState} from 'react';
 import Loader from "@/shared/ui/loader";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
-import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
-
-// const fiatTabs: Record<string, string> = {
-//     'gek_card': 'Payment Card',
-//     'crypto': 'Blockchain wallet',
-// }
-//
-// const cryptoTabs: Record<string, string> = {
-//     'crypto': 'Blockchain wallet',
-// }
+import TopUpEURG from "@/widgets/wallet/top-up/ui/EURG";
 
 
 const TopUp = () => {
-
     const {loading} = useContext(CtxWalletNetworks)
-
+    const currency = useContext(CtxWalletCurrency),
+        isEURG = currency.const === "EURG"
 
     return (<div className="wrapper">
-        {loading ? <Loader/> : <>
-            <ChoseNetwork/>
-            <TopUpQR/>
-        </>}
+        {loading ? <Loader/> :
+            isEURG ? <TopUpEURG/> : <>
+                <ChoseNetwork/>
+                <TopUpQR/>
+            </>}
     </div>)
 
 };

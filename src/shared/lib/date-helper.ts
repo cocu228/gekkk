@@ -1,6 +1,5 @@
 import {format, isAfter, isBefore, isSameSecond} from "date-fns";
 import {utcToZonedTime} from "date-fns-tz";
-import {type} from "os";
 
 export const MINUTE_MILIS = 60 * 1000
 

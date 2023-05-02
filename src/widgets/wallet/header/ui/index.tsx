@@ -3,11 +3,12 @@ import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {getDescriptionText, EurgTooltipText, EurgDescriptionText} from "../module/description";
 import {useContext} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import descriptions from "@/shared/config/coins/descriptions";
 
 const WalletHeader = () => {
-
     const currency = useContext(CtxWalletCurrency)
-
+    const {xl, md} = useContext(BreakpointsContext);
     const isEURG: boolean = currency.const === 'EURG';
 
     return <>
@@ -16,7 +17,7 @@ const WalletHeader = () => {
                 <div className="grid auto-cols-max">
                     <IconCoin code={currency.const}/>
                 </div>
-                <div className="flex flex-col content-around">
+                {!md && <div className="flex flex-col content-around">
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                            <span>
                                Account balance
@@ -24,11 +25,23 @@ const WalletHeader = () => {
                     </div>
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {currency.availableBalance.toNumber()}
+                        {currency.availableBalance.toNumber()} {currency.const}
                     </div>
-                </div>
+                </div>}
+                {md && <div className="flex flex-col content-around">
+                    <div className="text-2xl font-bold text-gray-600 cursor-help">
+                        {currency.availableBalance.toNumber()} {currency.const}
+                    </div>
+                    <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                           <span>
+                              {currency.name} wallet
+                           </span>
+                    </div>
 
-                {isEURG && (<div className='grid auto-cols-fr'>
+                </div>}
+
+
+                {isEURG && !md && (<div className='grid auto-cols-fr'>
                     <div className="text-sm font-medium text-semilight">
                         Rate
                         <Tooltip text={EurgTooltipText}>
@@ -44,7 +57,7 @@ const WalletHeader = () => {
                 </div>)}
             </div>
 
-            <div className="text-right grid auto-cols-fr">
+            {!md && <div className="text-right grid auto-cols-fr">
                 <div data-text={`${currency.name} wallet`} className="mb-4 ellipsis -mt-1.5">
                     <span className="font-bold text-fs32 leading-1 text-gray-600">
                         {currency.name} wallet
@@ -52,9 +65,9 @@ const WalletHeader = () => {
                 </div>
                 <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
                     {isEURG ? EurgDescriptionText :
-                        getDescriptionText(currency.name, currency.const, currency.defaultInfoToken.flags)}
+                        descriptions[currency.const]?.props.children[0]}
                 </div>
-            </div>
+            </div>}
         </div>
     </>
 }

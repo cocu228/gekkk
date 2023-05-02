@@ -29,9 +29,7 @@ const HeaderMenuList = [
             borderTop: "1px solid var(--color-gray-400)"
         }
     },
-    {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit/type"}},
-    {item: 'Limits', id: 'limits'},
-    {item: 'Partnership program', id: 'item-4'},
+    {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit-types"}},
     {
         item: <PromoCodeModal/>, id: 'item-4',
         event: {action: "onclick", value: null}

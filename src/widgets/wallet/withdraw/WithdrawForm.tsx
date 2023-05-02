@@ -19,7 +19,6 @@ const WithdrawForm = () => {
         amount: null,
         receiver: null,
         description: null,
-
     })
 
     const {isModalOpen, showModal, handleCancel} = useModal()
@@ -29,6 +28,7 @@ const WithdrawForm = () => {
 
     const {
         min_withdraw = null,
+        can_withdraw = false,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
@@ -36,7 +36,7 @@ const WithdrawForm = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    return (
+    return can_withdraw ? (
         <div className="flex flex-col items-center mt-2">
             <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
                 <div className='flex flex-col gap-2'>
@@ -44,8 +44,7 @@ const WithdrawForm = () => {
                     <Input value={inputs.address} onChange={onInput}
                            disabled={!networkIdSelect}
                            placeholder={"Enter the withdrawal address"}
-                           name={"address"}
-                           suffix={<IconCoin code={currency.const}/>}/>
+                           name={"address"}/>
                 </div>
 
                 <div className='flex flex-col gap-2'>
@@ -76,7 +75,7 @@ const WithdrawForm = () => {
                               rows={2}/>
                 </div>
 
-                <Button onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
+                <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>
@@ -92,7 +91,9 @@ const WithdrawForm = () => {
                 </div>}
             </div>
         </div>
-    );
+    ) : <div className="row info-box-warning">
+        <div className="col"><p>At the moment there is not a single option for withdrawing an asset</p></div>
+    </div>;
 };
 
 export default WithdrawForm;

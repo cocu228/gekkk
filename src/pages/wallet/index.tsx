@@ -16,18 +16,18 @@ import {testRightsUser, constRights} from "@/shared/config/chmod-user";
 
 function Wallet() {
 
-    const params = useParams();
+    const {currency} = useParams();
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
-    const currency = sortedListBalance.find(item => item.const === params.currency)
+    const wallet = sortedListBalance.find(item => item.const === currency)
     const {xl, md} = useContext(BreakpointsContext);
 
-    if (!currency) return null
-    console.log(currency.defaultInfoToken.flags)
-    const rights = testRightsUser(currency.defaultInfoToken.flags, constRights.ACCOUNT_AVAILABLE)
+    if (!wallet) return null
+    console.log(wallet.defaultInfoToken.flags)
+    const rights = testRightsUser(wallet.defaultInfoToken.flags, constRights.ACCOUNT_AVAILABLE)
 
     return (
         <div className="flex flex-col h-full w-full">
-            <CtxWalletCurrency.Provider value={currency}>
+            <CtxWalletCurrency.Provider value={wallet}>
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={"About"}>
                     <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
@@ -42,7 +42,7 @@ function Wallet() {
 
                         </div>
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History/>
+                            <History currency={currency}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

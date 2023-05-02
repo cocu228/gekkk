@@ -1,9 +1,10 @@
-import React, {PropsWithChildren, useContext, useState} from 'react';
 import styles from './style.module.scss';
-import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {useContext, useState} from 'react';
 import Modal from '@/shared/ui/modal/Modal';
-import Tokens from '@/widgets/exchange/ui/exchange-field/tokens/Tokens';
+import AssetsTable from '@/features/assets-table/ui/AssetsTable';
+import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
+import {AssetTableKeys} from '@/features/assets-table/model/types';
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 
 export enum ExchangeFieldType {
     TOKEN = 1,
@@ -91,7 +92,14 @@ function ExchangeField({value, infoText, disabled, labelType, tokenLabelTitle, t
             </div>
 
             <Modal width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
-                <Tokens onSelect={handleSelectToken}/>
+                <AssetsTable
+                    className='-mx-4 -mt-8 min-h-[500px]'
+                    modal={true}
+                    columnKeys={[
+                        AssetTableKeys.NAME,
+                        AssetTableKeys.CURRENCY
+                    ]}
+                />
             </Modal>
         </>
     );

@@ -2,25 +2,23 @@ import $axios from "@/shared/lib/(cs)axios";
 
 export interface IResTokenNetwork {
     id: number,
-    type_network: number,
-    type_network_name?: string,
-    address_contract?: string,
-    type_contract?: string,
+    network_name: string,
+    network_type:number,
+    contract_name: string,
     withdraw_fee: number,
-    name?: string,
-    symbol?: string,
-    is_operable: boolean,
+    percent_fee:number,    
+    token_name: string,
+    token_symbol: string,
     min_withdraw: number,
-    min_deposit: number,
+    min_topup: number,
     max_withdraw: number,
-    can_withdraw: boolean,
-    can_deposit: boolean,
-    type_address?: string
+    is_memo: boolean
 }
 
-export const apiTokenNetworks = (currency: string) =>
+export const apiTokenNetworks = (currency: string, top_up: boolean) =>
     $axios.get<IResTokenNetwork[]>('/gek/v1/tokens_networks', {
         params: {
-            currency
+            currency,
+            top_up
         }
     })

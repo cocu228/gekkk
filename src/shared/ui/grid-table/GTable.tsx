@@ -3,18 +3,13 @@ import styles from "./style.module.scss";
 
 interface IParams {
     className?: string;
-    maxHeight?: number;
     children: React.ReactNode;
+    style?: React.CSSProperties;
 }
 
-export const GTable: FC<IParams> = ({ children, maxHeight = 1080, className }) => {
+export const GTable: FC<IParams> = ({ children, style, className }) => {
     return (
-        <div
-            className={`grid ${className} ${styles.ItemsList}`}
-            style={{
-                maxHeight: maxHeight
-            }}
-        >
+        <div style={style} className={`grid ${className} ${styles.ItemsList}`}>
             {children}
         </div>
     )

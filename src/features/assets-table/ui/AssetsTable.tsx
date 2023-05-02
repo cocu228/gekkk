@@ -73,14 +73,8 @@ const AssetsTable = ({
             {!rates ? (
                 <Loader className='relative mt-10'/>
             ) : (
-                <div
-                    className={`overflow-[overlay]`}
-                    style={{maxHeight: maxHeight}}
-                >
-                    <GTable
-                        className={!loading && styles.ItemsList}
-                        maxHeight={maxHeight}
-                    >
+                <div style={{maxHeight: maxHeight}}>
+                    <GTable style={{maxHeight: maxHeight}} className={!loading && styles.ItemsList}>
                         <GTBody loading={loading}>
                             {tokensList.filter(searchFilter).map((token, index) => (
                                 <GTRow

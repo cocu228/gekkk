@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 
 interface IParams {
     className?: string;
@@ -7,7 +7,12 @@ interface IParams {
 
 export const GTHead: FC<IParams> = ({ children, className }) => {
     return (
-        <div className={`grid text-center ${className}`}>
+        <div
+            className={`grid text-center ${className}`}
+            style={{
+                gridTemplateColumns: `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
+            }}
+        >
             {children}
         </div>
     )

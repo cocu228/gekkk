@@ -1,4 +1,3 @@
-import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {apiGetRates} from "@/shared/api";
 import Input from "@/shared/ui/input/Input";
@@ -13,6 +12,7 @@ import {getAlignment, getTokensList} from "../model/helpers";
 import {AssetTableKeys, IExchangeToken} from "../model/types";
 import {useContext, useEffect, useMemo, useState} from "react";
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
+import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
@@ -68,16 +68,23 @@ const AssetsTable = ({
                         setSearchValue(e.target.value.trim().toLowerCase());
                     }}
                 />
-
-                <IndependendHeader keys={columnKeys}/>
             </div>
 
-            <div style={{maxHeight: maxHeight}}>
-                <GTable style={{maxHeight: maxHeight}} className={!loading && styles.ItemsList}>
-                    <GTBody loading={loading}>
+            <div style={{maxHeight: maxHeight}} className='mb-10'>
+                <GTable>
+                    <GTHead>
+                        <GTRow>
+                            {columnKeys.map((item: string) => (
+                                <GTCol className={`flex ${getAlignment(columnKeys, item)} my-2`}>
+                                    <span className="text-gray-400 font-medium">{item}</span>
+                                </GTCol>
+                            ))}
+                        </GTRow>
+                    </GTHead>
+                    <GTBody loading={loading} className={styles.ItemsList} style={{maxHeight: maxHeight}}>
                         {filteredTokens.map((token, index) => (
                             <GTRow
-                                className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
+                                className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                 onClick={() => onSelect(token)}
                             >
                                 <GTCol>
@@ -119,24 +126,6 @@ const AssetsTable = ({
                     {searchValue.length ? `Token "${searchValue}" not found` : 'Tokens not found'}
                 </div>
             )}
-        </div>
-    )
-}
-
-const IndependendHeader = ({keys}) => {
-    return (
-        <div
-            className={`grid mt-4 items-center`}
-            style={{
-                gridTemplateColumns: `repeat(${keys.length}, minmax(0, 1fr))`
-            }}
-        >
-            {keys.map((item: string, index: number) => (
-                <div key={"TableHead" + index}
-                     className={`flex ${getAlignment(keys, item)}`}>
-                    <span className="text-gray-400 font-medium">{item}</span>
-                </div>
-            ))}
         </div>
     )
 }

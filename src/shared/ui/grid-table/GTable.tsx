@@ -1,5 +1,4 @@
 import {FC} from "react";
-import styles from "./style.module.scss";
 
 interface IParams {
     className?: string;
@@ -9,7 +8,7 @@ interface IParams {
 
 export const GTable: FC<IParams> = ({ children, style, className }) => {
     return (
-        <div style={style} className={`grid ${className} ${styles.ItemsList}`}>
+        <div style={style} className={`grid ${className}`}>
             {children}
         </div>
     )

@@ -3,7 +3,7 @@
 .ItemsList {
     scrollbar-color: var(--color-secondary) transparent;
     scrollbar-width: thin;
-    overflow: overlay;
+    overflow: hidden overlay;
     
     &::-webkit-scrollbar {
       height: 5px;

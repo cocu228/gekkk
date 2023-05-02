@@ -4,6 +4,7 @@ import {FC} from "react";
 interface IParams {
     className?: string;
     children: React.ReactNode;
+    hidden?: boolean;
 }
 
 export const GTCol: FC<IParams> = ({ children, className }) => {

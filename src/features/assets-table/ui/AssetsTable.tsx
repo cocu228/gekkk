@@ -44,10 +44,12 @@ const AssetsTable = ({
     const tokensList = useMemo<Array<IExchangeToken>>(() =>
         getTokensList(assets, excludedCurrencies), [assets]);
 
-    function searchFilter(token: IExchangeToken) {
-        return token.currency.toLowerCase().includes(searchValue) ||
-            token.name.toLowerCase().includes(searchValue);
-    }
+    const filteredTokens = useMemo<Array<IExchangeToken>>(() => {
+        return tokensList.filter((token) =>
+            token.currency.toLowerCase().includes(searchValue) ||
+            token.name.toLowerCase().includes(searchValue)
+        );
+    }, [searchValue]);
 
     useEffect(() => {
         (async () => {
@@ -73,7 +75,7 @@ const AssetsTable = ({
             <div style={{maxHeight: maxHeight}}>
                 <GTable style={{maxHeight: maxHeight}} className={!loading && styles.ItemsList}>
                     <GTBody loading={loading}>
-                        {tokensList.filter(searchFilter).map((token, index) => (
+                        {filteredTokens.map((token, index) => (
                             <GTRow
                                 className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                 onClick={() => onSelect(token)}
@@ -114,7 +116,7 @@ const AssetsTable = ({
 
             {!tokensList.length && (
                 <div className="text-center text-gray-400 my-4">
-                    {searchValue.trim().length ? `Token "${searchValue}" not found` : 'Tokens not found'}
+                    {searchValue.length ? `Token "${searchValue}" not found` : 'Tokens not found'}
                 </div>
             )}
         </div>

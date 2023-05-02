@@ -123,8 +123,8 @@ const AssetsTable = ({
                 </GTable>
             </div>
 
-            {!tokensList.length && (
-                <div className="text-center text-gray-400 my-4">
+            {!filteredTokens.length && (
+                <div className="text-center text-gray-400">
                     {searchValue.length ? `Token "${searchValue}" not found` : 'Tokens not found'}
                 </div>
             )}

@@ -70,51 +70,47 @@ const AssetsTable = ({
                 <IndependendHeader keys={columnKeys}/>
             </div>
 
-            {!rates ? (
-                <Loader className='relative mt-10'/>
-            ) : (
-                <div style={{maxHeight: maxHeight}}>
-                    <GTable style={{maxHeight: maxHeight}} className={!loading && styles.ItemsList}>
-                        <GTBody loading={loading}>
-                            {tokensList.filter(searchFilter).map((token, index) => (
-                                <GTRow
-                                    className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
-                                    onClick={() => onSelect(token)}
-                                >
-                                    <GTCol>
-                                        <div className="flex items-center gap-3">
-                                            <IconCoin width={29} height={29} code={token.currency}/>
-                                            <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
-                                        </div>
-                                    </GTCol>
+            <div style={{maxHeight: maxHeight}}>
+                <GTable style={{maxHeight: maxHeight}} className={!loading && styles.ItemsList}>
+                    <GTBody loading={loading}>
+                        {tokensList.filter(searchFilter).map((token, index) => (
+                            <GTRow
+                                className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
+                                onClick={() => onSelect(token)}
+                            >
+                                <GTCol>
+                                    <div className="flex items-center gap-3">
+                                        <IconCoin width={29} height={29} code={token.currency}/>
+                                        <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
+                                    </div>
+                                </GTCol>
 
-                                    <GTCol className='text-center'>
-                                        <div>
-                                            <span>{token.currency}</span>
-                                        </div>
-                                    </GTCol>
+                                <GTCol className='text-center'>
+                                    <div>
+                                        <span>{token.currency}</span>
+                                    </div>
+                                </GTCol>
 
-                                    <GTCol className='text-center'>
-                                        <span>{rates ? rates[token.currency].toFixed(2) : 0.00} €</span>
-                                    </GTCol>
+                                <GTCol className='text-center'>
+                                    <span>{rates ? rates[token.currency].toFixed(2) : 0.00} €</span>
+                                </GTCol>
 
-                                    <GTCol className='flex justify-end'>
-                                        <Button
-                                            size={"sm"}
-                                            className='w-[60px]'
-                                            gray
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                navigate(`/exchange/${token.currency}`)
-                                            }}
-                                        >Buy</Button>
-                                    </GTCol>
-                                </GTRow>
-                            ))}
-                        </GTBody>
-                    </GTable>
-                </div>
-            )}
+                                <GTCol className='flex justify-end'>
+                                    <Button
+                                        size={"sm"}
+                                        className='w-[60px]'
+                                        gray
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/exchange/${token.currency}`)
+                                        }}
+                                    >Buy</Button>
+                                </GTCol>
+                            </GTRow>
+                        ))}
+                    </GTBody>
+                </GTable>
+            </div>
 
             {!tokensList.length && (
                 <div className="text-center text-gray-400 my-4">

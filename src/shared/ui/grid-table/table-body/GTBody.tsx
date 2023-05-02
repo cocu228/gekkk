@@ -10,7 +10,9 @@ interface IParams {
 export const GTBody: FC<IParams> = ({ children, className, loading  }) => {
     return (
         <div className={`grid ${className}`}>
-            {loading ? <Loader className="relative"/> : children}
+            {!loading ? children : (
+                <Loader className="relative align-middle"/>
+            )}
         </div>
     )
 }

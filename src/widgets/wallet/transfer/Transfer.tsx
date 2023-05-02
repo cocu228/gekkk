@@ -1,33 +1,19 @@
-import Button from "@/shared/ui/button/Button";
+import {useContext} from "react";
 import {Form, Input} from "antd";
-import React, {useContext, useEffect, useState} from "react";
+import styles from "./style.module.scss";
+import Button from "@/shared/ui/button/Button";
+import {GTable} from "@/shared/ui/grid-table/GTable";
+import {GTRow} from "@/shared/ui/grid-table/table-row/GTRow";
+import {GTHead} from "@/shared/ui/grid-table/table-head/GTHead";
+import {GTCol} from "@/shared/ui/grid-table/table-column/GTCol";
+import {GTBody} from "@/shared/ui/grid-table/table-body/GTBody";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
-import styles from "@/widgets/history/ui/style.module.scss";
-import {apiListTxCodes} from "@/widgets/wallet/transfer/api/list-tx-codes";
-import {AxiosResponse} from "axios";
-import {formatForCustomer} from "@/shared/lib/date-helper";
-import Modal from "@/shared/ui/modal/Modal";
-import CreateCode from "@/widgets/wallet/transfer/CreateCode";
-import useModal from "@/shared/model/hooks/useModal";
 
 const {TextArea} = Input;
 
 const Transfer = () => {
 
-    const currency = useContext(CtxWalletCurrency);
-
-    const [list, setList] = useState([]);
-    const {isModalOpen, showModal, handleCancel} = useModal();
-
-    useEffect(() => {
-        (async () => {
-            const res: AxiosResponse = await apiListTxCodes()
-            if (res?.data) {
-                setList(res.data)
-            }
-            console.log(res)
-        })()
-    }, [])
+    const currency = useContext(CtxWalletCurrency)
 
     return (<>
             <div className="row mb-9">
@@ -64,9 +50,7 @@ const Transfer = () => {
                 </div>
             </Form>
             <div className="row mb-5">
-                <Button onClick={showModal} size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
-                <Modal width={450} title="Transaction info" onCancel={handleCancel}
-                       open={isModalOpen}><CreateCode/></Modal>
+                <Button size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
             </div>
             <div className="row mb-2">
                 <h3 className="text-lg font-bold">
@@ -74,27 +58,21 @@ const Transfer = () => {
                 </h3>
             </div>
             <div className="row">
-                <div className={`${styles.Table}`}>
-                    <div className={styles.TableHead + " py-4"}>
-                        <div data-text={"Data"} className="col col-span-3 flex">
-                            <span>Code</span>
-                        </div>
-                        <div data-text={"Flow of funds"} className="col col-span-3">
-                            <span>Amount</span>
-                        </div>
-                        <div data-text={"Information"} className="col col-span-3 flex justify-center">
-                            <span>Status</span>
-                        </div>
-                        <div data-text={"Information"} className="col col-span-3 flex justify-center">
-                            <span>Action</span>
-                        </div>
-                    </div>
-                    <div className={styles.TableBody}>
-                        {list.map((it, i) => <div key={"tx-row" + i} className="row grid grid-cols-12 px-4 py-3 gap-3">
-                            <div className="col col-span-3">
+                <GTable className={`${styles.Table}`}>
+                    <GTHead className={styles.TableHead + " py-4"}>
+                        <GTRow>
+                            <GTCol className="text-left">Code</GTCol>
+                            <GTCol>Amount</GTCol>
+                            <GTCol>Status</GTCol>
+                            <GTCol>Action</GTCol>
+                        </GTRow>
+                    </GTHead>
+                    <GTBody className={styles.TableBody}>
+                        <GTRow className="px-4 py-3 gap-3">
+                            <GTCol>
                                 <div className="row flex items-center">
                                     <div className="col mr-2">
-                                        <span className="text-gra-600 font-bold">{it.code}</span>
+                                        <span className="text-gra-600 font-bold">23frG45</span>
                                     </div>
                                     <div className="col">
                                         <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
@@ -102,48 +80,59 @@ const Transfer = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
+                                        <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col col-span-3">
-                                <span className="text-gra-600 text-xs">{it.amount} {it.currency}</span>
-                            </div>
-                            <div className="col col-span-3"><span className="text-gray-600 text-xs">
-                           {it.state}
-                            </span></div>
-                            <div className="col col-span-3 flex justify-center items-center">
+                            </GTCol>
+
+                            <GTCol className="text-center">
+                                <span className="text-gra-600 text-xs">23frG45</span>
+                            </GTCol>
+
+                            <GTCol className="text-center">
+                                <span className="text-gray-600 text-xs">
+                                    Without confirmation. The code not used yet
+                                </span>
+                            </GTCol>
+
+                            <GTCol className="flex justify-center items-center">
                                 <Button size={"lg"} className={"!py-3 !h-[fit-content]"}>Delete</Button>
-                            </div>
-                        </div>)}
-                        {/*<div className="row grid grid-cols-12 px-4 py-3 gap-3">*/}
-                        {/*    <div className="col col-span-3">*/}
-                        {/*        <div className="row flex">*/}
-                        {/*            <div className="col mr-2">*/}
-                        {/*                <span className="text-gra-600 font-bold">23frG45</span>*/}
-                        {/*            </div>*/}
-                        {/*            <div className="col">*/}
-                        {/*                <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*        <div className="row">*/}
-                        {/*            <div className="col">*/}
-                        {/*                <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="col col-span-3">*/}
-                        {/*        <span className="text-gra-600 text-xs">23frG45</span>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="col col-span-3"><span className="text-orange text-xs">*/}
-                        {/*        Your confirmation required*/}
-                        {/*    </span></div>*/}
-                        {/*    <div className="col col-span-3 flex justify-center items-center">*/}
-                        {/*        <Button gray disabled className="!py-3 !h-[fit-content]">Confirm</Button>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                    </div>
-                </div>
+                            </GTCol>
+                        </GTRow>
+
+                        <GTRow className="px-4 py-3 gap-3">
+                            <GTCol>
+                                <div className="row flex">
+                                    <div className="col mr-2">
+                                        <span className="text-gra-600 font-bold">23frG45</span>
+                                    </div>
+                                    <div className="col">
+                                        <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span className="text-gray-500 text-xs">19.04.23 at 12:37</span>
+                                    </div>
+                                </div>
+                            </GTCol>
+
+                            <GTCol className="text-center">
+                                <span className="text-gra-600 text-xs">23frG45</span>
+                            </GTCol>
+
+                            <GTCol className="text-center">
+                                <span className="text-orange text-xs">
+                                    Your confirmation required
+                                </span>
+                            </GTCol>
+
+                            <GTCol className="flex justify-center items-center">
+                                <Button gray disabled className="!py-3 !h-[fit-content]">Confirm</Button>
+                            </GTCol>
+                        </GTRow>
+                    </GTBody>
+                </GTable>
             </div>
         </>
     );

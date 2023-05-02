@@ -10,8 +10,3 @@ export enum AssetTableKeys {
     CURRENCY = 'Currency',
     ACTIONS = 'Actions'
 }
-
-export type AssetTableColumn = {
-    key: AssetTableKeys,
-    template: JSX.Element
-}

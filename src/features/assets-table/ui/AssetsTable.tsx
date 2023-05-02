@@ -87,34 +87,36 @@ const AssetsTable = ({
                                 className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                 onClick={() => onSelect(token)}
                             >
-                                <GTCol>
-                                    <div className="flex items-center gap-3">
-                                        <IconCoin width={29} height={29} code={token.currency}/>
-                                        <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
-                                    </div>
-                                </GTCol>
+                                {columnKeys.map((key: string) => (
+                                    <GTCol className={`flex ${getAlignment(columnKeys, key)}`}>
+                                        {key === AssetTableKeys.NAME && (
+                                            <div className="flex items-center gap-3">
+                                                <IconCoin width={29} height={29} code={token.currency}/>
+                                                <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
+                                            </div>
+                                        )}
 
-                                <GTCol className='text-center'>
-                                    <div>
-                                        <span>{token.currency}</span>
-                                    </div>
-                                </GTCol>
+                                        {key === AssetTableKeys.CURRENCY && (
+                                            <span>{token.currency}</span>
+                                        )}
 
-                                <GTCol className='text-center'>
-                                    <span>{rates ? rates[token.currency].toFixed(2) : 0.00} €</span>
-                                </GTCol>
+                                        {key === AssetTableKeys.PRICE && (
+                                            <span>{rates ? rates[token.currency].toFixed(2) : 0.00} €</span>
+                                        )}
 
-                                <GTCol className='flex justify-end'>
-                                    <Button
-                                        size={"sm"}
-                                        className='w-[60px]'
-                                        gray
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            navigate(`/exchange/${token.currency}`)
-                                        }}
-                                    >Buy</Button>
-                                </GTCol>
+                                        {key === AssetTableKeys.ACTIONS && (
+                                            <Button
+                                                size={"sm"}
+                                                className='w-[60px]'
+                                                gray
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    navigate(`/exchange/${token.currency}`)
+                                                }}
+                                            >Buy</Button>
+                                        )}
+                                    </GTCol>
+                                ))}
                             </GTRow>
                         ))}
                     </GTBody>

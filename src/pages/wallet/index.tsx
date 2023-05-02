@@ -10,9 +10,10 @@ import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import WalletHeader from "@/widgets/wallet/header/ui";
 import {useContext} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import NetworkHOC from "@/widgets/wallet/model/NetworkHOC";
+import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import {testRightsUser, constRights} from "@/shared/config/chmod-user";
+import Select from "@/shared/ui/select/Select";
 
 function Wallet() {
 
@@ -22,8 +23,7 @@ function Wallet() {
     const {xl, md} = useContext(BreakpointsContext);
 
     if (!wallet) return null
-    console.log(wallet.defaultInfoToken.flags)
-    const rights = testRightsUser(wallet.defaultInfoToken.flags, constRights.ACCOUNT_AVAILABLE)
+    // const rights = testRightsUser(wallet.defaultInfoToken.flags, constRights.ACCOUNT_AVAILABLE)
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -32,10 +32,12 @@ function Wallet() {
                 <TabsGroupPrimary initValue={"About"}>
                     <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
                         <div className="substrate z-10 w-inherit relative">
-                            {rights && <NetworkHOC>
-                                <TopUp data-tab={"Top Up"}/>
-                                <Withdraw data-tab={"Withdraw"}/>
-                            </NetworkHOC>}
+                            <NetworkProvider data-tab={"Top Up"}>
+                                <TopUp/>
+                            </NetworkProvider>
+                            <NetworkProvider data-tab={"Withdraw"}>
+                                <Withdraw/>
+                            </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
                             <About data-tab={"About"}/>
                             {xl && <History data-tab={"History"}/>}

@@ -4,8 +4,7 @@ import React, {useContext} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {apiCreateNetwork} from "@/shared/api/client/create-address";
-import {isNull, randomId} from "@/shared/lib/helpers";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {randomId} from "@/shared/lib/helpers";
 
 
 const TopUpQR = () => {
@@ -14,8 +13,7 @@ const TopUpQR = () => {
     const onCreateAddress = async () => {
 
         setLoading(true)
-        const typeNetwork = !isNull(networkIdSelect) && getNetworkForChose(networksDefault, networkIdSelect).type_network
-        const {data} = await apiCreateNetwork(typeNetwork)
+        const response = await apiCreateNetwork(networkIdSelect)
 
         setRefresh(randomId())
 
@@ -33,13 +31,13 @@ const TopUpQR = () => {
                     <ReactQRCode
                         size={148}
                         style={{height: "auto", maxWidth: "100%", width: "100%"}}
-                        value={addressesForQR.address}
+                        value={addressesForQR}
                         viewBox={`0 0 148 148`}
                     />
                 </div>
             </div>
             <div className="row mt-4 w-full">
-                <InputCopy value={addressesForQR.address}/>
+                <InputCopy value={addressesForQR}/>
             </div>
         </div>
         <div className="row flex flex-col mb-8">

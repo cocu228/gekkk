@@ -8,10 +8,15 @@ import {GTHead} from "@/shared/ui/grid-table/table-head/GTHead";
 import {GTCol} from "@/shared/ui/grid-table/table-column/GTCol";
 import {GTBody} from "@/shared/ui/grid-table/table-body/GTBody";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
+import CreateCode from "@/widgets/wallet/transfer/CreateCode";
 
 const {TextArea} = Input;
 
 const Transfer = () => {
+
+    const {isModalOpen, showModal, handleCancel} = useModal()
 
     const currency = useContext(CtxWalletCurrency)
 
@@ -50,7 +55,10 @@ const Transfer = () => {
                 </div>
             </Form>
             <div className="row mb-5">
-                <Button size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
+                <Button onClick={showModal} size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
+                <Modal onCancel={handleCancel} open={isModalOpen}>
+                    <CreateCode/>
+                </Modal>
             </div>
             <div className="row mb-2">
                 <h3 className="text-lg font-bold">

@@ -2,11 +2,11 @@ import {CtxWalletCurrency, CtxWalletNetworks, ICtxWalletNetworks} from "@/widget
 import React, {useContext, useEffect, useState} from "react";
 import {apiTokenNetworks, IResTokenNetwork} from "@/shared/api";
 import {
+    helperApiListAddresses,
     helperApiTokenNetworks,
     sortingNetworksForSelector,
-    getAddressForChose
 } from "@/widgets/wallet/model/helper";
-import {storeListAddresses} from "@/shared/store/crypto-assets";
+import {apiListAddresses} from "@/widgets/wallet/top-up/api/list-addresses";
 import {AxiosResponse} from "axios";
 
 
@@ -14,10 +14,9 @@ interface IProps {
     children: React.ReactNode
 }
 
-const NetworkHOC = ({children}: IProps) => {
+const NetworkProvider = ({children, ...props}: IProps) => {
 
-    const getListAddresses = storeListAddresses(state => state.getListAddresses)
-    const listAddresses = storeListAddresses(state => state.listAddresses)
+    const isTopUp = props["data-tab"] === "Top Up"
 
     const currency = useContext(CtxWalletCurrency)
 
@@ -32,12 +31,21 @@ const NetworkHOC = ({children}: IProps) => {
     const [state, setState] =
         useState<Omit<ICtxWalletNetworks, "setRefresh" | "setLoading" | "setNetworkId">>(initState)
 
-    const setNetworkId = (networkIdSelect) => {
+    const setNetworkId = async (networkIdSelect) => {
+
+        let firstAddress = null
+
+        if (isTopUp) {
+            const response = await apiListAddresses(networkIdSelect)
+            helperApiListAddresses(response).success(
+                (address) => firstAddress = address
+            )
+        }
+
         setState(prev => ({
             ...prev,
             networkIdSelect,
-            addressesForQR: getAddressForChose(listAddresses,
-                prev.networksDefault.find(it => it.id === networkIdSelect))
+            addressesForQR: firstAddress
         }))
     }
 
@@ -60,11 +68,9 @@ const NetworkHOC = ({children}: IProps) => {
 
             clearState()
 
-            await getListAddresses(id)
+            const response: AxiosResponse = await apiTokenNetworks(currency.const, isTopUp);
 
-            const response: AxiosResponse = await apiTokenNetworks(currency.const, true);
-
-            helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
+            helperApiTokenNetworks(response).success(async (networksDefault: Array<IResTokenNetwork>) => {
 
                 const networksForSelector = sortingNetworksForSelector(networksDefault)
 
@@ -85,4 +91,4 @@ const NetworkHOC = ({children}: IProps) => {
 
 }
 
-export default NetworkHOC
+export default NetworkProvider

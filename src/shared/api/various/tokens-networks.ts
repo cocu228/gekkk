@@ -6,7 +6,7 @@ export interface IResTokenNetwork {
     network_type:number,
     contract_name: string,
     withdraw_fee: number,
-    percent_fee:number,    
+    percent_fee:number,
     token_name: string,
     token_symbol: string,
     min_withdraw: number,
@@ -14,6 +14,7 @@ export interface IResTokenNetwork {
     max_withdraw: number,
     is_memo: boolean
 }
+
 
 export const apiTokenNetworks = (currency: string, top_up: boolean) =>
     $axios.get<IResTokenNetwork[]>('/gek/v1/tokens_networks', {

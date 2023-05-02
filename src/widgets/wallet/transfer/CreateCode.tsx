@@ -1,15 +1,18 @@
 import Button from '@/shared/ui/button/Button';
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import DepositInput from "@/widgets/deposit/ui/deposit-input";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import Decimal from "decimal.js";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
 const CreateCode = () => {
+
+    const [input, setInput] = useState("")
 
     const currency = useContext(CtxWalletCurrency),
         {
@@ -18,13 +21,11 @@ const CreateCode = () => {
         } = currency
 
     const onCreateCode = async () => {
-        const res = await apiCreateTxCode(12, "EURG")
-
+        const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const)
         console.log(res)
     }
 
-    // const {xl, md} = useContext(BreakpointsContext);
-    // const navigate = useNavigate()
+    const onInput = ({target}) => setInput(target.value)
 
     return (
         <div>
@@ -50,7 +51,7 @@ const CreateCode = () => {
                             </div>
                         </div>
 
-                        <DepositInput/>
+                        <DepositInput onChange={onInput}/>
                     </div>
                 </div>
             </div>
@@ -66,7 +67,7 @@ const CreateCode = () => {
                 </Checkbox>
             </div>
             <div className="row">
-                <Button className="w-full" size="xl" onClick={onCreateCode}>Confirm
+                <Button disabled={input === ""} className="w-full" size="xl" onClick={onCreateCode}>Confirm
                 </Button>
             </div>
 

@@ -1,5 +1,5 @@
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
-import {IResListAddresses, IResTokenNetwork} from "@/shared/api";
+import {IResTokenNetwork} from "@/shared/api";
 import {TNetworksForSelector} from "@/widgets/wallet/model/types";
 import {AxiosResponse} from "axios";
 
@@ -7,19 +7,31 @@ import {AxiosResponse} from "axios";
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
     const data = Array.isArray(response.data) &&
         response.data
+    console.log("response")
 
-    return actionSuccessConstructor.call(data, typeof data[0]?.type_address === "string")
+    return actionSuccessConstructor.call(data, typeof Array.isArray(data))
+}
+
+export const helperApiListAddresses = function (response: AxiosResponse) {
+
+    const isEmpty = response.data.result.length === 0
+
+    const result = isEmpty ? undefined : response.data.result[0]?.address
+
+    return actionSuccessConstructor.call(result, typeof Array.isArray(response.data.result))
 }
 
 
 export const sortingNetworksForSelector = function (networks: Array<IResTokenNetwork>): TNetworksForSelector | [] {
-    return networks.map(it => ({label: it.contract_name + " / " + 
-    it.network_name + " / " + it.token_name +" (" + it.token_symbol + ")", value: it.id}))
+    return networks.map(it => ({
+        label: it.contract_name + " / " +
+            it.network_name + " / " + it.token_name + " (" + it.token_symbol + ")", value: it.id
+    }))
 }
 
-export const getAddressForChose = function (addresses: Array<IResListAddresses>, network: IResTokenNetwork): undefined | IResListAddresses {
-    return addresses.find(item => network.type_address.split(",").some(it => it === item.type_address))
-}
+// export const getAddressForChose = function (addresses: Array<IResListAddresses>, network: IResTokenNetwork): undefined | IResListAddresses {
+//     return addresses.find(item => network.network_type.split(",").some(it => it === item.type_address))
+// }
 
 export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, networkId: number): IResTokenNetwork {
     return networks.find(it => it.id === networkId)

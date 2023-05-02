@@ -1,14 +1,17 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import styles from "@/shared/ui/tabs-group/secondary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 import GekkardAccount from "@/widgets/wallet/top-up/ui/EURG/GekkardAccount";
 import BlockchainWallet from "@/widgets/wallet/top-up/ui/EURG/BlockchainWallet";
+import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
-type TBtnTabs = "gekkard-account" | "blockchain-wallet"
+type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 
 
 const TopUpEURG = () => {
+    const {loading} = useContext(CtxWalletNetworks)
+
 
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("gekkard-account")
 
@@ -26,10 +29,17 @@ const TopUpEURG = () => {
                     Blockchain wallet
                 </button>
             </div>
+            <div className="col">
+                <button onClick={() => setBtnTabs("top-up-code")}
+                        className={`${styles.Tab} ${isActiveClass(btnTabs === "top-up-code")} whitespace-nowrap`}>
+                    Top Up Code
+                </button>
+            </div>
         </div>
 
         {btnTabs === "gekkard-account" && <GekkardAccount/>}
         {btnTabs === "blockchain-wallet" && <BlockchainWallet/>}
+        {btnTabs === "top-up-code" && <BlockchainWallet/>}
 
     </div>)
 

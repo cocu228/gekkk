@@ -5,6 +5,7 @@ import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 const BlockchainWallet = () => {
 
     const {setNetworkId, networksForSelector, networksDefault, networkIdSelect} = useContext(CtxWalletNetworks)
+
     if (networksDefault.length > 0 && networkIdSelect === null) {
         setNetworkId(networksDefault[0]?.id)
     } else {

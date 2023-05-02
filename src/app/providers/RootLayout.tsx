@@ -7,7 +7,6 @@ import Content from "@/app/layouts/content/Content";
 import Loader from "@/shared/ui/loader";
 import {storeListAllCryptoName} from "@/shared/store/crypto-assets/list-all-name";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets/list-available-balance";
-import {storeListAddresses} from "@/shared/store/crypto-assets/list-addresses";
 
 export default memo(function () {
 

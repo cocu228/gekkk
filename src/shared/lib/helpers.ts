@@ -26,6 +26,7 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
 }
 
 export const actionSuccessConstructor = function (value) {
+
     if (value) {
         return {
             success: (val) => {
@@ -35,7 +36,7 @@ export const actionSuccessConstructor = function (value) {
     } else {
         return {
             success: (val) => {
-                return new Error("Response error")
+                console.warn("Response error")
             }
         }
     }

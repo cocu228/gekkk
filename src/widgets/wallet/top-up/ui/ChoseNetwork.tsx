@@ -10,12 +10,12 @@ const ChoseNetwork = () => {
     const {xl, md} = useContext(BreakpointsContext);
 
     return <>
-        <div className="row mb-10">
-            <div className="col flex items-center gap-3 font-bold">
-                <IconCoin width={40} height={40} code={currency.const}/>
-                <span className="font-bold">{currency.name} <span>({currency.const})</span></span>
-            </div>
-        </div>
+        {/*<div className="row mb-10">*/}
+        {/*    <div className="col flex items-center gap-3 font-bold">*/}
+        {/*        <IconCoin width={40} height={40} code={currency.const}/>*/}
+        {/*        <span className="font-bold">{currency.name} <span>({currency.const})</span></span>*/}
+        {/*    </div>*/}
+        {/*</div>*/}
         <div className="row mb-8 w-full">
             <div className="col">
                 <Select className="w-full mt-2"

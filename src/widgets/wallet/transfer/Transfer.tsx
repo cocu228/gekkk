@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Form, Input} from "antd";
 import styles from "./style.module.scss";
 import Button from "@/shared/ui/button/Button";
@@ -12,13 +12,15 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CreateCode from "@/widgets/wallet/transfer/CreateCode";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
+import {apiApplyTxCode} from "@/shared/api";
+import {apiCancelTxCode} from "@/widgets/wallet/transfer/api/cancel-code";
 
 // const {TextArea} = Input;
 
 const Transfer = () => {
 
     const {isModalOpen, showModal, handleCancel} = useModal()
-
+    const [input, setInput] = useState("")
     const currency = useContext(CtxWalletCurrency)
 
     const listTxCode = storeListTxCode(state => state.listTxCode)
@@ -33,8 +35,8 @@ const Transfer = () => {
     }, [currency])
 
 
-    const onBtnCancel = () => {
-
+    const onBtnCancel = async (code) => {
+        const response = await apiCancelTxCode(code)
 
     }
 
@@ -44,6 +46,11 @@ const Transfer = () => {
 
     const onBtnConfirm = () => {
 
+    }
+
+    const onBtnApply = async () => {
+        const response = await apiApplyTxCode(input)
+        console.log(response)
     }
 
     // const onBtnCancel = () => {
@@ -62,21 +69,22 @@ const Transfer = () => {
                 </div>
             </div>
             <Form onFinish={() => null}>
-                <div className="row flex gap-12 mb-10">
-                    <div className="col flex items-center w-1/2">
-                        <Form.Item hasFeedback className="mb-0"
+                <div className="row flex gap-10 mb-10">
+                    <div className="col flex items-center w-3/5">
+                        <Form.Item hasFeedback className="mb-0 w-full"
                                    preserve
                                    name={"promo-code"}
                             // validateStatus={validateStatus(status)}
                             // rules={[{required: true, ...promoCodeMessage}, promoCodeValidator]}>
                         >
                             {/*<Input suffix={false} value={valInput} disabled={loading} onChange={handlerInput}*/}
-                            <Input placeholder={"Enter top up code"} type={"text"}/>
+                            <Input className={"w-full"} onChange={({target}) => setInput(target.value)}
+                                   placeholder={"Enter top up code"} type={"text"}/>
                         </Form.Item>
                     </div>
-                    <div className="col h-inherit flex items-center w-1/2">
+                    <div className="col h-inherit flex items-center w-2/5">
                         {/*<Button htmlType={"submit"} disabled={valInput === "" || loading || status === "SUCCESS"}*/}
-                        <Button htmlType={"submit"}
+                        <Button disabled={input === ""} onClick={onBtnApply} htmlType={"submit"}
                                 size={"xl"}
                                 className={"w-full !h-full !font-medium"}>
                             Apply
@@ -136,7 +144,7 @@ const Transfer = () => {
 
                             <GTCol className="flex justify-center items-center">
                                 {it.typeTx === 11 &&
-                                    <Button size={"lg"} onClick={onBtnCancel}
+                                    <Button size={"lg"} onClick={() => onBtnCancel(it.code)}
                                             className={"!py-3 !h-[fit-content]"}>{it.typeTx}</Button>}
                                 {it.typeTx === 12 &&
                                     <Button size={"lg"} onClick={onBtnConfirm}

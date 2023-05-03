@@ -14,6 +14,7 @@ import CreateCode from "@/widgets/wallet/transfer/CreateCode";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import {apiApplyTxCode} from "@/shared/api";
 import {apiCancelTxCode} from "@/widgets/wallet/transfer/api/cancel-code";
+import {formatForCustomer} from "@/shared/lib/date-helper";
 
 // const {TextArea} = Input;
 
@@ -119,15 +120,15 @@ const Transfer = () => {
                             <GTCol>
                                 <div className="row flex items-center">
                                     <div className="col mr-2">
-                                        <span className="text-gra-600 font-bold">{it.code}</span>
+                                        <span className="text-gra-600 font-bold break-all">{it.code}</span>
                                     </div>
-                                    <div className="col">
+                                    <div className="col min-w-[14px]">
                                         <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <span className="text-gray-500 text-xs">{it.dateTxUTC}</span>
+                                        <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
                                     </div>
                                 </div>
                             </GTCol>

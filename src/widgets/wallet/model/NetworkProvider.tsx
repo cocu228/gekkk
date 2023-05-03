@@ -36,16 +36,19 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         let firstAddress = null
 
         if (isTopUp) {
+            setLoading(true)
             const response = await apiListAddresses(networkIdSelect)
             helperApiListAddresses(response).success(
                 (address) => firstAddress = address
             )
         }
 
+
         setState(prev => ({
             ...prev,
             networkIdSelect,
-            addressesForQR: firstAddress
+            addressesForQR: firstAddress,
+            loading: false
         }))
     }
 

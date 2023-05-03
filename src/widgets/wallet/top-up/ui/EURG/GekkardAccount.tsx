@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from "@/widgets/exchange/ui/operation-result/style.module.scss";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import DepositInput from "@/widgets/deposit/ui/deposit-input";
+import InputCurrency from "@/widgets/deposit/ui/deposit-input";
 import Button from "@/shared/ui/button/Button";
 
 const GekkardAccount = () => {
@@ -35,7 +35,7 @@ const GekkardAccount = () => {
                         </div>
                     </div>
 
-                    <DepositInput/>
+                    <InputCurrency/>
                 </div>
             </div>
         </div>

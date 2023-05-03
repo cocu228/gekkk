@@ -14,7 +14,7 @@ function CryptoAssets() {
             <SectionTitle>Crypto assets</SectionTitle>
             <CardsGrid>
                 {sortedListBalance.map((item, i) => <CryptoAssetCard
-                    title="EURG Gekkoin"
+                    title={item.name}
                     key={"CryptoAssetCard-" + i}
                     iconName={item.const}
                     coinName={item.name}

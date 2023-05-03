@@ -2,7 +2,7 @@ import Button from '@/shared/ui/button/Button';
 import React, {useContext, useState} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import DepositInput from "@/widgets/deposit/ui/deposit-input";
+import InputCurrency from "@/widgets/deposit/ui/deposit-input";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
@@ -10,9 +10,11 @@ import Decimal from "decimal.js";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
-const CreateCode = () => {
+const CreateCode = ({handleCancel}) => {
 
     const [input, setInput] = useState("")
+    const [checkbox, setCheckbox] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const currency = useContext(CtxWalletCurrency),
         {
@@ -21,8 +23,11 @@ const CreateCode = () => {
         } = currency
 
     const onCreateCode = async () => {
-        const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const)
-        console.log(res)
+        setLoading(true)
+        const typeTx = checkbox ? 12 : 11
+        const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const, typeTx)
+        setLoading(false)
+        handleCancel()
     }
 
     const onInput = ({target}) => setInput(target.value)
@@ -51,12 +56,12 @@ const CreateCode = () => {
                             </div>
                         </div>
 
-                        <DepositInput onChange={onInput}/>
+                        <InputCurrency disabled={loading} onChange={onInput}/>
                     </div>
                 </div>
             </div>
             <div className="row mb-6">
-                <Checkbox>
+                <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                     <div className="flex items-center gap-2">
                         <span>Use confirmation</span> <Tooltip text={text}>
                         <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
@@ -67,7 +72,7 @@ const CreateCode = () => {
                 </Checkbox>
             </div>
             <div className="row">
-                <Button disabled={input === ""} className="w-full" size="xl" onClick={onCreateCode}>Confirm
+                <Button disabled={input === "" || loading} className="w-full" size="xl" onClick={onCreateCode}>Confirm
                 </Button>
             </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './style.module.scss';
 
 interface Props {
-    onChange: () => void;
+    onChange: (v) => void;
     children: React.ReactElement;
     className: string;
     name: string;

@@ -1,15 +1,15 @@
-import React, {useContext} from 'react';
+import React, {memo, useContext} from 'react';
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import Button from "@/shared/ui/button/Button";
+import Loader from "@/shared/ui/loader";
 
-const BlockchainWallet = () => {
+const BlockchainWallet = memo(() => {
 
-    const {setNetworkId, networksForSelector, networksDefault, networkIdSelect} = useContext(CtxWalletNetworks)
+    const {setNetworkId, loading, networksDefault, networkIdSelect} = useContext(CtxWalletNetworks)
 
-    if (networksDefault.length > 0 && networkIdSelect === null) {
+    if (!loading && Array.isArray(networksDefault) && networksDefault.length > 0 && networkIdSelect === null) {
         setNetworkId(networksDefault[0]?.id)
-    } else {
-
     }
 
     return (<>
@@ -25,10 +25,10 @@ const BlockchainWallet = () => {
                     </div>
                 </div>
             </div>
-            <TopUpQR/>
+            {loading ? <div className="relative w-full h-[300px]"><Loader/></div> : <TopUpQR/>}
         </>
     )
 
-};
+})
 
 export default BlockchainWallet;

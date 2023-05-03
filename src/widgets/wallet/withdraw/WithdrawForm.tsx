@@ -2,7 +2,6 @@ import Button from '@/shared/ui/button/Button';
 import {Input} from 'antd';
 import {useContext, useState} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import {isNull} from "@/shared/lib/helpers";
 import useModal from "@/shared/model/hooks/useModal";
@@ -28,7 +27,6 @@ const WithdrawForm = () => {
 
     const {
         min_withdraw = null,
-        can_withdraw = false,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
@@ -36,26 +34,26 @@ const WithdrawForm = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    return can_withdraw ? (
-        <div className="flex flex-col items-center mt-2">
-            <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
-                <div className='flex flex-col gap-2'>
-                    Address
-                    <Input value={inputs.address} onChange={onInput}
-                           disabled={!networkIdSelect}
-                           placeholder={"Enter the withdrawal address"}
-                           name={"address"}/>
-                </div>
+    return Array.isArray(networksDefault) && networksDefault.length > 0 ? (
+            <div className="flex flex-col items-center mt-2">
+                <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
+                    <div className='flex flex-col gap-2'>
+                        Address
+                        <Input value={inputs.address} onChange={onInput}
+                               disabled={!networkIdSelect}
+                               placeholder={"Enter the withdrawal address"}
+                               name={"address"}/>
+                    </div>
 
-                <div className='flex flex-col gap-2'>
-                    Amount
-                    <Input value={inputs.amount} onChange={onInput}
-                           disabled={!networkIdSelect}
-                           name={"amount"}
-                           placeholder={"Enter amount"}
-                           inputMode='decimal'
-                           suffix={<div className='mx-1 text-gray-400 text-base align-middle'>{currency.name}</div>}/>
-                    {!isNull(min_withdraw) &&
+                    <div className='flex flex-col gap-2'>
+                        Amount
+                        <Input value={inputs.amount} onChange={onInput}
+                               disabled={!networkIdSelect}
+                               name={"amount"}
+                               placeholder={"Enter amount"}
+                               inputMode='decimal'
+                               suffix={<div className='mx-1 text-gray-400 text-base align-middle'>{currency.name}</div>}/>
+                        {!isNull(min_withdraw) &&
                         <span
                             className="text-green text-fs12">The minimum amount to withdraw is {min_withdraw} {currency.const}</span>}
                 </div>
@@ -80,20 +78,21 @@ const WithdrawForm = () => {
                     Withdraw
                 </Button>
 
-                <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
-                       open={isModalOpen}>
-                    <WithdrawConfirm {...inputs} withdraw_fee={withdraw_fee}/>
-                </Modal>
+                    <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
+                           open={isModalOpen}>
+                        <WithdrawConfirm {...inputs} withdraw_fee={withdraw_fee}/>
+                    </Modal>
 
 
-                {!isNull(withdraw_fee) && <div className='text-center'>
-                    Fee is <b>{withdraw_fee}</b> per transaction
-                </div>}
+                    {!isNull(withdraw_fee) && <div className='text-center'>
+                        Fee is <b>{withdraw_fee}</b> per transaction
+                    </div>}
+                </div>
             </div>
-        </div>
-    ) : <div className="row info-box-warning">
-        <div className="col"><p>At the moment there is not a single option for withdrawing an asset</p></div>
-    </div>;
+        ) :
+        <div className="row info-box-warning">
+            <div className="col"><p>At the moment there is not a single option for withdrawing an asset</p></div>
+        </div>;
 };
 
 export default WithdrawForm;

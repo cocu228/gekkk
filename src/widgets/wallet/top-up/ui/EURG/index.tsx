@@ -1,15 +1,16 @@
-import {useContext, useState} from 'react';
+import {memo, useContext, useState} from 'react';
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import styles from "@/shared/ui/tabs-group/secondary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 import GekkardAccount from "@/widgets/wallet/top-up/ui/EURG/GekkardAccount";
 import BlockchainWallet from "@/widgets/wallet/top-up/ui/EURG/BlockchainWallet";
 import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import TopUpCode from "@/widgets/wallet/top-up/ui/EURG/TopUpCode";
 
 type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 
 
-const TopUpEURG = () => {
+const TopUpEURG = memo(() => {
     const {loading} = useContext(CtxWalletNetworks)
 
 
@@ -39,10 +40,10 @@ const TopUpEURG = () => {
 
         {btnTabs === "gekkard-account" && <GekkardAccount/>}
         {btnTabs === "blockchain-wallet" && <BlockchainWallet/>}
-        {btnTabs === "top-up-code" && <BlockchainWallet/>}
+        {btnTabs === "top-up-code" && <TopUpCode/>}
 
     </div>)
 
-};
+})
 
 export default TopUpEURG;

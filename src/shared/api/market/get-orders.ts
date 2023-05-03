@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResOrder {
     from: string,
@@ -16,4 +16,4 @@ export interface IResOrder {
 }
 
 export const apiGetOrders = () =>
-    $axios.get<IResOrder[]>('/gek/v1/market/get_orders');
+    $axios.get<$AxiosResponse<Array<IResOrder>>>('/gek/v1/market/get_orders');

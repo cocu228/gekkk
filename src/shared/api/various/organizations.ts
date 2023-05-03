@@ -1,7 +1,7 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 
-interface IResOrganizations {
+interface IResOrganization {
     id: number,
     name: string,
     title: string,
@@ -10,6 +10,6 @@ interface IResOrganizations {
 }
 
 export const apiOrganizations = () => {
-    return $axios.get<IResOrganizations[]>('/api/v2/organizations')
+    return $axios.get<$AxiosResponse<Array<IResOrganization>>>('/api/v2/organizations')
 }
 

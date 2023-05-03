@@ -1,4 +1,4 @@
-import {IResBalance, IResMarketAssets} from "@/shared/api";
+import {IResBalance, IResMarketAsset} from "@/shared/api";
 import $const from "@/shared/config/coins/constants";
 import {IListAllCryptoName} from "@/shared/store/crypto-assets";
 import Decimal from "decimal.js";
@@ -11,7 +11,7 @@ export interface ISortedListBalance {
     name: string,
     balance: IResBalance,
     roundingValue: number,
-    defaultInfoToken: IResMarketAssets
+    defaultInfoToken: IResMarketAsset
 }
 
 export const sortingListBalance = (data: IResBalance[], assets: IListAllCryptoName['listAllCryptoName']): Array<ISortedListBalance> | null => {

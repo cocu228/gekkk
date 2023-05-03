@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResHistoryTransactions {
     datetime: string,
@@ -13,7 +13,7 @@ export interface IResHistoryTransactions {
 }
 
 export const apiHistoryTransactions = (start?: string, end?: string, currency?: string, tx_type?: number) =>
-    $axios.get<IResHistoryTransactions[]>('/gek/v1/client/get_history_transactions', {
+    $axios.get<$AxiosResponse<Array<IResHistoryTransactions>>>('/gek/v1/client/get_history_transactions', {
         params: {
             currency,
             tx_type,

@@ -46,7 +46,7 @@ function History({currency}: Partial<Props>) {
 
         const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
 
-        setHistoryList(data)
+        setHistoryList(data.result)
 
         setLoading(false)
 

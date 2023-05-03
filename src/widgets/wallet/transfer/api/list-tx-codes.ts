@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResListTxCodes {
     code: string,
@@ -11,4 +11,4 @@ export interface IResListTxCodes {
 }
 
 export const apiListTxCodes = () =>
-    $axios.get<IResListTxCodes>('/gek/v1/list_tx_codes')
+    $axios.get<$AxiosResponse<IResListTxCodes>>('/gek/v1/list_tx_codes')

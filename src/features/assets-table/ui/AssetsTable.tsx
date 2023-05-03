@@ -54,7 +54,7 @@ const AssetsTable = ({
     useEffect(() => {
         (async () => {
             const {data} = (await apiGetRates());
-            setRates(data);
+            setRates(data.result);
             setLoading(false);
         })();
     }, []);

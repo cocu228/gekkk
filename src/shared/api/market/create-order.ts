@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface INewOrder {
     array?: string,
@@ -13,4 +13,4 @@ export interface INewOrder {
 }
 
 export const apiCreateOrder = (order: INewOrder) =>
-    $axios.post<INewOrder[]>('/gek/v1/market/create_order', order);
+    $axios.post<$AxiosResponse<Array<INewOrder>>>('/gek/v1/market/create_order', order);

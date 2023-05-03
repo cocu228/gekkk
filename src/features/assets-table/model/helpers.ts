@@ -1,9 +1,9 @@
 import {IExchangeToken} from "./types";
-import {IResMarketAssets} from "@/shared/api";
+import {IResMarketAsset} from "@/shared/api";
 import $const from "@/shared/config/coins/constants";
 
 export function getTokensList(
-    assets: Array<IResMarketAssets>,
+    assets: Array<IResMarketAsset>,
     excludedCurrencies: Array<string>
 ): IExchangeToken[] {
 

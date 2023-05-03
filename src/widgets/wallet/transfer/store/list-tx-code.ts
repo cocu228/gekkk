@@ -16,7 +16,7 @@ export const storeListTxCode = create<IListTxCode>()(devtools((set) => ({
     getListTxCode: async () => {
         const result: AxiosResponse = await apiListTxCodes()
         const {data} = result
-        set((state) => ({...state, listTxCode: data ?? []}))
-        return data
+        set((state) => ({...state, listTxCode: data.result ?? []}))
+        return data.result
     },
 })))

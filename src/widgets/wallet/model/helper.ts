@@ -5,11 +5,10 @@ import {AxiosResponse} from "axios";
 
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
-    const data = Array.isArray(response.data.result) &&
+    const result = Array.isArray(response.data.result) &&
         response.data.result
-    console.log("response")
 
-    return actionSuccessConstructor.call(data.result, typeof Array.isArray(data.result))
+    return actionSuccessConstructor.call(result, typeof Array.isArray(result))
 }
 
 export const helperApiListAddresses = function (response: AxiosResponse) {

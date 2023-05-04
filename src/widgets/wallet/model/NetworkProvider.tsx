@@ -62,7 +62,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     }))
 
 
-    const clearState = () => setState(initState)
+    const clearState = () => setState(prevState => ({...initState, refreshKey: prevState.refreshKey}))
 
 
     useEffect(() => {
@@ -73,7 +73,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
             const response: AxiosResponse = await apiTokenNetworks(currency.const, isTopUp);
 
-            helperApiTokenNetworks(response).success(async (networksDefault: Array<IResTokenNetwork>) => {
+            helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
 
                 const networksForSelector = sortingNetworksForSelector(networksDefault)
 

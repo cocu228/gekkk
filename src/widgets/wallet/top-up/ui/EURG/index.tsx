@@ -6,15 +6,16 @@ import GekkardAccount from "@/widgets/wallet/top-up/ui/EURG/GekkardAccount";
 import BlockchainWallet from "@/widgets/wallet/top-up/ui/EURG/BlockchainWallet";
 import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import TopUpCode from "@/widgets/wallet/top-up/ui/EURG/TopUpCode";
+import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
 
 type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 
 
 const TopUpEURG = memo(() => {
+
     const {loading} = useContext(CtxWalletNetworks)
-
-
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("gekkard-account")
+
 
     return (<div className="wrapper">
         <div className="row flex mb-7">
@@ -39,7 +40,10 @@ const TopUpEURG = memo(() => {
         </div>
 
         {btnTabs === "gekkard-account" && <GekkardAccount/>}
-        {btnTabs === "blockchain-wallet" && <BlockchainWallet/>}
+        {btnTabs === "blockchain-wallet" && <>
+            <ChoseNetwork/>
+            <TopUpQR/>
+        </>}
         {btnTabs === "top-up-code" && <TopUpCode/>}
 
     </div>)

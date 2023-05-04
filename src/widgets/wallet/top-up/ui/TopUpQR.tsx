@@ -4,15 +4,16 @@ import React, {useContext} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {randomId} from "@/shared/lib/helpers";
+import {apiCreateAddress} from "@/shared/api/client/create-address";
 
 
 const TopUpQR = () => {
     const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const currency = useContext(CtxWalletCurrency)
     const onCreateAddress = async () => {
-
         setLoading(true)
 
+        const response = await apiCreateAddress(networkIdSelect)
         setRefresh(randomId())
 
     }

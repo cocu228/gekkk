@@ -1,7 +1,6 @@
 import React, {memo, useContext} from 'react';
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import Button from "@/shared/ui/button/Button";
 import Loader from "@/shared/ui/loader";
 
 const BlockchainWallet = memo(() => {

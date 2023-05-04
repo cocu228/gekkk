@@ -17,10 +17,10 @@ const UnknownTransactions = () => {
         (async () => {
 
             const response = await apiHistoryTransactions(formatForDisplay(subYears(new Date(), 1)), undefined, undefined, 3)
-            const response2 = await apiGetInfoClient()
-            console.log(response2)
+
             if (Array.isArray(response.data.result)) {
                 setList(response.data.result)
+
             }
         })()
     }, [])

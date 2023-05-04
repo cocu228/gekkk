@@ -7,7 +7,7 @@ export const apiRequestCode = (phone: string, code?: string, sessionId?: string)
 }, {
     headers: {
         Authorization: phone,
-        productId: "BLACK_CAT_CARD",
-        applicationId: "BLACK_CAT_CARD"
+        productId: "GEKKARD",
+        applicationId: "GEKKARD"
     }
 })

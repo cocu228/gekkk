@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+export type $AxiosError = {
+    code: number;
+    message: string;
+}
+
+export type $AxiosResponse<T> = {
+    id: number;
+    error: $AxiosError;
+    result: T;
+}
+
 const {MODE} = import.meta.env
 const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
 

@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 
 interface IResInvestments {
@@ -15,7 +15,7 @@ interface IResInvestments {
 }
 
 export const apiInvestments = (start?: string, end?: string) =>
-    $axios.get<IResInvestments[]>('/gek/v1/invest/get_investments', {
+    $axios.get<$AxiosResponse<Array<IResInvestments>>>('/gek/v1/invest/get_investments', {
         params: {
             start,
             end

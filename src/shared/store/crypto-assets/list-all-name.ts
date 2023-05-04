@@ -2,13 +2,13 @@ import {create} from 'zustand'
 // import {immer} from "zustand/middleware/immer";
 import {devtools} from "zustand/middleware";
 import {persist} from "zustand/middleware";
-import {apiGetMarketAssets, IResMarketAssets} from "@/shared/api";
+import {apiGetMarketAssets, IResMarketAsset} from "@/shared/api";
 
 // import {AxiosResponse} from "axios";
 
 export interface IListAllCryptoName {
-    listAllCryptoName: Array<IResMarketAssets>;
-    getListAllCryptoName: () => Promise<Array<IResMarketAssets>>
+    listAllCryptoName: Array<IResMarketAsset>;
+    getListAllCryptoName: () => Promise<Array<IResMarketAsset>>
 
 }
 
@@ -19,7 +19,7 @@ export const storeListAllCryptoName = create<IListAllCryptoName>()(devtools((set
     getListAllCryptoName: async () => {
         const result = await apiGetMarketAssets()
         const {data} = result
-        set((state) => ({...state, listAllCryptoName: data ?? []}))
-        return data
+        set((state) => ({...state, listAllCryptoName: data.result ?? []}))
+        return data.result
     },
 })))

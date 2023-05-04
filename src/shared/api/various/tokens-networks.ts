@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResTokenNetwork {
     id: number,
@@ -17,7 +17,7 @@ export interface IResTokenNetwork {
 
 
 export const apiTokenNetworks = (currency: string, top_up: boolean) =>
-    $axios.get<IResTokenNetwork[]>('/gek/v1/tokens_networks', {
+    $axios.get<$AxiosResponse<IResTokenNetwork>>('/gek/v1/tokens_networks', {
         params: {
             currency,
             top_up

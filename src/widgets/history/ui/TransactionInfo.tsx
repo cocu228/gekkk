@@ -15,8 +15,8 @@ const TransactionInfo = ({id}) => {
 
             const result: AxiosResponse = await apiTransactionInfo(id)
 
-            if (result?.data) {
-                setState(result.data)
+            if (result?.data.result) {
+                setState(result.data.result)
             }
 
         })()

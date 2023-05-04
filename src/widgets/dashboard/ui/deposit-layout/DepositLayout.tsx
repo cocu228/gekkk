@@ -30,7 +30,7 @@ function Deposits() {
 
         (async () => {
             const {data} = await apiInvestments()
-            setState(data)
+            setState(data.result)
         })()
 
     }, [])

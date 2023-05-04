@@ -1,7 +1,7 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 import $const from "@/shared/config/coins/constants";
 
-export interface IResMarketAssets {
+export interface IResMarketAsset {
     code: $const,
     name: string,
     unified_cryptoasset_id: number,
@@ -17,7 +17,7 @@ export interface IResMarketAssets {
 }
 
 export const apiGetMarketAssets = (currency?: string, filter_flag?: number) =>
-    $axios.get<Array<IResMarketAssets>>('/gek/v1/market/assets', {
+    $axios.get<$AxiosResponse<Array<IResMarketAsset>>>('/gek/v1/market/assets', {
         params: {
             currency,
             filter_flag,

@@ -34,8 +34,8 @@ const SidebarDesktop = () => {
 
             if (sortedListBalance !== null) {
 
-                const valueEUR: Decimal = totalizeAmount(sortedListBalance, ratesEUR.data)
-                const valueBTC: Decimal = totalizeAmount(sortedListBalance, ratesBTC.data)
+                const valueEUR: Decimal = totalizeAmount(sortedListBalance, ratesEUR.data.result)
+                const valueBTC: Decimal = totalizeAmount(sortedListBalance, ratesBTC.data.result)
 
                 setTotalSum({EUR: valueEUR, BTC: valueBTC})
             }

@@ -13,7 +13,7 @@ function OpenOrders() {
         (async () => {
 
             const response = await apiGetOrders();
-            setOrders(response.data);
+            setOrders(response.data.result);
 
         })()
 

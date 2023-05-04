@@ -3,31 +3,51 @@ import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
+import {useEffect, useState} from "react";
+import {apiHistoryTransactions, IResHistoryTransactions} from "@/shared/api";
+import {apiGetInfoClient} from "@/shared/api/client/get-info";
+import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
+import {subYears} from "date-fns";
 
 const UnknownTransactions = () => {
+    const [list, setList] = useState([])
     const {showModal, isModalOpen, handleCancel} = useModal()
+
+    useEffect(() => {
+        (async () => {
+
+            const response = await apiHistoryTransactions(formatForDisplay(subYears(new Date(), 1)), undefined, undefined, 3)
+            const response2 = await apiGetInfoClient()
+            console.log(response2)
+            if (Array.isArray(response.data.result)) {
+                setList(response.data.result)
+            }
+        })()
+    }, [])
+
     return <>
-        <InfoBox>
-            <p className="font-medium text-orange">You have unknown incoming transaction. Please enter the sender's name <a className="underline text-blue-400" onClick={showModal} href="javascript:void(0)">here</a></p>
+        {list.length > 0 && <InfoBox>
+            <p className="font-medium text-orange">You have unknown incoming transaction. Please enter the sender's
+                name <a className="underline text-blue-400" onClick={showModal} href="javascript:void(0)">here</a></p>
             <Modal title={"Unknown transactions"} open={isModalOpen} onCancel={handleCancel}>
-                <Row/>
+                {list.map((it, i) => <Row key={"UnknownTransactionsRow-" + i} {...it}/>)}
             </Modal>
-        </InfoBox>
+        </InfoBox>}
     </>
 }
 
-const Row = () => {
-    return <div className="row font-medium">
+const Row = (props: IResHistoryTransactions) => {
+    return <div className="row font-medium mb-14">
         <div className="col">
             <div className="row mb-2 flex justify-between">
-                <div className="col">
+                <div className="col cursor-pointer">
                     <img width={12} height={12} src="/img/icon/Download.svg" alt="Download"/>
                 </div>
                 <div className="col">
-                    <span>813.04.2023 11.34 AM</span>
+                    <span>{formatForCustomer(props.datetime)}</span>
                 </div>
                 <div className="col">
-                    <span className="text-green">80.00 USDT</span>
+                    <span className="text-green">{props.amount} {props.currency}</span>
                 </div>
             </div>
             <div className="row mb-2 flex gap-3">
@@ -37,7 +57,7 @@ const Row = () => {
     </span>
                 </div>
                 <div className="col">
-                    <span className="break-all">0xb76fc3a09c6c958*****67e49a47cc</span>
+                    <span className="break-all">{props.partner_info}</span>
                 </div>
             </div>
             <div className="row mb-2 flex">

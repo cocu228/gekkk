@@ -3,7 +3,6 @@ import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import React, {useContext} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateNetwork} from "@/shared/api/client/create-address";
 import {randomId} from "@/shared/lib/helpers";
 
 
@@ -13,7 +12,6 @@ const TopUpQR = () => {
     const onCreateAddress = async () => {
 
         setLoading(true)
-        const response = await apiCreateNetwork(networkIdSelect)
 
         setRefresh(randomId())
 

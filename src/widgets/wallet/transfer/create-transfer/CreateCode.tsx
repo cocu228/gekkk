@@ -2,7 +2,7 @@ import Button from '@/shared/ui/button/Button';
 import React, {useContext, useState} from "react";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import InputCurrency from "@/widgets/deposit/ui/deposit-input";
+import InputCurrency from "../../../../shared/ui/input-currency";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";

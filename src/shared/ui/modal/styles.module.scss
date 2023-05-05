@@ -3,7 +3,7 @@
 .Modal {
   @include devices(md) {
     --md-border-radius: 16px;
-
+    height: 100%;
     margin: 0;
     padding: 0;
     width: 100% !important;

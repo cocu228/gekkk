@@ -1,9 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import "@styles/index.scss";
 import styles from "./style.module.scss";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {HelperClassName} from "@/shared/lib/helper-class-name";
-import {useLocation} from "react-router";
+import {scrollToTop} from "@/shared/lib/helpers";
 
 const hClassName = new HelperClassName(styles)
 
@@ -23,6 +23,8 @@ const text = {
 const PageProblems = ({code = 404}: { code?: number }) => {
 
     const {md} = useContext(BreakpointsContext);
+
+    scrollToTop()
 
     return (
         <div className="flex items-center flex-col">

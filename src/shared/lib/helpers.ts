@@ -57,3 +57,10 @@ export function getFlagsFromMask(mask, options: Record<string, number>) {
     }
     return flags;
 }
+
+export function scrollToTop() {
+    window.scrollBy(0, -100); // можно использовать также метод scrollTo(0, 0)
+    if (window.pageYOffset > 0) {
+        requestAnimationFrame(scrollToTop);
+    }
+}

@@ -15,13 +15,13 @@ const Transfer = () => {
                 <div className="col">
                     <button onClick={() => setBtnTabs("create-transfer")}
                             className={`${styles.Tab} ${isActiveClass(btnTabs === "create-transfer")} whitespace-nowrap`}>
-                        Gekkard account
+                        Create transfer
                     </button>
                 </div>
                 <div className="col">
                     <button onClick={() => setBtnTabs("apply-code")}
                             className={`${styles.Tab} ${isActiveClass(btnTabs === "apply-code")} whitespace-nowrap`}>
-                        Blockchain wallet
+                        Apply code
                     </button>
                 </div>
             </div>

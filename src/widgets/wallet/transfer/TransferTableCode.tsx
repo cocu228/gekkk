@@ -10,7 +10,7 @@ import {useContext, useEffect} from "react";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import {apiCancelTxCode} from "@/widgets/wallet/transfer/api/cancel-code";
-
+import InputCopy from "@/shared/ui/input-copy/InputCopy";
 const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
 
     const currency = useContext(CtxWalletCurrency)
@@ -45,7 +45,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
             </GTRow>
         </GTHead>
         <GTBody className={styles.TableBody}>
-            {listTxCode.filter(item => item.currency === currency.const).map(it => <GTRow
+            {listTxCode.filter(item => item.currency === currency.const && item.isOwner === isOwner).map(it => <GTRow
                 className="px-4 py-3 gap-3">
                 <GTCol>
                     <div className="row flex items-center">
@@ -53,7 +53,8 @@ const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
                             <span className="text-gra-600 font-bold break-all">{it.code}</span>
                         </div>
                         <div className="col min-w-[14px]">
-                            <img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>
+                            {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
+                            <InputCopy onlyIcon value={it.code}/>
                         </div>
                     </div>
                     <div className="row">
@@ -74,10 +75,9 @@ const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
                 </GTCol>
 
                 <GTCol className="flex justify-center items-center">
-                    {it.typeTx === 11 && !isOwner &&
-                        <Button size={"lg"} onClick={() => onBtnCancel(it.code)}
-                                className={"!py-3 !h-[fit-content]"}>Cancel</Button>}
-                    {it.typeTx === 12 && isOwner &&
+                    {<Button size={"lg"} onClick={() => onBtnCancel(it.code)}
+                             className={"!py-3 !h-[fit-content]"}>Cancel</Button>}
+                    {it.stateCode === 1 &&
                         <Button size={"lg"} onClick={onBtnConfirm}
                                 className={"!py-3 !h-[fit-content]"}>Confirm</Button>}
                 </GTCol>

@@ -4,7 +4,7 @@ import About from "@/widgets/wallet/about/ui/About";
 import History from "@/widgets/history/ui/History";
 import TopUp from "@/widgets/wallet/top-up/ui/TopUp";
 import Withdraw from "@/widgets/wallet/withdraw/Withdraw";
-import Transfer from "@/widgets/wallet/transfer/Transfer";
+import Transfer from "@/widgets/wallet/transfer";
 import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import WalletHeader from "@/widgets/wallet/header/ui";

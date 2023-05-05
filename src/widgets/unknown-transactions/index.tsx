@@ -4,10 +4,10 @@ import InfoBox from "@/widgets/info-box";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import {useEffect, useState} from "react";
-import {apiHistoryTransactions, IResHistoryTransactions} from "@/shared/api";
-import {apiGetInfoClient} from "@/shared/api/client/get-info";
+import {apiHistoryTransactions, apiTransactionInfo, IResHistoryTransactions} from "@/shared/api";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {subYears} from "date-fns";
+import Loader from "@/shared/ui/loader";
 
 const UnknownTransactions = () => {
     const [list, setList] = useState([])
@@ -37,8 +37,19 @@ const UnknownTransactions = () => {
 }
 
 const Row = (props: IResHistoryTransactions) => {
-    return <div className="row font-medium mb-14">
-        <div className="col">
+    const [received, setReceived] = useState(null)
+
+
+    useEffect(() => {
+        (async () => {
+            const response = await apiTransactionInfo(props.id_transaction)
+            if (response.data.result) {
+                setReceived(response.data.result.addressFrom)
+            }
+        })()
+    }, [])
+    return <div className="row min-h-[120px] relative font-medium mb-14">
+        {!received ? <Loader/> : <div className="col">
             <div className="row mb-2 flex justify-between">
                 <div className="col cursor-pointer">
                     <img width={12} height={12} src="/img/icon/Download.svg" alt="Download"/>
@@ -57,7 +68,7 @@ const Row = (props: IResHistoryTransactions) => {
     </span>
                 </div>
                 <div className="col">
-                    <span className="break-all">{props.partner_info}</span>
+                    <span className="break-all">{received}</span>
                 </div>
             </div>
             <div className="row mb-2 flex">
@@ -69,7 +80,7 @@ const Row = (props: IResHistoryTransactions) => {
                 <div className="col w-3/5"><Input/></div>
                 <div className="col w-2/5"><Button size={"xl"} className="w-full">Apply</Button></div>
             </div>
-        </div>
+        </div>}
     </div>
 }
 

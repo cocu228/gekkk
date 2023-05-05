@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import {apiTransactionInfo, ITransactionInfo} from "@/widgets/history/api";
+import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
 import {isNull} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";

@@ -1,4 +1,5 @@
 import $axios from "@/shared/lib/(cs)axios";
+import {$AxiosResponse} from "@/shared/lib/(cs)axios";
 
 export interface ITransactionInfo {
     "created": string,
@@ -17,7 +18,7 @@ export interface ITransactionInfo {
 }
 
 export const apiTransactionInfo = (tx_id: number) =>
-    $axios.get<ITransactionInfo[]>('/gek/v1/address_tx_info', {
+    $axios.get<$AxiosResponse<ITransactionInfo>>('/gek/v1/address_tx_info', {
         params: {
             tx_id
         }

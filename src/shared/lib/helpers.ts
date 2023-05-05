@@ -41,3 +41,19 @@ export const actionSuccessConstructor = function (value) {
         }
     }
 }
+
+export function asteriskText(text) {
+    if (text.length > 6) {
+        return text.slice(0, 10) + '***' + text.slice(-3);
+    } else {
+        return text;
+    }
+}
+
+export function getFlagsFromMask(mask, options: Record<string, number>) {
+    const flags = {};
+    for (const [flag, value] of Object.entries(options)) {
+        flags[flag] = (mask & (1 << value)) !== 0;
+    }
+    return flags;
+}

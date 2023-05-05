@@ -8,6 +8,7 @@ import {apiHistoryTransactions, apiTransactionInfo, IResHistoryTransactions} fro
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {subYears} from "date-fns";
 import Loader from "@/shared/ui/loader";
+import {asteriskText} from "@/shared/lib/helpers";
 
 const UnknownTransactions = () => {
     const [list, setList] = useState([])
@@ -68,7 +69,7 @@ const Row = (props: IResHistoryTransactions) => {
     </span>
                 </div>
                 <div className="col">
-                    <span className="break-all">{received}</span>
+                    <span className="break-all">{asteriskText(received)}</span>
                 </div>
             </div>
             <div className="row mb-2 flex">

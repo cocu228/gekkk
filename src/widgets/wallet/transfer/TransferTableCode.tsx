@@ -11,7 +11,7 @@ import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import {apiCancelTxCode} from "@/widgets/wallet/transfer/api/cancel-code";
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
-const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
+const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     const currency = useContext(CtxWalletCurrency)
     const listTxCode = storeListTxCode(state => state.listTxCode)
@@ -74,11 +74,11 @@ const TransferTableCode = ({isOwner = false}: { isOwner: boolean }) => {
                                 </span>
                 </GTCol>
 
-                <GTCol className="flex justify-center items-center">
-                    {<Button size={"lg"} onClick={() => onBtnCancel(it.code)}
+                <GTCol className="flex flex-wrap gap-2 justify-center">
+                    {<Button size={"sm"} gray onClick={() => onBtnCancel(it.code)}
                              className={"!py-3 !h-[fit-content]"}>Cancel</Button>}
                     {it.stateCode === 1 &&
-                        <Button size={"lg"} onClick={onBtnConfirm}
+                        <Button size={"sm"} gray onClick={onBtnConfirm}
                                 className={"!py-3 !h-[fit-content]"}>Confirm</Button>}
                 </GTCol>
             </GTRow>)}

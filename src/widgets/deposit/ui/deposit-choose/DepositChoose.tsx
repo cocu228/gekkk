@@ -59,7 +59,7 @@ const DepositChoose = ({ variant, setVariant }) => {
             </div>
           </div>
 
-          <InputCurrency />
+          {/*<InputCurrency />*/}
         </div>
       </div>
 

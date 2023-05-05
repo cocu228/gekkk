@@ -1,12 +1,13 @@
 import Button from '@/shared/ui/button/Button';
 import {Input} from 'antd';
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import {isNull} from "@/shared/lib/helpers";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
+import InputCurrency from "@/shared/ui/input-currency";
 
 const {TextArea} = Input;
 
@@ -34,6 +35,8 @@ const WithdrawForm = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
+    const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
+
     return Array.isArray(networksDefault) && networksDefault.length > 0 ? (
             <div className="flex flex-col items-center mt-2">
                 <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
@@ -47,16 +50,15 @@ const WithdrawForm = () => {
 
                     <div className='flex flex-col gap-2'>
                         Amount
-                        <Input value={inputs.amount} onChange={onInput}
-                               disabled={!networkIdSelect}
-                               name={"amount"}
-                               placeholder={"Enter amount"}
-                               inputMode='decimal'
-                               suffix={<div className='mx-1 text-gray-400 text-base align-middle'>{currency.name}</div>}/>
-                        {!isNull(min_withdraw) &&
-                        <span
-                            className="text-green text-fs12">The minimum amount to withdraw is {min_withdraw} {currency.const}</span>}
-                </div>
+                        <InputCurrency
+                            value={inputs.amount}
+                            onChange={onAmount}
+                            currency={{
+                                const: currency.const,
+                                availableBalance: currency.availableBalance.toNumber(),
+                                minAmount: min_withdraw
+                            }}/>
+                    </div>
 
                 <div className='flex flex-col gap-2'>
                     Receiver

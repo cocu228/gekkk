@@ -22,6 +22,7 @@ const GekkardAccount = () => {
         <div className="row">
             <div className="col">
                 <InputCurrency
+                    showWill
                     value={input}
                     onChange={setInput}
                     currency={{const: currency.const, availableBalance: currency.availableBalance.toNumber()}}/>

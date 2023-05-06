@@ -1,7 +1,9 @@
-import $axios from "@/shared/lib/(cs)axios";
+import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 
 export const apiCancelTxCode = (code: string) =>
-    $axios.post('/gek/v1/cancel_code', {
-        code
+    $axios.post<$AxiosResponse<any>>('/gek/v1/cancel_code', {}, {
+        params: {
+            code: code
+        }
     })

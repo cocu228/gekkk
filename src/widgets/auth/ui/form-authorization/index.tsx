@@ -9,8 +9,8 @@ import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
-import {helperApiCheckPassword, helperApiRequestCode} from "../../model/healpers";
-import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/healpers";
+import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
+import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/helpers";
 import ReactPhoneInput from "react-phone-input-2";
 import '@styles/(cs)react-phone-input.scss'
 import {storyDisplayStage} from "@/widgets/auth/model/story";

@@ -25,7 +25,7 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
     return result.toDecimalPlaces(roundingValue).toNumber()
 }
 
-export const actionSuccessConstructor = function (value) {
+export const actionSuccessConstructor = function (value: boolean) {
 
     if (value) {
         return {

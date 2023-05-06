@@ -4,7 +4,7 @@ import {apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/healpers";
+import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 
 const QRCode = memo(() => {
 
@@ -12,27 +12,26 @@ const QRCode = memo(() => {
     const ref = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
     const {login} = useAuth()
     const {md} = useContext(BreakpointsContext);
-    const setRecursiveReq = (f) => ref.current = setInterval(f, 3000)
-
 
     useEffect(() => {
-        apiTokenHash().then(res => helperApiQRCode(res)
-            .success(
-                () => {
-                    setHash(res.data);
-                    setRecursiveReq(
-                        apiTokenHash(res.data)
-                            .then(res => helperApiTokenHash(res)
-                                .success(
-                                    () => login(res.data.Authorization, res.data.Token, res.data.TokenHeaderName)
-                                )
-                            ).catch(e => {
-                            clearInterval(ref.current)
-                            console.warn(e)
-                        })
-                    );
-                }
-            ))
+        apiTokenHash().then(res =>
+            helperApiQRCode(res).success(() => {
+                setHash(res.data.result);
+                ref.current = setInterval(() => {
+                    apiTokenHash(res.data.result).then(res => {
+                        if (res.data.error) return;
+
+                        helperApiTokenHash(res)
+                            .success(
+                                () => {
+                                    login(res.data.result.Authorization, res.data.result.Token, res.data.result.TokenHeaderName);
+                                    clearInterval(ref.current);
+                                }
+                            );
+                    })
+                }, 3000);
+            }
+        ));
 
         return () => clearInterval(ref.current);
 

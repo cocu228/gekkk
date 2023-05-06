@@ -7,7 +7,7 @@ import {apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {storyDisplayStage} from "@/widgets/auth/model/story";
-import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/healpers";
+import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 
 
 const AuthPage = () => {

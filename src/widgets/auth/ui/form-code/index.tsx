@@ -13,7 +13,7 @@ import {useSessionStorage} from "usehooks-ts";
 import {apiSignIn} from "@/widgets/auth/api/";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
-import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/healpers";
+import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 
 
 const FormCode = memo(() => {

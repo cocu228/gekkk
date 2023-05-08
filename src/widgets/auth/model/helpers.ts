@@ -12,10 +12,10 @@ export const helperApiSignIn = function (response) {
 }
 
 export const helperApiTokenHash = function (response) {
-    return actionSuccessConstructor(!!response.data?.Token)
+    return actionSuccessConstructor(!!response.data.result?.Token)
 }
 export const helperApiQRCode = function (response) {
-    return actionSuccessConstructor(typeof response.data === "string")
+    return actionSuccessConstructor(typeof response.data.result === "string")
 }
 export const helperApiCheckPassword = function (response) {
     return actionSuccessConstructor(response.data?.status === "ok")

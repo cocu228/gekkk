@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import {apiTransactionInfo, ITransactionInfo} from "@/widgets/history/api";
-import {isNull} from "@/shared/lib/helpers";
+import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
+import {asteriskText, isNull} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";
 
@@ -44,7 +44,7 @@ const TransactionInfo = ({id}) => {
                 <span className="text-gray-400">Address from:</span>
             </div>
             <div className="col">
-                <span className="break-all">{state.addressFrom}</span>
+                <span className="break-all">{asteriskText(state.addressFrom)}</span>
             </div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">
@@ -52,7 +52,7 @@ const TransactionInfo = ({id}) => {
                 <span className="text-gray-400 whitespace-nowrap">Address to:</span>
             </div>
             <div className="col w-auto">
-                <span className="break-all">{state.addressTo}</span>
+                <span className="break-all">{asteriskText(state.addressTo)}</span>
             </div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">

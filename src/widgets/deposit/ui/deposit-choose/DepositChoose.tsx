@@ -1,6 +1,6 @@
 import React from 'react';
 import PercentBtn from '@/shared/ui/percent-btn/PercentBtn';
-import InputCurrency from '../deposit-input';
+import InputCurrency from '../../../../shared/ui/input-currency';
 import InfoBlock from '../deposit-fixed/info-block';
 import styles from './styles.module.scss';
 import FixedVariant from '../deposit-fixed/fixed-variant/FixedVariant';
@@ -59,7 +59,7 @@ const DepositChoose = ({ variant, setVariant }) => {
             </div>
           </div>
 
-          <InputCurrency />
+          {/*<InputCurrency />*/}
         </div>
       </div>
 

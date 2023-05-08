@@ -1,5 +1,5 @@
 import {CtxWalletCurrency, CtxWalletNetworks, ICtxWalletNetworks} from "@/widgets/wallet/model/context";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {apiTokenNetworks, IResTokenNetwork} from "@/shared/api";
 import {
     helperApiListAddresses,
@@ -62,18 +62,30 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     }))
 
 
-    const clearState = () => setState(initState)
+    const clearState = (changedCurrency) => setState(prevState => ({
+        ...initState,
+        networkIdSelect: changedCurrency ? null : prevState.networkIdSelect,
+        refreshKey: prevState.refreshKey
+    }))
+
+    const prevDeps = useRef(currency.const);
 
 
     useEffect(() => {
 
         (async () => {
+            const changedCurrency = currency.const !== prevDeps.current
 
-            clearState()
+            if (changedCurrency) {
+                console.log('Changed dependencies:', changedCurrency);
+            }
+            prevDeps.current = currency.const;
+
+            clearState(changedCurrency)
 
             const response: AxiosResponse = await apiTokenNetworks(currency.const, isTopUp);
 
-            helperApiTokenNetworks(response).success(async (networksDefault: Array<IResTokenNetwork>) => {
+            helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
 
                 const networksForSelector = sortingNetworksForSelector(networksDefault)
 

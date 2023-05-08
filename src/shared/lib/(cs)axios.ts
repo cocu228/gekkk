@@ -27,8 +27,8 @@ const sessionHeader = () => {
 
     return {
         'Content-Type': 'application/json;charset=UTF-8',
-        'applicationId': 'BLACK_CAT_CARD',
-        'productId': "BLACK_CAT_CARD",
+        'applicationId': 'GEKKARD',
+        'productId': "GEKKARD",
         ...keys
     }
 }

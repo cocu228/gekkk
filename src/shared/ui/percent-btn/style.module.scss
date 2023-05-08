@@ -25,4 +25,9 @@
     background: var(--color-accent);
     color: white;
   }
+
+  &:global(.active) {
+    background: var(--color-accent);
+    color: white;
+  }
 }

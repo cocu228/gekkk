@@ -1,12 +1,10 @@
-import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
+import $axios from "@/shared/lib/(cs)axios";
 
-export interface IResCreateAddress {
 
-}
-
-export const apiCreateNetwork = (token_network: number) =>
-    $axios.get<$AxiosResponse<IResCreateAddress>>('/gek/v1/client/create_address', {
-        params: {
+export const apiCreateAddress = function (token_network: number) {
+    return $axios.get('/gek/v1/client/create_address', {
+        headers: {
             token_network
         }
     })
+}

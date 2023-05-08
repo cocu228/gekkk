@@ -6,7 +6,9 @@ export interface IResListTxCodes {
     typeTx: number,
     amount: number,
     state: string,
+    stateCode: number,
     dateTxUTC: string,
+    isOwner: boolean,
     dateCodeUTC: null | string
 }
 

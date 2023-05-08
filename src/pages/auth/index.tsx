@@ -22,7 +22,7 @@ const AuthPage = () => {
             apiTokenHash(sessionId)
                 .then(res => helperApiTokenHash(res)
                     .success(
-                        () => login(res.data.Authorization, res.data.Token, res.data.TokenHeaderName)
+                        () => login(res.data.result.Authorization, res.data.result.Token, res.data.result.TokenHeaderName)
                     )).catch(e => console.warn(e)))
 
     }, []);

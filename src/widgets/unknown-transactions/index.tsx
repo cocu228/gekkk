@@ -23,6 +23,7 @@ const UnknownTransactions = () => {
                 setList(response.data.result)
 
             }
+
         })()
     }, [])
 
@@ -31,14 +32,15 @@ const UnknownTransactions = () => {
             <p className="font-medium text-orange">You have unknown incoming transaction. Please enter the sender's
                 name <a className="underline text-blue-400" onClick={showModal} href="javascript:void(0)">here</a></p>
             <Modal title={"Unknown transactions"} open={isModalOpen} onCancel={handleCancel}>
-                {list.map((it, i) => <Row key={"UnknownTransactionsRow-" + i} {...it}/>)}
+                {list.map((it, i) => <UnknownTransactionsRow key={"UnknownTransactionsRow-" + i} {...it}/>)}
             </Modal>
         </InfoBox>}
     </>
 }
 
-const Row = (props: IResHistoryTransactions) => {
+export const UnknownTransactionsRow = (props: IResHistoryTransactions) => {
     const [received, setReceived] = useState(null)
+    const [input, setInput] = useState("")
 
 
     useEffect(() => {
@@ -49,6 +51,8 @@ const Row = (props: IResHistoryTransactions) => {
             }
         })()
     }, [])
+
+
     return <div className="row min-h-[120px] relative font-medium mb-14">
         {!received ? <Loader/> : <div className="col">
             <div className="row mb-2 flex justify-between">
@@ -78,8 +82,9 @@ const Row = (props: IResHistoryTransactions) => {
                 </div>
             </div>
             <div className="row flex gap-3">
-                <div className="col w-3/5"><Input/></div>
-                <div className="col w-2/5"><Button size={"xl"} className="w-full">Apply</Button></div>
+                <div className="col w-3/5"><Input value={input} onChange={({target}) => setInput(target.value)}/></div>
+                <div className="col w-2/5"><Button disabled={input === ""} size={"xl"} className="w-full">Apply</Button>
+                </div>
             </div>
         </div>}
     </div>

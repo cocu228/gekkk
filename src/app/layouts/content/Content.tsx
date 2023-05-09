@@ -7,7 +7,7 @@ const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null
 
     return <div className="w-full h-full">
         <InfoBox/>
-        <UnknownTransactions/>
+        {/*<UnknownTransactions/>*/}
         <div className={styles.Content}>
             {children}
         </div>

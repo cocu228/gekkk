@@ -18,6 +18,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
+import {UnknownTransactionsRow} from "@/widgets/unknown-transactions";
 
 const {RangePicker} = DatePicker;
 
@@ -144,7 +145,7 @@ const TransactionModalLink = ({item}) => {
         <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
         <Modal width={450} title="Transaction info" onCancel={handleCancel}
                open={isModalOpen}>
-            <TransactionInfo id={item.id_transaction}/>
+            {item.parent_info === "" ? <UnknownTransactionsRow {...item}/> : <TransactionInfo id={item.id_transaction}/>}
         </Modal>
     </>
 }

@@ -1,9 +1,9 @@
 import $axios from "@/shared/lib/(cs)axios";
 
 
-export const apiUpdateParentInfo = function (partner_info: string) {
+export const apiUpdatePartnerInfo = function (partner_info: string, idTransaction: number) {
     return $axios.post('/gek/v1/client/update_tx_partner_info', {
-        timetick: new Date().getTime(),
+        timetick: idTransaction,
         partner_info
     })
 }

@@ -40,7 +40,7 @@ function Wallet() {
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
                             <About data-tab={"About"}/>
-                            {xl && <History data-tab={"History"}/>}
+                            {xl && <History currency={currency} data-tab={"History"}/>}
 
                         </div>
                         {!xl && <div className="substrate z-0 -ml-4 h-full">

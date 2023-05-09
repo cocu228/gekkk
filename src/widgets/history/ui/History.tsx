@@ -121,7 +121,7 @@ function History({currency}: Partial<Props>) {
 
                                 <GTCol>
                                     <div data-text={item.type_transaction} className="ellipsis">
-                                        <span>{item.type_transaction}</span>
+                                        <span className={item.partner_info === "" ? "text-orange" : ""}>{item.type_transaction}</span>
                                     </div>
                                 </GTCol>
                             </GTRow>
@@ -145,7 +145,7 @@ const TransactionModalLink = ({item}) => {
         <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
         <Modal width={450} title="Transaction info" onCancel={handleCancel}
                open={isModalOpen}>
-            {item.parent_info === "" ? <UnknownTransactionsRow {...item}/> : <TransactionInfo id={item.id_transaction}/>}
+            {item.partner_info === "" ? <UnknownTransactionsRow {...item}/> : <TransactionInfo id={item.id_transaction}/>}
         </Modal>
     </>
 }

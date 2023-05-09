@@ -4,7 +4,12 @@ import InfoBox from "@/widgets/info-box";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import {useEffect, useState} from "react";
-import {apiHistoryTransactions, apiTransactionInfo, IResHistoryTransactions} from "@/shared/api";
+import {
+    apiHistoryTransactions,
+    apiTransactionInfo,
+    apiUpdatePartnerInfo,
+    IResHistoryTransactions
+} from "@/shared/api";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {subYears} from "date-fns";
 import Loader from "@/shared/ui/loader";
@@ -32,13 +37,15 @@ const UnknownTransactions = () => {
             <p className="font-medium text-orange">You have unknown incoming transaction. Please enter the sender's
                 name <a className="underline text-blue-400" onClick={showModal} href="javascript:void(0)">here</a></p>
             <Modal title={"Unknown transactions"} open={isModalOpen} onCancel={handleCancel}>
-                {list.map((it, i) => <UnknownTransactionsRow key={"UnknownTransactionsRow-" + i} {...it}/>)}
+                {list.map((it, i) => <UnknownTransactionsRow closeModal={handleCancel}
+                                                             key={"UnknownTransactionsRow-" + i} {...it}/>)}
             </Modal>
         </InfoBox>}
     </>
 }
 
-export const UnknownTransactionsRow = (props: IResHistoryTransactions) => {
+export const UnknownTransactionsRow = (props: IResHistoryTransactions, {closeModal}) => {
+    const [loading, setLoading] = useState(false)
     const [received, setReceived] = useState(null)
     const [input, setInput] = useState("")
 
@@ -51,6 +58,11 @@ export const UnknownTransactionsRow = (props: IResHistoryTransactions) => {
             }
         })()
     }, [])
+    const updatePartnerInfo = async () => {
+        setLoading(true)
+        await apiUpdatePartnerInfo(input, props.id_transaction)
+        closeModal()
+    }
 
 
     return <div className="row min-h-[120px] relative font-medium mb-14">
@@ -83,7 +95,8 @@ export const UnknownTransactionsRow = (props: IResHistoryTransactions) => {
             </div>
             <div className="row flex gap-3">
                 <div className="col w-3/5"><Input value={input} onChange={({target}) => setInput(target.value)}/></div>
-                <div className="col w-2/5"><Button disabled={input === ""} size={"xl"} className="w-full">Apply</Button>
+                <div className="col w-2/5"><Button onClick={updatePartnerInfo} disabled={input === ""} size={"xl"}
+                                                   className="w-full">Apply</Button>
                 </div>
             </div>
         </div>}

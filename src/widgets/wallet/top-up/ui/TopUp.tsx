@@ -14,12 +14,11 @@ const TopUp = memo(() => {
         isEURG = currency.const === "EURG"
 
     return (<div className="wrapper">
-        {isEURG ? <TopUpEURG/> :
-            loading ? <Loader/> :
-                <>
-                    <ChoseNetwork/>
-                    <TopUpQR/>
-                </>}
+        {loading ? <Loader/> :
+            <>
+                <ChoseNetwork/>
+                <TopUpQR/>
+            </>}
     </div>)
 
 })

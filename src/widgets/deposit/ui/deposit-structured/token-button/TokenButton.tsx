@@ -14,7 +14,11 @@ const TokenButton = ({onClick, token}: IParams) => {
       onClick={onClick}
       className={`${styles.TokenButton} h-[60px] rounded-sm w-full px-5 py-3 flex items-center justify-between`}
     >
-      {!token ? <div/> : (
+      {!token ? (
+        <div className='text-gray-400 text-base md:text-sm'>
+          Choose token...
+        </div>
+      ) : (
         <div className="flex gap-4 items-center">
           <IconCoin width={34} height={34} code={token.code}/>
           <p className="font-medium text-sm">{token.name} ({token.code})</p>

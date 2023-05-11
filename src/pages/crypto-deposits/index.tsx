@@ -27,7 +27,8 @@ const CryptoDeposits = () => {
                     </div>
                     <div className="row mt-6">
                         <div className="col">
-                            <p className="text-gray-400 font-semibold">The fixed rate deposit allows you to know exactly how much
+                            <p className="text-gray-400 font-semibold">The fixed rate deposit allows you to know exactly
+                                how much
                                 interest you'll earn on your
                                 savings over a specific period</p>
                         </div>
@@ -57,7 +58,8 @@ const CryptoDeposits = () => {
                     <div style={md ? {border: "1px solid #B4C0CD", borderRadius: "4px 4px 0px 0px"} : {}}
                          className="wrapper bg-[var(--color-main-bg)] py-6 px-10 flex items-center">
                         <p className="font-bold mr-4">0,8% per month (9,6% annual)</p>
-                        <Button gray size="sm" className="!text-black !bg-[#DEE2E73D] !py-2 !text-sm !font-normal whitespace-nowrap !h-[auto]">Open
+                        <Button gray size="sm"
+                                className="!text-black !bg-[#DEE2E73D] !py-2 !text-sm !font-normal whitespace-nowrap !h-[auto]">Open
                             deposit</Button>
                     </div>
                 </section>
@@ -75,7 +77,8 @@ const CryptoDeposits = () => {
                                         <h4 className="font-bold text-lg mb-2">
                                             Safe strategy
                                         </h4>
-                                        <p className="text-gray-400 font-semibold">You profit even if the rate drops or grows
+                                        <p className="text-gray-400 font-semibold">You profit even if the rate drops or
+                                            grows
                                             slowly</p>
                                     </div>
                                 </div>
@@ -90,7 +93,7 @@ const CryptoDeposits = () => {
                                     <div className="col">
                                         <Row md={md} val={["16%", "4% annual"]} bgGray/>
                                         <Row md={md} val={["17%", "3% annual"]}/>
-                                        <Row val={["18%", "2% annual"]} bgGray/>
+                                        <Row md={md} val={["18%", "2% annual"]} bgGray/>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +119,7 @@ const CryptoDeposits = () => {
                                     <div className="col">
                                         <Row md={md} val={["20%", "0"]} bgGray/>
                                         <Row md={md} val={["23%", "up to 3%"]}/>
-                                        <Row val={["25%", "up to 5%"]} bgGray/>
+                                        <Row md={md} val={["25%", "up to 5%"]} bgGray/>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +131,8 @@ const CryptoDeposits = () => {
                                         <h4 className="font-bold text-lg mb-2">
                                             Dynamic strategy
                                         </h4>
-                                        <p className="text-gray-400 font-semibold">Good percentage when the rate is rising, limited
+                                        <p className="text-gray-400 font-semibold">Good percentage when the rate is
+                                            rising, limited
                                             loss
                                             when the rate is falling</p>
                                     </div>
@@ -144,7 +148,7 @@ const CryptoDeposits = () => {
                                     <div className="col ">
                                         <Row md={md} val={["30%", "up to -10%"]} bgGray/>
                                         <Row md={md} val={["40%", "up to -20%"]}/>
-                                        <Row val={["50%", "up to -30%"]} bgGray/>
+                                        <Row md={md} val={["50%", "up to -30%"]} bgGray/>
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +178,7 @@ const Row = ({bgGray = false, val, md = false}) => {
 
     return <div
         style={md ? {borderBottom: "1px solid #B4C0CD"} : {}}
-        className={`row ${!md && bgGray ? "bg-gray-main" : ""} py-4 px-6 grid grid-flow-col justify-start items-center gap-3`}>
+        className={`row ${(!md && bgGray) ? "bg-gray-main" : ""} py-4 px-6 grid grid-flow-col justify-start items-center gap-3`}>
         <div className="col row-auto justify-start flex h-full">
             <div className="row">
                 <div className="col">
@@ -183,7 +187,7 @@ const Row = ({bgGray = false, val, md = false}) => {
             </div>
         </div>
         <div className="col h-full">
-            <div className="row mb-3 flex items-start">
+            <div className="row mb-2 flex items-start">
                 <div data-text={"Rate grows"} className="col ellipsis inline-grid">
                     <p className="text-gray-400 whitespace-nowrap">Rate grows</p>
                 </div>
@@ -203,7 +207,7 @@ const Row = ({bgGray = false, val, md = false}) => {
         </div>
         <div className="col h-full">
             <div className="col">
-                <div className="row mb-3">
+                <div className="row mb-2">
                     <div data-text={"Rate drops"} className="col ellipsis inline-grid">
                         <p className="text-gray-400 whitespace-nowrap">Rate drops</p>
                     </div>

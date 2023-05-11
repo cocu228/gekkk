@@ -1,8 +1,14 @@
 import styles from './styles.module.scss';
 
-const ChooseButton = ({ children }) => {
+interface IParams {
+  children: React.ReactNode,
+  onClick?: () => void,
+  isSelected?: boolean,
+}
+
+const ChooseButton = ({ children, isSelected, onClick }: IParams) => {
   return (
-    <button className={`${styles.ChooseButton} text-xl font-medium rounded-sm w-full px-5 py-3 flex wrap items-center justify-between xl:text-base`}>
+    <button onClick={onClick} className={`${styles.ChooseButton} ${isSelected ? styles.Active : ''} text-xl font-medium rounded-sm w-full px-5 py-3 flex wrap items-center justify-between xl:text-base`}>
       {children}
     </button>
   );

@@ -1,15 +1,15 @@
 import styles from './style.module.scss';
-import {apiGetRates} from "@/shared/api";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from 'react-router-dom';
+import {getAlignment} from "../model/helpers";
+import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import {evenOrOdd} from "@/shared/lib/helpers";
 import $const from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {GTable} from '@/shared/ui/grid-table/GTable';
+import {IResMarketAsset, apiGetRates} from "@/shared/api";
 import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
-import {getAlignment, getTokensList} from "../model/helpers";
-import {AssetTableKeys, IExchangeToken} from "../model/types";
 import {useContext, useEffect, useMemo, useState} from "react";
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
@@ -22,7 +22,7 @@ interface IParams {
     columnKeys?: Array<AssetTableKeys>,
     excludedCurrencies?: Array<string>,
     modal?: boolean,
-    onSelect?: (token: IExchangeToken) => void
+    onSelect?: (token: IResMarketAsset) => void
 }
 
 const AssetsTable = ({
@@ -37,21 +37,26 @@ const AssetsTable = ({
     const {md} = useContext(BreakpointsContext);
     const [loading, setLoading] = useState<boolean>(true);
     const [searchValue, setSearchValue] = useState<string>('');
-    const [rates, setRates] = useState<Record<$const, number>>();
+    const [rates, setRates] = useState<Record<$const, number>>(null);
+    
     const assets = storeListAllCryptoName(state => state.listAllCryptoName)
         .sort((a, b) => a.name.localeCompare(b.name));
 
-    const tokensList = useMemo<Array<IExchangeToken>>(() =>
-        getTokensList(assets, excludedCurrencies), [assets]);
+    const tokensList = useMemo<Array<IResMarketAsset>>(() =>
+        assets.filter(asset => !excludedCurrencies.includes(asset.code)), [assets, excludedCurrencies]);
 
-    const filteredTokens = useMemo<Array<IExchangeToken>>(() => {
-        return tokensList.filter((token) =>
-            token.currency.toLowerCase().includes(searchValue) ||
+    const filteredTokens = useMemo<Array<IResMarketAsset>>(() => (
+        tokensList.filter((token) =>
+            token.code.toLowerCase().includes(searchValue) ||
             token.name.toLowerCase().includes(searchValue)
-        );
-    }, [searchValue]);
+    )), [tokensList, searchValue]);
 
     useEffect(() => {
+        if (!columnKeys.includes(AssetTableKeys.PRICE)) {
+            setLoading(false);
+            return;
+        }
+
         (async () => {
             const {data} = (await apiGetRates());
             setRates(data.result);
@@ -63,6 +68,7 @@ const AssetsTable = ({
         <div className={className}>
             <div className={`${md && 'mx-5'} mb-2`}>
                 <Input
+                    allowClear
                     placeholder="Search name"
                     onChange={(e) => {
                         setSearchValue(e.target.value.trim().toLowerCase());
@@ -81,7 +87,7 @@ const AssetsTable = ({
                             ))}
                         </GTRow>
                     </GTHead>
-                    <GTBody loading={loading} className={styles.ItemsList} style={{maxHeight: maxHeight}}>
+                    <GTBody loading={loading} className={`${styles.ItemsList} ${!loading && styles.Loaded}`} style={{maxHeight: maxHeight}}>
                         {filteredTokens.map((token, index) => (
                             <GTRow
                                 className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
@@ -91,17 +97,17 @@ const AssetsTable = ({
                                     <GTCol className={`flex ${getAlignment(columnKeys, key)}`}>
                                         {key === AssetTableKeys.NAME && (
                                             <div className="flex items-center gap-3">
-                                                <IconCoin width={29} height={29} code={token.currency}/>
-                                                <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
+                                                <IconCoin width={29} height={29} code={token.code}/>
+                                                <span>{(!md || columnKeys.length === 2) ? token.name : token.code}</span>
                                             </div>
                                         )}
 
                                         {key === AssetTableKeys.CURRENCY && (
-                                            <span>{token.currency}</span>
+                                            <span>{token.code}</span>
                                         )}
 
                                         {key === AssetTableKeys.PRICE && (
-                                            <span>{rates ? rates[token.currency].toFixed(2) : 0.00} €</span>
+                                            <span>{rates ? rates[token.code].toFixed(2) : 0.00} €</span>
                                         )}
 
                                         {key === AssetTableKeys.ACTIONS && (
@@ -111,7 +117,7 @@ const AssetsTable = ({
                                                 gray
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    navigate(`/exchange/${token.currency}`)
+                                                    navigate(`/exchange/${token.code}`)
                                                 }}
                                             >Buy</Button>
                                         )}

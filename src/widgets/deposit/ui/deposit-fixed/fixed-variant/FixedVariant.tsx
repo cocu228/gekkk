@@ -26,14 +26,14 @@ const FixedVariant = () => {
         <p className="text-gray-500 text-center text-xs">
           The deposit services are provided by Adventarium PTE.LTD. By pressing
           button "Open deposit" I confirm that I have read carefully and fully
-          accepted{' '}
+          accepted.{' '}
           <a
             className="font-inherit text-blue-300 underline"
             href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
             target="_blank"
             rel="noreferrer noopener"
           >
-            Terms and Conditions with Risk Disclosure here
+            Terms and Conditions with Risk Disclosure
           </a>
         </p>
       </div>

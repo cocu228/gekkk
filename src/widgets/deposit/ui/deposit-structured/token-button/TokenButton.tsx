@@ -1,16 +1,25 @@
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
 import styles from './styles.module.scss';
+import {IResMarketAsset} from '@/shared/api';
+import { IconCoin } from '@/shared/ui/icons/icon-coin';
 
-const TokenButton = ({ onClick }) => {
+interface IParams {
+  onClick: () => void;
+  token: IResMarketAsset;
+}
+
+const TokenButton = ({onClick, token}: IParams) => {
   return (
     <button
       onClick={onClick}
-      className={`${styles.TokenButton} rounded-sm w-full px-5 py-3 flex items-center justify-between`}
+      className={`${styles.TokenButton} h-[60px] rounded-sm w-full px-5 py-3 flex items-center justify-between`}
     >
-      <div className="flex gap-4 items-center">
-        <img width={34} height={34} src="/img/tokens/XmrIcon.svg" alt="btc" />
-        <p className="font-medium text-sm">Monero (XMR)</p>
-      </div>
+      {!token ? <div/> : (
+        <div className="flex gap-4 items-center">
+          <IconCoin width={34} height={34} code={token.code}/>
+          <p className="font-medium text-sm">{token.name} ({token.code})</p>
+        </div>
+      )}
 
       <IconDoubleArrows />
     </button>

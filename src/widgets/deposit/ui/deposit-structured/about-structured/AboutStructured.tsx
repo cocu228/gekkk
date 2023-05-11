@@ -1,23 +1,25 @@
+import {useContext} from 'react';
+import {CtxNewDeposit} from '@/widgets/deposit/model/context';
+import RiskDescriptions from '@/shared/config/deposits/risk-level';
+import TypeDescriptions, {DepositType} from '@/shared/config/deposits/deposit-type';
 import StructuredProperties from '@/widgets/deposit/ui/deposit-structured/structured-properties/StructuredProperties';
-import styles from "./styles.module.scss"
 
 const AboutStructured = () => {
+    const context = useContext(CtxNewDeposit);
 
     return (
         <>
-            <div className='wrapper mb-40'>
-                <p>
-                    With a stuctured deposit, you can invest in cryptocurrencies and have full or partial capital protection from potential losses. You choose the term. You choose the level of risk and return.
-                </p>
+            <div className='wrapper mb-[252px]'>
+                {TypeDescriptions[DepositType.STRUCTED]}
             </div>
 
-            <div className="wrapper mb-32">
-                <p>
-                    <span className='font-bold'>Safe strategy</span> - full capital protection and guaranteed return; good for conservative investors and beginners as it excludes any risks associated with a fall of cryptocurrency rate.
-                </p>
-            </div>
+            {context.riskLevel == null ? null : (
+                <div className="wrapper mb-[120px]">
+                    {RiskDescriptions[context.riskLevel]}                    
+                </div>
+            )}
 
-            <div className="wrapper mb-32">
+            {context.percentageType == null ? null : (<div className="wrapper mb-[86px]">
                 <div className="row flex gap-3 mb-1">
                     <img width={17} height={10} src="/img/icon/RateGrowthIcon.svg" alt="UserIcon"/>
                     <p>Get <span className="font-bold">16%</span> of the rate growth if the crypto rises in price</p>
@@ -26,13 +28,13 @@ const AboutStructured = () => {
                     <img width={17} height={10} src="/img/icon/RateDropIcon.svg" alt="UserIcon"/>
                     <p>Get <span className='font-bold'>4% p.a.</span> if the crypto drops in price</p>
                 </div>
-            </div>
+            </div>)}
 
-            <div className="wrapper mb-16">
-                <p>You will get return in <span className="font-bold">90 days</span></p>
-            </div>
+            {context.term_in_days == null ? null : (<div className="wrapper mb-4">
+                <p>You will get return in <span className="font-bold">{context.term_in_days} days</span></p>
+            </div>)}
 
-            <StructuredProperties/>
+            {context.token === null ? null : <StructuredProperties/>}
         </>
     )
 }

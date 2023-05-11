@@ -1,12 +1,12 @@
-import InlineProperty from '@/shared/ui/inline-property';
-import InfoBlock from '../info-block';
 import styles from './styles.module.scss';
+import InlineProperty from '@/shared/ui/inline-property';
+import TypeDescriptions, {DepositType} from '@/shared/config/deposits/deposit-type';
 
 const AboutFixed = () => {
   return (
     <>
       <div className="wrapper mb-20 w-full">
-        <InfoBlock variant='fixed' />
+        {TypeDescriptions[DepositType.FIXED]}
       </div>
 
       <div className={`wrapper ${styles.InvestBlock}`}>

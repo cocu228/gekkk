@@ -1,6 +1,4 @@
-import React from 'react';
 import Deposit from '@/widgets/deposit/ui/Deposit';
-import NewDepositProvider from '@/widgets/deposit/model/NewDepositProvider';
 
 export default () => (
     <div className="wrapper flex-1 flex flex-col">
@@ -12,8 +10,6 @@ export default () => (
             </p>
         </div>
 
-        <NewDepositProvider>
-            <Deposit/>
-        </NewDepositProvider>
+        <Deposit/>
     </div>
 )

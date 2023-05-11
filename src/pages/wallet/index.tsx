@@ -30,7 +30,7 @@ function Wallet() {
             <CtxWalletCurrency.Provider value={wallet}>
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={"About"}>
-                    <div className={`grid grid-cols-${xl ? "1" : "2"}`}>
+                    <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative">
                             <NetworkProvider data-tab={"Top Up"}>
                                 <TopUp/>

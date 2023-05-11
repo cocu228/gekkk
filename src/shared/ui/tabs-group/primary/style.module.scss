@@ -1,70 +1,79 @@
 @import "@styles/mixins";
 
 .TabBtn {
-    white-space: nowrap;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 3px solid transparent;
+  padding: 0 10px 16px;
+  text-transform: capitalize;
+  z-index: 1;
+
+  :focus {
+    outline: none;
+  }
+
+  &:global(.active) {
+    border-color: var(--color-blue-400);
     font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: center;
-    color: var(--color-gray-400);
-    cursor: pointer;
-    border: none;
-    background: none;
-    border-bottom: 3px solid transparent;
-    padding: 0 10px 16px;
-    text-transform: capitalize;
-    z-index: 1;
-
-    :focus {
-        outline: none;
-    }
-
-    &:global(.active) {
-        border-color: var(--color-blue-400);
-        font-weight: 500;
-        color: var(--color-gray-600);
-    }
+    color: var(--color-gray-600);
+  }
 
 }
 
 .TabsWrapper {
-    width: auto;
-    position: relative;
-    margin-left: calc(-1 * var(--content-pad-left));
-    margin-right: calc(-1 * var(--content-pad-right));
-    padding-left: var(--content-pad-left);
-    padding-right: var(--content-pad-right);
-    margin-bottom: 40px;
+  width: auto;
+  position: relative;
+  margin-left: calc(-1 * var(--content-pad-left));
+  margin-right: calc(-1 * var(--content-pad-right));
+  padding-left: var(--content-pad-left);
+  padding-right: var(--content-pad-right);
+  margin-bottom: 40px;
+  overflow-x: auto;
 
-    &:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        background-color: var(--color-gray-200);
-        bottom: 0;
-        height: 2px;
-        width: 100%;
-    }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-    @include devices(xl) {
-        padding-left: var(--content-pad-left-xl);
-        padding-right: var(--content-pad-right-xl);
-    }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
-    @include devices(md) {
-        padding-left: var(--content-pad-horizontal-md);
-        padding-right: var(--content-pad-horizontal-md);
-        padding-top: var(--content-pad-top-md);
-    }
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: var(--color-gray-200);
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+  }
 
-    @include devices(xl) {
-        margin-left: calc(-1 * var(--content-pad-left-xl));
-        margin-right: calc(-1 * var(--content-pad-right-xl));
-    }
+  @include devices(xl) {
+    padding-left: var(--content-pad-left-xl);
+    padding-right: var(--content-pad-right-xl);
+  }
 
-    @include devices(md) {
-        margin-left: calc(-1 * var(--content-pad-horizontal-md));
-        margin-right: calc(-1 * var(--content-pad-horizontal-md));
-    }
+  @include devices(md) {
+    padding-left: var(--content-pad-horizontal-md);
+    padding-right: var(--content-pad-horizontal-md);
+    padding-top: var(--content-pad-top-md);
+  }
+
+  @include devices(xl) {
+    margin-left: calc(-1 * var(--content-pad-left-xl));
+    margin-right: calc(-1 * var(--content-pad-right-xl));
+  }
+
+  @include devices(md) {
+    margin-left: calc(-1 * var(--content-pad-horizontal-md));
+    margin-right: calc(-1 * var(--content-pad-horizontal-md));
+  }
 }

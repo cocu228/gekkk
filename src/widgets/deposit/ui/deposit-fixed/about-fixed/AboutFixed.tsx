@@ -1,6 +1,7 @@
 import styles from './styles.module.scss';
 import InlineProperty from '@/shared/ui/inline-property';
-import TypeDescriptions, {DepositType} from '@/shared/config/deposits/deposit-type';
+import TypeDescriptions from '@/shared/config/deposits/deposit-type';
+import { DepositType } from '@/shared/config/deposits/types';
 
 const AboutFixed = () => {
   return (

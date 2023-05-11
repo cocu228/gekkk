@@ -1,7 +1,4 @@
-export enum DepositType {
-    FIXED = 'Fixed',
-    STRUCTED = 'Structured'
-}
+import { DepositType } from "./types";
 
 
 export default {

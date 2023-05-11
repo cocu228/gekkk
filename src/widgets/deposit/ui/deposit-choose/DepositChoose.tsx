@@ -5,17 +5,18 @@ import {CtxNewDeposit} from '../../model/context';
 import $const from '@/shared/config/coins/constants';
 import InputCurrency from '../../../../shared/ui/input-currency';
 import FixedVariant from '../deposit-fixed/fixed-variant/FixedVariant';
-import TypeDescriptions, {DepositType} from '@/shared/config/deposits/deposit-type';
+import TypeDescriptions from '@/shared/config/deposits/deposit-type';
 import StructuredVariant from '../deposit-structured/structured-variant/StructuredVariant';
 import {storeListAvailableBalance} from '@/shared/store/crypto-assets';
+import { DepositType } from '@/shared/config/deposits/types';
 
 const DepositChoose = () => {
   const {
     type,
     amount,
     minAmount,
-    amountChange,
-    depositTypeChange
+    onAmountChange: amountChange,
+    onDepositTypeChange: depositTypeChange
   } = useContext(CtxNewDeposit);
 
   const eurgWallet = storeListAvailableBalance(state => state.defaultListBalance)
@@ -31,8 +32,9 @@ const DepositChoose = () => {
         </p>
 
         <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between md:mb-4">
-          {Object.keys(DepositType).map((depositType) => (
+          {Object.values(DepositType).map((depositType) => (
             <Radio
+              key={depositType}
               title={depositType !== DepositType.FIXED ? "Structured" : "Fixed rate"}
               subtitle={depositType !== DepositType.FIXED ? "Crypto investments with customizable risk/profit" :
                 <>
@@ -40,8 +42,8 @@ const DepositChoose = () => {
                   <span className="font-bold">0,8%</span> per month)
                 </>
               }
-              checked={type === DepositType[depositType]}
-              onChange={() => depositTypeChange(DepositType[depositType])}
+              checked={type === depositType}
+              onChange={() => depositTypeChange(depositType)}
               name="deposit-fixed"
             />
           ))}

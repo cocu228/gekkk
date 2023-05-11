@@ -9,18 +9,21 @@ import Loader from "@/shared/ui/loader";
 const StructuredProperties = () => {
     const context = useContext(CtxNewDeposit);
     const [rates, setRates] = useState<Record<constants, number>>();
-
+    
     useEffect(() => {
-        if (!context.token) return;
+        if (context.step < 5) return;
 
         (async () => {
             const {data} = await apiGetRates();
 
             setRates(data.result);
         })()
-    }, [context.token])
+    }, [context.step])
 
-    if (!rates) return <Loader className="relative mt-10"/>;
+    if (context.step < 5) return;
+
+    if (!rates)
+        return <Loader className="relative mt-10"/>;
 
     return (
         <div className="wrapper w-full">
@@ -29,7 +32,7 @@ const StructuredProperties = () => {
                 in {context.token.name} ({context.token.code}) for {context.term_in_days} days</p>
                 <div className="flex flex-col gap-3 md:gap-2">
                     <InlineProperty left="Current rate" right={`1 ${context.token.code} ~ ${rates[context.token.code].toFixed(2)} EUR`}/>
-                    <InlineProperty left="Risk level" right={`${context.riskLevel} strategy`}/>
+                    <InlineProperty left="Risk level" right={`${context.structedStrategy.name} strategy`}/>
                     <InlineProperty left="Returns rate" right="16% rates growth XMR or 4% p.a"/>
                 </div>
                 <p className="text-gray-400 text-xs text-end">(The biggest is chosen)</p>
@@ -40,4 +43,4 @@ const StructuredProperties = () => {
     )
 }
 
-export default StructuredProperties
+export default StructuredProperties;

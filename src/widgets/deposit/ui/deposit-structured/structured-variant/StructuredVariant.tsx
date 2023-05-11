@@ -7,17 +7,16 @@ import ChooseButton from '../choose-button/ChooseButton';
 import ChooseTokenModal from '../../modals/choose-token-modal/ChooseTokenModal';
 import TokenButton from '../token-button/TokenButton';
 import StructuredProperties from '@/widgets/deposit/ui/deposit-structured/structured-properties/StructuredProperties';
-import { CtxNewDeposit } from '@/widgets/deposit/model/context';
-import { PercentageType } from '@/widgets/deposit/model/types';
-import { IResMarketAsset } from '@/shared/api';
-import { RiskLevel } from '@/shared/config/deposits/risk-level';
+import {CtxNewDeposit} from '@/widgets/deposit/model/context';
+import StructedDepositStrategies from '@/shared/config/deposits/structed-strategies';
+import {IResMarketAsset} from '@/shared/api';
 
 const StructuredVariant = () => {
   const openDepositModal = useModal();
   const conditionsModal = useModal();
   const chooseTokenModal = useModal();
   const context = useContext(CtxNewDeposit);
-  const {riskLevel, riskLevelChange} = useContext(CtxNewDeposit);
+  const {structedStrategy, onRiskLevelChange} = useContext(CtxNewDeposit);
   const [validated, setValidated] = useState<boolean>(false);
 
   const depositParams = {
@@ -30,176 +29,96 @@ const StructuredVariant = () => {
 
   useEffect(() => {
     const {
-      token,
       amount,
       minAmount,
-      riskLevel,
-      term_in_days,
-      percentageType
     } = context;
 
-    setValidated(
-      riskLevel !== null &&
-      amount >= minAmount &&
-      percentageType !== null &&
-      term_in_days !== null &&
-      token !== null
-    );
+    setValidated(amount >= minAmount);
   }, [context])
 
   return (
     <div className="wrapper w-full">
-      <div className="wrapper mb-8">
-        <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
-          Choose the risk level
-        </p>
+      {context.step >= 1 && (
+        <div className="wrapper mb-8">
+          <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
+            Choose the risk level
+          </p>
 
-        <div className="flex">
-          <ChooseButton
-            isSelected={riskLevel === RiskLevel.SAFE}
-            onClick={() => riskLevelChange(RiskLevel.SAFE)}
-          >
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
-              <div>
-                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Safe strategy</p>
-                <p className="text-gray-400 text-sm md:hidden">
-                  Guaranteed profit and risk protection
-                </p>
-              </div>
-              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Risk</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
+          <div className="flex">
+            {StructedDepositStrategies.map((strategy) => (
+              <ChooseButton
+                key={`STRATEGY_${strategy.id}`}
+                isSelected={structedStrategy === strategy}
+                onClick={() => onRiskLevelChange(strategy)}
+              >
+                <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
+                  <div>
+                    <p className="font-medium text-xl mb-1 md:text-sm md:text-center">{strategy.name} strategy</p>
+                    <p className="text-gray-400 text-sm md:hidden">
+                      {strategy.descriptionShort}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
+                    <div className="flex items-center gap-2 md:flex-col">
+                      <p className="text-gray-400 text-sm">Risk</p>
+                      <div className="flex gap-1">
+                        {[1, 2, 3].map((_, index) => ( 
+                          <div className={`${index >= strategy.riskPoints ? 'bg-gray-200' : 'bg-red-800'} w-[0.5rem] h-[0.5rem] rounded-full`}/>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 md:flex-col">
+                      <p className="text-gray-400 text-sm">Return</p>
+                      <div className="flex gap-1">
+                        {[1, 2, 3].map((_, index) => (
+                          <div className={`${index >= strategy.returnPoints ? 'bg-gray-200' : 'bg-green'} w-[0.5rem] h-[0.5rem] rounded-full`}/>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Return</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ChooseButton>
-          <ChooseButton
-            isSelected={context.riskLevel === RiskLevel.BALANCED}
-            onClick={() => context.riskLevelChange(RiskLevel.BALANCED)}
-          >
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
-              <div>
-                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Balanced strategy</p>
-                <p className="text-gray-400 text-sm md:hidden">Minimal risk</p>
-              </div>
-              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Risk</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-red-800 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Return</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ChooseButton>
-          <ChooseButton
-            isSelected={context.riskLevel === RiskLevel.DYNAMIC}
-            onClick={() => context.riskLevelChange(RiskLevel.DYNAMIC)}
-          >
-            <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">
-              <div>
-                <p className="font-medium text-xl mb-1 md:text-sm md:text-center">Dynamic strategy</p>
-                <p className="text-gray-400 text-sm md:hidden">
-                  Good percentage and perdectible risk
-                </p>
-              </div>
-              <div className="flex flex-wrap justify-between w-full md:flex-col gap-2 xxl:gap-1">
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Risk</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-red-800 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-red-800 rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-gray-200 rounded-full" />
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 md:flex-col">
-                  <p className="text-gray-400 text-sm">Return</p>
-                  <div className="flex gap-1">
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                    <div className="w-[0.5rem] h-[0.5rem] bg-green rounded-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ChooseButton>
+              </ChooseButton>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      {context.riskLevel === null ? null : (
+      {context.step >= 2 && (
         <div className="wrapper mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose the rate of return
           </p>
 
           <div className="flex">
-            <ChooseButton
-              isSelected={context.percentageType === PercentageType.MIN}
-              onClick={() => context.persentageTypeChange(PercentageType.MIN)}
-            >16/4</ChooseButton>
-            <ChooseButton
-              isSelected={context.percentageType === PercentageType.MID}
-              onClick={() => context.persentageTypeChange(PercentageType.MID)}
-            >17/3</ChooseButton>
-            <ChooseButton
-              isSelected={context.percentageType === PercentageType.MAX}
-              onClick={() => context.persentageTypeChange(PercentageType.MAX)}
-            >18/2</ChooseButton>
+            {context.structedStrategy.percentageTypes.map((percentageType) => (
+              <ChooseButton
+                isSelected={context.percentageType === percentageType}
+                onClick={() => context.onPersentageTypeChange(percentageType)}
+              >{percentageType.risePercentage}/{percentageType.dropPercentage}</ChooseButton>
+            ))}
           </div>
         </div>
       )}
 
-      {context.percentageType === null ? null :  (
+      {context.step >= 3 && (
         <div className="wrapper mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose the deposit term (in days)
           </p>
 
           <div className="flex">
-            <ChooseButton
-              isSelected={context.term_in_days === 90}
-              onClick={() => context.termChange(90)}
-            >90 days</ChooseButton>
-            <ChooseButton
-              isSelected={context.term_in_days === 180}
-              onClick={() => context.termChange(180)}
-            >180 days</ChooseButton>
-            <ChooseButton
-              isSelected={context.term_in_days === 270}
-              onClick={() => context.termChange(270)}
-            >270 days</ChooseButton>
-            <ChooseButton
-              isSelected={context.term_in_days === 360}
-              onClick={() => context.termChange(360)}
-            >360 days</ChooseButton>
+            {[90, 180, 270, 360].map((term => (
+              <ChooseButton
+                key={`TERM_IN_DAYS_${term}`}
+                isSelected={context.term_in_days === term}
+                onClick={() => context.onTermChange(term)}
+              >{term} days</ChooseButton>
+            )))}
           </div>
         </div>
       )}
 
-      {context.term_in_days === null ? null : (
+      {context.step >= 4 && (
         <div className="wrapper w-full mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose a token to invest
@@ -215,11 +134,11 @@ const StructuredVariant = () => {
 
       <div className="wrapper">
         <Button
-          disabled={!validated}
+          disabled={context.step >= 5 && !validated}
           className="w-full mb-5 md:mb-3"
-          onClick={openDepositModal.showModal}
+          onClick={context.step >= 5 ? openDepositModal.showModal : context.onNextStep}
         >
-          Open Deposit
+          {context.step >= 5 ? 'Open Deposit' : 'Next step'}
         </Button>
       </div>
 
@@ -248,7 +167,7 @@ const StructuredVariant = () => {
       <ChooseTokenModal
         open={chooseTokenModal.isModalOpen}
         onSelect={(value: IResMarketAsset) => {
-          context.tokenChange(value);
+          context.onTokenChange(value);
           chooseTokenModal.handleCancel();
         }}
         onCancel={chooseTokenModal.handleCancel}

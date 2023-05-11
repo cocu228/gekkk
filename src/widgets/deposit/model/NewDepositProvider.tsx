@@ -1,9 +1,7 @@
 import {useState} from "react";
-import {PercentageType} from "./types";
 import {IResMarketAsset} from "@/shared/api";
 import {CtxNewDeposit, ICtxNewDeposit} from "./context";
-import {RiskLevel} from "@/shared/config/deposits/risk-level";
-import {DepositType} from "@/shared/config/deposits/deposit-type";
+import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
 
 interface IProps {
     children: React.ReactNode
@@ -11,13 +9,14 @@ interface IProps {
 
 const NewDepositProvider = ({children, ...props}: IProps) => {
     const initialState: ICtxNewDeposit = {
-        type: DepositType.FIXED,
+        step: 0,
+        token: null,
         amount: null,
         minAmount: null,
-        riskLevel: null,
-        percentageType: null,
+        structedStrategy: null,
         term_in_days: null,
-        token: null
+        percentageType: null,
+        type: DepositType.FIXED
     }
 
     const [state, setState] = useState<ICtxNewDeposit>(initialState);
@@ -37,10 +36,11 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
         }));
     }
 
-    const handleRiskLevelChange = (value: RiskLevel) => {
+    const handleRiskLevelChange = (value: StructedDepositStrategy) => {
         setState(prev => ({
             ...prev,
-            riskLevel: value
+            structedStrategy: value,
+            percentageType: prev.step < 2 ? null : value.percentageTypes[0]
         }));
     }
 
@@ -64,15 +64,38 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
             token: value
         }));
     }
+
+    const handleNextStep = () => {
+        const {
+            token,
+            amount,
+            minAmount,
+            structedStrategy: riskLevel,
+            term_in_days,
+            percentageType
+        } = state
+
+        const step = (amount >= minAmount ? 1 : 0)
+        + (riskLevel !== null ? 1 : 0)
+        + (percentageType !== null ? 1 : 0)
+        + (term_in_days !== null ? 1 : 0)
+        + (token !== null ? 1 : 0);
+
+        setState(prev => ({
+            ...prev,
+            step: step
+        }));
+    }
     
     return <CtxNewDeposit.Provider value={({
         ...state,
-        depositTypeChange: handleTypeChange,
-        riskLevelChange: handleRiskLevelChange,
-        amountChange: handleAmountChange,
-        persentageTypeChange: handlePercentageTypeChange,
-        termChange: handleTermChange,
-        tokenChange: handleTokenChange,
+        onDepositTypeChange: handleTypeChange,
+        onRiskLevelChange: handleRiskLevelChange,
+        onAmountChange: handleAmountChange,
+        onPersentageTypeChange: handlePercentageTypeChange,
+        onTermChange: handleTermChange,
+        onTokenChange: handleTokenChange,
+        onNextStep: handleNextStep
     })}>
         {children}
     </CtxNewDeposit.Provider>

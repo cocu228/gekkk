@@ -1,3 +1,4 @@
+import {format, addDays} from 'date-fns';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
 import {useContext, useEffect, useState} from 'react';
@@ -17,10 +18,10 @@ const FixedVariant = () => {
 
   const depositParams = {
     deposit: 'Fixed rate deposit: 0,8% per month',
-    opened: '25.01.2023 at 16:04',
-    amount: '1000 EURG',
+    opened: format(new Date(), "MM.dd.yyyy 'at' HH:mm"),
+    amount: amount,
     payments: 'Every 30 days',
-    term: '360 days (until 22.02.2024 at 16:04)'
+    term: `360 days (until ${format(addDays(new Date(), 360), "MM.dd.yyyy 'at' HH:mm")})`
   }
 
   useEffect(() => {

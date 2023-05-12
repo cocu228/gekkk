@@ -1,3 +1,4 @@
+import {addDays, format} from 'date-fns';
 import {IResMarketAsset} from '@/shared/api';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
@@ -19,6 +20,7 @@ const StructuredVariant = () => {
 
   const {
     step,
+    rate,
     token,
     amount,
     minAmount,
@@ -32,12 +34,15 @@ const StructuredVariant = () => {
     onPersentageTypeChange,
   } = useContext(CtxNewDeposit);
   
-  const depositParams = {
-    deposit: 'Safe strategy 16/4 XMR',
-    opened: '25.01.2023 at 16:04',
-    amount: '100 EURG',
-    startingRate: '1 XMR ~ 141.68 EUR',
-    term: '90 days (until 25.04.2023 at 16:04)',
+  const depositParams = step < 5 ? null : {
+    deposit: `${structedStrategy.name} strategy
+      ${percentageType.risePercentage}/${percentageType.dropPercentage} XMR`,
+    opened: format(new Date(), "MM.dd.yyyy 'at' HH:mm"),
+    amount: amount,
+    startingRate: `1 ${token.code} ~ ${rate.toFixed(2)} EURG`,
+    term: `${term_in_days} days (until ${
+      format(addDays(new Date(), term_in_days), "MM.dd.yyyy 'at' HH:mm")
+    })`
   };
 
   useEffect(() => {

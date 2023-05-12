@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {IResMarketAsset} from "@/shared/api";
+import {useEffect, useState} from "react";
+import {IResMarketAsset, apiGetRates} from "@/shared/api";
 import {CtxNewDeposit, ICtxNewDeposit} from "./context";
 import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 
@@ -11,6 +11,7 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
     const initialState: ICtxNewDeposit = {
         step: 0,
         token: null,
+        rate: null,
         amount: null,
         minAmount: 1000,
         structedStrategy: null,
@@ -20,6 +21,18 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
     }
 
     const [state, setState] = useState<ICtxNewDeposit>(initialState);
+
+    useEffect(() => {
+        if (!state.token) return;
+
+        (async () => {
+            const {data} = await apiGetRates();
+            setState(prev => ({
+                ...prev,
+                rate: data.result[state.token.code]
+            }));
+        })()
+    }, [state.token]);
 
     const handleTypeChange = (value: DepositType) => {
         setState(prev => ({

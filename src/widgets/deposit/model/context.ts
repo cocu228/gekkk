@@ -4,6 +4,7 @@ import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/con
 
 export type ICtxNewDeposit = {
     step: number;
+    rate: number;
     type: DepositType;
     amount: number | null;
     minAmount: number | null;

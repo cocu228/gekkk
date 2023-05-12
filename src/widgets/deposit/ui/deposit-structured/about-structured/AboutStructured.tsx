@@ -14,7 +14,7 @@ const AboutStructured = () => {
 
     return (
         <>
-            <div className='wrapper mb-[252px]'>
+            <div className='wrapper mb-[205px]'>
                 {TypeDescriptions[DepositType.STRUCTED]}
             </div>
 
@@ -39,7 +39,7 @@ const AboutStructured = () => {
                 </div>
             </div>)}
 
-            {term_in_days === null ? null : (<div className="wrapper mb-4">
+            {term_in_days === null ? null : (<div className="wrapper mb-14">
                 <p>You will get return in <span className="font-bold">{term_in_days} days</span></p>
             </div>)}
 

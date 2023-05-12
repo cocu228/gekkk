@@ -1,3 +1,4 @@
+import NewDepositProvider from '@/widgets/deposit/model/NewDepositProvider';
 import Deposit from '@/widgets/deposit/ui/Deposit';
 
 export default () => (
@@ -10,6 +11,8 @@ export default () => (
             </p>
         </div>
 
-        <Deposit/>
+        <NewDepositProvider>
+            <Deposit/>
+        </NewDepositProvider>
     </div>
 )

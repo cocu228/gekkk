@@ -11,7 +11,7 @@ const Withdraw = () => {
 
     return (
         <div className='h-full'>
-            {loading ? <Loader/> : <><ChoseNetwork/>
+            {loading ? <Loader/> : <><ChoseNetwork withdraw/>
                 <WithdrawForm/></>}
         </div>
     );

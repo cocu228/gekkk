@@ -4,11 +4,11 @@ import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/conte
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
-const ChoseNetwork = () => {
+const ChoseNetwork = ({withdraw = false}) => {
     const currency = useContext(CtxWalletCurrency)
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
     const {xl, md} = useContext(BreakpointsContext);
-
+    console.log(withdraw)
     return <>
         {/*<div className="row mb-10">*/}
         {/*    <div className="col flex items-center gap-3 font-bold">*/}
@@ -19,7 +19,7 @@ const ChoseNetwork = () => {
         <div className="row mb-8 w-full">
             <div className="col">
                 <Select className="w-full mt-2"
-                        placeholder={"Select network"}
+                        placeholder={withdraw ? "Select withdraw network" : "Select network"}
                         value={networkIdSelect}
                         onSelect={setNetworkId}
                         options={networksForSelector}
@@ -27,7 +27,7 @@ const ChoseNetwork = () => {
             </div>
         </div>
 
-        {!md && <div className="row mb-10">
+        {!withdraw && <div className="row mb-10">
             <div className="col">
                 <div className="info-box-note mb-10">
                     <div className="row mb-3">

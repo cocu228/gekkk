@@ -25,7 +25,7 @@ export default ({
     }, [percent])
 
     const onBtnClick = (percent: number) => 
-        setPercent((percent / 100) * availableBalance)
+        setPercent(((percent / 100) * availableBalance).toFixed(2));
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
         <div className="row">

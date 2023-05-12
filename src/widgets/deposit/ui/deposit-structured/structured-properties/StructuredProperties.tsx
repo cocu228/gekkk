@@ -39,7 +39,7 @@ const StructuredProperties = () => {
                 <div className="flex flex-col gap-3 md:gap-2">
                     <InlineProperty left="Current rate" right={`1 ${token.code} ~ ${rates[token.code].toFixed(2)} EUR`}/>
                     <InlineProperty left="Risk level" right={`${structedStrategy.name} strategy`}/>
-                    <InlineProperty left="Returns rate" right={`
+                    <InlineProperty left="Return rate" right={`
                     ${percentageType.risePercentage}% rates growth 
                     ${token.code} or ${percentageType.dropPercentage}% p.a`}/>
                 </div>

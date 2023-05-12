@@ -41,7 +41,7 @@ const WalletHeader = () => {
                 </div>}
 
 
-                {isEURG && !md && (<div className='grid auto-cols-fr'>
+                {isEURG && !md && (<div className='grid auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-semilight">
                         Rate
                         <Tooltip text={EurgTooltipText}>
@@ -58,9 +58,9 @@ const WalletHeader = () => {
             </div>
 
             {!md && <div className="text-right grid auto-cols-fr">
-                <div data-text={`${currency.name} wallet`} className="mb-4 ellipsis -mt-1.5">
+                <div data-text={`${currency.name} wallet`} className="mb-3 ellipsis -mt-1.5">
                     <span className="font-bold text-fs32 leading-1 text-gray-600">
-                        {currency.name} wallet
+                       {isEURG ? "Gekkoin Europe wallet" : <>{currency.name} wallet</>}
                     </span>
                 </div>
                 <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">

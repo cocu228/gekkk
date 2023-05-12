@@ -134,7 +134,7 @@ const StructuredVariant = () => {
 
       <div className="wrapper">
         <Button
-          disabled={context.step >= 5 && !validated}
+          disabled={!validated}
           className="w-full mb-5 md:mb-3"
           onClick={context.step >= 5 ? openDepositModal.showModal : context.onNextStep}
         >

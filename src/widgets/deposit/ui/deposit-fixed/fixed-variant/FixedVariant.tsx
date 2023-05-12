@@ -1,12 +1,15 @@
-import React from 'react';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
+import {useContext, useEffect, useState} from 'react';
+import {CtxNewDeposit} from '@/widgets/deposit/model/context';
 import OpenDepositModal from '@/widgets/deposit/ui/modals/OpenDepositModal';
 import ClosingConditionsModal from '@/widgets/deposit/ui/modals/ClosingConditionsModal';
 
 const FixedVariant = () => {
   const openDepositModal = useModal();
   const conditionsModal = useModal();
+  const context = useContext(CtxNewDeposit);
+  const [validated, setValidated] = useState<boolean>(false);
 
   const depositParams = {
     deposit: 'Fixed rate deposit: 0,8% per month',
@@ -16,9 +19,22 @@ const FixedVariant = () => {
     term: '360 days (until 22.02.2024 at 16:04)'
   }
 
+  useEffect(() => {
+    const {
+      amount,
+      minAmount,
+    } = context;
+
+    setValidated(amount >= minAmount);
+  }, [context]);
+  
   return (
     <div className="wrapper w-full">
-      <Button className="w-full mb-5 md:mb-3" onClick={openDepositModal.showModal}>
+      <Button
+        disabled={!validated}
+        className="w-full mb-5 md:mb-3"
+        onClick={openDepositModal.showModal}
+      >
         Open deposit
       </Button>
 

@@ -34,7 +34,7 @@ const StructuredVariant = () => {
     } = context;
 
     setValidated(amount >= minAmount);
-  }, [context])
+  }, [context]);
 
   return (
     <div className="wrapper w-full">

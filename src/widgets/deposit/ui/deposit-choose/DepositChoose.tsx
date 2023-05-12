@@ -15,8 +15,8 @@ const DepositChoose = () => {
     type,
     amount,
     minAmount,
-    onAmountChange: amountChange,
-    onDepositTypeChange: depositTypeChange
+    onAmountChange,
+    onDepositTypeChange
   } = useContext(CtxNewDeposit);
 
   const eurgWallet = storeListAvailableBalance(state => state.defaultListBalance)
@@ -43,7 +43,7 @@ const DepositChoose = () => {
                 </>
               }
               checked={type === depositType}
-              onChange={() => depositTypeChange(depositType)}
+              onChange={() => onDepositTypeChange(depositType)}
               name="deposit-fixed"
             />
           ))}
@@ -56,7 +56,7 @@ const DepositChoose = () => {
         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
           <InputCurrency
             onChange={(target) => {
-              amountChange(+target);
+              onAmountChange(+target);
             }}
             value={amount}
             currency={{

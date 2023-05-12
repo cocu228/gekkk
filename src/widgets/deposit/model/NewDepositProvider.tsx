@@ -12,7 +12,7 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
         step: 0,
         token: null,
         amount: null,
-        minAmount: null,
+        minAmount: 1000,
         structedStrategy: null,
         term_in_days: null,
         percentageType: null,

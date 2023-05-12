@@ -3,12 +3,12 @@ import Radio from '@/shared/ui/radio';
 import styles from './styles.module.scss';
 import {CtxNewDeposit} from '../../model/context';
 import $const from '@/shared/config/coins/constants';
+import {DepositType} from '@/shared/config/deposits/types';
 import InputCurrency from '../../../../shared/ui/input-currency';
-import FixedVariant from '../deposit-fixed/fixed-variant/FixedVariant';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
-import StructuredVariant from '../deposit-structured/structured-variant/StructuredVariant';
+import FixedVariant from '../deposit-fixed/fixed-variant/FixedVariant';
 import {storeListAvailableBalance} from '@/shared/store/crypto-assets';
-import { DepositType } from '@/shared/config/deposits/types';
+import StructuredVariant from '../deposit-structured/structured-variant/StructuredVariant';
 
 const DepositChoose = () => {
   const {
@@ -19,8 +19,9 @@ const DepositChoose = () => {
     onDepositTypeChange
   } = useContext(CtxNewDeposit);
 
-  const eurgWallet = storeListAvailableBalance(state => state.defaultListBalance)
-    ?.find(w => w.currency === $const.EURG);
+  const eurgWallet = storeListAvailableBalance(state =>
+    state.defaultListBalance
+  )?.find(w => w.currency === $const.EURG);
 
   return (
     <div

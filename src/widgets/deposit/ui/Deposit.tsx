@@ -1,6 +1,6 @@
-import DepositChoose from '@/widgets/deposit/ui/deposit-choose/DepositChoose';
-import DepositAbout from '@/widgets/deposit/ui/deposit-about/DepositAbout';
 import NewDepositProvider from '../model/NewDepositProvider';
+import DepositAbout from '@/widgets/deposit/ui/deposit-about/DepositAbout';
+import DepositChoose from '@/widgets/deposit/ui/deposit-choose/DepositChoose';
 
 function Deposit() {
   return (

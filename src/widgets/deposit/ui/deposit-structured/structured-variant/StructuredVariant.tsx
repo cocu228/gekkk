@@ -1,24 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react';
+import {IResMarketAsset} from '@/shared/api';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
-import OpenDepositModal from '../../modals/OpenDepositModal';
-import ClosingConditionsModal from '../../modals/ClosingConditionsModal';
-import ChooseButton from '../choose-button/ChooseButton';
-import ChooseTokenModal from '../../modals/choose-token-modal/ChooseTokenModal';
+import {useContext, useEffect, useState} from 'react';
 import TokenButton from '../token-button/TokenButton';
-import StructuredProperties from '@/widgets/deposit/ui/deposit-structured/structured-properties/StructuredProperties';
+import ChooseButton from '../choose-button/ChooseButton';
+import OpenDepositModal from '../../modals/OpenDepositModal';
 import {CtxNewDeposit} from '@/widgets/deposit/model/context';
+import ClosingConditionsModal from '../../modals/ClosingConditionsModal';
+import ChooseTokenModal from '../../modals/choose-token-modal/ChooseTokenModal';
 import StructedDepositStrategies from '@/shared/config/deposits/structed-strategies';
-import {IResMarketAsset} from '@/shared/api';
+import StructuredProperties from '@/widgets/deposit/ui/deposit-structured/structured-properties/StructuredProperties';
 
 const StructuredVariant = () => {
+  const [validated, setValidated] = useState<boolean>(false);
   const openDepositModal = useModal();
   const conditionsModal = useModal();
   const chooseTokenModal = useModal();
-  const context = useContext(CtxNewDeposit);
-  const {structedStrategy, onRiskLevelChange} = useContext(CtxNewDeposit);
-  const [validated, setValidated] = useState<boolean>(false);
 
+  const {
+    step,
+    token,
+    amount,
+    minAmount,
+    term_in_days,
+    percentageType,
+    structedStrategy,
+    onNextStep,
+    onTermChange,
+    onTokenChange,
+    onRiskLevelChange,
+    onPersentageTypeChange,
+  } = useContext(CtxNewDeposit);
+  
   const depositParams = {
     deposit: 'Safe strategy 16/4 XMR',
     opened: '25.01.2023 at 16:04',
@@ -28,17 +41,12 @@ const StructuredVariant = () => {
   };
 
   useEffect(() => {
-    const {
-      amount,
-      minAmount,
-    } = context;
-
     setValidated(amount >= minAmount);
-  }, [context]);
+  }, [amount, minAmount]);
 
   return (
     <div className="wrapper w-full">
-      {context.step >= 1 && (
+      {step >= 1 && (
         <div className="wrapper mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose the risk level
@@ -83,24 +91,24 @@ const StructuredVariant = () => {
         </div>
       )}
 
-      {context.step >= 2 && (
+      {step >= 2 && (
         <div className="wrapper mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose the rate of return
           </p>
 
           <div className="flex">
-            {context.structedStrategy.percentageTypes.map((percentageType) => (
+            {structedStrategy.percentageTypes.map((pt) => (
               <ChooseButton
-                isSelected={context.percentageType === percentageType}
-                onClick={() => context.onPersentageTypeChange(percentageType)}
-              >{percentageType.risePercentage}/{percentageType.dropPercentage}</ChooseButton>
+                isSelected={pt === percentageType}
+                onClick={() => onPersentageTypeChange(pt)}
+              >{pt.risePercentage}/{pt.dropPercentage}</ChooseButton>
             ))}
           </div>
         </div>
       )}
 
-      {context.step >= 3 && (
+      {step >= 3 && (
         <div className="wrapper mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose the deposit term (in days)
@@ -110,21 +118,21 @@ const StructuredVariant = () => {
             {[90, 180, 270, 360].map((term => (
               <ChooseButton
                 key={`TERM_IN_DAYS_${term}`}
-                isSelected={context.term_in_days === term}
-                onClick={() => context.onTermChange(term)}
+                isSelected={term_in_days === term}
+                onClick={() => onTermChange(term)}
               >{term} days</ChooseButton>
             )))}
           </div>
         </div>
       )}
 
-      {context.step >= 4 && (
+      {step >= 4 && (
         <div className="wrapper w-full mb-8">
           <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
             Choose a token to invest
           </p>
 
-          <TokenButton token={context.token} onClick={chooseTokenModal.showModal} />
+          <TokenButton token={token} onClick={chooseTokenModal.showModal} />
         </div>
       )}
 
@@ -136,9 +144,9 @@ const StructuredVariant = () => {
         <Button
           disabled={!validated}
           className="w-full mb-5 md:mb-3"
-          onClick={context.step >= 5 ? openDepositModal.showModal : context.onNextStep}
+          onClick={step >= 5 ? openDepositModal.showModal : onNextStep}
         >
-          {context.step >= 5 ? 'Open Deposit' : 'Next step'}
+          {step >= 5 ? 'Open Deposit' : 'Next step'}
         </Button>
       </div>
 
@@ -167,7 +175,7 @@ const StructuredVariant = () => {
       <ChooseTokenModal
         open={chooseTokenModal.isModalOpen}
         onSelect={(value: IResMarketAsset) => {
-          context.onTokenChange(value);
+          onTokenChange(value);
           chooseTokenModal.handleCancel();
         }}
         onCancel={chooseTokenModal.handleCancel}

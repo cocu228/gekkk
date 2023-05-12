@@ -1,8 +1,8 @@
 import {useContext} from 'react';
+import {CtxNewDeposit} from '../../model/context';
+import {DepositType} from '@/shared/config/deposits/types';
 import AboutFixed from '../deposit-fixed/about-fixed/AboutFixed';
 import AboutStructured from '../deposit-structured/about-structured/AboutStructured';
-import {CtxNewDeposit} from '../../model/context';
-import { DepositType } from '@/shared/config/deposits/types';
 
 const DepositAbout = () => {
   const {type} = useContext(CtxNewDeposit);

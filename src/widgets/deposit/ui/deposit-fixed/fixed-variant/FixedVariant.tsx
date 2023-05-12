@@ -6,10 +6,14 @@ import OpenDepositModal from '@/widgets/deposit/ui/modals/OpenDepositModal';
 import ClosingConditionsModal from '@/widgets/deposit/ui/modals/ClosingConditionsModal';
 
 const FixedVariant = () => {
+  const [validated, setValidated] = useState<boolean>(false);
   const openDepositModal = useModal();
   const conditionsModal = useModal();
-  const context = useContext(CtxNewDeposit);
-  const [validated, setValidated] = useState<boolean>(false);
+
+  const {
+    amount,
+    minAmount,
+  } = useContext(CtxNewDeposit);
 
   const depositParams = {
     deposit: 'Fixed rate deposit: 0,8% per month',
@@ -20,13 +24,8 @@ const FixedVariant = () => {
   }
 
   useEffect(() => {
-    const {
-      amount,
-      minAmount,
-    } = context;
-
     setValidated(amount >= minAmount);
-  }, [context]);
+  }, [amount, minAmount]);
   
   return (
     <div className="wrapper w-full">

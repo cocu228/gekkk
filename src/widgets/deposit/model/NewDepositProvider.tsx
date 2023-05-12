@@ -1,10 +1,10 @@
 import {useState} from "react";
 import {IResMarketAsset} from "@/shared/api";
 import {CtxNewDeposit, ICtxNewDeposit} from "./context";
-import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
+import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 
 interface IProps {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
 
 const NewDepositProvider = ({children, ...props}: IProps) => {
@@ -70,13 +70,13 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
             token,
             amount,
             minAmount,
-            structedStrategy: riskLevel,
             term_in_days,
-            percentageType
+            percentageType,
+            structedStrategy
         } = state
 
         const step = (amount >= minAmount ? 1 : 0)
-        + (riskLevel !== null ? 1 : 0)
+        + (structedStrategy !== null ? 1 : 0)
         + (percentageType !== null ? 1 : 0)
         + (term_in_days !== null ? 1 : 0)
         + (token !== null ? 1 : 0);
@@ -89,13 +89,13 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
     
     return <CtxNewDeposit.Provider value={({
         ...state,
-        onDepositTypeChange: handleTypeChange,
-        onRiskLevelChange: handleRiskLevelChange,
-        onAmountChange: handleAmountChange,
-        onPersentageTypeChange: handlePercentageTypeChange,
+        onNextStep: handleNextStep,
         onTermChange: handleTermChange,
         onTokenChange: handleTokenChange,
-        onNextStep: handleNextStep
+        onAmountChange: handleAmountChange,
+        onDepositTypeChange: handleTypeChange,
+        onRiskLevelChange: handleRiskLevelChange,
+        onPersentageTypeChange: handlePercentageTypeChange
     })}>
         {children}
     </CtxNewDeposit.Provider>

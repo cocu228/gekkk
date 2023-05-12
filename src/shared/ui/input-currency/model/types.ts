@@ -3,6 +3,7 @@ export type TypeInputCurrency = {
     value: number | null | string,
     disabled?: boolean,
     showWill?: boolean,
+    header?: string | JSX.Element,
     currency: {
         const: string,
         availableBalance?: number,

@@ -3,11 +3,14 @@ import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import {TypeInputCurrency} from "@/shared/ui/input-currency/model/types";
 import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOptions"
 
-type IParams = TypeInputCurrency & {
-    header?: string | JSX.Element
-}
-
-const InputCurrency = ({onChange, header, value, disabled = false, currency, showWill = false}: IParams) => {
+const InputCurrency = ({
+    value,
+    header,
+    currency,
+    onChange,
+    disabled = false,
+    showWill = false
+}: TypeInputCurrency) => {
 
     return (
         <InputCurrencyOptions value={value} showWill={showWill} header={header} availableBalance={currency.availableBalance}>

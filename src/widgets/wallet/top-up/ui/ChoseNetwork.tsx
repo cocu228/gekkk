@@ -38,7 +38,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                     <div className="row mb-1">
                         <div className="col">
                             <span
-                                className="text-gray-400 font-medium leading-6">You should send only <b>{currency.const}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
+                                className="text-gray-400 font-medium text-fs14 leading-6">You should send only <b>{currency.const}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
                         </div>
                     </div>
                 </div>

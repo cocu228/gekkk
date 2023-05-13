@@ -7,7 +7,8 @@ import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOption
 const InputCurrency = ({onChange, value, disabled = false, currency, showWill = false}: TypeInputCurrency) => {
 
     return (
-        <InputCurrencyOptions value={value} showWill={showWill} availableBalance={currency.availableBalance}>
+        <InputCurrencyOptions value={value} showWill={showWill} disabled={disabled}
+                              availableBalance={currency.availableBalance}>
             <InputItemCurrency currency={currency} onChange={onChange} value={value} disabled={disabled}/>
         </InputCurrencyOptions>
     )

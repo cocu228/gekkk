@@ -53,6 +53,7 @@ const WithdrawForm = () => {
                         <InputCurrency
                             value={inputs.amount}
                             onChange={onAmount}
+                            disabled={!networkIdSelect}
                             currency={{
                                 const: currency.const,
                                 availableBalance: currency.availableBalance.toNumber(),

@@ -22,7 +22,7 @@ const TopUpQR = () => {
 
         <div className="row text-right pb-10 flex justify-center items-center flex-col">
 
-            <h3 className="font-medium text-xxl mb-7">Send a transaction to
+            <h3 className="font-medium text-xxl mb-7 text-center">Send a transaction to
                 this <b>{currency.const} {currency.name}</b> address</h3>
 
             <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">

@@ -71,11 +71,11 @@ const QRCode = memo(() => {
         </div>
 
         {hash && <div className="row text-right pb-10 flex justify-center items-center flex-col">
-            <div className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
-                <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
+            <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
+                <div style={{height: "auto", margin: "0 auto", maxWidth: "120px", width: "100%"}}>
                     <ReactQRCode
                         size={148}
-                        style={{height: "auto", maxWidth: "100%", width: "100%"}}
+                        style={{height: "auto", maxWidth: "120px", width: "100%"}}
                         value={hash}
                         viewBox={`0 0 148 148`}
                     />

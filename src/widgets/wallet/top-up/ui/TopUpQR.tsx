@@ -22,13 +22,13 @@ const TopUpQR = () => {
 
         <div className="row text-right pb-10 flex justify-center items-center flex-col">
 
-            <h3 className="font-medium text-xxl mb-7 text-center">Send a transaction to
+            <h3 className="font-medium text-fs24 mb-7 text-center">Send a transaction to
                 this <b>{currency.const} {currency.name}</b> address</h3>
 
             <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
-                <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
+                <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
                     <ReactQRCode
-                        style={{height: "auto", maxWidth: "148px", minWidth: "100%", width: "100%"}}
+                        style={{height: "auto", maxWidth: "120px", minWidth: "100%", width: "100%"}}
                         value={addressesForQR}
                         viewBox={`0 0 148 148`}
                     />
@@ -51,7 +51,7 @@ const TopUpQR = () => {
                 <span className="text-gray-400">Expected unlock</span>
             </div>
             <div className="col">
-                <span><span className="text-red-800">2</span> network confirmation</span>
+                <span><b className="text-red-800">2</b> network confirmation</span>
             </div>
         </div>
     </> : <div className="row mt-8 px-4 mb-8 w-full">

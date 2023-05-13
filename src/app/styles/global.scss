@@ -1,5 +1,21 @@
 @import "mixins";
 
+.negative-margin-content {
+  margin-left: var(--content-pad-left);
+  margin-right: var(--content-pad-right);
+
+
+  @include devices(xl) {
+    margin-left: var(--content-pad-left-xl);
+    margin-right: var(--content-pad-right-xl);
+  }
+
+  @include devices(md) {
+    margin-left: var(--content-pad-horizontal-md);
+    margin-right: var(--content-pad-horizontal-md);
+  }
+}
+
 .arrow-down-xs {
   background-image: url("/img/icon/DropdownTriangleIcon.svg");
   width: 24px;

@@ -37,16 +37,16 @@ const WithdrawForm = () => {
 
     const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
 
-    return Array.isArray(networksDefault) && networksDefault.length > 0 ? (
-            <div className="flex flex-col items-center mt-2">
-                <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
-                    <div className='flex flex-col gap-2'>
-                        <span className="text-gray-600">Address</span>
-                        <Input value={inputs.address} onChange={onInput}
-                               disabled={!networkIdSelect}
-                               placeholder={"Enter the withdrawal address"}
-                               name={"address"}/>
-                    </div>
+    return Array.isArray(networksDefault) && networksDefault.length > 0 && (
+        <div className="flex flex-col items-center mt-2">
+            <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
+                <div className='flex flex-col gap-2'>
+                    <span className="text-gray-600">Address</span>
+                    <Input value={inputs.address} onChange={onInput}
+                           disabled={!networkIdSelect}
+                           placeholder={"Enter the withdrawal address"}
+                           name={"address"}/>
+                </div>
 
                     <div className='flex flex-col gap-2'>
                         <span className="text-gray-600">Amount</span>
@@ -92,10 +92,7 @@ const WithdrawForm = () => {
                     </div>}
                 </div>
             </div>
-        ) :
-        <div className="row info-box-warning">
-            <div className="col"><p>At the moment there is not a single option for withdrawing an asset</p></div>
-        </div>;
+    )
 };
 
 export default WithdrawForm;

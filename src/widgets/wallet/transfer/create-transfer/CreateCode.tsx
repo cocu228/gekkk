@@ -6,6 +6,7 @@ import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Decimal from "decimal.js";
 import InputCurrency from "@/shared/ui/input-currency";
+import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -14,6 +15,7 @@ const CreateCode = ({handleCancel}) => {
     const [input, setInput] = useState("")
     const [checkbox, setCheckbox] = useState(false)
     const [loading, setLoading] = useState(false)
+    const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
     const currency = useContext(CtxWalletCurrency),
         {
@@ -25,7 +27,9 @@ const CreateCode = ({handleCancel}) => {
         setLoading(true)
         const typeTx = checkbox ? 12 : 11
         const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const, typeTx)
+        await getListTxCode()
         setLoading(false)
+
         handleCancel()
     }
 

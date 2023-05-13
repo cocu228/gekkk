@@ -3,7 +3,8 @@ import DepositChoose from '@/widgets/deposit/ui/deposit-choose/DepositChoose';
 import DepositAbout from '@/widgets/deposit/ui/deposit-about/DepositAbout';
 
 function Deposit() {
-  const [variant, setVariant] = useState('fixed');
+
+    const [variant, setVariant] = useState('fixed');
 
   const handleVariant = () => {
     setVariant(variant === 'fixed' ? 'structured' : 'fixed');

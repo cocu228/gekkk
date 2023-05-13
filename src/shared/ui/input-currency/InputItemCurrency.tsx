@@ -25,8 +25,8 @@ export default ({onChange, value, disabled = false, currency}: TypeInputCurrency
             value={value}
             suffix={
                 <>
-                    <IconCoin code={currency.const}/>
-                    <span className="text-sm font-medium">{currency.const}</span>
+                    <span className="text-lg font-medium">{currency.const}</span>
+                    <IconCoin width={34} height={34} code={currency.const}/>
                 </>
             }
         />

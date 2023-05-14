@@ -1,11 +1,11 @@
-import React, {useContext, useEffect, useState} from "react";
-import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import React, {useEffect, useState} from "react";
 import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
 import {asteriskText, isNull} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";
+import $axios from "@/shared/lib/(cs)axios";
 
-const TransactionInfo = ({id}) => {
+const TransactionInfo = ({id, handleCancel}) => {
 
     const [state, setState] = useState<ITransactionInfo | null>(null)
 
@@ -13,10 +13,12 @@ const TransactionInfo = ({id}) => {
         (async () => {
             setState(null)
 
-            const result: AxiosResponse = await apiTransactionInfo(id)
+            const response: AxiosResponse = await apiTransactionInfo(id)
 
-            if (result?.data.result) {
-                setState(result.data.result)
+            if (response.data.result !== null) {
+                setState(response.data.result)
+            } else {
+                handleCancel()
             }
 
         })()

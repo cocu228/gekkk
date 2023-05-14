@@ -6,7 +6,7 @@ import UnknownTransactions from "@/widgets/unknown-transactions";
 const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
 
     return <div className="w-full h-full">
-        <div className="negative-margin-content">
+        <div className="negative-margin-content w-[max-content]">
             <InfoBox/>
         </div>
         {/*<UnknownTransactions/>*/}

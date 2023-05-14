@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 
-export default ({children, availableBalance, showWill, value, disabled}) => {
+export default ({children, availableBalance, showWill, value, disabled = false}) => {
     const [percent, setPercent] = useState(null)
     const [will, setWill] = useState("give")
 
 
     const onBtnClick = (percent) => {
-
+        console.log(availableBalance)
         return disabled ? null : setPercent((percent / 100) * availableBalance)
     }
 

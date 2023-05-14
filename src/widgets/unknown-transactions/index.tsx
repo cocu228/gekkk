@@ -37,14 +37,15 @@ const UnknownTransactions = () => {
             <p className="font-medium text-orange">You have unknown incoming transaction. Please enter the sender's
                 name <a className="underline text-blue-400" onClick={showModal} href="javascript:void(0)">here</a></p>
             <Modal title={"Unknown transactions"} open={isModalOpen} onCancel={handleCancel}>
-                {list.map((it, i) => <UnknownTransactionsRow closeModal={handleCancel}
+                {list.map((it, i) => <UnknownTransactionsRow handleCancel={handleCancel}
                                                              key={"UnknownTransactionsRow-" + i} {...it}/>)}
             </Modal>
         </InfoBox>}
     </>
 }
 
-export const UnknownTransactionsRow = (props: IResHistoryTransactions, {closeModal}) => {
+type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
+export const UnknownTransactionsRow = (props: TypeProps) => {
     const [loading, setLoading] = useState(false)
     const [received, setReceived] = useState(null)
     const [input, setInput] = useState("")
@@ -55,13 +56,15 @@ export const UnknownTransactionsRow = (props: IResHistoryTransactions, {closeMod
             const response = await apiTransactionInfo(props.id_transaction)
             if (response.data.result) {
                 setReceived(response.data.result.addressFrom)
+            } else {
+                props.handleCancel()
             }
         })()
     }, [])
     const updatePartnerInfo = async () => {
         setLoading(true)
         await apiUpdatePartnerInfo(input, props.id_transaction)
-        closeModal()
+        props.handleCancel()
     }
 
 

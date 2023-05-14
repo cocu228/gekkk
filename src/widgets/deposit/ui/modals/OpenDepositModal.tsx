@@ -7,10 +7,12 @@ import { getTermEnd } from "../../model/helpers";
 import { CtxNewDeposit } from "../../model/context";
 import InlineProperty from "@/shared/ui/inline-property";
 import { DepositType } from "@/shared/config/deposits/types";
-import { apiCreateInvestment } from "@/shared/api/invest/create-investments";
 
-// TODO: Сделать API создания депозита
-const OpenDepositModal = ({ open, onCancel, ...props }: ModalProps) => {
+interface IParams extends ModalProps {
+    onConfirm?: () => void
+}
+
+const OpenDepositModal = ({ open, onCancel, onConfirm, ...props }: IParams) => {
     const {
         type,
         rate,
@@ -21,20 +23,11 @@ const OpenDepositModal = ({ open, onCancel, ...props }: ModalProps) => {
         structedStrategy,
     } = useContext(CtxNewDeposit);
 
-    //const OpenDeposit = async () => {
-    //    await apiCreateInvestment(
-    //        amount,
-    //        term_in_days,
-    //        token.code
-    //    );
-    //}
-
     return (
         <Modal
             {...props}
             open={open}
             onCancel={onCancel}
-            //onOk={() => OpenDeposit()}
         >
             <p className="font-bold text-xl">Your deposit parameters</p>
 
@@ -60,9 +53,10 @@ const OpenDepositModal = ({ open, onCancel, ...props }: ModalProps) => {
                         (until ${getTermEnd(new Date(), type === DepositType.FIXED ? 360 : term_in_days)})`}
                 />
             </div>
+
             <Button
                 className={"w-full !text-white rounded-b bg-blue-600 disabled:opacity-50"}
-                onClick={onCancel}
+                onClick={() => onConfirm()}
             >
                 Confirm
             </Button>

@@ -5,6 +5,7 @@ import OpenDepositModal from "../../modals/OpenDepositModal";
 import { DepositType } from "@/shared/config/deposits/types";
 import { CtxNewDeposit } from "@/widgets/deposit/model/context";
 import ClosingConditionsModal from "../../modals/ClosingConditionsModal";
+import { apiCreateInvestment } from "@/shared/api/invest/create-investments";
 import DepositProperties from "../../descriptions/deposit-properties/DepositProperties";
 
 const OpenDeposit = () => {
@@ -15,8 +16,12 @@ const OpenDeposit = () => {
     const {
         type,
         step,
+        token,
         amount,
         minAmount,
+        term_in_days,
+        percentageType,
+        structedStrategy,
         onNextStep
     } = useContext(CtxNewDeposit);
 
@@ -26,7 +31,7 @@ const OpenDeposit = () => {
 
     return (
         <div className='px-10 pb-10 mt-5 xxl:py-3 xxl:px-4'>
-            <DepositProperties className="hidden w-full md:block md:mb-8"/>
+            <DepositProperties className="hidden w-full md:block md:mb-8" />
 
             <div className="wrapper">
                 <Button
@@ -63,6 +68,20 @@ const OpenDeposit = () => {
             <OpenDepositModal
                 open={openDepositModal.isModalOpen}
                 onCancel={openDepositModal.handleCancel}
+                onConfirm={() => {
+                    (async () => {
+                        const data = await apiCreateInvestment({
+                            amount: amount,
+                            term_days: term_in_days,
+                            link_currency: type === DepositType.FIXED ? 'EURG' : token.code,
+                            templateType: type === DepositType.FIXED ? 1 : (
+                                structedStrategy.id + structedStrategy.percentageTypes.indexOf(percentageType)
+                            )
+                        });
+                    })();
+
+                    openDepositModal.handleCancel();
+                }}
             />
 
             <ClosingConditionsModal

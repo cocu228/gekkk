@@ -9,6 +9,7 @@ import InlineProperty from "@/shared/ui/inline-property";
 import { DepositType } from "@/shared/config/deposits/types";
 import { apiCreateInvestment } from "@/shared/api/invest/create-investments";
 
+// TODO: Сделать API создания депозита
 const OpenDepositModal = ({ open, onCancel, ...props }: ModalProps) => {
     const {
         type,

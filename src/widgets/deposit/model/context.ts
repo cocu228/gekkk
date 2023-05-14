@@ -1,6 +1,6 @@
 import React from "react";
-import {IResMarketAsset} from "@/shared/api";
-import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
+import { IResMarketAsset } from "@/shared/api";
+import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
 
 export type ICtxNewDeposit = {
     step: number;

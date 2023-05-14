@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
-import {IResMarketAsset, apiGetRates} from "@/shared/api";
-import {CtxNewDeposit, ICtxNewDeposit} from "./context";
-import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
+import { useEffect, useState } from "react";
+import { CtxNewDeposit, ICtxNewDeposit } from "./context";
+import { IResMarketAsset, apiGetRates } from "@/shared/api";
+import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
 
 interface IProps {
     children: React.ReactNode;
 }
 
-const NewDepositProvider = ({children, ...props}: IProps) => {
+const NewDepositProvider = ({ children, ...props }: IProps) => {
     const initialState: ICtxNewDeposit = {
         step: 0,
         token: null,
@@ -26,7 +26,7 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
         if (!state.token) return;
 
         (async () => {
-            const {data} = await apiGetRates();
+            const { data } = await apiGetRates();
             setState(prev => ({
                 ...prev,
                 rate: data.result[state.token.code]
@@ -41,7 +41,7 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
             minAmount: value === DepositType.FIXED ? 1000 : 100
         }));
     }
-    
+
     const handleAmountChange = (value: number) => {
         setState(prev => ({
             ...prev,
@@ -89,17 +89,17 @@ const NewDepositProvider = ({children, ...props}: IProps) => {
         } = state
 
         const step = (amount >= minAmount ? 1 : 0)
-        + (structedStrategy !== null ? 1 : 0)
-        + (percentageType !== null ? 1 : 0)
-        + (term_in_days !== null ? 1 : 0)
-        + (token !== null ? 1 : 0);
+            + (structedStrategy !== null ? 1 : 0)
+            + (percentageType !== null ? 1 : 0)
+            + (term_in_days !== null ? 1 : 0)
+            + (token !== null ? 1 : 0);
 
         setState(prev => ({
             ...prev,
             step: step
         }));
     }
-    
+
     return <CtxNewDeposit.Provider value={({
         ...state,
         onNextStep: handleNextStep,

@@ -1,0 +1,34 @@
+import { useContext } from "react";
+import { IResMarketAsset } from "@/shared/api";
+import useModal from "@/shared/model/hooks/useModal";
+import ChooseTokenModal from "../../modals/ChooseTokenModal";
+import { CtxNewDeposit } from "@/widgets/deposit/model/context";
+import TokenButton from "../../buttons/token-button/TokenButton";
+
+const TokenChoose = () => {
+    const { token, onTokenChange } = useContext(CtxNewDeposit);
+    const chooseTokenModal = useModal();
+
+    return (
+        <div className="px-10 mt-3 xxl:py-3 xxl:px-4">
+            <div className="wrapper w-full mb-8">
+                <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
+                    Choose a token to invest
+                </p>
+
+                <TokenButton token={token} onClick={chooseTokenModal.showModal} />
+
+                <ChooseTokenModal
+                    open={chooseTokenModal.isModalOpen}
+                    onSelect={(value: IResMarketAsset) => {
+                        onTokenChange(value);
+                        chooseTokenModal.handleCancel();
+                    }}
+                    onCancel={chooseTokenModal.handleCancel}
+                />
+            </div>
+        </div>
+    )
+}
+
+export default TokenChoose;

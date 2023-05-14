@@ -13,7 +13,7 @@ function CryptoAssets() {
         <div className="wrapper">
             <SectionTitle>Crypto assets</SectionTitle>
             <CardsGrid>
-                {sortedListBalance.map((item, i) => <CryptoAssetCard
+                {sortedListBalance.filter(it => !it.availableBalance.isZero()).map((item, i) => <CryptoAssetCard
                     title={item.name}
                     key={"CryptoAssetCard-" + i}
                     iconName={item.const}

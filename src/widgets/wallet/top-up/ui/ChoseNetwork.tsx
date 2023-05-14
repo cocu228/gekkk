@@ -3,6 +3,7 @@ import React, {useContext} from "react";
 import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import InfoBox from "@/widgets/info-box";
 
 const ChoseNetwork = ({withdraw = false}) => {
     const currency = useContext(CtxWalletCurrency)
@@ -27,7 +28,7 @@ const ChoseNetwork = ({withdraw = false}) => {
             </div>
         </div>
 
-        {!withdraw && <div className="row mb-10">
+        {!withdraw && !(networksForSelector.length === 0) && <div className="row mb-10">
             <div className="col">
                 <div className="info-box-note mb-10">
                     <div className="row mb-3">
@@ -38,12 +39,14 @@ const ChoseNetwork = ({withdraw = false}) => {
                     <div className="row mb-1">
                         <div className="col">
                             <span
-                                className="text-gray-400 font-medium leading-6">You should send only <b>{currency.const}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
+                                className="text-gray-400 font-medium text-fs14 leading-6">You should send only <b>{currency.const}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>}
+        {networksForSelector.length === 0 && <InfoBox
+            message={"At the moment there is not a single option available for top up this asset. Please check it later."}/>}
     </>
 }
 

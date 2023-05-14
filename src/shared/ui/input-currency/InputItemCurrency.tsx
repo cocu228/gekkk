@@ -16,13 +16,17 @@ export default ({onChange, value, disabled = false, currency}: TypeInputCurrency
         }
     }, [n])
 
+
+    console.log(n)
+
     return <FormItem className="relative"
                      extra={currency.minAmount !== undefined && <span
-                         className="text-green md:text-xs">The minimum deposit amount is {currency.minAmount} {currency.const}</span>}>
+                         className={`${disabled ? "text-gray" : +value <= currency.minAmount ? "text-red-main" : "text-green"} md:text-xs`}>The minimum deposit amount is {currency.minAmount} {currency.const}</span>}>
         <InputAnt
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value))}
             disabled={disabled}
             value={value}
+            placeholder={"Enter amount"}
             suffix={
                 <>
                     <IconCoin width={34} height={34} code={currency.const}/>

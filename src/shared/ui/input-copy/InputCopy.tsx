@@ -13,7 +13,7 @@ const InputCopy = ({value, onlyIcon = false}) => {
 
         inputRef.current.focus({
             cursor: 'all',
-        });
+        })
 
         navigator.clipboard.writeText(value)
 
@@ -26,15 +26,13 @@ const InputCopy = ({value, onlyIcon = false}) => {
                          onClick={onClick}
         /><Input
             ref={inputRef}
-            readOnly={true}
-            disabled
+            readOnly
             value={value}
             hidden
         /></> : <Input
             ref={inputRef}
             className='flex !border-[var(--color-gray-400)] !shadow-none w-full'
-            readOnly={true}
-            disabled
+            readOnly
             value={value}
             suffix={
                 <img className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100'

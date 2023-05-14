@@ -6,6 +6,16 @@ import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import descriptions from "@/shared/config/coins/descriptions";
 
+
+const getDescription = (c, name) => {
+    if (c === "BTC" || c === "ETH" || c === "XMR") {
+        return `Top up, Send, Buy and Sell your ${name} (${c}) directly from your Gekkoin account`
+    } else {
+        return `Buy and Sell your ${name} (${c}) directly from your Gekkoin account`
+    }
+}
+
+
 const WalletHeader = () => {
     const currency = useContext(CtxWalletCurrency)
     const {xl, md} = useContext(BreakpointsContext);
@@ -65,7 +75,7 @@ const WalletHeader = () => {
                 </div>
                 <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
                     {isEURG ? EurgDescriptionText :
-                        descriptions[currency.const]?.props.children[0]}
+                        getDescription(currency.const, currency.name)}
                 </div>
             </div>}
         </div>

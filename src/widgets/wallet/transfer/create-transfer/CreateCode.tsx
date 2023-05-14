@@ -6,6 +6,10 @@ import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Decimal from "decimal.js";
 import InputCurrency from "@/shared/ui/input-currency";
+import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
+import useModal from "@/shared/model/hooks/useModal";
+import Modal from "@/shared/ui/modal/Modal";
+import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -13,7 +17,12 @@ const CreateCode = ({handleCancel}) => {
 
     const [input, setInput] = useState("")
     const [checkbox, setCheckbox] = useState(false)
+    const [newCode, setNewCode] = useState("")
     const [loading, setLoading] = useState(false)
+
+    const getListTxCode = storeListTxCode(state => state.getListTxCode)
+
+    const infoModal = useModal()
 
     const currency = useContext(CtxWalletCurrency),
         {
@@ -22,14 +31,27 @@ const CreateCode = ({handleCancel}) => {
         } = currency
 
     const onCreateCode = async () => {
+
         setLoading(true)
         const typeTx = checkbox ? 12 : 11
         const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const, typeTx)
+
+        if (res.data.result?.code) {
+            await getListTxCode()
+            setNewCode(res.data.result.code)
+            infoModal.showModal()
+
+        } else {
+            setLoading(false)
+            handleCancel()
+        }
+
         setLoading(false)
         handleCancel()
+
     }
 
-    const onInput = ({target}) => setInput(target.value)
+    // const onInput = ({target}) => setInput(target.value)
 
     return (
         <div>
@@ -61,6 +83,9 @@ const CreateCode = ({handleCancel}) => {
             <div className="row">
                 <Button disabled={input === "" || loading} className="w-full" size="xl" onClick={onCreateCode}>Confirm
                 </Button>
+                <Modal onCancel={infoModal.handleCancel} open={infoModal.isModalOpen}>
+                    <CodeTxInfo code={newCode}/>
+                </Modal>
             </div>
 
         </div>

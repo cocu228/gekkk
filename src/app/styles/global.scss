@@ -1,5 +1,21 @@
 @import "mixins";
 
+.negative-margin-content {
+  margin-left: var(--content-pad-left);
+  margin-right: var(--content-pad-right);
+
+
+  @include devices(xl) {
+    margin-left: var(--content-pad-left-xl);
+    margin-right: var(--content-pad-right-xl);
+  }
+
+  @include devices(md) {
+    margin-left: var(--content-pad-horizontal-md);
+    margin-right: var(--content-pad-horizontal-md);
+  }
+}
+
 .arrow-down-xs {
   background-image: url("/img/icon/DropdownTriangleIcon.svg");
   width: 24px;
@@ -51,9 +67,10 @@
   background-repeat: no-repeat;
   width: 100%;
 
-  //@include devices("md") {
-  //  font-size: 0.875rem;
-  //}
+  @include devices("md") {
+    padding: 6px 10px 6px 48px;
+    background-position: 10px center;
+  }
   //
   //@include devices("md") {
   //  padding: 0.375rem 0.625rem;

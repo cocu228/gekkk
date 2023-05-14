@@ -1,10 +1,11 @@
 import {FC, memo, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
-import $axios from "@/shared/lib/(cs)axios";
-import {randomId} from "@/shared/lib/helpers";
+import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
+import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
 import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
 import PageProblems from "@/pages/page-problems/PageProblems";
+import {AxiosResponse} from "axios";
 
 
 interface IState {
@@ -56,7 +57,21 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     useLayoutEffect(() => {
 
-        $axios.interceptors.response.use((response) => response, hunter.bind({
+        $axios.interceptors.response.use((response: AxiosResponse<$AxiosResponse<Record<string, unknown> | null | unknown>>) => {
+
+            if (response.data.result === null) {
+
+                const message: string = response.data.error.message
+                const id: string = randomId()
+                const res: Record<string, unknown> = response.data
+
+                setState(prevState => [...prevState, {message, id, response: res}])
+                scrollToTop()
+            }
+
+            return response
+
+        }, hunter.bind({
             navigate: navigate,
             setState: setState
         }));

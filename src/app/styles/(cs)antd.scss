@@ -1,5 +1,26 @@
 .ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
   padding: 20px 12px 20px 12px;
+
+  &:disabled {
+    background-color: var(--color-gray-300) !important;
+  }
+
+  &:hover {
+    border-color: var(--color-blue-400);
+  }
+
+}
+
+.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  border-color: var(--color-blue-400) !important;
+}
+
+.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled {
+  background-color: var(--color-gray-300) !important;
+}
+
+.ant-select-selection-placeholder {
+  color: #495057 !important;
 }
 
 .anticon {

@@ -37,23 +37,26 @@ const WithdrawForm = () => {
 
     const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
 
-    return Array.isArray(networksDefault) && networksDefault.length > 0 ? (
-            <div className="flex flex-col items-center mt-2">
-                <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
-                    <div className='flex flex-col gap-2'>
-                        Address
-                        <Input value={inputs.address} onChange={onInput}
-                               disabled={!networkIdSelect}
-                               placeholder={"Enter the withdrawal address"}
-                               name={"address"}/>
-                    </div>
+    return Array.isArray(networksDefault) && networksDefault.length > 0 && (
+        <div className="flex flex-col items-center mt-2">
+            <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
+                <div className='flex flex-col gap-2'>
+                    <span className="text-gray-600">Address</span>
+                    <Input value={inputs.address} onChange={onInput}
+                           disabled={!networkIdSelect}
+                           placeholder={"Enter the withdrawal address"}
+                           name={"address"}/>
+                </div>
 
                     <div className='flex flex-col gap-2'>
                         
                         <InputCurrency
-                            header={'Amount'}
+                            header={(
+                                <span className="text-gray-600">Amount</span>
+                            )}
                             onChange={onAmount}
                             value={inputs.amount}
+                            disabled={!networkIdSelect}
                             currency={{
                                 const: currency.const,
                                 availableBalance: currency.availableBalance.toNumber(),
@@ -62,25 +65,25 @@ const WithdrawForm = () => {
                         />
                     </div>
 
-                <div className='flex flex-col gap-2'>
-                    Receiver
-                    <Input value={inputs.receiver} onChange={onInput}
-                           disabled={!networkIdSelect}
-                           name={"receiver"}
-                           placeholder={"Enter receiver name"}/>
-                </div>
+                    <div className='flex flex-col gap-2'>
+                        <span className="text-gray-600">Receiver</span>
+                        <Input value={inputs.receiver} onChange={onInput}
+                               disabled={!networkIdSelect}
+                               name={"receiver"}
+                               placeholder={"Enter receiver name"}/>
+                    </div>
 
-                <div className='flex flex-col gap-2'>
-                    Description (optional)
-                    <TextArea name={"description"} value={inputs.description} onChange={onInput}
-                              disabled={!networkIdSelect}
-                              rows={2}/>
-                </div>
+                    <div className='flex flex-col gap-2'>
+                        <span className="text-gray-600">Description (optional)</span>
+                        <TextArea name={"description"} value={inputs.description} onChange={onInput}
+                                  disabled={!networkIdSelect}
+                                  rows={2}/>
+                    </div>
 
-                <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
-                        className='mt-5 mb-2 w-[75%] self-center'>
-                    Withdraw
-                </Button>
+                    <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
+                            className='mt-5 mb-2 w-[75%] self-center'>
+                        Withdraw
+                    </Button>
 
                     <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
                            open={isModalOpen}>
@@ -93,10 +96,7 @@ const WithdrawForm = () => {
                     </div>}
                 </div>
             </div>
-        ) :
-        <div className="row info-box-warning">
-            <div className="col"><p>At the moment there is not a single option for withdrawing an asset</p></div>
-        </div>;
+    )
 };
 
 export default WithdrawForm;

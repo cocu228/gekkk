@@ -138,6 +138,7 @@ function History({currency}: Partial<Props>) {
 }
 
 const TransactionModalLink = ({item}) => {
+
     const {isModalOpen, showModal, handleCancel} = useModal();
     const dataCustomer = formatForCustomer(item.datetime);
 
@@ -145,7 +146,8 @@ const TransactionModalLink = ({item}) => {
         <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
         <Modal width={450} title="Transaction info" onCancel={handleCancel}
                open={isModalOpen}>
-            {item.partner_info === "" ? <UnknownTransactionsRow {...item}/> : <TransactionInfo id={item.id_transaction}/>}
+            {item.partner_info === "" ? <UnknownTransactionsRow handleCancel={handleCancel} {...item}/> :
+                <TransactionInfo handleCancel={handleCancel} id={item.id_transaction}/>}
         </Modal>
     </>
 }

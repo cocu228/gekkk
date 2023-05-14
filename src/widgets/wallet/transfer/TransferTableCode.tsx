@@ -13,15 +13,18 @@ import {apiCancelTxCode} from "@/widgets/wallet/transfer/api/cancel-code";
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
-import QrCode from "@/widgets/auth/ui/qr-code";
 import ReactQRCode from "react-qr-code";
+import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     const currency = useContext(CtxWalletCurrency)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
+
     const {showModal, isModalOpen, handleCancel} = useModal()
+
+    const modalCodeInfo = useModal()
 
     useEffect(() => {
         (async () => {
@@ -32,9 +35,15 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     }, [currency])
 
     const onBtnCancel = async (code) => {
+
         const response = await apiCancelTxCode(code)
 
-        if (response) await getListTxCode()
+        if (response) {
+            await getListTxCode()
+            handleCancel()
+        }
+
+
     }
 
     const onBtnConfirm = () => {
@@ -61,7 +70,12 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     <GTCol>
                         <div className="row flex items-center">
                             <div className="col mr-2">
-                                <span className="text-gra-600 font-bold break-all">{it.code}</span>
+                                <span onClick={modalCodeInfo.showModal}
+                                      className="text-gra-600 font-bold break-all cursor-pointer">{it.code}</span>
+                                <Modal title={"Transfer code info"} open={modalCodeInfo.isModalOpen}
+                                       onCancel={modalCodeInfo.handleCancel}>
+                                    <CodeTxInfo code={it.code}/>
+                                </Modal>
                             </div>
                             <div className="col min-w-[14px]">
                                 {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
@@ -96,10 +110,10 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 </div>
                                 <div className="row mb-6 flex justify-center">
                                     <div
-                                        className="wrapper w-[max-content] border-1 border-blue-400 border-solid p-4 rounded-md">
+                                        className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                                         <div style={{height: "auto", margin: "0 auto", maxWidth: 148, width: "100%"}}>
                                             <ReactQRCode
-                                                size={148}
+                                                size={120}
                                                 style={{height: "auto", maxWidth: "100%", width: "100%"}}
                                                 value={it.code}
                                                 viewBox={`0 0 148 148`}
@@ -113,10 +127,8 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <Button className="w-full" size="xl" onClick={() => {
-                                        onBtnCancel(it.code)
-                                        handleCancel()
-                                    }}>Confirm
+                                    <Button className="w-full" size="xl" onClick={() => onBtnCancel(it.code)
+                                    }>Confirm
                                     </Button>
                                 </div>
 

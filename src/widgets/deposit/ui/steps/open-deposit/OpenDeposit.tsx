@@ -5,7 +5,7 @@ import OpenDepositModal from "../../modals/OpenDepositModal";
 import { DepositType } from "@/shared/config/deposits/types";
 import { CtxNewDeposit } from "@/widgets/deposit/model/context";
 import ClosingConditionsModal from "../../modals/ClosingConditionsModal";
-import { apiCreateInvestment } from "@/shared/api/invest/create-investments";
+import { apiCreateInvestment } from "@/shared/api/invest/create-investment";
 import DepositProperties from "../../descriptions/deposit-properties/DepositProperties";
 
 const OpenDeposit = () => {

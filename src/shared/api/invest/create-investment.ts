@@ -13,7 +13,7 @@ export const apiCreateInvestment = ({
     link_currency,
     templateType
 }: IParams) =>
-    $axios.post<$AxiosResponse<{depositID: number}>>('/gek/v1/invest/create_investment', {}, {
+    $axios.post<$AxiosResponse<{depositID: number}>>('/gek/v1/invest/create_investment', null, {
         params: {
             amount,
             term_days,

@@ -21,7 +21,7 @@ const TypeChoose = () => {
     )?.find(w => w.currency === $const.EURG);
 
     return (
-        <div className="px-10 pt-10 pb-3 xxl:py-3 xxl:px-4">
+        <div className="px-10 mt-10 md:mt-4 md:px-4">
             <p className="text-base font-medium text-gray-400 mb-6 md:text-sm md:mb-4">
                 Choose deposit types
             </p>
@@ -44,11 +44,11 @@ const TypeChoose = () => {
                 ))}
             </div>
 
-            <div className="wrapper mb-8 hidden xl:block md:mb-5">
+            <div className="wrapper mb-5 hidden xl:block md:mb-5">
                 {TypeDescriptions[type]}
             </div>
 
-            <div className="wrapper w-full mb-5 xl:mb-4 md:mb-0">
+            <div className="wrapper w-full">
                 <InputCurrency
                     onChange={(target) => {
                         onAmountChange(+target);

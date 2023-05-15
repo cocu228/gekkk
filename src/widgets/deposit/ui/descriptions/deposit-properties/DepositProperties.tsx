@@ -24,7 +24,7 @@ const DepositProperties = ({className}: IParams) => {
         return null;
 
     return (
-        <div className={`${className} -mt-14`}>
+        <div className={`${className} -mt-10`}>
             <div className={`wrapper ${styles.InvestBlock}`}>
                 <p className="text-lg font-bold mb-5">
                     You invest {amount} EURG {type === DepositType.STRUCTED && (

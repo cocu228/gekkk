@@ -7,7 +7,7 @@ const TermDescription = () => {
     if (!term) return null;
 
     return (
-        <div className="px-7 mt-[60px] xl:hidden xxl:p-5">
+        <div className="px-7 mt-[64px] xl:hidden xxl:p-5">
             <p>You will get return in <span className="font-bold">{term} days</span></p>
         </div>
     )

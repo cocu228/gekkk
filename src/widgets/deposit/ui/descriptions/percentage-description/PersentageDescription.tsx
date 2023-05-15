@@ -7,7 +7,7 @@ const PersentageDescription = () => {
     if (!percentageType) return null;
 
     return (
-        <div className="col px-7 mt-9 xl:hidden xxl:p-5">
+        <div className="col px-7 mt-[55px] xl:hidden xxl:p-5">
             <div className="row flex gap-3 mb-1">
                 <img width={17} height={10} src="/img/icon/RateGrowthIcon.svg" alt="UserIcon" />
                 <p>Get <span className="font-bold">{

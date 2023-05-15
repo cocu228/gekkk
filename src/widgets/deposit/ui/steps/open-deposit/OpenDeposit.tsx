@@ -30,8 +30,8 @@ const OpenDeposit = () => {
     }, [amount, minAmount]);
 
     return (
-        <div className='px-10 pb-10 mt-5 xxl:py-3 xxl:px-4'>
-            <DepositProperties className="hidden w-full md:block md:mb-8" />
+        <div className='px-10 my-10 md:my-5 xxl:py-3 xxl:px-4'>
+            <DepositProperties className="hidden md:-mx-[6px] md:flex md:pt-8 md:mb-4" />
 
             <div className="wrapper">
                 <Button
@@ -43,7 +43,7 @@ const OpenDeposit = () => {
                 </Button>
             </div>
 
-            <div className="row mb-20">
+            <div className="row mb-20 md:mb-10">
                 <p className="text-gray-500 text-center text-xs">
                     The deposit services are provided by Adventarium PTE.LTD. By pressing
                     button "Open deposit" I confirm that I have read carefully and fully

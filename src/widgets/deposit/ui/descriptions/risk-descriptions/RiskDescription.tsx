@@ -7,7 +7,7 @@ const RiskDescription = () => {
     if (step < 1) return;
 
     return (
-        <div className="col px-7 mt-7 xl:hidden xxl:p-5">
+        <div className="col px-7 mt-[50px] xl:hidden xxl:p-5">
             <div className="wrapper">
                 {structedStrategy?.descriptionLong}
             </div>

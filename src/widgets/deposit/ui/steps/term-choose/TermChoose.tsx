@@ -6,7 +6,7 @@ const TermChoose = () => {
     const { term_in_days: term, onTermChange } = useContext(CtxNewDeposit);
 
     return (
-        <div className="px-10 pt-4 pb-5 xxl:py-3 xxl:px-4 md:pb-0">
+        <div className="px-10 md:px-3 my-5 md:my-3">
             <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
                 Choose the deposit term (in days)
             </p>

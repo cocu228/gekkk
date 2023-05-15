@@ -10,7 +10,7 @@ const PersentageChoose = () => {
     } = useContext(CtxNewDeposit);
 
     return (
-        <div className='px-10 pb-5 xxl:py-3 xxl:px-4'>
+        <div className='px-10 my-5 md:my-3 md:px-3'>
             <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
                 Choose the rate of return
             </p>

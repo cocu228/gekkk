@@ -10,7 +10,7 @@ const RiskChoose = () => {
     } = useContext(CtxNewDeposit);
 
     return (
-        <div className='px-10 xxl:py-3 xxl:px-4 md:pt-1'>
+        <div className='px-10 mt-5 md:px-3 md:my-3'>
             <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
                 Choose the risk level
             </p>

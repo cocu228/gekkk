@@ -12,7 +12,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         step: 0,
         token: null,
         rate: null,
-        amount: null,
+        amount: 1000,
         minAmount: 1000,
         structedStrategy: null,
         term_in_days: null,
@@ -35,10 +35,15 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
     }, [state.token]);
 
     const handleTypeChange = (value: DepositType) => {
+        function getMinAmount() {
+            return value === DepositType.FIXED ? 1000 : 100;
+        }
+
         setState(prev => ({
             ...prev,
             type: value,
-            minAmount: value === DepositType.FIXED ? 1000 : 100
+            amount: getMinAmount(),
+            minAmount: getMinAmount()
         }));
     }
 

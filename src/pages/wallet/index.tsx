@@ -14,10 +14,12 @@ import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
 import {testRightsUser, constRights} from "@/shared/config/chmod-user";
 import Select from "@/shared/ui/select/Select";
+import {useLocation} from "react-router";
 
 function Wallet() {
 
     const {currency} = useParams();
+    const currentTab = useLocation().state
     const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
     const wallet = sortedListBalance.find(item => item.const === currency)
     const {xl, md} = useContext(BreakpointsContext);
@@ -29,7 +31,7 @@ function Wallet() {
         <div className="flex flex-col h-full w-full">
             <CtxWalletCurrency.Provider value={wallet}>
                 <WalletHeader/>
-                <TabsGroupPrimary initValue={"About"}>
+                <TabsGroupPrimary initValue={currentTab ? currentTab : "About"}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative">
                             <NetworkProvider data-tab={"Top Up"}>

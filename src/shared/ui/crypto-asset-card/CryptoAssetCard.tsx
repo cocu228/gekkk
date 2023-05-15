@@ -2,6 +2,7 @@ import React from 'react';
 import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
 import {ParentClassForCoin, IconCoin} from "../icons/icon-coin";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
     title: string,
@@ -15,6 +16,8 @@ interface Props {
 }
 
 function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, onWithdraw}: Props) {
+
+    const navigate = useNavigate()
 
     return (
         <Card>
@@ -33,8 +36,13 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
                     </div>
                     {balance === 0 ? null :
                         <div className="flex gap-[16px] mt-[16px]">
-                            <Button className="flex-1" gray size="sm" onClick={onTopUp}>Top up</Button>
-                            <Button className="flex-1" gray size="sm" onClick={onWithdraw}>Withdraw</Button>
+                            <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
+                                state: "Top Up"
+                            })}>Top
+                                up</Button>
+                            <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
+                                state: "Withdraw"
+                            })}>Withdraw</Button>
                         </div>}
                 </div>
             </div>

@@ -18,10 +18,10 @@ import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 interface IParams {
-    className?: string,
-    columnKeys?: Array<AssetTableKeys>,
-    excludedCurrencies?: Array<string>,
+    columnKeys: Array<AssetTableKeys>,
     modal?: boolean,
+    className?: string,
+    excludedCurrencies?: Array<string>,
     onSelect?: (token: IResMarketAsset) => void
 }
 
@@ -35,9 +35,9 @@ const AssetsTable = ({
     const navigate = useNavigate();
     let maxHeight = modal ? 550 : 1080;
     const {md} = useContext(BreakpointsContext);
-    const [loading, setLoading] = useState<boolean>(true);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>(null);
+    const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
     
     const assets = storeListAllCryptoName(state => state.listAllCryptoName)
         .sort((a, b) => a.name.localeCompare(b.name));
@@ -52,15 +52,12 @@ const AssetsTable = ({
     )), [tokensList, searchValue]);
 
     useEffect(() => {
-        if (!columnKeys.includes(AssetTableKeys.PRICE)) {
-            setLoading(false);
-            return;
-        }
+        if (!ratesLoading) return;
 
         (async () => {
             const {data} = (await apiGetRates());
             setRates(data.result);
-            setLoading(false);
+            setRatesLoading(false);
         })();
     }, []);
 
@@ -87,7 +84,7 @@ const AssetsTable = ({
                             ))}
                         </GTRow>
                     </GTHead>
-                    <GTBody loading={loading} className={`${styles.ItemsList} ${!loading && styles.Loaded}`} style={{maxHeight: maxHeight}}>
+                    <GTBody loading={ratesLoading} className={`${styles.ItemsList} ${!ratesLoading && styles.Loaded}`} style={{maxHeight: maxHeight}}>
                         {filteredTokens.map((token, index) => (
                             <GTRow
                                 className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}

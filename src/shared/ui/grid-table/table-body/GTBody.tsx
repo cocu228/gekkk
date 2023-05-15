@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 
 interface IParams {
     className?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     loading?: boolean;
     style?: React.CSSProperties;
 }
@@ -12,11 +12,11 @@ interface IParams {
 export const GTBody: FC<IParams> = ({ children, className, loading, style }) => {
     return (
         <div
-            className={`grid ${className} ${styles.ItemsList} overflow-x-hidden overflow-y-auto`}
+            className={`grid ${className} ${styles.ItemsList} overflow-x-hidden overflow-y-[overlay]`}
             style={style}
         >
             {!loading ? children : (
-                <Loader className="relative align-middle"/>
+                <Loader className="relative mt-10 align-middle"/>
             )}
         </div>
     )

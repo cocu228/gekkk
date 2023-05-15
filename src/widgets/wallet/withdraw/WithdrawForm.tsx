@@ -49,16 +49,20 @@ const WithdrawForm = () => {
                 </div>
 
                     <div className='flex flex-col gap-2'>
-                        <span className="text-gray-600">Amount</span>
+                        
                         <InputCurrency
-                            value={inputs.amount}
+                            header={(
+                                <span className="text-gray-600">Amount</span>
+                            )}
                             onChange={onAmount}
+                            value={inputs.amount}
                             disabled={!networkIdSelect}
                             currency={{
                                 const: currency.const,
                                 availableBalance: currency.availableBalance.toNumber(),
                                 minAmount: min_withdraw
-                            }}/>
+                            }}
+                        />
                     </div>
 
                     <div className='flex flex-col gap-2'>

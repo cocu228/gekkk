@@ -1,7 +1,7 @@
-import {ModalProps} from "antd";
+import { ModalProps } from "antd";
 import Modal from "@/shared/ui/modal/Modal";
 
-const ResultDepositModal = ({open, onCancel, ...props}: ModalProps) => {
+const ResultDepositModal = ({ open, onCancel, ...props }: ModalProps) => {
 
     return (
         <Modal open={open} onCancel={onCancel} {...props}>
@@ -14,4 +14,4 @@ const ResultDepositModal = ({open, onCancel, ...props}: ModalProps) => {
     )
 }
 
-export default ResultDepositModal
+export default ResultDepositModal;

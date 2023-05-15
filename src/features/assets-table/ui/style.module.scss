@@ -10,11 +10,14 @@
 }
 
 .ItemsList {
-  box-shadow:
-    inset 0px 11px 8px -10px rgba(0,0,0,0.1),
-    inset 0px -11px 8px -10px rgba(0,0,0,0.1);
   margin: 0 -40px;
   padding: 0 40px;
+
+  &.Loaded {
+    box-shadow:
+    inset 0px 11px 8px -10px rgba(0,0,0,0.1),
+    inset 0px -11px 8px -10px rgba(0,0,0,0.1);
+  }
 
   @include devices('md') {
     margin: 0;

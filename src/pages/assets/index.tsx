@@ -1,9 +1,10 @@
 import {useContext} from 'react'
 import {useNavigate} from 'react-router-dom';
+import { IResMarketAsset } from '@/shared/api';
 import PageHead from "@/shared/ui/page-head/PageHead";
 import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {AssetTableKeys, IExchangeToken} from '@/features/assets-table/model/types';
+import {AssetTableKeys} from '@/features/assets-table/model/types';
 
 function Assets() {
     const {xl, md} = useContext(BreakpointsContext);
@@ -24,7 +25,7 @@ function Assets() {
                 {<div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                     <AssetsTable
                         columnKeys={columns}
-                        onSelect={(token: IExchangeToken) => redirect(`/wallet/${token.currency}`)}
+                        onSelect={(token: IResMarketAsset) => redirect(`/wallet/${token.code}`)}
                     />
                 </div>}
                 {!xl && <div

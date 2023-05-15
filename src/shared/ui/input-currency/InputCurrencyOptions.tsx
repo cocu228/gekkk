@@ -1,22 +1,38 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 
-export default ({children, availableBalance, showWill, value, disabled = false}) => {
+interface IParams {
+    children: React.ReactNode,
+    header?: string | JSX.Element,
+    availableBalance: number,
+    showWill: boolean,
+    value: string | number,
+}
+
+export default ({
+    children,
+    header,
+    availableBalance,
+    showWill,
+    value
+}: IParams) => {
     const [percent, setPercent] = useState(null)
     const [will, setWill] = useState("give")
 
+    useEffect(() => {
+        setPercent(null);
+    }, [percent])
 
-    const onBtnClick = (percent) => {
-        console.log(availableBalance)
-        return disabled ? null : setPercent((percent / 100) * availableBalance)
-    }
+    const onBtnClick = (percent: number) => 
+        setPercent(((percent / 100) * availableBalance).toFixed(2));
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
         <div className="row">
             <div className="col">
                 <div className="wrapper w-full">
                     <div className="row flex justify-between mb-2 md:mb-1 items-center">
+                        {header}
                         {showWill && <div className="wrapper flex text-xs gap-1">
                             <p className="text-gray-400 font-medium md:text-sm sm:text-xs">
                                 I want to

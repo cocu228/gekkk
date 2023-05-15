@@ -11,22 +11,20 @@ const TokenChoose = () => {
 
     return (
         <div className="px-10 mt-3 xxl:py-3 xxl:px-4">
-            <div className="wrapper w-full mb-8">
-                <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
-                    Choose a token to invest
-                </p>
+            <p className="text-gray-400 mb-2 font-medium text-base md:text-sm">
+                Choose a token to invest
+            </p>
 
-                <TokenButton token={token} onClick={chooseTokenModal.showModal} />
+            <TokenButton token={token} onClick={chooseTokenModal.showModal} />
 
-                <ChooseTokenModal
-                    open={chooseTokenModal.isModalOpen}
-                    onSelect={(value: IResMarketAsset) => {
-                        onTokenChange(value);
-                        chooseTokenModal.handleCancel();
-                    }}
-                    onCancel={chooseTokenModal.handleCancel}
-                />
-            </div>
+            <ChooseTokenModal
+                open={chooseTokenModal.isModalOpen}
+                onSelect={(value: IResMarketAsset) => {
+                    onTokenChange(value);
+                    chooseTokenModal.handleCancel();
+                }}
+                onCancel={chooseTokenModal.handleCancel}
+            />
         </div>
     )
 }

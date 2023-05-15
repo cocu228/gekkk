@@ -48,7 +48,7 @@ const TypeChoose = () => {
                 {TypeDescriptions[type]}
             </div>
 
-            <div className="wrapper w-full mb-5 xl:mb-8 md:mb-7">
+            <div className="wrapper w-full mb-5 xl:mb-4 md:mb-0">
                 <InputCurrency
                     onChange={(target) => {
                         onAmountChange(+target);

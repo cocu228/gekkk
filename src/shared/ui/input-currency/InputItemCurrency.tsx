@@ -21,7 +21,7 @@ export default ({onChange, value, disabled = false, currency}: TypeInputCurrency
 
     return <FormItem className="relative"
                      extra={currency.minAmount !== undefined && <span
-                         className={`${disabled ? "text-gray" : +value <= currency.minAmount ? "text-red-main" : "text-green"} md:text-xs`}>The minimum deposit amount is {currency.minAmount} {currency.const}</span>}>
+                         className={`${disabled ? "text-gray" : +value < currency.minAmount ? "text-red-main" : "text-green"} md:text-xs`}>The minimum deposit amount is {currency.minAmount} {currency.const}</span>}>
         <InputAnt
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value))}
             disabled={disabled}

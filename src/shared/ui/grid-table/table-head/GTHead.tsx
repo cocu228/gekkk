@@ -2,7 +2,7 @@ import React, {FC} from "react";
 
 interface IParams {
     className?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const GTHead: FC<IParams> = ({ children, className }) => {

@@ -73,7 +73,7 @@ const AssetsTable = ({
                 />
             </div>
 
-            <div style={{maxHeight: maxHeight}} className='mb-10'>
+            <div style={{maxHeight: maxHeight}} className='mb-5'>
                 <GTable>
                     <GTHead>
                         <GTRow>
@@ -122,6 +122,11 @@ const AssetsTable = ({
                                 ))}
                             </GTRow>
                         ))}
+
+                        {filteredTokens.length ? (
+                            <GTRow className='mt-[100%]'>
+                            </GTRow>
+                        ) : <></>}
                     </GTBody>
                 </GTable>
             </div>

@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 
 interface IParams {
     className?: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     loading?: boolean;
     style?: React.CSSProperties;
 }

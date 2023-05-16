@@ -11,7 +11,7 @@ export const GTRow: FC<IParams> = ({ children, className, onClick }) => {
     return (
         <div
             onClick={onClick}
-            className={`grid ${className} items-center overflow-hidden`}
+            className={`grid ${className} items-center`}
             style={{
                 gridTemplateColumns: `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
             }}

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
-import {apiHistoryTransactions} from "@/shared/api";
+import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
 import {historyTabs, getTabsAsRecord} from "../model/helpers";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
@@ -28,7 +28,7 @@ function History({currency}: Partial<Props>) {
     
     const assets = storeListAllCryptoName(state => state.listAllCryptoName);
 
-    const [historyList, setHistoryList] = useState([]);
+    const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
 
     const [loading, setLoading] = useState(false);
 
@@ -107,13 +107,13 @@ function History({currency}: Partial<Props>) {
                 <GTBody loading={loading} className={styles.TableBody}>
                     {historyList.length > 0 ? historyList.map((item) => {
                         return (
-                            <GTRow className={`${styles.Row} gap-4`}>
+                            <GTRow className={styles.Row}>
                                 <GTCol>
                                     <TransactionModalLink item={item}/>
                                 </GTCol>
 
                                 <GTCol>
-                                    <div data-text={item.amount} className="ellipsis">
+                                    <div data-text={`${item.amount} ${item.currency}`} className="ellipsis">
                                         <span className="text-green">
                                             {+item.amount.toFixed(assets.find(a =>
                                                 a.code === item.currency)?.round_prec)} {item.currency}
@@ -123,7 +123,9 @@ function History({currency}: Partial<Props>) {
 
                                 <GTCol>
                                     <div data-text={item.type_transaction} className="ellipsis">
-                                        <span className={item.partner_info === "" ? "text-orange" : ""}>{item.type_transaction}</span>
+                                        <div className={item.partner_info === "" ? "text-orange" : ""}>
+                                            {item.type_transaction}
+                                        </div>
                                     </div>
                                 </GTCol>
                             </GTRow>

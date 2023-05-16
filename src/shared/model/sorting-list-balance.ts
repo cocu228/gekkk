@@ -16,7 +16,7 @@ export interface ISortedListBalance {
 
 export const sortingListBalance = (data: IResBalance[], assets: IListAllCryptoName['listAllCryptoName']): Array<ISortedListBalance> | null => {
 
-    if (!Array.isArray(data) || data.length === 0) return null
+    if (!Array.isArray(data) || data.length === 0) return []
 
     return data.map((item, i) => {
 

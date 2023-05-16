@@ -16,7 +16,7 @@ export const storeListAvailableBalance = create<IAvailableBalance>()(devtools((s
 
     defaultListBalance: [],
     // filterListBalance: null,
-    sortedListBalance: null,
+    sortedListBalance: [],
 
     getDefaultListBalance: async () => {
 

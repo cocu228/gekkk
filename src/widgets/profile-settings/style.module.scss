@@ -3,11 +3,11 @@
 .Wrapper {
   padding: 2.5rem;
 
-  @include devices("xl") {
+  @include max-devices("xl") {
     padding: 1.5rem;
   }
 
-  @include devices("md") {
+  @include max-devices("md") {
     margin: 0 var(--content-margin-horizontal-negative-md);
     padding: var(--content-pad-horizontal-md);
   }

@@ -1,7 +1,13 @@
 @import "variables";
 
-@mixin devices($breakpoint) {
+@mixin max-devices($breakpoint) {
   @media only screen and (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin min-devices($breakpoint) {
+  @media only screen and (min-width: map-get($breakpoints, $breakpoint)) {
     @content;
   }
 }

@@ -16,7 +16,7 @@
   user-select: none;
   transition: all 0.2s;
 
-  @include devices(sm) {
+  @include max-devices(sm) {
     padding: 0;
     font-size: 0.6rem;
   }

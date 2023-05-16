@@ -11,7 +11,7 @@
     height: 2.5rem;
     margin-top: -1.25rem;
 
-    @include devices("sm") {
+    @include max-devices("sm") {
       width: 2.12rem;
       height: 2.12rem;
       margin-top: -1.06rem;
@@ -33,7 +33,7 @@
     box-shadow: none !important;
     background: none;
 
-    @include devices("sm") {
+    @include max-devices("sm") {
       height: 3.75rem;
     }
   }
@@ -44,7 +44,7 @@
     font-size: 0.875rem;
     transition: all 0.2s !important;
 
-    @include devices("sm") {
+    @include max-devices("sm") {
       padding-left: 2.55rem;
     }
   }

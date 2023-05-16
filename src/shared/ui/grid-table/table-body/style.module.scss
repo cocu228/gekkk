@@ -20,7 +20,7 @@
       border: none;
     }
     
-    @include devices('md') {
+    @include max-devices('md') {
       margin: 0;
     }
 }

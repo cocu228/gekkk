@@ -95,8 +95,8 @@ function History({currency}: Partial<Props>) {
                     <GTRow>
                         {['Data', 'Flow of funds', 'Information'].map(label =>
                             <GTCol className="text-start">
-                                <div className='ellipsis' data-text={label}>
-                                    {label}
+                                <div className='ellipsis ellipsis-md' data-text={label}>
+                                    <span>{label}</span>
                                 </div>
                             </GTCol>
                         )}
@@ -107,20 +107,22 @@ function History({currency}: Partial<Props>) {
                         return (
                             <GTRow className={styles.Row}>
                                 <GTCol>
-                                    <TransactionInfo {...item}/>
+                                    <div className="ellipsis ellipsis-md">
+                                        <TransactionInfo {...item}/>
+                                    </div>
                                 </GTCol>
 
                                 <GTCol>
-                                    <div data-text={`${item.amount} ${item.currency}`} className="ellipsis">
+                                    <div>
                                         <span className="text-green">
                                             {+item.amount.toFixed(assets.find(a =>
                                                 a.code === item.currency)?.round_prec)} {item.currency}
                                         </span>
-                                    </div>    
+                                    </div>
                                 </GTCol>
 
                                 <GTCol>
-                                    <div data-text={item.type_transaction} className="ellipsis">
+                                    <div data-text={item.type_transaction} className="ellipsis ellipsis-md">
                                         <div
                                             className={+item.type_raw === 3 && item.partner_info === "" ? "text-orange" : ""}>
                                             {item.type_transaction}

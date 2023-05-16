@@ -4,7 +4,7 @@
     box-shadow: 0 0 30px 5px rgb(41 117 215 / 15%);
     position: relative;
 
-    @include devices(md) {
+    @include max-devices(md) {
         box-shadow: none;
         position: relative;
         z-index: 1;

@@ -8,7 +8,7 @@
   border: 1px solid var(--color-secondary);
   border-radius: 4px;
 
-  @include devices("md") {
+  @include max-devices("md") {
     height: 56px;
     padding-right: 8px;
     margin-top: 0.3rem;
@@ -40,7 +40,7 @@
     line-height: 1;
     white-space: nowrap;
 
-    @include devices("md") {
+    @include max-devices("md") {
       font-size: 0.5rem;
     }
   }
@@ -55,7 +55,7 @@
     font-weight: 500;
     white-space: nowrap;
 
-    @include devices("md") {
+    @include max-devices("md") {
       gap: 0.3rem;
       font-size: 0.56rem;
     }
@@ -65,7 +65,7 @@
       height: 17px;
       fill: var(--color-secondary);
 
-      @include devices("md") {
+      @include max-devices("md") {
         width: 5px;
         height: 14px;
       }
@@ -81,7 +81,7 @@
     color: var(--color-secondary);
     border-right: 1px solid var(--color-secondary);
 
-    @include devices("lg") {
+    @include max-devices("lg") {
       position: absolute;
       left: 12px;
       top: 4px;
@@ -93,7 +93,7 @@
       border: none;
     }
 
-    @include devices("md") {
+    @include max-devices("md") {
       font-size: 0.5rem;
     }
   }
@@ -102,12 +102,12 @@
     width: 34px;
     min-width: 34px;
 
-    @include devices("lg") {
+    @include max-devices("lg") {
       width: 28px;
       min-width: 28px;
     }
 
-    @include devices("md") {
+    @include max-devices("md") {
       width: 20px;
       min-width: 20px;
     }
@@ -117,7 +117,7 @@
     min-width: 2.8rem;
     text-align: left;
 
-    @include devices("md") {
+    @include max-devices("md") {
       min-width: 1.875rem;
     }
   }
@@ -131,13 +131,13 @@
     white-space: nowrap;
     text-align: right;
 
-    @include devices("lg") {
+    @include max-devices("lg") {
       font-size: 0.875rem;
       flex-shrink: initial;
       white-space: initial;
     }
 
-    @include devices("md") {
+    @include max-devices("md") {
       margin-right: -0.3rem;
       font-size: 0.56rem;
     }

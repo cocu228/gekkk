@@ -4,7 +4,7 @@
 .Item {
   font-size: 0.75rem;
 
-  @include devices("md") {
+  @include max-devices("md") {
     margin: 0 var(--content-margin-horizontal-negative-md);
     padding: 0 var(--content-pad-horizontal-md);
     font-size: 0.625rem;
@@ -17,7 +17,7 @@
   &Info {
     display: inline-block;
 
-    @include devices("md") {
+    @include max-devices("md") {
       font-size: 0.375rem;
     }
   }

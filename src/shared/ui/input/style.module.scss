@@ -9,7 +9,7 @@
     border-color: #A5B7C5;
     font-weight: 500;
 
-    @include devices('sm') {
+    @include max-devices('sm') {
       padding: 1rem 1.25rem;
     }
 

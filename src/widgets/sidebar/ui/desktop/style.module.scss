@@ -8,11 +8,11 @@
   background-color: #ffffff;
   box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
 
-  @include devices(xxxl) {
+  @include max-devices(xxxl) {
     flex-basis: var(--sidebar-width-xxxl);
   }
 
-  @include devices(xxl) {
+  @include max-devices(xxl) {
     flex-basis: var(--sidebar-width-xxl);
   }
 }

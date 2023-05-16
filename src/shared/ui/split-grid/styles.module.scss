@@ -5,7 +5,7 @@
   border-radius: 4px;
   overflow: hidden;
 
-  @include devices("md") {
+  @include max-devices("md") {
     margin: 0 var(--content-margin-horizontal-negative-md);
   }
 }

@@ -8,12 +8,12 @@
   padding-right: var(--content-pad-right);
   padding-top: var(--content-pad-top);
 
-  @include devices(xl) {
+  @include max-devices(xl) {
     padding-left: var(--content-pad-left-xl);
     padding-right: var(--content-pad-right-xl);
   }
 
-  @include devices(md) {
+  @include max-devices(md) {
     padding-left: var(--content-pad-horizontal-md);
     padding-right: var(--content-pad-horizontal-md);
     padding-top: var(--content-pad-top-md);

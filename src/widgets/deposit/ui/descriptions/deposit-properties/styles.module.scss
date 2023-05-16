@@ -6,7 +6,7 @@
     padding: 1.2rem;
     width: 100%;
 
-    @include devices(xxl) {
+    @include max-devices(xxl) {
         padding: 0.8rem;
     }
 }

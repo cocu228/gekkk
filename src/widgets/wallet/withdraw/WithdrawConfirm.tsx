@@ -3,29 +3,48 @@ import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/conte
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api/client/create-withdraw";
 import Decimal from "decimal.js";
-import {isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
+import Form from '@/shared/ui/form/Form';
+import FormItem from '@/shared/ui/form/form-item/FormItem';
+import {codeMessage} from "@/shared/config/message";
+import useMask from "@/shared/model/hooks/useMask";
+import {MASK_CODE} from "@/shared/config/mask";
+import Loader from "@/shared/ui/loader";
 
 const WithdrawConfirm = ({
                              address,
                              amount,
                              receiver,
                              description,
+                             handleCancel,
                              withdraw_fee
                          }) => {
+
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
     const currency = useContext(CtxWalletCurrency)
     const [input, setInput] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState("")
+    const {onInput} = useMask(MASK_CODE);
+    const onConfirm = async () => {
 
-    const onClick = async () => {
-        const res = await apiCreateWithdraw(currency.const, networkIdSelect, new Decimal(amount).toNumber(),
+        setLoading(true)
+
+        const response = await apiCreateWithdraw(currency.const, networkIdSelect, new Decimal(amount).toNumber(),
             withdraw_fee, isNull(address) ? "" : address, receiver, description)
 
-        console.log(res)
+        actionResSuccess(response)
+            .success(() => setSuccess("Done"))
+            .reject(() => setSuccess("Error"))
+
+        setLoading(false)
+
+        console.log(response)
     }
 
-    return <>
+    return loading ? <Loader/> : success !== "" ? <p>{success}</p> : <>
         <div className="row mb-10">
             <div className="col">
                 <div className="p-4 bg-gray-300">
@@ -96,19 +115,24 @@ const WithdrawConfirm = ({
                 <span>{description}</span>
             </div>
         </div>
-        <div className="row mb-6 flex flex-col">
-            <div className="col mb-2">
-                <span>Transfer confirm</span>
+        <Form onFinish={onConfirm}>
+            <span>Transfer confirm</span>
+            <FormItem className={"mb-2"} name="code" label="Code" preserve
+                      rules={[{required: true, ...codeMessage}]}>
+                <Input type="text"
+                       onInput={onInput}
+                       placeholder="Phone code"
+                       onChange={({target}) => setInput(target.value)}
+                       autoComplete="off"
+                />
+            </FormItem>
+            <div className="row mb-8">
+                <div className="col">
+                    <Button htmlType={"submit"} disabled={input === ""} className="w-full"
+                            size={"xl"}>Confirm</Button>
+                </div>
             </div>
-            <div className="col">
-                <Input placeholder={"Enter your PIN"} value={input} onChange={({target}) => setInput(target.value)}/>
-            </div>
-        </div>
-        <div className="row mb-8">
-            <div className="col">
-                <Button onClick={onClick} disabled={input === ""} className="w-full" size={"xl"}>Confirm</Button>
-            </div>
-        </div>
+        </Form>
     </>
 }
 

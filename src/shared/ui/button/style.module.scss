@@ -18,7 +18,7 @@
     font-weight: 600;
     line-height: 1.2;
 
-    @include devices("md") {
+    @include max-devices("md") {
       padding: 1rem;
     }
   }

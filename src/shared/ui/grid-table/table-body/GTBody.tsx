@@ -12,7 +12,7 @@ interface IParams {
 export const GTBody: FC<IParams> = ({ children, className, loading, style }) => {
     return (
         <div
-            className={`grid ${className} ${styles.ItemsList} overflow-x-hidden overflow-y-[overlay]`}
+            className={`grid ${className} ${styles.ItemsList}`}
             style={style}
         >
             {!loading ? children : (

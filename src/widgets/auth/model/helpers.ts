@@ -12,7 +12,7 @@ export const helperApiSignIn = function (response) {
 }
 
 export const helperApiTokenHash = function (response) {
-    return actionSuccessConstructor(!!response.data.result?.Token)
+    return actionSuccessConstructor(!!response.data.result?.token)
 }
 export const helperApiQRCode = function (response) {
     return actionSuccessConstructor(typeof response.data.result === "string")

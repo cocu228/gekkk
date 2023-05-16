@@ -16,9 +16,10 @@ import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
-import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
+import InfoContent from "@/widgets/history/ui/InfoContent";
 import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
-import {UnknownTransactionsRow} from "@/widgets/unknown-transactions";
+import {InfoConfirmPartner} from "./InfoConfirmPartner";
+import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 
 const {RangePicker} = DatePicker;
 
@@ -109,7 +110,7 @@ function History({currency}: Partial<Props>) {
                         return (
                             <GTRow className={styles.Row}>
                                 <GTCol>
-                                    <TransactionModalLink item={item}/>
+                                    <TransactionInfo {...item}/>
                                 </GTCol>
 
                                 <GTCol>
@@ -123,7 +124,8 @@ function History({currency}: Partial<Props>) {
 
                                 <GTCol>
                                     <div data-text={item.type_transaction} className="ellipsis">
-                                        <div className={item.partner_info === "" ? "text-orange" : ""}>
+                                        <div
+                                            className={+item.type_transaction === 3 && item.partner_info === "" ? "text-orange" : ""}>
                                             {item.type_transaction}
                                         </div>
                                     </div>
@@ -139,21 +141,6 @@ function History({currency}: Partial<Props>) {
             </GTable>
         </div>
     );
-}
-
-const TransactionModalLink = ({item}) => {
-
-    const {isModalOpen, showModal, handleCancel} = useModal();
-    const dataCustomer = formatForCustomer(item.datetime);
-
-    return <>
-        <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
-        <Modal width={450} title="Transaction info" onCancel={handleCancel}
-               open={isModalOpen}>
-            {item.partner_info === "" ? <UnknownTransactionsRow handleCancel={handleCancel} {...item}/> :
-                <TransactionInfo handleCancel={handleCancel} id={item.id_transaction}/>}
-        </Modal>
-    </>
 }
 
 export default History;

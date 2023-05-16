@@ -42,6 +42,33 @@ export const actionSuccessConstructor = function (value: boolean) {
     }
 }
 
+export const actionResSuccess = function (response) {
+    if (response?.data?.result !== undefined && response.data.result !== null) {
+        return {
+            success: (val) => {
+                val(this?.success)
+
+                return {
+                    reject: (val) => {
+                        return true
+                    }
+                }
+            }
+        }
+    } else {
+        return {
+            success: (val) => {
+                console.warn("Response error")
+                return {
+                    reject: (val) => {
+                        return val(this?.reject)
+                    }
+                }
+            }
+        }
+    }
+}
+
 export function asteriskText(text) {
     if (text.length > 6) {
         return text.slice(0, 10) + '***' + text.slice(-3);

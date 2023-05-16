@@ -1,15 +1,18 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResHistoryTransactions {
-    datetime: string,
-    currency: string,
-    type_transaction: string,
-    status: string
-    partner_info: string
-    amount: number
-    id_transaction: number
-    is_inflow: boolean
-    saldo: number
+    "status_raw": number,
+    "id_transaction": number,
+    "datetime": string,
+    "currency": string,
+    "type_transaction":string,
+    "status": string,
+    "amount": number,
+    "is_income": boolean,
+    "balance": number,
+    "partner_info": string,
+    "tag": string,
+    "type_raw": number
 }
 
 export const apiHistoryTransactions = (start?: string, end?: string, currency?: string, tx_type?: number) =>

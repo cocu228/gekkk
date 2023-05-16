@@ -60,6 +60,7 @@ function History({currency}: Partial<Props>) {
         }
     }, [activeTab])
 
+
     useEffect(() => {
         (async () => {
             await requestHistory()

@@ -66,17 +66,13 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
                 const visiblyConfirm = (it.stateCode === 4 && isOwner) || (it.stateCode === 2 && !isOwner && (it.typeTx === 12 || it.typeTx === 14))
 
+
                 return <GTRow
                     className="px-4 py-3 gap-3">
                     <GTCol>
                         <div className="row flex items-center">
                             <div className="col mr-2">
-                                <span onClick={modalCodeInfo.showModal}
-                                      className="text-gra-600 font-bold break-all cursor-pointer">{it.code}</span>
-                                <Modal title={"Transfer code info"} open={modalCodeInfo.isModalOpen}
-                                       onCancel={modalCodeInfo.handleCancel}>
                                     <CodeTxInfo code={it.code}/>
-                                </Modal>
                             </div>
                             <div className="col min-w-[14px]">
                                 {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}

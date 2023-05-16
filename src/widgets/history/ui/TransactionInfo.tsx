@@ -10,17 +10,11 @@ const TransactionInfo = (props: IResHistoryTransactions) => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const dataCustomer = formatForCustomer(props.datetime);
 
-    const isNeedConfirm = props.type_raw === 3 && props.partner_info === ""
-    const isAvailableType = props.type_raw === 3 || props.type_raw === 4
-
     return <>
         <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
         <Modal width={450} title="Transaction info" onCancel={handleCancel}
                open={isModalOpen}>
-
-            {isNeedConfirm ?
-                <InfoConfirmPartner handleCancel={handleCancel} {...props}/> :
-                <InfoContent handleCancel={handleCancel} {...props} isAvailableType={isAvailableType}/>}
+                <InfoContent handleCancel={handleCancel} {...props}/>
         </Modal>
     </>
 }

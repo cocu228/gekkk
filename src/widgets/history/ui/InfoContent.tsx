@@ -5,16 +5,22 @@ import {formatForCustomer} from "@/shared/lib/date-helper";
 import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";
 import {IResHistoryTransactions} from "@/shared/api";
+import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 
-type TypeProps = IResHistoryTransactions & { handleCancel: () => void, isAvailableType: boolean }
+type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
+
 const InfoContent = (props: TypeProps) => {
 
 
     const [state, setState] = useState<ITransactionInfo | null>(null)
+    const isNeedConfirm = props.type_raw === 3 && props.partner_info === ""
+    const isAvailableType = props.type_raw === 3 || props.type_raw === 4
+
+    const loading = isNull(state) && isAvailableType
 
     useEffect(() => {
 
-        if (props.isAvailableType) {
+        if (isAvailableType) {
             (async () => {
                 setState(null)
 
@@ -29,81 +35,89 @@ const InfoContent = (props: TypeProps) => {
 
     }, [props.id_transaction])
 
-    return isNull(state) && props.isAvailableType ? <Loader/> : <>
+    return loading ? <Loader/> : <>
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col">
-                <span className="text-gray-400">Date:</span>
+                <span className="text-gray-500 font-medium">Date:</span>
             </div>
-            <div className="col">
+            <div className="col font-medium">
                 <span>{formatForCustomer(props.datetime)}</span>
             </div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
-                <span className="text-gray-400">Transaction type:</span>
+                <span className="text-gray-500 font-medium">Transaction type:</span>
             </div>
+            <div className="col w-auto font-medium">
+                <span>{props.type_transaction}</span>
+            </div>
+        </div>
+        <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
-                <span>{props.type_raw}</span>
+                <span className="text-gray-500 font-medium">Currency:</span>
+            </div>
+            <div className="col w-auto font-medium">
+                <span>{props.currency}</span>
             </div>
         </div>
         {state !== null && <>
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col">
-                    <span className="text-gray-400">Address from:</span>
+                    <span className="text-gray-500 font-medium">Address from:</span>
                 </div>
                 <div className="col">
-                    <span className="break-all">{asteriskText(state.addressFrom)}</span>
+                    <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-gray-400 whitespace-nowrap">Address to:</span>
+                    <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all">{asteriskText(state.addressTo)}</span>
+                    <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
+                </div>
+            </div>
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Token network:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{state.tokenNetwork}</span>
+                </div>
+            </div>
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Fee:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{state.fee}</span>
+                </div>
+            </div>
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Transaction:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">url/url</span>
                 </div>
             </div>
         </>}
-        {/*<div className="row mb-4 flex flex-wrap gap-2">*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="text-gray-400">Sender name:</span>*/}
-        {/*    </div>*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="break-all">{state.groupId}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-4 flex flex-wrap gap-2">*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="text-gray-400">Token network:</span>*/}
-        {/*    </div>*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="break-all">{state.tokenNetwork}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
-                <span className="text-gray-400">Amount:</span>
+                <span className="text-gray-500 font-medium">Amount:</span>
             </div>
             <div className="col w-auto">
-                <span className="break-all">{props.amount}</span>
+                <span className="break-all font-medium">{props.amount}</span>
             </div>
         </div>
-        {/*<div className="row mb-4 flex flex-wrap gap-2">*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="text-gray-400">Network fee:</span>*/}
-        {/*    </div>*/}
-        {/*    <div className="col w-auto">*/}
-        {/*        <span className="break-all">{state.fee}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        <div className="row mb-4 flex flex-wrap gap-2">
+        {isNeedConfirm ? <InfoConfirmPartner {...props}/> : <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
-                <span className="text-gray-400">Transaction:</span>
+                <span className="text-gray-500 font-medium">Sender name:</span>
             </div>
             <div className="col w-auto">
-                <span className="break-all">url/url</span>
+                <span className="break-all font-medium">{props.partner_info}</span>
             </div>
-        </div>
+        </div>}
     </>
 }
 

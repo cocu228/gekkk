@@ -14,11 +14,7 @@ import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
 import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
-import useModal from "@/shared/model/hooks/useModal";
-import Modal from "@/shared/ui/modal/Modal";
-import InfoContent from "@/widgets/history/ui/InfoContent";
 import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
-import {InfoConfirmPartner} from "./InfoConfirmPartner";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 
 const {RangePicker} = DatePicker;
@@ -125,7 +121,7 @@ function History({currency}: Partial<Props>) {
                                 <GTCol>
                                     <div data-text={item.type_transaction} className="ellipsis">
                                         <div
-                                            className={+item.type_transaction === 3 && item.partner_info === "" ? "text-orange" : ""}>
+                                            className={+item.type_raw === 3 && item.partner_info === "" ? "text-orange" : ""}>
                                             {item.type_transaction}
                                         </div>
                                     </div>

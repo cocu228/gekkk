@@ -1,6 +1,6 @@
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     apiTransactionInfo,
     apiUpdatePartnerInfo,
@@ -14,54 +14,28 @@ type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {
 
     const [loading, setLoading] = useState(false)
-    const [received, setReceived] = useState(null)
+
+    const [isSuccess, setIsSuccess] = useState(null)
+
     const [input, setInput] = useState("")
 
-
-    useEffect(() => {
-        (async () => {
-
-            const response = await apiTransactionInfo(props.id_transaction)
-
-            actionResSuccess(response)
-                .success(() => setReceived(response.data.result.addressFrom))
-                .reject(() => props.handleCancel())
-
-        })()
-    }, [])
     const updatePartnerInfo = async () => {
         setLoading(true)
-        await apiUpdatePartnerInfo(input, props.id_transaction)
-        props.handleCancel()
+
+        const response = await apiUpdatePartnerInfo(input, props.id_transaction)
+
+        setIsSuccess(response.data.result === "Success")
+
+        setLoading(false)
+
     }
 
 
     return <div className="row min-h-[120px] relative font-medium mb-14">
-        {!received ? <Loader/> : <div className="col">
-            <div className="row mb-2 flex justify-between">
-                <div className="col cursor-pointer">
-                    <img width={12} height={12} src="/img/icon/Download.svg" alt="Download"/>
-                </div>
-                <div className="col">
-                    <span>{formatForCustomer(props.datetime)}</span>
-                </div>
-                <div className="col">
-                    <span className="text-green">{props.amount} {props.currency}</span>
-                </div>
-            </div>
-            <div className="row mb-2 flex gap-3">
-                <div className="col">
-                    <span className="whitespace-nowrap">
-                             Received from:
-                    </span>
-                </div>
-                <div className="col">
-                    <span className="break-all">{asteriskText(received)}</span>
-                </div>
-            </div>
-            <div className="row mb-2 flex">
-                <div className="col">
-                    <span>Sender name:</span>
+        {loading ? <Loader/> : isSuccess === null ? <div className="col">
+            <div className="row mb-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Sender name:</span>
                 </div>
             </div>
             <div className="row flex gap-3">
@@ -70,6 +44,21 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                 <div className="col w-2/5">
                     <Button onClick={updatePartnerInfo} disabled={input === ""} size={"xl"}
                             className="w-full">Apply</Button>
+                </div>
+            </div>
+        </div> : isSuccess ? <div className="col">
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-green font-medium">Sender name:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{input}</span>
+                </div>
+            </div>
+        </div> : <div className="col">
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="info-box-warning">
+                    <span className="text-gray-500 font-medium">Failed to install partner</span>
                 </div>
             </div>
         </div>}

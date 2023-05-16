@@ -1,4 +1,4 @@
-import React, {memo, useContext, useState} from 'react';
+import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
 import useMask from '@/shared/model/hooks/useMask';
 import {MASK_CODE} from '@/shared/config/mask';
 import Form from '@/shared/ui/form/Form';
@@ -20,6 +20,7 @@ const FormCode = memo(() => {
 
     const {toggleStage} = storyDisplayStage(state => state);
     const {login} = useAuth();
+    const inputRef = useRef(null)
     const {md} = useContext(BreakpointsContext);
     const {onInput} = useMask(MASK_CODE);
     const [code, setCode] = useState("");
@@ -27,6 +28,10 @@ const FormCode = memo(() => {
     const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""});
     const [, setSessionGlobal] = useSessionStorage("session-global", {});
 
+
+    useLayoutEffect(() => {
+        inputRef.current.focus();
+    }, [])
     const onFinish = () => {
 
         setLoading(true);
@@ -62,6 +67,7 @@ const FormCode = memo(() => {
         <FormItem className={"mb-2"} name="code" label="Code" preserve
                   rules={[{required: true, ...codeMessage}]}>
             <Input type="text"
+                   ref={inputRef}
                    placeholder="Phone code"
                    onInput={onInput}
                    onChange={({target}) => setCode(target.value)}

@@ -35,7 +35,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     }
 
-
+    console.log(listTxCode.filter(item => item.currency === currency.const && item.isOwner === isOwner))
     return <GTable className={`${styles.Table}`}>
         <GTHead className={styles.TableHead + " py-4"}>
             <GTRow>
@@ -64,7 +64,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         <GTBody className={styles.TableBody}>
             {listTxCode.filter(item => item.currency === currency.const && item.isOwner === isOwner).map(it => {
 
-                const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12
+                const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 
                 return <GTRow
                     className="px-4 py-3 gap-3">
@@ -96,10 +96,10 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     </GTCol>
 
                     <GTCol className="flex flex-wrap gap-2 justify-center">
-                        <CancelContent code={it.code}/>
-                        {visiblyConfirm &&
+                        {visiblyConfirm ?
                             <Button size={"sm"} gray onClick={onBtnConfirm}
-                                    className={"!py-3 !h-[fit-content]"}>Confirm</Button>}
+                                    className={"!py-3 !h-[fit-content]"}>Confirm</Button> :
+                            <CancelContent code={it.code}/>}
                     </GTCol>
                 </GTRow>
             })}

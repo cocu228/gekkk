@@ -64,15 +64,14 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         <GTBody className={styles.TableBody}>
             {listTxCode.filter(item => item.currency === currency.const && item.isOwner === isOwner).map(it => {
 
-                const visiblyConfirm = (it.stateCode === 4 && isOwner) || (it.stateCode === 2 && !isOwner && (it.typeTx === 12 || it.typeTx === 14))
-
+                const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12
 
                 return <GTRow
                     className="px-4 py-3 gap-3">
                     <GTCol>
                         <div className="row flex items-center">
                             <div className="col mr-2">
-                                    <CodeTxInfo code={it.code}/>
+                                <CodeTxInfo code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
                                 {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}

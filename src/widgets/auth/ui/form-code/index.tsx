@@ -45,9 +45,11 @@ const FormCode = memo(() => {
                             apiSignIn(formatAsNumber(code), sessionId, phone)
                                 .then(res => helperApiSignIn(res)
                                     .success(
-                                        () => login(phone, res.data.token))
+                                        () => {
+                                            toggleStage("authorization");
+                                            login(phone, res.data.token)
+                                        })
                                 ).catch(e => {
-                                toggleStage("authorization");
                             })
                         })
             )

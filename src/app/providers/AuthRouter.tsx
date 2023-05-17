@@ -31,9 +31,8 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
         setSessionGlobal(prev => ({token, phone}))
 
-
-        $axios.defaults.headers.common[tokenHeaderName] = token;
-        $axios.defaults.headers.common['Authorization'] = phone;
+        $axios.defaults.headers[tokenHeaderName] = token;
+        $axios.defaults.headers['Authorization'] = phone;
 
         navigate("/");
 
@@ -42,8 +41,8 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const logout = () => {
 
-        $axios.defaults.headers.common['token'] = undefined;
-        $axios.defaults.headers.common['Authorization'] = undefined;
+        $axios.defaults.headers['token'] = undefined;
+        $axios.defaults.headers['Authorization'] = undefined;
 
         setSessionGlobal({});
 

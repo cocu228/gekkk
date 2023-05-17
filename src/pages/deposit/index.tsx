@@ -1,5 +1,5 @@
-import Deposit from '@/widgets/deposit/ui/Deposit';
-import NewDepositProvider from '@/widgets/deposit/model/NewDepositProvider';
+import NewDeposit from '@/widgets/new-deposit/ui/NewDeposit';
+import NewDepositProvider from '@/widgets/new-deposit/model/NewDepositProvider';
 
 export default () => (
     <div className="wrapper flex-1 flex flex-col">
@@ -12,7 +12,7 @@ export default () => (
         </div>
 
         <NewDepositProvider>
-            <Deposit />
+            <NewDeposit />
         </NewDepositProvider>
     </div>
 )

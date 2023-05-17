@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import ClosingDepositModal from '@/widgets/deposit/ui/modals/ClosingDepositModal';
-import ClosingConditionsModal from '@/widgets/deposit/ui/modals/ClosingConditionsModal';
+import ClosingDepositModal from '@/widgets/new-deposit/ui/modals/ClosingDepositModal';
+import ClosingConditionsModal from '@/widgets/new-deposit/ui/modals/ClosingConditionsModal';
 
 function CurrentDepositActionsBlock() {
     const closingModal = useModal();

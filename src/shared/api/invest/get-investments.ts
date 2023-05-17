@@ -1,7 +1,7 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 
-interface IResInvestments {
+export interface IResInvestments {
     id: number,
     currency_id: string,
     dep_type: number,

@@ -98,7 +98,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="text-gray-500 font-medium">Transaction:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">url/url</span>
+                    <span className="break-all font-medium">{state.explorerBaseAddress + state.txHash}</span>
                 </div>
             </div>
         </>}

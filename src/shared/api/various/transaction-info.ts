@@ -14,6 +14,7 @@ export interface ITransactionInfo {
     "amount": number,
     "fee": number,
     "txType": string,
+    "explorerBaseAddress": string,
     "currency": string
 }
 

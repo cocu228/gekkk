@@ -181,7 +181,7 @@ const Row = ({bgGray = false, val, md = false}) => {
 
     return <div
         style={md ? {borderBottom: "1px solid #B4C0CD"} : {}}
-        className={`row ${(!md && bgGray) ? "bg-gray-main" : ""} py-4 px-6 md:py-2 md:px-3 grid grid-flow-col justify-start items-center gap-3`}>
+        className={`row ${(!md && bgGray) ? "bg-gray-main" : ""} py-4 px-6 md:py-2 md:px-3 grid grid-flow-col justify-start md:justify-between items-center gap-3`}>
         <div className="col row-auto justify-start flex h-full">
             <div className="row">
                 <div className="col">

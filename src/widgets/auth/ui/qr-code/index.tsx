@@ -16,15 +16,15 @@ const QRCode = memo(() => {
     useEffect(() => {
         apiTokenHash().then(res =>
             helperApiQRCode(res).success(() => {
-                setHash(res.data.result);
+                setHash(res.data.result.token);
                 ref.current = setInterval(() => {
-                    apiTokenHash(res.data.result).then(res => {
+                    apiTokenHash(res.data.result.token).then(res => {
                         if (res.data.error) return;
 
                         helperApiTokenHash(res)
                             .success(
                                 () => {
-                                    login(res.data.result.Authorization, res.data.result.Token, res.data.result.TokenHeaderName);
+                                    login(res.data.result.authorization, res.data.result.token, res.data.result.tokenHeaderName);
                                     clearInterval(ref.current);
                                 }
                             );

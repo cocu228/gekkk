@@ -31,6 +31,11 @@
   border-radius: 10px;
   box-shadow: 0 10px 20px var(--color-gray-200);
   padding: 40px;
+
+  @include max-devices(md) {
+    padding: 12px;
+  }
+
 }
 
 

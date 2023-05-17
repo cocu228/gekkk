@@ -12,7 +12,6 @@ const Withdraw = () => {
     const currency = useContext(CtxWalletCurrency),
         // isEURG = currency.const === "EURG",
         formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
-
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>

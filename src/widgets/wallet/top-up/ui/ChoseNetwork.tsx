@@ -9,7 +9,7 @@ const ChoseNetwork = ({withdraw = false}) => {
     const currency = useContext(CtxWalletCurrency)
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
     const {xl, md} = useContext(BreakpointsContext);
-    console.log(withdraw)
+    
     return <>
         {/*<div className="row mb-10">*/}
         {/*    <div className="col flex items-center gap-3 font-bold">*/}

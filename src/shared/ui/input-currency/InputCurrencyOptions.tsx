@@ -7,16 +7,18 @@ interface IParams {
     header?: string | JSX.Element,
     availableBalance: number,
     showWill: boolean,
+    disabled: boolean,
     value: string | number,
 }
 
 export default ({
-    children,
-    header,
-    availableBalance,
-    showWill,
-    value
-}: IParams) => {
+                    children,
+                    header,
+                    disabled,
+                    availableBalance,
+                    showWill,
+                    value
+                }: IParams) => {
     const [percent, setPercent] = useState(null)
     const [will, setWill] = useState("give")
 
@@ -24,7 +26,7 @@ export default ({
         setPercent(null);
     }, [percent])
 
-    const onBtnClick = (percent: number) => 
+    const onBtnClick = (percent: number) => disabled ? null :
         setPercent(((percent / 100) * availableBalance).toFixed(2));
 
     return <CtxInputCurrencyOptions.Provider value={percent}>

@@ -3,11 +3,13 @@ import "@styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code";
 import QRCode from "@/widgets/auth/ui/qr-code";
-import {apiTokenHash} from "@/widgets/auth/api";
+import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
+import { AxiosResponse } from 'axios';
+import { $AxiosResponse } from '@/shared/lib/(cs)axios';
 
 
 const AuthPage = () => {
@@ -20,7 +22,7 @@ const AuthPage = () => {
     useEffect(() => {
         authForTokenHashUrl().success((sessionId) =>
             apiTokenHash(sessionId)
-                .then(res => helperApiTokenHash(res)
+                .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
                     .success(
                         () => login(res.data.result.authorization, res.data.result.token, res.data.result.tokenHeaderName)
                     )).catch(e => console.warn(e)))

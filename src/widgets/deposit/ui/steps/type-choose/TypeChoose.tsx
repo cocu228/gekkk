@@ -56,7 +56,7 @@ const TypeChoose = () => {
                     value={amount}
                     currency={{
                         const: $const.EURG,
-                        availableBalance: eurgWallet.free_balance ?? 0,
+                        availableBalance: !eurgWallet ? 0 : eurgWallet.free_balance ?? 0,
                         minAmount: minAmount
                     }}
                     header={(

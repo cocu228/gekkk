@@ -10,7 +10,7 @@ const BackgroundWrapper = ({ children }: IParams) => {
     const { xl } = useContext(BreakpointsContext);
 
     return (
-        <div className="wrapper relative mb-10">
+        <div className="wrapper relative">
             <div className="wrapper grid w-full z-20 relative">
                 {children}
             </div>

@@ -1,4 +1,4 @@
-import {CtxWalletCurrency, CtxWalletNetworks, ICtxWalletNetworks} from "@/widgets/wallet/model/context";
+import {CtxWalletNetworks, ICtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {apiTokenNetworks, IResTokenNetwork} from "@/shared/api";
 import {
@@ -18,7 +18,10 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
     const isTopUp = props["data-tab"] === "Top Up"
 
-    const currency = useContext(CtxWalletCurrency)
+    const {asset} = useContext(CtxCurrencyData);
+
+    if (!asset)
+        return null;
 
     const initState = {
         networksForSelector: null,
@@ -68,22 +71,22 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         refreshKey: prevState.refreshKey
     }))
 
-    const prevDeps = useRef(currency.const);
+    const prevDeps = useRef(asset.code);
 
 
     useEffect(() => {
 
         (async () => {
-            const changedCurrency = currency.const !== prevDeps.current
+            const changedCurrency = asset.code !== prevDeps.current
 
             if (changedCurrency) {
                 console.log('Changed dependencies:', changedCurrency);
             }
-            prevDeps.current = currency.const;
+            prevDeps.current = asset.code;
 
             clearState(changedCurrency)
 
-            const response: AxiosResponse = await apiTokenNetworks(currency.const, isTopUp);
+            const response: AxiosResponse = await apiTokenNetworks(asset.code, isTopUp);
 
             helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
 
@@ -99,11 +102,11 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
         })()
 
-    }, [currency, state.refreshKey])
+    }, [asset, state.refreshKey])
 
     return <CtxWalletNetworks.Provider
         value={({...state, setNetworkId, setLoading, setRefresh})}>{children}</CtxWalletNetworks.Provider>
 
 }
 
-export default NetworkProvider
+export default NetworkProvider;

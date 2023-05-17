@@ -1,6 +1,6 @@
 import Button from '@/shared/ui/button/Button';
 import React, {useContext, useState} from "react";
-import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {CtxCurrencyData} from "@/widgets/wallet/model/context";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
@@ -24,17 +24,13 @@ const CreateCode = ({handleCancel}) => {
 
     const infoModal = useModal()
 
-    const currency = useContext(CtxWalletCurrency),
-        {
-            name,
-            defaultInfoToken: {flags}
-        } = currency
+    const {asset, wallet} = useContext(CtxCurrencyData)
 
     const onCreateCode = async () => {
 
         setLoading(true)
         const typeTx = checkbox ? 12 : 11
-        const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency.const, typeTx)
+        const res = await apiCreateTxCode(new Decimal(input).toNumber(), asset.code, typeTx)
 
         if (res.data.result?.code) {
             await getListTxCode()
@@ -64,8 +60,12 @@ const CreateCode = ({handleCancel}) => {
                     <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
                         <InputCurrency
                             value={input}
-                            currency={{const: currency.const, availableBalance: currency.availableBalance.toNumber()}}
-                            disabled={loading} onChange={setInput}/>
+                            disabled={loading} onChange={setInput}
+                            currency={{
+                                const: asset.code,
+                                availableBalance: !wallet ? 0 : wallet.availableBalance.toNumber()
+                            }}
+                        />
                     </div>
                 </div>
             </div>

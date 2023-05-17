@@ -1,16 +1,15 @@
-import Button from '@/shared/ui/button/Button';
 import {Input} from 'antd';
-import React, {useContext, useState} from "react";
-import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {useContext, useState} from "react";
 import {isNull} from "@/shared/lib/helpers";
-import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
-import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
+import Button from '@/shared/ui/button/Button';
+import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency";
+import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
+import {CtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
 
 const {TextArea} = Input;
-
 
 const WithdrawForm = () => {
 
@@ -24,7 +23,7 @@ const WithdrawForm = () => {
     const {isModalOpen, showModal, handleCancel} = useModal()
 
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const currency = useContext(CtxWalletCurrency)
+    const {asset, wallet} = useContext(CtxCurrencyData)
 
     const {
         min_withdraw = null,
@@ -58,8 +57,8 @@ const WithdrawForm = () => {
                             value={inputs.amount}
                             disabled={!networkIdSelect}
                             currency={{
-                                const: currency.const,
-                                availableBalance: currency.availableBalance.toNumber(),
+                                const: asset.code,
+                                availableBalance: !wallet ? 0 : wallet.availableBalance.toNumber(),
                                 minAmount: min_withdraw
                             }}
                         />

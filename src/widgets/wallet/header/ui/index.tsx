@@ -1,11 +1,9 @@
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
-import {getDescriptionText, EurgTooltipText, EurgDescriptionText} from "../module/description";
+import {EurgTooltipText, EurgDescriptionText} from "../module/description";
 import {useContext} from "react";
-import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {CtxCurrencyData} from "@/widgets/wallet/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import descriptions from "@/shared/config/coins/descriptions";
-
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -15,17 +13,19 @@ const getDescription = (c, name) => {
     }
 }
 
-
 const WalletHeader = () => {
-    const currency = useContext(CtxWalletCurrency)
+    const {asset, wallet} = useContext(CtxCurrencyData)
     const {xl, md} = useContext(BreakpointsContext);
-    const isEURG: boolean = currency.const === 'EURG';
+
+    if (!asset) return null;
+
+    const isEURG: boolean = asset.code === 'EURG';
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
             <div className="grid grid-flow-col justify-start gap-5">
                 <div className="grid auto-cols-max">
-                    <IconCoin code={currency.const}/>
+                    <IconCoin code={asset.code}/>
                 </div>
                 {!md && <div className="flex flex-col content-around">
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
@@ -35,16 +35,16 @@ const WalletHeader = () => {
                     </div>
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {currency.availableBalance.toNumber()} {currency.const}
+                        {!wallet ? 0 : wallet.availableBalance.toNumber()} {asset.code}
                     </div>
                 </div>}
                 {md && <div className="flex flex-col content-around">
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {currency.availableBalance.toNumber()} {currency.const}
+                        {!wallet ? 0 : wallet.availableBalance.toNumber()} {asset.code}
                     </div>
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                            <span>
-                              {currency.name} wallet
+                              {asset.name} wallet
                            </span>
                     </div>
 
@@ -68,19 +68,18 @@ const WalletHeader = () => {
             </div>
 
             {!md && <div className="text-right grid auto-cols-fr">
-                <div data-text={`${currency.name} wallet`} className="mb-3 ellipsis -mt-1.5">
+                <div data-text={`${asset.name} wallet`} className="mb-3 ellipsis -mt-1.5">
                     <span className="font-bold text-fs32 leading-1 text-gray-600">
-                       {isEURG ? "Gekkoin Europe wallet" : <>{currency.name} wallet</>}
+                       {isEURG ? "Gekkoin Europe wallet" : <>{asset.name} wallet</>}
                     </span>
                 </div>
                 <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
                     {isEURG ? EurgDescriptionText :
-                        getDescription(currency.const, currency.name)}
+                        getDescription(asset.code, asset.name)}
                 </div>
             </div>}
         </div>
     </>
 }
 
-
-export default WalletHeader
+export default WalletHeader;

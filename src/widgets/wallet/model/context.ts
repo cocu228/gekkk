@@ -1,7 +1,7 @@
 import React from 'react';
 import {ISortedListBalance} from "@/shared/model/sorting-list-balance";
 import {TNetworksForSelector} from "@/widgets/wallet/model/types";
-import {IResTokenNetwork} from "@/shared/api";
+import {IResMarketAsset, IResTokenNetwork} from "@/shared/api";
 
 export interface ICtxWalletNetworks {
     networksDefault: null | Array<IResTokenNetwork>,
@@ -15,7 +15,16 @@ export interface ICtxWalletNetworks {
     setRefresh: (refreshKey: string) => void
 }
 
-export const CtxWalletCurrency = React.createContext<null | ISortedListBalance>(null);
+export interface ICtxCurrencyData {
+    wallet: ISortedListBalance,
+    asset: IResMarketAsset
+}
+
+export const CtxCurrencyData = React.createContext<null | ICtxCurrencyData>({
+    wallet: null,
+    asset: null
+});
+
 export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>({
     networksDefault: null,
     networksForSelector: null,

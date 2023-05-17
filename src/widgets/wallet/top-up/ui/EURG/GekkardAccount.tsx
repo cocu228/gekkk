@@ -2,11 +2,11 @@ import React, {useContext, useState} from 'react';
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import InputCurrency from "../../../../../shared/ui/input-currency";
 import Button from "@/shared/ui/button/Button";
-import {CtxWalletCurrency} from "@/widgets/wallet/model/context";
+import {CtxCurrencyData} from "@/widgets/wallet/model/context";
 
 const GekkardAccount = () => {
 
-    const currency = useContext(CtxWalletCurrency)
+    const {asset, wallet} = useContext(CtxCurrencyData)
     const [input, setInput] = useState(null)
 
 
@@ -16,7 +16,7 @@ const GekkardAccount = () => {
                 <span>1 EUR = 1 EURG*</span>
             </div>
             <div className="col text-xs">
-                <span>* Note:  Standart exchange fee is 1,5%.   If you freeze GKE tokens fee is 0%.          </span>
+                <span>* Note:  Standart exchange fee is 1,5%. If you freeze GKE tokens fee is 0%.</span>
             </div>
         </div>
         <div className="row">
@@ -25,7 +25,11 @@ const GekkardAccount = () => {
                     showWill
                     value={input}
                     onChange={setInput}
-                    currency={{const: currency.const, availableBalance: currency.availableBalance.toNumber()}}/>
+                    currency={{
+                        const: asset.code,
+                        availableBalance: !wallet ? 0 : wallet.availableBalance.toNumber()
+                    }}
+                />
             </div>
         </div>
         <div className="row">

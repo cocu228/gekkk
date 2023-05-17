@@ -1,5 +1,5 @@
-import React, {useContext, useState} from "react";
-import {CtxWalletCurrency, CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import {useContext, useState} from "react";
+import {CtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api/client/create-withdraw";
 import Decimal from "decimal.js";
@@ -23,7 +23,7 @@ const WithdrawConfirm = ({
 
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-    const currency = useContext(CtxWalletCurrency)
+    const {asset} = useContext(CtxCurrencyData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState("")
@@ -32,7 +32,7 @@ const WithdrawConfirm = ({
 
         setLoading(true)
 
-        const response = await apiCreateWithdraw(currency.const, networkIdSelect, new Decimal(amount).toNumber(),
+        const response = await apiCreateWithdraw(asset.code, networkIdSelect, new Decimal(amount).toNumber(),
             withdraw_fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)

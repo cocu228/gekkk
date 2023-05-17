@@ -8,15 +8,16 @@ import GekkardAccount from "@/widgets/wallet/top-up/ui/EURG/GekkardAccount";
 
 const TopUp = memo(() => {
 
-    const {loading = true, networkIdSelect} = useContext(CtxWalletNetworks)
+    const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const currency = useContext(CtxWalletCurrency),
-        isEURG = currency.const === "EURG"
+        // isEURG = currency.const === "EURG",
+        formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
     return (<div className="wrapper">
         {loading ? <Loader/> :
             <>
                 <ChoseNetwork/>
-                <>{networkIdSelect === 122 && isEURG ? <GekkardAccount/> :
+                <>{formBank ? <GekkardAccount/> :
                     <TopUpQR/>
                 }</>
             </>}

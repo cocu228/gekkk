@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CtxNewDeposit } from "@/widgets/deposit/model/context";
+import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 import ChooseButton from "../../buttons/choose-button/ChooseButton";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 

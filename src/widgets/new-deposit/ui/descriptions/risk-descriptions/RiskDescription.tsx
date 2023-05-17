@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CtxNewDeposit } from "@/widgets/deposit/model/context";
+import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 
 const RiskDescription = () => {
     const { structedStrategy, step } = useContext(CtxNewDeposit);

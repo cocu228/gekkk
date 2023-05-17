@@ -15,7 +15,7 @@ import RiskDescription from './descriptions/risk-descriptions/RiskDescription';
 import DepositProperties from './descriptions/deposit-properties/DepositProperties';
 import PersentageDescription from './descriptions/percentage-description/PersentageDescription';
 
-function Deposit() {
+function NewDeposit() {
     const { type, step } = useContext(CtxNewDeposit);
 
     return (
@@ -62,4 +62,4 @@ function Deposit() {
     );
 }
 
-export default Deposit;
+export default NewDeposit;

@@ -3,7 +3,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
 import OpenDepositModal from "../../modals/OpenDepositModal";
 import { DepositType } from "@/shared/config/deposits/types";
-import { CtxNewDeposit } from "@/widgets/deposit/model/context";
+import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 import ClosingConditionsModal from "../../modals/ClosingConditionsModal";
 import { apiCreateInvestment } from "@/shared/api/invest/create-investment";
 import DepositProperties from "../../descriptions/deposit-properties/DepositProperties";

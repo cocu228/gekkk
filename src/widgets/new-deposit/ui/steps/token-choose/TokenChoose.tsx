@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { IResMarketAsset } from "@/shared/api";
 import useModal from "@/shared/model/hooks/useModal";
 import ChooseTokenModal from "../../modals/ChooseTokenModal";
-import { CtxNewDeposit } from "@/widgets/deposit/model/context";
+import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 import TokenButton from "../../buttons/token-button/TokenButton";
 
 const TokenChoose = () => {

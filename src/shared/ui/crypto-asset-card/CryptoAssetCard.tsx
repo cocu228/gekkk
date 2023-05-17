@@ -6,16 +6,14 @@ import {useNavigate} from "react-router-dom";
 
 interface Props {
     title: string,
-    iconName: string,
-    coinName: string,
-    balance: number,
+    balance: number | string,
     currency: string,
     price: string,
     onTopUp: () => void,
     onWithdraw: () => void,
 }
 
-function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, onWithdraw}: Props) {
+function CryptoAssetCard({title, balance, currency, price, onTopUp, onWithdraw}: Props) {
 
     const navigate = useNavigate()
 
@@ -23,7 +21,7 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
         <Card>
             <div className={`wrapper ${ParentClassForCoin}`}>
                 <div className="flex gap-[8px] items-start">
-                    <IconCoin code={iconName}/>
+                    <IconCoin code={currency}/>
                     <p className="flex items-center text-fs14 font-semibold min-h-[32px]">{title}</p>
                 </div>
 
@@ -32,7 +30,9 @@ function CryptoAssetCard({title, iconName, balance, currency, price, onTopUp, on
                         <p className="text-fs14 font-medium uppercase">
                             <strong className="text-fs32 font-bold">{balance}</strong> {currency}
                         </p>
-                        <p className="text-fs12 text-gray-500 font-medium">{price}</p>
+                        {!price ? null : (
+                            <p className="text-fs12 text-gray-500 font-medium">{price} €</p>
+                        )}
                     </div>
                     {balance === 0 ? null :
                         <div className="flex gap-[16px] mt-[16px]">

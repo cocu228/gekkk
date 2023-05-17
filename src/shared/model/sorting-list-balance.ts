@@ -18,7 +18,9 @@ export const sortingListBalance = (data: IResBalance[], assets: IListAllCryptoNa
 
     if (!Array.isArray(data) || data.length === 0) return []
 
-    return data.map((item, i) => {
+    return data.sort((b) => {
+        return (b.currency === 'EURG' || b.currency === 'GKE') ? -1 : 1;
+    }).map((item, i) => {
 
         const defaultInfoToken = assets.find(it => it.code === item.currency)
 

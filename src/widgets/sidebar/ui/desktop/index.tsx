@@ -107,28 +107,30 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            <NavCollapse header={"Assets"} id={"assets"}>
-                {helperFilterList(sortedListBalance).map((item, i) =>
-                    <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
-                        <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                            <div className="col flex items-center pl-4">
-                                <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
-                                <IconCoin className={styles.Icon}
-                                          code={item.const}/>
-                            </div>
-                            <div className="col flex items-center justify-center flex-col pl-6">
-                                <div className="row w-full mb-1"><span
-                                    className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
-                                <div className="row w-full"><span
-                                    className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundingValue)} ${item.const}`}</span>
+            {!sortedListBalance.length ? null : (
+                <NavCollapse header={"Assets"} id={"assets"}>
+                    {helperFilterList(sortedListBalance).map((item, i) =>
+                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
+                            <div className={`${styles.Item + " " + ParentClassForCoin}`}>
+                                <div className="col flex items-center pl-4">
+                                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
+                                    <IconCoin className={styles.Icon}
+                                              code={item.const}/>
                                 </div>
-                                {/*<div className="row w-full"><span*/}
-                                {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}
-                                {/*</div>*/}
+                                <div className="col flex items-center justify-center flex-col pl-6">
+                                    <div className="row w-full mb-1"><span
+                                        className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
+                                    <div className="row w-full"><span
+                                        className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundingValue)} ${item.const}`}</span>
+                                    </div>
+                                    {/*<div className="row w-full"><span*/}
+                                    {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}
+                                    {/*</div>*/}
+                                </div>
                             </div>
-                        </div>
-                    </NavLink>)}
-            </NavCollapse>
+                        </NavLink>)}
+                </NavCollapse>
+            )}
             <NavLink onClick={NavLinkEvent} to={"exchange"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">

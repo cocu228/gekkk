@@ -61,6 +61,8 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
             if (response.data.result === null) {
 
+                if (response.data.error.code === 10047) return response;
+
                 const message: string = response.data.error.message
                 const id: string = randomId()
                 const res: Record<string, unknown> = response.data

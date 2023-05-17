@@ -14,6 +14,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import CancelContent from "@/widgets/wallet/transfer/CancelContent";
+import {apiApplyTxCode} from "@/shared/api";
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
@@ -31,8 +32,9 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         })()
     }, [currency])
 
-    const onBtnConfirm = () => {
-
+    const onBtnConfirm = async (code) => {
+        const response = await apiApplyTxCode(code)
+        console.log(response)
     }
 
     console.log(listTxCode.filter(item => item.currency === currency.const && item.isOwner === isOwner))
@@ -97,7 +99,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
                     <GTCol className="flex flex-wrap gap-2 justify-center">
                         {visiblyConfirm ?
-                            <Button size={"sm"} gray onClick={onBtnConfirm}
+                            <Button size={"sm"} gray onClick={() => onBtnConfirm(it.code)}
                                     className={"!py-3 !h-[fit-content]"}>Confirm</Button> :
                             <CancelContent code={it.code}/>}
                     </GTCol>

@@ -40,8 +40,6 @@ const WithdrawConfirm = ({
             .reject(() => setSuccess("Error"))
 
         setLoading(false)
-
-        console.log(response)
     }
 
     return loading ? <Loader/> : success !== "" ? <p>{success}</p> : <>

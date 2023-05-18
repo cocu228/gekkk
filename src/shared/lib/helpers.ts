@@ -91,3 +91,19 @@ export function scrollToTop() {
         requestAnimationFrame(scrollToTop);
     }
 }
+
+export function calculateAmount(number, percentage, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
+
+    const n = new Decimal(number);
+    const p = n.times(percentage);
+
+    switch (flag) {
+        case "afterPercentage":
+            return n.minus(p).toNumber();
+        case "withPercentage" :
+            return n.plus(p).toNumber()
+        case "onlyPercentage" :
+            return n.times(percentage).toNumber()
+    }
+
+}

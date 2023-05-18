@@ -2,9 +2,6 @@ import {AuthProvider, useAuth} from "./AuthRouter";
 import AuthPage from "@/pages/auth";
 import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
-import {useLocation} from "react-router";
-import PageProblems from "@/pages/page-problems/PageProblems";
-import Assets from "@/pages/assets";
 
 const AppInit = () => {
 

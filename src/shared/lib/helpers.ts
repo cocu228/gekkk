@@ -92,9 +92,12 @@ export function scrollToTop() {
     }
 }
 
-export function calculateAmount(number, percentage, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
+export function calculateAmount(_number, percentage, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
 
-    const n = new Decimal(number);
+    const number = new Decimal(percentage);
+    const converted = number.dividedBy(100);
+
+    const n = new Decimal(converted);
     const p = n.times(percentage);
 
     switch (flag) {

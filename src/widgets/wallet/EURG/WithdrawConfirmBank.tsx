@@ -14,24 +14,25 @@ import Loader from "@/shared/ui/loader";
 
 const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
 
-    const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
+    const {networkIdSelect, networksForSelector, networksDefault} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-
+    const {percent_fee} = networksDefault.find(it => it.id === networkIdSelect)
     const currency = useContext(CtxWalletCurrency)
-    const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState("")
-    const {onInput} = useMask(MASK_CODE);
+
     const onConfirm = async () => {
 
         setLoading(true)
 
-        const response = await apiCreateWithdraw(currency.const, networkIdSelect, new Decimal(amount).toNumber(), withdraw_fee)
+        const response = await apiCreateWithdraw(currency.const, networkIdSelect, new Decimal(amount).toNumber(), calculateAmount(amount, 1.5, "onlyPercentage"))
 
         actionResSuccess(response)
             .success(() => setSuccess("Done"))
             .reject(() => setSuccess("Error"))
+
         setLoading(false)
+
     }
 
     return loading ? <Loader/> : success !== "" ? <p>{success}</p> : <>
@@ -42,7 +43,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
         </div>
         <div className="row mb-6">
             <div className="col">
-                <span>{calculateAmount(amount, 0.015, "withPercentage")}</span>
+                <span>{calculateAmount(amount, 1.5, "withPercentage")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -100,7 +101,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
             {/*<span>Transfer confirm</span>*/}
             <div className="row mb-8">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={input === ""} className="w-full"
+                    <Button htmlType={"submit"} disabled={loading} className="w-full"
                             size={"xl"}>Confirm</Button>
                 </div>
             </div>

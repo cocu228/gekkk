@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
-import {ParentClassForCoin, IconCoin} from "../icons/icon-coin";
-import {useNavigate} from "react-router-dom";
+import { ParentClassForCoin, IconCoin } from "../icons/icon-coin";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     title: string,
@@ -13,7 +13,7 @@ interface Props {
     onWithdraw: () => void,
 }
 
-function CryptoAssetCard({title, balance, currency, price, onTopUp, onWithdraw}: Props) {
+function CryptoAssetCard({ title, balance, currency, price, onTopUp, onWithdraw }: Props) {
 
     const navigate = useNavigate()
 
@@ -21,7 +21,7 @@ function CryptoAssetCard({title, balance, currency, price, onTopUp, onWithdraw}:
         <Card>
             <div className={`wrapper ${ParentClassForCoin}`}>
                 <div className="flex gap-[8px] items-start">
-                    <IconCoin code={currency}/>
+                    <IconCoin code={currency} />
                     <p className="flex items-center text-fs14 font-semibold min-h-[32px]">{title}</p>
                 </div>
 
@@ -34,16 +34,16 @@ function CryptoAssetCard({title, balance, currency, price, onTopUp, onWithdraw}:
                             <p className="text-fs12 text-gray-500 font-medium">{price} €</p>
                         )}
                     </div>
-                    {balance === 0 ? null :
-                        <div className="flex gap-[16px] mt-[16px]">
-                            <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
-                                state: "Top Up"
-                            })}>Top
-                                up</Button>
-                            <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
-                                state: "Withdraw"
-                            })}>Withdraw</Button>
-                        </div>}
+
+                    <div className="flex gap-[16px] mt-[16px]">
+                        <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
+                            state: "Top Up"
+                        })}>Top
+                            up</Button>
+                        <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
+                            state: "Withdraw"
+                        })}>Withdraw</Button>
+                    </div>
                 </div>
             </div>
         </Card>

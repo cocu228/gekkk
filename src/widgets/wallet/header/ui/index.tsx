@@ -52,7 +52,7 @@ const WalletHeader = () => {
 
 
                 {isEURG && !md && (<div className='grid auto-cols-fr ml-8'>
-                    <div className="text-sm font-medium text-semilight">
+                    <div className="text-sm font-medium text-gray-400 text-semilight">
                         Rate
                         <Tooltip text={EurgTooltipText}>
                             <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">

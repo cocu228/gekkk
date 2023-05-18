@@ -5,9 +5,15 @@ import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import { storeListAvailableBalance } from "@/shared/store/crypto-assets";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
+import { useEffect } from "react";
 
 function CryptoAssets() {
-    let wallets = storeListAvailableBalance(state => state.sortedListBalance).slice(0) ?? [];
+    const balances = storeListAvailableBalance(state => state.sortedListBalance);
+    let wallets = [];
+
+    useEffect(() => {
+        wallets = balances.slice(0) ?? [];
+    }, [balances])
 
     if (!wallets.find(w => w.const === 'GKE')) {
         wallets.unshift({

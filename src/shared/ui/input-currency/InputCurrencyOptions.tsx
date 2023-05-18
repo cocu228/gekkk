@@ -1,33 +1,43 @@
 import React, {useEffect, useState} from "react";
-import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
+import { storeListAllCryptoName } from "@/shared/store/crypto-assets";
+import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
+import Decimal from "decimal.js";
 
 interface IParams {
     children: React.ReactNode,
     header?: string | JSX.Element,
     availableBalance: number,
+    currency: string,
     showWill: boolean,
     disabled: boolean,
     value: string | number,
 }
 
 export default ({
-                    children,
-                    header,
-                    disabled,
-                    availableBalance,
-                    showWill,
-                    value
-                }: IParams) => {
-    const [percent, setPercent] = useState(null)
-    const [will, setWill] = useState("give")
+    children,
+    header,
+    disabled,
+    availableBalance,
+    currency,
+    showWill,
+    value
+}: IParams) => {
+    const [will, setWill] = useState("give");
+    const [percent, setPercent] = useState<Decimal>(null);
+    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
 
     useEffect(() => {
         setPercent(null);
-    }, [percent])
+    }, [percent]);
 
-    const onBtnClick = (percent: number) => disabled ? null :
-        setPercent(((percent / 100) * availableBalance).toFixed(2));
+    const onBtnClick = (percent: number) => {
+        const value = disabled ? null : (percent / 100) * availableBalance;
+
+        return setPercent(percent === 100 ? new Decimal(value) :
+            new Decimal(value.toFixed(assets.find(a => a.code === currency).round_prec))
+        );
+    }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
         <div className="row">

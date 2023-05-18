@@ -13,9 +13,20 @@ const InputCurrency = ({
 }: TypeInputCurrency) => {
 
     return (
-        <InputCurrencyOptions value={value} showWill={showWill} header={header} disabled={disabled}
-                              availableBalance={currency.availableBalance}>
-            <InputItemCurrency currency={currency} onChange={onChange} value={value} disabled={disabled}/>
+        <InputCurrencyOptions
+            value={value}
+            currency={currency.const}
+            showWill={showWill}
+            header={header}
+            disabled={disabled}
+            availableBalance={currency.availableBalance}
+        >
+            <InputItemCurrency
+                currency={currency}
+                onChange={onChange}
+                value={value}
+                disabled={disabled}
+            />
         </InputCurrencyOptions>
     )
 }

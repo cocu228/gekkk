@@ -16,7 +16,7 @@ function CryptoAssets() {
     }, [balances])
 
     if (!wallets.find(w => w.const === 'GKE')) {
-        wallets.unshift({
+        wallets.push({
             id: null,
             const: $const.GKE,
             name: 'GKE Token',
@@ -29,7 +29,7 @@ function CryptoAssets() {
     }
 
     if (!wallets.find(w => w.const === 'EURG')) {
-        wallets.unshift({
+        wallets.push({
             id: null,
             const: $const.EURG,
             name: 'Gekkoin EUR',
@@ -46,21 +46,24 @@ function CryptoAssets() {
             <SectionTitle>Crypto assets</SectionTitle>
 
             <CardsGrid>
-                {wallets.filter(it => [$const.EURG, $const.GKE].includes(it.const) || !it.availableBalance.isZero()).map((item, i) =>
-                    <CryptoAssetCard
-                        title={item.name}
-                        key={"CryptoAssetCard_" + i}
-                        balance={getRoundingValue(item.availableBalance, item.roundingValue)}
-                        currency={item.const}
-                        price=""
-                        onTopUp={() => {
-                            //
-                        }}
-                        onWithdraw={() => {
-                            //
-                        }}
-                    />
-                )}
+                {wallets
+                    .sort(it => [$const.EURG, $const.GKE].includes(it.const) ? -1 : 1)
+                    .filter(it => [$const.EURG, $const.GKE].includes(it.const) || !it.availableBalance.isZero())
+                    .map((item, i) => (
+                        <CryptoAssetCard
+                            title={item.name}
+                            key={"CryptoAssetCard_" + i}
+                            balance={getRoundingValue(item.availableBalance, item.roundingValue)}
+                            currency={item.const}
+                            price=""
+                            onTopUp={() => {
+                                //
+                            }}
+                            onWithdraw={() => {
+                                //
+                            }}
+                        />
+                    ))}
             </CardsGrid>
         </div>
     );

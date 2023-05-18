@@ -7,7 +7,7 @@ import { storeListAvailableBalance } from "@/shared/store/crypto-assets";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
 
 function CryptoAssets() {
-    let wallets = storeListAvailableBalance(state => state.sortedListBalance) ?? [];
+    let wallets = storeListAvailableBalance(state => state.sortedListBalance).slice(0) ?? [];
 
     if (!wallets.find(w => w.const === 'GKE')) {
         wallets.unshift({

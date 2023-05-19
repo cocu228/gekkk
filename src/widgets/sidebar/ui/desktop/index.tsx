@@ -13,6 +13,7 @@ import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import $const from "@/shared/config/coins/constants";
 
 const SidebarDesktop = () => {
 
@@ -47,6 +48,11 @@ const SidebarDesktop = () => {
 
     const eurgWallet = currenciesData.get("EURG");
     const gkeWallet = currenciesData.get("GKE");
+    const secondaryWallets = Array.from(currenciesData.values()).filter(it => {
+        if ([$const.EURG, $const.GKE].includes(it.currency)) return false;
+        
+        return it.availableBalance || it.availableBalance?.comparedTo(0);
+    });
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -75,7 +81,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{eurgWallet?.availableBalance.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -90,7 +96,7 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
                         <div className="row w-full">   <span
-                            className={styles.Sum}>{gkeWallet?.availableBalance.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE</span>
+                            className={styles.Sum}>{gkeWallet.availableBalance?.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>
@@ -107,9 +113,9 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            {!Array.from(currenciesData.values()).length ? null : (
+            {!secondaryWallets.length ? null : (
                 <NavCollapse header={"Assets"} id={"assets"}>
-                    {helperFilterList(Array.from(currenciesData.values())).map((item, i) =>
+                    {helperFilterList(secondaryWallets).map((item, i) =>
                         <NavLink onClick={NavLinkEvent} to={`wallet/${item.currency}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                 <div className="col flex items-center pl-4">
@@ -121,7 +127,7 @@ const SidebarDesktop = () => {
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
                                     </div>
                                     {/*<div className="row w-full"><span*/}
                                     {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}

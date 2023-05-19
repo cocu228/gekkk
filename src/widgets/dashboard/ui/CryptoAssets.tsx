@@ -3,17 +3,17 @@ import $const from "@/shared/config/coins/constants";
 import { getRoundingValue } from "@/shared/lib/helpers";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import { storeListAvailableBalance } from "@/shared/store/crypto-assets";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { CtxCurrencyData } from "@/app/CurrenciesContext";
 
 function CryptoAssets() {
-    const balances = storeListAvailableBalance(state => state.sortedListBalance);
+    const {currenciesData} = useContext(CtxCurrencyData);
     let wallets = [];
 
     useEffect(() => {
-        wallets = balances.slice(0) ?? [];
-    }, [balances])
+        wallets = Array.from(currenciesData.values()).slice(0) ?? [];
+    }, [currenciesData])
 
     if (!wallets.find(w => w.const === 'GKE')) {
         wallets.push({

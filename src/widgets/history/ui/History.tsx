@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
@@ -14,8 +14,9 @@ import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
 import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
-import {storeListAllCryptoName} from '@/shared/store/crypto-assets';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
+import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import $const from '@/shared/config/coins/constants';
 
 const {RangePicker} = DatePicker;
 
@@ -23,7 +24,7 @@ function History({currency}: Partial<Props>) {
 
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     
-    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
+    const {currenciesData} = useContext(CtxCurrencyData);
 
     const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
 
@@ -115,8 +116,7 @@ function History({currency}: Partial<Props>) {
                                 <GTCol>
                                     <div>
                                         <span className="text-green">
-                                            {+item.amount.toFixed(assets.find(a =>
-                                                a.code === item.currency)?.round_prec)} {item.currency}
+                                            {+item.amount.toFixed(currenciesData.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
                                     </div>
                                 </GTCol>

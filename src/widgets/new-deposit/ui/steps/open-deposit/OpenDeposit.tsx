@@ -16,10 +16,10 @@ const OpenDeposit = () => {
     const {
         type,
         step,
-        token,
         amount,
         minAmount,
         term_in_days,
+        tokenCurrency,
         percentageType,
         structedStrategy,
         onNextStep
@@ -73,7 +73,7 @@ const OpenDeposit = () => {
                         const data = await apiCreateInvestment({
                             amount: amount,
                             term_days: term_in_days,
-                            link_currency: type === DepositType.FIXED ? 'EURG' : token.code,
+                            link_currency: type === DepositType.FIXED ? 'EURG' : tokenCurrency,
                             templateType: type === DepositType.FIXED ? 1 : (
                                 structedStrategy.id + structedStrategy.percentageTypes.indexOf(percentageType)
                             )

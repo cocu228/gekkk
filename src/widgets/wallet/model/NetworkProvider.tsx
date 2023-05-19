@@ -1,4 +1,4 @@
-import {CtxWalletNetworks, ICtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletNetworks, ICtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import {apiTokenNetworks, IResTokenNetwork} from "@/shared/api";
 import {
@@ -18,9 +18,9 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
     const isTopUp = props["data-tab"] === "Top Up"
 
-    const {asset} = useContext(CtxCurrencyData);
+    const {currency} = useContext(CtxWalletData);
 
-    if (!asset)
+    if (!currency)
         return null;
 
     const initState = {
@@ -71,22 +71,22 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         refreshKey: prevState.refreshKey
     }))
 
-    const prevDeps = useRef(asset.code);
+    const prevDeps = useRef(currency);
 
 
     useEffect(() => {
 
         (async () => {
-            const changedCurrency = asset.code !== prevDeps.current
+            const changedCurrency = currency !== prevDeps.current
 
             if (changedCurrency) {
                 console.log('Changed dependencies:', changedCurrency);
             }
-            prevDeps.current = asset.code;
+            prevDeps.current = currency;
 
             clearState(changedCurrency)
 
-            const response: AxiosResponse = await apiTokenNetworks(asset.code, isTopUp);
+            const response: AxiosResponse = await apiTokenNetworks(currency, isTopUp);
 
             helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
 
@@ -102,7 +102,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
         })()
 
-    }, [asset, state.refreshKey])
+    }, [currency, state.refreshKey])
 
     return <CtxWalletNetworks.Provider
         value={({...state, setNetworkId, setLoading, setRefresh})}>{children}</CtxWalletNetworks.Provider>

@@ -5,7 +5,7 @@ import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import { AssetTableKeys } from '@/features/assets-table/model/types';
 
 type IParams = ModalProps & {
-    onSelect: (value: IResMarketAsset) => void;
+    onSelect: (value: string) => void;
 }
 
 const ChooseTokenModal = ({ open, onSelect, onCancel, ...props }: IParams) => {

@@ -1,12 +1,12 @@
 import Select from "@/shared/ui/select/Select";
 import React, {useContext} from "react";
-import {CtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import InfoBox from "@/widgets/info-box";
 
 const ChoseNetwork = ({withdraw = false}) => {
-    const {asset} = useContext(CtxCurrencyData)
+    const {currency} = useContext(CtxWalletData)
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
     const {xl, md} = useContext(BreakpointsContext);
     
@@ -39,7 +39,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                     <div className="row mb-1">
                         <div className="col">
                             <span
-                                className="text-gray-400 font-medium text-fs14 leading-6">You should send only <b>{asset.code}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
+                                className="text-gray-400 font-medium text-fs14 leading-6">You should send only <b>{currency}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
                         </div>
                     </div>
                 </div>

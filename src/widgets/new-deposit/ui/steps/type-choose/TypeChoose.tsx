@@ -5,7 +5,7 @@ import $const from '@/shared/config/coins/constants';
 import InputCurrency from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
-import {storeListAvailableBalance} from '@/shared/store/crypto-assets';
+import { CtxCurrencyData } from '@/app/CurrenciesContext';
 
 const TypeChoose = () => {
     const {
@@ -16,9 +16,8 @@ const TypeChoose = () => {
         onDepositTypeChange
     } = useContext(CtxNewDeposit);
 
-    const eurgWallet = storeListAvailableBalance(state =>
-        state.defaultListBalance
-    )?.find(w => w.currency === $const.EURG);
+    const {currenciesData} = useContext(CtxCurrencyData);
+    const eurgWallet = currenciesData.get('EURG');
 
     return (
         <div className="px-10 mt-10 md:mt-4 md:px-4">
@@ -56,7 +55,7 @@ const TypeChoose = () => {
                     value={amount}
                     currency={{
                         const: $const.EURG,
-                        availableBalance: !eurgWallet ? 0 : eurgWallet.free_balance ?? 0,
+                        availableBalance: !eurgWallet ? 0 : eurgWallet.availableBalance.toNumber(),
                         minAmount: minAmount
                     }}
                     header={(

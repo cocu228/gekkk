@@ -2,11 +2,11 @@ import React, {useContext, useState} from 'react';
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import InputCurrency from "../../../../../shared/ui/input-currency";
 import Button from "@/shared/ui/button/Button";
-import {CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletData} from "@/widgets/wallet/model/context";
 
 const GekkardAccount = () => {
 
-    const {asset, wallet} = useContext(CtxCurrencyData)
+    const {currency, availableBalance} = useContext(CtxWalletData)
     const [input, setInput] = useState(null)
 
 
@@ -26,8 +26,8 @@ const GekkardAccount = () => {
                     value={input}
                     onChange={setInput}
                     currency={{
-                        const: asset.code,
-                        availableBalance: !wallet ? 0 : wallet.availableBalance.toNumber()
+                        const: currency,
+                        availableBalance: availableBalance.toNumber() ?? 0
                     }}
                 />
             </div>

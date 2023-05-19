@@ -1,7 +1,7 @@
 import ReactQRCode from "react-qr-code";
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import React, {useContext} from "react";
-import {CtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {randomId} from "@/shared/lib/helpers";
 import {apiCreateAddress} from "@/shared/api/client/create-address";
@@ -9,7 +9,7 @@ import {apiCreateAddress} from "@/shared/api/client/create-address";
 
 const TopUpQR = () => {
     const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {asset} = useContext(CtxCurrencyData)
+    const {currency, name} = useContext(CtxWalletData)
     const onCreateAddress = async () => {
         setLoading(true)
 
@@ -23,7 +23,7 @@ const TopUpQR = () => {
         <div className="row text-right pb-10 flex justify-center items-center flex-col">
 
             <h3 className="font-medium text-fs24 mb-7 text-center">Send a transaction to
-                this <b>{asset.code} {asset.name}</b> address</h3>
+                this <b>{currency} {name}</b> address</h3>
 
             <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>

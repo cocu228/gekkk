@@ -6,7 +6,7 @@ import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 import TokenButton from "../../buttons/token-button/TokenButton";
 
 const TokenChoose = () => {
-    const { token, onTokenChange } = useContext(CtxNewDeposit);
+    const { tokenCurrency, onTokenChange } = useContext(CtxNewDeposit);
     const chooseTokenModal = useModal();
 
     return (
@@ -15,11 +15,11 @@ const TokenChoose = () => {
                 Choose a token to invest
             </p>
 
-            <TokenButton token={token} onClick={chooseTokenModal.showModal} />
+            <TokenButton tokenCurrency={tokenCurrency} onClick={chooseTokenModal.showModal} />
 
             <ChooseTokenModal
                 open={chooseTokenModal.isModalOpen}
-                onSelect={(value: IResMarketAsset) => {
+                onSelect={(value: string) => {
                     onTokenChange(value);
                     chooseTokenModal.handleCancel();
                 }}

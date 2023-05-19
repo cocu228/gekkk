@@ -16,7 +16,7 @@ export const IconCoin = ({code, className = "", width = 50, height = 50, extensi
         className={`${styles.Coin} ${className}`}
         width={width}
         height={height}
-        src={`/img/tokens/${code.toLowerCase().capitalize()}Icon.${extension}`}
+        src={`/img/tokens/${code?.toLowerCase().capitalize()}Icon.${extension}`}
         onError={({currentTarget}) => {
             if (currentTarget.getAttribute("data-icon") === "empty") return null
             currentTarget.setAttribute("data-icon", "empty")

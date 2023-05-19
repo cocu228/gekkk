@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { IResOrder, apiGetOrders } from '@/shared/api';
-import { storeListAllCryptoName } from '@/shared/store/crypto-assets';
 import styles from './style.module.scss';
+import { CtxCurrencyData } from '@/app/CurrenciesContext';
 
 function OpenOrders() {
-    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
+    const {currenciesData} = useContext(CtxCurrencyData);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function OpenOrders() {
     }, []);
 
     const currencyPrecision = (value: number, currency: string) =>
-        Number(value.toFixed(assets.find(a => a.code === currency)?.orders_prec));
+        Number(value.toFixed(currenciesData.get(currency)?.ordersPrec));
 
     return (
         <>

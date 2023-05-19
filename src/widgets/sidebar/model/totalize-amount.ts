@@ -1,12 +1,12 @@
-import {ISortedListBalance} from "@/shared/model/sorting-list-balance";
-import $const from "@/shared/config/coins/constants";
 import Decimal from "decimal.js";
+import $const from "@/shared/config/coins/constants";
+import { ICtxCurrencyData } from "@/app/CurrenciesContext";
 
-export default (sortedListBalance: Array<ISortedListBalance>, rates: Record<$const, number>) => {
+export default (list: Map<string, ICtxCurrencyData>, rates: Record<$const, number>) => {
 
-    return sortedListBalance.reduce<Decimal>((previousValue: Decimal.Value, currentValue, i, list) => {
+    return Array.from(list.values()).reduce<Decimal>((previousValue: Decimal.Value, currentValue, i, list) => {
 
-        const course = rates[currentValue.const]
+        const course = rates[currentValue.currency]
         const value = new Decimal(course).times(currentValue.availableBalance)
 
         return value.plus(previousValue)

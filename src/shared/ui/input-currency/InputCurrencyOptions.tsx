@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import { storeListAllCryptoName } from "@/shared/store/crypto-assets";
 import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import Decimal from "decimal.js";
+import { CtxCurrencyData } from "@/app/CurrenciesContext";
 
 interface IParams {
     children: React.ReactNode,
@@ -25,7 +25,7 @@ export default ({
 }: IParams) => {
     const [will, setWill] = useState("give");
     const [percent, setPercent] = useState<Decimal>(null);
-    const assets = storeListAllCryptoName(state => state.listAllCryptoName);
+    const {currenciesData} = useContext(CtxCurrencyData);
 
     useEffect(() => {
         setPercent(null);
@@ -35,7 +35,7 @@ export default ({
         const value = disabled ? null : (percent / 100) * availableBalance;
 
         return setPercent(percent === 100 ? new Decimal(value) :
-            new Decimal(value.toFixed(assets.find(a => a.code === currency).round_prec))
+            new Decimal(value.toFixed(currenciesData.get(currency).roundPrec))
         );
     }
 

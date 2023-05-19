@@ -3,7 +3,6 @@ import Footer from "@/widgets/footer";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
-import {storeListAvailableBalance} from "@/shared/store/crypto-assets";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import totalizeAmount from "../../model/totalize-amount";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
@@ -13,10 +12,11 @@ import Decimal from "decimal.js";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
+import {CtxCurrencyData} from "@/app/CurrenciesContext";
 
 const SidebarDesktop = () => {
 
-    const sortedListBalance = storeListAvailableBalance(state => state.sortedListBalance)
+    const {currenciesData} = useContext(CtxCurrencyData);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
@@ -32,10 +32,10 @@ const SidebarDesktop = () => {
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            if (sortedListBalance !== null) {
+            if (currenciesData !== null) {
 
-                const valueEUR: Decimal = totalizeAmount(sortedListBalance, ratesEUR.data.result)
-                const valueBTC: Decimal = totalizeAmount(sortedListBalance, ratesBTC.data.result)
+                const valueEUR: Decimal = totalizeAmount(currenciesData, ratesEUR.data.result)
+                const valueBTC: Decimal = totalizeAmount(currenciesData, ratesBTC.data.result)
 
                 setTotalSum({EUR: valueEUR, BTC: valueBTC})
             }
@@ -43,10 +43,10 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, [sortedListBalance]);
+    }, [currenciesData]);
 
-    const EURG = sortedListBalance.find(it => it.const === "EURG");
-    const GKE = sortedListBalance.find(it => it.const === "GKE");
+    const eurgWallet = currenciesData.get("EURG");
+    const gkeWallet = currenciesData.get("GKE");
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -75,7 +75,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{EURG?.availableBalance.toDecimalPlaces(EURG.roundingValue).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{eurgWallet?.availableBalance.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
                         <div className="row w-full">   <span
-                            className={styles.Sum}>{GKE?.availableBalance.toDecimalPlaces(GKE.roundingValue).toNumber() ?? 0} GKE</span>
+                            className={styles.Sum}>{gkeWallet?.availableBalance.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>
@@ -107,21 +107,21 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            {!sortedListBalance.length ? null : (
+            {!Array.from(currenciesData.values()).length ? null : (
                 <NavCollapse header={"Assets"} id={"assets"}>
-                    {helperFilterList(sortedListBalance).map((item, i) =>
-                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.const}`} key={item.id}>
+                    {helperFilterList(Array.from(currenciesData.values())).map((item, i) =>
+                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.currency}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                 <div className="col flex items-center pl-4">
                                     <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                     <IconCoin className={styles.Icon}
-                                              code={item.const}/>
+                                              code={item.currency}/>
                                 </div>
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundingValue)} ${item.const}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
                                     </div>
                                     {/*<div className="row w-full"><span*/}
                                     {/*    className="text-gray-400 text-sm">{`${item.freezeBalance} (hold)`}</span>*/}
@@ -167,4 +167,4 @@ const SidebarDesktop = () => {
     </div>;
 }
 
-export default SidebarDesktop
+export default SidebarDesktop;

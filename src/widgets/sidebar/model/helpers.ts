@@ -1,1 +1,5 @@
-export const helperFilterList = (list) => list.filter(it => (it.const !== "EURG" && it.const !== "GKE") && !it.availableBalance.equals(0))
+import { ICtxCurrencyData } from "@/app/CurrenciesContext";
+
+export const helperFilterList = (list: Array<ICtxCurrencyData>) =>
+    list.filter(({ currency, availableBalance }) =>
+        (currency !== "EURG" && currency !== "GKE") && availableBalance && !availableBalance.equals(0));

@@ -25,7 +25,7 @@ function Assets() {
                 {<div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                     <AssetsTable
                         columnKeys={columns}
-                        onSelect={(token: IResMarketAsset) => redirect(`/wallet/${token.code}`)}
+                        onSelect={(currency: string) => redirect(`/wallet/${currency}`)}
                     />
                 </div>}
                 {!xl && <div

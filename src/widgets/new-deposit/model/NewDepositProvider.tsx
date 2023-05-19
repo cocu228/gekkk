@@ -10,9 +10,9 @@ interface IProps {
 const NewDepositProvider = ({ children, ...props }: IProps) => {
     const initialState: ICtxNewDeposit = {
         step: 0,
-        token: null,
         rate: null,
         amount: 1000,
+        tokenCurrency: null,
         minAmount: 1000,
         structedStrategy: null,
         term_in_days: null,
@@ -23,16 +23,16 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
     const [state, setState] = useState<ICtxNewDeposit>(initialState);
 
     useEffect(() => {
-        if (!state.token) return;
+        if (!state.tokenCurrency) return;
 
         (async () => {
             const { data } = await apiGetRates();
             setState(prev => ({
                 ...prev,
-                rate: data.result[state.token.code]
+                rate: data.result[state.tokenCurrency]
             }));
         })()
-    }, [state.token]);
+    }, [state.tokenCurrency]);
 
     const handleTypeChange = (value: DepositType) => {
         function getMinAmount() {
@@ -76,7 +76,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         }));
     }
 
-    const handleTokenChange = (value: IResMarketAsset) => {
+    const handleTokenChange = (value: string) => {
         setState(prev => ({
             ...prev,
             token: value
@@ -85,10 +85,10 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
 
     const handleNextStep = () => {
         const {
-            token,
             amount,
             minAmount,
             term_in_days,
+            tokenCurrency,
             percentageType,
             structedStrategy
         } = state
@@ -97,7 +97,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
             + (structedStrategy !== null ? 1 : 0)
             + (percentageType !== null ? 1 : 0)
             + (term_in_days !== null ? 1 : 0)
-            + (token !== null ? 1 : 0);
+            + (tokenCurrency !== null ? 1 : 0);
 
         setState(prev => ({
             ...prev,

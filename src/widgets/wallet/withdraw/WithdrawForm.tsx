@@ -7,7 +7,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
-import {CtxWalletNetworks, CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 
 const {TextArea} = Input;
 
@@ -23,7 +23,7 @@ const WithdrawForm = () => {
     const {isModalOpen, showModal, handleCancel} = useModal()
 
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {asset, wallet} = useContext(CtxCurrencyData)
+    const {currency, availableBalance} = useContext(CtxWalletData)
 
     const {
         min_withdraw = null,
@@ -57,8 +57,8 @@ const WithdrawForm = () => {
                             value={inputs.amount}
                             disabled={!networkIdSelect}
                             currency={{
-                                const: asset.code,
-                                availableBalance: !wallet ? 0 : wallet.availableBalance.toNumber(),
+                                const: currency,
+                                availableBalance: availableBalance.toNumber() ?? 0,
                                 minAmount: min_withdraw
                             }}
                         />

@@ -8,7 +8,7 @@ import Button from "@/shared/ui/button/Button";
 import {GTable} from "@/shared/ui/grid-table/GTable";
 import React, {useContext, useEffect} from "react";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
-import {CtxCurrencyData} from "@/widgets/wallet/model/context";
+import {CtxWalletData} from "@/widgets/wallet/model/context";
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
@@ -18,7 +18,7 @@ import {apiApplyTxCode} from "@/shared/api";
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
-    const {asset} = useContext(CtxCurrencyData)
+    const {currency} = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
@@ -30,14 +30,14 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             await getListTxCode()
 
         })()
-    }, [asset])
+    }, [currency])
 
     const onBtnConfirm = async (code) => {
         const response = await apiApplyTxCode(code)
         console.log(response)
     }
 
-    console.log(listTxCode.filter(item => item.currency === asset.code && item.isOwner === isOwner))
+    console.log(listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner))
     return <GTable className={`${styles.Table}`}>
         <GTHead className={styles.TableHead + " py-4"}>
             <GTRow>
@@ -64,7 +64,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             </GTRow>
         </GTHead>
         <GTBody className={styles.TableBody}>
-            {listTxCode.filter(item => item.currency === asset.code && item.isOwner === isOwner).map(it => {
+            {listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner).map(it => {
 
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 

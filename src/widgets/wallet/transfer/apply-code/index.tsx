@@ -4,8 +4,6 @@ import {useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/TransferTableCode";
 import {apiApplyTxCode} from "@/shared/api";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
-import {actionResSuccess} from "@/shared/lib/helpers";
-import {storeListAllCryptoName, storeListAvailableBalance} from "@/shared/store/crypto-assets";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 

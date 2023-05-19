@@ -21,4 +21,4 @@ const UpdateAmounts = () => {
     </div>
 }
 
-export default UpdateAmounts
+export default UpdateAmounts;

@@ -52,13 +52,12 @@ export default memo(function () {
                             setState(prev => ({
                                 ...prev,
                                 listWallets: walletsRequest.data.result,
-                                listCryptoAssets: assetsRequest.data.result,
-                                refreshKey: !prev.refreshKey
+                                listCryptoAssets: assetsRequest.data.result
                             }));
                         }).reject(() => handleError());
                 }).reject(() => handleError());
         })()
-    }, []);
+    }, [refreshKey]);
 
     useEffect(() => {
         if (!(listWallets && listCryptoAssets)) return;
@@ -75,7 +74,7 @@ export default memo(function () {
                 loading: false
             });
         });
-    }, [refreshKey])
+    }, [listWallets, listCryptoAssets])
 
     return <CtxCurrencyData.Provider value={{
         currenciesData: currenciesData,

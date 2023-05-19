@@ -135,12 +135,12 @@ const CodeModalConfirm = ({code, amount, currency}) => {
             <Button size={"sm"} gray onClick={() => onBtnConfirm(code)}
                     className={"!py-3 !h-[fit-content]"}>Confirm</Button>}
 
-        <Modal title={"Your transfer code"} open={isModalOpen}
+        <Modal title={"The code confirmed"} open={isModalOpen}
                onCancel={handleCancel}>
             <>
                 <div className="row mb-6">
                     <div className="col">
-                        <p className="text-sm">Your account has been topped up for the amount:</p>
+                        <p className="text-sm">You made a transfer in the amount of:</p>
                     </div>
                 </div>
                 <div className="row mb-12">

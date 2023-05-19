@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CtxNewDeposit, ICtxNewDeposit } from "./context";
-import { IResMarketAsset, apiGetRates } from "@/shared/api";
+import { apiGetRates } from "@/shared/api";
 import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
 
 interface IProps {
@@ -79,7 +79,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
     const handleTokenChange = (value: string) => {
         setState(prev => ({
             ...prev,
-            token: value
+            tokenCurrency: value
         }));
     }
 

@@ -5,7 +5,7 @@ export interface IResHistoryTransactions {
     "id_transaction": number,
     "datetime": string,
     "currency": string,
-    "type_transaction":string,
+    "tx_type_text":string,
     "status": string,
     "amount": number,
     "is_income": boolean,

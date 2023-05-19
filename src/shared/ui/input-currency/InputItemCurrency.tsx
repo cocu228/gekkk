@@ -5,6 +5,7 @@ import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import {TypeInputCurrency} from "@/shared/ui/input-currency/model/types";
+import {inputCurrencyValidation} from "@/shared/ui/input-currency/model/helpers";
 
 export default ({onChange, value, disabled = false, currency}: TypeInputCurrency) => {
 
@@ -16,12 +17,8 @@ export default ({onChange, value, disabled = false, currency}: TypeInputCurrency
         }
     }, [n])
 
-
-    console.log(n)
-
     return <FormItem className="relative"
-                     extra={currency.minAmount !== undefined && <span
-                         className={`${disabled ? "text-gray" : +value < currency.minAmount ? "text-red-main" : "text-green"} md:text-xs`}>The minimum deposit amount is {currency.minAmount} {currency.const}</span>}>
+                     extra={inputCurrencyValidation(currency.availableBalance, value, currency.minAmount)}>
         <InputAnt
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value))}
             disabled={disabled}

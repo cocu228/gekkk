@@ -49,7 +49,7 @@ const InfoContent = (props: TypeProps) => {
                 <span className="text-gray-500 font-medium">Transaction type:</span>
             </div>
             <div className="col w-auto font-medium">
-                <span>{props.type_transaction}</span>
+                <span>{props.tx_type_text}</span>
             </div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">

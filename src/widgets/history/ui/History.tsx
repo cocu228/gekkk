@@ -122,10 +122,10 @@ function History({currency}: Partial<Props>) {
                                 </GTCol>
 
                                 <GTCol>
-                                    <div data-text={item.type_transaction} className="ellipsis ellipsis-md">
+                                    <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
                                         <div
                                             className={+item.type_raw === 3 && item.partner_info === "" ? "text-orange" : ""}>
-                                            {item.type_transaction}
+                                            {item.tx_type_text}
                                         </div>
                                     </div>
                                 </GTCol>

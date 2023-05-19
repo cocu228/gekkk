@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
-import GekkardAccount from "@/widgets/wallet/top-up/ui/EURG/GekkardAccount";
+import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 
 
 const TopUp = memo(() => {

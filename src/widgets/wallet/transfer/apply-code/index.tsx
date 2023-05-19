@@ -58,7 +58,7 @@ const ApplyCode = () => {
                         Apply
                     </Button>
 
-                    <Modal title={"The code applied successfully"} onCancel={handleCancel} open={isModalOpen}>
+                    <Modal title={desc ? "The code applied successfully" : "Transfer code info"} onCancel={handleCancel} open={isModalOpen}>
                         {loading ? <Loader/> : !desc ? <CodeTxInfo code={input} onBtnApply={onBtnApply}/> :
                             <>
                                 <div className="row mb-6">

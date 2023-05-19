@@ -116,7 +116,7 @@ const CodeModal = ({code}) => {
         <span onClick={showModal}
               className="text-gra-600 font-bold break-all cursor-pointer">{code}</span>
 
-        <Modal title={"Transfer code info"} open={isModalOpen}
+        <Modal title={"Your transfer code"} open={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo code={code}/>
         </Modal>

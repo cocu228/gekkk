@@ -87,7 +87,7 @@ const AssetsTable = ({
                     <GTBody loading={ratesLoading} className={`${styles.ItemsList} ${!ratesLoading && styles.Loaded}`} style={{ maxHeight: maxHeight }}>
                         {filteredTokens.map((token, index) => (
                             <GTRow
-                                className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
+                                className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] md:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                 onClick={() => onSelect(token.currency)}
                             >
                                 {columnKeys.map((key: string) => (
@@ -122,11 +122,6 @@ const AssetsTable = ({
                                 ))}
                             </GTRow>
                         ))}
-
-                        {filteredTokens.length ? (
-                            <GTRow className='mt-[100%]'>
-                            </GTRow>
-                        ) : <></>}
                     </GTBody>
                 </GTable>
             </div>

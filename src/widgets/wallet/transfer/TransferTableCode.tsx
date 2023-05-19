@@ -73,7 +73,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     <GTCol>
                         <div className="row flex items-center">
                             <div className="col mr-2">
-                                <CodeTxInfo code={it.code}/>
+                                <CodeModal code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
                                 {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
@@ -107,6 +107,20 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             })}
         </GTBody>
     </GTable>
+}
+
+const CodeModal = ({code}) => {
+    const {showModal, isModalOpen, handleCancel} = useModal()
+
+    return <>
+        <span onClick={showModal}
+              className="text-gra-600 font-bold break-all cursor-pointer">{code}</span>
+
+        <Modal title={"Transfer code info"} open={isModalOpen}
+               onCancel={handleCancel}>
+            <CodeTxInfo code={code}/>
+        </Modal>
+    </>
 }
 
 

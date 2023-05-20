@@ -16,8 +16,8 @@ const TypeChoose = () => {
         onDepositTypeChange
     } = useContext(CtxNewDeposit);
 
-    const {currenciesData} = useContext(CtxCurrencyData);
-    const eurgWallet = currenciesData.get('EURG');
+    const {currencies} = useContext(CtxCurrencyData);
+    const eurgWallet = currencies.get('EURG');
 
     return (
         <div className="px-10 mt-10 md:mt-4 md:px-4">

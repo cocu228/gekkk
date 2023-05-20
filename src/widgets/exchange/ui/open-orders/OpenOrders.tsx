@@ -5,7 +5,7 @@ import styles from './style.module.scss';
 import { CtxCurrencyData } from '@/app/CurrenciesContext';
 
 function OpenOrders() {
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function OpenOrders() {
     }, []);
 
     const currencyPrecision = (value: number, currency: string) =>
-        Number(value.toFixed(currenciesData.get(currency)?.ordersPrec));
+        Number(value.toFixed(currencies.get(currency)?.ordersPrec));
 
     return (
         <>

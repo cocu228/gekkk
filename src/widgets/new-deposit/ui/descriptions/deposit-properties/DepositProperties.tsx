@@ -21,8 +21,8 @@ const DepositProperties = ({className}: IParams) => {
         structedStrategy
     } = useContext(CtxNewDeposit);
 
-    const {currenciesData} = useContext(CtxCurrencyData);
-	const tokenData = currenciesData.get(tokenCurrency);
+    const {currencies} = useContext(CtxCurrencyData);
+	const tokenData = currencies.get(tokenCurrency);
 
     if (!amount || (type === DepositType.STRUCTED && step < 5))
         return null;

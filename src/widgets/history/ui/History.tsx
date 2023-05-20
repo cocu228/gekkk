@@ -24,7 +24,7 @@ function History({currency}: Partial<Props>) {
 
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
 
     const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
 
@@ -116,7 +116,7 @@ function History({currency}: Partial<Props>) {
                                 <GTCol>
                                     <div>
                                         <span className="text-green">
-                                            {+item.amount.toFixed(currenciesData.get(item.currency)?.roundPrec)} {item.currency}
+                                            {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
                                     </div>
                                 </GTCol>

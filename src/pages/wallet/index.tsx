@@ -14,18 +14,16 @@ import { CtxCurrencyData } from "@/app/CurrenciesContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
 
 function Wallet() {
+
     const {currency} = useParams();
     const currentTab = useLocation().state;
     const {xl, md} = useContext(BreakpointsContext);
-    const {currenciesData} = useContext(CtxCurrencyData);
-    const walletData = currenciesData.get(currency);
-
-    if (!walletData)
-        return null;
+    const {currencies} = useContext(CtxCurrencyData);
+    const $currency = currencies.get(currency);
 
     return (
         <div className="flex flex-col h-full w-full">
-            <CtxWalletData.Provider value={walletData}>
+            <CtxWalletData.Provider value={$currency}>
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={currentTab ? currentTab : "Top Up"}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>

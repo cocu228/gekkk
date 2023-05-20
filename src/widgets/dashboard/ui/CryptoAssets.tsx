@@ -7,14 +7,14 @@ import { useContext } from "react";
 import { CtxCurrencyData } from "@/app/CurrenciesContext";
 
 function CryptoAssets() {
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
 
     return (
         <div className="wrapper">
             <SectionTitle>Crypto assets</SectionTitle>
 
             <CardsGrid>
-                {Array.from(currenciesData.values())
+                {Array.from(currencies.values())
                     .filter(it => [$const.EURG, $const.GKE].includes(it.currency) || it.availableBalance?.comparedTo(0))
                     .sort(it => [$const.EURG, $const.GKE].includes(it.currency) ? -1 : 1)
                     .map((item, i) => (

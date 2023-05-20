@@ -1,43 +1,28 @@
-import { Outlet } from 'react-router';
+import {Outlet} from 'react-router';
 import Loader from "@/shared/ui/loader";
 import Header from "@/widgets/header/ui/";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
-import { memo, useEffect, useState } from 'react';
+import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import { apiGetBalance, apiGetMarketAssets } from '@/shared/api';
-import { CtxCurrencyData, ICtxCurrencyData } from '../CurrenciesContext';
-import { actionResSuccess } from '@/shared/lib/helpers';
-import PageProblems from '@/pages/page-problems/PageProblems';
+import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
+import {CtxCurrencyData, ICtxCurrencyData} from '../CurrenciesContext';
+import {actionResSuccess, randomId} from '@/shared/lib/helpers';
 
 export default memo(function () {
     const [{
-        // error,
-        loading,
         refreshKey,
-        // listWallets,
-        currenciesData,
-        // listCryptoAssets
+        currencies,
     }, setState] = useState({
-        // error: false,
-        loading: true,
-        refreshKey: false,
-        // listWallets: null,
-        // listCryptoAssets: null,
-        currenciesData: new Map<string, ICtxCurrencyData>()
+        refreshKey: "",
+        currencies: new Map<string, ICtxCurrencyData>()
     })
 
     const setRefresh = () =>
         setState(prev => ({
             ...prev,
-            refreshKey: !prev.refreshKey
+            refreshKey: randomId()
         }));
-
-    // const handleError = () =>
-    //     setState(prev => ({
-    //         ...prev,
-    //         error: true
-    //     }));
 
     useEffect(() => {
         (async function () {
@@ -49,43 +34,34 @@ export default memo(function () {
                 .success(() => {
                     actionResSuccess(assetsRequest)
                         .success(() => {
-                            setState(prev => ({
-                                ...prev,
-                                loading: false
-                                // Тут создаешь коллекцию
-                                // listWallets: walletsRequest.data.result,
-                                // listCryptoAssets: assetsRequest.data.result
-                            }));
-                            // Ошибки отлавливай в ErrorProvider
-                        }).reject(() => handleError());
-                }).reject(() => handleError());
+                            setState(prev => {
+
+                                let currencies = prev.currencies
+
+                                assetsRequest.data.result.forEach(asset => {
+                                    const walletInfo = walletsRequest.data.result.find(wallet => asset.code === wallet.currency)
+                                    currencies.set(asset.code, new ICtxCurrencyData(asset, walletInfo))
+                                })
+
+                                return {
+                                    ...prev,
+                                    loading: false,
+                                    currencies
+                                }
+                            });
+                        }).reject(() => null);
+                }).reject(() => null);
         })()
     }, [refreshKey]);
 
-    // useEffect(() => {
-    //     if (!(listWallets && listCryptoAssets)) return;
-    //
-    //     setState(prev => {
-    //         listCryptoAssets.forEach(asset => {
-    //             const wallet = listWallets.find(w => w.currency === asset.code);
-    //
-    //             prev.currenciesData.set(asset.code, new ICtxCurrencyData(asset, wallet));
-    //         });
-    //
-    //         return ({
-    //             ...prev,
-    //             loading: false
-    //         });
-    //     });
-    // }, [setRefresh])
-
     return <CtxCurrencyData.Provider value={{
-        currenciesData: currenciesData,
-        setRefresh: setRefresh
+        currencies,
+        setRefresh: setRefresh,
+        refreshKey
     }}>
         <>
             <Header/>
-            {loading ? <Loader/> : (
+            {currencies.size === 0 ? <Loader/> : (
                 <Main>
                     <Sidebar/>
 

@@ -39,11 +39,11 @@ const AssetsTable = ({
     const [rates, setRates] = useState<Record<$const, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
 
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
 
     const tokensList = useMemo<Array<ICtxCurrencyData>>(() =>
-        Array.from(currenciesData.values())
-            .filter(asset => !excludedCurrencies.includes(asset.currency)), [currenciesData, excludedCurrencies]);
+        Array.from(currencies.values())
+            .filter(asset => !excludedCurrencies.includes(asset.currency)), [currencies, excludedCurrencies]);
 
     const filteredTokens = useMemo<Array<ICtxCurrencyData>>(() => (
         tokensList.filter((token) =>

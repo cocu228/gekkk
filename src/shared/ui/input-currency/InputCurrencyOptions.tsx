@@ -25,7 +25,7 @@ export default ({
 }: IParams) => {
     const [will, setWill] = useState("give");
     const [percent, setPercent] = useState<Decimal>(null);
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
 
     useEffect(() => {
         setPercent(null);
@@ -35,7 +35,7 @@ export default ({
         const value = disabled ? null : (percent / 100) * availableBalance;
 
         return setPercent(percent === 100 ? new Decimal(value) :
-            new Decimal(value.toFixed(currenciesData.get(currency).roundPrec))
+            new Decimal(value.toFixed(currencies.get(currency).roundPrec))
         );
     }
 

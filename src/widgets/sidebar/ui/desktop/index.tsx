@@ -17,7 +17,7 @@ import $const from "@/shared/config/coins/constants";
 
 const SidebarDesktop = () => {
 
-    const {currenciesData} = useContext(CtxCurrencyData);
+    const {currencies, refreshKey} = useContext(CtxCurrencyData);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
@@ -33,24 +33,23 @@ const SidebarDesktop = () => {
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            if (currenciesData !== null) {
 
-                const valueEUR: Decimal = totalizeAmount(currenciesData, ratesEUR.data.result)
-                const valueBTC: Decimal = totalizeAmount(currenciesData, ratesBTC.data.result)
+            const valueEUR: Decimal = totalizeAmount(currencies, ratesEUR.data.result)
+            const valueBTC: Decimal = totalizeAmount(currencies, ratesBTC.data.result)
 
-                setTotalSum({EUR: valueEUR, BTC: valueBTC})
-            }
+            setTotalSum({EUR: valueEUR, BTC: valueBTC})
 
 
         })()
 
-    }, [currenciesData]);
+    }, [refreshKey]);
 
-    const eurgWallet = currenciesData.get("EURG");
-    const gkeWallet = currenciesData.get("GKE");
-    const secondaryWallets = Array.from(currenciesData.values()).filter(it => {
+    const eurgWallet = currencies.get("EURG");
+    const gkeWallet = currencies.get("GKE");
+
+    const secondaryWallets = Array.from(currencies.values()).filter(it => {
         if ([$const.EURG, $const.GKE].includes(it.currency)) return false;
-        
+
         return it.availableBalance || it.availableBalance?.comparedTo(0);
     });
 

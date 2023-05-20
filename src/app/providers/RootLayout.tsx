@@ -12,18 +12,18 @@ import PageProblems from '@/pages/page-problems/PageProblems';
 
 export default memo(function () {
     const [{
-        error,
+        // error,
         loading,
         refreshKey,
-        listWallets,
+        // listWallets,
         currenciesData,
-        listCryptoAssets
+        // listCryptoAssets
     }, setState] = useState({
-        error: false,
+        // error: false,
         loading: true,
         refreshKey: false,
-        listWallets: null,
-        listCryptoAssets: null,
+        // listWallets: null,
+        // listCryptoAssets: null,
         currenciesData: new Map<string, ICtxCurrencyData>()
     })
 
@@ -33,11 +33,11 @@ export default memo(function () {
             refreshKey: !prev.refreshKey
         }));
 
-    const handleError = () =>
-        setState(prev => ({
-            ...prev,
-            error: true
-        }));
+    // const handleError = () =>
+    //     setState(prev => ({
+    //         ...prev,
+    //         error: true
+    //     }));
 
     useEffect(() => {
         (async function () {
@@ -51,47 +51,49 @@ export default memo(function () {
                         .success(() => {
                             setState(prev => ({
                                 ...prev,
-                                listWallets: walletsRequest.data.result,
-                                listCryptoAssets: assetsRequest.data.result
+                                loading: false
+                                // Тут создаешь коллекцию
+                                // listWallets: walletsRequest.data.result,
+                                // listCryptoAssets: assetsRequest.data.result
                             }));
+                            // Ошибки отлавливай в ErrorProvider
                         }).reject(() => handleError());
                 }).reject(() => handleError());
         })()
     }, [refreshKey]);
 
-    useEffect(() => {
-        if (!(listWallets && listCryptoAssets)) return;
-
-        setState(prev => {
-            listCryptoAssets.forEach(asset => {
-                const wallet = listWallets.find(w => w.currency === asset.code);
-
-                prev.currenciesData.set(asset.code, new ICtxCurrencyData(asset, wallet));
-            });
-
-            return ({
-                ...prev,
-                loading: false
-            });
-        });
-    }, [listWallets, listCryptoAssets])
+    // useEffect(() => {
+    //     if (!(listWallets && listCryptoAssets)) return;
+    //
+    //     setState(prev => {
+    //         listCryptoAssets.forEach(asset => {
+    //             const wallet = listWallets.find(w => w.currency === asset.code);
+    //
+    //             prev.currenciesData.set(asset.code, new ICtxCurrencyData(asset, wallet));
+    //         });
+    //
+    //         return ({
+    //             ...prev,
+    //             loading: false
+    //         });
+    //     });
+    // }, [setRefresh])
 
     return <CtxCurrencyData.Provider value={{
         currenciesData: currenciesData,
         setRefresh: setRefresh
-    }} >
-        {error ? <PageProblems code={500} /> : <>
-            <Header />
-
-            {loading ? <Loader /> : (
+    }}>
+        <>
+            <Header/>
+            {loading ? <Loader/> : (
                 <Main>
-                    <Sidebar />
+                    <Sidebar/>
 
                     <Content>
-                        <Outlet />
+                        <Outlet/>
                     </Content>
                 </Main>
             )}
-        </>}
+        </>
     </CtxCurrencyData.Provider>
 });

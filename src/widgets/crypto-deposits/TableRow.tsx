@@ -23,7 +23,7 @@ const TableRow = ({val}) => {
             </div>
             <div className="row">
                 <div data-text={val[0]} className="col ellipsis">
-                    <p className="font-bold md:!text-fs12 text-normal">{val[0]}</p>
+                    <p className="font-bold text-sm text-normal">{val[0]}</p>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@ const TableRow = ({val}) => {
             </div>
             <div className="row">
                 <div data-text={val[1]} className="col ellipsis inline-grid">
-                    <p className="font-bold md:!text-fs12 text-normal">{val[1]}</p>
+                    <p className="font-bold text-sm text-normal">{val[1]}</p>
                 </div>
             </div>
         </div>

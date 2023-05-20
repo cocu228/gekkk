@@ -98,9 +98,9 @@ const CryptoDeposits = () => {
                                 </div>
                                 <div className={styles.scss("row BlockTable")}>
                                     <div className="col">
-                                        <TableRow val={["16%", "4% annual"]}/>
-                                        <TableRow val={["17%", "3% annual"]}/>
-                                        <TableRow val={["18%", "2% annual"]}/>
+                                        <TableRow val={["16%", "4%"]}/>
+                                        <TableRow val={["17%", "3%"]}/>
+                                        <TableRow val={["18%", "2%"]}/>
                                     </div>
                                 </div>
                             </div>
@@ -124,8 +124,8 @@ const CryptoDeposits = () => {
                                 <div className={styles.scss("row BlockTable")}>
                                     <div className="col">
                                         <TableRow val={["20%", "0"]}/>
-                                        <TableRow val={["23%", "up to 3%"]}/>
-                                        <TableRow val={["25%", "up to 5%"]}/>
+                                        <TableRow val={["23%", "3%"]}/>
+                                        <TableRow val={["25%", "5%"]}/>
                                     </div>
                                 </div>
                             </div>
@@ -152,9 +152,9 @@ const CryptoDeposits = () => {
                                 </div>
                                 <div className={styles.scss("row BlockTable")}>
                                     <div className="col ">
-                                        <TableRow val={["30%", "up to -10%"]}/>
-                                        <TableRow val={["40%", "up to -20%"]}/>
-                                        <TableRow val={["50%", "up to -30%"]}/>
+                                        <TableRow val={["30%", "-10%"]}/>
+                                        <TableRow val={["40%", "-20%"]}/>
+                                        <TableRow val={["50%", "-30%"]}/>
                                     </div>
                                 </div>
                             </div>

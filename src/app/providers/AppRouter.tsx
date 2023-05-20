@@ -25,7 +25,7 @@ const router = createBrowserRouter([
                 element: <Dashboard/>
             },
             {
-                path: 'deposit',
+                path: 'new-deposit',
                 children: [
                     {
                         path: '',
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
                 element: <ProfileSettings/>
             },
             {
-                path: 'current-deposit',
+                path: 'deposit/:id',
                 element: <CurrentDeposit/>
             },
         ],

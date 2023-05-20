@@ -11,18 +11,6 @@
   padding: 15px 15px;
   transition: all ease-out 0.2s;
 
-  &[data-size="xl"] {
-    padding: 1.13rem;
-    border-radius: 1.875rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.2;
-
-    @include max-devices("md") {
-      padding: 1rem;
-    }
-  }
-
   &:focus {
     outline: none;
   }
@@ -41,23 +29,27 @@
     background: rgba(0, 174, 239, 0.58);
   }
 
+  &[data-size="xl"] {
+    padding: 1.13rem;
+    border-radius: 1.875rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
 
-  &.Gray {
-    padding: 2px 12px;
+  &[data-size="sm"] {
     line-height: 1;
     font-size: 14px;
     font-weight: 500;
+    border-radius: 16px;
+    padding: 10px 8px;
+  }
+
+  &.Gray {
     color: var(--color-gray-400);
     background: none;
     border: 1px solid var(--color-gray-400);
     box-shadow: none;
-
-    &[data-size="sm"] {
-      //height: 32px;
-      font-size: 12px;
-      border-radius: 16px;
-      padding: 10px 8px;
-    }
 
     &:hover {
       color: #ffffff;
@@ -75,4 +67,5 @@
     border: none;
     box-shadow: none;
   }
+
 }

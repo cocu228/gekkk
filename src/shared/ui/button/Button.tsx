@@ -8,6 +8,7 @@ interface Props {
     htmlType: "button" | "submit" | "reset";
     disabled: boolean;
     text: boolean;
+    custom: boolean;
     gray: boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex: number;
@@ -24,6 +25,7 @@ const Button = memo<Partial<Props>>(
          className,
          size,
          gray = false,
+         custom = false,
          text = false,
          ...props
      }): JSX.Element | null => {
@@ -32,7 +34,7 @@ const Button = memo<Partial<Props>>(
                 .while(!!className).do(className)
                 .while(gray).do("Gray")
                 .while(text).do("Text")
-                .scss("Button")}
+                .scss(custom ? "" : "Button")}
                     type={htmlType}
                     {...props}
             >

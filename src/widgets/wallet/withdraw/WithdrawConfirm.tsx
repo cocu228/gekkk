@@ -3,7 +3,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api/client/create-withdraw";
 import Decimal from "decimal.js";
-import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, calculateAmount, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -18,6 +18,7 @@ const WithdrawConfirm = ({
                              receiver,
                              description,
                              handleCancel,
+                             percent_fee,
                              withdraw_fee
                          }) => {
 
@@ -32,8 +33,10 @@ const WithdrawConfirm = ({
 
         setLoading(true)
 
-        const response = await apiCreateWithdraw(currency, networkIdSelect, new Decimal(amount).toNumber(),
-            withdraw_fee, isNull(address) ? "" : address, receiver, description)
+        const sum = !!percent_fee ? calculateAmount(amount, percent_fee, "withPercentage") : new Decimal(amount).plus(withdraw_fee).toNumber()
+        const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
+        const response = await apiCreateWithdraw(currency, networkIdSelect, sum,
+            fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)
             .success(() => setSuccess("Done"))
@@ -101,6 +104,16 @@ const WithdrawConfirm = ({
         <div className="row mb-6">
             <div className="col">
                 <span>{amount}</span>
+            </div>
+        </div>
+        <div className="row mb-4">
+            <div className="col">
+                <span className="text-gray-400">Fee</span>
+            </div>
+        </div>
+        <div className="row mb-6">
+            <div className="col">
+                <span>{percent_fee}</span>
             </div>
         </div>
         <div className="row mb-4">

@@ -27,6 +27,7 @@ const WithdrawForm = () => {
 
     const {
         min_withdraw = null,
+        percent_fee = null,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
@@ -86,7 +87,7 @@ const WithdrawForm = () => {
 
                     <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
                            open={isModalOpen}>
-                        <WithdrawConfirm {...inputs} handleCancel={handleCancel} withdraw_fee={withdraw_fee}/>
+                        <WithdrawConfirm {...inputs} handleCancel={handleCancel} percent_fee={percent_fee} withdraw_fee={withdraw_fee}/>
                     </Modal>
 
 

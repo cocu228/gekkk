@@ -3,6 +3,7 @@ import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import {TypeInputCurrency} from "@/shared/ui/input-currency/model/types";
 import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOptions"
 
+// TODO: Сделать правки в соответствии с новым контекстом CtxCurrencyData
 const InputCurrency = ({
     value,
     header,

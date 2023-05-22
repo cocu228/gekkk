@@ -70,7 +70,7 @@ function DepositLayout() {
                             subtitle='Risk-protected investments in crypto'
                             linkUrl="/deposit-types"
                             onOpenDeposit={() => {
-                                navigate("/deposit");
+                                navigate("/new-deposit");
                             }}
                         />
                     )}

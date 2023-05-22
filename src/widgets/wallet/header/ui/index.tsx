@@ -18,7 +18,11 @@ const WalletHeader = () => {
     const {
         name,
         currency,
-        availableBalance
+        availableBalance,
+        lockInBalance,
+        lockOutBalance,
+        roundPrec,
+        lockOrders
     } = useContext(CtxWalletData);
     const isEURG: boolean = currency === 'EURG';
 
@@ -38,21 +42,33 @@ const WalletHeader = () => {
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
                         {!availableBalance ? 0 : availableBalance.toNumber()} {currency}
                     </div>
+                    
+                    <g className="text-gray-400 text-sm">
+                        {!lockInBalance ? null : <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>}
+                        {!lockOutBalance ? null : <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>}
+                        {!lockOrders ? null : <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>}
+                    </g>
                 </div>}
                 {md && <div className="flex flex-col content-around">
-                    <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {!availableBalance ? 0 : availableBalance.toNumber()} {currency}
-                    </div>
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                            <span>
                               {name} wallet
                            </span>
                     </div>
+                    
+                    <div className="text-2xl font-bold text-gray-600 cursor-help">
+                        {!availableBalance ? 0 : availableBalance.toNumber()} {currency}
+                    </div>
 
+                    <g className="text-gray-400 text-sm">
+                        <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>
+                        <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>
+                        <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>
+                    </g>
                 </div>}
 
 
-                {isEURG && !md && (<div className='grid auto-cols-fr ml-8'>
+                {isEURG && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-gray-400 text-semilight">
                         Rate
                         <Tooltip text={EurgTooltipText}>

@@ -151,7 +151,7 @@ const SidebarDesktop = () => {
             {/*<NavCollapse header={"Private exchange rooms"} id={"exchange"}>*/}
             {/*    <p>Private exchange rooms</p>*/}
             {/*</NavCollapse>*/}
-            <NavLink onClick={NavLinkEvent} to={"deposit"}>
+            <NavLink onClick={NavLinkEvent} to={"new-deposit"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}

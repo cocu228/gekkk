@@ -2,13 +2,13 @@ import React, {useContext, useEffect, useState} from "react";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import Decimal from "decimal.js";
-import { CtxCurrencyData } from "@/app/CurrenciesContext";
+import {CtxCurrencyData, ICtxCurrencyData} from "@/app/CurrenciesContext";
 
 interface IParams {
     children: React.ReactNode,
     header?: string | JSX.Element,
     availableBalance: number,
-    currency: string,
+    currency: ICtxCurrencyData,
     showWill: boolean,
     disabled: boolean,
     value: string | number,
@@ -25,18 +25,15 @@ export default ({
 }: IParams) => {
     const [will, setWill] = useState("give");
     const [percent, setPercent] = useState<Decimal>(null);
-    const {currencies} = useContext(CtxCurrencyData);
 
     useEffect(() => {
         setPercent(null);
     }, [percent]);
 
     const onBtnClick = (percent: number) => {
-        const value = disabled ? null : (percent / 100) * availableBalance;
-
-        return setPercent(percent === 100 ? new Decimal(value) :
-            new Decimal(value.toFixed(currencies.get(currency).roundPrec))
-        );
+        // const value = (percent / 100) * availableBalance.toFixed(currency.roundPrec)
+        //
+        // return disabled ? null :  setPercent(value);
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>

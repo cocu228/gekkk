@@ -9,8 +9,6 @@ export default (list: Map<string, ICtxCurrencyData>, rates: Record<$const, numbe
         const course = rates[currentValue.currency]
         const value = new Decimal(course).times(currentValue.availableBalance)
 
-        console.log(value)
-
         return value.plus(previousValue)
 
     }, new Decimal(0))

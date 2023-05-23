@@ -7,7 +7,8 @@ import Button from "@/shared/ui/button/Button";
 
 const CodeTxInfo = ({code, onBtnApply = null}) => {
 
-    const [des, setDes] = useState<IResCodeTxInfo | null>(null)
+    const [infoCode, setInfoCode] = useState<IResCodeTxInfo | null>(null)
+    const [error, setError] = useState<string | null>(null)
 
     const [loading, setLoading] = useState(true)
 
@@ -15,16 +16,19 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
         (async () => {
             const response = await apiCodeTxInfo(code)
 
-            if (response.data.result) setDes(response.data.result)
+            if (response.data.result) {
+                setInfoCode(response.data.result)
+            } else {
+                setError(response.data.error?.message)
+            }
 
             setLoading(false)
 
         })()
-
     }, [])
 
     return <>
-        {loading ? <Loader/> : <>
+        {error !== null ? <p>{error}</p> : loading ? <Loader/> : <>
             <div className="row mb-8">
                 <div className="col">
                     <div className="info-box-note -mx-14 w-auto">
@@ -37,13 +41,13 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
                     <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
                         <ReactQRCode
                             style={{height: "auto", maxWidth: "120px", minWidth: "100%", width: "100%"}}
-                            value={des.code}
+                            value={infoCode.code}
                             viewBox={`0 0 148 148`}
                         />
                     </div>
                 </div>
                 <div className="row mt-4 w-full">
-                    <InputCopy value={des.code}/>
+                    <InputCopy value={infoCode.code}/>
                 </div>
             </div>
             <div className="row">
@@ -55,7 +59,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
                                     <span className="text-gray-400">Amount:</span>
                                 </div>
                                 <div className="col">
-                                    <span className="text-green text-right">{des.amount} {des.currency}</span>
+                                    <span className="text-green text-right">{infoCode.amount} {infoCode.currency}</span>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +69,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
                                     <span className="text-gray-400">Confirmation:</span>
                                 </div>
                                 <div className="col">
-                                    <span>{des.stateCode === 1 ? "not used" : "used"}</span>
+                                    <span>{infoCode.stateCode === 1 ? "not used" : "used"}</span>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +78,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
             </div>
             {onBtnApply && <div className="row">
                 <div className="col">
-                    <Button disabled={loading} onClick={() => onBtnApply(des)}
+                    <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
                             size={"xl"}
                             className={"w-full !h-full !font-medium"}>
                         Confirm

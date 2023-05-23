@@ -16,14 +16,15 @@ import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import { CtxCurrencyData } from '@/app/CurrenciesContext';
-import $const from '@/shared/config/coins/constants';
 
 const {RangePicker} = DatePicker;
 
 function History({currency}: Partial<Props>) {
 
+    const {refreshKey} = useContext(CtxCurrencyData)
+
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    
+
     const {currencies} = useContext(CtxCurrencyData);
 
     const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
@@ -59,7 +60,7 @@ function History({currency}: Partial<Props>) {
                 await requestHistory()
             })()
         }
-    }, [activeTab])
+    }, [activeTab, refreshKey])
 
 
     useEffect(() => {

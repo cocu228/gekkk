@@ -1,5 +1,4 @@
 import {FC} from "react";
-
 interface IParams {
     className?: string;
     children: React.ReactNode;

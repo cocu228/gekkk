@@ -6,7 +6,7 @@ import {DatePicker} from 'antd';
 import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
 import {historyTabs, getTabsAsRecord} from "../model/helpers";
-import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
+import {formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import {GTable} from '@/shared/ui/grid-table/GTable';
@@ -15,7 +15,9 @@ import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
 import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import {CtxCurrencyData} from '@/app/CurrenciesContext';
+import Pagination from "@/shared/ui/pagination";
+import Decimal from "decimal.js";
 
 const {RangePicker} = DatePicker;
 
@@ -30,10 +32,16 @@ function History({currency}: Partial<Props>) {
     const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
 
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        // Дополнительная логика для обновления данных, связанных с новой страницей
+    };
 
     const requestHistory = async () => {
 
@@ -50,7 +58,6 @@ function History({currency}: Partial<Props>) {
 
         setLoading(false)
 
-        return null
 
     }
 
@@ -68,6 +75,13 @@ function History({currency}: Partial<Props>) {
             await requestHistory()
         })()
     }, [currency])
+
+    const totalPages = new Decimal(historyList.length).dividedToIntegerBy(10).toNumber()
+
+    const startIndex = new Decimal(currentPage).minus(1).times(10).toDecimalPlaces();
+
+    // Фильтруем массив данных в соответствии с выбранной страницей
+    const filteredData = historyList.slice(startIndex.toNumber(), startIndex.plus(10).toNumber());
 
     return (
         <div className="wrapper">
@@ -105,7 +119,7 @@ function History({currency}: Partial<Props>) {
                     </GTRow>
                 </GTHead>
                 <GTBody loading={loading} className={styles.TableBody}>
-                    {historyList.length > 0 ? historyList.map((item) => {
+                    {filteredData.length > 0 ? filteredData.map((item) => {
                         return (
                             <GTRow className={styles.Row}>
                                 <GTCol>
@@ -139,6 +153,12 @@ function History({currency}: Partial<Props>) {
                     )}
                 </GTBody>
             </GTable>
+            <div className="row mt-3">
+                <div className="col">
+                    <Pagination onPageChange={handlePageChange} totalPages={totalPages}
+                                currentPage={currentPage}/>
+                </div>
+            </div>
         </div>
     );
 }

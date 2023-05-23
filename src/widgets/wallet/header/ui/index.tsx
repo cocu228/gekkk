@@ -61,9 +61,9 @@ const WalletHeader = () => {
                     </div>
 
                     <g className="text-gray-400 text-sm">
-                        <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>
-                        <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>
-                        <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>
+                        {!lockInBalance ? null : <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>}
+                        {!lockOutBalance ? null : <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>}
+                        {!lockOrders ? null : <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>}
                     </g>
                 </div>}
 

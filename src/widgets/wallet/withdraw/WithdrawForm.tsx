@@ -23,7 +23,7 @@ const WithdrawForm = () => {
     const {isModalOpen, showModal, handleCancel} = useModal()
 
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {currency, availableBalance} = useContext(CtxWalletData)
+    const wallet = useContext(CtxWalletData)
 
     const {
         min_withdraw = null,
@@ -57,11 +57,8 @@ const WithdrawForm = () => {
                             onChange={onAmount}
                             value={inputs.amount}
                             disabled={!networkIdSelect}
-                            currency={{
-                                const: currency,
-                                availableBalance: availableBalance.toNumber() ?? 0,
-                                minAmount: min_withdraw
-                            }}
+                            currencyData={wallet}
+                            minValue={min_withdraw}
                         />
                     </div>
 

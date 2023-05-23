@@ -1,16 +1,20 @@
-import React from "react";
-
-export const inputCurrencyValidation = (amount, value, minAmount = 0) => {
+export const inputCurrencyValidation = (
+    balanceAmount: number,
+    value: number,
+    minAmount: number = 0
+) => {
     switch (true) {
-        case value > amount:
-            return <span
-                className="text-red-main md:text-xs">Insufficient funds on the account: {amount}</span>
+        case value > balanceAmount:
+            return <span className="text-red-main md:text-xs">
+                Insufficient funds on the account: {balanceAmount}
+            </span>
         case value < minAmount:
-            return <span
-                className="text-red-main md:text-xs">The minimum deposit amount is {minAmount}</span>
+            return <span className="text-red-main md:text-xs">
+                The minimum amount is {minAmount}
+            </span>
         default:
-            return <span
-                className="text-green md:text-xs">The minimum deposit amount is {minAmount}</span>
-
+            return <span className="text-green md:text-xs">
+                {minAmount === null ? null : `The minimum amount is ${minAmount}`}
+            </span>
     }
 }

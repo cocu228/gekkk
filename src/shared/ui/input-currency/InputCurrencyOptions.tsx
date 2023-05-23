@@ -1,14 +1,13 @@
-import React, {useContext, useEffect, useState} from "react";
-import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
-import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 import Decimal from "decimal.js";
+import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
+import React, {useContext, useEffect, useState} from "react";
 import {CtxCurrencyData, ICtxCurrencyData} from "@/app/CurrenciesContext";
+import {CtxInputCurrencyOptions} from "@/shared/ui/input-currency/model/context";
 
 interface IParams {
     children: React.ReactNode,
     header?: string | JSX.Element,
-    availableBalance: number,
-    currency: ICtxCurrencyData,
+    currencyData: ICtxCurrencyData,
     showWill: boolean,
     disabled: boolean,
     value: string | number,
@@ -18,22 +17,25 @@ export default ({
     children,
     header,
     disabled,
-    availableBalance,
-    currency,
+    currencyData,
     showWill,
     value
 }: IParams) => {
     const [will, setWill] = useState("give");
     const [percent, setPercent] = useState<Decimal>(null);
+    const {currencies} = useContext(CtxCurrencyData);
+    const {currency, availableBalance} = currencyData
 
     useEffect(() => {
         setPercent(null);
     }, [percent]);
 
-    const onBtnClick = (percent: number) => {
-        // const value = (percent / 100) * availableBalance.toFixed(currency.roundPrec)
-        //
-        // return disabled ? null :  setPercent(value);
+    const onBtnClick = (percent: Decimal) => {
+        const value = disabled ? null : percent.div(new Decimal(100)).mul(availableBalance);
+
+        return setPercent(new Decimal(percent.comparedTo(100) ? value :
+            value.toFixed(currencies.get(currency).roundPrec)
+        ));
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
@@ -53,10 +55,10 @@ export default ({
                         </div>}
 
                         <div className="row flex gap-1 text-xs">
-                            <PercentBtn onClick={() => onBtnClick(25)}>25%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(50)}>50%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(75)}>75%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(100)}>100%</PercentBtn>
+                            <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
+                            <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
+                            <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
+                            <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
                         </div>
                     </div>
                     {children}
@@ -76,10 +78,10 @@ export default ({
             </div>
             <div className="col flex flex-col w-[max-content] gap-2">
                 <div className="row flex items-end">
-                    <span className="w-full text-end">{value}</span>
+                    <span className="w-full text-end">{value.toString()}</span>
                 </div>
                 <div className="row flex items-end">
-                    <span className="w-full text-end">{value}</span>
+                    <span className="w-full text-end">{value.toString()}</span>
                 </div>
             </div>
         </div>}

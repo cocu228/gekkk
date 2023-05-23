@@ -38,11 +38,9 @@ const GekkardAccount = () => {
                 <InputCurrency
                     value={input}
                     onChange={setInput}
-                    currency={{
-                        const: wallet.currency,
-                        availableBalance: wallet.availableBalance.toNumber(),
-                        minAmount: min_withdraw
-                    }}/>
+                    currencyData={wallet}
+                    minValue={min_withdraw}
+                />
             </div>
         </div>
         <div className="row">

@@ -6,6 +6,7 @@ import InputCurrency from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
 import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import Decimal from 'decimal.js';
 
 const TypeChoose = () => {
     const {
@@ -49,14 +50,26 @@ const TypeChoose = () => {
 
             <div className="wrapper w-full">
                 <InputCurrency
+                    value={amount}
+                    minValue={minAmount}
+                    currencyData={eurgWallet ? eurgWallet : {
+                        currency: $const.EURG,
+                        availableBalance: new Decimal(0),
+                        id: null,
+                        name: null,
+                        flags: null,
+                        minOrder: null,
+                        roundPrec: null,
+                        ordersPrec: null,
+                        lockOrders: null,
+                        decimalPrec: null,
+                        lockInBalance: null,
+                        lockOutBalance: null,
+                        defaultTokenNetworkIn: null,
+                        defaultTokenNetworkOut: null,
+                    }}
                     onChange={(target) => {
                         onAmountChange(+target);
-                    }}
-                    value={amount}
-                    currency={{
-                        const: $const.EURG,
-                        availableBalance: !eurgWallet.availableBalance ? 0 : eurgWallet.availableBalance.toNumber(),
-                        minAmount: minAmount
                     }}
                     header={(
                         <p className="text-gray-400 font-medium text-base md:text-sm sm:text-xs">

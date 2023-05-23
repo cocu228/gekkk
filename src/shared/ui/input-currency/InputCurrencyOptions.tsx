@@ -10,7 +10,7 @@ interface IParams {
     currencyData: ICtxCurrencyData,
     showWill: boolean,
     disabled: boolean,
-    value: string | number | Decimal,
+    value: string | number,
 }
 
 export default ({

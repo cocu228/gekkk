@@ -1,14 +1,11 @@
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {
-    apiTransactionInfo,
     apiUpdatePartnerInfo,
     IResHistoryTransactions
 } from "@/shared/api";
-import {formatForCustomer} from "@/shared/lib/date-helper";
 import Loader from "@/shared/ui/loader";
-import {actionResSuccess, asteriskText} from "@/shared/lib/helpers";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {

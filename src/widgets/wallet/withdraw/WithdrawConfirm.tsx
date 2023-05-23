@@ -46,7 +46,7 @@ const WithdrawConfirm = ({
                 handleCancel()
                 setRefresh()
             })
-            .reject(() => setError(response.data.error.message))
+            .reject(() => setError(response.data.error?.message))
 
         setLoading(false)
     }

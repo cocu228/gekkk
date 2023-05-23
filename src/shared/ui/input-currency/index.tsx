@@ -1,13 +1,12 @@
-import React from "react";
-import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import {TypeInputCurrency} from "@/shared/ui/input-currency/model/types";
-import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOptions"
+import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
+import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOptions";
 
-// TODO: Сделать правки в соответствии с новым контекстом CtxCurrencyData
 const InputCurrency = ({
     value,
     header,
-    currency,
+    currencyData,
+    minValue,
     onChange,
     disabled = false,
     showWill = false
@@ -16,17 +15,17 @@ const InputCurrency = ({
     return (
         <InputCurrencyOptions
             value={value}
-            currency={currency.const}
-            showWill={showWill}
             header={header}
+            currencyData={currencyData}
+            showWill={showWill}
             disabled={disabled}
-            availableBalance={currency.availableBalance}
         >
             <InputItemCurrency
-                currency={currency}
-                onChange={onChange}
                 value={value}
+                currencyData={currencyData}
+                onChange={onChange}
                 disabled={disabled}
+                minValue={minValue}
             />
         </InputCurrencyOptions>
     )

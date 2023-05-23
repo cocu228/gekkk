@@ -24,13 +24,13 @@ const CreateCode = ({handleCancel}) => {
 
     const infoModal = useModal()
 
-    const {currency, availableBalance} = useContext(CtxWalletData)
+    const wallet = useContext(CtxWalletData)
 
     const onCreateCode = async () => {
 
         setLoading(true)
         const typeTx = checkbox ? 12 : 11
-        const res = await apiCreateTxCode(new Decimal(input).toNumber(), currency, typeTx)
+        const res = await apiCreateTxCode(new Decimal(input).toNumber(), wallet.currency, typeTx)
 
         if (res.data.result?.code) {
             await getListTxCode()
@@ -61,10 +61,7 @@ const CreateCode = ({handleCancel}) => {
                         <InputCurrency
                             value={input}
                             disabled={loading} onChange={setInput}
-                            currency={{
-                                const: currency,
-                                availableBalance: availableBalance.toNumber() ?? 0
-                            }}
+                            currencyData={wallet}
                         />
                     </div>
                 </div>

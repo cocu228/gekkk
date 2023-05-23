@@ -43,6 +43,7 @@ const WithdrawConfirm = ({
 
         actionResSuccess(response)
             .success(() => {
+                handleCancel()
                 setRefresh()
             })
             .reject(() => setError(response.data.error.message))

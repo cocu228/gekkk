@@ -5,3 +5,6 @@ export const formatDateTime = (date: Date) =>
 
 export const formatDate = (date: Date) =>
     format(date, "MM.dd.yyyy");
+
+export const formatMonthYear = (date: Date) =>
+    format(date, "MM.yy");

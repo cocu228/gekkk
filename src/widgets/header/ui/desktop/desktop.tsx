@@ -1,21 +1,20 @@
-import styles from "./style.module.scss"
+import {Skeleton} from "antd";
+import styles from "./style.module.scss";
+import {useEffect, useState} from "react";
+import {IBankData} from "@/shared/api/bank";
 import {useAuth} from "@/app/providers/AuthRouter";
-import React, { useEffect, useState } from "react";
+import headerMenuList from "../../model/header-menu-list";
 import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
-import headerMenuList from "../../model/header-menu-list"
-import Button from "@/shared/ui/button/Button";
-import { IBankData, apiGetBankData } from "@/shared/api/bank";
-import { Skeleton } from "antd";
-import { storeBankData } from "@/shared/store/bank-data/bank-data";
+import {storeBankData} from "@/shared/store/bank-data/bank-data";
 
 const HeaderDesktop = () => {
 
     const {logout} = useAuth();
-    const getBankData = storeBankData(state => state.getBankData);
     const [bankData, setBankData] = useState<IBankData>(null);
+    const getBankData = storeBankData(state => state.getBankData);
 
     const onBtnLogout = () => {
-        logout()
+        logout();
     }
 
     useEffect(() => {
@@ -24,8 +23,8 @@ const HeaderDesktop = () => {
                 const data = await getBankData();
                 setBankData(data);
             }
-        })()
-    }, [])
+        })();
+    }, []);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -34,15 +33,15 @@ const HeaderDesktop = () => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
-            <HeaderMenu className={"ml-auto"} items={headerMenuList}>
+            <HeaderMenu className="ml-auto" items={headerMenuList}>
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                     </div>
                     <div className="wrapper">
-                        {!bankData ? <div className="flex flex-col gap-1">
-                            <Skeleton.Input className="mt-1" style={{height: 20}} active/>
-                            <Skeleton.Input style={{height: 16}} active/>
+                        {!bankData ? <div className="flex flex-col gap-2">
+                            <Skeleton.Input className="mt-1" style={{height: 14}} active/>
+                            <Skeleton.Input style={{height: 12}} active/>
                         </div> : <>
                             <div className="row">
                                 <span className="text-sm font-bold">ID: 208294110048</span>

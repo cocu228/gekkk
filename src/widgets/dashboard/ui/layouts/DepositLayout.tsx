@@ -4,7 +4,7 @@ import Card from "@/shared/ui/card/Card";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import DepositCard from "@/widgets/dashboard/ui/DepositCard";
+import DepositCard from "../cards/deposit-card/DepositCard";
 import { IResInvestments, apiInvestments } from "@/shared/api";
 import { formatDate, formatDateTime } from '../../model/helpers';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
@@ -44,7 +44,7 @@ function DepositLayout() {
 
             <CardsGrid>
                 {investments === null ? [1, 2, 3, 4].map((it, i) =>
-                    <Card key={"Card_" + i}>
+                    <Card key={"CARD_" + i}>
                         <Skeleton active />
                     </Card>
                 ) : (<>

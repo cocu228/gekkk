@@ -14,7 +14,7 @@ export const inputCurrencyValidation = (
             </span>
         default:
             return <span className="text-green md:text-xs">
-                {!(minAmount >= 0) ? null : `The minimum amount is ${minAmount}`}
+                {minAmount === null ? null : `The minimum amount is ${minAmount}`}
             </span>
     }
 }

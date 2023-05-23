@@ -11,6 +11,7 @@ import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
+import {CtxCurrencyData} from "@/app/CurrenciesContext";
 
 const WithdrawConfirm = ({
                              address,
@@ -25,9 +26,10 @@ const WithdrawConfirm = ({
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
     const {currency} = useContext(CtxWalletData)
+    const {setRefresh} = useContext(CtxCurrencyData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
-    const [success, setSuccess] = useState("")
+    const [error, setError] = useState(null)
     const {onInput} = useMask(MASK_CODE);
     const onConfirm = async () => {
 
@@ -35,17 +37,20 @@ const WithdrawConfirm = ({
 
         const sum = !!percent_fee ? calculateAmount(amount, percent_fee, "withPercentage") : new Decimal(amount).plus(withdraw_fee).toNumber()
         const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
+
         const response = await apiCreateWithdraw(currency, networkIdSelect, sum,
             fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)
-            .success(() => setSuccess("Done"))
-            .reject(() => setSuccess("Error"))
+            .success(() => {
+                setRefresh()
+            })
+            .reject(() => setError(response.data.error.message))
 
         setLoading(false)
     }
 
-    return loading ? <Loader/> : success !== "" ? <p>{success}</p> : <>
+    return loading ? <Loader/> : <>
         <div className="row mb-10">
             <div className="col">
                 <div className="p-4 bg-gray-300">
@@ -141,6 +146,9 @@ const WithdrawConfirm = ({
                 <div className="col">
                     <Button htmlType={"submit"} disabled={input === ""} className="w-full"
                             size={"xl"}>Confirm</Button>
+                </div>
+                <div className="col flex justify-center">
+                    {error ? <p className="text-red-800 text-fs12">{error}</p> : null}
                 </div>
             </div>
         </Form>

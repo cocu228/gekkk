@@ -1,17 +1,31 @@
 import styles from "./style.module.scss"
 import {useAuth} from "@/app/providers/AuthRouter";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
 import headerMenuList from "../../model/header-menu-list"
+import Button from "@/shared/ui/button/Button";
+import { IBankData, apiGetBankData } from "@/shared/api/bank";
+import { Skeleton } from "antd";
+import { storeBankData } from "@/shared/store/bank-data/bank-data";
 
 const HeaderDesktop = () => {
 
-    const {logout} = useAuth()
+    const {logout} = useAuth();
+    const getBankData = storeBankData(state => state.getBankData);
+    const [bankData, setBankData] = useState<IBankData>(null);
 
     const onBtnLogout = () => {
         logout()
     }
 
+    useEffect(() => {
+        (async function() {
+            if(!bankData){
+                const data = await getBankData();
+                setBankData(data);
+            }
+        })()
+    }, [])
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -26,17 +40,26 @@ const HeaderDesktop = () => {
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                     </div>
                     <div className="wrapper">
-                        <div className="row">
-                            <span className="text-sm font-bold">ID: 208294110048</span>
-                            <span>
-                                    <img className="inline-flex" src="/img/icon/DropdownTriangleIcon.svg"
-                                         alt="DropdownTriangleIcon"/>
+                        {!bankData ? <div className="flex flex-col gap-1">
+                            <Skeleton.Input className="mt-1" style={{height: 20}} active/>
+                            <Skeleton.Input style={{height: 16}} active/>
+                        </div> : <>
+                            <div className="row">
+                                <span className="text-sm font-bold">ID: 208294110048</span>
+                                <span>
+                                    <img
+                                        className="inline-flex"
+                                        src="/img/icon/DropdownTriangleIcon.svg"
+                                        alt="DropdownTriangleIcon"
+                                    />
                                 </span>
-                        </div>
-                        <div className="row text-start flex">
-                            <span
-                                className="text-xs text-start text-gray-400 font-bold leading-3">Alexandr Semikov</span>
-                        </div>
+                            </div>
+                            <div className="row text-start flex">
+                                <span className="text-xs text-start text-gray-400 font-bold leading-3">
+                                    {bankData.clientName}
+                                </span>
+                            </div>
+                        </>}
                     </div>
                 </div>
             </HeaderMenu>

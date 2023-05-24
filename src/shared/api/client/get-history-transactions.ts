@@ -15,11 +15,13 @@ export interface IResHistoryTransactions {
     "type_raw": number
 }
 
-export const apiHistoryTransactions = (start?: string, end?: string, currency?: string, tx_type?: number) =>
+export const apiHistoryTransactions = (start?: string | number, end?: string, currency?: string, tx_type?: number, from_tx_id?: number, limit?: number) =>
     $axios.get<$AxiosResponse<Array<IResHistoryTransactions>>>('/gek/v1/client/get_history_transactions', {
         params: {
             currency,
+            from_tx_id,
             tx_type,
+            limit,
             start,
             end
         }

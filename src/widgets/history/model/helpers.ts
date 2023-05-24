@@ -26,13 +26,13 @@ export const historyTabs: Array<HistoryTab> = [
     // },
     {
         Key: TabKey.YEAR,
-        Title: 'All transaction',
+        Title: 'last transactions',
         StartDate: formatForDisplay(subYears(new Date(), 1)),
         EndDate: formatForDisplay(new Date())
     },
     {
         Key: TabKey.CUSTOM,
-        Title: 'Custom period',
+        Title: 'custom period',
     }
 ];
 

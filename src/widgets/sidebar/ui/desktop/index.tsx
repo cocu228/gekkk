@@ -164,9 +164,9 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            {/*<NavCollapse header={"Current deposit"} id={"deposit"}>*/}
-            {/*    <p>Current deposit</p>*/}
-            {/*</NavCollapse>*/}
+            <NavCollapse header={"Current deposit"} id={"deposit"}>
+                <p>Current deposit</p>
+            </NavCollapse>
         </div>
         {!sm && !md && <Footer textAlight={"text-left"}/>}
     </div>;

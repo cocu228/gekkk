@@ -1,19 +1,25 @@
 import React from 'react';
 import {useState} from "react";
-import DepositLayout from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
-import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
-import History from "@/widgets/history/ui/History";
+import {useNavigate} from 'react-router-dom';
 import {randomId} from "@/shared/lib/helpers";
+import History from "@/widgets/history/ui/History";
 import PageHead from '@/shared/ui/page-head/PageHead';
-import { useNavigate } from 'react-router-dom';
+import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
+import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
+import DepositLayout from "@/widgets/dashboard/ui/layouts/DepositLayout";
+import AccountsLayout from '@/widgets/dashboard/ui/layouts/AccountsLayout';
 
 enum TabType {
+    ACCOUNTS,
+    CARDS,
     DEPOSIT,
     ASSETS,
     HISTORY
 };
 
 const TABS = [
+    {type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
+    {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
     {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
     {type: TabType.HISTORY, title: 'History', content: (
@@ -24,7 +30,7 @@ const TABS = [
 ];
 
 export default () => {
-    const [activeTab, setActiveTab] = useState<TabType>(TabType.DEPOSIT);
+    const [activeTab, setActiveTab] = useState<TabType>(TabType.ACCOUNTS);
     const navigate = useNavigate();
 
     const handleChangeTab = (tab: TabType) => (e: React.SyntheticEvent<HTMLButtonElement>) => {

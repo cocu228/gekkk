@@ -11,10 +11,10 @@ interface IProps {
 export const ParentClassForCoin = styles.ParentClassForCoin
 
 type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>
-export const IconCoin = ({code, className = "", width = 50, height = 50, extension = "svg"}: AtLeast<IProps, "code">) =>
+export const IconCoin = ({code, className = "", width, height = 50, extension = "svg"}: AtLeast<IProps, "code">) =>
     <img
         className={`${styles.Coin} ${className}`}
-        width={width}
+        width={width ?? height}
         height={height}
         src={`/img/tokens/${code?.toLowerCase().capitalize()}Icon.${extension}`}
         onError={({currentTarget}) => {

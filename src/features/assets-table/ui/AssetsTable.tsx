@@ -94,7 +94,7 @@ const AssetsTable = ({
                                     <GTCol className={`flex ${getAlignment(columnKeys, key)}`}>
                                         {key === AssetTableKeys.NAME && (
                                             <div className="flex items-center gap-3">
-                                                <IconCoin width={29} height={29} code={token.currency} />
+                                                <IconCoin height={29} className='max-h-[36px]' code={token.currency} />
                                                 <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
                                             </div>
                                         )}

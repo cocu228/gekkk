@@ -23,7 +23,7 @@ const {RangePicker} = DatePicker;
 
 function History({currency}: Partial<Props>) {
 
-    const {refreshKey} = useContext(CtxCurrencyData)
+    const {refreshKey} = useContext(CtxCurrencyData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     const {currencies} = useContext(CtxCurrencyData);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
@@ -143,7 +143,7 @@ function History({currency}: Partial<Props>) {
                                 <GTCol>
                                     <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
                                         <div
-                                            className={+item.type_raw === 3 && item.partner_info === "" ? "text-orange" : ""}>
+                                            className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
                                             {item.tx_type_text}
                                         </div>
                                     </div>

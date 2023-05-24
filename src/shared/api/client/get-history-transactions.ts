@@ -12,7 +12,7 @@ export interface IResHistoryTransactions {
     "balance": number,
     "partner_info": string,
     "tag": string,
-    "type_raw": number
+    "tx_type": number
 }
 
 export const apiHistoryTransactions = (start?: string | number, end?: string, currency?: string, tx_type?: number, from_tx_id?: number, limit?: number) =>

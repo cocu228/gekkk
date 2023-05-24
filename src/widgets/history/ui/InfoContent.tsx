@@ -13,8 +13,8 @@ const InfoContent = (props: TypeProps) => {
 
 
     const [state, setState] = useState<ITransactionInfo | null>(null)
-    const isNeedConfirm = props.type_raw === 3 && props.partner_info === ""
-    const isAvailableType = props.type_raw === 3 || props.type_raw === 4
+    const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
+    const isAvailableType = props.tx_type === 3 || props.tx_type === 4
 
     const loading = isNull(state) && isAvailableType
 
@@ -98,7 +98,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="text-gray-500 font-medium">Transaction:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">{state.explorerBaseAddress + state.txHash}</span>
+                    <a href={state.explorerBaseAddress + state.txHash} className="break-all font-medium underline">{state.explorerBaseAddress + state.txHash}</a>
                 </div>
             </div>
         </>}

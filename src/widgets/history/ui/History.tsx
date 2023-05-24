@@ -135,7 +135,7 @@ function History({currency}: Partial<Props>) {
                                 <GTCol>
                                     <div>
                                         <span className={item.is_income ? 'text-green' : 'text-black'}>
-                                            {!item.is_income && '– '}
+                                            {!item.is_income && '-'}
                                             {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
                                     </div>

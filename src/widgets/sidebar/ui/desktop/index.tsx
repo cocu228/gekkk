@@ -179,8 +179,8 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            <NavCollapse header={"Current deposit"} id={"deposit"}>
-                {investments && investments.map((item, i) =>
+            {!investments.length ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>
+                {investments.map((item, i) =>
                     <NavLink onClick={NavLinkEvent} to={`${item.dep_type}`} key={item.id}>
                         <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                             <div className="col flex items-center pl-4">
@@ -201,7 +201,7 @@ const SidebarDesktop = () => {
                             </div>
                         </div>
                     </NavLink>)}
-            </NavCollapse>
+            </NavCollapse>}
         </div>
         {!sm && !md && <Footer textAlight={"text-left"}/>}
     </div>;

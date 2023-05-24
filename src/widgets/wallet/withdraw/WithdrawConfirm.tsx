@@ -138,7 +138,7 @@ const WithdrawConfirm = ({
                       rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
-                       placeholder="Phone code"
+                       placeholder="Enter your pin"
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />

@@ -1,7 +1,7 @@
 import styles from './style.module.scss';
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from 'react-router-dom';
-import { getAlignment } from "../model/helpers";
+import { getAlignment, getAssetsRounding } from "../model/helpers";
 import { AssetTableKeys } from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import { evenOrOdd } from "@/shared/lib/helpers";
@@ -104,7 +104,9 @@ const AssetsTable = ({
                                         )}
 
                                         {key === AssetTableKeys.PRICE && (
-                                            <span>{rates ? rates[token.currency]?.toFixed(2) : 0.00} €</span>
+                                            <span>{!rates || rates[token.currency] === 0 ? 0.00 :
+                                                getAssetsRounding(rates[token.currency], token.roundPrec)
+                                            } €</span>
                                         )}
 
                                         {key === AssetTableKeys.ACTIONS && (

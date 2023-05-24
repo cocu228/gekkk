@@ -29,7 +29,7 @@ const SidebarDesktop = () => {
     const NavLinkEvent = useCallback(() => (sm || md) ? toggleSidebar.current(false) : null, [sm, md])
 
 
-    const [investments, setInvestments] = useState<IResInvestments[]>(null)
+    const [investments, setInvestments] = useState<IResInvestments[]>([])
 
     useEffect(() => {
 

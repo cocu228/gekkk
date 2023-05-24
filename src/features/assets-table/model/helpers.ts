@@ -4,7 +4,7 @@ export function getAlignment(array: Array<string>, key: string): string {
         'justify-center';
 }
 
-export const getAssetsRounding = (value: number, cents_round: number) =>
+export const getAssetsRounding = (value: number) =>
     value >= 1000 ? Math.round(value) :
     value >= 1 ? value.toFixed(2) :
     value.toFixed(Math.floor(-Math.log10(value)) + 1);

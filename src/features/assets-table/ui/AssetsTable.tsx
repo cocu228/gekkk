@@ -73,7 +73,7 @@ const AssetsTable = ({
                 />
             </div>
 
-            <div style={{ maxHeight: maxHeight }} className='mb-5'>
+            <div style={{ maxHeight: maxHeight }} className='mb-10'>
                 <GTable>
                     <GTHead>
                         <GTRow>
@@ -104,9 +104,8 @@ const AssetsTable = ({
                                         )}
 
                                         {key === AssetTableKeys.PRICE && (
-                                            <span>{!rates || rates[token.currency] === 0 ? 0.00 :
-                                                getAssetsRounding(rates[token.currency], token.roundPrec)
-                                            } €</span>
+                                            <span>{!rates || rates[token.currency] === 0 ? "—" :
+                                                `${getAssetsRounding(rates[token.currency])} €`}</span>
                                         )}
 
                                         {key === AssetTableKeys.ACTIONS && (

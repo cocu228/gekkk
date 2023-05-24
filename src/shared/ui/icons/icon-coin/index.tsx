@@ -20,7 +20,7 @@ export const IconCoin = ({code, className = "", width, height = 50, extension = 
         onError={({currentTarget}) => {
             if (currentTarget.getAttribute("data-icon") === "empty") return null
             currentTarget.setAttribute("data-icon", "empty")
-            currentTarget.src = "/img/icon/HelpIcon.svg"
+            currentTarget.src = `/img/tokens/${code?.toLowerCase().capitalize()}Icon.png`
             currentTarget.onerror = null
         }}
         alt={code}/>

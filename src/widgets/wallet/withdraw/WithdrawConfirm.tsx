@@ -119,7 +119,7 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-6">
             <div className="col">
-                <span>{percent_fee}</span>
+                <span>{withdraw_fee} {currency}</span>
             </div>
         </div>
         <div className="row mb-4">

@@ -25,4 +25,4 @@ export const formatForDisplay = (value: Date | string) => typeof value === "stri
 
 const timeZoneCustomer = Intl.DateTimeFormat().resolvedOptions().timeZone
 export const formatForTimeZone = (value) => utcToZonedTime(value, timeZoneCustomer)
-export const formatForCustomer = (value) => format(formatForTimeZone(new Date(value)), "dd MMMM yyyy HH:mm")
+export const formatForCustomer = (value) => format(formatForTimeZone(new Date(value)), "dd/MM/yy HH:mm")

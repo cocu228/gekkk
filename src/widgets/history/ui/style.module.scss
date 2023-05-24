@@ -1,3 +1,5 @@
+@import "@styles/mixins";
+
 .TableHead {
   background-color: #eeeff2;
   color: #282828;
@@ -6,6 +8,10 @@
   font-weight: 500;
   padding: 14px 20px 12px;
   align-items: center;
+
+  @include max-devices("md") {
+    font-size: 14px;
+  }
 }
 
 
@@ -32,6 +38,10 @@
     text-align: left;
     transition: .2s;
     width: 100%;
+
+    @include max-devices("md") {
+      font-size: 12px;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid #eff3f8;

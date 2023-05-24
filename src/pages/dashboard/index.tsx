@@ -5,6 +5,7 @@ import CryptoAssets from "@/widgets/dashboard/ui/CryptoAssets";
 import History from "@/widgets/history/ui/History";
 import {randomId} from "@/shared/lib/helpers";
 import PageHead from '@/shared/ui/page-head/PageHead';
+import { useNavigate } from 'react-router-dom';
 
 enum TabType {
     DEPOSIT,
@@ -24,6 +25,7 @@ const TABS = [
 
 export default () => {
     const [activeTab, setActiveTab] = useState<TabType>(TabType.DEPOSIT);
+    const navigate = useNavigate();
 
     const handleChangeTab = (tab: TabType) => (e: React.SyntheticEvent<HTMLButtonElement>) => {
         setActiveTab(tab);
@@ -33,7 +35,13 @@ export default () => {
         <div className="wrapper">
             <PageHead
                 title={"Personal account"}
-                subtitle={<>Open your <a className="underline hover:text-blue-400" href="#">fixed or crypto deposit</a></>}
+                subtitle={
+                    <>Open your <a
+                        className="underline hover:text-blue-400 hover:cursor-pointer"
+                        onClick={() =>navigate('/new-deposit')}
+                    >
+                        fixed or crypto deposit
+                    </a></>}
             />
 
             <div className="w-full">

@@ -7,7 +7,7 @@ interface AccoundData {
 }
 
 const BankAccount = ({iban, balance, currency}: AccoundData) => {
-    const formattedIBAN = iban.slice(0, 9) + '***' + iban.slice(-4);
+    const formattedIBAN = iban.slice(0, 10) + '***' + iban.slice(-4);
 
     return (
         <Card>

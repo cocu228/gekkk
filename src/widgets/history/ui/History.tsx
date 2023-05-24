@@ -16,49 +16,60 @@ import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
 import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxCurrencyData} from '@/app/CurrenciesContext';
-import Pagination from "@/shared/ui/pagination";
-import Decimal from "decimal.js";
+import {actionResSuccess} from "@/shared/lib/helpers";
+import Loader from "@/shared/ui/loader";
 
 const {RangePicker} = DatePicker;
 
 function History({currency}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxCurrencyData)
-
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-
     const {currencies} = useContext(CtxCurrencyData);
-
-    const [historyList, setHistoryList] = useState<IResHistoryTransactions[]>([]);
-
+    const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [lazyLoading, setLazyLoading] = useState(false);
+    const [allTxVisibly, setAllTxVisibly] = useState(false);
 
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-        // Дополнительная логика для обновления данных, связанных с новой страницей
-    };
-
     const requestHistory = async () => {
 
         setLoading(true)
+        setAllTxVisibly(false)
 
         const {
             StartDate: start = formatForDisplay(customDate[0].toDate()),
             EndDate: end = formatForDisplay(customDate[1].toDate())
         } = historyTabs.find(tab => tab.Key === activeTab);
 
-        const {data} = await apiHistoryTransactions(start.toString(), end.toString(), currency)
+        const response = await apiHistoryTransactions(start.toString(), end.toString(), currency, null, null, 10)
 
-        setHistoryList(data.result)
+        actionResSuccess(response).success(() => {
+            const {result} = response.data
+            setListHistory(result)
+        })
 
         setLoading(false)
 
 
+    }
+
+    const requestMoreHistory = async () => {
+
+        setLazyLoading(true)
+
+        const lastValue = listHistory[listHistory.length - 1];
+
+        const {data} = await apiHistoryTransactions(null, null, currency, null, lastValue.id_transaction, 10)
+        console.log(data.result.length)
+        if (data.result.length < 10) setAllTxVisibly(true)
+
+        setListHistory(prevState => ([...prevState, ...data.result]))
+
+        setLazyLoading(false)
     }
 
     useEffect(() => {
@@ -75,13 +86,6 @@ function History({currency}: Partial<Props>) {
             await requestHistory()
         })()
     }, [currency])
-
-    const totalPages = new Decimal(historyList.length).dividedToIntegerBy(10).toNumber()
-
-    const startIndex = new Decimal(currentPage).minus(1).times(10).toDecimalPlaces();
-
-    // Фильтруем массив данных в соответствии с выбранной страницей
-    const filteredData = historyList.slice(startIndex.toNumber(), startIndex.plus(10).toNumber());
 
     return (
         <div className="wrapper">
@@ -119,7 +123,7 @@ function History({currency}: Partial<Props>) {
                     </GTRow>
                 </GTHead>
                 <GTBody loading={loading} className={styles.TableBody}>
-                    {filteredData.length > 0 ? filteredData.map((item) => {
+                    {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
                             <GTRow className={styles.Row}>
                                 <GTCol>
@@ -153,12 +157,16 @@ function History({currency}: Partial<Props>) {
                     )}
                 </GTBody>
             </GTable>
-            <div className="row mt-3">
-                <div className="col">
-                    <Pagination onPageChange={handlePageChange} totalPages={totalPages}
-                                currentPage={currentPage}/>
+            {listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
+                <div className="col flex justify-center relative">
+                    {lazyLoading ? <Loader className={"w-[24px] h-[24px] top-[4px]"}/> :
+                        <span onClick={requestMoreHistory}
+                              className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
+                            className="ml-2" width={10} height={8}
+                            src="/img/icon/ArrowPlainDown.svg"
+                            alt="ArrowPlainDown"/></span>}
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }

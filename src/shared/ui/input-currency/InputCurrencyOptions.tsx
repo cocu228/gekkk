@@ -33,7 +33,7 @@ export default ({
     const onBtnClick = (percent: Decimal) => {
         const value = disabled ? null : percent.div(new Decimal(100)).mul(availableBalance);
 
-        return setPercent(new Decimal(percent.comparedTo(100) ? value :
+        return setPercent(new Decimal(!percent.comparedTo(100) ? value :
             value.toFixed(currencies.get(currency).roundPrec)
         ));
     }

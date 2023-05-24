@@ -45,7 +45,6 @@ const HeaderMenu = ({children, items, className = ""}) => {
 
     const handlerClick = (event) => {
         if (event?.action === "link") {
-            toggleActive(false)
             remEvent()
             navigation(event.value)
         } else if (event?.action === "logout") {

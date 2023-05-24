@@ -113,7 +113,7 @@ function History({currency}: Partial<Props>) {
             <GTable>
                 <GTHead className={styles.TableHead}>
                     <GTRow>
-                        {['Data', 'Flow of funds', 'Information'].map(label =>
+                        {['Data', 'Flow of funds', 'Type'].map(label =>
                             <GTCol className="text-start">
                                 <div className='ellipsis ellipsis-md' data-text={label}>
                                     <span>{label}</span>

@@ -10,7 +10,7 @@ import { formatDate, formatDateTime } from '../../model/helpers';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import StructedDepositStrategies from '@/shared/config/deposits/structed-strategies';
 
-function getTypeTitle(depType: number) {
+export function getTypeTitle(depType: number) {
     if (depType === 1)
         return 'Fixed rate strategy (0,8% per month)';
 

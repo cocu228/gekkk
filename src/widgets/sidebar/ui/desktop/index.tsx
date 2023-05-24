@@ -14,7 +14,7 @@ import UpdateAmounts from "../../../../features/update-amounts";
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {CtxCurrencyData} from "@/app/CurrenciesContext";
 import $const from "@/shared/config/coins/constants";
-import {getTypeTitle} from "@/widgets/dashboard/ui/deposit-layout/DepositLayout";
+import {getTypeTitle} from "@/widgets/dashboard/ui/layouts/DepositLayout";
 import {formatDate} from "@/widgets/dashboard/model/helpers";
 
 const SidebarDesktop = () => {

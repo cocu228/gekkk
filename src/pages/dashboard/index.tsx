@@ -30,7 +30,7 @@ const TABS = [
 ];
 
 export default () => {
-    const [activeTab, setActiveTab] = useState<TabType>(TabType.DEPOSIT);
+    const [activeTab, setActiveTab] = useState<TabType>(TabType.ACCOUNTS);
     const navigate = useNavigate();
 
     const handleChangeTab = (tab: TabType) => (e: React.SyntheticEvent<HTMLButtonElement>) => {

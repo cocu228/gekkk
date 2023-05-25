@@ -1,15 +1,15 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import Loader from "../../loader";
 import styles from "./style.module.scss";
 
 interface IParams {
-    className?: string;
-    children?: React.ReactNode;
-    loading?: boolean;
-    style?: React.CSSProperties;
+    className: string;
+    children: React.ReactNode;
+    loading: boolean;
+    style: React.CSSProperties;
 }
 
-export const GTBody: FC<IParams> = ({ children, className, loading, style }) => {
+const GTBody: FC<Partial<IParams>> = ({children, className, loading, style}) => {
     return (
         <div
             className={`grid ${className} ${styles.ItemsList}`}
@@ -21,3 +21,5 @@ export const GTBody: FC<IParams> = ({ children, className, loading, style }) => 
         </div>
     )
 }
+
+export default GTBody

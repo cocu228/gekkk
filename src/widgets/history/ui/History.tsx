@@ -9,11 +9,7 @@ import {historyTabs, getTabsAsRecord} from "../model/helpers";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
-import {GTable} from '@/shared/ui/grid-table/GTable';
-import {GTHead} from '@/shared/ui/grid-table/table-head/GTHead';
-import {GTRow} from '@/shared/ui/grid-table/table-row/GTRow';
-import {GTCol} from '@/shared/ui/grid-table/table-column/GTCol';
-import {GTBody} from '@/shared/ui/grid-table/table-body/GTBody';
+import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxCurrencyData} from '@/app/CurrenciesContext';
 import {actionResSuccess} from "@/shared/lib/helpers";
@@ -109,56 +105,56 @@ function History({currency}: Partial<Props>) {
                     </div>
                 </div>
             )}
-            
+
             <GTable>
-                <GTHead className={styles.TableHead}>
-                    <GTRow>
+                <GTable.Head className={styles.TableHead}>
+                    <GTable.Row>
                         {['Data', 'Flow of funds', 'Type'].map(label =>
-                            <GTCol className="text-start">
+                            <GTable.Col className="text-start">
                                 <div className='ellipsis ellipsis-md' data-text={label}>
                                     <span>{label}</span>
                                 </div>
-                            </GTCol>
+                            </GTable.Col>
                         )}
-                    </GTRow>
-                </GTHead>
-                <GTBody loading={loading} className={styles.TableBody}>
+                    </GTable.Row>
+                </GTable.Head>
+                <GTable.Body loading={loading} className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
-                            <GTRow cols={3} className={styles.Row}>
+                            <GTable.Row cols={3} className={styles.Row}>
                                 <TransactionInfo infoList={item}>
-                                    <GTCol>
+                                    <GTable.Col>
                                         <div className="ellipsis ellipsis-md">
                                             <a className="underline cursor-pointer">{formatForCustomer(item.datetime)}</a>
                                         </div>
-                                    </GTCol>
+                                    </GTable.Col>
 
-                                    <GTCol>
+                                    <GTable.Col>
                                         <div>
                                         <span className={item.is_income ? 'text-green' : 'text-red-800'}>
                                             {!item.is_income && '-'}
                                             {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
                                         </div>
-                                    </GTCol>
+                                    </GTable.Col>
 
-                                    <GTCol>
+                                    <GTable.Col>
                                         <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
                                             <div
                                                 className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
                                                 {item.tx_type_text}
                                             </div>
                                         </div>
-                                    </GTCol>
+                                    </GTable.Col>
                                 </TransactionInfo>
-                            </GTRow>
+                            </GTable.Row>
                         );
                     }) : (
                         <div className={styles.Row}>
                             <span>You don't have any transaction for this time.</span>
                         </div>
                     )}
-                </GTBody>
+                </GTable.Body>
             </GTable>
             {listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
                 <div className="col flex justify-center relative">

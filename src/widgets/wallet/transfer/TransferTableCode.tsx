@@ -1,11 +1,7 @@
 import styles from "@/widgets/wallet/transfer/style.module.scss";
-import {GTHead} from "@/shared/ui/grid-table/table-head/GTHead";
-import {GTRow} from "@/shared/ui/grid-table/table-row/GTRow";
-import {GTCol} from "@/shared/ui/grid-table/table-column/GTCol";
-import {GTBody} from "@/shared/ui/grid-table/table-body/GTBody";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import Button from "@/shared/ui/button/Button";
-import {GTable} from "@/shared/ui/grid-table/GTable";
+import GTable from "@/shared/ui/grid-table/";
 import React, {useContext, useEffect, useState} from "react";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
@@ -34,38 +30,38 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     console.log(listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner))
     return <GTable className={`${styles.Table}`}>
-        <GTHead className={styles.TableHead + " py-4"}>
-            <GTRow>
-                <GTCol className="text-left">
+        <GTable.Head className={styles.TableHead + " py-4"}>
+            <GTable.Row>
+                <GTable.Col className="text-left">
                     <div data-text={"Code"} className="col">
                         <span>Code</span>
                     </div>
-                </GTCol>
-                <GTCol>
+                </GTable.Col>
+                <GTable.Col>
                     <div data-text={"Amount"} className="col ellipsis ellipsis-md">
                         <span>Amount</span>
                     </div>
-                </GTCol>
-                <GTCol>
+                </GTable.Col>
+                <GTable.Col>
                     <div data-text={"Status"} className="col ellipsis ellipsis-md">
                         <span>Status</span>
                     </div>
-                </GTCol>
-                <GTCol>
+                </GTable.Col>
+                <GTable.Col>
                     <div data-text={"Action"} className="col">
                         <span>Action</span>
                     </div>
-                </GTCol>
-            </GTRow>
-        </GTHead>
-        <GTBody className={styles.TableBody}>
+                </GTable.Col>
+            </GTable.Row>
+        </GTable.Head>
+        <GTable.Body className={styles.TableBody}>
             {listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner).map(it => {
 
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 
-                return <GTRow
+                return <GTable.Row
                     className="px-4 py-3 gap-3">
-                    <GTCol>
+                    <GTable.Col>
                         <div className="row flex items-center">
                             <div className="col mr-2">
                                 <CodeModalInfo code={it.code}/>
@@ -80,26 +76,26 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
                             </div>
                         </div>
-                    </GTCol>
+                    </GTable.Col>
 
-                    <GTCol className="text-center">
+                    <GTable.Col className="text-center">
                         <span className="text-gra-600 text-xs">{it.amount}</span>
-                    </GTCol>
+                    </GTable.Col>
 
-                    <GTCol className="text-center">
+                    <GTable.Col className="text-center">
                                 <span className="text-gray-600 text-xs">
                                    {it.state}
                                 </span>
-                    </GTCol>
+                    </GTable.Col>
 
-                    <GTCol className="flex flex-wrap gap-2 justify-center">
+                    <GTable.Col className="flex flex-wrap gap-2 justify-center">
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
                             <CancelContent code={it.code}/>}
 
-                    </GTCol>
-                </GTRow>
+                    </GTable.Col>
+                </GTable.Row>
             })}
-        </GTBody>
+        </GTable.Body>
     </GTable>
 }
 

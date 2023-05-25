@@ -1,21 +1,17 @@
 import styles from './style.module.scss';
 import Input from "@/shared/ui/input/Input";
-import { useNavigate } from 'react-router-dom';
-import { getAlignment, getAssetsRounding } from "../model/helpers";
-import { AssetTableKeys } from "../model/types";
+import {useNavigate} from 'react-router-dom';
+import {getAlignment, getAssetsRounding} from "../model/helpers";
+import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
-import { evenOrOdd } from "@/shared/lib/helpers";
+import {evenOrOdd} from "@/shared/lib/helpers";
 import $const from "@/shared/config/coins/constants";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import { GTable } from '@/shared/ui/grid-table/GTable';
-import { IResMarketAsset, apiGetRates } from "@/shared/api";
-import { GTRow } from '@/shared/ui/grid-table/table-row/GTRow';
-import { useContext, useEffect, useMemo, useState } from "react";
-import { GTCol } from '@/shared/ui/grid-table/table-column/GTCol';
-import { GTHead } from '@/shared/ui/grid-table/table-head/GTHead';
-import { GTBody } from '@/shared/ui/grid-table/table-body/GTBody';
-import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { CtxCurrencyData, ICtxCurrencyData } from '@/app/CurrenciesContext';
+import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import GTable from '@/shared/ui/grid-table/';
+import {apiGetRates} from "@/shared/api";
+import {useContext, useEffect, useMemo, useState} from "react";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {CtxCurrencyData, ICtxCurrencyData} from '@/app/CurrenciesContext';
 
 interface IParams {
     columnKeys: Array<AssetTableKeys>,
@@ -75,26 +71,28 @@ const AssetsTable = ({
 
             <div style={{ maxHeight: maxHeight }} className='mb-10'>
                 <GTable>
-                    <GTHead>
-                        <GTRow>
+                    <GTable.Head>
+                        <GTable.Row>
                             {columnKeys.map((item: string) => (
-                                <GTCol className={`flex ${getAlignment(columnKeys, item)} my-2`}>
+                                <GTable.Col className={`flex ${getAlignment(columnKeys, item)} my-2`}>
                                     <span className="text-gray-400 font-medium">{item}</span>
-                                </GTCol>
+                                </GTable.Col>
                             ))}
-                        </GTRow>
-                    </GTHead>
-                    <GTBody loading={ratesLoading} className={`${styles.ItemsList} ${!ratesLoading && styles.Loaded}`} style={{ maxHeight: maxHeight }}>
+                        </GTable.Row>
+                    </GTable.Head>
+                    <GTable.Body loading={ratesLoading}
+                                 className={`${styles.ItemsList} ${!ratesLoading && styles.Loaded}`}
+                                 style={{maxHeight: maxHeight}}>
                         {filteredTokens.map((token, index) => (
-                            <GTRow
+                            <GTable.Row
                                 className={`grid ${styles.Item} ${!evenOrOdd(index) ? "bg-gray-main" : ""} min-h-[56px] md:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`}
                                 onClick={() => onSelect(token.currency)}
                             >
                                 {columnKeys.map((key: string) => (
-                                    <GTCol className={`flex ${getAlignment(columnKeys, key)}`}>
+                                    <GTable.Col className={`flex ${getAlignment(columnKeys, key)}`}>
                                         {key === AssetTableKeys.NAME && (
                                             <div className="flex items-center gap-3">
-                                                <IconCoin height={29} className='max-h-[36px]' code={token.currency} />
+                                                <IconCoin height={29} className='max-h-[36px]' code={token.currency}/>
                                                 <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
                                             </div>
                                         )}
@@ -119,11 +117,11 @@ const AssetsTable = ({
                                                 }}
                                             >Buy</Button>
                                         )}
-                                    </GTCol>
+                                    </GTable.Col>
                                 ))}
-                            </GTRow>
+                            </GTable.Row>
                         ))}
-                    </GTBody>
+                    </GTable.Body>
                 </GTable>
             </div>
 

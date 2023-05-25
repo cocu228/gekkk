@@ -7,10 +7,12 @@ interface IParams {
     hidden?: boolean;
 }
 
-export const GTCol: FC<IParams> = ({children, className = ""}) => {
+const GTCol: FC<IParams> = ({children, className = ""}) => {
     return (
         <div className={className}>
             {children}
         </div>
     )
 }
+
+export default GTCol

@@ -5,7 +5,7 @@ interface IParams {
     children?: React.ReactNode;
 }
 
-export const GTHead: FC<IParams> = ({children, className = ""}) => {
+const GTHead: FC<IParams> = ({children, className = ""}) => {
     return (
         <div
             className={`grid text-center ${className}`}
@@ -17,3 +17,5 @@ export const GTHead: FC<IParams> = ({children, className = ""}) => {
         </div>
     )
 }
+
+export default GTHead

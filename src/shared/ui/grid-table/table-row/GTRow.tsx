@@ -8,7 +8,7 @@ interface IParams {
     onClick: () => void;
 }
 
-export const GTRow: FC<Partial<IParams>> = ({children, className, onClick, cols = null}) => {
+const GTRow: FC<Partial<IParams>> = ({children, className, onClick, cols = null}) => {
 
     const gridTemplateColumns = cols ? `repeat(${cols}, minmax(0, 1fr))` : `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
 
@@ -24,3 +24,5 @@ export const GTRow: FC<Partial<IParams>> = ({children, className, onClick, cols 
         </div>
     )
 }
+
+export default GTRow

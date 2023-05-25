@@ -141,7 +141,7 @@ function History({currency}: Partial<Props>) {
                                     <GTable.Col>
                                         <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
                                             <div
-                                                className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
+                                                className={+item.tx_type === 3 ? "text-orange" : ""}>
                                                 {item.tx_type_text}
                                             </div>
                                         </div>

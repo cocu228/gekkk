@@ -6,6 +6,8 @@ import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";
 import {IResHistoryTransactions} from "@/shared/api";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
+import InputCopy from "@/shared/ui/input-copy/InputCopy";
+import useError from "@/shared/model/hooks/useError";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
@@ -18,6 +20,8 @@ const InfoContent = (props: TypeProps) => {
 
     const loading = isNull(state) && isAvailableType
 
+    const [localErrorHunter, , localErrorInfoBox] = useError()
+
     useEffect(() => {
 
         if (isAvailableType) {
@@ -28,14 +32,14 @@ const InfoContent = (props: TypeProps) => {
 
                 actionResSuccess(response)
                     .success(() => setState(response.data.result))
-                    .reject(() => props.handleCancel())
+                    .reject(localErrorHunter)
 
             })()
         }
 
     }, [props.id_transaction])
 
-    return loading ? <Loader/> : <>
+    return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col">
                 <span className="text-gray-500 font-medium">Date:</span>
@@ -65,16 +69,18 @@ const InfoContent = (props: TypeProps) => {
                 <div className="col">
                     <span className="text-gray-500 font-medium">Address from:</span>
                 </div>
-                <div className="col">
+                <div className="col flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
+                    <InputCopy value={state.addressFrom} onlyIcon/>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
                 </div>
-                <div className="col w-auto">
+                <div className="col w-auto flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
+                    <InputCopy value={state.addressTo} onlyIcon/>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
@@ -98,7 +104,8 @@ const InfoContent = (props: TypeProps) => {
                     <span className="text-gray-500 font-medium">Transaction:</span>
                 </div>
                 <div className="col w-auto">
-                    <a href={state.explorerBaseAddress + state.txHash} className="break-all font-medium underline">{state.explorerBaseAddress + state.txHash}</a>
+                    <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
+                       className="break-all font-medium underline">transaction hash</a>
                 </div>
             </div>
         </>}
@@ -110,14 +117,16 @@ const InfoContent = (props: TypeProps) => {
                 <span className="break-all font-medium">{props.amount}</span>
             </div>
         </div>
-        {isNeedConfirm ? <InfoConfirmPartner {...props}/> : <div className="row mb-4 flex flex-wrap gap-2">
-            <div className="col w-auto">
-                <span className="text-gray-500 font-medium">Sender name:</span>
-            </div>
-            <div className="col w-auto">
-                <span className="break-all font-medium">{props.partner_info}</span>
-            </div>
-        </div>}
+        {isNeedConfirm ? <InfoConfirmPartner {...props}/> : props.partner_info !== "" &&
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Sender name:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{props.partner_info}</span>
+                </div>
+            </div>}
+    </>}
     </>
 }
 

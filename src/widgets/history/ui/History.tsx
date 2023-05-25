@@ -6,7 +6,7 @@ import {DatePicker} from 'antd';
 import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
 import {historyTabs, getTabsAsRecord} from "../model/helpers";
-import {formatForDisplay} from "@/shared/lib/date-helper";
+import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import {GTable} from '@/shared/ui/grid-table/GTable';
@@ -125,30 +125,32 @@ function History({currency}: Partial<Props>) {
                 <GTBody loading={loading} className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
-                            <GTRow className={styles.Row}>
-                                <GTCol>
-                                    <div className="ellipsis ellipsis-md">
-                                        <TransactionInfo {...item}/>
-                                    </div>
-                                </GTCol>
+                            <GTRow cols={3} className={styles.Row}>
+                                <TransactionInfo infoList={item}>
+                                    <GTCol>
+                                        <div className="ellipsis ellipsis-md">
+                                            <a className="underline cursor-pointer">{formatForCustomer(item.datetime)}</a>
+                                        </div>
+                                    </GTCol>
 
-                                <GTCol>
-                                    <div>
+                                    <GTCol>
+                                        <div>
                                         <span className={item.is_income ? 'text-green' : 'text-red-800'}>
                                             {!item.is_income && '-'}
                                             {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
-                                    </div>
-                                </GTCol>
-
-                                <GTCol>
-                                    <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
-                                        <div
-                                            className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
-                                            {item.tx_type_text}
                                         </div>
-                                    </div>
-                                </GTCol>
+                                    </GTCol>
+
+                                    <GTCol>
+                                        <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
+                                            <div
+                                                className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
+                                                {item.tx_type_text}
+                                            </div>
+                                        </div>
+                                    </GTCol>
+                                </TransactionInfo>
                             </GTRow>
                         );
                     }) : (

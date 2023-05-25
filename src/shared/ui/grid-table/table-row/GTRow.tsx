@@ -2,18 +2,22 @@ import React from "react";
 import {FC} from "react";
 
 interface IParams {
-    className?: string;
-    children?: React.ReactNode;
-    onClick?: () => void;
+    className: string;
+    children: React.ReactNode;
+    cols: number;
+    onClick: () => void;
 }
 
-export const GTRow: FC<IParams> = ({ children, className, onClick }) => {
+export const GTRow: FC<Partial<IParams>> = ({children, className, onClick, cols = null}) => {
+
+    const gridTemplateColumns = cols ? `repeat(${cols}, minmax(0, 1fr))` : `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
+
     return (
         <div
             onClick={onClick}
             className={`grid ${className} items-center`}
             style={{
-                gridTemplateColumns: `repeat(${React.Children.toArray(children).length}, minmax(0, 1fr))`
+                gridTemplateColumns
             }}
         >
             {children}

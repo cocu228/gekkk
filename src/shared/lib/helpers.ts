@@ -61,7 +61,7 @@ export const actionResSuccess = function (response) {
                 console.warn("Response error")
                 return {
                     reject: (val) => {
-                        return val(this?.reject)
+                        return val(response.data.error)
                     }
                 }
             }

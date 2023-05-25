@@ -1,21 +1,25 @@
 import useModal from "@/shared/model/hooks/useModal";
-import {formatForCustomer} from "@/shared/lib/date-helper";
+import React from "react";
 import Modal from "@/shared/ui/modal/Modal";
-import {InfoConfirmPartner} from "@/widgets/history/ui/InfoConfirmPartner";
 import InfoContent from "@/widgets/history/ui/InfoContent";
 import {IResHistoryTransactions} from "@/shared/api";
 
-const TransactionInfo = (props: IResHistoryTransactions) => {
+
+type TypeProps = {
+    children: React.ReactNode,
+    infoList: IResHistoryTransactions
+}
+const TransactionInfo = ({children, infoList}: TypeProps) => {
 
     const {isModalOpen, showModal, handleCancel} = useModal();
-    const dataCustomer = formatForCustomer(props.datetime);
 
     return <>
-        <a className="underline cursor-pointer" onClick={showModal}>{dataCustomer}</a>
+        {children}
         <Modal width={450} title="Transaction info" onCancel={handleCancel}
                open={isModalOpen}>
-                <InfoContent handleCancel={handleCancel} {...props}/>
+            <InfoContent handleCancel={handleCancel} {...infoList}/>
         </Modal>
+        <a className="absolute top-0 bottom-0 w-full left-0 cursor-pointer" onClick={showModal}> </a>
     </>
 }
 

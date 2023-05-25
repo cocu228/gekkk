@@ -12,6 +12,8 @@ import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import CancelContent from "@/widgets/wallet/transfer/CancelContent";
 import {apiApplyTxCode} from "@/shared/api";
 import Loader from "@/shared/ui/loader";
+import {actionResSuccess} from "@/shared/lib/helpers";
+import useError from "@/shared/model/hooks/useError";
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
@@ -28,7 +30,6 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     }, [currency])
 
 
-    console.log(listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner))
     return <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead + " py-4"}>
             <GTable.Row>
@@ -102,6 +103,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 const CodeModalInfo = ({code}) => {
 
     const {showModal, isModalOpen, handleCancel} = useModal()
+
     return <>
         <span onClick={showModal}
               className="text-gra-600 font-bold break-all cursor-pointer">{code}</span>
@@ -114,13 +116,17 @@ const CodeModalInfo = ({code}) => {
 }
 
 const CodeModalConfirm = ({code, amount, currency}) => {
+
     const [loading, setLoading] = useState(false)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+
     const onBtnConfirm = async (code) => {
         setLoading(true)
         const response = await apiApplyTxCode(code)
+
+        actionResSuccess(response).success(async () => await getListTxCode()).reject(localErrorHunter)
         showModal()
-        getListTxCode()
         setLoading(false)
     }
 
@@ -133,7 +139,7 @@ const CodeModalConfirm = ({code, amount, currency}) => {
 
         <Modal title={"The code confirmed"} open={isModalOpen}
                onCancel={handleCancel}>
-            <>
+            {localErrorInfoBox ? localErrorInfoBox : <>
                 <div className="row mb-6">
                     <div className="col">
                         <p className="text-sm">You made a transfer in the amount of:</p>
@@ -151,7 +157,7 @@ const CodeModalConfirm = ({code, amount, currency}) => {
                         }}>Done</Button>
                     </div>
                 </div>
-            </>
+            </>}
         </Modal>
     </>
 }

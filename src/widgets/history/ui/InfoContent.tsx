@@ -114,7 +114,7 @@ const InfoContent = (props: TypeProps) => {
                 </div>
                 <div className="col w-auto">
                     <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
-                       className="break-all font-medium underline">transaction hash</a>
+                       className="break-all font-medium underline">{state.explorerBaseAddress + state.txHash}</a>
                 </div>
             </div>
         </>}

@@ -30,6 +30,9 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     }, [currency])
 
 
+    const filteredListTxCode = listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner)
+
+
     return <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead + " py-4"}>
             <GTable.Row>
@@ -56,7 +59,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
-            {listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner).map(it => {
+            {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
 
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 
@@ -95,7 +98,9 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
                     </GTable.Col>
                 </GTable.Row>
-            })}
+            }) : <div className={styles.Row}>
+                <span>You don't have any transaction codes for this time.</span>
+            </div>}
         </GTable.Body>
     </GTable>
 }

@@ -1,4 +1,4 @@
-import GTable from './GTable';
+import GTable from './table/GTable';
 
 export {default as GTCol} from './table-column/GTCol';
 export {default as GTRow} from './table-row/GTRow';

@@ -60,7 +60,6 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
             {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
-
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 
                 return <GTable.Row
@@ -99,7 +98,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     </GTable.Col>
                 </GTable.Row>
             }) : <div className={styles.Row}>
-                <span>You don't have any transaction codes for this time.</span>
+                <span>You don't have any transfer codes for this time.</span>
             </div>}
         </GTable.Body>
     </GTable>

@@ -50,6 +50,15 @@ const InfoContent = (props: TypeProps) => {
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
+                <span className="text-gray-500 font-medium">Transaction ID:</span>
+            </div>
+            <div className="col w-auto font-medium flex items-center">
+                <span>{props.id_transaction}</span>
+                <InputCopy value={props.id_transaction} onlyIcon/>
+            </div>
+        </div>
+        <div className="row mb-4 flex flex-wrap gap-2">
+            <div className="col w-auto">
                 <span className="text-gray-500 font-medium">Transaction type:</span>
             </div>
             <div className="col w-auto font-medium">

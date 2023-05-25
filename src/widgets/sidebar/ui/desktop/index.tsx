@@ -143,8 +143,9 @@ const SidebarDesktop = () => {
                                     <div className="row w-full"><span
                                         className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
                                     </div>
-                                    <div className="row w-full"><span
-                                        className="text-gray-400 text-sm">{`${item.lockInBalance} (hold)`}</span>
+                                    <div className="row w-full">
+                                        {item.lockInBalance !== 0 ? <span
+                                            className="text-gray-400 text-fs12">{`lock in: ${item.lockInBalance}`}</span> : null}
                                     </div>
                                 </div>
                             </div>

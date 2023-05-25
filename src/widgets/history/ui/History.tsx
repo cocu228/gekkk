@@ -125,13 +125,13 @@ function History({currency}: Partial<Props>) {
                                 <TransactionInfo infoList={item}>
                                     <GTable.Col>
                                         <div className="ellipsis ellipsis-md">
-                                            <a className="underline cursor-pointer">{formatForCustomer(item.datetime)}</a>
+                                            <span className="">{formatForCustomer(item.datetime)}</span>
                                         </div>
                                     </GTable.Col>
 
                                     <GTable.Col>
                                         <div>
-                                        <span className={item.is_income ? 'text-green' : 'text-red-800'}>
+                                        <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                             {!item.is_income && '-'}
                                             {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>

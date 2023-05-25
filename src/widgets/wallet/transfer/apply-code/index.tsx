@@ -10,6 +10,8 @@ import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {IResCodeTxInfo} from "@/widgets/wallet/transfer/api/code-tx-info";
 import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import {actionResSuccess} from "@/shared/lib/helpers";
+import useError from "@/shared/model/hooks/useError";
 
 const ApplyCode = () => {
 
@@ -20,8 +22,12 @@ const ApplyCode = () => {
     const [loading, setLoading] = useState(false)
     const [infoCode, setInfoCode] = useState<IResCodeTxInfo>(null)
 
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+
     useEffect(() => {
-        if (infoCode) {
+
+        if (!!infoCode || localIndicatorError) {
+            localErrorClear()
             setInfoCode(null)
         }
     }, [isModalOpen])
@@ -32,10 +38,15 @@ const ApplyCode = () => {
 
         const response = await apiApplyTxCode(input)
 
-        if (response.data.result !== null) {
+        actionResSuccess(response).success(async () => {
             setRefresh()
+            handleCancel()
+            setInput("")
             await getListTxCode()
-        }
+        }).reject((error) => {
+            localErrorHunter(error)
+        })
+
 
         setLoading(false)
 
@@ -57,7 +68,9 @@ const ApplyCode = () => {
 
                     <Modal title={infoCode ? "The code applied successfully" : "Transfer code info"}
                            onCancel={handleCancel} open={isModalOpen}>
-                        {loading ? <Loader/> : !infoCode ? <CodeTxInfo code={input} onBtnApply={onBtnApply}/> :
+
+                        {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : !infoCode ?
+                            <CodeTxInfo code={input} onBtnApply={onBtnApply}/> :
                             <>
                                 <div className="row mb-6">
                                     <div className="col">

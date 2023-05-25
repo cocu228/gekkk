@@ -1,23 +1,36 @@
 import React, {useState} from "react";
 import {$AxiosError} from "@/shared/lib/(cs)axios";
 
-const useError = () => {
+export type TypeUseError = [
+    localErrorHunter: (e: $AxiosError) => void,
+    localErrorSpan: JSX.Element | null,
+    localErrorInfoBox: JSX.Element | null,
+    localErrorClear: () => void,
+    localIndicatorError: boolean,
+]
+
+const useError = (): TypeUseError => {
 
     const [errorMessage, setIsModalOpen] = useState<string | null>(null);
-
-    const localErrorHunter: (e: $AxiosError) => void = (error: $AxiosError) => {
+    const localErrorHunter: TypeUseError[0] = (error: $AxiosError) => {
         setIsModalOpen(error.message);
     };
+    const localErrorClear: TypeUseError[3] = () => {
+        setIsModalOpen(null);
+    };
 
-    const localErrorSpan: JSX.Element | null = errorMessage &&
+    const localErrorSpan: TypeUseError[1] = errorMessage &&
         <span className="text-fs12 text-red-800">{errorMessage}</span>
 
-    const localErrorInfoBox: JSX.Element | null = errorMessage && <div className="info-box-warning">
-        <span className="text-gray-500 font-medium">{errorMessage}</span>
+    const localErrorInfoBox: TypeUseError[2] = errorMessage && <div className="info-box-warning">
+        <span className="text-orange font-medium">{errorMessage}</span>
     </div>
 
 
-    return [localErrorHunter, localErrorSpan, localErrorInfoBox]
+    const localIndicatorError: TypeUseError[4] = errorMessage !== null
+
+
+    return [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError]
 };
 
 export default useError

@@ -50,7 +50,7 @@ export const actionResSuccess = function (response) {
 
                 return {
                     reject: (val) => {
-                        return true
+                        return val({message: null, code: null, id: null})
                     }
                 }
             }

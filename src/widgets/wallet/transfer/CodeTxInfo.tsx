@@ -4,11 +4,13 @@ import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
 import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import Button from "@/shared/ui/button/Button";
+import useError from "@/shared/model/hooks/useError";
+import {actionResSuccess} from "@/shared/lib/helpers";
 
 const CodeTxInfo = ({code, onBtnApply = null}) => {
 
     const [infoCode, setInfoCode] = useState<IResCodeTxInfo | null>(null)
-    const [error, setError] = useState<string | null>(null)
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const [loading, setLoading] = useState(true)
 
@@ -16,11 +18,10 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
         (async () => {
             const response = await apiCodeTxInfo(code)
 
-            if (response.data.result) {
+
+            actionResSuccess(response).success(() => {
                 setInfoCode(response.data.result)
-            } else {
-                setError(response.data.error?.message)
-            }
+            }).reject(localErrorHunter)
 
             setLoading(false)
 
@@ -28,7 +29,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
     }, [])
 
     return <>
-        {error !== null ? <p>{error}</p> : loading ? <Loader/> : <>
+        {localErrorSpan ? localErrorSpan : loading ? <Loader/> : <>
             <div className="row mb-8">
                 <div className="col">
                     <div className="info-box-note -mx-14 w-auto">

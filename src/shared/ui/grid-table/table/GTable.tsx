@@ -1,13 +1,14 @@
 import React, {FC} from "react";
-
+import scss from "./style.module.scss"
 import GTCol from '@/shared/ui/grid-table/table-column/GTCol';
 import GTRow from "@/shared/ui/grid-table/table-row/GTRow";
 import GTBody from "@/shared/ui/grid-table/table-body/GTBody";
 import GTHead from "@/shared/ui/grid-table/table-head/GTHead";
 
 interface IParams {
-    className?: string;
     children: React.ReactNode;
+    className?: string;
+    mobileScaleText?: boolean;
     style?: React.CSSProperties;
 }
 
@@ -16,9 +17,12 @@ const GTable: FC<IParams> & {
     Row: typeof GTRow;
     Col: typeof GTCol;
     Head: typeof GTHead;
-} = ({children, style, className}) => {
+} = ({children, style, className = "", mobileScaleText = false}) => {
+
+    const classes = "grid " + className + " " + (mobileScaleText ? scss.MobileScaleText : "")
+
     return (
-        <div style={style} className={`grid ${className}`}>
+        <div style={style} className={classes}>
             {children}
         </div>
     )

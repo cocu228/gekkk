@@ -114,7 +114,7 @@ const InfoContent = (props: TypeProps) => {
                 </div>
                 <div className="col w-auto flex items-center">
                     <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
-                       className="break-all font-medium underline">{asteriskText(state.explorerBaseAddress + state.txHash)}</a>
+                       className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
                     <InputCopy value={state.txHash} onlyIcon/>
                 </div>
             </div>

@@ -8,9 +8,14 @@ import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
 import useModal from "@/shared/model/hooks/useModal";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
+import { storeBankData } from '@/shared/store/bank-data/bank-data';
+import Loader from '@/shared/ui/loader';
+import { ICtxCurrencyData } from '@/app/CurrenciesContext';
+import Decimal from 'decimal.js';
 
 const GekkardAccount = () => {
 
+    const bankData = storeBankData(state => state.bankData)
     const wallet = useContext(CtxWalletData)
     const [input, setInput] = useState(null)
     const {isModalOpen, showModal, handleCancel} = useModal()
@@ -19,6 +24,13 @@ const GekkardAccount = () => {
         min_withdraw = null,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+    if (!bankData) return <Loader/>
+
+    const ibanBalanceWallet: ICtxCurrencyData = {
+        ...wallet,
+        availableBalance: new Decimal(bankData.accounts[0].balance)
+    }
 
     const onClick = () => {
 
@@ -38,7 +50,7 @@ const GekkardAccount = () => {
                 <InputCurrency
                     value={input}
                     onChange={setInput}
-                    currencyData={wallet}
+                    currencyData={ibanBalanceWallet}
                     minValue={min_withdraw}
                 />
             </div>
@@ -46,7 +58,7 @@ const GekkardAccount = () => {
         <div className="row">
             <div className="col">
 
-                <Button onClick={showModal} className="w-full" size={"xl"}>Buy EURG</Button>
+                <Button onClick={showModal} className="w-full mt-5" size={"xl"}>Buy EURG</Button>
                 <Modal width={450} title="Withdraw confirmation" onCancel={handleCancel}
                        open={isModalOpen}>
                     <WithdrawConfirmBank amount={input} handleCancel={handleCancel} withdraw_fee={min_withdraw}/>

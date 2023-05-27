@@ -27,8 +27,8 @@ export const historyTabs: Array<HistoryTab> = [
     {
         Key: TabKey.YEAR,
         Title: 'last transactions',
-        StartDate: formatForDisplay(subYears(new Date(), 1)),
-        EndDate: formatForDisplay(new Date())
+        StartDate:"",
+        EndDate: ""
     },
     {
         Key: TabKey.CUSTOM,

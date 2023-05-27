@@ -29,7 +29,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
     }, [])
 
     return <>
-        {localErrorSpan ? localErrorSpan : loading ? <Loader/> : <>
+        {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
             <div className="row mb-8">
                 <div className="col">
                     <div className="info-box-note -mx-14 w-auto">

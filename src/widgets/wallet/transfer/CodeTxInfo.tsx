@@ -57,7 +57,7 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400">Amount:</span>
+                                    <span className="text-gray-400 mr-2">Amount:</span>
                                 </div>
                                 <div className="col">
                                     <span className="text-green text-right">{infoCode.amount} {infoCode.currency}</span>
@@ -67,10 +67,10 @@ const CodeTxInfo = ({code, onBtnApply = null}) => {
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400">Confirmation:</span>
+                                    <span className="text-gray-400 mr-2">Confirmation:</span>
                                 </div>
                                 <div className="col">
-                                    <span>{infoCode.stateCode === 1 ? "not used" : "used"}</span>
+                                    <span>{infoCode.typeTx === 12 ? "used" : "not used"}</span>
                                 </div>
                             </div>
                         </div>

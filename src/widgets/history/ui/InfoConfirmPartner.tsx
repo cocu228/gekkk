@@ -37,7 +37,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     }
 
 
-    return <div className="row min-h-[120px] relative font-medium mb-14">
+    return <div className="row relative font-medium">
         {loading ? <Loader/> : partnerInfo === null ? <div className="col">
             <div className="row mb-2">
                 <div className="col w-auto">
@@ -55,7 +55,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         </div> : localErrorInfoBox ? localErrorInfoBox : <div className="col">
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-green font-medium">Sender name:</span>
+                    <span className="text-gray-500 font-medium">Sender name:</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{input}</span>
@@ -64,7 +64,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
             <div className="row flex gap-3">
                 <div className="col w-full">
                     <Button onClick={confirmPartnerInfo} size={"xl"}
-                            className="w-full">Confirm</Button>
+                            className="w-full !font-medium">Confirm</Button>
                 </div>
             </div>
         </div>}

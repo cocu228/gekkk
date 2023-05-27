@@ -8,7 +8,7 @@ import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 
-const CancelContent = ({code}) => {
+const CancelContent = ({code, amount, confirm, currency}) => {
 
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [loading, setLoading] = useState(false)
@@ -56,8 +56,35 @@ const CancelContent = ({code}) => {
                         <span className="font-medium text-lg">{code}</span>
                     </div>
                 </div>
+                <div className="row mb-7">
+                    <div className="col">
+                        <div className="row mb-4 w-full flex">
+                            <div className="col w-1/2">
+                                <div className="row flex">
+                                    <div className="col">
+                                        <span className="text-gray-400 mr-2">Amount:</span>
+                                    </div>
+                                    <div className="col">
+                                        <span
+                                            className="text-green text-right">{amount} {currency}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col w-1/2">
+                                <div className="row flex">
+                                    <div className="col">
+                                        <span className="text-gray-400 mr-2">Confirmation:</span>
+                                    </div>
+                                    <div className="col">
+                                        <span>{confirm ? "used" : "not used"}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
-                    <Button className="w-full" size="xl" onClick={onBtnCancel}>Confirm
+                    <Button className="w-full" size="xl" onClick={onBtnCancel}>Delete this code
                     </Button>
                 </div>
             </div>}

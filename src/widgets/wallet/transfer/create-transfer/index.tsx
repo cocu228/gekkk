@@ -11,7 +11,7 @@ const CreateTransferCode = () => {
     return <>
         <div className="row mb-5">
             <Button onClick={showModal} size={"xl"} className="w-full !font-medium">Create transfer code...</Button>
-            <Modal onCancel={handleCancel} open={isModalOpen}>
+            <Modal onCancel={handleCancel} title={"Creation transfer code"} open={isModalOpen}>
                 <CreateCode/>
             </Modal>
         </div>

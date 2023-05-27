@@ -93,7 +93,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
                     <GTable.Col className="flex flex-wrap gap-2 justify-center">
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
-                            <CancelContent code={it.code}/>}
+                            <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
 
                     </GTable.Col>
                 </GTable.Row>

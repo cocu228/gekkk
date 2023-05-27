@@ -124,17 +124,28 @@ const CodeModalConfirm = ({code, amount, currency}) => {
     const [loading, setLoading] = useState(false)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-
+    const [success, setSuccess] = useState(null)
+    const {showModal, isModalOpen, handleCancel} = useModal()
     const onBtnConfirm = async (code) => {
         setLoading(true)
         const response = await apiApplyTxCode(code)
 
-        actionResSuccess(response).success(async () => await getListTxCode()).reject(localErrorHunter)
+        actionResSuccess(response).success(async () => setSuccess(true)).reject(localErrorHunter)
+
         showModal()
+
         setLoading(false)
     }
 
-    const {showModal, isModalOpen, handleCancel} = useModal()
+    useEffect(() => {
+
+        if (success && !isModalOpen) {
+            (async () => {
+                await getListTxCode()
+            })()
+        }
+
+    }, [isModalOpen])
 
     return <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
@@ -144,14 +155,14 @@ const CodeModalConfirm = ({code, amount, currency}) => {
         <Modal title={"The code confirmed"} open={isModalOpen}
                onCancel={handleCancel}>
             {localErrorInfoBox ? localErrorInfoBox : <>
-                <div className="row mb-6">
+                <div className="row mb-8 mt-2">
                     <div className="col">
                         <p className="text-sm">You made a transfer in the amount of:</p>
                     </div>
                 </div>
-                <div className="row mb-12">
+                <div className="row mb-8">
                     <div className="col">
-                        <p className="text-xl text-green">{amount} {currency}</p>
+                        <p className="text-xl">{amount} {currency}</p>
                     </div>
                 </div>
                 <div className="row">

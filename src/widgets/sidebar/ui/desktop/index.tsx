@@ -91,7 +91,8 @@ const SidebarDesktop = () => {
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Europe</span>
+                        <div className="row text-gray-400 w-full mb-1"><span
+                            className={styles.Name}>Gekkoin Europe</span>
                         </div>
                         <div className="row w-full">
                             <span
@@ -132,7 +133,7 @@ const SidebarDesktop = () => {
                     {helperFilterList(secondaryWallets).map((item, i) =>
                         <NavLink onClick={NavLinkEvent} to={`wallet/${item.currency}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                                <div className="col flex items-center pl-4">
+                                <div className="col flex items-center pl-4 w-[85px]">
                                     <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                     <IconCoin className={styles.Icon}
                                               code={item.currency}/>
@@ -184,20 +185,20 @@ const SidebarDesktop = () => {
                 {investments.map((item, i) =>
                     <NavLink onClick={NavLinkEvent} to={`${item.dep_type}`} key={item.id}>
                         <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                            <div className="col flex items-center pl-4">
+                            <div className="col flex items-center pl-4 w-[85px]">
                                 <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
                                 <img alt={"DepositIcon.svg"} className={styles.Icon}
                                      src={"/img/icon/DepositIcon.svg"}/>
                             </div>
-                            <div className="col flex items-center justify-center flex-col pl-6">
+                            <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">
                                 <div className="row w-full mb-1"><span
                                     className={`${styles.Name} text-gray-400 text-xs`}>Structured deposit, until {formatDate(new Date(item.date_end))}</span>
                                 </div>
                                 <div className="row w-full"><span
                                     className={styles.Sum}>{item.amount} €</span>
                                 </div>
-                                <div className="row w-full"><span
-                                    className="text-gray-400 text-sm">{getTypeTitle(item.dep_type)}</span>
+                                <div className="row w-full ellipsis ellipsis-c-none">
+                                    <span className="text-gray-400 text-sm">{getTypeTitle(item.dep_type)}</span>
                                 </div>
                             </div>
                         </div>

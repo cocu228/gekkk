@@ -133,6 +133,12 @@
     white-space: normal;
   }
 
+  &-c-none {
+    &:hover::after {
+      content: none;
+    }
+  }
+
   &-md {
     &:hover::after {
       @include min-devices("md") {

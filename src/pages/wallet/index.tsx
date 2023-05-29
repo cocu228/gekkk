@@ -12,6 +12,8 @@ import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { CtxCurrencyData } from "@/app/CurrenciesContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
+import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
+import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
 
 function Wallet() {
 
@@ -34,6 +36,8 @@ function Wallet() {
                                 <Withdraw/>
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
+                            <CashbackProgram data-tab={"Cashback Program"}/>
+                            <NoFeeProgram data-tab={"No fee program"}/>
                             <About data-tab={"About"}/>
                             {xl && <History currency={currency} data-tab={"History"}/>}
 

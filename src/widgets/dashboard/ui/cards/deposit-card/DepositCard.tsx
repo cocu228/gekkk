@@ -1,8 +1,8 @@
 import {useNavigate} from 'react-router-dom';
-import Card from "@/shared/ui/card/Card";
+import Card from "@/widgets/dashboard/ui/cards/card/Card";
 import Button from "@/shared/ui/button/Button";
 
-interface IParams {
+interface IProps {
     key?: string;
     title: string,
     subtitle: string,
@@ -13,14 +13,15 @@ interface IParams {
 }
 
 function DepositCard({
-    key,
-    title,
-    subtitle,
-    price,
-    until,
-    currency,
-    onOpenDeposit
-}: IParams) {
+                         key,
+                         title,
+                         subtitle,
+                         price,
+                         until,
+                         currency,
+                         onOpenDeposit
+                     }: IProps) {
+
     const navigate = useNavigate();
 
     return (

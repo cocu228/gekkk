@@ -1,0 +1,25 @@
+@import "@styles/mixins";
+
+.CardWrapper {
+  //background-color: #ffffff;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+  min-height: 195px;
+  min-width: 310px;
+  display: flex;
+  flex-direction: column;
+  transition: all;
+
+  &:global(:hover:not(.bg-green)) {
+    background-image: linear-gradient(to bottom right, #ffffff, var(--color-gray-200));
+  }
+
+  &:hover {
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.16);
+  }
+
+  @include max-devices(sm) {
+    min-height: 216px;
+  }
+}

@@ -10,6 +10,7 @@ interface Props {
     text: boolean;
     custom: boolean;
     gray: boolean;
+    white: boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex: number;
     onClick: React.MouseEventHandler;
@@ -25,6 +26,7 @@ const Button = memo<Partial<Props>>(
          className,
          size,
          gray = false,
+         white = false,
          custom = false,
          text = false,
          ...props
@@ -34,7 +36,8 @@ const Button = memo<Partial<Props>>(
                 .while(!!className).do(className)
                 .while(gray).do("Gray")
                 .while(text).do("Text")
-                .scss(custom ? "" : "Button")}
+                .while(white).do("ButtonWhite")
+                .scss((custom || white) ? "" : "Button")}
                     type={htmlType}
                     {...props}
             >

@@ -1,30 +1,46 @@
 import {Skeleton} from 'antd';
 import Decimal from 'decimal.js';
-import Card from "@/shared/ui/card/Card";
+import Card from "@/widgets/dashboard/ui/cards/card/Card";
 import {useNavigate} from 'react-router-dom';
 import {scrollToTop} from '@/shared/lib/helpers';
-import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
+import CardsGrid from "@/pages/dashboard/ui/cards-grid/CardsGrid";
 import DepositCard from "../../../widgets/dashboard/ui/cards/deposit-card/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {storeInvestments} from '@/shared/store/investments/investments';
 import {formatDate, formatDateTime, getDepositTitle} from '../model/helpers';
+import Button from "@/shared/ui/button/Button";
 
 function DepositLayout() {
+
     const navigate = useNavigate();
     const investments = storeInvestments(state => state.investments);
 
+    const skeleton = investments === null ? [1, 2, 3, 4].map((it, i) =>
+        <Card key={"CARD_" + i}>
+            <Skeleton active/>
+        </Card>) : null
+
     return (
         <div className="wrapper">
+
             <SectionTitle>Deposits</SectionTitle>
-
             <CardsGrid>
-                {investments === null ? [1, 2, 3, 4].map((it, i) =>
-                    <Card key={"CARD_" + i}>
-                        <Skeleton active />
-                    </Card>
-                ) : (<>
-
-                    {investments.length ? investments.map((item) =>
+                <Card className={"bg-green"}>
+                    <p className="text-fs24 text-white font-bold">New crypto deposit</p>
+                    <p className="text-fs14 mt-[4px] font-medium text-white">0.8% per month or stractured
+                        deposits</p>
+                    <div className="mt-auto pt-[20px]">
+                        <div className='flex justify-between'>
+                        </div>
+                        <div className="flex w-[130px]">
+                            <Button white>
+                                Open deposit
+                            </Button>
+                        </div>
+                    </div>
+                </Card>
+                {skeleton}
+                {investments?.map((item) =>
                         <DepositCard
                             title={getDepositTitle(item.dep_type)}
                             subtitle={`Opened ${formatDateTime(new Date(item.date_start))}`}
@@ -36,18 +52,7 @@ function DepositLayout() {
                                 navigate(`/deposit/${item.id}`);
                             }}
                         />
-                    ) : (
-                        <DepositCard
-                            key='NewDepositCard'
-                            title='New crypto deposit'
-                            subtitle='Risk-protected investments in crypto'
-                            onOpenDeposit={() => {
-                                scrollToTop();
-                                navigate("/new-deposit");
-                            }}
-                        />
                     )}
-                </>)}
             </CardsGrid>
         </div>
     );

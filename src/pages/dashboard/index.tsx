@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {randomId} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import PageHead from '@/shared/ui/page-head/PageHead';
-import DepositLayout from "@/widgets/dashboard/ui/layouts/DepositLayout";
+import DepositLayout from "@/pages/dashboard/ui/DepositLayout";
 import {storeInvestments} from "@/shared/store/investments/investments";
 
 enum TabType {

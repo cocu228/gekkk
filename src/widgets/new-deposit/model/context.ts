@@ -6,7 +6,7 @@ export type ICtxNewDeposit = {
     step: number;
     rate: number;
     type: DepositType;
-    amount: number | null;
+    amount: number | string | null;
     minAmount: number | null;
     term_in_days: number | null;
     tokenCurrency: string | null;
@@ -14,7 +14,7 @@ export type ICtxNewDeposit = {
     structedStrategy: StructedDepositStrategy | null;
     onNextStep?: () => void;
     onTermChange?: (value: number) => void;
-    onAmountChange?: (value: number) => void;
+    onAmountChange?: (value: string) => void;
     onTokenChange?: (value: string) => void;
     onDepositTypeChange?: (value: DepositType) => void;
     onPersentageTypeChange?: (value: PercentageType) => void;

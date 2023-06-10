@@ -8,7 +8,6 @@ function CardsGrid({children}: any) {
             gap-4
             gap-y-10
             xl:gap-5
-            justify-between
         ">
             {children}
         </div>

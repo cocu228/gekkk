@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import {randomId} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import PageHead from '@/shared/ui/page-head/PageHead';
-import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
-import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
 import DepositLayout from "@/widgets/dashboard/ui/layouts/DepositLayout";
-import AccountsLayout from '@/widgets/dashboard/ui/layouts/AccountsLayout';
+import {storeInvestments} from "@/shared/store/investments/investments";
 
 enum TabType {
     ACCOUNTS,
@@ -18,21 +16,30 @@ enum TabType {
 };
 
 const TABS = [
-    {type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
-    {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
+    // {type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
+    // {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
-    {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
-    {type: TabType.HISTORY, title: 'History', content: (
-        <div className='substrate'>
-            <History title='History'/>
-        </div>
-    )}
+    // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
+    {
+        type: TabType.HISTORY, title: 'History', content: (
+            <div className='substrate'>
+                <History title='History'/>
+            </div>
+        )
+    }
 ];
 
 export default () => {
-    const [activeTab, setActiveTab] = useState<TabType>(TabType.ASSETS);
-    const navigate = useNavigate();
 
+    const [activeTab, setActiveTab] = useState<TabType>(TabType.DEPOSIT);
+    const navigate = useNavigate();
+    const getInvestments = storeInvestments(state => state.getInvestments);
+
+    useEffect(() => {
+        (async () => {
+            getInvestments()
+        })()
+    }, [])
     const handleChangeTab = (tab: TabType) => (e: React.SyntheticEvent<HTMLButtonElement>) => {
         setActiveTab(tab);
     };

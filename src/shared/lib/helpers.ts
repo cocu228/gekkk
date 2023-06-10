@@ -77,13 +77,17 @@ export function asteriskText(text) {
     }
 }
 
-export function getFlagsFromMask(mask, options: Record<string, number>) {
-    const flags = {};
+export function getFlagsFromMask(mask: number, options: Record<string, number>) {
+    const flags: Record<string, boolean> = {};
     for (const [flag, value] of Object.entries(options)) {
-        flags[flag] = (mask & (1 << value)) !== 0;
+        if (mask === 0 && value === 0) {
+             flags[flag] = ((mask & value) === 0);
+           continue
+        }
+        flags[flag] = ((mask & value) !== 0);
     }
     return flags;
-}
+ }
 
 export function scrollToTop() {
     window.scrollBy(0, -100); // можно использовать также метод scrollTo(0, 0)
@@ -110,3 +114,8 @@ export function calculateAmount(_number, percentage, flag: 'withPercentage' | 'o
     }
 
 }
+
+export const getCurrencyRounding = (value: number) =>
+    value >= 1000 ? Math.round(value) :
+    value >= 1 ? value.toFixed(2) :
+    value.toFixed(Math.floor(-Math.log10(value)) + 1);

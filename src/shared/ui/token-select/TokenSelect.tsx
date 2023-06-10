@@ -1,61 +1,62 @@
-import React, {useMemo, useState} from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import styles from './style.module.scss';
-import {Select, SelectProps} from 'antd';
+import { Select, SelectProps } from 'antd';
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
+import { CtxCurrencyData, ICtxCurrencyData } from '@/app/CurrenciesContext';
+import { IconCoin } from '../icons/icon-coin';
 
-const {Option} = Select;
+const { Option } = Select;
 
-interface Props {
-    tokens: {
-        value: string,
-        label: string,
-        icon: string,
-        disabled?: boolean
-    }[]
+interface IParams {
+    disabledCurrencies?: Array<string>;
 }
 
-function TokenSelect({tokens, ...props}: Props & SelectProps) {
-    const [value, setValue] = useState<string>(props.defaultValue || '');
+function TokenSelect({ disabledCurrencies, ...props }: IParams & SelectProps) {
+    const {
+        currencies
+    } = useContext(CtxCurrencyData);
+    const [value, setValue] = useState<string>(props.value);
 
     const handleChange = (val, option) => {
         setValue(val);
 
-        if (typeof props.onChange === 'function') {
-            props.onChange(val, option);
-        }
+        if (props.onChange) props.onChange(val, option);
     };
 
-    const selectedToken = useMemo(() => {
-        return tokens.find(item => item.value === value);
-    }, [tokens, value]);
-
-
-
+    const selectedToken: ICtxCurrencyData = useMemo(() => {
+        return currencies.get(value);
+    }, [currencies, value]);
 
     return (
         <div className={styles.Select}>
             {selectedToken && (
-                <img className={styles.SelectIcon} src={selectedToken.icon} alt={selectedToken.label}/>
+                <IconCoin className={styles.SelectIcon} code={selectedToken.currency} />
             )}
             <Select
+                showSearch
+                className={`${styles.SelectSearch} ${selectedToken ? styles.SelectSearchActive : ''}`}
                 popupClassName={styles.SelectPopup}
                 style={{width: '100%'}}
                 optionLabelProp="label"
+                filterOption={(input, option) =>  
+                    option.props.label.toLowerCase().indexOf(input.toLowerCase()) >= 0 
+                    || option.props.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
                 onChange={handleChange}
                 suffixIcon={<IconDoubleArrows />}
                 {...props}
             >
-                {tokens.map(item => (
+                {Array.from(currencies.values()).map(item => (
                     <Option
                         className={styles.Option}
-                        value={item.value}
-                        label={item.label}
-                        disabled={item.disabled}
+                        value={item.currency}
+                        label={item.name}
+                        disabled={disabledCurrencies?.includes(item.currency)}
                     >
-                        <span className={styles.OptionIcon} role="img" aria-label={item.label}>
-                          <img src={item.icon} alt={item.label}/>
+                        <span className={styles.OptionIcon} role="img" aria-label={item.name}>
+                            <IconCoin code={item.currency} />
                         </span>
-                        {item.label}
+                        {item.name}
                     </Option>
                 ))}
             </Select>

@@ -1,34 +1,44 @@
-import {TypeInputCurrency} from "@/shared/ui/input-currency/model/types";
+import {TypeInputCurrency} from "@/shared/ui/input-percents/model/types";
 import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
-import InputCurrencyOptions from "@/shared/ui/input-currency/InputCurrencyOptions";
+import InputPercentOptions from "@/shared/ui/input-percents/InputPercentOptions";
 
-const InputCurrency = ({
+const InputCurrencyPercented = ({
     value,
     header,
-    currencyData,
     minValue,
-    onChange,
+    currencyData,
+    allowedFlags,
+    balanceFilter,
     disabled = false,
-    showWill = false
+    showWill = false,
+    excludedCurrencies,
+    currencySelector = false,
+    onChange,
+    onCurrencyChange,
 }: TypeInputCurrency) => {
 
     return (
-        <InputCurrencyOptions
+        <InputPercentOptions
             value={value}
             header={header}
-            currencyData={currencyData}
             showWill={showWill}
             disabled={disabled}
+            currencyData={currencyData}
         >
             <InputItemCurrency
                 value={value}
-                currencyData={currencyData}
-                onChange={onChange}
+                balanceFilter={balanceFilter}
                 disabled={disabled}
+                excludedCurrencies={excludedCurrencies}
+                allowedFlags={allowedFlags}
                 minValue={minValue}
+                currencyData={currencyData}
+                currencySelector={currencySelector}
+                onChange={onChange}
+                onCurrencyChange={onCurrencyChange}
             />
-        </InputCurrencyOptions>
+        </InputPercentOptions>
     )
 }
 
-export default InputCurrency;
+export default InputCurrencyPercented;

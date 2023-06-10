@@ -1,3 +1,11 @@
+export enum CurrencyFlags {
+    None = 'none',
+    StructInvestAvailable = 'structInvestAvailable',
+    ExchangeAvailable = 'exchangeAvailable',
+    FiatCurrency = 'fiatCurrency',
+    AccountAvailable = 'accountAvailable'
+}
+
 // Битовые флаги разрешений по доступным активам
 export const maskCurrencyFlags = {
     // Пусто

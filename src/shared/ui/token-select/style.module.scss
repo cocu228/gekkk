@@ -72,6 +72,22 @@
   }
 }
 
+.SelectSearch {
+  & :global(.ant-select-selection-search) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 2.8rem 0 0.575rem;
+  }
+
+  &Active {
+    & :global(.ant-select-selection-search) {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 2.8rem 0 3.5rem;
+    }
+  }
+}
+
 .SelectPopup {
   padding: 0;
   border: 1px solid var(--color-primary);

@@ -11,8 +11,7 @@ export interface IResMarketAsset {
     orders_prec: number,
     default_token_network_in: number,
     default_token_network_out: number,
-    maker_fee: number,
-    taker_fee: number,
+    market_fee: number,
     flags: number,
 }
 

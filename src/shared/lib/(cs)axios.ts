@@ -34,6 +34,9 @@ const sessionHeader = () => {
 }
 
 const $axios = axios.create({
+    paramsSerializer: {
+        indexes: null // by default: false
+    },
     withCredentials: true,
     headers: sessionHeader(),
     responseType: 'json',

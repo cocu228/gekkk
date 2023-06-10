@@ -26,7 +26,7 @@ const OpenDeposit = () => {
     } = useContext(CtxNewDeposit);
 
     useEffect(() => {
-        setValidated(amount >= minAmount);
+        setValidated(+amount >= minAmount);
     }, [amount, minAmount]);
 
     return (
@@ -71,7 +71,7 @@ const OpenDeposit = () => {
                 onConfirm={() => {
                     (async () => {
                         const data = await apiCreateInvestment({
-                            amount: amount,
+                            amount: +amount,
                             term_days: term_in_days,
                             link_currency: type === DepositType.FIXED ? 'EURG' : tokenCurrency,
                             templateType: type === DepositType.FIXED ? 1 : (

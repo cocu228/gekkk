@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import Radio from '@/shared/ui/radio';
 import {CtxNewDeposit} from '../../../model/context';
 import $const from '@/shared/config/coins/constants';
-import InputCurrency from '@/shared/ui/input-currency';
+import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
 import { CtxCurrencyData } from '@/app/CurrenciesContext';
@@ -49,7 +49,7 @@ const TypeChoose = () => {
             </div>
 
             <div className="wrapper w-full">
-                <InputCurrency
+                <InputCurrencyPercented
                     value={amount}
                     minValue={minAmount}
                     currencyData={eurgWallet ? eurgWallet : {
@@ -69,7 +69,7 @@ const TypeChoose = () => {
                         defaultTokenNetworkOut: null,
                     }}
                     onChange={(target) => {
-                        onAmountChange(+target);
+                        onAmountChange(target);
                     }}
                     header={(
                         <p className="text-gray-400 font-medium text-base md:text-sm sm:text-xs">

@@ -3,7 +3,7 @@ import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 interface IParams {
     amount: number;
     term_days: number;
-    link_currency: string;
+    link_currency?: string;
     templateType: number;
 }
 

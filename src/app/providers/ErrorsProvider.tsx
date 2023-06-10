@@ -1,4 +1,4 @@
-import {FC, memo, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
+import {FC, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
 import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
@@ -60,8 +60,6 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         $axios.interceptors.response.use((response: AxiosResponse<$AxiosResponse<Record<string, unknown> | null | unknown>>) => {
 
             if (response.data.result === null && response.data.error !== null) {
-
-                if (response.data.error.code === 10047) return response;
 
                 const message: string = response.data.error.message
                 const id: string = randomId()

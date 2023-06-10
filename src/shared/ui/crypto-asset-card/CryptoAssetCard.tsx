@@ -3,6 +3,7 @@ import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
 import { ParentClassForCoin, IconCoin } from "../icons/icon-coin";
 import { useNavigate } from "react-router-dom";
+import { scrollToTop } from '@/shared/lib/helpers';
 
 interface Props {
     title: string,
@@ -36,13 +37,24 @@ function CryptoAssetCard({ title, balance, currency, price, onTopUp, onWithdraw 
                     </div>
 
                     <div className="flex gap-[16px] mt-[16px]">
-                        <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
-                            state: "Top Up"
-                        })}>Top
-                            up</Button>
-                        <Button className="flex-1" gray size="sm" onClick={() => navigate("/wallet/" + currency, {
-                            state: "Withdraw"
-                        })}>Withdraw</Button>
+                        <Button
+                            gray
+                            size="sm"
+                            className="flex-1"
+                            onClick={() => {
+                                scrollToTop();
+                                navigate(`/wallet/${currency}/Top Up`);
+                            }}
+                        >Top up</Button>
+                        <Button
+                            gray
+                            size="sm"
+                            className="flex-1"
+                            onClick={() => {
+                                scrollToTop();
+                                navigate(`/wallet/${currency}/Withdraw`);
+                            }}
+                        >Withdraw</Button>
                     </div>
                 </div>
             </div>

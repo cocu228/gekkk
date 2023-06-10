@@ -1,20 +1,33 @@
+import Decimal from "decimal.js";
+
 export const inputCurrencyValidation = (
-    balanceAmount: number,
-    value: number,
-    minAmount: number = 0
+    balanceAmount: Decimal,
+    value: string | number,
+    minAmount: Decimal,
+    validateBalance: boolean
 ) => {
     switch (true) {
-        case value > balanceAmount:
+        case isNaN(+value):
             return <span className="text-red-main md:text-xs">
-                Insufficient funds on the account: {balanceAmount}
+                Amount must contains only numbers!
             </span>
-        case value < minAmount:
+
+        case validateBalance && balanceAmount.lessThan(+value):
             return <span className="text-red-main md:text-xs">
-                The minimum amount is {minAmount}
+                Insufficient funds on the account: {balanceAmount.toString()}
             </span>
+
+        case minAmount.lessThanOrEqualTo(0):
+            return null;
+
+        case minAmount.greaterThan(+value):
+            return <span className="text-red-main md:text-xs">
+                The minimum amount is {minAmount.toString()}
+            </span>
+
         default:
             return <span className="text-green md:text-xs">
-                {minAmount === null ? null : `The minimum amount is ${minAmount}`}
+                The minimum amount is {minAmount.toString()}
             </span>
     }
 }

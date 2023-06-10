@@ -2,6 +2,7 @@ import {Skeleton} from "antd";
 import styles from "./style.module.scss";
 import {useEffect, useState} from "react";
 import {IBankData} from "@/shared/api/bank";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import headerMenuList from "../../model/header-menu-list";
 import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
@@ -10,6 +11,7 @@ import {storeBankData} from "@/shared/store/bank-data/bank-data";
 const HeaderDesktop = () => {
 
     const {logout} = useAuth();
+    const navigate = useNavigate();
     const [bankData, setBankData] = useState<IBankData>(null);
     const getBankData = storeBankData(state => state.getBankData);
 
@@ -28,8 +30,8 @@ const HeaderDesktop = () => {
 
     return <>
         <header className={`flex ${styles.Header}`}>
-            <div className={`flex items-center ${styles.ContainerLogo}`}>
-                <a href="/">
+            <div className={`flex hover:cursor-pointer items-center ${styles.ContainerLogo}`}>
+                <a onClick={() => navigate('/')}>
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>

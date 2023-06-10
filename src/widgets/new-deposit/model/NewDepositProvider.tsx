@@ -47,7 +47,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         }));
     }
 
-    const handleAmountChange = (value: number) => {
+    const handleAmountChange = (value: string) => {
         setState(prev => ({
             ...prev,
             amount: value
@@ -93,7 +93,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
             structedStrategy
         } = state
 
-        const step = (amount >= minAmount ? 1 : 0)
+        const step = (+amount >= minAmount ? 1 : 0)
             + (structedStrategy !== null ? 1 : 0)
             + (percentageType !== null ? 1 : 0)
             + (term_in_days !== null ? 1 : 0)

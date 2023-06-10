@@ -47,7 +47,7 @@ export default () => {
     return (
         <div className="wrapper">
             <PageHead
-                title={"Personal account"}
+                title={"Gekkoin invest platform"}
                 subtitle={
                     <>Open your <a
                         className="underline hover:text-blue-400 hover:cursor-pointer"

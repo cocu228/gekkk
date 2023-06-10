@@ -1,0 +1,7 @@
+@import "@styles/mixins";
+
+.Grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+}

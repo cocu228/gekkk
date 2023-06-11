@@ -17,8 +17,7 @@ const TypeChoose = () => {
         onDepositTypeChange
     } = useContext(CtxNewDeposit);
 
-    const {currencies} = useContext(CtxCurrencyData);
-    const eurgWallet = currencies.get('EURG');
+    // const eurgWallet = currencies.get('EURG');
 
     return (
         <div className="px-10 mt-10 md:mt-4 md:px-4">
@@ -52,7 +51,7 @@ const TypeChoose = () => {
                 <InputCurrencyPercented
                     value={amount}
                     minValue={minAmount}
-                    currencyData={eurgWallet ? eurgWallet : {
+                    currencyData={{
                         currency: $const.EURG,
                         availableBalance: new Decimal(0),
                         id: null,

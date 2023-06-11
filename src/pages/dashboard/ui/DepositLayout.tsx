@@ -33,7 +33,7 @@ function DepositLayout() {
                         <div className='flex justify-between'>
                         </div>
                         <div className="flex w-[130px]">
-                            <Button white>
+                            <Button onClick={() => navigate("new-deposit")} white>
                                 Open deposit
                             </Button>
                         </div>

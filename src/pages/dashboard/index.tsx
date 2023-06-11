@@ -8,18 +8,12 @@ import DepositLayout from "@/pages/dashboard/ui/DepositLayout";
 import {storeInvestments} from "@/shared/store/investments/investments";
 
 enum TabType {
-    ACCOUNTS,
-    CARDS,
     DEPOSIT,
-    ASSETS,
     HISTORY
 };
 
 const TABS = [
-    // {type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
-    // {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
-    // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
     {
         type: TabType.HISTORY, title: 'History', content: (
             <div className='substrate'>

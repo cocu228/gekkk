@@ -1,9 +1,7 @@
-import { useContext } from 'react';
 import styles from './styles.module.scss';
 import { differenceInDays } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
 import useModal from '@/shared/model/hooks/useModal';
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
 import Balance from '@/widgets/current-deposit/ui/Balance';
 import DepositStats from '@/widgets/current-deposit/ui/DepositStats';
 import { storeInvestments } from '@/shared/store/investments/investments';
@@ -29,7 +27,7 @@ function CurrentDeposit() {
     } = getInvestmentData(investment);
 
     const strategyData = getDepositStrategyData(investment.dep_type);
-    const token = useContext(CtxCurrencyData).currencies.get(investment.link_currency);
+    // const token = useContext(CtxCurrencyData).currencies.get(investment.link_currency);
 
     return (
         <div className="wrapper flex flex-col flex-1">
@@ -42,7 +40,7 @@ function CurrentDeposit() {
                 <CurrentDepositType
                     isClosed={isClosed}
                     isFixed={isFixed}
-                    token={token}
+                    token={""}
                     strategyData={strategyData}
                 />
             </div>

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
 
-const PersentageDescription = () => {
+const PercentageDescription = () => {
     const { percentageType } = useContext(CtxNewDeposit);
 
     if (!percentageType) return null;
@@ -24,4 +24,4 @@ const PersentageDescription = () => {
     )
 }
 
-export default PersentageDescription;
+export default PercentageDescription;

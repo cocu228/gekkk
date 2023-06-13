@@ -13,7 +13,7 @@ import TypeDescription from './descriptions/type-description/TypeDescription';
 import TermDescription from './descriptions/term-description/TermDescription';
 import RiskDescription from './descriptions/risk-descriptions/RiskDescription';
 import DepositProperties from './descriptions/deposit-properties/DepositProperties';
-import PersentageDescription from './descriptions/percentage-description/PersentageDescription';
+import PercentageDescription from './descriptions/percentage-description/PercentageDescription';
 
 function NewDeposit() {
     const { type, step } = useContext(CtxNewDeposit);
@@ -36,7 +36,7 @@ function NewDeposit() {
                 {step >= 2 && (
                     <RowWrapper>
                         <PersentageChoose />
-                        <PersentageDescription />
+                        <PercentageDescription />
                     </RowWrapper>
                 )}
 

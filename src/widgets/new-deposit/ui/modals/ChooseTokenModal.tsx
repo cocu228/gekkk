@@ -1,7 +1,7 @@
 import { ModalProps } from 'antd';
 import Modal from '@/shared/ui/modal/Modal';
-import { IResMarketAsset } from '@/shared/api';
-import { CurrencyFlags } from '@/shared/config/mask-currency-flags';
+// import { IResMarketAsset } from '@/shared/api';
+// import { CurrencyFlags } from '@/shared/config/mask-currency-flags';
 
 type IParams = ModalProps & {
     onSelect: (value: string) => void;

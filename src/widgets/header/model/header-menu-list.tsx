@@ -1,5 +1,5 @@
 import React from "react";
-import {ItemOrganization, ItemPerson, PromoCodeModal} from "@/widgets/header/ui/menu/header-menu-items";
+import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/header-menu-items";
 
 const HeaderMenuList = [
 

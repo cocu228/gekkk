@@ -12,7 +12,7 @@ export default () => (
         </div>
 
         <NewDepositProvider>
-            <NewDeposit />
+            <NewDeposit/>
         </NewDepositProvider>
     </div>
 )

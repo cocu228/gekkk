@@ -18,7 +18,7 @@ const DepositProperties = ({className}: IParams) => {
         tokenCurrency,
         term_in_days: term,
         percentageType,
-        structedStrategy
+        structuredStrategy
     } = useContext(CtxNewDeposit);
 
     // const {currencies} = useContext(CtxCurrencyData);
@@ -44,7 +44,7 @@ const DepositProperties = ({className}: IParams) => {
                     )}
 
                     <InlineProperty left="Risk level" right={
-                        type === DepositType.FIXED ? "Fixed rate deposit" : `${structedStrategy.name} strategy`
+                        type === DepositType.FIXED ? "Fixed rate deposit" : `${structuredStrategy.name} strategy`
                     }/>
 
                     <InlineProperty left="Returns rate" right={

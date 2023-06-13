@@ -5,7 +5,7 @@ import StructedDepositStrategies from "@/shared/config/deposits/structed-strateg
 
 const RiskChoose = () => {
     const {
-        structedStrategy,
+        structuredStrategy,
         onRiskLevelChange,
     } = useContext(CtxNewDeposit);
 
@@ -19,7 +19,7 @@ const RiskChoose = () => {
                 {StructedDepositStrategies.map((strategy) => (
                     <ChooseButton
                         key={`STRATEGY_${strategy.id}`}
-                        isSelected={structedStrategy === strategy}
+                        isSelected={structuredStrategy === strategy}
                         onClick={() => onRiskLevelChange(strategy)}
                     >
                         <div className="flex flex-col items-start text-start gap-3 justify-between h-full w-full md:items-center">

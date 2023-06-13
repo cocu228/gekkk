@@ -8,7 +8,7 @@ import TokenChoose from './steps/token-choose/TokenChoose';
 import OpenDeposit from './steps/open-deposit/OpenDeposit';
 import { DepositType } from '@/shared/config/deposits/types';
 import BackgroundWrapper from './grid-wrappers/BackgroundWrapper';
-import PersentageChoose from './steps/percentage-choose/PercentageChoose';
+import PercentageChoose from './steps/percentage-choose/PercentageChoose';
 import TypeDescription from './descriptions/type-description/TypeDescription';
 import TermDescription from './descriptions/term-description/TermDescription';
 import RiskDescription from './descriptions/risk-descriptions/RiskDescription';
@@ -35,7 +35,7 @@ function NewDeposit() {
 
                 {step >= 2 && (
                     <RowWrapper>
-                        <PersentageChoose />
+                        <PercentageChoose />
                         <PercentageDescription />
                     </RowWrapper>
                 )}

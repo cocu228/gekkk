@@ -11,13 +11,13 @@ export type ICtxNewDeposit = {
     term_in_days: number | null;
     tokenCurrency: string | null;
     percentageType: PercentageType | null;
-    structedStrategy: StructedDepositStrategy | null;
+    structuredStrategy: StructedDepositStrategy | null;
     onNextStep?: () => void;
     onTermChange?: (value: number) => void;
     onAmountChange?: (value: string) => void;
     onTokenChange?: (value: string) => void;
     onDepositTypeChange?: (value: DepositType) => void;
-    onPersentageTypeChange?: (value: PercentageType) => void;
+    onPercentageTypeChange?: (value: PercentageType) => void;
     onRiskLevelChange?: (value: StructedDepositStrategy) => void;
 }
 

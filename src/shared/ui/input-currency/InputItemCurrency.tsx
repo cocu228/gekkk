@@ -11,6 +11,7 @@ import Modal from "../modal/Modal";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import { AssetTableKeys } from "@/features/assets-table/model/types";
 import Decimal from "decimal.js";
+import {formatAsNumber, formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
 export default ({
     value,
@@ -53,7 +54,7 @@ export default ({
                 )}
             >
         <InputAnt
-            onChange={({target}) => onChange(target.value.toString())}
+            onChange={({target}) => onChange(formatAsNumberAndDot(target.value.toString()))}
             disabled={disabled || !currencyData}
             value={value}
             placeholder={"Enter amount"}

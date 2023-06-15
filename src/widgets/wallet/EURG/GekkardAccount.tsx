@@ -10,6 +10,7 @@ import { storeBankData } from '@/shared/store/bank-data/bank-data';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrencyData } from '@/app/CurrenciesContext';
 import Decimal from 'decimal.js';
+import {calculateAmount} from "@/shared/lib/helpers";
 
 const GekkardAccount = () => {
 
@@ -48,6 +49,31 @@ const GekkardAccount = () => {
                     currencyData={ibanBalanceWallet}
                     minValue={min_withdraw}
                 />
+            </div>
+        </div>
+        <div className="row">
+            <div className="col">
+                <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row">
+                            <span>You will pay</span>
+                        </div>
+                        <div className="row">
+                        <span>
+                          You will get
+                        </span>
+                        </div>
+                    </div>
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row flex items-end">
+                            <span className="w-full text-end font-bold">{!input ? 0 : input}</span>
+                        </div>
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-end font-bold">{calculateAmount(!input ? 0 : input, 1.5, "afterPercentage")}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div className="row mb-4">

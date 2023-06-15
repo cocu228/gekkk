@@ -1,0 +1,17 @@
+@import "@styles/mixins";
+@import "@styles/variables";
+
+.SplitGrid {
+  border-radius: 4px;
+  overflow: hidden;
+
+  @include max-devices("md") {
+    margin: 0 var(--content-margin-horizontal-negative-md);
+  }
+}
+
+.Left {
+  &:not(:last-child) {
+    box-shadow: 0 0 30px 5px rgba(41, 117, 215, 0.15);
+  }
+}

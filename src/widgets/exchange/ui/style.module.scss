@@ -1,0 +1,38 @@
+@import "@styles/mixins";
+
+.Head {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 2.812rem;
+
+  @include max-devices("md") {
+    min-height: 2.187rem;
+  }
+}
+
+.FieldsSpacer {
+  margin: 0.5rem 0 -0.8rem;
+
+  svg {
+    width: 27px;
+    height: 27px;
+    fill: var(--color-secondary);
+
+    @include max-devices("md") {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.GridFooter {
+  @include max-devices("md") {
+    grid-column: span 2;
+  }
+}

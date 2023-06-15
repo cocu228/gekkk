@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-// import {ICtxCurrencyData} from "@/app/CurrenciesContext"
+import {ICtxCurrencyData} from "@/app/CurrenciesContext"
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 
 export type TypeInputCurrency = {
@@ -16,5 +16,5 @@ export type TypeInputCurrency = {
     showWill?: boolean;
     minValue?: Decimal | number | null;
     header?: string | JSX.Element;
-    currencyData: any
+    currencyData: ICtxCurrencyData | null;
 }

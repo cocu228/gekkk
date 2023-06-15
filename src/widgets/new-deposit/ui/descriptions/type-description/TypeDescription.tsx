@@ -3,7 +3,6 @@ import { CtxNewDeposit } from '../../../model/context';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
 
 const TypeDescription = () => {
-
     const { type } = useContext(CtxNewDeposit);
 
     return (

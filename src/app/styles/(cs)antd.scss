@@ -1,3 +1,5 @@
+@import "mixins";
+
 .ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
   padding: 20px 12px 20px 12px;
 
@@ -11,12 +13,24 @@
 
 }
 
+.ant-modal-header {
+  margin: 10px 30px;
+
+  @include max-devices(md) {
+    margin: 0;
+  }
+}
+
 .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
   border-color: var(--color-blue-400) !important;
 }
 
 .ant-input-affix-wrapper.ant-input-affix-wrapper-disabled {
   background-color: var(--color-gray-300) !important;
+}
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover, .ant-input-affix-wrapper-focused {
+  border-color: var(--color-blue-400) !important;
 }
 
 .ant-select-selection-placeholder {

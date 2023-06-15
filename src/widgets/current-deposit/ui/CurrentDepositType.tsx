@@ -1,10 +1,13 @@
+import { IconCoin } from "@/shared/ui/icons/icon-coin";
+import { ICtxCurrencyData } from "@/app/CurrenciesContext";
+import { StructedDepositStrategy } from "@/shared/config/deposits/types";
 import { IDepositStrategyData } from "../model/helpers";
 
 interface ICurrentDepositType {
     isClosed?: boolean;
     isFixed?: boolean;
     strategyData?: IDepositStrategyData;
-    token?: "";
+    token?: ICtxCurrencyData;
 }
 
 function CurrentDepositType({
@@ -40,12 +43,12 @@ function CurrentDepositType({
                     </p>
                 </div>
 
-                {/*{!isFixed && (*/}
-                {/*    <div className='flex gap-2 items-center'>*/}
-                {/*        <IconCoin width={24} code={token.currency} className={isClosed ? 'grayscale' : ''} />*/}
-                {/*        <p className='font-medium'>{token.name} ({token.currency})</p>*/}
-                {/*    </div>*/}
-                {/*)}*/}
+                {!isFixed && (
+                    <div className='flex gap-2 items-center'>
+                        <IconCoin width={24} code={token.currency} className={isClosed ? 'grayscale' : ''} />
+                        <p className='font-medium'>{token.name} ({token.currency})</p>
+                    </div>
+                )}
             </div>
         </div>
     )

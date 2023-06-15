@@ -4,6 +4,7 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
 import {Modal} from "antd";
 import useModal from "@/shared/model/hooks/useModal";
+import PromoCode from "@/features/promo-code/ui/PromoCode";
 
 const hClassName = new HelperClassName(styles)
 export const ItemPerson = ({active = false}) => {
@@ -49,16 +50,16 @@ export const ItemOrganization = ({active = false}) => {
     </div>
 }
 
-// export const PromoCodeModal = ({active = false}) => {
-//
-//     const {showModal, handleCancel, isModalOpen} = useModal()
-//
-//     return <>
-//         <button className="w-full text-left" onClick={showModal}>
-//             Promo-code
-//         </button>
-//         <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
-//             <PromoCode/>
-//         </Modal>
-//     </>
-// }
+export const PromoCodeModal = ({active = false}) => {
+
+    const {showModal, handleCancel, isModalOpen} = useModal()
+
+    return <>
+        <button className="w-full text-left" onClick={showModal}>
+            Promo-code
+        </button>
+        <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
+            <PromoCode/>
+        </Modal>
+    </>
+}

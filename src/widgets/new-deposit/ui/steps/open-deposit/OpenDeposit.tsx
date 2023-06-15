@@ -21,7 +21,7 @@ const OpenDeposit = () => {
         term_in_days,
         tokenCurrency,
         percentageType,
-        structuredStrategy,
+        structedStrategy,
         onNextStep
     } = useContext(CtxNewDeposit);
 
@@ -75,7 +75,7 @@ const OpenDeposit = () => {
                             term_days: term_in_days,
                             link_currency: type === DepositType.FIXED ? 'EURG' : tokenCurrency,
                             templateType: type === DepositType.FIXED ? 1 : (
-                                structuredStrategy.id + structuredStrategy.percentageTypes.indexOf(percentageType)
+                                structedStrategy.id + structedStrategy.percentageTypes.indexOf(percentageType)
                             )
                         });
                     })();

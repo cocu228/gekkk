@@ -14,7 +14,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         amount: 1000,
         tokenCurrency: null,
         minAmount: 1000,
-        structuredStrategy: null,
+        structedStrategy: null,
         term_in_days: null,
         percentageType: null,
         type: DepositType.FIXED
@@ -57,7 +57,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
     const handleRiskLevelChange = (value: StructedDepositStrategy) => {
         setState(prev => ({
             ...prev,
-            structuredStrategy: value,
+            structedStrategy: value,
             percentageType: prev.step < 2 ? null : value.percentageTypes[0]
         }));
     }
@@ -90,11 +90,11 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
             term_in_days,
             tokenCurrency,
             percentageType,
-            structuredStrategy
+            structedStrategy
         } = state
 
         const step = (+amount >= minAmount ? 1 : 0)
-            + (structuredStrategy !== null ? 1 : 0)
+            + (structedStrategy !== null ? 1 : 0)
             + (percentageType !== null ? 1 : 0)
             + (term_in_days !== null ? 1 : 0)
             + (tokenCurrency !== null ? 1 : 0);
@@ -113,7 +113,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         onAmountChange: handleAmountChange,
         onDepositTypeChange: handleTypeChange,
         onRiskLevelChange: handleRiskLevelChange,
-        onPercentageTypeChange: handlePercentageTypeChange
+        onPersentageTypeChange: handlePercentageTypeChange
     })}>
         {children}
     </CtxNewDeposit.Provider>

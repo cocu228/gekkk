@@ -21,6 +21,7 @@ function History({currency}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxCurrencyData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
+    const {currencies} = useContext(CtxCurrencyData);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
@@ -43,8 +44,8 @@ function History({currency}: Partial<Props>) {
         const response = await apiHistoryTransactions(
             start.length ? start.toString() : null,
             end.length ? end.toString() : null,
-            null,
-            [7, 8, 9,10],
+            currency,
+            [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
             null,
             10
         )
@@ -65,7 +66,8 @@ function History({currency}: Partial<Props>) {
 
         const lastValue = listHistory[listHistory.length - 1];
 
-        const {data} = await apiHistoryTransactions(null, null, "", [7, 8, 11], lastValue.id_transaction, 10)
+        const {data} = await apiHistoryTransactions(null, null, currency, [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16], lastValue.id_transaction, 10)
+        console.log(data.result.length)
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))
@@ -142,6 +144,7 @@ function History({currency}: Partial<Props>) {
                                         <div>
                                         <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                             {!item.is_income && '-'}
+                                            {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                         </span>
                                         </div>
                                     </GTable.Col>

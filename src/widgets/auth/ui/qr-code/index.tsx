@@ -2,12 +2,12 @@ import React, {memo, useContext, useEffect, useRef, useState} from 'react';
 import ReactQRCode from "react-qr-code";
 import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import InputCopy from "@/shared/ui/input-copy/InputCopy";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import { AxiosResponse } from 'axios';
 import { $AxiosResponse } from '@/shared/lib/(cs)axios';
 import { storyDisplayStage } from '../../model/story';
+import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 
 const QRCode = memo(() => {
 
@@ -111,8 +111,8 @@ const QRCode = memo(() => {
                 </div>
             </div>
 
-            <div className="row mt-4">
-                <InputCopy value={hash}/>
+            <div className="row mt-8 w-full">
+                <ClipboardField value={hash}/>
             </div>
         </div>}
     </>

@@ -20,7 +20,7 @@ const OpenDepositModal = ({ open, onCancel, onConfirm, ...props }: IParams) => {
         term_in_days,
         tokenCurrency,
         percentageType,
-        structuredStrategy,
+        structedStrategy,
     } = useContext(CtxNewDeposit);
 
     return (
@@ -36,7 +36,7 @@ const OpenDepositModal = ({ open, onCancel, onConfirm, ...props }: IParams) => {
                     left="Deposit"
                     right={(type === DepositType.FIXED ?
                         'Fixed rate deposit: 0,8% per month' :
-                        `${structuredStrategy?.name} strategy 
+                        `${structedStrategy?.name} strategy 
                             ${percentageType?.risePercentage}/${percentageType?.dropPercentage} ${tokenCurrency}`
                     )}
                 />

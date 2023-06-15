@@ -6,7 +6,7 @@ import Loader from "@/shared/ui/loader";
 import {AxiosResponse} from "axios";
 import {IResHistoryTransactions} from "@/shared/api";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
-import InputCopy from "@/shared/ui/input-copy/InputCopy";
+import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import useError from "@/shared/model/hooks/useError";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
@@ -54,7 +54,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="col w-auto font-medium flex items-center">
                 <span>{props.id_transaction}</span>
-                <InputCopy value={props.id_transaction} onlyIcon/>
+                <CopyIcon value={props.id_transaction}/>
             </div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2">
@@ -80,7 +80,7 @@ const InfoContent = (props: TypeProps) => {
                 </div>
                 <div className="col flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
-                    <InputCopy value={state.addressFrom} onlyIcon/>
+                    <CopyIcon value={state.addressFrom}/>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
@@ -89,7 +89,7 @@ const InfoContent = (props: TypeProps) => {
                 </div>
                 <div className="col w-auto flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
-                    <InputCopy value={state.addressTo} onlyIcon/>
+                    <CopyIcon value={state.addressTo}/>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
@@ -115,7 +115,7 @@ const InfoContent = (props: TypeProps) => {
                 <div className="col w-auto flex items-center">
                     <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
                        className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
-                    <InputCopy value={state.txHash} onlyIcon/>
+                    <CopyIcon value={state.txHash}/>
                 </div>
             </div>
         </>}

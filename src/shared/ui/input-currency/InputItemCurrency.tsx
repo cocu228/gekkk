@@ -8,8 +8,8 @@ import {inputCurrencyValidation} from "@/shared/ui/input-currency/model/helpers"
 import styles from './style.module.scss';
 import IconDoubleArrows from "../icons/IconDoubleArrows";
 import Modal from "../modal/Modal";
-// import AssetsTable from "@/features/assets-table/ui/AssetsTable";
-// import { AssetTableKeys } from "@/features/assets-table/model/types";
+import AssetsTable from "@/features/assets-table/ui/AssetsTable";
+import { AssetTableKeys } from "@/features/assets-table/model/types";
 import Decimal from "decimal.js";
 
 export default ({
@@ -61,7 +61,7 @@ export default ({
                 <>
                     <button
                         disabled={disabled || !currencySelector}
-                        className={styles.FieldSelectBtn + ' text-gray-600'}
+                        className={styles.FieldSelectBtn + ' text-gray-600 select-none'}
                         onClick={handleOpenTokenSelect}
                     >
                         {(!currencySelector || currencyData) && <>
@@ -78,7 +78,7 @@ export default ({
             }
         />
         {!currencyData ? null : (
-            <p className="text-xs text-gray-400 absolute top-11 left-3 z-10">
+            <p className="text-xs text-gray-400 absolute top-11 left-3 z-10 select-none">
                 Balance: {!currencyData.availableBalance ? 0 :
                     currencyData.availableBalance.toString()
                 } {currencyData.currency}
@@ -86,21 +86,21 @@ export default ({
         )}
 
         <Modal width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
-            {/*<AssetsTable*/}
-            {/*    className='-mx-4 -mt-8 min-h-[500px]'*/}
-            {/*    modal={true}*/}
-            {/*    balanceFilter={balanceFilter}*/}
-            {/*    onSelect={(currency: string) => {*/}
-            {/*        onCurrencyChange(currency);*/}
-            {/*        handleCloseTokenSelect();*/}
-            {/*    }}*/}
-            {/*    blockedCurrencies={excludedCurrencies}*/}
-            {/*    allowedFlags={allowedFlags}*/}
-            {/*    columnKeys={[*/}
-            {/*        AssetTableKeys.NAME,*/}
-            {/*        AssetTableKeys.CURRENCY*/}
-            {/*    ]}*/}
-            {/*/>*/}
+            <AssetsTable
+                className='-mx-4 -mt-8 min-h-[500px]'
+                modal={true}
+                balanceFilter={balanceFilter}
+                onSelect={(currency: string) => {
+                    onCurrencyChange(currency);
+                    handleCloseTokenSelect();
+                }}
+                blockedCurrencies={excludedCurrencies}
+                allowedFlags={allowedFlags}
+                columnKeys={[
+                    AssetTableKeys.NAME,
+                    AssetTableKeys.CURRENCY
+                ]}
+            />
         </Modal>
     </FormItem>
 }

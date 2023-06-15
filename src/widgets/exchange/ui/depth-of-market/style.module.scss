@@ -1,0 +1,92 @@
+@import "@styles/mixins";
+
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 200px;
+
+  @include max-devices(lg) {
+    min-width: 154px;
+  }
+}
+
+.Head {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 2.812rem;
+  margin-bottom: 0.4rem;
+
+  @include max-devices(md) {
+    min-height: 2.187rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+.Pair {
+  font-size: 0.625rem;
+
+  @include max-devices(md) {
+    margin: -0.4em 0;
+    font-size: 0.5rem;
+
+    img {
+      width: 1rem !important;
+      height: 1rem !important;
+    }
+  }
+}
+
+.RedWrapper {
+  background: rgba(var(--red) / 0.05);
+}
+
+.GreenWrapper {
+  background: rgba(var(--green) / 0.05);
+}
+
+.Rate {
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: inherit;
+  }
+
+  &Up {
+    color: var(--color-green);
+    fill: var(--color-green);
+
+    svg {
+      animation: rotateUp 0.5s;
+    }
+  }
+
+  &Down {
+    color: var(--color-red);
+    fill: var(--color-red);
+
+    svg {
+      animation: rotateDown 0.5s reverse;
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes rotateDown {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 180deg;
+    }
+  }
+
+  @keyframes rotateUp {
+    from {
+      rotate: 180deg;
+    }
+    to {
+      rotate: 0deg;
+    }
+  }
+}

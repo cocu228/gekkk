@@ -1,0 +1,144 @@
+@import "@styles/mixins";
+
+.Sidebar {
+  flex-basis: var(--sidebar-width);
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: initial;
+  background-color: #ffffff;
+  box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
+
+  @include max-devices(md) {
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+
+  @include max-devices(xxxl) {
+    max-width: var(--sidebar-width-xxxl);
+    flex-basis: var(--sidebar-width-xxxl);
+  }
+
+  @include max-devices(xxl) {
+    max-width: var(--sidebar-width-xxl);
+    flex-basis: var(--sidebar-width-xxl);
+  }
+}
+
+.CloseRoomSvg {
+  path {
+    fill: var(--color-red-800);
+  }
+}
+
+.RoomName {
+  color: var(--color-gray-600);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.Name {
+  color: var(--color-gray-600);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.Sum {
+  color: var(--color-gray-400);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.SvgArrow {
+  margin-right: 6px;
+
+  path {
+    fill: var(--color-gray-400);
+  }
+}
+
+:global(a.active) {
+
+  .SvgArrow {
+    path {
+      fill: var(--color-gray-600);
+    }
+  }
+
+  &>.Item {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
+    .RoomName {
+      font-weight: 600;
+    }
+
+    .Sum {
+      font-size: 14px;
+    }
+
+    .Icon {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
+    }
+
+    .Name,
+    .NavName {
+      color: var(--color-gray-600);
+      font-weight: 600;
+    }
+
+    &:after {
+      position: absolute;
+      height: 100%;
+      width: 4px;
+      content: "";
+      background-color: var(--color-blue-400);
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+.Item {
+  height: 85px;
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  pointer-events: all;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  .Icon {
+    pointer-events: none;
+    filter: saturate(10%) invert(0%);
+    opacity: 0.3;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
+    .RoomName {
+      font-weight: 600;
+    }
+
+    .Name,
+    .NavName {
+      color: var(--color-gray-600);
+      font-weight: 600;
+    }
+
+    .SvgArrow {
+      path {
+        fill: var(--color-gray-600);
+      }
+    }
+
+    .Icon {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
+    }
+  }
+}

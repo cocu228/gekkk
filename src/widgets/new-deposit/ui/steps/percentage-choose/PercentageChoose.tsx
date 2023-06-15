@@ -5,8 +5,8 @@ import ChooseButton from "../../buttons/choose-button/ChooseButton";
 const PersentageChoose = () => {
     const {
         percentageType,
-        structuredStrategy,
-        onPercentageTypeChange
+        structedStrategy,
+        onPersentageTypeChange
     } = useContext(CtxNewDeposit);
 
     return (
@@ -16,10 +16,10 @@ const PersentageChoose = () => {
             </p>
 
             <div className="flex">
-                {structuredStrategy.percentageTypes.map((pt) => (
+                {structedStrategy.percentageTypes.map((pt) => (
                     <ChooseButton
                         isSelected={pt === percentageType}
-                        onClick={() => onPercentageTypeChange(pt)}
+                        onClick={() => onPersentageTypeChange(pt)}
                     >
                         {pt.risePercentage}/{pt.dropPercentage}
                     </ChooseButton>

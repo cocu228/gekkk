@@ -1,5 +1,5 @@
 import React from "react";
-import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/header-menu-items";
+import {ItemOrganization, ItemPerson, PromoCodeModal} from "@/widgets/header/ui/menu/header-menu-items";
 
 const HeaderMenuList = [
 
@@ -25,9 +25,15 @@ const HeaderMenuList = [
     },
     {
         item: 'Dashboard', id: 'dashboard', event: {action: "link", value: "/"},
-        style: {borderTop: "1px solid var(--color-gray-400)"}
+        style: {
+            borderTop: "1px solid var(--color-gray-400)"
+        }
     },
-    {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit-types"}},
+    // {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit-types"}},
+    {
+        item: <PromoCodeModal/>, id: 'item-4',
+        event: {action: "onclick", value: null}
+    },
     {item: 'Support', id: 'item-4', event: {action: "link", value: "support"}},
     {
         item: 'Logout', id: 'logout',

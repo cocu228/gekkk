@@ -8,12 +8,12 @@ import TokenChoose from './steps/token-choose/TokenChoose';
 import OpenDeposit from './steps/open-deposit/OpenDeposit';
 import { DepositType } from '@/shared/config/deposits/types';
 import BackgroundWrapper from './grid-wrappers/BackgroundWrapper';
-import PercentageChoose from './steps/percentage-choose/PercentageChoose';
+import PersentageChoose from './steps/percentage-choose/PercentageChoose';
 import TypeDescription from './descriptions/type-description/TypeDescription';
 import TermDescription from './descriptions/term-description/TermDescription';
 import RiskDescription from './descriptions/risk-descriptions/RiskDescription';
 import DepositProperties from './descriptions/deposit-properties/DepositProperties';
-import PercentageDescription from './descriptions/percentage-description/PercentageDescription';
+import PersentageDescription from './descriptions/percentage-description/PersentageDescription';
 
 function NewDeposit() {
     const { type, step } = useContext(CtxNewDeposit);
@@ -35,8 +35,8 @@ function NewDeposit() {
 
                 {step >= 2 && (
                     <RowWrapper>
-                        <PercentageChoose />
-                        <PercentageDescription />
+                        <PersentageChoose />
+                        <PersentageDescription />
                     </RowWrapper>
                 )}
 

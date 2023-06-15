@@ -34,11 +34,11 @@ const sessionHeader = () => {
 }
 
 const $axios = axios.create({
+    withCredentials: true,
+    headers: sessionHeader(),
     paramsSerializer: {
         indexes: null // by default: false
     },
-    withCredentials: true,
-    headers: sessionHeader(),
     responseType: 'json',
     baseURL: !!API_URL_MODE ? API_URL_MODE : window.location.origin
 });

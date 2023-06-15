@@ -73,6 +73,11 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
     const prevDeps = useRef(currency);
 
+    useEffect(() => {
+        if (state.networksForSelector && state.networksForSelector.length > 0) {
+            setNetworkId(state.networksForSelector[0].value)
+        }
+    }, [state.networksForSelector])
 
     useEffect(() => {
 

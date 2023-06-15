@@ -96,21 +96,19 @@ export function scrollToTop() {
     }
 }
 
-export function calculateAmount(_number, percentage, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
+export function calculateAmount(_amount: string | number | Decimal, percentage: number | string | Decimal, flag: 'withPercentage' | 'onlyPercentage' | 'afterPercentage') {
 
-    const number = new Decimal(percentage);
-    const converted = number.dividedBy(100);
-
-    const n = new Decimal(converted);
-    const p = n.times(percentage);
+    const amount = new Decimal(_amount);
+    const amountPercentageValue = amount.dividedBy(100);
+    const percentageValue = amountPercentageValue.times(new Decimal(percentage));
 
     switch (flag) {
         case "afterPercentage":
-            return n.minus(p).toNumber();
+            return amount.minus(percentageValue).toNumber();
         case "withPercentage" :
-            return n.plus(p).toNumber()
+            return amount.plus(percentageValue).toNumber()
         case "onlyPercentage" :
-            return n.times(percentage).toNumber()
+            return percentageValue.toNumber()
     }
 
 }

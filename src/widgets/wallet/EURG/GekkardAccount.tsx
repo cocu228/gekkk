@@ -10,7 +10,6 @@ import { storeBankData } from '@/shared/store/bank-data/bank-data';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrencyData } from '@/app/CurrenciesContext';
 import Decimal from 'decimal.js';
-import useError from "@/shared/model/hooks/useError";
 
 const GekkardAccount = () => {
 
@@ -45,7 +44,6 @@ const GekkardAccount = () => {
             <div className="col">
                 <InputCurrencyPercented
                     value={input}
-                    showWill
                     onChange={setInput}
                     currencyData={ibanBalanceWallet}
                     minValue={min_withdraw}

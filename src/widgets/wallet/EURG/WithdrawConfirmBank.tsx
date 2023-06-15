@@ -23,7 +23,6 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
     const bankData = storeBankData(state => state.bankData);
     const wallet = useContext(CtxWalletData)
     const [loading, setLoading] = useState(false)
-    // const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
 
     const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
     const onConfirm = async () => {
@@ -34,7 +33,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
             wallet.currency,
             networkIdSelect,
             new Decimal(amount).toNumber(),
-            calculateAmount(amount, 1.5, "onlyPercentage"),
+            1.5,
             bankData.client.address.country + " " + bankData.client.address.city + " " + bankData.client.address.street + " " + bankData.client.address.streetNumber + " " + bankData.client.address.apartmentNumber,
             bankData.clientName
         )
@@ -46,7 +45,6 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
             .reject(localErrorHunter)
 
         setLoading(false)
-
     }
 
     return loading ? <Loader/> : <>
@@ -57,7 +55,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
         </div>
         <div className="row mb-6">
             <div className="col">
-                <span>{calculateAmount(amount, 1.5, "withPercentage")}</span>
+                <span>{amount}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -67,7 +65,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
         </div>
         <div className="row mb-6">
             <div className="col">
-                <span>{amount}</span>
+                <span>{calculateAmount(amount, 1.5, "afterPercentage")}</span>
             </div>
         </div>
         <div className="row mb-4">

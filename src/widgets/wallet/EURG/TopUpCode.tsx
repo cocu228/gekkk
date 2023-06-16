@@ -8,7 +8,6 @@ const TopUpCode = () => {
     const [input, setInput] = useState("")
     const onBtnApply = async () => {
         const response = await apiApplyTxCode(input)
-        console.log(response)
     }
     return (<>
             <div className="row mb-8 flex items-center">

@@ -7,7 +7,6 @@ import useModal from "@/shared/model/hooks/useModal";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
 import { storeBankData } from '@/shared/store/bank-data/bank-data';
-import Loader from '@/shared/ui/loader';
 import { ICtxCurrencyData } from '@/app/CurrenciesContext';
 import Decimal from 'decimal.js';
 import {calculateAmount} from "@/shared/lib/helpers";
@@ -25,12 +24,12 @@ const GekkardAccount = () => {
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    if (!bankData) return <Loader/>
-
-    const ibanBalanceWallet: ICtxCurrencyData = {
-        ...wallet,
-        availableBalance: new Decimal(bankData.accounts[0].balance)
-    }
+    // if (!bankData) return <p>Loading bank data...</p>
+    //
+    // const ibanBalanceWallet: ICtxCurrencyData = {
+    //     ...wallet,
+    //     availableBalance: new Decimal(bankData.accounts[0].balance)
+    // }
 
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -41,12 +40,13 @@ const GekkardAccount = () => {
                 <span>* Note:  Standart exchange fee is 1,5%. If you freeze GKE tokens fee is 0%.</span>
             </div>
         </div>
-        <div className="row">
+        <div className="row mb-4">
             <div className="col">
                 <InputCurrencyPercented
                     value={input}
                     onChange={setInput}
-                    currencyData={ibanBalanceWallet}
+                    // currencyData={ibanBalanceWallet}
+                    currencyData={wallet}
                     minValue={min_withdraw}
                 />
             </div>

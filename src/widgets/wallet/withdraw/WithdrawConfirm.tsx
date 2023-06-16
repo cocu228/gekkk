@@ -37,11 +37,10 @@ const WithdrawConfirm = ({
 
         setLoading(true)
 
-        const sum = !!percent_fee ? calculateAmount(amount, percent_fee, "withPercentage") : new Decimal(amount).plus(withdraw_fee).toNumber()
-        const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
+        // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
-        const response = await apiCreateWithdraw(currency, networkIdSelect, sum,
-            fee, isNull(address) ? "" : address, receiver, description)
+        const response = await apiCreateWithdraw(currency, networkIdSelect, new Decimal(amount).toNumber(),
+            percent_fee || withdraw_fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)
             .success(() => {

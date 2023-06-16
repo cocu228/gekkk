@@ -24,12 +24,12 @@ const GekkardAccount = () => {
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    // if (!bankData) return <p>Loading bank data...</p>
-    //
-    // const ibanBalanceWallet: ICtxCurrencyData = {
-    //     ...wallet,
-    //     availableBalance: new Decimal(bankData.accounts[0].balance)
-    // }
+    if (!bankData) return <p>Loading bank data...</p>
+
+    const ibanBalanceWallet: ICtxCurrencyData = {
+        ...wallet,
+        availableBalance: new Decimal(bankData.accounts[0].balance)
+    }
 
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -45,8 +45,8 @@ const GekkardAccount = () => {
                 <InputCurrencyPercented
                     value={input}
                     onChange={setInput}
-                    // currencyData={ibanBalanceWallet}
-                    currencyData={wallet}
+                    currencyData={ibanBalanceWallet}
+                    // currencyData={wallet}
                     minValue={min_withdraw}
                 />
             </div>

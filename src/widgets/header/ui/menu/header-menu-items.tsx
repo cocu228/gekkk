@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
@@ -6,6 +6,8 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
+import $axios from "@/shared/lib/(cs)axios";
+import Loader from "@/shared/ui/loader";
 
 const hClassName = new HelperClassName(styles)
 export const ItemPerson = ({active = false}) => {
@@ -69,24 +71,39 @@ export const GekkoinInvestPlatform = ({active = false}) => {
 
     const {showModal, handleCancel, isModalOpen} = useModal()
 
+    const [state, setState] = useState<null | string>(null)
+
+    useEffect(() => {
+        (async () => {
+            const response = await $axios.post('/pub/v1/auth')
+            if (response.data.result && response.data.error === null) {
+                setState(response.data.result)
+            }
+        })()
+    }, [])
+
     return <>
         <button className="w-full text-left" onClick={showModal}>
             Gekkoin invest platform
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen}>
-            <div className="row mb-10">
-                <div className="col">
-                    <p className="font-bold text-sm leading-6 text-center">You will be directed to your personal Gekkoin
-                        account, where you can open fixed-income deposits or deposits linked to changes in the exchange
-                        rate of your chosen cryptocurrency.</p>
+            {state === null ? <Loader/> : <>
+                <div className="row mb-10">
+                    <div className="col">
+                        <p className="font-bold text-sm leading-6 text-center">You will be directed to your personal
+                            Gekkoin
+                            account, where you can open fixed-income deposits or deposits linked to changes in the
+                            exchange
+                            rate of your chosen cryptocurrency.</p>
+                    </div>
                 </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <a target="_blank" href="https://dev.gekkoin.com?sessionId=12312312312312"><Button
-                        className="w-full">Confirm</Button></a>
+                <div className="row">
+                    <div className="col">
+                        <a target="_blank" href={`https://dev.gekkoin.com?sessionId=${state}`}><Button
+                            className="w-full">Confirm</Button></a>
+                    </div>
                 </div>
-            </div>
+            </>}
         </Modal>
     </>
 }

@@ -36,18 +36,22 @@ export const ItemPerson = ({active = false}) => {
 }
 
 
-export const ItemOrganization = ({active = false}) => {
+export const ItemOrganization = ({active = false, id = "", name = ""}: Partial<{
+    active: boolean,
+    id: string,
+    name: string
+}>) => {
     return <div className="flex items-center justify-end">
         <div className="wrapper mr-2">
             <SvgSchema className={hClassName.scss("SvgSchema")} width={32} height={22}/>
         </div>
         <div className="wrapper">
             <div className="row">
-                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: 208294110048 </span>
+                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {id} </span>
             </div>
             <div className="row text-start">
                 <span
-                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>Alexandr Semikov</span>
+                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>{name}</span>
             </div>
         </div>
     </div>

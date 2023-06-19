@@ -5,7 +5,7 @@ import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
 import {CtxCurrencyData, ICtxCurrencyData} from '../CurrenciesContext';
 import {actionResSuccess, randomId} from '@/shared/lib/helpers';
 
@@ -27,8 +27,11 @@ export default memo(function () {
     useEffect(() => {
         (async function () {
 
+            // const infoClient = await apiGetInfoClient();
             const walletsRequest = await apiGetBalance();
             const assetsRequest = await apiGetMarketAssets();
+
+            // console.log(infoClient)
 
             actionResSuccess(walletsRequest)
                 .success(() => {

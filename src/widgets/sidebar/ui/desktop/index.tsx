@@ -1,13 +1,16 @@
 import Decimal from "decimal.js";
 import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
-import {apiGetRates} from "@/shared/api";
+import {IRoomInfo, apiCloseRoom, apiGetRates} from "@/shared/api";
 import {NavLink} from 'react-router-dom';
+import Modal from "@/shared/ui/modal/Modal";
 import {scrollToTop} from "@/shared/lib/helpers";
 import IconClose from "@/shared/ui/icons/IconClose";
 import $const from "@/shared/config/coins/constants";
+import useModal from "@/shared/model/hooks/useModal";
 import {CtxCurrencyData} from "@/app/CurrenciesContext";
 import totalizeAmount from "../../model/totalize-amount";
+import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
@@ -18,8 +21,13 @@ import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
+import Button from "@/shared/ui/button/Button";
 
 const SidebarDesktop = () => {
+    const roomInfoModal = useModal();
+    const roomCloseModal = useModal();
+    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
+    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const {currencies, refreshKey} = useContext(CtxCurrencyData);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
@@ -212,6 +220,11 @@ const SidebarDesktop = () => {
                                         
                                         <div
                                             className="hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedRoom(item);
+                                                roomCloseModal.showModal();
+                                            }}
                                         >
                                             <IconClose fill="inherit" size={16}/>
                                         </div>
@@ -228,12 +241,24 @@ const SidebarDesktop = () => {
                                     
                                     {!item.room_code ? null : (
                                         <div className="flex row w-full justify-between">
-                                            <span className={`underline text-gray-500 text-xs hover:text-blue-300`}>
+                                            <span
+                                                className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedRoom(item);
+                                                    roomInfoModal.showModal();
+                                                }}
+                                            >
                                                 Invite link
                                             </span>
 
                                             <div
                                                 className="hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedRoom(item);
+                                                    roomInfoModal.showModal();
+                                                }}
                                             >
                                                 <IconParticipant fill="inherit"/>
                                             </div>
@@ -285,6 +310,43 @@ const SidebarDesktop = () => {
             {/*</NavCollapse>}*/}
         </div>
         {!sm && !md && <Footer textAlight={"text-left"}/>}
+
+        <Modal
+            width={450}
+            open={roomInfoModal.isModalOpen}
+            onCancel={roomInfoModal.handleCancel}
+            title='Invite link'
+        >
+            <InviteLink roomInfo={selectedRoom}/>
+        </Modal>
+
+        <Modal
+            width={450}
+            open={roomCloseModal.isModalOpen}
+            onCancel={roomCloseModal.handleCancel}
+            title='Invite link'
+        >
+            <div className="pt-5 text-sm">
+                Are you sure you want to {selectedRoom ? 
+                `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
+                exchange room? All `
+                : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
+                exchange room? Your `}
+                unclosed orders will be canceled.
+            </div>
+            <div className="mt-16 sm:mt-14">
+                <Button
+                    size="xl"
+                    className="w-full"
+                    onClick={() => {
+                        apiCloseRoom(selectedRoom.timetick).then(() => {
+                            removeExchangeRoom(selectedRoom.timetick);
+                            roomCloseModal.handleCancel();
+                        }).catch(roomCloseModal.handleCancel);
+                    }}
+                >Close private exchange room</Button>
+            </div>
+        </Modal>
     </div>;
 }
 

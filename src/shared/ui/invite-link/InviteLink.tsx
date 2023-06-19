@@ -1,14 +1,13 @@
-import {useContext} from 'react';
+import {IRoomInfo} from '@/shared/api';
 import ReactQRCode from 'react-qr-code';
-import {CtxExchangeData} from '@/widgets/exchange/model/context';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 
-function InviteLink() {
-    const {
-        roomInfo
-    } = useContext(CtxExchangeData);
+interface IParams {
+    roomInfo: IRoomInfo;
+}
 
+function InviteLink({roomInfo = null}: IParams) {
     return (
         <div className="wrapper">
             <ModalInfoText>
@@ -21,13 +20,13 @@ function InviteLink() {
                         <ReactQRCode
                             size={148}
                             style={{height: "auto", maxWidth: "120px", width: "100%"}}
-                            value={`gekkard.com/${roomInfo.room_code}`}
+                            value={`gekkard.com/${roomInfo ? roomInfo.room_code : null}`}
                             viewBox={`0 0 148 148`}
                         />
                     </div>
                 </div>
             </div>
-            <ClipboardField value={`gekkard.com/${roomInfo.room_code}`}/>
+            <ClipboardField value={`gekkard.com/${roomInfo ? roomInfo.room_code : null}`}/>
             <div className="mt-2.5 text-sm font-medium">
                 This invite link is available for 24 hours.
             </div>

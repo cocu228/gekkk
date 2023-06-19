@@ -238,36 +238,37 @@ function Exchange() {
             >
                 {roomType == 'default'
                     ? <CreateRoom />
-                    : <InviteLink />
+                    : <InviteLink roomInfo={roomInfo} />
                 }
             </Modal>
 
-            {(roomType === 'creator') && (
-                <Modal
-                    width={450}
-                    title="Close private exchange room"
-                    open={cancelRoomModal.isModalOpen}
-                    onCancel={cancelRoomModal.handleCancel}
-                >
-                    <div className="pt-5 text-sm">
-                        Are you sure you want to close the
-                        current {from.currency} - {to.currency} private
-                        exchange room? All unclosed orders will be canceled.
-                    </div>
-                    <div className="mt-16 sm:mt-14">
-                        <Button
-                            size="xl"
-                            className="w-full"
-                            onClick={() => {
-                                apiCloseRoom(roomInfo.timetick).then(response => {
-                                    onRoomClosing(roomInfo.timetick);
-                                    cancelRoomModal.handleCancel();
-                                });
-                            }}
-                        >Close private exchange room</Button>
-                    </div>
-                </Modal>
-            )}
+            <Modal
+                width={450}
+                title={`${roomType === 'creator' ? 'Close' : 'Leave'} private exchange room`}
+                open={cancelRoomModal.isModalOpen}
+                onCancel={cancelRoomModal.handleCancel}
+            >
+                <div className="pt-5 text-sm">
+                    Are you sure you want to {roomType === 'creator' ? 
+                        `close the current ${from.currency} - ${to.currency} private
+                        exchange room? All `
+                    : `leave the current ${from.currency} - ${to.currency} private
+                    exchange room? Your `}
+                    unclosed orders will be canceled.
+                </div>
+                <div className="mt-16 sm:mt-14">
+                    <Button
+                        size="xl"
+                        className="w-full"
+                        onClick={() => {
+                            apiCloseRoom(roomInfo.timetick).then(() => {
+                                onRoomClosing(roomInfo.timetick);
+                                cancelRoomModal.handleCancel();
+                            }).catch(cancelRoomModal.handleCancel);
+                        }}
+                    >Close private exchange room</Button>
+                </div>
+            </Modal>
         </div>
     );
 }

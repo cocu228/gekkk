@@ -3,8 +3,6 @@ import {devtools} from "zustand/middleware";
 import {apiGetBankData, IBankData} from "@/shared/api";
 import {uncoverArray} from "@/shared/lib/helpers";
 
-// import {AxiosResponse} from "axios";
-
 export interface IStoreBankData {
     bankData: IBankData;
     getBankData: () => Promise<IBankData>

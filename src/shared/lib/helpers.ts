@@ -113,6 +113,8 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
 
 }
 
+export const uncoverResponse = (response) => response.data.result
+
 export const getCurrencyRounding = (value: number) =>
     value >= 1000 ? Math.round(value) :
     value >= 1 ? value.toFixed(2) :

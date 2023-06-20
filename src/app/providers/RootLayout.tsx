@@ -5,9 +5,10 @@ import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
+import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
 import {CtxCurrencyData, ICtxCurrencyData} from '../CurrenciesContext';
-import {actionResSuccess, randomId} from '@/shared/lib/helpers';
+import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
+import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 
 export default memo(function () {
     const [{
@@ -25,35 +26,33 @@ export default memo(function () {
         }));
 
     useEffect(() => {
+
         (async function () {
-
             // const infoClient = await apiGetInfoClient();
-            const walletsRequest = await apiGetBalance();
-            const assetsRequest = await apiGetMarketAssets();
+            const walletsResponse = await apiGetBalance();
+            const assetsResponse = await apiGetMarketAssets();
 
-            // console.log(infoClient)
 
-            actionResSuccess(walletsRequest)
+            actionResSuccess(walletsResponse)
                 .success(() => {
-                    actionResSuccess(assetsRequest)
+                    actionResSuccess(assetsResponse)
                         .success(() => {
-                            setState(prev => {
-
-                                let currencies = prev.currencies
-
-                                assetsRequest.data.result.forEach(asset => {
-                                    const walletInfo = walletsRequest.data.result.find(wallet => asset.code === wallet.currency)
-                                    currencies.set(asset.code, new ICtxCurrencyData(asset, walletInfo))
-                                })
-
-                                return {
-                                    ...prev,
-                                    loading: false,
-                                    currencies
-                                }
-                            });
+                            setState(prev => ({
+                                ...prev,
+                                currencies: helperCurrenciesGeneration(
+                                    uncoverResponse(assetsResponse),
+                                    uncoverResponse(walletsResponse))
+                            }));
                         }).reject(() => null);
                 }).reject(() => null);
+        })()
+    }, [refreshKey]);
+
+
+    useEffect(() => {
+
+        (async function () {
+            // const infoClient = await apiGetInfoClient();
         })()
     }, [refreshKey]);
 
@@ -67,7 +66,6 @@ export default memo(function () {
             {currencies.size === 0 ? <Loader/> : (
                 <Main>
                     <Sidebar/>
-
                     <Content>
                         <Outlet/>
                     </Content>

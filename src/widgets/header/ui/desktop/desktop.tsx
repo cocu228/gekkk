@@ -1,27 +1,33 @@
 import {Skeleton} from "antd";
 import styles from "./style.module.scss";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {IBankData} from "@/shared/api/bank";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
-import headerMenuList from "../../model/header-menu-list";
-import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
+import headerMenuList from "../../model/header-menu-items";
+import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {storeBankData} from "@/shared/store/bank-data/bank-data";
+import {TOnActionParams} from "@/widgets/header/model/types";
 
 const HeaderDesktop = () => {
 
     const {logout} = useAuth();
+
     const navigate = useNavigate();
+
     const [bankData, setBankData] = useState<IBankData>(null);
+
     const getBankData = storeBankData(state => state.getBankData);
 
-    const onBtnLogout = () => {
-        logout();
-    }
+    const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
+        {type: "link", action: (value) => navigate(value)},
+        {type: "change-person", action: async (value) => await navigate(value)},
+        {type: "logout", action: () => logout()}
+    ], [])
 
     useEffect(() => {
-        (async function() {
-            if(!bankData){
+        (async function () {
+            if (!bankData) {
                 const data = await getBankData();
                 setBankData(data);
             }
@@ -35,7 +41,7 @@ const HeaderDesktop = () => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
-            <HeaderMenu className="ml-auto" items={headerMenuList}>
+            <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={headerMenuList}>
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
@@ -64,7 +70,7 @@ const HeaderDesktop = () => {
                     </div>
                 </div>
             </HeaderMenu>
-            <button onClick={onBtnLogout}>
+            <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
                 </div>

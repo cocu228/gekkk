@@ -1,31 +1,13 @@
-import {useAuth} from "@/app/providers/AuthRouter";
-import {useNavigate} from "react-router-dom";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions"
-import {TOnActionParams} from "@/widgets/header/model/types";
 
 
-const HeaderMenu = ({children, items, className = ""}) => {
-
-    const {logout} = useAuth()
-    const navigation = useNavigate()
+const HeaderMenu = ({children, items, className = "", actions}) => {
     const [isActive, toggleActive] = useState(false)
     const ref = useRef(null)
-
-    const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
-        {type: "link", action: (value) => navigation(value)},
-        {type: "change-person", action: async (value) => await navigation(value)},
-        {type: "logout", action: () => logout(),}], [])
-
-    const dropdownMenuFunctions = useMemo(() => new DropdownMenuFunctions(ref, toggleActive, actionsForMenuFunctions), [ref])
-
-
-    useEffect(() => {
-        (async () => {
-
-        })()
-    }, [])
+    const dropdownMenuFunctions =
+        useMemo(() => new DropdownMenuFunctions(ref, toggleActive, actions), [ref])
 
     return <>
         <div ref={ref} onClick={dropdownMenuFunctions.onOpen}

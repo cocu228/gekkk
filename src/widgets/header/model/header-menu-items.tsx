@@ -4,11 +4,11 @@ import {
     ItemOrganization,
     ItemPerson,
     PromoCodeModal
-} from "@/widgets/header/ui/menu/header-menu-items";
+} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
 
-const HeaderMenuList: THeaderMenuList = [
+const HeaderMenuItems: THeaderMenuList = [
 
     {
         item: <ItemPerson active={true}/>,
@@ -80,4 +80,4 @@ const HeaderMenuList: THeaderMenuList = [
     },
 ]
 
-export default HeaderMenuList
+export default HeaderMenuItems

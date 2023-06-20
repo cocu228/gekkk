@@ -1,8 +1,8 @@
 import styles from "./style.module.scss"
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {useRef} from "react";
-import HeaderMenu from "@/widgets/header/ui/menu/header-menu";
-import headerMenuList from "@/widgets/header/model/header-menu-list";
+import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
+import headerMenuList from "@/widgets/header/model/header-menu-items";
 
 const HeaderMobile = () => {
 

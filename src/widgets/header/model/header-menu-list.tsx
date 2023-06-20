@@ -5,16 +5,8 @@ import {
     ItemPerson,
     PromoCodeModal
 } from "@/widgets/header/ui/menu/header-menu-items";
+import {THeaderMenuList} from "@/widgets/header/model/types";
 
-export type THeaderMenuList = Array<{
-    item: string | JSX.Element,
-    id?: null | number | string,
-    action?: {
-        type?: null | string,
-        value?: null | string,
-    },
-    style?: object
-}>
 
 const HeaderMenuList: THeaderMenuList = [
 

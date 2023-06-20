@@ -1,10 +1,6 @@
 import React from "react";
-import {THeaderMenuList} from "@/widgets/header/model/header-menu-list";
+import {TOnActionParams, THeaderMenuList} from "@/widgets/header/model/types";
 
-type TOnActionParams = Array<{
-    type: string,
-    action: (value: THeaderMenuList[0]["action"]["value"]) => void
-}>
 
 export default class DropdownMenuFunctions {
 
@@ -12,7 +8,7 @@ export default class DropdownMenuFunctions {
     actions?: TOnActionParams;
     toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
 
-    constructor(ref, toggleOpen, actions) {
+    constructor(ref, toggleOpen, actions?) {
         this.ref = ref
         this.actions = actions
         this.toggleOpen = toggleOpen

@@ -2,34 +2,7 @@ import {useAuth} from "@/app/providers/AuthRouter";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
-
-class DropdownMenuFunctions {
-
-    ref: React.MutableRefObject<null | HTMLDivElement>;
-    toggleOpen: React.Dispatch<React.SetStateAction<boolean>>
-
-    constructor(ref, toggleOpen) {
-        this.ref = ref
-        this.toggleOpen = toggleOpen
-    }
-
-    onOpen = () => {
-        this.toggleOpen(prev => !prev)
-        document.addEventListener('click', this.onClick)
-    }
-
-
-    onClick = ({target}) => {
-        if (!this.ref.current.contains(target)) {
-            this.toggleOpen(false)
-            this.removeEventListener()
-        }
-    }
-
-
-    removeEventListener = () => document.removeEventListener('click', this.onClick)
-
-}
+import DropdownMenuFunctions from "../../model/dropdown-menu-functions"
 
 
 const HeaderMenu = ({children, items, className = ""}) => {
@@ -38,7 +11,9 @@ const HeaderMenu = ({children, items, className = ""}) => {
     const navigation = useNavigate()
     const [isActive, toggleActive] = useState(false)
     const ref = useRef(null)
-    const dropdownMenuFunctions = useMemo(() => new DropdownMenuFunctions(ref, toggleActive), [ref])
+
+    const dropdownMenuFunctions = useMemo(() => new DropdownMenuFunctions(ref, toggleActive, [
+        {type: "link", action: (value) => navigation(value),}, {type: "logout", action: (value) => logout(),}]), [ref])
 
 
     useEffect(() => {
@@ -46,26 +21,6 @@ const HeaderMenu = ({children, items, className = ""}) => {
 
         })()
     }, [])
-
-
-    const handlerClick = (event) => {
-
-        switch (event.action) {
-            case "link":
-                dropdownMenuFunctions.removeEventListener()
-                navigation(event.value)
-                break
-            case "logout":
-                logout()
-                dropdownMenuFunctions.removeEventListener()
-                break
-            case undefined:
-                break
-        }
-    }
-
-
-    //
 
     return <>
         <div ref={ref} onClick={dropdownMenuFunctions.onOpen}
@@ -76,9 +31,11 @@ const HeaderMenu = ({children, items, className = ""}) => {
                 {children}
 
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
-                    {items.map((obj, i) => <span key={"ItemMenu_" + i} style={obj.style ?? {}}
-                                                 onClick={() => handlerClick(obj.event)}
-                                                 className={`${styles.DropdownItem} h-full`}> {obj.item} </span>)}
+
+                    {items.map((item, i) => <span key={"ItemMenu_" + i}
+                                                  style={item.style}
+                                                  onClick={() => dropdownMenuFunctions.onAction(item.action)}
+                                                  className={`${styles.DropdownItem} h-full`}> {item.item} </span>)}
                 </div>
             </div>
         </div>

@@ -6,13 +6,24 @@ import {
     PromoCodeModal
 } from "@/widgets/header/ui/menu/header-menu-items";
 
-const HeaderMenuList = [
+export type THeaderMenuList = Array<{
+    item: string | JSX.Element,
+    id?: null | number | string,
+    action?: {
+        type?: null | string,
+        value?: null | string,
+    },
+    style?: object
+}>
+
+const HeaderMenuList: THeaderMenuList = [
 
     {
         item: <ItemPerson active={true}/>,
-        id: 'id',
-        event: {
-            action: undefined, value: "",
+        id: null,
+        action: {
+            type: null,
+            value: null,
         },
         style: {
             backgroundColor: "var(--color-gray-300)"
@@ -20,33 +31,57 @@ const HeaderMenuList = [
     },
     {
         item: <ItemOrganization/>,
-        id: 'id',
-        event: {
-            action: undefined, value: "/",
+        id: null,
+        action: {
+            type: null,
+            value: null,
         },
         style: {
             backgroundColor: "var(--color-gray-300)"
         }
     },
     {
-        item: 'Dashboard', id: 'dashboard', event: {action: "link", value: "/"},
+        item: 'Dashboard',
+        id: null,
+        action: {
+            type: "link",
+            value: "/",
+        },
         style: {
             borderTop: "1px solid var(--color-gray-400)"
         }
     },
-    // {item: 'Deposit types', id: 'deposit', event: {action: "link", value: "deposit-types"}},
     {
-        item: <PromoCodeModal/>, id: 'item-4',
-        event: {action: "onclick", value: null}
+        item: <PromoCodeModal/>,
+        id: null,
+        action: {
+            type: null,
+            value: null,
+        },
     },
     {
-        item: <GekkoinInvestPlatform/>, id: 'item-5',
-        event: {action: "onclick", value: null}
+        item: <GekkoinInvestPlatform/>,
+        id: null,
+        action: {
+            type: null,
+            value: null,
+        },
     },
-    {item: 'Support', id: 'item-4', event: {action: "link", value: "support"}},
     {
-        item: 'Logout', id: 'logout',
-        event: {action: "logout", value: null},
+        item: 'Support',
+        id: null,
+        action: {
+            type: "link",
+            value: "support",
+        }
+    },
+    {
+        item: 'Logout',
+        id: null,
+        action: {
+            type: "logout",
+            value: null,
+        },
         style: {
             borderTop: "1px solid var(--color-gray-400)"
         }

@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {apiGetBankData, IBankData} from "@/shared/api";
+import {uncoverArray} from "@/shared/lib/helpers";
 
 // import {AxiosResponse} from "axios";
 
@@ -13,8 +14,7 @@ export const storeBankData = create<IStoreBankData>()(devtools((set) => ({
     bankData: null,
     getBankData: async () => {
         const {data} = await apiGetBankData();
-
-        set((state) => ({...state, bankData: data[0] ?? null}));
-        return data[0];
+        set((state) => ({...state, bankData: uncoverArray<IBankData | null>(data)}));
+        return uncoverArray<IBankData | null>(data);
     },
 })));

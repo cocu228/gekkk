@@ -64,4 +64,4 @@ export interface IBankData {
 }
 
 export const apiGetBankData = () =>
-    $axios.get<IBankData>('/api/v2/organizations');
+    $axios.get<Array<IBankData>>('/api/v2/organizations');

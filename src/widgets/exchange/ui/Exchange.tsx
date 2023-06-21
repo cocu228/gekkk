@@ -1,4 +1,5 @@
 import {useContext} from 'react';
+import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
@@ -23,6 +24,7 @@ import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
 import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
+import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
 
@@ -30,7 +32,8 @@ function Exchange() {
     const confirmModal = useModal();
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
-    const { currencies } = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxCurrencyData);
+    const roomsList = storeListExchangeRooms(state => state.roomsList);
 
     const {
         to,
@@ -105,6 +108,7 @@ function Exchange() {
         return null;
     };
 
+    if (!roomsList) return <Loader/>;
 
     return (
         <div className="wrapper">

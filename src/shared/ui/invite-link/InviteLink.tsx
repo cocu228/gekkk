@@ -8,6 +8,17 @@ interface IParams {
 }
 
 function InviteLink({roomInfo = null}: IParams) {
+    const getInviteUrl = (): string => {
+        const {
+            port,
+            protocol,
+            hostname,
+        } = window.location;
+        const host = `${protocol}//${hostname}${port ? `:${port}` : ''}`;
+
+        return `${host}/?roomCode=${roomInfo ? roomInfo.room_code : null}`;
+    }
+
     return (
         <div className="wrapper">
             <ModalInfoText>
@@ -20,13 +31,13 @@ function InviteLink({roomInfo = null}: IParams) {
                         <ReactQRCode
                             size={148}
                             style={{height: "auto", maxWidth: "120px", width: "100%"}}
-                            value={`gekkard.com/${roomInfo ? roomInfo.room_code : null}`}
+                            value={getInviteUrl()}
                             viewBox={`0 0 148 148`}
                         />
                     </div>
                 </div>
             </div>
-            <ClipboardField value={`gekkard.com/${roomInfo ? roomInfo.room_code : null}`}/>
+            <ClipboardField value={getInviteUrl()}/>
             <div className="mt-2.5 text-sm font-medium">
                 This invite link is available for 24 hours.
             </div>

@@ -20,7 +20,7 @@ const HeaderMobile = () => {
                 </a>
             </div>
             <div className="wrapper">
-                <HeaderMenu items={headerMenuList}>
+                <HeaderMenu items={headerMenuList} actions={headerMenuList}>
                     <div className="wrapper flex justify-end w-[180px]">
                         <button className="arrow-down-xs"></button>
                     </div>

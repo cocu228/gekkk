@@ -17,7 +17,7 @@ import Loader from "@/shared/ui/loader";
 
 const {RangePicker} = DatePicker;
 
-function History({currency}: Partial<Props>) {
+function History({currenciesFilter}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxCurrencyData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -44,7 +44,7 @@ function History({currency}: Partial<Props>) {
         const response = await apiHistoryTransactions(
             start.length ? start.toString() : null,
             end.length ? end.toString() : null,
-            currency,
+            currenciesFilter,
             [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
             null,
             10
@@ -66,7 +66,7 @@ function History({currency}: Partial<Props>) {
 
         const lastValue = listHistory[listHistory.length - 1];
 
-        const {data} = await apiHistoryTransactions(null, null, currency, [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16], lastValue.id_transaction, 10)
+        const {data} = await apiHistoryTransactions(null, null, currenciesFilter, [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16], lastValue.id_transaction, 10)
         console.log(data.result.length)
         if (data.result.length < 10) setAllTxVisibly(true)
 
@@ -87,12 +87,12 @@ function History({currency}: Partial<Props>) {
 
 
     useEffect(() => {
-        if (currency) {
+        if (currenciesFilter) {
             (async () => {
                 await requestHistory()
             })()
         }
-    }, [currency])
+    }, [currenciesFilter])
 
     return (
         <div className="wrapper">

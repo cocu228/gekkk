@@ -15,6 +15,6 @@ export type HistoryTab = {
 
 export interface Props {
     title: string,
-    currency: string,
-    className: string
+    className: string,
+    currenciesFilter: string[]
 }

@@ -1,4 +1,3 @@
-import {useContext} from 'react';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
@@ -9,6 +8,7 @@ import History from '@/widgets/history/ui/History';
 import useModal from '@/shared/model/hooks/useModal';
 import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
+import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import {CtxCurrencyData} from '@/app/CurrenciesContext';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
@@ -34,6 +34,7 @@ function Exchange() {
     const cancelRoomModal = useModal();
     const {currencies} = useContext(CtxCurrencyData);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
+    const [historyFilter, setHistoryFilter] = useState<string[]>([]);
 
     const {
         to,
@@ -48,6 +49,15 @@ function Exchange() {
         onToCurrencyChange,
         onFromCurrencyChange,
     } = useContext(CtxExchangeData);
+
+    useEffect(() => {
+        if (!(historyFilter.includes(from.currency) && historyFilter.includes(to.currency))) {
+            setHistoryFilter([
+                to.currency ? to.currency : null,
+                from.currency ? from.currency : null
+            ]);
+        }
+    }, [from.currency, to.currency])
 
     const getHeadTitle = () => {
         switch (roomType) {
@@ -226,7 +236,7 @@ function Exchange() {
                 }
                 rightColumn={
                     <div className="py-5 px-10 lg:px-5 md:px-4">
-                        <History />
+                        <History currenciesFilter={historyFilter}/>
                     </div>
                 }
             />

@@ -20,9 +20,11 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*    </div>*/}
         {/*</div>*/}
         <div className="row mb-8 w-full">
+            {withdraw ? "Select withdraw network" : "Select network"}
+
             <div className="col">
                 <Select className="w-full mt-2"
-                        placeholder={withdraw ? "Select withdraw network" : "Select network"}
+                        placeholder={"Networks not found"}
                         value={networkIdSelect}
                         onSelect={setNetworkId}
                         options={networksForSelector}

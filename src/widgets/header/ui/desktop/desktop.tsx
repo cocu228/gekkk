@@ -1,6 +1,6 @@
 import {Skeleton} from "antd";
 import styles from "./style.module.scss";
-import React, {useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
+import React, {memo, useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {IBankData} from "@/shared/api/bank";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
@@ -10,14 +10,13 @@ import {TOnActionParams} from "@/widgets/header/model/types";
 import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {CtxRootData} from "@/app/CurrenciesContext";
 
-const HeaderDesktop = () => {
+const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
     const {person, setPerson} = useContext(CtxRootData);
 
     const navigate = useNavigate();
-
-    const items = useMemo(() => new HeaderMenuItems([...defaultItems]), [person.id])
+    const [items, setItems] = useState(defaultItems)
 
     // const [bankData, setBankData] = useState<IBankData>(null);
 
@@ -36,29 +35,34 @@ const HeaderDesktop = () => {
             //     const data = await getBankData();
             //     setBankData(data);
             // }
-            items.set({
+
+            let newItems = [...defaultItems]
+
+            newItems.unshift({
                 item: <ItemOrganization id={1} active={person.id === 1}/>,
                 id: 1,
                 action: {
                     type: "change-person",
-                    value: {id: 1, type: "u"},
+                    value: {id: 1, type: "organization"},
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"
                 }
             },)
 
-            items.set({
+            newItems.unshift({
                 item: <ItemPerson id={0} active={person.id === 0}/>,
                 id: 0,
                 action: {
                     type: "change-person",
-                    value: {id: 0, type: "f"}
+                    value: {id: 0, type: "individual"}
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"
                 },
             })
+
+            setItems(newItems)
 
         })();
     }, [person.id]);
@@ -70,7 +74,7 @@ const HeaderDesktop = () => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
-            <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items.get()}>
+            <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items}>
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
@@ -92,7 +96,7 @@ const HeaderDesktop = () => {
                             </div>
                             <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    Name
+                                    {person.type}
                                 </span>
                             </div>
                         </>}
@@ -107,5 +111,5 @@ const HeaderDesktop = () => {
         </header>
     </>
 
-}
+})
 export default HeaderDesktop

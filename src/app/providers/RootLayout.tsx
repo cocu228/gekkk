@@ -19,7 +19,7 @@ export default memo(function () {
         refreshKey: "",
         person: {
             id: 0,
-            type: "f"
+            type: "individual"
         },
         currencies: new Map<string, ICtxCurrencyData>()
     })

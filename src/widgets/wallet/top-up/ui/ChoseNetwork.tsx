@@ -10,7 +10,7 @@ const ChoseNetwork = ({withdraw = false}) => {
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
     const {xl, md} = useContext(BreakpointsContext);
 
-    const noteVisible = !withdraw && !(networksForSelector.length === 0) && currency !== "EURG"
+    const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && currency !== "EURG"
 
     return <>
         {/*<div className="row mb-10">*/}

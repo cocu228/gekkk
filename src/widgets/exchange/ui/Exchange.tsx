@@ -10,7 +10,7 @@ import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
-import {CtxCurrencyData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/CurrenciesContext';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import {apiCloseRoom, apiCreateOrder} from '@/shared/api';
 import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
@@ -32,7 +32,7 @@ function Exchange() {
     const confirmModal = useModal();
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
 

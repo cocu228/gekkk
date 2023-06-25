@@ -38,8 +38,13 @@ export class ICtxCurrencyData {
     }
 }
 
-export const CtxCurrencyData = React.createContext<{
+export const CtxRootData = React.createContext<{
     currencies: Map<string, ICtxCurrencyData>,
     setRefresh: () => void
+    setPerson: (obj: { id: number, type: string }) => void
+    person: {
+        id: number,
+        type: string
+    } | null
     refreshKey: string
 }>(null);

@@ -11,7 +11,7 @@ import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import {CtxCurrencyData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/CurrenciesContext';
 import {actionResSuccess} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 
@@ -19,9 +19,9 @@ const {RangePicker} = DatePicker;
 
 function History({currenciesFilter}: Partial<Props>) {
 
-    const {refreshKey} = useContext(CtxCurrencyData);
+    const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);

@@ -1,4 +1,4 @@
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/CurrenciesContext';
 import styles from './styles.module.scss';
 import { IResMarketAsset } from '@/shared/api';
 import { IconCoin } from '@/shared/ui/icons/icon-coin';
@@ -11,7 +11,7 @@ interface IParams {
 }
 
 const TokenButton = ({ onClick, tokenCurrency }: IParams) => {
-	const {currencies} = useContext(CtxCurrencyData);
+	const {currencies} = useContext(CtxRootData);
 	const tokenData = currencies.get(tokenCurrency);
 
 	return (

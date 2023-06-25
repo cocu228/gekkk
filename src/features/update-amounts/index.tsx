@@ -1,11 +1,11 @@
 import styles from "./style.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { isActiveClass } from "@/shared/lib/helpers";
-import { CtxCurrencyData } from "@/app/CurrenciesContext";
+import { CtxRootData } from "@/app/CurrenciesContext";
 
 const UpdateAmounts = () => {
     const [active, setActive] = useState(false);
-    const {setRefresh} = useContext(CtxCurrencyData);
+    const {setRefresh} = useContext(CtxRootData);
 
     const onClick = async () => {
         setActive(true);

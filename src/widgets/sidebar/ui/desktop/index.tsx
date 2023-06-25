@@ -8,7 +8,7 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import IconClose from "@/shared/ui/icons/IconClose";
 import $const from "@/shared/config/coins/constants";
 import useModal from "@/shared/model/hooks/useModal";
-import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/CurrenciesContext";
 import totalizeAmount from "../../model/totalize-amount";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
@@ -29,7 +29,7 @@ const SidebarDesktop = () => {
     const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
-    const {currencies, refreshKey} = useContext(CtxCurrencyData);
+    const {currencies, refreshKey} = useContext(CtxRootData);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})

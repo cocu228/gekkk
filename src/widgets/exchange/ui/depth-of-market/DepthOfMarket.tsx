@@ -4,7 +4,7 @@ import styles from './style.module.scss';
 import { ITradeInfo, TradePriceArray, apiGetTradeInfo } from '@/shared/api';
 import Loader from '@/shared/ui/loader';
 import { useContext, useEffect, useState } from 'react';
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/CurrenciesContext';
 import Decimal from 'decimal.js';
 
 interface IParams {
@@ -35,7 +35,7 @@ function DepthOfMarket({ currency_from, currency_to, room_key }: IParams) {
         isSwapped: false
     }
 
-    const { currencies } = useContext(CtxCurrencyData);
+    const { currencies } = useContext(CtxRootData);
     const [state, setState] = useState<DepthOfMarketState>(initialState);
 
     useEffect(() => {

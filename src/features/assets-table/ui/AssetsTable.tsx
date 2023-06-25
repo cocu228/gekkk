@@ -10,7 +10,7 @@ import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import GTable from '@/shared/ui/grid-table/';
 import {useContext, useEffect, useMemo, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {CtxCurrencyData, ICtxCurrencyData} from '@/app/CurrenciesContext';
+import {CtxRootData, ICtxCurrencyData} from '@/app/CurrenciesContext';
 import { CurrencyFlags, maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { evenOrOdd, getCurrencyRounding, getFlagsFromMask, scrollToTop } from "@/shared/lib/helpers";
 
@@ -40,7 +40,7 @@ const AssetsTable = ({
 }: IParams) => {
     const navigate = useNavigate();
     const { md } = useContext(BreakpointsContext);
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));

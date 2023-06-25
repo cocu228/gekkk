@@ -14,6 +14,8 @@ export default class DropdownMenuFunctions {
         this.toggleOpen = toggleOpen
     }
 
+    
+
     onOpen = () => {
         this.toggleOpen(prev => !prev)
         document.addEventListener('click', this.onClick)

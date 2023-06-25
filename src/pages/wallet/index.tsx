@@ -10,7 +10,7 @@ import Withdraw from "@/widgets/wallet/withdraw/Withdraw";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import { CtxCurrencyData } from "@/app/CurrenciesContext";
+import { CtxRootData } from "@/app/CurrenciesContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
 import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
 import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
@@ -19,7 +19,7 @@ function Wallet() {
 
     const {currency, tab} = useParams();
     const {xl, md} = useContext(BreakpointsContext);
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const $currency = currencies.get(currency);
 
     return (

@@ -6,16 +6,21 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
-import {CtxCurrencyData, ICtxCurrencyData} from '../CurrenciesContext';
+import {CtxRootData, ICtxCurrencyData} from '../CurrenciesContext';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 
 export default memo(function () {
     const [{
+        person,
         refreshKey,
         currencies,
     }, setState] = useState({
         refreshKey: "",
+        person: {
+            id: 0,
+            type: "f"
+        },
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
@@ -23,6 +28,15 @@ export default memo(function () {
         setState(prev => ({
             ...prev,
             refreshKey: randomId()
+        }));
+
+    const setPerson = ({id, type}) =>
+        setState(prev => ({
+            ...prev,
+            person: {
+                id,
+                type
+            }
         }));
 
     useEffect(() => {
@@ -56,8 +70,10 @@ export default memo(function () {
         })()
     }, [refreshKey]);
 
-    return <CtxCurrencyData.Provider value={{
+    return <CtxRootData.Provider value={{
         currencies,
+        person,
+        setPerson: setPerson,
         setRefresh: setRefresh,
         refreshKey
     }}>
@@ -72,5 +88,5 @@ export default memo(function () {
                 </Main>
             )}
         </>
-    </CtxCurrencyData.Provider>
+    </CtxRootData.Provider>
 });

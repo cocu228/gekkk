@@ -7,31 +7,25 @@ import {
 } from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
+export class HeaderMenuItems {
 
-const HeaderMenuItems: THeaderMenuList = [
+    items: THeaderMenuList
 
-    {
-        item: <ItemPerson active={true}/>,
-        id: null,
-        action: {
-            type: null,
-            value: null,
-        },
-        style: {
-            backgroundColor: "var(--color-gray-300)"
-        }
-    },
-    {
-        item: <ItemOrganization/>,
-        id: null,
-        action: {
-            type: null,
-            value: null,
-        },
-        style: {
-            backgroundColor: "var(--color-gray-300)"
-        }
-    },
+    constructor(defaultItems: THeaderMenuList) {
+        this.items = defaultItems
+    }
+
+    get() {
+        return this.items
+    }
+
+    set(item: THeaderMenuList[0]) {
+        this.items.unshift(item)
+    }
+}
+
+
+export const defaultItems: THeaderMenuList = [
     {
         item: 'Dashboard',
         id: null,
@@ -79,5 +73,3 @@ const HeaderMenuItems: THeaderMenuList = [
         }
     },
 ]
-
-export default HeaderMenuItems

@@ -8,11 +8,11 @@ import {
 import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/CurrenciesContext";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {
-    const {setRefresh} = useContext(CtxCurrencyData)
+    const {setRefresh} = useContext(CtxRootData)
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox] = useError()
 

@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {CtxExchangeData} from '../../model/context';
-import {CtxCurrencyData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/CurrenciesContext';
 
 function OperationResult() {
     const {
@@ -8,7 +8,7 @@ function OperationResult() {
         from
     } = useContext(CtxExchangeData);
 
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
 
     return (
         <div className="flex flex-col gap-2 md:gap-1 font-medium info-box-warning">

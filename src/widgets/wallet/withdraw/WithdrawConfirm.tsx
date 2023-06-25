@@ -11,7 +11,7 @@ import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
-import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/CurrenciesContext";
 import useError from "@/shared/model/hooks/useError";
 
 const WithdrawConfirm = ({
@@ -27,7 +27,7 @@ const WithdrawConfirm = ({
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
     const {currency} = useContext(CtxWalletData)
-    const {setRefresh} = useContext(CtxCurrencyData)
+    const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()

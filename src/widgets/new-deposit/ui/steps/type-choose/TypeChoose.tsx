@@ -5,7 +5,7 @@ import $const from '@/shared/config/coins/constants';
 import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/CurrenciesContext';
 import Decimal from 'decimal.js';
 
 const TypeChoose = () => {
@@ -17,7 +17,7 @@ const TypeChoose = () => {
         onDepositTypeChange
     } = useContext(CtxNewDeposit);
 
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const eurgWallet = currencies.get('EURG');
 
     return (

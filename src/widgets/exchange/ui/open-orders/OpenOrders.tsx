@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { IResOrder, apiGetOrders } from '@/shared/api';
 import styles from './style.module.scss';
-import { CtxCurrencyData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/CurrenciesContext';
 
 function OpenOrders() {
-    const { currencies } = useContext(CtxCurrencyData);
+    const { currencies } = useContext(CtxRootData);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {

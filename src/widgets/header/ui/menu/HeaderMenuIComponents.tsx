@@ -28,7 +28,7 @@ export const ItemPerson = ({active = false}) => {
             </div>
             <div className="row text-start">
                 <span
-                    className={`text-xs text-start text-blue-400 font-bold ${hClassName.while(active)
+                    className={`text-xs text-start font-bold ${hClassName.while(active)
                         .do("text-blue-400").done()}`}>Alexandr Semikov</span>
             </div>
         </div>
@@ -41,9 +41,10 @@ export const ItemOrganization = ({active = false, id = "", name = ""}: Partial<{
     id: string,
     name: string
 }>) => {
-    return <div className="flex items-center justify-end">
+    return <div className="flex items-center justify-end relative">
+        {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
         <div className="wrapper mr-2">
-            <SvgSchema className={hClassName.scss("SvgSchema")} width={32} height={22}/>
+            <SvgSchema active={active} className={hClassName.scss("SvgSchema")} width={32} height={22}/>
         </div>
         <div className="wrapper">
             <div className="row">

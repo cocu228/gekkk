@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CtxExchangeData, ICtxExchangeData } from "./context";
-import { CtxCurrencyData } from "@/app/CurrenciesContext";
+import { CtxRootData } from "@/app/CurrenciesContext";
 import { IRoomInfo } from "@/shared/api";
 import { useNavigate } from "react-router-dom";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -14,7 +14,7 @@ interface IProps {
 
 const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) => {
     const navigate = useNavigate();
-    const {currencies} = useContext(CtxCurrencyData);
+    const {currencies} = useContext(CtxRootData);
     const addExchangeRoom = storeListExchangeRooms(state => state.addRoom);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 

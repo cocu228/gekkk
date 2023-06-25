@@ -9,14 +9,14 @@ import Modal from "@/shared/ui/modal/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {IResCodeTxInfo} from "@/widgets/wallet/transfer/api/code-tx-info";
-import {CtxCurrencyData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/CurrenciesContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 
 const ApplyCode = () => {
 
     const {showModal, isModalOpen, handleCancel} = useModal()
-    const {setRefresh} = useContext(CtxCurrencyData)
+    const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [loading, setLoading] = useState(false)

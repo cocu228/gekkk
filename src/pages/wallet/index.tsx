@@ -19,7 +19,7 @@ function Wallet() {
 
     const {currency, tab} = useParams();
     const {xl, md} = useContext(BreakpointsContext);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies, person} = useContext(CtxRootData);
     const $currency = currencies.get(currency);
 
     return (
@@ -36,7 +36,7 @@ function Wallet() {
                                 <Withdraw/>
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
-                            {$currency.currency === "GKE" && <>
+                            {$currency.currency === "GKE" && person.type !== "u" && <>
                                 <CashbackProgram data-tab={"Cashback Program"}/>
                                 <NoFeeProgram data-tab={"No fee program"}/>
                             </>}

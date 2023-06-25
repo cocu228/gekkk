@@ -37,7 +37,7 @@ const HeaderDesktop = () => {
             //     setBankData(data);
             // }
             items.set({
-                item: <ItemOrganization active={person.id === 1}/>,
+                item: <ItemOrganization id={1} active={person.id === 1}/>,
                 id: 1,
                 action: {
                     type: "change-person",
@@ -49,11 +49,11 @@ const HeaderDesktop = () => {
             },)
 
             items.set({
-                item: <ItemPerson active={person.id === 0}/>,
+                item: <ItemPerson id={0} active={person.id === 0}/>,
                 id: 0,
                 action: {
                     type: "change-person",
-                    value: {id: 0, type: "u"}
+                    value: {id: 0, type: "f"}
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"
@@ -76,26 +76,26 @@ const HeaderDesktop = () => {
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                     </div>
                     <div className="wrapper">
-                        {/*{!bankData ? <div className="flex flex-col gap-2">*/}
-                        {/*    <Skeleton.Input className="mt-1" style={{height: 14}} active/>*/}
-                        {/*    <Skeleton.Input style={{height: 12}} active/>*/}
-                        {/*</div> : <>*/}
-                        {/*    <div className="row">*/}
-                        {/*        <span className="text-sm font-bold">ID: 208294110048</span>*/}
-                        {/*        <span>*/}
-                        {/*            <img*/}
-                        {/*                className="inline-flex"*/}
-                        {/*                src="/img/icon/DropdownTriangleIcon.svg"*/}
-                        {/*                alt="DropdownTriangleIcon"*/}
-                        {/*            />*/}
-                        {/*        </span>*/}
-                        {/*    </div>*/}
-                        {/*    <div className="row text-start flex">*/}
-                        {/*        <span className="text-xs text-start text-gray-400 font-bold leading-3">*/}
-                        {/*            {bankData.clientName}*/}
-                        {/*        </span>*/}
-                        {/*    </div>*/}
-                        {/*</>}*/}
+                        {false ? <div className="flex flex-col gap-2">
+                            <Skeleton.Input className="mt-1" style={{height: 14}} active/>
+                            <Skeleton.Input style={{height: 12}} active/>
+                        </div> : <>
+                            <div className="row">
+                                <span className="text-sm font-bold">ID: {person.id}</span>
+                                <span>
+                                    <img
+                                        className="inline-flex"
+                                        src="/img/icon/DropdownTriangleIcon.svg"
+                                        alt="DropdownTriangleIcon"
+                                    />
+                                </span>
+                            </div>
+                            <div className="row text-start flex">
+                                <span className="text-xs text-start text-gray-400 font-bold leading-3">
+                                    Name
+                                </span>
+                            </div>
+                        </>}
                     </div>
                 </div>
             </HeaderMenu>

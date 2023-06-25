@@ -10,7 +10,7 @@ import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
 
 const hClassName = new HelperClassName(styles)
-export const ItemPerson = ({active = false}) => {
+export const ItemPerson = ({active = false, id}) => {
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -24,21 +24,21 @@ export const ItemPerson = ({active = false}) => {
         <div className="wrapper">
             <div className="row">
                 <span
-                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: 208294110048</span>
+                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {id}</span>
             </div>
             <div className="row text-start">
                 <span
                     className={`text-xs text-start font-bold ${hClassName.while(active)
-                        .do("text-blue-400").done()}`}>Alexandr Semikov</span>
+                        .do("text-blue-400").done()}`}>individual</span>
             </div>
         </div>
     </div>
 }
 
 
-export const ItemOrganization = ({active = false, id = "", name = ""}: Partial<{
+export const ItemOrganization = ({active = false, id, name = ""}: Partial<{
     active: boolean,
-    id: string,
+    id: number,
     name: string
 }>) => {
     return <div className="flex items-center justify-end relative">
@@ -52,7 +52,7 @@ export const ItemOrganization = ({active = false, id = "", name = ""}: Partial<{
             </div>
             <div className="row text-start">
                 <span
-                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>{name}</span>
+                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>legal entity</span>
             </div>
         </div>
     </div>

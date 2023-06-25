@@ -36,7 +36,7 @@ function Wallet() {
                                 <Withdraw/>
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
-                            {$currency.currency === "GKE" && person.type !== "u" && <>
+                            {$currency.currency === "GKE" && person.type !== "organization" && <>
                                 <CashbackProgram data-tab={"Cashback Program"}/>
                                 <NoFeeProgram data-tab={"No fee program"}/>
                             </>}

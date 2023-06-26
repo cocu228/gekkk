@@ -19,10 +19,9 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const initialState: ICtxExchangeData = {
-        price: null,
         roomInfo: roomInfo,
-        roomType: roomInfo ? roomInfo.room_code ? "creator" : "visitor" : "default",
         validationErrors: false,
+        roomType: roomInfo ? roomInfo.room_code ? "creator" : "visitor" : "default",
         to: {
             amount: null,
             currency: roomInfo ? roomInfo.currency2 : to && to !== from ? to : null
@@ -30,6 +29,10 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         from: {
             amount: null,
             currency: roomInfo ? roomInfo.currency1 : from ? from : null
+        },
+        price: {
+            amount: null,
+            isSwapped: false
         }
     }
     
@@ -39,10 +42,11 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         setState(initialState);
     }, [roomInfo])
 
-    const calculatePrice = (from: number, to: number) => {
-        const result = to / from;
+    const calculatePrice = (from: number, to: number, isSwapped: boolean) => {
+        const result = isSwapped ? from / to : to / from;
+
         return !Number.isFinite(result) || Number.isNaN(result) ? 0 :
-            +result.toFixed(currencies.get(state.to.currency)?.roundPrec);
+            +result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
     }
 
     const handleFromCurrencyChange = (value: string) => {
@@ -51,19 +55,12 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             from: {
                 ...prev.from,
                 currency: value
+            },
+            price: {
+                ...prev.price,
+                from: value
             }
-        }))
-    }
-
-    const handleFromAmountChange = (value: string) => {
-        setState(prev => ({
-            ...prev,
-            price: Number.isNaN(+value) ? 0 : calculatePrice(+value, +prev.to.amount),
-            from: {
-                ...prev.from,
-                amount: value
-            }
-        }))
+        }));
     }
     
     const handleToCurrencyChange = (value: string) => {
@@ -72,28 +69,72 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             to: {
                 ...prev.to,
                 currency: value
+            },
+            price: {
+                ...prev.price,
+                to: value
             }
-        }))
+        }));
+    }
+
+    const handleFromAmountChange = (value: string) => {
+        setState(prev => ({
+            ...prev,
+            from: {
+                ...prev.from,
+                amount: value
+            },
+            price: {
+                ...prev.price,
+                amount: calculatePrice(+value, +prev.to.amount, prev.price.isSwapped)
+            }
+        }));
     }
 
     const handleToAmountChange = (value: string) => {
         setState(prev => ({
             ...prev,
-            price: Number.isNaN(+value) ? 0 : calculatePrice(+prev.from.amount, +value),
             to: {
                 ...prev.to,
                 amount: value
+            },
+            price: {
+                ...prev.price,
+                amount: calculatePrice(+prev.from.amount, +value, prev.price.isSwapped)
             }
-        }))
+        }));
     }
 
     const handleCurrenciesSwap = () => {
         setState(prev => ({
             ...prev,
-            to: prev.from,
-            from: prev.to,
-            price: calculatePrice(+prev.to.amount, +prev.from.amount)
-        }))
+            to: {
+                currency: prev.from.currency,
+                amount: null
+            },
+            from: {
+                currency: prev.to.currency,
+                amount: null
+            },
+            price: {
+                ...prev.price,
+                amount: null
+            }
+        }));
+    }
+
+    const handlePriceCurrenciesSwap = () => {
+        setState(prev => ({
+            ...prev,
+            price: {
+                isSwapped: !prev.price.isSwapped,
+                amount: calculatePrice(
+                    +prev.from.amount,
+                    +prev.to.amount,
+                    !prev.price.isSwapped
+                )
+            }
+        }));
     }
 
     const handleRoomCreation = (info: IRoomInfo) => {
@@ -114,7 +155,8 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         onCurrenciesSwap: handleCurrenciesSwap,
         onFromValueChange: handleFromAmountChange,
         onToCurrencyChange: handleToCurrencyChange,
-        onFromCurrencyChange: handleFromCurrencyChange
+        onFromCurrencyChange: handleFromCurrencyChange,
+        onPriceCurrenciesSwap: handlePriceCurrenciesSwap
     }}>
         {children}
     </CtxExchangeData.Provider>

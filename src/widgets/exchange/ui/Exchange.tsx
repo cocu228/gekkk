@@ -202,7 +202,7 @@ function Exchange() {
                                 <Button
                                     className="w-full"
                                     size="xl"
-                                    disabled={!price}
+                                    disabled={!price.amount}
                                     onClick={confirmModal.showModal}
                                 >Buy {to.currency ? to.currency : "a token"}</Button>
                                 <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">

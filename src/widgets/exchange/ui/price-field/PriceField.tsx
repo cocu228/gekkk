@@ -6,8 +6,14 @@ function PriceField() {
     const {
         to,
         from,
-        price
+        price,
+        onPriceCurrenciesSwap
     } = useContext(CtxExchangeData);
+    
+    const {
+        amount,
+        isSwapped
+    } = price;
 
     return (
         <div
@@ -15,15 +21,19 @@ function PriceField() {
             style={{background: 'white'}}
         >
             <div className="h-full flex-grow relative">
-                <input className={styles.FieldInput} type="text" value={price && price > 0 ? price : '0.00'}/>
+                <input className={styles.FieldInput} type="text" value={amount && amount > 0 ? amount : '0.00'}/>
             </div>
 
             <div className="flex items-center ml-auto shrink h-full">
                 {to.currency && from.currency && (
                     <div className={styles.FieldPriceLabel}>
-                        <span>{from.currency} per 1 {to.currency}</span>
+                        <span>{isSwapped
+                            ? `${from.currency} per 1 ${to.currency}`
+                            : `${to.currency} per 1 ${from.currency}`
+                        }</span>
                         <button
                             className={styles.FieldSwitchBtn}
+                            onClick={onPriceCurrenciesSwap}
                         >
                             <img
                                 width={24}

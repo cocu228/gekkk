@@ -22,7 +22,7 @@ function Confirm({onConfirm}: Props) {
             <div className="mt-4 flex gap-2.5 font-medium">
                 <div className="text-secondary">Price:</div>
                 <div>
-                    <div>1 {from.currency} ~ {price} {to.currency}</div>
+                    <div>1 {from.currency} ~ {price.amount} {to.currency}</div>
                 </div>
             </div>
 

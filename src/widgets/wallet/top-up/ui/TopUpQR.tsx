@@ -37,7 +37,7 @@ const TopUpQR = () => {
                 <ClipboardField value={addressesForQR}/>
             </div>
         </div>
-        <div className="row flex flex-col mb-8">
+        {/* <div className="row flex flex-col mb-8">
             <div className="col mb-4">
                 <span className="text-gray-400">Expected arrival</span>
             </div>
@@ -52,7 +52,7 @@ const TopUpQR = () => {
             <div className="col">
                 <span><b className="text-red-800">2</b> network confirmation</span>
             </div>
-        </div>
+        </div> */}
     </> : <div className="row mt-8 px-4 mb-8 w-full">
         <Button tabIndex={0} onClick={onCreateAddress} htmlType="submit"
                 className="w-full disabled:opacity-5 !text-white">

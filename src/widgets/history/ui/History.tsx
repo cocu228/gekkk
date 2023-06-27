@@ -110,7 +110,7 @@ function History({currenciesFilter}: Partial<Props>) {
 
                         <Button
                             className='ml-5'
-                            disabled={loading}
+                            disabled={loading || !customDate}
                             onClick={() => requestHistory()}
                         >Apply</Button>
                     </div>

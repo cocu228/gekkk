@@ -321,6 +321,52 @@ export default {
         </p>
     </div>,
 
+    [$const.GKE]: <div>
+        <p>
+            GKE tokens in the Gekkard ecosystem are the flagship of
+            a new type of crypto assets reflecting the efficient and cost-effective
+            integration of cryptocurrency and fintech solutions in the banking sector.
+        </p>
+        <br/>
+        <p><b>FUNCTIONALITY AND FEATURES</b></p>
+        <br/>
+        <p>
+            Token holders will have privileges and
+            bonuses directly related to the income of the ecosystem,
+            in addition to the potential increase in the value of the token itself.
+        </p>
+        <br/>
+        <ol className='pl-[16px] list-decimal'>
+        	<li>
+                Fixed return on the average monthly balance (in GKE tokens):
+                <ul className='pl-[25px] list-disc'>
+                    <li>5% per annum (the first year from the date of issue)</li>
+                    <li>3% per annum (the second year from the date of issue)</li>
+                </ul>
+            </li>
+        	<li>
+                Referral program. The agent who attracts the referral will receive:
+                <ul className='pl-[25px] list-disc'>
+                    <li>2% per annum (on the average monthly balance in the GKE of each attracted referral during the first year)</li>
+                    <li>1% per annum (on the average monthly balance in the GKE of each attracted referral during the second year)</li>
+                </ul>
+            </li>
+        	<li>
+                Additional benefit when opening Gekkoin structured deposits. (If GKE tokens
+                are blocked in proportion of 1:1 with EURG, the deposits placed in EURG will be charged
+                double yield, and if there is a loss, it will be expressed as a twofold reduction of the loss).
+            </li>
+        	<li>
+                Cashback of 1% on Gekkard card expenses on monthly turnover in Euros
+                (within the limits not exceeding the volume of the similar number of blocked GKE tokens).
+            </li>
+        	<li>
+                Crypto-fiat exchange without commission (without restrictions on the maximum amount
+                of exchange, but with the need to block the volume of GKE corresponding to the turnover in fiat).
+            </li>
+        </ol>
+    </div>,
+
     [$const.LINK]: <div>
         <p>
             Chainlink (LINK) is a cryptocurrency and technology platform that enables non-blockchain enterprises to

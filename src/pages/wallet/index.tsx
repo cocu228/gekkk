@@ -38,7 +38,7 @@ function Wallet() {
                             <Transfer data-tab={"Funds transfer"}/>
                             {$currency.currency === "GKE" && person.type !== "organization" && <>
                                 <CashbackProgram data-tab={"Cashback Program"}/>
-                                <NoFeeProgram data-tab={"No fee program"}/>
+                                <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}
                             <About data-tab={"About"}/>
                             {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}

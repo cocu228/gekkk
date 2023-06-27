@@ -283,7 +283,7 @@ export default {
         <p>
             Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
             All EURG tokens are subject to exchange for fiat money in accordance 
-            with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer'>Gekkard App</a>.
+            with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer' href='https://gekkard.onelink.me/X3zE/9c0d76f8'>Gekkard App</a>.
         </p>
         <br/>
         <p>The exchange rate is fixed: <a className='font-bold'>1 EURG = 1 EUR.</a></p>
@@ -352,16 +352,22 @@ export default {
                 </ul>
             </li>
         	<li>
-                Additional benefit when opening Gekkoin structured deposits. (If GKE tokens
+                Additional benefit when opening <a className='font-bold underline hover:cursor-pointer' href='https://dev.gekkoin.com/'>
+                    Gekkoin structured deposits
+                </a>. (If GKE tokens
                 are blocked in proportion of 1:1 with EURG, the deposits placed in EURG will be charged
                 double yield, and if there is a loss, it will be expressed as a twofold reduction of the loss).
             </li>
         	<li>
-                Cashback of 1% on Gekkard card expenses on monthly turnover in Euros
+                <a className='font-bold underline hover:cursor-pointer' href='/wallet/GKE/Cashback Program'>
+                    Cashback of 1%
+                </a> on Gekkard card expenses on monthly turnover in Euros
                 (within the limits not exceeding the volume of the similar number of blocked GKE tokens).
             </li>
         	<li>
-                Crypto-fiat exchange without commission (without restrictions on the maximum amount
+                <a className='font-bold underline hover:cursor-pointer' href='/wallet/GKE/No Fee Program'>
+                    Crypto-fiat exchange without commission
+                </a> (without restrictions on the maximum amount
                 of exchange, but with the need to block the volume of GKE corresponding to the turnover in fiat).
             </li>
         </ol>

@@ -8,6 +8,8 @@ import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
 import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
 import DepositLayout from "@/widgets/dashboard/ui/layouts/DepositLayout";
 import AccountsLayout from '@/widgets/dashboard/ui/layouts/AccountsLayout';
+import Button from '@/shared/ui/button/Button';
+import { storeBankData } from '@/shared/store/bank-data/bank-data';
 
 enum TabType {
     ACCOUNTS,
@@ -37,8 +39,17 @@ export default () => {
         setActiveTab(tab);
     };
 
+    //TEMPORARY
+    const getBankData = storeBankData(state => state.getBankData);
+
     return (
         <div className="wrapper">
+            {/* TEMPORARY */}
+            <Button
+                className='w-full'
+                onClick={() => getBankData()}
+            >send <b>/organizations</b> request</Button>
+
             <PageHead
                 title={"Personal account"}
                 subtitle={

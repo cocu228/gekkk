@@ -39,17 +39,8 @@ export default () => {
         setActiveTab(tab);
     };
 
-    //TEMPORARY
-    const getBankData = storeBankData(state => state.getBankData);
-
     return (
         <div className="wrapper">
-            {/* TEMPORARY */}
-            <Button
-                className='w-full'
-                onClick={() => getBankData()}
-            >send <b>/organizations</b> request</Button>
-
             <PageHead
                 title={"Personal account"}
                 subtitle={

@@ -1,15 +1,6 @@
 import React from "react";
 import {IRoomInfo} from "@/shared/api";
-
-interface IExchangeField {
-    amount: string | null;
-    currency: string | null;
-}
-
-interface IExchangePrice {
-    isSwapped: boolean;
-    amount: number | null;
-}
+import {IExchangeField, IExchangePrice} from "./types";
 
 export interface ICtxExchangeData {
     to: IExchangeField;

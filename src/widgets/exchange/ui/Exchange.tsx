@@ -193,9 +193,10 @@ function Exchange() {
                             </div>
                             <div className="wrapper">
                                 <DepthOfMarket
-                                    currency_from={from.currency}
-                                    currency_to={to.currency}
-                                    room_key={roomInfo ? roomInfo.timetick : null}
+                                    currencyFrom={from.currency}
+                                    currencyTo={to.currency}
+                                    roomKey={roomInfo ? roomInfo.timetick : null}
+                                    isSwapped={price.isSwapped}
                                 />
                             </div>
                             <div className={`mt-7 ${styles.GridFooter}`}>

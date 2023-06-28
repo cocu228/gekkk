@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
-import { IResOrder, apiGetOrders } from '@/shared/api';
 import styles from './style.module.scss';
-import { CtxRootData } from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/CurrenciesContext';
+import {useContext, useEffect, useState} from 'react';
+import {IResOrder, apiCancelOrder, apiGetOrders} from '@/shared/api';
 
 function OpenOrders() {
     const { currencies } = useContext(CtxRootData);
@@ -26,7 +26,7 @@ function OpenOrders() {
         <>
             <div className="flex justify-between">
                 <span className="font-medium lg:text-sm md:text-md">Open orders</span>
-                <a className="text-xs text-secondary font-medium" href="">All</a>
+                {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
             </div>
             <div className="mt-1.5">
                 {!orders.length &&
@@ -69,7 +69,17 @@ function OpenOrders() {
                                     )}
                                 </div>
                             </div>
-                            <button className="text-secondary">Cancel</button>
+                            <button
+                                className="text-secondary"
+                                onClick={() => {
+                                    apiCancelOrder(id)
+                                    .then(result => {
+                                        if (result.data.error) return;
+                                        
+                                        setOrders(orders.filter(o => o.id !== id));
+                                    });
+                                }}
+                            >Cancel</button>
                         </div>
                     </div>
                 ))}

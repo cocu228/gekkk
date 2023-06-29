@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import {RateState} from '../../model/types';
 import {CtxRootData} from '@/app/CurrenciesContext';
 import {CtxExchangeData} from '../../model/context';
+import {tradeArraySorter} from '../../model/helpers';
 import {useContext, useEffect, useState} from 'react';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
 import IconArrowUp from '../../../../shared/ui/icons/IconArrowUp';
@@ -182,10 +183,6 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
             </div>
         </div>
     );
-}
-
-const tradeArraySorter = (a: TradePriceArray, b: TradePriceArray) => {
-    return a[2] > b[2] ? 1 : -1;
 }
 
 export default DepthOfMarket;

@@ -27,6 +27,7 @@ import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
+import RoomProperties from './room-properties/RoomProperties';
 
 function Exchange() {
     const confirmModal = useModal();
@@ -103,21 +104,6 @@ function Exchange() {
         }
     };
 
-    const getHeadRightContent = () => {
-        if (roomType === 'creator' || roomType === 'visitor') {
-            return (
-                <ParticipantsNumber
-                    quantity={roomInfo.count}
-                    showIcon={roomType === 'creator'}
-                    onLeave={cancelRoomModal.showModal}
-                    onIconClick={roomInfoModal.showModal}
-                />
-            );
-        }
-
-        return null;
-    };
-
     if (!roomsList) return <Loader/>;
 
     return (
@@ -125,7 +111,14 @@ function Exchange() {
             <PageHead
                 title={getHeadTitle()}
                 subtitle={getHeadSubtitle()}
-                rightContent={getHeadRightContent()}
+                rightContent={roomType !== 'creator' ? null : (
+                    <ParticipantsNumber
+                        quantity={roomInfo.count}
+                        showIcon={roomType === 'creator'}
+                        onLeave={cancelRoomModal.showModal}
+                        onIconClick={roomInfoModal.showModal}
+                    />
+                )}
             />
 
             <SplitGrid
@@ -263,23 +256,28 @@ function Exchange() {
                 open={cancelRoomModal.isModalOpen}
                 onCancel={cancelRoomModal.handleCancel}
             >
-                <div className="pt-5 text-sm">
+                <div className="text-sm">
                     Are you sure you want to {roomType === 'creator' ? 
-                        `close the current ${from.currency} - ${to.currency} private
-                        exchange room? All `
-                    : `leave the current ${from.currency} - ${to.currency} private
-                    exchange room? Your `}
+                        `close the current private exchange room? All `
+                    : `leave the current private exchange room? Your `}
                     unclosed orders will be canceled.
                 </div>
+
+                {roomType !== 'creator' ? null : <>
+                    <div className='mt-4 mb-2 font-medium'>Room description:</div>
+                    <RoomProperties room={roomInfo}/>
+                </>}
+
                 <div className="mt-16 sm:mt-14">
                     <Button
                         size="xl"
                         className="w-full"
                         onClick={() => {
+                            cancelRoomModal.handleCancel();
+
                             apiCloseRoom(roomInfo.timetick).then(() => {
                                 onRoomClosing(roomInfo.timetick);
-                                cancelRoomModal.handleCancel();
-                            }).catch(cancelRoomModal.handleCancel);
+                            });
                         }}
                     >Close private exchange room</Button>
                 </div>

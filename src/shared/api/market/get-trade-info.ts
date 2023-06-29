@@ -18,11 +18,17 @@ export interface ITradeInfo {
     bids: Array<TradePriceArray>
 }
 
-export const apiGetTradeInfo = (currency_from: string, currency_to: string, room_key: string) =>
+export const apiGetTradeInfo = (
+    currency_from: string,
+    currency_to: string,
+    room_key: string,
+    results_limit: number = 6
+) =>
     $axios.get<$AxiosResponse<ITradeInfo>>('/gek/v1/market/get_trade_info', {
         params: {
             currency_from,
             currency_to,
-            room_key
+            room_key,
+            results_limit
         }
     });

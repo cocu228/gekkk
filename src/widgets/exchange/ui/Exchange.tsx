@@ -279,7 +279,7 @@ function Exchange() {
                                 onRoomClosing(roomInfo.timetick);
                             });
                         }}
-                    >Close private exchange room</Button>
+                    >{`${roomType === 'creator' ? 'Close' : 'Leave'} private exchange room`}</Button>
                 </div>
             </Modal>
         </div>

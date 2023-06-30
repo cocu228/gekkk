@@ -1,14 +1,15 @@
 import {Skeleton} from "antd";
 import styles from "./style.module.scss";
-import React, {memo, useContext, useEffect, useLayoutEffect, useMemo, useState} from "react";
 import {IBankData} from "@/shared/api/bank";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {HeaderMenuItems, defaultItems} from "../../model/header-menu-items";
+import {CtxRootData} from "@/app/CurrenciesContext";
+import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
+import {storeBankData} from "@/shared/store/bank-data/bank-data";
+import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
-import {CtxRootData} from "@/app/CurrenciesContext";
 
 const HeaderDesktop = memo((props) => {
 
@@ -18,9 +19,8 @@ const HeaderDesktop = memo((props) => {
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
 
-    // const [bankData, setBankData] = useState<IBankData>(null);
-
-    // const getBankData = storeBankData(state => state.getBankData);
+    const [bankData, setBankData] = useState<IBankData>(null);
+    const getBankData = storeBankData(state => state.getBankData);
 
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
@@ -30,11 +30,11 @@ const HeaderDesktop = memo((props) => {
     ], [])
 
     useEffect(() => {
-        (function () {
-            // if (!bankData) {
-            //     const data = await getBankData();
-            //     setBankData(data);
-            // }
+        (async function () {
+            if (!bankData) {
+                const data = await getBankData();
+                setBankData(data);
+            }
 
             let newItems = [...defaultItems]
 

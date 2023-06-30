@@ -10,6 +10,7 @@ import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeBankData} from "@/shared/store/bank-data/bank-data";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const HeaderDesktop = memo((props) => {
 
@@ -25,7 +26,7 @@ const HeaderDesktop = memo((props) => {
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: { id: number, type: string }) => setPerson(value)},
+        {type: "change-person", action: (value: { id: string, type: string }) => setPerson(value)},
         {type: "logout", action: () => logout()}
     ], [])
 
@@ -36,36 +37,45 @@ const HeaderDesktop = memo((props) => {
                 setBankData(data);
             }
 
+            const {
+                client,
+                accounts
+            } = bankData;
+
             let newItems = [...defaultItems]
+            let primaryAccount = accounts.find(a => a.clientId === client.id);
 
-            newItems.unshift({
-                item: <ItemOrganization id={1} active={person.id === 1}/>,
-                id: 1,
-                action: {
-                    type: "change-person",
-                    value: {id: 1, type: "organization"},
-                },
-                style: {
-                    backgroundColor: "var(--color-gray-300)"
+            newItems.unshift(...bankData.accounts
+                .filter(a => a !== primaryAccount)
+                .map(org => ({
+                    id: org.number,
+                    item: <ItemOrganization id={org.number} active={person?.id === org.number}/>,
+                    action: {
+                        type: "change-person",
+                        value: {id: org.number, type: "organization"},
+                    },
+                    style: {
+                        backgroundColor: "var(--color-gray-300)"
+                    }
                 }
-            },)
+            )));
 
             newItems.unshift({
-                item: <ItemPerson id={0} active={person.id === 0}/>,
-                id: 0,
+                id: primaryAccount.number,
+                item: <ItemPerson id={primaryAccount.number} active={person?.id === primaryAccount.number}/>,
                 action: {
                     type: "change-person",
-                    value: {id: 0, type: "individual"}
+                    value: {id: primaryAccount.number, type: "individual"}
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"
                 },
             })
 
-            setItems(newItems)
-
+            if (!person) setPerson(newItems[0]?.action.value);
+            setItems(newItems);
         })();
-    }, [person.id]);
+    }, [person, bankData]);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -80,12 +90,12 @@ const HeaderDesktop = memo((props) => {
                         <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                     </div>
                     <div className="wrapper">
-                        {false ? <div className="flex flex-col gap-2">
+                        {!bankData || !person ? <div className="flex flex-col gap-2">
                             <Skeleton.Input className="mt-1" style={{height: 14}} active/>
                             <Skeleton.Input style={{height: 12}} active/>
                         </div> : <>
                             <div className="row">
-                                <span className="text-sm font-bold">ID: {person.id}</span>
+                                <span className="text-sm font-bold">ID: {getFormattedIBAN(person.id)}</span>
                                 <span>
                                     <img
                                         className="inline-flex"
@@ -110,6 +120,6 @@ const HeaderDesktop = memo((props) => {
             </button>
         </header>
     </>
-
 })
-export default HeaderDesktop
+
+export default HeaderDesktop;

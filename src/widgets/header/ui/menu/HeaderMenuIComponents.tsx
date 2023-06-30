@@ -8,6 +8,7 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
+import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const hClassName = new HelperClassName(styles)
 export const ItemPerson = ({active = false, id}) => {
@@ -24,7 +25,7 @@ export const ItemPerson = ({active = false, id}) => {
         <div className="wrapper">
             <div className="row">
                 <span
-                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {id}</span>
+                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(id)}</span>
             </div>
             <div className="row text-start">
                 <span
@@ -38,7 +39,7 @@ export const ItemPerson = ({active = false, id}) => {
 
 export const ItemOrganization = ({active = false, id, name = ""}: Partial<{
     active: boolean,
-    id: number,
+    id: string,
     name: string
 }>) => {
     return <div className="flex items-center justify-end relative">
@@ -48,7 +49,7 @@ export const ItemOrganization = ({active = false, id, name = ""}: Partial<{
         </div>
         <div className="wrapper">
             <div className="row">
-                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {id} </span>
+                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {getFormattedIBAN(id)} </span>
             </div>
             <div className="row text-start">
                 <span

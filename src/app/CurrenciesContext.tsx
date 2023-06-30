@@ -41,9 +41,9 @@ export class ICtxCurrencyData {
 export const CtxRootData = React.createContext<{
     currencies: Map<string, ICtxCurrencyData>,
     setRefresh: () => void
-    setPerson: (obj: { id: number, type: string }) => void
+    setPerson: (obj: { id: string, type: string } | unknown) => void
     person: {
-        id: number,
+        id: string,
         type: string
     } | null
     refreshKey: string

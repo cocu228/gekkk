@@ -17,10 +17,7 @@ export default memo(function () {
         currencies,
     }, setState] = useState({
         refreshKey: "",
-        person: {
-            id: 0,
-            type: "individual"
-        },
+        person: null,
         currencies: new Map<string, ICtxCurrencyData>()
     })
 

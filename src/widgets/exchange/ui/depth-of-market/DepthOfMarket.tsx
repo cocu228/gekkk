@@ -4,7 +4,6 @@ import styles from './style.module.scss';
 import {RateState} from '../../model/types';
 import {CtxRootData} from '@/app/CurrenciesContext';
 import {CtxExchangeData} from '../../model/context';
-import {tradeArraySorter} from '../../model/helpers';
 import {useContext, useEffect, useState} from 'react';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
 import IconArrowUp from '../../../../shared/ui/icons/IconArrowUp';
@@ -82,8 +81,8 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
         apiGetTradeInfo(currencyFrom, currencyTo, roomKey).then(({ data }) => {
             const { asks, bids } = data.result;
 
-            data.result.asks = asks.sort(tradeArraySorter);
-            data.result.bids = bids.sort(tradeArraySorter).reverse();
+            data.result.asks = asks;
+            data.result.bids = bids;
 
             setState(prev => ({
                 ...prev,

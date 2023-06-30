@@ -11,5 +11,5 @@ export interface IResGetInfoClient {
 }
 
 export const apiGetInfoClient = (client_id: string, account_id: string, applicationId: string, authorization: string, productId: string) =>
-    $axios.get<$AxiosResponse<IResGetInfoClient>>('/gek/v1/client/get_info')
+    $axios.get<$AxiosResponse<IResGetInfoClient>>('/gek/v1/wallet/get_info')
 

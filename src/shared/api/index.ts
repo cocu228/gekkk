@@ -1,5 +1,5 @@
 export * from "./market/"
-export * from "./client/"
+export * from "./wallet"
 export * from "./various/"
 export * from "./invest/"
 export * from "./bank/"

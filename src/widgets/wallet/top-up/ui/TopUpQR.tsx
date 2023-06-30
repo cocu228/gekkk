@@ -1,8 +1,8 @@
 import {useContext} from "react";
 import ReactQRCode from "react-qr-code";
 import {randomId} from "@/shared/lib/helpers";
+import {apiCreateAddress} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateAddress} from "@/shared/api/client/create-address";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 

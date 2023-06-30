@@ -1,7 +1,7 @@
 import {useContext, useState} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw} from "@/shared/api/client/create-withdraw";
+import {apiCreateWithdraw} from "@/shared/api";
 import Decimal from "decimal.js";
 import {actionResSuccess, calculateAmount, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";

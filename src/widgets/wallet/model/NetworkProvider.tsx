@@ -6,7 +6,7 @@ import {
     helperApiTokenNetworks,
     sortingNetworksForSelector,
 } from "@/widgets/wallet/model/helper";
-import {apiListAddresses} from "@/widgets/wallet/top-up/api/list-addresses";
+import {apiListAddresses} from "@/shared/api";
 import {AxiosResponse} from "axios";
 
 

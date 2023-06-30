@@ -10,7 +10,7 @@ export interface IResBalance {
 }
 
 export const apiGetBalance = (currency?: string) =>
-    $axios.get<$AxiosResponse<Array<IResBalance>>>('/gek/v1/client/get_balance', {
+    $axios.get<$AxiosResponse<Array<IResBalance>>>('/gek/v1/wallet/get_balance', {
         headers: {
             currency
         }

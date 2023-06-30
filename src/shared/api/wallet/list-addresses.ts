@@ -7,7 +7,7 @@ export interface IResListAddresses {
 }
 
 export const apiListAddresses = (token_network: number) =>
-    $axios.get<IResListAddresses[]>('/gek/v1/client/list_addresses',{
+    $axios.get<IResListAddresses[]>('/gek/v1/wallet/list_addresses',{
     params: {
         token_network
     }

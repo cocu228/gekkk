@@ -61,6 +61,13 @@ export interface IBankCard {
     title: null | string;
 }
 
+export interface IBankTrustedClient {
+    clientId: string; 
+    name: string;
+    color: string; 
+    title: string;
+}
+
 export interface IBankData {
     // Temporary not needed
     id: any;
@@ -68,13 +75,13 @@ export interface IBankData {
     name: any;
     tin: any;
     title: any;
-    trustedClients: any;
     
     // Useful information
+    cards: IBankCard[];
     clientName: string;
     client: IBankClient;
     accounts: IBankAccount[];
-    cards: IBankCard[];
+    trustedClients: IBankTrustedClient[];
 }
 
 export const apiGetBankData = () =>

@@ -39,7 +39,8 @@ const HeaderDesktop = memo((props) => {
 
             const {
                 client,
-                accounts
+                accounts,
+                trustedClients
             } = bankData;
 
             let newItems = [...defaultItems]
@@ -49,10 +50,14 @@ const HeaderDesktop = memo((props) => {
                 .filter(a => a !== primaryAccount)
                 .map(org => ({
                     id: org.number,
-                    item: <ItemOrganization id={org.number} active={person?.id === org.number}/>,
+                    item: <ItemOrganization
+                        id={org.number}
+                        title={trustedClients.find(c => c.clientId === org.clientId).name}
+                        active={person?.id === org.number}
+                    />,
                     action: {
                         type: "change-person",
-                        value: {id: org.number, type: "organization"},
+                        value: {id: org.number, type: trustedClients.find(c => c.clientId === org.clientId).name},
                     },
                     style: {
                         backgroundColor: "var(--color-gray-300)"
@@ -62,10 +67,14 @@ const HeaderDesktop = memo((props) => {
 
             newItems.unshift({
                 id: primaryAccount.number,
-                item: <ItemPerson id={primaryAccount.number} active={person?.id === primaryAccount.number}/>,
+                item: <ItemPerson
+                    id={primaryAccount.number}
+                    title={client.name}
+                    active={person?.id === primaryAccount.number}
+                />,
                 action: {
                     type: "change-person",
-                    value: {id: primaryAccount.number, type: "individual"}
+                    value: {id: primaryAccount.number, type: client.name}
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"

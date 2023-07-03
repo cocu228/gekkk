@@ -20,7 +20,6 @@
   background-image: url("/img/icon/DropdownTriangleIcon.svg");
   width: 24px;
   height: 24px;
-  margin: 12px 15px;
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -34,8 +33,10 @@
 
   @include max-devices(md) {
     padding: 12px;
+    margin: -40px -15px 0 -15px;
+    box-shadow: none;
+    border-radius: 0px;
   }
-
 }
 
 
@@ -118,6 +119,10 @@
   color: #ffffff;
   border-radius: 8px;
   padding: 18px 16px;
+
+  @include max-devices("md") {
+    margin-bottom: 16px;
+  }
 }
 
 

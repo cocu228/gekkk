@@ -9,6 +9,10 @@
   @include max-devices(lg) {
     min-width: 154px;
   }
+
+  @include max-devices(md) {
+    min-width: 140px;
+  }
 }
 
 .Head {

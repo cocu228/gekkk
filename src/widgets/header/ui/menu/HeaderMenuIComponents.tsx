@@ -11,7 +11,12 @@ import Loader from "@/shared/ui/loader";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const hClassName = new HelperClassName(styles)
-export const ItemPerson = ({active = false, id, title}) => {
+export const ItemPerson = ({active = false, id, title}: Partial<{
+    active: boolean;
+    id: string;
+    title: string;
+}>) => {
+    if (!id) return null;
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -37,10 +42,12 @@ export const ItemPerson = ({active = false, id, title}) => {
 }
 
 export const ItemOrganization = ({active = false, id, title}: Partial<{
-    active: boolean,
-    id: string,
-    title: string
+    active: boolean;
+    id: string;
+    title: string;
 }>) => {
+    if (!id) return null;
+
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
         <div className="wrapper mr-2">

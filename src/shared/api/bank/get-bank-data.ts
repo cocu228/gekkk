@@ -30,7 +30,7 @@ export interface IBankAccount {
     balances: Array<number>;
     createdAt: string;
     availableBalance: Array<string>;
-    accountType: string;
+    accountType: 'PHYSICAL' | 'JURIDICAL';
     productType: string;
 
     // Custom fields

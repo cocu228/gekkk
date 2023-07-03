@@ -6,7 +6,10 @@ import {apiGetBankData, IBankAccount, IBankData} from "@/shared/api";
 export interface IStoreBankData {
     bankData: IBankData;
     bankAccounts: Array<IBankAccount>;
-    getBankData: () => Promise<IBankData>;
+    getBankData: () => Promise<{
+        bankData: IBankData;
+        bankAccounts: Array<IBankAccount>;
+    }>;
 }
 
 export const storeBankData = create<IStoreBankData>()(devtools((set) => ({
@@ -24,6 +27,9 @@ export const storeBankData = create<IStoreBankData>()(devtools((set) => ({
             bankData: bankData,
             bankAccounts: accounts
         }));
-        return uncoverArray<IBankData | null>(data);
+        return {
+            bankData: bankData,
+            bankAccounts: accounts
+        };
     },
 })));

@@ -27,12 +27,13 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setPerson = ({id, type}) =>
+    const setPerson = ({id, name, type}) =>
         setState(prev => ({
             ...prev,
             person: {
                 id,
-                type
+                type,
+                name
             }
         }));
 

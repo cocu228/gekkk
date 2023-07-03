@@ -1,16 +1,17 @@
 import {Skeleton} from "antd";
 import styles from "./style.module.scss";
-import {IBankData} from "@/shared/api/bank";
 import {useNavigate} from "react-router-dom";
+import {IBankAccount} from "@/shared/api/bank";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {CtxRootData} from "@/app/CurrenciesContext";
+import {CtxRootData, ICtxPerson} from "@/app/CurrenciesContext";
+import SvgSchema from "@/shared/ui/icons/IconSchema";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeBankData} from "@/shared/store/bank-data/bank-data";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
-import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const HeaderDesktop = memo((props) => {
 
@@ -20,44 +21,40 @@ const HeaderDesktop = memo((props) => {
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
 
-    const [bankData, setBankData] = useState<IBankData>(null);
     const getBankData = storeBankData(state => state.getBankData);
-
+    const [bankAccounts, setBankAccounts] = useState<IBankAccount[]>(null);
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
+        {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: { id: string, type: string }) => setPerson(value)},
-        {type: "logout", action: () => logout()}
-    ], [])
+        {type: "change-person", action: (value: ICtxPerson) => setPerson(value)}
+    ], []);
 
     useEffect(() => {
         (async function () {
-            if (!bankData) {
-                const data = await getBankData();
-                setBankData(data);
+            if (!bankAccounts) {
+                const {bankAccounts} = await getBankData();
+                setBankAccounts(bankAccounts);
             }
 
-            const {
-                client,
-                accounts,
-                trustedClients
-            } = bankData;
-
             let newItems = [...defaultItems]
-            let primaryAccount = accounts.find(a => a.clientId === client.id);
 
-            newItems.unshift(...bankData.accounts
-                .filter(a => a !== primaryAccount)
-                .map(org => ({
-                    id: org.number,
+            newItems.unshift(...bankAccounts
+                .filter(a => a.accountType === 'JURIDICAL')
+                .map(organization => ({
+                    id: organization.number,
                     item: <ItemOrganization
-                        id={org.number}
-                        title={trustedClients.find(c => c.clientId === org.clientId).name}
-                        active={person?.id === org.number}
+                        id={organization.number}
+                        title={organization.name}
+                        active={person?.id === organization.number}
                     />,
                     action: {
                         type: "change-person",
-                        value: {id: org.number, type: trustedClients.find(c => c.clientId === org.clientId).name},
+                        value: {
+                            id: organization.number,
+                            name: organization.name,
+                            type: organization.accountType
+                        },
                     },
                     style: {
                         backgroundColor: "var(--color-gray-300)"
@@ -65,26 +62,33 @@ const HeaderDesktop = memo((props) => {
                 }
             )));
 
-            newItems.unshift({
-                id: primaryAccount.number,
-                item: <ItemPerson
-                    id={primaryAccount.number}
-                    title={client.name}
-                    active={person?.id === primaryAccount.number}
-                />,
-                action: {
-                    type: "change-person",
-                    value: {id: primaryAccount.number, type: client.name}
-                },
-                style: {
-                    backgroundColor: "var(--color-gray-300)"
-                },
-            })
+            newItems.unshift(...bankAccounts
+                .filter(a => a.accountType === 'PHYSICAL')
+                .map(acc => ({
+                    id: acc.number,
+                    item: <ItemPerson
+                        id={acc.number}
+                        title={acc.name}
+                        active={person?.id === acc.number}
+                    />,
+                    action: {
+                        type: "change-person",
+                        value: {
+                            id: acc.number,
+                            name: acc.name,
+                            type: acc.accountType
+                        }
+                    },
+                    style: {
+                        backgroundColor: "var(--color-gray-300)"
+                    },
+                }
+            )));
 
-            if (!person) setPerson(newItems[0]?.action.value);
+            if (!person) setPerson(newItems[0]?.action.value as ICtxPerson);
             setItems(newItems);
         })();
-    }, [person, bankData]);
+    }, [person, bankAccounts]);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -93,15 +97,20 @@ const HeaderDesktop = memo((props) => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
+
             <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items}>
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
+                        {person && person.type === 'JURIDICAL' ? (
+                            <SvgSchema width={32} height={22}/>
+                        ) : (
+                            <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
+                        )}
                     </div>
                     <div className="wrapper">
-                        {!bankData || !person ? <div className="flex flex-col gap-2">
-                            <Skeleton.Input className="mt-1" style={{height: 14}} active/>
-                            <Skeleton.Input style={{height: 12}} active/>
+                        {!bankAccounts || !person ? <div className="flex flex-col gap-2">
+                            <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
+                            <Skeleton.Input style={{height: 12, width: 200}} active/>
                         </div> : <>
                             <div className="row">
                                 <span className="text-sm font-bold">ID: {getFormattedIBAN(person.id)}</span>
@@ -113,15 +122,17 @@ const HeaderDesktop = memo((props) => {
                                     />
                                 </span>
                             </div>
+                            
                             <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {person.type}
+                                    {person.name}
                                 </span>
                             </div>
                         </>}
                     </div>
                 </div>
             </HeaderMenu>
+
             <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>

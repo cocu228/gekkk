@@ -1,18 +1,18 @@
 import styles from './style.module.scss';
 import { apiGetRates } from "@/shared/api";
-import Input from "@/shared/ui/input/Input";
+import Input from '@/shared/ui/input/Input';
 import {useNavigate} from 'react-router-dom';
+import GTable from '@/shared/ui/grid-table/';
 import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import $const from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import GTable from '@/shared/ui/grid-table/';
-import {useContext, useEffect, useMemo, useState} from "react";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {CtxRootData, ICtxCurrencyData} from '@/app/CurrenciesContext';
-import { CurrencyFlags, maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
-import { evenOrOdd, getCurrencyRounding, getFlagsFromMask, scrollToTop } from "@/shared/lib/helpers";
+import {useContext, useEffect, useMemo, useRef, useState} from "react";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {CurrencyFlags, maskCurrencyFlags} from '@/shared/config/mask-currency-flags';
+import {evenOrOdd, getCurrencyRounding, getFlagsFromMask, scrollToTop} from "@/shared/lib/helpers";
 
 interface IParams {
     modal?: boolean,
@@ -38,12 +38,19 @@ const AssetsTable = ({
     allowedFlags,
     onSelect
 }: IParams) => {
+    const inputRef = useRef(null);
     const navigate = useNavigate();
-    const { md } = useContext(BreakpointsContext);
+    const {md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxRootData);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
+
+    useEffect(()=>{
+      if (inputRef && inputRef.current && !md) {
+        inputRef.current.focus();
+      }
+    });
 
     const assetsFilter = (asset: ICtxCurrencyData) => {
         if (balanceFilter && !asset.availableBalance?.greaterThan(0)) {
@@ -78,6 +85,7 @@ const AssetsTable = ({
             <div className={`${md && 'mx-5'} mb-2`}>
                 <Input
                     allowClear
+                    ref={inputRef}
                     placeholder="Search name"
                     onChange={(e) => {
                         setSearchValue(e.target.value.trim().toLowerCase());

@@ -32,6 +32,9 @@ export interface IBankAccount {
     availableBalance: Array<string>;
     accountType: string;
     productType: string;
+
+    // Custom fields
+    name?: string;
 }
 
 export interface IBankCard {

@@ -95,7 +95,7 @@ function History({currenciesFilter}: Partial<Props>) {
     }, [currenciesFilter])
 
     return (
-        <div className="wrapper">
+        <div id={"History"} className="wrapper">
             <SecondaryTabGroup tabs={getTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === TabKey.CUSTOM && (
                 <div className='flex flex-col mt-3 mb-5'>

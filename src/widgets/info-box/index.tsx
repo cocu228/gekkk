@@ -15,7 +15,7 @@ const InfoBox = ({message = "", children}: Partial<Props>) => {
 
     if (!message && !children) return null
 
-    return <div className={hClassName.scss("Wrapper")}>
+    return <div className={hClassName.scss("Wrapper text-orange")}>
         <div className="col shrink-0 flex mr-3 col-auto">
             <img width={20} height={20} src="/img/icon/AlertWaring.svg"
                  alt="AlertWaring"/>

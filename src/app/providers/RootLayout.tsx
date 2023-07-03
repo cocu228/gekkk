@@ -62,14 +62,6 @@ export default memo(function () {
         })()
     }, [refreshKey]);
 
-
-    useEffect(() => {
-
-        (async function () {
-            // const infoClient = await apiGetInfoClient();
-        })()
-    }, [refreshKey]);
-
     return <CtxRootData.Provider value={{
         currencies,
         account,

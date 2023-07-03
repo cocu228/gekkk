@@ -14,7 +14,10 @@ function CardsLayout() {
 
     return (
         <div className="wrapper">
-            <SectionTitle>Selected account: {!account ? 'Loading...' : <a>{account.id}</a>}</SectionTitle>
+            <SectionTitle>Selected account: {!account
+                ? <Skeleton.Input style={{height: 16, width: 275}} active/>
+                : <a>{account.id}</a>
+            }</SectionTitle>
 
             <CardsGrid>
                 {bankData === null ? (

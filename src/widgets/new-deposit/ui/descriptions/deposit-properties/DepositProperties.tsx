@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import InlineProperty from '@/shared/ui/inline-property';
 import { DepositType } from '@/shared/config/deposits/types';
 import { CtxNewDeposit } from '@/widgets/new-deposit/model/context';
-import { CtxRootData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/RootContext';
 
 interface IParams {
     className?: string;

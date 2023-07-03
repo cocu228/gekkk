@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
 import $const from "@/shared/config/coins/constants";
-import { ICtxCurrencyData } from "@/app/CurrenciesContext";
+import { ICtxCurrencyData } from "@/app/RootContext";
 
 export default (list: Map<string, ICtxCurrencyData>, rates: Record<$const, number>) => {
 

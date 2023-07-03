@@ -1,3 +1,5 @@
+import { ICtxAccount } from "@/app/RootContext"
+
 export type TOnActionParams = Array<{
     type: string,
     action: (value?: THeaderMenuList[0]["action"]["value"]) => void
@@ -8,7 +10,7 @@ export type THeaderMenuList = Array<{
     id?: null | number | string,
     action?: {
         type?: null | string,
-        value?: unknown,
+        value?: ICtxAccount | unknown,
     },
     style?: object
 }>

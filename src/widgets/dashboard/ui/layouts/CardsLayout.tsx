@@ -5,13 +5,19 @@ import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import {storeBankData} from '@/shared/store/bank-data/bank-data';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {formatMonthYear} from '../../model/helpers';
+import {useContext} from 'react';
+import {CtxRootData} from '@/app/RootContext';
 
 function CardsLayout() {
-    const bankData = storeBankData(state => state.bankData)
+    const {account} = useContext(CtxRootData);
+    const bankData = storeBankData(state => state.bankData);
 
     return (
         <div className="wrapper">
-            <SectionTitle>Bank cards</SectionTitle>
+            <SectionTitle>Selected account: {!account
+                ? <Skeleton.Input style={{height: 16, width: 275}} active/>
+                : <a>{account.id}</a>
+            }</SectionTitle>
 
             <CardsGrid>
                 {bankData === null ? (
@@ -19,7 +25,7 @@ function CardsLayout() {
                         <Skeleton active/>
                     </Card>
                 ) : (<>
-                    {bankData.cards.filter(c => c.number).map((card) =>
+                    {bankData.cards.filter(c => c.number).map(card =>
                         <BankCard
                             key={`BANK_CARD_${card.id}`}
                             cardNumber={card.number.replace("_", "** ***")}

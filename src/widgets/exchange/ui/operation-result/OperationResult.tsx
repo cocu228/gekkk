@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {CtxExchangeData} from '../../model/context';
-import {CtxRootData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/RootContext';
 
 function OperationResult() {
     const {

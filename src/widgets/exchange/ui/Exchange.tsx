@@ -10,7 +10,7 @@ import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
-import {CtxRootData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/RootContext';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import {apiCloseRoom, apiCreateOrder} from '@/shared/api';
 import Confirm from '@/widgets/exchange/ui/confirm/Confirm';

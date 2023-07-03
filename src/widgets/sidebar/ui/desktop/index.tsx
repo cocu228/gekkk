@@ -8,7 +8,7 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import IconClose from "@/shared/ui/icons/IconClose";
 import $const from "@/shared/config/coins/constants";
 import useModal from "@/shared/model/hooks/useModal";
-import {CtxRootData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/RootContext";
 import totalizeAmount from "../../model/totalize-amount";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";

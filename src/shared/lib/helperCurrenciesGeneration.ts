@@ -1,4 +1,4 @@
-import {ICtxCurrencyData} from "@/app/CurrenciesContext";
+import {ICtxCurrencyData} from "@/app/RootContext";
 
 export default (assets, wallets) => {
     const currencies = new Map()

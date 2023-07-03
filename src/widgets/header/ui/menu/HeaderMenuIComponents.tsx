@@ -8,9 +8,15 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
+import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const hClassName = new HelperClassName(styles)
-export const ItemPerson = ({active = false, id}) => {
+export const ItemPerson = ({active = false, id, title}: Partial<{
+    active: boolean;
+    id: string;
+    title: string;
+}>) => {
+    if (!id) return null;
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -24,23 +30,24 @@ export const ItemPerson = ({active = false, id}) => {
         <div className="wrapper">
             <div className="row">
                 <span
-                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {id}</span>
+                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(id)}</span>
             </div>
             <div className="row text-start">
                 <span
                     className={`text-xs text-start font-bold ${hClassName.while(active)
-                        .do("text-blue-400").done()}`}>individual</span>
+                        .do("text-blue-400").done()}`}>{title}</span>
             </div>
         </div>
     </div>
 }
 
-
-export const ItemOrganization = ({active = false, id, name = ""}: Partial<{
-    active: boolean,
-    id: number,
-    name: string
+export const ItemOrganization = ({active = false, id, title}: Partial<{
+    active: boolean;
+    id: string;
+    title: string;
 }>) => {
+    if (!id) return null;
+
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
         <div className="wrapper mr-2">
@@ -48,11 +55,11 @@ export const ItemOrganization = ({active = false, id, name = ""}: Partial<{
         </div>
         <div className="wrapper">
             <div className="row">
-                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {id} </span>
+                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {getFormattedIBAN(id)} </span>
             </div>
             <div className="row text-start">
                 <span
-                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>organization</span>
+                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>{title}</span>
             </div>
         </div>
     </div>

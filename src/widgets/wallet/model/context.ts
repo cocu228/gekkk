@@ -1,6 +1,6 @@
 import React from 'react';
 import {IResTokenNetwork} from "@/shared/api";
-import {ICtxCurrencyData} from '@/app/CurrenciesContext';
+import {ICtxCurrencyData} from '@/app/RootContext';
 import {TNetworksForSelector} from "@/widgets/wallet/model/types";
 
 export interface ICtxWalletNetworks {

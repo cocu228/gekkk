@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import styles from './style.module.scss';
 import { Select, SelectProps } from 'antd';
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
-import { CtxRootData, ICtxCurrencyData } from '@/app/CurrenciesContext';
+import { CtxRootData, ICtxCurrencyData } from '@/app/RootContext';
 import { IconCoin } from '../icons/icon-coin';
 import { CurrencyFlags, maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { getFlagsFromMask } from '@/shared/lib/helpers';

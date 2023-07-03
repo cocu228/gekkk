@@ -8,7 +8,7 @@ import {
 import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {CtxRootData} from "@/app/CurrenciesContext";
+import {CtxRootData} from "@/app/RootContext";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {

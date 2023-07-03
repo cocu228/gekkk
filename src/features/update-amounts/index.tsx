@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { isActiveClass } from "@/shared/lib/helpers";
-import { CtxRootData } from "@/app/CurrenciesContext";
+import { CtxRootData } from "@/app/RootContext";
 
 const UpdateAmounts = () => {
     const [active, setActive] = useState(false);

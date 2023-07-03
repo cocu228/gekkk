@@ -1,7 +1,7 @@
 import React from "react";
 import Decimal from "decimal.js";
 import $const from "@/shared/config/coins/constants";
-import { IResBalance, IResMarketAsset } from "@/shared/api";
+import {IResBalance, IResMarketAsset} from "@/shared/api";
 
 export class ICtxCurrencyData {
     id: null | number;
@@ -38,13 +38,16 @@ export class ICtxCurrencyData {
     }
 }
 
+export interface ICtxAccount {
+    id: string;
+    name: string;
+    type: 'PHYSICAL' | 'JURIDICAL';
+}
+
 export const CtxRootData = React.createContext<{
-    currencies: Map<string, ICtxCurrencyData>,
-    setRefresh: () => void
-    setPerson: (obj: { id: number, type: string }) => void
-    person: {
-        id: number,
-        type: string
-    } | null
-    refreshKey: string
+    currencies: Map<string, ICtxCurrencyData>;
+    setRefresh: () => void;
+    setPerson: (person: ICtxAccount) => void;
+    account: ICtxAccount | null,
+    refreshKey: string;
 }>(null);

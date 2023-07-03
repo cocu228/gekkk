@@ -1,4 +1,4 @@
-import { CtxRootData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/RootContext';
 import styles from './styles.module.scss';
 import { IResMarketAsset } from '@/shared/api';
 import { IconCoin } from '@/shared/ui/icons/icon-coin';

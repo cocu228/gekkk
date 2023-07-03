@@ -122,5 +122,5 @@ export const getCurrencyRounding = (value: number) =>
             value.toFixed(Math.floor(-Math.log10(value)) + 1);
 
 export const getFormattedIBAN = (iban: string) => {
-    return !iban ? null : iban.slice(0, 10) + '***' + iban.slice(-4);
+    return iban.slice(0, 10) + '***' + iban.slice(-4);
 }

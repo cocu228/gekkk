@@ -25,6 +25,7 @@ const WalletHeader = () => {
         lockOrders
     } = useContext(CtxWalletData);
     const isEURG: boolean = currency === 'EURG';
+    const isGKE: boolean = currency === 'GKE';
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
@@ -68,7 +69,7 @@ const WalletHeader = () => {
                 </div>}
 
 
-                {isEURG && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
+                {(isEURG || isGKE) && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-gray-400 text-semilight">
                         Rate
                         <Tooltip text={EurgTooltipText}>
@@ -79,7 +80,7 @@ const WalletHeader = () => {
                     </div>
 
                     <div data-text={"3% per annum"} className='text-gray-600 text-2xl ellipsis'>
-                        <span>3% per annum</span>
+                        <span>{isEURG ? 3 : 5}% per annum</span>
                     </div>
                 </div>)}
             </div>

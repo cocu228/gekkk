@@ -337,28 +337,28 @@ export default {
         </p>
         <br/>
         <ol className='pl-[16px] list-decimal'>
-        	<li>
+        	<li className='mb-3'>
                 Fixed return on the average monthly balance (in GKE tokens):
                 <ul className='pl-[25px] list-disc'>
                     <li>5% per annum (the first year from the date of issue)</li>
                     <li>3% per annum (the second year from the date of issue)</li>
                 </ul>
             </li>
-        	<li>
+        	<li className='mb-3'>
                 Referral program. The agent who attracts the referral will receive:
                 <ul className='pl-[25px] list-disc'>
                     <li>2% per annum (on the average monthly balance in the GKE of each attracted referral during the first year)</li>
                     <li>1% per annum (on the average monthly balance in the GKE of each attracted referral during the second year)</li>
                 </ul>
             </li>
-        	<li>
+        	<li className='mb-3'>
                 Additional benefit when opening <a className='font-bold underline hover:cursor-pointer' href='https://dev.gekkoin.com/'>
                     Gekkoin structured deposits
                 </a>. (If GKE tokens
                 are blocked in proportion of 1:1 with EURG, the deposits placed in EURG will be charged
                 double yield, and if there is a loss, it will be expressed as a twofold reduction of the loss).
             </li>
-        	<li>
+        	<li className='mb-3'>
                 <a className='font-bold underline hover:cursor-pointer' href='/wallet/GKE/Cashback Program'>
                     Cashback of 1%
                 </a> on Gekkard card expenses on monthly turnover in Euros

@@ -5,7 +5,7 @@ import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, apiOrganizations} from '@/shared/api';
 import {CtxRootData, ICtxCurrencyData} from '../RootContext';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
@@ -39,10 +39,7 @@ export default memo(function () {
 
     useEffect(() => {
 
-
-
         (async function () {
-            await apiGetInfoClient()
             // const infoClient = await apiGetInfoClient();
             const walletsResponse = await apiGetBalance();
             const assetsResponse = await apiGetMarketAssets();
@@ -63,13 +60,18 @@ export default memo(function () {
         })()
     }, [refreshKey]);
 
-
     useEffect(() => {
-
-        (async function () {
-            // const infoClient = await apiGetInfoClient();
+        (async () => {
+            const response = await apiOrganizations()
+            console.log(response)
+            console.log("wait resInfoClient")
+            const resInfoClient = await apiGetInfoClient(response.data[0].accounts[0].id)
+            console.log(response.data[0].accounts[0].id)
+            console.log("resInfoClient ready")
+            console.log(resInfoClient)
         })()
-    }, [refreshKey]);
+    }, [])
+
 
     return <CtxRootData.Provider value={{
         currencies,

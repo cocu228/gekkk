@@ -2,7 +2,7 @@ import Decimal from 'decimal.js';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {RateState} from '../../model/types';
-import {CtxRootData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/RootContext';
 import {CtxExchangeData} from '../../model/context';
 import {useContext, useEffect, useState} from 'react';
 import {getCurrencyRounding} from '@/shared/lib/helpers';

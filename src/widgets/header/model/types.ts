@@ -1,4 +1,4 @@
-import { ICtxPerson } from "@/app/CurrenciesContext"
+import { ICtxAccount } from "@/app/RootContext"
 
 export type TOnActionParams = Array<{
     type: string,
@@ -10,7 +10,7 @@ export type THeaderMenuList = Array<{
     id?: null | number | string,
     action?: {
         type?: null | string,
-        value?: ICtxPerson | unknown,
+        value?: ICtxAccount | unknown,
     },
     style?: object
 }>

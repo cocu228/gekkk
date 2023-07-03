@@ -1,4 +1,4 @@
-import { ICtxCurrencyData } from "@/app/CurrenciesContext";
+import { ICtxCurrencyData } from "@/app/RootContext";
 
 export const helperFilterList = (list: Array<ICtxCurrencyData>) =>
     list.filter(({ currency, availableBalance }) =>

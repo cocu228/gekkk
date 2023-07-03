@@ -6,13 +6,13 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
-import {CtxRootData, ICtxCurrencyData} from '../CurrenciesContext';
+import {CtxRootData, ICtxCurrencyData} from '../RootContext';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 
 export default memo(function () {
     const [{
-        person,
+        person: account,
         refreshKey,
         currencies,
     }, setState] = useState({
@@ -70,7 +70,7 @@ export default memo(function () {
 
     return <CtxRootData.Provider value={{
         currencies,
-        person,
+        account,
         setPerson: setPerson,
         setRefresh: setRefresh,
         refreshKey

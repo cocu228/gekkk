@@ -20,7 +20,7 @@ enum TabType {
 };
 
 const TABS = [
-    {type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
+    //{type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
     {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     // {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
     {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},

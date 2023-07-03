@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import {ICtxCurrencyData} from "@/app/CurrenciesContext"
+import {ICtxCurrencyData} from "@/app/RootContext"
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 
 export type TypeInputCurrency = {

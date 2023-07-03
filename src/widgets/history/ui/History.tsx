@@ -11,7 +11,7 @@ import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import {CtxRootData} from '@/app/CurrenciesContext';
+import {CtxRootData} from '@/app/RootContext';
 import {actionResSuccess} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 

@@ -4,7 +4,7 @@ import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
 import { useContext } from "react";
-import { CtxRootData, ICtxCurrencyData } from "@/app/CurrenciesContext";
+import { CtxRootData, ICtxCurrencyData } from "@/app/RootContext";
 
 const assetsFiler = (item: ICtxCurrencyData) =>
     [$const.EURG, $const.GKE].includes(item.currency) || item.availableBalance?.comparedTo(0);

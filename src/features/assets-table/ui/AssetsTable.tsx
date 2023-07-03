@@ -8,7 +8,7 @@ import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import $const from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {CtxRootData, ICtxCurrencyData} from '@/app/CurrenciesContext';
+import {CtxRootData, ICtxCurrencyData} from '@/app/RootContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {CurrencyFlags, maskCurrencyFlags} from '@/shared/config/mask-currency-flags';

@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {IBankAccount} from "@/shared/api/bank";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {CtxRootData, ICtxPerson} from "@/app/CurrenciesContext";
+import {CtxRootData, ICtxAccount} from "@/app/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {defaultItems} from "../../model/header-menu-items";
@@ -16,7 +16,7 @@ import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuI
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
-    const {person, setPerson} = useContext(CtxRootData);
+    const {account: person, setPerson} = useContext(CtxRootData);
 
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
@@ -27,7 +27,7 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: ICtxPerson) => setPerson(value)}
+        {type: "change-person", action: (value: ICtxAccount) => setPerson(value)}
     ], []);
 
     useEffect(() => {
@@ -85,7 +85,7 @@ const HeaderDesktop = memo((props) => {
                 }
             )));
 
-            if (!person) setPerson(newItems[0]?.action.value as ICtxPerson);
+            if (!person) setPerson(newItems[0]?.action.value as ICtxAccount);
             setItems(newItems);
         })();
     }, [person, bankAccounts]);

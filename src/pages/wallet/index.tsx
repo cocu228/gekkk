@@ -10,7 +10,7 @@ import Withdraw from "@/widgets/wallet/withdraw/Withdraw";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import { CtxRootData } from "@/app/CurrenciesContext";
+import { CtxRootData } from "@/app/RootContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
 import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
 import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
@@ -19,7 +19,7 @@ function Wallet() {
 
     const {currency, tab} = useParams();
     const {xl, md} = useContext(BreakpointsContext);
-    const {currencies, person} = useContext(CtxRootData);
+    const {currencies, account} = useContext(CtxRootData);
     const $currency = currencies.get(currency);
 
     return (
@@ -36,7 +36,7 @@ function Wallet() {
                                 <Withdraw/>
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
-                            {$currency.currency === "GKE" && person.name !== "organization" && <>
+                            {$currency.currency === "GKE" && account.name !== "organization" && <>
                                 <CashbackProgram data-tab={"Cashback Program"}/>
                                 <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}

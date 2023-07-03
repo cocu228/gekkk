@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import { differenceInDays } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
 import useModal from '@/shared/model/hooks/useModal';
-import { CtxRootData } from '@/app/CurrenciesContext';
+import { CtxRootData } from '@/app/RootContext';
 import Balance from '@/widgets/current-deposit/ui/Balance';
 import DepositStats from '@/widgets/current-deposit/ui/DepositStats';
 import { storeInvestments } from '@/shared/store/investments/investments';

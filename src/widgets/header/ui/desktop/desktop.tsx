@@ -27,7 +27,7 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: ICtxAccount) => setAccount(value)}
+        {type: "change-account", action: (value: ICtxAccount) => setAccount(value)}
     ], []);
 
     useEffect(() => {
@@ -42,16 +42,17 @@ const HeaderDesktop = memo((props) => {
             newItems.unshift(...bankAccounts
                 .filter(a => a.accountType === 'JURIDICAL')
                 .map(organization => ({
-                    id: organization.number,
+                    id: organization.clientId,
                     item: <ItemOrganization
-                        id={organization.number}
+                        iban={organization.number}
                         title={organization.name}
-                        active={account?.id === organization.number}
+                        active={account?.id === organization.clientId}
                     />,
                     action: {
-                        type: "change-person",
+                        type: "change-account",
                         value: {
-                            id: organization.number,
+                            id: organization.clientId,
+                            iban: organization.number,
                             name: organization.name,
                             type: organization.accountType
                         },
@@ -65,17 +66,18 @@ const HeaderDesktop = memo((props) => {
             newItems.unshift(...bankAccounts
                 .filter(a => a.accountType === 'PHYSICAL')
                 .map(acc => ({
-                    id: acc.number,
+                    id: acc.clientId,
                     item: <ItemAccount
-                        id={acc.number}
+                        iban={acc.number}
                         title={acc.name}
-                        active={account?.id === acc.number}
+                        active={account?.id === acc.clientId}
                     />,
                     action: {
-                        type: "change-person",
+                        type: "change-account",
                         value: {
-                            id: acc.number,
+                            id: acc.clientId,
                             name: acc.name,
+                            iban: acc.number,
                             type: acc.accountType
                         }
                     },
@@ -99,8 +101,8 @@ const HeaderDesktop = memo((props) => {
             </div>
 
             <HeaderMenu
-                actions={actionsForMenuFunctions}
                 className="ml-auto"
+                actions={actionsForMenuFunctions}
                 items={account ? items : [
                     {
                         id: 'AccountPlaceholder',
@@ -126,7 +128,7 @@ const HeaderDesktop = memo((props) => {
                             <Skeleton.Input style={{height: 12, width: 200}} active/>
                         </div> : <>
                             <div className="row">
-                                <span className="text-sm font-bold">ID: {getFormattedIBAN(account.id)}</span>
+                                <span className="text-sm font-bold">ID: {getFormattedIBAN(account.iban)}</span>
                                 <span>
                                     <img
                                         className="inline-flex"

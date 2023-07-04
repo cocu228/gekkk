@@ -12,12 +12,12 @@ import { getFormattedIBAN } from "@/shared/lib/helpers";
 import { Skeleton } from "antd";
 
 const hClassName = new HelperClassName(styles)
-export const ItemAccount = ({active = false, id, title}: Partial<{
+export const ItemAccount = ({active = false, iban, title}: Partial<{
     active: boolean;
-    id: string;
+    iban: string;
     title: string;
 }>) => {
-    if (!id) return null;
+    if (!iban) return null;
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -31,7 +31,7 @@ export const ItemAccount = ({active = false, id, title}: Partial<{
         <div className="wrapper">
             <div className="row">
                 <span
-                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(id)}</span>
+                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(iban)}</span>
             </div>
             <div className="row text-start">
                 <span
@@ -58,12 +58,12 @@ export const EmptyAccount = () => {
     </div>
 }
 
-export const ItemOrganization = ({active = false, id, title}: Partial<{
+export const ItemOrganization = ({active = false, iban, title}: Partial<{
     active: boolean;
-    id: string;
+    iban: string;
     title: string;
 }>) => {
-    if (!id) return null;
+    if (!iban) return null;
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -72,7 +72,7 @@ export const ItemOrganization = ({active = false, id, title}: Partial<{
         </div>
         <div className="wrapper">
             <div className="row">
-                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {getFormattedIBAN(id)} </span>
+                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {getFormattedIBAN(iban)} </span>
             </div>
             <div className="row text-start">
                 <span

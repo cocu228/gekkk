@@ -15,7 +15,7 @@ const HeaderMobile = () => {
     const items = useMemo(() => new HeaderMenuItems(defaultItems), [])
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "link", action: (value) => navigate(value)},
-        {type: "change-person", action: async (value) => await navigate(value)},
+        {type: "change-account", action: async (value) => await navigate(value)},
         {type: "logout", action: () => logout()}
     ], [])
 

@@ -16,16 +16,16 @@ function CardsLayout() {
         <div className="wrapper">
             <SectionTitle>Selected account: {!account
                 ? <Skeleton.Input style={{height: 16, width: 275}} active/>
-                : <a>{account.id}</a>
+                : <a>{account.iban}</a>
             }</SectionTitle>
 
             <CardsGrid>
-                {bankData === null ? (
+                {!(bankData && account) ? (
                     <Card>
                         <Skeleton active/>
                     </Card>
                 ) : (<>
-                    {bankData.cards.filter(c => c.number).map(card =>
+                    {bankData.cards.filter(c => c.number).filter(c => c.clientId === account.id).map(card =>
                         <BankCard
                             key={`BANK_CARD_${card.id}`}
                             cardNumber={card.number.replace("_", "** ***")}

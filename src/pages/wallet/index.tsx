@@ -28,7 +28,7 @@ function Wallet() {
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={tab ? tab : "Top Up"}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
-                        <div className="substrate z-10 w-inherit relative min-h-[200px]">
+                        <div className="substrate z-10 w-inherit relative min-h-[200px] md:-mt-10">
                             <NetworkProvider data-tab={"Top Up"}>
                                 <TopUp/>
                             </NetworkProvider>

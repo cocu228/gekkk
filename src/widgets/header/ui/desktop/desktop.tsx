@@ -16,7 +16,7 @@ import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuI
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
-    const {account: person, setPerson} = useContext(CtxRootData);
+    const {account, setAccount} = useContext(CtxRootData);
 
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
@@ -27,7 +27,7 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: ICtxAccount) => setPerson(value)}
+        {type: "change-person", action: (value: ICtxAccount) => setAccount(value)}
     ], []);
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const HeaderDesktop = memo((props) => {
                     item: <ItemOrganization
                         id={organization.number}
                         title={organization.name}
-                        active={person?.id === organization.number}
+                        active={account?.id === organization.number}
                     />,
                     action: {
                         type: "change-person",
@@ -69,7 +69,7 @@ const HeaderDesktop = memo((props) => {
                     item: <ItemPerson
                         id={acc.number}
                         title={acc.name}
-                        active={person?.id === acc.number}
+                        active={account?.id === acc.number}
                     />,
                     action: {
                         type: "change-person",
@@ -85,10 +85,10 @@ const HeaderDesktop = memo((props) => {
                 }
             )));
 
-            if (!person) setPerson(newItems[0]?.action.value as ICtxAccount);
+            if (!account) setAccount(newItems[0]?.action.value as ICtxAccount);
             setItems(newItems);
         })();
-    }, [person, bankAccounts]);
+    }, [account, bankAccounts]);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -101,19 +101,19 @@ const HeaderDesktop = memo((props) => {
             <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items}>
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        {person && person.type === 'JURIDICAL' ? (
+                        {account && account.type === 'JURIDICAL' ? (
                             <SvgSchema width={32} height={22}/>
                         ) : (
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                         )}
                     </div>
                     <div className="wrapper">
-                        {!bankAccounts || !person ? <div className="flex flex-col gap-2">
+                        {!bankAccounts || !account ? <div className="flex flex-col gap-2">
                             <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
                             <Skeleton.Input style={{height: 12, width: 200}} active/>
                         </div> : <>
                             <div className="row">
-                                <span className="text-sm font-bold">ID: {getFormattedIBAN(person.id)}</span>
+                                <span className="text-sm font-bold">ID: {getFormattedIBAN(account.id)}</span>
                                 <span>
                                     <img
                                         className="inline-flex"
@@ -125,7 +125,7 @@ const HeaderDesktop = memo((props) => {
                             
                             <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {person.name}
+                                    {account.name}
                                 </span>
                             </div>
                         </>}

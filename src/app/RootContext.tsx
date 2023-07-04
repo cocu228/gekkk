@@ -47,7 +47,7 @@ export interface ICtxAccount {
 export const CtxRootData = React.createContext<{
     currencies: Map<string, ICtxCurrencyData>;
     setRefresh: () => void;
-    setPerson: (person: ICtxAccount) => void;
+    setAccount: (person: ICtxAccount) => void;
     account: ICtxAccount | null,
     refreshKey: string;
 }>(null);

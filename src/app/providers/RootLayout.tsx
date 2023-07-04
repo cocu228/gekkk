@@ -65,7 +65,7 @@ export default memo(function () {
     return <CtxRootData.Provider value={{
         currencies,
         account,
-        setPerson: setPerson,
+        setAccount: setPerson,
         setRefresh: setRefresh,
         refreshKey
     }}>

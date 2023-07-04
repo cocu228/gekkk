@@ -142,7 +142,7 @@ function CashbackProperties({
                 </div>
             </div>
             <div className="row mb-2">
-                <div className="col"><InlineProperty left={"Term"} right={"one month"}/>
+                <div className="col"><InlineProperty left={"Term"} right={"30 days"}/>
                 </div>
             </div>
             <div className="row mb-2">

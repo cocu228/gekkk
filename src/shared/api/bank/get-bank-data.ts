@@ -72,14 +72,11 @@ export interface IBankTrustedClient {
 }
 
 export interface IBankData {
-    // Temporary not needed
-    id: any;
+    id: number;
     config: any;
-    name: any;
-    tin: any;
-    title: any;
-    
-    // Useful information
+    name: string;
+    tin: string;
+    title: string;
     cards: IBankCard[];
     clientName: string;
     client: IBankClient;

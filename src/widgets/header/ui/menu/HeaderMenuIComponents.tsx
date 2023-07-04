@@ -9,9 +9,10 @@ import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
+import { Skeleton } from "antd";
 
 const hClassName = new HelperClassName(styles)
-export const ItemPerson = ({active = false, id, title}: Partial<{
+export const ItemAccount = ({active = false, id, title}: Partial<{
     active: boolean;
     id: string;
     title: string;
@@ -36,6 +37,22 @@ export const ItemPerson = ({active = false, id, title}: Partial<{
                 <span
                     className={`text-xs text-start font-bold ${hClassName.while(active)
                         .do("text-blue-400").done()}`}>{title}</span>
+            </div>
+        </div>
+    </div>
+}
+
+export const EmptyAccount = () => {
+    return <div className="flex items-center justify-end relative">
+        <div className="wrapper mr-2">
+            <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
+        </div>
+        <div className="wrapper grid gap-2">
+            <div className="row">
+                <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
+            </div>
+            <div className="row text-start">
+                <Skeleton.Input style={{height: 12, width: 200}} active/>
             </div>
         </div>
     </div>

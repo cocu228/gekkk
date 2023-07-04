@@ -2,7 +2,7 @@ import React from "react";
 import {
     GekkoinInvestPlatform,
     ItemOrganization,
-    ItemPerson,
+    ItemAccount,
     PromoCodeModal
 } from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";

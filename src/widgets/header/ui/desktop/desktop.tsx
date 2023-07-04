@@ -11,7 +11,7 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeBankData} from "@/shared/store/bank-data/bank-data";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
-import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const HeaderDesktop = memo((props) => {
 
@@ -66,7 +66,7 @@ const HeaderDesktop = memo((props) => {
                 .filter(a => a.accountType === 'PHYSICAL')
                 .map(acc => ({
                     id: acc.number,
-                    item: <ItemPerson
+                    item: <ItemAccount
                         id={acc.number}
                         title={acc.name}
                         active={account?.id === acc.number}
@@ -98,7 +98,20 @@ const HeaderDesktop = memo((props) => {
                 </a>
             </div>
 
-            <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items}>
+            <HeaderMenu
+                actions={actionsForMenuFunctions}
+                className="ml-auto"
+                items={account ? items : [
+                    {
+                        id: 'AccountPlaceholder',
+                        item: <EmptyAccount/>,
+                        style: {
+                            backgroundColor: "var(--color-gray-300)"
+                        },
+                    },
+                    ...items
+                ]}
+            >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
                         {account && account.type === 'JURIDICAL' ? (

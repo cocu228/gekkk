@@ -58,6 +58,7 @@ const CashbackProgram = () => {
             <div className="row flex flex-wrap mb-6">
                 <div className="col -md:border-r-1 md:mb-5 -md:border-solid -md:border-gray-400 -md:pr-10 md:w-full w-3/5">
                     <CashbackProperties
+                        locked={0}
                         amount={amount}
                         currency={wallet.currency}
                     />
@@ -105,6 +106,7 @@ const CashbackProgram = () => {
                 onCancel={lockConfirmModal.handleCancel}
             >
                 <CashbackProperties
+                    locked={0}
                     amount={amount}
                     currency={wallet.currency}
                 />
@@ -129,6 +131,7 @@ const CashbackProgram = () => {
 };
 
 function CashbackProperties({
+    locked,
     amount,
     currency
 }) {
@@ -147,7 +150,11 @@ function CashbackProperties({
                 </div>
             </div>
             <div className="row">
-                <div className="col"><InlineProperty left={"Locked funds"} right={`${amount.toString().length ? amount : 0} ${currency}`}/>
+                <div className="col"><InlineProperty left={"Locked funds"} right={<>
+                    {locked} {!amount ? null : (
+                        (<span className="text-green">+({amount})</span>)
+                    )} {currency}
+                </>}/>
                 </div>
             </div>
         </>

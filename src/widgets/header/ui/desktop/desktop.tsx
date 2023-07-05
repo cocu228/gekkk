@@ -11,12 +11,12 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeBankData} from "@/shared/store/bank-data/bank-data";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
-import {ItemOrganization, ItemPerson} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
-    const {account: person, setPerson} = useContext(CtxRootData);
+    const {account, setAccount} = useContext(CtxRootData);
 
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
@@ -27,7 +27,7 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-person", action: (value: ICtxAccount) => setPerson(value)}
+        {type: "change-account", action: (value: ICtxAccount) => setAccount(value)}
     ], []);
 
     useEffect(() => {
@@ -42,16 +42,17 @@ const HeaderDesktop = memo((props) => {
             newItems.unshift(...bankAccounts
                 .filter(a => a.accountType === 'JURIDICAL')
                 .map(organization => ({
-                    id: organization.number,
+                    id: organization.clientId,
                     item: <ItemOrganization
-                        id={organization.number}
+                        iban={organization.number}
                         title={organization.name}
-                        active={person?.id === organization.number}
+                        active={account?.id === organization.clientId}
                     />,
                     action: {
-                        type: "change-person",
+                        type: "change-account",
                         value: {
-                            id: organization.number,
+                            id: organization.clientId,
+                            iban: organization.number,
                             name: organization.name,
                             type: organization.accountType
                         },
@@ -65,17 +66,18 @@ const HeaderDesktop = memo((props) => {
             newItems.unshift(...bankAccounts
                 .filter(a => a.accountType === 'PHYSICAL')
                 .map(acc => ({
-                    id: acc.number,
-                    item: <ItemPerson
-                        id={acc.number}
+                    id: acc.clientId,
+                    item: <ItemAccount
+                        iban={acc.number}
                         title={acc.name}
-                        active={person?.id === acc.number}
+                        active={account?.id === acc.clientId}
                     />,
                     action: {
-                        type: "change-person",
+                        type: "change-account",
                         value: {
-                            id: acc.number,
+                            id: acc.clientId,
                             name: acc.name,
+                            iban: acc.number,
                             type: acc.accountType
                         }
                     },
@@ -85,10 +87,10 @@ const HeaderDesktop = memo((props) => {
                 }
             )));
 
-            if (!person) setPerson(newItems[0]?.action.value as ICtxAccount);
+            if (!account) setAccount(newItems[0]?.action.value as ICtxAccount);
             setItems(newItems);
         })();
-    }, [person, bankAccounts]);
+    }, [account, bankAccounts]);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -98,22 +100,35 @@ const HeaderDesktop = memo((props) => {
                 </a>
             </div>
 
-            <HeaderMenu actions={actionsForMenuFunctions} className="ml-auto" items={items}>
+            <HeaderMenu
+                className="ml-auto"
+                actions={actionsForMenuFunctions}
+                items={account ? items : [
+                    {
+                        id: 'AccountPlaceholder',
+                        item: <EmptyAccount/>,
+                        style: {
+                            backgroundColor: "var(--color-gray-300)"
+                        },
+                    },
+                    ...items
+                ]}
+            >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        {person && person.type === 'JURIDICAL' ? (
+                        {account && account.type === 'JURIDICAL' ? (
                             <SvgSchema width={32} height={22}/>
                         ) : (
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                         )}
                     </div>
                     <div className="wrapper">
-                        {!bankAccounts || !person ? <div className="flex flex-col gap-2">
+                        {!bankAccounts || !account ? <div className="flex flex-col gap-2">
                             <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
                             <Skeleton.Input style={{height: 12, width: 200}} active/>
                         </div> : <>
                             <div className="row">
-                                <span className="text-sm font-bold">ID: {getFormattedIBAN(person.id)}</span>
+                                <span className="text-sm font-bold">ID: {getFormattedIBAN(account.iban)}</span>
                                 <span>
                                     <img
                                         className="inline-flex"
@@ -125,7 +140,7 @@ const HeaderDesktop = memo((props) => {
                             
                             <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {person.name}
+                                    {account.name}
                                 </span>
                             </div>
                         </>}

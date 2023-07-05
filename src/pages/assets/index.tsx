@@ -8,12 +8,12 @@ import {AssetTableKeys} from '@/features/assets-table/model/types';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 function Assets() {
-    const {xl, md} = useContext(BreakpointsContext);
+    const {xl, md, lg} = useContext(BreakpointsContext);
     const navigate = useNavigate();
 
     let columns = [
         AssetTableKeys.NAME,
-        ...(!md ? [AssetTableKeys.CURRENCY] : []),
+        ...(!lg ? [AssetTableKeys.CURRENCY] : []),
         AssetTableKeys.PRICE,
         AssetTableKeys.ACTIONS
     ];

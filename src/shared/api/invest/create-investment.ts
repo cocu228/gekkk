@@ -1,4 +1,5 @@
-import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
+import {IResInvestment} from "./get-investments";
+import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
 
 interface IParams {
     amount: number;
@@ -13,7 +14,7 @@ export const apiCreateInvestment = ({
     link_currency,
     templateType
 }: IParams) =>
-    $axios.post<$AxiosResponse<{depositID: number}>>('/gek/v1/invest/create_investment', null, {
+    $axios.post<$AxiosResponse<IResInvestment>>('/gek/v1/invest/create_investment', null, {
         params: {
             amount,
             term_days,

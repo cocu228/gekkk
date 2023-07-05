@@ -2,17 +2,19 @@ import React from 'react';
 import { Input as InputAntd, InputProps, InputRef } from 'antd';
 import styles from './style.module.scss';
 
-interface Props {
+type IParams = InputProps & {
     wrapperClassName?: string;
-    ref?: React.Ref<InputRef>;
 }
 
-function Input({wrapperClassName, ref, ...props}: Props & InputProps) {
+const Input = React.forwardRef((
+    {wrapperClassName, ...props}: IParams,
+    ref: React.ForwardedRef<InputRef>
+) => {
     return (
         <div className={`${styles.Input} ${wrapperClassName ? wrapperClassName : ''}`}>
             <InputAntd ref={ref} {...props}/>
         </div>
     );
-}
+});
 
 export default Input;

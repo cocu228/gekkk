@@ -137,7 +137,7 @@ const CashbackProgram = () => {
                                 templateType: 3
                             });
 
-                            updateCashbackInvestment(data.result)
+                            if (data.result != null) updateCashbackInvestment(data.result)
                         }}
                     >Confirm</Button>
                 </div>

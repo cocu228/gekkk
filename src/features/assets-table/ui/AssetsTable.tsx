@@ -40,14 +40,14 @@ const AssetsTable = ({
 }: IParams) => {
     const inputRef = useRef(null);
     const navigate = useNavigate();
-    const {md} = useContext(BreakpointsContext);
+    const {lg} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxRootData);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
 
     useEffect(()=>{
-      if (inputRef && inputRef.current && !md) {
+      if (inputRef && inputRef.current && !lg) {
         inputRef.current.focus();
       }
     });
@@ -82,7 +82,7 @@ const AssetsTable = ({
 
     return (
         <div className={className}>
-            <div className={`${md && 'mx-5'} mb-2`}>
+            <div className={`${lg && 'mx-5'} mb-2`}>
                 <Input
                     allowClear
                     ref={inputRef}
@@ -116,7 +116,7 @@ const AssetsTable = ({
                                     ${styles.Item}
                                     ${blockedCurrencies?.includes(token.currency) ? styles.ItemBlocked : ''}
                                     ${!evenOrOdd(index) ? "bg-gray-main" : ""}
-                                    min-h-[56px] md:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`
+                                    min-h-[56px] lg:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`
                                 }
                                 onClick={() => onSelect(token.currency)}
                             >
@@ -125,7 +125,7 @@ const AssetsTable = ({
                                         {key === AssetTableKeys.NAME && (
                                             <div className="flex items-center gap-3">
                                                 <IconCoin height={29} className='max-h-[36px]' code={token.currency}/>
-                                                <span>{(!md || columnKeys.length === 2) ? token.name : token.currency}</span>
+                                                <span>{(!lg || columnKeys.length === 2) ? token.name : token.currency}</span>
                                             </div>
                                         )}
 

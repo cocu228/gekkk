@@ -11,7 +11,7 @@ import {formatDate, formatDateTime, getDepositTitle} from '../../model/helpers';
 
 function DepositLayout() {
     const navigate = useNavigate();
-    const investments = storeInvestments(state => state.investments);
+    const investments = null;//storeInvestments(state => state.investments);
 
     return (
         <div className="wrapper">

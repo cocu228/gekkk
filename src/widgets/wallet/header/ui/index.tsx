@@ -79,7 +79,7 @@ const WalletHeader = () => {
                         </Tooltip>
                     </div>
 
-                    <div data-text={"3% per annum"} className='text-gray-600 text-2xl ellipsis'>
+                    <div data-text={`${isEURG ? 3 : 5}% per annum`} className='text-gray-600 text-2xl ellipsis'>
                         <span>{isEURG ? 3 : 5}% per annum</span>
                     </div>
                 </div>)}

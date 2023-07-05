@@ -106,7 +106,7 @@ const CashbackProgram = () => {
 
             <div className="row">
                 <div className="col flex justify-center">
-                    <span className="text-fs12 text-gray-500 text-center leading-4">The period of locking tokens is 90 days. At the end of this period the funds will return to your account.</span>
+                    <span className="text-fs12 text-gray-500 text-center leading-4">The period of locking tokens is 30 days. At the end of this period the funds will return to your account.</span>
                 </div>
             </div>
 

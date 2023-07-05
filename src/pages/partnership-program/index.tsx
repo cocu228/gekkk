@@ -2,16 +2,9 @@ import React, {useContext, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import Button from "@/shared/ui/button/Button";
-import TableRow from "@/widgets/crypto-deposits/TableRow";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import GTable from "@/shared/ui/grid-table";
-import {getAlignment} from "@/features/assets-table/model/helpers";
-import styles from "@/features/assets-table/ui/style.module.scss";
-import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
-import {AssetTableKeys} from "@/features/assets-table/model/types";
-import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
-import {getTabsAsRecord, historyTabs} from "@/widgets/history/model/helpers";
 
 const PartnershipProgram = () => {
 
@@ -120,20 +113,20 @@ const TablePP = () => {
                     <GTable.Head className={"bg-gray-200 p-4"}>
                         <GTable.Row>
                             <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Hello</span>
+                                <span className="text-gray-600 font-medium">ID</span>
                             </GTable.Col>
                             <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Word</span>
+                                <span className="text-gray-600 font-medium">Registration date</span>
                             </GTable.Col>
                         </GTable.Row>
                     </GTable.Head>
                     <GTable.Body className={"bg-[#F9F9FA] p-4"}>
                         <GTable.Row>
                             <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Hello</span>
+                                <span className="text-gray-600 font-medium">123456789123</span>
                             </GTable.Col>
                             <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Word</span>
+                                <span className="text-gray-600 font-medium">01.04.19 at 22:37</span>
                             </GTable.Col>
                         </GTable.Row>
                         <GTable.Row>

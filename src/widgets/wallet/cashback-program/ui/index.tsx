@@ -1,4 +1,4 @@
-import {addMonths} from "date-fns";
+import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
@@ -7,15 +7,24 @@ import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
-import descriptions from '@/shared/config/coins/descriptions';
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
+import { addDays } from "date-fns";
 
 const CashbackProgram = () => {
-    const [amount, setAmount] = useState<string>('');
-    const wallet = useContext(CtxWalletData);
-    const {xl, md} = useContext(BreakpointsContext);
     const lockConfirmModal = useModal();
+    const wallet = useContext(CtxWalletData);
+    const [amount, setAmount] = useState<string>('');
+    const investment = storeInvestments(state => state.cashbackInvestment);
+    const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
+
+    if (!investment) return <Loader/>;
+
+    const {
+        amount: locked,
+        date_start: startDate,
+        date_end: endDate
+    } = investment;
 
     return (
         <>
@@ -58,8 +67,10 @@ const CashbackProgram = () => {
             <div className="row flex flex-wrap mb-6">
                 <div className="col -md:border-r-1 md:mb-5 -md:border-solid -md:border-gray-400 -md:pr-10 md:w-full w-3/5">
                     <CashbackProperties
-                        locked={0}
+                        locked={locked}
                         amount={amount}
+                        endDate={endDate}
+                        startDate={startDate}
                         currency={wallet.currency}
                     />
                 </div>
@@ -106,22 +117,27 @@ const CashbackProgram = () => {
                 onCancel={lockConfirmModal.handleCancel}
             >
                 <CashbackProperties
-                    locked={0}
+                    locked={locked}
                     amount={amount}
+                    startDate={startDate}
                     currency={wallet.currency}
+                    endDate={addDays(new Date(), 30)}
                 />
                 
                 <div className="mt-6 md:mt-12">
                     <Button
                         size="xl"
                         className="w-full"
-                        onClick={() => {
+                        onClick={async () => {
+                            setAmount('');
                             lockConfirmModal.handleCancel();
-                            apiCreateInvestment({
+                            const {data} = await apiCreateInvestment({
                                 amount: +amount,
                                 term_days: 30,
                                 templateType: 3
                             });
+
+                            updateCashbackInvestment(data.result)
                         }}
                     >Confirm</Button>
                 </div>
@@ -133,12 +149,14 @@ const CashbackProgram = () => {
 function CashbackProperties({
     locked,
     amount,
-    currency
+    endDate,
+    currency,
+    startDate
 }) {
     return (
         <>
             <div className="row mb-2">
-                <div className="col"><InlineProperty left={"Start date"} right={formatForCustomer(Date())}/>
+                <div className="col"><InlineProperty left={"Start date"} right={formatForCustomer(startDate)}/>
                 </div>
             </div>
             <div className="row mb-2">
@@ -146,7 +164,7 @@ function CashbackProperties({
                 </div>
             </div>
             <div className="row mb-2">
-                <div className="col"><InlineProperty left={"End date"} right={formatForCustomer(addMonths(new Date(), 1))}/>
+                <div className="col"><InlineProperty left={"End date"} right={formatForCustomer(endDate)}/>
                 </div>
             </div>
             <div className="row">

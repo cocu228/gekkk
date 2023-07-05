@@ -1,5 +1,4 @@
-import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
-
+import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
 
 export interface IResInvestment {
     id: number,
@@ -14,11 +13,11 @@ export interface IResInvestment {
     link_cur_end_rate: number
 }
 
-export const apiInvestments = (start?: string, end?: string) =>
+export const apiInvestments = (start?: string, end?: string, investment_types?: number[]) =>
     $axios.get<$AxiosResponse<Array<IResInvestment>>>('/gek/v1/invest/get_investments', {
         params: {
+            end,
             start,
-            end
+            investment_types
         }
-    })
-
+    });

@@ -1,6 +1,5 @@
 import React, {FC, PropsWithChildren} from "react";
 import styles from "./style.module.scss";
-import InfoBox from "@/widgets/info-box";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 
 const Content: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {

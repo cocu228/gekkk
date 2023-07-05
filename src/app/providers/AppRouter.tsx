@@ -11,6 +11,7 @@ import PageProblems from '@/pages/page-problems/PageProblems';
 import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support";
 import CryptoDeposits from "@/pages/crypto-deposits";
+import PartnershipProgram from "@/pages/partnership-program";
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: 'deposit-types',
                 element: <CryptoDeposits/>,
+            },
+            {
+                path: 'partnership-program',
+                element: <PartnershipProgram/>,
             },
             {
                 path: 'exchange',

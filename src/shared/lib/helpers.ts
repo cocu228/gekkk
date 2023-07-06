@@ -137,10 +137,8 @@ export const getCookieData = <T>(): T => {
         const key = pair.substring(0, separatorIndex);
         const value = pair.substring(separatorIndex + 1);
 
-        // Декодируем значение с помощью decodeURIComponent()
         const decodedValue = decodeURIComponent(value);
 
-        // Присваиваем значение объекту cookieData по ключу
         cookieData[key] = decodedValue as T[keyof T];
     }
 
@@ -148,17 +146,20 @@ export const getCookieData = <T>(): T => {
 };
 
 
-export const setCookieData = (cookieData: object): void => {
-    const cookiePairs: string[] = Object.entries(cookieData).map(([key, value]) => {
+export const setCookieData = (cookieData: { key: string; value: string; expiration?: number }[]): void => {
+    cookieData.forEach(({ key, value, expiration }) => {
         const encodedValue: string = encodeURIComponent(value);
-        return `${key}=${encodedValue}`;
+        let cookieString: string = `${key}=${encodedValue}`;
+
+        if (expiration) {
+            const expiryDate = new Date();
+            expiryDate.setSeconds(expiryDate.getSeconds() + expiration);
+            const expires = expiryDate.toUTCString();
+            cookieString += `; expires=${expires}`;
+        }
+
+        document.cookie = cookieString;
     });
-
-    console.log(cookiePairs)
-
-    const cookieString: string = cookiePairs.join('; ');
-    console.log(cookieString)
-    document.cookie = cookieString;
 };
 
 function clearCookie(name) {

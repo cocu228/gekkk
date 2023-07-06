@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getCookieData, setCookieData} from "@/shared/lib/helpers";
+import {getCookieData} from "@/shared/lib/helpers";
 
 export type $AxiosError = {
     code: number;

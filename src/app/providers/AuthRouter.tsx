@@ -20,20 +20,15 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
 
-        setCookieData({phone})
-        setCookieData({token})
-        setCookieData({tokenHeaderName})
-
-        // const listener = function (event) {
-        //
-        //     window.removeEventListener('click', listener, false);
-        // };
-        //
-        // window.addEventListener('click', listener, false);
+        setCookieData([
+            {key: "phone", value: phone, expiration: 300}, {
+                key: "token",
+                value: token,
+                expiration: 300
+            },
+            {key: "tokenHeaderName", value: tokenHeaderName, expiration: 300}])
 
         sessionStorage.removeItem("session-auth")
-
-        // setSessionGlobal(prev => ({token, phone}))
 
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = phone;
@@ -61,6 +56,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         }),
         [token]
     );
+
     return <AuthContext.Provider value={value}> {children} </AuthContext.Provider>;
 };
 

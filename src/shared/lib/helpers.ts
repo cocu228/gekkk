@@ -126,10 +126,10 @@ export const getFormattedIBAN = (iban: string) => {
 }
 
 
-export const getCookieData = () => {
+export const getCookieData = <T>(): T => {
     const cookieValue = document.cookie;
     const cookiePairs = cookieValue.split(';');
-    const cookieData = {};
+    const cookieData = {} as T;
 
     for (let i = 0; i < cookiePairs.length; i++) {
         const pair = cookiePairs[i].trim();
@@ -141,11 +141,13 @@ export const getCookieData = () => {
         const decodedValue = decodeURIComponent(value);
 
         // Присваиваем значение объекту cookieData по ключу
-        cookieData[key] = decodedValue;
+        cookieData[key] = decodedValue as T[keyof T];
     }
 
     return cookieData;
 };
+
+
 export const setCookieData = (cookieData: object): void => {
     const cookiePairs: string[] = Object.entries(cookieData).map(([key, value]) => {
         const encodedValue: string = encodeURIComponent(value);
@@ -158,3 +160,18 @@ export const setCookieData = (cookieData: object): void => {
     console.log(cookieString)
     document.cookie = cookieString;
 };
+
+function clearCookie(name) {
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+}
+
+export function clearAllCookies() {
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        clearCookie(name);
+    }
+}

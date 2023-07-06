@@ -1,7 +1,7 @@
 import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {useNavigate} from "react-router-dom";
-import {useSessionStorage} from "usehooks-ts";
 import $axios from "@/shared/lib/(cs)axios";
+import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
 
 const AuthContext = createContext({});
 
@@ -14,11 +14,15 @@ interface IValue {
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const [{token}, setSessionGlobal] = useSessionStorage<Partial<Record<string, any>>>("session-global", {});
+    const {token} = getCookieData<{ token: string }>()
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
+
+        setCookieData({phone})
+        setCookieData({token})
+        setCookieData({tokenHeaderName})
 
         // const listener = function (event) {
         //
@@ -29,7 +33,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
         sessionStorage.removeItem("session-auth")
 
-        setSessionGlobal(prev => ({token, phone}))
+        // setSessionGlobal(prev => ({token, phone}))
 
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = phone;
@@ -44,7 +48,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers['token'] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
 
-        setSessionGlobal({});
+        clearAllCookies()
 
         navigate("/", {replace: true});
     };

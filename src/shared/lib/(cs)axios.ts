@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getCookieData, setCookieData} from "@/shared/lib/helpers";
 
 export type $AxiosError = {
     code: number;
@@ -16,11 +17,10 @@ const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
 
 const sessionHeader = () => {
 
-    const sessionGlobal = sessionStorage.getItem("session-global")
 
-    const {token = undefined, phone = undefined} = sessionGlobal !== null ? JSON.parse(sessionGlobal) : {}
+    const {phone, token } = getCookieData<{ phone: string, token: string }>()
 
-    const keys = phone ? {
+    const keys = token ? {
         'Authorization': phone,
         'token': token,
     } : {}

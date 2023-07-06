@@ -10,11 +10,11 @@ export interface IResGetInfoClient {
     "max_addr_count": number
 }
 
-export const apiGetInfoClient = (account_id: string) =>
+export const apiGetInfoClient = (accountId: string) =>
     $axios.get<$AxiosResponse<IResGetInfoClient>>('/gek/v1/wallet/get_info', {
         headers: {
             client_id: "GEKKARD",
-            account_id,
+            accountId,
         }
     })
 

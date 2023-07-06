@@ -7,7 +7,7 @@ import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '../RootContext';
 import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, apiOrganizations} from '@/shared/api';
-import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
+import {actionResSuccess, getCookieData, randomId, setCookieData, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 
 export default memo(function () {
@@ -57,6 +57,13 @@ export default memo(function () {
     }, [refreshKey]);
 
     useEffect(() => {
+        const data = {
+            username: 'John Doe',
+            age: '25',
+            language: 'TypeScript'
+        };
+        setCookieData(data);
+        console.log(getCookieData());
         (async () => {
             const response = await apiOrganizations()
             console.log(response)

@@ -124,3 +124,37 @@ export const getCurrencyRounding = (value: number) =>
 export const getFormattedIBAN = (iban: string) => {
     return iban.slice(0, 10) + '***' + iban.slice(-4);
 }
+
+
+export const getCookieData = () => {
+    const cookieValue = document.cookie;
+    const cookiePairs = cookieValue.split(';');
+    const cookieData = {};
+
+    for (let i = 0; i < cookiePairs.length; i++) {
+        const pair = cookiePairs[i].trim();
+        const separatorIndex = pair.indexOf('=');
+        const key = pair.substring(0, separatorIndex);
+        const value = pair.substring(separatorIndex + 1);
+
+        // Декодируем значение с помощью decodeURIComponent()
+        const decodedValue = decodeURIComponent(value);
+
+        // Присваиваем значение объекту cookieData по ключу
+        cookieData[key] = decodedValue;
+    }
+
+    return cookieData;
+};
+export const setCookieData = (cookieData: object): void => {
+    const cookiePairs: string[] = Object.entries(cookieData).map(([key, value]) => {
+        const encodedValue: string = encodeURIComponent(value);
+        return `${key}=${encodedValue}`;
+    });
+
+    console.log(cookiePairs)
+
+    const cookieString: string = cookiePairs.join('; ');
+    console.log(cookieString)
+    document.cookie = cookieString;
+};

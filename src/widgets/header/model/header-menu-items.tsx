@@ -1,8 +1,6 @@
 import React from "react";
 import {
     GekkoinInvestPlatform,
-    ItemOrganization,
-    ItemAccount,
     PromoCodeModal
 } from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";

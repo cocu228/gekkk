@@ -7,6 +7,8 @@ import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
 import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '../RootContext';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, apiOrganizations} from '@/shared/api';
+import {CtxRootData, ICtxCurrencyData} from '../RootContext';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 
@@ -35,8 +37,6 @@ export default memo(function () {
 
     useEffect(() => {
 
-
-
         (async function () {
             // const infoClient = await apiGetInfoClient();
             const walletsResponse = await apiGetBalance();
@@ -57,6 +57,19 @@ export default memo(function () {
                 }).reject(() => null);
         })()
     }, [refreshKey]);
+
+    useEffect(() => {
+        (async () => {
+            const response = await apiOrganizations()
+            console.log(response)
+            console.log("wait resInfoClient")
+            const resInfoClient = await apiGetInfoClient(response.data[0].accounts[0].id)
+            console.log(response.data[0].accounts[0].id)
+            console.log("resInfoClient ready")
+            console.log(resInfoClient)
+        })()
+    }, [])
+
 
     return <CtxRootData.Provider value={{
         currencies,

@@ -31,12 +31,18 @@ export const actionSuccessConstructor = function (value: boolean) {
         return {
             success: (val) => {
                 val(this)
+                return ({
+                    reject: (val) => val(this)
+                })
             }
         }
     } else {
         return {
             success: (val) => {
                 console.warn("Response error")
+                return ({
+                    reject: (val) => val(this)
+                })
             }
         }
     }

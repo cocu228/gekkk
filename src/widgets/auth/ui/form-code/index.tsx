@@ -50,8 +50,11 @@ const FormCode = memo(() => {
                                             login(phone, res.data.token)
                                         })
                                 ).catch(e => {
+                                console.log(e)
                             })
-                        })
+                        }).reject((v) => {
+                    console.log(res)
+                })
             )
     }
 

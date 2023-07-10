@@ -34,7 +34,7 @@ const WithdrawForm = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-
+    console.log(min_withdraw)
     const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
@@ -62,33 +62,39 @@ const WithdrawForm = () => {
                         />
                     </div>
 
-                    <div className='flex flex-col gap-2'>
-                        <span className="text-gray-600">Receiver</span>
-                        <Input value={inputs.receiver} onChange={onInput}
-                               disabled={!networkIdSelect}
-                               name={"receiver"}
-                               placeholder={"Enter receiver name"}/>
-                    </div>
+                {min_withdraw > inputs.amount && <div className="text-fs12 text-red-main -mt-3">
+                    minimum withdrawal amount {min_withdraw}
+                </div>}
 
-                    <div className='flex flex-col gap-2'>
-                        <span className="text-gray-600">Description (optional)</span>
-                        <TextArea name={"description"} value={inputs.description} onChange={onInput}
-                                  disabled={!networkIdSelect}
-                                  rows={2}/>
-                    </div>
+                <div className='flex flex-col gap-2'>
+                    <span className="text-gray-600">Receiver</span>
+                    <Input value={inputs.receiver} onChange={onInput}
+                           disabled={!networkIdSelect}
+                           name={"receiver"}
+                           placeholder={"Enter receiver name"}/>
+                </div>
 
-                    <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver || (wallet.availableBalance < inputs.amount)}
-                            className='mt-5 mb-2 w-[75%] self-center'>
-                        Withdraw
-                    </Button>
+                <div className='flex flex-col gap-2'>
+                    <span className="text-gray-600">Description (optional)</span>
+                    <TextArea name={"description"} value={inputs.description} onChange={onInput}
+                              disabled={!networkIdSelect}
+                              rows={2}/>
+                </div>
 
-                    <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
-                           open={isModalOpen}>
-                        <WithdrawConfirm {...inputs} handleCancel={handleCancel} percent_fee={percent_fee} withdraw_fee={withdraw_fee}/>
-                    </Modal>
+                <Button size={"xl"} onClick={showModal}
+                        disabled={!inputs.amount || !inputs.address || !inputs.receiver || (wallet.availableBalance < inputs.amount)}
+                        className='mt-5 mb-2 w-[75%] self-center'>
+                    Withdraw
+                </Button>
+
+                <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
+                       open={isModalOpen}>
+                    <WithdrawConfirm {...inputs} handleCancel={handleCancel} percent_fee={percent_fee}
+                                     withdraw_fee={withdraw_fee}/>
+                </Modal>
 
 
-                    {!isNull(withdraw_fee) && <div className='text-center'>
+                {!isNull(withdraw_fee) && <div className='text-center'>
                         Fee is <b>{withdraw_fee}</b> per transaction
                     </div>}
                 </div>

@@ -77,7 +77,7 @@ const WithdrawForm = () => {
                                   rows={2}/>
                     </div>
 
-                    <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver}
+                    <Button size={"xl"} onClick={showModal} disabled={!inputs.amount || !inputs.address || !inputs.receiver || (wallet.availableBalance < inputs.amount)}
                             className='mt-5 mb-2 w-[75%] self-center'>
                         Withdraw
                     </Button>

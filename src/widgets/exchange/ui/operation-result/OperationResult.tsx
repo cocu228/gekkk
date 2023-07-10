@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {CtxExchangeData} from '../../model/context';
-import {CtxRootData} from '@/app/RootContext';
+import {CtxRootData} from '@/processes/RootContext';
 
 function OperationResult() {
     const {

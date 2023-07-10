@@ -7,7 +7,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
 import { storeBankData } from '@/shared/store/bank-data/bank-data';
-import { ICtxCurrencyData } from '@/app/RootContext';
+import { ICtxCurrencyData } from '@/processes/RootContext';
 import Decimal from 'decimal.js';
 import {calculateAmount} from "@/shared/lib/helpers";
 

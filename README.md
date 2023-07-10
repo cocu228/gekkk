@@ -34,6 +34,7 @@ _package.json_
 └── src/
     ├── app/                    #    Initializing application logic        #    Entrypoint for connecting the application (formerly App. tsx)
     |    └── index.css          #    Global application styles
+    ├── processes/                  #
     ├── pages/                  #
     ├── widgets/                #
     ├── features/               #               

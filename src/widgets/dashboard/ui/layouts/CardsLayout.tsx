@@ -6,7 +6,7 @@ import {storeBankData} from '@/shared/store/bank-data/bank-data';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {formatMonthYear} from '../../model/helpers';
 import {useContext} from 'react';
-import {CtxRootData} from '@/app/RootContext';
+import {CtxRootData} from '@/processes/RootContext';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);

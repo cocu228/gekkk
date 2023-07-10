@@ -9,7 +9,7 @@ import {
 import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {CtxRootData} from "@/app/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import InfoBox from "@/widgets/info-box";
 import {useNavigate} from "react-router-dom";
 

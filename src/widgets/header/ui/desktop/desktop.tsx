@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {IBankAccount} from "@/shared/api/bank";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {CtxRootData, ICtxAccount} from "@/app/RootContext";
+import {CtxRootData, ICtxAccount} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {defaultItems} from "../../model/header-menu-items";

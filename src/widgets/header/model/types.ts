@@ -1,4 +1,4 @@
-import { ICtxAccount } from "@/app/RootContext"
+import { ICtxAccount } from "@/processes/RootContext"
 
 export type TOnActionParams = Array<{
     type: string,

@@ -5,7 +5,7 @@ import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '../RootContext';
+import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '@/processes/RootContext';
 import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, apiOrganizations} from '@/shared/api';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";

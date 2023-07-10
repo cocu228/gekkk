@@ -11,7 +11,7 @@ import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
-import {CtxRootData} from "@/app/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 
 const WithdrawConfirm = ({

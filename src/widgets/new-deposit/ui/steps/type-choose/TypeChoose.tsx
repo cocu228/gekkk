@@ -5,7 +5,7 @@ import $const from '@/shared/config/coins/constants';
 import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
-import { CtxRootData } from '@/app/RootContext';
+import { CtxRootData } from '@/processes/RootContext';
 import Decimal from 'decimal.js';
 
 const TypeChoose = () => {

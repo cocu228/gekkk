@@ -3,7 +3,7 @@ import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
 import {NavLink} from 'react-router-dom';
 import Modal from "@/shared/ui/modal/Modal";
-import {CtxRootData} from "@/app/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
 import IconClose from "@/shared/ui/icons/IconClose";

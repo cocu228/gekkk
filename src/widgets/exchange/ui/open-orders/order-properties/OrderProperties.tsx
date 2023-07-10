@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {IResOrder} from "@/shared/api";
-import {CtxRootData} from "@/app/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 

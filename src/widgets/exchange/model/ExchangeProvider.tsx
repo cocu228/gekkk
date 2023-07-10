@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { CtxExchangeData, ICtxExchangeData } from "./context";
-import { CtxRootData } from "@/app/RootContext";
+import { CtxRootData } from "@/processes/RootContext";
 import { IRoomInfo } from "@/shared/api";
 import { useNavigate } from "react-router-dom";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";

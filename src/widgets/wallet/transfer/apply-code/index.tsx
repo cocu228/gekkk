@@ -9,7 +9,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {IResCodeTxInfo} from "@/widgets/wallet/transfer/api/code-tx-info";
-import {CtxRootData} from "@/app/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 

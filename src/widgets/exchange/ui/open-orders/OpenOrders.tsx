@@ -2,7 +2,7 @@ import {format} from 'date-fns';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from '@/app/RootContext';
+import {CtxRootData} from '@/processes/RootContext';
 import useModal from '@/shared/model/hooks/useModal';
 import {useContext, useEffect, useState} from 'react';
 import OrderProperties from './order-properties/OrderProperties';

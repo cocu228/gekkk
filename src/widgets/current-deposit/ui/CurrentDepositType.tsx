@@ -1,5 +1,5 @@
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import { ICtxCurrencyData } from "@/app/RootContext";
+import { ICtxCurrencyData } from "@/processes/RootContext";
 import { StructedDepositStrategy } from "@/shared/config/deposits/types";
 import { IDepositStrategyData } from "../model/helpers";
 

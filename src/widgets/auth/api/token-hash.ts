@@ -8,8 +8,8 @@ export interface IResSessionData {
 
 export const apiTokenHash = (hash?: string, sessionData?: IResSessionData) =>
     $axios.post<$AxiosResponse<IResSessionData | string>>('/pub/v1/auth',
-        null, {
+        sessionData, {
             params: {
                 key: hash
             }
-    });
+        });

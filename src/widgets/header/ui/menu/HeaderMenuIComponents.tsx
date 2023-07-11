@@ -8,8 +8,8 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
-import {actionResSuccess, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
-import { Skeleton } from "antd";
+import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
+import {Skeleton} from "antd";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, iban, title}: Partial<{
@@ -106,7 +106,18 @@ export const GekkoinInvestPlatform = ({active = false}) => {
 
     const onClick = async () => {
         setLoading(true)
-        const response = await $axios.post('/pub/v1/auth')
+
+        const {phone, token, tokenHeaderName} = getCookieData<{
+            phone: string,
+            token: string,
+            tokenHeaderName: string
+        }>()
+
+        const response = await $axios.post('/pub/v1/auth', {
+            authorization: phone,
+            token: token,
+            tokenHeaderName: tokenHeaderName
+        })
         actionResSuccess(response).success(() => {
             window.open(`https://dev.gekkoin.com?sessionId=${uncoverResponse(response)}`, "_blank")
         })

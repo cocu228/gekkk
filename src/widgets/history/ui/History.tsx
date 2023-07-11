@@ -132,7 +132,7 @@ function History({currenciesFilter}: Partial<Props>) {
                 <GTable.Body loading={loading} className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
-                            <GTable.Row cols={3} className={styles.Row}>
+                            <GTable.Row cols={3} className={styles.Row + ' hover:font-medium'}>
                                 <TransactionInfo infoList={item}>
                                     <GTable.Col>
                                         <div className="ellipsis ellipsis-md">

@@ -35,6 +35,7 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
+  transition: .2s;
 }
 
 .Name {
@@ -42,6 +43,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
+  transition: .2s;
 }
 
 .Sum {
@@ -109,11 +111,17 @@
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: .2s;
 
   .Icon {
     pointer-events: none;
     filter: saturate(10%) invert(0%);
     opacity: 0.3;
+    transition: .2s;
+  }
+
+  .NavName {
+    transition: .2s;
   }
 
   &:hover {

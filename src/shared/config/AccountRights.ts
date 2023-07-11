@@ -1,26 +1,33 @@
 // Флаги разрешений/типов по клиенту
-export const constRights = {
-    none: 0,
+export enum AccountRights {
+    none = 0,
     /// Вывод запрещен
-    withdrawBlock: 1,
+    withdrawBlock = 1,
     /// Пополнение запрещено
-    topUpBlock: 2,
+    topUpBlock = 1 << 1,
     /// Обмен запрещен
-    exchangeBlock: 4,
+    exchangeBlock = 1 << 2,
     /// Внутрение переводы запрещены
-    innerTransferBlock: 8,
+    innerTransferBlock = 1 << 3,
     /// Инвестиции запрещены
-    investBlock: 16,
+    investBlock = 1 << 4,
     /// Вход в систему запрещен
-    logInBlock: 32,
+    logInBlock = 1 << 5,
     /// Разрешает использовать все варианты сетей вывода и ввода в обход настроек в валютах
-    allTokensNetworks: 64,
+    allTokensNetworks = 1 << 6,
+    /// Признак юридического лица
+    isJuridical = 1 << 7,
+    /// Бонусы по инвест-токену запрещены
+    gkeBonusBlock = 1 << 8,
 
     /// Запрещает использовать все варианты сетей вывода и ввода
-    blockAll: 63,
+    blockAll = withdrawBlock | topUpBlock | exchangeBlock | innerTransferBlock | investBlock | logInBlock | gkeBonusBlock,
+
+    /// Блокировки для юридических лиц
+    JuridicalBlock = investBlock | gkeBonusBlock,
 
     /// Удаленная учетная запись, архив
-    deleted: -2147483648
+    deleted = 1 << 31
 }
 
 export const testRightsUser = (value, $const) => value >= $const

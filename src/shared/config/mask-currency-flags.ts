@@ -13,9 +13,9 @@ export const maskCurrencyFlags = {
     // Использование в структурных инвест продуктах для фиксирования курсов
     structInvestAvailable: 1,
     // Использование в операциях обмена на внутренней бирже
-    exchangeAvailable: 2,
+    exchangeAvailable: 1 << 1,
     // Флаг отличия криптовалют от фиатных
-    fiatCurrency: 4,
+    fiatCurrency: 1 << 2,
     // Возможность держать внутренний баланс в данной валюте, создание внутренних счетов, внутренние переводы (доступность)
-    accountAvailable: 8
+    accountAvailable: 1 << 3
 }

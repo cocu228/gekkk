@@ -10,6 +10,7 @@
     border-color: var(--color-main-bg);
     color: #888A92;
     margin-bottom: 8px;
+    transition: .2s;
     &:global(.active) {
         border-color: var(--color-blue-400);
         font-weight: 700;

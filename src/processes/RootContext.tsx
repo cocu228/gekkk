@@ -41,10 +41,12 @@ export class ICtxCurrencyData {
 export const CtxRootData = React.createContext<{
     currencies: Map<string, ICtxCurrencyData>;
     setRefresh: () => void;
-    setAccount: (id: null | string) => void;
+    setAccount: (number: null | string, id: null | string, client: null | string) => void;
     account: {
         id: null | string,
-        rights: null | number
+        number: null | string,
+        client: null | string,
+        rights: null | string
     },
     refreshKey: string;
 }>(null);

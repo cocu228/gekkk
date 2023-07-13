@@ -21,12 +21,12 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
 
         setCookieData([
-            {key: "phone", value: phone, expiration: 300}, {
+            {key: "phone", value: phone, expiration: 3000000}, {
                 key: "token",
                 value: token,
-                expiration: 300
+                expiration: 3000000
             },
-            {key: "tokenHeaderName", value: tokenHeaderName, expiration: 300}])
+            {key: "tokenHeaderName", value: tokenHeaderName, expiration: 3000000}])
 
         sessionStorage.removeItem("session-auth")
 

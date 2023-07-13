@@ -8,20 +8,31 @@ import {TOnActionParams} from "@/widgets/header/model/types";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {storeOrganizations} from "@/shared/store/organizations";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
 
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
     const {account, setAccount} = useContext(CtxRootData);
-
     const navigate = useNavigate();
-    const [items, setItems] = useState(defaultItems)
     const organizations = storeOrganizations(state => state.organizations);
+
+    const [items, setItems] = useState(defaultItems)
+    const [activeAccountForDisplay, setActiveAccountForDisplay] = useState({
+        number: null,
+        name: null
+    })
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-account", action: (value: null | string) => setAccount(value)}
+        {
+            type: "change-account", action: (value: {
+                number: string,
+                client: string,
+                id: string
+            }) => setAccount(value.number, value.id, value.client)
+        }
     ], []);
 
     useEffect(() => {
@@ -29,16 +40,31 @@ const HeaderDesktop = memo((props) => {
         let newItems = [...defaultItems]
 
         organizations.accounts.forEach(it => {
+
+            let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
+
+            if (account.number === it.number) {
+                setActiveAccountForDisplay({
+                    number: account.number,
+                    name: name
+                })
+            }
+
+
             newItems.unshift({
                 id: it.clientId,
                 item: <ItemOrganization
-                    clientId={it.clientId}
-                    name={organizations.trustedClients.find(item => item.clientId === it.clientId).title}
-                    active={account.id === it.number}
+                    number={getFormattedIBAN(it.number)}
+                    name={name}
+                    active={account.number === it.number}
                 />,
                 action: {
                     type: "change-account",
-                    value: it.number,
+                    value: {
+                        number: it.number,
+                        client: it.clientId,
+                        id: it.id
+                    },
                 },
                 style: {
                     backgroundColor: "var(--color-gray-300)"
@@ -73,31 +99,28 @@ const HeaderDesktop = memo((props) => {
                 ]}
             >
                 <div className="flex items-center justify-end">
-                    {/*<div className="wrapper mr-2">*/}
-                    {/*    {account && account.type === 'JURIDICAL' ? (*/}
-                    {/*        <SvgSchema width={32} height={22}/>*/}
-                    {/*    ) : (*/}
-                    {/*        <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
-                    <div className="wrapper">
-                            <div className="row">
-                                <span className="text-sm font-bold">ID: {account.id}</span>
-                                <span>
+                    <div className="wrapper mr-2">
+                        <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
+                    </div>
+                    {activeAccountForDisplay.number && <div className="wrapper">
+                        <div className="row">
+                                <span
+                                    className="text-sm font-bold">ID: {getFormattedIBAN(activeAccountForDisplay.number)}</span>
+                            <span>
                                     <img
                                         className="inline-flex"
                                         src="/img/icon/DropdownTriangleIcon.svg"
                                         alt="DropdownTriangleIcon"
                                     />
                                 </span>
-                            </div>
-                            
-                            <div className="row text-start flex">
+                        </div>
+
+                        <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {/*{account.name}*/}
+                                    {activeAccountForDisplay.name}
                                 </span>
-                            </div>
-                    </div>
+                        </div>
+                    </div>}
                 </div>
             </HeaderMenu>
 

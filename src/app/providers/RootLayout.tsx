@@ -6,7 +6,7 @@ import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
-import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
+import {actionResSuccess, randomId, uncoverArray, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {storeOrganizations} from "@/shared/store/organizations";
 import $axios from "@/shared/lib/(cs)axios";
@@ -22,6 +22,8 @@ export default memo(function () {
         refreshKey: "",
         account: {
             id: null,
+            number: null,
+            client: null,
             rights: null
         },
         currencies: new Map<string, ICtxCurrencyData>()
@@ -40,15 +42,15 @@ export default memo(function () {
     }, [])
 
 
-    const getInfoClient = async (id) => {
+    const getInfoClient = async (number: null | string, id: null | string, client: null | string) => {
 
-        $axios.defaults.headers['accountId'] = id;
+        $axios.defaults.headers['accountId'] = number;
 
         const response = await apiGetInfoClient()
 
         actionResSuccess(response).success(() => {
             setState(prev =>
-                ({...prev, account: {id: id, rights: uncoverResponse(response).flags}}))
+                ({...prev, account: {...prev.account, id, client, number, rights: uncoverResponse(response).flags}}))
         })
     }
 
@@ -56,22 +58,28 @@ export default memo(function () {
     useEffect(() => {
 
         (async () => {
-            if (organizations && account.id === null) {
-                await getInfoClient(organizations.accounts[0].number)
-            } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.id) {
-                await getInfoClient(account.id)
+            if (organizations && account.number === null) {
+                await getInfoClient(
+                    uncoverArray(organizations.accounts).number,
+                    uncoverArray(organizations.accounts).id,
+                    uncoverArray(organizations.accounts).clientId)
+            } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.number) {
+                await getInfoClient(
+                    account.number,
+                    account.id,
+                    account.client,
+                )
             }
         })()
 
-        prevAccountRef.current = account.id
+        prevAccountRef.current = account.number
 
-    }, [account.id, organizations])
+    }, [account.number, organizations])
 
 
     useEffect(() => {
 
-        if (account.id) {
-
+        if (account.number) {
             (async function () {
                 // const infoClient = await apiGetInfoClient();
                 const walletsResponse = await apiGetBalance();
@@ -93,7 +101,7 @@ export default memo(function () {
             })()
         }
 
-    }, [refreshKey, account.id]);
+    }, [refreshKey, account.number]);
 
     const setRefresh = () =>
         setState(prev => ({
@@ -101,10 +109,10 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setAccount = (id: null | string) =>
+    const setAccount = (number: null | string, id: null | string, client: null | string) =>
         setState(prev => ({
             ...prev,
-            account: {id: id, rights: null}
+            account: {number, id, client, rights: null}
         }));
 
 

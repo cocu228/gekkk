@@ -7,33 +7,27 @@ import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {formatMonthYear} from '../../model/helpers';
 import {useContext} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
+import {storeOrganizations} from "@/shared/store/organizations";
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
-    const bankData = storeBankData(state => state.bankData);
-
+    const organizations = storeOrganizations(state => state.organizations);
     return (
         <div className="wrapper">
-            {/*<SectionTitle>Selected account: {!account*/}
-            {/*    ? <Skeleton.Input style={{height: 16, width: 275}} active/>*/}
-            {/*    : <a>{account.iban}</a>*/}
-            {/*}</SectionTitle>*/}
-
             <CardsGrid>
-                {!(bankData && account) ? (
-                    <Card>
-                        <Skeleton active/>
-                    </Card>
-                ) : (<>
-                    {bankData.cards.filter(c => c.number).filter(c => c.clientId === account.id).map(card =>
-                        <BankCard
-                            key={`BANK_CARD_${card.id}`}
-                            cardNumber={card.number.replace("_", "** ***")}
-                            expiresAt={formatMonthYear(new Date(card.expireAt))}
-                            holderName={card.owner.embossedName}
-                        />
-                    )}
-                </>)}
+                <>
+                    {organizations.cards
+                        .filter(item => item.number)
+                        .filter(item => item.clientId === account.client)
+                        .map(item =>
+                            <BankCard
+                                key={`BANK_CARD_${item.id}`}
+                                cardNumber={item.number.replace("_", "** ***")}
+                                expiresAt={formatMonthYear(new Date(item.expireAt))}
+                                holderName={item.owner.embossedName}
+                            />
+                        )}
+                </>
             </CardsGrid>
         </div>
     );

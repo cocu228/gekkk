@@ -60,13 +60,11 @@ export const EmptyAccount = () => {
     </div>
 }
 
-export const ItemOrganization = ({active = false, iban, title}: Partial<{
+export const ItemOrganization = ({active = false, name, clientId}: Partial<{
     active: boolean;
-    iban: string;
-    title: string;
+    name: string;
+    clientId: string | number;
 }>) => {
-    if (!iban) return null;
-
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
         <div className="wrapper mr-2">
@@ -74,11 +72,11 @@ export const ItemOrganization = ({active = false, iban, title}: Partial<{
         </div>
         <div className="wrapper">
             <div className="row">
-                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {getFormattedIBAN(iban)} </span>
+                <span className={`text-sm font-bold ${active ? "text-blue-400" : ""}`}>ID: {clientId}</span>
             </div>
             <div className="row text-start">
                 <span
-                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>{title}</span>
+                    className={`text-xs text-start ${active ? "text-blue-400" : ""} font-bold`}>{name}</span>
             </div>
         </div>
     </div>

@@ -1,17 +1,13 @@
-import {Skeleton} from "antd";
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
-import {IBankAccount} from "@/shared/api/bank";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {CtxRootData, ICtxAccount} from "@/processes/RootContext";
-import SvgSchema from "@/shared/ui/icons/IconSchema";
-import {getFormattedIBAN} from "@/shared/lib/helpers";
+import {CtxRootData} from "@/processes/RootContext";
 import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
-import {storeBankData} from "@/shared/store/bank-data/bank-data";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {storeOrganizations} from "@/shared/store/organizations";
 
 const HeaderDesktop = memo((props) => {
 
@@ -20,77 +16,39 @@ const HeaderDesktop = memo((props) => {
 
     const navigate = useNavigate();
     const [items, setItems] = useState(defaultItems)
-
-    const getBankData = storeBankData(state => state.getBankData);
-    const [bankAccounts, setBankAccounts] = useState<IBankAccount[]>(null);
+    const organizations = storeOrganizations(state => state.organizations);
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-account", action: (value: ICtxAccount) => setAccount(value)}
+        {type: "change-account", action: (value: null | string) => setAccount(value)}
     ], []);
 
     useEffect(() => {
-        (async function () {
-            if (!bankAccounts) {
-                const {bankAccounts} = await getBankData();
-                setBankAccounts(bankAccounts);
-            }
 
-            let newItems = [...defaultItems]
+        let newItems = [...defaultItems]
 
-            newItems.unshift(...bankAccounts
-                .filter(a => a.accountType === 'JURIDICAL')
-                .map(organization => ({
-                    id: organization.clientId,
-                    item: <ItemOrganization
-                        iban={organization.number}
-                        title={organization.name}
-                        active={account?.id === organization.clientId}
-                    />,
-                    action: {
-                        type: "change-account",
-                        value: {
-                            id: organization.clientId,
-                            iban: organization.number,
-                            name: organization.name,
-                            type: organization.accountType
-                        },
-                    },
-                    style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    }
+        organizations.accounts.forEach(it => {
+            newItems.unshift({
+                id: it.clientId,
+                item: <ItemOrganization
+                    clientId={it.clientId}
+                    name={organizations.trustedClients.find(item => item.clientId === it.clientId).title}
+                    active={account.id === it.number}
+                />,
+                action: {
+                    type: "change-account",
+                    value: it.number,
+                },
+                style: {
+                    backgroundColor: "var(--color-gray-300)"
                 }
-            )));
+            })
+        })
 
-            newItems.unshift(...bankAccounts
-                .filter(a => a.accountType === 'PHYSICAL')
-                .map(acc => ({
-                    id: acc.clientId,
-                    item: <ItemAccount
-                        iban={acc.number}
-                        title={acc.name}
-                        active={account?.id === acc.clientId}
-                    />,
-                    action: {
-                        type: "change-account",
-                        value: {
-                            id: acc.clientId,
-                            name: acc.name,
-                            iban: acc.number,
-                            type: acc.accountType
-                        }
-                    },
-                    style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    },
-                }
-            )));
+        setItems(newItems);
 
-            if (!account) setAccount(newItems[0]?.action.value as ICtxAccount);
-            setItems(newItems);
-        })();
-    }, [account, bankAccounts]);
+    }, [account]);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -123,12 +81,8 @@ const HeaderDesktop = memo((props) => {
                     {/*    )}*/}
                     {/*</div>*/}
                     <div className="wrapper">
-                        {!bankAccounts || !account ? <div className="flex flex-col gap-2">
-                            <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
-                            <Skeleton.Input style={{height: 12, width: 200}} active/>
-                        </div> : <>
                             <div className="row">
-                                {/*<span className="text-sm font-bold">ID: {getFormattedIBAN(account.iban)}</span>*/}
+                                <span className="text-sm font-bold">ID: {account.id}</span>
                                 <span>
                                     <img
                                         className="inline-flex"
@@ -143,7 +97,6 @@ const HeaderDesktop = memo((props) => {
                                     {/*{account.name}*/}
                                 </span>
                             </div>
-                        </>}
                     </div>
                 </div>
             </HeaderMenu>

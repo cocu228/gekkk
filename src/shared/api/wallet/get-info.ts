@@ -13,10 +13,6 @@ export interface IResGetInfoClient {
     phone: string | null
 }
 
-export const apiGetInfoClient = (accountId: string) =>
-    $axios.get<$AxiosResponse<IResGetInfoClient>>('/gek/v1/wallet/get_info', {
-        headers: {
-            accountId,
-        }
-    })
+export const apiGetInfoClient = () =>
+    $axios.get<$AxiosResponse<IResGetInfoClient>>('/gek/v1/wallet/get_info')
 

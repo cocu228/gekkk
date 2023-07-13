@@ -2,14 +2,15 @@ import {Outlet} from 'react-router';
 import Loader from "@/shared/ui/loader";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
-import {memo, useEffect, useState} from 'react';
+import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '@/processes/RootContext';
+import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {storeOrganizations} from "@/shared/store/organizations";
 import $axios from "@/shared/lib/(cs)axios";
+import Header from "@/widgets/header/ui";
 
 export default memo(function () {
 
@@ -26,6 +27,8 @@ export default memo(function () {
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
+    const prevAccountRef = useRef<null | string>(null);
+
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const organizations = storeOrganizations(state => state.organizations);
 
@@ -37,39 +40,36 @@ export default memo(function () {
     }, [])
 
 
+    const getInfoClient = async (id) => {
+
+        $axios.defaults.headers['accountId'] = id;
+
+        const response = await apiGetInfoClient()
+
+        actionResSuccess(response).success(() => {
+            setState(prev =>
+                ({...prev, account: {id: id, rights: uncoverResponse(response).flags}}))
+        })
+    }
+
+
     useEffect(() => {
-        if (account.id !== null) {
-            (async () => {
-                const response = await apiGetInfoClient(account.id)
-                actionResSuccess(response).success(() => {
-                    setState(prev =>
-                        ({...prev, account: {id: prev.account.id, rights: uncoverResponse(response).flags}}))
-                })
 
-                $axios.defaults.headers['accountId'] = account.id;
+        (async () => {
+            if (organizations && account.id === null) {
+                await getInfoClient(organizations.accounts[0].number)
+            } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.id) {
+                await getInfoClient(account.id)
+            }
+        })()
 
-            })()
-        } else if (organizations) {
-            (async () => {
-                console.log(organizations.accounts[0].number)
-                console.log("organizations.accounts[0].number")
-                const response = await apiGetInfoClient(organizations.accounts[0].number)
-
-                actionResSuccess(response).success(() => {
-                    setState(prev =>
-                        ({...prev, account: {id: organizations.accounts[0].number, rights: uncoverResponse(response).flags}}))
-                })
-
-                $axios.defaults.headers['accountId'] = organizations.accounts[0].number;
-
-            })()
-        }
+        prevAccountRef.current = account.id
 
     }, [account.id, organizations])
 
 
     useEffect(() => {
-        console.log(account.id)
+
         if (account.id) {
 
             (async function () {
@@ -91,17 +91,9 @@ export default memo(function () {
                             }).reject(() => null);
                     }).reject(() => null);
             })()
-
-            //
-            // console.log(account.id)
-            // console.log("account.id")
-
         }
 
     }, [refreshKey, account.id]);
-
-    console.log("state")
-    console.log(account)
 
     const setRefresh = () =>
         setState(prev => ({
@@ -109,10 +101,10 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setAccount = (account: ICtxAccount) =>
+    const setAccount = (id: null | string) =>
         setState(prev => ({
             ...prev,
-            account: account
+            account: {id: id, rights: null}
         }));
 
 
@@ -123,16 +115,15 @@ export default memo(function () {
         setRefresh: setRefresh,
         refreshKey
     }}>
-        <>
-            {/*<Header/>*/}
-            {currencies.size === 0 ? <Loader/> : (
-                <Main>
-                    <Sidebar/>
-                    <Content>
-                        <Outlet/>
-                    </Content>
-                </Main>
-            )}
-        </>
+        {currencies.size === 0 ? <Loader/> : (<>
+            <Header/>
+            <Main>
+                <Sidebar/>
+                <Content>
+                    <Outlet/>
+                </Content>
+            </Main>
+
+        </>)}
     </CtxRootData.Provider>
 });

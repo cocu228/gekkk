@@ -14,10 +14,10 @@ function CardsLayout() {
 
     return (
         <div className="wrapper">
-            <SectionTitle>Selected account: {!account
-                ? <Skeleton.Input style={{height: 16, width: 275}} active/>
-                : <a>{account.iban}</a>
-            }</SectionTitle>
+            {/*<SectionTitle>Selected account: {!account*/}
+            {/*    ? <Skeleton.Input style={{height: 16, width: 275}} active/>*/}
+            {/*    : <a>{account.iban}</a>*/}
+            {/*}</SectionTitle>*/}
 
             <CardsGrid>
                 {!(bankData && account) ? (

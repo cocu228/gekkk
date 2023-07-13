@@ -115,20 +115,20 @@ const HeaderDesktop = memo((props) => {
                 ]}
             >
                 <div className="flex items-center justify-end">
-                    <div className="wrapper mr-2">
-                        {account && account.type === 'JURIDICAL' ? (
-                            <SvgSchema width={32} height={22}/>
-                        ) : (
-                            <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
-                        )}
-                    </div>
+                    {/*<div className="wrapper mr-2">*/}
+                    {/*    {account && account.type === 'JURIDICAL' ? (*/}
+                    {/*        <SvgSchema width={32} height={22}/>*/}
+                    {/*    ) : (*/}
+                    {/*        <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
                     <div className="wrapper">
                         {!bankAccounts || !account ? <div className="flex flex-col gap-2">
                             <Skeleton.Input className="mt-1" style={{height: 14, width: 200}} active/>
                             <Skeleton.Input style={{height: 12, width: 200}} active/>
                         </div> : <>
                             <div className="row">
-                                <span className="text-sm font-bold">ID: {getFormattedIBAN(account.iban)}</span>
+                                {/*<span className="text-sm font-bold">ID: {getFormattedIBAN(account.iban)}</span>*/}
                                 <span>
                                     <img
                                         className="inline-flex"
@@ -140,7 +140,7 @@ const HeaderDesktop = memo((props) => {
                             
                             <div className="row text-start flex">
                                 <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {account.name}
+                                    {/*{account.name}*/}
                                 </span>
                             </div>
                         </>}

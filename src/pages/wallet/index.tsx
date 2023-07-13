@@ -36,10 +36,10 @@ function Wallet() {
                                 <Withdraw/>
                             </NetworkProvider>
                             <Transfer data-tab={"Funds transfer"}/>
-                            {$currency.currency === "GKE" && account && account.type !== "JURIDICAL" && <>
-                                <CashbackProgram data-tab={"Cashback Program"}/>
-                                <NoFeeProgram data-tab={"No Fee Program"}/>
-                            </>}
+                            {/*{$currency.currency === "GKE" && account && account.type !== "JURIDICAL" && <>*/}
+                            {/*    <CashbackProgram data-tab={"Cashback Program"}/>*/}
+                            {/*    <NoFeeProgram data-tab={"No Fee Program"}/>*/}
+                            {/*</>}*/}
                             <About data-tab={"About"}/>
                             {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}
 

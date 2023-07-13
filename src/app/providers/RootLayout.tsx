@@ -90,9 +90,9 @@ export default memo(function () {
                 }).reject(() => null);
         })()
 
-
-        console.log(account.id)
-        console.log("account.id")
+        //
+        // console.log(account.id)
+        // console.log("account.id")
 
     }, [refreshKey, account.id]);
 

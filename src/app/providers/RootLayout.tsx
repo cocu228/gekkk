@@ -38,7 +38,7 @@ export default memo(function () {
 
 
     useEffect(() => {
-        if (account.id) {
+        if (account.id !== null) {
             (async () => {
                 const response = await apiGetInfoClient(account.id)
                 actionResSuccess(response).success(() => {
@@ -57,7 +57,7 @@ export default memo(function () {
 
                 actionResSuccess(response).success(() => {
                     setState(prev =>
-                        ({...prev, account: {id: prev.account.id, rights: uncoverResponse(response).flags}}))
+                        ({...prev, account: {id: organizations.accounts[0].number, rights: uncoverResponse(response).flags}}))
                 })
 
                 $axios.defaults.headers['accountId'] = organizations.accounts[0].number;
@@ -69,32 +69,39 @@ export default memo(function () {
 
 
     useEffect(() => {
+        console.log(account.id)
+        if (account.id) {
 
-        account.rights !== null && (async function () {
-            // const infoClient = await apiGetInfoClient();
-            const walletsResponse = await apiGetBalance();
-            const assetsResponse = await apiGetMarketAssets();
+            (async function () {
+                // const infoClient = await apiGetInfoClient();
+                const walletsResponse = await apiGetBalance();
+                const assetsResponse = await apiGetMarketAssets();
 
 
-            actionResSuccess(walletsResponse)
-                .success(() => {
-                    actionResSuccess(assetsResponse)
-                        .success(() => {
-                            setState(prev => ({
-                                ...prev,
-                                currencies: helperCurrenciesGeneration(
-                                    uncoverResponse(assetsResponse),
-                                    uncoverResponse(walletsResponse))
-                            }));
-                        }).reject(() => null);
-                }).reject(() => null);
-        })()
+                actionResSuccess(walletsResponse)
+                    .success(() => {
+                        actionResSuccess(assetsResponse)
+                            .success(() => {
+                                setState(prev => ({
+                                    ...prev,
+                                    currencies: helperCurrenciesGeneration(
+                                        uncoverResponse(assetsResponse),
+                                        uncoverResponse(walletsResponse))
+                                }));
+                            }).reject(() => null);
+                    }).reject(() => null);
+            })()
 
-        //
-        // console.log(account.id)
-        // console.log("account.id")
+            //
+            // console.log(account.id)
+            // console.log("account.id")
+
+        }
 
     }, [refreshKey, account.id]);
+
+    console.log("state")
+    console.log(account)
 
     const setRefresh = () =>
         setState(prev => ({

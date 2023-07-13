@@ -6,11 +6,12 @@ import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
-import {actionResSuccess, randomId, uncoverArray, uncoverResponse} from '@/shared/lib/helpers';
+import {actionResSuccess, getFlagsFromMask, randomId, uncoverArray, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {storeOrganizations} from "@/shared/store/organizations";
 import $axios from "@/shared/lib/(cs)axios";
 import Header from "@/widgets/header/ui";
+import {maskAccountRights} from '@/shared/config/account-rights';
 
 export default memo(function () {
 
@@ -50,7 +51,18 @@ export default memo(function () {
 
         actionResSuccess(response).success(() => {
             setState(prev =>
-                ({...prev, account: {...prev.account, id, client, number, rights: uncoverResponse(response).flags}}))
+                ({
+                    ...prev,
+                    account:
+                    {
+                        ...prev.account,
+                        id,
+                        client,
+                        number,
+                        rights: getFlagsFromMask(uncoverResponse(response).flags, maskAccountRights)
+                    }
+                })
+            )
         })
     }
 

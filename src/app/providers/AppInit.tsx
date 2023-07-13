@@ -4,6 +4,7 @@ import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
 
 const AppInit = () => {
+
     const {token} = useAuth();
 
     const content = !token ? <AuthPage/> : <RootLayout/>

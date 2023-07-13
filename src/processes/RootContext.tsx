@@ -39,16 +39,14 @@ export class ICtxCurrencyData {
 }
 
 export interface ICtxAccount {
-    id: string;
-    iban: string;
-    name: string;
-    type: 'PHYSICAL' | 'JURIDICAL';
+    id: null | string,
+    rights: null | number
 }
 
 export const CtxRootData = React.createContext<{
     currencies: Map<string, ICtxCurrencyData>;
     setRefresh: () => void;
     setAccount: (account: ICtxAccount) => void;
-    account: ICtxAccount | null,
+    account: ICtxAccount,
     refreshKey: string;
 }>(null);

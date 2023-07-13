@@ -1,41 +1,76 @@
 import {Outlet} from 'react-router';
 import Loader from "@/shared/ui/loader";
-import Header from "@/widgets/header/ui/";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxAccount, ICtxCurrencyData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, apiOrganizations} from '@/shared/api';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
 import {actionResSuccess, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
+import {storeOrganizations} from "@/shared/store/organizations";
+import $axios from "@/shared/lib/(cs)axios";
 
 export default memo(function () {
+
     const [{
         account,
         refreshKey,
         currencies,
     }, setState] = useState({
         refreshKey: "",
-        account: null,
+        account: {
+            id: null,
+            rights: null
+        },
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
-    const setRefresh = () =>
-        setState(prev => ({
-            ...prev,
-            refreshKey: randomId()
-        }));
+    const getOrganizations = storeOrganizations(state => state.getOrganizations);
+    const organizations = storeOrganizations(state => state.organizations);
 
-    const setAccount = (account: ICtxAccount) =>
-        setState(prev => ({
-            ...prev,
-            account: account
-        }));
+
+    useEffect(() => {
+        (async () => {
+            await getOrganizations()
+        })()
+    }, [])
+
+
+    useEffect(() => {
+        if (account.id) {
+            (async () => {
+                const response = await apiGetInfoClient(account.id)
+                actionResSuccess(response).success(() => {
+                    setState(prev =>
+                        ({...prev, account: {id: prev.account.id, rights: uncoverResponse(response).flags}}))
+                })
+
+                $axios.defaults.headers['accountId'] = account.id;
+
+            })()
+        } else if (organizations) {
+            (async () => {
+                console.log(organizations.accounts[0].number)
+                console.log("organizations.accounts[0].number")
+                const response = await apiGetInfoClient(organizations.accounts[0].number)
+
+                actionResSuccess(response).success(() => {
+                    setState(prev =>
+                        ({...prev, account: {id: prev.account.id, rights: uncoverResponse(response).flags}}))
+                })
+
+                $axios.defaults.headers['accountId'] = organizations.accounts[0].number;
+
+            })()
+        }
+
+    }, [account.id, organizations])
+
 
     useEffect(() => {
 
-        (async function () {
+        account.rights !== null && (async function () {
             // const infoClient = await apiGetInfoClient();
             const walletsResponse = await apiGetBalance();
             const assetsResponse = await apiGetMarketAssets();
@@ -54,19 +89,24 @@ export default memo(function () {
                         }).reject(() => null);
                 }).reject(() => null);
         })()
-    }, [refreshKey]);
 
-    useEffect(() => {
-        (async () => {
-            const response = await apiOrganizations()
-            console.log(response)
-            console.log("wait resInfoClient")
-            const resInfoClient = await apiGetInfoClient(response.data[0].accounts[0].id)
-            console.log(response.data[0].accounts[0].id)
-            console.log("resInfoClient ready")
-            console.log(resInfoClient)
-        })()
-    }, [])
+
+        console.log(account.id)
+        console.log("account.id")
+
+    }, [refreshKey, account.id]);
+
+    const setRefresh = () =>
+        setState(prev => ({
+            ...prev,
+            refreshKey: randomId()
+        }));
+
+    const setAccount = (account: ICtxAccount) =>
+        setState(prev => ({
+            ...prev,
+            account: account
+        }));
 
 
     return <CtxRootData.Provider value={{
@@ -77,7 +117,7 @@ export default memo(function () {
         refreshKey
     }}>
         <>
-            <Header/>
+            {/*<Header/>*/}
             {currencies.size === 0 ? <Loader/> : (
                 <Main>
                     <Sidebar/>

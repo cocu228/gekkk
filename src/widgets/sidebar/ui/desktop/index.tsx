@@ -213,14 +213,14 @@ const SidebarDesktop = () => {
                                         alt="ExchangeIcon"
                                     />
                                 </div>
-                                <div className="col flex items-center w-[70%] justify-center flex-col pl-6">
-                                    <div className="flex row w-full justify-between mb-1">
-                                        <span className={styles.RoomName}>
+                                <div className="col flex items-center justify-center flex-col pl-6">
+                                    <div className="flex w-full row mb-1 justify-between">
+                                        <div className={styles.RoomName}>
                                             {item.currency1} - {item.currency2}: exchange room
-                                        </span>
-                                        
+                                        </div>
+
                                         <div
-                                            className="hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
+                                            className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 setSelectedRoom(item);
@@ -235,7 +235,7 @@ const SidebarDesktop = () => {
                                         <span className={`text-gray-500 text-xs`}>
                                             Number of participants
                                         </span>
-                                        <span className={`text-gray-500 text-xs font-semibold mr-[5px]`}>
+                                        <span className='mr-[17px] text-gray-500 text-xs font-semibold'>
                                             {item.count}
                                         </span>
                                     </div>
@@ -254,7 +254,7 @@ const SidebarDesktop = () => {
                                             </span>
 
                                             <div
-                                                className="hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
+                                                className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     setSelectedRoom(item);

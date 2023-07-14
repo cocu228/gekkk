@@ -102,10 +102,18 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Amount:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{props.amount} {props.currency}</span>
+                </div>
+            </div>
+            <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Fee:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">{state.fee}</span>
+                    <span className="break-all font-medium">{state.fee} {props.currency}</span>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
@@ -119,14 +127,6 @@ const InfoContent = (props: TypeProps) => {
                 </div>
             </div>
         </>}
-        <div className="row mb-4 flex flex-wrap gap-2">
-            <div className="col w-auto">
-                <span className="text-gray-500 font-medium">Amount:</span>
-            </div>
-            <div className="col w-auto">
-                <span className="break-all font-medium">{props.amount}</span>
-            </div>
-        </div>
         {isNeedConfirm ? <InfoConfirmPartner {...props}/> : props.partner_info !== "" &&
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">

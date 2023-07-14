@@ -14,6 +14,8 @@ function CardsLayout() {
     const organizations = storeOrganizations(state => state.organizations);
     return (
         <div className="wrapper">
+            <SectionTitle>Selected account: {account.number}</SectionTitle>
+
             <CardsGrid>
                 <>
                     {organizations.cards

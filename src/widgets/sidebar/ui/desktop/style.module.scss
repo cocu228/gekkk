@@ -108,7 +108,9 @@
 .Item {
   height: 85px;
   position: relative;
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
   cursor: pointer;
   pointer-events: all;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);

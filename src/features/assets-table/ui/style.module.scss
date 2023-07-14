@@ -4,6 +4,7 @@
   height: max-content;
   margin: 0px -40px;
   padding: 12px 40px;
+  transition: .2s;
     
   @include max-devices('lg') {
     padding: 6px 20px;

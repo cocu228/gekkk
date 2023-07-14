@@ -1,15 +1,12 @@
-import React from 'react';
-import {useState} from "react";
+import {useContext} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {randomId} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import PageHead from '@/shared/ui/page-head/PageHead';
+import TabsGroupPrimary from '@/shared/ui/tabs-group/primary';
 import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
 import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
-import DepositLayout from "@/widgets/dashboard/ui/layouts/DepositLayout";
-import AccountsLayout from '@/widgets/dashboard/ui/layouts/AccountsLayout';
-import Button from '@/shared/ui/button/Button';
-import { storeBankData } from '@/shared/store/bank-data/bank-data';
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 
 enum TabType {
     ACCOUNTS,
@@ -32,12 +29,8 @@ const TABS = [
 ];
 
 export default () => {
-    const [activeTab, setActiveTab] = useState<TabType>(TabType.ASSETS);
     const navigate = useNavigate();
-
-    const handleChangeTab = (tab: TabType) => (e: React.SyntheticEvent<HTMLButtonElement>) => {
-        setActiveTab(tab);
-    };
+    const {sm} = useContext(BreakpointsContext);
 
     return (
         <div className="wrapper">
@@ -52,28 +45,26 @@ export default () => {
                     </a></>}
             />
 
-            <div className="w-full">
-                <div className="mx-[-15px] hidden sm:flex mt-[45px] mb-[16px] border-solid border-b-[2px] border-gray-200">
-                    {TABS.map(t => (
-                        <button
-                            className={`
-                            mb-[-3px] pt-0 px-[15px] pb-[16px] bg-none border-solid border-b-[3px] transition-all text-fs14
-                            ${activeTab === t.type ? 'border-blue-400 font-bold' : 'border-transparent text-gray-500 font-medium'}
-                        `}
-                            key={t.type}
-                            onClick={handleChangeTab(t.type)}
-                        >
-                            {t.title}
-                        </button>
-                    ))}
+            {sm ? (
+                <div className="w-full -sm:hidden">
+                    <TabsGroupPrimary initValue={"Cards"}>
+                        <div className='-mt-5' data-tab={"Cards"}>
+                            <CardsLayout/>
+                        </div>
+                        <div className='-mt-5' data-tab={"Crypto assets"}>
+                            <CryptoAssets/>
+                        </div>
+                        <div className='-mt-10 substrate' data-tab={"History"}>
+                            <History title='History'/>
+                        </div>
+                    </TabsGroupPrimary>
                 </div>
-            </div>
-
-            {TABS.map(({type, content}, index) => (
-                <div key={randomId()} className={`sm:mt-0 ${activeTab !== type ? 'sm:hidden' : ''} ${index === 0 ? '' : 'mt-16'}`}>
-                    {content}
-                </div>
-            ))}
+            ) : (TABS.map(({content}) => (
+                    <div key={randomId()} className='mt-16'>
+                        {content}
+                    </div>
+                ))
+            )}
         </div>
     );
 }

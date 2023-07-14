@@ -45,24 +45,24 @@ const PageProblems = ({code = 404}: { code?: number }) => {
                 <p className='mb-4'>
                     <a
                         className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkoin.com/source/GeneralTermsandConditions.pdf"
+                        href="https://gekkard.com/terms-and-conditions.html"
                         target="_blank"
                         rel="noreferrer noopener"
                     >General terms and conditions</a>
                     {' | '}
                     <a
                         className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkoin.com/source/Privacy_policy.pdf"
+                        href="https://gekkard.com/data-protection-policy.html"
                         target="_blank"
                         rel="noreferrer noopener"
-                    >Privacy policy</a>
+                    >Data protection policy</a>
                     {' | '}
                     <a
                         className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkoin.com/source/Cookies_policy.pdf"
+                        href="https://gekkard.com/legal-agreements.html"
                         target="_blank"
                         rel="noreferrer noopener"
-                    >Cookie policy</a>
+                    >Legal agreements</a>
                 </p>
 
                 <p className={` ${md ? 'text-xs' : 'text-sm'}`}>

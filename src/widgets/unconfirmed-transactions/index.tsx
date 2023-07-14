@@ -93,10 +93,7 @@ export const UnconfirmedTransactions = (props) => {
 
                                     <GTable.Col>
                                         <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
-                                            <div
-                                                className="text-orange">
-                                                {item.tx_type_text}
-                                            </div>
+                                            {item.tx_type_text}
                                         </div>
                                     </GTable.Col>
                                 </TransactionInfo>

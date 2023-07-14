@@ -94,7 +94,7 @@ function Exchange() {
             case 'creator':
                 return (
                     <>
-                        You are owner of this private room. A Gekkoin user will be able to join your room using this&nbsp;
+                        You are owner of this private room. A Gekkard user will be able to join your room using this&nbsp;
                         <button className="underline text-accent" onClick={roomInfoModal.showModal}>invite link</button>
                     </>
                 );

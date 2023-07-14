@@ -25,7 +25,7 @@ const ChoseNetwork = ({withdraw = false}) => {
             <div className="col">
                 <Select className="w-full mt-2"
                         placeholder={"Networks not found"}
-                        value={networkIdSelect}
+                        value={networksForSelector?.length ? networkIdSelect : null}
                         onSelect={setNetworkId}
                         options={networksForSelector}
                 />
@@ -49,9 +49,9 @@ const ChoseNetwork = ({withdraw = false}) => {
                 </div>
             </div>
         </div>}
-        {networksForSelector.length === 0 && <InfoBox
+        {!networksForSelector || networksForSelector.length === 0 && <InfoBox
             message={"At the moment there is not a single option available for top up this asset. Please check it later."}/>}
     </>
 }
 
-export default ChoseNetwork
+export default ChoseNetwork;

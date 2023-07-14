@@ -22,7 +22,7 @@ function InviteLink({roomInfo = null}: IParams) {
     return (
         <div className="wrapper">
             <ModalInfoText>
-                Any Gekkoin user will be able to join your
+                Any Gekkard user will be able to join your
                 privite exchange room by folowing this link.
             </ModalInfoText>
             <div className='flex justify-center my-6 sm:mt-11 '>

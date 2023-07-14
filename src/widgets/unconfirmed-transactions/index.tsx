@@ -56,7 +56,7 @@ export const UnconfirmedTransactions = (props) => {
                 href="javascript:void(0)" onClick={showModal}>here.</a></span>
         </InfoBox>
         <Modal width={450}
-               title="Transfer confirmation"
+               title="Unconfirmed transactions"
                onCancel={handleCancel}
                open={isModalOpen}>
             <GTable>

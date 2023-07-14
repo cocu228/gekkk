@@ -86,6 +86,7 @@ export const UnconfirmedTransactions = (props) => {
                                         <div>
                                         <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                             {!item.is_income && '-'}
+                                            {+item.amount.toFixed(item.currency.roundPrec)} {item.currency}
                                         </span>
                                         </div>
                                     </GTable.Col>

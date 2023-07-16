@@ -17,7 +17,7 @@ import Loader from "@/shared/ui/loader";
 
 const {RangePicker} = DatePicker;
 
-function History({currenciesFilter}: Partial<Props>) {
+function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16]}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -45,7 +45,7 @@ function History({currenciesFilter}: Partial<Props>) {
             start.length ? start.toString() : null,
             end.length ? end.toString() : null,
             currenciesFilter,
-            [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16],
+            types,
             null,
             10
         )

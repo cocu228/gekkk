@@ -1,10 +1,12 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
-import GTable from "@/shared/ui/grid-table";
-import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
+import TableReferrals from "@/widgets/partnership-program/TableReferrals";
+import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
+import {apiGetAgentCode} from "@/shared/api/referral/get-agent-code";
+import History from "@/widgets/history/ui/History";
 
 const PartnershipProgram = () => {
 
@@ -19,13 +21,13 @@ const PartnershipProgram = () => {
         <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
             <div
                 className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
-                {xl && <DescriptionCol/>}
-                {!md && state ? <TablePP/> :
+                {xl && <ContentDescription/>}
+                {!md && state ? <ContentMain/> :
                     <Button onClick={() => setState(true)} size={"md"} className="w-full">Get referral link</Button>}
             </div>
             {!xl && <div
                 className={`substrate text-sm h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
-                <DescriptionCol/>
+                <ContentDescription/>
             </div>}
         </div>
         {md && !state && <div className="row fixed bottom-0 w-full left-0 z-10 p-4 bg-white">
@@ -35,7 +37,8 @@ const PartnershipProgram = () => {
 }
 
 
-const DescriptionCol = () => {
+const ContentDescription = (props) => {
+
     return <>
         <div className="row mb-8">
             <div className="col">
@@ -93,13 +96,23 @@ const DescriptionCol = () => {
     </>
 }
 
-const TablePP = () => {
+const ContentMain = () => {
 
-    const setActiveTab = () => null
+    const [state, setState] = useState<string>("")
+
+    useEffect(() => {
+        (async () => {
+            const response = await apiGetAgentCode()
+            actionResSuccess(response).success(() => {
+                setState(uncoverResponse(response))
+            })
+        })()
+    }, [])
+
     return <>
         <div className="row mb-8">
             <div className="col">
-                <ClipboardField value={"test"}/>
+                <ClipboardField value={state}/>
             </div>
         </div>
         <div className="row mb-6">
@@ -109,32 +122,7 @@ const TablePP = () => {
         </div>
         <div className="row mb-4">
             <div className="col">
-                <GTable>
-                    <GTable.Head className={"bg-gray-200 p-4"}>
-                        <GTable.Row>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">ID</span>
-                            </GTable.Col>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Registration date</span>
-                            </GTable.Col>
-                        </GTable.Row>
-                    </GTable.Head>
-                    <GTable.Body className={"bg-[#F9F9FA] p-4"}>
-                        <GTable.Row>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">123456789123</span>
-                            </GTable.Col>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">01.04.19 at 22:37</span>
-                            </GTable.Col>
-                        </GTable.Row>
-                        <GTable.Row>
-                            <GTable.Col className={`flex my-2`}>
-                            </GTable.Col>
-                        </GTable.Row>
-                    </GTable.Body>
-                </GTable>
+                <TableReferrals/>
             </div>
         </div>
         <div className="row mb-6">
@@ -152,33 +140,7 @@ const TablePP = () => {
         </div>
         <div className="row">
             <div className="col">
-                <SecondaryTabGroup tabs={{lastTransactions: "last transactions", customPeriod: "custom period"}}
-                                   activeTab={"lastTransactions"}
-                                   setActiveTab={setActiveTab}/>
-            </div>
-        </div>
-        <div className="row">
-            <div className="col">
-                <GTable>
-                    <GTable.Head className={"bg-[#EEEFF2] p-4"}>
-                        <GTable.Row>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Data</span>
-                            </GTable.Col>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Flow of funds</span>
-                            </GTable.Col>
-                            <GTable.Col className={`flex my-2`}>
-                                <span className="text-gray-600 font-medium">Type</span>
-                            </GTable.Col>
-                        </GTable.Row>
-                    </GTable.Head>
-                    <GTable.Body className={"bg-[#F9F9FA] p-4"}>
-                        <GTable.Row>
-                            <span>You don’t have any transactions.</span>
-                        </GTable.Row>
-                    </GTable.Body>
-                </GTable>
+                <History types={[17]}/>
             </div>
         </div>
     </>

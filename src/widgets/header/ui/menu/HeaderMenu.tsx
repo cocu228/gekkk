@@ -13,7 +13,7 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
     return <>
         <div ref={ref} onClick={dropdownMenuFunctions.onOpen}
              className={className + " flex items-center cursor-pointer h-full"}>
-            <div className={`wrapper relative pl-7 pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
+            <div className={`wrapper relative md:pl-14 md:pr-0 pl-7 pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
 

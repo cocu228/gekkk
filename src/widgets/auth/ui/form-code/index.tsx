@@ -1,4 +1,4 @@
-import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
+import React, {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import useMask from '@/shared/model/hooks/useMask';
 import {MASK_CODE} from '@/shared/config/mask';
 import Form from '@/shared/ui/form/Form';
@@ -27,7 +27,7 @@ const FormCode = memo(() => {
     const [loading, setLoading] = useState<boolean>(false);
     const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""});
     const [, setSessionGlobal] = useSessionStorage("session-global", {});
-
+    const [timeLeft, setTimeLeft] = useState(180);
 
     useLayoutEffect(() => {
         inputRef.current.focus();
@@ -58,15 +58,23 @@ const FormCode = memo(() => {
             )
     }
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeLeft((prevTime) => prevTime - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    if (timeLeft <= 0) toggleStage("authorization");
+
     return <Form onFinish={onFinish}>
-        <h1 className={`font-extrabold text-center text-gray-600 pb-4
+        <h1 className={`font-extrabold text-center text-gray-600 min-w-[336px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
             SMS with one-time code was sent to
             <br/>
-            <b>
-                {phone}
-            </b>
+            <b>+{phone}</b>
         </p>
 
         <FormItem className={"mb-2"} name="code" label="Code" preserve
@@ -80,10 +88,8 @@ const FormCode = memo(() => {
             />
         </FormItem>
 
-        <div className="row text-right mb-9">
-            <a onClick={() => toggleStage("authorization")} className="text-sm text-gray-500 underline">
-                Re-send one-time code again
-            </a>
+        <div className="row text-right -mt-1 mb-12 text-gray-400">
+            You can use the code for {timeLeft} seconds
         </div>
 
         <div className="row">

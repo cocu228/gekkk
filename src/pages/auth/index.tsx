@@ -46,7 +46,7 @@ const AuthPage = () => {
         <div className='flex items-center w-screen h-full flex-col'>
             <div className={
                 `bg-white min-h-m rounded-lg my-10 pb-12
-                ${md ? 'w-full mt-0 px-4 rounded-none' : 'max-w-[756px] px-40 pt-10'}`
+                ${md ? 'w-full mt-0 px-4 rounded-none' : 'min-h-[710px] max-w-[756px] px-40 pt-10'}`
             }>
                 <div className={`flex justify-center ${md ? 'pt-6 pb-5' : 'pt-8 pb-10'}`}>
                     <a href="/">

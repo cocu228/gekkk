@@ -77,14 +77,12 @@ const FormLoginAccount = memo(() => {
         </h1>
 
         <p className='text-center mb-9 text-gray-500'>
-            Login to your personal account is carried out through the
-            <a
+            Login to your personal account is carried out through the <a
                 className='font-inherit underline'
                 href={APP_STORE_GEKKARD}
-                target={'_blank'}> Gekkard application
+                target={'_blank'}>Gekkard application
             </a> credentials
         </p>
-
 
         <FormItem className="mb-2" name="phone" label="Телефон" preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
@@ -99,7 +97,7 @@ const FormLoginAccount = memo(() => {
 
         <FormItem name="password" label="Password"
                   rules={[{required: true, ...pinMessage}, pinValidator]}>
-            <Input.Password onChange={({target}) => setState(prev => ({
+            <Input.Password style={{borderColor: 'var(--color-gray-400)'}} onChange={({target}) => setState(prev => ({
                 ...prev,
                 password: target.value
             }))} placeholder="PIN"/>

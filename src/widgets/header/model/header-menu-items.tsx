@@ -51,14 +51,14 @@ export const defaultItems: THeaderMenuList = [
             value: null,
         },
     },
-    {
-        item: 'Partnership program',
-        id: null,
-        action: {
-            type: "link",
-            value: "partnership-program",
-        }
-    },
+    // {
+    //     item: 'Partnership program',
+    //     id: null,
+    //     action: {
+    //         type: "link",
+    //         value: "partnership-program",
+    //     }
+    // },
     {
         item: 'Support',
         id: null,

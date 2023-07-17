@@ -1111,6 +1111,609 @@ export default {
         </p>
     </div>,
 
+    [$const.KNC]: <div>
+        <p className='mb-3'>
+            Kyber Network is a hub of liquidity protocols that aggregates liquidity from various sources
+            to provide secure and instant transactions on any decentralized application (DApp). The main goal
+            of Kyber Network is to enable DeFi DApps, decentralized exchanges (DEXs) and other users easy access
+            to liquidity pools that provide the best rates.
+        </p>
+
+        <p className='mb-3'>
+            All transactions on Kyber are on-chain, which means they can be easily verified using any Ethereum
+            block explorer. Projects can build on top of Kyber to utilize all the services offered by the protocol,
+            such as the instant settlement of tokens, liquidity aggregation, and a customizable business model.
+        </p>
+
+        <p className='mb-3'>
+            Kyber looks to solve the liquidity issue in the decentralized finance (DeFi) industry by allowing
+            developers to build products and services without having to worry about liquidity for different needs.
+        </p>
+
+        <p>
+            KNC is the native utility and governance token used to facilitate and pay fees for transactions on
+            the Kyber network. The token is built on Ethereum in accordance with the ERC20 standards, which define
+            the common list of rules for the tokens to function in the Ethereum ecosystem. KNC also utilizes smart
+            contracts. These are just like regular contracts; however, instead of being drafted on paper, these
+            contracts run in the form of protocols on the blockchain. Smart contracts offer the infrastructure in
+            the Kyber network that allows one token to be swapped for another.
+        </p>
+    </div>,
+
+    [$const.KSM]: <div>
+        <p className='mb-3'>
+            Kusama is a scalable network of blockchains meant for experimentation. Kusama is the identical
+            copy of the Polkadot blockchain and provides a pre-production environment for Polkadot. The platform allows
+            developers to experiment and test new decentralized applications (DApps) before releasing them on the network
+            in real time. The blockchains available on Kusama’s network are called Parachains that bring several breakthroughs
+            compared to the legacy networks. 
+        </p>
+
+        <p className='mb-3'>
+            While other networks only allow developers to build using smart contracts, Kusama seeks to give them
+            complete control over the underlying blockchain. This flexibility aims to provide freedom to the developers
+            to optimize for better use cases and hence better and secure DApps and services for all. Smart contracts are
+            just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols
+            on the blockchain. Moreover, Kusama also serves as a Canary Network for Polkadot. Official Polkadot upgrades are
+            tested on Kusama before they are launched. Hence, the primary use case of Kusama is to facilitate testing.   
+        </p>
+
+        <p>
+            KSM is the native token of the platform. KSM has many use cases on the platform like token holders can
+            validate the network, nominate other validators, and use governance rights to vote on the major decisions of
+            the platform, all using KSM.
+        </p>
+    </div>,
+
+    [$const.LPT]: <div>
+        <p className='mb-3'>
+            Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to build
+            video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live video
+            streaming services. It is an alternative to mainstream centralized broadcasting companies. Livepeer aims to make
+            video streaming more cost-friendly and reliable.
+        </p>
+
+        <p className='mb-3'>
+            According to the website, the Livepeer platform can reduce costs up to 50 times compared to other platforms.
+            In addition, Livepeer is more scalable and resilient without single points of failure. That means developers have
+            the freedom to scale up or down and manage content creator demand.
+        </p>
+
+        <p className='mb-3'>
+            Therefore, Livepeer is a behind-the-scenes solution for app creators to transcode videos. Transcoding means
+            converting videos from one format to another before playback on computers on the network. Users who transcode videos
+            are known as orchestrators. Orchestrators lend their computers’ processing power to the network. Also, the first nodes
+            are called broadcasters. Thus, the broadcasters send video streams for transcoding to orchestrators. Consequently,
+            broadcasters are charged fees denominated in ether (ETH) for the transcoding work. Meanwhile, orchestrators receive
+            rewards for their services.
+        </p>
+
+        <p>
+            The native token of the network is the Livepeer Token (LPT). LPT is used for rewarding, staking, trading, or
+            participating in governance voting. Just like any other cryptocurrency, the demand for LPT is directly proportional
+            to the network's usage. Further, orchestrators receive work in proportion to the amount of LPT they staked. Users who
+            do not want to become orchestrators can stake their LPT tokens toward the transcoders. By doing so, LPT holders get a
+            portion of the transcoders' rewards. They are also called delegators and chosen through voting. Their job is to keep
+            the node running smoothly for transaction validation.
+        </p>
+    </div>,
+
+    [$const.LRC]: <div>
+        <p className='mb-3'>
+            Loopring (LRC) is an Ethereum token that describes itself as “an open-source, audited, and non-custodial
+            exchange protocol.” The protocol aims to allow anyone to build non-custodial, decentralized exchanges on
+            top of it by leveraging zero-knowledge proofs (ZKPs), a popular means of enhancing privacy in cryptocurrency.
+            ZKPs ensure that assets are always in the control of users.
+        </p>
+
+        <p className='mb-3'>
+            The majority of crypto trading takes place on centralized cryptocurrency exchanges, which are online platforms
+            run by private corporations that hold users’ funds and match trading orders. However, as indicated in the whitepaper,
+            these platforms come with a variety of risks. The three main risks of centralized exchanges include lack of security,
+            lack of transparency, and lack of liquidity. As a result, a new type of exchange called decentralized exchange has
+            evolved to address these issues. These exchanges are different from centralized exchanges because users keep control
+            of their private keys by trading directly on the underlying blockchain. However, decentralized exchanges are not completely
+            free from flaws. Performance and structural constraints continue to be a problem.
+        </p>
+
+        <p className='mb-3'>
+            Hence, Loopring’s stated purpose is to create a hybrid platform that combines prominent features of both
+            centralized and decentralized exchanges. The protocol aims to maintain the benefits of decentralized exchanges while
+            lowering or eliminating their inefficiencies through hybrid solutions. Loopring intends to improve order execution
+            efficiency and DEX liquidity by managing the orders in a centralized manner but settling the trade on blockchain.
+        </p>
+
+        <p>
+            Another prominent feature that Loopring seeks to offer is the low transaction cost. Loopring aims to execute
+            the majority of operations, such as trade and transfer settlement, off the Ethereum blockchain. This considerably
+            reduces the gas usage and overall transaction cost to a fraction of what it would be on-chain.
+        </p>
+    </div>,
+
+    [$const.MASK]: <div>
+        <p className='mb-3'>
+            Mask Network is a gateway that allows users to access the world of decentralized web or Web 3.0 through
+            the Mask Network extension. Mask Network, rather than developing a new platform, bridges Web 2.0 and Web 3.0,
+            allowing people to access Web 3.0 within existing mainstream platforms. Web 2.0, in simple words, is what the
+            general public believes to be the "internet." Web 3.0 is about reclaiming decentralized control of user data and
+            building a censorship-resistant, open internet driven by new technology like the blockchain. 
+        </p>
+
+        <p className='mb-3'>
+            The problem that Mask Network is aiming to solve is the present internet is dominated by technology firms,
+            which influence how users interact with the online world, including what they publish, what they see, and whom they
+            contact. Since today's Web 2.0 platforms can make content vanish if it does not adhere to companies’ rules, users
+            typically do not have complete ownership of the content they upload.Besides this, the platform believes that many
+            issues have surfaced on social media. Users can rarely make cross-border payments, have no storage space for long-term
+            files, and have no genuinely secure encryption. The social media platforms benefit from users' data and labor, and users
+            have little leverage to stop them.
+        </p>
+
+        <p className='mb-3'>
+            Mask Network seeks to solve the above-mentioned persisting issues with the Mask Network extension. As mentioned on
+            the website, users can install the Mask Network extension, log in with their Mask IDs, and connect their wallets. This
+            way, users can use familiar Web 2.0 sites with Web 3.0 integrations. The Mask Network extension supports blockchains
+            like Ethereum, Binance Smart Chain (BSC), Polygon, etc. Mask Network is also compliant with various social media
+            sites like Twitter and Facebook. Users can do various things with the Mask Network extension:
+        </p>
+        
+        <ol className='pl-[16px] list-disc'>
+            <li className='mb-3'>
+                Users can keep their content hidden from prying eyes and only show it to their intended audience.
+            </li>
+
+            <li className='mb-3'>
+                Users can send encrypted messages.
+            </li>
+
+            <li className='mb-3'>
+                Thanks to integrated widgets on social media sites, users can see the current prices of crypto
+                assets without leaving the page—platforms like Uniswap, SushiSwap, etc. power this feature.
+            </li>
+
+            <li className='mb-3'>
+                Users can create their own Web 3.0 profile and keep track of all of their digital
+                activities in one location, including NFTs (non-fungible tokens), donation data, etc.
+                Users can choose whether or not they want to keep things on their profile anonymous.
+            </li>
+
+            <li className='mb-3'>
+                Users can trade NFTs directly from social media platforms. OpenSea, an NFT marketplace, powers this feature.
+            </li>
+
+            <li className='mb-3'>
+                Users can store their files on a decentralized network.
+            </li>
+        </ol>
+
+        <p>
+            The native utility token of Mask Network is MASK. MASK is also a governance token for MaskDAO, the Mask ecosystem's
+            governing decentralized autonomous organization (DAO). Each MASK token represents one vote in DAO-related activities.
+            Apart from this, Mask Network seeks to launch the Mask Grant Program to provide financial assistance to initiatives
+            that can contribute to or integrate into the Mask Network crypto ecosystem.
+        </p>
+    </div>,
+
+    [$const.MIR]: <div>
+        <p className='mb-3'>
+            Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and
+            trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track
+            the price of stocks, futures, exchange-traded funds, and other traditional financial assets and bridges
+            cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is used
+            for governance, CDP closure fees, and liquidity mining.
+        </p>
+
+        <p className='mb-3'>
+            This is intended to offer greater access to the US equities market through the minting of synthetic
+            assets. These Mirrored Assets (mAssets) mirror the price behavior of the real-world assets and reflect
+            the exchange prices on-chain. The decentralized representation grants traders price exposure to assets
+            that would otherwise be inaccessible. These mAssets gather their price from decentralized oracles at
+            thirty-second intervals.
+        </p>
+
+        <p className='mb-3'>
+            Mirror Protocol works on the Terra blockchain and is available on Ethereum via the Shuttle-bridge.
+            These platforms allow every asset to be represented on the blockchain. 
+        </p>
+
+        <p>
+            The native token for Mirror Protocol is the Mirror Token (MIR). This token is used for governance,
+            staking, and rewards, and the token has a total supply of 370 million, which should drop over a period
+            of four years. MIR is inflationary in nature and is expected to have new uses as the token matures.
+        </p>
+    </div>,
+
+    [$const.MKR]: <div>
+        <p className='mb-3'>
+            Maker is an Ethereum-based governance and utility token of the Maker system.
+            Maker aims to unlock the potential of decentralized finance by building an inclusive
+            platform for economic empowerment that gives everyone equal access to the global financial marketplace.
+        </p>
+
+        <p className='mb-3'>
+            Notably, the Maker Platform consists of the following components:
+        </p>
+
+        <ol className='pl-[16px] list-disc'>
+        	<li className='mb-3'>
+                <b>MakerDAO:</b> MakerDAO is an open-source community project on the Ethereum blockchain
+                and a decentralized autonomous organization. The project is administered by people all over
+                the world who own MKR, the project's governance token. MKR holders regulate the Maker Protocol
+                and Dai's financial risks using a scientific governance mechanism that includes executive voting
+                and governance polling (called DSChief). The MKR voting weight is proportional to the number of
+                MKR tokens staked by a voter in the voting contract. In simple words, the more MKR tokens are
+                locked into the contract, the more decision-making power the voter has. MakerDAO as a group is
+                devoted to improving the Bitcoin economy's stability.
+            </li>
+
+            <li className='mb-3'>
+                <b>Maker Protocol:</b> The Maker Protocol, developed on the Ethereum blockchain,
+                allows users to build their own currency, the Dai stablecoin. MakerDAO regulates
+                the Maker Protocol by deciding on critical parameters (e.g., stability fees,
+                collateral types/rates, etc.) using MKR holders' voting power. The Maker Protocol,
+                one of the largest decentralized applications (DApps) on the Ethereum blockchain,
+                was the first to gain widespread popularity as a decentralized finance (DeFi) application.
+                Additionally, Maker collateral vaults, oracles, and voting are other important components
+                of the Marker Protocol. The Maker Protocol makes use of a two-token system, Dai and MKR.
+
+                <ul className='pl-[25px] list-disc'>
+                    <li><b>Dai:</b>
+                        The Dai stablecoin is a decentralized and collateral-backed pegged cryptocurrency.
+                        A pegged cryptocurrency is one whose exchange rate in relation to a traditional currency has been
+                        pre-determined by a national government. The Maker community thinks that a decentralized stablecoin
+                        is essential for any business or individual to achieve the benefits of digital currency.
+                    </li>
+
+                    <li><b>MKR:</b>
+                        MKR is a governance token used by stakeholders to keep the system running
+                        and Dai in check. MKR token holders make decisions for the Maker Protocol, which is
+                        supported by the greater public community and a variety of other external stakeholders.
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </div>,
+
+    [$const.MLN]: <div>
+        <p>
+            MLN is an Ethereum token that powers Enzyme (formerly known as Melon Protocol),
+            a protocol that aims to facilitate on-chain asset management for the DeFi ecosystem.
+            MLN allows users to build, share, and explore DeFi investment strategies (called “vaults”)
+            while filtering by historical performance and risk profiles. MLN is used to pay for various
+            functions throughout the vault creation process and investment lifecycle.
+        </p>
+    </div>,
+
+    [$const.OGN]: <div>
+        <p className='mb-3'>
+            Trading under OGN, the Origin Protocol is an Ethereum-based platform that aims to bring
+            non-fungible tokens (NFTs) and decentralized finance (DeFi) to the masses. The platform
+            is open-source and seeks to power decentralized and peer-to-peer marketplaces. As per the
+            whitepaper, Origin Protocol facilitates a global network that allows traders across the world
+            to transact on the open web. In simpler terms, the Origin blockchain is a platform to build a
+            decentralized marketplace.
+        </p>
+
+        <p className='mb-3'>
+            Today, almost $40 billion of value is poured into various DeFi protocols. But interacting with
+            DeFi protocols is complex and cumbersome and requires a sophisticated user. Mainstream consumers
+            like small businesses, retailers, merchants, etc. have very little knowledge of these financial
+            protocols and, therefore, cannot participate in them. To take an edge, the Origin Protocol was
+            built to realize this opportunity. They believe that decentralized finance, especially in the NFT
+            vertical, can unlock billions of dollars and bring crypto to mainstream consumers.
+        </p>
+
+        <p>
+            Origin Token (OGN): This is an Ethereum-based token that powers the Origin platform. OGN is an
+            ERC20 standard token and also serves as the platform’s cryptocurrency. The token is used in the
+            basic transactional activities on the platform. Further, OGN also works as a governance token,
+            and the holders of the token can create and vote on the proposals made for the platform’s growth.
+        </p>
+    </div>,
+
+    [$const.OMG]: <div>
+        <p>
+            The OMG Network (formerly OmiseGO) is a value transfer network for Ethereum and any
+            ERC-20 token. It describes itself as the first production-grade layer-2 Ethereum
+            scaling solution and aims to let people move money and a variety of digital values
+            on the blockchain faster, cheaper, and without compromising on security.
+        </p>
+    </div>,
+
+    [$const.OXT]: <div>
+        <p>
+            Orchid (OXT) is an Ethereum token that powers the Orchid network, a peer-to-peer
+            privacy tool that includes a decentralized VPN and other features designed to give
+            users more control over their Internet connection. OXT can be used to pay for bandwidth
+            or staked by bandwidth providers in order to operate a node.
+        </p>
+    </div>,
+
+    [$const.POWR]: <div>
+        <p className='mb-3'>
+            Power Ledger (POWR) is a technology and software company that uses blockchain for trading
+            renewable energy. The company aims to develop software for clients that allows consumers to
+            track, trace, and trade energy (in kilowatts) and helps to invest in renewables. The Power
+            Ledger ecosystem as a platform seeks to take the control out of the hands of central players
+            and put the citizens in charge of a cocreated energy future. The platform provides a transparent
+            governance framework and can be scaled to suit as required. Accordingly, the platform seeks to
+            offer products categorized into three facilities, i.e., flexible trading, energy trading and
+            traceability, and environmental commodities trading.
+        </p>
+
+        <p>
+            The Power Ledger deploys a dual-token ecosystem, POWR and Sparkz, for its two blockchain layers.
+            However, POWR tokens allow the application hosts and the participants to access and use the platform
+            and fuel the Power Ledger ecosystem. Since the platform’s core value is sustainability, Power
+            Ledger has chosen a hybrid public and consortium blockchain approach. Thereby, POWR tokens work
+            on the public Ethereum blockchain. Power Ledger’s private, industry-specific consortium blockchain
+            is EcoChain, which is based on a proof-of-stake consensus mechanism.
+        </p>
+    </div>,
+
+    [$const.REN]: <div>
+        <p>
+            Ren (REN) is an Ethereum token that powers Ren’s open protocol for transferring
+            cryptocurrencies between blockchains. Ren aims to bring popular assets like Bitcoin
+            and Zcash to blockchains including Ethereum, making it possible for these assets to
+            participate in a multi-chain decentralized finance ecosystem.
+        </p>
+    </div>,
+
+    [$const.REQ]: <div>
+        <p className='mb-3'>
+            Request (REQ) is the protocol for payment requests. It is an open network where transactions
+            are immutably recorded and requests are processed without the need for a middleman. The aim is
+            to have the network utilize blockchain technology to make the payment process faster, easier, and
+            reliable for everyone. By having all payment requests in one place, companies that provide services
+            such as accounting, invoicing, payment processing, and auditing can connect to the same network and
+            communicate with one another utilizing the same single source of truth. Thus, in simpler terms, Request
+            is a decentralized network that permits anyone to create, fulfill, and share a payment request in a secure way.
+        </p>
+
+        <p className='mb-3'>
+            As mentioned on the website, three important features of the Request network include Request
+            Finance, Request Create, and Wooreq. Request Finance offers a platform to manage all crypto
+            transactions in one place. This is a suite of financial tools that makes life easier by providing
+            an application for invoices, expenses, payroll, and accounting. Next, by using Request Create, users
+            can create and exchange payment requests in three easy steps, allowing them to spend less time on
+            payments and more time on running their business. Then there's Wooreq, a Woocommerce plugin that uses the
+            Request network to make it simple to accept cryptocurrency payments.
+        </p>
+
+        <p className='mb-3'>
+            Furthermore, the Request Network can handle more and more transactions per second with every
+            new version. This is because the majority of data is stored on IPFS instead of the blockchain.
+            IPFS, also known as InterPlanetary File System, is a protocol and network. This is designed to
+            produce a peer-to-peer way of storing and sharing hypermedia in the distributed file system that is
+            content-addressable. The data stored on the blockchain is Hash (proof of data), which can’t be modified
+            or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher throughput
+            and lower costs.
+        </p>
+
+        <p className='mb-3'>
+            Another important advantage of Request is that it’s built on top of Ethereum, which ensures
+            that data cannot be deleted or changed by any third party or even by users. In addition, data is
+            present on every node, and it can’t just disappear. This makes the data safe from the passage of
+            time as well as tampering. 
+        </p>
+
+        <p>
+            REQ is the token ticker for the Request token, which is a deflationary ERC20 token. This implies
+            REQ tokens are designed to reduce in supply over time. According to the whitepaper, the REQ token
+            powers the Request Network and is used to create requests, participate in the network, and reward
+            the parties who help build the Request ecosystem. The token is also utilized for making payments on
+            the Request Network, including the network fees. The fee charged is expected to remain between 0.05
+            percent and 0.5 percent, with the amount decreasing as the system grows. Participants are required to
+            pay a network fee in REQ, which will be burned when they use the network, meaning that the tokens are
+            sent to an unusable wallet address to remove them from circulation. Additionally, the REQ token is used
+            for governance purposes by allowing participants to vote on decisions that are crucial for the network’s long-term success.
+        </p>
+    </div>,
+
+    [$const.RLC]: <div>
+        <p>
+            RLC is an Ethereum token for the iExec cloud platform in which users can monetize
+            and rent computing power and data. iExec enables developers to power applications
+            on what is described as "a decentralized marketplace for cloud resources".
+        </p>
+    </div>,
+
+    [$const.SAND]: <div>
+        <p>
+            SAND is an Ethereum token that powers The Sandbox, a multiplayer metaverse where
+            players can create, monetize, and participate in blockchain-based gaming experiences.
+            In The Sandbox, game designers can create custom 3D NFTs that can be used across the
+            ecosystem. SAND can be used to buy and sell NFTs and other in-game items, and can also
+            be used to vote on the future of the platform.
+        </p>
+    </div>,
+
+    [$const.SNX]: <div>
+        <p className='mb-3'>
+            Synthetix (SNX) is software built on the Ethereumblockchain. Synthetix utilizes a
+            decentralized finance (DeFi) protocol that enables it to provide services without needing
+            any intermediary. This implies that Synthetix users do not have to trust any specific institution
+            or person to manage their crypto asset. The primary purpose of Synthetix is to be used for the
+            creation of synthetic assets, also known as “synths”—a combination of assets having the same value
+            as another asset. The synths may track and provide a return on another asset without requiring
+            anyone to hold that asset. In simpler words, Synthetix cryptocurrency provides exposure to a
+            wide variety of crypto as well as non-crypto assets in a decentralized and permissionless manner.
+            It enables users to participate in the DeFi ecosystem despite not holding the assets.
+        </p>
+
+        <p className='mb-3'>
+            Further, as mentioned in the whitepaper, synths provide access to even those assets that
+            are usually not accessible for an average trader, such as gold and silver. For doing so,
+            synths use smart-contract-based price discovery protocols, known as oracles, that permit users
+            to hold and exchange the underlying assets. Smart contracts are just like regular contracts;
+            however, instead of being drafted on paper, these contracts run in the form of protocols on the
+            blockchain. They are used to automate a workflow and trigger the forthcoming actions when the
+            conditions are met. In this way, Synthetix aims to allow users to efficiently trade synth assets
+            without facing liquidity issues. Unlike traditional finance, Synthetix does not require any KYC or
+            creating an account, yet anyone can get exposure to stocks, bonds, real estate, and other assets.
+        </p>
+
+        <p className='mb-3'>
+            SNX is the native token of Synthetix, which is necessary to create synthetic assets (synths).
+            Once the SNX tokens are locked up, new synths can be created.
+        </p>
+
+        <p>
+            Since synths are issued on Ethereum, they can also be placed into other DeFi platforms. After
+            that, the assets can be used to provide liquidity and earn yield. Thus, in order to start
+            trading synths, traders can exchange their ETH against synths and start trading immediately.
+            Alternatively, one can also obtain SNX tokens on any platform, create synths, and begin trading them.
+        </p>
+    </div>,
+
+    [$const.SRM]: <div>
+        <p className='mb-3'>
+            Serum describes itself as a protocol and ecosystem for decentralized exchanges (DEX)
+            that gives decentralized finance, exceptional speed, and cheap transaction costs. The Serum is
+            based on Solana and is fully permissionless. Websites or applications that use Serum's protocol may
+            adjust the experience to their target market's use case and compliance requirements.
+        </p>
+
+        <p className='mb-3'>
+            Serum offers a completely on-chain order book, allowing trading interfaces and other applications
+            to 'plug into' Serum's modular ecosystem. The flexibility to determine the price, size, and direction
+            of their transaction is claimed as a unique feature of this exchange mechanism for users. Serum DEX,
+            built on top of the Asset Agnostic Order book, gives the ecosystem a larger pool of liquidity and a
+            shared resource to support trading functionality. Permissioned marketplaces provide much more freedom
+            and conformity.
+        </p>
+
+        <p>
+            The native token of the ecosystem is SRM. Serum's utility and governance token is also SRM. The
+            users get a fee reduction if they keep SRM in their wallets. SRM is completely integrated with
+            Serum and can take advantage of burn fees.
+        </p>
+    </div>,
+
+    [$const.STORJ]: <div>
+        <p>
+            Storj (STORJ) is an Ethereum token that powers a decentralized cloud storage network
+            for developers called Storj DCS (Decentralized Cloud Storage). After a customer uploads
+            a file to Storj DCS, pieces of each file are distributed to a global network of independent
+            nodes. When someone requests the file, it is then recompiled securely and made available
+            for download. This means that anyone can store files on Storj DCS without having to trust
+            a centralized data center. Developers can purchase cloud storage services with STORJ.
+            Network participants earn STORJ in return for providing unused hard drive space and
+            bandwidth to the network.
+        </p>
+    </div>,
+
+    [$const.SUSHI]: <div>
+        <p>
+            SushiSwap (SUSHI) is a decentralized exchange (or DEX) built on the Ethereum network.
+            Originally forked from Uniswap, SushiSwap leverages smart contracts in order to provide
+            liquidity pools that allow users to directly trade crypto assets — with no intermediary.
+            Users can also become liquidity pool providers, supplying an equal value pair of two
+            cryptocurrencies in order to receive rewards whenever anyone utilizes that pool.
+            It is a decentralized finance (or DeFi) protocol.
+        </p>
+    </div>,
+
+    [$const.TRIBE]: <div>
+        <p>
+            TRIBE is an Ethereum token that governs Fei Protocol, which issues a separate,
+            decentralized stablecoin called FEI that attempts to maintain a value of US$1.00.
+            TRIBE can be used to vote for Fei Protocol upgrades and to adjust FEI stablecoin
+            monetary policy.
+        </p>
+    </div>,
+
+    [$const.USDC]: <div>
+        <p>
+            USD Coin (USDC) is a stablecoin redeemable on a 1:1 basis for US dollars, backed by
+            dollar denominated assets held in segregated accounts with US regulated financial
+            institutions. The launch of USDC was powered by a collaboration between Coinbase
+            and Circle through the co-founding of the CENTRE Consortium. Coinbase customers
+            with US dollar accounts may exchange 1 USDC for US$1.00 (and vice versa) on Coinbase
+            in jurisdictions where USDC support is available. The graph above reflects USDC’s current
+            and historical redemption value of US$1.00, which may not match the price of USDC on other
+            exchanges. Note: Coinbase only supports USDC running on Ethereum (ERC-20).
+        </p>
+    </div>,
+
+    [$const.WAVES]: <div>
+        <p className='mb-3'>
+            Waves (WAVES) is a community-based multipurpose blockchain platform that seeks to
+            support a compilation of decentralized open-source technologies to build scalable,
+            user-friendly apps. Waves aims at creating a comprehensive blockchain ecosystem that
+            provides several features necessary for business adoption.
+        </p>
+
+        <p>
+            WAVES is the token utilized in the Waves blockchain. Within the blockchain, block
+            generators seek to obtain block rewards and transaction fees in WAVES. This aims to
+            promote generators to maintain and develop the blockchain network system. The more WAVES
+            the generator holds, they seek to get a chance to add another block in the blockchain.
+            Blocks are data structures within the blockchain database.
+        </p>
+    </div>,
+
+    [$const.XLM]: <div>
+        <p className='mb-3'>
+            Stellar’s cryptocurrency, the Stellar Lumen (XLM), powers the Stellar payment network.
+            As a cross-border transfer and payment system that connects financial entities, Stellar aims
+            to unite the world’s financial infrastructure, connecting banks, payment systems, and individuals
+            with near-instant and secure transfers.
+        </p>
+
+        <p>
+            If the Internet connected the world’s computers to enable the free global flow of information,
+            Stellar aims to do the same for money. To accomplish this vision while maintaining neutrality,
+            Stellar is not set up as a bank or a business. Instead it’s a decentralized, open network that is
+            supported by a nonprofit foundation called the Stellar Development Foundation (or SDF, for short).
+        </p>
+    </div>,
+
+    [$const.YFI]: <div>
+        <p>
+            Yearn.finance (YFI) is an Ethereum token that governs the Yearn.finance platform.
+            The platform is a yield optimizer that moves funds around the decentralized finance
+            (“defi”) ecosystem in an effort to generate a high return.
+        </p>
+    </div>,
+
+    [$const.ZEC]: <div>
+        <p className='mb-3'>
+            Zcash (ZEC) is a privacy-protecting, decentralized cryptocurrency. According to the website,
+            Zcash was created as a fork of the Bitcoin codebaseto enable privacy. The Zcash protocol uses
+            zk-SNARKs, zero-knowledge cryptography that ensures the transaction verification doesn’t reveal
+            sensitive information of the transaction. Every transaction gets tracked and managed on a public
+            blockchain, but these public transactions do not reveal user identities. Zcash aims to offer its
+            users the right to privacy while enjoying the benefits of a permissionless digital currency.
+        </p>
+
+        <p className='mb-3'>
+            Zcash facilitates optional anonymity by offering two types of addresses: transparent address
+            (T-addresses) and private addresses (Z-addresses). Transactions between T-addresses are publicly
+            viewable on the Zcash blockchain. However, Z-addresses are shielded addresses and therefore are not visible.
+            Transactions between shielded addresses do not reveal the transaction address, the amount transferred, or any
+            other sensitive information. T-addresses and Z-addresses are interoperable, and funds can be transferred between the two.
+        </p>
+
+        <p className='mb-3'>
+            ZEC is the native token of the Zcash platform. The token can be mined using the Equihash proof-of-work
+            algorithm. Proof of work is a transaction verification mechanism that uses hardware’s processing power
+            to produce a new block on the chain. The ZEC token gets used by Z-addresses and T-addresses for transactions.
+            Moreover, the ZEC token is the platform’s cryptocurrency and can be bought on many exchanges like Coinbase.
+        </p>
+
+        <p>
+            Shielded transactions of Z-addresses use the zero-knowledge succinct non-interactive argument of
+            knowledge (zk-SNARK) cryptography protocol. There are two parties in the zero-knowledge proof: the
+            prover and the verifier. The protocol states that the prover can prove to the verifier that they possess
+            specific knowledge without actually disclosing what the knowledge is. Therefore, the protocol uses a secret
+            key to confirm the possession of information. For each shielded transaction, the sender uses their key to
+            generate proof that their inputs are valid. Miners check the shielded transaction by verifying the key.
+            This way, Zcash requires more work up front, but it simplifies verifying.
+        </p>
+    </div>,
+
     [$const.BNB]: <div>
         <p className='mb-3'>
             Binance Coin is the cryptocurrency issued by the Binance exchange and trades with the BNB symbol.

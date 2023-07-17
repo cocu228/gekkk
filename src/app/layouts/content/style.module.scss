@@ -18,8 +18,9 @@
     padding-right: var(--content-pad-horizontal-md);
     padding-top: var(--content-pad-top-md);
   }
-}
 
-//.Mobile {
-//
-//}
+  @include max-devices(xxl) {
+    padding-left: var(--content-pad-horizontal-md);
+    padding-right: var(--content-pad-horizontal-md);
+  }
+}

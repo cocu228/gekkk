@@ -40,7 +40,7 @@ const AssetsTable = ({
 }: IParams) => {
     const inputRef = useRef(null);
     const navigate = useNavigate();
-    const {lg} = useContext(BreakpointsContext);
+    const {lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxRootData);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<$const, number>>(null);
@@ -82,7 +82,7 @@ const AssetsTable = ({
 
     return (
         <div className={className}>
-            <div className={`${lg && 'mx-5'} mb-2`}>
+            <div className={`${md && 'mx-5'} mb-2`}>
                 <Input
                     allowClear
                     ref={inputRef}

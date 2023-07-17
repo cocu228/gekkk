@@ -76,7 +76,7 @@ const FormCode = memo(() => {
     };
 
     return <Form onFinish={onFinish}>
-        <h1 className={`font-extrabold text-center text-gray-600 min-w-[336px] pb-4
+        <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
             SMS with one-time code was sent to
@@ -99,14 +99,23 @@ const FormCode = memo(() => {
             {timeLeft !== 0 ? (
                 <span>You can use the code for {timeLeft} seconds</span>
             ) : (
-                <a onClick={restartTimer} className='underline'>Resend code</a>
+                <a onClick={restartTimer} className='underline hover:text-blue-400'>Resend code</a>
             )}
         </div>
 
         <div className="row">
-            <Button tabIndex={0} disabled={loading || code === ""} className={"w-full"} size={"lg"}
-                    htmlType="submit">Next</Button>
+            <Button
+                size='lg'
+                tabIndex={0}
+                htmlType='submit'
+                className='w-full'
+                disabled={loading || code === ''}
+            >Next</Button>
         </div>
+        <a
+            className='flex mt-2 justify-center underline text-gray-400 hover:text-blue-400'
+            onClick={() => toggleStage('authorization')}
+        >← Back to login page</a>    
     </Form>
 });
 

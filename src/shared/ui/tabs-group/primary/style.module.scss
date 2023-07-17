@@ -70,6 +70,11 @@
     margin-right: calc(-1 * var(--content-pad-right-xl));
   }
 
+  @include max-devices(xxl) {
+    margin-left: calc(-1 * var(--content-pad-horizontal-md));
+    margin-right: calc(-1 * var(--content-pad-horizontal-md));
+  }
+
   @include max-devices(md) {
     margin-left: calc(-1 * var(--content-pad-horizontal-md));
     margin-right: calc(-1 * var(--content-pad-horizontal-md));

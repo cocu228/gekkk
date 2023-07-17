@@ -53,7 +53,7 @@ const WithdrawConfirm = ({
     }
 
     return loading ? <Loader/> : <>
-        <div className="row mb-10">
+        <div className="row mb-5">
             <div className="col">
                 <div className="p-4 bg-gray-300">
                     <div className="wrapper flex flex-col">
@@ -73,73 +73,75 @@ const WithdrawConfirm = ({
                 </div>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-2">
             <div className="col">
                 <span className="text-gray-400">Network</span>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row mb-4">
             <div className="col">
                 <span>{label}</span>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-2">
             <div className="col">
                 <span className="text-gray-400">Address</span>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row mb-4">
             <div className="col">
                 <span>{address}</span>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-2">
             <div className="col">
                 <span className="text-gray-400">Receiver</span>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row mb-4">
             <div className="col">
                 <span>{receiver}</span>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-2">
             <div className="col">
                 <span className="text-gray-400">Amount</span>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row mb-4">
             <div className="col">
-                <span>{amount}</span>
+                <span>{amount} {currency}</span>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-2">
             <div className="col">
                 <span className="text-gray-400">Fee</span>
             </div>
         </div>
-        <div className="row mb-6">
+        <div className="row mb-4">
             <div className="col">
                 <span>{withdraw_fee} {currency}</span>
             </div>
         </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span className="text-gray-400">Description</span>
+        {!description ? null : <>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Description</span>
+                </div>
             </div>
-        </div>
-        <div className="row mb-6">
-            <div className="col">
-                <span>{description}</span>
+            <div className="row mb-4">
+                <div className="col">
+                    <span>{description}</span>
+                </div>
             </div>
-        </div>
+        </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            <FormItem className={"mb-2"} name="code" label="Code" preserve
+            <FormItem className={"mb-4"} name="code" label="Code" preserve
                       rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
-                       placeholder="Enter your pin"
+                       placeholder="Enter your PIN"
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />

@@ -46,7 +46,7 @@ export const CtxRootData = React.createContext<{
         id: null | string,
         number: null | string,
         client: null | string,
-        rights: null | string
+        rights: null | Record<string, boolean>
     },
     refreshKey: string;
 }>(null);

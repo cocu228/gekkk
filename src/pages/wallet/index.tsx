@@ -13,6 +13,7 @@ import { CtxRootData } from "@/processes/RootContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
 import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
 import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
+import { AccountRights } from "@/shared/config/account-rights";
 
 function Wallet() {
     const {currency, tab} = useParams();
@@ -30,18 +31,24 @@ function Wallet() {
                             <NetworkProvider data-tab={"Top Up"}>
                                 <TopUp/>
                             </NetworkProvider>
+
                             <NetworkProvider data-tab={"Withdraw"}>
                                 <Withdraw/>
                             </NetworkProvider>
+
                             <Transfer data-tab={"Funds transfer"}/>
-                            {/*{$currency.currency === "GKE" && account && account.type !== "JURIDICAL" && <>*/}
-                            {/*    <CashbackProgram data-tab={"Cashback Program"}/>*/}
-                            {/*    <NoFeeProgram data-tab={"No Fee Program"}/>*/}
-                            {/*</>}*/}
+
+                            {$currency.currency === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
+                               <CashbackProgram data-tab={"Cashback Program"}/>
+                               <NoFeeProgram data-tab={"No Fee Program"}/>
+                            </>}
+
                             <About data-tab={"About"}/>
+
                             {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}
 
                         </div>
+
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
                             <History currenciesFilter={[currency]}/>
                         </div>}

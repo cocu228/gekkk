@@ -27,6 +27,7 @@ import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRoom
 const SidebarDesktop = () => {
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
+    const {account} = useContext(CtxRootData);
     const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
@@ -50,7 +51,7 @@ const SidebarDesktop = () => {
     useEffect(() => {
         getInvestments();
         getRoomsList();
-    }, []);
+    }, [refreshKey, account]);
 
 
     useEffect(() => {

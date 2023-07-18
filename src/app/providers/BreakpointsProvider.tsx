@@ -1,6 +1,6 @@
 import {createContext, FC, memo, PropsWithChildren, useEffect, useState} from 'react';
 
-type breakpoints = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+type breakpoints = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'| 'xxxl';
 
 export type breakpointsResult = Record<breakpoints, boolean> & {
     init: boolean;
@@ -12,6 +12,7 @@ const dimensions: Record<breakpoints, number> = {
     lg: 992,
     xl: 1200,
     xxl: 1400,
+    xxxl: 1700,
 };
 
 const isBP = (str: string | breakpoints): str is breakpoints => str in dimensions;
@@ -24,6 +25,7 @@ const initialState: breakpointsResult = {
     lg: false,
     xl: false,
     xxl: false,
+    xxxl: false,
 };
 
 export const BreakpointsContext = createContext<breakpointsResult>(initialState);

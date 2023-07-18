@@ -35,7 +35,7 @@ const SidebarDesktop = () => {
 
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
 
-    const {sm, md} = useContext(BreakpointsContext)
+    const {sm, md, xxxl} = useContext(BreakpointsContext)
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -216,7 +216,10 @@ const SidebarDesktop = () => {
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="flex w-full row mb-1 justify-between">
                                         <div className={styles.RoomName}>
-                                            {item.currency1} - {item.currency2}: exchange room
+                                            {!xxxl
+                                                ? `${item.currency1} - ${item.currency2}: exchange room`
+                                                : `${item.currency1} - ${item.currency2}`
+                                            }
                                         </div>
 
                                         <div
@@ -233,7 +236,7 @@ const SidebarDesktop = () => {
 
                                     <div className="flex row w-full mb-1 justify-between">
                                         <span className={`text-gray-500 text-xs`}>
-                                            Number of participants
+                                            {!xxxl ? 'Number of participants' : 'Participants'}
                                         </span>
                                         <span className='mr-[17px] text-gray-500 text-xs font-semibold'>
                                             {item.count}

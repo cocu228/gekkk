@@ -59,16 +59,16 @@ const FormLoginAccount = memo(() => {
                                     })
                                     toggleStage("code")
                                 }
-                            )).catch(err => {
-                            setLoading(false)
+                            ).reject(() => {
+                                setLoading(false);
+                            })).catch(err => {
+                            setLoading(false);
                         })
                 ))
             .catch(err => {
                 setLoading(false)
             })
     }
-
-    //
 
     return <Form onFinish={onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4

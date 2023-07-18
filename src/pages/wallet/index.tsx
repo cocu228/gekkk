@@ -46,7 +46,6 @@ function Wallet() {
                             <About data-tab={"About"}/>
 
                             {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}
-
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">

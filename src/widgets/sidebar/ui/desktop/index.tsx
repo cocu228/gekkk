@@ -51,8 +51,7 @@ const SidebarDesktop = () => {
     useEffect(() => {
         getInvestments();
         getRoomsList();
-    }, [refreshKey, account]);
-
+    }, [account]);
 
     useEffect(() => {
 

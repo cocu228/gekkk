@@ -26,7 +26,7 @@ export class HeaderMenuItems {
 export const defaultItems: THeaderMenuList = [
     {
         item: 'Dashboard',
-        id: null,
+        id: 'dashboard',
         action: {
             type: "link",
             value: "/",
@@ -37,7 +37,7 @@ export const defaultItems: THeaderMenuList = [
     },
     {
         item: <PromoCodeModal/>,
-        id: null,
+        id: 'promoCode',
         action: {
             type: null,
             value: null,
@@ -45,7 +45,7 @@ export const defaultItems: THeaderMenuList = [
     },
     {
         item: <GekkoinInvestPlatform/>,
-        id: null,
+        id: 'investPlatform',
         action: {
             type: null,
             value: null,
@@ -53,7 +53,7 @@ export const defaultItems: THeaderMenuList = [
     },
     {
         item: 'Partnership program',
-        id: null,
+        id: 'partnership',
         action: {
             type: "link",
             value: "partnership-program",
@@ -61,7 +61,7 @@ export const defaultItems: THeaderMenuList = [
     },
     {
         item: 'Support',
-        id: null,
+        id: 'support',
         action: {
             type: "link",
             value: "support",
@@ -69,7 +69,7 @@ export const defaultItems: THeaderMenuList = [
     },
     {
         item: 'Logout',
-        id: null,
+        id: 'logout',
         action: {
             type: "logout",
             value: null,

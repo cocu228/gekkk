@@ -9,6 +9,7 @@ import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {storeOrganizations} from "@/shared/store/organizations";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
+import { AccountRights } from "@/shared/config/account-rights";
 
 const HeaderDesktop = memo((props) => {
 
@@ -72,7 +73,10 @@ const HeaderDesktop = memo((props) => {
             })
         })
 
-        setItems(newItems);
+        setItems(account.rights && !account.rights[AccountRights.IsJuridical]
+            ? newItems
+            : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
+        );
 
     }, [account]);
 

@@ -1,5 +1,4 @@
-import {useContext} from "react";
-import {useLocation} from "react-router";
+import {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Transfer from "@/widgets/wallet/transfer";
 import History from "@/widgets/history/ui/History";
@@ -16,9 +15,8 @@ import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
 import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
 
 function Wallet() {
-
     const {currency, tab} = useParams();
-    const {xl, md} = useContext(BreakpointsContext);
+    const {xl} = useContext(BreakpointsContext);
     const {currencies, account} = useContext(CtxRootData);
     const $currency = currencies.get(currency);
 

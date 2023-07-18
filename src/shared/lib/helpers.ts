@@ -85,13 +85,26 @@ export function asteriskText(text) {
 
 export function getFlagsFromMask(mask: number, options: Record<string, number>) {
     const flags: Record<string, boolean> = {};
+
     for (const [flag, value] of Object.entries(options)) {
-        if (mask === 0 && value === 0) {
-             flags[flag] = ((mask & value) === 0);
-           continue
+        // Complex flag if 1 bits count more than one
+        const binaryVal = value.toString(2);
+        const isComplex = binaryVal.split('').filter(bit => bit === '1').length > 1;
+
+        // Checks maching if complex flag
+        if (isComplex) {
+            flags[flag] = (value & mask) === value;
+            continue;
         }
+
+        if (mask === 0 && value === 0) {
+            flags[flag] = ((mask & value) === 0);
+           continue;
+        }
+
         flags[flag] = ((mask & value) !== 0);
     }
+
     return flags;
  }
 

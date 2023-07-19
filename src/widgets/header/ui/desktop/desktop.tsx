@@ -39,9 +39,34 @@ const HeaderDesktop = memo((props) => {
     useEffect(() => {
 
         let newItems = [...defaultItems]
+        let juridicalAccs = organizations.accounts.filter(a => a.accountType === 'JURIDICAL');
+        let physicalAccs = organizations.accounts.filter(a => a.accountType === 'PHYSICAL');
+        
+        juridicalAccs.forEach(it => {
+            let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
 
-        organizations.accounts.forEach(it => {
+            newItems.unshift({
+                id: it.clientId,
+                item: <ItemOrganization
+                    number={getFormattedIBAN(it.number)}
+                    name={name}
+                    active={account.number === it.number}
+                />,
+                action: {
+                    type: "change-account",
+                    value: {
+                        number: it.number,
+                        client: it.clientId,
+                        id: it.id
+                    },
+                },
+                style: {
+                    backgroundColor: "var(--color-gray-300)"
+                }
+            })
+        })
 
+        physicalAccs.forEach(it => {
             let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
 
             if (account.number === it.number) {
@@ -51,10 +76,9 @@ const HeaderDesktop = memo((props) => {
                 })
             }
 
-
             newItems.unshift({
                 id: it.clientId,
-                item: <ItemOrganization
+                item: <ItemAccount
                     number={getFormattedIBAN(it.number)}
                     name={name}
                     active={account.number === it.number}

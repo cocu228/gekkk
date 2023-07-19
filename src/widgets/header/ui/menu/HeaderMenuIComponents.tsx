@@ -12,12 +12,12 @@ import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from
 import {Skeleton} from "antd";
 
 const hClassName = new HelperClassName(styles)
-export const ItemAccount = ({active = false, iban, title}: Partial<{
+export const ItemAccount = ({active = false, number, name}: Partial<{
     active: boolean;
-    iban: string;
-    title: string;
+    number: string;
+    name: string;
 }>) => {
-    if (!iban) return null;
+    if (!number) return null;
 
     return <div className="flex items-center justify-end relative">
         {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
@@ -31,12 +31,12 @@ export const ItemAccount = ({active = false, iban, title}: Partial<{
         <div className="wrapper">
             <div className="row">
                 <span
-                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(iban)}</span>
+                    className={`text-sm font-bold ${hClassName.while(active).do("text-blue-400").done()}`}>ID: {getFormattedIBAN(number)}</span>
             </div>
             <div className="row text-start">
                 <span
                     className={`text-xs text-start font-bold ${hClassName.while(active)
-                        .do("text-blue-400").done()}`}>{title}</span>
+                        .do("text-blue-400").done()}`}>{name}</span>
             </div>
         </div>
     </div>

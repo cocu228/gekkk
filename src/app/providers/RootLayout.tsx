@@ -121,11 +121,16 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setAccount = (number: null | string, id: null | string, client: null | string) =>
-        setState(prev => ({
-            ...prev,
-            account: {number, id, client, rights: null}
-        }));
+    const setAccount = (number: null | string, id: null | string, client: null | string) => {
+        setState(prev => {
+            if (prev.account.number === number) return prev;
+
+            return ({
+                ...prev,
+                account: {number, id, client, rights: null}
+            })
+        });
+    }
 
 
     return <CtxRootData.Provider value={{

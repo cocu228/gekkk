@@ -15,6 +15,7 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
+// TODO: Добавить отображение сообщения об ошибке
 const FormCode = memo(() => {
     const {login} = useAuth();
     const inputRef = useRef(null);
@@ -44,13 +45,13 @@ const FormCode = memo(() => {
                             .success(() => {
                                 toggleStage("authorization");
                                 login(phone, res.data.token);
-                            })
-                        ).catch(e => {
-                            console.log(e);
-                        });
-                    })
-                .reject(v => {
-                    console.log(res);
+                            }))
+                            .catch(e => {
+                                setLoading(false);
+                            });
+                        })
+                        .reject(v => {
+                    setLoading(false);
                 })
             )
     }

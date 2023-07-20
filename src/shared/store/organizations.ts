@@ -2,6 +2,9 @@ import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {uncoverArray} from "@/shared/lib/helpers";
 import {apiGetBankData, IBankData} from "@/shared/api";
+// REMOVE TEMPORARY STORAGE
+import $axios from '../lib/(cs)axios';
+import TEMP_ORG_STORAGE from './TEMP-ORG-STORAGE';
 
 export interface IStoreBankData {
     organizations: IBankData;
@@ -10,11 +13,19 @@ export interface IStoreBankData {
 
 export const storeOrganizations = create<IStoreBankData>()(devtools((set) => ({
     organizations: null,
+    //getOrganizations: async () => {
+    //    const {data} = await apiGetBankData();
+    //    set((state) => ({
+    //        ...state,
+    //        organizations: uncoverArray<IBankData | null>(data),
+    //    }))
+    //},
+
+    // REMOVE TEMPORARY STORAGE
     getOrganizations: async () => {
-        const {data} = await apiGetBankData();
         set((state) => ({
             ...state,
-            organizations: uncoverArray<IBankData | null>(data),
+            organizations: TEMP_ORG_STORAGE[$axios.defaults.headers['Authorization'].toString()]
         }))
-    },
+    }
 })));

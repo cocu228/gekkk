@@ -9,6 +9,7 @@ import TEMP_ORG_STORAGE from './TEMP-ORG-STORAGE';
 export interface IStoreBankData {
     organizations: IBankData;
     getOrganizations: () => Promise<void>;
+    clearOrganizations: () => Promise<void>;
 }
 
 export const storeOrganizations = create<IStoreBankData>()(devtools((set) => ({
@@ -20,6 +21,12 @@ export const storeOrganizations = create<IStoreBankData>()(devtools((set) => ({
     //        organizations: uncoverArray<IBankData | null>(data),
     //    }))
     //},
+    clearOrganizations: async () => {
+        set((state) => ({
+            ...state,
+            organizations: null
+        }))
+    },
 
     // REMOVE TEMPORARY STORAGE
     getOrganizations: async () => {

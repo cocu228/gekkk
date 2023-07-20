@@ -45,7 +45,7 @@ export default memo(function () {
 
     const getInfoClient = async (number: null | string, id: null | string, client: null | string) => {
 
-        $axios.defaults.headers['accountId'] = number;
+        $axios.defaults.headers['AccountId'] = number;
 
         const response = await apiGetInfoClient()
 

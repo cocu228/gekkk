@@ -2,6 +2,7 @@ import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import $axios from "@/shared/lib/(cs)axios";
 import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
+import {storeOrganizations} from "@/shared/store/organizations";
 
 const AuthContext = createContext({});
 
@@ -14,8 +15,9 @@ interface IValue {
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
-    const {token} = getCookieData<{ token: string }>()
     const navigate = useNavigate();
+    const {token} = getCookieData<{ token: string }>();
+    const clearOrganizations = storeOrganizations(state => state.clearOrganizations);
 
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
@@ -42,9 +44,10 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
         $axios.defaults.headers['token'] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
-
-        clearAllCookies()
-
+        $axios.defaults.headers['AccountId'] = undefined;
+        
+        clearAllCookies();
+        clearOrganizations();
         navigate("/", {replace: true});
     };
 

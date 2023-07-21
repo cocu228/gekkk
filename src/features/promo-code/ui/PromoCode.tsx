@@ -53,7 +53,7 @@ const PromoCode = memo(() => {
                 <Button
                     htmlType={"submit"}
                     className={"w-full mt-10"}
-                    disabled={valInput === "" || loading}
+                    disabled={valInput === "" || loading || isCodeApplied}
                 >Apply</Button>
             </Form>
         </div>

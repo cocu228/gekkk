@@ -2,7 +2,7 @@ import {Input} from "antd";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/TransferTableCode";
-import {apiApplyTxCode} from "@/shared/api";
+import {apiApplyCode} from "@/shared/api";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
@@ -35,7 +35,7 @@ const ApplyCode = () => {
 
         setLoading(true)
 
-        const response = await apiApplyTxCode(input)
+        const response = await apiApplyCode(input)
 
         actionResSuccess(response).success(async () => {
             setRefresh()

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import {apiApplyTxCode} from "@/shared/api";
+import {apiApplyCode} from "@/shared/api";
 
 const TopUpCode = () => {
 
     const [input, setInput] = useState("")
     const onBtnApply = async () => {
-        const response = await apiApplyTxCode(input)
+        const response = await apiApplyCode(input)
     }
     return (<>
             <div className="row mb-8 flex items-center">

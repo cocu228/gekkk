@@ -1,11 +1,7 @@
-export const validateStatus = (status)  => {
+export const validateStatus = (status: boolean | null)  => {
     if (status === null) {
-        return undefined
+        return undefined;
     } else {
-        return status === "SUCCESS" ? "success" : "error"
+        return status ? "success" : "error";
     }
 }
-
-export const alarmText = (status) => status === "INVALID" ?
-    "The code is invalid" : status === null ? "" :
-        status === "SUCCESS" ? "The code is applied" : ""

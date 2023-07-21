@@ -10,7 +10,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import CancelContent from "@/widgets/wallet/transfer/CancelContent";
-import {apiApplyTxCode} from "@/shared/api";
+import {apiApplyCode} from "@/shared/api";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
@@ -128,7 +128,7 @@ const CodeModalConfirm = ({code, amount, currency}) => {
     const {showModal, isModalOpen, handleCancel} = useModal()
     const onBtnConfirm = async (code) => {
         setLoading(true)
-        const response = await apiApplyTxCode(code)
+        const response = await apiApplyCode(code)
 
         actionResSuccess(response).success(async () => setSuccess(true)).reject(localErrorHunter)
 

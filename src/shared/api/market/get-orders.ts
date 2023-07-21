@@ -15,5 +15,9 @@ export interface IResOrder {
     state: string
 }
 
-export const apiGetOrders = () =>
-    $axios.get<$AxiosResponse<Array<IResOrder>>>('/gek/v1/market/get_orders');
+export const apiGetOrders = (roomKey: string) =>
+    $axios.get<$AxiosResponse<Array<IResOrder>>>('/gek/v1/market/get_orders', {
+        params: {
+            room_key: roomKey
+        }
+    });

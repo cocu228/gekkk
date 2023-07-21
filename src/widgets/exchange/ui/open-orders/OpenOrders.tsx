@@ -1,8 +1,10 @@
 import {format} from 'date-fns';
+import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import {CtxRootData} from '@/processes/RootContext';
+import {CtxExchangeData} from '../../model/context';
 import useModal from '@/shared/model/hooks/useModal';
 import {useContext, useEffect, useState} from 'react';
 import OrderProperties from './order-properties/OrderProperties';
@@ -11,19 +13,22 @@ import {IResOrder, apiCancelOrder, apiGetOrders} from '@/shared/api';
 function OpenOrders() {
     const cancelOrderModal = useModal();
     const {currencies} = useContext(CtxRootData);
+    const {roomInfo} = useContext(CtxExchangeData);
     const [orders, setOrders] = useState<IResOrder[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [selectedOrder, setSelectedOrder] = useState<IResOrder>(null);
 
     useEffect(() => {
+        setIsLoading(true);
 
         (async () => {
 
-            const response = await apiGetOrders();
+            const response = await apiGetOrders(roomInfo?.timetick ?? null);
             setOrders(response.data.result);
-
+            setIsLoading(false);
         })()
 
-    }, []);
+    }, [roomInfo?.timetick]);
 
     const currencyPrecision = (value: number, currency: string) =>
         Number(value.toFixed(currencies.get(currency)?.ordersPrec));
@@ -35,12 +40,16 @@ function OpenOrders() {
                 {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
             </div>
             <div className="mt-1.5">
-                {!orders.length &&
+                {!isLoading ? null : (
+                    <Loader className='relative mt-10 mb-10'/>
+                )}
+
+                {!(isLoading || orders.length) &&
                 <div className='text-center mb-2 mt-2 text-gray-400'>
                     You don't have any opened orders
                 </div>}
 
-                {orders.map((ord: IResOrder) => (
+                {isLoading ? null : orders.map((ord: IResOrder) => (
                     <div className={`py-2.5 rounded-md md:rounded-none ${styles.Item}`} key={ord.id}>
                         <div className="flex justify-between">
                             <div className="text-orange bg-orange bg-opacity-10 rounded-md">

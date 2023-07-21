@@ -5,12 +5,11 @@ import IconParticipant from '@/shared/ui/icons/IconParticipant';
 
 interface Props {
     quantity: number,
-    showIcon?: boolean,
     onLeave: () => void,
     onIconClick?: () => void
 }
 
-function ParticipantsNumber({quantity, showIcon = false, onLeave, onIconClick}: Props) {
+function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
     const [active, setActive] = useState(false);
 
     const onClick = async () => {
@@ -32,26 +31,19 @@ function ParticipantsNumber({quantity, showIcon = false, onLeave, onIconClick}: 
                     </div>
                 </div>
 
-                <div className="inline-flex items-center gap-2">
+                <div onClick={onIconClick} className="inline-flex items-center gap-2 hover:cursor-pointer hover:text-blue-400 hover:fill-blue-400">
                     <span className="font-medium text-3xl leading-7 sm:text-xl">
                         {quantity}
                     </span>
 
-                    {showIcon && (
-                        <div
-                            onClick={onIconClick}
-                            className='hover:cursor-pointer hover:fill-blue-400'
-                        >
-                            <IconParticipant
-                                height={24}
-                                width={24}
-                                fill='inherit'
-                                />
-                        </div>
-                    )}
+                    <IconParticipant
+                        height={24}
+                        width={24}
+                        fill='inherit'
+                    />
                 </div>
             </div>
-            <button className="font-medium text-secondary" onClick={onLeave}>Leave the room</button>
+            <button className="font-medium text-secondary hover:text-blue-400" onClick={onLeave}>Leave the room</button>
         </div>
     );
 }

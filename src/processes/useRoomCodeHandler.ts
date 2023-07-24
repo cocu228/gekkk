@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {apiApplyTxCode} from '@/shared/api';
+import {apiApplyCode} from '@/shared/api';
 import {uncoverResponse} from '@/shared/lib/helpers';
 import {useNavigate, useSearchParams} from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const useRoomCodeRedirect = (token: string) => {
             if (!roomCode) return;
             
             (async function() {
-                const response = await apiApplyTxCode(roomCode);
+                const response = await apiApplyCode(roomCode);
 
                 if (response.data.error) return;
 

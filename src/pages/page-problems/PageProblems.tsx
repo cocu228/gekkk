@@ -14,8 +14,8 @@ const text = {
     },
     subscribe: {
         404: <p className={hClassName.scss("Desc")}>Sorry, but the page you requested was not found or has not
-            yet been created. Go to the <a className="underline hover:text-blue-400" href="/">home</a> page
-            to continue.</p>,
+            yet been created. Go
+            to <a className="underline text-blue-400" href="/">the home page</a> to continue.</p>,
         500: <p className={hClassName.scss("Desc")}>Sorry for the inconvenience but we’re performing some maintenance at
             the moment. We’ll be back online shortly!</p>
     }

@@ -14,7 +14,7 @@ function useValidator() {
                     if (isAlphaNumeric) {
                         resolve('');
                     } else {
-                        reject(new Error('Only latin letters and numbers'));
+                        reject('');
                     }
                 });
             },

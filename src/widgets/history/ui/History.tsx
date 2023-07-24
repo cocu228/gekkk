@@ -23,6 +23,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     const {currencies} = useContext(CtxRootData);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
+    const {account} = useContext(CtxRootData);
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
@@ -83,7 +84,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
                 await requestHistory()
             })()
         }
-    }, [activeTab, refreshKey])
+    }, [activeTab, refreshKey, account])
 
 
     useEffect(() => {

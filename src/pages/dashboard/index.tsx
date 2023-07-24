@@ -34,16 +34,7 @@ export default () => {
 
     return (
         <div className="wrapper">
-            <PageHead
-                title={"Personal account"}
-                subtitle={
-                    <>Open your <a
-                        className="underline hover:text-blue-400 hover:cursor-pointer"
-                        onClick={() =>navigate('/new-deposit')}
-                    >
-                        fixed or crypto deposit
-                    </a></>}
-            />
+            <PageHead title="Personal account"/>
 
             {sm ? (
                 <div className="w-full -sm:hidden">

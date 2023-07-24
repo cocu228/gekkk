@@ -114,7 +114,6 @@ function Exchange() {
                 rightContent={roomType !== 'creator' ? null : (
                     <ParticipantsNumber
                         quantity={roomInfo.count}
-                        showIcon={roomType === 'creator'}
                         onLeave={cancelRoomModal.showModal}
                         onIconClick={roomInfoModal.showModal}
                     />

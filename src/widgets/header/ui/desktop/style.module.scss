@@ -25,4 +25,8 @@
   @include max-devices(xl) {
     padding-right: var(--content-pad-right-xl);
   }
+
+  @include max-devices(xxl) {
+    padding-right: var(--content-pad-right-md);
+  }
 }

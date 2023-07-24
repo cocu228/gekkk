@@ -45,7 +45,7 @@ export default memo(function () {
 
     const getInfoClient = async (number: null | string, id: null | string, client: null | string) => {
 
-        $axios.defaults.headers['accountId'] = number;
+        $axios.defaults.headers['AccountId'] = number;
 
         const response = await apiGetInfoClient()
 
@@ -121,11 +121,16 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setAccount = (number: null | string, id: null | string, client: null | string) =>
-        setState(prev => ({
-            ...prev,
-            account: {number, id, client, rights: null}
-        }));
+    const setAccount = (number: null | string, id: null | string, client: null | string) => {
+        setState(prev => {
+            if (prev.account.number === number) return prev;
+
+            return ({
+                ...prev,
+                account: {number, id, client, rights: null}
+            })
+        });
+    }
 
 
     return <CtxRootData.Provider value={{

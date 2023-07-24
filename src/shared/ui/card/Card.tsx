@@ -12,6 +12,7 @@ const Card = ({children}: { children: JSX.Element|JSX.Element[] }) => {
             min-h-[195px]
             sm:min-h-[216px]
             min-w-[310px]
+            max-w-[310px]
             flex
             flex-col
             transition-all

@@ -112,7 +112,7 @@ function OpenOrders() {
                     </div>
                 ))}
 
-                {!isLoading && ordersList.length >= 4 && !allOrdVisibly && <div className="row mt-3">
+                {!isLoading && ordersList.length >= 10 && !allOrdVisibly && <div className="row mt-3">
                     <div className="col flex justify-center relative">
                         {lazyLoading ? <Loader className={"w-[24px] h-[24px] top-[4px]"}/> :
                             <span onClick={requestMoreOrders}

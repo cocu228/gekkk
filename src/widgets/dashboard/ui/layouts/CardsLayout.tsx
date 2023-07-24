@@ -18,7 +18,7 @@ function CardsLayout() {
 
             <CardsGrid>
                 <>
-                    {organizations.cards
+                    {organizations?.cards
                         .filter(item => item.number)
                         .filter(item => item.clientId === account.client)
                         .map(item =>

@@ -37,6 +37,7 @@ export default memo(function () {
 
 
     useEffect(() => {
+
         (async () => {
             await getOrganizations()
         })()

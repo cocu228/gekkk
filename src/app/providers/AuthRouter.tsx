@@ -17,18 +17,18 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const navigate = useNavigate();
     const {token} = getCookieData<{ token: string }>();
-    const clearOrganizations = storeOrganizations(state => state.clearOrganizations);
+    // const cleaningOrganizationsStore = storeOrganizations(state => state.cleaning);
 
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
 
         setCookieData([
-            {key: "phone", value: phone, expiration: 3000000}, {
+            {key: "phone", value: phone, expiration: 1800}, {
                 key: "token",
                 value: token,
-                expiration: 3000000
+                expiration: 1800
             },
-            {key: "tokenHeaderName", value: tokenHeaderName, expiration: 3000000}])
+            {key: "tokenHeaderName", value: tokenHeaderName, expiration: 1800}])
 
         sessionStorage.removeItem("session-auth")
 
@@ -47,8 +47,9 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers['AccountId'] = undefined;
         
         clearAllCookies();
-        clearOrganizations();
+        // cleaningOrganizationsStore();
         navigate("/", {replace: true});
+        location.reload()
     };
 
     const value = useMemo<IValue>(

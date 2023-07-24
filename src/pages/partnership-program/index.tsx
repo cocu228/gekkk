@@ -19,7 +19,7 @@ const PartnershipProgram = () => {
             <div
                 className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                 {xl && <ContentDescription/>}
-                {!md && <ContentMain/>}
+                <ContentMain/>
             </div>
             {!xl && <div
                 className={`substrate text-sm h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>

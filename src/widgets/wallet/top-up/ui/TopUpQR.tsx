@@ -1,19 +1,22 @@
 import {useContext} from "react";
 import ReactQRCode from "react-qr-code";
-import {randomId} from "@/shared/lib/helpers";
+import {actionResSuccess, randomId} from "@/shared/lib/helpers";
 import {apiCreateAddress} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import useError from "@/shared/model/hooks/useError";
 
 const TopUpQR = () => {
     const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const {currency, name} = useContext(CtxWalletData)
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
+
     const onCreateAddress = async () => {
         setLoading(true)
 
         const response = await apiCreateAddress(networkIdSelect)
-        setRefresh(randomId())
+        actionResSuccess(response).success(() => setRefresh(randomId())).reject(localErrorHunter)
 
     }
 
@@ -53,12 +56,17 @@ const TopUpQR = () => {
                 <span><b className="text-red-800">2</b> network confirmation</span>
             </div>
         </div> */}
-    </> : <div className="row mt-8 px-4 mb-8 w-full">
-        <Button tabIndex={0} onClick={onCreateAddress} htmlType="submit"
-                className="w-full disabled:opacity-5 !text-white">
-            Generate address
-        </Button>
-    </div>)
+    </> : <>
+        <div className="row mt-8 px-4 mb-8 w-full">
+            <Button tabIndex={0} onClick={onCreateAddress} htmlType="submit"
+                    className="w-full disabled:opacity-5 !text-white">
+                Generate address
+            </Button>
+        </div>
+        <div className="row mt-8 px-4 mb-8 w-full">
+            {localErrorInfoBox}
+        </div>
+    </>)
 }
 
 export default TopUpQR;

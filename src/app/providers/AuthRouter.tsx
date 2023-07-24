@@ -35,7 +35,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = phone;
 
-        navigate(window.location.pathname);
+        navigate(window.location.pathname + window.location.search);
     };
 
     const logout = () => {

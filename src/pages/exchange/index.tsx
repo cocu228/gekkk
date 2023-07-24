@@ -1,17 +1,37 @@
-import {useParams, useSearchParams} from 'react-router-dom';
+import {useEffect} from 'react';
+import Loader from '@/shared/ui/loader';
+import {apiApplyCode} from '@/shared/api';
 import Exchange from '@/widgets/exchange/ui/Exchange';
 import ExchangeProvider from '@/widgets/exchange/model/ExchangeProvider';
-import { storeListExchangeRooms } from '@/shared/store/exchange-rooms/exchangeRooms';
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 
 export default () => {
+    const navigate = useNavigate();
     const {roomNumber} = useParams();
     const [params] = useSearchParams();
-    const from = params.get("from");
     const to = params.get("to");
+    const from = params.get("from");
+    const inviteCode = params.get("privateRoom");
+
+    //Temporary
+    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
 
     const roomsList = storeListExchangeRooms(state => state.roomsList);
     const roomInfo = roomsList?.find(r => r.timetick.toString() === roomNumber);
 
+    useEffect(() => {
+        if (inviteCode) {
+            (async () => {
+                const {data} = await apiApplyCode(inviteCode);
+                getRoomsList();
+
+                navigate(`/private-room/${data.result}`);
+            })();
+        }
+    }, [inviteCode]);
+
+    if (inviteCode) return <Loader/>;
     if (roomNumber && !roomInfo) return null;
 
     return (

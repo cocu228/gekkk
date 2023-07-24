@@ -16,7 +16,7 @@ function InviteLink({roomInfo = null}: IParams) {
         } = window.location;
         const host = `${protocol}//${hostname}${port ? `:${port}` : ''}`;
 
-        return `${host}/?roomCode=${roomInfo ? roomInfo.room_code : null}`;
+        return `${host}/exchange?privateRoom=${roomInfo ? roomInfo.room_code : null}`;
     }
 
     return (

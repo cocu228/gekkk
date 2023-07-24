@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
@@ -12,8 +11,6 @@ const PartnershipProgram = () => {
 
     const {xl, md} = useContext(BreakpointsContext);
 
-    const [state, setState] = useState(false)
-
     return (<div className="wrapper h-inherit w-full">
         <PageHead
             subtitle={"Earn rewards by inviting friends to Gekkard platform"}
@@ -22,17 +19,13 @@ const PartnershipProgram = () => {
             <div
                 className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pl-4 pr-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                 {xl && <ContentDescription/>}
-                {!md && state ? <ContentMain/> :
-                    <Button onClick={() => setState(true)} size={"md"} className="w-full">Get referral link</Button>}
+                {!md && <ContentMain/>}
             </div>
             {!xl && <div
                 className={`substrate text-sm h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                 <ContentDescription/>
             </div>}
         </div>
-        {md && !state && <div className="row fixed bottom-0 w-full left-0 z-10 p-4 bg-white">
-            <Button onClick={() => setState(true)} size={"md"} className="w-full">Get referral link</Button>
-        </div>}
     </div>);
 }
 

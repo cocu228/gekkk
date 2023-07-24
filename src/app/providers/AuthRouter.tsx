@@ -1,4 +1,4 @@
-import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
+import {createContext, FC, PropsWithChildren, useContext, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import $axios from "@/shared/lib/(cs)axios";
 import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
@@ -35,9 +35,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = phone;
 
-        navigate("/");
-
-
+        navigate(window.location.pathname);
     };
 
     const logout = () => {

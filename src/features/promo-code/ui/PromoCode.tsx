@@ -5,6 +5,7 @@ import Button from "@/shared/ui/button/Button";
 import {promoCodeMessage} from "@/shared/config/message";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {validateStatus} from "@/features/promo-code/model";
+import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
 
 const PromoCode = memo(() => {
     const [valInput, setValInput] = useState("");
@@ -53,7 +54,7 @@ const PromoCode = memo(() => {
                 <Button
                     htmlType={"submit"}
                     className={"w-full mt-10"}
-                    disabled={valInput === "" || loading || isCodeApplied}
+                    disabled={valInput === "" || loading || isCodeApplied || containsNonLatinCharacters(valInput)}
                 >Apply</Button>
             </Form>
         </div>

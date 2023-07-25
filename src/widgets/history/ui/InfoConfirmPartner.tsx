@@ -9,6 +9,7 @@ import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
+import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {
@@ -48,7 +49,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                 <div className="col w-3/5">
                     <Input value={input} onChange={({target}) => setInput(target.value)}/></div>
                 <div className="col w-2/5">
-                    <Button onClick={() => setPartnerInfo(input)} disabled={input === ""} size={"xl"}
+                    <Button onClick={() => setPartnerInfo(input)} disabled={input === "" || containsNonLatinCharacters(input)} size={"xl"}
                             className="w-full">Apply</Button>
                 </div>
             </div>

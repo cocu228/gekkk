@@ -36,6 +36,11 @@ export const historyTabs: Array<HistoryTab> = [
     }
 ];
 
+
+export const containsNonLatinCharacters = (str) =>{
+    return /^[^\u0000-\u007F]+$/.test(str);
+
+}
 export function getTabsAsRecord(tabs: Array<HistoryTab>) {
     let list: Record<string, string> = {};
 

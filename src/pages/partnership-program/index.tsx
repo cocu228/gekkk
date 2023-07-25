@@ -103,6 +103,11 @@ const ContentMain = () => {
     }, [])
 
     return <>
+        <div className="row mb-6">
+            <div className="col">
+                <h4 className="font-bold">Your agent code</h4>
+            </div>
+        </div>
         <div className="row mb-8">
             <div className="col">
                 <ClipboardField value={state}/>

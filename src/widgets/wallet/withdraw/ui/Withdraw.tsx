@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import WithdrawForm from './WithdrawForm';
 import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
-import { CtxWalletData, CtxWalletNetworks } from '../model/context';
+import { CtxWalletData, CtxWalletNetworks } from '../../model/context';
 
 const Withdraw = () => {
 

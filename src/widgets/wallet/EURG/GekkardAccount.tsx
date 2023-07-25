@@ -10,10 +10,11 @@ import { storeBankData } from '@/shared/store/bank-data/bank-data';
 import { ICtxCurrencyData } from '@/processes/RootContext';
 import Decimal from 'decimal.js';
 import {calculateAmount} from "@/shared/lib/helpers";
+import {storeOrganizations} from "@/shared/store/organizations";
 
 const GekkardAccount = () => {
 
-    const bankData = storeBankData(state => state.bankData)
+    const organizations = storeOrganizations(state => state.organizations)
     const wallet = useContext(CtxWalletData)
     const [input, setInput] = useState(null)
     const {isModalOpen, showModal, handleCancel} = useModal()
@@ -24,12 +25,10 @@ const GekkardAccount = () => {
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    if (!bankData) return <p>Loading bank data...</p>
+    if (!organizations) return <p>Loading bank data...</p>
 
-    const ibanBalanceWallet: ICtxCurrencyData = {
-        ...wallet,
-        availableBalance: new Decimal(bankData.accounts[0].balance)
-    }
+
+    console.log(organizations.accounts[0].balance)
 
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -45,7 +44,10 @@ const GekkardAccount = () => {
                 <InputCurrencyPercented
                     value={input}
                     onChange={setInput}
-                    currencyData={ibanBalanceWallet}
+                    currencyData={{
+                        ...wallet,
+                        availableBalance: new Decimal(organizations.accounts[0].balance)
+                    }}
                     // currencyData={wallet}
                     minValue={min_withdraw}
                 />

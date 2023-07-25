@@ -6,8 +6,9 @@ import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrencyPercented from "@/shared/ui/input-currency";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
-import WithdrawConfirm from "@/widgets/wallet/withdraw/WithdrawConfirm";
+import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
 
 const {TextArea} = Input;
 
@@ -27,6 +28,7 @@ const WithdrawForm = () => {
 
     const {
         min_withdraw = null,
+        max_withdraw = null,
         percent_fee = null,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
@@ -34,7 +36,6 @@ const WithdrawForm = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-    console.log(min_withdraw)
     const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
@@ -62,8 +63,12 @@ const WithdrawForm = () => {
                         />
                     </div>
 
-                {min_withdraw > inputs.amount && <div className="text-fs12 text-red-main -mt-3">
-                    minimum withdrawal amount {min_withdraw}
+                {min_withdraw !== 0 && (min_withdraw > inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
+                    Minimum withdrawal amount {min_withdraw} {wallet.currency}
+                </div>}
+
+                {max_withdraw !== 0 && (max_withdraw < inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
+                    Maximum withdrawal amount {max_withdraw} {wallet.currency}
                 </div>}
 
                 <div className='flex flex-col gap-2'>
@@ -82,7 +87,7 @@ const WithdrawForm = () => {
                 </div>
 
                 <Button size={"xl"} onClick={showModal}
-                        disabled={!inputs.amount || !inputs.address || !inputs.receiver || (wallet.availableBalance < inputs.amount)}
+                        disabled={isDisabledBtnWithdraw(inputs, wallet, max_withdraw, min_withdraw)}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>

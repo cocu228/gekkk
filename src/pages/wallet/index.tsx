@@ -5,7 +5,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import TopUp from "@/widgets/wallet/top-up/ui/TopUp";
 import WalletHeader from "@/widgets/wallet/header/ui";
-import Withdraw from "@/widgets/wallet/withdraw/Withdraw";
+import Withdraw from "@/widgets/wallet/withdraw/ui/Withdraw";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";

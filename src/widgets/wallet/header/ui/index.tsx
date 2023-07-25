@@ -3,7 +3,7 @@ import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {EurgTooltipText, EurgDescriptionText} from "../module/description";
+import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -72,7 +72,7 @@ const WalletHeader = () => {
                 {(isEURG || isGKE) && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-gray-400 text-semilight">
                         Rate
-                        <Tooltip text={EurgTooltipText}>
+                        <Tooltip text={isEURG ? EurgTooltipText : GkeTooltipText}>
                             <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help">
                                 <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                             </div>

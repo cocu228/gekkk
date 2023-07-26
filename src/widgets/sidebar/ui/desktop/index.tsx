@@ -74,11 +74,7 @@ const SidebarDesktop = () => {
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
 
-    const secondaryWallets = Array.from(currencies.values()).filter(it => {
-        if ([$const.EURG, $const.GKE].includes(it.currency)) return false;
-
-        return it.availableBalance || it.availableBalance?.comparedTo(0);
-    });
+    const secondaryWallets = Array.from(currencies.values())
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">

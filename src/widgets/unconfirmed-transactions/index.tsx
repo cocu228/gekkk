@@ -15,7 +15,7 @@ export const UnconfirmedTransactions = (props) => {
 
     const [state, setState] = useState([])
 
-    const {refreshKey} = useContext(CtxRootData)
+    const {refreshKey, account} = useContext(CtxRootData)
 
     const {showModal, isModalOpen, handleCancel} = useModal()
 
@@ -37,7 +37,7 @@ export const UnconfirmedTransactions = (props) => {
             })
 
         })()
-    }, [refreshKey])
+    }, [refreshKey, account])
 
 
     return state.length > 0 && <div className="negative-margin-content">

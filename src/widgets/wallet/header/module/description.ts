@@ -13,6 +13,10 @@ export const EurgTooltipText: string = `We pay you 3% per annum of EURG on your 
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
 (ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.`;
 
+export const GkeTooltipText: string = `Fixed yield on average monthly balance (in GKE tokens):
+➔ 5% p.a. first year from the date of issue
+➔ 3% p.a. second year from the date of issue`;
+
 export const actionsByFlag: Record<number, string> = {
     2: 'Buy or Sell',
     8: 'Top up, Exchange and Send',

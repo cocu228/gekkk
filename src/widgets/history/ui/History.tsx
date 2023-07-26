@@ -121,7 +121,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
             <GTable>
                 <GTable.Head className={styles.TableHead}>
                     <GTable.Row>
-                        {['Data', 'Flow of funds', 'Type'].map(label =>
+                        {['Date', 'Flow of funds', 'Type'].map(label =>
                             <GTable.Col className="text-start">
                                 <div className='ellipsis ellipsis-md' data-text={label}>
                                     <span>{label}</span>

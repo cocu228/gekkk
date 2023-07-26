@@ -13,11 +13,10 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 
 export const UnconfirmedTransactions = (props) => {
 
-    const [state, setState] = useState([])
-
-    const {refreshKey, account} = useContext(CtxRootData)
-
-    const {showModal, isModalOpen, handleCancel} = useModal()
+    const [state, setState] = useState([]);
+    const {refreshKey, account} = useContext(CtxRootData);
+    const {showModal, isModalOpen, handleCancel} = useModal();
+    const {currencies} = useContext(CtxRootData);
 
 
     useEffect(() => {
@@ -53,7 +52,7 @@ export const UnconfirmedTransactions = (props) => {
             onCancel={handleCancel}
             title={state.length === 1
                 ? "Transaction info"
-                : "Unconfirmed transactions"
+                : "Unconfirmed incoming transactions"
             }
         >
             {state.length === 1 ? (
@@ -62,7 +61,7 @@ export const UnconfirmedTransactions = (props) => {
                 <GTable>
                     <GTable.Head className={styles.TableHead}>
                         <GTable.Row>
-                            {['Data', 'Flow of funds', 'Type'].map(label =>
+                            {['Date', 'Flow of funds'].map(label =>
                                 <GTable.Col className="text-start">
                                     <div className='ellipsis ellipsis-md' data-text={label}>
                                         <span>{label}</span>
@@ -74,11 +73,11 @@ export const UnconfirmedTransactions = (props) => {
                     <GTable.Body className={styles.TableBody}>
                         {state.map((item) => {
                             return (
-                                <GTable.Row cols={3} className={styles.Row + ' hover:font-medium'}>
+                                <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
                                     <TransactionInfo infoList={item}>
                                         <GTable.Col>
                                             <div className="ellipsis ellipsis-md">
-                                                <span className="">{formatForCustomer(item.datetime)}</span>
+                                                <span>{formatForCustomer(item.datetime)}</span>
                                             </div>
                                         </GTable.Col>
 
@@ -86,14 +85,8 @@ export const UnconfirmedTransactions = (props) => {
                                             <div>
                                                 <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                                     {!item.is_income && '-'}
-                                                    {+item.amount.toFixed(item.currency.roundPrec)} {item.currency}
+                                                    {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                                 </span>
-                                            </div>
-                                        </GTable.Col>
-
-                                        <GTable.Col>
-                                            <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
-                                                {item.tx_type_text}
                                             </div>
                                         </GTable.Col>
                                     </TransactionInfo>

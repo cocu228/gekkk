@@ -25,6 +25,17 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
     return result.toDecimalPlaces(roundingValue).toNumber()
 }
 
+export function getSecondaryTabsAsRecord(tabs: Array<{Key: string, Title: string}>) {
+    let list: Record<string, string> = {};
+
+    tabs.forEach(tab => Object.assign(list, {
+        [tab.Key]: tab.Title
+    }));
+
+    return list;
+}
+
+
 export const actionSuccessConstructor = function (value: boolean) {
 
     if (value) {

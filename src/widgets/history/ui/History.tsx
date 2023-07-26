@@ -5,14 +5,14 @@ import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
 import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
-import {historyTabs, getTabsAsRecord} from "../model/helpers";
+import {historyTabs} from "../model/helpers";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
 import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
-import {actionResSuccess} from "@/shared/lib/helpers";
+import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 
 const {RangePicker} = DatePicker;
@@ -97,7 +97,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
     return (
         <div id={"History"} className="wrapper">
-            <SecondaryTabGroup tabs={getTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === TabKey.CUSTOM && (
                 <div className='flex flex-col mt-3 mb-5'>
                     Enter period or choose from calendar

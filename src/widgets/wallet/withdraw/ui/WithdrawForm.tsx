@@ -9,6 +9,7 @@ import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
+// import {useNavigate} from "react-router-dom";
 
 const {TextArea} = Input;
 
@@ -22,7 +23,7 @@ const WithdrawForm = () => {
     })
 
     const {isModalOpen, showModal, handleCancel} = useModal()
-
+    // const navigate = useNavigate()
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const wallet = useContext(CtxWalletData)
 
@@ -62,6 +63,12 @@ const WithdrawForm = () => {
                             minValue={min_withdraw}
                         />
                     </div>
+
+                {wallet.availableBalance.toNumber() < inputs.amount && <div className="text-fs12 text-red-main -mt-3">
+                    You don't have enough fund. Please <a className="text-blue-400"
+                                                          // onClick={() => navigate(`/wallet/${wallet.currency}/Top Up`)}
+                                                          href={`/wallet/${wallet.currency}/Top Up`}>top up</a> your account.
+                </div>}
 
                 {min_withdraw !== 0 && (min_withdraw > inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
                     Minimum withdrawal amount {min_withdraw} {wallet.currency}

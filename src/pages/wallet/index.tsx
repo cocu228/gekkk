@@ -16,6 +16,7 @@ import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
 import { AccountRights } from "@/shared/config/account-rights";
 
 function Wallet() {
+
     const {currency, tab} = useParams();
     const {xl} = useContext(BreakpointsContext);
     const {currencies, account} = useContext(CtxRootData);

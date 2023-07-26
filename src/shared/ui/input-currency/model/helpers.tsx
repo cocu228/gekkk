@@ -12,10 +12,10 @@ export const inputCurrencyValidation = (
                 Amount must contains only numbers!
             </span>
 
-        case validateBalance && balanceAmount.lessThan(+value):
-            return <span className="text-red-main md:text-xs">
-                Insufficient funds on the account: {balanceAmount.toString()}
-            </span>
+        // case validateBalance && balanceAmount.lessThan(+value):
+        //     return <span className="text-red-main md:text-xs">
+        //         Insufficient funds on the account: {balanceAmount.toString()}
+        //     </span>
 
         case minAmount.lessThanOrEqualTo(0):
             return null;

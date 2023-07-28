@@ -46,7 +46,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         
         clearAllCookies();
         // cleaningOrganizationsStore();
-        navigate("/", {replace: true});
         location.reload()
     };
 

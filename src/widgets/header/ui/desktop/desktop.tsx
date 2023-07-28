@@ -87,7 +87,7 @@ const HeaderDesktop = memo((props) => {
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-    }, [account]);
+    }, [account.number]);
 
     return <>
         <header className={`flex ${styles.Header}`}>

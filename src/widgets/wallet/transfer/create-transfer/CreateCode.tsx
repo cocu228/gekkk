@@ -67,12 +67,16 @@ const CreateCode = () => {
                 </div>
                 <div className="row mb-6">
                     <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
-                        <div className="flex items-center gap-2">
-                            <span>Use confirmation</span> <Tooltip text={text}>
-                            <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
+                        <div className='flex items-center'>
+                            Use confirmation
+
+                            <div className="flex items-center">
+                                <Tooltip text={text}>
+                                    <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                                        <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
+                                    </div>
+                                </Tooltip>
                             </div>
-                        </Tooltip>
                         </div>
                     </Checkbox>
                 </div>

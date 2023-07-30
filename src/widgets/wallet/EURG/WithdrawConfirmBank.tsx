@@ -1,18 +1,10 @@
-import React, {useContext, useState} from "react";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw} from "@/shared/api";
-import Decimal from "decimal.js";
-import {actionResSuccess, calculateAmount, isNull} from "@/shared/lib/helpers";
-import Input from "@/shared/ui/input/Input";
-import Form from '@/shared/ui/form/Form';
-import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {codeMessage} from "@/shared/config/message";
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
+import Form from '@/shared/ui/form/Form';
+import {useContext, useState} from "react";
+import Button from "@/shared/ui/button/Button";
 import useError from "@/shared/model/hooks/useError";
-import {storeBankData} from "@/shared/store/bank-data/bank-data";
+import {calculateAmount} from "@/shared/lib/helpers";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
 const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
 
@@ -20,7 +12,7 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
     const {networkIdSelect, networksForSelector, networksDefault} = useContext(CtxWalletNetworks)
     // const {label} = networksForSelector.find(it => it.value === networkIdSelect)
     // const {percent_fee} = networksDefault.find(it => it.id === networkIdSelect)
-    const bankData = storeBankData(state => state.bankData);
+    //const bankData = storeBankData(state => state.bankData);
     const wallet = useContext(CtxWalletData)
     const [loading, setLoading] = useState(false)
 
@@ -29,20 +21,20 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
 
         setLoading(true)
 
-        const response = await apiCreateWithdraw(
-            wallet.currency,
-            networkIdSelect,
-            new Decimal(amount).toNumber(),
-            1.5,
-            bankData.client.address.country + " " + bankData.client.address.city + " " + bankData.client.address.street + " " + bankData.client.address.streetNumber + " " + bankData.client.address.apartmentNumber,
-            bankData.clientName
-        )
+        //const response = await apiCreateWithdraw(
+        //    wallet.currency,
+        //    networkIdSelect,
+        //    new Decimal(amount).toNumber(),
+        //    1.5,
+        //    bankData.client.address.country + " " + bankData.client.address.city + " " + bankData.client.address.street + " " + bankData.client.address.streetNumber + " " + bankData.client.address.apartmentNumber,
+        //    bankData.clientName
+        //)
 
-        actionResSuccess(response)
-            .success(() => {
-                handleCancel()
-            })
-            .reject(localErrorHunter)
+        //actionResSuccess(response)
+        //    .success(() => {
+        //        handleCancel()
+        //    })
+        //    .reject(localErrorHunter)
 
         setLoading(false)
     }

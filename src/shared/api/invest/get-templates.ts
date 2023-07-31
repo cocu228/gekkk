@@ -16,7 +16,10 @@ export interface ITemplateType {
     depo_archive: number;
 }
 
-export const apiTemplates = (templates_filter: Array<number> = [3, 4]) =>
+export const apiTemplates = (templates_filter: Array<number> = [
+    3,  // Cashback program
+    4   // No fee program
+]) =>
     $axios.get<$AxiosResponse<Array<ITemplateType>>>('/gek/v1/invest/get_templates', {
         params: {
             templates_filter

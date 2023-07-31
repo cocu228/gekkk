@@ -13,7 +13,10 @@ export interface IResInvestment {
     link_cur_end_rate: number
 }
 
-export const apiInvestments = (start?: string, end?: string, investment_types?: number[]) =>
+export const apiInvestments = (start?: string, end?: string, investment_types: Array<number> = [
+    3,  // Cashback program
+    4   // No fee program
+]) =>
     $axios.get<$AxiosResponse<Array<IResInvestment>>>('/gek/v1/invest/get_investments', {
         params: {
             end,

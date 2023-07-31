@@ -37,7 +37,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
                     </div>
                 </div>
             </div>
-            <div className="row text-right pb-10 flex justify-center items-center flex-col">
+            {onBtnApply !== null && <div className="row text-right pb-10 flex justify-center items-center flex-col">
                 <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                     <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
                         <ReactQRCode
@@ -50,7 +50,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
                 <div className="row mt-4 w-full">
                     <ClipboardField value={infoCode.code}/>
                 </div>
-            </div>
+            </div>}
             <div className="row">
                 <div className="col">
                     <div className="row mb-4 w-full flex">

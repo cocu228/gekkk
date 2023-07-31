@@ -14,7 +14,7 @@ export const storeInvestments = create<IStoreInvestments>()(devtools((set) => ({
     noFeeInvestment: null,
     cashbackInvestment: null,
     getInvestments: async () => {
-        const {data} = await apiInvestments(null, null, [3, 4]);
+        const {data} = await apiInvestments(null, null);
 
         set((state) => ({
             ...state,

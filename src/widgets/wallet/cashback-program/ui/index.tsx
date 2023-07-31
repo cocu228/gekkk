@@ -1,3 +1,4 @@
+import {addDays} from "date-fns";
 import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
@@ -9,13 +10,14 @@ import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
-import { addDays } from "date-fns";
+import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
 
 const CashbackProgram = () => {
     const lockConfirmModal = useModal();
     const wallet = useContext(CtxWalletData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
+    const cashbackTemplate = storeInvestTemplates(state => state.cashbackTemplate);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
 
     if (!investment) return <Loader/>;
@@ -72,6 +74,7 @@ const CashbackProgram = () => {
                         endDate={endDate}
                         startDate={startDate}
                         currency={wallet.currency}
+                        templateTerm={cashbackTemplate.depo_min_time}
                     />
                 </div>
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
@@ -106,7 +109,10 @@ const CashbackProgram = () => {
 
             <div className="row">
                 <div className="col flex justify-center">
-                    <span className="text-fs12 text-gray-500 text-center leading-4">The period of locking tokens is 30 days. At the end of this period the funds will return to your account.</span>
+                    <span className="text-fs12 text-gray-500 text-center leading-4">
+                        The period of locking tokens is {cashbackTemplate.depo_min_time} days. At the end of this period
+                        the funds will return to your account.
+                    </span>
                 </div>
             </div>
 
@@ -121,7 +127,8 @@ const CashbackProgram = () => {
                     amount={amount}
                     startDate={startDate}
                     currency={wallet.currency}
-                    endDate={addDays(new Date(), 30)}
+                    templateTerm={cashbackTemplate.depo_min_time}
+                    endDate={addDays(new Date(), cashbackTemplate.depo_min_time)}
                 />
                 
                 <div className="mt-6 md:mt-12">
@@ -133,7 +140,7 @@ const CashbackProgram = () => {
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
                                 amount: +amount,
-                                term_days: 30,
+                                term_days: cashbackTemplate.depo_min_time,
                                 templateType: 3
                             });
 
@@ -151,7 +158,8 @@ function CashbackProperties({
     amount,
     endDate,
     currency,
-    startDate
+    startDate,
+    templateTerm
 }) {
     return (
         <>
@@ -160,7 +168,7 @@ function CashbackProperties({
                 </div>
             </div>
             <div className="row mb-2">
-                <div className="col"><InlineProperty left={"Term"} right={"30 days"}/>
+                <div className="col"><InlineProperty left={"Term"} right={`${templateTerm} days`}/>
                 </div>
             </div>
             <div className="row mb-2">

@@ -73,7 +73,7 @@ const WalletHeader = () => {
                     <div className="text-sm font-medium text-gray-400 text-semilight">
                         Rate
                         <Tooltip text={isEURG ? EurgTooltipText : GkeTooltipText}>
-                            <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help">
+                            <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 mt-[1px] cursor-help">
                                 <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                             </div>
                         </Tooltip>

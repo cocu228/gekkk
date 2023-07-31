@@ -6,7 +6,7 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 
 type TooltipParams = {
     children?: JSX.Element | never[],
-    text: String
+    text: String | JSX.Element
 }
 
 const Tooltip = ({children, text}: TooltipParams) => {
@@ -15,7 +15,7 @@ const Tooltip = ({children, text}: TooltipParams) => {
 
     return (
         <div
-            className={`relative inline-block`}
+            className={`inline-block absolute`}
             onClick={() => {
                 if (xl && !tooltipModal.isModalOpen)
                     tooltipModal.showModal();

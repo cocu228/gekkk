@@ -12,3 +12,19 @@ export interface IExchangePrice {
     isSwapped: boolean;
     amount: number | null;
 }
+
+export enum OrderState {
+    OPENED = 'Created',
+    FAILED = 'Failed',
+    CLOSED = 'Canceled',
+}
+
+export enum TabKey {
+    OPENED = 'Opened',
+    CLOSED = 'Closed',
+}
+
+export type OrdersTab = {
+    Key: TabKey;
+    Title: string;
+}

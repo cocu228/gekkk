@@ -140,7 +140,7 @@ const CashbackProgram = () => {
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
                                 amount: +amount,
-                                term_days: 30,
+                                term_days: cashbackTemplate.depo_min_time,
                                 templateType: 3
                             });
 

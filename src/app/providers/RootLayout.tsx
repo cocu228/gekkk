@@ -12,6 +12,7 @@ import {storeOrganizations} from "@/shared/store/organizations";
 import $axios from "@/shared/lib/(cs)axios";
 import Header from "@/widgets/header/ui";
 import {maskAccountRights} from '@/shared/config/account-rights';
+import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
 
 export default memo(function () {
 
@@ -33,15 +34,15 @@ export default memo(function () {
     const prevAccountRef = useRef<null | string>(null);
 
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
+    const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
     const organizations = storeOrganizations(state => state.organizations);
 
 
     useEffect(() => {
-
         (async () => {
-            await getOrganizations()
-        })()
-    }, [])
+            await getOrganizations();
+        })();
+    }, []);
 
 
     const getInfoClient = async (number: null | string, id: null | string, client: null | string) => {
@@ -94,10 +95,9 @@ export default memo(function () {
 
         if (account.number) {
             (async function () {
-                // const infoClient = await apiGetInfoClient();
+                await getInvestTemplates();
                 const walletsResponse = await apiGetBalance();
                 const assetsResponse = await apiGetMarketAssets();
-
 
                 actionResSuccess(walletsResponse)
                     .success(() => {

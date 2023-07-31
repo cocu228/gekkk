@@ -5,8 +5,15 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets} from '@/shared/api';
-import {actionResSuccess, getFlagsFromMask, randomId, uncoverArray, uncoverResponse} from '@/shared/lib/helpers';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IBankAccount} from '@/shared/api';
+import {
+    actionResSuccess, getCookieData,
+    getFlagsFromMask,
+    randomId,
+    setCookieData,
+    uncoverArray,
+    uncoverResponse
+} from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {storeOrganizations} from "@/shared/store/organizations";
 import $axios from "@/shared/lib/(cs)axios";
@@ -72,11 +79,36 @@ export default memo(function () {
 
         (async () => {
             if (organizations && account.number === null) {
-                await getInfoClient(
-                    uncoverArray(organizations.accounts).number,
-                    uncoverArray(organizations.accounts).id,
-                    uncoverArray(organizations.accounts).clientId)
+                const cookieData = getCookieData<{
+                    accountId?: string
+                    phone: string
+                    token: string
+                    tokenHeaderName: string
+                    username: string
+                }>()
+
+                if (cookieData.hasOwnProperty("accountId")) {
+
+                    const account: IBankAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
+                        uncoverArray(organizations.accounts)
+
+                    await getInfoClient(
+                        account.number,
+                        account.id,
+                        account.clientId)
+
+
+                } else {
+                    await getInfoClient(
+                        uncoverArray(organizations.accounts).number,
+                        uncoverArray(organizations.accounts).id,
+                        uncoverArray(organizations.accounts).clientId)
+                }
+
+
+
             } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.number) {
+                setCookieData([{key: "accountId", value: account.number}])
                 await getInfoClient(
                     account.number,
                     account.id,
@@ -123,14 +155,13 @@ export default memo(function () {
         }));
 
     const setAccount = (number: null | string, id: null | string, client: null | string) => {
-        setState(prev => {
-            if (prev.account.number === number) return prev;
+        if (prevAccountRef.current !== number) {
 
-            return ({
+            setState(prev => ({
                 ...prev,
                 account: {number, id, client, rights: null}
-            })
-        });
+            }));
+        }
     }
 
 

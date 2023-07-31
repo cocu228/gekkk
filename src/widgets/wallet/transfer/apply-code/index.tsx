@@ -65,9 +65,9 @@ const ApplyCode = () => {
                         size={"xl"}
                         className={"w-full !h-full !font-medium"}>
                     Apply
-                    </Button>
+                </Button>
 
-                    <Modal title={infoCode ? "The code applied successfully" : "Transfer code info"}
+                <Modal title={infoCode ? "The code applied successfully" : "Transfer code info"}
                            onCancel={handleCancel} open={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?

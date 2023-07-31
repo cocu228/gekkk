@@ -165,7 +165,7 @@ export const getCookieData = <T>(): T => {
 };
 
 
-export const setCookieData = (cookieData: { key: string; value: string; expiration?: number }[]): void => {
+export const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
     cookieData.forEach(({ key, value, expiration }) => {
         const encodedValue: string = encodeURIComponent(value);
         let cookieString: string = `${key}=${encodedValue}`;

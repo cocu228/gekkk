@@ -46,7 +46,8 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         
         clearAllCookies();
         // cleaningOrganizationsStore();
-        location.reload()
+        navigate('/', {replace: true});
+        location.reload();
     };
 
     const value = useMemo<IValue>(

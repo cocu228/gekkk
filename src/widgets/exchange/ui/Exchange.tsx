@@ -1,20 +1,22 @@
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
+import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../model/context';
 import IconSwap from '@/shared/ui/icons/IconSwap';
 import History from '@/widgets/history/ui/History';
+import {CtxRootData} from '@/processes/RootContext';
 import useModal from '@/shared/model/hooks/useModal';
 import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
-import {CtxRootData} from '@/processes/RootContext';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import {apiCloseRoom, apiCreateOrder} from '@/shared/api';
 import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
+import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
 import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
@@ -27,12 +29,12 @@ import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
-import RoomProperties from './room-properties/RoomProperties';
 
 function Exchange() {
     const confirmModal = useModal();
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
+    const navigate = useNavigate();
     const {currencies} = useContext(CtxRootData);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
@@ -65,6 +67,7 @@ function Exchange() {
             case 'default':
                 return (
                     <Dropdown
+                        isOpen={roomInfoModal.isModalOpen}
                         trigger={
                             <span>Exchange</span>
                         }
@@ -276,6 +279,7 @@ function Exchange() {
 
                             apiCloseRoom(roomInfo.timetick).then(() => {
                                 onRoomClosing(roomInfo.timetick);
+                                navigate('/exchange');
                             });
                         }}
                     >{`${roomType === 'creator' ? 'Close' : 'Leave'} private exchange room`}</Button>

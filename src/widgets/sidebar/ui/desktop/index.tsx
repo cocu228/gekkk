@@ -1,14 +1,14 @@
 import Decimal from "decimal.js";
 import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
-import {NavLink} from 'react-router-dom';
 import Modal from "@/shared/ui/modal/Modal";
-import {CtxRootData} from "@/processes/RootContext";
 import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
+import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import $const from "@/shared/config/coins/constants";
 import useModal from "@/shared/model/hooks/useModal";
+import {NavLink, useNavigate} from 'react-router-dom';
 import totalizeAmount from "../../model/totalize-amount";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
@@ -28,6 +28,7 @@ const SidebarDesktop = () => {
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
     const {account} = useContext(CtxRootData);
+    const navigate = useNavigate();
     const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
@@ -339,9 +340,13 @@ const SidebarDesktop = () => {
                     size="xl"
                     className="w-full"
                     onClick={() => {
+                        if(window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                            navigate('/exchange');
+                        }
+
                         apiCloseRoom(selectedRoom.timetick).then(() => {
-                            removeExchangeRoom(selectedRoom.timetick);
-                            roomCloseModal.handleCancel();
+                           removeExchangeRoom(selectedRoom.timetick);
+                           roomCloseModal.handleCancel();
                         }).catch(roomCloseModal.handleCancel);
                     }}
                 >Close private exchange room</Button>

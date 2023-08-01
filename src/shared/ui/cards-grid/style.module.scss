@@ -1,0 +1,12 @@
+@import "@styles/mixins";
+
+.CardsGrid {
+  display: grid;
+  gap: 40px 20px;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  @include min-devices(xxxl) {
+    gap: 20px;
+  }
+}

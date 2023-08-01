@@ -10,7 +10,7 @@
     margin-right: var(--content-pad-right-xl);
   }
 
-  @include max-devices(md) {
+  @include max-devices(xxl) {
     margin-left: var(--content-pad-horizontal-md);
     margin-right: var(--content-pad-horizontal-md);
   }

@@ -1,5 +1,4 @@
 import {useEffect} from 'react';
-import Loader from '@/shared/ui/loader';
 import {apiApplyCode} from '@/shared/api';
 import Exchange from '@/widgets/exchange/ui/Exchange';
 import ExchangeProvider from '@/widgets/exchange/model/ExchangeProvider';
@@ -31,8 +30,8 @@ export default () => {
         }
     }, [inviteCode]);
 
-    if (inviteCode) return <Loader/>;
-    if (roomNumber && !roomInfo) return null;
+    if (inviteCode) return null;
+    if (roomNumber && !roomInfo) navigate('/exchange');
 
     return (
         <ExchangeProvider roomInfo={roomInfo} to={to} from={from}>

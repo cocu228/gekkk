@@ -1,111 +1,223 @@
-import descriptions from '@/shared/config/coins/descriptions'
+import {useContext, useState} from "react";
 import Button from '@/shared/ui/button/Button';
-import {useNavigate} from "react-router-dom";
-import {useContext} from "react";
-import {CtxWalletData} from "@/widgets/wallet/model/context";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency";
+import InlineProperty from "@/shared/ui/inline-property";
+import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {storeInvestments} from "@/shared/store/investments/investments";
+import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
+import { formatForCustomer } from "@/shared/lib/date-helper";
+import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
+import { apiCreateInvestment } from "@/shared/api";
 
 const NoFeeProgram = () => {
-
-    const currency = useContext(CtxWalletData);
-    const {xl, md} = useContext(BreakpointsContext);
-    const navigate = useNavigate();
+    const lockConfirmModal = useModal();
+    const wallet = useContext(CtxWalletData);
+    const [amount, setAmount] = useState<string>('');
+    const investment = storeInvestments(state => state.noFeeInvestment);
+    const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);
+    const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
 
     return (
         <>
             <div className="row mb-10">
                 <div className="col">
                     <div className="info-box-warning">
-                        <p className="font-extrabold text-sm mb-3">Locking {currency.currency} tokens gives you access
-                            to the no fee
-                            crypto-fiat
-                            transactions</p>
-                        <p className="text-sm">Up to the amount not exceeding a similar number of
-                            blocked {currency.currency} tokens.
-                            Funds are
-                            blocked for 90
-                            days.</p>
+                        <p className="font-extrabold text-sm mb-3">
+                            Locking {wallet.currency} tokens gives you access
+                            to the no fee crypto-fiat transactions
+                        </p>
+
+                        <p className="text-sm">
+                            Up to the amount not exceeding a similar number of
+                            blocked {wallet.currency} tokens.
+                            Funds are blocked for {noFeeTemplate.depo_min_time} days.
+                        </p>
                     </div>
                 </div>
             </div>
+
             <div className="row mb-6">
                 <div className="col bg-[#F9F9FA] px-6 py-5">
                     <div className="row flex flex-wrap mb-4">
-                        <div data-text={"Locked funds"}
-                             className="col w-1/3  flex flex-row items-center justify-center ellipsis">
-                            <img className="mr-2" width={24} height={24} src="/img/icon/replenishment.svg"
-                                 alt="replenishment"/>
+                        <div data-text={"Locked funds"} className="col w-1/3  flex flex-row items-center justify-center ellipsis">
+                            <img
+                                className="mr-2"
+                                width={24} height={24}
+                                alt="replenishment"
+                                src="/img/icon/replenishment.svg"
+                            />
+
                             <span className="text-gray-400 text-sm">Locked funds</span>
                         </div>
+
                         <div className="col w-1/3 flex flex-row items-center  justify-center">
-                            <img className="mr-2" width={24} height={24} src="/img/icon/DepositStartingRateIcon.svg"
-                                 alt="DepositStartingRateIcon"/>
+                            <img
+                                className="mr-2"
+                                width={24} height={24}
+                                alt="DepositStartingRateIcon"
+                                src="/img/icon/DepositStartingRateIcon.svg"
+                            />
+
                             <span className="text-gray-400 text-sm">Used</span>
                         </div>
-                        <div data-text={"Available for use"}
-                             className="col w-1/3  flex flex-row items-center justify-center ellipsis">
-                            <img className="mr-2" width={24} height={24} src="/img/icon/DepositCurrentIncomeIcon.svg"
-                                 alt="DepositCurrentIncomeIcon"/>
-                            <span className="text-gray-400 text-sm">
-                                Available for use
-                            </span>
-                        </div>
-                    </div>
-                    <div className="row flex gap-1">
-                        <div className="col w-1/3  flex flex-row items-center  justify-center">
-                            <span className="text-lg font-bold">0</span>
-                        </div>
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <span className="text-lg font-bold">0</span>
-                        </div>
-                        <div className="col w-1/3  flex flex-row items-center justify-center">
-                            <span className="text-lg font-bold text-green">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row flex flex-wrap mb-6">
-                <div
-                    className="col -md:border-r-1 -md:border-solid -md:border-gray-400 md:mb-5 -md:pr-10 md:w-full w-3/5">
-                    <div className="row mb-2">
-                        <div className="col"><InlineProperty left={"Start of program"} right={"31/01/23 at 16:04"}/>
-                        </div>
-                    </div>
-                    <div className="row mb-2">
-                        <div className="col"><InlineProperty left={"Term"} right={"90 days"}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col"><InlineProperty left={"Until"} right={"01/05/23 at 16:04"}/>
+
+                        <div data-text={"Available for use"} className="col w-1/3  flex flex-row items-center justify-center ellipsis">
+                            <img
+                                className="mr-2"
+                                width={24} height={24}
+                                src="/img/icon/DepositCurrentIncomeIcon.svg"
+                                alt="DepositCurrentIncomeIcon"
+                            />
+
+                            <span className="text-gray-400 text-sm">Available for use</span>
                         </div>
                     </div>
 
-                </div>
-                <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
-                    <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">At the
-                        end of the program term, the
-                        blocked {currency.currency} funds will return to your account</p>
+                    <div className="row flex gap-1">
+                        <div className="col w-1/3  flex flex-row items-center gap-1 justify-center">
+                            <span className="text-lg font-bold">{investment?.amount ?? 0}</span>
+                            <span className="text-lg text-green font-bold">{!amount ? null : (
+                                `(+${+amount})`
+                            )}</span>
+                        </div>
+
+                        <div className="col w-1/3  flex flex-row items-center justify-center">
+                            <span className="text-lg font-bold">{investment?.cur_amount ?? 0}</span>
+                        </div>
+
+                        <div className="col w-1/3  flex flex-row items-center justify-center">
+                            <span className="text-lg font-bold text-green">{investment
+                                ? investment.amount - investment.cur_amount
+                                : 0
+                            }</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div className="row flex flex-wrap mb-6">
+                <div className="col -md:border-r-1 -md:border-solid -md:border-gray-400 md:mb-5 -md:pr-10 md:w-full w-3/5">
+                    <NoFeeProperties
+                        endDate={investment?.date_end ?? new Date()}
+                        startDate={investment?.date_start ?? new Date()}
+                        templateTerm={noFeeTemplate.depo_min_time}
+                    />
+                </div>
+
+                <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
+                    <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
+                        At the end of the program term, the
+                        blocked {wallet.currency} funds will return to your account
+                    </p>
+                </div>
+            </div>
+
             <div className="row mb-7">
                 <div className="col">
-                    <InputCurrency header={"Lock funds"} onChange={() => null} value={null} currencyData={currency}/>
+                    <InputCurrency
+                        header={"Lock funds"}
+                        onChange={setAmount}
+                        value={amount ? amount : null}
+                        currencyData={wallet}
+                    />
                 </div>
             </div>
+
             <div className="row mb-4">
                 <div className="col">
-                    <Button className="w-full" size={"xl"}>Lock {currency.currency} tokens</Button>
+                    <Button
+                        disabled={!amount.length}
+                        onClick={lockConfirmModal.showModal}
+                        className="w-full"
+                        size={"xl"}
+                    >
+                        Lock {wallet.currency} tokens
+                    </Button>
                 </div>
             </div>
+
             <div className="row">
                 <div className="col flex justify-center">
                     <span className="text-fs12 text-gray-500 text-center leading-4">The period of locking tokens is one calendar month. Start and end dates of the program will be updated</span>
                 </div>
             </div>
+            
+            <Modal
+                width={400}
+                title="Confirm locking"
+                open={lockConfirmModal.isModalOpen}
+                onCancel={lockConfirmModal.handleCancel}
+            >
+                <div className="mb-2">
+                    <NoFeeProperties
+                        endDate={investment?.date_end ?? new Date()}
+                        startDate={investment?.date_start ?? new Date()}
+                        templateTerm={noFeeTemplate.depo_min_time}
+                    />
+                </div>
+
+                <div className="row mb-2">
+                    <div className="col">
+                        <InlineProperty
+                            left={"Amount"}
+                            right={<>
+                                {investment?.amount} {!amount ? null : (
+                                    (<span className="text-green">+({amount})</span>)
+                                )} {wallet.currency}
+                            </>}
+                        />
+                    </div>
+                </div>
+                
+                <div className="mt-6 md:mt-12">
+                    <Button
+                        size="xl"
+                        className="w-full"
+                        onClick={async () => {
+                            setAmount('');
+                            lockConfirmModal.handleCancel();
+                            const {data} = await apiCreateInvestment({
+                                amount: +amount,
+                                term_days: noFeeTemplate.depo_min_time,
+                                templateType: 4
+                            });
+
+                            if (data.result != null) updateNoFeeInvestment(data.result)
+                        }}
+                    >Confirm</Button>
+                </div>
+            </Modal>
         </>
     );
 };
+
+function NoFeeProperties({
+    endDate,
+    startDate,
+    templateTerm
+}) {
+    return (
+        <>
+            <div className="row mb-2">
+                <div className="col">
+                    <InlineProperty left={"Start of program"} right={formatForCustomer(startDate)}/>
+                </div>
+            </div>
+
+            <div className="row mb-2">
+                <div className="col">
+                    <InlineProperty left={"Term"} right={templateTerm}/>
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <InlineProperty left={"Until"} right={formatForCustomer(endDate)}/>
+                </div>
+            </div>
+        </>
+    )
+}
 
 export default NoFeeProgram;

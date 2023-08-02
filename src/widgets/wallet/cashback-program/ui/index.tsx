@@ -74,8 +74,8 @@ const CashbackProgram = () => {
                     <CashbackProperties
                         locked={investment?.amount ?? 0}
                         amount={amount}
-                        endDate={investment?.date_end ?? new Date()}
-                        startDate={investment?.date_start ?? new Date()}
+                        endDate={investment?.date_end}
+                        startDate={investment?.date_start}
                         currency={wallet.currency}
                         templateTerm={cashbackTemplate.depo_min_time}
                     />
@@ -172,7 +172,7 @@ function CashbackProperties({
         <>
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"Start date"} right={formatForCustomer(startDate)}/>
+                    <InlineProperty left={"Start date"} right={!startDate ? '-' : formatForCustomer(startDate)}/>
                 </div>
             </div>
 
@@ -184,7 +184,7 @@ function CashbackProperties({
 
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"End date"} right={formatForCustomer(endDate)}/>
+                    <InlineProperty left={"End date"} right={!endDate ? '-' : formatForCustomer(endDate)}/>
                 </div>
             </div>
 

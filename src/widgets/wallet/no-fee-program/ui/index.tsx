@@ -139,7 +139,9 @@ const NoFeeProgram = () => {
 
             <div className="row">
                 <div className="col flex justify-center">
-                    <span className="text-fs12 text-gray-500 text-center leading-4">The period of locking tokens is one calendar month. Start and end dates of the program will be updated</span>
+                    <span className="text-fs12 text-gray-500 text-center leading-4">
+                        The period of locking tokens is {noFeeTemplate.depo_min_time} days. Start and end dates of the program will be updated
+                    </span>
                 </div>
             </div>
             

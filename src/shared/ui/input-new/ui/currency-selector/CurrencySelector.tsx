@@ -47,10 +47,10 @@ export default ({
                 <IconCoin width={34} height={34} code={currencyData.currency}/>
             </>}
 
-            <span className="text-sm font-medium">
+            <span className={"text-sm font-medium " + (currencySelector ? '' : 'mr-[17px]')}>
                 {currencySelector && !currencyData ? 'Select token' : currencyData.currency}
             </span>    
-            
+
             {currencySelector && <IconDoubleArrows/>}
         </button>
 

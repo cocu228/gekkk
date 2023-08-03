@@ -19,37 +19,68 @@ const TopUp = memo(() => {
     const {currencies} = useContext(CtxRootData);
     const [cur, setCur] = useState<ICtxCurrencyData>(null);
 
+    const validator = (value: string) => {
+        switch (true) {
+            case value === '':
+                return <span className="text-green md:text-xs">
+                    The minimum amount is 1000 EURG
+                </span>
+
+            case +value < 1000:
+                return <span className="text-red-main md:text-xs">
+                    The minimum amount is 1000 EURG
+                </span>
+
+            case +value > 2500:
+                return <span className="text-red-main md:text-xs">
+                    The maximun amount is 2500 EURG
+                </span>
+    
+            default:
+                return <span className="text-green md:text-xs">
+                    The minimum amount is 1000 EURG
+                </span>
+        }
+    }
+
     return (<div className="wrapper">
         {loading ? <Loader/> :
             <>
                 <div className='mb-20'>
-                    <InputCurrency.PercentSelector
-                        onSelect={setValue}
-                        header={"Input"}
-                        currencyData={cur}
+                    <InputCurrency.Validator
+                        value={value}
+                        validator={validator}
                     >
-                        <InputCurrency
-                            value={value}
-                            placeholder='Enter amount'
-                            onChange={(e) => {
-                                setValue(e.target.value);
-                            }}
-                            suffix={<InputCurrency.CurrencySelector
-                                currencySelector
-                                currencyData={cur}
-                                onCurrencyChange={(cur: string) => {
-                                    setCur(currencies.get(cur));
-                                }}
-                            />}
-                        />
-                    </InputCurrency.PercentSelector>
+                        <InputCurrency.PercentSelector
+                            onSelect={setValue}
+                            header={"Input"}
+                            currencyData={currencies.get("BADGER")}
+                        >
+                            <InputCurrency.Balance currencyData={currencies.get("BADGER")}>
+                                <InputCurrency
+                                    value={value}
+                                    onChange={value =>
+                                        setValue(value)
+                                    }
+                                    suffix={<InputCurrency.CurrencySelector
+                                        currencySelector
+                                        currencyData={currencies.get("BADGER")}
+                                        onCurrencyChange={(cur: string) => {
+                                            setCur(currencies.get(cur));
+                                        }}
+                                    />}
+                                />
+                            </InputCurrency.Balance>
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
                 </div>
 
                 <ChoseNetwork/>
                 <>{formBank ? <GekkardAccount/> :
                     <TopUpQR/>
                 }</>
-            </>}
+            </>
+        }
     </div>)
 
 })

@@ -32,13 +32,16 @@
   }
 
   &InfoText {
+    z-index: 10;
+    user-select: none;
+    margin-left: 12px;
+    margin-top: -20px;
+    line-height: 1rem;
     position: absolute;
-    left: 0;
-    bottom: 4px;
-    color: var(--color-secondary);
-    font-size: 0.625rem;
-    line-height: 1;
+    font-size: 0.75rem;
     white-space: nowrap;
+    pointer-events: none;
+    color: var(--color-secondary);
 
     @include max-devices("md") {
       font-size: 0.5rem;

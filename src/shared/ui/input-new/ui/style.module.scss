@@ -57,6 +57,16 @@
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
+    justify-content: flex-end;
+    color: var(--color-gray-600);
+    user-select: none;
+    height: 64px;
+    width: 138px;
+    z-index: 10;
+    margin-top: 27px;
+    margin-left: -138px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 
     @include max-devices("md") {
       gap: 0.3rem;

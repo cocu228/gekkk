@@ -37,21 +37,7 @@ export default ({
                 {children}
             </div>
 
-            <button
-                className={`
-                    ${styles.FieldSelectBtn}
-                    justify-end
-                    text-gray-600
-                    select-none
-                    h-[64px]
-                    w-[138px]
-                    z-10
-                    mt-[27px]
-                    -ml-[138px]
-                    rounded-r-[5px]
-                `}
-                onClick={handleOpenTokenSelect}
-            >
+            <button className={styles.FieldSelectBtn} onClick={handleOpenTokenSelect}>
                 <div className="mr-3">
                     <IconDoubleArrows/>
                 </div>

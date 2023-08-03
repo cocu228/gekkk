@@ -30,6 +30,7 @@ const TopUp = memo(() => {
                     >
                         <InputCurrency
                             value={value}
+                            placeholder='Enter amount'
                             onChange={(e) => {
                                 setValue(e.target.value);
                             }}

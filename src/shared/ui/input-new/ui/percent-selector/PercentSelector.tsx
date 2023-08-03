@@ -40,27 +40,25 @@ export default ({
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
-        <div className="row">
-            <div className="col">
-                <div className="wrapper w-full">
-                    <div className="row flex justify-between mb-2 md:mb-1 items-center">
-                        {header}
+        <div className="wrapper w-full">
+            <div className="row flex justify-between mb-2 md:mb-1 items-center">
+                {header}
 
-                        <div className={`row flex gap-1 text-xs 
-                            ${disabled || !currencyData || !currencyData.availableBalance
-                                ? 'pointer-events-none'
-                                : ''
-                            }`}
-                        >
-                            <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
-                            <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
-                        </div>
-                    </div>
-                    {children}
+                <div className={`row flex gap-1 text-xs 
+                        ${disabled || !currencyData || !currencyData.availableBalance
+                            ? 'pointer-events-none'
+                            : ''
+                        }
+                    `}
+                >
+                    <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
+                    <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
                 </div>
             </div>
+
+            {children}
         </div>
     </CtxInputCurrencyOptions.Provider>
 }

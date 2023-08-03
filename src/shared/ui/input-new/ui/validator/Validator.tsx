@@ -6,8 +6,6 @@ interface IParams {
 }
 
 export default (({value, validator, className, children}: IParams) => { 
-    
-
     return (
         <div className={className}>
             {children}

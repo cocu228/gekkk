@@ -1,29 +1,23 @@
 import {useState} from "react";
 import styles from '../style.module.scss';
 import Modal from "@/shared/ui/modal/Modal";
-import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {ICtxCurrencyData} from "@/processes/RootContext";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import IconDoubleArrows from "@/shared/ui/icons/IconDoubleArrows";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
 
 interface IParams {
-    disabled?: boolean;
     balanceFilter?: boolean;
-    currencySelector?: boolean;
+    children?: React.ReactNode;
     excludedCurrencies?: Array<string>;
-    currencyData?: ICtxCurrencyData | null;
     allowedFlags?: null | Array<CurrencyFlags>;
     onCurrencyChange?: (currency: string) => void;
 }
 
 export default ({
-    disabled,
-    currencyData,
+    children,
     allowedFlags,
     balanceFilter,
-    currencySelector,
     excludedCurrencies,
     onCurrencyChange
 }: IParams) => {
@@ -38,21 +32,31 @@ export default ({
     };
 
     return ( <>
-        <button
-            disabled={disabled || !currencySelector}
-            className={styles.FieldSelectBtn + ' text-gray-600 select-none'}
-            onClick={handleOpenTokenSelect}
+        <div className="flex">
+            <div className="w-full">
+                {children}
+            </div>
+
+            <button
+                className={`
+                    ${styles.FieldSelectBtn}
+                    justify-end
+                    text-gray-600
+                    select-none
+                    h-[64px]
+                    w-[138px]
+                    z-10
+                    mt-[27px]
+                    -ml-[138px]
+                    rounded-r-[5px]
+                `}
+                onClick={handleOpenTokenSelect}
             >
-            {(!currencySelector || currencyData) && <>
-                <IconCoin width={34} height={34} code={currencyData.currency}/>
-            </>}
-
-            <span className={"text-sm font-medium " + (currencySelector ? '' : 'mr-[17px]')}>
-                {currencySelector && !currencyData ? 'Select token' : currencyData.currency}
-            </span>    
-
-            {currencySelector && <IconDoubleArrows/>}
-        </button>
+                <div className="mr-3">
+                    <IconDoubleArrows/>
+                </div>
+            </button>
+        </div>
 
         <Modal width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
             <AssetsTable

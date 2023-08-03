@@ -47,32 +47,32 @@ const TopUp = memo(() => {
         {loading ? <Loader/> :
             <>
                 <div className='mb-20'>
-                    <InputCurrency.Validator
-                        value={value}
-                        validator={validator}
+                    <InputCurrency.CurrencySelector
+                        onCurrencyChange={(cur: string) => {
+                            setCur(currencies.get(cur));
+                        }}
                     >
-                        <InputCurrency.PercentSelector
-                            onSelect={setValue}
-                            header={"Input"}
-                            currencyData={currencies.get("BADGER")}
+                        <InputCurrency.Validator
+                            value={value}
+                            validator={validator}
                         >
-                            <InputCurrency.Balance currencyData={currencies.get("BADGER")}>
-                                <InputCurrency
-                                    value={value}
-                                    onChange={value =>
-                                        setValue(value)
-                                    }
-                                    suffix={<InputCurrency.CurrencySelector
-                                        currencySelector
-                                        currencyData={currencies.get("BADGER")}
-                                        onCurrencyChange={(cur: string) => {
-                                            setCur(currencies.get(cur));
-                                        }}
-                                    />}
-                                />
-                            </InputCurrency.Balance>
-                        </InputCurrency.PercentSelector>
-                    </InputCurrency.Validator>
+                            <InputCurrency.PercentSelector
+                                onSelect={setValue}
+                                header={"Input"}
+                                currencyData={cur}
+                            >
+                                <InputCurrency.Balance currencyData={cur}>
+                                    <InputCurrency
+                                        value={value}
+                                        currencyData={cur}
+                                        onChange={value =>
+                                            setValue(value)
+                                        }
+                                    />
+                                </InputCurrency.Balance>
+                            </InputCurrency.PercentSelector>
+                        </InputCurrency.Validator>
+                    </InputCurrency.CurrencySelector>
                 </div>
 
                 <ChoseNetwork/>

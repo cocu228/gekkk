@@ -6,6 +6,8 @@ import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 import InputCurrency from '@/shared/ui/input-new/ui';
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
+import {Between, GreatherThan, LowerThan} from '@/shared/config/validators';
 
 
 const TopUp = memo(() => {
@@ -21,11 +23,6 @@ const TopUp = memo(() => {
 
     const validator = (value: string) => {
         switch (true) {
-            case value === '':
-                return <span className="text-green md:text-xs">
-                    The minimum amount is 1000 EURG
-                </span>
-
             case +value < 1000:
                 return <span className="text-red-main md:text-xs">
                     The minimum amount is 1000 EURG
@@ -48,13 +45,22 @@ const TopUp = memo(() => {
             <>
                 <div className='mb-20'>
                     <InputCurrency.CurrencySelector
+                        allowedFlags={[
+                            CurrencyFlags.AccountAvailable
+                        ]}
                         onCurrencyChange={(cur: string) => {
                             setCur(currencies.get(cur));
                         }}
                     >
                         <InputCurrency.Validator
                             value={value}
-                            validator={validator}
+                            description='The minimum amount is 1000 EURG'
+                            validators={[
+                                Between(0, 100)
+                                // ALTERNATIVE VARIANT
+                                //LowerThan(100),
+                                //GreatherThan(0),
+                            ]}
                         >
                             <InputCurrency.PercentSelector
                                 onSelect={setValue}
@@ -63,6 +69,7 @@ const TopUp = memo(() => {
                             >
                                 <InputCurrency.Balance currencyData={cur}>
                                     <InputCurrency
+                                        disabled={!cur}
                                         value={value}
                                         currencyData={cur}
                                         onChange={value =>

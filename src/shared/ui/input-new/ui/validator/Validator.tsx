@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {IValidationResult} from "@/shared/config/validators";
+import {IValidatorCreator} from "@/shared/config/validators";
 
 interface IParams {
     value: string;
     className?: string;
     description?: string;
     children?: React.ReactNode;
-    validators: Array<(value: string) => IValidationResult>;
+    validators: Array<IValidatorCreator>;
 }
 
 export default (({

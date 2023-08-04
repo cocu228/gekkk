@@ -21,25 +21,6 @@ const TopUp = memo(() => {
     const {currencies} = useContext(CtxRootData);
     const [cur, setCur] = useState<ICtxCurrencyData>(null);
 
-    const validator = (value: string) => {
-        switch (true) {
-            case +value < 1000:
-                return <span className="text-red-main md:text-xs">
-                    The minimum amount is 1000 EURG
-                </span>
-
-            case +value > 2500:
-                return <span className="text-red-main md:text-xs">
-                    The maximun amount is 2500 EURG
-                </span>
-    
-            default:
-                return <span className="text-green md:text-xs">
-                    The minimum amount is 1000 EURG
-                </span>
-        }
-    }
-
     return (<div className="wrapper">
         {loading ? <Loader/> :
             <>

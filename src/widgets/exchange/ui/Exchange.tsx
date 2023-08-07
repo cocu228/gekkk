@@ -2,6 +2,7 @@ import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from 'react-router-dom';
+import {randomId} from '@/shared/lib/helpers';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../model/context';
 import IconSwap from '@/shared/ui/icons/IconSwap';
@@ -36,8 +37,9 @@ function Exchange() {
     const cancelRoomModal = useModal();
     const navigate = useNavigate();
     const {currencies} = useContext(CtxRootData);
-    const roomsList = storeListExchangeRooms(state => state.roomsList);
+    const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
+    const roomsList = storeListExchangeRooms(state => state.roomsList);
 
     const {
         to,
@@ -45,12 +47,14 @@ function Exchange() {
         price,
         roomType,
         roomInfo,
+        isLimitOrder,
         onRoomClosing,
         onToValueChange,
         onCurrenciesSwap,
         onFromValueChange,
         onToCurrencyChange,
         onFromCurrencyChange,
+        onIsLimitOrderChange
     } = useContext(CtxExchangeData);
 
     useEffect(() => {
@@ -176,9 +180,9 @@ function Exchange() {
                                 </div>
                                 {roomType === 'creator' && (
                                     <div className="mt-6 md:mt-3.5">
-                                        <Checkbox disabled>
+                                        <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
                                             <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">Sell a <strong
-                                                className="font-semibold">token</strong> at the market rate</span>
+                                                className="font-semibold">{from.currency}</strong> at the market rate</span>
                                         </Checkbox>
                                     </div>
                                 )}
@@ -207,7 +211,9 @@ function Exchange() {
                             </div>
                         </div>
                         <div className="mt-12">
-                            <OpenOrders />
+                            <OpenOrders
+                                refreshKey={ordersRefresh}
+                            />
                         </div>
                         <Modal
                             width={400}
@@ -217,14 +223,20 @@ function Exchange() {
                         >
                             <Confirm
                                 onConfirm={() => {
-                                    apiCreateOrder({
-                                        from_currency: from.currency,
-                                        from_amount: +from.amount,
-                                        to_currency: to.currency,
-                                        to_amount: +to.amount,
-                                        client_nonce: new Date().getTime(),
-                                    })
-                                    confirmModal.handleCancel();
+                                    (async () => {
+                                        await apiCreateOrder({
+                                            from_currency: from.currency,
+                                            to_currency: to.currency,
+                                            from_amount: from.amount,
+                                            to_amount: to.amount,
+                                            client_nonce: 0,
+                                            is_limit: isLimitOrder,
+                                            room_key: roomType === 'default' ? 0 : +roomInfo.timetick
+                                        });
+
+                                        setOrdersRefresh(randomId());
+                                        confirmModal.handleCancel();
+                                    })();
                                 }}
                             />
                         </Modal>

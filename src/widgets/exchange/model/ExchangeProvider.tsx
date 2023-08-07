@@ -20,7 +20,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
 
     const initialState: ICtxExchangeData = {
         roomInfo: roomInfo,
-        validationErrors: false,
+        isLimitOrder: true,
         roomType: roomInfo ? roomInfo.room_code ? "creator" : "visitor" : "default",
         to: {
             amount: null,
@@ -168,6 +168,13 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         }));
     }
 
+    const handleIsLimitOrderChange = (value: boolean) => {
+        setState(prev => ({
+            ...prev,
+            isLimitOrder: value
+        }));
+    }
+
     const handleRoomCreation = (info: IRoomInfo) => {
         addExchangeRoom(info);
         navigate(`/private-room/${info.timetick}`);
@@ -187,6 +194,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         onFromValueChange: handleFromAmountChange,
         onToCurrencyChange: handleToCurrencyChange,
         onPriceAmountChange: handlePriceAmountChange,
+        onIsLimitOrderChange: handleIsLimitOrderChange,
         onFromCurrencyChange: handleFromCurrencyChange,
         onPriceCurrenciesSwap: handlePriceCurrenciesSwap
     }}>

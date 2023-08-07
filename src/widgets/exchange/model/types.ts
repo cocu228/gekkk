@@ -10,7 +10,7 @@ export interface IExchangeField {
 
 export interface IExchangePrice {
     isSwapped: boolean;
-    amount: number | null;
+    amount: string | null;
 }
 
 export enum OrderState {

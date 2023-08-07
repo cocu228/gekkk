@@ -35,18 +35,33 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             isSwapped: false
         }
     }
-    
+
     const [state, setState] = useState<ICtxExchangeData>(initialState);
 
     useEffect(() => {
         setState(initialState);
-    }, [roomInfo])
+    }, [roomInfo]);
 
     const calculatePrice = (from: number, to: number, isSwapped: boolean) => {
-        const result = isSwapped ? from / to : to / from;
+        if (from === 0 && to === 0) return;
 
-        return !Number.isFinite(result) || Number.isNaN(result) ? 0 :
-            +result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
+        const result = isSwapped
+            ? from / to
+            : to / from;
+
+        return !Number.isFinite(result) || Number.isNaN(result) ? null :
+            result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
+    }
+
+    const calculateToAmount = (from: number, price: number, isSwapped: boolean) => {
+        if (from === 0 || price === 0) return;
+
+        const result = isSwapped
+            ? from / price
+            : price * from;
+
+        return !Number.isFinite(result) || Number.isNaN(result) ? null :
+            result.toFixed(currencies.get(state.to.currency)?.roundPrec);
     }
 
     const handleFromCurrencyChange = (value: string) => {
@@ -105,6 +120,22 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         }));
     }
 
+    const handlePriceAmountChange = (value: string) => {
+        if(Number.isNaN(+value)) return;
+
+        setState(prev => ({
+            ...prev,
+            to: {
+                ...prev.to,
+                amount: calculateToAmount(+prev.from.amount, +value, prev.price.isSwapped)?.toString()
+            },
+            price: {
+                ...prev.price,
+                amount: value
+            }
+        }));
+    }
+
     const handleCurrenciesSwap = () => {
         setState(prev => ({
             ...prev,
@@ -155,6 +186,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         onCurrenciesSwap: handleCurrenciesSwap,
         onFromValueChange: handleFromAmountChange,
         onToCurrencyChange: handleToCurrencyChange,
+        onPriceAmountChange: handlePriceAmountChange,
         onFromCurrencyChange: handleFromCurrencyChange,
         onPriceCurrenciesSwap: handlePriceCurrenciesSwap
     }}>

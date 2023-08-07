@@ -24,6 +24,7 @@ function PriceField() {
             onChange={({target}) => onPriceAmountChange(formatAsNumberAndDot(target.value))}
             type="text"
             placeholder='0.00'
+            disabled={!(from.currency && to.currency)}
             value={!amount ? '' : amount}
             suffix={to.currency && from.currency && (
                 <div className={styles.FieldPriceLabel}>

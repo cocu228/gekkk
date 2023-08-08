@@ -1,7 +1,7 @@
 import Decimal from "decimal.js";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import {CtxInputCurrencyOptions} from "../../model/context";
-import React, {useContext, useEffect, useState} from "react";
+import React, {FC, useContext, useEffect, useState} from "react";
 import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
 
 interface IParams {
@@ -12,7 +12,7 @@ interface IParams {
     onSelect?: (value: string) => void
 }
 
-export default ({
+const PercentSelector: FC<IParams> = ({
     header,
     children,
     disabled,
@@ -62,3 +62,5 @@ export default ({
         </div>
     </CtxInputCurrencyOptions.Provider>
 }
+
+export default PercentSelector;

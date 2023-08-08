@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {FC, useState} from "react";
 import styles from '../style.module.scss';
 import Modal from "@/shared/ui/modal/Modal";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
@@ -14,7 +14,7 @@ interface IParams {
     onCurrencyChange?: (currency: string) => void;
 }
 
-export default ({
+const CurrencySelector: FC<IParams> = ({
     children,
     allowedFlags,
     balanceFilter,
@@ -63,3 +63,5 @@ export default ({
         </Modal>
     </>)
 }
+
+export default CurrencySelector;

@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import styles from '../style.module.scss';
 import {ICtxCurrencyData} from '@/processes/RootContext';
 
@@ -7,9 +8,7 @@ interface IParams {
     currencyData: ICtxCurrencyData;
 }
 
-export default (({children, className, currencyData}: IParams) => { 
-    
-
+const Balance: FC<IParams> = (({children, className, currencyData}: IParams) => { 
     return (
         <div className={className}>
             {children}
@@ -23,3 +22,5 @@ export default (({children, className, currencyData}: IParams) => {
         </div>
     );
 });
+
+export default Balance;

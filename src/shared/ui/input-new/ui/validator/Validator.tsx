@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {IValidatorCreator} from "@/shared/config/validators";
 
 interface IParams {
@@ -9,7 +9,7 @@ interface IParams {
     validators: Array<IValidatorCreator>;
 }
 
-export default (({
+const Validator: FC<IParams> = (({
     value,
     children,
     className,
@@ -48,3 +48,5 @@ export default (({
         </div>
     );
 });
+
+export default Validator;

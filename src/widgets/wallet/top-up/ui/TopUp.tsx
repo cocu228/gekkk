@@ -7,7 +7,7 @@ import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 import InputCurrency from '@/shared/ui/input-new/ui';
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
-import {Between, GreatherThan, LowerThan} from '@/shared/config/validators';
+import { MaximumAmount, MinimumAmount, ValidateBalance } from '@/shared/config/validators';
 
 
 const TopUp = memo(() => {
@@ -19,7 +19,7 @@ const TopUp = memo(() => {
 
     const [value, setValue] = useState<string>();
     const {currencies} = useContext(CtxRootData);
-    const [cur, setCur] = useState<ICtxCurrencyData>(null);
+    const [cur, setCur] = useState<ICtxCurrencyData>(currencies.get('BTC'));
 
     return (<div className="wrapper">
         {loading ? <Loader/> :
@@ -32,12 +32,11 @@ const TopUp = memo(() => {
                     >
                         <InputCurrency.Validator
                             value={value}
-                            description='The minimum amount is 1000 EURG'
+                            description='The minimum amount is 0.005 BTC'
                             validators={[
-                                Between(0, 100)
-                                // ALTERNATIVE VARIANT
-                                //LowerThan(100),
-                                //GreatherThan(0),
+                                ValidateBalance(cur),
+                                MinimumAmount(0.005),
+                                MaximumAmount(1000)
                             ]}
                         >
                             <InputCurrency.PercentSelector
@@ -45,10 +44,10 @@ const TopUp = memo(() => {
                                 header={"Input"}
                                 currencyData={cur}
                             >
-                                <InputCurrency.DisplayBalance currencyData={currencies.get('EURG')}>
+                                <InputCurrency.DisplayBalance currencyData={currencies.get('BTC')}>
                                     <InputCurrency
                                         value={value}
-                                        currencyData={currencies.get('EURG')}
+                                        currencyData={currencies.get('BTC')}
                                         onChange={value =>
                                             setValue(value)
                                         }

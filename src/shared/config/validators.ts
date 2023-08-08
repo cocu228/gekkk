@@ -1,3 +1,5 @@
+import {ICtxCurrencyData} from "@/processes/RootContext";
+
 export type IValidatorCreator = (value: string) => IValidationResult;
 
 interface IValidationResult {
@@ -5,24 +7,17 @@ interface IValidationResult {
     errorMessage: string
 }
 
-export function LowerThan(val: number): IValidatorCreator {
+export function ValidateBalance(currency: ICtxCurrencyData): IValidatorCreator {
     return (value) => ({
-        validated: +value < val,
-        errorMessage: `Value must be lower than ${val}`
+        validated: +value < +currency.availableBalance,
+        errorMessage: `You don't have enough funds`
     })
 }
 
-export function GreatherThan(val: number): IValidatorCreator {
+export function MaximumAmount(max: number): IValidatorCreator {
     return (value) => ({
-        validated: +value > val,
-        errorMessage: `Value must be greather than ${val}`
-    })
-}
-
-export function Between(low: number, top: number): IValidatorCreator {
-    return (value) => ({
-        validated: +value > low && +value < top,
-        errorMessage: `Value must be between ${low} and ${top}`
+        validated: +value >= max,
+        errorMessage: `The maximum amount is ${max}`
     })
 }
 

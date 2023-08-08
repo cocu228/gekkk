@@ -6,11 +6,17 @@ import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import useError from "@/shared/model/hooks/useError";
+import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 
 const TopUpQR = () => {
+
     const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const {currency, name} = useContext(CtxWalletData)
     const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
+
+    const {
+        is_operable = null
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const onCreateAddress = async () => {
         setLoading(true)
@@ -56,6 +62,12 @@ const TopUpQR = () => {
                 <span><b className="text-red-800">2</b> network confirmation</span>
             </div>
         </div> */}
+        {is_operable === false && <>
+            <div className="info-box-danger">
+                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
+                    network for this transaction.</p>
+            </div>
+        </>}
     </> : <>
         <div className="row mt-8 px-4 mb-8 w-full">
             <Button tabIndex={0} onClick={onCreateAddress} htmlType="submit"

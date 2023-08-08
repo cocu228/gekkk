@@ -20,7 +20,13 @@ import CopyIcon from '@/shared/ui/copy-icon/CopyIcon';
 
 const {RangePicker} = DatePicker;
 
-function OpenOrders() {
+interface IParams {
+    refreshKey?: string;
+}
+
+function OpenOrders({
+    refreshKey
+}: IParams) {
     const cancelOrderModal = useModal();
     const {roomInfo} = useContext(CtxExchangeData);
     const [lazyLoading, setLazyLoading] = useState(false);
@@ -90,15 +96,7 @@ function OpenOrders() {
         (async () => {
             await requestOrders()
         })()
-    }, [activeTab, account])
-
-    useEffect(() => {
-        setIsLoading(true);
-
-        (async () => {
-            await requestOrders();
-        })();
-    }, [roomInfo?.timetick]);
+    }, [activeTab, account, roomInfo?.timetick, refreshKey])
 
     const currencyPrecision = (value: number, currency: string) =>
         Number(value.toFixed(currencies.get(currency)?.ordersPrec));

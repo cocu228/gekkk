@@ -48,7 +48,7 @@ const TopUp = memo(() => {
                                 header={"Input"}
                                 currencyData={cur}
                             >
-                                <InputCurrency.Balance currencyData={cur}>
+                                <InputCurrency.DisplayBalance currencyData={cur}>
                                     <InputCurrency
                                         disabled={!cur}
                                         value={value}
@@ -57,7 +57,7 @@ const TopUp = memo(() => {
                                             setValue(value)
                                         }
                                     />
-                                </InputCurrency.Balance>
+                                </InputCurrency.DisplayBalance>
                             </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
                     </InputCurrency.CurrencySelector>

@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import Balance from '../balance/Balance';
+import DisplayBalance from '../balance/DisplayBalance';
 import Validator from '../validator/Validator';
 import {Input as InputAntd, InputProps} from 'antd';
 import {IconCoin} from '@/shared/ui/icons/icon-coin';
@@ -15,8 +15,8 @@ interface IParams {
 }
 
 const InputField: FC<IParams & InputProps> & {
-    Balance: typeof Balance;
     Validator: typeof Validator;
+    DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
 } = ({
@@ -47,8 +47,8 @@ const InputField: FC<IParams & InputProps> & {
     );
 }
 
-InputField.Balance = Balance;
 InputField.Validator = Validator;
+InputField.DisplayBalance = DisplayBalance;
 InputField.PercentSelector = PercentSelector;
 InputField.CurrencySelector = CurrencySelector;
 

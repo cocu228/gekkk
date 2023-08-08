@@ -8,7 +8,7 @@ interface IParams {
     currencyData: ICtxCurrencyData;
 }
 
-const Balance: FC<IParams> = (({children, className, currencyData}: IParams) => { 
+const DisplayBalance: FC<IParams> = (({children, className, currencyData}: IParams) => { 
     return (
         <div className={className}>
             {children}
@@ -23,4 +23,4 @@ const Balance: FC<IParams> = (({children, className, currencyData}: IParams) => 
     );
 });
 
-export default Balance;
+export default DisplayBalance;

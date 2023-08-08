@@ -1,26 +1,28 @@
-import {FC, useState} from "react";
 import styles from '../style.module.scss';
 import Modal from "@/shared/ui/modal/Modal";
+import {FC, useContext, useState} from "react";
+import {CtxSelectorCurrency} from "../../model/context";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import IconDoubleArrows from "@/shared/ui/icons/IconDoubleArrows";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
+import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
 
 interface IParams {
     balanceFilter?: boolean;
     children?: React.ReactNode;
     excludedCurrencies?: Array<string>;
     allowedFlags?: null | Array<CurrencyFlags>;
-    onCurrencyChange?: (currency: string) => void;
 }
 
 const CurrencySelector: FC<IParams> = ({
     children,
     allowedFlags,
     balanceFilter,
-    excludedCurrencies,
-    onCurrencyChange
+    excludedCurrencies
 }: IParams) => {
+    const {currencies} = useContext(CtxRootData);
+    const [currency, setCurrency] = useState<ICtxCurrencyData>(null);
     const [tokenSelectOpen, setTokenSelectOpen] = useState<boolean>(false);
 
     const handleOpenTokenSelect = () => {
@@ -34,7 +36,9 @@ const CurrencySelector: FC<IParams> = ({
     return ( <>
         <div className="flex">
             <div className="w-full">
-                {children}
+                <CtxSelectorCurrency.Provider value={currency}>
+                    {children}
+                </CtxSelectorCurrency.Provider>
             </div>
 
             <button className={styles.FieldSelectBtn} onClick={handleOpenTokenSelect}>
@@ -50,7 +54,7 @@ const CurrencySelector: FC<IParams> = ({
                 modal={true}
                 balanceFilter={balanceFilter}
                 onSelect={(currency: string) => {
-                    onCurrencyChange(currency);
+                    setCurrency(currencies.get(currency));
                     handleCloseTokenSelect();
                 }}
                 blockedCurrencies={excludedCurrencies}

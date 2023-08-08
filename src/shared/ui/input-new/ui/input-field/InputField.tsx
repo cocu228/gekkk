@@ -1,9 +1,10 @@
-import {FC} from 'react';
-import DisplayBalance from '../balance/DisplayBalance';
 import Validator from '../validator/Validator';
 import {Input as InputAntd, InputProps} from 'antd';
 import {IconCoin} from '@/shared/ui/icons/icon-coin';
+import DisplayBalance from '../balance/DisplayBalance';
+import {CtxSelectorCurrency} from '../../model/context';
 import {ICtxCurrencyData} from '@/processes/RootContext';
+import {FC, useContext, useEffect, useState} from 'react';
 import PercentSelector from '../percent-selector/PercentSelector';
 import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 import CurrencySelector from '../currency-selector/CurrencySelector';
@@ -25,21 +26,33 @@ const InputField: FC<IParams & InputProps> & {
     onChange,
     ...props
 }) => {
+    const selectorCurrency = useContext(CtxSelectorCurrency);
+    const [activeCurrency, setActiveCurrency] = useState(currencyData);
+
+    useEffect(() => {
+        setActiveCurrency(selectorCurrency);
+    }, [selectorCurrency]);
+
+    useEffect(() => {
+        setActiveCurrency(currencyData);
+    }, [currencyData])
+
     return (
         <div className={wrapperClassName}>
-            <InputAntd 
+            <InputAntd
                 {...props}
+                disabled={!activeCurrency}
                 placeholder='Enter amount'
                 onChange={({target}) => {
                     onChange(formatAsNumberAndDot(target.value.toString()))
                 }}
                 suffix={<>
-                    {currencyData && <>
-                        <IconCoin width={34} height={34} code={currencyData.currency}/>
+                    {activeCurrency && <>
+                        <IconCoin width={34} height={34} code={activeCurrency.currency}/>
                     </>}
 
                     <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>
-                        {!currencyData ? 'Select token' : currencyData.currency}
+                        {!activeCurrency ? 'Select token' : activeCurrency.currency}
                     </span>
                 </>}
             />

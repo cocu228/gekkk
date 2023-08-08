@@ -29,9 +29,6 @@ const TopUp = memo(() => {
                         allowedFlags={[
                             CurrencyFlags.AccountAvailable
                         ]}
-                        onCurrencyChange={(cur: string) => {
-                            setCur(currencies.get(cur));
-                        }}
                     >
                         <InputCurrency.Validator
                             value={value}
@@ -48,11 +45,10 @@ const TopUp = memo(() => {
                                 header={"Input"}
                                 currencyData={cur}
                             >
-                                <InputCurrency.DisplayBalance currencyData={cur}>
+                                <InputCurrency.DisplayBalance currencyData={currencies.get('EURG')}>
                                     <InputCurrency
-                                        disabled={!cur}
                                         value={value}
-                                        currencyData={cur}
+                                        currencyData={currencies.get('EURG')}
                                         onChange={value =>
                                             setValue(value)
                                         }

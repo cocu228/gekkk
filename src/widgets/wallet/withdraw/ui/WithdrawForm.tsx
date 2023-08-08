@@ -31,13 +31,16 @@ const WithdrawForm = () => {
         min_withdraw = null,
         max_withdraw = null,
         percent_fee = null,
-        withdraw_fee = null
+        withdraw_fee = null,
+        is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
     const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
+
+    console.log(networksDefault)
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
         <div className="flex flex-col items-center mt-2">
@@ -99,16 +102,26 @@ const WithdrawForm = () => {
                     Withdraw
                 </Button>
 
-                <Modal width={450} title="Transfer confirmation" onCancel={handleCancel}
+                <Modal width={450} title="Transfer confirmation"
+                       onCancel={handleCancel}
                        open={isModalOpen}>
-                    <WithdrawConfirm {...inputs} handleCancel={handleCancel} percent_fee={percent_fee}
-                                     withdraw_fee={withdraw_fee}/>
+
+                    <WithdrawConfirm {...inputs}
+                                     handleCancel={handleCancel}
+                    />
+
                 </Modal>
 
 
                 {!isNull(withdraw_fee) && <div className='text-center'>
                         Fee is <b>{withdraw_fee}</b> per transaction
                     </div>}
+                {is_operable === false && <>
+                    <div className="info-box-danger">
+                        <p>Attention: transactions on this network may be delayed. We recommend that you use a different
+                            network for this transaction.</p>
+                    </div>
+                </>}
                 </div>
             </div>
     )

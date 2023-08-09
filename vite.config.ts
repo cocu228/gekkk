@@ -21,7 +21,7 @@ export default defineConfig(({mode}) => {
     server: {
       proxy: {
         '^/(api|gek|pub/)': {
-          target: 'https://api-dev.gekkoin.com',
+          target: 'https://api-stg.gekkoin.com',
           changeOrigin: true,
           secure: false,
         },

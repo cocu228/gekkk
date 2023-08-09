@@ -29,7 +29,7 @@ function CurrentDeposit() {
     } = getInvestmentData(investment);
 
     const strategyData = getDepositStrategyData(investment.dep_type);
-    const token = useContext(CtxRootData).currencies.get(investment.link_currency);
+    const currency = useContext(CtxRootData).currencies.get(investment.link_currency);
 
     return (
         <div className="wrapper flex flex-col flex-1">
@@ -42,7 +42,7 @@ function CurrentDeposit() {
                 <CurrentDepositType
                     isClosed={isClosed}
                     isFixed={isFixed}
-                    token={token}
+                    currency={currency}
                     strategyData={strategyData}
                 />
             </div>

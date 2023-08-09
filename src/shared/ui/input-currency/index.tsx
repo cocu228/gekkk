@@ -6,7 +6,7 @@ const InputCurrencyPercented = ({
     value,
     header,
     minValue,
-    currencyData,
+    currency,
     allowedFlags,
     balanceFilter,
     disabled = false,
@@ -23,7 +23,7 @@ const InputCurrencyPercented = ({
             header={header}
             showWill={showWill}
             disabled={disabled}
-            currencyData={currencyData}
+            currencyData={currency}
         >
             <InputItemCurrency
                 value={value}
@@ -32,7 +32,7 @@ const InputCurrencyPercented = ({
                 excludedCurrencies={excludedCurrencies}
                 allowedFlags={allowedFlags}
                 minValue={minValue}
-                currencyData={currencyData}
+                currency={currency}
                 currencySelector={currencySelector}
                 onChange={onChange}
                 onCurrencyChange={onCurrencyChange}

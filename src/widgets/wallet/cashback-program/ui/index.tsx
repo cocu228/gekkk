@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
-import InputCurrency from "@/shared/ui/input-currency";
+// import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
@@ -14,7 +14,7 @@ import {storeInvestTemplates} from "@/shared/store/invest-templates/investTempla
 
 const CashbackProgram = () => {
     const lockConfirmModal = useModal();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
     const cashbackTemplate = storeInvestTemplates(state => state.cashbackTemplate);
@@ -28,7 +28,7 @@ const CashbackProgram = () => {
                         <div className="row mb-3">
                             <div className="col">
                                 <p className="font-extrabold text-sm">
-                                    Locking {wallet.currency} tokens gives you
+                                    Locking {currency.$const} tokens gives you
                                     access to the cashback of 1% on Gekkard card spending,
                                     on monthly turnover in euros
                                 </p>
@@ -46,7 +46,7 @@ const CashbackProgram = () => {
 
                                 <p className="text-sm">
                                     up to the amount not exceeding a similar number of
-                                    blocked {wallet.currency} tokens
+                                    blocked {currency.$const} tokens
                                 </p>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ const CashbackProgram = () => {
                         amount={amount}
                         endDate={investment?.date_end}
                         startDate={investment?.date_start}
-                        currency={wallet.currency}
+                        currency={currency.$const}
                         templateTerm={cashbackTemplate.depo_min_time}
                     />
                 </div>
@@ -84,7 +84,7 @@ const CashbackProgram = () => {
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
                     <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
                         At the end of the program term, the
-                        blocked {wallet.currency} funds will
+                        blocked {currency.$const} funds will
                         return to your account
                     </p>
                 </div>
@@ -92,12 +92,7 @@ const CashbackProgram = () => {
             
             <div className="row mb-7">
                 <div className="col">
-                    <InputCurrency
-                        header={"Lock funds"}
-                        onChange={setAmount}
-                        value={amount ? amount : null}
-                        currencyData={wallet}
-                    />
+                    ***InputCurrencyPercented***
                 </div>
             </div>
 
@@ -109,7 +104,7 @@ const CashbackProgram = () => {
                         className="w-full"
                         size={"xl"}
                     >
-                        Lock {wallet.currency} tokens
+                        Lock {currency.$const} tokens
                     </Button>
                 </div>
             </div>
@@ -133,7 +128,7 @@ const CashbackProgram = () => {
                     locked={investment?.amount ?? 0}
                     amount={amount}
                     startDate={investment?.date_start ?? new Date()}
-                    currency={wallet.currency}
+                    currency={currency.$const}
                     templateTerm={cashbackTemplate.depo_min_time}
                     endDate={addDays(new Date(), cashbackTemplate.depo_min_time)}
                 />

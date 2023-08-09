@@ -5,7 +5,7 @@ import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Decimal from "decimal.js";
-import InputCurrencyPercented from "@/shared/ui/input-currency";
+// import InputCurrencyPercented from "@/shared/ui/input-currency";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import {actionResSuccess} from "@/shared/lib/helpers";
@@ -25,14 +25,14 @@ const CreateCode = () => {
 
     const [localErrorHunter, , localErrorInfoBox] = useError()
 
-    const wallet = useContext(CtxWalletData)
+    const currency = useContext(CtxWalletData)
 
     const onCreateCode = async () => {
 
         setLoading(true)
 
         const typeTx = checkbox ? 12 : 11
-        const response = await apiCreateTxCode(new Decimal(input).toNumber(), wallet.currency, typeTx)
+        const response = await apiCreateTxCode(new Decimal(input).toNumber(), currency.$const, typeTx)
 
         actionResSuccess(response).success(async () => {
             setNewCode(response.data.result.code)
@@ -55,13 +55,7 @@ const CreateCode = () => {
                 <div className="row">
                     <div className="col">
                         <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
-                            <InputCurrencyPercented
-                                value={input}
-                                disabled={loading} onChange={setInput}
-                                currencyData={wallet}
-                                validateBalance={true}
-                                minValue={wallet.availableBalance}
-                            />
+                            ***InputCurrencyPercented***
                         </div>
                     </div>
                 </div>

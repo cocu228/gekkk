@@ -35,18 +35,18 @@ function TokenSelect({ disabledCurrencies, allowedFlags, ...props }: IParams & S
         if (props.onChange) props.onChange(val, option);
     };
 
-    const selectedToken: ICtxCurrencyData = useMemo(() => {
+    const currency: ICtxCurrencyData = useMemo(() => {
         return currencies.get(value);
     }, [currencies, value]);
 
     return (
         <div className={styles.Select}>
-            {selectedToken && (
-                <IconCoin className={styles.SelectIcon} code={selectedToken.currency} />
+            {currency && (
+                <IconCoin className={styles.SelectIcon} code={currency.$const} />
             )}
             <Select
                 showSearch
-                className={`${styles.SelectSearch} ${selectedToken ? styles.SelectSearchActive : ''}`}
+                className={`${styles.SelectSearch} ${currency ? styles.SelectSearchActive : ''}`}
                 popupClassName={styles.SelectPopup}
                 style={{width: '100%'}}
                 optionLabelProp="label"
@@ -63,12 +63,12 @@ function TokenSelect({ disabledCurrencies, allowedFlags, ...props }: IParams & S
                     .map(item => (
                     <Option
                         className={styles.Option}
-                        value={item.currency}
+                        value={item.$const}
                         label={item.name}
-                        disabled={disabledCurrencies?.includes(item.currency)}
+                        disabled={disabledCurrencies?.includes(item.$const)}
                     >
                         <span className={styles.OptionIcon} role="img" aria-label={item.name}>
-                            <IconCoin code={item.currency} />
+                            <IconCoin code={item.$const} />
                         </span>
                         {item.name}
                     </Option>

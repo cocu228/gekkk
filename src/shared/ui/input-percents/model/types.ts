@@ -16,5 +16,5 @@ export type TypeInputCurrency = {
     showWill?: boolean;
     minValue?: Decimal | number | null;
     header?: string | JSX.Element;
-    currencyData: ICtxCurrencyData | null;
+    currency: ICtxCurrencyData | null;
 }

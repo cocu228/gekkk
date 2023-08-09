@@ -11,12 +11,12 @@ import Modal from "../modal/Modal";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import { AssetTableKeys } from "@/features/assets-table/model/types";
 import Decimal from "decimal.js";
-import {formatAsNumber, formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
+import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
 export default ({
     value,
     minValue = new Decimal(0),
-    currencyData,
+    currency,
     allowedFlags,
     currencySelector,
     excludedCurrencies,
@@ -39,15 +39,13 @@ export default ({
     const n = useContext(CtxInputCurrencyOptions)
 
     useEffect(() => {
-        if (n) {
-            onChange(n.toString())
-        }
+        if (n) {onChange(n.toString())}
     }, [n])
 
     return <FormItem 
                 className="relative"
-                extra={(!currencySelector || currencyData) && inputCurrencyValidation(
-                    !currencyData || !currencyData.availableBalance ? new Decimal(0) : currencyData.availableBalance,
+                extra={(!currencySelector || currency) && inputCurrencyValidation(
+                    !currency || !currency.availableBalance ? new Decimal(0) : currency.availableBalance,
                     value,
                     new Decimal(currencySelector && minValue ? minValue : 0),
                     validateBalance
@@ -55,7 +53,7 @@ export default ({
             >
         <InputAnt
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value.toString()))}
-            disabled={disabled || !currencyData}
+            disabled={disabled || !currency}
             value={value}
             placeholder={"Enter amount"}
             suffix={
@@ -65,12 +63,12 @@ export default ({
                         className={styles.FieldSelectBtn + ' text-gray-600 select-none'}
                         onClick={handleOpenTokenSelect}
                     >
-                        {(!currencySelector || currencyData) && <>
-                            <IconCoin width={34} height={34} code={currencyData.currency}/>
+                        {(!currencySelector || currency) && <>
+                            <IconCoin width={34} height={34} code={currency.currency}/>
                         </>}
 
                         <span className="text-sm font-medium">
-                            {currencySelector && !currencyData ? 'Select token' : currencyData.currency}
+                            {currencySelector && !currency ? 'Select token' : currency.currency}
                         </span>    
                         
                         {currencySelector && <IconDoubleArrows/>}
@@ -78,11 +76,11 @@ export default ({
                 </>
             }
         />
-        {!currencyData ? null : (
+        {!currency ? null : (
             <p className="text-xs text-gray-400 absolute top-11 left-3 z-10 select-none">
-                Balance: {!currencyData.availableBalance ? 0 :
-                    currencyData.availableBalance.toString()
-                } {currencyData.currency}
+                Balance: {!currency.availableBalance ? 0 :
+                    currency.availableBalance.toString()
+                } {currency.currency}
             </p>
         )}
 

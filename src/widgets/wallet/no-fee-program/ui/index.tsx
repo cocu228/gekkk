@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import Button from '@/shared/ui/button/Button';
-import InputCurrency from "@/shared/ui/input-currency";
+// import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -12,7 +12,7 @@ import { apiCreateInvestment } from "@/shared/api";
 
 const NoFeeProgram = () => {
     const lockConfirmModal = useModal();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);
@@ -24,13 +24,13 @@ const NoFeeProgram = () => {
                 <div className="col">
                     <div className="info-box-warning">
                         <p className="font-extrabold text-sm mb-3">
-                            Locking {wallet.currency} tokens gives you access
+                            Locking {currency.$const} tokens gives you access
                             to the no fee crypto-fiat transactions
                         </p>
 
                         <p className="text-sm">
                             Up to the amount not exceeding a similar number of
-                            blocked {wallet.currency} tokens.
+                            blocked {currency.$const} tokens.
                             Funds are blocked for {noFeeTemplate.depo_min_time} days.
                         </p>
                     </div>
@@ -108,19 +108,14 @@ const NoFeeProgram = () => {
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
                     <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
                         At the end of the program term, the
-                        blocked {wallet.currency} funds will return to your account
+                        blocked {currency.$const} funds will return to your account
                     </p>
                 </div>
             </div>
 
             <div className="row mb-7">
                 <div className="col">
-                    <InputCurrency
-                        header={"Lock funds"}
-                        onChange={setAmount}
-                        value={amount ? amount : null}
-                        currencyData={wallet}
-                    />
+                    ***InputCurrencyPercented***
                 </div>
             </div>
 
@@ -132,7 +127,7 @@ const NoFeeProgram = () => {
                         className="w-full"
                         size={"xl"}
                     >
-                        Lock {wallet.currency} tokens
+                        Lock {currency.$const} tokens
                     </Button>
                 </div>
             </div>
@@ -166,7 +161,7 @@ const NoFeeProgram = () => {
                             right={<>
                                 {investment?.amount} {!amount ? null : (
                                     (<span className="text-green">+({amount})</span>)
-                                )} {wallet.currency}
+                                )} {currency.$const}
                             </>}
                         />
                     </div>

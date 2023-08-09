@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import InputCurrencyPercented from "../../../shared/ui/input-currency";
+// import InputCurrencyPercented from "../../../shared/ui/input-currency";
 import Button from "@/shared/ui/button/Button";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import Modal from "@/shared/ui/modal/Modal";
@@ -39,16 +39,7 @@ const GekkardAccount = () => {
         </div>
         <div className="row mb-4">
             <div className="col">
-                <InputCurrencyPercented
-                    value={input}
-                    onChange={setInput}
-                    currencyData={{
-                        ...wallet,
-                        availableBalance: new Decimal(organizations.accounts[0].balance)
-                    }}
-                    // currencyData={wallet}
-                    minValue={min_withdraw}
-                />
+                ***InputCurrencyPercented***
             </div>
         </div>
         <div className="row">

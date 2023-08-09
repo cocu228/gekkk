@@ -19,7 +19,6 @@ import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
-import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import PriceField from '@/widgets/exchange/ui/price-field/PriceField';
 import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
@@ -32,9 +31,11 @@ import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumb
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
 
 function Exchange() {
+
     const confirmModal = useModal();
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
+
     const navigate = useNavigate();
     const {currencies} = useContext(CtxRootData);
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
@@ -75,16 +76,7 @@ function Exchange() {
                         trigger={
                             <span>Exchange</span>
                         }
-                        items={[
-                            {
-                                key: '1',
-                                label: (
-                                    <DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>
-                                        Create private exchange room
-                                    </DropdownItem>
-                                )
-                            }
-                        ]}
+                        items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>Create private exchange room</DropdownItem>)}]}
                     />
                 );
             case 'creator':
@@ -168,7 +160,7 @@ function Exchange() {
                                     validateBalance={false}
                                     onChange={onToValueChange}
                                     onCurrencyChange={onToCurrencyChange}
-                                    currencyData={currencies.get(to.currency)}
+                                    currency={currencies.get(to.currency)}
                                     value={to.amount}
                                     header={
                                         <div className="font-medium text-md lg:text-sm md:text-xs">Pay from</div>

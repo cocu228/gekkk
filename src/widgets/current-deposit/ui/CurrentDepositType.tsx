@@ -7,14 +7,14 @@ interface ICurrentDepositType {
     isClosed?: boolean;
     isFixed?: boolean;
     strategyData?: IDepositStrategyData;
-    token?: ICtxCurrencyData;
+    currency?: ICtxCurrencyData;
 }
 
 function CurrentDepositType({
     isClosed = false,
     isFixed = false,
     strategyData,
-    token
+    currency
 }: ICurrentDepositType) {
     const {
         strategy,
@@ -45,8 +45,8 @@ function CurrentDepositType({
 
                 {!isFixed && (
                     <div className='flex gap-2 items-center'>
-                        <IconCoin width={24} code={token.currency} className={isClosed ? 'grayscale' : ''} />
-                        <p className='font-medium'>{token.name} ({token.currency})</p>
+                        <IconCoin width={24} code={currency.$const} className={isClosed ? 'grayscale' : ''} />
+                        <p className='font-medium'>{currency.name} ({currency.$const})</p>
                     </div>
                 )}
             </div>

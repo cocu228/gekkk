@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import styles from '../style.module.scss';
 import {ICtxCurrencyData} from '@/processes/RootContext';
 
@@ -8,7 +8,7 @@ interface IParams {
     currencyData: ICtxCurrencyData;
 }
 
-const DisplayBalance: FC<IParams> = (({children, className, currencyData}: IParams) => { 
+const DisplayBalance: FC<IParams> = (({children, className, currencyData}: IParams) => {
     return (
         <div className={className}>
             {children}

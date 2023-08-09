@@ -41,7 +41,6 @@ const Validator: FC<IParams> = (({
     return (
         <div className={className}>
             {children}
-
             {value && error
                 ? <div className='mt-0.5 text-red-800'>{error}</div>
                 : <div className='mt-0.5 text-green'>{description}</div>}

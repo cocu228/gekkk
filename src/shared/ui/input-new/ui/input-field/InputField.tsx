@@ -33,9 +33,9 @@ const InputField: FC<IParams & InputProps> & {
         setActiveCurrency(selectorCurrency);
     }, [selectorCurrency]);
 
-    useEffect(() => {
-        setActiveCurrency(currencyData);
-    }, [currencyData])
+    // useEffect(() => {
+    //     setActiveCurrency(currencyData);
+    // }, [currencyData])
 
     return (
         <div className={wrapperClassName}>
@@ -46,15 +46,9 @@ const InputField: FC<IParams & InputProps> & {
                 onChange={({target}) => {
                     onChange(formatAsNumberAndDot(target.value.toString()))
                 }}
-                suffix={<>
-                    {activeCurrency && <>
-                        <IconCoin width={34} height={34} code={activeCurrency.currency}/>
-                    </>}
-
-                    <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>
-                        {!activeCurrency ? 'Select token' : activeCurrency.currency}
-                    </span>
-                </>}
+                suffix={<>{activeCurrency && <><IconCoin width={34} height={34} code={activeCurrency.currency}/></>}
+                    <span
+                        className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{!activeCurrency ? 'Select token' : activeCurrency.currency}</span></>}
             />
         </div>
     );

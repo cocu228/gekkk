@@ -19,12 +19,12 @@ import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
-import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
+// import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import PriceField from '@/widgets/exchange/ui/price-field/PriceField';
 import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
 import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
-import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
+// import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
@@ -150,22 +150,7 @@ function Exchange() {
                                     </div>
                                 </div>
                                 <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">Receive to</div>
-                                <InputItemCurrency
-                                    allowedFlags={[
-                                        CurrencyFlags.AccountAvailable,
-                                        CurrencyFlags.ExchangeAvailable
-                                    ]}
-                                    currencySelector={roomType === 'default'}
-                                    excludedCurrencies={[from.currency]}
-                                    validateBalance={false}
-                                    onChange={onToValueChange}
-                                    onCurrencyChange={onToCurrencyChange}
-                                    currency={currencies.get(to.currency)}
-                                    value={to.amount}
-                                    header={
-                                        <div className="font-medium text-md lg:text-sm md:text-xs">Pay from</div>
-                                    }
-                                />
+                                ***InputCurrencyPercented***
                                 <div className="mt-3 md:mt-2">
                                     <div className="font-medium text-md lg:text-sm md:text-xs">Price</div>
                                     <PriceField />

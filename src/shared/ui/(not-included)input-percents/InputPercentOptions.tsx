@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import PercentBtn from "@/shared/ui/percent-btn/PercentBtn";
 import React, {useContext, useEffect, useState} from "react";
 import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
-import {CtxInputCurrencyOptions} from "@/shared/ui/input-percents/model/context";
+import {CtxInputCurrencyOptions} from "@/shared/ui/(not-included)input-percents/model/context";
 
 interface IParams {
     children: React.ReactNode,

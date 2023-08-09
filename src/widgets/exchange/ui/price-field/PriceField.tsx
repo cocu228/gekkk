@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import styles from '@/shared/ui/input-currency/style.module.scss';
+//todo module стиля не должен зависеть от другого компонента.
+// import styles from '@/shared/ui/input-currency/style.module.scss';
 import { CtxExchangeData } from '../../model/context';
 import { Input } from 'antd';
 import { formatAsNumberAndDot } from '@/shared/lib/formatting-helper';
@@ -20,20 +21,23 @@ function PriceField() {
 
     return (
         <Input
-            className={styles.Field}
+            // className={styles.Field}
+            className={"styles.Field"}
             onChange={({target}) => onPriceAmountChange(formatAsNumberAndDot(target.value))}
             type="text"
             placeholder='0.00'
             disabled={!(from.currency && to.currency)}
             value={!amount ? '' : amount}
             suffix={to.currency && from.currency && (
-                <div className={styles.FieldPriceLabel}>
+                // <div className={styles.FieldPriceLabel}>
+                <div className={"styles.FieldPriceLabel"}>
                     <span>{isSwapped
                         ? `${from.currency} per 1 ${to.currency}`
                         : `${to.currency} per 1 ${from.currency}`
                     }</span>
                     <button
-                        className={styles.FieldSwitchBtn}
+                        // className={styles.FieldSwitchBtn}
+                        className={"styles.FieldSwitchBtn"}
                         onClick={onPriceCurrenciesSwap}
                     >
                         <img

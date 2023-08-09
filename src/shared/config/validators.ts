@@ -9,7 +9,7 @@ interface IValidationResult {
 
 export function ValidateBalance(currency: ICtxCurrencyData): IValidatorCreator {
     return (value) => ({
-        validated: +value < +currency.availableBalance,
+        validated: +value <= +currency.availableBalance,
         errorMessage: `You don't have enough funds`
     })
 }

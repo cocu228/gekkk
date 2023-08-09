@@ -14,48 +14,35 @@ const TopUp = memo(() => {
 
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const {currency} = useContext(CtxWalletData),
+        {currencies} = useContext(CtxRootData),
         // isEURG = currency === "EURG",
         formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
     const [value, setValue] = useState<string>();
-    const {currencies} = useContext(CtxRootData);
-    const [cur, setCur] = useState<ICtxCurrencyData>(currencies.get('BTC'));
 
     return (<div className="wrapper">
         {loading ? <Loader/> :
             <>
                 <div className='mb-20'>
-                    <InputCurrency.CurrencySelector
-                        allowedFlags={[
-                            CurrencyFlags.AccountAvailable
-                        ]}
-                    >
                         <InputCurrency.Validator
                             value={value}
-                            description='The minimum amount is 0.005 BTC'
                             validators={[
-                                ValidateBalance(cur),
+                                ValidateBalance(currencies.get(currency)),
                                 MinimumAmount(0.005),
-                                MaximumAmount(1000)
-                            ]}
-                        >
-                            <InputCurrency.PercentSelector
-                                onSelect={setValue}
-                                header={"Input"}
-                                currencyData={cur}
-                            >
-                                <InputCurrency.DisplayBalance currencyData={currencies.get('BTC')}>
+                                MaximumAmount(1000)]}>
+                            <InputCurrency.PercentSelector onSelect={setValue} header={"Input"}
+                                                           currencyData={currencies.get(currency)}>
+                                <InputCurrency.DisplayBalance currencyData={currencies.get(currency)}>
                                     <InputCurrency
                                         value={value}
-                                        currencyData={currencies.get('BTC')}
-                                        onChange={value =>
-                                            setValue(value)
+                                        currencyData={currencies.get(currency)}
+                                        onChange={v =>
+                                            setValue(v)
                                         }
                                     />
                                 </InputCurrency.DisplayBalance>
                             </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
-                    </InputCurrency.CurrencySelector>
                 </div>
 
                 <ChoseNetwork/>

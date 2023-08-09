@@ -33,9 +33,9 @@ const InputField: FC<IParams & InputProps> & {
         setActiveCurrency(selectorCurrency);
     }, [selectorCurrency]);
 
-    // useEffect(() => {
-    //     setActiveCurrency(currencyData);
-    // }, [currencyData])
+    useEffect(() => {
+        setActiveCurrency(currencyData);
+    }, [currencyData])
 
     return (
         <div className={wrapperClassName}>

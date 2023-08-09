@@ -11,7 +11,7 @@ import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 const TopUpQR = () => {
 
     const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {currency, name} = useContext(CtxWalletData)
+    const {$const, name} = useContext(CtxWalletData)
     const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
 
     const {
@@ -31,7 +31,7 @@ const TopUpQR = () => {
         <div className="row text-right pb-10 flex justify-center items-center flex-col">
 
             <h3 className="font-medium text-fs24 mb-7 text-center">Send a transaction to
-                this <b>{currency} {name}</b> address</h3>
+                this <b>{$const} {name}</b> address</h3>
 
             <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>

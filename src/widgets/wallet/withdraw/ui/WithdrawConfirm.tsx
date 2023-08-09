@@ -30,7 +30,7 @@ const WithdrawConfirm = ({
         withdraw_fee = null,
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
-    const {currency} = useContext(CtxWalletData)
+    const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
@@ -43,7 +43,7 @@ const WithdrawConfirm = ({
 
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
-        const response = await apiCreateWithdraw(currency, networkIdSelect, new Decimal(amount).toNumber(),
+        const response = await apiCreateWithdraw($const, networkIdSelect, new Decimal(amount).toNumber(),
             percent_fee || withdraw_fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)
@@ -114,7 +114,7 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{amount} {currency}</span>
+                <span>{amount} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -124,7 +124,7 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{withdraw_fee} {currency}</span>
+                <span>{withdraw_fee} {$const}</span>
             </div>
         </div>
         {!description ? null : <>

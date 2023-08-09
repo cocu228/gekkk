@@ -12,7 +12,7 @@ import CurrencySelector from '../currency-selector/CurrencySelector';
 interface IParams {
     wrapperClassName?: string;
     currencyData?: ICtxCurrencyData;
-    onChange?: (value: string) => void;
+    onChange: (value: string) => void;
 }
 
 const InputField: FC<IParams & InputProps> & {
@@ -26,7 +26,9 @@ const InputField: FC<IParams & InputProps> & {
     onChange,
     ...props
 }) => {
+
     const selectorCurrency = useContext(CtxSelectorCurrency);
+
     const [activeCurrency, setActiveCurrency] = useState(currencyData);
 
     useEffect(() => {

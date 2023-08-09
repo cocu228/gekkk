@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {useParams} from "react-router-dom";
 import Transfer from "@/widgets/wallet/transfer";
 import History from "@/widgets/history/ui/History";
@@ -39,7 +39,7 @@ function Wallet() {
 
                             <Transfer data-tab={"Funds transfer"}/>
 
-                            {$currency.currency === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
+                            {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                <CashbackProgram data-tab={"Cashback Program"}/>
                                <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}

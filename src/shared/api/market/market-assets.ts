@@ -1,8 +1,8 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
-import $const from "@/shared/config/coins/constants";
+import ETokensConst from "@/shared/config/coins/constants";
 
 export interface IResMarketAsset {
-    code: $const,
+    code: ETokensConst,
     name: string,
     unified_cryptoasset_id: number,
     decimal_prec: number,

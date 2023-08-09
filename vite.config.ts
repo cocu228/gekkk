@@ -6,9 +6,6 @@ export default defineConfig(({mode}) => {
 
   process.env = {...process.env, ...loadEnv(mode, process.cwd())};
 
-  console.log(process.env)
-  console.log(mode)
-
   return {
     resolve: {
       alias: [
@@ -21,7 +18,7 @@ export default defineConfig(({mode}) => {
     server: {
       proxy: {
         '^/(api|gek|pub/)': {
-          target: 'https://api-stg.gekkoin.com',
+          target: 'https://api-dev.gekkoin.com',
           changeOrigin: true,
           secure: false,
         },

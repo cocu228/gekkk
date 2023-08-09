@@ -5,19 +5,19 @@ import {ICtxCurrencyData} from '@/processes/RootContext';
 interface IParams {
     className?: string;
     children?: React.ReactNode;
-    currencyData: ICtxCurrencyData;
+    currency: ICtxCurrencyData;
 }
 
-const DisplayBalance: FC<IParams> = (({children, className, currencyData}: IParams) => {
+const DisplayBalance: FC<IParams> = (({children, className, currency}: IParams) => {
     return (
         <div className={className}>
             {children}
-            <div>{!currencyData ? null : 
+            <div>{!currency ? null :
                 <span className={styles.FieldInfoText}>Balance: {
-                    currencyData.availableBalance
-                        ? currencyData.availableBalance.toNumber()
+                    currency.availableBalance
+                        ? currency.availableBalance.toNumber()
                         : 0
-                } {currencyData.currency}</span>
+                } {currency.$const}</span>
             }</div>
         </div>
     );

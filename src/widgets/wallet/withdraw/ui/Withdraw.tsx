@@ -8,9 +8,9 @@ import { CtxWalletData, CtxWalletNetworks } from '../../model/context';
 const Withdraw = () => {
 
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const currency = useContext(CtxWalletData),
+    // const currency = useContext(CtxWalletData),
         // isEURG = currency.const === "EURG",
-        formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
+    const formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
     return (
         <div className='h-full'>

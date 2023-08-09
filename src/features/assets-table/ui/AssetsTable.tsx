@@ -6,7 +6,7 @@ import GTable from '@/shared/ui/grid-table/';
 import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
-import $const from "@/shared/config/coins/constants";
+import ETokensConst from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
@@ -24,9 +24,9 @@ interface IParams {
     onSelect?: (currency: string) => void
 }
 
-function searchTokenFilter (token: ICtxCurrencyData, searchValue: string) {
-    return token.currency?.toLowerCase().includes(searchValue) ||
-        token.name?.toLowerCase().includes(searchValue);
+function searchTokenFilter(currency: ICtxCurrencyData, searchValue: string) {
+    return currency.$const?.toLowerCase().includes(searchValue) ||
+        currency.name?.toLowerCase().includes(searchValue);
 }
 
 const AssetsTable = ({
@@ -43,7 +43,7 @@ const AssetsTable = ({
     const {lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxRootData);
     const [searchValue, setSearchValue] = useState<string>('');
-    const [rates, setRates] = useState<Record<$const, number>>(null);
+    const [rates, setRates] = useState<Record<ETokensConst, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
 
     useEffect(()=>{
@@ -109,33 +109,33 @@ const AssetsTable = ({
                                  style={{maxHeight: modal ? 550 : 1080}}>
                         {tokensList
                             .filter((value) => searchTokenFilter(value, searchValue))
-                            .map((token, index) => (
+                            .map((currency, index) => (
                             <GTable.Row
                                 className={`
                                     grid
                                     ${styles.Item}
-                                    ${blockedCurrencies?.includes(token.currency) ? styles.ItemBlocked : ''}
+                                    ${blockedCurrencies?.includes(currency.$const) ? styles.ItemBlocked : ''}
                                     ${!evenOrOdd(index) ? "bg-gray-main" : ""}
                                     min-h-[56px] lg:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`
                                 }
-                                onClick={() => onSelect(token.currency)}
+                                onClick={() => onSelect(currency.$const)}
                             >
                                 {columnKeys.map((key: string) => (
                                     <GTable.Col className={`flex ${getAlignment(columnKeys, key)}`}>
                                         {key === AssetTableKeys.NAME && (
                                             <div className="flex items-center gap-3">
-                                                <IconCoin height={29} className='max-h-[36px]' code={token.currency}/>
-                                                <span>{(!lg || columnKeys.length === 2) ? token.name : token.currency}</span>
+                                                <IconCoin height={29} className='max-h-[36px]' code={currency.$const}/>
+                                                <span>{(!lg || columnKeys.length === 2) ? currency.name : currency.$const}</span>
                                             </div>
                                         )}
 
                                         {key === AssetTableKeys.CURRENCY && (
-                                            <span>{token.currency}</span>
+                                            <span>{currency.$const}</span>
                                         )}
 
                                         {key === AssetTableKeys.PRICE && (
-                                            <span>{!rates || rates[token.currency] === 0 ? "—" :
-                                                `${getCurrencyRounding(rates[token.currency])} €`}</span>
+                                            <span>{!rates || rates[currency.$const] === 0 ? "—" :
+                                                `${getCurrencyRounding(rates[currency.$const])} €`}</span>
                                         )}
 
                                         {key === AssetTableKeys.ACTIONS && (
@@ -146,7 +146,7 @@ const AssetsTable = ({
                                                 onClick={(e) => {
                                                     scrollToTop();
                                                     e.stopPropagation();
-                                                    navigate(`/exchange?to=${token.currency}`)
+                                                    navigate(`/exchange?to=${currency.$const}`)
                                                 }}
                                             >Buy</Button>
                                         )}

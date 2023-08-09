@@ -1,6 +1,6 @@
 import styles from '../style.module.scss';
 import Modal from "@/shared/ui/modal/Modal";
-import {FC, useContext, useState} from "react";
+import React, {FC, useContext, useState} from "react";
 import {CtxSelectorCurrency} from "../../model/context";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
@@ -53,8 +53,8 @@ const CurrencySelector: FC<IParams> = ({
                 className='-mx-4 -mt-8 min-h-[500px]'
                 modal={true}
                 balanceFilter={balanceFilter}
-                onSelect={(currency: string) => {
-                    setCurrency(currencies.get(currency));
+                onSelect={($const: string) => {
+                    setCurrency(currencies.get($const));
                     handleCloseTokenSelect();
                 }}
                 blockedCurrencies={excludedCurrencies}

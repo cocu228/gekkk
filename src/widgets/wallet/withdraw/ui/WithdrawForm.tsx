@@ -4,13 +4,11 @@ import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
-import InputCurrencyPercented from "@/shared/ui/input-currency";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
-// import {useNavigate} from "react-router-dom";
-
+import InputCurrency from "@/shared/ui/input-new/ui";
 const {TextArea} = Input;
 
 const WithdrawForm = () => {
@@ -25,7 +23,7 @@ const WithdrawForm = () => {
     const {isModalOpen, showModal, handleCancel} = useModal()
     // const navigate = useNavigate()
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const wallet = useContext(CtxWalletData)
+    const currency = useContext(CtxWalletData)
 
     const {
         min_withdraw = null,
@@ -38,7 +36,9 @@ const WithdrawForm = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-    const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
+    // const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
+
+    const [value, setValue] = useState<string>("");
 
     console.log(networksDefault)
 
@@ -54,31 +54,40 @@ const WithdrawForm = () => {
                 </div>
 
                     <div className='flex flex-col gap-2'>
-                        
-                        <InputCurrencyPercented
-                            header={(
-                                <span className="text-gray-600">Amount</span>
-                            )}
-                            onChange={onAmount}
-                            value={inputs.amount}
-                            disabled={!networkIdSelect}
-                            currencyData={wallet}
-                            minValue={min_withdraw}
-                        />
+
+                        <InputCurrency.Validator
+                            value={value}>
+                            <InputCurrency.PercentSelector onSelect={setValue}
+                                                           header={"Input"}
+                                                           currency={currency}>
+
+                                <InputCurrency.DisplayBalance currency={currency}>
+                                    <InputCurrency
+                                        value={value}
+                                        currency={currency.$const}
+                                        onChange={v =>
+                                            setValue(v)
+                                        }
+                                    />
+                                </InputCurrency.DisplayBalance>
+
+                            </InputCurrency.PercentSelector>
+                        </InputCurrency.Validator>
                     </div>
 
-                {wallet.availableBalance.toNumber() < inputs.amount && <div className="text-fs12 text-red-main -mt-3">
+                {currency.availableBalance.toNumber() < inputs.amount && <div className="text-fs12 text-red-main -mt-3">
                     You don't have enough fund. Please <a className="text-blue-400"
                                                           // onClick={() => navigate(`/wallet/${wallet.currency}/Top Up`)}
-                                                          href={`/wallet/${wallet.currency}/Top Up`}>top up</a> your account.
+                                                          href={`/wallet/${currency.$const}/Top Up`}>top up</a> your
+                    account.
                 </div>}
 
                 {min_withdraw !== 0 && (min_withdraw > inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
-                    Minimum withdrawal amount {min_withdraw} {wallet.currency}
+                    Minimum withdrawal amount {min_withdraw} {currency.$const}
                 </div>}
 
                 {max_withdraw !== 0 && (max_withdraw < inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
-                    Maximum withdrawal amount {max_withdraw} {wallet.currency}
+                    Maximum withdrawal amount {max_withdraw} {currency.$const}
                 </div>}
 
                 <div className='flex flex-col gap-2'>
@@ -97,7 +106,7 @@ const WithdrawForm = () => {
                 </div>
 
                 <Button size={"xl"} onClick={showModal}
-                        disabled={isDisabledBtnWithdraw(inputs, wallet, max_withdraw, min_withdraw)}
+                        disabled={isDisabledBtnWithdraw(inputs, currency, max_withdraw, min_withdraw)}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>

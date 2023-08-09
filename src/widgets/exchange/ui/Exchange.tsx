@@ -132,23 +132,23 @@ function Exchange() {
                     <div className="py-5 px-10 lg:px-5 md:px-4">
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
-                                <InputCurrencyPercented
-                                    allowedFlags={[
-                                        CurrencyFlags.AccountAvailable,
-                                        CurrencyFlags.ExchangeAvailable
-                                    ]}
-                                    balanceFilter
-                                    currencySelector={roomType === 'default'}
-                                    onChange={onFromValueChange}
-                                    onCurrencyChange={onFromCurrencyChange}
-                                    currencyData={currencies.get(from.currency)}
-                                    excludedCurrencies={[to.currency]}
-                                    value={from.amount}
-                                    minValue={currencies.get(from.currency)?.minOrder}
-                                    header={
-                                        <div className="font-medium text-md lg:text-sm md:text-xs select-none">Pay from</div>
-                                    }
-                                />
+                                {/*<InputCurrencyPercented*/}
+                                {/*    allowedFlags={[*/}
+                                {/*        CurrencyFlags.AccountAvailable,*/}
+                                {/*        CurrencyFlags.ExchangeAvailable*/}
+                                {/*    ]}*/}
+                                {/*    balanceFilter*/}
+                                {/*    currencySelector={roomType === 'default'}*/}
+                                {/*    onChange={onFromValueChange}*/}
+                                {/*    onCurrencyChange={onFromCurrencyChange}*/}
+                                {/*    currencyData={currencies.get(from.currency)}*/}
+                                {/*    excludedCurrencies={[to.currency]}*/}
+                                {/*    value={from.amount}*/}
+                                {/*    minValue={currencies.get(from.currency)?.minOrder}*/}
+                                {/*    header={*/}
+                                {/*        <div className="font-medium text-md lg:text-sm md:text-xs select-none">Pay from</div>*/}
+                                {/*    }*/}
+                                {/*/>*/}
                                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                                     <div
                                         onClick={onCurrenciesSwap}

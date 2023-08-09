@@ -1,12 +1,9 @@
 import {useContext} from 'react';
 import Radio from '@/shared/ui/radio';
 import {CtxNewDeposit} from '../../../model/context';
-import $const from '@/shared/config/coins/constants';
-import InputCurrencyPercented from '@/shared/ui/input-currency';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
 import { CtxRootData } from '@/processes/RootContext';
-import Decimal from 'decimal.js';
 
 const TypeChoose = () => {
     const {
@@ -49,34 +46,35 @@ const TypeChoose = () => {
             </div>
 
             <div className="wrapper w-full">
-                <InputCurrencyPercented
-                    value={amount}
-                    minValue={minAmount}
-                    currencyData={eurgWallet ? eurgWallet : {
-                        currency: $const.EURG,
-                        availableBalance: new Decimal(0),
-                        id: null,
-                        name: null,
-                        flags: null,
-                        minOrder: null,
-                        roundPrec: null,
-                        ordersPrec: null,
-                        lockOrders: null,
-                        decimalPrec: null,
-                        lockInBalance: null,
-                        lockOutBalance: null,
-                        defaultTokenNetworkIn: null,
-                        defaultTokenNetworkOut: null,
-                    }}
-                    onChange={(target) => {
-                        onAmountChange(target);
-                    }}
-                    header={(
-                        <p className="text-gray-400 font-medium text-base md:text-sm sm:text-xs">
-                            Enter deposit amount
-                        </p>
-                    )}
-                />
+                {/*<InputCurrencyPercented*/}
+                {/*    value={amount}*/}
+                {/*    minValue={minAmount}*/}
+                {/*    currencyData={eurgWallet ? eurgWallet : {*/}
+                {/*        currency: ETokensConst.EURG,*/}
+                {/*        availableBalance: new Decimal(0),*/}
+                {/*        id: null,*/}
+                {/*        name: null,*/}
+                {/*        flags: null,*/}
+                {/*        minOrder: null,*/}
+                {/*        roundPrec: null,*/}
+                {/*        ordersPrec: null,*/}
+                {/*        lockOrders: null,*/}
+                {/*        decimalPrec: null,*/}
+                {/*        lockInBalance: null,*/}
+                {/*        lockOutBalance: null,*/}
+                {/*        defaultTokenNetworkIn: null,*/}
+                {/*        defaultTokenNetworkOut: null,*/}
+                {/*    }}*/}
+                {/*    onChange={(target) => {*/}
+                {/*        onAmountChange(target);*/}
+                {/*    }}*/}
+                {/*    header={(*/}
+                {/*        <p className="text-gray-400 font-medium text-base md:text-sm sm:text-xs">*/}
+                {/*            Enter deposit amount*/}
+                {/*        </p>*/}
+                {/*    )}*/}
+                {/*/>*/}
+                InputCurrencyPercented
             </div>
         </div>
     );

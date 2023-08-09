@@ -6,14 +6,14 @@ interface IParams {
     className?: string;
     description?: string;
     children?: React.ReactNode;
-    validators: Array<IValidatorCreator>;
+    validators?: Array<IValidatorCreator>;
 }
 
 const Validator: FC<IParams> = (({
     value,
     children,
     className,
-    validators,
+                                     validators = [],
     description
 }: IParams) => {
     const [error, setError] = useState(null);

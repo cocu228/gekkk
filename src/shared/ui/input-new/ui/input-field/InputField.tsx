@@ -11,7 +11,8 @@ import CurrencySelector from '../currency-selector/CurrencySelector';
 
 interface IParams {
     wrapperClassName?: string;
-    currencyData?: ICtxCurrencyData;
+    currency?: string;
+    disabled?: boolean;
     onChange: (value: string) => void;
 }
 
@@ -21,36 +22,31 @@ const InputField: FC<IParams & InputProps> & {
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
 } = ({
-    currencyData,
+                           currency = "",
     wrapperClassName,
+                           disabled = false,
     onChange,
     ...props
 }) => {
 
     const selectorCurrency = useContext(CtxSelectorCurrency);
 
-    const [activeCurrency, setActiveCurrency] = useState(currencyData);
-
-    useEffect(() => {
-        setActiveCurrency(selectorCurrency);
-    }, [selectorCurrency]);
-
-    useEffect(() => {
-        setActiveCurrency(currencyData);
-    }, [currencyData])
+    // useEffect(() => {
+    //     setActiveCurrency(selectorCurrency);
+    // }, [selectorCurrency]);
 
     return (
         <div className={wrapperClassName}>
             <InputAntd
                 {...props}
-                disabled={!activeCurrency}
+                disabled={disabled}
                 placeholder='Enter amount'
                 onChange={({target}) => {
                     onChange(formatAsNumberAndDot(target.value.toString()))
                 }}
-                suffix={<>{activeCurrency && <><IconCoin width={34} height={34} code={activeCurrency.currency}/></>}
+                suffix={<>{currency && <><IconCoin width={34} height={34} code={currency}/></>}
                     <span
-                        className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{!activeCurrency ? 'Select token' : activeCurrency.currency}</span></>}
+                        className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{currency}</span></>}
             />
         </div>
     );

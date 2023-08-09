@@ -6,7 +6,6 @@ import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
-import $const from "@/shared/config/coins/constants";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
 import totalizeAmount from "../../model/totalize-amount";
@@ -167,7 +166,7 @@ const SidebarDesktop = () => {
             {!secondaryWallets.length ? null : (
                 <NavCollapse header={"Assets"} id={"assets"}>
                     {helperFilterList(secondaryWallets).map((item, i) =>
-                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.currency}`} key={item.id}>
+                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                 <div className="col flex items-center pl-4 w-[85px]">
                                     <SvgArrow
@@ -177,14 +176,14 @@ const SidebarDesktop = () => {
                                     />
                                     <IconCoin
                                         className={styles.Icon}
-                                        code={item.currency}
+                                        code={item.$const}
                                     />
                                 </div>
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.$const}`}</span>
                                     </div>
                                     <div className="row w-full">
                                         {item.lockInBalance !== 0 ? <span

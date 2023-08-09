@@ -13,9 +13,7 @@ import {MaximumAmount, MinimumAmount, ValidateBalance} from '@/shared/config/val
 const TopUp = memo(() => {
 
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {currency} = useContext(CtxWalletData),
-        {currencies} = useContext(CtxRootData),
-        // isEURG = currency === "EURG",
+    const currency = useContext(CtxWalletData),
         formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
     const [value, setValue] = useState<string>("");
@@ -25,23 +23,22 @@ const TopUp = memo(() => {
             <>
                 <div className='mb-20'>
                     <InputCurrency.Validator
-                        value={value}
-                        validators={[
-                            ValidateBalance(currencies.get(currency)),
-                            MinimumAmount(0.005),
-                            MaximumAmount(1000)]}>
-                        <InputCurrency.PercentSelector onSelect={setValue} header={"Input"}
-                                                       currencyData={currencies.get(currency)}>
-                            <InputCurrency.DisplayBalance currencyData={currencies.get(currency)}>
+                        value={value}>
+                        <InputCurrency.PercentSelector onSelect={setValue}
+                                                       header={"Input"}
+                                                       currency={currency}>
+
+                            <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
                                     value={value}
-                                    currencyData={currencies.get(currency)}
+                                    currency={currency.$const}
                                     onChange={v =>
                                             setValue(v)
                                         }
                                     />
                                 </InputCurrency.DisplayBalance>
-                            </InputCurrency.PercentSelector>
+
+                        </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
                 </div>
 

@@ -1,13 +1,13 @@
 import React from "react";
 import Decimal from "decimal.js";
-import $const from "@/shared/config/coins/constants";
+import ETokensConst from "@/shared/config/coins/constants";
 import {IResBalance, IResMarketAsset} from "@/shared/api";
 
 export class ICtxCurrencyData {
     id: null | number;
     name: null | string;
     flags: null | number;
-    currency: null | $const;
+    $const: null | ETokensConst;
     minOrder: null | number;
     roundPrec: null | number;
     ordersPrec: null | number;
@@ -23,7 +23,7 @@ export class ICtxCurrencyData {
         this.id = asset.unified_cryptoasset_id;
         this.name = asset.name;
         this.flags = asset.flags;
-        this.currency = asset.code;
+        this.$const = asset.code;
         this.minOrder = asset.min_order;
         this.roundPrec = asset.round_prec;
         this.ordersPrec = asset.orders_prec;

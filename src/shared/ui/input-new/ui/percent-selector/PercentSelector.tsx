@@ -8,7 +8,7 @@ interface IParams {
     disabled?: boolean,
     children?: React.ReactNode,
     header?: string | JSX.Element,
-    currencyData: ICtxCurrencyData | null,
+    currency: ICtxCurrencyData | null,
     onSelect?: (value: string) => void
 }
 
@@ -16,7 +16,7 @@ const PercentSelector: FC<IParams> = ({
     header,
     children,
     disabled,
-    currencyData,
+    currency,
     onSelect
 }: IParams) => {
 
@@ -29,10 +29,10 @@ const PercentSelector: FC<IParams> = ({
     }, [percent]);
 
     const onBtnClick = (percent: Decimal) => {
-        const value = disabled ? null : percent.div(new Decimal(100)).mul(currencyData.availableBalance);
+        const value = disabled ? null : percent.div(new Decimal(100)).mul(currency.availableBalance);
 
         const result = new Decimal(!percent.comparedTo(100) ? value :
-            value.toFixed(currencies.get(currencyData.currency).roundPrec)
+            value.toFixed(currencies.get(currency.$const).roundPrec)
         );
 
         onSelect(result.toString());
@@ -46,7 +46,7 @@ const PercentSelector: FC<IParams> = ({
                 {header}
 
                 <div className={`row flex gap-1 text-xs 
-                        ${disabled || !currencyData || !currencyData.availableBalance
+                        ${disabled || !currency || !currency.availableBalance
                             ? 'pointer-events-none'
                             : ''
                         }

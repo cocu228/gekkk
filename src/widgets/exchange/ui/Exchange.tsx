@@ -8,6 +8,7 @@ import {CtxExchangeData} from '../model/context';
 import IconSwap from '@/shared/ui/icons/IconSwap';
 import History from '@/widgets/history/ui/History';
 import {CtxRootData} from '@/processes/RootContext';
+import InputCurrency from '@/shared/ui/input-new/ui';
 import useModal from '@/shared/model/hooks/useModal';
 import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
@@ -19,12 +20,11 @@ import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
-// import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import PriceField from '@/widgets/exchange/ui/price-field/PriceField';
 import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
 import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
-// import InputItemCurrency from "@/shared/ui/input-currency/InputItemCurrency";
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
@@ -38,6 +38,7 @@ function Exchange() {
 
     const navigate = useNavigate();
     const {currencies} = useContext(CtxRootData);
+    const [loading, setLoading] = useState<boolean>(false);
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
@@ -124,37 +125,64 @@ function Exchange() {
                     <div className="py-5 px-10 lg:px-5 md:px-4">
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
-                                {/*<InputCurrencyPercented*/}
-                                {/*    allowedFlags={[*/}
-                                {/*        CurrencyFlags.AccountAvailable,*/}
-                                {/*        CurrencyFlags.ExchangeAvailable*/}
-                                {/*    ]}*/}
-                                {/*    balanceFilter*/}
-                                {/*    currencySelector={roomType === 'default'}*/}
-                                {/*    onChange={onFromValueChange}*/}
-                                {/*    onCurrencyChange={onFromCurrencyChange}*/}
-                                {/*    currencyData={currencies.get(from.currency)}*/}
-                                {/*    excludedCurrencies={[to.currency]}*/}
-                                {/*    value={from.amount}*/}
-                                {/*    minValue={currencies.get(from.currency)?.minOrder}*/}
-                                {/*    header={*/}
-                                {/*        <div className="font-medium text-md lg:text-sm md:text-xs select-none">Pay from</div>*/}
-                                {/*    }*/}
-                                {/*/>*/}
+                                <InputCurrency.CurrencySelector
+                                    balanceFilter
+                                    onSelect={onFromCurrencyChange}
+                                    disabled={roomType !== 'default'}
+                                    excludedCurrencies={[to.currency]}
+                                    allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+                                >
+                                    <InputCurrency.Validator value={from.amount}>
+                                        <InputCurrency.PercentSelector
+                                            onSelect={onFromValueChange}
+                                            currency={currencies.get(from.currency)}
+                                            header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
+                                                Pay from
+                                            </span>}
+                                        >
+                                            <InputCurrency.DisplayBalance currency={currencies.get(from.currency)}>
+                                                <InputCurrency
+                                                    value={from.amount}
+                                                    currency={from.currency}
+                                                    onChange={v => onFromValueChange(v)}
+                                                />
+                                            </InputCurrency.DisplayBalance>        
+                                        </InputCurrency.PercentSelector>
+                                    </InputCurrency.Validator>
+                                </InputCurrency.CurrencySelector>
+
                                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                                     <div
                                         onClick={onCurrenciesSwap}
-                                        className='border-[1px] z-[1] bg-white border-solid border-gray-400 rounded-[5px] hover:border-blue-400 hover:cursor-pointer'
+                                        className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ''}`}
                                     >
                                         <IconSwap/>
                                     </div>
                                 </div>
+
                                 <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">Receive to</div>
-                                ***InputCurrencyPercented***
+
+                                <InputCurrency.CurrencySelector
+                                    className='mt-0'
+                                    disabled={roomType !== 'default'}
+                                    allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+                                    excludedCurrencies={[from.currency]}
+                                    onSelect={onToCurrencyChange}
+                                >
+                                    <InputCurrency.Validator value={from.amount}>
+                                        <InputCurrency
+                                            value={to.amount}
+                                            currency={to.currency}
+                                            onChange={v => onToValueChange(v)}
+                                        />
+                                    </InputCurrency.Validator>
+                                </InputCurrency.CurrencySelector>
+
                                 <div className="mt-3 md:mt-2">
                                     <div className="font-medium text-md lg:text-sm md:text-xs">Price</div>
                                     <PriceField />
                                 </div>
+
                                 {roomType === 'creator' && (
                                     <div className="mt-6 md:mt-3.5">
                                         <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
@@ -163,10 +191,12 @@ function Exchange() {
                                         </Checkbox>
                                     </div>
                                 )}
+
                                 <div className="mt-10 md:mt-6">
                                     <OperationResult />
                                 </div>
                             </div>
+
                             <div className="wrapper">
                                 <DepthOfMarket
                                     currencyFrom={from.currency}
@@ -175,6 +205,7 @@ function Exchange() {
                                     isSwapped={price.isSwapped}
                                 />
                             </div>
+
                             <div className={`mt-7 ${styles.GridFooter}`}>
                                 <Button
                                     className="w-full"
@@ -182,16 +213,19 @@ function Exchange() {
                                     disabled={!price.amount}
                                     onClick={confirmModal.showModal}
                                 >Buy {to.currency ? to.currency : "a token"}</Button>
+
                                 <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">
                                     order execution depends on the market situation
                                 </div>
                             </div>
                         </div>
+
                         <div className="mt-12">
                             <OpenOrders
                                 refreshKey={ordersRefresh}
                             />
                         </div>
+
                         <Modal
                             width={400}
                             title="Confirm the order"
@@ -199,7 +233,10 @@ function Exchange() {
                             onCancel={confirmModal.handleCancel}
                         >
                             <Confirm
+                                loading={loading}
                                 onConfirm={() => {
+                                    setLoading(true);
+
                                     (async () => {
                                         await apiCreateOrder({
                                             from_currency: from.currency,
@@ -213,6 +250,7 @@ function Exchange() {
 
                                         setOrdersRefresh(randomId());
                                         confirmModal.handleCancel();
+                                        setLoading(false);
                                     })();
                                 }}
                             />
@@ -238,7 +276,7 @@ function Exchange() {
                     : 'Invite link'
                 }
             >
-                {roomType == 'default'
+                {roomType === 'default'
                     ? <CreateRoom />
                     : <InviteLink roomInfo={roomInfo} />
                 }

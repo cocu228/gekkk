@@ -1,28 +1,30 @@
 import styles from '../style.module.scss';
+import React, {FC, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
-import React, {FC, useContext, useState} from "react";
-import {CtxSelectorCurrency} from "../../model/context";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import IconDoubleArrows from "@/shared/ui/icons/IconDoubleArrows";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
-import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
 
 interface IParams {
+    disabled?: boolean;
+    className?: string;
     balanceFilter?: boolean;
     children?: React.ReactNode;
     excludedCurrencies?: Array<string>;
     allowedFlags?: null | Array<CurrencyFlags>;
+    onSelect?: (value: string) => void;
 }
 
 const CurrencySelector: FC<IParams> = ({
+    disabled,
     children,
+    className,
     allowedFlags,
     balanceFilter,
-    excludedCurrencies
+    excludedCurrencies,
+    onSelect
 }: IParams) => {
-    const {currencies} = useContext(CtxRootData);
-    const [currency, setCurrency] = useState<ICtxCurrencyData>(null);
     const [tokenSelectOpen, setTokenSelectOpen] = useState<boolean>(false);
 
     const handleOpenTokenSelect = () => {
@@ -36,12 +38,14 @@ const CurrencySelector: FC<IParams> = ({
     return ( <>
         <div className="flex">
             <div className="w-full">
-                <CtxSelectorCurrency.Provider value={currency}>
-                    {children}
-                </CtxSelectorCurrency.Provider>
+                {children}
             </div>
 
-            <button className={styles.FieldSelectBtn} onClick={handleOpenTokenSelect}>
+            <button
+                disabled={disabled}
+                className={`${styles.FieldSelectBtn} ${className} ${disabled ? 'hidden' : ''}`}
+                onClick={handleOpenTokenSelect}
+            >
                 <div className="mr-3">
                     <IconDoubleArrows/>
                 </div>
@@ -54,7 +58,7 @@ const CurrencySelector: FC<IParams> = ({
                 modal={true}
                 balanceFilter={balanceFilter}
                 onSelect={($const: string) => {
-                    setCurrency(currencies.get($const));
+                    onSelect($const);
                     handleCloseTokenSelect();
                 }}
                 blockedCurrencies={excludedCurrencies}

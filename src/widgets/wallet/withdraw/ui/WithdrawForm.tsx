@@ -57,7 +57,11 @@ const WithdrawForm = () => {
                     <div className='flex flex-col gap-2'>
 
                         <InputCurrency.Validator
-                            value={value}>
+                            value={value}
+                            validators={[
+                                
+                            ]}
+                        >
                             <InputCurrency.PercentSelector onSelect={setValue}
                                                            header={"Input"}
                                                            currency={currency}>

@@ -72,7 +72,6 @@ const WithdrawForm = () => {
                             <InputCurrency.PercentSelector onSelect={setValue}
                                                            header={<span className='text-gray-600'>Input</span>}
                                                            currency={currency}>
-
                                 <InputCurrency.DisplayBalance currency={currency}>
                                     <InputCurrency
                                         value={value}
@@ -82,7 +81,6 @@ const WithdrawForm = () => {
                                         }
                                     />
                                 </InputCurrency.DisplayBalance>
-
                             </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
                     </div>

@@ -23,7 +23,7 @@ export function validateBalance(currency: ICtxCurrencyData, navigate: NavigateFu
 
 export function validateMaximumAmount(max: number): IValidatorCreator {
     return (value) => ({
-        validated: +value >= max,
+        validated: +value <= max,
         errorMessage: `The maximum amount is ${max}`
     })
 }

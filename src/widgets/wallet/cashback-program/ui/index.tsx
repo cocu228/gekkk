@@ -7,7 +7,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance} from "@/shared/config/validators";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -15,10 +15,10 @@ import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
 
 const CashbackProgram = () => {
+    const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
     const {currencies} = useContext(CtxRootData);
-    const navigate = useNavigate();
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
@@ -102,7 +102,11 @@ const CashbackProgram = () => {
                         value={amount}
                         onError={setHasValidationError}
                         description={`Minimum order amount is ${currencies.get(currency.$const)?.minOrder} ${currency.$const}`}
-                        validators={[validateBalance(currencies.get(currency.$const), navigate)]}
+                        validators={[
+                            validateBalance(currencies.get(currency.$const), navigate),
+                            validateMinimumAmount(cashbackTemplate.depo_min_sum),
+                            validateMaximumAmount(cashbackTemplate.depo_max_sum)
+                        ]}
                     >
                         <InputCurrency.PercentSelector
                             onSelect={setAmount}

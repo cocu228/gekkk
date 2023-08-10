@@ -1,17 +1,23 @@
 import {useContext, useState} from "react";
+import Modal from "@/shared/ui/modal/Modal";
+import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
+import {apiCreateInvestment} from "@/shared/api";
+import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import Modal from "@/shared/ui/modal/Modal";
-import useModal from "@/shared/model/hooks/useModal";
-import { apiCreateInvestment } from "@/shared/api";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
+import { CtxRootData } from "@/processes/RootContext";
 
 const NoFeeProgram = () => {
+    const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxRootData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);
@@ -114,7 +120,27 @@ const NoFeeProgram = () => {
 
             <div className="row mb-7">
                 <div className="col">
-                    ***InputCurrencyPercented***
+                    <InputCurrency.Validator
+                        value={amount}
+                        description={`Minimum withdraw amount is ${noFeeTemplate.depo_min_sum} ${currency.$const}`}
+                        validators={[
+                            validateBalance(currencies.get(currency.$const), navigate),
+                            validateMinimumAmount(noFeeTemplate.depo_min_sum),
+                            validateMaximumAmount(noFeeTemplate.depo_max_sum)
+                        ]}
+                    >
+                        <InputCurrency.PercentSelector onSelect={setAmount}
+                                                       header={<span className='text-gray-600'>Input</span>}
+                                                       currency={currency}>
+                            <InputCurrency.DisplayBalance currency={currency}>
+                                <InputCurrency
+                                    value={amount}
+                                    currency={currency.$const}
+                                    onChange={v => setAmount(v)}
+                                />
+                            </InputCurrency.DisplayBalance>
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
                 </div>
             </div>
 

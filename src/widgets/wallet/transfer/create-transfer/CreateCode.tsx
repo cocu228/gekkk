@@ -1,24 +1,29 @@
-import Button from '@/shared/ui/button/Button';
-import React, {useContext, useState} from "react";
-import {CtxWalletData} from "@/widgets/wallet/model/context";
-import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
-import Checkbox from "@/shared/ui/checkbox/Checkbox";
-import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Decimal from "decimal.js";
-import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
-import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
-import {actionResSuccess} from "@/shared/lib/helpers";
-import useError from "@/shared/model/hooks/useError";
 import Loader from "@/shared/ui/loader";
+import {useContext, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import Button from '@/shared/ui/button/Button';
+import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import {CtxRootData} from '@/processes/RootContext';
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
+import useError from "@/shared/model/hooks/useError";
+import {actionResSuccess} from "@/shared/lib/helpers";
+import InputCurrency from '@/shared/ui/input-currency/ui';
+import {validateBalance} from '@/shared/config/validators';
+import {CtxWalletData} from "@/widgets/wallet/model/context";
+import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
+import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
+import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
 const CreateCode = () => {
-
-    const [input, setInput] = useState("")
-    const [checkbox, setCheckbox] = useState(false)
-    const [newCode, setNewCode] = useState("")
-    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+    const [amount, setAmount] = useState("");
+    const [newCode, setNewCode] = useState("");
+    const {currencies} = useContext(CtxRootData);
+    const [loading, setLoading] = useState(false);
+    const [checkbox, setCheckbox] = useState(false);
 
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
@@ -31,7 +36,7 @@ const CreateCode = () => {
         setLoading(true)
 
         const typeTx = checkbox ? 12 : 11
-        const response = await apiCreateTxCode(new Decimal(input).toNumber(), currency.$const, typeTx)
+        const response = await apiCreateTxCode(new Decimal(amount).toNumber(), currency.$const, typeTx)
 
         actionResSuccess(response).success(async () => {
             setNewCode(response.data.result.code)
@@ -53,12 +58,27 @@ const CreateCode = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <div className="wrapper w-full mb-10 xl:mb-8 md:mb-7">
-                            ***InputCurrencyPercented***
+                        <div className="wrapper w-full mb-3 xl:mb-8 md:mb-7">
+                            <InputCurrency.Validator
+                                value={amount}
+                                validators={[validateBalance(currencies.get(currency.$const), navigate)]}
+                            >
+                                <InputCurrency.PercentSelector onSelect={setAmount}
+                                                               header={<span className='text-gray-600'>Input</span>}
+                                                               currency={currency}>
+                                    <InputCurrency.DisplayBalance currency={currency}>
+                                        <InputCurrency
+                                            value={amount}
+                                            currency={currency.$const}
+                                            onChange={v => setAmount(v)}
+                                        />
+                                    </InputCurrency.DisplayBalance>
+                                </InputCurrency.PercentSelector>
+                            </InputCurrency.Validator>
                         </div>
                     </div>
                 </div>
-                <div className="row mb-6">
+                <div className="row mb-16">
                     <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                         <div className='flex items-center'>
                             Use confirmation
@@ -74,7 +94,7 @@ const CreateCode = () => {
                     </Checkbox>
                 </div>
                 <div className="row">
-                    <Button disabled={input === "" || loading} className="w-full" size="xl" onClick={onCreateCode}>Confirm
+                    <Button disabled={amount === "" || loading} className="w-full" size="xl" onClick={onCreateCode}>Confirm
                     </Button>
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}

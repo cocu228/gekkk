@@ -4,11 +4,12 @@ import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
+import InputCurrency from "@/shared/ui/input-currency/ui";
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
-import InputCurrency from "@/shared/ui/input-new/ui";
+
 const {TextArea} = Input;
 
 const WithdrawForm = () => {

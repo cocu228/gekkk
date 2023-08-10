@@ -1,6 +1,5 @@
 import {useContext, useState} from "react";
 import Button from '@/shared/ui/button/Button';
-// import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";

@@ -5,7 +5,6 @@ import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Decimal from "decimal.js";
-// import InputCurrencyPercented from "@/shared/ui/input-currency";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import {actionResSuccess} from "@/shared/lib/helpers";

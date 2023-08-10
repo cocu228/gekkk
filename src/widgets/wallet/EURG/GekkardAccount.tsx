@@ -1,14 +1,12 @@
-import React, {useContext, useState} from 'react';
-// import InputCurrencyPercented from "../../../shared/ui/input-currency";
-import Button from "@/shared/ui/button/Button";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import {useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
-import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
-import Decimal from 'decimal.js';
 import {calculateAmount} from "@/shared/lib/helpers";
 import {storeOrganizations} from "@/shared/store/organizations";
+import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
 const GekkardAccount = () => {
 

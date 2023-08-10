@@ -1,10 +1,8 @@
 import {addDays} from "date-fns";
-import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
-// import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";

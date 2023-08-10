@@ -17,7 +17,7 @@ const Validator: FC<IParams> = (({
     className,
     description,
     validators = [],
-    onError
+    onError = (value: boolean) => {}
 }: IParams) => {
     const [error, setError] = useState(null);
 

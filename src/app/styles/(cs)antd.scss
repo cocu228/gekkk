@@ -53,10 +53,6 @@
   margin-top: 4px;
 }
 
-.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
-  border-color: var(--color-gray-400);
-}
-
 .ant-input-affix-wrapper > .ant-input[type="password"], .ant-input-affix-wrapper > .ant-input[type="text"] {
   padding-top: 16px;
   padding-left: 0;

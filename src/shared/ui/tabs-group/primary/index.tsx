@@ -52,11 +52,9 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
     const [state, setState] = useState(initValue);
     const {content, buttons} = filterChildrenByAttribute(children, state);
 
-
-    console.log(state)
     useEffect(() => {
         setState(initValue);
-    }, [callInitValue])
+    }, [callInitValue]);
 
     return <>
         <div className={`${styles.TabsWrapper}`}>

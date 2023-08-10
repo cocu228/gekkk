@@ -1,9 +1,13 @@
 import {addDays} from "date-fns";
 import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
+import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
+import {CtxRootData} from "@/processes/RootContext";
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import {validateBalance} from "@/shared/config/validators";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -13,8 +17,11 @@ import {storeInvestTemplates} from "@/shared/store/invest-templates/investTempla
 const CashbackProgram = () => {
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxRootData);
+    const navigate = useNavigate();
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
+    const [hasValidationError, setHasValidationError] = useState<boolean>(false);
     const cashbackTemplate = storeInvestTemplates(state => state.cashbackTemplate);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
 
@@ -87,17 +94,39 @@ const CashbackProgram = () => {
                     </p>
                 </div>
             </div>
-            
+
             <div className="row mb-7">
                 <div className="col">
-                    ***InputCurrencyPercented***
+                    <InputCurrency.Validator
+                        className='text-sm'
+                        value={amount}
+                        onError={setHasValidationError}
+                        description={`Minimum order amount is ${currencies.get(currency.$const)?.minOrder} ${currency.$const}`}
+                        validators={[validateBalance(currencies.get(currency.$const), navigate)]}
+                    >
+                        <InputCurrency.PercentSelector
+                            onSelect={setAmount}
+                            currency={currencies.get(currency.$const)}
+                            header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
+                                Pay from
+                            </span>}
+                        >
+                            <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
+                                <InputCurrency
+                                    value={amount}
+                                    currency={currency.$const}
+                                    onChange={v => setAmount(v)}
+                                />
+                            </InputCurrency.DisplayBalance>        
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
                 </div>
             </div>
 
             <div className="row mb-4">
                 <div className="col">
                     <Button
-                        disabled={!amount.length}
+                        disabled={!amount.length || hasValidationError}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
                         size={"xl"}

@@ -87,21 +87,6 @@ const WithdrawForm = () => {
                         </InputCurrency.Validator>
                     </div>
 
-                {currency.availableBalance.toNumber() < inputs.amount && <div className="text-fs12 text-red-main -mt-3">
-                    You don't have enough fund. Please <a className="text-blue-400"
-                                                          // onClick={() => navigate(`/wallet/${wallet.currency}/Top Up`)}
-                                                          href={`/wallet/${currency.$const}/Top Up`}>top up</a> your
-                    account.
-                </div>}
-
-                {min_withdraw !== 0 && (min_withdraw > inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
-                    Minimum withdrawal amount {min_withdraw} {currency.$const}
-                </div>}
-
-                {max_withdraw !== 0 && (max_withdraw < inputs.amount) && <div className="text-fs12 text-red-main -mt-3">
-                    Maximum withdrawal amount {max_withdraw} {currency.$const}
-                </div>}
-
                 <div className='flex flex-col gap-2'>
                     <span className="text-gray-600">Receiver</span>
                     <Input value={inputs.receiver} onChange={onInput}

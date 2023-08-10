@@ -119,13 +119,20 @@ const FormLoginAccount = memo(() => {
 
             <ul className='flex justify-center gap-4'>
                 <li>
-                    <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
-                        <img
-                            src='/img/google-play.svg'
-                            height="40px"
-                            alt="Google play"
-                        />
-                    </a>
+                    <div className='grid gap-y-2'>
+                        <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
+                            <img
+                                src='/img/google-play.svg'
+                                height="40px"
+                                alt="Google play"
+                            />
+                        </a>
+
+                        <a href='https://dev.gekkard.com/app-release.apk'
+                           className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
+                            Download
+                        </a>
+                    </div>
                 </li>
 
                 <li>

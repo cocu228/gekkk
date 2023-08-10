@@ -26,6 +26,7 @@ import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
 import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
+import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
@@ -42,6 +43,7 @@ function Exchange() {
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
+    const [hasValidationError, setHasValidationError] = useState<boolean>(false);
 
     const {
         to,
@@ -132,7 +134,17 @@ function Exchange() {
                                     excludedCurrencies={[to.currency]}
                                     allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                                 >
-                                    <InputCurrency.Validator value={from.amount}>
+                                    <InputCurrency.Validator
+                                        className='text-sm'
+                                        value={from.amount}
+                                        onError={setHasValidationError}
+                                        description={!from.currency ? null
+                                            : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
+                                        validators={[
+                                            validateBalance(currencies.get(from.currency), navigate),
+                                            validateMinimumAmount(currencies.get(from.currency)?.minOrder)
+                                        ]}
+                                    >
                                         <InputCurrency.PercentSelector
                                             onSelect={onFromValueChange}
                                             currency={currencies.get(from.currency)}
@@ -164,18 +176,16 @@ function Exchange() {
 
                                 <InputCurrency.CurrencySelector
                                     className='mt-0'
-                                    disabled={roomType !== 'default'}
-                                    allowedFlags={[CurrencyFlags.ExchangeAvailable]}
-                                    excludedCurrencies={[from.currency]}
                                     onSelect={onToCurrencyChange}
+                                    disabled={roomType !== 'default'}
+                                    excludedCurrencies={[from.currency]}
+                                    allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                                 >
-                                    <InputCurrency.Validator value={from.amount}>
-                                        <InputCurrency
-                                            value={to.amount}
-                                            currency={to.currency}
-                                            onChange={v => onToValueChange(v)}
-                                        />
-                                    </InputCurrency.Validator>
+                                    <InputCurrency
+                                        value={to.amount}
+                                        currency={to.currency}
+                                        onChange={v => onToValueChange(v)}
+                                    />
                                 </InputCurrency.CurrencySelector>
 
                                 <div className="mt-3 md:mt-2">
@@ -210,7 +220,7 @@ function Exchange() {
                                 <Button
                                     className="w-full"
                                     size="xl"
-                                    disabled={!price.amount}
+                                    disabled={!price.amount || hasValidationError}
                                     onClick={confirmModal.showModal}
                                 >Buy {to.currency ? to.currency : "a token"}</Button>
 
@@ -221,9 +231,7 @@ function Exchange() {
                         </div>
 
                         <div className="mt-12">
-                            <OpenOrders
-                                refreshKey={ordersRefresh}
-                            />
+                            <OpenOrders refreshKey={ordersRefresh}/>
                         </div>
 
                         <Modal

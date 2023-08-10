@@ -2,9 +2,12 @@ import {Input} from 'antd';
 import {useContext, useState} from "react";
 import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
+import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
+import {CtxRootData} from '@/processes/RootContext';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
@@ -21,10 +24,11 @@ const WithdrawForm = () => {
         description: null,
     })
 
-    const {isModalOpen, showModal, handleCancel} = useModal()
-    // const navigate = useNavigate()
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const currency = useContext(CtxWalletData)
+    const navigate = useNavigate();
+    const currency = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxRootData);
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = null,
@@ -58,12 +62,15 @@ const WithdrawForm = () => {
 
                         <InputCurrency.Validator
                             value={value}
+                            description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             validators={[
-                                
+                                validateBalance(currencies.get(currency.$const), navigate),
+                                validateMinimumAmount(min_withdraw),
+                                validateMaximumAmount(max_withdraw)
                             ]}
                         >
                             <InputCurrency.PercentSelector onSelect={setValue}
-                                                           header={"Input"}
+                                                           header={<span className='text-gray-600'>Input</span>}
                                                            currency={currency}>
 
                                 <InputCurrency.DisplayBalance currency={currency}>
@@ -128,7 +135,7 @@ const WithdrawForm = () => {
 
 
                 {!isNull(withdraw_fee) && <div className='text-center'>
-                        Fee is <b>{withdraw_fee}</b> per transaction
+                        Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction
                     </div>}
                 {is_operable === false && <>
                     <div className="info-box-danger">

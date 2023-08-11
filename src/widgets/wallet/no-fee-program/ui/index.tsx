@@ -122,7 +122,7 @@ const NoFeeProgram = () => {
                 <div className="col">
                     <InputCurrency.Validator
                         value={amount}
-                        description={`Minimum withdraw amount is ${noFeeTemplate.depo_min_sum} ${currency.$const}`}
+                        description={`Minimum lock amount is ${noFeeTemplate.depo_min_sum} ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
                             validateMinimumAmount(noFeeTemplate.depo_min_sum),

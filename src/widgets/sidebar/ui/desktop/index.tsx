@@ -70,7 +70,7 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, [refreshKey]);
+    }, [refreshKey, currencies]);
 
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
@@ -94,6 +94,23 @@ const SidebarDesktop = () => {
 
                 </div>
             </div>
+            {/* EUR wallet */}
+            <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                <div className={`${styles.Item}`}>
+                    <div className="col flex items-center pl-4">
+                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
+                             alt="EURG"/>
+                    </div>
+                    <div className="col flex items-center justify-center flex-col pl-6">
+                        <div className="row text-gray-400 w-full mb-1"><span
+                            className={styles.Name}>Euro</span>
+                        </div>
+                        <div className="row w-full">
+                            <span className={styles.Sum}>0 EUR</span>
+                        </div>
+                    </div>
+                </div>
+            </NavLink>
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>
@@ -108,23 +125,6 @@ const SidebarDesktop = () => {
                         <div className="row w-full">
                             <span
                                 className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
-                        </div>
-                    </div>
-                </div>
-            </NavLink>
-            {/* EUR wallet */}
-            <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
-                <div className={`${styles.Item}`}>
-                    <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
-                             alt="EURG"/>
-                    </div>
-                    <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row text-gray-400 w-full mb-1"><span
-                            className={styles.Name}>Euro</span>
-                        </div>
-                        <div className="row w-full">
-                            <span className={styles.Sum}>0 EUR</span>
                         </div>
                     </div>
                 </div>

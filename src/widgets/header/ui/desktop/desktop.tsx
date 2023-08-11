@@ -6,7 +6,7 @@ import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
-import {ItemOrganization, ItemAccount, EmptyAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {storeOrganizations} from "@/shared/store/organizations";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import { AccountRights } from "@/shared/config/account-rights";
@@ -112,23 +112,20 @@ const HeaderDesktop = memo((props) => {
                     </div>
                     {activeAccountForDisplay.number && <div className="wrapper">
                         <div className="row">
-                                <span
-                                    className="text-sm font-bold">ID: {getFormattedIBAN(activeAccountForDisplay.number)}</span>
-                            <span>
-                                    <img
-                                        className="inline-flex"
-                                        src="/img/icon/DropdownTriangleIcon.svg"
-                                        alt="DropdownTriangleIcon"
-                                    />
-                                </span>
+                            <span className="text-sm font-bold">{activeAccountForDisplay.name}</span>
                         </div>
 
                         <div className="row text-start flex">
-                                <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {activeAccountForDisplay.name}
-                                </span>
+                            <span className="text-xs text-start text-gray-400 font-bold leading-3">
+                                ID: {getFormattedIBAN(activeAccountForDisplay.number)}
+                            </span>
                         </div>
                     </div>}
+                    <img
+                        className="inline-flex mb-3"
+                        src="/img/icon/DropdownTriangleIcon.svg"
+                        alt="DropdownTriangleIcon"
+                    />
                 </div>
             </HeaderMenu>
 

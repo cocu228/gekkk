@@ -39,7 +39,7 @@ const GekkardAccount = () => {
             <div className="col">
                 <InputCurrency.Validator
                     value={amount}
-                    description={`Minimum top up amount is ${min_withdraw} ${wallet.$const}`}
+                    description={`Minimum amount is ${min_withdraw} ${wallet.$const}`}
                     validators={[validateMinimumAmount(min_withdraw)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}

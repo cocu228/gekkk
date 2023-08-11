@@ -11,7 +11,7 @@ interface IParams {
     currency?: string;
     disabled?: boolean;
     wrapperClassName?: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
 }
 
 const InputField: FC<IParams & InputProps> & {

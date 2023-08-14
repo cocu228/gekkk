@@ -70,7 +70,7 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, [refreshKey, currencies]);
+    }, [refreshKey, account.number]);
 
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");

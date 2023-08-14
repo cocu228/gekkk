@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import  React, {FC, useEffect, useState} from "react";
 import {IValidatorCreator} from "@/shared/config/validators";
 import IconError from "@/shared/ui/icons/IconError";
 
@@ -19,6 +19,7 @@ const Validator: FC<IParams> = (({
     validators = [],
     onError = (value: boolean) => {}
 }: IParams) => {
+
     const [error, setError] = useState(null);
 
     useEffect(() => {

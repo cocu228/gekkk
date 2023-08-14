@@ -145,7 +145,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
                                         <div>
                                         <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                             {!item.is_income && '-'}
-                                            {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
+                                            {+item.amount} {item.currency}
                                         </span>
                                         </div>
                                     </GTable.Col>

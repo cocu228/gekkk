@@ -118,7 +118,7 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
             ) : (
                 <DepthItem
                     color={color}
-                    amount={getCurrencyRounding(array[i][1])}
+                    amount={getCurrencyRounding(array[i][0])}
                     percent={new Decimal((array[i][1] / maxAmount) * 100)}
                     price={new Decimal(!isSwapped
                         ? (array[i][2]).toFixed(currencies.get(currencyTo)?.ordersPrec)

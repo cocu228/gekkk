@@ -39,6 +39,8 @@ const HeaderDesktop = memo((props) => {
     ], []);
 
     useEffect(() => {
+        if (!account.rights) return;
+
         let newItems = [...defaultItems]
 
         organizations.accounts
@@ -83,11 +85,11 @@ const HeaderDesktop = memo((props) => {
                 })
             })
 
-        setItems(account.rights && !account.rights[AccountRights.IsJuridical]
+        setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-    }, [account.number]);
+    }, [account.rights]);
 
     return <>
         <header className={`flex ${styles.Header}`}>

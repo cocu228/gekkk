@@ -10,14 +10,17 @@ import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 import {validateMinimumAmount} from '@/shared/config/validators';
 import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
+import { useNavigate } from 'react-router-dom';
+import { AccountRights } from '@/shared/config/account-rights';
 
 const GekkardAccount = () => {
-    const organizations = storeOrganizations(state => state.organizations)
-    const wallet = useContext(CtxWalletData)
-    const {currencies} = useContext(CtxRootData)
-    const [amount, setAmount] = useState(null)
-    const {isModalOpen, showModal, handleCancel} = useModal()
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
+    const navigate = useNavigate();
+    const wallet = useContext(CtxWalletData);
+    const [amount, setAmount] = useState(null);
+    const {account, currencies} = useContext(CtxRootData);
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const organizations = storeOrganizations(state => state.organizations);
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = null,
@@ -31,10 +34,21 @@ const GekkardAccount = () => {
             <div className="col text-xl font-bold">
                 <span>1 EUR = 1 EURG*</span>
             </div>
+
             <div className="col text-xs">
-                <span>* Note:  Standart exchange fee is 1,5%. If you freeze GKE tokens fee is 0%.</span>
+                <span>* Note:  Standart exchange fee is 1,5%.
+                    {account.rights && account.rights[AccountRights.IsJuridical] ? null :
+                        <> If you <span
+                            className='text-blue-400 hover:cursor-pointer hover:underline'
+                            onClick={() => navigate('/wallet/GKE/No Fee Program')}
+                        >
+                            freeze GKE tokens    
+                        </span> fee is 0%.
+                    </>}
+                </span>
             </div>
         </div>
+
         <div className="row mb-4">
             <div className="col">
                 <InputCurrency.Validator

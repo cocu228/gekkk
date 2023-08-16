@@ -187,7 +187,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full">
                                         {item.lockInBalance !== 0 ? <span
-                                            className={styles.Sum}>{`lock in: ${item.lockInBalance}`}</span> : null}
+                                            className={styles.Sum}>{`locked in: ${item.lockInBalance}`}</span> : null}
                                     </div>
                                 </div>
                             </div>

@@ -10,7 +10,6 @@ import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useSessionStorage} from "usehooks-ts";
 import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
-import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/helpers";
 import ReactPhoneInput from "react-phone-input-2";
 import '@styles/(cs)react-phone-input.scss'
 import {storyDisplayStage} from "@/widgets/auth/model/story";
@@ -70,6 +69,8 @@ const FormLoginAccount = memo(() => {
             })
     }
 
+    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+
     return <Form onFinish={onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
@@ -79,7 +80,7 @@ const FormLoginAccount = memo(() => {
         <p className='text-center mb-9 text-gray-500'>
             Login to your personal account is carried out through the <a
                 className='font-inherit underline'
-                href={APP_STORE_GEKKARD}
+                href={import.meta.env.VITE_APP_STORE_GEKKARD}
                 target={'_blank'}>Gekkard application
             </a> credentials
         </p>
@@ -120,7 +121,7 @@ const FormLoginAccount = memo(() => {
             <ul className='flex justify-center gap-4'>
                 <li>
                     <div className='grid gap-y-2'>
-                        <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
+                        <a href={import.meta.env.VITE_GOOGLE_PLAY_GEKKARD} target={"_blank"}>
                             <img
                                 src='/img/google-play.svg'
                                 height="40px"
@@ -128,7 +129,7 @@ const FormLoginAccount = memo(() => {
                             />
                         </a>
 
-                        <a href='https://dev.gekkard.com/app-release.apk'
+                        <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
                            className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
                             Download
                         </a>
@@ -136,7 +137,7 @@ const FormLoginAccount = memo(() => {
                 </li>
 
                 <li>
-                    <a href={APP_STORE_GEKKARD} target={"_blank"}>
+                    <a href={import.meta.env.VITE_APP_STORE_GEKKARD} target={"_blank"}>
                         <img
                             src='/img/app-store.svg'
                             height="40px"

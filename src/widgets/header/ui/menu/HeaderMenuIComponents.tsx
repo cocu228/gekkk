@@ -99,8 +99,9 @@ export const GekkoinInvestPlatform = ({active = false}) => {
             token: token,
             tokenHeaderName: tokenHeaderName
         })
+        const gekkoinUrl = import.meta.env[`VITE_GEKKOIN_URL_${import.meta.env.MODE}`];
         actionResSuccess(response).success(() => {
-            window.open(`https://dev.gekkoin.com?sessionId=${uncoverResponse(response)}`, "_blank")
+            window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })
         setLoading(false)
     }

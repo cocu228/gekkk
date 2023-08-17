@@ -1,18 +1,19 @@
-import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
-import useValidation from '@/shared/model/hooks/useValidation';
-import Form from '@/shared/ui/form/Form';
-import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {pinMessage, phoneMessage} from '@/shared/config/message';
+import md5 from 'md5';
 import {Input} from 'antd';
-import Button from '@/shared/ui/button/Button';
-import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import Form from '@/shared/ui/form/Form';
+import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
-import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
+import Button from '@/shared/ui/button/Button';
+import {memo, useContext, useState} from 'react';
 import ReactPhoneInput from "react-phone-input-2";
-import '@styles/(cs)react-phone-input.scss'
+import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import useValidation from '@/shared/model/hooks/useValidation';
+import {pinMessage, phoneMessage} from '@/shared/config/message';
+import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
@@ -45,7 +46,7 @@ const FormLoginAccount = memo(() => {
 
         setLoading(true)
 
-        apiCheckPassword($phone, password)
+        apiCheckPassword($phone, md5(`${password}_${$phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(
                     () => apiRequestCode($phone)

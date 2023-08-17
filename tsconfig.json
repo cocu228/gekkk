@@ -9,7 +9,7 @@
       ],
       "@public/*": [
         "./public/*"
-      ],
+      ]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -33,6 +33,10 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/(not-included)*"
   ],
   "references": [{ "path": "./tsconfig.node.json"}]
 }

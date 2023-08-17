@@ -3,7 +3,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api";
 import Decimal from "decimal.js";
-import {actionResSuccess, calculateAmount, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -13,6 +13,7 @@ import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
+import {getNetworkForChose} from "@/widgets/wallet/model/helper";
 
 const WithdrawConfirm = ({
                              address,
@@ -20,13 +21,16 @@ const WithdrawConfirm = ({
                              receiver,
                              description,
                              handleCancel,
-                             percent_fee,
-                             withdraw_fee
                          }) => {
 
-    const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks)
+    const {networkIdSelect, networksForSelector, networksDefault} = useContext(CtxWalletNetworks)
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-    const {currency} = useContext(CtxWalletData)
+    const {
+        percent_fee = null,
+        withdraw_fee = null,
+        is_operable = null
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
@@ -39,7 +43,7 @@ const WithdrawConfirm = ({
 
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
-        const response = await apiCreateWithdraw(currency, networkIdSelect, new Decimal(amount).toNumber(),
+        const response = await apiCreateWithdraw($const, networkIdSelect, new Decimal(amount).toNumber(),
             percent_fee || withdraw_fee, isNull(address) ? "" : address, receiver, description)
 
         actionResSuccess(response)
@@ -110,7 +114,7 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{amount} {currency}</span>
+                <span>{amount} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -120,7 +124,7 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{withdraw_fee} {currency}</span>
+                <span>{withdraw_fee} {$const}</span>
             </div>
         </div>
         {!description ? null : <>
@@ -146,7 +150,7 @@ const WithdrawConfirm = ({
                        autoComplete="off"
                 />
             </FormItem>
-            <div className="row mb-8">
+            <div className="row mb-5">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={input === ""} className="w-full"
                             size={"xl"}>Confirm</Button>
@@ -156,6 +160,12 @@ const WithdrawConfirm = ({
                 </div>
             </div>
         </Form>
+        {is_operable === false && <>
+            <div className="info-box-danger">
+                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
+                    network for this transaction.</p>
+            </div>
+        </>}
     </>
 }
 

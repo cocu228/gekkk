@@ -1,12 +1,13 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import Button from '@/shared/ui/button/Button';
-import { CtxExchangeData } from '../../model/context';
+import {CtxExchangeData} from '../../model/context';
 
 interface Props {
+    loading?: boolean;
     onConfirm: () => void
 }
 
-function Confirm({onConfirm}: Props) {
+function Confirm({loading, onConfirm}: Props) {
     const {
         to,
         from,
@@ -21,13 +22,14 @@ function Confirm({onConfirm}: Props) {
 
             <div className="mt-4 flex gap-2.5 font-medium">
                 <div className="text-secondary">Price:</div>
+
                 <div>
                     <div>1 {from.currency} ~ {price.amount} {to.currency}</div>
                 </div>
             </div>
 
             <div className="mt-6 md:mt-12">
-              <Button size="xl" className="w-full" onClick={onConfirm}>Confirm</Button>
+                <Button disabled={loading} className="w-full" onClick={onConfirm}>Confirm</Button>
             </div>
         </div>
     );

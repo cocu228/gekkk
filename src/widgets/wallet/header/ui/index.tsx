@@ -17,21 +17,21 @@ const WalletHeader = () => {
     const {xl, md} = useContext(BreakpointsContext);
     const {
         name,
-        currency,
+        $const,
         availableBalance,
         lockInBalance,
         lockOutBalance,
         roundPrec,
         lockOrders
     } = useContext(CtxWalletData);
-    const isEURG: boolean = currency === 'EURG';
-    const isGKE: boolean = currency === 'GKE';
+    const isEURG: boolean = $const === 'EURG';
+    const isGKE: boolean = $const === 'GKE';
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
             <div className="grid grid-flow-col justify-start gap-5">
                 <div className="grid auto-cols-max">
-                    <IconCoin code={currency}/>
+                    <IconCoin code={$const}/>
                 </div>
                 {!md && <div className="flex flex-col content-around">
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
@@ -41,7 +41,7 @@ const WalletHeader = () => {
                     </div>
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {!availableBalance ? 0 : availableBalance.toNumber()} {currency}
+                        {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
                     </div>
                     
                     <g className="text-gray-400 text-sm">
@@ -58,7 +58,7 @@ const WalletHeader = () => {
                     </div>
                     
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {!availableBalance ? 0 : availableBalance.toNumber()} {currency}
+                        {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
                     </div>
 
                     <g className="text-gray-400 text-sm">
@@ -93,7 +93,7 @@ const WalletHeader = () => {
                         </span>
                     </div>
                     <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
-                        {isEURG ? EurgDescriptionText : getDescription(currency, name)}
+                        {isEURG ? EurgDescriptionText : getDescription($const, name)}
                     </div>
                 </div>
             )}

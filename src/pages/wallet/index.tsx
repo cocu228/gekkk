@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {useParams} from "react-router-dom";
 import Transfer from "@/widgets/wallet/transfer";
 import History from "@/widgets/history/ui/History";
@@ -26,7 +26,7 @@ function Wallet() {
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
                 <WalletHeader/>
-                <TabsGroupPrimary initValue={tab ? tab : "Top Up"} callInitValue={account}>
+                <TabsGroupPrimary initValue={tab ? tab : "Top Up"} callInitValue={{...account, tab: tab}}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative min-h-[200px] md:-mt-10">
                             <NetworkProvider data-tab={"Top Up"}>
@@ -39,7 +39,7 @@ function Wallet() {
 
                             <Transfer data-tab={"Funds transfer"}/>
 
-                            {$currency.currency === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
+                            {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                <CashbackProgram data-tab={"Cashback Program"}/>
                                <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}
@@ -50,7 +50,7 @@ function Wallet() {
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History currenciesFilter={[currency]}/>
+                            <History types={[]} currenciesFilter={[currency]}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

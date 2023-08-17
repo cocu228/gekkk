@@ -32,16 +32,19 @@
   }
 
   &InfoText {
+    z-index: 10;
+    user-select: none;
+    margin-left: 12px;
+    margin-top: -20px;
+    line-height: 1rem;
     position: absolute;
-    left: 0;
-    bottom: 4px;
-    color: var(--color-secondary);
-    font-size: 0.625rem;
-    line-height: 1;
+    font-size: 0.75rem;
     white-space: nowrap;
+    pointer-events: none;
+    color: var(--color-secondary);
 
     @include max-devices("md") {
-      font-size: 0.5rem;
+      font-size: 0.75rem;
     }
   }
 
@@ -54,6 +57,16 @@
     font-size: 0.875rem;
     font-weight: 500;
     white-space: nowrap;
+    justify-content: flex-end;
+    color: var(--color-gray-600);
+    user-select: none;
+    height: 64px;
+    width: 138px;
+    z-index: 10;
+    margin-top: 27px;
+    margin-left: -138px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 
     @include max-devices("md") {
       gap: 0.3rem;

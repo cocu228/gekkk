@@ -17,7 +17,7 @@ import useError from "@/shared/model/hooks/useError";
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
-    const {currency} = useContext(CtxWalletData)
+    const {$const} = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
@@ -27,10 +27,10 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             await getListTxCode()
 
         })()
-    }, [currency])
+    }, [$const])
 
 
-    const filteredListTxCode = listTxCode.filter(item => item.currency === currency && item.isOwner === isOwner)
+    const filteredListTxCode = listTxCode.filter(item => item.currency === $const && item.isOwner === isOwner)
 
 
     return <GTable className={`${styles.Table}`}>

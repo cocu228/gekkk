@@ -1,11 +1,13 @@
 import {addDays} from "date-fns";
-import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
+import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
+import {CtxRootData} from "@/processes/RootContext";
 import useModal from '@/shared/model/hooks/useModal';
-import InputCurrency from "@/shared/ui/input-currency";
 import InlineProperty from "@/shared/ui/inline-property";
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -13,10 +15,13 @@ import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
 
 const CashbackProgram = () => {
+    const navigate = useNavigate();
     const lockConfirmModal = useModal();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxRootData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
+    const [hasValidationError, setHasValidationError] = useState<boolean>(false);
     const cashbackTemplate = storeInvestTemplates(state => state.cashbackTemplate);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
 
@@ -28,7 +33,7 @@ const CashbackProgram = () => {
                         <div className="row mb-3">
                             <div className="col">
                                 <p className="font-extrabold text-sm">
-                                    Locking {wallet.currency} tokens gives you
+                                    Locking {currency.$const} tokens gives you
                                     access to the cashback of 1% on Gekkard card spending,
                                     on monthly turnover in euros
                                 </p>
@@ -46,7 +51,7 @@ const CashbackProgram = () => {
 
                                 <p className="text-sm">
                                     up to the amount not exceeding a similar number of
-                                    blocked {wallet.currency} tokens
+                                    blocked {currency.$const} tokens
                                 </p>
                             </div>
                         </div>
@@ -76,7 +81,7 @@ const CashbackProgram = () => {
                         amount={amount}
                         endDate={investment?.date_end}
                         startDate={investment?.date_start}
-                        currency={wallet.currency}
+                        currency={currency.$const}
                         templateTerm={cashbackTemplate.depo_min_time}
                     />
                 </div>
@@ -84,32 +89,53 @@ const CashbackProgram = () => {
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
                     <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
                         At the end of the program term, the
-                        blocked {wallet.currency} funds will
+                        blocked {currency.$const} funds will
                         return to your account
                     </p>
                 </div>
             </div>
-            
+
             <div className="row mb-7">
                 <div className="col">
-                    <InputCurrency
-                        header={"Lock funds"}
-                        onChange={setAmount}
-                        value={amount ? amount : null}
-                        currencyData={wallet}
-                    />
+                    <InputCurrency.Validator
+                        className='text-sm'
+                        value={amount}
+                        onError={setHasValidationError}
+                        description={`Minimum order amount is ${currencies.get(currency.$const)?.minOrder} ${currency.$const}`}
+                        validators={[
+                            validateBalance(currencies.get(currency.$const), navigate),
+                            validateMinimumAmount(cashbackTemplate.depo_min_sum),
+                            validateMaximumAmount(cashbackTemplate.depo_max_sum)
+                        ]}
+                    >
+                        <InputCurrency.PercentSelector
+                            onSelect={setAmount}
+                            currency={currencies.get(currency.$const)}
+                            header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
+                                Pay from
+                            </span>}
+                        >
+                            <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
+                                <InputCurrency
+                                    value={amount}
+                                    currency={currency.$const}
+                                    onChange={v => setAmount(v)}
+                                />
+                            </InputCurrency.DisplayBalance>        
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
                 </div>
             </div>
 
             <div className="row mb-4">
                 <div className="col">
                     <Button
-                        disabled={!amount.length}
+                        disabled={!amount.length || hasValidationError}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
                         size={"xl"}
                     >
-                        Lock {wallet.currency} tokens
+                        Lock {currency.$const} tokens
                     </Button>
                 </div>
             </div>
@@ -133,7 +159,7 @@ const CashbackProgram = () => {
                     locked={investment?.amount ?? 0}
                     amount={amount}
                     startDate={investment?.date_start ?? new Date()}
-                    currency={wallet.currency}
+                    currency={currency.$const}
                     templateTerm={cashbackTemplate.depo_min_time}
                     endDate={addDays(new Date(), cashbackTemplate.depo_min_time)}
                 />

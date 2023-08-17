@@ -1,18 +1,23 @@
 import {useContext, useState} from "react";
+import Modal from "@/shared/ui/modal/Modal";
+import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import InputCurrency from "@/shared/ui/input-currency";
+import {apiCreateInvestment} from "@/shared/api";
+import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import Modal from "@/shared/ui/modal/Modal";
-import useModal from "@/shared/model/hooks/useModal";
-import { apiCreateInvestment } from "@/shared/api";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
+import { CtxRootData } from "@/processes/RootContext";
 
 const NoFeeProgram = () => {
+    const navigate = useNavigate();
     const lockConfirmModal = useModal();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxRootData);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);
@@ -24,13 +29,13 @@ const NoFeeProgram = () => {
                 <div className="col">
                     <div className="info-box-warning">
                         <p className="font-extrabold text-sm mb-3">
-                            Locking {wallet.currency} tokens gives you access
+                            Locking {currency.$const} tokens gives you access
                             to the no fee crypto-fiat transactions
                         </p>
 
                         <p className="text-sm">
                             Up to the amount not exceeding a similar number of
-                            blocked {wallet.currency} tokens.
+                            blocked {currency.$const} tokens.
                             Funds are blocked for {noFeeTemplate.depo_min_time} days.
                         </p>
                     </div>
@@ -108,19 +113,34 @@ const NoFeeProgram = () => {
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
                     <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
                         At the end of the program term, the
-                        blocked {wallet.currency} funds will return to your account
+                        blocked {currency.$const} funds will return to your account
                     </p>
                 </div>
             </div>
 
             <div className="row mb-7">
                 <div className="col">
-                    <InputCurrency
-                        header={"Lock funds"}
-                        onChange={setAmount}
-                        value={amount ? amount : null}
-                        currencyData={wallet}
-                    />
+                    <InputCurrency.Validator
+                        value={amount}
+                        description={`Minimum lock amount is ${noFeeTemplate.depo_min_sum} ${currency.$const}`}
+                        validators={[
+                            validateBalance(currencies.get(currency.$const), navigate),
+                            validateMinimumAmount(noFeeTemplate.depo_min_sum),
+                            validateMaximumAmount(noFeeTemplate.depo_max_sum)
+                        ]}
+                    >
+                        <InputCurrency.PercentSelector onSelect={setAmount}
+                                                       header={<span className='text-gray-600'>Input</span>}
+                                                       currency={currency}>
+                            <InputCurrency.DisplayBalance currency={currency}>
+                                <InputCurrency
+                                    value={amount}
+                                    currency={currency.$const}
+                                    onChange={v => setAmount(v)}
+                                />
+                            </InputCurrency.DisplayBalance>
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
                 </div>
             </div>
 
@@ -132,7 +152,7 @@ const NoFeeProgram = () => {
                         className="w-full"
                         size={"xl"}
                     >
-                        Lock {wallet.currency} tokens
+                        Lock {currency.$const} tokens
                     </Button>
                 </div>
             </div>
@@ -166,7 +186,7 @@ const NoFeeProgram = () => {
                             right={<>
                                 {investment?.amount} {!amount ? null : (
                                     (<span className="text-green">+({amount})</span>)
-                                )} {wallet.currency}
+                                )} {currency.$const}
                             </>}
                         />
                     </div>

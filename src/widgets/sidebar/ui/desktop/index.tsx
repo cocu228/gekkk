@@ -6,7 +6,6 @@ import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
-import $const from "@/shared/config/coins/constants";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
 import totalizeAmount from "../../model/totalize-amount";
@@ -43,6 +42,7 @@ const SidebarDesktop = () => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md])
+
     const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
     const privateRooms = storeListExchangeRooms(state => state.roomsList);
 
@@ -70,7 +70,7 @@ const SidebarDesktop = () => {
 
         })()
 
-    }, [refreshKey]);
+    }, [refreshKey, account.number]);
 
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
@@ -94,6 +94,23 @@ const SidebarDesktop = () => {
 
                 </div>
             </div>
+            {/* EUR wallet */}
+            <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                <div className={`${styles.Item}`}>
+                    <div className="col flex items-center pl-4">
+                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
+                             alt="EURG"/>
+                    </div>
+                    <div className="col flex items-center justify-center flex-col pl-6">
+                        <div className="row text-gray-400 w-full mb-1"><span
+                            className={styles.Name}>Euro</span>
+                        </div>
+                        <div className="row w-full">
+                            <span className={styles.Sum}>0 EUR</span>
+                        </div>
+                    </div>
+                </div>
+            </NavLink>
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>
@@ -149,7 +166,7 @@ const SidebarDesktop = () => {
             {!secondaryWallets.length ? null : (
                 <NavCollapse header={"Assets"} id={"assets"}>
                     {helperFilterList(secondaryWallets).map((item, i) =>
-                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.currency}`} key={item.id}>
+                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                 <div className="col flex items-center pl-4 w-[85px]">
                                     <SvgArrow
@@ -159,18 +176,18 @@ const SidebarDesktop = () => {
                                     />
                                     <IconCoin
                                         className={styles.Icon}
-                                        code={item.currency}
+                                        code={item.$const}
                                     />
                                 </div>
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.currency}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.$const}`}</span>
                                     </div>
                                     <div className="row w-full">
                                         {item.lockInBalance !== 0 ? <span
-                                            className={styles.Sum}>{`lock in: ${item.lockInBalance}`}</span> : null}
+                                            className={styles.Sum}>{`locked in: ${item.lockInBalance}`}</span> : null}
                                     </div>
                                 </div>
                             </div>

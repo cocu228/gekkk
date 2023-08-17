@@ -1,0 +1,55 @@
+@import "@styles/mixins";
+
+.Field {
+  position: relative;
+  margin-top: 0.4rem;
+  height: 60px;
+  padding: 0 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+
+  @include max-devices("md") {
+    height: 56px;
+    padding-right: 8px;
+    margin-top: 0.3rem;
+  }
+
+  &PriceLabel {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    gap: 0.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right;
+
+    @include max-devices("lg") {
+      font-size: 0.875rem;
+      flex-shrink: initial;
+      white-space: initial;
+    }
+
+    @include max-devices("md") {
+      margin-right: -0.3rem;
+      font-size: 0.56rem;
+    }
+  }
+
+  &SwitchBtn {
+    display: inline-flex;
+    padding: 0;
+    background: none;
+    border: none;
+    white-space: nowrap;
+    pointer-events: all;
+
+    img {
+      min-width: 22px;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background: var(--color-bgSecondary);
+  }
+}

@@ -1,8 +1,8 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
-import $const from "@/shared/config/coins/constants";
+import ETokensConst from "@/shared/config/coins/constants";
 
 export interface IResBalance {
-    currency: $const;
+    currency: ETokensConst;
     lock_out_balance: number;
     lock_in_balance: number;
     lock_orders: number;

@@ -1,8 +1,8 @@
-import { useContext } from 'react';
-import styles from '@/shared/ui/input-currency/style.module.scss';
-import { CtxExchangeData } from '../../model/context';
-import { Input } from 'antd';
-import { formatAsNumberAndDot } from '@/shared/lib/formatting-helper';
+import {Input} from 'antd';
+import {useContext} from 'react';
+import styles from './style.module.scss';
+import {CtxExchangeData} from '../../model/context';
+import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 
 function PriceField() {
     const {

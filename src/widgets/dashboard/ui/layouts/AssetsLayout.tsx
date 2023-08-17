@@ -1,4 +1,4 @@
-import $const from "@/shared/config/coins/constants";
+import ETokensConst from "@/shared/config/coins/constants";
 import { getRoundingValue } from "@/shared/lib/helpers";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
@@ -7,10 +7,10 @@ import { useContext } from "react";
 import { CtxRootData, ICtxCurrencyData } from "@/processes/RootContext";
 
 const assetsFiler = (item: ICtxCurrencyData) =>
-    [$const.EURG, $const.GKE].includes(item.currency) || item.availableBalance?.comparedTo(0);
+    [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) || item.availableBalance?.comparedTo(0);
 
 const assetsSorter = (item: ICtxCurrencyData) =>
-    [$const.EURG, $const.GKE].includes(item.currency) ? -1 : 1;
+    [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) ? -1 : 1;
 
 function CryptoAssets() {
     const { currencies } = useContext(CtxRootData);
@@ -28,7 +28,7 @@ function CryptoAssets() {
                             title={item.name}
                             key={"CryptoAssetCard_" + i}
                             balance={item.availableBalance ? getRoundingValue(item.availableBalance, item.roundPrec) : 0}
-                            currency={item.currency}
+                            currency={item.$const}
                             price=""
                             onTopUp={() => {
                                 //

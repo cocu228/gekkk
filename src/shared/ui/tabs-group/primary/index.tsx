@@ -54,7 +54,7 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
 
     useEffect(() => {
         setState(initValue);
-    }, [callInitValue])
+    }, [callInitValue]);
 
     return <>
         <div className={`${styles.TabsWrapper}`}>

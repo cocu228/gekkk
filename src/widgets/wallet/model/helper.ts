@@ -34,5 +34,5 @@ export const sortingNetworksForSelector = function (networks: Array<IResTokenNet
 // }
 
 export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, networkId: number): IResTokenNetwork {
-    return networks.find(it => it.id === networkId)
+    return networks?.find(it => it.id === networkId)
 }

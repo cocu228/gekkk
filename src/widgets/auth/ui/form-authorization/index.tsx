@@ -1,19 +1,19 @@
-import React, {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
-import useValidation from '@/shared/model/hooks/useValidation';
-import Form from '@/shared/ui/form/Form';
-import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {pinMessage, phoneMessage} from '@/shared/config/message';
+import md5 from 'md5';
 import {Input} from 'antd';
-import Button from '@/shared/ui/button/Button';
-import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import Form from '@/shared/ui/form/Form';
+import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
-import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
-import {APP_STORE_GEKKARD, GOOGLE_PLAY_GEKKARD} from "../../model/helpers";
+import Button from '@/shared/ui/button/Button';
+import {memo, useContext, useState} from 'react';
 import ReactPhoneInput from "react-phone-input-2";
-import '@styles/(cs)react-phone-input.scss'
+import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import useValidation from '@/shared/model/hooks/useValidation';
+import {pinMessage, phoneMessage} from '@/shared/config/message';
+import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
@@ -46,7 +46,7 @@ const FormLoginAccount = memo(() => {
 
         setLoading(true)
 
-        apiCheckPassword($phone, password)
+        apiCheckPassword($phone, md5(`${password}_${$phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(
                     () => apiRequestCode($phone)
@@ -70,6 +70,8 @@ const FormLoginAccount = memo(() => {
             })
     }
 
+    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+
     return <Form onFinish={onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
@@ -79,7 +81,7 @@ const FormLoginAccount = memo(() => {
         <p className='text-center mb-9 text-gray-500'>
             Login to your personal account is carried out through the <a
                 className='font-inherit underline'
-                href={APP_STORE_GEKKARD}
+                href={import.meta.env.VITE_APP_STORE_GEKKARD}
                 target={'_blank'}>Gekkard application
             </a> credentials
         </p>
@@ -119,17 +121,24 @@ const FormLoginAccount = memo(() => {
 
             <ul className='flex justify-center gap-4'>
                 <li>
-                    <a href={GOOGLE_PLAY_GEKKARD} target={"_blank"}>
-                        <img
-                            src='/img/google-play.svg'
-                            height="40px"
-                            alt="Google play"
-                        />
-                    </a>
+                    <div className='grid gap-y-2'>
+                        <a href={import.meta.env.VITE_GOOGLE_PLAY_GEKKARD} target={"_blank"}>
+                            <img
+                                src='/img/google-play.svg'
+                                height="40px"
+                                alt="Google play"
+                            />
+                        </a>
+
+                        <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
+                           className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
+                            Download
+                        </a>
+                    </div>
                 </li>
 
                 <li>
-                    <a href={APP_STORE_GEKKARD} target={"_blank"}>
+                    <a href={import.meta.env.VITE_APP_STORE_GEKKARD} target={"_blank"}>
                         <img
                             src='/img/app-store.svg'
                             height="40px"

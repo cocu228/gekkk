@@ -1,7 +1,7 @@
-import $const from './constants';
+import ETokensConst from './constants';
 
 export default {
-    [$const.ONEINCH]: <div>
+    [ETokensConst.ONEINCH]: <div>
         <p className='mb-3'>
             The 1inch Network unites decentralized protocols whose synergy enables the most lucrative,
             fastest and protected operations in the DeFi space.
@@ -58,7 +58,7 @@ export default {
         </p>
     </div>,
 
-    [$const.AAVE]: <div>
+    [ETokensConst.AAVE]: <div>
         <p className='mb-3'>
             Aave is a decentralized cryptocurrency platform that allows users to borrow and lend crypto.
             Aave uses smart contracts to automate the process, with preset rules on how funds are distributed,
@@ -78,7 +78,7 @@ export default {
         </p>
     </div>,
 
-    [$const.AGLD]: <div>
+    [ETokensConst.AGLD]: <div>
         <p className='mb-3'>
             Adventure Gold (AGLD) is the native ERC-20 token of the Loot non-fungible token (NFT) project.
             Loot is a text-based, randomized adventure gear generated and stored on-chain, created by social
@@ -148,7 +148,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ANKR]: <div>
+    [ETokensConst.ANKR]: <div>
         <p className='mb-3'>
             Ankr is a developer of blockchain protocols created to enhance the efficiency of international
             public ledgers. Ankr's platform utilizes blockchain technology for the distribution of cloud
@@ -173,7 +173,7 @@ export default {
         </p>
     </div>,
 
-    [$const.APE]: <div>
+    [ETokensConst.APE]: <div>
         <p className='mb-3'>
             ApeCoin is an ERC-20 governance and utility token used within the APE Ecosystem to empower and
             incentivize a decentralized community building at the forefront of web3.
@@ -206,7 +206,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ANT]: <div>
+    [ETokensConst.ANT]: <div>
         <p>
             Aragon (ANT) is a decentralized platform built on the Ethereum network that offers a modularized way to
             create and manage dApps, cryptoprotocols, and decentralized autonomous organizations (DAO). The ANT ERC-20
@@ -214,7 +214,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ARPA]: <div>
+    [ETokensConst.ARPA]: <div>
         <p>
             Founded in April 2018, the goal of ARPA is to separate data utility from ownership and enable
             data renting. ARPA’s MPC protocol creates ways for multiple entities to collaboratively analyze
@@ -229,7 +229,7 @@ export default {
         </p>
     </div>,
     
-    [$const.AVAX]: <div>
+    [ETokensConst.AVAX]: <div>
         <p className='mb-3'>
             Avalanche (AVAX) is a cryptocurrency and blockchain platform that rivals Ethereum. AVAX is the native
             token of the Avalanche blockchain, which—like Ethereum—uses smart 
@@ -248,7 +248,7 @@ export default {
         </p>
     </div>,
 
-    [$const.AXS]: <div>
+    [ETokensConst.AXS]: <div>
         <p className='mb-3'>
             Axie Infinity is an online gaming platform built on blockchain by Sky Mavis. The company was founded
             by Aleksander Leonard Larsen and Trung Nguyen in 2018. The game allows players to collect different
@@ -263,7 +263,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ADA]: <div>
+    [ETokensConst.ADA]: <div>
         <p className='mb-3'>
             Cardano is a third-generation, decentralized proof-of-stake (PoS) blockchain platform designed to be a
             more efficient alternative to proof-of-work (PoW) networks. 
@@ -288,7 +288,7 @@ export default {
         </p>
     </div>,
     
-    [$const.ATOM]: <div>
+    [ETokensConst.ATOM]: <div>
         <p className='mb-3'>
             Cosmos is an ecosystem of blockchains that can scale and interoperate with each other. Before Cosmos,
             blockchains were siloed and unable to communicate with each other. They were hard to build and could
@@ -305,7 +305,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BAL]: <div>
+    [ETokensConst.BAL]: <div>
         <p className='mb-3'>
             Balancer Protocol is an automated portfolio manager and liquidity provider that transforms the concept
             of an index fund so that instead of paying fees to portfolio managers to rebalance a portfolio, users can
@@ -345,7 +345,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BAND]: <div>
+    [ETokensConst.BAND]: <div>
         <p className='mb-3'>
             Band Protocol is a cross-chain data oracle platform for connecting real-world data and APIs to
             smart contracts. Blockchain oracles are entities that connect blockchains to external systems,
@@ -412,7 +412,7 @@ export default {
         <p>The native token of the platform is BAND, and it is based on the ERC20 token standard.</p>
     </div>,
 
-    [$const.BICO]: <div>
+    [ETokensConst.BICO]: <div>
         <p className='mb-3'>
             Biconomy (BICO) is a developer platform that empowers blockchain developers to enable a
             simplified transaction and onboarding experience for their Web3 project. The plug-n-play
@@ -432,7 +432,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BLZ]: <div>
+    [ETokensConst.BLZ]: <div>
         <p className='mb-3'>
             Bluzelle (BLZ) offers a blockchain platform for the creation of decentralized applications
             (dApps) focused decentralized and scalable database services. Users of Bluzelle can sell
@@ -478,7 +478,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BNT]: <div>
+    [ETokensConst.BNT]: <div>
         <p className='mb-3'>
             Bancor is a collection of smart contracts that control the conversion flow
             between different tokens on the Bancor Network platform. According to the
@@ -512,7 +512,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BTT]: <div>
+    [ETokensConst.BTT]: <div>
         <p className='mb-3'>
             BitTorrent is a popular peer-to-peer distributed communication technology
             that allows huge, in-demand data distribution. The protocol eliminates the
@@ -567,7 +567,7 @@ export default {
         </p>
     </div>,
 
-    [$const.C98]: <div>
+    [ETokensConst.C98]: <div>
         <p className='mb-3'>
             Coin98 is a DeFi platform to borrow, stake, swap, lend and earn crypto. Coin98 is a one-stop
             platform wherein users can access the DeFi ecosystem like on-chain governance, decentralized
@@ -602,7 +602,7 @@ export default {
         </ul>
     </div>,
 
-    [$const.COMP]: <div>
+    [ETokensConst.COMP]: <div>
         <p className='mb-3'>
             Compound (COMP) is an Ethereum-based token that allows the community to govern the
             Compound protocol. The protocol consists of a series of decentralized interest rate
@@ -632,7 +632,7 @@ export default {
         </p>
     </div>,
 
-    [$const.CRV]: <div>
+    [ETokensConst.CRV]: <div>
         <p className='mb-3'>
             The Curve is one of the most widely used DeFi (decentralized finance) platforms that
             utilizes an automated market maker (AMM) to manage liquidity. AMM is a protocol that
@@ -656,7 +656,7 @@ export default {
         </p>
     </div>,
 
-    [$const.CTSI]: <div>
+    [ETokensConst.CTSI]: <div>
         <p className='mb-3'>
             CTSI is a utility token that powers the Cartesi network, which aims to solve blockchain
             scalability and high fees. Scalability refers to a cryptocurrency's ability to handle
@@ -680,7 +680,7 @@ export default {
         </p>
     </div>,
 
-    [$const.CVC]: <div>
+    [ETokensConst.CVC]: <div>
         <p className='mb-3'>
             The Civic ecosystem simplifies identity verification (IDV) services using
             blockchain by verifying user identities and detecting fraud in a hassle-free
@@ -718,7 +718,7 @@ export default {
         </p>
     </div>,
 
-    [$const.DASH]: <div>
+    [ETokensConst.DASH]: <div>
         <p className='mb-3'>
             Dash (DASH) is a payments-focused peer-to-peer cryptocurrency. Forked out of
             Bitcoin source code, Dash is an open-source platform that claims itself to be
@@ -773,7 +773,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ENJ]: <div>
+    [ETokensConst.ENJ]: <div>
         <p className='mb-3'>
             Enjin (ENJ) is an online gaming community creation platform built on Ethereum blockchain.
             Enjin aims to make the gaming experience easy for developers and players by providing
@@ -793,7 +793,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ENS]: <div>
+    [ETokensConst.ENS]: <div>
         <p className='mb-3'>
             Ethereum Name Service is a decentralized and extensible naming system based on the Ethereum blockchain.
             ENS is deployed to convert human-readable names like “alice.eth” to a machine-readable identifier
@@ -836,7 +836,7 @@ export default {
         </p>
     </div>,
 
-    [$const.EOS]: <div>
+    [ETokensConst.EOS]: <div>
         <p className='mb-3'>
             An open-source blockchain leveraging smart contracts, EOS is used to deploy and run decentralized
             applications (dApps) for real-world use. EOS can support thousands of dApps without experiencing slow
@@ -865,7 +865,7 @@ export default {
         </p>
     </div>,
 
-    [$const.FIL]: <div>
+    [ETokensConst.FIL]: <div>
         <p className='mb-3'>
             The Filecoin protocol introduces a decentralized storage network (DSN) based on blockchain.
             As claimed by the whitepaper, with the DSN scheme, multiple independent storage providers offer data
@@ -894,7 +894,7 @@ export default {
         <p>Filecoin, trading under the ticker FIL, is the native cryptocurrency on the Filecoin network.</p>
     </div>,
 
-    [$const.GALA]: <div>
+    [ETokensConst.GALA]: <div>
         <p className='mb-3'>
             The GALA token is the Gala Games ecosystem's digital utility token. The token is cryptographically
             secured and native to the Gala Games ecosystem. GALA can be transferred peer-to-peer between users,
@@ -926,7 +926,7 @@ export default {
         </p>
     </div>,
 
-    [$const.GRT]: <div>
+    [ETokensConst.GRT]: <div>
         <p className='mb-3'>
             The Graph (GRT) is a protocol for indexing and accessing blockchain data. The Graph indexes blockchain
             records from networks like Ethereum in the same way that Google indexes the web. The Graph is a global data
@@ -955,7 +955,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ICX]: <div>
+    [ETokensConst.ICX]: <div>
         <p className='mb-3'>
             ICON (ICX) is a protocol developed for creating decentralized applications (DApps) and is based on
             blockchain technology. The project’s conceptualization is based on the idea of connecting the world.
@@ -987,7 +987,7 @@ export default {
         </p>
     </div>,
 
-    [$const.IDEX]: <div>
+    [ETokensConst.IDEX]: <div>
         <p className='mb-3'>
             IDEX is a hybrid liquidity decentralized exchange (DEX) that combines a high-performance orderbook and
             matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a specific
@@ -1035,7 +1035,7 @@ export default {
         </p>
     </div>,
 
-    [$const.INJ]: <div>
+    [ETokensConst.INJ]: <div>
         <p className='mb-3'>
             Injective is a blockchain designed specifically for the finance industry. It is an open, interoperable
             layer-one blockchain that aims to power next-generation decentralized finance (DeFi) applications, such
@@ -1065,7 +1065,7 @@ export default {
         </p>
     </div>,
 
-    [$const.USDT]: <div>
+    [ETokensConst.USDT]: <div>
         <p className='mb-3'>
             Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed "100% by
             Tether's reserves," according its website. USDT is a type of cryptocurrency pursuing a
@@ -1085,7 +1085,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BCH]: <div>
+    [ETokensConst.BCH]: <div>
         <p className='mb-3'>
             Bitcoin Cash BCH holds an important place in the history of altcoins because it is one of the 
             earliest and most successful hard forks of the original Bitcoin. 
@@ -1111,7 +1111,7 @@ export default {
         </p>
     </div>,
 
-    [$const.KNC]: <div>
+    [ETokensConst.KNC]: <div>
         <p className='mb-3'>
             Kyber Network is a hub of liquidity protocols that aggregates liquidity from various sources
             to provide secure and instant transactions on any decentralized application (DApp). The main goal
@@ -1140,7 +1140,7 @@ export default {
         </p>
     </div>,
 
-    [$const.KSM]: <div>
+    [ETokensConst.KSM]: <div>
         <p className='mb-3'>
             Kusama is a scalable network of blockchains meant for experimentation. Kusama is the identical
             copy of the Polkadot blockchain and provides a pre-production environment for Polkadot. The platform allows
@@ -1165,7 +1165,7 @@ export default {
         </p>
     </div>,
 
-    [$const.LPT]: <div>
+    [ETokensConst.LPT]: <div>
         <p className='mb-3'>
             Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to build
             video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live video
@@ -1198,7 +1198,7 @@ export default {
         </p>
     </div>,
 
-    [$const.LRC]: <div>
+    [ETokensConst.LRC]: <div>
         <p className='mb-3'>
             Loopring (LRC) is an Ethereum token that describes itself as “an open-source, audited, and non-custodial
             exchange protocol.” The protocol aims to allow anyone to build non-custodial, decentralized exchanges on
@@ -1230,7 +1230,7 @@ export default {
         </p>
     </div>,
 
-    [$const.MASK]: <div>
+    [ETokensConst.MASK]: <div>
         <p className='mb-3'>
             Mask Network is a gateway that allows users to access the world of decentralized web or Web 3.0 through
             the Mask Network extension. Mask Network, rather than developing a new platform, bridges Web 2.0 and Web 3.0,
@@ -1294,7 +1294,7 @@ export default {
         </p>
     </div>,
 
-    [$const.MIR]: <div>
+    [ETokensConst.MIR]: <div>
         <p className='mb-3'>
             Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and
             trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track
@@ -1323,7 +1323,7 @@ export default {
         </p>
     </div>,
 
-    [$const.MKR]: <div>
+    [ETokensConst.MKR]: <div>
         <p className='mb-3'>
             Maker is an Ethereum-based governance and utility token of the Maker system.
             Maker aims to unlock the potential of decentralized finance by building an inclusive
@@ -1374,7 +1374,7 @@ export default {
         </ol>
     </div>,
 
-    [$const.MLN]: <div>
+    [ETokensConst.MLN]: <div>
         <p>
             MLN is an Ethereum token that powers Enzyme (formerly known as Melon Protocol),
             a protocol that aims to facilitate on-chain asset management for the DeFi ecosystem.
@@ -1384,7 +1384,7 @@ export default {
         </p>
     </div>,
 
-    [$const.OGN]: <div>
+    [ETokensConst.OGN]: <div>
         <p className='mb-3'>
             Trading under OGN, the Origin Protocol is an Ethereum-based platform that aims to bring
             non-fungible tokens (NFTs) and decentralized finance (DeFi) to the masses. The platform
@@ -1411,7 +1411,7 @@ export default {
         </p>
     </div>,
 
-    [$const.OMG]: <div>
+    [ETokensConst.OMG]: <div>
         <p>
             The OMG Network (formerly OmiseGO) is a value transfer network for Ethereum and any
             ERC-20 token. It describes itself as the first production-grade layer-2 Ethereum
@@ -1420,7 +1420,7 @@ export default {
         </p>
     </div>,
 
-    [$const.OXT]: <div>
+    [ETokensConst.OXT]: <div>
         <p>
             Orchid (OXT) is an Ethereum token that powers the Orchid network, a peer-to-peer
             privacy tool that includes a decentralized VPN and other features designed to give
@@ -1429,7 +1429,7 @@ export default {
         </p>
     </div>,
 
-    [$const.POWR]: <div>
+    [ETokensConst.POWR]: <div>
         <p className='mb-3'>
             Power Ledger (POWR) is a technology and software company that uses blockchain for trading
             renewable energy. The company aims to develop software for clients that allows consumers to
@@ -1451,7 +1451,7 @@ export default {
         </p>
     </div>,
 
-    [$const.REN]: <div>
+    [ETokensConst.REN]: <div>
         <p>
             Ren (REN) is an Ethereum token that powers Ren’s open protocol for transferring
             cryptocurrencies between blockchains. Ren aims to bring popular assets like Bitcoin
@@ -1460,7 +1460,7 @@ export default {
         </p>
     </div>,
 
-    [$const.REQ]: <div>
+    [ETokensConst.REQ]: <div>
         <p className='mb-3'>
             Request (REQ) is the protocol for payment requests. It is an open network where transactions
             are immutably recorded and requests are processed without the need for a middleman. The aim is
@@ -1511,7 +1511,7 @@ export default {
         </p>
     </div>,
 
-    [$const.RLC]: <div>
+    [ETokensConst.RLC]: <div>
         <p>
             RLC is an Ethereum token for the iExec cloud platform in which users can monetize
             and rent computing power and data. iExec enables developers to power applications
@@ -1519,7 +1519,7 @@ export default {
         </p>
     </div>,
 
-    [$const.SAND]: <div>
+    [ETokensConst.SAND]: <div>
         <p>
             SAND is an Ethereum token that powers The Sandbox, a multiplayer metaverse where
             players can create, monetize, and participate in blockchain-based gaming experiences.
@@ -1529,7 +1529,7 @@ export default {
         </p>
     </div>,
 
-    [$const.SNX]: <div>
+    [ETokensConst.SNX]: <div>
         <p className='mb-3'>
             Synthetix (SNX) is software built on the Ethereumblockchain. Synthetix utilizes a
             decentralized finance (DeFi) protocol that enables it to provide services without needing
@@ -1567,7 +1567,7 @@ export default {
         </p>
     </div>,
 
-    [$const.SRM]: <div>
+    [ETokensConst.SRM]: <div>
         <p className='mb-3'>
             Serum describes itself as a protocol and ecosystem for decentralized exchanges (DEX)
             that gives decentralized finance, exceptional speed, and cheap transaction costs. The Serum is
@@ -1591,7 +1591,7 @@ export default {
         </p>
     </div>,
 
-    [$const.STORJ]: <div>
+    [ETokensConst.STORJ]: <div>
         <p>
             Storj (STORJ) is an Ethereum token that powers a decentralized cloud storage network
             for developers called Storj DCS (Decentralized Cloud Storage). After a customer uploads
@@ -1604,7 +1604,7 @@ export default {
         </p>
     </div>,
 
-    [$const.SUSHI]: <div>
+    [ETokensConst.SUSHI]: <div>
         <p>
             SushiSwap (SUSHI) is a decentralized exchange (or DEX) built on the Ethereum network.
             Originally forked from Uniswap, SushiSwap leverages smart contracts in order to provide
@@ -1615,7 +1615,7 @@ export default {
         </p>
     </div>,
 
-    [$const.TRIBE]: <div>
+    [ETokensConst.TRIBE]: <div>
         <p>
             TRIBE is an Ethereum token that governs Fei Protocol, which issues a separate,
             decentralized stablecoin called FEI that attempts to maintain a value of US$1.00.
@@ -1624,7 +1624,7 @@ export default {
         </p>
     </div>,
 
-    [$const.USDC]: <div>
+    [ETokensConst.USDC]: <div>
         <p>
             USD Coin (USDC) is a stablecoin redeemable on a 1:1 basis for US dollars, backed by
             dollar denominated assets held in segregated accounts with US regulated financial
@@ -1637,7 +1637,7 @@ export default {
         </p>
     </div>,
 
-    [$const.WAVES]: <div>
+    [ETokensConst.WAVES]: <div>
         <p className='mb-3'>
             Waves (WAVES) is a community-based multipurpose blockchain platform that seeks to
             support a compilation of decentralized open-source technologies to build scalable,
@@ -1654,7 +1654,7 @@ export default {
         </p>
     </div>,
 
-    [$const.XLM]: <div>
+    [ETokensConst.XLM]: <div>
         <p className='mb-3'>
             Stellar’s cryptocurrency, the Stellar Lumen (XLM), powers the Stellar payment network.
             As a cross-border transfer and payment system that connects financial entities, Stellar aims
@@ -1670,7 +1670,7 @@ export default {
         </p>
     </div>,
 
-    [$const.YFI]: <div>
+    [ETokensConst.YFI]: <div>
         <p>
             Yearn.finance (YFI) is an Ethereum token that governs the Yearn.finance platform.
             The platform is a yield optimizer that moves funds around the decentralized finance
@@ -1678,7 +1678,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ZEC]: <div>
+    [ETokensConst.ZEC]: <div>
         <p className='mb-3'>
             Zcash (ZEC) is a privacy-protecting, decentralized cryptocurrency. According to the website,
             Zcash was created as a fork of the Bitcoin codebaseto enable privacy. The Zcash protocol uses
@@ -1714,7 +1714,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BNB]: <div>
+    [ETokensConst.BNB]: <div>
         <p className='mb-3'>
             Binance Coin is the cryptocurrency issued by the Binance exchange and trades with the BNB symbol.
         </p>
@@ -1736,7 +1736,7 @@ export default {
         </p>
     </div>,
 
-    [$const.BTC]: <div>
+    [ETokensConst.BTC]: <div>
         <p className='mb-3'>
             The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on 
             the Internet through the digital ledger known as the blockchain.
@@ -1752,7 +1752,7 @@ export default {
         </ul>
     </div>,
 
-    [$const.DAI]: <div>
+    [ETokensConst.DAI]: <div>
         <p className='mb-3'>
             The Dai stablecoin uses a basket of crypto assets as collateral at a ratio of 150% to the value of its
             tokens. It is pegged to the U.S. dollar.
@@ -1783,7 +1783,7 @@ export default {
         </p>
     </div>,
 
-    [$const.DOGE]: <div>
+    [ETokensConst.DOGE]: <div>
         <p className='mb-3'>
             Dogecoin is an open-source cryptocurrency started in 2013 by Jackson Palmer and Billy Markus.
         </p>
@@ -1803,7 +1803,7 @@ export default {
         </p>
     </div>,
 
-    [$const.DOT]: <div>
+    [ETokensConst.DOT]: <div>
         <p className='mb-3'>
             Polkadot (DOT) is a unique PoS cryptocurrency aimed at delivering interoperability among other
             blockchains. Its protocol is designed to connect permissioned and permissionless blockchains 
@@ -1826,7 +1826,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ETC]: <div>
+    [ETokensConst.ETC]: <div>
         <p className='mb-3'>
             Ethereum Classic (ETC) is an open-source, decentralized, blockchain-based distributed cryptocurrency 
             platform that runs smart contracts. Ethereum Classic was formed in 2016 as a result of a hack of The 
@@ -1843,7 +1843,7 @@ export default {
         </p>
     </div>,
 
-    [$const.ETH]: <div>
+    [ETokensConst.ETH]: <div>
         <p className='mb-3'>
             Ethereum (ETH) is both a cryptocurrency and a decentralized computing platform. 
             Developers can use the platform to create decentralized applications 
@@ -1871,7 +1871,7 @@ export default {
         </ul>
     </div>,
 
-    [$const.EURG]: <div>
+    [ETokensConst.EURG]: <div>
         <p className='mb-3'>
             Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
             All EURG tokens are subject to exchange for fiat money in accordance 
@@ -1888,7 +1888,7 @@ export default {
         </div>
     </div>,
 
-    [$const.EVER]: <div>
+    [ETokensConst.EVER]: <div>
         <p className='mb-3'>
             Everscale is a new and unique blockchain design that proposes a scalable decentralized world computer,
             paired with a distributed operating system.
@@ -1913,7 +1913,7 @@ export default {
         </p>
     </div>,
 
-    [$const.GKE]: <div>
+    [ETokensConst.GKE]: <div>
         <p className='mb-3'>
             GKE tokens in the Gekkard ecosystem are the flagship of
             a new type of crypto assets reflecting the efficient and cost-effective
@@ -1965,7 +1965,7 @@ export default {
         </ol>
     </div>,
 
-    [$const.LINK]: <div>
+    [ETokensConst.LINK]: <div>
         <p className='mb-3'>
             Chainlink (LINK) is a cryptocurrency and technology platform that enables non-blockchain enterprises to
             securely connect with blockchain platforms. Chainlink is middleware that connects blockchain-based smart
@@ -1995,7 +1995,7 @@ export default {
         </p>
     </div>,
 
-    [$const.LTC]: <div>
+    [ETokensConst.LTC]: <div>
         <p className='mb-3'>
             Litecoin (LTC) is a cryptocurrency created from a fork in the Bitcoin blockchain in 2011. It was
             initially designed to address the developer's concerns that Bitcoin was becoming too centrally 
@@ -2012,7 +2012,7 @@ export default {
         <p>Litecoin has a faster transaction processing time compared to Bitcoin.</p>
     </div>,
 
-    [$const.MANA]: <div>
+    [ETokensConst.MANA]: <div>
         <p className='mb-3'>
             Decentraland (MANA) defines itself as a virtual reality platform powered by the Ethereum blockchain that
             allows users to create, experience, and monetize content and applications.
@@ -2037,7 +2037,7 @@ export default {
         </p>
     </div>,
 
-    [$const.MATIC]: <div>
+    [ETokensConst.MATIC]: <div>
         <p className='mb-3'>
             Polygon is a cryptocurrency, with the symbol MATIC, and also a technology platform that enables
             blockchain networks to connect and scale.
@@ -2057,7 +2057,7 @@ export default {
         <p>Polygon uses a modified proof-of-stake consensus mechanism to efficiently operate the platform.</p>
     </div>,
 
-    [$const.NEAR]: <div>
+    [ETokensConst.NEAR]: <div>
         <p className='mb-3'>
             NEAR Protocol is a layer-one blockchain that was designed as a community-run cloud computing platform and
             that eliminates some of the limitations that have been bogging competing blockchains, such as low
@@ -2080,7 +2080,7 @@ export default {
         </p>
     </div>,
 
-    [$const.SHIB]: <div>
+    [ETokensConst.SHIB]: <div>
         <p className='mb-3'>
             Shiba Inu is an Ethereum-based altcoin that features the Shiba Inu hunting dog as its mascot.
         </p>
@@ -2095,7 +2095,7 @@ export default {
         <p>SHIB ranks in the top ten among all meme cryptocurrencies by this measure, right behind Dogecoin.</p>
     </div>,
 
-    [$const.SOL]: <div>
+    [ETokensConst.SOL]: <div>
         <p className='mb-3'>
             Solana is a blockchain platform designed to host decentralized, scalable applications.
         </p>
@@ -2116,7 +2116,7 @@ export default {
         </p>
     </div>,
 
-    [$const.TON]: <div>
+    [ETokensConst.TON]: <div>
         <p className='mb-3'>TON is the next gen network to unite all blockchains and the existing Internet</p>
 
         <p className='mb-3'>
@@ -2140,7 +2140,7 @@ export default {
         </p>
     </div>,
 
-    [$const.TRX]: <div>
+    [ETokensConst.TRX]: <div>
         <p className='mb-3'>
             Tron is a blockchain-based decentralized digital platform with its own cryptocurrency, called Tronix or
             TRX. Founded in 2017 by a Singapore non-profit organization, the Tron Foundation, Tron aims to host a
@@ -2158,7 +2158,7 @@ export default {
         </p>
     </div>,
 
-    [$const.UNI]: <div>
+    [ETokensConst.UNI]: <div>
         <p className='mb-3'>
             Uniswap is a decentralized exchange that enables peer-to-peer market making. Uniswap is also a
             cryptocurrency whose symbol is (UNI). The Uniswap platform enables users to trade cryptocurrencies
@@ -2175,7 +2175,7 @@ export default {
         <p>The Uniswap platform is governed by UNI holders in proportion to how much UNI they own.</p>
     </div>,
 
-    [$const.XMR]: <div>
+    [ETokensConst.XMR]: <div>
         <p className='mb-3'>
             Monero (XMR) is a private, secure, and untraceable cryptocurrency. With Monero, you are in complete 
             control of your funds and privacy, no one else can see anyone else’s balances or transactions.
@@ -2206,7 +2206,7 @@ export default {
         </ul>
     </div>,
 
-    [$const.XRP]: <div>
+    [ETokensConst.XRP]: <div>
         <p className='mb-3'>
             Ripple is a digital payment platform that uses blockchain technology and a native cryptocurrency to
             facilitate faster and cheaper global transactions. XRP is the native token for the Ripple ledger and is

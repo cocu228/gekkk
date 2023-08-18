@@ -41,9 +41,6 @@ const WithdrawForm = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-    // const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
-
-    const [value, setValue] = useState<string>("");
 
     console.log(networksDefault)
 
@@ -59,26 +56,33 @@ const WithdrawForm = () => {
                 </div>
 
                     <div className='flex flex-col gap-2'>
-
                         <InputCurrency.Validator
-                            value={value}
+                            value={inputs.amount}
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate),
-                                validateMinimumAmount(min_withdraw),
-                                validateMaximumAmount(max_withdraw)
+                                // TODO: test validation
+                                //validateMinimumAmount(min_withdraw),
+                                //validateMaximumAmount(max_withdraw)
                             ]}
                         >
-                            <InputCurrency.PercentSelector onSelect={setValue}
-                                                           header={<span className='text-gray-600'>Input</span>}
-                                                           currency={currency}>
+                            <InputCurrency.PercentSelector
+                                currency={currency}
+                                header={<span className='text-gray-600'>Input</span>}
+                                onSelect={(v) => setInputs(() => ({
+                                    ...inputs,
+                                    amount: v
+                                }))}
+                            >
                                 <InputCurrency.DisplayBalance currency={currency}>
                                     <InputCurrency
-                                        value={value}
+                                        name={"amount"}
+                                        value={inputs.amount}
                                         currency={currency.$const}
-                                        onChange={v =>
-                                            setValue(v)
-                                        }
+                                        onChange={(v) => setInputs(() => ({
+                                            ...inputs,
+                                            amount: v
+                                        }))}
                                     />
                                 </InputCurrency.DisplayBalance>
                             </InputCurrency.PercentSelector>
@@ -101,7 +105,7 @@ const WithdrawForm = () => {
                 </div>
 
                 <Button size={"xl"} onClick={showModal}
-                        disabled={isDisabledBtnWithdraw(inputs, currency, max_withdraw, min_withdraw)}
+                        disabled={isDisabledBtnWithdraw(inputs)}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>

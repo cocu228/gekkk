@@ -125,7 +125,7 @@ export default memo(function () {
 
     useEffect(() => {
 
-        if (account.number) {
+        if (account.number && organizations) {
             (async function () {
                 await getInvestTemplates();
                 const walletsResponse = await apiGetBalance();
@@ -139,7 +139,9 @@ export default memo(function () {
                                     ...prev,
                                     currencies: helperCurrenciesGeneration(
                                         uncoverResponse(assetsResponse),
-                                        uncoverResponse(walletsResponse))
+                                        uncoverResponse(walletsResponse),
+                                        account.number,
+                                        organizations)
                                 }));
                             }).reject(() => null);
                     }).reject(() => null);

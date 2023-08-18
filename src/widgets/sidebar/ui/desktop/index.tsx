@@ -74,6 +74,7 @@ const SidebarDesktop = () => {
 
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
+    const eurWallet = currencies.get("EUR");
 
     const secondaryWallets = Array.from(currencies.values())
 
@@ -91,7 +92,6 @@ const SidebarDesktop = () => {
                         <span
                             className="text-lg font-bold">{totalSum.EUR.toDecimalPlaces(2).toNumber()} € ({totalSum.BTC.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
-
                 </div>
             </div>
             {/* EUR wallet */}
@@ -106,7 +106,7 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>0 EUR</span>
+                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EUR</span>
                         </div>
                     </div>
                 </div>

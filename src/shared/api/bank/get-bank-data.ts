@@ -10,6 +10,13 @@ export interface IBankClient {
     address: any;
 }
 
+export interface IBankBalance {
+    currency: string;
+    balance: number;
+    balanceHold: number;
+    availableBalance: number;
+}
+
 export interface IBankAccount {
     id: string;
     number: string;
@@ -27,7 +34,7 @@ export interface IBankAccount {
     balance: number;
     balanceHold: number;
     accruedInterest: any;
-    balances: Array<number>;
+    balances: Array<IBankBalance>;
     createdAt: string;
     availableBalance: Array<string>;
     accountType: 'PHYSICAL' | 'JURIDICAL';

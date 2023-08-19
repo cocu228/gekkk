@@ -3,6 +3,7 @@ import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 
 const getDescription = (c, name) => {
@@ -25,6 +26,7 @@ const WalletHeader = () => {
         lockOrders
     } = useContext(CtxWalletData);
     const isEURG: boolean = $const === 'EURG';
+    const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
 
     return <>
@@ -36,7 +38,7 @@ const WalletHeader = () => {
                 {!md && <div className="flex flex-col content-around">
                     <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                            <span>
-                               Account balance
+                                Wallet balance
                            </span>
                     </div>
 
@@ -85,7 +87,15 @@ const WalletHeader = () => {
                 </div>)}
             </div>
 
-            {!md && (
+            {!md && isEUR ? (
+                <div className="scale-90 justify-start -mt-2.5 -mb-10 mr-2Я0">
+                    <BankCard
+                        cardNumber="123123"
+                        expiresAt="123"
+                        holderName="234"
+                    />
+                </div>
+            ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">
                         <span className="font-bold text-fs32 leading-1 text-gray-600">

@@ -3,7 +3,7 @@ import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import styles from "@/shared/ui/tabs-group/secondary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
-import BlockchainWallet from "@/widgets/wallet/EURG/BlockchainWallet";
+// import BlockchainWallet from "@/widgets/wallet/EURG/BlockchainWallet";
 import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import TopUpCode from "@/widgets/wallet/EURG/TopUpCode";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
@@ -13,7 +13,7 @@ type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 
 const TopUpEURG = memo(() => {
 
-    const {loading} = useContext(CtxWalletNetworks)
+    // const {loading} = useContext(CtxWalletNetworks)
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("gekkard-account")
 
 

@@ -15,7 +15,7 @@ import { AccountRights } from '@/shared/config/account-rights';
 
 const GekkardAccount = () => {
     const navigate = useNavigate();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState(null);
     const {account, currencies} = useContext(CtxRootData);
     const {isModalOpen, showModal, handleCancel} = useModal();
@@ -53,16 +53,16 @@ const GekkardAccount = () => {
             <div className="col">
                 <InputCurrency.Validator
                     value={amount}
-                    description={`Minimum amount is ${min_withdraw} ${wallet.$const}`}
+                    description={`Minimum amount is ${min_withdraw} ${currency.$const}`}
                     validators={[validateMinimumAmount(min_withdraw)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600'>Input</span>}
-                                                   currency={currencies.get(wallet.$const)}>
-                        <InputCurrency.DisplayBalance currency={currencies.get(wallet.$const)}>
+                                                   currency={currencies.get(currency.$const)}>
+                        <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                             <InputCurrency
                                 value={amount}
-                                currency={wallet.$const}
+                                currency={currency.$const}
                                 onChange={v =>
                                     setAmount(v)
                                 }

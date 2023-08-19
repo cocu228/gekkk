@@ -1,7 +1,7 @@
 import React from "react";
 import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
-import {IResBalance, IResMarketAsset} from "@/shared/api";
+import {IResBalance, IResGetInfoClient, IResMarketAsset, IResponseOrganizations} from "@/shared/api";
 import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
 
@@ -40,15 +40,18 @@ export class ICtxCurrencyData {
     }
 }
 
-export const CtxRootData = React.createContext<{
+export interface ICtxRootData {
     currencies: Map<string, ICtxCurrencyData>;
     setRefresh: () => void;
     setAccount: (number: null | string, id: null | string, client: null | string) => void;
     account: {
-        id: null | string,
-        number: null | string,
-        client: null | string,
+        id: IResponseOrganizations["accounts"][0]["id"],
+        idInfoClient: IResGetInfoClient["id"],
+        number: IResponseOrganizations["accounts"][0]["number"],
+        client: IResponseOrganizations["accounts"][0]["clientId"],
         rights: null | Record<string, boolean>
     },
     refreshKey: string;
-}>(null);
+}
+
+export const CtxRootData = React.createContext<ICtxRootData>(null);

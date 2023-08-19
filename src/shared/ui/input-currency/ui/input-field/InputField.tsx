@@ -34,7 +34,6 @@ const InputField: FC<IParams & InputProps> & {
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value as string))}
             suffix={<>
                 {currency && <IconCoin width={34} height={34} code={currency}/>}
-
                 <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{currency ?? 'Select token'}</span>
             </>}
         />

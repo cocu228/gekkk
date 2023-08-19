@@ -4,8 +4,8 @@ import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IAccount} from '@/shared/api';
+import {CtxRootData, ICtxCurrencyData, ICtxRootData} from '@/processes/RootContext';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IAccount, IResponseOrganizations} from '@/shared/api';
 import {
     actionResSuccess, getCookieData,
     getFlagsFromMask,
@@ -27,10 +27,11 @@ export default memo(function () {
         account,
         refreshKey,
         currencies,
-    }, setState] = useState({
+    }, setState] = useState<Omit<ICtxRootData, "setAccount" | "setRefresh">>({
         refreshKey: "",
         account: {
             id: null,
+            idInfoClient: null,
             number: null,
             client: null,
             rights: null
@@ -38,7 +39,7 @@ export default memo(function () {
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
-    const prevAccountRef = useRef<null | string>(null);
+    const prevAccountRef = useRef<null | IResponseOrganizations["accounts"][0]["number"]>(null);
 
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
@@ -52,7 +53,11 @@ export default memo(function () {
     }, []);
 
 
-    const getInfoClient = async (number: null | string, id: null | string, client: null | string) => {
+    const getInfoClient = async (
+        number: IResponseOrganizations["accounts"][0]["number"],
+        id: IResponseOrganizations["accounts"][0]["id"],
+        client: IResponseOrganizations["accounts"][0]["clientId"]
+    ) => {
 
         $axios.defaults.headers['AccountId'] = number;
 
@@ -67,6 +72,7 @@ export default memo(function () {
                         ...prev.account,
                         id,
                         client,
+                        idInfoClient: uncoverResponse(response).id,
                         number,
                         rights: getFlagsFromMask(uncoverResponse(response).flags, maskAccountRights)
                     }
@@ -161,7 +167,7 @@ export default memo(function () {
 
             setState(prev => ({
                 ...prev,
-                account: {number, id, client, rights: null}
+                account: {number, id, client, rights: null, idInfoClient: null}
             }));
         }
     }

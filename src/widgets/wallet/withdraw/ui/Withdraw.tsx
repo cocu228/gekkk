@@ -20,7 +20,7 @@ const Withdraw = () => {
         <div className='h-full'>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
-                {isGekkardAccount ? <GekkardAccount/> :
+                {isGekkardAccount ? <GekkardAccount withdraw/> :
                     <WithdrawForm/>}
             </>}
         </div>

@@ -4,19 +4,23 @@ import WithdrawForm from './WithdrawForm';
 import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
 import { CtxWalletData, CtxWalletNetworks } from '../../model/context';
+import {testGekkardAccount} from "@/widgets/wallet/model/helper";
+import EURFormWithdraw from "@/widgets/wallet/EUR/EURFormWithdraw";
 
 const Withdraw = () => {
+    const currency = useContext(CtxWalletData)
+
+    if (currency.$const === "EUR") return <EURFormWithdraw/>
 
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    // const currency = useContext(CtxWalletData),
-        // isEURG = currency.const === "EURG",
-    const formBank = Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
+
+    const isGekkardAccount = testGekkardAccount(networksDefault, networkIdSelect)
 
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
-                {formBank ? <GekkardAccount/> :
+                {isGekkardAccount ? <GekkardAccount/> :
                     <WithdrawForm/>}
             </>}
         </div>

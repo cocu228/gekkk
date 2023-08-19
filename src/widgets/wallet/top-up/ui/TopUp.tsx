@@ -6,9 +6,9 @@ import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {IResTokenNetwork} from "@/shared/api";
 import EURFormTopUp from "@/widgets/wallet/EUR/EURFormTopUp";
+import {testGekkardAccount} from "@/widgets/wallet/model/helper";
 
 
-const testGekkardAccount = (networksDefault: IResTokenNetwork[], networkIdSelect: number) => Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
 const TopUp = memo(() => {
 

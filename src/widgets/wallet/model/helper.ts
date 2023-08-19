@@ -3,6 +3,7 @@ import {IResTokenNetwork} from "@/shared/api";
 import {TNetworksForSelector} from "@/widgets/wallet/model/types";
 import {AxiosResponse} from "axios";
 
+export const testGekkardAccount = (networksDefault: IResTokenNetwork[], networkIdSelect: number) => Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
     const result = Array.isArray(response.data.result) &&

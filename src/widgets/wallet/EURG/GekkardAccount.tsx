@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { AccountRights } from '@/shared/config/account-rights';
 import {apiGekkardExchange} from "@/shared/api/wallet/exchange";
 
-const GekkardAccount = ({withdraw}) => {
+const GekkardAccount = ({withdraw}: { withdraw?: boolean }) => {
 
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);

@@ -1,1 +1,1 @@
-export * from './get-bank-data'
+export * from './organizations'

@@ -1,8 +1,8 @@
 import constants from "../config/coins/constants";
 import {ICtxCurrencyData} from "@/processes/RootContext";
-import {IBankData, IResBalance, IResMarketAsset} from "../api";
+import {IResponseOrganizations, IResBalance, IResMarketAsset} from "../api";
 
-export default (assets: IResMarketAsset[], wallets: IResBalance[], accountNumber: string, organizations: IBankData) => {
+export default (assets: IResMarketAsset[], wallets: IResBalance[], accountNumber: string, organizations: IResponseOrganizations) => {
     const currencies = new Map();
 
     assets.forEach(asset => {

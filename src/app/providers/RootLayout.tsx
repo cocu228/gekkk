@@ -5,7 +5,7 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IBankAccount} from '@/shared/api';
+import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IAccount} from '@/shared/api';
 import {
     actionResSuccess, getCookieData,
     getFlagsFromMask,
@@ -90,7 +90,7 @@ export default memo(function () {
 
                 if (cookieData.hasOwnProperty("accountId")) {
 
-                    const account: IBankAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
+                    const account: IAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
                         uncoverArray(organizations.accounts)
 
                     await getInfoClient(

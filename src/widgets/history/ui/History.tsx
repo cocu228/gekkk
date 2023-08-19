@@ -150,7 +150,8 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
                                                 : 'text-red-800'}
                                             `}
                                         >
-                                            {!item.is_income && '-'}
+                                            {[15, 16].includes(item.tx_type)
+                                                ? '' : !item.is_income && '-'}
                                             {+item.amount} {item.currency}
                                         </span>
                                         </div>

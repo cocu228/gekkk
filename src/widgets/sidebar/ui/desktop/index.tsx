@@ -98,7 +98,7 @@ const SidebarDesktop = () => {
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
+                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.png`}
                              alt="EURG"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -111,6 +111,10 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
+
+            {/* Crypto wallets wrapper */}
+            <div className="h-[8px] w-full bg-gray-300"/>
+
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>

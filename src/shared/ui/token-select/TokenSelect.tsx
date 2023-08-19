@@ -1,13 +1,12 @@
-import React, { useContext, useMemo, useState } from 'react';
 import styles from './style.module.scss';
-import { Select, SelectProps } from 'antd';
+import {Select, SelectProps} from 'antd';
+import {IconCoin} from '../icons/icon-coin';
+import {useContext, useMemo, useState} from 'react';
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
-import { CtxRootData, ICtxCurrencyData } from '@/processes/RootContext';
-import { IconCoin } from '../icons/icon-coin';
-import { CurrencyFlags, maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
-import { getFlagsFromMask } from '@/shared/lib/helpers';
+import {CtxRootData, ICtxCurrencyData } from '@/processes/RootContext';
 
-const { Option } = Select;
+const {Option} = Select;
 
 interface IParams {
     allowedFlags?: Array<CurrencyFlags>;
@@ -22,8 +21,7 @@ function TokenSelect({ disabledCurrencies, allowedFlags, ...props }: IParams & S
 
     const assetsFilter = (asset: ICtxCurrencyData) => {
         if (allowedFlags) {
-            const flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
-            return Object.values(allowedFlags).some(f => flags[f]);
+            return Object.values(allowedFlags).some(f => asset.flags[f]);
         }
 
         return true;

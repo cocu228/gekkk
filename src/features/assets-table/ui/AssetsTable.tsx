@@ -1,18 +1,18 @@
 import styles from './style.module.scss';
-import { apiGetRates } from "@/shared/api";
+import {apiGetRates} from "@/shared/api";
 import Input from '@/shared/ui/input/Input';
 import {useNavigate} from 'react-router-dom';
 import GTable from '@/shared/ui/grid-table/';
 import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
-import ETokensConst from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import ETokensConst from "@/shared/config/coins/constants";
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {CurrencyFlags, maskCurrencyFlags} from '@/shared/config/mask-currency-flags';
-import {evenOrOdd, getCurrencyRounding, getFlagsFromMask, scrollToTop} from "@/shared/lib/helpers";
+import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
 
 interface IParams {
     modal?: boolean,
@@ -58,8 +58,7 @@ const AssetsTable = ({
         }
         
         if (allowedFlags) {
-            const flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
-            return Object.values(allowedFlags).some(f => flags[f]);
+            return Object.values(allowedFlags).some(f => asset.flags[f]);
         }
 
         return true;

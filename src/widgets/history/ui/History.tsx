@@ -143,7 +143,13 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
                                     <GTable.Col>
                                         <div>
-                                        <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
+                                        <span className={`${[15, 16].includes(item.tx_type)
+                                                ? 'text-orange'
+                                                : item.is_income
+                                                ? 'text-green'
+                                                : 'text-red-800'}
+                                            `}
+                                        >
                                             {!item.is_income && '-'}
                                             {+item.amount} {item.currency}
                                         </span>

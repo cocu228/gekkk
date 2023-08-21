@@ -6,7 +6,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import {storeOrganizations} from "@/shared/store/organizations";
 
-const EURFormTopUp = () => {
+const FiatFormTopUp = () => {
 
     const currency = useContext(CtxWalletData);
     const organizations = storeOrganizations(state => state.organizations);
@@ -89,4 +89,4 @@ const EURFormTopUp = () => {
 
 };
 
-export default EURFormTopUp;
+export default FiatFormTopUp;

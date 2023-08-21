@@ -94,7 +94,7 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </div>
-            {/* EUR wallet */}
+            {/* fiat-currency wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">

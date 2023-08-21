@@ -60,8 +60,7 @@ const WithdrawForm = () => {
                             value={inputs.amount}
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             validators={[
-                                validateBalance(currencies.get(currency.$const), navigate),
-                                // TODO: test validation
+                                validateBalance(currencies.get(currency.$const), navigate)
                                 //validateMinimumAmount(min_withdraw),
                                 //validateMaximumAmount(max_withdraw)
                             ]}

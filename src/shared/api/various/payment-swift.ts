@@ -3,6 +3,7 @@ import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
 
 interface IParams {
     account: string,
+    address: string,
     amount: {
         sum: {
             currency: {
@@ -12,16 +13,21 @@ interface IParams {
             value: number
         }
     },
+    beneficiaryAccount: string,
+    beneficiaryBank: string,
     beneficiaryName: string,
-    externalId: string,
-    externalIdOwner: "CALLBACK",
-    externalOwnerId: string,
-    externalParam: string,
-    iban: string,
-    originatorData: string,
+    city: string,
+    commissionType: "BEN",
+    country: string,
+    intermediaryAccount: string,
+    intermediaryBank: string,
+    intermediarySwift: string,
     purpose: string,
-    transferDetails: string
+    swiftCode: string,
+    transferDetails: string,
+    urgency: "NORMAL"
 }
+
 
 interface IResponse {
     commission: number,
@@ -33,9 +39,11 @@ interface IResponse {
 }
 
 
-export const apiPaymentSepa = (params: IParams, commission: boolean = false) =>
+export const apiPaymentSwift = (params: IParams, commission: boolean = false) =>
+
     $axios.post<$AxiosResponse<{
         status: string
-    } | IResponse>>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
-        payment_sepa: params
+    } | IResponse>>(`/api/v1/payment_swift${commission ? "/commission" : ""}`, {
+        payment_swift: params
+
     })

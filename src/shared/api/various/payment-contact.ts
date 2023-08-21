@@ -32,25 +32,10 @@ interface IResponse {
 }
 
 
-export const apiPaymentContact = (obj: IParams) =>
-    $axios.post<$AxiosResponse<IResponse>>('/api/v1/payment_contact', {
-        payment_contact: {
-            account: "string",
-            amount: {
-                sum: {
-                    currency: {
-                        label: "string",
-                        code: "string"
-                    },
-                    value: 0
-                }
-            },
-            beneficiaryName: "string",
-            cardNumber: "string",
-            fromCardId: "string",
-            phoneNumber: "string",
-            purpose: "string",
-            sendLinkToRecipient: true,
-            transferDetails: 'Top up card'
-        }
+export const apiPaymentContact = (params: IParams, commission: boolean = false) =>
+    $axios.post<$AxiosResponse<{
+        status: string
+    } | IResponse>>(`/api/v1/payment_contact${commission ? "/commission" : ""}`, {
+        payment_contact: params
+
     })

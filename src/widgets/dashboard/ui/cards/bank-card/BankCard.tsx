@@ -8,15 +8,55 @@ interface CardData {
 
 const BankCard = ({cardNumber, expiresAt, holderName}: CardData) => {
     return (
-        <div className={styles.Card}>
+        <div className={styles.BankCard + ' grid-rows-6'}>
             <img
-                src='/img/payment-card/payment-card.svg'
-                className='absolute'
+                src='/img/payment-card/gekkard-logo.svg'
+                className='h-[37px]'
             />
-            <div className={`${styles.Data} ml-5 mt-auto`}>
-                <div className='text-[22px] mb-2'>{cardNumber}</div>
-                <div>Holder: {holderName}</div>
-                <div className='mb-3'>Expires: {expiresAt}</div>
+
+            <div className='flex justify-end'>
+                <img
+                    src='/img/payment-card/contactless-icon.svg'
+                    className='h-[22px] mr-5'
+                />
+            </div>
+
+            <img
+                src='/img/payment-card/chip-icon.svg'
+                className='ml-2'
+            />
+
+            <div
+                className={`
+                    ${styles.CardNumber}
+                    mt-2
+                    mb-2
+                    ml-2
+                    text-[18px]
+                `}
+            >
+                {cardNumber}
+            </div>
+
+            <div className='text-[#fefefe] text-[6px] font-semibold'>
+                VALID THRU
+            </div>
+
+            <div className={styles.CardBottom}>
+                <div>
+                    <div className={styles.CardData}>
+                        {expiresAt}
+                    </div>
+
+                    <div className={styles.CardData}>
+                        {holderName}
+                    </div>
+                </div>
+
+                <img
+                    src='/img/payment-card/mastercard-logo.svg'
+                    className='ml-2 mt-2 place-self-end'
+                />
             </div>
         </div>
     )

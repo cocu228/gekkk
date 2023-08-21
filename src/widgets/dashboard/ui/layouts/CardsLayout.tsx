@@ -1,10 +1,10 @@
-import BankCard from '../cards/bank-card/BankCard';
-import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import {formatMonthYear} from '../../model/helpers';
 import {useContext} from 'react';
+import BankCard from '../cards/bank-card/BankCard';
 import {CtxRootData} from '@/processes/RootContext';
+import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import {storeOrganizations} from "@/shared/store/organizations";
+import SectionTitle from "@/shared/ui/section-title/SectionTitle";
+import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
@@ -21,7 +21,7 @@ function CardsLayout() {
                         .map(item =>
                             <BankCard
                                 key={`BANK_CARD_${item.id}`}
-                                cardNumber={item.number.replace("_", "** ***")}
+                                cardNumber={formatCardNumber(item.number)}
                                 expiresAt={formatMonthYear(new Date(item.expireAt))}
                                 holderName={item.owner.embossedName}
                             />

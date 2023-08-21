@@ -8,7 +8,21 @@ export const formatDate = (date: Date) =>
     format(date, "MM.dd.yyyy");
 
 export const formatMonthYear = (date: Date) =>
-    format(date, "MM.yy");
+    format(date, "MM/yy");
+
+export const formatCardNumber = (number: string) => {
+    var str = number
+        .replaceAll(' ', '')
+        .replace('_', '******');
+
+    return str.slice(0, 4)
+        + " "
+        + str.slice(4, 8)
+        + " "
+        + str.slice(8, 12)
+        + " "
+        + str.slice(12, 16)
+}
 
 export function getDepositTitle(depType: number) {
     if (depType === 1)

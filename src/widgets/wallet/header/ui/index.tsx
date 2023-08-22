@@ -90,8 +90,8 @@ const WalletHeader = () => {
                 </div>)}
             </div>
 
-            {!md && isEUR ? (
-                <div className="scale-90 justify-start -mt-2.5 -mb-10 mr-2Я0">
+            {md ? null : isEUR ? (
+                <div className="scale-90 justify-start -mt-2.5 -mb-5 mr-2Я0">
                     <BankCard
                         cardNumber={formatCardNumber(cards[0].number)}
                         expiresAt={formatMonthYear(new Date(cards[0].expireAt))}

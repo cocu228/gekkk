@@ -120,12 +120,6 @@ const WalletHeader = () => {
                         })}
                     </Carousel>
                 </div>
-
-                // <div className="scale-90 justify-start -mt-2.5 -mb-5 mr-20">
-                //     <Carousel>
-                //         
-                //     </Carousel>
-                // </div>
             ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">

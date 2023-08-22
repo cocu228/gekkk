@@ -25,7 +25,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                 <div className="mt-auto pt-[20px]">
                     <div className="flex justify-between items-baseline flex-wrap">
                         <p className="text-fs14 font-medium uppercase">
-                            <strong className="text-fs32 font-bold">{balance}</strong> {currency}
+                            <strong className="text-[28px] font-bold">{balance}</strong> {currency}
                         </p>
 
                         {!price ? null

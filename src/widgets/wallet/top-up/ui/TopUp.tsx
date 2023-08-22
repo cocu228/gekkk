@@ -4,7 +4,6 @@ import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
 import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
 import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
-import {IResTokenNetwork} from "@/shared/api";
 import FiatFormTopUp from "@/widgets/wallet/fiat-currency/FiatFormTopUp";
 import {testGekkardAccount} from "@/widgets/wallet/model/helper";
 

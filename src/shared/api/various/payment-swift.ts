@@ -39,11 +39,8 @@ interface IResponse {
 }
 
 
-export const apiPaymentSwift = (params: IParams, commission: boolean = false) =>
-
-    $axios.post<$AxiosResponse<{
+export const apiPaymentSwift = (params: IParams, commission: boolean = false) => $axios.post<$AxiosResponse<{
         status: string
     } | IResponse>>(`/api/v1/payment_swift${commission ? "/commission" : ""}`, {
         payment_swift: params
-
     })

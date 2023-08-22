@@ -6,7 +6,7 @@ import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import useError from "@/shared/model/hooks/useError";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 
 const TopUpQR = () => {
 

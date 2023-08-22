@@ -37,3 +37,69 @@ export const sortingNetworksForSelector = function (networks: Array<IResTokenNet
 export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, networkId: number): IResTokenNetwork {
     return networks?.find(it => it.id === networkId)
 }
+
+
+// Блокчейны
+// Bitcoin = 10,
+// Ethereum = 11,
+// Monero = 12,
+// Tron = 13,
+// BNB_Chain = 14,
+// Litecoin = 15,
+// Chia = 16,
+// Ripple = 17,
+// EOS = 18,
+// Solana = 19,
+// Stellar = 20,
+// NEO = 21,
+// Dogecoin = 22,
+//
+// // Биржи
+// Binance = 100,
+// Kraken = 101,
+// WhiteBit = 102,
+// Bitfinex = 103,
+// Poloniex = 104,
+// Exmo = 105,
+// Yobit,
+// Coinbase,
+// Huobi,
+// Hitbtc,
+// Btse,
+//
+// // Банки
+// PapayaIBAN = 150,
+// Sepa = 151,
+// Swift = 152,
+// CardToCard = 153,
+// CryptoWallet = 154,
+//
+// //Тестовые сети
+// EthereumTest = 200,
+// EthereumGoerli = 201,
+// BNB_ChainTestnet = 202,
+// TronShasta = 203,
+// BitcoinTest = 204,
+// MoneroTest = 205,
+// EthereumSepolia = 206
+
+
+export const formTypeSelect = (networkType: number) => {
+    const types = {
+        requisites: [150, 151, 152, 153, 154],
+        crypto: [10],
+        interior: []
+    }
+
+    console.log(networkType)
+
+
+    for (let typeName in types) {
+        if (types[typeName].includes(networkType)) {
+            return typeName;
+        }
+    }
+
+    return "crypto";
+
+}

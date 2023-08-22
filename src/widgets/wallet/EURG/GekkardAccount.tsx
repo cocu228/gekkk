@@ -5,7 +5,7 @@ import {CtxRootData} from '@/processes/RootContext';
 import useModal from "@/shared/model/hooks/useModal";
 import {calculateAmount} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 import {validateMinimumAmount} from '@/shared/config/validators';
 import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";

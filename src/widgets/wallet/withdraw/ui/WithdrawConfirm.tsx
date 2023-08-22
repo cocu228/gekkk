@@ -13,7 +13,7 @@ import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 
 const WithdrawConfirm = ({
                              address,

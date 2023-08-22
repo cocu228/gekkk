@@ -102,7 +102,7 @@ const WalletHeader = () => {
             </div>
 
             {md ? null : isEUR ? (
-                <div className="h-[200px] w-[310px] -mt-2.5 -mb-5 mr-20">
+                <div className="h-[200px] w-[310px] -mt-2.5 -xl:-mb-10 mr-20">
                     <Carousel>
                         {!cards ? null : cards.map(c => {
                             if (!c.number) return;

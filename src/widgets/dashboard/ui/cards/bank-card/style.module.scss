@@ -7,9 +7,10 @@
     padding-left: 23px;
     border-radius: 10px;
     transition: all .2s;
-    background-image: url(img/payment-card/payment-card-background.png);
+    background: url(/img/payment-card/payment-card-background.png);
 
     &:hover {
+        background: url(/img/payment-card/payment-card-background.png);
         opacity: 90%;
         box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
     }

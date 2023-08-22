@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
@@ -7,6 +7,8 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
+import { Carousel } from "antd";
+import { CtxRootData } from "@/processes/RootContext";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -17,6 +19,8 @@ const getDescription = (c, name) => {
 }
 
 const WalletHeader = () => {
+    const [cards, setCards] = useState(null);
+    const {account} = useContext(CtxRootData);
     const {xl, md} = useContext(BreakpointsContext);
     const {
         name,
@@ -30,7 +34,14 @@ const WalletHeader = () => {
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
-    const cards = storeOrganizations(state => state.organizations).cards;
+    const organizations = storeOrganizations(state => state.organizations);
+
+    useEffect(() => {
+        setCards(organizations.cards
+            .filter(item => item.number)
+            .filter(item => item.clientId === account.client)
+        );
+    }, [account]);
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
@@ -91,13 +102,30 @@ const WalletHeader = () => {
             </div>
 
             {md ? null : isEUR ? (
-                <div className="scale-90 justify-start -mt-2.5 -mb-5 mr-2Я0">
-                    <BankCard
-                        cardNumber={formatCardNumber(cards[0].number)}
-                        expiresAt={formatMonthYear(new Date(cards[0].expireAt))}
-                        holderName={cards[0].owner.embossedName}
-                    />
+                <div className="h-[200px] w-[310px] -mt-2.5 -mb-5 mr-20">
+                    <Carousel>
+                        {!cards ? null : cards.map(c => {
+                            if (!c.number) return;
+
+                            return (
+                                <div className="scale-90 mb-5">
+                                    <BankCard
+                                        className="hover:shadow-none"
+                                        cardNumber={formatCardNumber(c.number)}
+                                        expiresAt={formatMonthYear(new Date(c.expireAt))}
+                                        holderName={c.owner.embossedName}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </Carousel>
                 </div>
+
+                // <div className="scale-90 justify-start -mt-2.5 -mb-5 mr-20">
+                //     <Carousel>
+                //         
+                //     </Carousel>
+                // </div>
             ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">

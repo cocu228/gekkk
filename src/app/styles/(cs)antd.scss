@@ -59,6 +59,14 @@
   padding-bottom: 16px;
 }
 
+.ant-carousel .slick-dots li.slick-active button {
+  background: var(--color-blue-400);
+}
+
+.ant-carousel .slick-dots li button {
+  background: var(--color-gray-400);
+}
+
 //.ant-btn[type="button"], .ant-btn[type="submit"] {
 //  height: auto;
 //  color: white;

@@ -4,11 +4,17 @@ interface CardData {
     cardNumber: string;
     expiresAt: string;
     holderName: string;
+    className?: string;
 }
 
-const BankCard = ({cardNumber, expiresAt, holderName}: CardData) => {
+const BankCard = ({cardNumber, expiresAt, holderName, className}: CardData) => {
     return (
-        <div className={styles.BankCard + ' grid-rows-6'}>
+        <div className={`
+                ${styles.BankCard}
+                ${className}
+                grid-rows-6
+            `}
+        >
             <img
                 src='/img/payment-card/gekkard-logo.svg'
                 className='h-[37px]'

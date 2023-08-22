@@ -1,22 +1,18 @@
-import React from 'react';
 import Card from "@/shared/ui/card/Card";
+import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
-import { ParentClassForCoin, IconCoin } from "../icons/icon-coin";
-import { useNavigate } from "react-router-dom";
-import { scrollToTop } from '@/shared/lib/helpers';
+import {scrollToTop} from '@/shared/lib/helpers';
+import {ParentClassForCoin, IconCoin} from "../icons/icon-coin";
 
 interface Props {
-    title: string,
-    balance: number | string,
-    currency: string,
-    price: string,
-    onTopUp: () => void,
-    onWithdraw: () => void,
+    title: string;
+    currency: string;
+    price: number | null;
+    balance: number | string;
 }
 
-function CryptoAssetCard({ title, balance, currency, price, onTopUp, onWithdraw }: Props) {
-
-    const navigate = useNavigate()
+function CryptoAssetCard({title, balance, currency, price}: Props) {
+    const navigate = useNavigate();
 
     return (
         <Card>
@@ -31,9 +27,9 @@ function CryptoAssetCard({ title, balance, currency, price, onTopUp, onWithdraw 
                         <p className="text-fs14 font-medium uppercase">
                             <strong className="text-fs32 font-bold">{balance}</strong> {currency}
                         </p>
-                        {!price ? null : (
-                            <p className="text-fs12 text-gray-500 font-medium">{price} €</p>
-                        )}
+
+                        {!price ? null
+                            : <p className="text-fs12 text-gray-500 font-medium">~ {price} EURG</p>}
                     </div>
 
                     <div className="flex gap-[16px] mt-[16px]">
@@ -46,6 +42,7 @@ function CryptoAssetCard({ title, balance, currency, price, onTopUp, onWithdraw 
                                 navigate(`/wallet/${currency}/Top Up`);
                             }}
                         >Top up</Button>
+
                         <Button
                             gray
                             size="sm"

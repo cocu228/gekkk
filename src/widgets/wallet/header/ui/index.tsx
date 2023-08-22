@@ -2,8 +2,10 @@ import {useContext} from "react";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {storeOrganizations} from "@/shared/store/organizations";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
+import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 
 const getDescription = (c, name) => {
@@ -28,6 +30,7 @@ const WalletHeader = () => {
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
+    const cards = storeOrganizations(state => state.organizations).cards;
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
@@ -90,9 +93,9 @@ const WalletHeader = () => {
             {!md && isEUR ? (
                 <div className="scale-90 justify-start -mt-2.5 -mb-10 mr-2Я0">
                     <BankCard
-                        cardNumber="123123"
-                        expiresAt="123"
-                        holderName="234"
+                        cardNumber={formatCardNumber(cards[0].number)}
+                        expiresAt={formatMonthYear(new Date(cards[0].expireAt))}
+                        holderName={cards[0].owner.embossedName}
                     />
                 </div>
             ) : (

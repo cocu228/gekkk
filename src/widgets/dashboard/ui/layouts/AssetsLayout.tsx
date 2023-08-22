@@ -1,19 +1,31 @@
-import ETokensConst from "@/shared/config/coins/constants";
-import { getRoundingValue } from "@/shared/lib/helpers";
+import {apiGetRates} from "@/shared/api";
+import {useContext, useEffect, useState} from "react";
+import {getRoundingValue} from "@/shared/lib/helpers";
+import constants from "@/shared/config/coins/constants";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
+import ETokensConst from "@/shared/config/coins/constants";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
+import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
-import { useContext } from "react";
-import { CtxRootData, ICtxCurrencyData } from "@/processes/RootContext";
 
 const assetsFiler = (item: ICtxCurrencyData) =>
-    [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) || item.availableBalance?.comparedTo(0);
+    item.$const !== ETokensConst.EUR
+    && ([ETokensConst.EURG, ETokensConst.GKE].includes(item.$const)
+    || item.availableBalance?.comparedTo(0));
 
 const assetsSorter = (item: ICtxCurrencyData) =>
     [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) ? -1 : 1;
 
 function CryptoAssets() {
-    const { currencies } = useContext(CtxRootData);
+    const {currencies} = useContext(CtxRootData);
+    const [rates, setRates] = useState<Record<constants, number>>(null);
+
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetRates();
+            setRates(data.result);
+        })();
+    }, [currencies]);
 
     return (
         <div className="wrapper">
@@ -26,16 +38,10 @@ function CryptoAssets() {
                     .map((item, i) => (
                         <CryptoAssetCard
                             title={item.name}
-                            key={"CryptoAssetCard_" + i}
-                            balance={item.availableBalance ? getRoundingValue(item.availableBalance, item.roundPrec) : 0}
                             currency={item.$const}
-                            price=""
-                            onTopUp={() => {
-                                //
-                            }}
-                            onWithdraw={() => {
-                                //
-                            }}
+                            key={"CryptoAssetCard_" + i}
+                            price={!rates ? null : +rates[item.$const].toFixed(currencies.get("EURG").roundPrec)}
+                            balance={item.availableBalance ? getRoundingValue(item.availableBalance, item.roundPrec) : 0}
                         />
                     ))}
             </CardsGrid>

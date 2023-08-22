@@ -50,11 +50,19 @@ const WalletHeader = () => {
                     <IconCoin code={$const}/>
                 </div>
                 {!md && <div className="flex flex-col content-around">
-                    <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
-                           <span>
+                    {!isEUR ? (
+                        <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                            <span>
                                 Wallet balance
-                           </span>
-                    </div>
+                            </span>
+                        </div>
+                    ) : (
+                        <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                            <span>
+                                Account: {account.number}
+                            </span>
+                        </div>
+                    )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
                         {!availableBalance ? 0 : availableBalance.toNumber()} {$const}

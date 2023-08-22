@@ -61,11 +61,11 @@ export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, n
 // Bitfinex = 103,
 // Poloniex = 104,
 // Exmo = 105,
-// Yobit,
-// Coinbase,
-// Huobi,
-// Hitbtc,
-// Btse,
+// Yobit = 106,
+// Coinbase = 107,
+// Huobi = 108,
+// Hitbtc = 109,
+// Btse = 110,
 //
 // // Банки
 // PapayaIBAN = 150,
@@ -86,9 +86,14 @@ export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, n
 
 export const formTypeSelect = (networkType: number) => {
     const types = {
-        requisites: [150, 151, 152, 153, 154],
-        crypto: [10],
-        interior: []
+        requisites: [151, 152, 153, 154],
+        crypto: [
+            10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+
+            //TEST NETWORKS
+            200, 201, 202, 203, 204, 205, 206
+        ],
+        internal: [150]
     }
 
     console.log(networkType)
@@ -100,6 +105,5 @@ export const formTypeSelect = (networkType: number) => {
         }
     }
 
-    return "crypto";
-
+    return null;
 }

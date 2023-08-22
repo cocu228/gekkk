@@ -16,18 +16,25 @@ const TopUp = memo(() => {
     // const isGekkardAccount = testGekkardAccount(networksDefault, networkIdSelect)
     const formType = formTypeSelect(getNetworkForChose(networksDefault, networkIdSelect)?.network_type)
 
+    const getDisplayForm = (type: string) => {
+        switch(type) {
+            case 'internal':
+                return <GekkardAccount/>;
+            case 'crypto':
+                return <TopUpQR/>;
+            case 'requisites':
+                return <FiatFormTopUp/>;
+            default:
+                return null;
+        }
+    } 
+
     return (<div className="wrapper">
 
         {loading ? <Loader/> : <>
-
             <ChoseNetwork/>
 
-            {formType === "interior" ?
-                <GekkardAccount/>
-                : formType === "crypto" ?
-                    <TopUpQR/> :
-                    <FiatFormTopUp/>}
-
+            {getDisplayForm(formType)}
         </>}
     </div>);
 });

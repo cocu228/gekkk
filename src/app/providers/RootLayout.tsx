@@ -49,7 +49,6 @@ export default memo(function () {
         })();
     }, []);
 
-
     // const getInfoClient = async (
     //     number: IResponseOrganizations["accounts"][0]["number"],
     //     id: IResponseOrganizations["accounts"][0]["id"],
@@ -128,7 +127,6 @@ export default memo(function () {
     //     prevAccountRef.current = account.number
 
     // }, [account.number, organizations])
-
 
     useEffect(() => {
         if (account !== null) {

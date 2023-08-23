@@ -11,6 +11,7 @@ import {storeOrganizations} from "@/shared/store/organizations";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import { AccountRights } from "@/shared/config/account-rights";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
+import { storeAccounts } from "@/shared/store/accounts/accounts";
 
 const HeaderDesktop = memo((props) => {
 
@@ -18,6 +19,7 @@ const HeaderDesktop = memo((props) => {
     const {account, setAccount} = useContext(CtxRootData);
     const navigate = useNavigate();
     const organizations = storeOrganizations(state => state.organizations);
+    const accounts = storeAccounts(state => state.accounts);
 
     const [items, setItems] = useState(defaultItems)
     const [activeAccountForDisplay, setActiveAccountForDisplay] = useState({
@@ -42,6 +44,12 @@ const HeaderDesktop = memo((props) => {
         if (!account.rights) return;
 
         let newItems = [...defaultItems]
+
+        accounts
+            .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
+            .forEach(acc => {
+
+            })
 
         // organizations.accounts
         //     .sort((a) => a.accountType === 'PHYSICAL' ? 1 : -1)
@@ -99,7 +107,7 @@ const HeaderDesktop = memo((props) => {
                 </a>
             </div>
 
-            {/* <HeaderMenu
+            <HeaderMenu
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
                 items={items}
@@ -129,7 +137,7 @@ const HeaderDesktop = memo((props) => {
                         alt="DropdownTriangleIcon"
                     />
                 </div>
-            </HeaderMenu> */}
+            </HeaderMenu>
 
             <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10">

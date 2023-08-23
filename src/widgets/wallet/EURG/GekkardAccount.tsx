@@ -29,7 +29,7 @@ const GekkardAccount = ({withdraw}: { withdraw?: boolean }) => {
 
     const onClick = () => {
         const response = apiGekkardExchange({
-            account: account.account,
+            account: account.number,
             amount: amount,
             exchangeType: withdraw ? "SELL" : "BUY",
             geekCoinAmount: 1,

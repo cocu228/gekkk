@@ -4,7 +4,8 @@ import {getFlagsFromMask} from '@/shared/lib/helpers';
 import {IResAccountInfo, apiGetAccountInfo} from '@/shared/api';
 import {maskAccountRights} from '@/shared/config/account-rights';
 
-export type IAccountInfo = Omit<IResAccountInfo, "flags"> & {
+export type IAccountInfo = Omit<IResAccountInfo, "flags" | "account"> & {
+    number: string;
     rights: Record<string, boolean>;
 }
 
@@ -31,7 +32,7 @@ const getAccountWithRights = (account: IResAccountInfo): IAccountInfo => {
     return ({
         name: account.name,
         phone: account.phone,
-        account: account.account,
+        number: account.account,
         current: account.current,
         date_update: account.date_update,
         rights: accountRights

@@ -19,8 +19,8 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{account.account}</span>
-                        <CopyIcon value={account.account}/>
+                        <span>{account.number}</span>
+                        <CopyIcon value={account.number}/>
                     </div>
                 </div>
             </div>
@@ -36,9 +36,9 @@ const FiatFormTopUp = () => {
                     <div className="col flex items-center">
                         <span>{organizations.trustedClients
                             //.find(item => item.clientId === account.client).title
-                            .find(item => item.clientId === account.account).title
+                            .find(item => item.clientId === account.number).title
                         }</span>
-                        <CopyIcon value={account.account}/>
+                        <CopyIcon value={account.number}/>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{account.account}</span>
-                        <CopyIcon value={account.account}/>
+                        <span>{account.number}</span>
+                        <CopyIcon value={account.number}/>
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{account.account}</span>
-                        <CopyIcon value={account.account}/>
+                        <span>{account.number}</span>
+                        <CopyIcon value={account.number}/>
                     </div>
                 </div>
             </div>

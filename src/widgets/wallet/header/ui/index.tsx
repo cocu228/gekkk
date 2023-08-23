@@ -59,7 +59,7 @@ const WalletHeader = () => {
                     ) : (
                         <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                             <span>
-                                Account: {account.account}
+                                Account: {account.number}
                             </span>
                         </div>
                     )}

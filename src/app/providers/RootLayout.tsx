@@ -79,7 +79,7 @@ export default memo(function () {
 
     useEffect(() => {
         if (accounts) {
-            setAccount(accounts[0].account);
+            setAccount(accounts[0].number);
         }
     }, [accounts])
 
@@ -172,7 +172,7 @@ export default memo(function () {
     const setAccount = (number: string) => {
         setState(prev => ({
             ...prev,
-            account: accounts.find(a => a.account === number)
+            account: accounts.find(a => a.number === number)
         }))
     }
 

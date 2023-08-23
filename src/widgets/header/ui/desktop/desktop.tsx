@@ -22,11 +22,6 @@ const HeaderDesktop = memo((props) => {
     const accounts = storeAccounts(state => state.accounts);
 
     const [items, setItems] = useState(defaultItems)
-    const [activeAccountForDisplay, setActiveAccountForDisplay] = useState({
-        number: null,
-        name: null,
-        isJuridical: null
-    })
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
@@ -48,7 +43,7 @@ const HeaderDesktop = memo((props) => {
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
             .forEach(acc => {
-
+                
             })
 
         // organizations.accounts
@@ -114,20 +109,20 @@ const HeaderDesktop = memo((props) => {
             >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        {activeAccountForDisplay.isJuridical ? (
+                        {account[AccountRights.IsJuridical] ? (
                             <SvgSchema width={32} height={22}/>
                         ) : (
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                         )}
                     </div>
-                    {activeAccountForDisplay.number && <div className="wrapper">
+                    {account.number && <div className="wrapper">
                         <div className="row">
-                            <span className="text-sm font-bold">{activeAccountForDisplay.name}</span>
+                            <span className="text-sm font-bold">{account.name}</span>
                         </div>
 
                         <div className="row text-start flex">
                             <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                ID: {getFormattedIBAN(activeAccountForDisplay.number)}
+                                ID: {getFormattedIBAN(account.number)}
                             </span>
                         </div>
                     </div>}

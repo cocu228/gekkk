@@ -9,6 +9,7 @@ import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
     const organizations = storeOrganizations(state => state.organizations);
+
     return (
         <div className="wrapper">
             <SectionTitle>Selected account: {account.number}</SectionTitle>
@@ -17,7 +18,6 @@ function CardsLayout() {
                 <>
                     {organizations?.cards
                         .filter(item => item.number)
-                        .filter(item => item.clientId === account.number)
                         .map(item =>
                             <BankCard
                                 key={`BANK_CARD_${item.id}`}

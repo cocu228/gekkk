@@ -5,7 +5,7 @@ import Sidebar from "@/widgets/sidebar/ui/";
 import {memo, useEffect, useRef, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {CtxRootData, ICtxCurrencyData, ICtxRootData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetInfoClient, apiGetMarketAssets, IAccount, IResponseOrganizations} from '@/shared/api';
+import {apiGetBalance, apiGetAccountInfo, apiGetMarketAssets, IAccount, IResponseOrganizations} from '@/shared/api';
 import {
     actionResSuccess, getCookieData,
     getFlagsFromMask,
@@ -20,9 +20,9 @@ import $axios from "@/shared/lib/(cs)axios";
 import Header from "@/widgets/header/ui";
 import {maskAccountRights} from '@/shared/config/account-rights';
 import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
+import { storeAccounts } from '@/shared/store/accounts/accounts';
 
 export default memo(function () {
-
     const [{
         account,
         refreshKey,
@@ -41,6 +41,9 @@ export default memo(function () {
 
     const prevAccountRef = useRef<null | IResponseOrganizations["accounts"][0]["number"]>(null);
 
+    const accounts = storeAccounts(state => state.accounts);
+    const getAccounts = storeAccounts(state => state.getAccounts);
+
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
     const organizations = storeOrganizations(state => state.organizations);
@@ -48,7 +51,8 @@ export default memo(function () {
 
     useEffect(() => {
         (async () => {
-            await getOrganizations();
+            getOrganizations();
+            await getAccounts();
         })();
     }, []);
 
@@ -61,7 +65,7 @@ export default memo(function () {
 
         $axios.defaults.headers['AccountId'] = number;
 
-        const response = await apiGetInfoClient()
+        const response = await apiGetAccountInfo()
 
         actionResSuccess(response).success(() => {
             setState(prev =>
@@ -83,7 +87,6 @@ export default memo(function () {
 
 
     useEffect(() => {
-
         (async () => {
             if (organizations && account.number === null) {
                 const cookieData = getCookieData<{
@@ -130,7 +133,6 @@ export default memo(function () {
 
 
     useEffect(() => {
-
         if (account.number && organizations) {
             (async function () {
                 await getInvestTemplates();
@@ -153,7 +155,6 @@ export default memo(function () {
                     }).reject(() => null);
             })()
         }
-
     }, [refreshKey, account.number]);
 
     const setRefresh = () =>

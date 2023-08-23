@@ -34,9 +34,9 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{organizations.trustedClients
+                        <span>{organizations?.trustedClients
                             //.find(item => item.clientId === account.client).title
-                            .find(item => item.clientId === account.number).title
+                            .find(item => item.clientId === account.number)?.title
                         }</span>
                         <CopyIcon value={account.number}/>
                     </div>

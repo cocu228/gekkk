@@ -49,91 +49,17 @@ export default memo(function () {
         })();
     }, []);
 
-    // const getInfoClient = async (
-    //     number: IResponseOrganizations["accounts"][0]["number"],
-    //     id: IResponseOrganizations["accounts"][0]["id"],
-    //     client: IResponseOrganizations["accounts"][0]["clientId"]
-    // ) => {
-
-    //     $axios.defaults.headers['AccountId'] = number;
-
-    //     const response = await apiGetAccountInfo()
-
-    //     actionResSuccess(response).success(() => {
-    //         setState(prev =>
-    //             ({
-    //                 ...prev,
-    //                 account:
-    //                 {
-    //                     ...prev.account,
-    //                     id,
-    //                     client,
-    //                     idInfoClient: uncoverResponse(response).id,
-    //                     number,
-    //                     rights: getFlagsFromMask(uncoverResponse(response).flags, maskAccountRights)
-    //                 }
-    //             })
-    //         )
-    //     })
-    // }
-
     useEffect(() => {
         if (accounts && !account) {
+            const cookieData = getCookieData<{accountId?: string}>();
             const activeAccount = accounts.find(a => a.current === true);
 
-            $axios.defaults.headers['AccountId'] = activeAccount.number;
-
-            setState(prev => ({
-                ...prev,
-                account: activeAccount
-            }));
+            setAccount(cookieData.hasOwnProperty("accountId")
+                ? cookieData.accountId
+                : activeAccount.number
+            );
         }
     }, [accounts]);
-
-    // useEffect(() => {
-    //     (async () => {
-    //         if (organizations && account.number === null) {
-    //             const cookieData = getCookieData<{
-    //                 accountId?: string
-    //                 phone: string
-    //                 token: string
-    //                 tokenHeaderName: string
-    //                 username: string
-    //             }>()
-
-    //             if (cookieData.hasOwnProperty("accountId")) {
-
-    //                 const account: IAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
-    //                     uncoverArray(organizations.accounts)
-
-    //                 await getInfoClient(
-    //                     account.number,
-    //                     account.id,
-    //                     account.clientId)
-
-
-    //             } else {
-    //                 await getInfoClient(
-    //                     uncoverArray(organizations.accounts).number,
-    //                     uncoverArray(organizations.accounts).id,
-    //                     uncoverArray(organizations.accounts).clientId)
-    //             }
-
-
-
-    //         } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.number) {
-    //             setCookieData([{key: "accountId", value: account.number}])
-    //             await getInfoClient(
-    //                 account.number,
-    //                 account.id,
-    //                 account.client,
-    //             )
-    //         }
-    //     })()
-
-    //     prevAccountRef.current = account.number
-
-    // }, [account.number, organizations])
 
     useEffect(() => {
         if (account !== null) {
@@ -151,8 +77,6 @@ export default memo(function () {
                                     currencies: helperCurrenciesGeneration(
                                         uncoverResponse(assetsResponse),
                                         uncoverResponse(walletsResponse))
-                                        // account.number,
-                                        // organizations)
                                 }));
                             }).reject(() => null);
                     }).reject(() => null);
@@ -160,24 +84,16 @@ export default memo(function () {
         }
     }, [refreshKey, account]);
 
-    const setRefresh = () =>
+    const setRefresh = () => {
         setState(prev => ({
             ...prev,
             refreshKey: randomId()
         }));
-
-    // const setAccount = (number: null | string, id: null | string, client: null | string) => {
-    //     if (prevAccountRef.current !== number) {
-
-    //         setState(prev => ({
-    //             ...prev,
-    //             account: {number, id, client, rights: null, idInfoClient: null}
-    //         }));
-    //     }
-    // }
+    }
 
     const setAccount = (number: string) => {
         $axios.defaults.headers['AccountId'] = number;
+        setCookieData([{key: "accountId", value: number}]);
 
         setState(prev => ({
             ...prev,

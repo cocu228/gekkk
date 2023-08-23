@@ -37,11 +37,11 @@ const WalletHeader = () => {
     const organizations = storeOrganizations(state => state.organizations);
 
     useEffect(() => {
-        setCards(organizations.cards
+        setCards(organizations?.cards
             .filter(item => item.number)
             //.filter(item => item.clientId === account.client)
         );
-    }, [account]);
+    }, [organizations, account]);
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>

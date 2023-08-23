@@ -78,10 +78,17 @@ export default memo(function () {
     // }
 
     useEffect(() => {
-        if (accounts) {
-            setAccount(accounts[0].number);
+        if (accounts && !account) {
+            const activeAccount = accounts.find(a => a.current === true);
+
+            $axios.defaults.headers['AccountId'] = activeAccount.number;
+
+            setState(prev => ({
+                ...prev,
+                account: activeAccount
+            }));
         }
-    }, [accounts])
+    }, [accounts]);
 
     // useEffect(() => {
     //     (async () => {
@@ -149,7 +156,7 @@ export default memo(function () {
                                 }));
                             }).reject(() => null);
                     }).reject(() => null);
-            })()
+            })();
         }
     }, [refreshKey, account]);
 
@@ -170,10 +177,12 @@ export default memo(function () {
     // }
 
     const setAccount = (number: string) => {
+        $axios.defaults.headers['AccountId'] = number;
+
         setState(prev => ({
             ...prev,
             account: accounts.find(a => a.number === number)
-        }))
+        }));
     }
 
     return <CtxRootData.Provider value={{
@@ -183,7 +192,7 @@ export default memo(function () {
         setRefresh: setRefresh,
         refreshKey
     }}>
-        {currencies.size === 0 ? <Loader/> : (<>
+        {(currencies.size === 0 || !account) ? <Loader/> : (<>
             <Header/>
 
             <Main>

@@ -2,23 +2,21 @@ import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
+import SvgSchema from "@/shared/ui/icons/IconSchema";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
+import {AccountRights} from "@/shared/config/account-rights";
+import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
-import {storeOrganizations} from "@/shared/store/organizations";
-import {getFormattedIBAN} from "@/shared/lib/helpers";
-import { AccountRights } from "@/shared/config/account-rights";
-import SvgSchema from "@/shared/ui/icons/IconSchema";
-import { storeAccounts } from "@/shared/store/accounts/accounts";
 
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
     const {account, setAccount} = useContext(CtxRootData);
     const navigate = useNavigate();
-    const organizations = storeOrganizations(state => state.organizations);
     const accounts = storeAccounts(state => state.accounts);
 
     const [items, setItems] = useState(defaultItems)
@@ -26,13 +24,7 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {
-            type: "change-account", action: (value: {
-                number: string,
-                client: string,
-                id: string
-            }) => setAccount(value.number)
-        }
+        {type: "change-account", action: (value) => setAccount(value.toString())}
     ], []);
 
     useEffect(() => {
@@ -43,50 +35,30 @@ const HeaderDesktop = memo((props) => {
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
             .forEach(acc => {
-                
+                newItems.unshift({
+                    id: acc.number,
+                    item: acc.rights[AccountRights.IsJuridical] ? (
+                        <ItemOrganization
+                        number={getFormattedIBAN(acc.number)}
+                        name={acc.name}
+                        active={account.number === acc.number}
+                        />
+                    ) : (
+                        <ItemAccount
+                            number={getFormattedIBAN(acc.number)}
+                            name={acc.name}
+                            active={account.number === acc.number}
+                        />
+                    ),
+                    action: {
+                        type: "change-account",
+                        value: acc.number,
+                    },
+                    style: {
+                        backgroundColor: "var(--color-gray-300)"
+                    }
+                })
             })
-
-        // organizations.accounts
-        //     .sort((a) => a.accountType === 'PHYSICAL' ? 1 : -1)
-        //     .forEach(it => {
-        //         let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
-
-        //         if (account.number === it.number) {
-        //             setActiveAccountForDisplay({
-        //                 number: account.number,
-        //                 name: name,
-        //                 isJuridical: it.accountType === 'JURIDICAL'
-        //             })
-        //         }
-
-        //         newItems.unshift({
-        //             id: it.clientId,
-        //             item: it.accountType === 'PHYSICAL' ? (
-        //                 <ItemAccount
-        //                     number={getFormattedIBAN(it.number)}
-        //                     name={name}
-        //                     active={account.number === it.number}
-        //                 />
-        //             ) : (
-        //                 <ItemOrganization
-        //                     number={getFormattedIBAN(it.number)}
-        //                     name={name}
-        //                     active={account.number === it.number}
-        //                 />
-        //             ),
-        //             action: {
-        //                 type: "change-account",
-        //                 value: {
-        //                     number: it.number,
-        //                     client: it.clientId,
-        //                     id: it.id
-        //                 },
-        //             },
-        //             style: {
-        //                 backgroundColor: "var(--color-gray-300)"
-        //             }
-        //         })
-        //     })
 
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
@@ -103,9 +75,9 @@ const HeaderDesktop = memo((props) => {
             </div>
 
             <HeaderMenu
+                items={items}
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
-                items={items}
             >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">

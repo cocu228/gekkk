@@ -9,5 +9,9 @@ export interface IResAccountInfo {
     current: boolean;
 }
 
-export const apiGetAccountInfo = () =>
-    $axios.get<$AxiosResponse<IResAccountInfo[]>>('/gek/v1/wallet/get_info')
+export const apiGetAccountInfo = (refresh: boolean = false) =>
+    $axios.get<$AxiosResponse<IResAccountInfo[]>>('/gek/v1/wallet/get_info', {
+        params: {
+            refresh
+        }
+    });

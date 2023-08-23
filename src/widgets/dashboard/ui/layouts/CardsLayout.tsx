@@ -11,13 +11,13 @@ function CardsLayout() {
     const organizations = storeOrganizations(state => state.organizations);
     return (
         <div className="wrapper">
-            <SectionTitle>Selected account: {account.number}</SectionTitle>
+            <SectionTitle>Selected account: {account.account}</SectionTitle>
 
             <CardsGrid>
                 <>
                     {organizations?.cards
                         .filter(item => item.number)
-                        .filter(item => item.clientId === account.client)
+                        .filter(item => item.clientId === account.account)
                         .map(item =>
                             <BankCard
                                 key={`BANK_CARD_${item.id}`}

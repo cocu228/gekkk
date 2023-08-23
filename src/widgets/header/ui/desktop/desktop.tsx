@@ -34,7 +34,7 @@ const HeaderDesktop = memo((props) => {
                 number: string,
                 client: string,
                 id: string
-            }) => setAccount(value.number, value.id, value.client)
+            }) => setAccount(value.number)
         }
     ], []);
 
@@ -43,47 +43,47 @@ const HeaderDesktop = memo((props) => {
 
         let newItems = [...defaultItems]
 
-        organizations.accounts
-            .sort((a) => a.accountType === 'PHYSICAL' ? 1 : -1)
-            .forEach(it => {
-                let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
+        // organizations.accounts
+        //     .sort((a) => a.accountType === 'PHYSICAL' ? 1 : -1)
+        //     .forEach(it => {
+        //         let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
 
-                if (account.number === it.number) {
-                    setActiveAccountForDisplay({
-                        number: account.number,
-                        name: name,
-                        isJuridical: it.accountType === 'JURIDICAL'
-                    })
-                }
+        //         if (account.number === it.number) {
+        //             setActiveAccountForDisplay({
+        //                 number: account.number,
+        //                 name: name,
+        //                 isJuridical: it.accountType === 'JURIDICAL'
+        //             })
+        //         }
 
-                newItems.unshift({
-                    id: it.clientId,
-                    item: it.accountType === 'PHYSICAL' ? (
-                        <ItemAccount
-                            number={getFormattedIBAN(it.number)}
-                            name={name}
-                            active={account.number === it.number}
-                        />
-                    ) : (
-                        <ItemOrganization
-                            number={getFormattedIBAN(it.number)}
-                            name={name}
-                            active={account.number === it.number}
-                        />
-                    ),
-                    action: {
-                        type: "change-account",
-                        value: {
-                            number: it.number,
-                            client: it.clientId,
-                            id: it.id
-                        },
-                    },
-                    style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    }
-                })
-            })
+        //         newItems.unshift({
+        //             id: it.clientId,
+        //             item: it.accountType === 'PHYSICAL' ? (
+        //                 <ItemAccount
+        //                     number={getFormattedIBAN(it.number)}
+        //                     name={name}
+        //                     active={account.number === it.number}
+        //                 />
+        //             ) : (
+        //                 <ItemOrganization
+        //                     number={getFormattedIBAN(it.number)}
+        //                     name={name}
+        //                     active={account.number === it.number}
+        //                 />
+        //             ),
+        //             action: {
+        //                 type: "change-account",
+        //                 value: {
+        //                     number: it.number,
+        //                     client: it.clientId,
+        //                     id: it.id
+        //                 },
+        //             },
+        //             style: {
+        //                 backgroundColor: "var(--color-gray-300)"
+        //             }
+        //         })
+        //     })
 
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
@@ -99,7 +99,7 @@ const HeaderDesktop = memo((props) => {
                 </a>
             </div>
 
-            <HeaderMenu
+            {/* <HeaderMenu
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
                 items={items}
@@ -129,7 +129,7 @@ const HeaderDesktop = memo((props) => {
                         alt="DropdownTriangleIcon"
                     />
                 </div>
-            </HeaderMenu>
+            </HeaderMenu> */}
 
             <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10">

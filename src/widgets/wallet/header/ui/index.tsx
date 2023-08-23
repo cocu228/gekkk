@@ -39,7 +39,7 @@ const WalletHeader = () => {
     useEffect(() => {
         setCards(organizations.cards
             .filter(item => item.number)
-            .filter(item => item.clientId === account.client)
+            //.filter(item => item.clientId === account.client)
         );
     }, [account]);
 
@@ -59,7 +59,7 @@ const WalletHeader = () => {
                     ) : (
                         <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
                             <span>
-                                Account: {account.number}
+                                Account: {account.account}
                             </span>
                         </div>
                     )}

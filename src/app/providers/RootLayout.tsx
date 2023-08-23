@@ -28,14 +28,8 @@ export default memo(function () {
         refreshKey,
         currencies,
     }, setState] = useState<Omit<ICtxRootData, "setAccount" | "setRefresh">>({
+        account: null,
         refreshKey: "",
-        account: {
-            id: null,
-            idInfoClient: null,
-            number: null,
-            client: null,
-            rights: null
-        },
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
@@ -48,7 +42,6 @@ export default memo(function () {
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
     const organizations = storeOrganizations(state => state.organizations);
 
-
     useEffect(() => {
         (async () => {
             getOrganizations();
@@ -57,83 +50,88 @@ export default memo(function () {
     }, []);
 
 
-    const getInfoClient = async (
-        number: IResponseOrganizations["accounts"][0]["number"],
-        id: IResponseOrganizations["accounts"][0]["id"],
-        client: IResponseOrganizations["accounts"][0]["clientId"]
-    ) => {
+    // const getInfoClient = async (
+    //     number: IResponseOrganizations["accounts"][0]["number"],
+    //     id: IResponseOrganizations["accounts"][0]["id"],
+    //     client: IResponseOrganizations["accounts"][0]["clientId"]
+    // ) => {
 
-        $axios.defaults.headers['AccountId'] = number;
+    //     $axios.defaults.headers['AccountId'] = number;
 
-        const response = await apiGetAccountInfo()
+    //     const response = await apiGetAccountInfo()
 
-        actionResSuccess(response).success(() => {
-            setState(prev =>
-                ({
-                    ...prev,
-                    account:
-                    {
-                        ...prev.account,
-                        id,
-                        client,
-                        idInfoClient: uncoverResponse(response).id,
-                        number,
-                        rights: getFlagsFromMask(uncoverResponse(response).flags, maskAccountRights)
-                    }
-                })
-            )
-        })
-    }
+    //     actionResSuccess(response).success(() => {
+    //         setState(prev =>
+    //             ({
+    //                 ...prev,
+    //                 account:
+    //                 {
+    //                     ...prev.account,
+    //                     id,
+    //                     client,
+    //                     idInfoClient: uncoverResponse(response).id,
+    //                     number,
+    //                     rights: getFlagsFromMask(uncoverResponse(response).flags, maskAccountRights)
+    //                 }
+    //             })
+    //         )
+    //     })
+    // }
+
+    useEffect(() => {
+        if (accounts) {
+            setAccount(accounts[0].account);
+        }
+    }, [accounts])
+
+    // useEffect(() => {
+    //     (async () => {
+    //         if (organizations && account.number === null) {
+    //             const cookieData = getCookieData<{
+    //                 accountId?: string
+    //                 phone: string
+    //                 token: string
+    //                 tokenHeaderName: string
+    //                 username: string
+    //             }>()
+
+    //             if (cookieData.hasOwnProperty("accountId")) {
+
+    //                 const account: IAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
+    //                     uncoverArray(organizations.accounts)
+
+    //                 await getInfoClient(
+    //                     account.number,
+    //                     account.id,
+    //                     account.clientId)
+
+
+    //             } else {
+    //                 await getInfoClient(
+    //                     uncoverArray(organizations.accounts).number,
+    //                     uncoverArray(organizations.accounts).id,
+    //                     uncoverArray(organizations.accounts).clientId)
+    //             }
+
+
+
+    //         } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.number) {
+    //             setCookieData([{key: "accountId", value: account.number}])
+    //             await getInfoClient(
+    //                 account.number,
+    //                 account.id,
+    //                 account.client,
+    //             )
+    //         }
+    //     })()
+
+    //     prevAccountRef.current = account.number
+
+    // }, [account.number, organizations])
 
 
     useEffect(() => {
-        (async () => {
-            if (organizations && account.number === null) {
-                const cookieData = getCookieData<{
-                    accountId?: string
-                    phone: string
-                    token: string
-                    tokenHeaderName: string
-                    username: string
-                }>()
-
-                if (cookieData.hasOwnProperty("accountId")) {
-
-                    const account: IAccount = organizations.accounts.find(it => it.number === cookieData.accountId) ||
-                        uncoverArray(organizations.accounts)
-
-                    await getInfoClient(
-                        account.number,
-                        account.id,
-                        account.clientId)
-
-
-                } else {
-                    await getInfoClient(
-                        uncoverArray(organizations.accounts).number,
-                        uncoverArray(organizations.accounts).id,
-                        uncoverArray(organizations.accounts).clientId)
-                }
-
-
-
-            } else if (prevAccountRef.current !== null && prevAccountRef.current !== account.number) {
-                setCookieData([{key: "accountId", value: account.number}])
-                await getInfoClient(
-                    account.number,
-                    account.id,
-                    account.client,
-                )
-            }
-        })()
-
-        prevAccountRef.current = account.number
-
-    }, [account.number, organizations])
-
-
-    useEffect(() => {
-        if (account.number && organizations) {
+        if (account !== null) {
             (async function () {
                 await getInvestTemplates();
                 const walletsResponse = await apiGetBalance();
@@ -147,15 +145,15 @@ export default memo(function () {
                                     ...prev,
                                     currencies: helperCurrenciesGeneration(
                                         uncoverResponse(assetsResponse),
-                                        uncoverResponse(walletsResponse),
-                                        account.number,
-                                        organizations)
+                                        uncoverResponse(walletsResponse))
+                                        // account.number,
+                                        // organizations)
                                 }));
                             }).reject(() => null);
                     }).reject(() => null);
             })()
         }
-    }, [refreshKey, account.number]);
+    }, [refreshKey, account]);
 
     const setRefresh = () =>
         setState(prev => ({
@@ -163,26 +161,33 @@ export default memo(function () {
             refreshKey: randomId()
         }));
 
-    const setAccount = (number: null | string, id: null | string, client: null | string) => {
-        if (prevAccountRef.current !== number) {
+    // const setAccount = (number: null | string, id: null | string, client: null | string) => {
+    //     if (prevAccountRef.current !== number) {
 
-            setState(prev => ({
-                ...prev,
-                account: {number, id, client, rights: null, idInfoClient: null}
-            }));
-        }
+    //         setState(prev => ({
+    //             ...prev,
+    //             account: {number, id, client, rights: null, idInfoClient: null}
+    //         }));
+    //     }
+    // }
+
+    const setAccount = (number: string) => {
+        setState(prev => ({
+            ...prev,
+            account: accounts.find(a => a.account === number)
+        }))
     }
 
-
     return <CtxRootData.Provider value={{
-        currencies,
         account,
+        currencies,
         setAccount: setAccount,
         setRefresh: setRefresh,
         refreshKey
     }}>
         {currencies.size === 0 ? <Loader/> : (<>
             <Header/>
+
             <Main>
                 <Sidebar/>
                 <Content>

@@ -29,11 +29,11 @@ const GekkardAccount = ({withdraw}: { withdraw?: boolean }) => {
 
     const onClick = () => {
         const response = apiGekkardExchange({
-            account: account.id,
+            account: account.account,
             amount: amount,
             exchangeType: withdraw ? "SELL" : "BUY",
             geekCoinAmount: 1,
-            geekcoinWalletId: account.idInfoClient.toString()
+            geekcoinWalletId: ''//account.idInfoClient.toString()
         })
 
         console.log(response)

@@ -21,6 +21,7 @@ import Header from "@/widgets/header/ui";
 import {maskAccountRights} from '@/shared/config/account-rights';
 import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
 import { storeAccounts } from '@/shared/store/accounts/accounts';
+import Decimal from 'decimal.js';
 
 export default memo(function () {
     const [{
@@ -33,18 +34,15 @@ export default memo(function () {
         currencies: new Map<string, ICtxCurrencyData>()
     })
 
-    const prevAccountRef = useRef<null | IResponseOrganizations["accounts"][0]["number"]>(null);
-
     const accounts = storeAccounts(state => state.accounts);
     const getAccounts = storeAccounts(state => state.getAccounts);
-
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
-    const organizations = storeOrganizations(state => state.organizations);
 
     useEffect(() => {
         (async () => {
             getOrganizations();
+            getInvestTemplates();
             await getAccounts();
         })();
     }, []);
@@ -64,7 +62,6 @@ export default memo(function () {
     useEffect(() => {
         if (account !== null) {
             (async function () {
-                await getInvestTemplates();
                 const walletsResponse = await apiGetBalance();
                 const assetsResponse = await apiGetMarketAssets();
 
@@ -83,6 +80,30 @@ export default memo(function () {
             })();
         }
     }, [refreshKey, account]);
+
+    useEffect(() => {
+        (async () => {
+            const eurWallet = currencies.get('EUR');
+
+            if (eurWallet) {
+                const {data} = await apiGetBalance('EUR');
+                const {
+                    lock_orders,
+                    free_balance,
+                    lock_in_balance,
+                    lock_out_balance
+                } = uncoverArray(data.result);
+
+                currencies.set('EUR', {
+                    ...eurWallet,
+                    availableBalance: new Decimal(free_balance),
+                    lockInBalance: lock_in_balance,
+                    lockOutBalance: lock_out_balance,
+                    lockOrders: lock_orders
+                })
+            }
+        })();
+    }, [currencies]);
 
     const setRefresh = () => {
         setState(prev => ({

@@ -4,7 +4,7 @@ import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
-import {CtxRootData} from "@/processes/RootContext";
+import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
@@ -31,6 +31,16 @@ const SidebarDesktop = () => {
     const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
+    const [{
+        gkeWallet,
+        eurWallet,
+        eurgWallet
+    }, setPrimaryWallets] = useState({
+        eurWallet: null,
+        gkeWallet: null,
+        eurgWallet: null
+    });
+
     const {currencies, refreshKey} = useContext(CtxRootData);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
@@ -43,11 +53,10 @@ const SidebarDesktop = () => {
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md])
 
-    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
     const privateRooms = storeListExchangeRooms(state => state.roomsList);
-
     const getInvestments = storeInvestments(state => state.getInvestments);
-    //const investments = storeInvestments(state => state.investments);
+    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
+
 
     useEffect(() => {
         getInvestments();
@@ -55,9 +64,14 @@ const SidebarDesktop = () => {
     }, [account]);
 
     useEffect(() => {
+        setPrimaryWallets(prev => ({
+            ...prev,
+            eurWallet: currencies.get('EUR'),
+            gkeWallet: currencies.get('GKE'),
+            eurgWallet: currencies.get('EURG')
+        }));
 
         (async () => {
-
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
@@ -66,15 +80,9 @@ const SidebarDesktop = () => {
             const valueBTC: Decimal = totalizeAmount(currencies, ratesBTC.data.result)
 
             setTotalSum({EUR: valueEUR, BTC: valueBTC})
-
-
         })()
 
-    }, [refreshKey, account.number]);
-
-    const eurgWallet = currencies.get("EURG");
-    const gkeWallet = currencies.get("GKE");
-    const eurWallet = currencies.get("EUR");
+    }, [refreshKey, currencies]);
 
     const secondaryWallets = Array.from(currencies.values())
 
@@ -106,7 +114,7 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EUR</span>
+                            <span className={styles.Sum}>{eurWallet?.availableBalance?.toDecimalPlaces(eurgWallet?.roundPrec).toNumber() ?? 0} EUR</span>
                         </div>
                     </div>
                 </div>
@@ -128,7 +136,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{eurgWallet?.availableBalance?.toDecimalPlaces(eurgWallet?.roundPrec).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -144,7 +152,7 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
                         <div className="row w-full">   <span
-                            className={styles.Sum}>{gkeWallet.availableBalance?.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE</span>
+                            className={styles.Sum}>{gkeWallet?.availableBalance?.toDecimalPlaces(gkeWallet?.roundPrec).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>

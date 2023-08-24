@@ -10,6 +10,7 @@ import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
 import {storeOrganizations} from "@/shared/store/organizations";
+import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {CtxRootData, ICtxCurrencyData, ICtxRootData} from '@/processes/RootContext';
 import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
@@ -34,6 +35,7 @@ export default memo(function () {
 
     const accounts = storeAccounts(state => state.accounts);
     const getAccounts = storeAccounts(state => state.getAccounts);
+    const getBankCards = storeBankCards(state => state.getBankCards);
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
 
@@ -42,6 +44,7 @@ export default memo(function () {
             getOrganizations();
             getInvestTemplates();
             await getAccounts();
+            getBankCards();
         })();
     }, []);
 

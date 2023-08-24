@@ -4,12 +4,12 @@ import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useContext, useEffect, useState} from "react";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
+import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
-import { IResCard, apiGetCards } from "@/shared/api";
-import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -20,9 +20,9 @@ const getDescription = (c, name) => {
 }
 
 const WalletHeader = () => {
-    const [cards, setCards] = useState<IResCard[]>(null);
     const {account} = useContext(CtxRootData);
     const {md} = useContext(BreakpointsContext);
+    const bankCards = storeBankCards(state => state.bankCards);
     const {
         name,
         $const,
@@ -32,16 +32,10 @@ const WalletHeader = () => {
         roundPrec,
         lockOrders
     } = useContext(CtxWalletData);
+
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
-
-    useEffect(() => {
-        (async () => {
-            const {data} = await apiGetCards();
-            setCards(data.result);
-        })();
-    }, [account]);
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
@@ -110,9 +104,9 @@ const WalletHeader = () => {
             {md ? null : isEUR ? (
                 <div className="h-[200px] w-[310px] -mt-16 mr-20 -xl:-mb-10 lg:scale-75 lg:mr-0">
                     <Carousel>
-                        {!cards ? (
+                        {!bankCards ? (
                             <SkeletonCard/>
-                        ) : cards.map(c => (
+                        ) : bankCards.map(c => (
                             <div className="scale-90 mb-5">
                                 <BankCard
                                     className="hover:shadow-none"

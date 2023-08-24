@@ -1,22 +1,18 @@
 import {useContext, useState} from 'react';
-import {CtxWalletData} from "@/widgets/wallet/model/context";
-import Select from "@/shared/ui/select/Select";
-import {CtxRootData} from "@/processes/RootContext";
 import Input from "@/shared/ui/input/Input";
-import TextArea from "antd/es/input/TextArea";
-import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import Button from "@/shared/ui/button/Button";
 import Modal from "@/shared/ui/modal/Modal";
-import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
-import FiatWithdrawConfirm from "@/widgets/wallet/fiat-currency/FiatWithdrawConfirm";
+import TextArea from "antd/es/input/TextArea";
+import Select from "@/shared/ui/select/Select";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
+import {CtxWalletData} from "@/widgets/wallet/model/context";
+import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
+import FiatWithdrawConfirm from "@/widgets/wallet/fiat-currency/FiatWithdrawConfirm";
 
 const FiatFormWithdraw = () => {
 
     const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
-    // const organizations = storeOrganizations(state => state.organizations);
-    const {account} = useContext(CtxRootData);
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -28,7 +24,6 @@ const FiatFormWithdraw = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-    // console.log(account)
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">

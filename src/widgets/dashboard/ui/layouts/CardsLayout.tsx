@@ -1,22 +1,15 @@
+import {useContext} from 'react';
 import BankCard from '../cards/bank-card/BankCard';
-import {IResCard, apiGetCards} from '@/shared/api';
 import {CtxRootData} from '@/processes/RootContext';
-import {useContext, useEffect, useState} from 'react';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SkeletonCard from '../cards/skeleton-card/SkeletonCard';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
+import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
-    const [cards, setCards] = useState<IResCard[]>(null);
-
-    useEffect(() => {
-        (async () => {
-            const {data} = await apiGetCards();
-            setCards(data.result);
-        })();
-    }, [account]);
+    const bankCards = storeBankCards(state => state.bankCards);
 
     return (
         <div className="wrapper">
@@ -24,18 +17,18 @@ function CardsLayout() {
 
             <CardsGrid>
                 <>
-                    {!cards && [1, 2, 3, 4].map(() => (
+                    {!bankCards && [1, 2, 3, 4].map(() => (
                         <SkeletonCard/>
                     ))}
 
-                    {cards?.map(c =>
-                            <BankCard
-                                key={`BANK_CARD_${c.cardId}`}
-                                cardNumber={formatCardNumber(c.displayPan)}
-                                expiresAt={formatMonthYear(new Date(c.expiryDate))}
-                                holderName={c.cardholder}
-                            />
-                        )}
+                    {bankCards?.map(c =>
+                        <BankCard
+                            key={`BANK_CARD_${c.cardId}`}
+                            cardNumber={formatCardNumber(c.displayPan)}
+                            expiresAt={formatMonthYear(new Date(c.expiryDate))}
+                            holderName={c.cardholder}
+                        />
+                    )}
                 </>
             </CardsGrid>
         </div>

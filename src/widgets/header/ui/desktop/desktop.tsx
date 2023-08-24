@@ -81,7 +81,7 @@ const HeaderDesktop = memo((props) => {
             >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        {account[AccountRights.IsJuridical] ? (
+                        {account.rights[AccountRights.IsJuridical] ? (
                             <SvgSchema width={32} height={22}/>
                         ) : (
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>

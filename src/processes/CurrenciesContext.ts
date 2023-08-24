@@ -1,6 +1,6 @@
 import React from "react";
-import ETokensConst from "@/shared/config/coins/constants";
 import Decimal from "decimal.js";
+import ETokensConst from "@/shared/config/coins/constants";
 import {IResBalance, IResMarketAsset} from "@/shared/api";
 import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
@@ -40,8 +40,15 @@ export class ICtxCurrency {
         this.availableBalance = wallet ? new Decimal(wallet.free_balance) : null;
     }
 }
+
+export type ITotalContainer = {
+    EUR: Decimal | null;
+    BTC: Decimal | null;
+}
+
 export interface ICtxCurrencies {
     currencies: Map<string, ICtxCurrency>;
+    totalAmount: ITotalContainer;
 }
 
 export const CtxCurrencies = React.createContext<ICtxCurrencies>(null);

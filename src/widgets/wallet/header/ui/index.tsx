@@ -57,11 +57,9 @@ const WalletHeader = () => {
                             </span>
                         </div>
                     ) : (
-                        <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
-                            <span>
-                                Account: {account.number}
-                            </span>
-                        </div>
+                        <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                            Account: {account.number}
+                        </span>
                     )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
@@ -110,7 +108,7 @@ const WalletHeader = () => {
             </div>
 
             {md ? null : isEUR ? (
-                <div className="h-[200px] w-[310px] -mt-16 -xl:-mb-10 mr-20">
+                <div className="h-[200px] w-[310px] -mt-16 mr-20 -xl:-mb-10 lg:scale-75 lg:mr-0">
                     <Carousel>
                         {!cards ? (
                             <SkeletonCard/>

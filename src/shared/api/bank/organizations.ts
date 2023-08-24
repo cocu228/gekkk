@@ -91,5 +91,4 @@ export interface IResponseOrganizations {
     trustedClients: IBankTrustedClient[];
 }
 
-export const apiOrganizations = () =>
-    $axios.get<Array<IResponseOrganizations>>('/api/v2/organizations');
+export const apiOrganizations = () => $axios.get<Array<IResponseOrganizations>>('/api/v2/organizations');

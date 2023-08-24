@@ -13,7 +13,6 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Loader from "@/shared/ui/loader";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
-
     const {refreshKey, account} = useContext(CtxRootData)
 
     const [{
@@ -46,10 +45,13 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
     useEffect(() => {
 
         (async () => {
+
             const eurWallet = currencies.get('EUR');
 
             if (eurWallet) {
+
                 const {data} = await apiGetBalance('EUR');
+
                 const {
                     lock_orders,
                     free_balance,
@@ -66,10 +68,8 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
                 })
             }
         })();
+
     }, [currencies]);
-
-    console.log(currencies.size)
-
 
     return <CtxCurrencies.Provider value={{currencies}}>
         {currencies.size === 0 ? <Loader/> : children}

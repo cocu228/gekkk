@@ -45,6 +45,7 @@ const SidebarDesktop = () => {
     }, [sm, md])
 
     const privateRooms = storeListExchangeRooms(state => state.roomsList);
+    //todo need delete
     const getInvestments = storeInvestments(state => state.getInvestments);
     const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
 

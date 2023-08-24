@@ -12,7 +12,6 @@ import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
-import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
 
 export default memo(function () {
     const [{
@@ -28,7 +27,6 @@ export default memo(function () {
     const getAccounts = storeAccounts(state => state.getAccounts);
     const getBankCards = storeBankCards(state => state.getBankCards);
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
-    const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
 
     useEffect(() => {
         (async () => {
@@ -36,7 +34,6 @@ export default memo(function () {
             await getAccounts();
 
             getBankCards();
-            getInvestTemplates();
         })();
     }, []);
 

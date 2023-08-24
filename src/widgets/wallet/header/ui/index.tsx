@@ -9,6 +9,7 @@ import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 import { IResCard, apiGetCards } from "@/shared/api";
+import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -111,7 +112,9 @@ const WalletHeader = () => {
             {md ? null : isEUR ? (
                 <div className="h-[200px] w-[310px] -mt-16 -xl:-mb-10 mr-20">
                     <Carousel>
-                        {!cards ? null : cards.map(c => (
+                        {!cards ? (
+                            <SkeletonCard/>
+                        ) : cards.map(c => (
                             <div className="scale-90 mb-5">
                                 <BankCard
                                     className="hover:shadow-none"

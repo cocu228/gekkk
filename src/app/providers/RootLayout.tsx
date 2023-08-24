@@ -28,12 +28,15 @@ export default memo(function () {
     })
 
     const accounts = storeAccounts(state => state.accounts);
+    const getOrganizations = storeOrganizations(state => state.getOrganizations);
+    const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
+    const getAccounts = storeAccounts(state => state.getAccounts);
 
     useEffect(() => {
         (async () => {
-            await storeOrganizations(state => state.getOrganizations)();
-            await storeInvestTemplates(state => state.getInvestTemplates)();
-            await storeAccounts(state => state.getAccounts)();
+            await getOrganizations();
+            await getAccounts();
+            await getInvestTemplates();
         })();
     }, []);
 
@@ -73,14 +76,16 @@ export default memo(function () {
     }}>
         {!account ? <Loader/> : (<>
             <CurrenciesProvider>
-            <Header/>
+                <>
+                    <Header/>
 
-            <Main>
-                <Sidebar/>
+                    <Main>
+                        <Sidebar/>
                 <Content>
                     <Outlet/>
                 </Content>
-            </Main>
+                    </Main>
+                </>
             </CurrenciesProvider>
         </>)}
     </CtxRootData.Provider>

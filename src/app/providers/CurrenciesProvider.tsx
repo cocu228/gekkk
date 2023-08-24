@@ -68,6 +68,8 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         })();
     }, [currencies]);
 
+    console.log(currencies.size)
+
 
     return <CtxCurrencies.Provider value={{currencies}}>
         {currencies.size === 0 ? <Loader/> : children}

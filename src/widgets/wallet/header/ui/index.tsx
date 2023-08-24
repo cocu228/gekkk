@@ -1,14 +1,14 @@
-import {useContext, useEffect, useState} from "react";
+import {Carousel} from "antd";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {useContext, useEffect, useState} from "react";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
-import {storeOrganizations} from "@/shared/store/organizations";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
-import { Carousel } from "antd";
-import { CtxRootData } from "@/processes/RootContext";
+import { IResCard, apiGetCards } from "@/shared/api";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -19,9 +19,9 @@ const getDescription = (c, name) => {
 }
 
 const WalletHeader = () => {
-    const [cards, setCards] = useState(null);
+    const [cards, setCards] = useState<IResCard[]>(null);
     const {account} = useContext(CtxRootData);
-    const {xl, md} = useContext(BreakpointsContext);
+    const {md} = useContext(BreakpointsContext);
     const {
         name,
         $const,
@@ -34,14 +34,13 @@ const WalletHeader = () => {
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
-    const organizations = storeOrganizations(state => state.organizations);
 
     useEffect(() => {
-        setCards(organizations?.cards
-            .filter(item => item.number)
-            //.filter(item => item.clientId === account.client)
-        );
-    }, [organizations, account]);
+        (async () => {
+            const {data} = await apiGetCards();
+            setCards(data.result);
+        })();
+    }, [account]);
 
     return <>
         <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
@@ -112,20 +111,16 @@ const WalletHeader = () => {
             {md ? null : isEUR ? (
                 <div className="h-[200px] w-[310px] -mt-16 -xl:-mb-10 mr-20">
                     <Carousel>
-                        {!cards ? null : cards.map(c => {
-                            if (!c.number) return;
-
-                            return (
-                                <div className="scale-90 mb-5">
-                                    <BankCard
-                                        className="hover:shadow-none"
-                                        cardNumber={formatCardNumber(c.number)}
-                                        expiresAt={formatMonthYear(new Date(c.expireAt))}
-                                        holderName={c.owner.embossedName}
-                                    />
-                                </div>
-                            )
-                        })}
+                        {!cards ? null : cards.map(c => (
+                            <div className="scale-90 mb-5">
+                                <BankCard
+                                    className="hover:shadow-none"
+                                    cardNumber={formatCardNumber(c.displayPan)}
+                                    expiresAt={formatMonthYear(new Date(c.expiryDate))}
+                                    holderName={c.cardholder}
+                                />
+                            </div>
+                        ))}
                     </Carousel>
                 </div>
             ) : (

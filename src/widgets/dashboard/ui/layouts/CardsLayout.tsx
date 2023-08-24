@@ -1,14 +1,22 @@
-import {useContext} from 'react';
 import BankCard from '../cards/bank-card/BankCard';
+import {IResCard, apiGetCards} from '@/shared/api';
 import {CtxRootData} from '@/processes/RootContext';
+import {useContext, useEffect, useState} from 'react';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import {storeOrganizations} from "@/shared/store/organizations";
+import SkeletonCard from '../cards/skeleton-card/SkeletonCard';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
 import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
-    const organizations = storeOrganizations(state => state.organizations);
+    const [cards, setCards] = useState<IResCard[]>(null);
+
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetCards();
+            setCards(data.result);
+        })();
+    }, [account]);
 
     return (
         <div className="wrapper">
@@ -16,14 +24,16 @@ function CardsLayout() {
 
             <CardsGrid>
                 <>
-                    {organizations?.cards
-                        .filter(item => item.number)
-                        .map(item =>
+                    {!cards && [1, 2, 3, 4].map(() => (
+                        <SkeletonCard/>
+                    ))}
+
+                    {cards?.map(c =>
                             <BankCard
-                                key={`BANK_CARD_${item.id}`}
-                                cardNumber={formatCardNumber(item.number)}
-                                expiresAt={formatMonthYear(new Date(item.expireAt))}
-                                holderName={item.owner.embossedName}
+                                key={`BANK_CARD_${c.cardId}`}
+                                cardNumber={formatCardNumber(c.displayPan)}
+                                expiresAt={formatMonthYear(new Date(c.expiryDate))}
+                                holderName={c.cardholder}
                             />
                         )}
                 </>

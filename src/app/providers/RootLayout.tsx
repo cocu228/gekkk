@@ -1,27 +1,25 @@
+import Decimal from 'decimal.js';
 import {Outlet} from 'react-router';
 import Loader from "@/shared/ui/loader";
+import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
+import $axios from "@/shared/lib/(cs)axios";
 import Sidebar from "@/widgets/sidebar/ui/";
-import {memo, useEffect, useRef, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
+import {storeAccounts} from '@/shared/store/accounts/accounts';
+import {apiGetBalance, apiGetMarketAssets} from '@/shared/api';
+import {storeOrganizations} from "@/shared/store/organizations";
+import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
 import {CtxRootData, ICtxCurrencyData, ICtxRootData} from '@/processes/RootContext';
-import {apiGetBalance, apiGetAccountInfo, apiGetMarketAssets, IAccount, IResponseOrganizations} from '@/shared/api';
+import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
 import {
     actionResSuccess, getCookieData,
-    getFlagsFromMask,
     randomId,
     setCookieData,
     uncoverArray,
     uncoverResponse
 } from '@/shared/lib/helpers';
-import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
-import {storeOrganizations} from "@/shared/store/organizations";
-import $axios from "@/shared/lib/(cs)axios";
-import Header from "@/widgets/header/ui";
-import {maskAccountRights} from '@/shared/config/account-rights';
-import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
-import { storeAccounts } from '@/shared/store/accounts/accounts';
-import Decimal from 'decimal.js';
 
 export default memo(function () {
     const [{

@@ -1,21 +1,18 @@
 import {Outlet} from 'react-router';
 import Loader from "@/shared/ui/loader";
+import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
+import $axios from "@/shared/lib/(cs)axios";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
-import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
-import {
-    getCookieData,
-    randomId,
-    setCookieData,
-} from '@/shared/lib/helpers';
+import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {storeOrganizations} from "@/shared/store/organizations";
-import $axios from "@/shared/lib/(cs)axios";
-import Header from "@/widgets/header/ui";
-import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
-import { storeAccounts } from '@/shared/store/accounts/accounts';
+import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
+import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
+import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
+import {storeInvestTemplates} from '@/shared/store/invest-templates/investTemplates';
 
 export default memo(function () {
     const [{
@@ -28,15 +25,18 @@ export default memo(function () {
     })
 
     const accounts = storeAccounts(state => state.accounts);
+    const getAccounts = storeAccounts(state => state.getAccounts);
+    const getBankCards = storeBankCards(state => state.getBankCards);
     const getOrganizations = storeOrganizations(state => state.getOrganizations);
     const getInvestTemplates = storeInvestTemplates(state => state.getInvestTemplates);
-    const getAccounts = storeAccounts(state => state.getAccounts);
 
     useEffect(() => {
         (async () => {
-            await getOrganizations();
+            getOrganizations();
             await getAccounts();
-            await getInvestTemplates();
+
+            getBankCards();
+            getInvestTemplates();
         })();
     }, []);
 

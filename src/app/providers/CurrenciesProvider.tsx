@@ -28,13 +28,7 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
     })
 
     useEffect(() => {
-        
         (async function () {
-            setState(prev => ({
-                ...prev,
-                currencies: new Map<string, ICtxCurrency>()
-            }))
-
             const walletsResponse = await apiGetBalance();
             const eurResponse = await apiGetBalance('EUR');
             const assetsResponse = await apiGetMarketAssets();
@@ -105,7 +99,7 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         currencies,
         totalAmount
     }}>
-        {children}
+        {currencies.size === 0 ? <Loader/> : children}
     </CtxCurrencies.Provider>
 });
 

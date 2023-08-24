@@ -22,7 +22,6 @@ import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import { Skeleton } from "antd";
 
 const SidebarDesktop = () => {
     const navigate = useNavigate();
@@ -84,13 +83,7 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            {!eurWallet ? (
-                                <Skeleton.Input active style={{height: 20}}/>
-                            ) : (
-                                <span className={styles.Sum}>
-                                   {eurWallet.availableBalance?.toDecimalPlaces(eurWallet.roundPrec).toNumber() ?? 0} EUR
-                                </span>
-                            )}
+                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EUR</span>
                         </div>
                     </div>
                 </div>
@@ -111,13 +104,8 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Gekkoin Europe</span>
                         </div>
                         <div className="row w-full">
-                            {!eurgWallet ? (
-                                <Skeleton.Input active style={{height: 20}}/>
-                            ) : (
-                                <span className={styles.Sum}>
-                                    {eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG
-                                </span>
-                            )}
+                            <span
+                                className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
                         </div>
                     </div>
                 </div>
@@ -132,15 +120,8 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin Invest Token</span>
                         </div>
-                        <div className="row w-full">
-                            {!gkeWallet ? (
-                                <Skeleton.Input active style={{height: 20}}/>
-                            ) : (
-                                <span className={styles.Sum}>
-                                    {gkeWallet.availableBalance?.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE
-                                </span>
-                            )}
-                            
+                        <div className="row w-full">   <span
+                            className={styles.Sum}>{gkeWallet.availableBalance?.toDecimalPlaces(gkeWallet.roundPrec).toNumber() ?? 0} GKE</span>
                         </div>
                     </div>
                 </div>

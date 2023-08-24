@@ -8,7 +8,6 @@ import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
-import totalizeAmount from "../../model/totalize-amount";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
@@ -25,53 +24,30 @@ import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRoom
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const SidebarDesktop = () => {
+    const navigate = useNavigate();
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
     const {account} = useContext(CtxRootData);
-    const navigate = useNavigate();
-    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
-    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
+    const {sm, md, xxxl} = useContext(BreakpointsContext);
+    const {currencies, totalAmount} = useContext(CtxCurrencies);
 
-    const {currencies} = useContext(CtxCurrencies);
+    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
-    const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
-
-    const {sm, md, xxxl} = useContext(BreakpointsContext)
+    const privateRooms = storeListExchangeRooms(state => state.roomsList);
+    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
+    const getInvestments = storeInvestments(state => state.getInvestments);
+    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md])
 
-    const privateRooms = storeListExchangeRooms(state => state.roomsList);
-    //todo need delete
-    const getInvestments = storeInvestments(state => state.getInvestments);
-    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
-
     useEffect(() => {
         getInvestments();
         getRoomsList();
     }, [account]);
-
-    useEffect(() => {
-
-        (async () => {
-
-            // TODO: сделать обновление при изменении балансов
-            const ratesEUR = await apiGetRates()
-            const ratesBTC = await apiGetRates("BTC")
-
-
-            const valueEUR: Decimal = totalizeAmount(currencies, ratesEUR.data.result)
-            const valueBTC: Decimal = totalizeAmount(currencies, ratesBTC.data.result)
-
-            setTotalSum({EUR: valueEUR, BTC: valueBTC})
-
-
-        })()
-
-    }, [currencies]);
 
     // TODO: сделать обновление при изменении балансов
     const eurgWallet = currencies.get("EURG");
@@ -91,8 +67,7 @@ const SidebarDesktop = () => {
                             <UpdateAmounts/>
                         </div>
                         <div className="row"></div>
-                        <span
-                            className="text-lg font-bold">{totalSum.EUR.toDecimalPlaces(2).toNumber()} € ({totalSum.BTC.toDecimalPlaces(6).toNumber()} ₿)</span>
+                        <span className="text-lg font-bold">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
                 </div>
             </div>

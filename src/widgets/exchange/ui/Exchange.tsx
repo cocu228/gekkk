@@ -7,7 +7,6 @@ import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../model/context';
 import IconSwap from '@/shared/ui/icons/IconSwap';
 import History from '@/widgets/history/ui/History';
-import {CtxRootData} from '@/processes/RootContext';
 import useModal from '@/shared/model/hooks/useModal';
 import Dropdown from '@/shared/ui/dropdown/Dropdown';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
@@ -30,6 +29,7 @@ import {validateBalance, validateMinimumAmount} from '@/shared/config/validators
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 function Exchange() {
 
@@ -38,7 +38,7 @@ function Exchange() {
     const cancelRoomModal = useModal();
 
     const navigate = useNavigate();
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [loading, setLoading] = useState<boolean>(false);
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);

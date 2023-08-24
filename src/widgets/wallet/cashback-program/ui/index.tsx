@@ -3,7 +3,6 @@ import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from "@/processes/RootContext";
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
@@ -13,12 +12,13 @@ import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const CashbackProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);

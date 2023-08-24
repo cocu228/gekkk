@@ -3,10 +3,8 @@ import styles from './styles.module.scss';
 import { differenceInDays } from 'date-fns';
 import { useNavigate, useParams } from 'react-router-dom';
 import useModal from '@/shared/model/hooks/useModal';
-import { CtxRootData } from '@/processes/RootContext';
 import Balance from '@/widgets/current-deposit/ui/Balance';
 import DepositStats from '@/widgets/current-deposit/ui/DepositStats';
-import { storeInvestments } from '@/shared/store/investments/investments';
 import { getInvestmentData } from '@/widgets/current-deposit/model/helpers';
 import { getDepositStrategyData } from '@/widgets/current-deposit/model/helpers';
 import CurrentDepositType from '@/widgets/current-deposit/ui/CurrentDepositType';
@@ -14,6 +12,7 @@ import CurrentDepositProperties from '@/widgets/current-deposit/ui/CurrentDeposi
 import CurrentDepositActionsBlock from '@/widgets/current-deposit/ui/CurrentDepositActionsBlock';
 import ClosingDepositModal from '@/widgets/current-deposit/ui/ClosingDepositModal';
 import { apiReturnInvestment } from '@/shared/api';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 function CurrentDeposit() {
     const { id } = useParams();
@@ -29,7 +28,7 @@ function CurrentDeposit() {
     } = getInvestmentData(investment);
 
     const strategyData = getDepositStrategyData(investment.dep_type);
-    const currency = useContext(CtxRootData).currencies.get(investment.link_currency);
+    const currency = useContext(CtxCurrencies).currencies.get(investment.link_currency);
 
     return (
         <div className="wrapper flex flex-col flex-1">

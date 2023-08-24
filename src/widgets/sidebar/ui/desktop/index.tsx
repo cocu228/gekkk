@@ -22,6 +22,7 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const SidebarDesktop = () => {
     const roomInfoModal = useModal();
@@ -31,7 +32,7 @@ const SidebarDesktop = () => {
     const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
-    const {currencies, refreshKey} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})

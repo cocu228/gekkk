@@ -1,15 +1,15 @@
 import {useContext} from "react";
 import {IResOrder} from "@/shared/api";
-import {CtxRootData} from "@/processes/RootContext";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 interface IParams {
     order: IResOrder;
 }
 
 function OrderProperties({order}: IParams) {
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
 
     const currencyPrecision = (value: number, currency: string) =>
         Number(value.toFixed(currencies.get(currency)?.ordersPrec));

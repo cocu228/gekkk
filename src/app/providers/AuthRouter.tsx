@@ -2,7 +2,6 @@ import {createContext, FC, PropsWithChildren, useContext, useMemo, useState} fro
 import {useNavigate} from "react-router-dom";
 import $axios from "@/shared/lib/(cs)axios";
 import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
-import {storeOrganizations} from "@/shared/store/organizations";
 
 const AuthContext = createContext({});
 

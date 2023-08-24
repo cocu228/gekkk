@@ -11,13 +11,13 @@ import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
 import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
-import { CtxRootData } from "@/processes/RootContext";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const NoFeeProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);

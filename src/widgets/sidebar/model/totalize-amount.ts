@@ -1,8 +1,8 @@
 import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
-import { ICtxCurrencyData } from "@/processes/RootContext";
+import { ICtxCurrency } from "@/processes/CurrenciesContext";
 
-export default (list: Map<string, ICtxCurrencyData>, rates: Record<ETokensConst, number>) => {
+export default (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
 
     return Array.from(list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal.Value, currentValue, i, list) => {
 

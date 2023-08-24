@@ -10,13 +10,14 @@ import {useContext, useEffect, useState} from "react";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import styles from "@/widgets/history/ui/style.module.scss";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
-export const UnconfirmedTransactions = (props) => {
+export const UnconfirmedTransactions = () => {
 
     const [state, setState] = useState([]);
     const {refreshKey, account} = useContext(CtxRootData);
     const {showModal, isModalOpen, handleCancel} = useModal();
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
 
 
     useEffect(() => {

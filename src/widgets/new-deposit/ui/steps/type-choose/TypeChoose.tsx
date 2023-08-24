@@ -3,19 +3,19 @@ import Radio from '@/shared/ui/radio';
 import {CtxNewDeposit} from '../../../model/context';
 import {DepositType} from '@/shared/config/deposits/types';
 import TypeDescriptions from '@/shared/config/deposits/deposit-type';
-import { CtxRootData } from '@/processes/RootContext';
+// import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const TypeChoose = () => {
     const {
         type,
-        amount,
-        minAmount,
-        onAmountChange,
+        // amount,
+        // minAmount,
+        // onAmountChange,
         onDepositTypeChange
     } = useContext(CtxNewDeposit);
 
-    const {currencies} = useContext(CtxRootData);
-    const eurgWallet = currencies.get('EURG');
+    // const {currencies} = useContext(CtxCurrencies);
+    // const eurgWallet = currencies.get('EURG');
 
     return (
         <div className="px-10 mt-10 md:mt-4 md:px-4">

@@ -12,13 +12,15 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import { useNavigate } from 'react-router-dom';
 import { AccountRights } from '@/shared/config/account-rights';
 import {apiGekkardExchange} from "@/shared/api/wallet/exchange";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const GekkardAccount = ({withdraw}: { withdraw?: boolean }) => {
 
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState(null);
-    const {account, currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
+    const {account} = useContext(CtxRootData);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 

@@ -17,6 +17,7 @@ import {DatePicker} from 'antd';
 import dayjs from 'dayjs';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import CopyIcon from '@/shared/ui/copy-icon/CopyIcon';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {RangePicker} = DatePicker;
 
@@ -30,7 +31,8 @@ function OpenOrders({
     const cancelOrderModal = useModal();
     const {roomInfo} = useContext(CtxExchangeData);
     const [lazyLoading, setLazyLoading] = useState(false);
-    const {currencies, account} = useContext(CtxRootData);
+    const { account} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [allOrdVisibly, setAllOrdVisibly] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ordersList, setOrdersList] = useState<IResOrder[]>([]);

@@ -5,19 +5,20 @@ import constants from "@/shared/config/coins/constants";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import ETokensConst from "@/shared/config/coins/constants";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import {CtxRootData, ICtxCurrencyData} from "@/processes/RootContext";
+import {ICtxCurrency} from "@/processes/CurrenciesContext";
 import CryptoAssetCard from "@/shared/ui/crypto-asset-card/CryptoAssetCard";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
-const assetsFiler = (item: ICtxCurrencyData) =>
+const assetsFiler = (item: ICtxCurrency) =>
     item.$const !== ETokensConst.EUR
     && ([ETokensConst.EURG, ETokensConst.GKE].includes(item.$const)
     || item.availableBalance?.comparedTo(0));
 
-const assetsSorter = (item: ICtxCurrencyData) =>
+const assetsSorter = (item: ICtxCurrency) =>
     [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) ? -1 : 1;
 
 function CryptoAssets() {
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [rates, setRates] = useState<Record<constants, number>>(null);
 
     useEffect(() => {

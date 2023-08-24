@@ -4,14 +4,14 @@ import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from '@/processes/RootContext';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from '@/shared/config/validators';
+import {validateBalance} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {TextArea} = Input;
 
@@ -26,7 +26,7 @@ const WithdrawForm = () => {
 
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 

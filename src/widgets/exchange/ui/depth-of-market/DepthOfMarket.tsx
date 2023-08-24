@@ -2,13 +2,13 @@ import Decimal from 'decimal.js';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {RateState} from '../../model/types';
-import {CtxRootData} from '@/processes/RootContext';
 import {CtxExchangeData} from '../../model/context';
 import {useContext, useEffect, useState} from 'react';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
 import IconArrowUp from '../../../../shared/ui/icons/IconArrowUp';
 import {ITradeInfo, TradePriceArray, apiGetTradeInfo} from '@/shared/api';
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 interface IParams {
     currencyFrom: string;
@@ -32,7 +32,7 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
         loading: false
     }
 
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const {onPriceCurrenciesSwap} = useContext(CtxExchangeData);
     const [state, setState] = useState<DepthOfMarketState>(initialState);
 

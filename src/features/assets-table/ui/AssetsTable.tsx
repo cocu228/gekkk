@@ -9,7 +9,7 @@ import Button from "@/shared/ui/button/Button";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import ETokensConst from "@/shared/config/coins/constants";
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
-import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
+import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
@@ -24,7 +24,7 @@ interface IParams {
     onSelect?: (currency: string) => void
 }
 
-function searchTokenFilter(currency: ICtxCurrencyData, searchValue: string) {
+function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
     return currency.$const?.toLowerCase().includes(searchValue) ||
         currency.name?.toLowerCase().includes(searchValue);
 }
@@ -41,7 +41,7 @@ const AssetsTable = ({
     const inputRef = useRef(null);
     const navigate = useNavigate();
     const {lg, md} = useContext(BreakpointsContext);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<ETokensConst, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
@@ -52,7 +52,7 @@ const AssetsTable = ({
       }
     });
 
-    const assetsFilter = (asset: ICtxCurrencyData) => {
+    const assetsFilter = (asset: ICtxCurrency) => {
         if (balanceFilter && !asset.availableBalance?.greaterThan(0)) {
             return false;
         }
@@ -64,7 +64,7 @@ const AssetsTable = ({
         return true;
     }
 
-    const tokensList = useMemo<ICtxCurrencyData[]>(() =>
+    const tokensList = useMemo<ICtxCurrency[]>(() =>
         Array.from(currencies.values()).filter(assetsFilter),
         [currencies, blockedCurrencies, allowedFlags]
     );

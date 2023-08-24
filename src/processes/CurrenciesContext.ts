@@ -1,12 +1,12 @@
 import React from "react";
-import Decimal from "decimal.js";
-import {getFlagsFromMask} from "@/shared/lib/helpers";
-import {IResBalance, IResMarketAsset} from "@/shared/api";
 import ETokensConst from "@/shared/config/coins/constants";
-import {IAccountInfo} from "@/shared/store/accounts/accounts";
+import Decimal from "decimal.js";
+import {IResBalance, IResMarketAsset} from "@/shared/api";
+import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
 
-export class ICtxCurrencyData {
+
+export class ICtxCurrency {
     id: null | number;
     name: null | string;
     flags: Record<string, boolean>;
@@ -40,13 +40,8 @@ export class ICtxCurrencyData {
         this.availableBalance = wallet ? new Decimal(wallet.free_balance) : null;
     }
 }
-
-export interface ICtxRootData {
-    refreshKey: string;
-    account: IAccountInfo;
-    currencies: Map<string, ICtxCurrencyData>;
-    setRefresh: () => void;
-    setAccount: (number: string) => void;
+export interface ICtxCurrencies {
+    currencies: Map<string, ICtxCurrency>;
 }
 
-export const CtxRootData = React.createContext<ICtxRootData>(null);
+export const CtxCurrencies = React.createContext<ICtxCurrencies>(null);

@@ -1,6 +1,6 @@
 import constants from "../config/coins/constants";
-import {ICtxCurrencyData} from "@/processes/RootContext";
-import {IResponseOrganizations, IResBalance, IResMarketAsset} from "../api";
+import {ICtxCurrency} from "@/processes/CurrenciesContext";
+import {IResBalance, IResMarketAsset} from "../api";
 
 export default (assets: IResMarketAsset[], wallets: IResBalance[]/*, accountNumber: string, organizations: IResponseOrganizations*/) => {
     const currencies = new Map();
@@ -9,11 +9,6 @@ export default (assets: IResMarketAsset[], wallets: IResBalance[]/*, accountNumb
         const walletInfo = wallets.find(wallet => asset.code === wallet.currency);
 
         if (asset.code === 'EUR') {
-            //const account = organizations.accounts.find(a => a.number === accountNumber);
-            //const eurBalance = account?.balances.find(b => b.currency === 'EUR');
-
-            //if (!eurBalance) return;
-
             const eurWallet: IResBalance = {
                 lock_orders: 0,
                 lock_in_balance: 0,
@@ -22,11 +17,11 @@ export default (assets: IResMarketAsset[], wallets: IResBalance[]/*, accountNumb
                 free_balance: 0 //eurBalance.availableBalance
             };
 
-            currencies.set(asset.code, new ICtxCurrencyData(asset, eurWallet));
+            currencies.set(asset.code, new ICtxCurrency(asset, eurWallet));
             return;
         }
 
-        currencies.set(asset.code, new ICtxCurrencyData(asset, walletInfo))
+        currencies.set(asset.code, new ICtxCurrency(asset, walletInfo))
     })
 
     return currencies;

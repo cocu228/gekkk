@@ -48,7 +48,7 @@ export default memo(function () {
     useEffect(() => {
         if (accounts && !account) {
             const cookieData = getCookieData<{accountId?: string}>();
-            const activeAccount = accounts.find(a => a.current === true);
+            const activeAccount = accounts.find(a => a.current);
 
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId

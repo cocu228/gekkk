@@ -8,6 +8,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import FiatWithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatWithdrawConfirm";
+import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
 const FiatFormWithdraw = () => {
 
@@ -24,6 +25,10 @@ const FiatFormWithdraw = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
+
+    console.log(inputs.amount)
+    console.log(inputs.amount)
+    console.log(formatAsNumberAndDot(inputs.amount))
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -109,10 +114,16 @@ const FiatFormWithdraw = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <InputCurrency onChange={(v: unknown) => setInputs(() => ({
-                            ...inputs,
-                            amount: v
-                        }))} currency={currency.$const}/>
+                        <InputCurrency.Validator value={inputs.amount} validators={[]}>
+
+                            <InputCurrency
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    amount: v
+                                }))}
+                                value={inputs.amount}
+                                currency={currency.$const}/>
+                        </InputCurrency.Validator>
                     </div>
                 </div>
             </div>

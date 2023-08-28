@@ -109,10 +109,15 @@ const FiatFormWithdraw = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <InputCurrency onChange={(v: unknown) => setInputs(() => ({
-                            ...inputs,
-                            amount: v
-                        }))} currency={currency.$const}/>
+                        <InputCurrency.Validator value={inputs.amount} validators={[]}>
+                            <InputCurrency
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    amount: v
+                                }))}
+                                value={inputs.amount}
+                                currency={currency.$const}/>
+                        </InputCurrency.Validator>
                     </div>
                 </div>
             </div>

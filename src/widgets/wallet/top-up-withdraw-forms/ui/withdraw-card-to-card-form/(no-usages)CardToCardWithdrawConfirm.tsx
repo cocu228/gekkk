@@ -15,7 +15,7 @@ import {apiPasswordVerify} from "@/shared/api/various/password";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
-const CardToCardWithdrawConfirm = ({
+const NoUsagesCardToCardWithdrawConfirm = ({
                                  beneficiaryName,
                                  accountNumber,
                                  transferDescription,
@@ -187,4 +187,4 @@ const CardToCardWithdrawConfirm = ({
     </>
 }
 
-export default CardToCardWithdrawConfirm
+export default NoUsagesCardToCardWithdrawConfirm

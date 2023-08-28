@@ -10,7 +10,7 @@ import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField"
 import FiatWithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatWithdrawConfirm";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
-const FiatFormWithdraw = () => {
+const FiatSwiftFormWithdraw = () => {
 
     const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
@@ -146,4 +146,4 @@ const FiatFormWithdraw = () => {
 
 };
 
-export default FiatFormWithdraw;
+export default FiatSwiftFormWithdraw;

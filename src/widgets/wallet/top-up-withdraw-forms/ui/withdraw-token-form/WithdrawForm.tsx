@@ -8,7 +8,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {validateBalance} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
-import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
+import WithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawConfirm";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";

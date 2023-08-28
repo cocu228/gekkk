@@ -7,7 +7,7 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import FiatWithdrawConfirm from "@/widgets/wallet/fiat-currency/FiatWithdrawConfirm";
+import FiatWithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatWithdrawConfirm";
 
 const FiatFormWithdraw = () => {
 

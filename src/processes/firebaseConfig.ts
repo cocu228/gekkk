@@ -16,8 +16,8 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 
 const auth = getAuth();
 
-// Регистрация пользователя
-createUserWithEmailAndPassword(auth, "aleksey.muzhichin.ge@gmail.com", "password")
+
+createUserWithEmailAndPassword(auth, "test", "test")
     .then((userCredential) => {
         const user = userCredential.user;
         console.log("user")
@@ -30,7 +30,6 @@ createUserWithEmailAndPassword(auth, "aleksey.muzhichin.ge@gmail.com", "password
         console.log(errorMessage)
     });
 
-// Вход пользователя
 signInWithEmailAndPassword(auth, "email", "password")
     .then((userCredential) => {
         const user = userCredential.user;

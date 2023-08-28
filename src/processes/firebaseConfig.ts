@@ -1,5 +1,4 @@
 import {initializeApp} from "firebase/app";
-import {getAuth} from "firebase/auth";
 // import {getFirestore, collection, getDocs} from 'firebase/firestore/lite';
 
 const firebaseConfig = {
@@ -13,6 +12,37 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 
-console.log(auth)
+const auth = getAuth();
+
+// Регистрация пользователя
+createUserWithEmailAndPassword(auth, "aleksey.muzhichin.ge@gmail.com", "password")
+    .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("user")
+        console.log(user)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("errorMessage")
+        console.log(errorMessage)
+    });
+
+// Вход пользователя
+signInWithEmailAndPassword(auth, "email", "password")
+    .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("user")
+        console.log(user)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log("errorMessage")
+        console.log(errorMessage)
+    });
+
+

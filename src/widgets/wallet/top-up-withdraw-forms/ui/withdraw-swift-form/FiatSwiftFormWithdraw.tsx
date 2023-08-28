@@ -26,10 +26,6 @@ const FiatSwiftFormWithdraw = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    console.log(inputs.amount)
-    console.log(inputs.amount)
-    console.log(formatAsNumberAndDot(inputs.amount))
-
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
             Select a top up method

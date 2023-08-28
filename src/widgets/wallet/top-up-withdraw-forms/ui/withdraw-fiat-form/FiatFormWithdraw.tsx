@@ -8,6 +8,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import FiatWithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatWithdrawConfirm";
+import transferDescription from "@/widgets/wallet/top-up-withdraw-forms/model/transfer-description";
 
 const FiatFormWithdraw = () => {
 
@@ -77,7 +78,13 @@ const FiatFormWithdraw = () => {
                 <div className="row">
                     <div className="col">
                         <Select className="w-full"
-                                value={"Transfer details"}
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    transferDescription: v
+                                }))}
+                                options={transferDescription}
+                                placeholder={"Please select a description of the transaction..."}
+                                value={inputs.transferDescription}
                         />
                     </div>
                 </div>

@@ -16,8 +16,8 @@ const Withdraw = () => {
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>
-                <ChoseNetwork withdraw/>
 
+                <ChoseNetwork withdraw/>
 
                 {TYPES_WALLET_FORM_UI.withdraw.gekkardAccount.some(it => it === formType) ?
                     <GekkardAccountForm withdraw/>

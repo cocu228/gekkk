@@ -23,6 +23,9 @@ const TopUp = memo(() => {
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     // const isGekkardAccount = testGekkardAccount(networksDefault, networkIdSelect)
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
+    const {
+        is_operable = null
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     return (<div className="wrapper">
 
@@ -38,6 +41,16 @@ const TopUp = memo(() => {
                         TYPES_WALLET_FORM_UI.topUp.fiat.some(it => it === formType) ?
                             <FiatFormTopUp/> :
                             <div> Sorry, there are no actions available for the selected network. </div>}
+
+            {is_operable === false && <div className="row mb-4 mt-4">
+                <div className="col">
+                    <div className="info-box-danger">
+                        <p>Attention: transactions on this network may be delayed. We recommend that you use a different
+                            network for this transaction.</p>
+                    </div>
+                </div>
+            </div>}
+
         </>}
     </div>);
 });

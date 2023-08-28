@@ -32,10 +32,10 @@ const WithdrawForm = () => {
 
     const {
         min_withdraw = null,
-        max_withdraw = null,
-        percent_fee = null,
-        withdraw_fee = null,
-        is_operable = null
+        // max_withdraw = null,
+        // percent_fee = null,
+        // withdraw_fee = null,
+        // is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const onInput = ({target}) => {
@@ -118,17 +118,6 @@ const WithdrawForm = () => {
                     />
 
                 </Modal>
-
-
-                {!isNull(withdraw_fee) && <div className='text-center'>
-                        Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction
-                    </div>}
-                {is_operable === false && <>
-                    <div className="info-box-danger">
-                        <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                            network for this transaction.</p>
-                    </div>
-                </>}
                 </div>
             </div>
     )

@@ -9,6 +9,8 @@ import {CtxWalletData} from "@/widgets/wallet/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import FiatWithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatWithdrawConfirm";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
+import {Switch} from "antd";
 
 const FiatSwiftFormWithdraw = () => {
 
@@ -20,6 +22,7 @@ const FiatSwiftFormWithdraw = () => {
         accountNumber: null,
         transferDescription: null,
         comment: null,
+        country: null,
         amount: null,
     })
     const onInput = ({target}) => {
@@ -28,11 +31,19 @@ const FiatSwiftFormWithdraw = () => {
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
-            Select a top up method
             <div className="col">
-                <Select className="w-full mt-2"
-                        value={"Bank transfer"}
-                />
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>Account number / IBAN</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Input value={inputs.accountNumber} onChange={onInput}
+                               placeholder={"Enter account number"}
+                               name={"accountNumber"}/>
+                    </div>
+                </div>
             </div>
         </div>
         <div className="row mb-8 w-full">
@@ -56,14 +67,110 @@ const FiatSwiftFormWithdraw = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Account number / IBAN</span>
+                        <span>Country</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Input value={inputs.accountNumber} onChange={onInput}
-                               placeholder={"Enter account number"}
-                               name={"accountNumber"}/>
+                        <Input value={inputs.country}
+                               onChange={onInput}
+                               placeholder={"Enter the country"}
+                               name={"country"}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>Address</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Input value={inputs.country}
+                               onChange={onInput}
+                               placeholder={"Enter the country"}
+                               name={"address"}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>SWIFT/BIC</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Input value={inputs.country}
+                               onChange={onInput}
+                               placeholder={"Enter the SWIFT/BIC code"}
+                               name={"swift"}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>Beneficiary bank</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Input value={inputs.country}
+                               onChange={onInput}
+                               placeholder={"Enter the Beneficiary bank"}
+                               name={"beneficiaryBank"}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2 flex justify-between">
+                    <div className="col">
+                        <span>Intermediary bank</span>
+                    </div>
+                    <div className="col">
+                        <Switch className={"bg-gray-500"}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>Fee type</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Select className="w-full"
+                                value={"select Fee..."}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
+                        <span>Urgency</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Select className="w-full"
+                                value={"select Urgency..."}
+                        />
                     </div>
                 </div>
             </div>

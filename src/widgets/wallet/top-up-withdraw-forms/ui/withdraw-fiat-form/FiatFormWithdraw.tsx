@@ -28,14 +28,6 @@ const FiatFormWithdraw = () => {
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
-            Select a top up method
-            <div className="col">
-                <Select className="w-full mt-2"
-                        value={"Bank transfer"}
-                />
-            </div>
-        </div>
-        <div className="row mb-8 w-full">
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">

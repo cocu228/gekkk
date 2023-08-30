@@ -1,14 +1,15 @@
 import {useState} from 'react';
 import {initializeApp} from 'firebase/app';
-import {getAuth, RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
+import {getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult} from "firebase/auth";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-// Follow this pattern to import other Firebase services
-// import { } from 'firebase/<service>';
-
-// TODO: Replace the following with your app's Firebase project configuration
+declare global {
+    interface Window {
+        recaptchaVerifier: RecaptchaVerifier | undefined;
+        confirmationResult: ConfirmationResult | undefined;
+    }
+}
 
 const firebaseConfig = {
     apiKey: "AIzaSyARFJ1vMt-c6BUOcy4b3JvL1c2v0guJqSQ",

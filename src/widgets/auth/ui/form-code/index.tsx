@@ -1,10 +1,10 @@
 import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
 import {useSessionStorage} from "usehooks-ts";
-import {apiSignIn} from "@/widgets/auth/api/";
+// import {apiSignIn} from "@/widgets/auth/api/";
 import Button from '@/shared/ui/button/Button';
 import {MASK_CODE} from '@/shared/config/mask';
-import {apiRequestCode} from "@/widgets/auth/api";
+// import {apiRequestCode} from "@/widgets/auth/api";
 import useMask from '@/shared/model/hooks/useMask';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {codeMessage} from '@/shared/config/message';
@@ -12,8 +12,16 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
+// import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
+// import firebase from "firebase/compat";
+// import User = firebase.User;
+
+declare module 'firebase/auth' {
+    interface User {
+        accessToken: string;
+    }
+}
 
 // TODO: Добавить отображение сообщения об ошибке
 const FormCode = memo(() => {

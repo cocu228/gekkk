@@ -32,51 +32,63 @@ const FormCode = memo(() => {
     useLayoutEffect(() => {
         inputRef.current.focus();
     }, []);
-    
-    const onFinish = () => {
-        setLoading(true);
 
-        apiRequestCode(phone, formatAsNumber(code), sessionId)
-            .then(res => helperApiRequestCode(res)
-                .success(() => {
-                    setSessionGlobal({sessionId: res.data.sessid})
-                    apiSignIn(formatAsNumber(code), sessionId, phone)
-                        .then(res => helperApiSignIn(res)
-                            .success(() => {
-                                toggleStage("authorization");
-                                login(phone, res.data.token);
-                            }))
-                            .catch(e => {
-                                setLoading(false);
-                            });
-                        })
-                        .reject(v => {
-                    setLoading(false);
-                })
-            )
+    // const onFinish = () => {
+    //     setLoading(true);
+    //
+    //     apiRequestCode(phone, formatAsNumber(code), sessionId)
+    //         .then(res => helperApiRequestCode(res)
+    //             .success(() => {
+    //                 setSessionGlobal({sessionId: res.data.sessid})
+    //                 apiSignIn(formatAsNumber(code), sessionId, phone)
+    //                     .then(res => helperApiSignIn(res)
+    //                         .success(() => {
+    //                             toggleStage("authorization");
+    //                             login(phone, res.data.token);
+    //                         }))
+    //                         .catch(e => {
+    //                             setLoading(false);
+    //                         });
+    //                     })
+    //                     .reject(v => {
+    //                 setLoading(false);
+    //             })
+    //         )
+    // }
+
+    // useEffect(() => {
+    //     let interval;
+    //     if (timerOn) {
+    //         interval = setInterval(() => {
+    //             setTimeLeft((prevTime) => prevTime - 1);
+    //         }, 1000);
+    //     }
+    //     if (timeLeft === 0) {
+    //         setTimerOn(false);
+    //     }
+    //
+    //     return () => clearInterval(interval);
+    // }, [timerOn, timeLeft]);
+    //
+    // const restartTimer = () => {
+    //     apiRequestCode(phone);
+    //     setTimeLeft(180);
+    //     setTimerOn(true);
+    // };
+
+    const onCode = () => {
+
+        window.confirmationResult.confirm(formatAsNumber(code)).then((result) => {
+            const user = result.user;
+            login(user.phoneNumber, user.accessToken, "token-firebase")
+            console.log(user)
+            console.log(result)
+        }).catch((error) => {
+            console.log(error)
+        });
     }
 
-    useEffect(() => {
-        let interval;
-        if (timerOn) {
-            interval = setInterval(() => {
-                setTimeLeft((prevTime) => prevTime - 1);
-            }, 1000);
-        }
-        if (timeLeft === 0) {
-            setTimerOn(false);
-        }
-
-        return () => clearInterval(interval);
-    }, [timerOn, timeLeft]);
-
-    const restartTimer = () => {
-        apiRequestCode(phone);
-        setTimeLeft(180);
-        setTimerOn(true);
-    };
-
-    return <Form onFinish={onFinish}>
+    return <Form onFinish={onCode}>
         <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
@@ -96,13 +108,13 @@ const FormCode = memo(() => {
             />
         </FormItem>
 
-        <div className="row text-right -mt-1 mb-12 text-gray-400">
-            {timeLeft !== 0 ? (
-                <span>You can use the code for {timeLeft} seconds</span>
-            ) : (
-                <a onClick={restartTimer} className='underline hover:text-blue-400'>Resend code</a>
-            )}
-        </div>
+        {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
+        {/*    {timeLeft !== 0 ? (*/}
+        {/*        <span>You can use the code for {timeLeft} seconds</span>*/}
+        {/*    ) : (*/}
+        {/*        <a onClick={restartTimer} className='underline hover:text-blue-400'>Resend code</a>*/}
+        {/*    )}*/}
+        {/*</div>*/}
 
         <div className="row">
             <Button

@@ -2,6 +2,7 @@ import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
 import {createContext, FC, PropsWithChildren, useContext, useMemo} from "react";
 import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 const AuthContext = createContext({});
 
@@ -21,7 +22,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
 
         setCookieData([
-            {key: "phone", value: phone, expiration: 1800}, {
+            {key: "phone", value: formatAsNumber(phone), expiration: 1800}, {
                 key: "token",
                 value: token,
                 expiration: 1800
@@ -31,7 +32,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         sessionStorage.removeItem("session-auth")
 
         $axios.defaults.headers[tokenHeaderName] = token;
-        $axios.defaults.headers['Authorization'] = phone;
+        $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
 
         navigate(window.location.pathname + window.location.search);
     };

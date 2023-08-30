@@ -1,8 +1,8 @@
-import {useState} from 'react';
+// import {useState} from 'react';
 import {initializeApp} from 'firebase/app';
 import {getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult} from "firebase/auth";
-import Button from "@/shared/ui/button/Button";
-import Input from "@/shared/ui/input/Input";
+// import Button from "@/shared/ui/button/Button";
+// import Input from "@/shared/ui/input/Input";
 
 declare global {
     interface Window {
@@ -25,76 +25,76 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 
-const AuthFirebaseComponent = () => {
+// const AuthFirebaseComponent = () => {
 
-    const [state, setState] = useState("")
+    // const [state, setState] = useState("")
 
-    function onCaptchaVerify() {
+    // function onCaptchaVerify() {
+    //
+    //     if (!window.recaptchaVerifier) {
+    //
+    //         console.log(auth.currentUser)
+    //
+    //         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    //             size: 'invisible',
+    //             callback: (response) => {
+    //                 console.log(response)
+    //                 onSingIn()
+    //             }
+    //         });
+    //     }
+    // }
 
-        if (!window.recaptchaVerifier) {
+    // const onInput = ({target}) => setState(target.value)
 
-            console.log(auth.currentUser)
+    // const onSingIn = () => {
+    //
+    //     onCaptchaVerify()
+    //
+    //     const phoneNumber = "+995574836618"
+    //     const appVerifier = window.recaptchaVerifier;
+    //
+    //
+    //     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+    //         .then((confirmationResult) => {
+    //             // SMS sent. Prompt user to type the code from the message, then sign the
+    //             // user in with confirmationResult.confirm(code).
+    //             window.confirmationResult = confirmationResult;
+    //             // ...
+    //         }).catch((error) => {
+    //         console.log("error")
+    //         console.log(error)
+    //     });
+    // }
 
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                size: 'invisible',
-                callback: (response) => {
-                    console.log(response)
-                    onSingIn()
-                }
-            });
-        }
-    }
+    // const onCode = () => {
+    //     const code = state
+    //
+    //     window.confirmationResult.confirm(code).then((result) => {
+    //         // User signed in successfully.
+    //         const user = result.user;
+    //         console.log(user)
+    //         // ...
+    //     }).catch((error) => {
+    //         console.log("errorCode")
+    //         console.log(error)
+    //         // User couldn't sign in (bad verification code?)
+    //         // ...
+    //     });
+    // }
 
-    const onInput = ({target}) => setState(target.value)
-
-    const onSingIn = () => {
-
-        onCaptchaVerify()
-
-        const phoneNumber = "+995574836618"
-        const appVerifier = window.recaptchaVerifier;
-
-
-        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-            .then((confirmationResult) => {
-                // SMS sent. Prompt user to type the code from the message, then sign the
-                // user in with confirmationResult.confirm(code).
-                window.confirmationResult = confirmationResult;
-                // ...
-            }).catch((error) => {
-            console.log("error")
-            console.log(error)
-        });
-    }
-
-    const onCode = () => {
-        const code = state
-
-        window.confirmationResult.confirm(code).then((result) => {
-            // User signed in successfully.
-            const user = result.user;
-            console.log(user)
-            // ...
-        }).catch((error) => {
-            console.log("errorCode")
-            console.log(error)
-            // User couldn't sign in (bad verification code?)
-            // ...
-        });
-    }
-
-    return <div>
-        <span>Phone number</span>
-        <span>+79111111111</span>
-        <div id="recaptcha-container" className="justify-center flex">
-        </div>
-        <Button onClick={onSingIn}>SingIn Firebase</Button>
-        <Input onChange={onInput} type="text"/>
-        <Button onClick={onCode}>SingIn code</Button>
-
-    </div>
-}
-export default AuthFirebaseComponent
+//     return <div>
+//         <span>Phone number</span>
+//         <span>+79111111111</span>
+//         <div id="recaptcha-container" className="justify-center flex">
+//         </div>
+//         <Button onClick={onSingIn}>SingIn Firebase</Button>
+//         <Input onChange={onInput} type="text"/>
+//         <Button onClick={onCode}>SingIn code</Button>
+//
+//     </div>
+// }
+// export default AuthFirebaseComponent

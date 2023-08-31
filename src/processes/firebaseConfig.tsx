@@ -12,13 +12,13 @@ declare global {
 }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBTmEAfPYT_rxWrjwWZg2CnzVP-aWrgGo0",
-    authDomain: "gekkard-com.firebaseapp.com",
-    databaseURL: "https://gekkard-com.firebaseio.com",
-    projectId: "gekkard-com",
-    storageBucket: "gekkard-com.appspot.com",
-    messagingSenderId: "389504038547",
-    appId: "1:389504038547:web:0545194fc30d8642103f66",
+    apiKey: "AIzaSyARFJ1vMt-c6BUOcy4b3JvL1c2v0guJqSQ",
+    authDomain: "gekkardionic.firebaseapp.com",
+    databaseURL: "https://gekkardionic.firebaseio.com",
+    projectId: "gekkardionic",
+    storageBucket: "gekkardionic.appspot.com",
+    messagingSenderId: "559638122615",
+    appId: "1:559638122615:web:9d9042bb5f8fd8e0feb672",
     measurementId: "G-WM6QN2K1RK"
 };
 

@@ -1870,7 +1870,15 @@ export default {
             </li>
         </ul>
     </div>,
-
+    
+    [ETokensConst.EUR]: <div>
+        <p className='mb-3'>
+            Euro (EURG) is the fiat currency of the Eurozone countries.
+            On the Gekkard platform, Euros can be exchanged for EURG cryptocurrency
+            according to the terms and conditions on this website and in the Gekkard App.
+        </p>
+    </div>,
+    
     [ETokensConst.EURG]: <div>
         <p className='mb-3'>
             Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 

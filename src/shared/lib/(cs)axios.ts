@@ -18,11 +18,11 @@ const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
 const sessionHeader = () => {
 
 
-    const {phone, token } = getCookieData<{ phone: string, token: string }>()
+    const {phone, token, tokenHeaderName} = getCookieData<{ phone: string, token: string, tokenHeaderName: string }>()
 
     const keys = token ? {
         'Authorization': phone,
-        'token': token,
+        [tokenHeaderName]: token,
     } : {}
 
     return {

@@ -18,7 +18,7 @@ import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 const WithdrawConfirm = ({
                              address,
                              amount,
-                             receiver,
+                             recipient,
                              description,
                              handleCancel,
                          }) => {
@@ -44,7 +44,7 @@ const WithdrawConfirm = ({
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
         const response = await apiCreateWithdraw($const, networkIdSelect, new Decimal(amount).toNumber(),
-            percent_fee || withdraw_fee, isNull(address) ? "" : address, receiver, description)
+            percent_fee || withdraw_fee, isNull(address) ? "" : address, recipient, description)
 
         actionResSuccess(response)
             .success(() => {
@@ -99,12 +99,12 @@ const WithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Receiver</span>
+                <span className="text-gray-400">Recipient's name</span>
             </div>
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{receiver}</span>
+                <span>{recipient}</span>
             </div>
         </div>
         <div className="row mb-2">

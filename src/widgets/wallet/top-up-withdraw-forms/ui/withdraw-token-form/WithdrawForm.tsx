@@ -1,17 +1,16 @@
 import {Input} from 'antd';
 import {useContext, useState} from "react";
-import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {validateBalance} from '@/shared/config/validators';
-import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
-import WithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawConfirm";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
-import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
+import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import WithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawConfirm";
 
 const {TextArea} = Input;
 
@@ -20,7 +19,7 @@ const WithdrawForm = () => {
     const [inputs, setInputs] = useState({
         address: null,
         amount: null,
-        receiver: null,
+        recipient: null,
         description: null,
     })
 
@@ -89,11 +88,17 @@ const WithdrawForm = () => {
                     </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600">Receiver</span>
-                    <Input value={inputs.receiver} onChange={onInput}
-                           disabled={!networkIdSelect}
-                           name={"receiver"}
-                           placeholder={"Enter receiver name"}/>
+                    <span className="text-gray-600">Recipient</span>
+                        <InputCurrency.Validator
+                                value={null}
+                                validators={[]}
+                                description={'As required by EU law, you must provide the name of the recipient of the funds'}
+                        >
+                            <Input value={inputs.recipient} onChange={onInput}
+                                   disabled={!networkIdSelect}
+                                   name={"recipient"}
+                                   placeholder={"Enter recipient name"}/>
+                        </InputCurrency.Validator>
                 </div>
 
                 <div className='flex flex-col gap-2'>

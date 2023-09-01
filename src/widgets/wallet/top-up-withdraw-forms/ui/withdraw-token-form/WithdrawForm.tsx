@@ -1,17 +1,16 @@
 import {Input} from 'antd';
 import {useContext, useState} from "react";
-import {isNull} from "@/shared/lib/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from '@/processes/RootContext';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from '@/shared/config/validators';
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
-import WithdrawConfirm from "@/widgets/wallet/withdraw/ui/WithdrawConfirm";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import {validateBalance} from '@/shared/config/validators';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/withdraw/model/helper";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import WithdrawConfirm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawConfirm";
 
 const {TextArea} = Input;
 
@@ -20,30 +19,27 @@ const WithdrawForm = () => {
     const [inputs, setInputs] = useState({
         address: null,
         amount: null,
-        receiver: null,
+        recipient: null,
         description: null,
     })
 
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = null,
-        max_withdraw = null,
-        percent_fee = null,
-        withdraw_fee = null,
-        is_operable = null
+        // max_withdraw = null,
+        // percent_fee = null,
+        // withdraw_fee = null,
+        // is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-    // const onAmount = (n) => setInputs(prev => ({...prev, amount: n}))
-
-    const [value, setValue] = useState<string>("");
 
     console.log(networksDefault)
 
@@ -59,26 +55,32 @@ const WithdrawForm = () => {
                 </div>
 
                     <div className='flex flex-col gap-2'>
-
                         <InputCurrency.Validator
-                            value={value}
+                            value={inputs.amount}
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             validators={[
-                                validateBalance(currencies.get(currency.$const), navigate),
-                                validateMinimumAmount(min_withdraw),
-                                validateMaximumAmount(max_withdraw)
+                                validateBalance(currencies.get(currency.$const), navigate)
+                                //validateMinimumAmount(min_withdraw),
+                                //validateMaximumAmount(max_withdraw)
                             ]}
                         >
-                            <InputCurrency.PercentSelector onSelect={setValue}
-                                                           header={<span className='text-gray-600'>Input</span>}
-                                                           currency={currency}>
+                            <InputCurrency.PercentSelector
+                                currency={currency}
+                                header={<span className='text-gray-600'>Input</span>}
+                                onSelect={(v) => setInputs(() => ({
+                                    ...inputs,
+                                    amount: v
+                                }))}
+                            >
                                 <InputCurrency.DisplayBalance currency={currency}>
                                     <InputCurrency
-                                        value={value}
+                                        name={"amount"}
+                                        value={inputs.amount}
                                         currency={currency.$const}
-                                        onChange={v =>
-                                            setValue(v)
-                                        }
+                                        onChange={(v) => setInputs(() => ({
+                                            ...inputs,
+                                            amount: v
+                                        }))}
                                     />
                                 </InputCurrency.DisplayBalance>
                             </InputCurrency.PercentSelector>
@@ -86,11 +88,17 @@ const WithdrawForm = () => {
                     </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600">Receiver</span>
-                    <Input value={inputs.receiver} onChange={onInput}
-                           disabled={!networkIdSelect}
-                           name={"receiver"}
-                           placeholder={"Enter receiver name"}/>
+                    <span className="text-gray-600">Recipient</span>
+                        <InputCurrency.Validator
+                                value={null}
+                                validators={[]}
+                                description={'As required by EU law, you must provide the name of the recipient of the funds'}
+                        >
+                            <Input value={inputs.recipient} onChange={onInput}
+                                   disabled={!networkIdSelect}
+                                   name={"recipient"}
+                                   placeholder={"Enter recipient name"}/>
+                        </InputCurrency.Validator>
                 </div>
 
                 <div className='flex flex-col gap-2'>
@@ -101,7 +109,7 @@ const WithdrawForm = () => {
                 </div>
 
                 <Button size={"xl"} onClick={showModal}
-                        disabled={isDisabledBtnWithdraw(inputs, currency, max_withdraw, min_withdraw)}
+                        disabled={isDisabledBtnWithdraw(inputs)}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>
@@ -115,17 +123,6 @@ const WithdrawForm = () => {
                     />
 
                 </Modal>
-
-
-                {!isNull(withdraw_fee) && <div className='text-center'>
-                        Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction
-                    </div>}
-                {is_operable === false && <>
-                    <div className="info-box-danger">
-                        <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                            network for this transaction.</p>
-                    </div>
-                </>}
                 </div>
             </div>
     )

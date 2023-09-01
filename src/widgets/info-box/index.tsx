@@ -6,7 +6,7 @@ const hClassName = new HelperClassName(styles)
 
 
 type Props = {
-    message: string,
+    message: string | JSX.Element,
     children: React.ReactNode
 }
 

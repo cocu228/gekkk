@@ -14,6 +14,8 @@ import {pinMessage, phoneMessage} from '@/shared/config/message';
 import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
+import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
+import {auth} from "@/processes/firebaseConfig";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
@@ -38,41 +40,67 @@ const FormLoginAccount = memo(() => {
         phone: "",
         password: ""
     });
+
     const [loading, setLoading] = useState<boolean>(false);
-    const onFinish = () => {
+    // const onFinish = () => {
+    //
+    //     const {password} = state
+    //     const phone = formatAsNumber(state.phone)
+    //
+    //     setLoading(true)
+    //
+    //     apiCheckPassword(phone, md5(`${password}_${phone}`))
+    //         .then(res => helperApiCheckPassword(res)
+    //             .success(
+    //                 () => apiRequestCode(phone)
+    //                     .then(res => helperApiRequestCode(res)
+    //                         .success(
+    //                             () => {
+    //                                 setSessionAuth({
+    //                                     sessionId: res.data.sessid,
+    //                                     phone: phone, currentTime: new Date()
+    //                                 })
+    //                                 toggleStage("code")
+    //                             }
+    //                         ).reject(() => {
+    //                             setLoading(false);
+    //                         })).catch(err => {
+    //                         setLoading(false);
+    //                     })
+    //             ))
+    //         .catch(err => {
+    //             setLoading(false)
+    //         })
+    // }
+    const onCaptchaVerify = () => {
 
-        const {phone, password} = state
-        const $phone = formatAsNumber(phone)
+        if (!window.recaptchaVerifier) {
 
-        setLoading(true)
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                size: 'invisible',
+                callback: (response) => {
+                    console.log(response)
+                    onSingIn()
+                }
+            });
+        }
+    }
+    const onSingIn = () => {
 
-        apiCheckPassword($phone, md5(`${password}_${$phone}`))
-            .then(res => helperApiCheckPassword(res)
-                .success(
-                    () => apiRequestCode($phone)
-                        .then(res => helperApiRequestCode(res)
-                            .success(
-                                () => {
-                                    setSessionAuth({
-                                        sessionId: res.data.sessid,
-                                        phone: $phone, currentTime: new Date()
-                                    })
-                                    toggleStage("code")
-                                }
-                            ).reject(() => {
-                                setLoading(false);
-                            })).catch(err => {
-                            setLoading(false);
-                        })
-                ))
-            .catch(err => {
-                setLoading(false)
-            })
+        onCaptchaVerify()
+        console.log(formatAsNumber(state.phone))
+        signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                toggleStage("code")
+            }).catch((error) => {
+            console.warn(error)
+        });
     }
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form onFinish={onFinish}>
+    return <Form onFinish={onSingIn}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
@@ -86,6 +114,8 @@ const FormLoginAccount = memo(() => {
             </a> credentials
         </p>
 
+        <div id={'recaptcha-container'}></div>
+
         <FormItem className="mb-2" name="phone" label="Телефон" preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
             <PhoneInput
@@ -97,13 +127,13 @@ const FormLoginAccount = memo(() => {
                     ({...prevState, phone: value}))}/>
         </FormItem>
 
-        <FormItem name="password" label="Password"
-                  rules={[{required: true, ...pinMessage}, pinValidator]}>
-            <Input.Password style={{borderColor: 'var(--color-gray-400)'}} onChange={({target}) => setState(prev => ({
-                ...prev,
-                password: target.value
-            }))} placeholder="PIN"/>
-        </FormItem>
+        {/*<FormItem name="password" label="Password"*/}
+        {/*          rules={[{required: true, ...pinMessage}, pinValidator]}>*/}
+        {/*    <Input.Password style={{borderColor: 'var(--color-gray-400)'}} onChange={({target}) => setState(prev => ({*/}
+        {/*        ...prev,*/}
+        {/*        password: target.value*/}
+        {/*    }))} placeholder="PIN"/>*/}
+        {/*</FormItem>*/}
 
         <div className="row text-right mb-4">
             <a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot

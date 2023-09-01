@@ -1,21 +1,21 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {uncoverArray} from "@/shared/lib/helpers";
-import {apiGetBankData, IBankData} from "@/shared/api";
+import {apiOrganizations, IResponseOrganizations} from "@/shared/api";
 
-export interface IStoreBankData {
-    organizations: IBankData;
+export interface IStoreOrganizations {
+    organizations: IResponseOrganizations;
     getOrganizations: () => Promise<void>;
     cleaning: () => void;
 }
 
-export const storeOrganizations = create<IStoreBankData>()(devtools((set) => ({
+export const storeOrganizations = create<IStoreOrganizations>()(devtools((set) => ({
     organizations: null,
     getOrganizations: async () => {
-       const {data} = await apiGetBankData();
+       const {data} = await apiOrganizations();
        set((state) => ({
            ...state,
-           organizations: uncoverArray<IBankData | null>(data),
+           organizations: uncoverArray<IResponseOrganizations | null>(data),
        }))
     },
     cleaning: () => {

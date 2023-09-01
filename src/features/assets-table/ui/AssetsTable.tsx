@@ -1,18 +1,18 @@
 import styles from './style.module.scss';
-import { apiGetRates } from "@/shared/api";
+import {apiGetRates} from "@/shared/api";
 import Input from '@/shared/ui/input/Input';
 import {useNavigate} from 'react-router-dom';
 import GTable from '@/shared/ui/grid-table/';
 import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
-import ETokensConst from "@/shared/config/coins/constants";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {CtxRootData, ICtxCurrencyData} from '@/processes/RootContext';
+import ETokensConst from "@/shared/config/coins/constants";
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
+import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {CurrencyFlags, maskCurrencyFlags} from '@/shared/config/mask-currency-flags';
-import {evenOrOdd, getCurrencyRounding, getFlagsFromMask, scrollToTop} from "@/shared/lib/helpers";
+import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
 
 interface IParams {
     modal?: boolean,
@@ -24,7 +24,7 @@ interface IParams {
     onSelect?: (currency: string) => void
 }
 
-function searchTokenFilter(currency: ICtxCurrencyData, searchValue: string) {
+function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
     return currency.$const?.toLowerCase().includes(searchValue) ||
         currency.name?.toLowerCase().includes(searchValue);
 }
@@ -41,7 +41,7 @@ const AssetsTable = ({
     const inputRef = useRef(null);
     const navigate = useNavigate();
     const {lg, md} = useContext(BreakpointsContext);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [searchValue, setSearchValue] = useState<string>('');
     const [rates, setRates] = useState<Record<ETokensConst, number>>(null);
     const [ratesLoading, setRatesLoading] = useState<boolean>(columnKeys.includes(AssetTableKeys.PRICE));
@@ -52,20 +52,19 @@ const AssetsTable = ({
       }
     });
 
-    const assetsFilter = (asset: ICtxCurrencyData) => {
+    const assetsFilter = (asset: ICtxCurrency) => {
         if (balanceFilter && !asset.availableBalance?.greaterThan(0)) {
             return false;
         }
         
         if (allowedFlags) {
-            const flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
-            return Object.values(allowedFlags).some(f => flags[f]);
+            return Object.values(allowedFlags).some(f => asset.flags[f]);
         }
 
         return true;
     }
 
-    const tokensList = useMemo<ICtxCurrencyData[]>(() =>
+    const tokensList = useMemo<ICtxCurrency[]>(() =>
         Array.from(currencies.values()).filter(assetsFilter),
         [currencies, blockedCurrencies, allowedFlags]
     );

@@ -2,11 +2,14 @@ import React from "react";
 import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
 import {IResBalance, IResMarketAsset} from "@/shared/api";
+import {getFlagsFromMask} from "@/shared/lib/helpers";
+import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
 
-export class ICtxCurrencyData {
+
+export class ICtxCurrency {
     id: null | number;
     name: null | string;
-    flags: null | number;
+    flags: Record<string, boolean>;
     $const: null | ETokensConst;
     minOrder: null | number;
     roundPrec: null | number;
@@ -22,7 +25,7 @@ export class ICtxCurrencyData {
     constructor(asset: IResMarketAsset, wallet: IResBalance) {
         this.id = asset.unified_cryptoasset_id;
         this.name = asset.name;
-        this.flags = asset.flags;
+        this.flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
         this.$const = asset.code;
         this.minOrder = asset.min_order;
         this.roundPrec = asset.round_prec;
@@ -38,15 +41,14 @@ export class ICtxCurrencyData {
     }
 }
 
-export const CtxRootData = React.createContext<{
-    currencies: Map<string, ICtxCurrencyData>;
-    setRefresh: () => void;
-    setAccount: (number: null | string, id: null | string, client: null | string) => void;
-    account: {
-        id: null | string,
-        number: null | string,
-        client: null | string,
-        rights: null | Record<string, boolean>
-    },
-    refreshKey: string;
-}>(null);
+export type ITotalContainer = {
+    EUR: Decimal | null;
+    BTC: Decimal | null;
+}
+
+export interface ICtxCurrencies {
+    currencies: Map<string, ICtxCurrency>;
+    totalAmount: ITotalContainer;
+}
+
+export const CtxCurrencies = React.createContext<ICtxCurrencies>(null);

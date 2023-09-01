@@ -10,6 +10,7 @@ import CurrencySelector from '../currency-selector/CurrencySelector';
 interface IParams {
     currency?: string;
     disabled?: boolean;
+    value?: string;
     wrapperClassName?: string;
     onChange?: (value: string) => void;
 }
@@ -21,6 +22,7 @@ const InputField: FC<IParams & InputProps> & {
     CurrencySelector: typeof CurrencySelector;
 } = ({
     currency,
+                           value,
     wrapperClassName,
     disabled = false,
     onChange,
@@ -30,11 +32,11 @@ const InputField: FC<IParams & InputProps> & {
         <InputAntd
             {...props}
             disabled={disabled || !currency}
+            value={value}
             placeholder='Enter amount'
             onChange={({target}) => onChange(formatAsNumberAndDot(target.value as string))}
             suffix={<>
                 {currency && <IconCoin width={34} height={34} code={currency}/>}
-
                 <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{currency ?? 'Select token'}</span>
             </>}
         />

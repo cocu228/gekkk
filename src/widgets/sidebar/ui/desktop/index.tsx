@@ -8,7 +8,6 @@ import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
-import totalizeAmount from "../../model/totalize-amount";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
@@ -22,58 +21,38 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const SidebarDesktop = () => {
+    const navigate = useNavigate();
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
     const {account} = useContext(CtxRootData);
-    const navigate = useNavigate();
-    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
-    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
+    const {sm, md, xxxl} = useContext(BreakpointsContext);
+    const {currencies, totalAmount} = useContext(CtxCurrencies);
 
-    const {currencies, refreshKey} = useContext(CtxRootData);
+    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
-    const [totalSum, setTotalSum] = useState<{ EUR: Decimal, BTC: Decimal }>({EUR: new Decimal(0), BTC: new Decimal(0)})
-
-    const {sm, md, xxxl} = useContext(BreakpointsContext)
+    const privateRooms = storeListExchangeRooms(state => state.roomsList);
+    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
+    const getInvestments = storeInvestments(state => state.getInvestments);
+    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md])
 
-    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
-    const privateRooms = storeListExchangeRooms(state => state.roomsList);
-
-    const getInvestments = storeInvestments(state => state.getInvestments);
-    //const investments = storeInvestments(state => state.investments);
-
     useEffect(() => {
         getInvestments();
         getRoomsList();
     }, [account]);
 
-    useEffect(() => {
-
-        (async () => {
-
-            const ratesEUR = await apiGetRates()
-            const ratesBTC = await apiGetRates("BTC")
-
-
-            const valueEUR: Decimal = totalizeAmount(currencies, ratesEUR.data.result)
-            const valueBTC: Decimal = totalizeAmount(currencies, ratesBTC.data.result)
-
-            setTotalSum({EUR: valueEUR, BTC: valueBTC})
-
-
-        })()
-
-    }, [refreshKey, account.number]);
-
+    // TODO: сделать обновление при изменении балансов
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
+    const eurWallet = currencies.get("EUR");
 
     const secondaryWallets = Array.from(currencies.values())
 
@@ -88,13 +67,11 @@ const SidebarDesktop = () => {
                             <UpdateAmounts/>
                         </div>
                         <div className="row"></div>
-                        <span
-                            className="text-lg font-bold">{totalSum.EUR.toDecimalPlaces(2).toNumber()} € ({totalSum.BTC.toDecimalPlaces(6).toNumber()} ₿)</span>
+                        <span className="text-lg font-bold">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
-
                 </div>
             </div>
-            {/* EUR wallet */}
+            {/* fiat-currency wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
@@ -106,11 +83,15 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>0 EUR</span>
+                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EUR</span>
                         </div>
                     </div>
                 </div>
             </NavLink>
+
+            {/* Crypto wallets wrapper */}
+            <div className="h-[8px] w-full bg-gray-300"/>
+
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>

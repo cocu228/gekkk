@@ -1,6 +1,6 @@
 import $axios from "@/shared/lib/(cs)axios";
 
-export interface IBankClient {
+export interface IClient {
     id: string;
     email: string;
     name: string;
@@ -10,7 +10,14 @@ export interface IBankClient {
     address: any;
 }
 
-export interface IBankAccount {
+export interface IBalance {
+    currency: string;
+    balance: number;
+    balanceHold: number;
+    availableBalance: number;
+}
+
+export interface IAccount {
     id: string;
     number: string;
     title: null | string;
@@ -27,7 +34,7 @@ export interface IBankAccount {
     balance: number;
     balanceHold: number;
     accruedInterest: any;
-    balances: Array<number>;
+    balances: Array<IBalance>;
     createdAt: string;
     availableBalance: Array<string>;
     accountType: 'PHYSICAL' | 'JURIDICAL';
@@ -37,7 +44,7 @@ export interface IBankAccount {
     name?: string;
 }
 
-export interface IBankCard {
+export interface ICard {
     accountId: string;
     availableBalance: number;
     backgroundImage: any;
@@ -71,18 +78,17 @@ export interface IBankTrustedClient {
     title: string;
 }
 
-export interface IBankData {
+export interface IResponseOrganizations {
     id: number;
     config: any;
     name: string;
     tin: string;
     title: string;
-    cards: IBankCard[];
+    cards: ICard[];
     clientName: string;
-    client: IBankClient;
-    accounts: IBankAccount[];
+    client: IClient;
+    accounts: IAccount[];
     trustedClients: IBankTrustedClient[];
 }
 
-export const apiGetBankData = () =>
-    $axios.get<Array<IBankData>>('/api/v2/organizations');
+export const apiOrganizations = () => $axios.get<Array<IResponseOrganizations>>('/api/v2/organizations');

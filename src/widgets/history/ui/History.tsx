@@ -14,6 +14,7 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
 import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {RangePicker} = DatePicker;
 
@@ -21,7 +22,7 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    const {currencies} = useContext(CtxRootData);
+    // const {currencies} = useContext(CtxCurrencies);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
     const {account} = useContext(CtxRootData);
     const [loading, setLoading] = useState(false);
@@ -143,8 +144,15 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
                                     <GTable.Col>
                                         <div>
-                                        <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
-                                            {!item.is_income && '-'}
+                                        <span className={`${[15, 16].includes(item.tx_type)
+                                                ? 'text-orange'
+                                                : item.is_income
+                                                ? 'text-green'
+                                                : 'text-red-800'}
+                                            `}
+                                        >
+                                            {[15, 16].includes(item.tx_type)
+                                                ? '' : !item.is_income && '-'}
                                             {+item.amount} {item.currency}
                                         </span>
                                         </div>

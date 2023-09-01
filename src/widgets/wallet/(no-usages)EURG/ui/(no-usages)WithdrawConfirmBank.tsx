@@ -1,22 +1,14 @@
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
-import {useContext, useState} from "react";
+import {useState} from "react";
 import Button from "@/shared/ui/button/Button";
 import useError from "@/shared/model/hooks/useError";
 import {calculateAmount} from "@/shared/lib/helpers";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 
-const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
-
-
-    const {networkIdSelect, networksForSelector, networksDefault} = useContext(CtxWalletNetworks)
-    // const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-    // const {percent_fee} = networksDefault.find(it => it.id === networkIdSelect)
-    //const bankData = storeBankData(state => state.bankData);
-    const wallet = useContext(CtxWalletData)
+const NoUsagesWithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
     const [loading, setLoading] = useState(false)
 
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
+    const [, , localErrorInfoBox] = useError()
     const onConfirm = async () => {
 
         setLoading(true)
@@ -70,48 +62,17 @@ const WithdrawConfirmBank = ({amount, handleCancel, withdraw_fee}) => {
                 <span>1.5%</span>
             </div>
         </div>
-
-        {/*<div className="row mb-4">*/}
-        {/*    <div className="col">*/}
-        {/*        <span className="text-gray-400">Address</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-6">*/}
-        {/*    <div className="col">*/}
-        {/*        <span>{address}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-4">*/}
-        {/*    <div className="col">*/}
-        {/*        <span className="text-gray-400">Receiver</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-6">*/}
-        {/*    <div className="col">*/}
-        {/*        <span>{receiver}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-4">*/}
-        {/*    <div className="col">*/}
-        {/*        <span className="text-gray-400">Description</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className="row mb-6">*/}
-        {/*    <div className="col">*/}
-        {/*        <span>{description}</span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
         <Form onFinish={onConfirm}>
-            {/*<span>Transfer confirm</span>*/}
             <div className="row">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={loading} className="w-full"
                             size={"xl"}>Confirm</Button>
                 </div>
             </div>
-            {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
+            {localErrorInfoBox &&
+                <div className="row mt-4">{localErrorInfoBox}</div>}
         </Form>
     </>
 }
 
-export default WithdrawConfirmBank;
+export default NoUsagesWithdrawConfirmBank;

@@ -1,13 +1,12 @@
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import { ICtxCurrencyData } from "@/processes/RootContext";
-import { StructedDepositStrategy } from "@/shared/config/deposits/types";
+import { ICtxCurrency } from "@/processes/CurrenciesContext";
 import { IDepositStrategyData } from "../model/helpers";
 
 interface ICurrentDepositType {
     isClosed?: boolean;
     isFixed?: boolean;
     strategyData?: IDepositStrategyData;
-    currency?: ICtxCurrencyData;
+    currency?: ICtxCurrency;
 }
 
 function CurrentDepositType({

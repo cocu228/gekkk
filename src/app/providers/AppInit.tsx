@@ -7,9 +7,9 @@ const AppInit = () => {
 
     const {token} = useAuth();
 
-    const content = !token ? <AuthPage/> : <RootLayout/>
+    const content = !token ? <AuthPage/> : <RootLayout/>;
 
-    return <ErrorsProvider>{content}</ErrorsProvider>
+    return <ErrorsProvider>{content}</ErrorsProvider>;
 
 }
 

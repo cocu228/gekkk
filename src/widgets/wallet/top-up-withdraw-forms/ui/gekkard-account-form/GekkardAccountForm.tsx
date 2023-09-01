@@ -1,25 +1,27 @@
 import {useContext, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
+// import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
-import useModal from "@/shared/model/hooks/useModal";
+// import useModal from "@/shared/model/hooks/useModal";
 import {calculateAmount} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {storeOrganizations} from "@/shared/store/organizations";
-import {getNetworkForChose} from "@/widgets/wallet/model/helper";
+import {getNetworkForChose} from "@/widgets/wallet/model/helpers";
 import {validateMinimumAmount} from '@/shared/config/validators';
-import WithdrawConfirmBank from "@/widgets/wallet/EURG/WithdrawConfirmBank";
+// import WithdrawConfirmBank from "@/widgets/wallet/EURG/ui/WithdrawConfirmBank";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/model/context";
 import { useNavigate } from 'react-router-dom';
 import { AccountRights } from '@/shared/config/account-rights';
+import {apiGekkardExchange} from "@/shared/api/wallet/exchange";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
-const GekkardAccount = () => {
+const GekkardAccountForm = ({withdraw}: { withdraw?: boolean }) => {
+
     const navigate = useNavigate();
-    const wallet = useContext(CtxWalletData);
+    const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState(null);
-    const {account, currencies} = useContext(CtxRootData);
-    const {isModalOpen, showModal, handleCancel} = useModal();
-    const organizations = storeOrganizations(state => state.organizations);
+    const {currencies} = useContext(CtxCurrencies);
+    const {account} = useContext(CtxRootData);
+    // const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
@@ -27,7 +29,17 @@ const GekkardAccount = () => {
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    if (!organizations) return <p>Loading bank data...</p>
+    const onClick = () => {
+        const response = apiGekkardExchange({
+            account: account.number,
+            amount: amount,
+            exchangeType: withdraw ? "SELL" : "BUY",
+            geekCoinAmount: 1,
+            geekcoinWalletId: ''//account.idInfoClient.toString()
+        })
+
+        console.log(response)
+    }
 
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -36,7 +48,7 @@ const GekkardAccount = () => {
             </div>
 
             <div className="col text-xs">
-                <span>* Note:  Standart exchange fee is 1,5%.
+                <span>* Note:  Standard exchange fee is 1,5%.
                     {account.rights && account.rights[AccountRights.IsJuridical] ? null :
                         <> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
@@ -53,16 +65,16 @@ const GekkardAccount = () => {
             <div className="col">
                 <InputCurrency.Validator
                     value={amount}
-                    description={`Minimum amount is ${min_withdraw} ${wallet.$const}`}
+                    description={`Minimum amount is ${withdraw ? withdraw_fee : "15"} ${currency.$const}`}
                     validators={[validateMinimumAmount(min_withdraw)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}
-                                                   header={<span className='text-gray-600'>Input</span>}
-                                                   currency={currencies.get(wallet.$const)}>
-                        <InputCurrency.DisplayBalance currency={currencies.get(wallet.$const)}>
+                                                   header={<span className='text-gray-600'>You will pay</span>}
+                                                   currency={currencies.get(currency.$const)}>
+                        <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                             <InputCurrency
                                 value={amount}
-                                currency={wallet.$const}
+                                currency={currency.$const}
                                 onChange={v =>
                                     setAmount(v)
                                 }
@@ -99,16 +111,21 @@ const GekkardAccount = () => {
         </div>
         <div className="row mb-4">
             <div className="col">
-                <Button onClick={showModal} disabled={!amount} className="w-full mt-5" size={"xl"}>Buy EURG</Button>
-                <Modal width={450} title="Withdraw confirmation" onCancel={handleCancel}
-                       open={isModalOpen}>
-                    <WithdrawConfirmBank amount={amount} handleCancel={handleCancel}
-                                         withdraw_fee={min_withdraw}/>
-                </Modal>
+                <Button onClick={onClick} disabled={!amount} className="w-full mt-5" size={"xl"}>
+                    {withdraw ? "Sell EURG" : "Buy EURG"}
+                </Button>
+                {/*<Modal width={450}*/}
+                {/*       title={withdraw ? "Withdraw confirmation" : "Top Up confirmation"}*/}
+                {/*       onCancel={handleCancel}*/}
+                {/*       open={isModalOpen}>*/}
+                {/*    <WithdrawConfirmBank amount={amount}*/}
+                {/*                         handleCancel={handleCancel}*/}
+                {/*                         withdraw_fee={min_withdraw}/>*/}
+                {/*</Modal>*/}
             </div>
         </div>
     </div>)
 
 };
 
-export default GekkardAccount;
+export default GekkardAccountForm;

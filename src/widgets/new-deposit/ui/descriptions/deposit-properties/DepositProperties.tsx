@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import InlineProperty from '@/shared/ui/inline-property';
 import { DepositType } from '@/shared/config/deposits/types';
 import { CtxNewDeposit } from '@/widgets/new-deposit/model/context';
-import { CtxRootData } from '@/processes/RootContext';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 interface IParams {
     className?: string;
@@ -21,7 +21,7 @@ const DepositProperties = ({className}: IParams) => {
         structedStrategy
     } = useContext(CtxNewDeposit);
 
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
 	const currency = currencies.get(tokenCurrency);
 
     if (!amount || (type === DepositType.STRUCTED && step < 5))

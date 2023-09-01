@@ -1,5 +1,4 @@
 import {useContext} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {randomId} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import PageHead from '@/shared/ui/page-head/PageHead';
@@ -29,7 +28,6 @@ const TABS = [
 ];
 
 export default () => {
-    const navigate = useNavigate();
     const {sm} = useContext(BreakpointsContext);
 
     return (

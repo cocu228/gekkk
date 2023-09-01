@@ -1,13 +1,13 @@
-import React, { useContext, useMemo, useState } from 'react';
 import styles from './style.module.scss';
-import { Select, SelectProps } from 'antd';
+import {Select, SelectProps} from 'antd';
+import {IconCoin} from '../icons/icon-coin';
+import {useContext, useMemo, useState} from 'react';
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
-import { CtxRootData, ICtxCurrencyData } from '@/processes/RootContext';
-import { IconCoin } from '../icons/icon-coin';
-import { CurrencyFlags, maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
-import { getFlagsFromMask } from '@/shared/lib/helpers';
+import {ICtxCurrency} from '@/processes/CurrenciesContext';
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
-const { Option } = Select;
+const {Option} = Select;
 
 interface IParams {
     allowedFlags?: Array<CurrencyFlags>;
@@ -15,15 +15,12 @@ interface IParams {
 }
 
 function TokenSelect({ disabledCurrencies, allowedFlags, ...props }: IParams & SelectProps) {
-    const {
-        currencies
-    } = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [value, setValue] = useState<string>(props.value);
 
-    const assetsFilter = (asset: ICtxCurrencyData) => {
+    const assetsFilter = (asset: ICtxCurrency) => {
         if (allowedFlags) {
-            const flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
-            return Object.values(allowedFlags).some(f => flags[f]);
+            return Object.values(allowedFlags).some(f => asset.flags[f]);
         }
 
         return true;
@@ -35,7 +32,7 @@ function TokenSelect({ disabledCurrencies, allowedFlags, ...props }: IParams & S
         if (props.onChange) props.onChange(val, option);
     };
 
-    const currency: ICtxCurrencyData = useMemo(() => {
+    const currency: ICtxCurrency = useMemo(() => {
         return currencies.get(value);
     }, [currencies, value]);
 

@@ -1,19 +1,19 @@
 import {memo, useContext, useState} from 'react';
-import TopUpQR from "@/widgets/wallet/top-up/ui/TopUpQR";
+import TopUpQR from "../../top-up-withdraw-forms/ui/top-up-qr-form/TopUpQR";
 import styles from "@/shared/ui/tabs-group/secondary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
-import GekkardAccount from "@/widgets/wallet/EURG/GekkardAccount";
-import BlockchainWallet from "@/widgets/wallet/EURG/BlockchainWallet";
-import {CtxWalletNetworks} from "@/widgets/wallet/model/context";
-import TopUpCode from "@/widgets/wallet/EURG/TopUpCode";
-import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
+import GekkardAccountForm from "../../top-up-withdraw-forms/ui/gekkard-account-form/GekkardAccountForm";
+// import BlockchainWallet from "@/widgets/wallet/EURG/BlockchainWallet";
+import {CtxWalletNetworks} from "../../model/context";
+import NoUsagesTopUpCode from "./(no-usages)TopUpCode";
+import ChoseNetwork from "../../top-up/ui/ChoseNetwork";
 
 type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 
 
 const TopUpEURG = memo(() => {
 
-    const {loading} = useContext(CtxWalletNetworks)
+    // const {loading} = useContext(CtxWalletNetworks)
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("gekkard-account")
 
 
@@ -39,12 +39,12 @@ const TopUpEURG = memo(() => {
             </div>
         </div>
 
-        {btnTabs === "gekkard-account" && <GekkardAccount/>}
+        {btnTabs === "gekkard-account" && <GekkardAccountForm/>}
         {btnTabs === "blockchain-wallet" && <>
             <ChoseNetwork/>
             <TopUpQR/>
         </>}
-        {btnTabs === "top-up-code" && <TopUpCode/>}
+        {btnTabs === "top-up-code" && <NoUsagesTopUpCode/>}
 
     </div>)
 

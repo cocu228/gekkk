@@ -36,7 +36,8 @@
   ],
   "exclude": [
     "node_modules",
-    "src/**/(not-included)*"
+    "src/**/(not-included)*.ts(x)",
+    "src/**/(no-usages)*"
   ],
   "references": [{ "path": "./tsconfig.node.json"}]
 }

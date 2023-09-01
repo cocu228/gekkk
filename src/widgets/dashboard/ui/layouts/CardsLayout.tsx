@@ -1,31 +1,34 @@
-import BankCard from '../cards/bank-card/BankCard';
-import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
-import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import {formatMonthYear} from '../../model/helpers';
 import {useContext} from 'react';
+import BankCard from '../cards/bank-card/BankCard';
 import {CtxRootData} from '@/processes/RootContext';
-import {storeOrganizations} from "@/shared/store/organizations";
+import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
+import SkeletonCard from '../cards/skeleton-card/SkeletonCard';
+import SectionTitle from "@/shared/ui/section-title/SectionTitle";
+import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
+import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
-    const organizations = storeOrganizations(state => state.organizations);
+    const bankCards = storeBankCards(state => state.bankCards);
+
     return (
         <div className="wrapper">
             <SectionTitle>Selected account: {account.number}</SectionTitle>
 
             <CardsGrid>
                 <>
-                    {organizations?.cards
-                        .filter(item => item.number)
-                        .filter(item => item.clientId === account.client)
-                        .map(item =>
-                            <BankCard
-                                key={`BANK_CARD_${item.id}`}
-                                cardNumber={item.number.replace("_", "** ***")}
-                                expiresAt={formatMonthYear(new Date(item.expireAt))}
-                                holderName={item.owner.embossedName}
-                            />
-                        )}
+                    {!bankCards && [1, 2, 3, 4].map(() => (
+                        <SkeletonCard/>
+                    ))}
+
+                    {bankCards?.map(c =>
+                        <BankCard
+                            key={`BANK_CARD_${c.cardId}`}
+                            cardNumber={formatCardNumber(c.displayPan)}
+                            expiresAt={formatMonthYear(new Date(c.expiryDate))}
+                            holderName={c.cardholder}
+                        />
+                    )}
                 </>
             </CardsGrid>
         </div>

@@ -2,40 +2,29 @@ import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
+import SvgSchema from "@/shared/ui/icons/IconSchema";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
+import {AccountRights} from "@/shared/config/account-rights";
+import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
 import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
-import {storeOrganizations} from "@/shared/store/organizations";
-import {getFormattedIBAN} from "@/shared/lib/helpers";
-import { AccountRights } from "@/shared/config/account-rights";
-import SvgSchema from "@/shared/ui/icons/IconSchema";
 
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
     const {account, setAccount} = useContext(CtxRootData);
     const navigate = useNavigate();
-    const organizations = storeOrganizations(state => state.organizations);
+    const accounts = storeAccounts(state => state.accounts);
 
     const [items, setItems] = useState(defaultItems)
-    const [activeAccountForDisplay, setActiveAccountForDisplay] = useState({
-        number: null,
-        name: null,
-        isJuridical: null
-    })
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {
-            type: "change-account", action: (value: {
-                number: string,
-                client: string,
-                id: string
-            }) => setAccount(value.number, value.id, value.client)
-        }
+        {type: "change-account", action: (value) => setAccount(value.toString())}
     ], []);
 
     useEffect(() => {
@@ -43,41 +32,27 @@ const HeaderDesktop = memo((props) => {
 
         let newItems = [...defaultItems]
 
-        organizations.accounts
-            .sort((a) => a.accountType === 'PHYSICAL' ? 1 : -1)
-            .forEach(it => {
-                let name = organizations.trustedClients.find(item => item.clientId === it.clientId).title
-
-                if (account.number === it.number) {
-                    setActiveAccountForDisplay({
-                        number: account.number,
-                        name: name,
-                        isJuridical: it.accountType === 'JURIDICAL'
-                    })
-                }
-
+        accounts
+            .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
+            .forEach(acc => {
                 newItems.unshift({
-                    id: it.clientId,
-                    item: it.accountType === 'PHYSICAL' ? (
-                        <ItemAccount
-                            number={getFormattedIBAN(it.number)}
-                            name={name}
-                            active={account.number === it.number}
+                    id: acc.number,
+                    item: acc.rights[AccountRights.IsJuridical] ? (
+                        <ItemOrganization
+                        number={getFormattedIBAN(acc.number)}
+                        name={acc.name}
+                        active={account.number === acc.number}
                         />
                     ) : (
-                        <ItemOrganization
-                            number={getFormattedIBAN(it.number)}
-                            name={name}
-                            active={account.number === it.number}
+                        <ItemAccount
+                            number={getFormattedIBAN(acc.number)}
+                            name={acc.name}
+                            active={account.number === acc.number}
                         />
                     ),
                     action: {
                         type: "change-account",
-                        value: {
-                            number: it.number,
-                            client: it.clientId,
-                            id: it.id
-                        },
+                        value: acc.number,
                     },
                     style: {
                         backgroundColor: "var(--color-gray-300)"
@@ -100,26 +75,26 @@ const HeaderDesktop = memo((props) => {
             </div>
 
             <HeaderMenu
+                items={items}
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
-                items={items}
             >
                 <div className="flex items-center justify-end">
                     <div className="wrapper mr-2">
-                        {activeAccountForDisplay.isJuridical ? (
+                        {account.rights[AccountRights.IsJuridical] ? (
                             <SvgSchema width={32} height={22}/>
                         ) : (
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>
                         )}
                     </div>
-                    {activeAccountForDisplay.number && <div className="wrapper">
+                    {account.number && <div className="wrapper">
                         <div className="row">
-                            <span className="text-sm font-bold">{activeAccountForDisplay.name}</span>
+                            <span className="text-sm font-bold">{account.name}</span>
                         </div>
 
                         <div className="row text-start flex">
                             <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                ID: {getFormattedIBAN(activeAccountForDisplay.number)}
+                                ID: {getFormattedIBAN(account.number)}
                             </span>
                         </div>
                     </div>}

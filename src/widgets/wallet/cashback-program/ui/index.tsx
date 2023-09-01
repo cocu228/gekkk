@@ -3,26 +3,24 @@ import {useContext, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from "@/processes/RootContext";
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {formatForCustomer} from "@/shared/lib/date-helper";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
-import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 
 const CashbackProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.cashbackInvestment);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
-    const cashbackTemplate = storeInvestTemplates(state => state.cashbackTemplate);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
 
     return (
@@ -82,7 +80,7 @@ const CashbackProgram = () => {
                         endDate={investment?.date_end}
                         startDate={investment?.date_start}
                         currency={currency.$const}
-                        templateTerm={cashbackTemplate.depo_min_time}
+                        templateTerm={30}
                     />
                 </div>
 
@@ -101,11 +99,10 @@ const CashbackProgram = () => {
                         className='text-sm'
                         value={amount}
                         onError={setHasValidationError}
-                        description={`Minimum order amount is ${currencies.get(currency.$const)?.minOrder} ${currency.$const}`}
+                        description={`Minimum order amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(cashbackTemplate.depo_min_sum),
-                            validateMaximumAmount(cashbackTemplate.depo_max_sum)
+                            validateMinimumAmount(100)
                         ]}
                     >
                         <InputCurrency.PercentSelector
@@ -143,7 +140,7 @@ const CashbackProgram = () => {
             <div className="row">
                 <div className="col flex justify-center">
                     <span className="text-fs12 text-gray-500 text-center leading-4">
-                        The period of locking tokens is {cashbackTemplate.depo_min_time} days.
+                        The period of locking tokens is 30 days.
                         At the end of this period the funds will return to your account.
                     </span>
                 </div>
@@ -160,8 +157,8 @@ const CashbackProgram = () => {
                     amount={amount}
                     startDate={investment?.date_start ?? new Date()}
                     currency={currency.$const}
-                    templateTerm={cashbackTemplate.depo_min_time}
-                    endDate={addDays(new Date(), cashbackTemplate.depo_min_time)}
+                    templateTerm={30}
+                    endDate={addDays(new Date(), 30)}
                 />
 
                 <div className="mt-6 md:mt-12">
@@ -173,7 +170,7 @@ const CashbackProgram = () => {
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
                                 amount: +amount,
-                                term_days: cashbackTemplate.depo_min_time,
+                                term_days: 30,
                                 templateType: 3
                             });
 

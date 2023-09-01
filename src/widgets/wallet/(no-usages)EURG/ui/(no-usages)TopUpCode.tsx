@@ -3,7 +3,7 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {apiApplyCode} from "@/shared/api";
 
-const TopUpCode = () => {
+const NoUsagesTopUpCode = () => {
 
     const [input, setInput] = useState("")
     const onBtnApply = async () => {
@@ -25,4 +25,4 @@ const TopUpCode = () => {
 
 };
 
-export default TopUpCode;
+export default NoUsagesTopUpCode;

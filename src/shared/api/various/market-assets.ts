@@ -16,7 +16,7 @@ export interface IResMarketAsset {
 }
 
 export const apiGetMarketAssets = (currency?: string, filter_flag?: number) =>
-    $axios.get<$AxiosResponse<Array<IResMarketAsset>>>('/gek/v1/market/assets', {
+    $axios.get<$AxiosResponse<Array<IResMarketAsset>>>('/pub/v1/assets', {
         params: {
             currency,
             filter_flag,

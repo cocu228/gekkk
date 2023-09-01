@@ -4,7 +4,6 @@ import {useContext, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
-import {CtxRootData} from '@/processes/RootContext';
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
@@ -14,6 +13,7 @@ import {CtxWalletData} from "@/widgets/wallet/model/context";
 import CodeTxInfo from "@/widgets/wallet/transfer/CodeTxInfo";
 import {apiCreateTxCode} from "@/widgets/wallet/transfer/api/create-tx-code";
 import {storeListTxCode} from "@/widgets/wallet/transfer/store/list-tx-code";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -21,7 +21,7 @@ const CreateCode = () => {
     const navigate = useNavigate();
     const [amount, setAmount] = useState("");
     const [newCode, setNewCode] = useState("");
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
 

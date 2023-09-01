@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import "@styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code";
@@ -29,7 +29,8 @@ const AuthPage = () => {
 
     }, []);
 
-    let content
+    let content: React.ReactNode
+
     switch (stage) {
         case "authorization":
             content = <FormLoginAccount/>

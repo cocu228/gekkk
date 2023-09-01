@@ -7,20 +7,18 @@ import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
-import {storeInvestTemplates} from "@/shared/store/invest-templates/investTemplates";
-import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
-import { CtxRootData } from "@/processes/RootContext";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 
 const NoFeeProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
-    const noFeeTemplate = storeInvestTemplates(state => state.noFeeTemplate);
     const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
 
     return (
@@ -36,7 +34,7 @@ const NoFeeProgram = () => {
                         <p className="text-sm">
                             Up to the amount not exceeding a similar number of
                             blocked {currency.$const} tokens.
-                            Funds are blocked for {noFeeTemplate.depo_min_time} days.
+                            Funds are blocked for 90 days.
                         </p>
                     </div>
                 </div>
@@ -106,7 +104,7 @@ const NoFeeProgram = () => {
                     <NoFeeProperties
                         endDate={investment?.date_end ?? new Date()}
                         startDate={investment?.date_start ?? new Date()}
-                        templateTerm={noFeeTemplate.depo_min_time}
+                        templateTerm={90}
                     />
                 </div>
 
@@ -122,11 +120,10 @@ const NoFeeProgram = () => {
                 <div className="col">
                     <InputCurrency.Validator
                         value={amount}
-                        description={`Minimum lock amount is ${noFeeTemplate.depo_min_sum} ${currency.$const}`}
+                        description={`Minimum lock amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(noFeeTemplate.depo_min_sum),
-                            validateMaximumAmount(noFeeTemplate.depo_max_sum)
+                            validateMinimumAmount(100)
                         ]}
                     >
                         <InputCurrency.PercentSelector onSelect={setAmount}
@@ -160,7 +157,7 @@ const NoFeeProgram = () => {
             <div className="row">
                 <div className="col flex justify-center">
                     <span className="text-fs12 text-gray-500 text-center leading-4">
-                        The period of locking tokens is {noFeeTemplate.depo_min_time} days. Start and end dates of the program will be updated
+                        The period of locking tokens is 90 days. Start and end dates of the program will be updated
                     </span>
                 </div>
             </div>
@@ -175,7 +172,7 @@ const NoFeeProgram = () => {
                     <NoFeeProperties
                         endDate={investment?.date_end ?? new Date()}
                         startDate={investment?.date_start ?? new Date()}
-                        templateTerm={noFeeTemplate.depo_min_time}
+                        templateTerm={90}
                     />
                 </div>
 
@@ -201,7 +198,7 @@ const NoFeeProgram = () => {
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
                                 amount: +amount,
-                                term_days: noFeeTemplate.depo_min_time,
+                                term_days: 90,
                                 templateType: 4
                             });
 
@@ -229,7 +226,7 @@ function NoFeeProperties({
 
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"Term"} right={templateTerm}/>
+                    <InlineProperty left={"Term"} right={`${templateTerm} days`}/>
                 </div>
             </div>
 

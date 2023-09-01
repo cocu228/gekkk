@@ -1,8 +1,14 @@
-import {useContext} from "react";
+import {Carousel} from "antd";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {useContext, useEffect, useState} from "react";
 import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
+import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
+import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 
 const getDescription = (c, name) => {
@@ -14,7 +20,9 @@ const getDescription = (c, name) => {
 }
 
 const WalletHeader = () => {
-    const {xl, md} = useContext(BreakpointsContext);
+    const {account} = useContext(CtxRootData);
+    const {md} = useContext(BreakpointsContext);
+    const bankCards = storeBankCards(state => state.bankCards);
     const {
         name,
         $const,
@@ -24,7 +32,9 @@ const WalletHeader = () => {
         roundPrec,
         lockOrders
     } = useContext(CtxWalletData);
+
     const isEURG: boolean = $const === 'EURG';
+    const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
 
     return <>
@@ -34,11 +44,17 @@ const WalletHeader = () => {
                     <IconCoin code={$const}/>
                 </div>
                 {!md && <div className="flex flex-col content-around">
-                    <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
-                           <span>
-                               Account balance
-                           </span>
-                    </div>
+                    {!isEUR ? (
+                        <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                            <span>
+                                Wallet balance
+                            </span>
+                        </div>
+                    ) : (
+                        <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                            Account: {account.number}
+                        </span>
+                    )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
                         {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
@@ -85,7 +101,24 @@ const WalletHeader = () => {
                 </div>)}
             </div>
 
-            {!md && (
+            {md ? null : isEUR ? (
+                <div className="h-[200px] w-[310px] -mt-16 mr-20 -xl:-mb-10 lg:scale-75 lg:mr-0">
+                    <Carousel>
+                        {!bankCards ? (
+                            <SkeletonCard/>
+                        ) : bankCards.map(c => (
+                            <div className="scale-90 mb-5">
+                                <BankCard
+                                    className="hover:shadow-none"
+                                    cardNumber={formatCardNumber(c.displayPan)}
+                                    expiresAt={formatMonthYear(new Date(c.expiryDate))}
+                                    holderName={c.cardholder}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                </div>
+            ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">
                         <span className="font-bold text-fs32 leading-1 text-gray-600">

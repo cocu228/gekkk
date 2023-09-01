@@ -14,12 +14,14 @@ import { CtxWalletData } from "@/widgets/wallet/model/context";
 import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
 import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
 import { AccountRights } from "@/shared/config/account-rights";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 function Wallet() {
 
     const {currency, tab} = useParams();
     const {xl} = useContext(BreakpointsContext);
-    const {currencies, account} = useContext(CtxRootData);
+    const {account} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
     const $currency = currencies.get(currency);
 
     return (

@@ -1,5 +1,5 @@
-import {NavigateFunction, useNavigate} from "react-router-dom";
-import {ICtxCurrencyData} from "@/processes/RootContext";
+import {NavigateFunction} from "react-router-dom";
+import {ICtxCurrency} from "@/processes/CurrenciesContext";
 
 export type IValidatorCreator = (value: string) => IValidationResult;
 
@@ -8,7 +8,7 @@ interface IValidationResult {
     errorMessage: string | JSX.Element;
 }
 
-export function validateBalance(currency: ICtxCurrencyData, navigate: NavigateFunction): IValidatorCreator {
+export function validateBalance(currency: ICtxCurrency, navigate: NavigateFunction): IValidatorCreator {
     return (value) => ({
         validated: +value <= +currency.availableBalance,
         errorMessage: <>

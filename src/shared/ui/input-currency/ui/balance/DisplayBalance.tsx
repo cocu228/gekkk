@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import styles from '../style.module.scss';
-import {ICtxCurrencyData} from '@/processes/RootContext';
+import {ICtxCurrency} from '@/processes/CurrenciesContext';
 
 interface IParams {
     className?: string;
     children?: React.ReactNode;
-    currency: ICtxCurrencyData;
+    currency: ICtxCurrency;
 }
 
 const DisplayBalance: FC<IParams> = (({children, className, currency}: IParams) => {

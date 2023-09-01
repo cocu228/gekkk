@@ -26,6 +26,8 @@ export const authForTokenHashUrl = function () {
         params = new URL(url).searchParams,
         sessionId = params.get("sessionId");
 
+
+
     return actionSuccessConstructor.call(sessionId, typeof sessionId === "string")
 
 }

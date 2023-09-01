@@ -1,14 +1,16 @@
-import Select from "@/shared/ui/select/Select";
-import React, {useContext} from "react";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
-import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {useContext} from "react";
 import InfoBox from "@/widgets/info-box";
+import {useNavigate} from "react-router-dom";
+import Select from "@/shared/ui/select/Select";
+import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const ChoseNetwork = ({withdraw = false}) => {
-    const {$const} = useContext(CtxWalletData)
-    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks)
-    // const {xl, md} = useContext(BreakpointsContext);
+    const navigate = useNavigate();
+    const {$const} = useContext(CtxWalletData);
+    const {currencies} = useContext(CtxCurrencies);
+    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
 
     const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && $const !== "EURG"
 
@@ -49,8 +51,22 @@ const ChoseNetwork = ({withdraw = false}) => {
                 </div>
             </div>
         </div>}
+
         {!networksForSelector || networksForSelector.length === 0 && <InfoBox
-            message={"At the moment there is not a single option available for top up this asset. Please check it later."}/>}
+            message={<span>
+                At the moment there is not a single option available
+                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
+                {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
+                    ? null
+                    : (
+                    <span> Or you can create a <span
+                        className='text-blue-400 hover:cursor-pointer hover:underline'
+                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                    >
+                        {withdraw ? 'sell' : 'buy'} order
+                    </span>.</span>
+                )}
+            </span>}/>}
     </>
 }
 

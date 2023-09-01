@@ -1,27 +1,51 @@
-.Card {
-    display: flex;
-    opacity: 100%;
-    background: url(/img/payment-card/payment-card-background.png);
-    min-height: 195px;
+.BankCard {
+    padding: 10px;
     max-width: 310px;
     min-width: 310px;
-    border-radius: 4px;
-    transition: all;    
+    user-select: none;
+    min-height: 195px;
+    max-height: 195px;
+    padding-left: 23px;
+    border-radius: 10px;
+    transition: all .2s;
+    background: url(/img/payment-card/payment-card-background.png);
 
     &:hover {
         background: url(/img/payment-card/payment-card-background.png);
-        opacity: 95%;
+        opacity: 90%;
         box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
     }
 }
 
-.Data {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 22px;
+.CardData {
     width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    word-spacing: 4px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, white 28.56%, white 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, white 85.68%, white 100%);
+    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, #ffffffe0 28.56%, #ffffffe0 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, #ffffffe0 85.68%, #ffffffe0 100%);
+    background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;   
+}
+
+.CardNumber {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    word-spacing: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, #ffffffe0 28.56%, #ffffffe0 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, #ffffffe0 85.68%, #ffffffe0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+}
+
+.CardBottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
 }

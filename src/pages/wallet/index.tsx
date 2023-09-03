@@ -12,7 +12,8 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { CtxRootData } from "@/processes/RootContext";
 import { CtxWalletData } from "@/widgets/wallet/model/context";
 import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
-import CashbackProgram from "@/widgets/wallet/cashback-program/ui";
+import GkeCashbackProgram from "@/widgets/wallet/gke-cashback-program/ui";
+import EurCashbackProgram from "@/widgets/wallet/eur-cashback-program/ui";
 import { AccountRights } from "@/shared/config/account-rights";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
@@ -41,8 +42,12 @@ function Wallet() {
 
                             <Transfer data-tab={"Funds transfer"}/>
 
+                            {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && (
+                                <EurCashbackProgram data-tab={"Cashback Program"}/>
+                            )}
+
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
-                               <CashbackProgram data-tab={"Cashback Program"}/>
+                               <GkeCashbackProgram data-tab={"Cashback Program"}/>
                                <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}
 

@@ -13,7 +13,7 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 
-const CashbackProgram = () => {
+const GkeCashbackProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
@@ -227,4 +227,4 @@ function CashbackProperties({
     )
 }
 
-export default CashbackProgram;
+export default GkeCashbackProgram;

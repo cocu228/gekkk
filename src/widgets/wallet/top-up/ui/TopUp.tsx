@@ -2,7 +2,7 @@ import {memo, useContext} from 'react';
 import Loader from "@/shared/ui/loader";
 import TopUpQR from "@/widgets/wallet/top-up-withdraw-forms/ui/top-up-qr-form/TopUpQR";
 import GekkardAccountForm from "@/widgets/wallet/top-up-withdraw-forms/ui/gekkard-account-form/GekkardAccountForm";
-import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
+import ChoseNetwork from "@/widgets/wallet/top-up-withdraw-forms/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
 import FiatFormTopUp from "@/widgets/wallet/top-up-withdraw-forms/ui/top-up-fiat-form/FiatFormTopUp";
 import {

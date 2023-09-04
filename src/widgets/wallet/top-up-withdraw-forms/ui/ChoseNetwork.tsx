@@ -22,15 +22,25 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*    </div>*/}
         {/*</div>*/}
         <div className="row mb-8 w-full">
-            {withdraw ? "Select withdraw network" : "Select network"}
+            {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
+                withdraw ? "Select withdraw network" : "Select network"}
 
             <div className="col">
-                <Select className="w-full mt-2"
-                        placeholder={"Networks not found"}
-                        value={networksForSelector?.length ? networkIdSelect : null}
-                        onSelect={setNetworkId}
-                        options={networksForSelector}
-                />
+                {Array.isArray(networksForSelector) &&
+                networksForSelector.length === 0 ?
+                    <div className="info-box-warning">
+                        <p>At the moment there in not a single option available for top up this asset.
+                            Please check it later. Or
+                            you can create a <a className="text-blue-400">buy order</a></p>
+                    </div> : networksForSelector.length === 1 ?
+                    <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
+                    <Select className="w-full mt-2"
+                            placeholder={"Networks not found"}
+                            value={networksForSelector?.length ?
+                                networkIdSelect : null}
+                            onSelect={setNetworkId}
+                            options={networksForSelector}
+                    />}
             </div>
         </div>
 

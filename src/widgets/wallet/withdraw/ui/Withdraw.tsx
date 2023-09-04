@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawForm from '../../top-up-withdraw-forms/ui/withdraw-token-form/WithdrawForm';
 import GekkardAccountForm from "@/widgets/wallet/top-up-withdraw-forms/ui/gekkard-account-form/GekkardAccountForm";
-import ChoseNetwork from "@/widgets/wallet/top-up/ui/ChoseNetwork";
+import ChoseNetwork from "@/widgets/wallet/top-up-withdraw-forms/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '../../model/context';
 // import {CtxCurrencies} from '@/processes/CurrenciesContext';
 import {TYPES_WALLET_FORM_UI, getNetworkForChose} from "@/widgets/wallet/model/helpers";

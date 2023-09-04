@@ -22,19 +22,15 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*    </div>*/}
         {/*</div>*/}
         <div className="row mb-8 w-full">
-            <div className="info-box-warning">
-                <p>At the moment there in not a single option available for top up this asset. Please check it later. Or
-                    you can create a <a className="text-blue-400">buy order</a></p>
-            </div>
-            {(Array.isArray(networksForSelector) && networksForSelector.length === 1) ? "Network:" :
+            {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
                 withdraw ? "Select withdraw network" : "Select network"}
 
             <div className="col">
                 {Array.isArray(networksForSelector) &&
                 networksForSelector.length === 0 ?
                     <div className="info-box-warning">
-                        <p>At the moment there in not a single option available for top up this asset. Please check it
-                            later. Or
+                        <p>At the moment there in not a single option available for top up this asset.
+                            Please check it later. Or
                             you can create a <a className="text-blue-400">buy order</a></p>
                     </div> : networksForSelector.length === 1 ?
                     <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :

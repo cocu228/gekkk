@@ -21,21 +21,23 @@ declare module 'firebase/auth' {
     interface User {
         accessToken: string;
     }
+
 }
 
 // TODO: Добавить отображение сообщения об ошибке
 const FormCode = memo(() => {
+
     const {login} = useAuth();
     const inputRef = useRef(null);
     const {onInput} = useMask(MASK_CODE);
     const [code, setCode] = useState("");
     const {md} = useContext(BreakpointsContext);
-    const [timerOn, setTimerOn] = useState(true);
-    const [timeLeft, setTimeLeft] = useState(180);
+    // const [timerOn, setTimerOn] = useState(true);
+    // const [timeLeft, setTimeLeft] = useState(180);
     const [loading, setLoading] = useState<boolean>(false);
     const {toggleStage} = storyDisplayStage(state => state);
-    const [, setSessionGlobal] = useSessionStorage("session-global", {});
-    const [{phone, sessionId}] = useSessionStorage("session-auth", {phone: "", sessionId: ""});
+    // const [, setSessionGlobal] = useSessionStorage("session-global", {});
+    const [{phone}] = useSessionStorage("session-auth", {phone: ""});
 
     useLayoutEffect(() => {
         inputRef.current.focus();
@@ -89,14 +91,14 @@ const FormCode = memo(() => {
         window.confirmationResult.confirm(formatAsNumber(code)).then((result) => {
             const user = result.user;
             login(user.phoneNumber, user.accessToken, "token-firebase")
-            console.log(user)
-            console.log(result)
+            // console.log(user)
+            // console.log(result)
         }).catch((error) => {
             console.log(error)
         });
     }
 
-    return <Form onFinish={onCode}>
+    return <Form autoComplete="off" onFinish={onCode}>
         <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
@@ -112,7 +114,6 @@ const FormCode = memo(() => {
                    placeholder="Phone code"
                    onInput={onInput}
                    onChange={({target}) => setCode(target.value)}
-                   autoComplete="off"
             />
         </FormItem>
 

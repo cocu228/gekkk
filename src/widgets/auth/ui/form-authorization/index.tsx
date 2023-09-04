@@ -1,19 +1,19 @@
-import md5 from 'md5';
+// import md5 from 'md5';
 import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
 import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
 import Button from '@/shared/ui/button/Button';
-import {memo, useContext, useState} from 'react';
+import {memo, useContext, useLayoutEffect, useRef, useState} from 'react';
 import ReactPhoneInput from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {pinMessage, phoneMessage} from '@/shared/config/message';
-import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
+// import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
+// import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -22,8 +22,7 @@ const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhon
 
 
 type TState = {
-    phone: string,
-    password: string
+    phone: string
 }
 
 
@@ -32,13 +31,13 @@ const FormLoginAccount = memo(() => {
     const {toggleStage} = storyDisplayStage(state => state)
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
+    const inputRef = useRef(null);
     const [, setSessionAuth] = useSessionStorage("session-auth",
-        {phone: "", sessionId: "", currentTime: new Date()})
+        {phone: "", currentTime: new Date()})
 
 
     const [state, setState] = useState<TState>({
-        phone: "",
-        password: ""
+        phone: ""
     });
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -78,7 +77,7 @@ const FormLoginAccount = memo(() => {
 
             window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
                 size: 'invisible',
-                callback: (response) => {
+                callback: (response: unknown) => {
                     console.log(response)
                     onSingIn()
                 }
@@ -92,6 +91,10 @@ const FormLoginAccount = memo(() => {
         signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
+                setSessionAuth({
+                    phone: state.phone,
+                    currentTime: new Date()
+                })
                 toggleStage("code")
             }).catch((error) => {
             console.warn(error)
@@ -100,7 +103,7 @@ const FormLoginAccount = memo(() => {
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form onFinish={onSingIn}>
+    return <Form autoComplete={"on"} onFinish={onSingIn}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
@@ -116,23 +119,31 @@ const FormLoginAccount = memo(() => {
 
         <div id={'recaptcha-container'}></div>
 
-        <FormItem className="mb-2" name="phone" label="Телефон" preserve
+        <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>
             <PhoneInput
                 // inputProps={{ref: ref}}
                 disableDropdown
+                inputProps={{
+                    name: 'phone',
+                    ref: inputRef,
+                    type: "tel"
+                }}
                 placeholder="Enter phone number"
                 value={state.phone}
-                onChange={(value) => setState(prevState =>
+                onEnterKeyPress={(v: unknown) => onSingIn()}
+                onChange={(value: string) => setState(prevState =>
                     ({...prevState, phone: value}))}/>
         </FormItem>
 
         {/*<FormItem name="password" label="Password"*/}
         {/*          rules={[{required: true, ...pinMessage}, pinValidator]}>*/}
-        {/*    <Input.Password style={{borderColor: 'var(--color-gray-400)'}} onChange={({target}) => setState(prev => ({*/}
-        {/*        ...prev,*/}
-        {/*        password: target.value*/}
-        {/*    }))} placeholder="PIN"/>*/}
+        {/*    <Input.Password style={{borderColor: 'var(--color-gray-400)'}}*/}
+        {/*                    onChange={({target}) => setState(prev => ({*/}
+        {/*                        ...prev,*/}
+        {/*                        password: target.value*/}
+        {/*                    }))}*/}
+        {/*                    placeholder="PIN"/>*/}
         {/*</FormItem>*/}
 
         <div className="row text-right mb-4">
@@ -142,7 +153,9 @@ const FormLoginAccount = memo(() => {
         </div>
 
         <div className="row mb-8">
-            <Button disabled={loading} tabIndex={0} htmlType="submit"
+            <Button disabled={loading}
+                    tabIndex={0}
+                    htmlType="submit"
                     className="w-full">Login</Button>
         </div>
 

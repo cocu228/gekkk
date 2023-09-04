@@ -38,14 +38,20 @@ const TopUp = memo(() => {
 
             <ChoseNetwork/>
 
-            {TYPES_WALLET_FORM_UI.topUp.gekkardAccount.some(it => it === formType) ?
-                <GekkardAccountForm/>
-                : TYPES_WALLET_FORM_UI.topUp.qr.some(it => it === formType) ?
-                    <TopUpQR/> :
-                    TYPES_WALLET_FORM_UI.topUp.swift.some(it => it === formType) ?
-                        <FiatFormTopUp/> :
-                        TYPES_WALLET_FORM_UI.topUp.fiat.some(it => it === formType) ?
-                            <FiatFormTopUp/> :
+            {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
+                <TopUpQR/> :
+                formType === 150 ? <div>
+                        <b>
+                            This is PapayaIBAN TopUp!!!<br/>
+                        </b>
+                        <GekkardAccountForm/>
+                    </div> :
+                    151 === formType ? <FiatFormTopUp/> :
+                        154 === formType ?
+                            <div>
+                                This is CryptoWalletForm Withdraw
+                                <GekkardAccountForm/>
+                            </div> :
                             <div> Sorry, there are no actions available for the selected network. </div>}
 
             {is_operable === false && <div className="row mb-4 mt-4">

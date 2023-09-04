@@ -27,9 +27,15 @@ const TopUp = memo(() => {
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
+
+    // < 10  > 23
+    // 151 sepo
+
+
     return (<div className="wrapper">
 
         {loading ? <Loader/> : <>
+
             <ChoseNetwork/>
 
             {TYPES_WALLET_FORM_UI.topUp.gekkardAccount.some(it => it === formType) ?
@@ -37,7 +43,7 @@ const TopUp = memo(() => {
                 : TYPES_WALLET_FORM_UI.topUp.qr.some(it => it === formType) ?
                     <TopUpQR/> :
                     TYPES_WALLET_FORM_UI.topUp.swift.some(it => it === formType) ?
-                        <FiatSwiftFormWithdraw/> :
+                        <FiatFormTopUp/> :
                         TYPES_WALLET_FORM_UI.topUp.fiat.some(it => it === formType) ?
                             <FiatFormTopUp/> :
                             <div> Sorry, there are no actions available for the selected network. </div>}

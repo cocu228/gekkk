@@ -12,6 +12,11 @@ import {isNull} from "@/shared/lib/helpers";
 import CardToCardFormWithdraw
     from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-card-to-card-form/CardToCardFormWithdraw";
 
+
+// < 10  > 23
+// 150 sepo
+// 154 gekkard
+// < 200 > 222
 const Withdraw = () => {
 
     const currency = useContext(CtxWalletData)

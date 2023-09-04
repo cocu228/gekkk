@@ -24,7 +24,13 @@ const HeaderDesktop = memo((props) => {
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
-        {type: "change-account", action: (value) => setAccount(value.toString())}
+        {
+            type: "change-account", action: (value) => {
+                navigate("/");
+                setAccount(value.toString());
+                window.location.reload();
+            }
+        }
     ], []);
 
     useEffect(() => {
@@ -64,6 +70,7 @@ const HeaderDesktop = memo((props) => {
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
+
     }, [account.rights]);
 
     return <>

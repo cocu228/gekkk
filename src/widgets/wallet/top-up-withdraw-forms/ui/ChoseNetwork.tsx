@@ -22,15 +22,35 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*    </div>*/}
         {/*</div>*/}
         <div className="row mb-8 w-full">
-            {withdraw ? "Select withdraw network" : "Select network"}
+            {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
+                withdraw ? "Select withdraw network" : "Select network"}
 
             <div className="col">
-                <Select className="w-full mt-2"
-                        placeholder={"Networks not found"}
-                        value={networksForSelector?.length ? networkIdSelect : null}
-                        onSelect={setNetworkId}
-                        options={networksForSelector}
-                />
+                {Array.isArray(networksForSelector) &&
+                networksForSelector.length === 0 ?
+                    <InfoBox
+                        message={<span>
+                At the moment there is not a single option available
+                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
+                            {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
+                                ? null
+                                : (
+                                    <span> Or you can create a <span
+                                        className='text-blue-400 hover:cursor-pointer hover:underline'
+                                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                                    >
+                        {withdraw ? 'sell' : 'buy'} order
+                    </span>.</span>
+                                )}
+            </span>}/> : networksForSelector.length === 1 ?
+                    <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
+                    <Select className="w-full mt-2"
+                            placeholder={"Networks not found"}
+                            value={networksForSelector?.length ?
+                                networkIdSelect : null}
+                            onSelect={setNetworkId}
+                            options={networksForSelector}
+                    />}
             </div>
         </div>
 
@@ -51,22 +71,6 @@ const ChoseNetwork = ({withdraw = false}) => {
                 </div>
             </div>
         </div>}
-
-        {!networksForSelector || networksForSelector.length === 0 && <InfoBox
-            message={<span>
-                At the moment there is not a single option available
-                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
-                {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
-                    ? null
-                    : (
-                    <span> Or you can create a <span
-                        className='text-blue-400 hover:cursor-pointer hover:underline'
-                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
-                    >
-                        {withdraw ? 'sell' : 'buy'} order
-                    </span>.</span>
-                )}
-            </span>}/>}
     </>
 }
 

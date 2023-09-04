@@ -6,7 +6,7 @@ import GekkardAccountForm from "../../top-up-withdraw-forms/ui/gekkard-account-f
 // import BlockchainWallet from "@/widgets/wallet/EURG/BlockchainWallet";
 import {CtxWalletNetworks} from "../../model/context";
 import NoUsagesTopUpCode from "./(no-usages)TopUpCode";
-import ChoseNetwork from "../../top-up/ui/ChoseNetwork";
+import ChoseNetwork from "../../top-up-withdraw-forms/ui/ChoseNetwork";
 
 type TBtnTabs = "gekkard-account" | "blockchain-wallet" | "top-up-code"
 

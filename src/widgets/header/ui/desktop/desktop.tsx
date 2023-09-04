@@ -28,6 +28,7 @@ const HeaderDesktop = memo((props) => {
             type: "change-account", action: (value) => {
                 navigate("/");
                 setAccount(value.toString());
+                window.location.reload();
             }
         }
     ], []);

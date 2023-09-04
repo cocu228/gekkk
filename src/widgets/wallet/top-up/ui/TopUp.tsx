@@ -39,8 +39,7 @@ const TopUp = memo(() => {
             <ChoseNetwork/>
 
             {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
-                <TopUpQR/> :
-                formType === 150 ? <div>
+                <TopUpQR/> : formType === 150 ? <div>
                         <b>
                             This is PapayaIBAN TopUp!!!<br/>
                         </b>
@@ -49,7 +48,9 @@ const TopUp = memo(() => {
                     151 === formType ? <FiatFormTopUp/> :
                         154 === formType ?
                             <div>
-                                This is CryptoWalletForm Withdraw
+                                <b>
+                                This is CryptoWalletForm TopUp
+                                </b>
                                 <GekkardAccountForm/>
                             </div> :
                             <div> Sorry, there are no actions available for the selected network. </div>}

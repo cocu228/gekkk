@@ -38,16 +38,22 @@ const Withdraw = () => {
                     <WithdrawForm/> :
                     formType === 150 ?
                         <div>
+                            <b>
                             This is PapayaIBAN Withdraw!!
+                            </b>
                             <GekkardAccountForm/>
                         </div> :
-                        152 === formType ?
+                        151 === formType ?
+                            <FiatFormWithdraw/> :
+                            152 === formType ?
                             <FiatSwiftFormWithdraw/> :
                             153 === formType ?
                                 <CardToCardFormWithdraw/> :
                                 154 === formType ?
                                     <div>
+                                        <b>
                                         This is CryptoWalletForm Withdraw
+                                        </b>
                                         <GekkardAccountForm/>
                                     </div> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}

@@ -3,7 +3,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import {storeOrganizations} from "@/shared/store/organizations";
 
-const FiatFormTopUp = () => {
+const SepoFormTopUp = () => {
 
     const organizations = storeOrganizations(state => state.organizations);
     const {account} = useContext(CtxRootData);
@@ -25,24 +25,24 @@ const FiatFormTopUp = () => {
                 </div>
             </div>
         </div>
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="text-gray-400">Recipient:</span>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col flex items-center">
-                        <span>{organizations?.trustedClients
-                            //.find(item => item.clientId === account.client).title
-                            .find(item => item.clientId === account.number)?.title
-                        }</span>
-                        <CopyIcon value={account.number}/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {/*<div className="row mb-8 w-full">*/}
+        {/*    <div className="col">*/}
+        {/*        <div className="row mb-2">*/}
+        {/*            <div className="col">*/}
+        {/*                <span className="text-gray-400">Recipient:</span>*/}
+        {/*            </div>*/}
+        {/*        </div>*/}
+        {/*        <div className="row">*/}
+        {/*            <div className="col flex items-center">*/}
+        {/*                <span>{organizations?.trustedClients*/}
+        {/*                    //.find(item => item.clientId === account.client).title*/}
+        {/*                    .find(item => item.clientId === account.number)?.title*/}
+        {/*                }</span>*/}
+        {/*                <CopyIcon value={account.number}/>*/}
+        {/*            </div>*/}
+        {/*        </div>*/}
+        {/*    </div>*/}
+        {/*</div>*/}
         <div className="row mb-8 w-full">
             <div className="col">
                 <div className="row mb-2">
@@ -52,7 +52,7 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{account.number}</span>
+                        <span>Papaya Ltd</span>
                         <CopyIcon value={account.number}/>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ const FiatFormTopUp = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <span>{account.number}</span>
+                        <span>PAPYMTMTXXX</span>
                         <CopyIcon value={account.number}/>
                     </div>
                 </div>
@@ -77,4 +77,4 @@ const FiatFormTopUp = () => {
 
 };
 
-export default FiatFormTopUp;
+export default SepoFormTopUp;

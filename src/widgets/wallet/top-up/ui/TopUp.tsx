@@ -4,16 +4,16 @@ import TopUpQR from "@/widgets/wallet/top-up-withdraw-forms/ui/top-up-qr-form/To
 import GekkardAccountForm from "@/widgets/wallet/top-up-withdraw-forms/ui/gekkard-account-form/GekkardAccountForm";
 import ChoseNetwork from "@/widgets/wallet/top-up-withdraw-forms/ui/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/model/context";
-import FiatFormTopUp from "@/widgets/wallet/top-up-withdraw-forms/ui/top-up-fiat-form/FiatFormTopUp";
+import SepoFormTopUp from "@/widgets/wallet/top-up-withdraw-forms/ui/top-up-fiat-form/SepoFormTopUp";
 import {
     formTypeSelect,
     getNetworkForChose,
     testGekkardAccount,
     TYPES_WALLET_FORM_UI
 } from "@/widgets/wallet/model/helpers";
-import WithdrawForm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawForm";
-import FiatSwiftFormWithdraw from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-swift-form/FiatSwiftFormWithdraw";
-import FiatFormWithdraw from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatFormWithdraw";
+// import WithdrawForm from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-token-form/WithdrawForm";
+// import FiatSwiftFormWithdraw from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-swift-form/FiatSwiftFormWithdraw";
+// import FiatFormWithdraw from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-fiat-form/FiatFormWithdraw";
 
 
 
@@ -28,10 +28,6 @@ const TopUp = memo(() => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
 
-    // < 10  > 23
-    // 151 sepo
-
-
     return (<div className="wrapper">
 
         {loading ? <Loader/> : <>
@@ -39,13 +35,15 @@ const TopUp = memo(() => {
             <ChoseNetwork/>
 
             {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
-                <TopUpQR/> : formType === 150 ? <div>
+                <TopUpQR/> : formType === 150 ?
+                    <div>
                         <b>
                             This is PapayaIBAN TopUp!!!<br/>
                         </b>
                         <GekkardAccountForm/>
                     </div> :
-                    151 === formType ? <FiatFormTopUp/> :
+                    151 === formType ?
+                        <SepoFormTopUp/> :
                         154 === formType ?
                             <div>
                                 <b>

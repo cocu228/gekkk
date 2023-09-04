@@ -111,7 +111,7 @@ export const formTypeSelect = (networkType: number) => {
 export const TYPES_WALLET_FORM_UI = {
 
     topUp: {
-        gekkardAccount: [150],
+        gekkardAccount: [0],
         fiat: [151, 152, 153, 154],
         swift: [151, 152, 153, 154],
         sepa: [151, 152, 153, 154],
@@ -123,7 +123,7 @@ export const TYPES_WALLET_FORM_UI = {
         ]
     },
     withdraw: {
-        gekkardAccount: [150],
+        gekkardAccount: [0],
         fiat: [151, 153, 154],
         swift: [152],
         cardToCard: [153],

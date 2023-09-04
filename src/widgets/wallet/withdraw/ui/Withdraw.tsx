@@ -12,6 +12,11 @@ import {isNull} from "@/shared/lib/helpers";
 import CardToCardFormWithdraw
     from "@/widgets/wallet/top-up-withdraw-forms/ui/withdraw-card-to-card-form/CardToCardFormWithdraw";
 
+
+// < 10  > 23
+// 150 sepo
+// 154 gekkard
+// < 200 > 222
 const Withdraw = () => {
 
     const currency = useContext(CtxWalletData)
@@ -23,24 +28,34 @@ const Withdraw = () => {
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    console.log(formType)
-
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>
 
                 <ChoseNetwork withdraw/>
 
-                {TYPES_WALLET_FORM_UI.withdraw.gekkardAccount.some(it => it === formType) ?
-                    <GekkardAccountForm withdraw/> :
-                    TYPES_WALLET_FORM_UI.withdraw.tokenForm.some(it => it === formType) ?
-                        <WithdrawForm/> :
-                        TYPES_WALLET_FORM_UI.withdraw.swift[0] === formType ?
+                {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
+                    <WithdrawForm/> :
+                    formType === 150 ?
+                        <div>
+                            <b>
+                            This is PapayaIBAN Withdraw!!
+                            </b>
+                            <GekkardAccountForm/>
+                        </div> :
+                        151 === formType ?
+                            <FiatFormWithdraw/> :
+                            152 === formType ?
                             <FiatSwiftFormWithdraw/> :
-                            TYPES_WALLET_FORM_UI.withdraw.cardToCard[0] === formType ?
+                            153 === formType ?
                                 <CardToCardFormWithdraw/> :
-                                TYPES_WALLET_FORM_UI.withdraw.fiat.some(it => it === formType) ?
-                                    <FiatFormWithdraw/> :
+                                154 === formType ?
+                                    <div>
+                                        <b>
+                                        This is CryptoWalletForm Withdraw
+                                        </b>
+                                        <GekkardAccountForm/>
+                                    </div> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
                 {!isNull(withdraw_fee) && <div className="row mb-4 mt-4">

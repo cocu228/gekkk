@@ -28,11 +28,21 @@ const ChoseNetwork = ({withdraw = false}) => {
             <div className="col">
                 {Array.isArray(networksForSelector) &&
                 networksForSelector.length === 0 ?
-                    <div className="info-box-warning">
-                        <p>At the moment there in not a single option available for top up this asset.
-                            Please check it later. Or
-                            you can create a <a className="text-blue-400">buy order</a></p>
-                    </div> : networksForSelector.length === 1 ?
+                    <InfoBox
+                        message={<span>
+                At the moment there is not a single option available
+                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
+                            {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
+                                ? null
+                                : (
+                                    <span> Or you can create a <span
+                                        className='text-blue-400 hover:cursor-pointer hover:underline'
+                                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                                    >
+                        {withdraw ? 'sell' : 'buy'} order
+                    </span>.</span>
+                                )}
+            </span>}/> : networksForSelector.length === 1 ?
                     <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
                     <Select className="w-full mt-2"
                             placeholder={"Networks not found"}
@@ -61,22 +71,6 @@ const ChoseNetwork = ({withdraw = false}) => {
                 </div>
             </div>
         </div>}
-
-        {!networksForSelector || networksForSelector.length === 0 && <InfoBox
-            message={<span>
-                At the moment there is not a single option available
-                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
-                {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
-                    ? null
-                    : (
-                    <span> Or you can create a <span
-                        className='text-blue-400 hover:cursor-pointer hover:underline'
-                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
-                    >
-                        {withdraw ? 'sell' : 'buy'} order
-                    </span>.</span>
-                )}
-            </span>}/>}
     </>
 }
 

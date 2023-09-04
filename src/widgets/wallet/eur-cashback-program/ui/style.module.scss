@@ -1,0 +1,62 @@
+.CashbackCard {
+    z-index: 10;
+    display: block;
+    max-width: 355px;
+    border-radius: 25px;
+    padding: 29px 20px 50px 22px;
+    box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
+
+    &Blue {
+        background: linear-gradient(277deg, #9FC2C9 0%, #BDF2ED 100%);
+    }
+
+    &Orange {
+        background: linear-gradient(277deg, #D7AC90 0%, #EFDAB8 100%);
+    }
+
+    &Green {
+        background: linear-gradient(277deg, #B5EDA8 0%, #A2CDA7 100%);
+    }
+
+    &Title {
+        z-index: 10;
+        font-size: 16px;
+        font-weight: 600;
+        max-width: 225px;
+    }
+
+    &Subtitle {
+        font-weight: 400;
+    }
+
+    &Checkbox {
+        font-size: 8px;
+        color: #758498;
+        font-weight: 500;
+        line-height: 15px;
+        font-style: normal;
+        max-width: 275px;
+    }
+}
+
+.CashbackDescription {
+    z-index: 0;
+    margin-block: 18px;
+    margin-left: -20px;
+    padding-top: 10px;
+    padding-left: 30px;
+    border-radius: 0px 25px 25px 0px;
+    box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
+
+    &Title {
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    &List {
+        font-size: 10px;
+        max-width: 150px;
+        padding-left: 5px;
+        margin-right: 8px;
+    }
+}

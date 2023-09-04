@@ -22,15 +22,20 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*    </div>*/}
         {/*</div>*/}
         <div className="row mb-8 w-full">
-            {withdraw ? "Select withdraw network" : "Select network"}
+
+            {(Array.isArray(networksForSelector) && networksForSelector.length === 1) ? "Network:" :
+                withdraw ? "Select withdraw network" : "Select network"}
 
             <div className="col">
-                <Select className="w-full mt-2"
-                        placeholder={"Networks not found"}
-                        value={networksForSelector?.length ? networkIdSelect : null}
-                        onSelect={setNetworkId}
-                        options={networksForSelector}
-                />
+                {(Array.isArray(networksForSelector) && networksForSelector.length === 1) ?
+                    <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
+                    <Select className="w-full mt-2"
+                            placeholder={"Networks not found"}
+                            value={networksForSelector?.length ?
+                                networkIdSelect : null}
+                            onSelect={setNetworkId}
+                            options={networksForSelector}
+                    />}
             </div>
         </div>
 

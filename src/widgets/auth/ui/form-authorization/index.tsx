@@ -10,7 +10,7 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {pinMessage, phoneMessage} from '@/shared/config/message';
+import {phoneMessage} from '@/shared/config/message';
 // import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
@@ -32,6 +32,7 @@ const FormLoginAccount = memo(() => {
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
     const inputRef = useRef(null);
+    const refRecaptcha = useRef(null);
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", currentTime: new Date()})
 
@@ -40,6 +41,7 @@ const FormLoginAccount = memo(() => {
     });
 
     const [loading, setLoading] = useState<boolean>(false);
+
     // const onFinish = () => {
     //
     //     const {password} = state
@@ -71,8 +73,7 @@ const FormLoginAccount = memo(() => {
     //         })
     // }
     const onCaptchaVerify = () => {
-
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, refRecaptcha.current, {
                 size: 'invisible',
                 callback: (response: unknown) => {
                     console.log(response)
@@ -92,6 +93,7 @@ const FormLoginAccount = memo(() => {
             console.log("onCaptchaVerify")
 
             onCaptchaVerify()
+
         } else {
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
@@ -101,6 +103,7 @@ const FormLoginAccount = memo(() => {
                         currentTime: new Date()
                     })
                     setLoading(false)
+                    window.recaptchaVerifier = undefined
                     toggleStage("code")
                 }).catch((error) => {
                 setLoading(false)
@@ -125,7 +128,7 @@ const FormLoginAccount = memo(() => {
             </a> credentials
         </p>
 
-        <div id={'recaptcha-container'}></div>
+        <div ref={refRecaptcha}></div>
 
         <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>

@@ -26,11 +26,11 @@ export default memo(function () {
     const accounts = storeAccounts(state => state.accounts);
     const getAccounts = storeAccounts(state => state.getAccounts);
     const getBankCards = storeBankCards(state => state.getBankCards);
-    const getOrganizations = storeOrganizations(state => state.getOrganizations);
+    // const getOrganizations = storeOrganizations(state => state.getOrganizations);
 
     useEffect(() => {
         (async () => {
-            getOrganizations();
+            // getOrganizations();
             await getAccounts();
 
             getBankCards();

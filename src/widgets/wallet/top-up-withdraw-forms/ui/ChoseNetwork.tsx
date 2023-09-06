@@ -10,8 +10,8 @@ const ChoseNetwork = ({withdraw = false}) => {
     const navigate = useNavigate();
     const {$const} = useContext(CtxWalletData);
     const {currencies} = useContext(CtxCurrencies);
-    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
 
+    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
     const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && $const !== "EURG"
 
     return <>
@@ -42,14 +42,13 @@ const ChoseNetwork = ({withdraw = false}) => {
                         {withdraw ? 'sell' : 'buy'} order
                     </span>.</span>
                                 )}
-            </span>}/> : networksForSelector.length === 1 ?
+            </span>}/> : Array.isArray(networksForSelector) && networksForSelector.length === 1 ?
                     <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
-                    <Select className="w-full mt-2"
-                            placeholder={"Networks not found"}
-                            value={networksForSelector?.length ?
-                                networkIdSelect : null}
-                            onSelect={setNetworkId}
-                            options={networksForSelector}
+                        Array.isArray(networksForSelector) &&
+                        <Select className="w-full mt-2"
+                                placeholder={"Networks not found"} value={networkIdSelect}
+                                onSelect={setNetworkId}
+                                options={networksForSelector}
                     />}
             </div>
         </div>

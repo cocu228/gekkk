@@ -10,7 +10,7 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {phoneMessage} from '@/shared/config/message';
+import {phoneMessage, pinMessage} from '@/shared/config/message';
 // import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
@@ -148,15 +148,15 @@ const FormLoginAccount = memo(() => {
                     ({...prevState, phone: value}))}/>
         </FormItem>
 
-        {/*<FormItem name="password" label="Password"*/}
-        {/*          rules={[{required: true, ...pinMessage}, pinValidator]}>*/}
-        {/*    <Input.Password style={{borderColor: 'var(--color-gray-400)'}}*/}
-        {/*                    onChange={({target}) => setState(prev => ({*/}
-        {/*                        ...prev,*/}
-        {/*                        password: target.value*/}
-        {/*                    }))}*/}
-        {/*                    placeholder="PIN"/>*/}
-        {/*</FormItem>*/}
+        <FormItem name="password" label="Password"
+                  rules={[{required: true, ...pinMessage}, pinValidator]}>
+            <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
+                            onChange={({target}) => setState(prev => ({
+                                ...prev,
+                                password: target.value
+                            }))}
+                            placeholder="PIN"/>
+        </FormItem>
 
         <div className="row text-right mb-4">
             <a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot

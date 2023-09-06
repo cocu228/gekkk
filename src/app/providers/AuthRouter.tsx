@@ -50,7 +50,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers['token'] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
         $axios.defaults.headers['AccountId'] = undefined;
-        
+        window.recaptchaVerifier = undefined
         clearAllCookies();
         navigate('/', {replace: true});
         location.reload();

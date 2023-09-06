@@ -13,7 +13,7 @@ enum TabType {
     DEPOSIT,
     ASSETS,
     HISTORY
-};
+}
 
 const TABS = [
     //{type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
@@ -32,28 +32,28 @@ export default () => {
 
     return (
         <div className="wrapper">
-            <PageHead title="Personal account"/>
-
-            {sm ? (
-                <div className="w-full -sm:hidden">
-                    <TabsGroupPrimary initValue={"Cards"}>
-                        <div className='-mt-5' data-tab={"Cards"}>
-                            <CardsLayout/>
-                        </div>
-                        <div className='-mt-5' data-tab={"Crypto assets"}>
-                            <CryptoAssets/>
-                        </div>
-                        <div className='-mt-10 substrate' data-tab={"History"}>
-                            <History title='History'/>
-                        </div>
-                    </TabsGroupPrimary>
-                </div>
-            ) : (TABS.map(({content}) => (
-                    <div key={randomId()} className='mt-16'>
-                        {content}
-                    </div>
-                ))
-            )}
+            {/*<PageHead title="Personal account"/>*/}
+            
+            {/*{sm ? (*/}
+            {/*    <div className="w-full -sm:hidden">*/}
+            {/*        <TabsGroupPrimary initValue={"Cards"}>*/}
+            {/*            <div className='-mt-5' data-tab={"Cards"}>*/}
+            {/*                <CardsLayout/>*/}
+            {/*            </div>*/}
+            {/*            <div className='-mt-5' data-tab={"Crypto assets"}>*/}
+            {/*                <CryptoAssets/>*/}
+            {/*            </div>*/}
+            {/*            <div className='-mt-10 substrate' data-tab={"History"}>*/}
+            {/*                <History title='History'/>*/}
+            {/*            </div>*/}
+            {/*        </TabsGroupPrimary>*/}
+            {/*    </div>*/}
+            {/*) : (TABS.map(({content}) => (*/}
+            {/*        <div key={randomId()} className='mt-16'>*/}
+            {/*            {content}*/}
+            {/*        </div>*/}
+            {/*    ))*/}
+            {/*)}*/}
         </div>
     );
 }

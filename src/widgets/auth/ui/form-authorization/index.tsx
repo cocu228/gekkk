@@ -10,7 +10,7 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {pinMessage, phoneMessage} from '@/shared/config/message';
+import {phoneMessage} from '@/shared/config/message';
 // import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
@@ -35,12 +35,12 @@ const FormLoginAccount = memo(() => {
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", currentTime: new Date()})
 
-
     const [state, setState] = useState<TState>({
         phone: ""
     });
 
     const [loading, setLoading] = useState<boolean>(false);
+
     // const onFinish = () => {
     //
     //     const {password} = state
@@ -72,33 +72,42 @@ const FormLoginAccount = memo(() => {
     //         })
     // }
     const onCaptchaVerify = () => {
-
-        if (!window.recaptchaVerifier) {
-
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
                 size: 'invisible',
                 callback: (response: unknown) => {
                     console.log(response)
-                    onSingIn()
                 }
             });
-        }
+
+        onSingIn()
     }
     const onSingIn = () => {
 
-        onCaptchaVerify()
-        console.log(formatAsNumber(state.phone))
-        signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
-            .then((confirmationResult) => {
-                window.confirmationResult = confirmationResult;
-                setSessionAuth({
-                    phone: state.phone,
-                    currentTime: new Date()
-                })
-                toggleStage("code")
-            }).catch((error) => {
-            console.warn(error)
-        });
+        console.log("onSingIn")
+
+        setLoading(true)
+
+        if (!window.recaptchaVerifier) {
+
+            console.log("onCaptchaVerify")
+
+            onCaptchaVerify()
+
+        } else {
+            signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
+                .then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+                    setSessionAuth({
+                        phone: state.phone,
+                        currentTime: new Date()
+                    })
+                    setLoading(false)
+                    toggleStage("code")
+                }).catch((error) => {
+                setLoading(false)
+                console.warn(error)
+            });
+        }
     }
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
@@ -116,8 +125,6 @@ const FormLoginAccount = memo(() => {
                 target={'_blank'}>Gekkard application
             </a> credentials
         </p>
-
-        <div id={'recaptcha-container'}></div>
 
         <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>

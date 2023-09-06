@@ -35,7 +35,6 @@ const FormLoginAccount = memo(() => {
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", currentTime: new Date()})
 
-
     const [state, setState] = useState<TState>({
         phone: ""
     });
@@ -73,32 +72,41 @@ const FormLoginAccount = memo(() => {
     // }
     const onCaptchaVerify = () => {
 
-        if (!window.recaptchaVerifier) {
-
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
                 size: 'invisible',
                 callback: (response: unknown) => {
                     console.log(response)
-                    onSingIn()
                 }
             });
-        }
+
+        onSingIn()
     }
     const onSingIn = () => {
 
-        onCaptchaVerify()
-        console.log(formatAsNumber(state.phone))
-        signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
-            .then((confirmationResult) => {
-                window.confirmationResult = confirmationResult;
-                setSessionAuth({
-                    phone: state.phone,
-                    currentTime: new Date()
-                })
-                toggleStage("code")
-            }).catch((error) => {
-            console.warn(error)
-        });
+        console.log("onSingIn")
+
+        setLoading(true)
+
+        if (!window.recaptchaVerifier) {
+
+            console.log("onCaptchaVerify")
+
+            onCaptchaVerify()
+        } else {
+            signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
+                .then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+                    setSessionAuth({
+                        phone: state.phone,
+                        currentTime: new Date()
+                    })
+                    setLoading(false)
+                    toggleStage("code")
+                }).catch((error) => {
+                setLoading(false)
+                console.warn(error)
+            });
+        }
     }
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];

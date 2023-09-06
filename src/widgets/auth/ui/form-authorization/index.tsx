@@ -32,7 +32,6 @@ const FormLoginAccount = memo(() => {
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
     const inputRef = useRef(null);
-    const refRecaptcha = useRef(null);
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", currentTime: new Date()})
 
@@ -73,7 +72,7 @@ const FormLoginAccount = memo(() => {
     //         })
     // }
     const onCaptchaVerify = () => {
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, refRecaptcha.current, {
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
                 size: 'invisible',
                 callback: (response: unknown) => {
                     console.log(response)
@@ -103,7 +102,6 @@ const FormLoginAccount = memo(() => {
                         currentTime: new Date()
                     })
                     setLoading(false)
-                    window.recaptchaVerifier = undefined
                     toggleStage("code")
                 }).catch((error) => {
                 setLoading(false)
@@ -127,8 +125,6 @@ const FormLoginAccount = memo(() => {
                 target={'_blank'}>Gekkard application
             </a> credentials
         </p>
-
-        <div ref={refRecaptcha}></div>
 
         <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
                   rules={[{required: true, ...phoneMessage}, phoneValidator]}>

@@ -72,20 +72,24 @@ const FormLoginAccount = memo(() => {
     //         })
     // }
     const onCaptchaVerify = () => {
+
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-                size: 'invisible',
-                callback: (response: unknown) => {
-                    console.log(response)
+            callback: (response: unknown) => {
+                console.log(response)
+                setTimeout(() => document.getElementById("recaptcha-container").style.display = "none", 500)
                 }
             });
 
+
         onSingIn()
+
     }
     const onSingIn = () => {
 
-        console.log("onSingIn")
+        document.getElementById("recaptcha-container").style.display = "block"
 
         setLoading(true)
+
 
         if (!window.recaptchaVerifier) {
 
@@ -94,6 +98,7 @@ const FormLoginAccount = memo(() => {
             onCaptchaVerify()
 
         } else {
+
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
                     window.confirmationResult = confirmationResult;

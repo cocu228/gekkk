@@ -57,7 +57,7 @@ const WalletHeader = () => {
                     )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
-                        {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
+                        {availableBalance === null ? '-' : availableBalance.toNumber()} {$const}
                     </div>
                     
                     <g className="text-gray-400 text-sm">

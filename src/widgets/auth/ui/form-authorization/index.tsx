@@ -76,9 +76,10 @@ const FormLoginAccount = memo(() => {
     const onCaptchaVerify = () => {
 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-            callback: (response: unknown) => {
+            'callback': (response: unknown) => {
                 console.log(response)
-                setTimeout(() => document.getElementById("recaptcha-container").style.display = "none", 500)
+                setTimeout(() =>
+                    document.getElementById("recaptcha-container").style.display = "none", 500)
                 }
             });
 
@@ -112,7 +113,10 @@ const FormLoginAccount = memo(() => {
                     })
                     setLoading(false)
                     toggleStage("code")
+
                 }).catch((error) => {
+
+                console.log(JSON.stringify(error))
                 setLoading(false)
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})

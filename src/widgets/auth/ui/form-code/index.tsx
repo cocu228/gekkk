@@ -100,6 +100,7 @@ const FormCode = memo(() => {
             const user = result.user;
             login(user.phoneNumber, user.accessToken, "token-firebase")
         }).catch((error) => {
+            console.log(JSON.stringify(error))
             if (error.code === "auth/code-expired") {
                 localErrorHunter({code: 0, message: "This code has expired"})
             } else if (error.code === "auth/invalid-verification-code") {

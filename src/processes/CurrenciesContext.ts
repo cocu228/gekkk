@@ -34,10 +34,10 @@ export class ICtxCurrency {
         this.defaultTokenNetworkIn = asset.default_token_network_in;
         this.defaultTokenNetworkOut = asset.default_token_network_out;
 
-        this.lockOrders = wallet ? wallet.lock_orders : null;
-        this.lockInBalance = wallet ? wallet.lock_in_balance : null;
-        this.lockOutBalance = wallet ? wallet.lock_out_balance : null;
-        this.availableBalance = wallet ? new Decimal(wallet.free_balance) : null;
+        this.lockOrders = wallet?.lock_orders;
+        this.lockInBalance = wallet?.lock_in_balance;
+        this.lockOutBalance = wallet?.lock_out_balance;
+        this.availableBalance = (wallet && wallet.free_balance) ? new Decimal(wallet.free_balance) : null;
     }
 }
 

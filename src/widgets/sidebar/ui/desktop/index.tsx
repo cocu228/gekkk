@@ -83,7 +83,7 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EUR</span>
+                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? '-'} EUR</span>
                         </div>
                     </div>
                 </div>

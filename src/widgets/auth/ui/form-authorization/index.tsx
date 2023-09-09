@@ -10,12 +10,13 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {phoneMessage} from '@/shared/config/message';
+import {phoneMessage, pinMessage} from '@/shared/config/message';
 // import {apiCheckPassword, apiRequestCode} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiCheckPassword, helperApiRequestCode} from "../../model/helpers";
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
+import useError from "@/shared/model/hooks/useError";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
@@ -34,6 +35,7 @@ const FormLoginAccount = memo(() => {
     const inputRef = useRef(null);
     const [, setSessionAuth] = useSessionStorage("session-auth",
         {phone: "", currentTime: new Date()})
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const [state, setState] = useState<TState>({
         phone: ""
@@ -74,9 +76,10 @@ const FormLoginAccount = memo(() => {
     const onCaptchaVerify = () => {
 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-            callback: (response: unknown) => {
+            'callback': (response: unknown) => {
                 console.log(response)
-                setTimeout(() => document.getElementById("recaptcha-container").style.display = "none", 500)
+                setTimeout(() =>
+                    document.getElementById("recaptcha-container").style.display = "none", 500)
                 }
             });
 
@@ -85,6 +88,8 @@ const FormLoginAccount = memo(() => {
 
     }
     const onSingIn = () => {
+
+        localErrorClear()
 
         document.getElementById("recaptcha-container").style.display = "block"
 
@@ -108,9 +113,16 @@ const FormLoginAccount = memo(() => {
                     })
                     setLoading(false)
                     toggleStage("code")
+
                 }).catch((error) => {
+
+                console.log(JSON.stringify(error))
                 setLoading(false)
-                console.warn(error)
+                if (error.code === "auth/invalid-phone-number") {
+                    localErrorHunter({code: 0, message: "Invalid phone number"})
+                } else if (error.code === "auth/invalid-verification-code") {
+                    localErrorHunter({code: 1, message: "Invalid verification code"})
+                }
             });
         }
     }
@@ -147,16 +159,17 @@ const FormLoginAccount = memo(() => {
                 onChange={(value: string) => setState(prevState =>
                     ({...prevState, phone: value}))}/>
         </FormItem>
+        {localErrorSpan}
 
-        {/*<FormItem name="password" label="Password"*/}
-        {/*          rules={[{required: true, ...pinMessage}, pinValidator]}>*/}
-        {/*    <Input.Password style={{borderColor: 'var(--color-gray-400)'}}*/}
-        {/*                    onChange={({target}) => setState(prev => ({*/}
-        {/*                        ...prev,*/}
-        {/*                        password: target.value*/}
-        {/*                    }))}*/}
-        {/*                    placeholder="PIN"/>*/}
-        {/*</FormItem>*/}
+        <FormItem name="password" label="Password"
+                  rules={[{required: true, ...pinMessage}, pinValidator]}>
+            <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
+                            onChange={({target}) => setState(prev => ({
+                                ...prev,
+                                password: target.value
+                            }))}
+                            placeholder="PIN"/>
+        </FormItem>
 
         <div className="row text-right mb-4">
             <a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot
@@ -165,7 +178,7 @@ const FormLoginAccount = memo(() => {
         </div>
 
         <div className="row mb-8">
-            <Button disabled={loading}
+            <Button disabled={loading || state.phone === ""}
                     tabIndex={0}
                     htmlType="submit"
                     className="w-full">Login</Button>

@@ -14,6 +14,7 @@ import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
+import useError from "@/shared/model/hooks/useError";
 // import firebase from "firebase/compat";
 // import User = firebase.User;
 
@@ -39,9 +40,16 @@ const FormCode = memo(() => {
     // const [, setSessionGlobal] = useSessionStorage("session-global", {});
     const [{phone}] = useSessionStorage("session-auth", {phone: ""});
 
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+
     useLayoutEffect(() => {
         inputRef.current.focus();
     }, []);
+
+    const onChange = (str: string) => {
+        localErrorClear()
+        setCode(str)
+    }
 
     // const onFinish = () => {
     //     setLoading(true);
@@ -91,11 +99,15 @@ const FormCode = memo(() => {
         window.confirmationResult.confirm(formatAsNumber(code)).then((result) => {
             const user = result.user;
             login(user.phoneNumber, user.accessToken, "token-firebase")
-            // console.log(user)
-            // console.log(result)
         }).catch((error) => {
-            console.log(error)
+            console.log(JSON.stringify(error))
+            if (error.code === "auth/code-expired") {
+                localErrorHunter({code: 0, message: "This code has expired"})
+            } else if (error.code === "auth/invalid-verification-code") {
+                localErrorHunter({code: 1, message: "Invalid verification code"})
+            }
         });
+
     }
 
     return <Form autoComplete="off" onFinish={onCode}>
@@ -107,15 +119,17 @@ const FormCode = memo(() => {
             <b>+{phone}</b>
         </p>
 
-        <FormItem className={"mb-2"} name="code" label="Code" preserve
+        <FormItem name="code" label="Code" preserve
                   rules={[{required: true, ...codeMessage}]}>
             <Input type="text"
                    ref={inputRef}
                    placeholder="Phone code"
                    onInput={onInput}
-                   onChange={({target}) => setCode(target.value)}
+                   onChange={({target}) => onChange(target.value)}
             />
         </FormItem>
+        {localErrorSpan}
+
 
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
         {/*    {timeLeft !== 0 ? (*/}
@@ -125,7 +139,7 @@ const FormCode = memo(() => {
         {/*    )}*/}
         {/*</div>*/}
 
-        <div className="row">
+        <div className="row mt-2">
             <Button
                 size='lg'
                 tabIndex={0}

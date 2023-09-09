@@ -65,10 +65,14 @@ const PageProblems = ({code = 404}: { code?: number }) => {
                     >Legal agreements</a>
                 </p>
 
-                <p className={` ${md ? 'text-xs' : 'text-sm'}`}>
+                <p className={` ${md ? 'text-xs' : 'text-sm'} mb-2`}>
                     Crypto exchange service is powered by AtlantEX OU
                     (licensed partner for crypto wallet and exchange)
                 </p>
+                <span
+                    className={`text-gray-500 font-semibold text-sm w-full block`}>
+                    © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
+                </span>
             </footer>
         </div>
     )

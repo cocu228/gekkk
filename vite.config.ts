@@ -4,7 +4,12 @@ import react from '@vitejs/plugin-react';
 import path from "path";
 export default defineConfig(({mode}) => {
 
-  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+  process.env = {
+    ...process.env, ...loadEnv(mode, process.cwd()),
+    VITE_APP_VERSION: JSON.stringify(require('./package.json').version)
+  };
+
+  console.log(process.env)
 
   return {
     resolve: {

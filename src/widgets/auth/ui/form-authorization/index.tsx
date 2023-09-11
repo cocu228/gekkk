@@ -63,7 +63,8 @@ const FormLoginAccount = memo(() => {
     const onCaptchaVerify = () => {
 
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-            'callback': (response: unknown) => {
+            size: "invisible",
+            callback: (response: unknown) => {
                 console.log(response)
                 setTimeout(() =>
                     document.getElementById("recaptcha-container").style.display = "none", 500)

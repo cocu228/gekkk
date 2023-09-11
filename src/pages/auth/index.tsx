@@ -55,13 +55,7 @@ const AuthPage = () => {
                     </a>
                 </div>
                 {content}
-                <div style={{
-                    position: "absolute",
-                    top: 0,
-                    bottom: 0,
-                    margin: "auto",
-                    height: "min-content"
-                }} id={"recaptcha-container"}></div>
+                <div id={"recaptcha-container"}></div>
             </div>
 
             <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]

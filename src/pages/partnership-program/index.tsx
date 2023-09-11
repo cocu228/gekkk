@@ -123,14 +123,14 @@ const ContentMain = () => {
                 <TableReferrals/>
             </div>
         </div>
-        <div className="row mb-6">
-            <div className="col flex justify-center">
-           <span className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
-               className="ml-2" width={10} height={8}
-               src="/img/icon/ArrowPlainDown.svg"
-               alt="ArrowPlainDown"/></span>
-            </div>
-        </div>
+        {/*<div className="row mb-6">*/}
+        {/*    <div className="col flex justify-center">*/}
+        {/*   <span className="text-gray-400 cursor-pointer inline-flex items-center">See more <img*/}
+        {/*       className="ml-2" width={10} height={8}*/}
+        {/*       src="/img/icon/ArrowPlainDown.svg"*/}
+        {/*       alt="ArrowPlainDown"/></span>*/}
+        {/*    </div>*/}
+        {/*</div>*/}
         <div className="row mb-6">
             <div className="col">
                 <h4 className="font-bold">Rewards</h4>

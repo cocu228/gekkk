@@ -7,7 +7,7 @@ import $axios from "@/shared/lib/(cs)axios";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
-import {storeOrganizations} from "@/shared/store/organizations";
+// import {storeOrganizations} from "@/shared/store/organizations";
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";

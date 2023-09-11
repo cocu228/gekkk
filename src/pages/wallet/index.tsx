@@ -1,19 +1,19 @@
 import {useContext} from "react";
 import {useParams} from "react-router-dom";
-import Transfer from "@/widgets/wallet/transfer";
+import Transfer from "../../widgets/wallet/code-transfer";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
-import TopUp from "@/widgets/wallet/top-up/ui/TopUp";
+import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import WalletHeader from "@/widgets/wallet/header/ui";
-import Withdraw from "@/widgets/wallet/withdraw/ui/Withdraw";
+import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
-import NetworkProvider from "@/widgets/wallet/model/NetworkProvider";
+import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { CtxRootData } from "@/processes/RootContext";
-import { CtxWalletData } from "@/widgets/wallet/model/context";
-import NoFeeProgram from "@/widgets/wallet/no-fee-program/ui";
-import GkeCashbackProgram from "@/widgets/wallet/gke-cashback-program/ui";
-import EurCashbackProgram from "@/widgets/wallet/eur-cashback-program/ui";
+import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
+import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
+import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
+import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import { AccountRights } from "@/shared/config/account-rights";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 

@@ -3,7 +3,7 @@ import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useContext, useEffect, useState} from "react";
-import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";

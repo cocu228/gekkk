@@ -2,7 +2,7 @@ import descriptions from '@/shared/config/coins/descriptions'
 import Button from '@/shared/ui/button/Button';
 import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
-import {CtxWalletData} from "@/widgets/wallet/model/context";
+import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 const About = () => {

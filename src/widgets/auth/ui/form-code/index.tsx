@@ -99,6 +99,7 @@ const FormCode = memo(() => {
         window.confirmationResult.confirm(formatAsNumber(code)).then((result) => {
             const user = result.user;
             login(user.phoneNumber, user.accessToken, "token-firebase")
+            toggleStage("authorization")
         }).catch((error) => {
             console.log(JSON.stringify(error))
             if (error.code === "auth/code-expired") {

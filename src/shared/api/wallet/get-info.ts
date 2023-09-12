@@ -1,12 +1,13 @@
 import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
 
 export interface IResAccountInfo {
-    account: string;
     name: string;
-    date_update: Date;
     flags: number;
     phone: string;
+    account: string;
     current: boolean;
+    date_update: Date;
+    account_id: string;
 }
 
 export const apiGetAccountInfo = (refresh: boolean = false) =>

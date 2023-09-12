@@ -47,8 +47,9 @@ export const apiPaymentSepa = (
     payment_details: IParams,
     commission: boolean = false,
     headers: {
-        'X-Confirmation-Token': string,
-        'X-Confirmation-Code': string
+        'X-Confirmation-Type': "PIN" | "SIGN";
+        'X-Confirmation-Token': string;
+        'X-Confirmation-Code': string;
     } = null
 ) => $axios.post<IResCommission | IResErrors>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details

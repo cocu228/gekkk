@@ -1,3 +1,4 @@
+import {AxiosResponse} from "axios";
 import {Skeleton, Input} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
@@ -9,12 +10,10 @@ import {codeMessage} from "@/shared/config/message";
 import useError from "@/shared/model/hooks/useError";
 import {useContext, useEffect, useState} from "react";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api/bank/payments/payment-sepa";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
-import {AxiosResponse} from "axios";
+import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api/bank/payments/payment-sepa";
 
 const WithdrawConfirmSepa = ({
     beneficiaryName,
@@ -47,6 +46,7 @@ const WithdrawConfirmSepa = ({
         confirmation: {
             code: string;
             token: string;
+            codeLength: number;
         }
     }>({
         loading: false,
@@ -54,6 +54,7 @@ const WithdrawConfirmSepa = ({
         confirmation: {
             code: "",
             token: null,
+            codeLength: null
         }
     });
 
@@ -78,7 +79,7 @@ const WithdrawConfirmSepa = ({
             }
         }
     };
-    
+
     const onConfirm = async () => {
         setState(prev => ({
             ...prev,
@@ -90,8 +91,9 @@ const WithdrawConfirmSepa = ({
             paymentDetails,
             false,
             !confirmation.token ? null : {
+                "X-Confirmation-Type": "PIN",
                 "X-Confirmation-Token": confirmation.token,
-                "X-Confirmation-Code": "0000"
+                "X-Confirmation-Code": confirmation.code
             }
             ).then((response: AxiosResponse<IResErrors>) => {
                 const {data} = response;
@@ -104,18 +106,20 @@ const WithdrawConfirmSepa = ({
                         loading: false,
                         confirmation: {
                             ...prev.confirmation,
-                            token: data.errors[0].properties['confirmationToken']
+                            token: data.errors[0].properties['confirmationToken'],
+                            codeLength: data.errors[0].properties['confirmationCodeLength']
                         }
                     }));
                     return;
                 }
+                
+                setState(prev => ({
+                    ...prev,
+                    loading: false,
+                }));
+                setRefresh();
+                handleCancel();
             });
-
-        // TODO: Successful transaction with PDF download button
-        setState(prev => ({
-            ...prev,
-            loading: false,
-        }));
     }
 
     useEffect(() => {
@@ -188,7 +192,7 @@ const WithdrawConfirmSepa = ({
                 {total !== undefined ? (
                     <span>{total.total ?? '-'} {$const}</span>
                 ) : (
-                    <Skeleton.Input active/>
+                    <Skeleton.Input style={{height: 16}} active/>
                 )}
             </div>
         </div>
@@ -202,7 +206,7 @@ const WithdrawConfirmSepa = ({
                 {total !== undefined ? (
                     <span>{total.commission ?? '-'} {$const}</span>
                 ) : (
-                    <Skeleton.Input active/>
+                    <Skeleton.Input style={{height: 16}} active/>
                 )}
             </div>
         </div>
@@ -221,18 +225,19 @@ const WithdrawConfirmSepa = ({
 
         <Form onFinish={onConfirm}>
             {!confirmation.token ? null : <>
-                <span>Transfer confirm</span>
+                <span className="text-gray-400">Transfer confirm</span>
 
                 <FormItem className={"mb-4"} name="code" label="Code" preserve
                           rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>
                     <Input type="text"
                            onInput={onInput}
                            placeholder="Enter your PIN"
+                           maxLength={confirmation.codeLength + 2 ?? 0}
                            onChange={({target}) => setState(prev => ({
                                ...prev,
                                confirmation: {
                                    ...prev.confirmation,
-                                   code: target.value
+                                   code: target.value.replace(/ /g, '')
                                }
                            }))}
                            autoComplete="off"
@@ -240,7 +245,7 @@ const WithdrawConfirmSepa = ({
                 </FormItem>
             </>}
 
-            <div className="row mb-5">
+            <div className="row mt-5">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={!total} className="w-full"
                             size={"xl"}>Confirm</Button>
@@ -260,4 +265,4 @@ const WithdrawConfirmSepa = ({
     </>
 }
 
-export default WithdrawConfirmSepa
+export default WithdrawConfirmSepa;

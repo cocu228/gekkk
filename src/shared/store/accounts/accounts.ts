@@ -32,9 +32,10 @@ const getAccountWithRights = (account: IResAccountInfo): IAccountInfo => {
     return ({
         name: account.name,
         phone: account.phone,
+        rights: accountRights,
         number: account.account,
         current: account.current,
-        date_update: account.date_update,
-        rights: accountRights
+        account_id: account.account_id,
+        date_update: account.date_update
     });
 }

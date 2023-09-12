@@ -1,75 +1,133 @@
-import {useContext, useState} from "react";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import Button from "@/shared/ui/button/Button";
-import Input from "@/shared/ui/input/Input";
-import Form from '@/shared/ui/form/Form';
-import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {codeMessage} from "@/shared/config/message";
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_CODE} from "@/shared/config/mask";
+import {Skeleton, Input} from "antd";
 import Loader from "@/shared/ui/loader";
+import Form from '@/shared/ui/form/Form';
+import Button from "@/shared/ui/button/Button";
+import {MASK_CODE} from "@/shared/config/mask";
+import useMask from "@/shared/model/hooks/useMask";
 import {CtxRootData} from "@/processes/RootContext";
+import {codeMessage} from "@/shared/config/message";
 import useError from "@/shared/model/hooks/useError";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {apiPasswordVerify} from "@/shared/api/various/password";
-import {actionResSuccess} from "@/shared/lib/helpers";
+import {useContext, useEffect, useState} from "react";
+import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api/bank/payments/payment-sepa";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import {AxiosResponse} from "axios";
 
 const WithdrawConfirmSepa = ({
-                                 beneficiaryName,
-                                 accountNumber,
-                                 transferDescription,
-                                 comment,
-                                 amount,
-                                 handleCancel,
-                             }) => {
+    beneficiaryName,
+    accountNumber,
+    transferDescription,
+    comment,
+    amount,
+    handleCancel,
+}) => {
+    const {
+        networkIdSelect,
+        networksForSelector,
+        networksDefault
+    } = useContext(CtxWalletNetworks);
 
     const {
-        networkIdSelect
-        , networksForSelector
-        , networksDefault
-    } = useContext(CtxWalletNetworks)
-
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-
-    const {
-        percent_fee = null,
-        withdraw_fee = null,
         is_operable = null
     } = getNetworkForChose(
         networksDefault,
         networkIdSelect
     ) ?? {}
 
-    const {$const} = useContext(CtxWalletData)
-
-    const {setRefresh} = useContext(CtxRootData)
-
-    const [input, setInput] = useState("")
-
-    const [loading, setLoading] = useState(false)
-
-    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+    const [{
+        total,
+        loading,
+        confirmation
+    }, setState] = useState<{
+        loading: boolean;
+        total: IResCommission;
+        confirmation: {
+            code: string;
+            token: string;
+        }
+    }>({
+        loading: false,
+        total: undefined,
+        confirmation: {
+            code: "",
+            token: null,
+        }
+    });
 
     const {onInput} = useMask(MASK_CODE);
+    const {$const} = useContext(CtxWalletData);
+    const {account, setRefresh} = useContext(CtxRootData);
+    const {label} = networksForSelector.find(it => it.value === networkIdSelect);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
+
+    const paymentDetails = {
+        purpose: comment,
+        iban: accountNumber,
+        account: `PPY${account.account_id}`,
+        beneficiaryName: beneficiaryName,
+        transferDetails: TransferDescription.find(d => d.value === transferDescription).label,
+        amount: {
+            sum: {
+                currency: {
+                    code: $const
+                },
+                value: amount
+            }
+        }
+    };
+    
     const onConfirm = async () => {
+        setState(prev => ({
+            ...prev,
+            loading: true
+        }));
 
-        setLoading(true)
+        // TODO: Error handling, JWT signing token generation
+        await apiPaymentSepa(
+            paymentDetails,
+            false,
+            !confirmation.token ? null : {
+                "X-Confirmation-Token": confirmation.token,
+                "X-Confirmation-Code": "0000"
+            }
+            ).then((response: AxiosResponse<IResErrors>) => {
+                const {data} = response;
 
-        const response = apiPasswordVerify(formatAsNumber(input))
+                if (data?.errors) {
+                    if (data.errors[0].code !== 449) throw data.errors[0].message;
+                    
+                    setState(prev => ({
+                        ...prev,
+                        loading: false,
+                        confirmation: {
+                            ...prev.confirmation,
+                            token: data.errors[0].properties['confirmationToken']
+                        }
+                    }));
+                    return;
+                }
+            });
 
-        actionResSuccess(response)
-            .success(() => {
-                handleCancel()
-                setRefresh()
-            })
-            .reject(localErrorHunter)
-
-        setLoading(false)
-
+        // TODO: Successful transaction with PDF download button
+        setState(prev => ({
+            ...prev,
+            loading: false,
+        }));
     }
 
-    return loading ? <Loader/> : <>
+    useEffect(() => {
+        apiPaymentSepa(paymentDetails, true).then(({data}) => {
+            setState(prev => ({
+                ...prev,
+                total: data as IResCommission
+            }));
+        });
+    }, []);
+
+    return loading ? <Loader className='mt-20'/> : <>
         <div className="row mb-5">
             <div className="col">
                 <div className="p-4 bg-gray-300">
@@ -127,7 +185,11 @@ const WithdrawConfirmSepa = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{amount} {$const}</span>
+                {total !== undefined ? (
+                    <span>{total.total ?? '-'} {$const}</span>
+                ) : (
+                    <Skeleton.Input active/>
+                )}
             </div>
         </div>
         <div className="row mb-2">
@@ -137,7 +199,11 @@ const WithdrawConfirmSepa = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{withdraw_fee} {$const}</span>
+                {total !== undefined ? (
+                    <span>{total.commission ?? '-'} {$const}</span>
+                ) : (
+                    <Skeleton.Input active/>
+                )}
             </div>
         </div>
         {!comment ? null : <>
@@ -152,24 +218,31 @@ const WithdrawConfirmSepa = ({
                 </div>
             </div>
         </>}
+
         <Form onFinish={onConfirm}>
+            {!confirmation.token ? null : <>
+                <span>Transfer confirm</span>
 
-            <span>Transfer confirm</span>
-
-            <FormItem className={"mb-4"} name="code" label="Code" preserve
-                      rules={[{required: true, ...codeMessage}]}>
-
-                <Input type="text"
-                       onInput={onInput}
-                       placeholder="Enter your PIN"
-                       onChange={({target}) => setInput(target.value)}
-                       autoComplete="off"
-                />
-            </FormItem>
+                <FormItem className={"mb-4"} name="code" label="Code" preserve
+                          rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>
+                    <Input type="text"
+                           onInput={onInput}
+                           placeholder="Enter your PIN"
+                           onChange={({target}) => setState(prev => ({
+                               ...prev,
+                               confirmation: {
+                                   ...prev.confirmation,
+                                   code: target.value
+                               }
+                           }))}
+                           autoComplete="off"
+                    />
+                </FormItem>
+            </>}
 
             <div className="row mb-5">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={input === ""} className="w-full"
+                    <Button htmlType={"submit"} disabled={!total} className="w-full"
                             size={"xl"}>Confirm</Button>
                 </div>
                 <div className="col flex justify-center mt-4">

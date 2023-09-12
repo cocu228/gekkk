@@ -66,7 +66,7 @@ const WithdrawConfirmSepa = ({
     const paymentDetails = {
         purpose: comment,
         iban: accountNumber,
-        account: `PPY${account.account_id}`,
+        account: account.account_id,
         beneficiaryName: beneficiaryName,
         transferDetails: TransferDescription.find(d => d.value === transferDescription).label,
         amount: {

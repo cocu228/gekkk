@@ -1,5 +1,5 @@
+import {Input} from "antd";
 import {useContext, useState} from 'react';
-import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
@@ -7,13 +7,13 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 
 const WithdrawFormSepa = () => {
 
-    const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
+    const {isModalOpen, showModal, handleCancel} = useModal();
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -74,6 +74,7 @@ const WithdrawFormSepa = () => {
                                     ...inputs,
                                     transferDescription: v
                                 }))}
+                                name={"transferDescription"}
                                 options={transferDescription}
                                 placeholder={"Please select a description of the transaction..."}
                                 value={inputs.transferDescription}

@@ -161,9 +161,9 @@ const FormLoginAccount = memo(() => {
         </FormItem>
 
         <div className="row text-right mb-4">
-            <a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot
-                your PIN? Log in with a QR code
-            </a>
+            {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
+            {/*    your PIN? Log in with a QR code*/}
+            {/*</a>*/}
         </div>
 
         <div className="row mb-8">

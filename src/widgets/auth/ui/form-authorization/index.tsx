@@ -18,15 +18,11 @@ import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
 import {apiCheckPassword} from "@/widgets/auth/api";
 import {helperApiCheckPassword} from "@/widgets/auth/model/helpers";
+import {TSessionAuth} from "@/widgets/auth/model/types";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
-
-
-type TState = {
-    phone: string,
-    password: string
-}
 
 
 const FormLoginAccount = memo(() => {
@@ -35,11 +31,14 @@ const FormLoginAccount = memo(() => {
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
     const inputRef = useRef(null);
-    const [, setSessionAuth] = useSessionStorage("session-auth",
-        {phone: "", currentTime: new Date()})
+    const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
+        {phone: "", secondaryForTimer: 0, verificationId: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
-    const [state, setState] = useState<TState>({
+    const [state, setState] = useState<{
+        phone: string,
+        password: string
+    }>({
         phone: "",
         password: ""
     });
@@ -71,7 +70,6 @@ const FormLoginAccount = memo(() => {
                 }
             });
 
-
         onSingIn()
 
     }
@@ -94,17 +92,22 @@ const FormLoginAccount = memo(() => {
 
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
-                    window.confirmationResult = confirmationResult;
-                    setSessionAuth({
+
+                    // window.confirmationResult = confirmationResult;
+
+                    setSessionAuth(prev => ({
+                        ...prev,
                         phone: state.phone,
-                        currentTime: new Date()
-                    })
+                        verificationId: confirmationResult.verificationId
+                    }))
+
                     setLoading(false)
                     toggleStage("code")
 
                 }).catch((error) => {
 
                 console.log(JSON.stringify(error))
+
                 setLoading(false)
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})

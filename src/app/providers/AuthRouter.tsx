@@ -37,8 +37,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
                 expiration: 1800
             }])
 
-        sessionStorage.removeItem("session-auth")
-
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
 

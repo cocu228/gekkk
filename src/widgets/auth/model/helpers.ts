@@ -31,3 +31,30 @@ export const authForTokenHashUrl = function () {
     return actionSuccessConstructor.call(sessionId, typeof sessionId === "string")
 
 }
+
+export function timer(secondary: number = 60) {
+
+    let timeCount = secondary;
+    const processCount = () => {
+
+        if (timeCount === 0) {
+
+            clearTimeout(processTimer)
+            this.setState(null)
+
+            this.setSessionGlobal(prev => ({...prev, secondaryForTimer: 0}))
+
+        } else {
+
+            this.setSessionGlobal(prev => ({...prev, secondaryForTimer: timeCount}))
+
+            this.setState(timeCount)
+
+            console.log(timeCount)
+            timeCount--
+        }
+    }
+
+
+    const processTimer = setInterval(processCount, 1000);
+}

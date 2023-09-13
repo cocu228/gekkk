@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {memo, useCallback, useContext, useEffect, useMemo} from 'react';
 import "@styles/index.scss";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import FormCode from "@/widgets/auth/ui/form-code";
@@ -10,14 +10,32 @@ import {storyDisplayStage} from "@/widgets/auth/model/story";
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import { AxiosResponse } from 'axios';
 import { $AxiosResponse } from '@/shared/lib/(cs)axios';
+import {useSessionStorage} from "usehooks-ts";
+import {TSessionAuth} from "@/widgets/auth/model/types";
 
 
-const AuthPage = () => {
+const AuthPage = memo(() => {
 
     const {md} = useContext(BreakpointsContext);
     const {login} = useAuth();
-    const {stage} = storyDisplayStage(state => state);
+    const {toggleStage} = storyDisplayStage(state => state);
 
+    console.log("AuthPage")
+
+    const [{
+        verificationId
+    }] = useSessionStorage<TSessionAuth>("session-auth",
+        {phone: "", secondaryForTimer: 0, verificationId: ""}
+    );
+
+    useEffect(() => {
+        if (verificationId !== "") {
+            toggleStage("code")
+        }
+    }, []);
+
+
+    const {stage} = storyDisplayStage(state => state);
 
     useEffect(() => {
         authForTokenHashUrl().success((sessionId) =>
@@ -93,6 +111,6 @@ const AuthPage = () => {
             </footer>
         </div>
     )
-}
+})
 
 export default AuthPage;

@@ -1,4 +1,5 @@
 import ETokensConst from './constants';
+import {AccountRights} from "@/shared/config/account-rights";
 
 export default {
     [ETokensConst.ONEINCH]: <div>
@@ -1883,17 +1884,51 @@ export default {
         <p className='mb-3'>
             Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem. 
             All EURG tokens are subject to exchange for fiat money in accordance 
-            with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer' href='https://gekkard.onelink.me/X3zE/9c0d76f8'>Gekkard App</a>.
+            with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer' href='https://web.gekkard.com/app-release.apk'>Gekkard App</a>.
         </p>
+        
+        <p className='mb-3'>For more information of the EURG token please read our <a className='underline font-bold hover:cursor-pointer'>White Paper.</a></p>
 
-        <p className='mb-3'>The exchange rate is fixed: <a className='font-bold'>1 EURG = 1 EUR.</a></p>
+        <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
+            <div className='text-xl'>
+                The exchange rate is fixed: <span className="font-bold">1 EUR = 1 EURG*</span>
+            </div>
+
+            <div className="col text-xs">
+                <span>* Note:  Standard exchange fee is 1,5%.
+                    If you <a
+                        className='underline hover:underline font-semibold'
+                    >
+                        freeze GKE tokens    
+                    </a> fee is 0%.
+                </span>
+            </div>
+        </div>
 
         <div className='bg-green rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
-            <p className='font-bold mb-4'>3% AER interest on account balance</p>
+            <p className='font-bold text-xl mb-4'>3% AER interest on account balance</p>
             <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
             <p>(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG;</p>
             <p>(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.</p>
         </div>
+
+        <div>
+            <p className='mb-3'>
+                Gekkoin Europe (EURG) tokens are created and redeemed in accordance with the emission rules:
+            </p>
+            
+            <ul className='pl-[25px] list-disc mb-3'>
+                <li><a className='underline font-bold hover:cursor-pointer'>Reglament of EURG emission;</a></li>
+                <li><a className='underline font-bold hover:cursor-pointer'>Token’s Distribution Report.</a></li>
+            </ul>
+
+            <p>
+                EURG is built on the Ethereum platform in according to the ERC20 standard for tokens.
+                The code of the EURG smart contract has been audited by Hacken OÜ, a cybersecurity firm.
+                The report is publicly available <a className='underline font-bold hover:cursor-pointer'>here</a>.
+            </p>
+        </div>
+
     </div>,
 
     [ETokensConst.EVER]: <div>

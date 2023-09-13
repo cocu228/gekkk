@@ -1,12 +1,14 @@
 import React, {useMemo, useRef, useState} from "react";
-import styles from "@/widgets/header/ui/menu/style.module.scss";
-import DropdownMenuFunctions from "../../model/dropdown-menu-functions"
+import RefreshButton from "@/shared/ui/refresh-button";
 import {TPropsHeaderMenu} from "@/widgets/header/model/types";
-
+import {storeAccounts} from "@/shared/store/accounts/accounts";
+import styles from "@/widgets/header/ui/menu/style.module.scss";
+import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
 
 const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu) => {
-    const [isActive, toggleActive] = useState(false)
-    const ref = useRef(null)
+    const ref = useRef(null);
+    const [isActive, toggleActive] = useState(false);
+    const getAccounts = storeAccounts(state => state.getAccounts);
     const dropdownMenuFunctions =
         useMemo(() => new DropdownMenuFunctions(ref, toggleActive, actions), [ref])
 
@@ -16,6 +18,17 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
             <div className={`wrapper relative md:pl-14 md:pr-0 pl-7 pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
+                    <div className='flex justify-between px-2 py-1'>
+                        <span className='text-gray-600'>Accounts:</span>
+                        
+                        <RefreshButton
+                            calloutFunc={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                getAccounts(true).then();
+                            }}
+                        />
+                    </div>
 
                     {items.map((item, i) => <span key={"ItemMenu_" + i}
                                                   style={item.style}
@@ -27,4 +40,4 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
     </>
 }
 
-export default HeaderMenu
+export default HeaderMenu;

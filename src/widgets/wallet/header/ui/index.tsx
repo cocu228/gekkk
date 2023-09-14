@@ -102,7 +102,7 @@ const WalletHeader = () => {
             </div>
 
             {md ? null : isEUR ? (
-                <div className="h-[200px] w-[310px] -mt-16 mr-20 -xl:-mb-10 lg:scale-75 lg:mr-0">
+                <div className="h-[200px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0">
                     <Carousel>
                         {!bankCards ? (
                             <SkeletonCard/>

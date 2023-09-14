@@ -25,7 +25,7 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
                             calloutFunc={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                getAccounts(true).then();
+                                getAccounts(true);
                             }}
                         />
                     </div>

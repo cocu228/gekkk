@@ -1,5 +1,5 @@
 export type TSessionAuth = {
     phone: string,
-    secondaryForTimer: number,
+    dateTimeStart: Date | null,
     verificationId: string,
 }

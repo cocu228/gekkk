@@ -15,7 +15,6 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import useError from "@/shared/model/hooks/useError";
-import {timer} from "@/widgets/auth/model/helpers";
 import Decimal from "decimal.js";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 // import firebase from "firebase/compat";
@@ -46,10 +45,10 @@ const FormCode = memo(() => {
 
     const [{
         phone,
-        secondaryForTimer,
+        dateTimeStart,
         verificationId
     }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", secondaryForTimer: 0, verificationId: ""}
+        {phone: "", dateTimeStart: null, verificationId: ""}
     );
 
 

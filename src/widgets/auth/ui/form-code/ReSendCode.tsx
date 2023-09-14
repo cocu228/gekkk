@@ -1,63 +1,73 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Decimal from "decimal.js";
-import {timer} from "@/widgets/auth/model/helpers";
+import {Timer} from "@/widgets/auth/model/helpers";
 import {useSessionStorage} from "usehooks-ts";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {signInWithPhoneNumber, RecaptchaVerifier} from 'firebase/auth';
 import {auth} from "@/processes/firebaseConfig";
+import {differenceInSeconds} from 'date-fns';
 
-export const ReSendCode = props => {
-
+export const ReSendCode = () => {
 
     const [{
         phone,
-        secondaryForTimer,
+        dateTimeStart,
         verificationId
     }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", secondaryForTimer: 0, verificationId: ""}
+        {
+            phone: "",
+            dateTimeStart: null,
+            verificationId: ""
+        }
     );
 
     const [state, setState] = useState<null | number>(null)
 
+    const instanceTimer = useMemo(() => new Timer(60, setState, setSessionGlobal), [])
+
     useEffect(() => {
 
-        const secondaryTime = (new Decimal(secondaryForTimer).isInteger() && secondaryForTimer > 0) ?
-            secondaryForTimer : 60
+        if (dateTimeStart) {
 
-        timer.call({setSessionGlobal, setState}, secondaryTime)
+            const date1 = new Date(dateTimeStart);
+            const date2 = new Date();
 
-    }, []);
+            const difference = differenceInSeconds(date2, date1);
+
+            difference <= 60 && instanceTimer.run(60 - difference)
+
+        } else {
+            instanceTimer.run()
+        }
+
+        return () => instanceTimer.clear()
+
+    }, [verificationId]);
 
     const onSend = () => {
 
         if (!window.recaptchaVerifier) {
-            signInWithPhoneNumber(auth, phone, new RecaptchaVerifier(auth, "recaptcha-container", {
+
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
                 size: "invisible",
                 callback: (response: unknown) => {
-                    console.log(response)
-                    console.log("callback")
-                    // setTimeout(() =>
-                    //     document.getElementById("recaptcha-container").style.display = "none", 500)
+                    onSend()
+
                 }
-            })).then(function (confirmationResult) {
-                setSessionGlobal(prev => ({
-                    ...prev,
-                    phone: phone,
-                    verificationId: confirmationResult.verificationId
-                }))
-                // confirmationResult can resolve with the fictional testVerificationCode above.
-                console.log("confirmationResult")
-                console.log(confirmationResult)
-            }).catch(function (error) {
-
-            });
+            })
         } else {
-            signInWithPhoneNumber(auth, phone, window.recaptchaVerifier).then(function (confirmationResult) {
-                // confirmationResult can resolve with the fictional testVerificationCode above.
-                console.log("confirmationResultawdawd")
-                console.log(confirmationResult)
-            }).catch(function (error) {
 
+            signInWithPhoneNumber(auth, "+" + phone, window.recaptchaVerifier)
+                .then(function (confirmationResult) {
+                    setSessionGlobal(prev => ({
+                        ...prev,
+                        verificationId: confirmationResult.verificationId
+                    }))
+
+                    instanceTimer.run()
+
+                }).catch(function (error) {
+                console.log(error)
             });
         }
     }

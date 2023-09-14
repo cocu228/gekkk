@@ -32,7 +32,7 @@ const FormLoginAccount = memo(() => {
     const {phoneValidator, pinValidator} = useValidation();
     const inputRef = useRef(null);
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", secondaryForTimer: 0, verificationId: ""})
+        {phone: "", dateTimeStart: null, verificationId: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const [state, setState] = useState<{
@@ -64,10 +64,8 @@ const FormLoginAccount = memo(() => {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
             size: "invisible",
             callback: (response: unknown) => {
-                console.log(response)
-                setTimeout(() =>
-                    document.getElementById("recaptcha-container").style.display = "none", 500)
-                }
+
+            }
             });
 
         onSingIn()
@@ -77,14 +75,10 @@ const FormLoginAccount = memo(() => {
 
         localErrorClear()
 
-        document.getElementById("recaptcha-container").style.display = "block"
-
         setLoading(true)
 
 
         if (!window.recaptchaVerifier) {
-
-            console.log("onCaptchaVerify")
 
             onCaptchaVerify()
 
@@ -93,7 +87,7 @@ const FormLoginAccount = memo(() => {
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
 
-                    // window.confirmationResult = confirmationResult;
+                    window.confirmationResult = confirmationResult;
 
                     setSessionAuth(prev => ({
                         ...prev,

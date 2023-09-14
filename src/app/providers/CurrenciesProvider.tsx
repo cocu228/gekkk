@@ -7,7 +7,7 @@ import {
     uncoverArray,
     uncoverResponse
 } from '@/shared/lib/helpers';
-import helperCurrenciesGeneration from "@/shared/lib/helperCurrenciesGeneration";
+import helperCurrenciesGeneration from "@/shared/lib/helper-currencies-generation";
 import Decimal from 'decimal.js';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Loader from "@/shared/ui/loader";

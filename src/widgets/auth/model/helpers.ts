@@ -1,4 +1,5 @@
 import {apiRequestCode, apiSignIn} from "@/widgets/auth/api";
+import React, {Dispatch, SetStateAction} from "react";
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
 
 export const helperApiRequestCode = function (response) {
@@ -32,29 +33,60 @@ export const authForTokenHashUrl = function () {
 
 }
 
-export function timer(secondary: number = 60) {
 
-    let timeCount = secondary;
-    const processCount = () => {
+export class Timer {
 
-        if (timeCount === 0) {
+    timerProcess: any;
+    timerRunProcess: ReturnType<typeof setInterval> | null;
+    timeCount: number;
+    setState: React.Dispatch<React.SetStateAction<any>>;
+    setSessionGlobal: React.Dispatch<React.SetStateAction<any>>;
 
-            clearTimeout(processTimer)
+    constructor(
+        seconds: number,
+        setState: React.Dispatch<React.SetStateAction<any>>,
+        setSessionGlobal: React.Dispatch<SetStateAction<any>>
+    ) {
+
+        this.timerProcess = () => (() => setInterval(this.processCount.bind(this), 1000))()
+
+        this.timerRunProcess = null
+        this.timeCount = seconds
+        this.setState = setState
+        this.setSessionGlobal = setSessionGlobal
+
+    }
+
+    private processCount() {
+
+        if (this.timeCount === 0) {
+
+            clearTimeout(this.timerRunProcess)
+
             this.setState(null)
 
-            this.setSessionGlobal(prev => ({...prev, secondaryForTimer: 0}))
+            // this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
 
         } else {
 
-            this.setSessionGlobal(prev => ({...prev, secondaryForTimer: timeCount}))
+            this.setState(this.timeCount)
 
-            this.setState(timeCount)
-
-            console.log(timeCount)
-            timeCount--
+            this.timeCount--
         }
+
     }
 
+    run(seconds?: number) {
 
-    const processTimer = setInterval(processCount, 1000);
+        !seconds && this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: new Date()}))
+
+        this.timeCount = seconds ?? this.timeCount
+
+        this.timerProcess = this.timerProcess(this.timeCount)
+
+    }
+
+    clear() {
+        clearTimeout(this.timerProcess)
+    }
 }

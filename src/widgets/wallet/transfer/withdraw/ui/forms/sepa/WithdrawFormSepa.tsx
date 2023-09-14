@@ -87,7 +87,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Comment (optional)</span>
+                        <span>Comment</span>
                     </div>
                 </div>
                 <div className="row">
@@ -122,22 +122,27 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
         </div>
-        <Modal width={450} title="Transfer confirmation"
-               onCancel={handleCancel}
-               open={isModalOpen}>
-
-            <WithdrawConfirmSepa {...inputs}
-                                 handleCancel={handleCancel}
-            />
-
+        <Modal 
+            width={450}
+            open={isModalOpen}
+            onCancel={handleCancel}
+            title="Transfer confirmation"
+        >
+            <WithdrawConfirmSepa {...inputs} handleCancel={handleCancel}/>
         </Modal>
         <div className="row mb-8 w-full">
             <div className="col">
-                <Button onClick={showModal} disabled={!inputs.amount} size={"xl"} className="w-full">Withdraw</Button>
+                <Button
+                    size={"xl"}
+                    className="w-full"
+                    onClick={showModal}
+                    disabled={!Object.values(inputs).every(v => v !== null && v !== '')}
+                >
+                    Withdraw
+                </Button>
             </div>
         </div>
     </div>)
-
 };
 
 export default WithdrawFormSepa;

@@ -83,9 +83,9 @@ function Exchange() {
                     />
                 );
             case 'creator':
-                return `Private exchange: ${roomInfo.timetick}`;
+                return `Private room ${from.currency} - ${to.currency}, ID: ...${roomInfo.timetick.toString().slice(-6)}`;
             case 'visitor':
-                return `Private exchange participant: ${roomInfo.timetick}`;
+                return `Private room ${from.currency} - ${to.currency} participant, ID: ...${roomInfo.timetick.toString().slice(-6)}`;
         }
     };
 

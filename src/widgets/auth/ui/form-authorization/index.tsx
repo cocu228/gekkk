@@ -18,15 +18,11 @@ import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
 import {apiCheckPassword} from "@/widgets/auth/api";
 import {helperApiCheckPassword} from "@/widgets/auth/model/helpers";
+import {TSessionAuth} from "@/widgets/auth/model/types";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
-
-
-type TState = {
-    phone: string,
-    password: string
-}
 
 
 const FormLoginAccount = memo(() => {
@@ -35,11 +31,14 @@ const FormLoginAccount = memo(() => {
     const {md} = useContext(BreakpointsContext);
     const {phoneValidator, pinValidator} = useValidation();
     const inputRef = useRef(null);
-    const [, setSessionAuth] = useSessionStorage("session-auth",
-        {phone: "", currentTime: new Date()})
+    const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
+        {phone: "", dateTimeStart: null, verificationId: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
-    const [state, setState] = useState<TState>({
+    const [state, setState] = useState<{
+        phone: string,
+        password: string
+    }>({
         phone: "",
         password: ""
     });
@@ -65,12 +64,9 @@ const FormLoginAccount = memo(() => {
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
             size: "invisible",
             callback: (response: unknown) => {
-                console.log(response)
-                setTimeout(() =>
-                    document.getElementById("recaptcha-container").style.display = "none", 500)
-                }
-            });
 
+            }
+            });
 
         onSingIn()
 
@@ -79,14 +75,10 @@ const FormLoginAccount = memo(() => {
 
         localErrorClear()
 
-        document.getElementById("recaptcha-container").style.display = "block"
-
         setLoading(true)
 
 
         if (!window.recaptchaVerifier) {
-
-            console.log("onCaptchaVerify")
 
             onCaptchaVerify()
 
@@ -94,22 +86,29 @@ const FormLoginAccount = memo(() => {
 
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
+
                     window.confirmationResult = confirmationResult;
-                    setSessionAuth({
+
+                    setSessionAuth(prev => ({
+                        ...prev,
                         phone: state.phone,
-                        currentTime: new Date()
-                    })
+                        verificationId: confirmationResult.verificationId
+                    }))
+
                     setLoading(false)
                     toggleStage("code")
 
                 }).catch((error) => {
 
                 console.log(JSON.stringify(error))
+
                 setLoading(false)
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
+                } else if (error.code === "auth/too-many-requests") {
+                    localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 } else if (error.code === "auth/invalid-verification-code") {
-                    localErrorHunter({code: 1, message: "Invalid verification code"})
+                    localErrorHunter({code: 2, message: "Invalid verification code"})
                 }
             });
         }

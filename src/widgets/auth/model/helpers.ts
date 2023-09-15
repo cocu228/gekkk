@@ -1,4 +1,5 @@
 import {apiRequestCode, apiSignIn} from "@/widgets/auth/api";
+import React, {Dispatch, SetStateAction} from "react";
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
 
 export const helperApiRequestCode = function (response) {
@@ -30,4 +31,62 @@ export const authForTokenHashUrl = function () {
 
     return actionSuccessConstructor.call(sessionId, typeof sessionId === "string")
 
+}
+
+
+export class Timer {
+
+    timerProcess: any;
+    timerRunProcess: ReturnType<typeof setInterval> | null;
+    timeCount: number;
+    setState: React.Dispatch<React.SetStateAction<any>>;
+    setSessionGlobal: React.Dispatch<React.SetStateAction<any>>;
+
+    constructor(
+        seconds: number,
+        setState: React.Dispatch<React.SetStateAction<any>>,
+        setSessionGlobal: React.Dispatch<SetStateAction<any>>
+    ) {
+
+        this.timerProcess = () => (() => setInterval(this.processCount.bind(this), 1000))()
+
+        this.timerRunProcess = null
+        this.timeCount = seconds
+        this.setState = setState
+        this.setSessionGlobal = setSessionGlobal
+
+    }
+
+    private processCount() {
+
+        if (this.timeCount === 0) {
+
+            clearTimeout(this.timerRunProcess)
+
+            this.setState(null)
+
+            // this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
+
+        } else {
+
+            this.setState(this.timeCount)
+
+            this.timeCount--
+        }
+
+    }
+
+    run(seconds?: number) {
+
+        !seconds && this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: new Date()}))
+
+        this.timeCount = seconds ?? this.timeCount
+
+        this.timerProcess = this.timerProcess(this.timeCount)
+
+    }
+
+    clear() {
+        clearTimeout(this.timerProcess)
+    }
 }

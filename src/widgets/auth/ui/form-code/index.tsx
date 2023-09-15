@@ -15,8 +15,15 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import useError from "@/shared/model/hooks/useError";
+import Decimal from "decimal.js";
+import {TSessionAuth} from "@/widgets/auth/model/types";
 // import firebase from "firebase/compat";
 // import User = firebase.User;
+import {PhoneAuthProvider, signInWithCredential, signInWithPhoneNumber} from 'firebase/auth';
+
+import {auth} from "@/processes/firebaseConfig";
+import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
+
 
 declare module 'firebase/auth' {
     interface User {
@@ -33,12 +40,17 @@ const FormCode = memo(() => {
     const {onInput} = useMask(MASK_CODE);
     const [code, setCode] = useState("");
     const {md} = useContext(BreakpointsContext);
-    // const [timerOn, setTimerOn] = useState(true);
-    // const [timeLeft, setTimeLeft] = useState(180);
     const [loading, setLoading] = useState<boolean>(false);
     const {toggleStage} = storyDisplayStage(state => state);
-    // const [, setSessionGlobal] = useSessionStorage("session-global", {});
-    const [{phone}] = useSessionStorage("session-auth", {phone: ""});
+
+    const [{
+        phone,
+        dateTimeStart,
+        verificationId
+    }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
+        {phone: "", dateTimeStart: null, verificationId: ""}
+    );
+
 
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
@@ -51,64 +63,27 @@ const FormCode = memo(() => {
         setCode(str)
     }
 
-    // const onFinish = () => {
-    //     setLoading(true);
-    //
-    //     apiRequestCode(phone, formatAsNumber(code), sessionId)
-    //         .then(res => helperApiRequestCode(res)
-    //             .success(() => {
-    //                 setSessionGlobal({sessionId: res.data.sessid})
-    //                 apiSignIn(formatAsNumber(code), sessionId, phone)
-    //                     .then(res => helperApiSignIn(res)
-    //                         .success(() => {
-    //                             toggleStage("authorization");
-    //                             login(phone, res.data.token);
-    //                         }))
-    //                         .catch(e => {
-    //                             setLoading(false);
-    //                         });
-    //                     })
-    //                     .reject(v => {
-    //                 setLoading(false);
-    //             })
-    //         )
-    // }
-
-    // useEffect(() => {
-    //     let interval;
-    //     if (timerOn) {
-    //         interval = setInterval(() => {
-    //             setTimeLeft((prevTime) => prevTime - 1);
-    //         }, 1000);
-    //     }
-    //     if (timeLeft === 0) {
-    //         setTimerOn(false);
-    //     }
-    //
-    //     return () => clearInterval(interval);
-    // }, [timerOn, timeLeft]);
-    //
-    // const restartTimer = () => {
-    //     apiRequestCode(phone);
-    //     setTimeLeft(180);
-    //     setTimerOn(true);
-    // };
-
     const onCode = () => {
 
-        window.confirmationResult.confirm(formatAsNumber(code)).then((result) => {
+        signInWithCredential(auth, PhoneAuthProvider.credential(
+            verificationId,
+            formatAsNumber(code)
+        )).then((result) => {
+
             const user = result.user;
             login(user.phoneNumber, user.accessToken, "token-firebase")
+            sessionStorage.removeItem("session-auth")
             toggleStage("authorization")
-        }).catch((error) => {
+
+
+        }).catch(error => {
             console.log(JSON.stringify(error))
             if (error.code === "auth/code-expired") {
                 localErrorHunter({code: 0, message: "This code has expired"})
             } else if (error.code === "auth/invalid-verification-code") {
                 localErrorHunter({code: 1, message: "Invalid verification code"})
             }
-        });
-
+        })
     }
 
     return <Form autoComplete="off" onFinish={onCode}>
@@ -130,6 +105,7 @@ const FormCode = memo(() => {
             />
         </FormItem>
         {localErrorSpan}
+        <ReSendCode/>
 
 
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
@@ -151,9 +127,13 @@ const FormCode = memo(() => {
         </div>
         <a
             className='flex mt-2 justify-center underline text-gray-400 hover:text-blue-400'
-            onClick={() => toggleStage('authorization')}
+            onClick={() => {
+                sessionStorage.removeItem("session-auth")
+                toggleStage('authorization')
+            }}
         >← Back to login page</a>    
     </Form>
 });
+
 
 export default FormCode;

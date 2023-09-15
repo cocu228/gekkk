@@ -9,6 +9,6 @@ function App() {
     </BreakpointsProvider>
 }
 
-console.log(`Версия приложения: ${import.meta.env.VITE_APP_VERSION}`);
+console.log(`App version: ${import.meta.env.VITE_APP_VERSION}`);
 
 export default App

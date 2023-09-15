@@ -35,6 +35,8 @@ const WithdrawConfirmCrypto = ({
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+    const [stageConfirm, setStageConfirm] = useState(1)
+
 
     const {onInput} = useMask(MASK_CODE);
     const onConfirm = async () => {
@@ -43,13 +45,25 @@ const WithdrawConfirmCrypto = ({
 
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
-        const response = await apiCreateWithdraw($const, networkIdSelect, new Decimal(amount).toNumber(),
-            percent_fee || withdraw_fee, isNull(address) ? "" : address, recipient, description)
+        const response = await apiCreateWithdraw(
+            $const,
+            networkIdSelect,
+            new Decimal(amount).toNumber(),
+            percent_fee || withdraw_fee,
+            isNull(address) ? "" : address,
+            recipient,
+            description,
+            input === "" ? undefined : input
+        )
 
         actionResSuccess(response)
             .success(() => {
-                handleCancel()
-                setRefresh()
+                if (stageConfirm === 1) {
+                    setStageConfirm(2)
+                } else {
+                    handleCancel()
+                    setRefresh()
+                }
             })
             .reject(localErrorHunter)
 
@@ -141,18 +155,18 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            <FormItem className={"mb-4"} name="code" label="Code" preserve
-                      rules={[{required: true, ...codeMessage}]}>
+            {stageConfirm === 2 && <FormItem className={"mb-4"} name="code" label="Code" preserve
+                       rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
                        placeholder="Enter your PIN"
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />
-            </FormItem>
+            </FormItem>}
             <div className="row mb-5">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={input === ""} className="w-full"
+                    <Button htmlType={"submit"} disabled={(input === "" && stageConfirm === 2)} className="w-full"
                             size={"xl"}>Confirm</Button>
                 </div>
                 <div className="col flex justify-center mt-4">

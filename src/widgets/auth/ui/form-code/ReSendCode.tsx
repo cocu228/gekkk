@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import Decimal from "decimal.js";
+// import Decimal from "decimal.js";
 import {Timer} from "@/widgets/auth/model/helpers";
 import {useSessionStorage} from "usehooks-ts";
 import {TSessionAuth} from "@/widgets/auth/model/types";

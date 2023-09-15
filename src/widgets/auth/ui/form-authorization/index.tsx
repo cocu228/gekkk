@@ -105,8 +105,10 @@ const FormLoginAccount = memo(() => {
                 setLoading(false)
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
+                } else if (error.code === "auth/too-many-requests") {
+                    localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 } else if (error.code === "auth/invalid-verification-code") {
-                    localErrorHunter({code: 1, message: "Invalid verification code"})
+                    localErrorHunter({code: 2, message: "Invalid verification code"})
                 }
             });
         }

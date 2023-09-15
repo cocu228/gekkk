@@ -8,10 +8,10 @@
   background-color: transparent;
   width: 100%;
   border: 1px solid transparent;
-  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 
   &:global(.active) {
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     max-height: 700px;
     border: 1px solid var(--color-gray-400);

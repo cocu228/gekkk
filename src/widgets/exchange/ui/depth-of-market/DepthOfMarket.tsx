@@ -5,10 +5,10 @@ import {RateState} from '../../model/types';
 import {CtxExchangeData} from '../../model/context';
 import {useContext, useEffect, useState} from 'react';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
-import IconArrowUp from '../../../../shared/ui/icons/IconArrowUp';
-import {ITradeInfo, TradePriceArray, apiGetTradeInfo} from '@/shared/api';
-import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import IconArrow from '../../../../shared/ui/icons/IconArrow';
+import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
+import {ITradeInfo, TradePriceArray, apiGetTradeInfo, apiGetRates} from '@/shared/api';
 
 interface IParams {
     currencyFrom: string;
@@ -172,7 +172,7 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
                         <Loader className='relative h-[25px] w-[25px]' />
                     ) : (
                         <>
-                            <IconArrowUp /> {state.price ?? '-'}
+                            <IconArrow/> {state.price ?? '-'}
                         </>
                     )}
                 </div>

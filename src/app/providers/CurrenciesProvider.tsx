@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useLayoutEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {apiGetBalance, apiGetMarketAssets, apiGetRates} from '@/shared/api';
@@ -12,10 +12,11 @@ import Decimal from 'decimal.js';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Loader from "@/shared/ui/loader";
 import ETokensConst from "@/shared/config/coins/constants";
+import {storeAssets} from "@/shared/store/assets";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
     const {refreshKey, account} = useContext(CtxRootData);
-
+    const getAssets = storeAssets(state => state.getAssets)
     const [{
         currencies,
         totalAmount
@@ -28,28 +29,46 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
     })
 
     useEffect(() => {
+
+
         (async function () {
+
+            console.log("currencies")
+
+
             const walletsResponse = await apiGetBalance();
-            const eurResponse = await apiGetBalance('EUR');
-            const assetsResponse = await apiGetMarketAssets();
+            const assetsResponse = await getAssets()
+
+            console.log(assetsResponse)
 
             actionResSuccess(walletsResponse)
                 .success(() => {
-                    actionResSuccess(assetsResponse)
-                        .success(() => {
                             setState(prev => ({
                                 ...prev,
                                 currencies: helperCurrenciesGeneration(
-                                    uncoverResponse(assetsResponse),
+                                    assetsResponse,
                                     uncoverResponse(walletsResponse),
-                                    uncoverArray(uncoverResponse(eurResponse))
+                                    // uncoverArray(uncoverResponse(eurResponse))
                                 )
                             }));
-                        }).reject(() => null);
                 }).reject(() => null);
         })();
 
     }, [refreshKey, account]);
+
+    // useEffect(() => {
+    //
+    //     const assetsResponse = storeAssets(state => state.assets)
+    //
+    //     (async () => {
+    //         console.log("eurResponse")
+    //
+    //         const eurResponse = await apiGetBalance('EUR');
+    //
+    //         currencies.set("EUR", new ICtxCurrency(asset, eurWallet));
+    //
+    //     })()
+    // }, [refreshKey, account])
 
     useEffect(() => {
         if (currencies.size === 0) return;
@@ -94,6 +113,8 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
     //         }
     //     })();
     // }, [currencies]);
+
+    console.log(currencies.size === 0)
 
     return <CtxCurrencies.Provider value={{
         currencies,

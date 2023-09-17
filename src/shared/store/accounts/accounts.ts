@@ -19,6 +19,8 @@ export const storeAccounts = create<IStoreAccounts>()(devtools((set) => ({
     getAccounts: async (refresh: boolean = false) => {
         const {data} = await apiGetAccountInfo(refresh);
 
+        console.log(`store: accounts`, data.result);
+        
         set((state) => ({
             ...state,
             accounts: data.result.map(acc => getAccountWithRights(acc)),

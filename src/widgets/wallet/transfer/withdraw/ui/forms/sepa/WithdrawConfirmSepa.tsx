@@ -81,8 +81,8 @@ const WithdrawConfirmSepa = ({
     };
 
     const onConfirm = async () => {
-        console.log(`sepa: accounts`, account.account_id);
-        console.log(`sepa: paymentDetails`, paymentDetails);
+        // console.log(`sepa: accounts`, account.account_id);
+        // console.log(`sepa: paymentDetails`, paymentDetails);
 
         setState(prev => ({
             ...prev,

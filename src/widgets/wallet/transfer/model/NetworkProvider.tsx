@@ -85,7 +85,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             const changedCurrency = $const !== prevDeps.current
 
             if (changedCurrency) {
-                console.log('Changed dependencies:', changedCurrency);
+                // console.log('Changed dependencies:', changedCurrency);
             }
             prevDeps.current = $const;
 

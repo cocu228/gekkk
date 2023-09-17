@@ -1,10 +1,9 @@
 import React, {memo, useContext, useEffect, useLayoutEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetMarketAssets, apiGetRates} from '@/shared/api';
+import {apiGetBalance, apiGetRates} from '@/shared/api';
 import {
-    actionResSuccess,
-    uncoverArray,
+    actionResSuccess, randomId,
     uncoverResponse
 } from '@/shared/lib/helpers';
 import helperCurrenciesGeneration from "@/shared/lib/helper-currencies-generation";
@@ -15,8 +14,12 @@ import ETokensConst from "@/shared/config/coins/constants";
 import {storeAssets} from "@/shared/store/assets";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
+
     const {refreshKey, account} = useContext(CtxRootData);
+
     const getAssets = storeAssets(state => state.getAssets)
+    const assets = storeAssets(state => state.assets)
+
     const [{
         currencies,
         totalAmount
@@ -24,56 +27,63 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         currencies: new Map<string, ICtxCurrency>(),
         totalAmount: {
             EUR: null,
-            BTC: null
+            BTC: null,
+            refreshKey: ""
         }
     })
 
     useEffect(() => {
 
-
         (async function () {
 
-            console.log("currencies")
-
-
             const walletsResponse = await apiGetBalance();
-            const assetsResponse = await getAssets()
+            const assetsResponse = assets ? assets : await getAssets()
 
-            console.log(assetsResponse)
+            let currencies: Map<string, ICtxCurrency> | undefined
 
             actionResSuccess(walletsResponse)
-                .success(() => {
-                            setState(prev => ({
+                .success(async function () {
+
+                    currencies = helperCurrenciesGeneration(
+                        assetsResponse,
+                        uncoverResponse(walletsResponse),
+                    )
+
+                    setState(prev => ({
                                 ...prev,
-                                currencies: helperCurrenciesGeneration(
-                                    assetsResponse,
-                                    uncoverResponse(walletsResponse),
-                                    // uncoverArray(uncoverResponse(eurResponse))
-                                )
+                        currencies,
+                        totalAmount: {
+                            ...prev.totalAmount,
+                            refreshKey: randomId()
+                        }
                             }));
+
+//TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
+// поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
+                    const eurResponse = await apiGetBalance('EUR');
+
+                    currencies.set("EUR", new ICtxCurrency(assetsResponse.find(it => it.code === "EUR"),
+                        uncoverResponse(eurResponse)));
+
+                    setState(prev => ({
+                        ...prev, currencies,
+                        totalAmount: {
+                            ...prev.totalAmount,
+                            refreshKey: randomId()
+                        }
+                    }))
+
+
+
                 }).reject(() => null);
         })();
 
-    }, [refreshKey, account]);
+    }, [refreshKey]);
 
-    // useEffect(() => {
-    //
-    //     const assetsResponse = storeAssets(state => state.assets)
-    //
-    //     (async () => {
-    //         console.log("eurResponse")
-    //
-    //         const eurResponse = await apiGetBalance('EUR');
-    //
-    //         currencies.set("EUR", new ICtxCurrency(asset, eurWallet));
-    //
-    //     })()
-    // }, [refreshKey, account])
 
     useEffect(() => {
-        if (currencies.size === 0) return;
 
-        (async () => {
+        if (currencies.size !== 0) (async () => {
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
@@ -83,38 +93,14 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
             setState(prev => ({
                 ...prev,
                 totalAmount: {
-                    EUR: valueEUR,
-                    BTC: valueBTC
+                    ...prev.totalAmount,
+                    BTC: valueBTC,
+                    EUR: valueEUR
                 }
             }))
         })();
-    }, [currencies]);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const eurWallet = currencies.get('EUR');
-
-    //         if (eurWallet) {
-    //             const {data} = await apiGetBalance('EUR');
-    //             const {
-    //                 lock_orders,
-    //                 free_balance,
-    //                 lock_in_balance,
-    //                 lock_out_balance
-    //             } = uncoverArray(data.result);
-
-    //             currencies.set('EUR', {
-    //                 ...eurWallet,
-    //                 availableBalance: new Decimal(free_balance),
-    //                 lockInBalance: lock_in_balance,
-    //                 lockOutBalance: lock_out_balance,
-    //                 lockOrders: lock_orders
-    //             })
-    //         }
-    //     })();
-    // }, [currencies]);
-
-    console.log(currencies.size === 0)
+    }, [totalAmount.refreshKey]);
 
     return <CtxCurrencies.Provider value={{
         currencies,

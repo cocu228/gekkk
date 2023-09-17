@@ -18,7 +18,7 @@ import {storeAssets} from "@/shared/store/assets";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
 
-    const {refreshKey, account} = useContext(CtxRootData);
+    const {refreshKey} = useContext(CtxRootData);
 
     const getAssets = storeAssets(state => state.getAssets)
     const assets = storeAssets(state => state.assets)

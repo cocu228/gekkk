@@ -1,4 +1,4 @@
-import React, {memo, useContext, useEffect, useLayoutEffect, useState} from 'react';
+import React, {memo, useContext, useEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {apiGetBalance, apiGetRates} from '@/shared/api';

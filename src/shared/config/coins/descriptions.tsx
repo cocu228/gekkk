@@ -1,8 +1,12 @@
 import ETokensConst from './constants';
-import {NavigateFunction} from "react-router-dom";
 import {scrollToTop} from "@/shared/lib/helpers";
+import {NavigateFunction} from "react-router-dom";
+import {AccountRights} from "@/shared/config/account-rights";
+import {IAccountInfo} from "@/shared/store/accounts/accounts";
 
-export function getTokenDescriptions(navigate: NavigateFunction) {
+export function getTokenDescriptions(navigate: NavigateFunction, account: IAccountInfo) {
+    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    
     return {
         [ETokensConst.ONEINCH]: <div>
             <p className='mb-3'>
@@ -1886,10 +1890,21 @@ export function getTokenDescriptions(navigate: NavigateFunction) {
             <p className='mb-3'>
                 Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem.
                 All EURG tokens are subject to exchange for fiat money in accordance
-                with the conditions on this site and the <a className='font-bold underline hover:cursor-pointer' href='https://web.gekkard.com/app-release.apk'>Gekkard App</a>.
+                with the conditions on this site and the <a
+                    className='font-bold underline hover:cursor-pointer'
+                    href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Gekkard App</a>.
             </p>
 
-            <p className='mb-3'>For more information of the EURG token please read our <a className='underline font-bold hover:cursor-pointer'>White Paper.</a></p>
+            <p className='mb-3'>For more information of the EURG token please read our <a
+                    className='underline font-bold hover:cursor-pointer'
+                    href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >White Paper.</a>
+            </p>
 
             <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
                 <div className='text-xl'>
@@ -1898,11 +1913,17 @@ export function getTokenDescriptions(navigate: NavigateFunction) {
 
                 <div className="col text-xs">
                 <span>* Note:  Standard exchange fee is 1,5%.
-                    If you <a
-                        className='underline hover:underline font-semibold'
-                    >
-                        freeze GKE tokens    
-                    </a> fee is 0%.
+                    {account.rights[AccountRights.IsJuridical] ? null : <>
+                        If you <a
+                            className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
+                            onClick={() => {
+                                navigate('/wallet/GKE/No Fee Program');
+                                scrollToTop();
+                            }}
+                        >
+                            freeze GKE tokens
+                        </a> fee is 0%.
+                    </>}
                 </span>
                 </div>
             </div>
@@ -1920,14 +1941,29 @@ export function getTokenDescriptions(navigate: NavigateFunction) {
                 </p>
 
                 <ul className='pl-[25px] list-disc mb-3'>
-                    <li><a className='underline font-bold hover:cursor-pointer'>Reglament of EURG emission;</a></li>
-                    <li><a className='underline font-bold hover:cursor-pointer'>Token’s Distribution Report.</a></li>
+                    <li><a 
+                        className='underline font-bold hover:cursor-pointer'
+                        href='https://gekkoin.com/source/Emission-rules-Gekkoin.pdf'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >Reglament of EURG emission;</a></li>
+                    <li><a 
+                        className='underline font-bold hover:cursor-pointer'
+                        href='https://gekkoin.com/source/Token-distribution-report.pdf'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >Token’s Distribution Report.</a></li>
                 </ul>
 
                 <p>
                     EURG is built on the Ethereum platform in according to the ERC20 standard for tokens.
                     The code of the EURG smart contract has been audited by Hacken OÜ, a cybersecurity firm.
-                    The report is publicly available <a className='underline font-bold hover:cursor-pointer'>here</a>.
+                    The report is publicly available <a
+                        className='underline font-bold hover:cursor-pointer'
+                        href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >here</a>.
                 </p>
             </div>
 
@@ -1989,9 +2025,14 @@ export function getTokenDescriptions(navigate: NavigateFunction) {
                     </ul>
                 </li>
                 <li className='mb-3'>
-                    Additional benefit when opening <a className='font-bold underline hover:cursor-pointer' href='https://dev.gekkoin.com/'>
-                    Gekkoin structured deposits
-                </a>. (If GKE tokens
+                    Additional benefit when opening <a
+                        className='font-bold underline hover:cursor-pointer'
+                        href='https://web.gekkoin.com/'
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Gekkoin structured deposits
+                    </a>. (If GKE tokens
                     are blocked in proportion of 1:1 with EURG, the deposits placed in EURG will be charged
                     double yield, and if there is a loss, it will be expressed as a twofold reduction of the loss).
                 </li>

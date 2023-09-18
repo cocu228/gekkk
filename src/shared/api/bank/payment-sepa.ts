@@ -50,6 +50,7 @@ export const apiPaymentSepa = (
         'X-Confirmation-Type': "PIN" | "SIGN";
         'X-Confirmation-Token': string;
         'X-Confirmation-Code': string;
+        'X-App-Uuid'?: string;
     } = null
 ) => $axios.post<IResCommission | IResErrors>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details

@@ -3,7 +3,9 @@ import {CtxRootData} from '@/processes/RootContext';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {apiGetBalance, apiGetRates} from '@/shared/api';
 import {
-    actionResSuccess, isNull, randomId,
+    actionResSuccess,
+    isNull,
+    randomId,
     uncoverResponse
 } from '@/shared/lib/helpers';
 import {
@@ -61,8 +63,8 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
                         }
                             }));
 
-//TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
-// поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
+                    //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
+                    // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
                     const eurResponse = await apiGetBalance('EUR');
 
                     currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))

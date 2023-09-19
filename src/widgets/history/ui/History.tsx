@@ -69,7 +69,6 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
         const lastValue = listHistory[listHistory.length - 1];
 
         const {data} = await apiHistoryTransactions(null, null, currenciesFilter, [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16], lastValue.id_transaction, 10)
-        console.log(data.result.length)
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))

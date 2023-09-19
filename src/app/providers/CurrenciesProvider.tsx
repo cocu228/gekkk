@@ -1,105 +1,116 @@
 import React, {memo, useContext, useEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetMarketAssets, apiGetRates} from '@/shared/api';
+import {apiGetBalance, apiGetRates} from '@/shared/api';
 import {
     actionResSuccess,
-    uncoverArray,
+    isNull,
+    randomId,
     uncoverResponse
 } from '@/shared/lib/helpers';
-import helperCurrenciesGeneration from "@/shared/lib/helper-currencies-generation";
+import {
+    initEmptyCurrenciesCollection,
+    walletsGeneration
+} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Loader from "@/shared/ui/loader";
 import ETokensConst from "@/shared/config/coins/constants";
+import {storeAssets} from "@/shared/store/assets";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
-    const {refreshKey, account} = useContext(CtxRootData);
 
-    const [{
-        currencies,
-        totalAmount
-    }, setState] = useState({
-        currencies: new Map<string, ICtxCurrency>(),
+    const {refreshKey} = useContext(CtxRootData);
+
+    const getAssets = storeAssets(state => state.getAssets)
+    const assets = storeAssets(state => state.assets)
+
+    const [state, setState] = useState({
+        currencies: null,
         totalAmount: {
             EUR: null,
-            BTC: null
+            BTC: null,
+            refreshKey: ""
         }
     })
 
     useEffect(() => {
+
         (async function () {
+
             const walletsResponse = await apiGetBalance();
-            const eurResponse = await apiGetBalance('EUR');
-            const assetsResponse = await apiGetMarketAssets();
+            const assetsResponse = assets ? assets : await getAssets()
+
+
+            let currencies: Map<string, ICtxCurrency>
 
             actionResSuccess(walletsResponse)
-                .success(() => {
-                    actionResSuccess(assetsResponse)
-                        .success(() => {
-                            setState(prev => ({
+                .success(async function () {
+
+                    currencies = isNull(state.currencies) ? initEmptyCurrenciesCollection(assetsResponse)
+                        : state.currencies
+
+                    currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse))
+
+
+
+                    setState(prev => ({
                                 ...prev,
-                                currencies: helperCurrenciesGeneration(
-                                    uncoverResponse(assetsResponse),
-                                    uncoverResponse(walletsResponse),
-                                    uncoverArray(uncoverResponse(eurResponse))
-                                )
+                        currencies,
+                        totalAmount: {
+                            ...prev.totalAmount,
+                            refreshKey: randomId()
+                        }
                             }));
-                        }).reject(() => null);
+
+                    //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
+                    // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
+                    const eurResponse = await apiGetBalance('EUR');
+
+                    currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))
+
+                    setState(prev => ({
+                        ...prev, currencies,
+                        totalAmount: {
+                            ...prev.totalAmount,
+                            refreshKey: randomId()
+                        }
+                    }))
+
+
+
                 }).reject(() => null);
         })();
 
-    }, [refreshKey, account]);
+    }, [refreshKey]);
+
 
     useEffect(() => {
-        if (currencies.size === 0) return;
 
-        (async () => {
+        if (state.currencies !== null) (async () => {
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(currencies, ratesEUR.data.result)
-            const valueBTC: Decimal = totalizeAmount(currencies, ratesBTC.data.result)
+            const valueEUR: Decimal = totalizeAmount(state.currencies, ratesEUR.data.result)
+            const valueBTC: Decimal = totalizeAmount(state.currencies, ratesBTC.data.result)
 
             setState(prev => ({
                 ...prev,
                 totalAmount: {
-                    EUR: valueEUR,
-                    BTC: valueBTC
+                    ...prev.totalAmount,
+                    BTC: valueBTC,
+                    EUR: valueEUR
                 }
             }))
         })();
-    }, [currencies]);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const eurWallet = currencies.get('EUR');
-
-    //         if (eurWallet) {
-    //             const {data} = await apiGetBalance('EUR');
-    //             const {
-    //                 lock_orders,
-    //                 free_balance,
-    //                 lock_in_balance,
-    //                 lock_out_balance
-    //             } = uncoverArray(data.result);
-
-    //             currencies.set('EUR', {
-    //                 ...eurWallet,
-    //                 availableBalance: new Decimal(free_balance),
-    //                 lockInBalance: lock_in_balance,
-    //                 lockOutBalance: lock_out_balance,
-    //                 lockOrders: lock_orders
-    //             })
-    //         }
-    //     })();
-    // }, [currencies]);
+    }, [state.totalAmount.refreshKey]);
 
     return <CtxCurrencies.Provider value={{
-        currencies,
-        totalAmount
+        currencies: state.currencies,
+        totalAmount: state.totalAmount
     }}>
-        {currencies.size === 0 ? <Loader/> : children}
+        {state.currencies === null ? <Loader/> : children}
     </CtxCurrencies.Provider>
 });
 

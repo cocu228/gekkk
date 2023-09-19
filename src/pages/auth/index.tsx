@@ -20,7 +20,6 @@ const AuthPage = memo(() => {
     const {login} = useAuth();
     const {toggleStage} = storyDisplayStage(state => state);
 
-    console.log("AuthPage")
 
     const [{
         verificationId

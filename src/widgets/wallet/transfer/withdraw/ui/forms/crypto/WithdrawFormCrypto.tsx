@@ -41,7 +41,7 @@ const WithdrawFormCrypto = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    console.log(networksDefault)
+    // console.log(networksDefault)
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
         <div className="flex flex-col items-center mt-2">

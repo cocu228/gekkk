@@ -12,6 +12,8 @@ export function randomId(value = 12): string {
 
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
 export const isNull = (value: any): boolean => value === null
+
+export const isNumber = (value: any): boolean => typeof value === "number"
 export function evenOrOdd(number) {
     return number % 2 === 0
 }

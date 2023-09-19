@@ -5,15 +5,16 @@ import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
 import {MASK_CODE} from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
+import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import {codeMessage} from "@/shared/config/message";
-import useError from "@/shared/model/hooks/useError";
 import {useContext, useEffect, useState} from "react";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
+import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
-import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api/bank/payments/payment-sepa";
 
 const WithdrawConfirmSepa = ({
     beneficiaryName,
@@ -62,7 +63,6 @@ const WithdrawConfirmSepa = ({
     const {$const} = useContext(CtxWalletData);
     const {account, setRefresh} = useContext(CtxRootData);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
-    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
     const paymentDetails = {
         purpose: comment,
@@ -85,41 +85,92 @@ const WithdrawConfirmSepa = ({
             ...prev,
             loading: true
         }));
+        
+        const {
+            appUuid,
+            appPass
+        } = await getTransactionSignParams();
 
-        // TODO: Error handling, JWT signing token generation
+        const {
+            phone
+        } = getCookieData<{phone: string}>();
+        
+        const jwtPayload = {
+            initiator: phone,
+            confirmationToken: confirmation.token,
+            exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
+        };
+
         await apiPaymentSepa(
             paymentDetails,
             false,
             !confirmation.token ? null : {
-                "X-Confirmation-Type": "PIN",
+                "X-Confirmation-Type": "SIGN",
+                "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
                 "X-Confirmation-Token": confirmation.token,
-                "X-Confirmation-Code": confirmation.code
+                "X-App-Uuid": appUuid
             }
-            ).then((response: AxiosResponse<IResErrors>) => {
-                const {data} = response;
+        ).then((response: AxiosResponse<IResErrors>) => {
+            const {data} = response;
 
-                if (data?.errors) {
-                    if (data.errors[0].code !== 449) throw data.errors[0].message;
-                    
-                    setState(prev => ({
-                        ...prev,
-                        loading: false,
-                        confirmation: {
-                            ...prev.confirmation,
-                            token: data.errors[0].properties['confirmationToken'],
-                            codeLength: data.errors[0].properties['confirmationCodeLength']
-                        }
-                    }));
-                    return;
-                }
-                
+            if (data?.errors) {
+                if (data.errors[0].code !== 449) return;
+
                 setState(prev => ({
                     ...prev,
                     loading: false,
+                    confirmation: {
+                        ...prev.confirmation,
+                        token: data.errors[0].properties['confirmationToken'],
+                        codeLength: data.errors[0].properties['confirmationCodeLength']
+                    }
                 }));
-                setRefresh();
-                handleCancel();
-            });
+                return;
+            }
+
+            setState(prev => ({
+                ...prev,
+                loading: false,
+            }));
+            setRefresh();
+            handleCancel();
+        }
+        );
+        
+        // -------------- PIN CONFIRMATION --------------
+        // await apiPaymentSepa(
+        //     paymentDetails,
+        //     false,
+        //     !confirmation.token ? null : {
+        //         "X-Confirmation-Type": "PIN",
+        //         "X-Confirmation-Token": confirmation.token,
+        //         "X-Confirmation-Code": confirmation.code
+        //     }
+        // ).then((response: AxiosResponse<IResErrors>) => {
+        //     const {data} = response;
+        //     
+        //     if (data?.errors) {
+        //         if (data.errors[0].code !== 449) return;
+        //        
+        //         setState(prev => ({
+        //             ...prev,
+        //             loading: false,
+        //             confirmation: {
+        //                 ...prev.confirmation,
+        //                 token: data.errors[0].properties['confirmationToken'],
+        //                 codeLength: data.errors[0].properties['confirmationCodeLength']
+        //             }
+        //         }));
+        //         return;
+        //     }
+        //    
+        //     setState(prev => ({
+        //         ...prev,
+        //         loading: false,
+        //     }));
+        //     setRefresh();
+        //     handleCancel();
+        // });
     }
 
     useEffect(() => {
@@ -232,7 +283,6 @@ const WithdrawConfirmSepa = ({
                     <Input type="text"
                            onInput={onInput}
                            placeholder="Enter your PIN"
-                           maxLength={confirmation.codeLength + 2 ?? 0}
                            onChange={({target}) => setState(prev => ({
                                ...prev,
                                confirmation: {
@@ -249,9 +299,6 @@ const WithdrawConfirmSepa = ({
                 <div className="col">
                     <Button htmlType={"submit"} disabled={!total} className="w-full"
                             size={"xl"}>Confirm</Button>
-                </div>
-                <div className="col flex justify-center mt-4">
-                    {localErrorInfoBox}
                 </div>
             </div>
         </Form>

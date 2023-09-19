@@ -3,7 +3,6 @@ import React, {Dispatch, SetStateAction} from "react";
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
 
 export const helperApiRequestCode = function (response) {
-    console.log("test")
     return actionSuccessConstructor(!!response.data?.success)
 }
 export const helperApiSignIn = function (response) {

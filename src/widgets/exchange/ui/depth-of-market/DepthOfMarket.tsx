@@ -11,25 +11,25 @@ import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthIte
 import {ITradeInfo, TradePriceArray, apiGetTradeInfo, apiGetRates} from '@/shared/api';
 
 interface IParams {
-    currencyFrom: string;
-    currencyTo: string;
     roomKey: string;
     isSwapped: boolean;
+    currencyTo: string;
+    currencyFrom: string;
 }
 
 interface DepthOfMarketState {
     price: number;
-    tradeInfo: ITradeInfo;
     loading: boolean;
+    tradeInfo: ITradeInfo;
     rateState: RateState | null;
 }
 
 function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams) {
     const initialState: DepthOfMarketState = {
-        rateState: null,
         price: null,
-        tradeInfo: null,
-        loading: false
+        loading: false,
+        rateState: null,
+        tradeInfo: null
     }
 
     const {currencies} = useContext(CtxCurrencies);
@@ -69,9 +69,7 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
             }));
 
             updateDepth();
-            const interval = setInterval(() => {
-                updateDepth();
-            }, 10000)
+            const interval = setInterval(() => updateDepth(), 10000);
 
             return () => clearInterval(interval);
         }

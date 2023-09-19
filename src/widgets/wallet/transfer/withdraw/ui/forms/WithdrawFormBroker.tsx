@@ -38,7 +38,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             geekcoinWalletId: ''//account.idInfoClient.toString()
         })
 
-        console.log(response)
+        // console.log(response)
     }
 
     return (<div className="wrapper">

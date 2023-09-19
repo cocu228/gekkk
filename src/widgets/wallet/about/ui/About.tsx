@@ -1,15 +1,18 @@
-import descriptions from '@/shared/config/coins/descriptions'
-import Button from '@/shared/ui/button/Button';
-import {useNavigate} from "react-router-dom";
 import {useContext} from "react";
+import {useNavigate} from "react-router-dom";
+import Button from '@/shared/ui/button/Button';
+import {CtxRootData} from "@/processes/RootContext";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
 
 const About = () => {
     const navigate = useNavigate();
+    const {account} = useContext(CtxRootData);
     const {$const, name} = useContext(CtxWalletData);
     const {xl, md} = useContext(BreakpointsContext);
     const isEUR: boolean = $const === 'EUR';
+    const descriptions = getTokenDescriptions(navigate, account);
 
     return (
         <div>

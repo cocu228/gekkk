@@ -49,7 +49,6 @@ const SidebarDesktop = () => {
         getRoomsList();
     }, [account]);
 
-    // TODO: сделать обновление при изменении балансов
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
     const eurWallet = currencies.get("EUR");

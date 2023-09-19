@@ -5,20 +5,10 @@ import CashbackCard from './CashbackCard';
 import CashbackCardMobile from './CashbackCardMobile';
 import useModal from '@/shared/model/hooks/useModal';
 import Modal from '@/shared/ui/modal/Modal';
-import { apiGetDeals } from '@/shared/api/various/get-deals';
 
 const EurCashbackProgram = () => {
     const { sm } = useContext(BreakpointsContext);
     const { isModalOpen, showModal, handleCancel } = useModal()
-
-    useEffect(() => {
-
-        (async function () {
-            const dealsResponse = await apiGetDeals();
-            console.log("Deals",dealsResponse)
-
-        })();
-    })
 
     return (
         <div className='grid grid-cols-1 justify-center'>

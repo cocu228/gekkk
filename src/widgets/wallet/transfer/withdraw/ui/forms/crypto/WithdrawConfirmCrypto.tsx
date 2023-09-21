@@ -42,14 +42,15 @@ const WithdrawConfirmCrypto = ({
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-    const [stageConfirm, setStageConfirm] = useState(1)
+    const [stageConfirm, setStageConfirm] = useState(null)
 
 
     const {onInput} = useMask(MASK_CODE)
     const onConfirm = async () => {
 
         setLoading(true)
-        const clientNonce = getRandomNumberWithLength(8)
+
+        const clientNonce = stageConfirm ? stageConfirm : getRandomNumberWithLength(8)
 
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
@@ -67,9 +68,10 @@ const WithdrawConfirmCrypto = ({
 
         actionResSuccess(response)
             .success(() => {
-                if (stageConfirm === 1) {
-                    setStageConfirm(2)
+                if (stageConfirm === null) {
+                    setStageConfirm(clientNonce)
                 } else {
+                    setStageConfirm(null)
                     handleCancel()
                     setRefresh()
                 }
@@ -164,7 +166,7 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            {stageConfirm === 2 && <FormItem className={"mb-4"} name="code" label="Code" preserve
+            {stageConfirm !== null && <FormItem className={"mb-4"} name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}

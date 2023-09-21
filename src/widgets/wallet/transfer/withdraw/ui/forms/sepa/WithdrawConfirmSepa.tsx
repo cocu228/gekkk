@@ -89,7 +89,9 @@ const WithdrawConfirmSepa = ({
         const {
             appUuid,
             appPass
-        } = await getTransactionSignParams();
+        } = confirmation.token
+            ? await getTransactionSignParams()
+            : {appUuid: null, appPass: null};
 
         const {
             phone
@@ -104,11 +106,13 @@ const WithdrawConfirmSepa = ({
         await apiPaymentSepa(
             paymentDetails,
             false,
-            !confirmation.token ? null : {
+            {
                 "X-Confirmation-Type": "SIGN",
-                "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
-                "X-Confirmation-Token": confirmation.token,
-                "X-App-Uuid": appUuid
+                ...(confirmation.token ? {
+                    "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
+                    "X-Confirmation-Token": confirmation.token,
+                    "X-App-Uuid": appUuid
+                } : null)
             }
         ).then((response: AxiosResponse<IResErrors>) => {
             const {data} = response;
@@ -134,8 +138,7 @@ const WithdrawConfirmSepa = ({
             }));
             setRefresh();
             handleCancel();
-        }
-        );
+        });
         
         // -------------- PIN CONFIRMATION --------------
         // await apiPaymentSepa(

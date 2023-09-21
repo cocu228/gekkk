@@ -190,7 +190,7 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
             cookieString += `; expires=${expires}`;
         }
 
-        document.cookie = cookieString;
+        document.cookie = cookieString + '; path=/';
     });
 };
 

@@ -50,8 +50,6 @@ const WithdrawConfirmCrypto = ({
 
         setLoading(true)
 
-        const clientNonce = stageConfirm ? stageConfirm : getRandomNumberWithLength(8)
-
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
         const response = await apiCreateWithdraw(
@@ -62,14 +60,14 @@ const WithdrawConfirmCrypto = ({
             isNull(address) ? "" : address,
             recipient,
             description,
-            clientNonce,
+            getRandomNumberWithLength(12),
             input === "" ? undefined : formatAsNumber(input)
         )
 
         actionResSuccess(response)
             .success(() => {
                 if (stageConfirm === null) {
-                    setStageConfirm(clientNonce)
+                    setStageConfirm(2)
                 } else {
                     setStageConfirm(null)
                     handleCancel()

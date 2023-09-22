@@ -3,7 +3,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api";
 import Decimal from "decimal.js";
-import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomNumberWithLength, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -14,6 +14,7 @@ import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 const WithdrawConfirmCrypto = ({
                              address,
@@ -23,22 +24,28 @@ const WithdrawConfirmCrypto = ({
                              handleCancel,
                          }) => {
 
-    const {networkIdSelect, networksForSelector, networksDefault} = useContext(CtxWalletNetworks)
+    const {
+        networkIdSelect,
+        networksForSelector,
+        networksDefault
+    } = useContext(CtxWalletNetworks)
+
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
     const {
         percent_fee = null,
         withdraw_fee = null,
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
     const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-    const [stageConfirm, setStageConfirm] = useState(1)
+    const [stageConfirm, setStageConfirm] = useState(null)
 
 
-    const {onInput} = useMask(MASK_CODE);
+    const {onInput} = useMask(MASK_CODE)
     const onConfirm = async () => {
 
         setLoading(true)
@@ -53,14 +60,16 @@ const WithdrawConfirmCrypto = ({
             isNull(address) ? "" : address,
             recipient,
             description,
-            input === "" ? undefined : input
+            getRandomNumberWithLength(12),
+            input === "" ? undefined : formatAsNumber(input)
         )
 
         actionResSuccess(response)
             .success(() => {
-                if (stageConfirm === 1) {
+                if (stageConfirm === null) {
                     setStageConfirm(2)
                 } else {
+                    setStageConfirm(null)
                     handleCancel()
                     setRefresh()
                 }
@@ -155,7 +164,7 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            {stageConfirm === 2 && <FormItem className={"mb-4"} name="code" label="Code" preserve
+            {stageConfirm !== null && <FormItem className={"mb-4"} name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}

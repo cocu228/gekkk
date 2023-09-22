@@ -9,6 +9,7 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import CreditCardInput from "@/widgets/wallet/transfer/withdraw/model/InputCreditCard";
 
 const WithdrawFormCardToCard = () => {
 
@@ -35,10 +36,7 @@ const WithdrawFormCardToCard = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Input value={inputs.cardNumber}
-                               onChange={onInput}
-                               placeholder={"Enter the card number"}
-                               name={"cardNumber"}/>
+                        <CreditCardInput/>
                     </div>
                 </div>
             </div>

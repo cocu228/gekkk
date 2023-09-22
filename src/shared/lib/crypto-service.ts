@@ -31,11 +31,11 @@ function getAppUuid(cryptoConfiguration: IAppRegistration, decrAppPass: string) 
     return decryptAESv2(appUuid, decrAppPass, salt);
 }
 
-async function getCryptoConfiguration(localKeyPair: string): Promise<IAppRegistration> {
+async function getCryptoConfiguration(localPublicKey: string): Promise<IAppRegistration> {
     const serverPublicKey = (await apiPublicKey()).data.publicKey;
     const encryptedLocalPublicKey = encryptRsaMessage(
         serverPublicKey,
-        localKeyPair
+        localPublicKey
     );
 
     if (!encryptedLocalPublicKey) return;
@@ -55,19 +55,19 @@ function getLocalKeypair(): {
         default_key_size: '1024'
     });
 
-    const rsaLocalPrivateKey = encrypt.getPrivateKey()
+    const privateKey = encrypt.getPrivateKey()
         .replace('-----BEGIN RSA PRIVATE KEY-----\n', '')
         .replace('-----END RSA PRIVATE KEY-----', '')
         .replace(/\r?\n|\r/g, '');
 
-    const rsaLocalPublicKey = encrypt.getPublicKey()
+    const publicKey = encrypt.getPublicKey()
         .replace('-----BEGIN PUBLIC KEY-----\n', '')
         .replace('-----END PUBLIC KEY-----', '')
         .replace(/\r?\n|\r/g, '');
 
     return ({
-        publicKey: rsaLocalPublicKey,
-        privateKey: rsaLocalPrivateKey
+        publicKey: publicKey,
+        privateKey: privateKey
     });
 }
 
@@ -95,20 +95,15 @@ function encryptRsaMessage(key: string, message: string): string | false {
 }
 
 function decryptAESv2(encryptedMessage: string, password: string, salt: string): string {
-    const unparsedSalt = enc.Hex.parse(salt);
+    const parsedSalt = enc.Hex.parse(salt);
 
-    const key = PBKDF2(password, unparsedSalt, {
+    const key = PBKDF2(password, parsedSalt, {
         keySize: 256 / 32,
         iterations: 1024
     });
 
-    const iv = enc.Hex.parse(
-        encryptedMessage.substring(0, 32)
-    );
-
-    const encrypted = enc.Hex.parse(
-        encryptedMessage.substring(32, encryptedMessage.length)
-    );
+    const iv = enc.Hex.parse(encryptedMessage.substring(0, 32));
+    const encrypted = enc.Hex.parse(encryptedMessage.substring(32, encryptedMessage.length));
 
     const decrypted = AES.decrypt(encrypted.toString(), key, {
         iv,

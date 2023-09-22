@@ -10,6 +10,14 @@ export function randomId(value = 12): string {
     return text;
 }
 
+export function getRandomNumberWithLength(length = 3) {
+    const min = Math.pow(10, length - 1)
+    const max = Math.pow(10, length) - 1
+
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
 export const isNull = (value: any): boolean => value === null
 
@@ -190,7 +198,7 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
             cookieString += `; expires=${expires}`;
         }
 
-        document.cookie = cookieString;
+        document.cookie = cookieString + '; path=/';
     });
 };
 

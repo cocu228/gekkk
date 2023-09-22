@@ -3,7 +3,7 @@
     display: block;
     max-width: 355px;
     border-radius: 25px;
-    padding: 29px 20px 50px 22px;
+    padding: 29px 20px 50px 33px;
     box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
 
     &Blue {
@@ -11,21 +11,31 @@
     }
 
     &Orange {
-        background: linear-gradient(277deg, #D7AC90 0%, #EFDAB8 100%);
+        background: linear-gradient(277deg, #D1A186 0%, #F2E0BD 100%);
     }
 
     &Green {
-        background: linear-gradient(277deg, #B5EDA8 0%, #A2CDA7 100%);
+        background: linear-gradient(277deg, #9FC9A8 0%, #B3EC9F 89.58%, #BDF2C9 100%);
     }
 
     &Title {
         z-index: 10;
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 600;
         max-width: 225px;
+        margin-bottom: 20px;
+    }
+
+    &Image {
+        opacity: 0.5;
+        width: 89px;
+        height: 89px;
+        margin-top: -16px;
+        margin-left: 4px;
     }
 
     &Subtitle {
+        font-size: 16px;
         font-weight: 400;
     }
 
@@ -41,22 +51,137 @@
 
 .CashbackDescription {
     z-index: 0;
+    width: 223px;
     margin-block: 18px;
-    margin-left: -20px;
+    margin-left: -30px;
     padding-top: 10px;
     padding-left: 30px;
     border-radius: 0px 25px 25px 0px;
     box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
 
     &Title {
+        font-size: 16px;
         font-weight: 300;
+        letter-spacing: 0.8px;
         font-style: italic;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 
     &List {
         font-size: 10px;
         max-width: 150px;
-        padding-left: 5px;
-        margin-right: 8px;
+        margin-left: 30px;
+        margin-right: 10px;
+
+        li {
+            margin-bottom: 10px;
+            line-height: 15px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+
+.CashbackCardMobile {
+    @extend .CashbackCard;
+    padding-bottom: 33px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+
+    &Title {
+        @extend .CashbackCardTitle;
+        margin-bottom: 38px;
+    }
+
+    &Image {
+        position: absolute;
+        right: 16px;
+        bottom: -16px;
+        opacity: 0.5;
+        width: 107px;
+        height: 107px;
+        z-index: -5;   
+    }
+
+    &Subtitle {
+        @extend .CashbackCardSubtitle;
+    }
+}
+
+
+
+.CashbackCardMobileModal {
+
+    &Blue {
+        & > div:nth-child(2) {
+            background: linear-gradient(277deg, #9FC2C9 0%, #BDF2ED 100%);
+        }
+    }
+    
+    &Orange {
+        & > div:nth-child(2) {
+            background: linear-gradient(277deg, #D1A186 0%, #F2E0BD 100%);
+        }
+    }
+
+    &Green {
+        & > div:nth-child(2) {
+            background: linear-gradient(277deg, #9FC9A8 0%, #B3EC9F 89.58%, #BDF2C9 100%);
+        }
+    }
+
+    &Image {
+        width: 112px;
+        height: 112px;
+        opacity: 0.9;
+    }
+}
+
+
+
+.CashbackModalDescription {
+   
+
+    &Title {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+        color: #000;
+        padding: 20px;
+    }
+
+    &List {
+        font-size: 15px;
+        line-height: 18px;
+        margin-left: 40px;
+
+        li {
+            margin-bottom: 25px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.CashbackModalTerms {
+    color: #758498;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: 20px;
+
+    &Link {
+        font-weight: 500;
+        text-decoration-line: underline;
     }
 }

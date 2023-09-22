@@ -93,9 +93,7 @@ const WithdrawConfirmSepa = ({
             ? await getTransactionSignParams()
             : {appUuid: null, appPass: null};
 
-        const {
-            phone
-        } = getCookieData<{phone: string}>();
+        const {phone} = getCookieData<{phone: string}>();
         
         const jwtPayload = {
             initiator: phone,
@@ -243,11 +241,7 @@ const WithdrawConfirmSepa = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                {total !== undefined ? (
-                    <span>{total.total ?? '-'} {$const}</span>
-                ) : (
-                    <Skeleton.Input style={{height: 16}} active/>
-                )}
+                <span>{amount ?? '-'} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -259,6 +253,20 @@ const WithdrawConfirmSepa = ({
             <div className="col">
                 {total !== undefined ? (
                     <span>{total.commission ?? '-'} {$const}</span>
+                ) : (
+                    <Skeleton.Input style={{height: 16}} active/>
+                )}
+            </div>
+        </div>
+        <div className="row mb-2">
+            <div className="col">
+                <span className="text-gray-400">Total amount</span>
+            </div>
+        </div>
+        <div className="row mb-4">
+            <div className="col">
+                {total !== undefined ? (
+                    <span>{total.total ?? '-'} {$const}</span>
                 ) : (
                     <Skeleton.Input style={{height: 16}} active/>
                 )}

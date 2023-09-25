@@ -81,11 +81,11 @@ export class Timer {
 
         this.timeCount = seconds ?? this.timeCount
 
-        this.timerProcess = this.timerProcess(this.timeCount)
+        this.timerRunProcess = this.timerProcess()
 
     }
 
     clear() {
-        clearTimeout(this.timerProcess)
+        clearTimeout(this.timerRunProcess)
     }
 }

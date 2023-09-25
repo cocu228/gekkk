@@ -16,9 +16,10 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
-import {apiCheckPassword} from "@/widgets/auth/api";
+// import {apiCheckPassword} from "@/widgets/auth/api";
 import {helperApiCheckPassword} from "@/widgets/auth/model/helpers";
 import {TSessionAuth} from "@/widgets/auth/model/types";
+import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -52,7 +53,7 @@ const FormLoginAccount = memo(() => {
 
         setLoading(true)
 
-        apiCheckPassword(phone, md5(`${password}_${phone}`))
+        apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() => onSingIn()))
             .catch(err => {

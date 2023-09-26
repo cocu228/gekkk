@@ -8,6 +8,10 @@ export const MASK_CODE: AnyMaskedOptions = {
     mask: '0 0 0 0 0 0',
 };
 
+export const MASK_CODE_FOUR: AnyMaskedOptions = {
+    mask: '0 0 0 0',
+};
+
 
 export const MASK_SUM: AnyMaskedOptions = {
     mask: 'num',

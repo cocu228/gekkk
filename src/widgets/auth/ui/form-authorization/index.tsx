@@ -29,9 +29,9 @@ const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhon
 const FormLoginAccount = memo(() => {
 
     const {toggleStage} = storyDisplayStage(state => state)
-    const {md} = useContext(BreakpointsContext);
-    const {phoneValidator, pinValidator} = useValidation();
-    const inputRef = useRef(null);
+    const {md} = useContext(BreakpointsContext)
+    const {phoneValidator, pinValidator} = useValidation()
+    const inputRef = useRef(null)
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
         {phone: "", dateTimeStart: null, verificationId: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
@@ -53,12 +53,14 @@ const FormLoginAccount = memo(() => {
 
         setLoading(true)
 
-        apiPasswordCheck(phone, md5(`${password}_${phone}`))
-            .then(res => helperApiCheckPassword(res)
-                .success(() => onSingIn()))
-            .catch(err => {
-                setLoading(false)
-            })
+        onSingIn()
+
+        // apiPasswordCheck(phone, md5(`${password}_${phone}`))
+        //     .then(res => helperApiCheckPassword(res)
+        //         .success(() => onSingIn()))
+        //     .catch(err => {
+        //         setLoading(false)
+        //     })
     }
     const onCaptchaVerify = () => {
 

@@ -19,7 +19,7 @@ import Decimal from "decimal.js";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 // import firebase from "firebase/compat";
 // import User = firebase.User;
-import {PhoneAuthProvider, signInWithCredential, signInWithPhoneNumber} from 'firebase/auth';
+import {PhoneAuthProvider, signInWithCredential} from 'firebase/auth';
 
 import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
@@ -71,9 +71,9 @@ const FormCode = memo(() => {
         )).then((result) => {
 
             const user = result.user;
-            login(user.phoneNumber, user.accessToken, "token-firebase")
-            sessionStorage.removeItem("session-auth")
-            toggleStage("authorization")
+            login(user.phoneNumber, user.accessToken, "token-firebase");
+            sessionStorage.removeItem("session-auth");
+            toggleStage("authorization");
 
 
         }).catch(error => {

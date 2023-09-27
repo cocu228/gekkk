@@ -37,7 +37,7 @@ const AuthPage = memo(() => {
     const {stage} = storyDisplayStage(state => state);
 
     useEffect(() => {
-        authForTokenHashUrl().success((sessionId) =>
+        authForTokenHashUrl().success((sessionId: string) =>
             apiTokenHash(sessionId)
                 .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
                     .success(

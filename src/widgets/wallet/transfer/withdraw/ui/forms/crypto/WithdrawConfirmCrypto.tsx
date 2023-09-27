@@ -3,7 +3,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api";
 import Decimal from "decimal.js";
-import {actionResSuccess, getRandomNumberWithLength, isNull} from "@/shared/lib/helpers";
+import {actionResSuccess, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -15,6 +15,18 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
+
+function getRandomInt32() {
+    const minValue = -2147483648; // Минимальное 32-битное знаковое число
+    const maxValue = 2147483647;  // Максимальное 32-битное знаковое число
+
+    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+}
+
+// Пример использования:
+const randomInt32 = getRandomInt32();
+console.log(randomInt32);
+
 
 const WithdrawConfirmCrypto = ({
                              address,
@@ -42,7 +54,11 @@ const WithdrawConfirmCrypto = ({
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-    const [stageConfirm, setStageConfirm] = useState(null)
+    const [stageConfirm, setStageConfirm] = useState({
+        status: null,
+        txId: null,
+        fee: null
+    })
 
 
     const {onInput} = useMask(MASK_CODE)
@@ -60,16 +76,30 @@ const WithdrawConfirmCrypto = ({
             isNull(address) ? "" : address,
             recipient,
             description,
-            getRandomNumberWithLength(12),
-            input === "" ? undefined : formatAsNumber(input)
+            getRandomInt32(),
+            input === "" ? undefined : formatAsNumber(input),
+            stageConfirm.txId !== null ? stageConfirm.txId : undefined
         )
 
         actionResSuccess(response)
             .success(() => {
-                if (stageConfirm === null) {
-                    setStageConfirm(2)
+
+                console.log(uncoverResponse(response))
+
+                const result = uncoverResponse(response)
+
+                if (stageConfirm.status === null) {
+                    setStageConfirm({
+                        status: result.confirmationStatusCode,
+                        txId: result.txId,
+                        fee: result.fee
+                    })
                 } else {
-                    setStageConfirm(null)
+                    setStageConfirm({
+                        status: null,
+                        txId: null,
+                        fee: null
+                    })
                     handleCancel()
                     setRefresh()
                 }
@@ -164,7 +194,7 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            {stageConfirm !== null && <FormItem className={"mb-4"} name="code" label="Code" preserve
+            {stageConfirm.status !== null && <FormItem className={"mb-4"} name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
@@ -175,7 +205,8 @@ const WithdrawConfirmCrypto = ({
             </FormItem>}
             <div className="row mb-5">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={(input === "" && stageConfirm === 2)} className="w-full"
+                    <Button htmlType={"submit"} disabled={(input === "" && stageConfirm.status !== null)}
+                            className="w-full"
                             size={"xl"}>Confirm</Button>
                 </div>
                 <div className="col flex justify-center mt-4">

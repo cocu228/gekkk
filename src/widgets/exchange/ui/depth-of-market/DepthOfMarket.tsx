@@ -1,13 +1,11 @@
 import Decimal from 'decimal.js';
-import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
-import {RateState} from '../../model/types';
 import {CtxExchangeData} from '../../model/context';
 import {useContext, useEffect, useState} from 'react';
-import {getCurrencyRounding} from '@/shared/lib/helpers';
+import {getCurrencyRounding, uncoverResponse} from '@/shared/lib/helpers';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import IconArrow from '../../../../shared/ui/icons/IconArrow';
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
+import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthPrice";
 import {ITradeInfo, TradePriceArray, apiGetTradeInfo, apiGetRates} from '@/shared/api';
 
 interface IParams {
@@ -21,79 +19,109 @@ interface DepthOfMarketState {
     price: number;
     loading: boolean;
     tradeInfo: ITradeInfo;
-    rateState: RateState | null;
+    rate: Record<string, number>;
 }
 
-function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams) {
+function DepthOfMarket({
+    roomKey,
+    isSwapped,
+    currencyTo,
+    currencyFrom
+}: IParams) {
     const initialState: DepthOfMarketState = {
+        rate: {},
         price: null,
         loading: false,
-        rateState: null,
         tradeInfo: null
     }
 
     const {currencies} = useContext(CtxCurrencies);
     const {onPriceCurrenciesSwap} = useContext(CtxExchangeData);
-    const [state, setState] = useState<DepthOfMarketState>(initialState);
+    const [{
+        rate,
+        price,
+        loading,
+        tradeInfo
+    }, setState] = useState<DepthOfMarketState>(initialState);
 
     useEffect(() => {
-        if (!state.tradeInfo) return;
+        if (!roomKey && currencyTo && currencyFrom) {
+            updateRate();
+        }
+        
+        if (tradeInfo) {
+            const asks = tradeInfo.asks[0];
+            const bids = tradeInfo.bids[0];
 
-        const asks = state.tradeInfo.asks[0];
-        const bids = state.tradeInfo.bids[0];
+            if (asks && bids) {
+                const price = (isSwapped
+                        ? asks[0] / asks[1] + bids[0] / bids[1]
+                        : asks[2] + bids[2]) / 2;
 
-        if (!asks || !bids) return;
+                let newPrice: number = +price.toFixed(
+                    currencies.get(isSwapped ? currencyFrom : currencyTo)?.ordersPrec
+                );
 
-        const price = (!isSwapped
-            ? asks[2] + bids[2]
-            : asks[0] / asks[1] + bids[0] / bids[1]
-        ) / 2;
-
-        let newPrice: number = +price.toFixed(
-            currencies.get(isSwapped ? currencyFrom : currencyTo)?.ordersPrec
-        );
-
-        setState(prev => ({
-            ...prev,
-            rateState: prev.price > newPrice ? RateState.DOWN : RateState.UP,
-            price: newPrice
-        }));
-    }, [state.tradeInfo, isSwapped]);
+                setState(prev => ({
+                    ...prev,
+                    price: newPrice
+                }));
+            }
+        }
+    }, [tradeInfo, isSwapped]);
 
     useEffect(() => {
         setState(initialState);
         if (currencyFrom && currencyTo) {
-            if (!state.price) setState(prev => ({
+            if (!price) setState(prev => ({
                 ...prev,
                 loading: true
             }));
 
-            updateDepth();
-            const interval = setInterval(() => updateDepth(), 10000);
+            updateTradeInfo();
+            const interval = setInterval(() => updateTradeInfo(), 10000);
 
             return () => clearInterval(interval);
         }
     }, [currencyFrom, currencyTo])
 
-    function updateDepth() {
-        apiGetTradeInfo(currencyFrom, currencyTo, roomKey).then(({ data }) => {
-            const { asks, bids } = data.result;
-
-            data.result.asks = asks;
-            data.result.bids = bids;
-
+    function updateRate() {
+        if (!roomKey) {
             setState(prev => ({
                 ...prev,
-                tradeInfo: data.result
+                loading: true
             }));
-        }).finally(() => {
-            setState(prev => ({
-                ...prev,
-                loading: false
-            }));
-        });
+
+            (async () => {
+                const rate = !isSwapped
+                    ? await apiGetRates(currencyTo, currencyFrom)
+                    : await apiGetRates(currencyFrom, currencyTo);
+
+                setState(prev => ({
+                    ...prev,
+                    rate: uncoverResponse(rate) ?? {},
+                    loading: false
+                }))
+            })();
+        }
+    }
+    
+    function updateTradeInfo() {
+        updateRate();
+        
+        apiGetTradeInfo(currencyFrom, currencyTo, roomKey)
+            .then(({data}) => setState(prev => ({
+                    ...prev,
+                    tradeInfo: data.result
+                })))
+            .finally(() => setState(prev => ({
+                    ...prev,
+                    loading: false
+                }))
+            );
     }
 
+    // Generates depth of market rows
     const getDepthItems = (
         array: Array<TradePriceArray> = [],
         align: 'top' | 'bottom' = 'top',
@@ -156,27 +184,20 @@ function DepthOfMarket({ currencyFrom, currencyTo, roomKey, isSwapped }: IParams
                 )}
             </div>
             <div className={styles.RedWrapper}>
-                {getDepthItems(state.tradeInfo?.asks, 'bottom', 'red')}
+                {getDepthItems(tradeInfo?.asks, 'bottom', 'red')}
             </div>
             <div className="my-auto">
-                <div
-                    className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md
-                      ${styles.Rate}
-                      ${state.rateState === RateState.UP ? styles.RateUp :
-                            state.rateState === RateState.DOWN ? styles.RateDown : 'fill-none'}`
+                <DepthPrice
+                    loading={loading}
+                    currency={isSwapped ? currencyTo : currencyFrom}
+                    amount={roomKey
+                        ? price
+                        : rate[isSwapped ? currencyTo : currencyFrom]
                     }
-                >
-                    {state.loading ? (
-                        <Loader className='relative h-[25px] w-[25px]' />
-                    ) : (
-                        <>
-                            <IconArrow/> {state.price ?? '-'}
-                        </>
-                    )}
-                </div>
+                />
             </div>
             <div className={styles.GreenWrapper}>
-                {getDepthItems(state.tradeInfo?.bids, 'top', 'green')}
+                {getDepthItems(tradeInfo?.bids, 'top', 'green')}
             </div>
         </div>
     );

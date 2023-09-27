@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { CtxExchangeData, ICtxExchangeData } from "./context";
-import { IRoomInfo } from "@/shared/api";
-import { useNavigate } from "react-router-dom";
-import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
+import {IRoomInfo} from "@/shared/api";
+import {useNavigate} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {CtxExchangeData, ICtxExchangeData} from "./context";
+import React, {ReactNode, useContext, useEffect, useState} from "react";
+import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
 
 interface IProps {
     to?: string;
     from?: string;
     roomInfo?: IRoomInfo;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) => {
@@ -149,7 +149,8 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             },
             price: {
                 ...prev.price,
-                amount: null
+                amount: null,
+                isSwapped: false
             }
         }));
     }

@@ -47,16 +47,16 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
             {
                 key: "phone",
                 value: formatAsNumber(phone),
-                expiration: 1800
+                expiration: 9999999
             }, {
                 key: "token",
                 value: token,
-                expiration: 1800
+                expiration: 9999999
             },
             {
                 key: "tokenHeaderName",
                 value: tokenHeaderName,
-                expiration: 1800
+                expiration: 9999999
             }])
 
         $axios.defaults.headers[tokenHeaderName] = token;

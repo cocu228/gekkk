@@ -17,6 +17,20 @@ export function getRandomNumberWithLength(length = 3) {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+export function throttle(callee, timeout) {
+    let timer = null
+
+    return function perform(...args) {
+        if (timer) return
+        timer = setTimeout(() => {
+            callee(...args)
+            clearTimeout(timer)
+            timer = null
+        }, timeout)
+    }
+}
+
+
 
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
 export const isNull = (value: any): boolean => value === null

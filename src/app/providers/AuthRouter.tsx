@@ -1,9 +1,8 @@
 import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
 import {createContext, FC, PropsWithChildren, useContext, useEffect, useMemo} from "react";
-import {clearAllCookies, getCookieData, setCookieData} from "@/shared/lib/helpers";
+import {clearAllCookies, getCookieData, setCookieData, throttle} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-
 const AuthContext = createContext({});
 
 
@@ -18,27 +17,24 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     useEffect(() => {
         let inactivityTime = () => {
-            let time,
-                loader = document.querySelector('.invisible');
+            let time = undefined
 
-            // сюда можно добавить любой ивент.
-            document.addEventListener('mousemove', resetTimer);
-            document.addEventListener('keypress', resetTimer);
+            document.addEventListener('mousemove', throttle(resetTimer, 5000));
+            document.addEventListener('keypress', throttle(resetTimer, 5000));
 
             function resetTimer() {
-                loader.classList.add('invisible');
                 clearTimeout(time);
-                time = setTimeout(fn, 1000)
+                time = setTimeout(fn, 900000)
             }
 
             function fn() {
-                loader.classList.remove('invisible');
+                logout()
             }
+
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            inactivityTime();
-        });
+        inactivityTime();
+
     }, []);
 
     const navigate = useNavigate();

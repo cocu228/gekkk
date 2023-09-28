@@ -62,7 +62,9 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
 
-        navigate(window.location.pathname + window.location.search);
+        const pathUrl = window.location.pathname + window.location.search;
+        
+        navigate(pathUrl !== '/' ? pathUrl : '/wallet/EUR');
     };
 
     const logout = () => {

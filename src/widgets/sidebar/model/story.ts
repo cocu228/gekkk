@@ -8,7 +8,7 @@ export interface IToggleSidebar {
 }
 
 export const storyToggleSidebar = create<IToggleSidebar>()(devtools((set) => ({
-    isOpen: false,
+    isOpen: true,
     toggle: (val) => {
         set((state) => ({...state, isOpen: val}))
     }

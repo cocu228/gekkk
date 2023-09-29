@@ -24,7 +24,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
 
         setLoading(true)
 
-        const response = await apiUpdatePartnerInfo(input, props.id_transaction)
+        const response = await apiUpdatePartnerInfo(input, +props.id_transaction)
 
         actionResSuccess(response).success(() => {
             props.handleCancel()

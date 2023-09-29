@@ -17,7 +17,8 @@ export const ReSendCode = () => {
         {
             phone: "",
             dateTimeStart: null,
-            verificationId: ""
+            verificationId: "",
+            sessionIdUAS: ""
         }
     );
 

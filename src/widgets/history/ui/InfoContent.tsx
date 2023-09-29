@@ -8,6 +8,8 @@ import {IResHistoryTransactions} from "@/shared/api";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import useError from "@/shared/model/hooks/useError";
+import Decimal from "decimal.js";
+// import {formatAsFee} from "@/widgets/history/model/helpers";
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
@@ -39,6 +41,7 @@ const InfoContent = (props: TypeProps) => {
 
     }, [props.id_transaction])
 
+    Decimal.set({toExpNeg: -18})
 
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="mb-8">
@@ -88,7 +91,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="text-gray-500 font-medium">Fee:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">{props.fee} {props.currency}</span>
+                    <span className="break-all font-medium">{new Decimal(props.fee).toString()} {props.currency}</span>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">

@@ -42,6 +42,7 @@ const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
                     onChange={(e) => handleInputChange(e, index)}
                     maxLength={4}
                     ref={refs[index]}
+                    // id={`input-${index}`}
                 />
             ))}
         </div>

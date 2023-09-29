@@ -15,7 +15,7 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 import {memo, useContext, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import useError from "@/shared/model/hooks/useError";
-import Decimal from "decimal.js";
+// import Decimal from "decimal.js";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 // import firebase from "firebase/compat";
 // import User = firebase.User;
@@ -23,6 +23,8 @@ import {PhoneAuthProvider, signInWithCredential} from 'firebase/auth';
 
 import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
+import {apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
+import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 
 
 declare module 'firebase/auth' {
@@ -32,7 +34,6 @@ declare module 'firebase/auth' {
 
 }
 
-// TODO: Добавить отображение сообщения об ошибке
 const FormCode = memo(() => {
 
     const {login} = useAuth();
@@ -46,9 +47,10 @@ const FormCode = memo(() => {
     const [{
         phone,
         dateTimeStart,
-        verificationId
+        verificationId,
+        sessionIdUAS
     }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: ""}
+        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""}
     );
 
 
@@ -86,7 +88,31 @@ const FormCode = memo(() => {
         })
     }
 
-    return <Form autoComplete="off" onFinish={onCode}>
+    const onCodeUAS = async () => {
+
+        const _phone = formatAsNumber(phone)
+
+        apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
+            .then(res => helperApiRequestCode(res)
+                .success(() => {
+                    apiSignIn(formatAsNumber(code), res.data.sessid, _phone)
+                        .then(res => helperApiSignIn(res)
+                            .success(() => {
+                                sessionStorage.removeItem("session-auth");
+                                toggleStage("authorization");
+                                login(_phone, res.data.token, "token");
+                            }))
+                        .catch(e => {
+                            setLoading(false);
+                        });
+                })
+                .reject(v => {
+                    setLoading(false);
+                })
+            )
+    }
+
+    return <Form autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
         <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>

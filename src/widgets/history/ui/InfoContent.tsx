@@ -39,7 +39,6 @@ const InfoContent = (props: TypeProps) => {
 
     }, [props.id_transaction])
 
-    console.log(isNeedConfirm)
 
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="mb-8">
@@ -148,6 +147,15 @@ const InfoContent = (props: TypeProps) => {
                     <CopyIcon value={state.txHash}/>
                 </div>
             </div>}
+                {/*{state.state_text && <div className="row mb-4 flex flex-wrap gap-2">*/}
+                {/*    <div className="col">*/}
+                {/*        <span className="text-gray-500 font-normal">Status blockchain:</span>*/}
+                {/*    </div>*/}
+                {/*    <div className="col flex items-center">*/}
+                {/*        <span className="break-all font-normal">{state.state_text}</span>*/}
+                {/*    </div>*/}
+                {/*</div>}*/}
+
             </div>
         </>}
         {isNeedConfirm && <InfoConfirmPartner {...props}/>}

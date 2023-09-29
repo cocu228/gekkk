@@ -39,6 +39,8 @@ const InfoContent = (props: TypeProps) => {
 
     }, [props.id_transaction])
 
+    console.log(isNeedConfirm)
+
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">
@@ -98,54 +100,57 @@ const InfoContent = (props: TypeProps) => {
                     <span className="break-all font-medium underline">{props.status_text}</span>
                 </div>
             </div>
+            {!isNeedConfirm &&
+                <div className="row mb-4 flex flex-wrap gap-2">
+                    <div className="col w-auto">
+                        <span className="text-gray-500 font-medium">Sender name:</span>
+                    </div>
+                    <div className="col w-auto">
+                        <span className="break-all font-medium">{props.partner_info}</span>
+                    </div>
+                </div>}
         </div>
         {state !== null && <>
+            <div className="font-light">
             {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col">
-                    <span className="text-gray-500 font-medium">Address from:</span>
+                    <span className="text-gray-500 font-normal">Address from:</span>
                 </div>
                 <div className="col flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
+                    <span className="break-all font-normal">{asteriskText(state.addressFrom)}</span>
                     <CopyIcon value={state.addressFrom}/>
                 </div>
             </div>}
             {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
+                    <span className="text-gray-500 font-normal whitespace-nowrap">Address to:</span>
                 </div>
                 <div className="col w-auto flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
+                    <span className="break-all font-normal">{asteriskText(state.addressTo)}</span>
                     <CopyIcon value={state.addressTo}/>
                 </div>
             </div>}
             {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Token network:</span>
+                    <span className="text-gray-500 font-normal">Token network:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">{state.tokenNetwork}</span>
+                    <span className="break-all font-normal">{state.tokenNetwork}</span>
                 </div>
             </div>}
             {state.txHash && <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Transaction:</span>
+                    <span className="text-gray-500 font-normal">Transaction:</span>
                 </div>
                 <div className="col w-auto flex items-center">
                     <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
-                       className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
+                       className="break-all font-normal underline">{asteriskText(state.txHash)}</a>
                     <CopyIcon value={state.txHash}/>
                 </div>
             </div>}
+            </div>
         </>}
-        {isNeedConfirm ? <InfoConfirmPartner {...props}/> : props.partner_info !== "" &&
-            <div className="row mb-4 flex flex-wrap gap-2">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Sender name:</span>
-                </div>
-                <div className="col w-auto">
-                    <span className="break-all font-medium">{props.partner_info}</span>
-                </div>
-            </div>}
+        {isNeedConfirm && <InfoConfirmPartner {...props}/>}
     </>}
     </>
 }

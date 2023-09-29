@@ -17,9 +17,11 @@ import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
 // import {apiCheckPassword} from "@/widgets/auth/api";
-import {helperApiCheckPassword} from "@/widgets/auth/model/helpers";
+import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model/helpers";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
+import {apiRequestCode} from "@/widgets/auth/api";
+import {uncoverResponse} from "@/shared/lib/helpers";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -33,7 +35,7 @@ const FormLoginAccount = memo(() => {
     const {phoneValidator, pinValidator} = useValidation()
     const inputRef = useRef(null)
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: ""})
+        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const [state, setState] = useState<{
@@ -53,14 +55,35 @@ const FormLoginAccount = memo(() => {
 
         setLoading(true)
 
-        onSingIn()
+        // onSingIn()
 
-        // apiPasswordCheck(phone, md5(`${password}_${phone}`))
-        //     .then(res => helperApiCheckPassword(res)
-        //         .success(() => onSingIn()))
-        //     .catch(err => {
-        //         setLoading(false)
-        //     })
+        apiPasswordCheck(phone, md5(`${password}_${phone}`))
+            .then(res => helperApiCheckPassword(res)
+                .success(() =>
+                        onSingInUAS()
+                    // onSingIn()
+
+                ))
+            .catch(err => {
+                setLoading(false)
+            })
+    }
+
+    const onSingInUAS = async () => {
+        const response = await apiRequestCode(formatAsNumber(state.phone))
+
+
+        helperApiRequestCode(response).success(() => {
+            setSessionAuth(prev => ({
+                ...prev,
+                phone: state.phone,
+                sessionIdUAS: response.data.sessid
+            }))
+
+            toggleStage("code")
+
+        })
+
     }
     const onCaptchaVerify = () => {
 

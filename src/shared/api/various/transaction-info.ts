@@ -5,17 +5,18 @@ export interface ITransactionInfo {
     "created": string,
     "updated": string,
     "groupId": number,
-    "txHash": string,
-    "state": string,
+    "txHash": string | null,
+    "state": number,
+    "state_text": string | null,
     "blockNum": number,
-    "addressFrom": string,
-    "addressTo": string,
-    "tokenNetwork": string,
+    "addressFrom": string | null,
+    "addressTo": string | null,
+    "tokenNetwork": string | null,
     "amount": number,
     "fee": number,
-    "txType": string,
-    "explorerBaseAddress": string,
-    "currency": string
+    "txType": number,
+    "explorerBaseAddress": string | null,
+    "currency": string | null
 }
 
 export const apiTransactionInfo = (tx_id: number) =>

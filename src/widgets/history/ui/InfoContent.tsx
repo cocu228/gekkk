@@ -28,7 +28,7 @@ const InfoContent = (props: TypeProps) => {
             (async () => {
                 setState(null)
 
-                const response: AxiosResponse = await apiTransactionInfo(props.id_transaction)
+                const response: AxiosResponse = await apiTransactionInfo(+props.id_transaction)
 
                 actionResSuccess(response)
                     .success(() => setState(response.data.result))
@@ -40,6 +40,7 @@ const InfoContent = (props: TypeProps) => {
     }, [props.id_transaction])
 
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
+        <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col">
                 <span className="text-gray-500 font-medium">Date:</span>
@@ -73,33 +74,6 @@ const InfoContent = (props: TypeProps) => {
                 <span>{props.currency}</span>
             </div>
         </div>
-        {state !== null && <>
-            <div className="row mb-4 flex flex-wrap gap-2">
-                <div className="col">
-                    <span className="text-gray-500 font-medium">Address from:</span>
-                </div>
-                <div className="col flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
-                    <CopyIcon value={state.addressFrom}/>
-                </div>
-            </div>
-            <div className="row mb-4 flex flex-wrap gap-2">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
-                </div>
-                <div className="col w-auto flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
-                    <CopyIcon value={state.addressTo}/>
-                </div>
-            </div>
-            <div className="row mb-4 flex flex-wrap gap-2">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Token network:</span>
-                </div>
-                <div className="col w-auto">
-                    <span className="break-all font-medium">{state.tokenNetwork}</span>
-                </div>
-            </div>
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Amount:</span>
@@ -113,10 +87,46 @@ const InfoContent = (props: TypeProps) => {
                     <span className="text-gray-500 font-medium">Fee:</span>
                 </div>
                 <div className="col w-auto">
-                    <span className="break-all font-medium">{state.fee} {props.currency}</span>
+                    <span className="break-all font-medium">{props.fee} {props.currency}</span>
                 </div>
             </div>
             <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Status:</span>
+                </div>
+                <div className="col w-auto flex items-center">
+                    <span className="break-all font-medium underline">{props.status_text}</span>
+                </div>
+            </div>
+        </div>
+        {state !== null && <>
+            {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col">
+                    <span className="text-gray-500 font-medium">Address from:</span>
+                </div>
+                <div className="col flex items-center">
+                    <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
+                    <CopyIcon value={state.addressFrom}/>
+                </div>
+            </div>}
+            {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
+                </div>
+                <div className="col w-auto flex items-center">
+                    <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
+                    <CopyIcon value={state.addressTo}/>
+                </div>
+            </div>}
+            {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="col w-auto">
+                    <span className="text-gray-500 font-medium">Token network:</span>
+                </div>
+                <div className="col w-auto">
+                    <span className="break-all font-medium">{state.tokenNetwork}</span>
+                </div>
+            </div>}
+            {state.txHash && <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Transaction:</span>
                 </div>
@@ -125,7 +135,7 @@ const InfoContent = (props: TypeProps) => {
                        className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
                     <CopyIcon value={state.txHash}/>
                 </div>
-            </div>
+            </div>}
         </>}
         {isNeedConfirm ? <InfoConfirmPartner {...props}/> : props.partner_info !== "" &&
             <div className="row mb-4 flex flex-wrap gap-2">

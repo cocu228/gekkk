@@ -1,13 +1,14 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
 
 export interface IResHistoryTransactions {
-    "status_raw": number,
-    "id_transaction": number,
+    "status_text": string,
+    "id_transaction": string,
     "datetime": string,
     "currency": string,
     "tx_type_text":string,
-    "status": string,
+    "status": number,
     "amount": number,
+    "fee": number,
     "is_income": boolean,
     "balance": number,
     "partner_info": string,

@@ -9,7 +9,7 @@ import WithdrawFormSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/W
 import WithdrawFormSwift from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormSwift";
 import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormCardToCard
-    from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormCardToCard";
+    from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormBroker";
 
 

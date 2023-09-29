@@ -10,6 +10,10 @@ import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
+import Button from "@/shared/ui/button/Button";
+import {apiCloseRoom} from "@/shared/api";
+import Modal from "@/shared/ui/modal/Modal";
+import UseModal from "@/shared/model/hooks/useModal";
 
 const getDescription = (c, name) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -20,6 +24,7 @@ const getDescription = (c, name) => {
 }
 
 const WalletHeader = () => {
+    const bankCardsMenu = UseModal();
     const {account} = useContext(CtxRootData);
     const {md} = useContext(BreakpointsContext);
     const bankCards = storeBankCards(state => state.bankCards);
@@ -107,8 +112,14 @@ const WalletHeader = () => {
                         {!bankCards ? (
                             <SkeletonCard/>
                         ) : bankCards.map(c => (
-                            <div className="scale-90 mb-5">
+                            <div
+                                className="scale-90 mb-5"
+                                onClick={() => {
+                                    bankCardsMenu.showModal();
+                                }}
+                            >
                                 <BankCard
+                                    status={c.cardStatus}
                                     className="hover:shadow-none"
                                     cardNumber={formatCardNumber(c.displayPan)}
                                     expiresAt={formatMonthYear(new Date(c.expiryDate))}
@@ -130,6 +141,15 @@ const WalletHeader = () => {
                     </div>
                 </div>
             )}
+
+            <Modal
+                width={450}
+                open={bankCardsMenu.isModalOpen}
+                onCancel={bankCardsMenu.handleCancel}
+                title='Card '
+            >
+                
+            </Modal>
         </div>
     </>
 }

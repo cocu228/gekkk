@@ -47,6 +47,21 @@ const TopUpFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
+                        <span className="text-gray-400">Recipient:</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col flex items-center">
+                        <span>{account.name}</span>
+                        <CopyIcon value={account.name}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
+                <div className="row mb-2">
+                    <div className="col">
                         <span className="text-gray-400">The beneficiary’s bank:</span>
                     </div>
                 </div>

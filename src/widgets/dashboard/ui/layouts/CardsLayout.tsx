@@ -23,6 +23,7 @@ function CardsLayout() {
 
                     {bankCards?.map(c =>
                         <BankCard
+                            status={c.cardStatus}
                             key={`BANK_CARD_${c.cardId}`}
                             cardNumber={formatCardNumber(c.displayPan)}
                             expiresAt={formatMonthYear(new Date(c.expiryDate))}

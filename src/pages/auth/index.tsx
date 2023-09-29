@@ -24,7 +24,7 @@ const AuthPage = memo(() => {
     const [{
         verificationId
     }] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: ""}
+        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""}
     );
 
     useEffect(() => {

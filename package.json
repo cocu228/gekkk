@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.30",
+  "version": "2.0.33",
   "type": "module",
   "scripts": {
     "local": "vite",

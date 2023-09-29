@@ -50,14 +50,16 @@ const WithdrawFormCardToCard = () => {
                                 }))
                             }}
                         >
-                            {cards?.map(c => (
-                                <Option
-                                    value={c.cardId}
-                                    label={formatCardNumber(c.displayPan)}
-                                >
-                                    <div>{formatCardNumber(c.displayPan)}</div>
-                                </Option>
-                            ))}
+                            {cards?.filter(c => c.cardStatus === "ACTIVE")
+                                .map(c => (
+                                    <Option
+                                        value={c.cardId}
+                                        label={formatCardNumber(c.displayPan)}
+                                    >
+                                        <div>{formatCardNumber(c.displayPan)}</div>
+                                    </Option>
+                                ))
+                            }
                         </SearchSelect>
                     </div>
                 </div>

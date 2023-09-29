@@ -1,9 +1,16 @@
 import {Input} from "antd";
-import React, {useState} from 'react';
+import React, {useState, useEffect, createRef} from 'react';
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
+
     const [cardNumber, setCardNumber] = useState(['', '', '', '']);
+    const [refs, setRefs] = useState([]);
+
+
+    useEffect(() => {
+        setRefs(cardNumber.map(item => createRef()))
+    }, []);
 
     const handleInputChange = (e, index) => {
         const value = formatAsNumber(e.target.value);
@@ -16,12 +23,13 @@ const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
 
             // Фокусируемся на следующем инпуте при вводе 4 символов
             if (value.length === 4 && index < 3) {
-                document.getElementById(`input-${index + 1}`).focus();
+                refs[index + 1].current.focus();
             }
         }
         
         onChange(newCardNumber.join(''));
     };
+
 
     return (
         <div className={"flex w-full gap-4"}>
@@ -33,7 +41,7 @@ const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
                     value={value}
                     onChange={(e) => handleInputChange(e, index)}
                     maxLength={4}
-                    id={`input-${index}`}
+                    ref={refs[index]}
                 />
             ))}
         </div>

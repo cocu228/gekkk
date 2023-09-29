@@ -23,8 +23,8 @@ import {PhoneAuthProvider, signInWithCredential} from 'firebase/auth';
 
 import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
-import {apiRequestCode, apiTokenHash} from "@/widgets/auth/api";
-import {helperApiRequestCode} from "@/widgets/auth/model/helpers";
+import {apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
+import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
 
 
 declare module 'firebase/auth' {
@@ -34,7 +34,6 @@ declare module 'firebase/auth' {
 
 }
 
-// TODO: Добавить отображение сообщения об ошибке
 const FormCode = memo(() => {
 
     const {login} = useAuth();
@@ -90,19 +89,27 @@ const FormCode = memo(() => {
     }
 
     const onCodeUAS = async () => {
-        const response = await apiRequestCode(
-            formatAsNumber(phone),
-            formatAsNumber(code),
-            sessionIdUAS)
 
+        const _phone = formatAsNumber(phone)
 
-        console.log(response)
-
-        helperApiRequestCode(response).success(() => {
-            // login(formatAsNumber(phone), user.accessToken, "token");
-            // sessionStorage.removeItem("session-auth");
-            // toggleStage("authorization");
-        })
+        apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
+            .then(res => helperApiRequestCode(res)
+                .success(() => {
+                    apiSignIn(formatAsNumber(code), res.data.sessid, _phone)
+                        .then(res => helperApiSignIn(res)
+                            .success(() => {
+                                sessionStorage.removeItem("session-auth");
+                                toggleStage("authorization");
+                                login(_phone, res.data.token, "token");
+                            }))
+                        .catch(e => {
+                            setLoading(false);
+                        });
+                })
+                .reject(v => {
+                    setLoading(false);
+                })
+            )
     }
 
     return <Form autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>

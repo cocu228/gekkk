@@ -60,8 +60,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                        onSingInUAS()
-                    // onSingIn()
+                    // onSingInUAS()
+                    onSingIn()
 
                 ))
             .catch(err => {
@@ -133,9 +133,12 @@ const FormLoginAccount = memo(() => {
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
                 } else if (error.code === "auth/too-many-requests") {
-                    localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
+
+                    onSingInUAS()
+                    // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 } else if (error.code === "auth/quota-exceeded") {
-                    localErrorHunter({code: 1, message: "Exceeded quota for updating account information."})
+                    onSingInUAS()
+                    // localErrorHunter({code: 1, message: "Exceeded quota for updating account information."})
                 } else if (error.code === "auth/invalid-verification-code") {
                     localErrorHunter({code: 2, message: "Invalid verification code"})
                 }

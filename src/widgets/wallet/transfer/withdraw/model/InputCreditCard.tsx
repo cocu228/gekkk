@@ -2,7 +2,7 @@ import {Input} from "antd";
 import React, {useState} from 'react';
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
-const CreditCardInput = () => {
+const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
     const [cardNumber, setCardNumber] = useState(['', '', '', '']);
 
     const handleInputChange = (e, index) => {
@@ -19,6 +19,8 @@ const CreditCardInput = () => {
                 document.getElementById(`input-${index + 1}`).focus();
             }
         }
+        
+        onChange(newCardNumber.join(''));
     };
 
     return (

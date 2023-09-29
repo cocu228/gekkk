@@ -11,7 +11,7 @@ interface IParams {
     amount: {
         sum: {
             currency: {
-                label: string;
+                // label: string; Not used
                 code: string;
             };
             value: number;
@@ -24,7 +24,7 @@ interface IParams {
 }
 
 export const apiPaymentContact = (
-    params: IParams,
+    params: Partial<IParams>,
     commission: boolean = false,
     headers: SignHeaders = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_contact${commission ? "/commission" : ""}`, {

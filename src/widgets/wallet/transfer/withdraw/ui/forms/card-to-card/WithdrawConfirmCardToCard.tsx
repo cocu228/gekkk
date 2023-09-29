@@ -10,33 +10,36 @@ import {CtxRootData} from "@/processes/RootContext";
 import {codeMessage} from "@/shared/config/message";
 import {useContext, useEffect, useState} from "react";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {apiPaymentContact, IResCommission, IResErrors} from "@/shared/api";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
 
-const WithdrawConfirmSepa = ({
-    beneficiaryName,
-    accountNumber,
-    transferDescription,
-    comment,
+const WithdrawConfirmCardToCard = ({
     amount,
-    handleCancel,
+    comment,
+    cardNumber,
+    selectedCard,
+    cardholderName,
+    handleCancel
 }) => {
     const {
         networkIdSelect,
         networksForSelector,
         networksDefault
     } = useContext(CtxWalletNetworks);
-
+    
     const {
         is_operable = null
     } = getNetworkForChose(
         networksDefault,
         networkIdSelect
     ) ?? {}
-
+    
+    const cards = storeBankCards(state => state.bankCards);
+    
     const [{
         total,
         loading,
@@ -58,28 +61,28 @@ const WithdrawConfirmSepa = ({
             codeLength: null
         }
     });
-
+    
     const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
     const {account, setRefresh} = useContext(CtxRootData);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
-
+    
     const paymentDetails = {
-        purpose: comment,
-        iban: accountNumber,
         account: account.account_id,
-        beneficiaryName: beneficiaryName,
-        transferDetails: TransferDescription.find(d => d.value === transferDescription).label,
+        beneficiaryName: cardholderName,
+        cardNumber: cardNumber,
+        fromCardId: selectedCard,
+        purpose: comment,
         amount: {
             sum: {
+                value: amount,
                 currency: {
                     code: $const
-                },
-                value: amount
+                }
             }
         }
     };
-
+    
     const onConfirm = async () => {
         setState(prev => ({
             ...prev,
@@ -92,7 +95,7 @@ const WithdrawConfirmSepa = ({
         } = confirmation.token
             ? await getTransactionSignParams()
             : {appUuid: null, appPass: null};
-
+        
         const {phone} = getCookieData<{phone: string}>();
         
         const jwtPayload = {
@@ -100,8 +103,8 @@ const WithdrawConfirmSepa = ({
             confirmationToken: confirmation.token,
             exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
         };
-
-        await apiPaymentSepa(
+        
+        await apiPaymentContact(
             paymentDetails,
             false,
             {
@@ -129,7 +132,7 @@ const WithdrawConfirmSepa = ({
                 }));
                 return;
             }
-
+            
             setState(prev => ({
                 ...prev,
                 loading: false,
@@ -139,7 +142,7 @@ const WithdrawConfirmSepa = ({
         });
         
         // -------------- PIN CONFIRMATION --------------
-        // await apiPaymentSepa(
+        // await apiPaymentContact(
         //     paymentDetails,
         //     false,
         //     !confirmation.token ? null : {
@@ -173,16 +176,16 @@ const WithdrawConfirmSepa = ({
         //     handleCancel();
         // });
     }
-
+    
     useEffect(() => {
-        apiPaymentSepa(paymentDetails, true).then(({data}) => {
+        apiPaymentContact(paymentDetails, true).then(({data}) => {
             setState(prev => ({
                 ...prev,
                 total: data as IResCommission
             }));
         });
     }, []);
-
+    
     return loading ? <Loader className='mt-20'/> : <>
         <div className="row mb-5">
             <div className="col">
@@ -216,22 +219,32 @@ const WithdrawConfirmSepa = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Beneficiary Name</span>
+                <span className="text-gray-400">Sender's Card Number</span>
             </div>
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{beneficiaryName}</span>
+                <span>{formatCardNumber(cards.find(c => c.cardId === selectedCard).displayPan)}</span>
             </div>
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Account Number</span>
+                <span className="text-gray-400">Recipient's Card Number</span>
             </div>
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{accountNumber}</span>
+                <span>{cardNumber}</span>
+            </div>
+        </div>
+        <div className="row mb-2">
+            <div className="col">
+                <span className="text-gray-400">Recipient's Name</span>
+            </div>
+        </div>
+        <div className="row mb-4">
+            <div className="col">
+                <span>{cardholderName}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -323,4 +336,4 @@ const WithdrawConfirmSepa = ({
     </>
 }
 
-export default WithdrawConfirmSepa;
+export default WithdrawConfirmCardToCard;

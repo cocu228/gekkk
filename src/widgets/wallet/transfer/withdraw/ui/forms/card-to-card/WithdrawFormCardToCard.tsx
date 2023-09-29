@@ -11,6 +11,7 @@ import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import CreditCardInput from "@/widgets/wallet/transfer/withdraw/model/InputCreditCard";
+import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawConfirmCardToCard";
 
 const {Option} = Select;
 
@@ -42,6 +43,9 @@ const WithdrawFormCardToCard = () => {
                 <div className="row">
                     <div className="col">
                         <SearchSelect
+                            placeholder={<span className='font-normal text-gray-400'>
+                                Enter card number
+                            </span>}
                             prefixIcon={inputs.selectedCard && <IconCoin code={'EUR'}/>}
                             onChange={val => {
                                 setInputs(() => ({
@@ -74,7 +78,14 @@ const WithdrawFormCardToCard = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <CreditCardInput/>
+                        <CreditCardInput
+                            onChange={val => {
+                                setInputs(() => ({
+                                    ...inputs,
+                                    cardNumber: val
+                                }));
+                            }}
+                        />
                     </div>
                 </div>
             </div>
@@ -134,15 +145,14 @@ const WithdrawFormCardToCard = () => {
                 </div>
             </div>
         </div>
+        
         <Modal width={450} title="Transfer confirmation"
                onCancel={handleCancel}
-               open={isModalOpen}>
-
-            {/*<FiatWithdrawConfirm {...inputs}*/}
-            {/*                     handleCancel={handleCancel}*/}
-            {/*/>*/}
-
+               open={isModalOpen}
+        >
+            <WithdrawConfirmCardToCard {...inputs} handleCancel={handleCancel}/>
         </Modal>
+        
         <div className="row mb-8 w-full">
             <div className="col">
                 <Button onClick={showModal} disabled={!inputs.amount} size={"xl"} className="w-full">Withdraw</Button>

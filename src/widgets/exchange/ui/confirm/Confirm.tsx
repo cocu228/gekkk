@@ -1,6 +1,7 @@
 import {useContext} from 'react';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../../model/context';
+import InlineProperty from "@/shared/ui/inline-property";
 
 interface Props {
     loading?: boolean;
@@ -16,18 +17,10 @@ function Confirm({loading, onConfirm}: Props) {
 
     return (
         <div className="md:mt-6">
-            <div className="inline-block px-1 text-orange bg-orange bg-opacity-10 rounded-md text-xl">
-                <strong>{from.amount}</strong> {from.currency} &rarr; <strong>{to.amount}</strong> {to.currency}
-            </div>
-
-            <div className="mt-4 flex gap-2.5 font-medium">
-                <div className="text-secondary">Price:</div>
-
-                <div>
-                    <div>1 {from.currency} ~ {price.amount} {to.currency}</div>
-                </div>
-            </div>
-
+            <InlineProperty left={'Will pay'} right={`${from.amount} ${from.currency}`}/>
+            <InlineProperty left={'Will get'} right={`${to.amount} ${to.currency}`}/>
+            <InlineProperty left={'Price'} right={`1 ${from.currency} ~ ${price.amount} ${to.currency}`}/>
+            
             <div className="mt-6 md:mt-12">
                 <Button disabled={loading} className="w-full" onClick={onConfirm}>Confirm</Button>
             </div>

@@ -1,4 +1,5 @@
 import $axios from "@/shared/lib/(cs)axios";
+import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 
 interface IParams {
     iban: string;
@@ -23,36 +24,11 @@ interface IParams {
     // originatorData: string | null;
 }
 
-export interface IResCommission {
-    total: number;
-    commission: number;
-    currency: {
-        code: string;
-        label: string; // Not used
-    }
-}
-
-export interface IResErrors {
-    errors: [
-        {
-            code: number;
-            type: string;
-            message: string;
-            properties: Record<string, string>[];
-        }
-    ]
-}
-
 export const apiPaymentSepa = (
     payment_details: IParams,
     commission: boolean = false,
-    headers: {
-        'X-Confirmation-Type': "PIN" | "SIGN";
-        'X-Confirmation-Token': string;
-        'X-Confirmation-Code': string;
-        'X-App-Uuid'?: string;
-    } = null
-) => $axios.post<IResCommission | IResErrors>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
+    headers: SignHeaders = null
+) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {
     headers: headers

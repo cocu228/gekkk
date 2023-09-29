@@ -1,13 +1,13 @@
-import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
-import Input from '@/shared/ui/input/Input';
-import TokenSelect from '@/shared/ui/token-select/TokenSelect';
-import Checkbox from '@/shared/ui/checkbox/Checkbox';
-import Button from '@/shared/ui/button/Button';
-import {useContext, useState} from 'react';
-import {CtxExchangeData} from '../../model/context';
-import {apiCreateRoom} from '@/shared/api';
 import Loader from '@/shared/ui/loader';
-import { CurrencyFlags } from '@/shared/config/mask-currency-flags';
+import {apiCreateRoom} from '@/shared/api';
+import {useContext, useState} from 'react';
+import Input from '@/shared/ui/input/Input';
+import Button from '@/shared/ui/button/Button';
+import {CtxExchangeData} from '../../model/context';
+import Checkbox from '@/shared/ui/checkbox/Checkbox';
+import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
+import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
+import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';
 
 function CreateRoom() {
     const [loading, setLoading] = useState<boolean>(false);

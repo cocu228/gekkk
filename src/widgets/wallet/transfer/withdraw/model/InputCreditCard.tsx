@@ -1,6 +1,6 @@
+import {Input} from "antd";
 import React, {useState} from 'react';
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import Input from "@/shared/ui/input/Input";
 
 const CreditCardInput = () => {
     const [cardNumber, setCardNumber] = useState(['', '', '', '']);
@@ -26,7 +26,7 @@ const CreditCardInput = () => {
             {cardNumber.map((value, index) => (
                 <Input
                     key={index}
-                    wrapperClassName={"w-1/4"}
+                    className={"w-1/4"}
                     type="text"
                     value={value}
                     onChange={(e) => handleInputChange(e, index)}

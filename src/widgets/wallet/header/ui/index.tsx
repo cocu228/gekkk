@@ -109,6 +109,7 @@ const WalletHeader = () => {
                         ) : bankCards.map(c => (
                             <div className="scale-90 mb-5">
                                 <BankCard
+                                    status={c.cardStatus}
                                     className="hover:shadow-none"
                                     cardNumber={formatCardNumber(c.displayPan)}
                                     expiresAt={formatMonthYear(new Date(c.expiryDate))}

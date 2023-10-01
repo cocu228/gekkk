@@ -27,7 +27,8 @@ export default memo(({onAction}: TProps) => {
     }
 
     return <div>
-        {state === null ? <a className={"text-blue-400"} onClick={onSendCode}>Resend the code again</a> :
-            <span className={"text-orange"}>You can resend the code for: {state} seconds</span>}
+        {state === null
+            ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>Resend one-time code again</a>
+            : <span className={"text-orange"}>You can resend the code for: {state} seconds</span>}
     </div>
 })

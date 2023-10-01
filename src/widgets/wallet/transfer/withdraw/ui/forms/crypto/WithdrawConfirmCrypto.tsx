@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api";
@@ -15,7 +15,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {WithdrawReSendCode} from "@/widgets/wallet/transfer/withdraw/ui/WithdrawReSendCode";
+import WithdrawReSendCode from "@/widgets/wallet/transfer/withdraw/ui/WithdrawReSendCode";
 
 function getRandomInt32() {
     const minValue = -2147483648; // Минимальное 32-битное знаковое число
@@ -105,9 +105,9 @@ const WithdrawConfirmCrypto = ({
     }
 
 
-    const onReSendCode = () => {
+    const onReSendCode = useCallback(() => {
         onConfirm(true)
-    }
+    }, [])
 
     return loading ? <Loader/> : <>
         <div className="row mb-5">

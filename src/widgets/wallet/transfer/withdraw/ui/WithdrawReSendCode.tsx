@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 // import Decimal from "decimal.js";
 import {Timer} from "@/widgets/auth/model/helpers";
 import {useSessionStorage} from "usehooks-ts";
@@ -7,7 +7,7 @@ import {useSessionStorage} from "usehooks-ts";
 // import {auth} from "@/processes/firebaseConfig";
 import {differenceInSeconds} from 'date-fns';
 
-export const WithdrawReSendCode = ({onReSendCode}) => {
+const WithdrawReSendCode = memo(({onReSendCode}: { onReSendCode: () => void }) => {
 
     const [{
         dateTimeStart,
@@ -46,9 +46,12 @@ export const WithdrawReSendCode = ({onReSendCode}) => {
     }
 
 
+    console.log(state)
 
     return <div>
         {state === null ? <a onClick={onSendCode}>Send a repeat message to your phone</a> :
             <span>You can resend the message via: {state}</span>}
     </div>
-}
+})
+
+export default WithdrawReSendCode

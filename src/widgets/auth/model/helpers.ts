@@ -38,6 +38,7 @@ export class Timer {
     timerProcess: any;
     timerRunProcess: ReturnType<typeof setInterval> | null;
     timeCount: number;
+    defaultTimeCount: number;
     setState: React.Dispatch<React.SetStateAction<any>>;
     setSessionGlobal: React.Dispatch<React.SetStateAction<any>>;
 
@@ -51,6 +52,7 @@ export class Timer {
 
         this.timerRunProcess = null
         this.timeCount = seconds
+        this.defaultTimeCount = seconds
         this.setState = setState
         this.setSessionGlobal = setSessionGlobal
 
@@ -58,10 +60,11 @@ export class Timer {
 
     private processCount() {
 
+        console.log(this.timeCount)
+
         if (this.timeCount === 0) {
-
             clearTimeout(this.timerRunProcess)
-
+            this.timeCount = this.defaultTimeCount
             this.setState(null)
 
             // this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
@@ -86,6 +89,9 @@ export class Timer {
     }
 
     clear() {
+        this.timeCount = this.defaultTimeCount
+        this.setState(null)
+        this.timerRunProcess = null
         clearTimeout(this.timerRunProcess)
     }
 }

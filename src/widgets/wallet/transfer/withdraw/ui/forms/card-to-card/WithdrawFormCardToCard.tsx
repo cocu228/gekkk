@@ -38,7 +38,7 @@ const WithdrawFormCardToCard = () => {
         cardholderName: null
     });
     
-    const onInput = ({target}) => {
+    const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
     }
     
@@ -128,7 +128,13 @@ const WithdrawFormCardToCard = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Input value={inputs.cardholderName} onChange={onInput}
+                            <Input value={inputs.cardholderName}
+                                   onChange={({target}) => {
+                                       setInputs(() => ({
+                                           ...inputs,
+                                           cardholderName: target.value.toUpperCase()
+                                       }));
+                                   }}
                                    placeholder={"Enter cardholder name"}
                                    name={"cardholderName"}/>
                         </div>
@@ -146,7 +152,7 @@ const WithdrawFormCardToCard = () => {
                         <div className="col flex items-center">
                             <TextArea value={inputs.comment}
                                       name={"comment"}
-                                      onChange={onInput}
+                                      onChange={onInputDefault}
                                       placeholder={"Enter the comment"}
                                       style={{
                                           minHeight: 100

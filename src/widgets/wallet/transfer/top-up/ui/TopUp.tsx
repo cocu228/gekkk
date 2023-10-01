@@ -30,6 +30,8 @@ const TopUp = memo(() => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
 
+    console.log(getNetworkForChose(networksDefault, networkIdSelect))
+
     return (<div className="wrapper">
 
         {loading ? <Loader/> : <>

@@ -22,7 +22,8 @@ const WithdrawReSendCode = memo(({onReSendCode}: { onReSendCode: () => void }) =
     const instanceTimer = useMemo(() => new Timer(60, setState, setSessionGlobal), [])
 
     useEffect(() => {
-
+        console.log("Run")
+        console.log(dateTimeStart)
         if (dateTimeStart) {
 
             const date1 = new Date(dateTimeStart);
@@ -45,12 +46,9 @@ const WithdrawReSendCode = memo(({onReSendCode}: { onReSendCode: () => void }) =
         onReSendCode()
     }
 
-
-    console.log(state)
-
     return <div>
-        {state === null ? <a onClick={onSendCode}>Send a repeat message to your phone</a> :
-            <span>You can resend the message via: {state}</span>}
+        {state === null ? <a onClick={onSendCode}>Resend the code again</a> :
+            <span>You can resend the code for: {state} seconds</span>}
     </div>
 })
 

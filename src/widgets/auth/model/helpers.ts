@@ -63,16 +63,9 @@ export class Timer {
         console.log(this.timeCount)
 
         if (this.timeCount === 0) {
-            clearTimeout(this.timerRunProcess)
-            this.timeCount = this.defaultTimeCount
-            this.setState(null)
-
-            // this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
-
+            this.clear()
         } else {
-
             this.setState(this.timeCount)
-
             this.timeCount--
         }
 
@@ -89,9 +82,10 @@ export class Timer {
     }
 
     clear() {
-        this.timeCount = this.defaultTimeCount
+        clearTimeout(this.timerRunProcess)
+        this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
         this.setState(null)
         this.timerRunProcess = null
-        clearTimeout(this.timerRunProcess)
+        this.timeCount = this.defaultTimeCount
     }
 }

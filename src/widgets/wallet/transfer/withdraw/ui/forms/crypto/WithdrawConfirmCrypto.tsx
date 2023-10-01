@@ -99,7 +99,10 @@ const WithdrawConfirmCrypto = ({
                     setRefresh()
                 }
             })
-            .reject(localErrorHunter)
+            .reject((err) => {
+                localErrorHunter(err)
+                setInput("")
+            })
 
         setLoading(false)
     }

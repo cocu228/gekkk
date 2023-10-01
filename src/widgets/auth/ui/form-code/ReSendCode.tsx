@@ -75,7 +75,7 @@ export const ReSendCode = () => {
 
 
     return <div>
-        {state === null ? <a onClick={onSend}>Send a repeat message to your phone</a> :
-            <span>You can resend the message via: {state}</span>}
+        {state === null ? <a onClick={onSend}>Resend the code again</a> :
+            <span>You can resend the code for: {state} seconds</span>}
     </div>
 }

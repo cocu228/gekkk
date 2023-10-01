@@ -15,6 +15,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {WithdrawReSendCode} from "@/widgets/wallet/transfer/withdraw/ui/WithdrawReSendCode";
 
 function getRandomInt32() {
     const minValue = -2147483648; // Минимальное 32-битное знаковое число
@@ -27,6 +28,12 @@ function getRandomInt32() {
 const randomInt32 = getRandomInt32();
 console.log(randomInt32);
 
+
+const initStageConfirm = {
+    status: null,
+    txId: null,
+    fee: null
+}
 
 const WithdrawConfirmCrypto = ({
                              address,
@@ -54,17 +61,13 @@ const WithdrawConfirmCrypto = ({
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-    const [stageConfirm, setStageConfirm] = useState({
-        status: null,
-        txId: null,
-        fee: null
-    })
+    const [stageConfirm, setStageConfirm] = useState(initStageConfirm)
 
 
     const {onInput} = useMask(MASK_CODE)
-    const onConfirm = async () => {
+    const onConfirm = async (reSendCode = false) => {
 
-        setLoading(true)
+        setLoading(!reSendCode)
 
         // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
 
@@ -77,29 +80,21 @@ const WithdrawConfirmCrypto = ({
             recipient,
             description,
             getRandomInt32(),
-            input === "" ? undefined : formatAsNumber(input),
-            stageConfirm.txId !== null ? stageConfirm.txId : undefined
+            (input === "" || reSendCode) ? undefined : formatAsNumber(input),
+            (stageConfirm.txId !== null && !reSendCode) ? stageConfirm.txId : undefined
         )
 
         actionResSuccess(response)
             .success(() => {
-
-                console.log(uncoverResponse(response))
-
                 const result = uncoverResponse(response)
-
-                if (stageConfirm.status === null) {
+                if (stageConfirm.status === null || reSendCode) {
                     setStageConfirm({
                         status: result.confirmationStatusCode,
                         txId: result.txId,
                         fee: result.fee
                     })
                 } else {
-                    setStageConfirm({
-                        status: null,
-                        txId: null,
-                        fee: null
-                    })
+                    setStageConfirm(initStageConfirm)
                     handleCancel()
                     setRefresh()
                 }
@@ -107,6 +102,11 @@ const WithdrawConfirmCrypto = ({
             .reject(localErrorHunter)
 
         setLoading(false)
+    }
+
+
+    const onReSendCode = () => {
+        onConfirm(true)
     }
 
     return loading ? <Loader/> : <>
@@ -194,7 +194,7 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            {stageConfirm.status !== null && <FormItem className={"mb-4"} name="code" label="Code" preserve
+            {stageConfirm.status !== null && <> <FormItem className={"mb-4"} name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
@@ -202,7 +202,9 @@ const WithdrawConfirmCrypto = ({
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />
-            </FormItem>}
+            </FormItem>
+                <WithdrawReSendCode onReSendCode={onReSendCode}/>
+            </>}
             <div className="row mb-5">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={(input === "" && stageConfirm.status !== null)}

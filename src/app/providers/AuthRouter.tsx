@@ -38,7 +38,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     }, []);
 
     const navigate = useNavigate();
-    const {token} = getCookieData<{ token: string }>();
+    const {token, tokenHeaderName} = getCookieData<{ token: string, tokenHeaderName: string }>();
 
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
@@ -69,7 +69,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const logout = () => {
 
-        $axios.defaults.headers['token'] = undefined;
+        $axios.defaults.headers[tokenHeaderName] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
         $axios.defaults.headers['AccountId'] = undefined;
         window.recaptchaVerifier = undefined;

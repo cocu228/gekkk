@@ -15,7 +15,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import WithdrawReSendCode from "@/widgets/wallet/transfer/withdraw/ui/WithdrawReSendCode";
+import Timer from "@/shared/model/hooks/useTimer";
 
 function getRandomInt32() {
     const minValue = -2147483648; // Минимальное 32-битное знаковое число
@@ -64,6 +64,10 @@ const WithdrawConfirmCrypto = ({
     const [stageConfirm, setStageConfirm] = useState(initStageConfirm)
 
 
+    const onReSendCode = useCallback(async () => {
+        await onConfirm(true)
+    }, [])
+
     const {onInput} = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
 
@@ -106,11 +110,6 @@ const WithdrawConfirmCrypto = ({
 
         setLoading(false)
     }
-
-
-    const onReSendCode = useCallback(() => {
-        onConfirm(true)
-    }, [])
 
     return loading ? <Loader/> : <>
         <div className="row mb-5">
@@ -197,7 +196,7 @@ const WithdrawConfirmCrypto = ({
         </>}
         <Form onFinish={onConfirm}>
             <span>Transfer confirm</span>
-            {stageConfirm.status !== null && <> <FormItem className={"mb-4"} name="code" label="Code" preserve
+            {stageConfirm.status !== null && <> <FormItem name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
@@ -206,9 +205,9 @@ const WithdrawConfirmCrypto = ({
                        autoComplete="off"
                 />
             </FormItem>
-                <WithdrawReSendCode onReSendCode={onReSendCode}/>
+                <Timer onAction={onReSendCode}/>
             </>}
-            <div className="row mb-5">
+            <div className="row mt-4 mb-5">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={(input === "" && stageConfirm.status !== null)}
                             className="w-full"
@@ -219,12 +218,12 @@ const WithdrawConfirmCrypto = ({
                 </div>
             </div>
         </Form>
-        {is_operable === false && <>
-            <div className="info-box-danger">
-                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                    network for this transaction.</p>
-            </div>
-        </>}
+        {/*{is_operable === false && <>*/}
+        {/*    <div className="info-box-danger">*/}
+        {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
+        {/*            network for this transaction.</p>*/}
+        {/*    </div>*/}
+        {/*</>}*/}
     </>
 }
 

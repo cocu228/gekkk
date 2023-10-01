@@ -6,7 +6,7 @@ import QRCode from "@/widgets/auth/ui/qr-code";
 import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useAuth} from "@/app/providers/AuthRouter";
-import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import { AxiosResponse } from 'axios';
 import { $AxiosResponse } from '@/shared/lib/(cs)axios';
@@ -18,13 +18,13 @@ const AuthPage = memo(() => {
 
     const {md} = useContext(BreakpointsContext);
     const {login} = useAuth();
-    const {toggleStage} = storyDisplayStage(state => state);
+    const {toggleStage} = storyDisplayAuth(state => state);
 
 
     const [{
         verificationId
     }] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""}
+        {phone: "", verificationId: "", sessionIdUAS: ""}
     );
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const AuthPage = memo(() => {
     }, []);
 
 
-    const {stage} = storyDisplayStage(state => state);
+    const {stage} = storyDisplayAuth(state => state);
 
     useEffect(() => {
         authForTokenHashUrl().success((sessionId: string) =>

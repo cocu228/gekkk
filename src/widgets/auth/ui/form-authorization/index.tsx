@@ -8,7 +8,7 @@ import md5 from 'md5';
 import {memo, useContext, useRef, useState} from 'react';
 import ReactPhoneInput from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {phoneMessage, pinMessage} from '@/shared/config/message';
@@ -30,12 +30,12 @@ const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhon
 
 const FormLoginAccount = memo(() => {
 
-    const {toggleStage} = storyDisplayStage(state => state)
+    const {toggleStage} = storyDisplayAuth(state => state)
     const {md} = useContext(BreakpointsContext)
     const {phoneValidator, pinValidator} = useValidation()
     const inputRef = useRef(null)
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""})
+        {phone: "", verificationId: "", sessionIdUAS: ""})
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const [state, setState] = useState<{
@@ -49,6 +49,9 @@ const FormLoginAccount = memo(() => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const onFinish = () => {
+
+
+        // return onSingIn()
 
         const {password} = state
         const phone = formatAsNumber(state.phone)
@@ -70,6 +73,10 @@ const FormLoginAccount = memo(() => {
     }
 
     const onSingInUAS = async () => {
+
+        const {password} = state
+        const phone = formatAsNumber(state.phone)
+
         const response = await apiRequestCode(formatAsNumber(state.phone))
 
 
@@ -80,7 +87,7 @@ const FormLoginAccount = memo(() => {
                 sessionIdUAS: response.data.sessid
             }))
 
-            toggleStage("code")
+            toggleStage("code", md5(`${password}_${phone}`))
 
         })
 
@@ -110,6 +117,9 @@ const FormLoginAccount = memo(() => {
 
         } else {
 
+            const {password} = state
+            const phone = formatAsNumber(state.phone)
+
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
 
@@ -122,7 +132,8 @@ const FormLoginAccount = memo(() => {
                     }))
 
                     setLoading(false)
-                    toggleStage("code")
+
+                    toggleStage("code", md5(`${password}_${phone}`))
 
                 }).catch((error) => {
 
@@ -133,15 +144,15 @@ const FormLoginAccount = memo(() => {
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
                 } else if (error.code === "auth/too-many-requests") {
-
                     onSingInUAS()
                     // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 } else if (error.code === "auth/quota-exceeded") {
                     onSingInUAS()
                     // localErrorHunter({code: 1, message: "Exceeded quota for updating account information."})
-                } else if (error.code === "auth/invalid-verification-code") {
-                    localErrorHunter({code: 2, message: "Invalid verification code"})
                 }
+                // else if (error.code === "auth/invalid-verification-code") {
+                //     localErrorHunter({code: 2, message: "Invalid verification code"})
+                // }
             });
         }
     }
@@ -178,7 +189,7 @@ const FormLoginAccount = memo(() => {
                 onChange={(value: string) => setState(prevState =>
                     ({...prevState, phone: value}))}/>
         </FormItem>
-        {localErrorSpan}
+        <span className="text-fs12 text-red-800">{localErrorSpan}</span>
 
         <FormItem name="password" label="Password"
                   rules={[{required: true, ...pinMessage}, pinValidator]}>

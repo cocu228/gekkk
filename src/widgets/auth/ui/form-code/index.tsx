@@ -9,7 +9,7 @@ import useMask from '@/shared/model/hooks/useMask';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {codeMessage} from '@/shared/config/message';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
@@ -23,8 +23,9 @@ import {PhoneAuthProvider, signInWithCredential} from 'firebase/auth';
 
 import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
-import {apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
-import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
+import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
+import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
+import {actionResSuccess} from "@/shared/lib/helpers";
 
 
 declare module 'firebase/auth' {
@@ -42,17 +43,15 @@ const FormCode = memo(() => {
     const [code, setCode] = useState("");
     const {md} = useContext(BreakpointsContext);
     const [loading, setLoading] = useState<boolean>(false);
-    const {toggleStage} = storyDisplayStage(state => state);
+    const {toggleStage, data} = storyDisplayAuth(state => state);
 
     const [{
         phone,
-        dateTimeStart,
         verificationId,
         sessionIdUAS
     }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""}
+        {phone: "", verificationId: "", sessionIdUAS: ""}
     );
-
 
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
@@ -70,12 +69,25 @@ const FormCode = memo(() => {
         signInWithCredential(auth, PhoneAuthProvider.credential(
             verificationId,
             formatAsNumber(code)
-        )).then((result) => {
+        )).then(async (result) => {
 
             const user = result.user;
-            login(user.phoneNumber, user.accessToken, "token-firebase");
-            sessionStorage.removeItem("session-auth");
-            toggleStage("authorization");
+
+            const response =
+                await apiPasswordVerify(phone, data, user.accessToken, "token-firebase")
+
+            helperApiVerifyPassword(response).success(() => {
+
+                const user = result.user;
+
+                toggleStage("authorization");
+                sessionStorage.removeItem("session-auth");
+                login(user.phoneNumber, user.accessToken, "token-firebase");
+
+            }).reject((e) => {
+                toggleStage("authorization");
+                sessionStorage.removeItem("session-auth");
+            })
 
 
         }).catch(error => {
@@ -97,10 +109,15 @@ const FormCode = memo(() => {
                 .success(() => {
                     apiSignIn(formatAsNumber(code), res.data.sessid, _phone)
                         .then(res => helperApiSignIn(res)
-                            .success(() => {
+                            .success(async () => {
                                 sessionStorage.removeItem("session-auth");
-                                toggleStage("authorization");
+                                // const response = await apiPasswordVerify(_phone, data)
+                                // console.log(response)
                                 login(_phone, res.data.token, "token");
+                                toggleStage("authorization");
+                                console.log(data)
+
+
                             }))
                         .catch(e => {
                             setLoading(false);
@@ -130,7 +147,9 @@ const FormCode = memo(() => {
                    onChange={({target}) => onChange(target.value)}
             />
         </FormItem>
-        {localErrorSpan}
+
+        <span className="text-red-800">{localErrorSpan}</span>
+
         <ReSendCode/>
 
 

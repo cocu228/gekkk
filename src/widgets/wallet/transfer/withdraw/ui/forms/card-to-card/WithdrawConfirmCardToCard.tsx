@@ -1,7 +1,8 @@
+import {Skeleton} from "antd";
 import {AxiosResponse} from "axios";
-import {Skeleton, Input} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
+import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {MASK_CODE} from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";

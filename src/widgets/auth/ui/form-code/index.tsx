@@ -1,5 +1,5 @@
-import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
+import Input from "@/shared/ui/input/Input";
 import {useSessionStorage} from "usehooks-ts";
 // import {apiSignIn} from "@/widgets/auth/api/";
 import Button from '@/shared/ui/button/Button';

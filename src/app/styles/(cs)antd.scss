@@ -2,6 +2,8 @@
 
 .ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
   padding: 20px 12px 20px 12px;
+  border-color: var(--color-secondary);
+  font-weight: normal;
 
   &:disabled {
     background-color: var(--color-gray-300) !important;
@@ -11,6 +13,10 @@
     border-color: var(--color-blue-400);
   }
 
+}
+
+.ant-picker {
+  border-color: var(--color-secondary);
 }
 
 .anticon-swap-right svg {

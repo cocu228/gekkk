@@ -1,16 +1,18 @@
-import {Input, Select} from "antd";
+import {Select} from "antd";
 import {useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
+import Input from "@/shared/ui/input/Input";
 import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
+import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import CreditCardInput from "@/widgets/wallet/transfer/withdraw/model/InputCreditCard";
 import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawConfirmCardToCard";
 
 const {Option} = Select;
@@ -19,18 +21,33 @@ const WithdrawFormCardToCard = () => {
     const currency = useContext(CtxWalletData);
     const cards = storeBankCards(state => state.bankCards);
     const {isModalOpen, showModal, handleCancel} = useModal();
+    const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     
-    const [inputs, setInputs] = useState({
-        selectedCard: null,
-        cardNumber: null,
-        cardholderName: null,
-        comment: null,
+    const [inputs, setInputs] = useState<{
+        amount: string;
+        comment: string;
+        cardNumber: string;
+        selectedCard: string;
+        cardholderName: string;
+    }>({
         amount: null,
+        comment: '',
+        cardNumber: null,
+        selectedCard: null,
+        cardholderName: null
     });
     
     const onInput = ({target}) => {
-        setInputs(prev => ({...prev, [target.name]: target.value}))
+        setInputs(prev => ({...prev, [target.name]: target.value}));
     }
+    
+    const isValidated = () => Object.keys(inputs).every(i => {
+        if (i === 'comment') return true;
+        if (!inputs[i]) return false;
+        if (i === 'cardNumber') return inputs[i].length === 19;
+        
+        return inputs[i].length > 0;
+    });
     
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -44,7 +61,7 @@ const WithdrawFormCardToCard = () => {
                     <div className="col">
                         <SearchSelect
                             placeholder={<span className='font-normal text-gray-400'>
-                                Enter card number
+                                Choose source card
                             </span>}
                             prefixIcon={inputs.selectedCard && <IconCoin code={'EUR'}/>}
                             onChange={val => {
@@ -78,11 +95,14 @@ const WithdrawFormCardToCard = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <CreditCardInput
-                            onChange={val => {
+                        <Input
+                            placeholder={"Enter recipient's card number"}
+                            type={'text'}
+                            onInput={onCardNumberInput}
+                            onChange={({target}) => {
                                 setInputs(() => ({
                                     ...inputs,
-                                    cardNumber: val
+                                    cardNumber: target.value
                                 }));
                             }}
                         />
@@ -116,9 +136,13 @@ const WithdrawFormCardToCard = () => {
                 <div className="row">
                     <div className="col flex items-center">
                         <TextArea value={inputs.comment}
-                                  placeholder={"Enter the comment"}
                                   name={"comment"}
-                                  onChange={onInput}/>
+                                  onChange={onInput}
+                                  placeholder={"Enter the comment"}
+                                  style={{
+                                      minHeight: 100
+                                  }}
+                        />
                     </div>
                 </div>
             </div>
@@ -136,7 +160,7 @@ const WithdrawFormCardToCard = () => {
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,
-                                    amount: v
+                                    amount: v as string
                                 }))}
                                 value={inputs.amount}
                                 currency={currency.$const}/>
@@ -155,7 +179,12 @@ const WithdrawFormCardToCard = () => {
         
         <div className="row mb-8 w-full">
             <div className="col">
-                <Button onClick={showModal} disabled={!inputs.amount} size={"xl"} className="w-full">Withdraw</Button>
+                <Button
+                    size={"xl"}
+                    className="w-full"
+                    onClick={showModal}
+                    disabled={!isValidated}
+                >Withdraw</Button>
             </div>
         </div>
     </div>)

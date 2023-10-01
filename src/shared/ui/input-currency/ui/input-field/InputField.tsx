@@ -22,7 +22,7 @@ const InputField: FC<IParams & InputProps> & {
     CurrencySelector: typeof CurrencySelector;
 } = ({
     currency,
-                           value,
+    value,
     wrapperClassName,
     disabled = false,
     onChange,
@@ -31,6 +31,7 @@ const InputField: FC<IParams & InputProps> & {
     <div className={wrapperClassName}>
         <InputAntd
             {...props}
+            className={'border-gray-400'}
             disabled={disabled || !currency}
             value={value}
             placeholder='Enter amount'

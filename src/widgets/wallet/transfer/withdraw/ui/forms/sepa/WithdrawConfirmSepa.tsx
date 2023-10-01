@@ -2,17 +2,11 @@ import {Skeleton} from "antd";
 import {AxiosResponse} from "axios";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
-import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import {MASK_CODE} from "@/shared/config/mask";
-import useMask from "@/shared/model/hooks/useMask";
 import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import {codeMessage} from "@/shared/config/message";
 import {useContext, useEffect, useState} from "react";
-import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
@@ -28,15 +22,15 @@ const WithdrawConfirmSepa = ({
     const {
         networkIdSelect,
         networksForSelector,
-        networksDefault
+        // networksDefault
     } = useContext(CtxWalletNetworks);
 
-    const {
-        is_operable = null
-    } = getNetworkForChose(
-        networksDefault,
-        networkIdSelect
-    ) ?? {}
+    // const {
+    //     is_operable = null
+    // } = getNetworkForChose(
+    //     networksDefault,
+    //     networkIdSelect
+    // ) ?? {}
 
     const [{
         total,
@@ -60,7 +54,7 @@ const WithdrawConfirmSepa = ({
         }
     });
 
-    const {onInput} = useMask(MASK_CODE);
+    // const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
     const {account, setRefresh} = useContext(CtxRootData);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
@@ -121,7 +115,7 @@ const WithdrawConfirmSepa = ({
 
                 setState(prev => ({
                     ...prev,
-                    loading: false,
+                    // loading: false, TODO: Uncomment this on sign update
                     confirmation: {
                         ...prev.confirmation,
                         token: data.errors[0].properties['confirmationToken'],
@@ -174,7 +168,14 @@ const WithdrawConfirmSepa = ({
         //     handleCancel();
         // });
     }
-
+    
+    // TODO: Update this block on sign update
+    useEffect(() => {
+        if (confirmation.token) {
+            onConfirm();
+        }
+    }, [confirmation]);
+    
     useEffect(() => {
         apiPaymentSepa(paymentDetails, true).then(({data}) => {
             setState(prev => ({
@@ -288,23 +289,24 @@ const WithdrawConfirmSepa = ({
 
         <Form onFinish={onConfirm}>
             {!confirmation.token ? null : <>
-                <span className="text-gray-400">Transfer confirm</span>
-
-                <FormItem className={"mb-4"} name="code" label="Code" preserve
-                          rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>
-                    <Input type="text"
-                           onInput={onInput}
-                           placeholder="Enter your PIN"
-                           onChange={({target}) => setState(prev => ({
-                               ...prev,
-                               confirmation: {
-                                   ...prev.confirmation,
-                                   code: target.value.replace(/ /g, '')
-                               }
-                           }))}
-                           autoComplete="off"
-                    />
-                </FormItem>
+                {/* TODO: Update this block on sign update */}
+                {/*<span className="text-gray-400">Transfer confirm</span>*/}
+                
+                {/*<FormItem className={"mb-4"} name="code" label="Code" preserve*/}
+                {/*          rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>*/}
+                {/*    <Input type="text"*/}
+                {/*           onInput={onInput}*/}
+                {/*           placeholder="Enter your PIN"*/}
+                {/*           onChange={({target}) => setState(prev => ({*/}
+                {/*               ...prev,*/}
+                {/*               confirmation: {*/}
+                {/*                   ...prev.confirmation,*/}
+                {/*                   code: target.value.replace(/ /g, '')*/}
+                {/*               }*/}
+                {/*           }))}*/}
+                {/*           autoComplete="off"*/}
+                {/*    />*/}
+                {/*</FormItem>*/}
             </>}
 
             <div className="row my-5">
@@ -315,12 +317,13 @@ const WithdrawConfirmSepa = ({
             </div>
         </Form>
 
-        {is_operable === false && <>
-            <div className="info-box-danger">
-                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                    network for this transaction.</p>
-            </div>
-        </>}
+        {/* Network is operable by bank */}
+        {/*{is_operable === false && <>*/}
+        {/*    <div className="info-box-danger">*/}
+        {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
+        {/*            network for this transaction.</p>*/}
+        {/*    </div>*/}
+        {/*</>}*/}
     </>
 }
 

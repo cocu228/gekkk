@@ -1,10 +1,11 @@
 import { ActiveBonusProgram } from "@/shared/api/bank/deals/get-deals";
-import useModal from "@/shared/model/hooks/useModal";
+// import useModal from "@/shared/model/hooks/useModal";
 import Button from "@/shared/ui/button/Button";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import {memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SmsCodeModal from "./CodeModal";
+import { DealTurn } from "../model/helpers";
+// import SmsCodeModal from "./SmsCodeModal";
 import styles from './style.module.scss';
 
 
@@ -20,11 +21,11 @@ interface Props {
 
 const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, iconPath, conditions, isActive }): JSX.Element => {
   const navigate = useNavigate();
-  const { isModalOpen, showModal, handleCancel } = useModal();
-
+  // const { isModalOpen, showModal, handleCancel } = useModal();
 
   const [isChecked, setChecked] = useState(false);
 
+  const isCashbackCardGKE = cashbackId === ActiveBonusProgram.CASHBACK_GKE;
 
   return (
     <div className='flex mb-10 justify-center'>
@@ -59,12 +60,12 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
 
         <div className='mt-[23px]'>
             <Checkbox
-              className={`bg-white ${isActive ? 'hidden' : ''}`}
+              className={`bg-white ${(isActive || isCashbackCardGKE) ? 'hidden' : ''}`}
               onChange={() => setChecked(!isChecked)}
-              disabled={isActive}
+              disabled={isActive || isCashbackCardGKE}
               
             >
-            <span className={`${styles.CashbackCardCheckbox} ${isActive ? 'pl-0' : ''}`}>
+            <span className={`${styles.CashbackCardCheckbox} ${(isActive || isCashbackCardGKE) ? 'pl-0' : ''}`}>
                 Bonus payments are a part of a loyalty program, provided by
                 FINTECH ASSETS OÜ. Terms and Conditions can be found here
               </span>
@@ -73,18 +74,23 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
 
         <div className={styles.CashbackCardButton}>
           <Button
-            onClick={cashbackId === ActiveBonusProgram.CASHBACK_GKE
+            onClick={isCashbackCardGKE
               ? () => navigate('/wallet/GKE/Cashback Program') 
-              : () => showModal()
+              // : () => showModal()
+              : () => {}
+
             } 
-            disabled={!isChecked && !isActive}
-            className={'whitespace-nowrap'}
+            disabled={!isChecked && !isActive && !isCashbackCardGKE}
+
+            className={`whitespace-nowrap ${!isCashbackCardGKE ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
           >
-            {cashbackId === ActiveBonusProgram.CASHBACK_GKE 
+            {isCashbackCardGKE
               ? 'Go to the program' 
               : !isActive 
                 ? 'Activate' 
-                : 'Deactivate'
+                // : 'Deactivate'
+                : 'Activated'
+
             }
           </Button>
         </div>
@@ -103,14 +109,14 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
           ))}
         </ul>
       </div>
-      {isModalOpen && 
+      {/* {isModalOpen && 
         <SmsCodeModal 
           cashbackId={cashbackId} 
           isModalOpen={isModalOpen} 
           handleCancel={handleCancel} 
           action={!isActive ? 'start' : 'stop'} 
           />
-      }
+      } */}
     </div>
   )
 })

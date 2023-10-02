@@ -5,7 +5,7 @@ import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import Modal from '@/shared/ui/modal/Modal';
 import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SmsCodeModal from './CodeModal';
+// import SmsCodeModal from './SmsCodeModal';
 import styles from './style.module.scss';
 
 interface Props {
@@ -22,15 +22,17 @@ interface Props {
 const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, className, modalColor, iconPath, conditions, isActive }) => {
   const navigate = useNavigate();
   const { isModalOpen, showModal, handleCancel } = useModal();
-  const { isModalOpen: isSmsModalOpen, showModal: showSmsModal, handleCancel: handleSmsCancel } = useModal();
+  // const { isModalOpen: isSmsModalOpen, showModal: showSmsModal, handleCancel: handleSmsCancel } = useModal();
 
   const [isChecked, setChecked] = useState(false);
+
+  const isCashbackCardGKE = cashbackId === ActiveBonusProgram.CASHBACK_GKE;
+
 
 
   return (
     <div className='flex mb-5 justify-center'>
       <div 
-        // className={`${className} ${styles.CashbackCardMobile}`}
         className={` ${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
         onClick={showModal}
       >
@@ -97,10 +99,11 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
             {!isActive
               ? (
                 <Checkbox
-                  className='bg-white h-[30px] w-[30px]'
+                  className={`bg-white h-[30px] w-[30px] ${isCashbackCardGKE ? 'hidden'  : ''}`}
                   onChange={() => setChecked(!isChecked)}
+                  disabled={isCashbackCardGKE}
                 >
-                  <span className={styles.CashbackModalTerms}>
+                  <span className={`${styles.CashbackModalTerms} ${(isCashbackCardGKE) ? 'pl-0 text-center text-gray-500 tracking-wider text-xs' : ''}`}>
                     Bonus payments are a part of a loyalty program, provided by
                     FINTECH ASSETS OÜ. Terms and Conditions can be found here
                   </span>
@@ -124,31 +127,35 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
               
               <Button 
                 className='my-10 w-full uppercase'
-                disabled={!isChecked}
-                onClick={cashbackId === ActiveBonusProgram.CASHBACK_GKE
+                disabled={!isChecked && !isActive && !isCashbackCardGKE}
+                onClick={isCashbackCardGKE
                   ? () => navigate('/wallet/GKE/Cashback Program')
-                  : () => showSmsModal()
+                  // : () => showSmsModal()
+                  : () => {}
+
                 }
-                gray={isActive}
+                // gray={isActive}
               >
-                {cashbackId === ActiveBonusProgram.CASHBACK_GKE
+                {isCashbackCardGKE
                   ? 'Go to the program'
                   : !isActive
                     ? 'Get it now'
-                    : 'Deactivate'
+                    // : 'Deactivate'
+                    : 'Activated'
+
                 }
               </Button>
             </div>
           </div>
       </Modal>
-      {isSmsModalOpen &&
+      {/* {isSmsModalOpen &&
         <SmsCodeModal
           cashbackId={cashbackId}
           isModalOpen={isSmsModalOpen}
           handleCancel={handleSmsCancel}
           action={!isActive ? 'start' : 'stop'}
         />
-      }
+      } */}
     </div>
   )
 })

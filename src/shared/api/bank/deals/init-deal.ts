@@ -1,5 +1,4 @@
 import $axios from "@/shared/lib/(cs)axios";
-import { DealDesc } from "./helpers";
 
 
 export interface DealConfirmCodeResp {
@@ -19,14 +18,13 @@ export interface DealConfirmCodeResp {
 
 export const apiInitDeal = (
   accountId: string,
-  dealId: string,
-  action: 'start' | 'stop',
+  turn: string,
   signal?: AbortSignal,
 ) => {
 
   const payload = {
     accountIds: [accountId],
-    turn: (action === 'start') ? DealDesc[dealId].start : DealDesc[dealId].end,
+    turn
   };
 
 

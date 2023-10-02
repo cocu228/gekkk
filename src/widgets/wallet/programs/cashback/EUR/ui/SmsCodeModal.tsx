@@ -11,6 +11,7 @@ import Modal from '@/shared/ui/modal/Modal';
 import { Form, Input } from 'antd';
 import { AxiosResponse } from 'axios';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { DealTurn } from '../model/helpers';
 
 interface Props {
   cashbackId: ActiveBonusProgram;
@@ -28,7 +29,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
   const { account } = useContext(CtxRootData);
   const { md } = useContext(BreakpointsContext);
 
-  const toggleDeal = storeDeals(state => state.toggleDeal);
+  // const toggleDeal = storeDeals(state => state.toggleDeal);
 
 
 
@@ -39,6 +40,9 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
   const [isCodeApplied, setIsCodeApplied] = useState<boolean | null>(null);
   const [confirmationToken, setConfirmationToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const actionTurn = DealTurn[cashbackId][action];
+
 
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
 
       try {
 
-       await apiInitDeal(account.account_id, cashbackId, action, controller.signal)
+        await apiInitDeal(account.account_id, actionTurn, controller.signal)
           .then(({data}) => {
             const token = (data && data.errors && data.errors[0].code === 449) ? data.errors[0].properties.confirmationToken : null;
             console.log(token)
@@ -84,10 +88,10 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
   const onSubmit = async () => {
     setIsLoading(true);
 
+
     await apiConfirmationDeals(
       account.account_id,
-      cashbackId,
-      action,
+      actionTurn,
       {
         "X-Confirmation-Token": confirmationToken,
         "X-Confirmation-Code": formatAsNumber(smsCode),
@@ -99,7 +103,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
           );
 
           setIsCodeApplied(data.errors !== null);
-          toggleDeal(cashbackId);
+          // toggleDeal(cashbackId);
       })
  
     setIsLoading(false);

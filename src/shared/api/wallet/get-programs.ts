@@ -1,9 +1,10 @@
 import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
+import { ActiveBonusProgram } from "../bank/deals";
 
 export interface IResProgram {
   startDate: string;
   endDate: string;
-  programType: string;
+  programType: ActiveBonusProgram;
   initBy: number;
 }
 

@@ -1,6 +1,4 @@
 import $axios from "@/shared/lib/(cs)axios";
-import { AxiosResponse } from "axios";
-import { DealDesc } from "./helpers";
 
 
 export interface DealSuccessStatusResp {
@@ -30,8 +28,7 @@ export interface DealErrorStatusResp {
 
 export const apiConfirmationDeals = (
   accountId: string,
-  dealId: string,
-  action: string,
+  turn: string,
   headers: {
     'X-Confirmation-Code': string;
     'X-Confirmation-Token': string;
@@ -40,7 +37,7 @@ export const apiConfirmationDeals = (
 
   const payload = {
     accountIds: [accountId],
-    turn: (action === 'start') ? DealDesc[dealId].start : DealDesc[dealId].end
+    turn
   };
 
   return $axios.post<DealSuccessStatusResp | DealErrorStatusResp>(`/api/v1/accounts/deals`, payload, { headers });

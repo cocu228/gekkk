@@ -11,6 +11,7 @@ export interface AvailableDeal {
 }
 
 export enum ActiveBonusProgram {
+  CASHBACK = 'CASHBACK',
   CASHBACK1 = 'CASH_BACK_PROGRAM_1',
   CASHBACK2 = 'CASH_BACK_PROGRAM_2',
   CASHBACK3 = 'WILDBERRIES_PROGRAM',

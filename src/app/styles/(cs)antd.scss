@@ -27,6 +27,18 @@
   }
 }
 
+.ant-switch {
+  color: var(--color-blue-400);
+}
+
+.ant-switch .ant-switch-inner{
+  background: var(--color-gray-400);
+}
+
+.ant-switch.ant-switch-checked .ant-switch-inner {
+  background: var(--color-blue-400);
+}
+
 .ant-modal-header {
   margin: 10px 30px;
 

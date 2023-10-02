@@ -1,5 +1,6 @@
-import {Input} from 'antd';
 import {useContext, useState} from "react";
+import Input from "@/shared/ui/input/Input";
+import {Input as InputAntd} from "antd";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
@@ -12,7 +13,7 @@ import {isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/he
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 
-const {TextArea} = Input;
+const {TextArea} = InputAntd;
 
 const WithdrawFormCrypto = () => {
 

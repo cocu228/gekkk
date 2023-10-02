@@ -1,6 +1,6 @@
-import {Input} from "antd";
 import {useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
+import Input from "@/shared/ui/input/Input";
 import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";

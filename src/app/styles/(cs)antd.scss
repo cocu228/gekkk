@@ -2,6 +2,8 @@
 
 .ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
   padding: 20px 12px 20px 12px;
+  border-color: var(--color-secondary);
+  font-weight: normal;
 
   &:disabled {
     background-color: var(--color-gray-300) !important;
@@ -13,12 +15,28 @@
 
 }
 
+.ant-picker {
+  border-color: var(--color-secondary);
+}
+
 .anticon-swap-right svg {
   margin-top: 0.075rem;
 
   path {
     d: path('M 868.06 412.8025 C 873.295 407.2675 878.53 401.7325 878.53 396.205 C 883.7575 390.67 883.7575 379.6 883.7575 374.065 C 883.7575 368.53 883.7575 357.4675 878.53 351.9325 C 873.295 346.3975 873.295 340.8625 868.06 335.3275 L 658.78 113.9725 C 637.855 91.84 606.46 91.84 585.535 113.9725 C 564.61 136.1125 564.61 169.315 585.535 191.4475 L 705.8725 318.73 L 98.9575 318.73 C 67.57 318.73 46.6375 340.8625 46.6375 374.065 C 46.6375 407.2675 67.57 429.4075 98.9575 429.4075 L 705.8725 429.4075 L 585.535 556.6825 C 564.61 578.8225 564.61 612.025 585.535 634.1575 C 606.46 656.29 637.855 656.29 658.78 634.1575 L 868.06 412.8025 Z');
   }
+}
+
+.ant-switch {
+  color: var(--color-blue-400);
+}
+
+.ant-switch .ant-switch-inner{
+  background: var(--color-gray-400);
+}
+
+.ant-switch.ant-switch-checked .ant-switch-inner {
+  background: var(--color-blue-400);
 }
 
 .ant-modal-header {

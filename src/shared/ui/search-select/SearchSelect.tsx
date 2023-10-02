@@ -25,7 +25,7 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, children, ...props
             <Select
                 {...props}
                 showSearch
-                className={`${styles.SelectSearch} ${(prefixIcon && value) ? styles.SelectSearchActive : ''}`}
+                className={`${styles.SelectSearch} ${(prefixIcon) ? styles.SelectSearchActive : ''}`}
                 popupClassName={styles.SelectPopup}
                 style={{width: '100%'}}
                 optionLabelProp="label"

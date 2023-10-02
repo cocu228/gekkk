@@ -36,12 +36,12 @@ const initStageConfirm = {
 }
 
 const WithdrawConfirmCrypto = ({
-                             address,
-                             amount,
-                             recipient,
-                             description,
-                             handleCancel,
-                         }) => {
+    address,
+    amount,
+    recipient,
+    description,
+    handleCancel,
+}) => {
 
     const {
         networkIdSelect,

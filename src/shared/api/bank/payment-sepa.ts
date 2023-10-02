@@ -6,7 +6,7 @@ interface IParams {
     account: string;
     purpose: string;
     beneficiaryName: string;
-    transferDetails: string;
+    transferDetails?: string;
     amount: {
         sum: {
             value: number;

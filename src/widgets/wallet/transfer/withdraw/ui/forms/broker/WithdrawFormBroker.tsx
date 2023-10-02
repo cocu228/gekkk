@@ -1,45 +1,31 @@
 import {useContext, useState} from 'react';
-// import Modal from "@/shared/ui/modal/Modal";
+import Modal from "@/shared/ui/modal/Modal";
+import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
-// import useModal from "@/shared/model/hooks/useModal";
+import UseModal from "@/shared/model/hooks/useModal";
 import {calculateAmount} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {validateMinimumAmount} from '@/shared/config/validators';
-// import WithdrawConfirmBank from "@/widgets/wallet/EURG/ui/WithdrawConfirmBank";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import { useNavigate } from 'react-router-dom';
-import { AccountRights } from '@/shared/config/account-rights';
-import {apiGekkardExchange} from "@/shared/api/wallet/exchange";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {AccountRights} from '@/shared/config/account-rights';
+import {validateMinimumAmount} from '@/shared/config/validators';
+import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 
 const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
-
     const navigate = useNavigate();
+    const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
     const [amount, setAmount] = useState(null);
     const {currencies} = useContext(CtxCurrencies);
-    const {account} = useContext(CtxRootData);
-    // const {isModalOpen, showModal, handleCancel} = useModal();
+    const {isModalOpen, showModal, handleCancel} = UseModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = null,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
-
-    const onClick = () => {
-        const response = apiGekkardExchange({
-            account: account.number,
-            amount: amount,
-            exchangeType: withdraw ? "SELL" : "BUY",
-            geekCoinAmount: 1,
-            geekcoinWalletId: ''//account.idInfoClient.toString()
-        })
-
-        // console.log(response)
-    }
 
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -109,23 +95,27 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                 </div>
             </div>
         </div>
-        <div className="row mb-4">
+        <Modal
+            width={450}
+            open={isModalOpen}
+            onCancel={handleCancel}
+            title={withdraw ? "Withdraw confirmation" : "Top Up confirmation"}
+        >
+            <WithdrawConfirmBroker amount={amount} handleCancel={handleCancel}/>
+        </Modal>
+        <div className="row mb-8 w-full">
             <div className="col">
-                <Button onClick={onClick} disabled={!amount} className="w-full mt-5" size={"xl"}>
+                <Button
+                    size={"xl"}
+                    disabled={!amount}
+                    onClick={showModal}
+                    className="w-full mt-5"
+                >
                     {withdraw ? "Sell EURG" : "Buy EURG"}
                 </Button>
-                {/*<Modal width={450}*/}
-                {/*       title={withdraw ? "Withdraw confirmation" : "Top Up confirmation"}*/}
-                {/*       onCancel={handleCancel}*/}
-                {/*       open={isModalOpen}>*/}
-                {/*    <WithdrawConfirmBank amount={amount}*/}
-                {/*                         handleCancel={handleCancel}*/}
-                {/*                         withdraw_fee={min_withdraw}/>*/}
-                {/*</Modal>*/}
             </div>
         </div>
     </div>)
-
 };
 
 export default WithdrawFormBroker;

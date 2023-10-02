@@ -10,7 +10,7 @@ import WithdrawFormSwift from "@/widgets/wallet/transfer/withdraw/ui/forms/Withd
 import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
-import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormBroker";
+import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
 
 
 // < 10  > 23

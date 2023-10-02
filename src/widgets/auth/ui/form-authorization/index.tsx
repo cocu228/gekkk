@@ -21,7 +21,7 @@ import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 import {apiRequestCode} from "@/widgets/auth/api";
-import {uncoverResponse} from "@/shared/lib/helpers";
+// import {uncoverResponse} from "@/shared/lib/helpers";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

@@ -102,7 +102,7 @@ const GkeCashbackProgram = () => {
                         description={`Minimum order amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(100)
+                            validateMinimumAmount(100, amount)
                         ]}
                     >
                         <InputCurrency.PercentSelector

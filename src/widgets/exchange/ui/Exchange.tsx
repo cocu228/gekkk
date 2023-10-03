@@ -142,7 +142,7 @@ function Exchange() {
                                             : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
                                         validators={[
                                             validateBalance(currencies.get(from.currency), navigate),
-                                            validateMinimumAmount(currencies.get(from.currency)?.minOrder)
+                                            validateMinimumAmount(currencies.get(from.currency)?.minOrder, from.amount)
                                         ]}
                                     >
                                         <InputCurrency.PercentSelector

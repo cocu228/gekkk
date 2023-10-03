@@ -69,7 +69,9 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
                 if (response.data.error.code === 10024) return response;
                 if (response.data.error.code === 10039) return response;
                 if (response.data.error.code === 10047) return response;
+                if (response.data.error.code === 10047) return response;
                 if (response.data.error.code === 10064) return response;
+                if (response.data.error.code === 10035) return response;
                 if (response.data.error.code === 10054) return response;
                 if (response.data.error.code === 10065) logout();
 

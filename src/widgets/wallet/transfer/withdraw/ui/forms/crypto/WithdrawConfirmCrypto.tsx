@@ -3,7 +3,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import Button from "@/shared/ui/button/Button";
 import {apiCreateWithdraw} from "@/shared/api";
 import Decimal from "decimal.js";
-import {actionResSuccess, isNull, uncoverResponse} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -16,23 +16,14 @@ import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import Timer from "@/shared/model/hooks/useTimer";
-
-function getRandomInt32() {
-    const minValue = -2147483648; // Минимальное 32-битное знаковое число
-    const maxValue = 2147483647;  // Максимальное 32-битное знаковое число
-
-    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
-}
-
-// Пример использования:
-const randomInt32 = getRandomInt32();
-console.log(randomInt32);
+import InfoBox from "@/widgets/info-box";
 
 
 const initStageConfirm = {
     status: null,
     txId: null,
-    fee: null
+    fee: null,
+    autoInnerTransfer: false
 }
 
 const WithdrawConfirmCrypto = ({
@@ -50,6 +41,7 @@ const WithdrawConfirmCrypto = ({
     } = useContext(CtxWalletNetworks)
 
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
+
     const {
         percent_fee = null,
         withdraw_fee = null,
@@ -73,8 +65,6 @@ const WithdrawConfirmCrypto = ({
 
         setLoading(!reSendCode)
 
-        // const fee = new Decimal(calculateAmount(amount, percent_fee, "onlyPercentage")).plus(withdraw_fee).toNumber()
-
         const response = await apiCreateWithdraw(
             $const,
             networkIdSelect,
@@ -84,19 +74,23 @@ const WithdrawConfirmCrypto = ({
             recipient,
             description,
             getRandomInt32(),
-            (input === "" || reSendCode) ? undefined : formatAsNumber(input),
-            (stageConfirm.txId !== null && !reSendCode) ? stageConfirm.txId : undefined
+            reSendCode ? undefined : formatAsNumber(input),
+            (stageConfirm.txId !== null && !reSendCode) ? stageConfirm.txId : undefined,
+            stageConfirm.autoInnerTransfer
         )
 
         actionResSuccess(response)
             .success(() => {
+
                 const result = uncoverResponse(response)
+
                 if (stageConfirm.status === null || reSendCode) {
-                    setStageConfirm({
+                    setStageConfirm(prev => ({
+                        ...prev,
                         status: result.confirmationStatusCode,
                         txId: result.txId,
                         fee: result.fee
-                    })
+                    }))
                 } else {
                     setStageConfirm(initStageConfirm)
                     handleCancel()
@@ -104,12 +98,22 @@ const WithdrawConfirmCrypto = ({
                 }
             })
             .reject((err) => {
-                localErrorHunter(err)
-                setInput("")
+                if (err.code === 10035) {
+                    setStageConfirm(prev => ({
+                        ...prev,
+                        autoInnerTransfer: true
+                    }))
+                } else {
+                    localErrorHunter(err)
+                    setInput("")
+                }
             })
 
         setLoading(false)
     }
+
+
+    console.log(stageConfirm)
 
     return loading ? <Loader/> : <>
         <div className="row mb-5">
@@ -214,7 +218,9 @@ const WithdrawConfirmCrypto = ({
                             size={"xl"}>Confirm</Button>
                 </div>
                 <div className="col flex justify-center mt-4">
-                    {localErrorInfoBox}
+                    {localErrorInfoBox ? localErrorInfoBox : stageConfirm.autoInnerTransfer &&
+                            <InfoBox>The address is within the system. Are you sure you want to
+                                continue?</InfoBox>}
                 </div>
             </div>
         </Form>

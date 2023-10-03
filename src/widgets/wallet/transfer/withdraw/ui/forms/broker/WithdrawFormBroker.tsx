@@ -8,12 +8,13 @@ import {calculateAmount} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from '@/shared/config/account-rights';
-import {validateMinimumAmount} from '@/shared/config/validators';
+import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 
 const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
+
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
@@ -21,6 +22,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
     const {currencies} = useContext(CtxCurrencies);
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const [error, setError] = useState(false)
 
     const {
         min_withdraw = null,
@@ -34,7 +36,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             </div>
 
             <div className="col text-xs">
-                <span>* Note:  Standard exchange fee is 1,5%.
+                <span>* Note:  Standard exchange fee is {withdraw ? withdraw_fee : "1.5%"}
                     {account.rights && account.rights[AccountRights.IsJuridical] ? null :
                         <> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
@@ -51,8 +53,9 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             <div className="col">
                 <InputCurrency.Validator
                     value={amount}
-                    description={`Minimum amount is ${withdraw ? withdraw_fee : "15"} ${currency.$const}`}
-                    validators={[validateMinimumAmount(min_withdraw)]}
+                    onError={setError}
+                    description={min_withdraw ? `Minimum amount is ${min_withdraw} ${currency.$const}` : ""}
+                    validators={[validateMinimumAmount(min_withdraw), validateBalance(currency, navigate)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600'>You will pay</span>}
@@ -60,6 +63,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                         <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                             <InputCurrency
                                 value={amount}
+                                className={error ? "border-red-800" : ""}
                                 currency={currency.$const}
                                 onChange={v =>
                                     setAmount(v)
@@ -107,7 +111,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             <div className="col">
                 <Button
                     size={"xl"}
-                    disabled={!amount}
+                    disabled={!amount || error}
                     onClick={showModal}
                     className="w-full mt-5"
                 >

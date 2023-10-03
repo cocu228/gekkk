@@ -29,6 +29,8 @@ export function validateMaximumAmount(max: number): IValidatorCreator {
 }
 
 export function validateMinimumAmount(min: number): IValidatorCreator {
+
+    console.log(min)
     return (value) => ({
         validated: +value >= min,
         errorMessage: `The minimum amount is ${min}`

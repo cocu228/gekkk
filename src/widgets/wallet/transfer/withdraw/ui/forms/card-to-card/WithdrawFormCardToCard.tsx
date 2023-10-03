@@ -26,6 +26,7 @@ const WithdrawFormCardToCard = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     const navigate = useNavigate();
+    const [error, setError] = useState(false)
 
     const [inputs, setInputs] = useState<{
         amount: string;
@@ -177,10 +178,8 @@ const WithdrawFormCardToCard = () => {
                             <InputCurrency.Validator value={inputs.amount}
                                                      validators={[validateBalance(currency, navigate)]}>
                                 <InputCurrency
-                                    onChange={(v: unknown) => setInputs(() => ({
-                                        ...inputs,
-                                        amount: v as string
-                                    }))}
+                                    onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v as string}))}
+                                    className={error ? "!border-red-800" : ""}
                                     value={inputs.amount}
                                     currency={currency.$const}/>
                             </InputCurrency.Validator>

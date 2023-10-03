@@ -131,6 +131,7 @@ const WithdrawFormCrypto = () => {
                                     <InputCurrency
                                         name={"amount"}
                                         value={inputs.amount}
+                                        className={error ? "!border-red-800" : ""}
                                         currency={currency.$const}
                                         onChange={(v) => setInputs(() => ({
                                             ...inputs,

@@ -119,11 +119,8 @@ const WithdrawFormSepa = () => {
                                                  onError={setError}
                                                  validators={[validateBalance(currency, navigate)]}>
                             <InputCurrency
-                                onChange={(v: unknown) => setInputs(() => ({
-                                    ...inputs,
-                                    amount: v
-                                }))}
-                                className={error ? "!border-red-600" : ""}
+                                onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v}))}
+                                className={error ? "!border-red-800" : ""}
                                 value={inputs.amount}
                                 currency={currency.$const}/>
                         </InputCurrency.Validator>

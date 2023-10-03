@@ -63,7 +63,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                         <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                             <InputCurrency
                                 value={amount}
-                                className={error ? "border-red-800" : ""}
+                                className={error ? "!border-red-800" : ""}
                                 currency={currency.$const}
                                 onChange={v =>
                                     setAmount(v)
@@ -93,7 +93,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                         </div>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-end font-bold">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}</span>
+                                className="w-full text-end font-bold">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
                         </div>
                     </div>
                 </div>

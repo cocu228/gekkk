@@ -27,7 +27,8 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
 
     const {
         min_withdraw = null,
-        withdraw_fee = null
+        withdraw_fee = null,
+        percent_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -36,7 +37,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             </div>
 
             <div className="col text-xs">
-                <span>* Note:  Standard exchange fee is {withdraw ? withdraw_fee : "1.5%"}
+                <span>* Note:  Standard exchange fee is {percent_fee ? percent_fee + "%" : "1.5%"}
                     {account.rights && account.rights[AccountRights.IsJuridical] ? null :
                         <> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
@@ -86,6 +87,11 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                           You will get
                         </span>
                         </div>
+                        <div className="row">
+                            <span>
+                          Fee
+                        </span>
+                        </div>
                     </div>
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row flex items-end">
@@ -93,7 +99,11 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                         </div>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-start">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
+                                className="w-full text-start">{calculateAmount(!amount ? 0 : amount, percent_fee, "afterPercentage")} {currency.$const}G</span>
+                        </div>
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-start">{percent_fee}</span>
                         </div>
                     </div>
                 </div>

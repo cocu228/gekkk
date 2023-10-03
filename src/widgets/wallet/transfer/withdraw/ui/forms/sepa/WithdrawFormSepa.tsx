@@ -5,19 +5,22 @@ import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
-import {validateBalance} from "@/shared/config/validators";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import Decimal from "decimal.js";
 
 const WithdrawFormSepa = () => {
 
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const navigate = useNavigate();
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -29,6 +32,14 @@ const WithdrawFormSepa = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
+
+    const {
+        min_withdraw = null,
+        // max_withdraw = null,
+        percent_fee = null,
+        withdraw_fee = null,
+        // is_operable = null
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const [error, setError] = useState(false)
 
@@ -117,7 +128,7 @@ const WithdrawFormSepa = () => {
                     <div className="col">
                         <InputCurrency.Validator value={inputs.amount}
                                                  onError={setError}
-                                                 validators={[validateBalance(currency, navigate)]}>
+                                                 validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v}))}
                                 className={error ? "!border-red-800" : ""}

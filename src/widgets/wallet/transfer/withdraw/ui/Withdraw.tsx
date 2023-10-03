@@ -50,12 +50,7 @@ const Withdraw = () => {
                             153 === formType ?
                                 <WithdrawFormCardToCard/> :
                                 154 === formType ?
-                                    <div>
-                                        <b>
-                                        This is CryptoWalletForm Withdraw
-                                        </b>
-                                        <WithdrawFormBroker/>
-                                    </div> :
+                                    <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
                 {!isNull(withdraw_fee) && <div className="row mb-4 mt-4">

@@ -89,11 +89,11 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                     </div>
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row flex items-end">
-                            <span className="w-full text-start font-bold">{!amount ? 0 : amount} {currency.$const}</span>
+                            <span className="w-full text-start">{!amount ? 0 : amount} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-start font-bold">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
+                                className="w-full text-start">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
                         </div>
                     </div>
                 </div>

@@ -3,21 +3,14 @@ import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
-// import {CtxCurrencies} from '@/processes/CurrenciesContext';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawFormSepa";
 import WithdrawFormSwift from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormSwift";
-import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
-import Decimal from "decimal.js";
+import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
 
-
-// < 10  > 23
-// 150 sepo
-// 154 gekkard
-// < 200 > 222
 const Withdraw = () => {
 
     const currency = useContext(CtxWalletData)
@@ -26,9 +19,13 @@ const Withdraw = () => {
 
     const {
         withdraw_fee = null,
+        percent_fee = null,
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
+    const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
+
+    console.log(finalFeeEntity)
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>
@@ -54,13 +51,16 @@ const Withdraw = () => {
                                     <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
-                {!isNull(withdraw_fee) && !new Decimal(withdraw_fee).isZero() && <div className="row mb-4 mt-4">
+                <div className="row mb-4 mt-4">
                     <div className="col">
-                        <div className='text-center'>
+                        {finalFeeEntity.type.number && <div className='text-center'>
                             Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction
-                        </div>
+                        </div>}
+                        {finalFeeEntity.type.percent && <div className='text-center'>
+                            Fee is <b>{percent_fee}%</b> per transaction
+                        </div>}
                     </div>
-                </div>}
+                </div>
 
                 {is_operable === false && <div className="row">
                     <div className="col">

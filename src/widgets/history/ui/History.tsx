@@ -78,6 +78,8 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
     }
 
     useEffect(() => {
+
+        console.log("ref")
         if (activeTab !== TabKey.CUSTOM) {
             setLoading(true);
 
@@ -89,6 +91,8 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
 
     useEffect(() => {
+
+        console.log("currenciesFilter")
         if (currenciesFilter) {
             (async () => {
                 await requestHistory()

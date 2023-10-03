@@ -48,19 +48,19 @@ const InfoContent = (props: TypeProps) => {
                 <span className="text-gray-500 font-medium">Date:</span>
             </div>
             <div className="col font-medium">
-                <span>{formatForCustomer(props.datetime)}</span>
+                <span className="text-gray-600">{formatForCustomer(props.datetime)}</span>
             </div>
         </div>
-        <div className="row mb-4 flex flex-wrap gap-2">
+            <div className="row mb-4 flex flex-nowrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 font-medium">Transaction ID:</span>
+                <span className="text-gray-500 leading-4 font-medium">Transaction ID:</span>
             </div>
             <div className="col w-auto font-medium flex items-center">
-                <span>{props.id_transaction}</span>
-                <CopyIcon value={props.id_transaction}/>
+                <span className="leading-4 font-medium">{props.id_transaction}</span>
             </div>
+                <div className="col flex items-center"><CopyIcon value={props.id_transaction}/></div>
         </div>
-        <div className="row mb-4 flex flex-wrap gap-2">
+        <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
                 <span className="text-gray-500 font-medium">Transaction type:</span>
             </div>
@@ -68,7 +68,7 @@ const InfoContent = (props: TypeProps) => {
                 <span>{props.tx_type_text}</span>
             </div>
         </div>
-        <div className="row mb-4 flex flex-wrap gap-2">
+        <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
                 <span className="text-gray-500 font-medium">Currency:</span>
             </div>
@@ -76,7 +76,7 @@ const InfoContent = (props: TypeProps) => {
                 <span>{props.currency}</span>
             </div>
         </div>
-            <div className="row mb-4 flex flex-wrap gap-2">
+            <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Amount:</span>
                 </div>
@@ -84,7 +84,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="break-all font-medium">{props.amount} {props.currency}</span>
                 </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2">
+            <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Fee:</span>
                 </div>
@@ -92,16 +92,16 @@ const InfoContent = (props: TypeProps) => {
                     <span className="break-all font-medium">{new Decimal(props.fee).toString()} {props.currency}</span>
                 </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2">
+            <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-medium">Status:</span>
                 </div>
                 <div className="col w-auto flex items-center">
-                    <span className="break-all font-medium underline">{props.status_text}</span>
+                    <span className="whitespace-nowrap font-medium">{props.status_text}</span>
                 </div>
             </div>
             {!isNeedConfirm &&
-                <div className="row mb-4 flex flex-wrap gap-2">
+                <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">
                         <span className="text-gray-500 font-medium">Sender name:</span>
                     </div>
@@ -112,16 +112,16 @@ const InfoContent = (props: TypeProps) => {
         </div>
         {state !== null && <>
             <div className="font-light">
-            {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2">
+            {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col">
                     <span className="text-gray-500 font-normal">Address from:</span>
                 </div>
                 <div className="col flex items-center">
                     <span className="break-all font-normal">{asteriskText(state.addressFrom)}</span>
-                    <CopyIcon value={state.addressFrom}/>
                 </div>
+                <div className="col flex items-center"><CopyIcon value={state.addressFrom}/></div>
             </div>}
-            {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2">
+            {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-normal whitespace-nowrap">Address to:</span>
                 </div>
@@ -130,7 +130,7 @@ const InfoContent = (props: TypeProps) => {
                     <CopyIcon value={state.addressTo}/>
                 </div>
             </div>}
-            {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2">
+            {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-normal">Token network:</span>
                 </div>
@@ -138,7 +138,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="break-all font-normal">{state.tokenNetwork}</span>
                 </div>
             </div>}
-            {state.txHash && <div className="row mb-4 flex flex-wrap gap-2">
+            {state.txHash && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
                     <span className="text-gray-500 font-normal">Transaction:</span>
                 </div>

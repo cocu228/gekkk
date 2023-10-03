@@ -9,7 +9,7 @@ import InputCurrency from "@/shared/ui/input-currency/ui";
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import {getFinalFee, isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import Decimal from "decimal.js";
@@ -17,46 +17,6 @@ import {calculateAmount} from "@/shared/lib/helpers";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
 const {TextArea} = InputAntd;
-
-
-type TGetFinalFee = {
-    type: {
-        number: boolean | null,
-        percent: boolean | null
-    },
-    value: {
-        number: number,
-        percent: number
-    }
-}
-const getFinalFee = (curFee: number | null, perFee: number | null): TGetFinalFee => {
-
-    let result = {
-        type: {
-            number: null,
-            percent: null
-        },
-        value: {
-            number: 0,
-            percent: 0
-        }
-    }
-
-
-    if (curFee === null || perFee === null) return result
-
-    const decCurFee = new Decimal(curFee)
-    const decPerFee = new Decimal(perFee)
-
-    result.type.percent = !decPerFee.isZero()
-    result.type.number = !decCurFee.isZero()
-    result.value.percent = decPerFee.toNumber()
-    result.value.number = decCurFee.toNumber()
-
-    return result
-
-
-}
 
 const WithdrawFormCrypto = () => {
 

@@ -15,6 +15,8 @@ import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawConfirmCardToCard";
+import {validateBalance} from "@/shared/config/validators";
+import {useNavigate} from "react-router-dom";
 
 const {Option} = Select;
 
@@ -23,7 +25,8 @@ const WithdrawFormCardToCard = () => {
     const cards = storeBankCards(state => state.bankCards);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
-    
+    const navigate = useNavigate();
+
     const [inputs, setInputs] = useState<{
         amount: string;
         comment: string;
@@ -171,7 +174,8 @@ const WithdrawFormCardToCard = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <InputCurrency.Validator value={inputs.amount} validators={[]}>
+                            <InputCurrency.Validator value={inputs.amount}
+                                                     validators={[validateBalance(currency, navigate)]}>
                                 <InputCurrency
                                     onChange={(v: unknown) => setInputs(() => ({
                                         ...inputs,

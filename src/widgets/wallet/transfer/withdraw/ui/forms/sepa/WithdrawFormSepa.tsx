@@ -9,11 +9,14 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
+import {validateBalance} from "@/shared/config/validators";
+import {useNavigate} from "react-router-dom";
 
 const WithdrawFormSepa = () => {
 
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
+    const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -109,7 +112,8 @@ const WithdrawFormSepa = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <InputCurrency.Validator value={inputs.amount} validators={[]}>
+                        <InputCurrency.Validator value={inputs.amount}
+                                                 validators={[validateBalance(currency, navigate)]}>
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,

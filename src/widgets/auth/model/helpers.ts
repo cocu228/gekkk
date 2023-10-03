@@ -47,7 +47,7 @@ export class Timer {
 
     constructor(
         setState: React.Dispatch<React.SetStateAction<any>>,
-        seconds: number = 8,
+        seconds: number = 60,
     ) {
 
         this.timerProcess = () => setInterval(this.processCount.bind(this), 1000)

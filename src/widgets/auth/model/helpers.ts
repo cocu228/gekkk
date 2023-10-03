@@ -92,6 +92,7 @@ export class Timer {
     }
 
     run() {
+        console.log("run")
         sessionStorage.setItem("timer", String(new Date()));
 
         if (typeof this.timerProcess === "function") {

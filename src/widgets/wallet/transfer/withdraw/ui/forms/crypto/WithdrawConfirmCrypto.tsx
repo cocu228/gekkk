@@ -194,13 +194,13 @@ const WithdrawConfirmCrypto = ({
                 </div>
             </div>
         </>}
-        <Form onFinish={onConfirm}>
+        <Form onFinish={(e) => onConfirm()}>
             <span>Transfer confirm</span>
             {stageConfirm.status !== null && <> <FormItem name="code" label="Code" preserve
                        rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
-                       placeholder="Enter your PIN"
+                       placeholder="Enter SMS code"
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />

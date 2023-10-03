@@ -18,21 +18,15 @@ export const ReSendCode = memo(() => {
     );
 
 
-    const onSend = (resolve) => {
+    const onSend = () => {
 
         signInWithPhoneNumber(auth, "+" + phone, window.recaptchaVerifier)
             .then(({verificationId}) => {
-
-                console.log("verificationId");
-                console.log(verificationId);
-                console.log(resolve);
 
                 setSessionGlobal(prev => ({
                     ...prev,
                     verificationId
                 }));
-
-                resolve();
 
             }).catch(function (error) {
             console.log(error)
@@ -48,17 +42,12 @@ export const ReSendCode = memo(() => {
             window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
                 size: "invisible",
                 callback: (response: unknown) => {
-
-                    console.log("response")
-                    console.log(response)
-                    onSend(resolve)
+                    onSend()
                 }
             })
         }
             window.recaptchaVerifier.verify().then(value => {
-                console.log("value")
-                console.log(value)
-                // resolve(value)
+                resolve(value)
             })
 
         })

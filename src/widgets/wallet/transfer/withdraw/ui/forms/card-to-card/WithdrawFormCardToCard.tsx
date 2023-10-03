@@ -12,11 +12,13 @@ import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
-import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawConfirmCardToCard";
-import {validateBalance} from "@/shared/config/validators";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
+import Decimal from "decimal.js";
+import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 
 const {Option} = Select;
 
@@ -41,11 +43,23 @@ const WithdrawFormCardToCard = () => {
         selectedCard: null,
         cardholderName: null
     });
+
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
     
     const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
     }
-    
+
+    const {
+        min_withdraw = null,
+        // max_withdraw = null,
+        percent_fee = null,
+        withdraw_fee = null,
+        // is_operable = null
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+
+    console.log(min_withdraw)
     const isValidated = () => Object.keys(inputs).every(i => {
         if (!inputs[i]) return false;
         if (i === 'cardNumber') return inputs[i].length === 19;
@@ -176,7 +190,7 @@ const WithdrawFormCardToCard = () => {
                     <div className="row">
                         <div className="col">
                             <InputCurrency.Validator value={inputs.amount}
-                                                     validators={[validateBalance(currency, navigate)]}>
+                                                     validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount),]}>
                                 <InputCurrency
                                     onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v as string}))}
                                     className={error ? "!border-red-800" : ""}

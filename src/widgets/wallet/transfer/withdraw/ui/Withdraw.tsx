@@ -11,6 +11,7 @@ import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
+import Decimal from "decimal.js";
 
 
 // < 10  > 23
@@ -53,7 +54,7 @@ const Withdraw = () => {
                                     <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
-                {!isNull(withdraw_fee) && <div className="row mb-4 mt-4">
+                {!isNull(withdraw_fee) && !new Decimal(withdraw_fee).isZero() && <div className="row mb-4 mt-4">
                     <div className="col">
                         <div className='text-center'>
                             Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction

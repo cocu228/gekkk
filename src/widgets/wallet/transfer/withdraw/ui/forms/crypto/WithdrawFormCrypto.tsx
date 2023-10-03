@@ -85,8 +85,7 @@ const WithdrawFormCrypto = () => {
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
-    console.log(finalFeeEntity)
-    console.log(toNumberInputCurrency(inputs.amount))
+
     const finalFee = finalFeeEntity.type.percent ?
         calculateAmount(inputs.amount, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
         finalFeeEntity.value.number;
@@ -111,11 +110,11 @@ const WithdrawFormCrypto = () => {
                     <div className='flex flex-col gap-2'>
                         <InputCurrency.Validator
                             value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
-                            description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
+                            description={`Minimum withdraw amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}`}
                             onError={(v) => setError(v)}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate),
-                                validateMinimumAmount(min_withdraw, inputs.amount),
+                                validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount),
                                 //validateMaximumAmount(max_withdraw)
                             ]}
                         >

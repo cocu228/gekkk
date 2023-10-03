@@ -32,7 +32,7 @@ export function validateMinimumAmount(min: number, value: string): IValidatorCre
 
     return () => {
         return ({
-            validated: new Decimal(min).lte(new Decimal(toNumberInputCurrency(value))),
+            validated: !(value !== null && value !== "") || new Decimal(min).lte(new Decimal(toNumberInputCurrency(value))),
             errorMessage: `The minimum amount is ${new Decimal(min).toString()}`
         })
     }

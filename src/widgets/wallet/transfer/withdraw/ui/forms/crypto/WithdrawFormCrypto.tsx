@@ -73,6 +73,8 @@ const WithdrawFormCrypto = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
+    const [error, setError] = useState(false)
+
     const {
         min_withdraw = null,
         // max_withdraw = null,
@@ -110,6 +112,7 @@ const WithdrawFormCrypto = () => {
                         <InputCurrency.Validator
                             value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
+                            onError={(v) => setError(v)}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate)
                                 //validateMinimumAmount(min_withdraw),
@@ -161,7 +164,7 @@ const WithdrawFormCrypto = () => {
                 </div>
 
                 <Button size={"xl"} onClick={showModal}
-                        disabled={isDisabledBtnWithdraw(inputs)}
+                        disabled={isDisabledBtnWithdraw(inputs) || error}
                         className='mt-5 mb-2 w-[75%] self-center'>
                     Withdraw
                 </Button>

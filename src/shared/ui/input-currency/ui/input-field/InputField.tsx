@@ -12,6 +12,7 @@ interface IParams {
     disabled?: boolean;
     value?: string;
     wrapperClassName?: string;
+    className?: string;
     onChange?: (value: string) => void;
 }
 
@@ -24,14 +25,15 @@ const InputField: FC<IParams & InputProps> & {
     currency,
     value,
     wrapperClassName,
-    disabled = false,
+                           disabled = false,
+                           className,
     onChange,
     ...props
 }) => (
     <div className={wrapperClassName}>
         <InputAntd
             {...props}
-            className={'border-gray-400'}
+            className={`border-gray-400 ${className}`}
             disabled={disabled || !currency}
             value={value}
             placeholder='Enter amount'

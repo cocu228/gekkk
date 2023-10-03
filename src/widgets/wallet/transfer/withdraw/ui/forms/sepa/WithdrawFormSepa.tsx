@@ -11,6 +11,7 @@ import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transf
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 import {validateBalance} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
+import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
 const WithdrawFormSepa = () => {
 
@@ -28,6 +29,8 @@ const WithdrawFormSepa = () => {
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
+
+    const [error, setError] = useState(false)
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -113,12 +116,14 @@ const WithdrawFormSepa = () => {
                 <div className="row">
                     <div className="col">
                         <InputCurrency.Validator value={inputs.amount}
+                                                 onError={setError}
                                                  validators={[validateBalance(currency, navigate)]}>
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,
                                     amount: v
                                 }))}
+                                className={error ? "!border-red-600" : ""}
                                 value={inputs.amount}
                                 currency={currency.$const}/>
                         </InputCurrency.Validator>
@@ -140,7 +145,7 @@ const WithdrawFormSepa = () => {
                     size={"xl"}
                     className="w-full"
                     onClick={showModal}
-                    disabled={!Object.values(inputs).every(v => v !== null && v !== '')}
+                    disabled={!Object.values(inputs).every(v => v !== null && v !== '') || error}
                 >
                     Withdraw
                 </Button>

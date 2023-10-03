@@ -1,6 +1,7 @@
 import {NavigateFunction} from "react-router-dom";
 import {ICtxCurrency} from "@/processes/CurrenciesContext";
 import Decimal from "decimal.js";
+import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
 export type IValidatorCreator = (value: string) => IValidationResult;
 
@@ -11,7 +12,7 @@ interface IValidationResult {
 
 export function validateBalance(currency: ICtxCurrency, navigate: NavigateFunction): IValidatorCreator {
     return (value) => ({
-        validated: new Decimal(value).lte(new Decimal(currency.availableBalance)),
+        validated: new Decimal(toNumberInputCurrency(value)).lte(new Decimal(currency.availableBalance === null ? 0 : currency.availableBalance)),
         errorMessage: <span className="text-fs12">
             You don't have enough funds. Please <span className="text-blue-400 hover:cursor-pointer hover:underline"
                                                       onClick={() => navigate(`/wallet/${currency.$const}/Top Up`)}

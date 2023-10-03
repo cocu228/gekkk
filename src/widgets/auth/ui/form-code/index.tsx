@@ -147,7 +147,7 @@ const FormCode = memo(() => {
         <span className="text-red-800">{localErrorSpan}</span>
         
         <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
-            <ReSendCode/>
+            <ReSendCode isUAS={sessionIdUAS !== ""}/>
         </div>
         
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}

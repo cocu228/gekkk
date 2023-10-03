@@ -9,7 +9,7 @@ import {useContext, useEffect, useState} from "react";
 import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import TransferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import {transferDescription} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
 
 const WithdrawConfirmSepa = ({
     beneficiaryName,
@@ -64,7 +64,7 @@ const WithdrawConfirmSepa = ({
         iban: accountNumber,
         account: account.account_id,
         beneficiaryName: beneficiaryName,
-        transferDetails: TransferDescription.find(d => d.value === transferDescription).label,
+        transferDetails: transferDescription.find(d => d.value === transferDescription).label,
         amount: {
             sum: {
                 currency: {

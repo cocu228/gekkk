@@ -4,9 +4,8 @@ import BreakpointsProvider from "@/app/providers/BreakpointsProvider";
 import "../processes/firebaseConfig"
 import Decimal from "decimal.js";
 
-
-Decimal.set({toExpNeg: -18})
 function App() {
+    Decimal.set({toExpNeg: -18})
     return <BreakpointsProvider>
         <AppRouter/>
     </BreakpointsProvider>

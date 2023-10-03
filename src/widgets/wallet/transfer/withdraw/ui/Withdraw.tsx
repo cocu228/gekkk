@@ -10,6 +10,7 @@ import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import Decimal from "decimal.js";
 
 const Withdraw = () => {
 
@@ -25,6 +26,7 @@ const Withdraw = () => {
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
+    console.log(finalFeeEntity)
     console.log(finalFeeEntity)
     return (
         <div className='h-full'>
@@ -54,10 +56,10 @@ const Withdraw = () => {
                 <div className="row mb-4 mt-4">
                     <div className="col">
                         {finalFeeEntity.type.number && <div className='text-center'>
-                            Fee is <b>{withdraw_fee} {currency.$const}</b> per transaction
+                            Fee is <b>{new Decimal(finalFeeEntity.value.number).toString()} {currency.$const}</b> per transaction
                         </div>}
                         {finalFeeEntity.type.percent && <div className='text-center'>
-                            Fee is <b>{percent_fee}%</b> per transaction
+                            Fee is <b>{finalFeeEntity.value.percent}%</b> per transaction
                         </div>}
                     </div>
                 </div>

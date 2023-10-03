@@ -59,7 +59,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                     validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}
-                                                   header={<span className='text-gray-600'>You will pay</span>}
+                                                   header={<span className='text-gray-600 font-medium'>You will pay</span>}
                                                    currency={currencies.get(currency.$const)}>
                         <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                             <InputCurrency

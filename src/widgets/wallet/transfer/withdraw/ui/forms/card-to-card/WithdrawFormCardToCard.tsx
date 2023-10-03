@@ -80,7 +80,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span>From card</span>
+                            <span className="font-medium">From card</span>
                         </div>
                     </div>
                     <div className="row">
@@ -117,13 +117,13 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span>Card number</span>
+                            <span className="font-medium">Card number</span>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
                             <Input
-                                placeholder={"Enter recipient's card number"}
+                                placeholder={""}
                                 type={'text'}
                                 onInput={onCardNumberInput}
                                 onChange={({target}) => {
@@ -141,7 +141,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span>Cardholder name</span>
+                            <span className="font-medium">Cardholder name</span>
                         </div>
                     </div>
                     <div className="row">
@@ -153,7 +153,7 @@ const WithdrawFormCardToCard = () => {
                                            cardholderName: target.value.toUpperCase()
                                        }));
                                    }}
-                                   placeholder={"Enter cardholder name"}
+                                   placeholder={""}
                                    name={"cardholderName"}/>
                         </div>
                     </div>
@@ -163,7 +163,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span>Comment</span>
+                            <span className="font-medium">Comment (optional)</span>
                         </div>
                     </div>
                     <div className="row">
@@ -171,7 +171,7 @@ const WithdrawFormCardToCard = () => {
                             <TextArea value={inputs.comment}
                                       name={"comment"}
                                       onChange={onInputDefault}
-                                      placeholder={"Enter the comment"}
+                                      placeholder={""}
                                       style={{
                                           minHeight: 100
                                       }}
@@ -184,7 +184,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span>Amount</span>
+                            <span className="font-medium">Amount</span>
                         </div>
                     </div>
                     <div className="row">

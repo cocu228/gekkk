@@ -61,7 +61,7 @@ const WithdrawFormCrypto = () => {
         <div className="flex flex-col items-center mt-2">
             <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600">Address</span>
+                    <span className="text-gray-600 font-medium">Address</span>
                     <Input value={inputs.address} onChange={onInput}
                            disabled={!networkIdSelect}
                            placeholder={"Enter the withdrawal address"}
@@ -80,7 +80,7 @@ const WithdrawFormCrypto = () => {
                         >
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600'>Input</span>}
+                                header={<span className='text-gray-600 font-medium'>Input</span>}
                                 onSelect={(v) => setInputs(() => ({
                                     ...inputs,
                                     amount: v
@@ -103,7 +103,7 @@ const WithdrawFormCrypto = () => {
                     </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600">Recipient</span>
+                    <span className="text-gray-600 font-medium">Recipient</span>
                         <InputCurrency.Validator
                                 value={null}
                                 validators={[]}
@@ -117,7 +117,7 @@ const WithdrawFormCrypto = () => {
                 </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600">Description (optional)</span>
+                    <span className="text-gray-600 font-medium">Description (optional)</span>
                     <TextArea name={"description"} value={inputs.description} onChange={onInput}
                               disabled={!networkIdSelect}
                               rows={2}/>

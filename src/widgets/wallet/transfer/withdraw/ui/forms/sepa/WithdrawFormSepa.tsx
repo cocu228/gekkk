@@ -7,7 +7,7 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import transferDescription from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import {transferDescription} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
@@ -48,14 +48,14 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Beneficiary name</span>
+                        <span className="font-medium">Beneficiary name</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
                         <Input value={inputs.beneficiaryName}
                                onChange={onInput}
-                               placeholder={"Enter the beneficiary name"}
+                               placeholder={""}
                                name={"beneficiaryName"}/>
                     </div>
                 </div>
@@ -65,13 +65,13 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Account number / IBAN</span>
+                        <span className="font-medium">Account number / IBAN</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
                         <Input value={inputs.accountNumber} onChange={onInput}
-                               placeholder={"Enter account number"}
+                               placeholder={""}
                                name={"accountNumber"}/>
                     </div>
                 </div>
@@ -81,7 +81,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Transfer description</span>
+                        <span className="font-medium">Transfer description</span>
                     </div>
                 </div>
                 <div className="row">
@@ -93,7 +93,7 @@ const WithdrawFormSepa = () => {
                                 }))}
                                 name={"transferDescription"}
                                 options={transferDescription}
-                                placeholder={"Please select a description of the transaction..."}
+                                placeholder={"Transfer details"}
                                 value={inputs.transferDescription}
                         />
                     </div>
@@ -104,13 +104,13 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Comment</span>
+                        <span className="font-medium">Comment (optional)</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
                         <TextArea value={inputs.comment}
-                                  placeholder={"Enter the comment"}
+                                  placeholder={""}
                                   name={"comment"}
                                   onChange={onInput}/>
                     </div>
@@ -121,7 +121,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span>Amount</span>
+                        <span className="font-medium">Amount</span>
                     </div>
                 </div>
                 <div className="row">

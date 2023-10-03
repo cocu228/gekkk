@@ -12,6 +12,7 @@ import {validateBalance, validateMinimumAmount} from '@/shared/config/validators
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
+import Decimal from "decimal.js";
 
 const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
 
@@ -28,7 +29,6 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
         min_withdraw = null,
         withdraw_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
-
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
             <div className="col text-xl font-bold">
@@ -54,8 +54,8 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                 <InputCurrency.Validator
                     value={amount}
                     onError={setError}
-                    description={min_withdraw ? `Minimum amount is ${min_withdraw} ${currency.$const}` : ""}
-                    validators={[validateMinimumAmount(min_withdraw), validateBalance(currency, navigate)]}
+                    description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
+                    validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}
                 >
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600'>You will pay</span>}
@@ -89,11 +89,11 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                     </div>
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row flex items-end">
-                            <span className="w-full text-end font-bold">{!amount ? 0 : amount} {currency.$const}</span>
+                            <span className="w-full text-start font-bold">{!amount ? 0 : amount} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-end font-bold">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
+                                className="w-full text-start font-bold">{calculateAmount(!amount ? 0 : amount, 1.5, "afterPercentage")} {currency.$const}G</span>
                         </div>
                     </div>
                 </div>

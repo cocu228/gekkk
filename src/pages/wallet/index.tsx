@@ -66,7 +66,7 @@ function Wallet() {
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History types={[]} currenciesFilter={[currency]}/>
+                            <History currenciesFilter={[currency]}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

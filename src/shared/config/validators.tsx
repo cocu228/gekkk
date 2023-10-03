@@ -28,11 +28,12 @@ export function validateMaximumAmount(max: number): IValidatorCreator {
     })
 }
 
-export function validateMinimumAmount(min: number): IValidatorCreator {
+export function validateMinimumAmount(min: number, value: string): IValidatorCreator {
 
-    console.log(min)
-    return (value) => ({
-        validated: +value >= min,
-        errorMessage: `The minimum amount is ${min}`
-    })
+    return () => {
+        return ({
+            validated: new Decimal(min).lte(new Decimal(toNumberInputCurrency(value))),
+            errorMessage: `The minimum amount is ${min}`
+        })
+    }
 }

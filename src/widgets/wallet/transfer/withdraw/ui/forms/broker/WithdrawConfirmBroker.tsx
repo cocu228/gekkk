@@ -10,6 +10,7 @@ import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import Decimal from "decimal.js";
 
 const WithdrawConfirmBroker = ({
     amount,
@@ -179,6 +180,8 @@ const WithdrawConfirmBroker = ({
             }));
         });
     }, []);
+
+    Decimal.set({toExpNeg: -18})
 
     return loading ? <Loader className='mt-20'/> : <>
         <div className="row mb-5">

@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance} from '@/shared/config/validators';
+import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
@@ -114,8 +114,8 @@ const WithdrawFormCrypto = () => {
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             onError={(v) => setError(v)}
                             validators={[
-                                validateBalance(currencies.get(currency.$const), navigate)
-                                //validateMinimumAmount(min_withdraw),
+                                validateBalance(currencies.get(currency.$const), navigate),
+                                validateMinimumAmount(min_withdraw, inputs.amount),
                                 //validateMaximumAmount(max_withdraw)
                             ]}
                         >

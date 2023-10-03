@@ -41,8 +41,6 @@ const InfoContent = (props: TypeProps) => {
 
     }, [props.id_transaction])
 
-    Decimal.set({toExpNeg: -18})
-
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">

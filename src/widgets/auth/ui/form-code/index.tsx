@@ -51,7 +51,7 @@ const FormCode = memo(() => {
         phone,
         verificationId,
         sessionIdUAS
-    }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
+    }, ] = useSessionStorage<TSessionAuth>("session-auth",
         {phone: "", verificationId: "", sessionIdUAS: ""}
     );
 

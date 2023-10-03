@@ -12,8 +12,51 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
+import Decimal from "decimal.js";
+import {calculateAmount} from "@/shared/lib/helpers";
+import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
 const {TextArea} = InputAntd;
+
+
+type TGetFinalFee = {
+    type: {
+        number: boolean | null,
+        percent: boolean | null
+    },
+    value: {
+        number: number,
+        percent: number
+    }
+}
+const getFinalFee = (curFee: number | null, perFee: number | null): TGetFinalFee => {
+
+    let result = {
+        type: {
+            number: null,
+            percent: null
+        },
+        value: {
+            number: 0,
+            percent: 0
+        }
+    }
+
+
+    if (curFee === null || perFee === null) return result
+
+    const decCurFee = new Decimal(curFee)
+    const decPerFee = new Decimal(perFee)
+
+    result.type.percent = !decPerFee.isZero()
+    result.type.number = !decCurFee.isZero()
+    result.value.percent = decPerFee.toNumber()
+    result.value.number = decCurFee.toNumber()
+
+    return result
+
+
+}
 
 const WithdrawFormCrypto = () => {
 
@@ -33,16 +76,25 @@ const WithdrawFormCrypto = () => {
     const {
         min_withdraw = null,
         // max_withdraw = null,
-        // percent_fee = null,
-        // withdraw_fee = null,
+        percent_fee = null,
+        withdraw_fee = null,
         // is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
+    const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
+
+    console.log(finalFeeEntity)
+    console.log(toNumberInputCurrency(inputs.amount))
+    const finalFee = finalFeeEntity.type.percent ?
+        calculateAmount(inputs.amount, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
+        finalFeeEntity.value.number;
+
+
+    console.log(finalFee)
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    // console.log(networksDefault)
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
         <div className="flex flex-col items-center mt-2">
@@ -54,10 +106,9 @@ const WithdrawFormCrypto = () => {
                            placeholder={"Enter the withdrawal address"}
                            name={"address"}/>
                 </div>
-
                     <div className='flex flex-col gap-2'>
                         <InputCurrency.Validator
-                            value={inputs.amount}
+                            value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
                             description={`Minimum withdraw amount is ${min_withdraw} ${currency.$const}`}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate)

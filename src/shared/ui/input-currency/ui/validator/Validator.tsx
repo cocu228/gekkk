@@ -45,6 +45,7 @@ const Validator: FC<IParams> = (({
             setError(null);
             onError(false);
         }
+
     }, [value, validators])
 
     return (
@@ -58,10 +59,8 @@ const Validator: FC<IParams> = (({
                         <div className="mt-[1px]">
                             <IconError/>
                         </div>
-
-                        <span className='text-red-800'>{error}</span>
-                    </div>
-                }
+                        <span className='text-red-800 text-fs12'>{error}</span>
+                    </div>}
             </div>
         </div>
     );

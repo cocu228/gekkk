@@ -32,6 +32,7 @@ const WithdrawFormBroker = () => {
     const {
         min_withdraw = null,
         withdraw_fee = null,
+        token_hot_address = "",
         percent_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
@@ -131,13 +132,13 @@ const WithdrawFormBroker = () => {
             title={"Withdraw confirmation"}>
             <WithdrawConfirmBroker amount={amount} handleCancel={handleCancel}/>
         </Modal>
-        <div className="row mb-8 w-full">
+        <div className="row w-full mt-4">
             <div className="col">
                 <Button
                     size={"xl"}
-                    disabled={!amount || error}
+                    disabled={!amount || error || loading}
                     onClick={showModal}
-                    className="w-full mt-5"
+                    className="w-full"
                 >
                     Sell EURG
                 </Button>

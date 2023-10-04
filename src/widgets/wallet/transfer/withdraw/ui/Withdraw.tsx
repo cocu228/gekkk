@@ -53,7 +53,7 @@ const Withdraw = () => {
                                     <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
-                <div className="row mb-4 mt-4">
+                <div className="row mt-4 mb-4">
                     <div className="col">
                         <div className='text-center'>
                             Fee is {finalFeeEntity.type.number ?

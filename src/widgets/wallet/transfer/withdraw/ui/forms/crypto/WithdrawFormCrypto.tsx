@@ -122,22 +122,26 @@ const WithdrawFormCrypto = () => {
                               disabled={!networkIdSelect}
                               rows={2}/>
                 </div>
+                <div className="row w-full mt-4">
+                    <div className="col">
+                        <Modal width={450}
+                               title="Transfer confirmation"
+                               onCancel={handleCancel}
+                               open={isModalOpen}>
 
-                <Button size={"xl"} onClick={showModal}
-                        disabled={isDisabledBtnWithdraw(inputs) || error}
-                        className='mt-5 mb-2 w-[75%] self-center'>
-                    Withdraw
-                </Button>
+                            <WithdrawConfirmCrypto {...inputs}
+                                                   handleCancel={handleCancel}
+                            />
+                        </Modal>
+                        <Button size={"xl"} onClick={showModal}
 
-                <Modal width={450} title="Transfer confirmation"
-                       onCancel={handleCancel}
-                       open={isModalOpen}>
+                                disabled={isDisabledBtnWithdraw(inputs) || error}
+                                className='w-full self-center'>
+                            Withdraw
+                        </Button>
 
-                    <WithdrawConfirmCrypto {...inputs}
-                                           handleCancel={handleCancel}
-                    />
-
-                </Modal>
+                    </div>
+                </div>
                 </div>
             </div>
     )

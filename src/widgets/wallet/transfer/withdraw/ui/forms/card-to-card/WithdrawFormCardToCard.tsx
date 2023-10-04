@@ -209,7 +209,7 @@ const WithdrawFormCardToCard = () => {
                 <WithdrawConfirmCardToCard {...inputs} handleCancel={handleCancel}/>
             </Modal>
             
-            <div className="row mb-8 w-full">
+            <div className="row w-full">
                 <div className="col">
                     <Button
                         size={"xl"}

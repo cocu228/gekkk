@@ -11,10 +11,10 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import Decimal from "decimal.js";
+import useError from "@/shared/model/hooks/useError";
 
 const WithdrawConfirmBroker = ({
-    amount,
-    handleCancel
+                                   amount, handleCancel
 }) => {
     const {
         networkIdSelect,
@@ -23,19 +23,18 @@ const WithdrawConfirmBroker = ({
     } = useContext(CtxWalletNetworks);
 
     const {
-        token_hot_address
+        token_hot_address,
+        withdraw_fee
     } = getNetworkForChose(
         networksDefault,
         networkIdSelect
     ) ?? {}
 
     const [{
-        total,
         loading,
         confirmation
     }, setState] = useState<{
         loading: boolean;
-        total: IResCommission;
         confirmation: {
             code: string;
             token: string;
@@ -43,7 +42,6 @@ const WithdrawConfirmBroker = ({
         }
     }>({
         loading: false,
-        total: undefined,
         confirmation: {
             code: "",
             token: null,
@@ -55,6 +53,8 @@ const WithdrawConfirmBroker = ({
     const {$const} = useContext(CtxWalletData);
     const {account, setRefresh} = useContext(CtxRootData);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+
 
     const paymentDetails = {
         purpose: "Purchase of EURG for EUR",
@@ -71,11 +71,17 @@ const WithdrawConfirmBroker = ({
         }
     };
 
+
+    console.log(paymentDetails)
+
     const onConfirm = async () => {
+
         setState(prev => ({
             ...prev,
             loading: true
         }));
+
+        const {phone} = getCookieData<{ phone: string }>();
         
         const {
             appUuid,
@@ -83,8 +89,6 @@ const WithdrawConfirmBroker = ({
         } = confirmation.token
             ? await getTransactionSignParams()
             : {appUuid: null, appPass: null};
-
-        const {phone} = getCookieData<{phone: string}>();
         
         const jwtPayload = {
             initiator: phone,
@@ -107,18 +111,28 @@ const WithdrawConfirmBroker = ({
             const {data} = response;
 
             if (data?.errors) {
-                if (data.errors[0].code !== 449) return;
+
+                localErrorHunter(data.errors[0])
 
                 setState(prev => ({
                     ...prev,
-                    // loading: false, TODO: Uncomment this on sign update
-                    confirmation: {
-                        ...prev.confirmation,
-                        token: data.errors[0].properties['confirmationToken'],
-                        codeLength: data.errors[0].properties['confirmationCodeLength']
-                    }
+                    loading: false,
                 }));
-                return;
+
+                if (data.errors[0].code !== 449) return;
+
+
+                // setState(prev => ({
+                //     ...prev,
+                //     // loading: false, TODO: Uncomment this on sign update
+                //     confirmation: {
+                //         ...prev.confirmation,
+                //         token: data.errors[0].properties['confirmationToken'],
+                //         codeLength: data.errors[0].properties['confirmationCodeLength']
+                //     }
+                // }));
+                //
+                // return;
             }
 
             setState(prev => ({
@@ -171,17 +185,15 @@ const WithdrawConfirmBroker = ({
             onConfirm();
         }
     }, [confirmation]);
-    
-    useEffect(() => {
-        apiPaymentSepa(paymentDetails, true).then(({data}) => {
-            setState(prev => ({
-                ...prev,
-                total: data as IResCommission
-            }));
-        });
-    }, []);
 
-    Decimal.set({toExpNeg: -18})
+    // useEffect(() => {
+    //     apiPaymentSepa(paymentDetails, true).then(({data}) => {
+    //         setState(prev => ({
+    //             ...prev,
+    //             total: data as IResCommission
+    //         }));
+    //     });
+    // }, []);
 
     return loading ? <Loader className='mt-20'/> : <>
         <div className="row mb-5">
@@ -251,7 +263,7 @@ const WithdrawConfirmBroker = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{amount ?? '-'} {$const}</span>
+                <span>{amount} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -261,11 +273,7 @@ const WithdrawConfirmBroker = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                {total !== undefined ? (
-                    <span>{total.commission ?? '-'} {$const}</span>
-                ) : (
-                    <Skeleton.Input style={{height: 16}} active/>
-                )}
+                {new Decimal(withdraw_fee).toString()}
             </div>
         </div>
         <div className="row mb-2">
@@ -275,11 +283,7 @@ const WithdrawConfirmBroker = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                {total !== undefined ? (
-                    <span>{total.total ?? '-'} {$const}</span>
-                ) : (
-                    <Skeleton.Input style={{height: 16}} active/>
-                )}
+                {new Decimal(amount).minus(withdraw_fee).toString()}
             </div>
         </div>
         
@@ -305,10 +309,15 @@ const WithdrawConfirmBroker = ({
                 {/*</FormItem>*/}
             </>}
 
-            <div className="row my-5">
+            <div className="row mt-4">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={!total} className="w-full"
+                    <Button htmlType={"submit"} disabled={loading} className="w-full"
                             size={"xl"}>Confirm</Button>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    {localErrorInfoBox}
                 </div>
             </div>
         </Form>

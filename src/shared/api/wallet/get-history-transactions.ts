@@ -16,7 +16,7 @@ export interface IResHistoryTransactions {
     "tx_type": number
 }
 
-export const apiHistoryTransactions = (start?: string | number, end?: string, currencies?: string[], tx_types?: Array<number> | null, from_tx_id?: number, limit?: number) =>
+export const apiHistoryTransactions = (start?: string | number, end?: string, currencies?: string[], tx_types?: Array<number> | null, from_tx_id?: string, limit?: number) =>
     $axios.get<$AxiosResponse<Array<IResHistoryTransactions>>>('/gek/v1/wallet/get_history_transactions', {
         params: {
             currencies,

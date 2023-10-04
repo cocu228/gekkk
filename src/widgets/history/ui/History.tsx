@@ -68,7 +68,7 @@ function History({currenciesFilter, types}: Partial<Props>) {
         const lastValue = listHistory[listHistory.length - 1];
 
         const {data} = await apiHistoryTransactions(null, null, currenciesFilter,
-            types, +lastValue.id_transaction, 10)
+            types, lastValue.id_transaction, 10)
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))

@@ -12,7 +12,7 @@ export interface ICtxWalletNetworks {
     refreshKey: null | string,
     setLoading: (loading: boolean) => void
     setNetworkId: (networkId: number) => void
-    setRefresh: (quite: boolean, amount: number) => void
+    setRefresh: (quite?: boolean, amount?: number) => void
 }
 
 export const CtxWalletData = React.createContext<null | ICtxCurrency>(null);

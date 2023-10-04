@@ -59,7 +59,7 @@ const WithdrawFormCardToCard = () => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
 
-    console.log(min_withdraw)
+
     const isValidated = () => Object.keys(inputs).every(i => {
         if (!inputs[i]) return false;
         if (i === 'cardNumber') return inputs[i].length === 19;

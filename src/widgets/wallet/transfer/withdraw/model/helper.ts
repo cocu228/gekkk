@@ -1,4 +1,6 @@
 import Decimal from "decimal.js";
+import {AxiosResponse} from "axios";
+import {actionSuccessConstructor, uncoverArray} from "@/shared/lib/helpers";
 
 export const isDisabledBtnWithdraw = (inputs) => {
     return !inputs.amount || !inputs.address || !inputs.recipient;
@@ -40,5 +42,35 @@ export const getFinalFee = (curFee: number | null, perFee: number | null): TGetF
 
     return result
 
+}
 
+export const helperApiPaymentSepa = (response: AxiosResponse) => {
+
+    const isError = Array.isArray(response.data?.errors) && response.data.errors.length > 0
+    const isToken = isError && response.data?.errors[0]?.code === 449
+
+    let data = {
+        isToken,
+        token: null,
+        codeLength: null,
+        errors: null
+    }
+
+    if (isToken) {
+
+        data.token = uncoverArray<{
+            properties: { confirmationToken: string }
+        }>(response.data.errors).properties.confirmationToken
+
+        data.codeLength = uncoverArray<{
+            properties: {
+                confirmationCodeLength: number
+            }
+        }>(response.data.errors).properties.confirmationCodeLength
+
+        data.errors = response.data.errors
+    }
+
+
+    return actionSuccessConstructor.call(data, (!isError || isToken))
 }

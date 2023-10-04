@@ -27,7 +27,7 @@ interface IParams {
 export const apiPaymentSepa = (
     payment_details: IParams,
     commission: boolean = false,
-    headers: SignHeaders = null
+    headers: Partial<SignHeaders> | null = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {

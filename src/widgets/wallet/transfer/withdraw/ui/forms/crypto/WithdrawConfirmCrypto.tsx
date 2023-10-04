@@ -113,7 +113,7 @@ const WithdrawConfirmCrypto = ({
     }
 
 
-    console.log(stageConfirm)
+
 
     return loading ? <Loader/> : <>
         <div className="row mb-5">

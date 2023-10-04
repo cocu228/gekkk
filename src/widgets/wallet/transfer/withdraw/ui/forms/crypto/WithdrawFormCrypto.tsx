@@ -51,7 +51,7 @@ const WithdrawFormCrypto = () => {
         finalFeeEntity.value.number;
 
 
-    console.log(finalFee)
+
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }

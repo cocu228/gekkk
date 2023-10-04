@@ -14,7 +14,7 @@ export const storyDisplayAuth = create<IDisplayAuth>()(devtools((set) => ({
     data: null,
 
     toggleStage: (stage, data = null) => {
-        console.log(data)
+
         set(state => ({...state, stage, data}))
     }
 })))

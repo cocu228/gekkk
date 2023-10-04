@@ -37,7 +37,7 @@ export default memo(function () {
             const cookieData = getCookieData<{accountId?: string}>();
             const activeAccount = accounts.find(a => a.current);
 
-            console.log(`root: accounts`, accounts);
+
             
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId

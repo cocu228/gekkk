@@ -26,8 +26,8 @@ const Withdraw = () => {
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
-    console.log(finalFeeEntity)
-    console.log(finalFeeEntity)
+
+
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>

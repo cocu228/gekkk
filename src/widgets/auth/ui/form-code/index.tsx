@@ -91,7 +91,7 @@ const FormCode = memo(() => {
             })
         }).catch(error => {
             form.resetFields();
-            console.log(JSON.stringify(error))
+
             if (error.code === "auth/code-expired") {
                 localErrorHunter({code: 0, message: "This code has expired"});
             } else if (error.code === "auth/invalid-verification-code") {
@@ -111,10 +111,10 @@ const FormCode = memo(() => {
                             .success(async () => {
                                 sessionStorage.removeItem("session-auth");
                                 // const response = await apiPasswordVerify(_phone, data)
-                                // console.log(response)
+                                //
                                 login(_phone, res.data.token, "token");
                                 toggleStage("authorization");
-                                console.log(data)
+
                             }))
                         .catch(e => {
                             setLoading(false);

@@ -67,7 +67,7 @@ export const actionSuccessConstructor = function (value: boolean) {
             success: (val) => {
                 val(this)
                 return ({
-                    reject: (val) => val(this)
+                    reject: (val) => null
                 })
             }
         }

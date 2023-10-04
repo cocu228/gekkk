@@ -1,21 +1,52 @@
-import {Skeleton} from "antd";
-import {AxiosResponse} from "axios";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
-import {getCookieData} from "@/shared/lib/helpers";
+import {getCookieData, uncoverArray} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import {useContext, useEffect, useState} from "react";
-import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
+import {useContext, useState} from "react";
+import {apiPaymentSepa, SignHeaders} from "@/shared/api";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import Decimal from "decimal.js";
 import useError from "@/shared/model/hooks/useError";
+import {helperApiPaymentSepa} from "@/widgets/wallet/transfer/withdraw/model/helper";
 
-const WithdrawConfirmBroker = ({
-                                   amount, handleCancel
-}) => {
+const headerSepaGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
+
+    const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
+        "X-Confirmation-Type": "SIGN",
+    }
+
+    if (token === null) return header
+
+    const {
+        appUuid,
+        appPass
+    } = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
+
+
+    const jwtPayload = {
+        initiator: getCookieData<{ phone: string }>().phone,
+        confirmationToken: token,
+        exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
+    };
+
+
+    const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
+        "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
+        "X-Confirmation-Token": token,
+        "X-App-Uuid": appUuid
+    }
+
+    return {
+        ...header,
+        ...keys
+    }
+
+}
+
+const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {
         networkIdSelect,
         networksForSelector,
@@ -30,24 +61,7 @@ const WithdrawConfirmBroker = ({
         networkIdSelect
     ) ?? {}
 
-    const [{
-        loading,
-        confirmation
-    }, setState] = useState<{
-        loading: boolean;
-        confirmation: {
-            code: string;
-            token: string;
-            codeLength: number;
-        }
-    }>({
-        loading: false,
-        confirmation: {
-            code: "",
-            token: null,
-            codeLength: null
-        }
-    });
+    const [loading, setLoading] = useState(false)
 
     // const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
@@ -56,7 +70,7 @@ const WithdrawConfirmBroker = ({
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
 
-    const paymentDetails = {
+    const details = {
         purpose: "Purchase of EURG for EUR",
         iban: token_hot_address,
         account: account.account_id,
@@ -71,129 +85,32 @@ const WithdrawConfirmBroker = ({
         }
     };
 
+    const onConfirm = async (token = null) => {
 
-    console.log(paymentDetails)
+        setLoading(true);
 
-    const onConfirm = async () => {
-
-        setState(prev => ({
-            ...prev,
-            loading: true
-        }));
-
-        const {phone} = getCookieData<{ phone: string }>();
-        
-        const {
-            appUuid,
-            appPass
-        } = confirmation.token
-            ? await getTransactionSignParams()
-            : {appUuid: null, appPass: null};
-        
-        const jwtPayload = {
-            initiator: phone,
-            confirmationToken: confirmation.token,
-            exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
-        };
-
-        await apiPaymentSepa(
-            paymentDetails,
-            false,
-            {
-                "X-Confirmation-Type": "SIGN",
-                ...(confirmation.token ? {
-                    "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
-                    "X-Confirmation-Token": confirmation.token,
-                    "X-App-Uuid": appUuid
-                } : null)
-            }
-        ).then((response: AxiosResponse<IResErrors>) => {
-            const {data} = response;
-
-            if (data?.errors) {
-
-                localErrorHunter(data.errors[0])
-
-                setState(prev => ({
-                    ...prev,
-                    loading: false,
-                }));
-
-                if (data.errors[0].code !== 449) return;
+        const header = await headerSepaGeneration(token)
 
 
-                // setState(prev => ({
-                //     ...prev,
-                //     // loading: false, TODO: Uncomment this on sign update
-                //     confirmation: {
-                //         ...prev.confirmation,
-                //         token: data.errors[0].properties['confirmationToken'],
-                //         codeLength: data.errors[0].properties['confirmationCodeLength']
-                //     }
-                // }));
-                //
-                // return;
+        const response = await apiPaymentSepa(details, false, header);
+
+        helperApiPaymentSepa(response).success((data) => {
+
+            if (data.isToken && !token) {
+                onConfirm(data.token)
+            } else {
+                setLoading(false)
+                setRefresh();
+                handleCancel();
             }
 
-            setState(prev => ({
-                ...prev,
-                loading: false,
-            }));
-            setRefresh();
-            handleCancel();
-        });
-        
-        // -------------- PIN CONFIRMATION --------------
-        // await apiPaymentSepa(
-        //     paymentDetails,
-        //     false,
-        //     !confirmation.token ? null : {
-        //         "X-Confirmation-Type": "PIN",
-        //         "X-Confirmation-Token": confirmation.token,
-        //         "X-Confirmation-Code": confirmation.code
-        //     }
-        // ).then((response: AxiosResponse<IResErrors>) => {
-        //     const {data} = response;
-        //     
-        //     if (data?.errors) {
-        //         if (data.errors[0].code !== 449) return;
-        //        
-        //         setState(prev => ({
-        //             ...prev,
-        //             loading: false,
-        //             confirmation: {
-        //                 ...prev.confirmation,
-        //                 token: data.errors[0].properties['confirmationToken'],
-        //                 codeLength: data.errors[0].properties['confirmationCodeLength']
-        //             }
-        //         }));
-        //         return;
-        //     }
-        //    
-        //     setState(prev => ({
-        //         ...prev,
-        //         loading: false,
-        //     }));
-        //     setRefresh();
-        //     handleCancel();
-        // });
+        }).reject(({errors}) => {
+            setLoading(false)
+
+
+            localErrorHunter(uncoverArray(errors))
+        })
     }
-    
-    // TODO: Update this block on sign update
-    useEffect(() => {
-        if (confirmation.token) {
-            onConfirm();
-        }
-    }, [confirmation]);
-
-    // useEffect(() => {
-    //     apiPaymentSepa(paymentDetails, true).then(({data}) => {
-    //         setState(prev => ({
-    //             ...prev,
-    //             total: data as IResCommission
-    //         }));
-    //     });
-    // }, []);
 
     return loading ? <Loader className='mt-20'/> : <>
         <div className="row mb-5">
@@ -273,43 +190,22 @@ const WithdrawConfirmBroker = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                {new Decimal(withdraw_fee).toString()}
+                {new Decimal(withdraw_fee).toString()} EUR
             </div>
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Total amount</span>
+                <span className="text-gray-400">You will get</span>
             </div>
         </div>
         <div className="row mb-4">
             <div className="col">
-                {new Decimal(amount).minus(withdraw_fee).toString()}
+                {new Decimal(amount).minus(withdraw_fee).toString()} EURG
             </div>
         </div>
-        
-        <Form onFinish={onConfirm}>
-            {!confirmation.token ? null : <>
-                {/* TODO: Update this block on sign update */}
-                {/*<span className="text-gray-400">Transfer confirm</span>*/}
-                
-                {/*<FormItem className={"mb-4"} name="code" label="Code" preserve*/}
-                {/*          rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>*/}
-                {/*    <Input type="text"*/}
-                {/*           onInput={onInput}*/}
-                {/*           placeholder="Enter your PIN"*/}
-                {/*           onChange={({target}) => setState(prev => ({*/}
-                {/*               ...prev,*/}
-                {/*               confirmation: {*/}
-                {/*                   ...prev.confirmation,*/}
-                {/*                   code: target.value.replace(/ /g, '')*/}
-                {/*               }*/}
-                {/*           }))}*/}
-                {/*           autoComplete="off"*/}
-                {/*    />*/}
-                {/*</FormItem>*/}
-            </>}
 
-            <div className="row mt-4">
+        <Form onFinish={(event) => onConfirm()}>
+            <div className="row mt-4 mb-4">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={loading} className="w-full"
                             size={"xl"}>Confirm</Button>
@@ -321,14 +217,6 @@ const WithdrawConfirmBroker = ({
                 </div>
             </div>
         </Form>
-
-        {/* Network is operable by bank */}
-        {/*{is_operable === false && <>*/}
-        {/*    <div className="info-box-danger">*/}
-        {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
-        {/*            network for this transaction.</p>*/}
-        {/*    </div>*/}
-        {/*</>}*/}
     </>
 }
 

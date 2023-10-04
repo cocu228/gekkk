@@ -35,7 +35,7 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
                 }));
 
             }).catch(function (error) {
-            console.log(error)
+
             localErrorHunter(error)
         });
 
@@ -52,7 +52,7 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
             }))
 
         }).reject((e) => {
-            console.log(e)
+
             localErrorHunter(e)
         })
     }

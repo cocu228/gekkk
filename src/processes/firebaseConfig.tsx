@@ -36,12 +36,10 @@ export const auth = getAuth(app);
     //
     //     if (!window.recaptchaVerifier) {
     //
-    //         console.log(auth.currentUser)
     //
     //         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
     //             size: 'invisible',
     //             callback: (response) => {
-    //                 console.log(response)
     //                 onSingIn()
     //             }
     //         });
@@ -65,8 +63,8 @@ export const auth = getAuth(app);
     //             window.confirmationResult = confirmationResult;
     //             // ...
     //         }).catch((error) => {
-    //         console.log("error")
-    //         console.log(error)
+    //
+    //
     //     });
     // }
 
@@ -76,11 +74,11 @@ export const auth = getAuth(app);
     //     window.confirmationResult.confirm(code).then((result) => {
     //         // User signed in successfully.
     //         const user = result.user;
-    //         console.log(user)
+    //
     //         // ...
     //     }).catch((error) => {
-    //         console.log("errorCode")
-    //         console.log(error)
+    //
+    //
     //         // User couldn't sign in (bad verification code?)
     //         // ...
     //     });

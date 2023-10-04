@@ -1,6 +1,8 @@
 import Decimal from "decimal.js";
 import {AxiosResponse} from "axios";
-import {actionSuccessConstructor, uncoverArray} from "@/shared/lib/helpers";
+import {actionSuccessConstructor, getCookieData, uncoverArray} from "@/shared/lib/helpers";
+import {SignHeaders} from "@/shared/api";
+import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 
 export const isDisabledBtnWithdraw = (inputs) => {
     return !inputs.amount || !inputs.address || !inputs.recipient;
@@ -44,19 +46,54 @@ export const getFinalFee = (curFee: number | null, perFee: number | null): TGetF
 
 }
 
+
+export const headerSepaGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
+
+    const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
+        "X-Confirmation-Type": "SIGN",
+    }
+
+    if (token === null) return header
+
+    const {
+        appUuid,
+        appPass
+    } = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
+
+
+    const jwtPayload = {
+        initiator: getCookieData<{ phone: string }>().phone,
+        confirmationToken: token,
+        exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
+    };
+
+
+    const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
+        "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
+        "X-Confirmation-Token": token,
+        "X-App-Uuid": appUuid
+    }
+
+    return {
+        ...header,
+        ...keys
+    }
+
+}
+
 export const helperApiPaymentSepa = (response: AxiosResponse) => {
 
     const isError = Array.isArray(response.data?.errors) && response.data.errors.length > 0
-    const isToken = isError && response.data?.errors[0]?.code === 449
+    const isConfirmToken = isError && response.data?.errors[0]?.code === 449
 
     let data = {
-        isToken,
+        isConfirmToken,
         token: null,
         codeLength: null,
         errors: null
     }
 
-    if (isToken) {
+    if (isConfirmToken) {
 
         data.token = uncoverArray<{
             properties: { confirmationToken: string }
@@ -72,5 +109,5 @@ export const helperApiPaymentSepa = (response: AxiosResponse) => {
     }
 
 
-    return actionSuccessConstructor.call(data, (!isError || isToken))
+    return actionSuccessConstructor.call(data, (!isError || isConfirmToken))
 }

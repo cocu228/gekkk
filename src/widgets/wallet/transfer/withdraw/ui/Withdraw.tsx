@@ -53,7 +53,7 @@ const Withdraw = () => {
                                     <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
-                <div className="row mt-4 mb-4">
+                {finalFeeEntity.type.percent || finalFeeEntity.type.number && <div className="row mt-4">
                     <div className="col">
                         <div className='text-center'>
                             Fee is {finalFeeEntity.type.number ?
@@ -62,9 +62,9 @@ const Withdraw = () => {
                         } per transaction
                         </div>
                     </div>
-                </div>
+                </div>}
 
-                {is_operable === false && <div className="row">
+                {is_operable === false && <div className="row mt-4">
                     <div className="col">
                         <div className="info-box-danger">
                             <p>Attention: transactions on this network may be delayed. We recommend that you use a

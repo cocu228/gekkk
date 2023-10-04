@@ -1,50 +1,15 @@
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
-import {getCookieData, uncoverArray} from "@/shared/lib/helpers";
+import {uncoverArray} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import {useContext, useState} from "react";
-import {apiPaymentSepa, SignHeaders} from "@/shared/api";
+import {useContext, useRef, useState} from "react";
+import {apiPaymentSepa} from "@/shared/api";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import Decimal from "decimal.js";
 import useError from "@/shared/model/hooks/useError";
-import {helperApiPaymentSepa} from "@/widgets/wallet/transfer/withdraw/model/helper";
-
-const headerSepaGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
-
-    const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
-        "X-Confirmation-Type": "SIGN",
-    }
-
-    if (token === null) return header
-
-    const {
-        appUuid,
-        appPass
-    } = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
-
-
-    const jwtPayload = {
-        initiator: getCookieData<{ phone: string }>().phone,
-        confirmationToken: token,
-        exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
-    };
-
-
-    const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
-        "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
-        "X-Confirmation-Token": token,
-        "X-App-Uuid": appUuid
-    }
-
-    return {
-        ...header,
-        ...keys
-    }
-
-}
+import {headerSepaGeneration, helperApiPaymentSepa} from "@/widgets/wallet/transfer/withdraw/model/helper";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {
@@ -70,7 +35,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
 
-    const details = {
+    const details = useRef({
         purpose: "Purchase of EURG for EUR",
         iban: token_hot_address,
         account: account.account_id,
@@ -83,7 +48,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                 value: amount
             }
         }
-    };
+    });
 
     const onConfirm = async (token = null) => {
 
@@ -92,11 +57,11 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         const header = await headerSepaGeneration(token)
 
 
-        const response = await apiPaymentSepa(details, false, header);
+        const response = await apiPaymentSepa(details.current, false, header);
 
         helperApiPaymentSepa(response).success((data) => {
 
-            if (data.isToken && !token) {
+            if (data.isConfirmToken && !token) {
                 onConfirm(data.token)
             } else {
                 setLoading(false)
@@ -106,8 +71,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
 
         }).reject(({errors}) => {
             setLoading(false)
-
-
             localErrorHunter(uncoverArray(errors))
         })
     }

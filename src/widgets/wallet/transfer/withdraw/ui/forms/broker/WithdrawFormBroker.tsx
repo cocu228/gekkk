@@ -53,15 +53,15 @@ const WithdrawFormBroker = () => {
             </div>
 
             <div className="col text-xs">
-                <span>* Note:  Standard exchange fee is {percent_fee}%
+                <span><b>Note</b>:  Standard exchange fee is <b>{percent_fee}%</b>
                     {account.rights[AccountRights.IsJuridical] ? null :
-                        <> If you <span
+                        <span className="font-normal"> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
                             onClick={() => navigate('/wallet/GKE/No Fee Program')}
                         >
                             freeze GKE tokens    
-                        </span> fee is 0%.
-                    </>}
+                        </span> fee is <b>0%</b>.
+                    </span>}
                 </span>
             </div>
         </div>

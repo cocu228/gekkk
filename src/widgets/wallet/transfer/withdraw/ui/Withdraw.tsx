@@ -55,12 +55,12 @@ const Withdraw = () => {
 
                 <div className="row mb-4 mt-4">
                     <div className="col">
-                        {finalFeeEntity.type.number && <div className='text-center'>
-                            Fee is <b>{new Decimal(finalFeeEntity.value.number).toString()} {currency.$const}</b> per transaction
-                        </div>}
-                        {finalFeeEntity.type.percent && <div className='text-center'>
-                            Fee is <b>{finalFeeEntity.value.percent}%</b> per transaction
-                        </div>}
+                        <div className='text-center'>
+                            Fee is {finalFeeEntity.type.number ?
+                            <b>{new Decimal(finalFeeEntity.value.number).toString()} {currency.$const}</b> :
+                            <b>{new Decimal(finalFeeEntity.value.percent).toString()} %</b>
+                        } per transaction
+                        </div>
                     </div>
                 </div>
 

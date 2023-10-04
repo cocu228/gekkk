@@ -22,10 +22,11 @@ export interface IResTokenNetwork {
 }
 
 
-export const apiTokenNetworks = (currency: string, top_up: boolean) =>
+export const apiTokenNetworks = (currency: string, top_up: boolean, wdr_amount?: number) =>
     $axios.get<$AxiosResponse<IResTokenNetwork>>('/gek/v1/tokens_networks', {
         params: {
             currency,
-            top_up
+            top_up,
+            wdr_amount
         }
     })

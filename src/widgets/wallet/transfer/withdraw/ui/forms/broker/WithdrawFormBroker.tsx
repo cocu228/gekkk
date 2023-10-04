@@ -1,10 +1,10 @@
-import {useContext, useState} from 'react';
+import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
-import {calculateAmount} from "@/shared/lib/helpers";
+import {calculateAmount, debounce, randomId} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from '@/shared/config/account-rights';
@@ -13,23 +13,51 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 import Decimal from "decimal.js";
+import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
-const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => (inThrottle = false), limit);
+        }
+    };
+}
+
+
+const WithdrawFormBroker = () => {
 
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
+    const {networkIdSelect, networksDefault, setNetworkId, setRefresh} = useContext(CtxWalletNetworks);
+
     const [amount, setAmount] = useState(null);
-    const {currencies} = useContext(CtxCurrencies);
+    const [loading, setLoading] = useState(false);
     const {isModalOpen, showModal, handleCancel} = UseModal();
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
+
+    const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+    const delayDisplay = useCallback(debounce(() => setLoading(false), 2500), []);
+
+    useEffect(() => {
+        setLoading(true)
+        delayRes(toNumberInputCurrency(amount))
+        delayDisplay()
+    }, [amount]);
 
     const {
         min_withdraw = null,
         withdraw_fee = null,
         percent_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+
     return (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
             <div className="col text-xl font-bold">
@@ -37,8 +65,8 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             </div>
 
             <div className="col text-xs">
-                <span>* Note:  Standard exchange fee is {percent_fee ? percent_fee + "%" : "1.5%"}
-                    {account.rights && account.rights[AccountRights.IsJuridical] ? null :
+                <span>* Note:  Standard exchange fee is {percent_fee}%
+                    {account.rights[AccountRights.IsJuridical] ? null :
                         <> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
                             onClick={() => navigate('/wallet/GKE/No Fee Program')}
@@ -56,12 +84,11 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                     value={amount}
                     onError={setError}
                     description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
-                    validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}
-                >
+                    validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600 font-medium'>You will pay</span>}
-                                                   currency={currencies.get(currency.$const)}>
-                        <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
+                                                   currency={currency}>
+                        <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
                                 value={amount}
                                 className={error ? "!border-red-800" : ""}
@@ -98,12 +125,12 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                             <span className="w-full text-start">{!amount ? 0 : amount} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
-                            <span
-                                className="w-full text-start">{calculateAmount(!amount ? 0 : amount, percent_fee, "afterPercentage")} {currency.$const}G</span>
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(toNumberInputCurrency(amount)).minus(withdraw_fee).toString()} {currency.$const}G</span>}
                         </div>
                         <div className="row flex items-end">
-                            <span
-                                className="w-full text-start">{percent_fee}</span>
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                         </div>
                     </div>
                 </div>
@@ -113,8 +140,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={withdraw ? "Withdraw confirmation" : "Top Up confirmation"}
-        >
+            title={"Withdraw confirmation"}>
             <WithdrawConfirmBroker amount={amount} handleCancel={handleCancel}/>
         </Modal>
         <div className="row mb-8 w-full">
@@ -125,7 +151,7 @@ const WithdrawFormBroker = ({withdraw}: { withdraw?: boolean }) => {
                     onClick={showModal}
                     className="w-full mt-5"
                 >
-                    {withdraw ? "Sell EURG" : "Buy EURG"}
+                    Sell EURG
                 </Button>
             </div>
         </div>

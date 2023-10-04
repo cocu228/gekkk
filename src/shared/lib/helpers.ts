@@ -238,3 +238,15 @@ export function clearAllCookies() {
         clearCookie(name);
     }
 }
+
+export function debounce(func: (amount: number) => void, delay: number) {
+
+    let timer: ReturnType<typeof setTimeout>;
+
+    return function (amount?: number) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func(amount);
+        }, delay);
+    };
+}

@@ -1,12 +1,11 @@
-import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import {useCallback, useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
-import {calculateAmount, debounce, randomId} from "@/shared/lib/helpers";
+import {debounce} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from '@/shared/config/account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
@@ -29,19 +28,22 @@ const WithdrawFormBroker = () => {
     const [error, setError] = useState(false);
 
     const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
-    const delayDisplay = useCallback(debounce(() => setLoading(false), 2500), []);
-
-    useEffect(() => {
-        setLoading(true)
-        delayRes(toNumberInputCurrency(amount))
-        delayDisplay()
-    }, [amount]);
 
     const {
         min_withdraw = null,
         withdraw_fee = null,
         percent_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+    useEffect(() => {
+        setLoading(true)
+        delayRes(toNumberInputCurrency(amount))
+
+    }, [amount]);
+
+    useEffect(() => {
+        setLoading(false)
+    }, [withdraw_fee]);
 
 
     return (<div className="wrapper">

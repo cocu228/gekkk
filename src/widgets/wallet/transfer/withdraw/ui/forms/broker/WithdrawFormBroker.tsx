@@ -28,23 +28,24 @@ const WithdrawFormBroker = () => {
     const [error, setError] = useState(false);
 
     const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+    const delayDisplay = useCallback(debounce(() => setLoading(false), 2500), []);
 
     const {
         min_withdraw = null,
         withdraw_fee = null,
-        token_hot_address = "",
         percent_fee = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     useEffect(() => {
         setLoading(true)
         delayRes(toNumberInputCurrency(amount))
+        delayDisplay()
 
     }, [amount]);
 
-    useEffect(() => {
-        setLoading(false)
-    }, [withdraw_fee]);
+    // useEffect(() => {
+    //     setLoading(false)
+    // }, [withdraw_fee]);
 
 
     return (<div className="wrapper">

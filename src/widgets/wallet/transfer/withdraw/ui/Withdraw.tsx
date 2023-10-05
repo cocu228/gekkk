@@ -27,6 +27,10 @@ const Withdraw = () => {
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
 
+    console.log(finalFeeEntity.type.percent || finalFeeEntity.type.number)
+    console.log(finalFeeEntity.type.number )
+    console.log(new Decimal(finalFeeEntity.value.number).toString())
+
 
     return (
         <div className='h-full'>
@@ -53,7 +57,7 @@ const Withdraw = () => {
                                     <WithdrawFormBroker/> :
                                     <div> Sorry, there are no actions available for the selected network. </div>}
 
-                {finalFeeEntity.type.percent || finalFeeEntity.type.number && <div className="row mt-4">
+                {(finalFeeEntity.type.percent || finalFeeEntity.type.number) && <div className="row mt-4">
                     <div className="col">
                         <div className='text-center'>
                             Fee is {finalFeeEntity.type.number ?

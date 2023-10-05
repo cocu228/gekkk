@@ -45,10 +45,12 @@ const WithdrawFormCrypto = () => {
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
+    console.log(finalFeeEntity.type.percent)
+    console.log(finalFeeEntity.value.percent)
 
     const finalFee = finalFeeEntity.type.percent ?
-        calculateAmount(inputs.amount, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
-        finalFeeEntity.value.number;
+        calculateAmount(toNumberInputCurrency(inputs.amount), new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
+        finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
 
 

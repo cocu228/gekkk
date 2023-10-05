@@ -5,18 +5,24 @@ import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import {Switch} from "antd";
 import {transferDescription, swiftUrgency, swiftCommission} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import Decimal from "decimal.js";
+import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {useNavigate} from "react-router-dom";
 
 const WithdrawFormSwift = () => {
 
     const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
+    const navigate = useNavigate();
+
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -28,9 +34,17 @@ const WithdrawFormSwift = () => {
         country: null,
         amount: null,
     })
+
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+
+    const {
+        min_withdraw = null,
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
+
+    const [error, setError] = useState(false)
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -241,7 +255,9 @@ const WithdrawFormSwift = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <InputCurrency.Validator value={inputs.amount} validators={[]}>
+                        <InputCurrency.Validator value={inputs.amount}
+                                                 onError={(v) => setError(v)}
+                                                 validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
 
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({
@@ -266,7 +282,8 @@ const WithdrawFormSwift = () => {
         </Modal>
         <div className="row w-full">
             <div className="col">
-                <Button onClick={showModal} disabled={!inputs.amount} size={"xl"} className="w-full">Withdraw</Button>
+                <Button onClick={showModal} disabled={!inputs.amount || error} size={"xl"}
+                        className="w-full">Withdraw</Button>
             </div>
         </div>
     </div>)

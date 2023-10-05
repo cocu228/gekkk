@@ -72,8 +72,8 @@ const WithdrawFormBroker = () => {
             <div className="col">
                 <InputCurrency.Validator
                     value={amount}
-                    onError={setError}
-                    description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
+                    onError={(v) => setError(v)}
+                    // description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
                     validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600 font-medium'>You will pay</span>}

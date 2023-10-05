@@ -190,6 +190,7 @@ const WithdrawFormCardToCard = () => {
                     <div className="row">
                         <div className="col">
                             <InputCurrency.Validator value={inputs.amount}
+                                                     onError={(v) => setError(v)}
                                                      validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount),]}>
                                 <InputCurrency
                                     onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v as string}))}
@@ -215,7 +216,7 @@ const WithdrawFormCardToCard = () => {
                         size={"xl"}
                         className="w-full"
                         onClick={showModal}
-                        disabled={!isValidated}
+                        disabled={!isValidated || error}
                     >Withdraw</Button>
                 </div>
             </div>

@@ -259,7 +259,14 @@ const WithdrawFormSwift = () => {
                                                  onError={(v) => setError(v)}
                                                  description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
                                                  validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
-
+                            <InputCurrency.PercentSelector
+                                currency={currency}
+                                header={<span className='text-gray-600 font-medium'>Input</span>}
+                                onSelect={(v) => setInputs(() => ({
+                                    ...inputs,
+                                    amount: v
+                                }))}
+                            >
                             <InputCurrency
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,
@@ -267,6 +274,7 @@ const WithdrawFormSwift = () => {
                                 }))}
                                 value={inputs.amount}
                                 currency={currency.$const}/>
+                            </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
                     </div>
                 </div>

@@ -127,6 +127,7 @@ const WithdrawFormSepa = () => {
                 <div className="row">
                     <div className="col">
                         <InputCurrency.Validator value={inputs.amount}
+                                                 description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
                                                  onError={(v) => setError(v)}
                                                  validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
                             <InputCurrency

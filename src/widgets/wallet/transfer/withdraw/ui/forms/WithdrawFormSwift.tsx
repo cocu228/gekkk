@@ -257,6 +257,7 @@ const WithdrawFormSwift = () => {
                     <div className="col">
                         <InputCurrency.Validator value={inputs.amount}
                                                  onError={(v) => setError(v)}
+                                                 description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
                                                  validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
 
                             <InputCurrency

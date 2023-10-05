@@ -70,7 +70,7 @@ const WithdrawFormCrypto = () => {
                     <div className='flex flex-col gap-2'>
                         <InputCurrency.Validator
                             value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
-                            description={`Minimum withdraw amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}`}
+                            description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
                             onError={(v) => setError(v)}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate),

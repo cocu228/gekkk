@@ -55,7 +55,7 @@ const Validator: FC<IParams> = (({
             <div className={className}>
                 {(!value || value && !error)
                     ? <span className='mt-0.5 text-green text-fs12'>{description}</span>
-                    : <div className="flex mt-0.5 gap-1">
+                    : <div className="flex mt-0.5 gap-1 items-center">
                         <div className="mt-[1px]">
                             <IconError/>
                         </div>

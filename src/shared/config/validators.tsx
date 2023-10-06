@@ -28,12 +28,12 @@ export function validateMaximumAmount(max: number): IValidatorCreator {
     })
 }
 
-export function validateMinimumAmount(min: number, value: string): IValidatorCreator {
+export function validateMinimumAmount(min: number, value: string, $const: string): IValidatorCreator {
 
     return () => {
         return ({
             validated: !(value !== null && value !== "") || new Decimal(min).lte(new Decimal(toNumberInputCurrency(value))),
-            errorMessage: `The minimum amount is ${new Decimal(min).toString()}`
+            errorMessage: `The minimum amount is ${new Decimal(min).toString()} ${$const}`
         })
     }
 }

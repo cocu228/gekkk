@@ -13,6 +13,7 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 import Decimal from "decimal.js";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 
 const WithdrawFormBroker = () => {
@@ -73,8 +74,8 @@ const WithdrawFormBroker = () => {
                 <InputCurrency.Validator
                     value={amount}
                     onError={(v) => setError(v)}
-                    description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
-                    validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount), validateBalance(currency, navigate)]}>
+                    description={getWithdrawDesc(min_withdraw, currency.$const)}
+                    validators={[validateMinimumAmount(new Decimal(min_withdraw).toNumber(), amount, currency.$const), validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setAmount}
                                                    header={<span className='text-gray-600 font-medium'>You will pay</span>}
                                                    currency={currency}>

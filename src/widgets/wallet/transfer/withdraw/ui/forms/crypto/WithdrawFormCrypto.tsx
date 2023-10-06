@@ -15,6 +15,7 @@ import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/c
 import Decimal from "decimal.js";
 import {calculateAmount} from "@/shared/lib/helpers";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const {TextArea} = InputAntd;
 
@@ -72,11 +73,11 @@ const WithdrawFormCrypto = () => {
                     <div className='flex flex-col gap-2'>
                         <InputCurrency.Validator
                             value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
-                            description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
+                            description={getWithdrawDesc(min_withdraw, currency.$const)}
                             onError={(v) => setError(v)}
                             validators={[
                                 validateBalance(currencies.get(currency.$const), navigate),
-                                validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount),
+                                validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const),
                                 //validateMaximumAmount(max_withdraw)
                             ]}
                         >

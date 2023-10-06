@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import Decimal from "decimal.js";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const WithdrawFormSepa = () => {
 
@@ -127,9 +128,10 @@ const WithdrawFormSepa = () => {
                 <div className="row">
                     <div className="col">
                         <InputCurrency.Validator value={inputs.amount}
-                                                 description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
+                                                 description={getWithdrawDesc(min_withdraw, currency.$const)}
                                                  onError={(v) => setError(v)}
-                                                 validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount)]}>
+                                                 validators={[validateBalance(currency, navigate),
+                                                     validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
                                 header={<span className='text-gray-600 font-medium'>Input</span>}

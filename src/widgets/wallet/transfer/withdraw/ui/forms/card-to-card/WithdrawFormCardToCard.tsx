@@ -19,6 +19,7 @@ import {validateBalance, validateMinimumAmount} from "@/shared/config/validators
 import {useNavigate} from "react-router-dom";
 import Decimal from "decimal.js";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const {Option} = Select;
 
@@ -190,9 +191,9 @@ const WithdrawFormCardToCard = () => {
                     <div className="row">
                         <div className="col">
                             <InputCurrency.Validator value={inputs.amount}
-                                                     description={min_withdraw ? `Minimum amount is ${new Decimal(min_withdraw).toString()} ${currency.$const}` : ""}
+                                                     description={getWithdrawDesc(min_withdraw, currency.$const)}
                                                      onError={(v) => setError(v)}
-                                                     validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount),]}>
+                                                     validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const),]}>
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     header={<span className='text-gray-600 font-medium'>Input</span>}

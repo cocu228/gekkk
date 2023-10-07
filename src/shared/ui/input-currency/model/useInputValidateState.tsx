@@ -1,24 +1,15 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const useInputValidateState = () => {
 
-    const [state, setState] = useState({value: false});
-
+    const [state, setState] = useState({value: true});
 
     const setInputCurrValid = (value: boolean): void => {
-
-        console.log("setInputCurrValid")
-        console.log(value)
-
         setState(prev => ({
-            value,
-            ...prev
+            ...prev,
+            value
         }))
-
     }
-
-    console.log("state")
-    console.log(state)
 
     return {inputCurrValid: state, setInputCurrValid}
 }

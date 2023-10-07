@@ -76,6 +76,8 @@ const WithdrawFormCardToCard = () => {
             selectedCard: cards ? cards[0].cardId : null
         }));
     }, [cards]);
+
+    console.log(inputCurrValid.value)
     
     return !cards ? <Loader className={'relative'}/> : (
         <div className="wrapper">
@@ -185,7 +187,7 @@ const WithdrawFormCardToCard = () => {
             <div className="row mb-8 w-full">
                 <div className="col">
                     <InputCurrency.Validator value={inputCurr.value.number}
-                                                     description={getWithdrawDesc(min_withdraw, currency.$const)}
+                                             description={getWithdrawDesc(min_withdraw, currency.$const)}
                                              onError={setInputCurrValid}
                                              validators={[validateBalance(currency, navigate), validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),]}>
                                 <InputCurrency.PercentSelector

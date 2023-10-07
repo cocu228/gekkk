@@ -34,7 +34,7 @@ const Validator: FC<IParams> = (({
 
         if (firstEffect.current) {
             firstEffect.current = false
-
+            // onError(!availableNullable)
         } else {
 
             if (new Decimal(value).isZero() && !availableNullable) {
@@ -64,7 +64,6 @@ const Validator: FC<IParams> = (({
 
     return (
         <div>
-
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>

@@ -17,6 +17,8 @@ import Decimal from "decimal.js";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate} from "react-router-dom";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const WithdrawFormSwift = () => {
 
@@ -32,20 +34,20 @@ const WithdrawFormSwift = () => {
         transferUrgency: null,
         transferFee : null,
         comment: null,
-        country: null,
-        amount: null,
+        country: null
     })
 
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
     const {
-        min_withdraw = null,
+        min_withdraw = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-
-    const [error, setError] = useState(false)
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -248,51 +250,38 @@ const WithdrawFormSwift = () => {
             </div>
         </div>
         <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Amount</span>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <InputCurrency.Validator value={inputs.amount}
-                                                 onError={(v) => setError(v)}
+                        <InputCurrency.Validator value={inputCurr.value.number}
+                                                 onError={setInputCurrValid}
                                                  description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                 validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const)]}>
+                                                 validators={[validateBalance(currency, navigate),
+                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Input</span>}
-                                onSelect={(v) => setInputs(() => ({
-                                    ...inputs,
-                                    amount: v
-                                }))}
+                                header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                onSelect={setInputCurr}
                             >
                             <InputCurrency
-                                onChange={(v: unknown) => setInputs(() => ({
-                                    ...inputs,
-                                    amount: v
-                                }))}
-                                value={inputs.amount}
+                                onChange={setInputCurr}
+                                value={inputCurr.value.string}
                                 currency={currency.$const}/>
                             </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
                     </div>
-                </div>
-            </div>
         </div>
         <Modal width={450} title="Transfer confirmation"
                onCancel={handleCancel}
                open={isModalOpen}>
 
             <WithdrawConfirmSepa {...inputs}
+                                 amount={inputCurr.value.number}
                                  handleCancel={handleCancel}
             />
 
         </Modal>
         <div className="row w-full">
             <div className="col">
-                <Button onClick={showModal} disabled={!inputs.amount || error} size={"xl"}
+                <Button onClick={showModal} disabled={inputCurrValid.value} size={"xl"}
                         className="w-full">Withdraw</Button>
             </div>
         </div>

@@ -118,11 +118,6 @@ const WithdrawFormSepa = () => {
         </div>
         <div className="row mb-8 w-full">
             <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="font-medium">Amount</span>
-                    </div>
-                </div>
                 <div className="row">
                     <div className="col">
                         <InputCurrency.Validator value={inputCurr.value.number}
@@ -132,7 +127,7 @@ const WithdrawFormSepa = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Input</span>}
+                                header={<span className='text-gray-600 font-medium'>Amount</span>}
                                 onSelect={setInputCurr}
                             >
                             <InputCurrency

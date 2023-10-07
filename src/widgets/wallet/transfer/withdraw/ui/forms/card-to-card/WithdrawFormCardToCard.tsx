@@ -76,8 +76,6 @@ const WithdrawFormCardToCard = () => {
             selectedCard: cards ? cards[0].cardId : null
         }));
     }, [cards]);
-
-    console.log(inputCurrValid.value)
     
     return !cards ? <Loader className={'relative'}/> : (
         <div className="wrapper">

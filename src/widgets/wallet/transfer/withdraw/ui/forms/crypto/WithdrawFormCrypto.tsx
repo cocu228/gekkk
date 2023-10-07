@@ -50,9 +50,6 @@ const WithdrawFormCrypto = () => {
         calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
         finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
-    console.log("inputCurrValid")
-    console.log(inputCurrValid)
-
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
@@ -79,7 +76,7 @@ const WithdrawFormCrypto = () => {
                         >
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Input</span>}
+                                header={<span className='text-gray-600 font-medium'>Amount</span>}
                                 onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>

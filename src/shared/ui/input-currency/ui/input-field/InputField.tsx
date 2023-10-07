@@ -1,50 +1,48 @@
-import {FC} from 'react';
+import React, {ChangeEventHandler, FC, useContext} from 'react';
 import Validator from '../validator/Validator';
 import {Input as InputAntd, InputProps} from 'antd';
 import {IconCoin} from '@/shared/ui/icons/icon-coin';
 import DisplayBalance from '../balance/DisplayBalance';
 import PercentSelector from '../percent-selector/PercentSelector';
-import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 import CurrencySelector from '../currency-selector/CurrencySelector';
+import {CtxInputCurrencyOptions, CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 
 interface IParams {
     currency?: string;
     disabled?: boolean;
-    value?: string;
+    value: string;
     wrapperClassName?: string;
     className?: string;
-    onChange?: (value: string) => void;
+    onChange: (value: string) => void;
 }
 
-const InputField: FC<IParams & InputProps> & {
+const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
     Validator: typeof Validator;
     DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
-} = ({
-    currency,
-    value,
-    wrapperClassName,
-                           disabled = false,
-                           className,
-    onChange,
-    ...props
-}) => (
-    <div className={wrapperClassName}>
+} = ({currency, value, wrapperClassName, disabled = false, className, onChange, ...props}: IParams) => {
+
+    const inputCurrencyValid = useContext(CtxInputCurrencyValid)
+
+    return <div className={wrapperClassName}>
         <InputAntd
             {...props}
-            className={`border-gray-400 ${className}`}
+            className={`${inputCurrencyValid ? "!border-red-800" : "border-gray-400"} ${className}`}
             disabled={disabled || !currency}
             value={value}
             placeholder='Enter amount'
-            onChange={({target}) => onChange(formatAsNumberAndDot(target.value as string))}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+                const value: string = event.target.value
+                onChange(value)
+            }}
             suffix={<>
                 {currency && <IconCoin width={34} height={34} code={currency}/>}
                 <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{currency ?? 'Select token'}</span>
             </>}
         />
     </div>
-);
+};
 
 InputField.Validator = Validator;
 InputField.DisplayBalance = DisplayBalance;

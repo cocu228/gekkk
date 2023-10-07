@@ -5,7 +5,7 @@ import {SignHeaders} from "@/shared/api";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 
 export const isDisabledBtnWithdraw = (inputs) => {
-    return !inputs.amount || !inputs.address || !inputs.recipient;
+    return !inputs.address || !inputs.recipient;
 }
 
 type TGetFinalFee = {
@@ -18,12 +18,12 @@ type TGetFinalFee = {
         percent: number
     }
 }
-export const getFinalFee = (curFee: number | null, perFee: number | null): TGetFinalFee => {
+export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 
     let result = {
         type: {
-            number: null,
-            percent: null
+            number: false,
+            percent: false
         },
         value: {
             number: 0,
@@ -32,7 +32,7 @@ export const getFinalFee = (curFee: number | null, perFee: number | null): TGetF
     }
 
 
-    if (curFee === null || perFee === null) return result
+    if (curFee === 0 && perFee === 0) return result
 
     const decCurFee = new Decimal(curFee)
     const decPerFee = new Decimal(perFee)

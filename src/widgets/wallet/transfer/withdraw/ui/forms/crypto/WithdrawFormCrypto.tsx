@@ -16,6 +16,8 @@ import Decimal from "decimal.js";
 import {calculateAmount} from "@/shared/lib/helpers";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const {TextArea} = InputAntd;
 
@@ -23,42 +25,37 @@ const WithdrawFormCrypto = () => {
 
     const [inputs, setInputs] = useState({
         address: null,
-        amount: null,
         recipient: null,
         description: null,
     })
 
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxCurrencies);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
 
-    const [error, setError] = useState(false)
-
     const {
-        min_withdraw = null,
+        min_withdraw = 0,
         // max_withdraw = null,
-        percent_fee = null,
-        withdraw_fee = null,
-        // is_operable = null
+        percent_fee = 0,
+        withdraw_fee = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
-    console.log(finalFeeEntity.type.percent)
-    console.log(finalFeeEntity.value.percent)
-
     const finalFee = finalFeeEntity.type.percent ?
-        calculateAmount(toNumberInputCurrency(inputs.amount), new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
+        calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
         finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
-
+    console.log("inputCurrValid")
+    console.log(inputCurrValid)
 
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
-
 
     return Array.isArray(networksDefault) && networksDefault.length > 0 && (
         <div className="flex flex-col items-center mt-2">
@@ -72,33 +69,25 @@ const WithdrawFormCrypto = () => {
                 </div>
                     <div className='flex flex-col gap-2'>
                         <InputCurrency.Validator
-                            value={new Decimal(toNumberInputCurrency(inputs.amount)).plus(finalFee).toString()}
+                            value={new Decimal(inputCurr.value.number).plus(finalFee).toNumber()}
                             description={getWithdrawDesc(min_withdraw, currency.$const)}
-                            onError={(v) => setError(v)}
+                            onError={setInputCurrValid}
                             validators={[
-                                validateBalance(currencies.get(currency.$const), navigate),
-                                validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const),
-                                //validateMaximumAmount(max_withdraw)
+                                validateBalance(currency, navigate),
+                                validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
                             ]}
                         >
                             <InputCurrency.PercentSelector
                                 currency={currency}
                                 header={<span className='text-gray-600 font-medium'>Input</span>}
-                                onSelect={(v) => setInputs(() => ({
-                                    ...inputs,
-                                    amount: v
-                                }))}
+                                onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>
                                     <InputCurrency
                                         name={"amount"}
-                                        value={inputs.amount}
-                                        className={error ? "!border-red-800" : ""}
+                                        value={inputCurr.value.string}
                                         currency={currency.$const}
-                                        onChange={(v) => setInputs(() => ({
-                                            ...inputs,
-                                            amount: v
-                                        }))}
+                                        onChange={setInputCurr}
                                     />
                                 </InputCurrency.DisplayBalance>
                             </InputCurrency.PercentSelector>
@@ -107,16 +96,12 @@ const WithdrawFormCrypto = () => {
 
                 <div className='flex flex-col gap-2'>
                     <span className="text-gray-600 font-medium">Recipient</span>
-                        <InputCurrency.Validator
-                                value={null}
-                                validators={[]}
-                                description={'As required by EU law, you must provide the name of the recipient of the funds'}
-                        >
                             <Input value={inputs.recipient} onChange={onInput}
                                    disabled={!networkIdSelect}
                                    name={"recipient"}
                                    placeholder={"Enter recipient name"}/>
-                        </InputCurrency.Validator>
+
+                    <span className="text-green text-fs12">As required by EU law, you must provide the name of the recipient of the funds</span>
                 </div>
 
                 <div className='flex flex-col gap-2'>
@@ -133,12 +118,13 @@ const WithdrawFormCrypto = () => {
                                open={isModalOpen}>
 
                             <WithdrawConfirmCrypto {...inputs}
+                                                   amount={inputCurr.value.number}
                                                    handleCancel={handleCancel}
                             />
                         </Modal>
                         <Button size={"xl"} onClick={showModal}
 
-                                disabled={isDisabledBtnWithdraw(inputs) || error}
+                                disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}
                                 className='w-full self-center'>
                             Withdraw
                         </Button>

@@ -17,6 +17,7 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
+import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 
 
 const initStageConfirm = {
@@ -43,9 +44,8 @@ const WithdrawConfirmCrypto = ({
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
 
     const {
-        percent_fee = null,
-        withdraw_fee = null,
-        is_operable = null
+        percent_fee = 0,
+        withdraw_fee = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const {$const} = useContext(CtxWalletData)
@@ -173,7 +173,7 @@ const WithdrawConfirmCrypto = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{amount} {$const}</span>
+                <span>{new Decimal(toNumberInputCurrency(amount)).toString()} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -183,7 +183,7 @@ const WithdrawConfirmCrypto = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{withdraw_fee} {$const}</span>
+                <span>{new Decimal(withdraw_fee).toString()} {$const}</span>
             </div>
         </div>
         {!description ? null : <>
@@ -219,8 +219,8 @@ const WithdrawConfirmCrypto = ({
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox ? localErrorInfoBox : stageConfirm.autoInnerTransfer &&
-                            <InfoBox>The address is within the system. Are you sure you want to
-                                continue?</InfoBox>}
+                        <InfoBox>The address is within our system. The transfer will be made via the internal network,
+                            and not through the blockchain. Are you sure you want to continue?</InfoBox>}
                 </div>
             </div>
         </Form>

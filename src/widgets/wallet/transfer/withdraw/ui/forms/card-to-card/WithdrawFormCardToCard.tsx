@@ -20,6 +20,8 @@ import {useNavigate} from "react-router-dom";
 import Decimal from "decimal.js";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const {Option} = Select;
 
@@ -29,21 +31,22 @@ const WithdrawFormCardToCard = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     const navigate = useNavigate();
-    const [error, setError] = useState(false)
 
     const [inputs, setInputs] = useState<{
-        amount: string;
         comment: string;
         cardNumber: string;
         selectedCard: string;
         cardholderName: string;
     }>({
-        amount: null,
         comment: '',
         cardNumber: null,
         selectedCard: null,
         cardholderName: null
     });
+
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
     
@@ -52,11 +55,10 @@ const WithdrawFormCardToCard = () => {
     }
 
     const {
-        min_withdraw = null,
+        min_withdraw = 0,
         // max_withdraw = null,
-        percent_fee = null,
-        withdraw_fee = null,
-        // is_operable = null
+        percent_fee = 0,
+        withdraw_fee = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
 
@@ -124,7 +126,6 @@ const WithdrawFormCardToCard = () => {
                     <div className="row">
                         <div className="col">
                             <Input
-                                placeholder={""}
                                 type={'text'}
                                 onInput={onCardNumberInput}
                                 onChange={({target}) => {
@@ -183,34 +184,21 @@ const WithdrawFormCardToCard = () => {
             </div>
             <div className="row mb-8 w-full">
                 <div className="col">
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className="font-medium">Amount</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <InputCurrency.Validator value={inputs.amount}
+                    <InputCurrency.Validator value={inputCurr.value.number}
                                                      description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                     onError={(v) => setError(v)}
-                                                     validators={[validateBalance(currency, navigate), validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const),]}>
+                                             onError={setInputCurrValid}
+                                             validators={[validateBalance(currency, navigate), validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),]}>
                                 <InputCurrency.PercentSelector
                                     currency={currency}
-                                    header={<span className='text-gray-600 font-medium'>Input</span>}
-                                    onSelect={(v) => setInputs(() => ({
-                                        ...inputs,
-                                        amount: v
-                                    }))}
+                                    header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                    onSelect={setInputCurr}
                                 >
                                 <InputCurrency
-                                    onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v as string}))}
-                                    className={error ? "!border-red-800" : ""}
-                                    value={inputs.amount}
+                                    onChange={setInputCurr}
+                                    value={inputCurr.value.string}
                                     currency={currency.$const}/>
                                 </InputCurrency.PercentSelector>
                             </InputCurrency.Validator>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -218,7 +206,7 @@ const WithdrawFormCardToCard = () => {
                    onCancel={handleCancel}
                    open={isModalOpen}
             >
-                <WithdrawConfirmCardToCard {...inputs} handleCancel={handleCancel}/>
+                <WithdrawConfirmCardToCard {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
             </Modal>
             
             <div className="row w-full">
@@ -227,7 +215,7 @@ const WithdrawFormCardToCard = () => {
                         size={"xl"}
                         className="w-full"
                         onClick={showModal}
-                        disabled={!isValidated || error}
+                        disabled={!isValidated || inputCurrValid.value}
                     >Withdraw</Button>
                 </div>
             </div>

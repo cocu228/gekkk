@@ -15,6 +15,8 @@ import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const WithdrawFormSepa = () => {
 
@@ -27,22 +29,18 @@ const WithdrawFormSepa = () => {
         beneficiaryName: null,
         accountNumber: null,
         transferDescription: null,
-        comment: null,
-        amount: null,
+        comment: null
     })
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
     const {
-        min_withdraw = null,
-        // max_withdraw = null,
-        percent_fee = null,
-        withdraw_fee = null,
-        // is_operable = null
+        min_withdraw = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
-    const [error, setError] = useState(false)
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -127,23 +125,19 @@ const WithdrawFormSepa = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <InputCurrency.Validator value={inputs.amount}
+                        <InputCurrency.Validator value={inputCurr.value.number}
                                                  description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                 onError={(v) => setError(v)}
+                                                 onError={setInputCurrValid}
                                                  validators={[validateBalance(currency, navigate),
-                                                     validateMinimumAmount(new Decimal(min_withdraw).toNumber(), inputs.amount, currency.$const)]}>
+                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
                                 header={<span className='text-gray-600 font-medium'>Input</span>}
-                                onSelect={(v) => setInputs(() => ({
-                                    ...inputs,
-                                    amount: v
-                                }))}
+                                onSelect={setInputCurr}
                             >
                             <InputCurrency
-                                onChange={(v: unknown) => setInputs(() => ({...inputs, amount: v}))}
-                                className={error ? "!border-red-800" : ""}
-                                value={inputs.amount}
+                                onChange={setInputCurr}
+                                value={inputCurr.value.string}
                                 currency={currency.$const}/>
                             </InputCurrency.PercentSelector>
                         </InputCurrency.Validator>
@@ -157,7 +151,7 @@ const WithdrawFormSepa = () => {
             onCancel={handleCancel}
             title="Transfer confirmation"
         >
-            <WithdrawConfirmSepa {...inputs} handleCancel={handleCancel}/>
+            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full">
             <div className="col">
@@ -165,7 +159,7 @@ const WithdrawFormSepa = () => {
                     size={"xl"}
                     className="w-full"
                     onClick={showModal}
-                    disabled={!Object.values(inputs).every(v => v !== null && v !== '') || error}
+                    disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
                 >
                     Withdraw
                 </Button>

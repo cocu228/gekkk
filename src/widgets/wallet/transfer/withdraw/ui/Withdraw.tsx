@@ -19,17 +19,12 @@ const Withdraw = () => {
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
 
     const {
-        withdraw_fee = null,
-        percent_fee = null,
+        withdraw_fee = 0,
+        percent_fee = 0,
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
-
-
-    console.log(finalFeeEntity.type.percent || finalFeeEntity.type.number)
-    console.log(finalFeeEntity.type.number )
-    console.log(new Decimal(finalFeeEntity.value.number).toString())
 
 
     return (

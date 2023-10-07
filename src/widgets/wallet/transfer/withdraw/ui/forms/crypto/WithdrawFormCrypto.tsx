@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useCallback, useContext, useMemo, useState} from "react";
 import Input from "@/shared/ui/input/Input";
 import {Input as InputAntd} from "antd";
 import Modal from "@/shared/ui/modal/Modal";
@@ -21,9 +21,15 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 
 const {TextArea} = InputAntd;
 
+
+export interface IWithdrawFormCryptoState {
+    address: null | string,
+    recipient: null | string,
+    description: null | string,
+}
 const WithdrawFormCrypto = () => {
 
-    const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
         address: null,
         recipient: null,
         description: null,
@@ -49,7 +55,6 @@ const WithdrawFormCrypto = () => {
     const finalFee = finalFeeEntity.type.percent ?
         calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
         finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
-
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
@@ -111,6 +116,7 @@ const WithdrawFormCrypto = () => {
                     <div className="col">
                         <Modal width={450}
                                title="Transfer confirmation"
+                               destroyOnClose
                                onCancel={handleCancel}
                                open={isModalOpen}>
 

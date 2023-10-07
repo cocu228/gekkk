@@ -1,7 +1,7 @@
-import {useCallback, useContext, useState} from "react";
+import {useCallback, useContext, useState, memo, useRef} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw} from "@/shared/api";
+import {apiCreateWithdraw, ICreateWithdrawParams} from "@/shared/api";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
@@ -14,10 +14,12 @@ import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
-import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
+import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {useForm} from "antd/es/form/Form";
 
 
 const initStageConfirm = {
@@ -27,13 +29,18 @@ const initStageConfirm = {
     autoInnerTransfer: false
 }
 
-const WithdrawConfirmCrypto = ({
+type TProps = IWithdrawFormCryptoState & {
+    amount: IUseInputState["value"]["number"],
+    handleCancel: () => void
+}
+
+const WithdrawConfirmCrypto = memo(({
     address,
     amount,
     recipient,
     description,
     handleCancel,
-}) => {
+                                    }: TProps) => {
 
     const {
         networkIdSelect,
@@ -42,7 +49,7 @@ const WithdrawConfirmCrypto = ({
     } = useContext(CtxWalletNetworks)
 
     const {label} = networksForSelector.find(it => it.value === networkIdSelect)
-
+    const [form] = useForm();
     const {
         percent_fee = 0,
         withdraw_fee = 0,
@@ -53,8 +60,17 @@ const WithdrawConfirmCrypto = ({
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-    const [stageConfirm, setStageConfirm] = useState(initStageConfirm)
+    const [stageReq, setStageReq] = useState(initStageConfirm)
 
+    const fragmentReqParams = useRef<Omit<ICreateWithdrawParams, "client_nonce" | "auto_inner_transfer">>({
+        currency: $const,
+        token_network: networkIdSelect,
+        amount: amount,
+        fee: percent_fee || withdraw_fee,
+        address: isNull(address) ? "" : address,
+        partner_info: recipient,
+        tag: isNull(description) ? "" : description,
+    })
 
     const onReSendCode = useCallback(async () => {
         await onConfirm(true)
@@ -66,56 +82,53 @@ const WithdrawConfirmCrypto = ({
         setLoading(!reSendCode)
 
         const response = await apiCreateWithdraw(
-            $const,
-            networkIdSelect,
-            new Decimal(amount).toNumber(),
-            percent_fee || withdraw_fee,
-            isNull(address) ? "" : address,
-            recipient,
-            description,
-            getRandomInt32(),
-            reSendCode ? undefined : formatAsNumber(input),
-            (stageConfirm.txId !== null && !reSendCode) ? stageConfirm.txId : undefined,
-            stageConfirm.autoInnerTransfer
+            {
+                ...fragmentReqParams.current,
+                auto_inner_transfer: stageReq.autoInnerTransfer,
+                client_nonce: getRandomInt32()
+            },
+            stageReq.txId,
+            input !== "" ? formatAsNumber(input) : undefined
         )
 
         actionResSuccess(response)
+
             .success(() => {
 
                 const result = uncoverResponse(response)
 
-                if (stageConfirm.status === null || reSendCode) {
-                    setStageConfirm(prev => ({
+                if (stageReq.status === null || reSendCode) {
+                    setStageReq(prev => ({
                         ...prev,
                         status: result.confirmationStatusCode,
                         txId: result.txId,
                         fee: result.fee
                     }))
                 } else {
-                    setStageConfirm(initStageConfirm)
+                    setStageReq(initStageConfirm)
                     handleCancel()
                     setRefresh()
                 }
             })
             .reject((err) => {
                 if (err.code === 10035) {
-                    setStageConfirm(prev => ({
+                    setStageReq(prev => ({
                         ...prev,
                         autoInnerTransfer: true
                     }))
                 } else {
                     localErrorHunter(err)
-                    setInput("")
+                    form.resetFields();
                 }
             })
 
         setLoading(false)
     }
 
+    console.log(input)
 
 
-
-    return loading ? <Loader/> : <>
+    return <>
         <div className="row mb-5">
             <div className="col">
                 <div className="p-4 bg-gray-300">
@@ -173,7 +186,7 @@ const WithdrawConfirmCrypto = ({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{new Decimal(toNumberInputCurrency(amount)).toString()} {$const}</span>
+                <span>{amount} {$const}</span>
             </div>
         </div>
         <div className="row mb-2">
@@ -198,10 +211,10 @@ const WithdrawConfirmCrypto = ({
                 </div>
             </div>
         </>}
-        <Form onFinish={(e) => onConfirm()}>
+        <Form form={form} onFinish={(e) => onConfirm()}>
             <span>Transfer confirm</span>
-            {stageConfirm.status !== null && <> <FormItem name="code" label="Code" preserve
-                       rules={[{required: true, ...codeMessage}]}>
+            {stageReq.status !== null && <>
+                <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
                        placeholder="Enter SMS code"
@@ -212,13 +225,14 @@ const WithdrawConfirmCrypto = ({
                 <Timer onAction={onReSendCode}/>
             </>}
             <div className="row mt-4 mb-5">
-                <div className="col">
-                    <Button htmlType={"submit"} disabled={(input === "" && stageConfirm.status !== null)}
-                            className="w-full"
-                            size={"xl"}>Confirm</Button>
+                <div className="col relative">
+                    {loading ? <Loader className={"relative"}/> :
+                        <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
+                                className="w-full"
+                                size={"xl"}>Confirm</Button>}
                 </div>
                 <div className="col flex justify-center mt-4">
-                    {localErrorInfoBox ? localErrorInfoBox : stageConfirm.autoInnerTransfer &&
+                    {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&
                         <InfoBox>The address is within our system. The transfer will be made via the internal network,
                             and not through the blockchain. Are you sure you want to continue?</InfoBox>}
                 </div>
@@ -231,6 +245,6 @@ const WithdrawConfirmCrypto = ({
         {/*    </div>*/}
         {/*</>}*/}
     </>
-}
+})
 
 export default WithdrawConfirmCrypto

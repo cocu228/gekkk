@@ -2,9 +2,17 @@ import {ChangeEventHandler, useState} from "react";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 import Decimal from "decimal.js";
 
-export const useInputState = () => {
 
-    const [state, setState] = useState({
+export interface IUseInputState {
+    value: {
+        string: string,
+        number: number
+    }
+}
+
+export const useInputState = (): { inputCurr: IUseInputState, setInputCurr: (value: string) => void } => {
+
+    const [state, setState] = useState<IUseInputState>({
         value: {
             string: "",
             number: 0
@@ -25,6 +33,9 @@ export const useInputState = () => {
         }))
 
     }
+
+    console.log("state")
+    console.log(state)
 
     return {inputCurr: state, setInputCurr}
 }

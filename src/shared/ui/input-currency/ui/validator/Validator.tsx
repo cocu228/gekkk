@@ -40,22 +40,21 @@ const Validator: FC<IParams> = (({
             if (new Decimal(value).isZero() && !availableNullable) {
                 setError("Null value is not allowed");
                 onError(true);
-                return;
-            }
+            } else {
+                const isValid = validators.every(validate => {
+                    const result = validate(value);
+                    if (!result.validated) {
+                        setError(result.errorMessage);
+                        onError(true);
+                        return false;
+                    }
+                    return true;
+                });
 
-            const isValid = validators.every(validate => {
-                const result = validate(value);
-                if (!result.validated) {
-                    setError(result.errorMessage);
-                    onError(true);
-                    return false;
+                if (isValid) {
+                    setError(null);
+                    onError(false);
                 }
-                return true;
-            });
-
-            if (isValid) {
-                setError(null);
-                onError(false);
             }
         }
 

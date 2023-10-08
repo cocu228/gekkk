@@ -125,9 +125,6 @@ const WithdrawConfirmCrypto = memo(({
         setLoading(false)
     }
 
-    console.log(input)
-
-
     return <>
         <div className="row mb-5">
             <div className="col">
@@ -199,7 +196,7 @@ const WithdrawConfirmCrypto = memo(({
                 <span>{new Decimal(withdraw_fee).toString()} {$const}</span>
             </div>
         </div>
-        {!description ? null : <>
+        {description && <>
             <div className="row mb-2">
                 <div className="col">
                     <span className="text-gray-400">Description</span>
@@ -213,7 +210,7 @@ const WithdrawConfirmCrypto = memo(({
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
             <span>Transfer confirm</span>
-            {stageReq.status !== null && <>
+            {!isNull(stageReq.status) && <>
                 <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
@@ -226,7 +223,7 @@ const WithdrawConfirmCrypto = memo(({
             </>}
             <div className="row mt-4 mb-5">
                 <div className="col relative">
-                    {loading ? <Loader className={"relative"}/> :
+                    {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                         <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
                                 className="w-full"
                                 size={"xl"}>Confirm</Button>}

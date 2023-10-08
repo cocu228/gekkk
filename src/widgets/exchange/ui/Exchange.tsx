@@ -30,6 +30,9 @@ import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRoom
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import Decimal from "decimal.js";
 
 function Exchange() {
 
@@ -44,6 +47,9 @@ function Exchange() {
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
+    // todo change func innput
+    // const {inputCurr, setInputCurr} = useInputState()
+    // const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const {
         to,
@@ -106,6 +112,9 @@ function Exchange() {
         }
     };
 
+
+    const minAmount = currencies.get(from.currency)?.minOrder ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber() : 0
+
     if (!roomsList) return <Loader/>;
 
     return (
@@ -136,13 +145,13 @@ function Exchange() {
                                 >
                                     <InputCurrency.Validator
                                         className='text-sm'
-                                        value={from.amount}
+                                        value={new Decimal(from.amount).toNumber()}
                                         onError={setHasValidationError}
                                         description={!from.currency ? null
                                             : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
                                         validators={[
                                             validateBalance(currencies.get(from.currency), navigate),
-                                            validateMinimumAmount(currencies.get(from.currency)?.minOrder, from.amount)
+                                            validateMinimumAmount(minAmount, new Decimal(from.amount).toNumber(), currencies.get(from.currency).$const)
                                         ]}
                                     >
                                         <InputCurrency.PercentSelector

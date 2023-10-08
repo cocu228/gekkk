@@ -11,7 +11,7 @@ import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sep
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import {Switch} from "antd";
-import {transferDescription, swiftUrgency, swiftCommission} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
+import {transferDescriptions, swiftUrgency, swiftCommission} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import Decimal from "decimal.js";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
@@ -224,7 +224,7 @@ const WithdrawFormSwift = () => {
                                     transferDescription: v
                                 }))}
                                 name={"transferDescription"}
-                                options={transferDescription}
+                                options={transferDescriptions}
                                 placeholder={"Transfer details"}
                                 value={inputs.transferDescription}
                         />

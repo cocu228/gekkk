@@ -7,6 +7,7 @@ import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import {useContext, useEffect, useState} from "react";
 import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
+import {transferDescriptions} from "../../../model/transfer-descriptions";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {transferDescription} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
@@ -64,7 +65,7 @@ const WithdrawConfirmSepa = ({
         iban: accountNumber,
         account: account.account_id,
         beneficiaryName: beneficiaryName,
-        transferDetails: transferDescription.find(d => d.value === transferDescription).label,
+        transferDetails: transferDescriptions.find(d => d.value === transferDescription).label,
         amount: {
             sum: {
                 currency: {
@@ -115,7 +116,7 @@ const WithdrawConfirmSepa = ({
 
                 setState(prev => ({
                     ...prev,
-                    // loading: false, TODO: Uncomment this on sign update
+                    loading: false,
                     confirmation: {
                         ...prev.confirmation,
                         token: data.errors[0].properties['confirmationToken'],
@@ -132,49 +133,7 @@ const WithdrawConfirmSepa = ({
             setRefresh();
             handleCancel();
         });
-        
-        // -------------- PIN CONFIRMATION --------------
-        // await apiPaymentSepa(
-        //     paymentDetails,
-        //     false,
-        //     !confirmation.token ? null : {
-        //         "X-Confirmation-Type": "PIN",
-        //         "X-Confirmation-Token": confirmation.token,
-        //         "X-Confirmation-Code": confirmation.code
-        //     }
-        // ).then((response: AxiosResponse<IResErrors>) => {
-        //     const {data} = response;
-        //     
-        //     if (data?.errors) {
-        //         if (data.errors[0].code !== 449) return;
-        //        
-        //         setState(prev => ({
-        //             ...prev,
-        //             loading: false,
-        //             confirmation: {
-        //                 ...prev.confirmation,
-        //                 token: data.errors[0].properties['confirmationToken'],
-        //                 codeLength: data.errors[0].properties['confirmationCodeLength']
-        //             }
-        //         }));
-        //         return;
-        //     }
-        //    
-        //     setState(prev => ({
-        //         ...prev,
-        //         loading: false,
-        //     }));
-        //     setRefresh();
-        //     handleCancel();
-        // });
     }
-    
-    // TODO: Update this block on sign update
-    useEffect(() => {
-        if (confirmation.token) {
-            onConfirm();
-        }
-    }, [confirmation]);
     
     useEffect(() => {
         apiPaymentSepa(paymentDetails, true).then(({data}) => {

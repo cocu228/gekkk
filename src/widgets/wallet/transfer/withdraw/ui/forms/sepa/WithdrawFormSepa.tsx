@@ -18,6 +18,7 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
+import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 const WithdrawFormSepa = () => {
 
     const currency = useContext(CtxWalletData);
@@ -91,7 +92,7 @@ const WithdrawFormSepa = () => {
                                     transferDescription: v
                                 }))}
                                 name={"transferDescription"}
-                                options={transferDescription}
+                                options={transferDescriptions}
                                 placeholder={"Transfer details"}
                                 value={inputs.transferDescription}
                         />

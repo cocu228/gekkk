@@ -1,4 +1,4 @@
-import {Input} from "antd";
+import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/code-transfer/TransferTableCode";
@@ -56,7 +56,8 @@ const ApplyCode = () => {
     return <>
         <div className="row flex gap-10">
             <div className="col flex items-center w-3/5">
-                <Input className={"w-full"} value={input} disabled={loading}
+                <Input value={input} disabled={loading}
+                       wrapperClassName={"w-full"}
                        onChange={({target}) => setInput(target.value)}
                        placeholder={"Enter top up code"} type={"text"}/>
             </div>

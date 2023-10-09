@@ -27,10 +27,10 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
     bankCards: null,
     getBankCards: async () => {
         const {data} = await apiGetCards();
-
+        
         set((state) => ({
             ...state,
             bankCards: data.result.sort(c => c.cardStatus === 'ACTIVE' ? -1 : c.cardStatus === 'LOCKED' ? 0 : 1),
-        }))
+        }));
     }
 })));

@@ -1,5 +1,5 @@
-import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
+import Input from "@/shared/ui/input/Input";
 import {useSessionStorage} from "usehooks-ts";
 // import {apiSignIn} from "@/widgets/auth/api/";
 import Button from '@/shared/ui/button/Button';
@@ -9,7 +9,7 @@ import useMask from '@/shared/model/hooks/useMask';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {codeMessage} from '@/shared/config/message';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {storyDisplayStage} from "@/widgets/auth/model/story";
+import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
@@ -23,8 +23,10 @@ import {PhoneAuthProvider, signInWithCredential} from 'firebase/auth';
 
 import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
-import {apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
-import {helperApiRequestCode, helperApiSignIn} from "@/widgets/auth/model/helpers";
+import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
+import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
+import {actionResSuccess} from "@/shared/lib/helpers";
+import {useForm} from "antd/es/form/Form";
 
 
 declare module 'firebase/auth' {
@@ -37,22 +39,21 @@ declare module 'firebase/auth' {
 const FormCode = memo(() => {
 
     const {login} = useAuth();
+    const [form] = useForm();
     const inputRef = useRef(null);
     const {onInput} = useMask(MASK_CODE);
     const [code, setCode] = useState("");
     const {md} = useContext(BreakpointsContext);
     const [loading, setLoading] = useState<boolean>(false);
-    const {toggleStage} = storyDisplayStage(state => state);
+    const {toggleStage, data} = storyDisplayAuth(state => state);
 
     const [{
         phone,
-        dateTimeStart,
         verificationId,
         sessionIdUAS
-    }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", dateTimeStart: null, verificationId: "", sessionIdUAS: ""}
+    }, ] = useSessionStorage<TSessionAuth>("session-auth",
+        {phone: "", verificationId: "", sessionIdUAS: ""}
     );
-
 
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
@@ -66,41 +67,54 @@ const FormCode = memo(() => {
     }
 
     const onCode = () => {
-
         signInWithCredential(auth, PhoneAuthProvider.credential(
             verificationId,
             formatAsNumber(code)
-        )).then((result) => {
+        )).then(async (result) => {
 
             const user = result.user;
-            login(user.phoneNumber, user.accessToken, "token-firebase");
-            sessionStorage.removeItem("session-auth");
-            toggleStage("authorization");
 
+            const response =
+                await apiPasswordVerify(phone, data, user.accessToken, "token-firebase")
 
+            helperApiVerifyPassword(response).success(() => {
+
+                const user = result.user;
+
+                toggleStage("authorization");
+                sessionStorage.removeItem("session-auth");
+                login(user.phoneNumber, user.accessToken, "token-firebase", user.refreshToken);
+
+            }).reject((e) => {
+                toggleStage("authorization");
+                sessionStorage.removeItem("session-auth");
+            })
         }).catch(error => {
-            console.log(JSON.stringify(error))
+            form.resetFields();
+
             if (error.code === "auth/code-expired") {
-                localErrorHunter({code: 0, message: "This code has expired"})
+                localErrorHunter({code: 0, message: "This code has expired"});
             } else if (error.code === "auth/invalid-verification-code") {
-                localErrorHunter({code: 1, message: "Invalid verification code"})
+                localErrorHunter({code: 1, message: "Invalid code. Try again"});
             }
         })
     }
 
     const onCodeUAS = async () => {
-
         const _phone = formatAsNumber(phone)
-
+        
         apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
             .then(res => helperApiRequestCode(res)
                 .success(() => {
                     apiSignIn(formatAsNumber(code), res.data.sessid, _phone)
                         .then(res => helperApiSignIn(res)
-                            .success(() => {
+                            .success(async () => {
                                 sessionStorage.removeItem("session-auth");
-                                toggleStage("authorization");
+                                // const response = await apiPasswordVerify(_phone, data)
+                                //
                                 login(_phone, res.data.token, "token");
+                                toggleStage("authorization");
+
                             }))
                         .catch(e => {
                             setLoading(false);
@@ -111,8 +125,8 @@ const FormCode = memo(() => {
                 })
             )
     }
-
-    return <Form autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
+    
+    return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
         <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
@@ -120,9 +134,8 @@ const FormCode = memo(() => {
             <br/>
             <b>+{phone}</b>
         </p>
-
-        <FormItem name="code" label="Code" preserve
-                  rules={[{required: true, ...codeMessage}]}>
+        
+        <FormItem name="code" label="Code" preserve >
             <Input type="text"
                    ref={inputRef}
                    placeholder="Phone code"
@@ -130,10 +143,13 @@ const FormCode = memo(() => {
                    onChange={({target}) => onChange(target.value)}
             />
         </FormItem>
-        {localErrorSpan}
-        <ReSendCode/>
-
-
+        
+        <span className="text-red-800">{localErrorSpan}</span>
+        
+        <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
+            <ReSendCode isUAS={sessionIdUAS !== ""}/>
+        </div>
+        
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
         {/*    {timeLeft !== 0 ? (*/}
         {/*        <span>You can use the code for {timeLeft} seconds</span>*/}
@@ -141,7 +157,7 @@ const FormCode = memo(() => {
         {/*        <a onClick={restartTimer} className='underline hover:text-blue-400'>Resend code</a>*/}
         {/*    )}*/}
         {/*</div>*/}
-
+        
         <div className="row mt-2">
             <Button
                 size='lg'

@@ -8,11 +8,13 @@ import {
 } from "@/widgets/wallet/transfer/model/helpers";
 import {apiListAddresses} from "@/shared/api";
 import {AxiosResponse} from "axios";
+import {randomId} from "@/shared/lib/helpers";
 
 
 interface IProps {
     children: React.ReactNode
 }
+
 
 const NetworkProvider = ({children, ...props}: IProps) => {
 
@@ -20,8 +22,8 @@ const NetworkProvider = ({children, ...props}: IProps) => {
 
     const {$const} = useContext(CtxWalletData);
 
-    if (!$const)
-        return null;
+    // if (!$const)
+    //     return null;
 
     const initState = {
         networksForSelector: null,
@@ -31,10 +33,12 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         loading: true,
         refreshKey: null
     }
+
     const [state, setState] =
         useState<Omit<ICtxWalletNetworks, "setRefresh" | "setLoading" | "setNetworkId">>(initState)
 
-    const setNetworkId = async (networkIdSelect) => {
+
+    const setNetworkId = async (networkIdSelect: ICtxWalletNetworks["networkIdSelect"]) => {
 
         let firstAddress = null
 
@@ -59,10 +63,31 @@ const NetworkProvider = ({children, ...props}: IProps) => {
         ...prev,
         loading
     }))
-    const setRefresh = (refreshKey) => setState(prev => ({
-        ...prev,
-        refreshKey
-    }))
+    const setRefresh = (quite: boolean = false, amount: number) => {
+
+        if (!quite) {
+            setState(prev => ({
+                ...prev,
+                refreshKey: randomId()
+            }))
+        } else {
+            updateQuiteNetworksDefault(amount)
+        }
+    }
+
+
+    const updateQuiteNetworksDefault = async (amount: number) => {
+
+        const response: AxiosResponse = await apiTokenNetworks($const, isTopUp, amount);
+
+        helperApiTokenNetworks(response).success((networksDefault: Array<IResTokenNetwork>) => {
+
+            setState(prev => ({
+                ...prev,
+                networksDefault
+            }))
+        })
+    }
 
 
     const clearState = (changedCurrency) => setState(prevState => ({
@@ -85,7 +110,7 @@ const NetworkProvider = ({children, ...props}: IProps) => {
             const changedCurrency = $const !== prevDeps.current
 
             if (changedCurrency) {
-                // console.log('Changed dependencies:', changedCurrency);
+                //
             }
             prevDeps.current = $const;
 

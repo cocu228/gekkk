@@ -14,17 +14,16 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
 import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+// import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {RangePicker} = DatePicker;
 
-function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16]}: Partial<Props>) {
+function History({currenciesFilter, types}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     // const {currencies} = useContext(CtxCurrencies);
     const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
-    const {account} = useContext(CtxRootData);
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
@@ -68,7 +67,8 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
 
         const lastValue = listHistory[listHistory.length - 1];
 
-        const {data} = await apiHistoryTransactions(null, null, currenciesFilter, [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16], lastValue.id_transaction, 10)
+        const {data} = await apiHistoryTransactions(null, null, currenciesFilter,
+            types, lastValue.id_transaction, 10)
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))
@@ -77,23 +77,12 @@ function History({currenciesFilter, types = [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14
     }
 
     useEffect(() => {
-        if (activeTab !== TabKey.CUSTOM) {
-            setLoading(true);
-
-            (async () => {
+        (async () => {
+            if (currenciesFilter && activeTab !== TabKey.CUSTOM) {
                 await requestHistory()
-            })()
-        }
-    }, [activeTab, refreshKey, account])
-
-
-    useEffect(() => {
-        if (currenciesFilter) {
-            (async () => {
-                await requestHistory()
-            })()
-        }
-    }, [currenciesFilter])
+            }
+        })()
+    }, [refreshKey, activeTab, currenciesFilter]);
 
     return (
         <div id={"History"} className="wrapper">

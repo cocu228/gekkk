@@ -67,7 +67,7 @@ export const actionSuccessConstructor = function (value: boolean) {
             success: (val) => {
                 val(this)
                 return ({
-                    reject: (val) => val(this)
+                    reject: (val) => null
                 })
             }
         }
@@ -180,6 +180,14 @@ export const getFormattedIBAN = (iban: string) => {
 }
 
 
+export function getRandomInt32() {
+    const minValue = -2147483648; // Минимальное 32-битное знаковое число
+    const maxValue = 2147483647;  // Максимальное 32-битное знаковое число
+
+    return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+}
+
+
 export const getCookieData = <T>(): T => {
     const cookieValue = document.cookie;
     const cookiePairs = cookieValue.split(';');
@@ -229,4 +237,16 @@ export function clearAllCookies() {
         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         clearCookie(name);
     }
+}
+
+export function debounce(func: (amount: number) => void, delay: number) {
+
+    let timer: ReturnType<typeof setTimeout>;
+
+    return function (amount?: number) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func(amount);
+        }, delay);
+    };
 }

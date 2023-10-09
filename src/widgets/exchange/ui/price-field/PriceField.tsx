@@ -1,6 +1,6 @@
-import {Input} from 'antd';
 import {useContext} from 'react';
 import styles from './style.module.scss';
+import Input from "@/shared/ui/input/Input";
 import {CtxExchangeData} from '../../model/context';
 import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 

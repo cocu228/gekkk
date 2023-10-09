@@ -19,7 +19,7 @@ const TopUpFormQR = () => {
 
         const response = await apiCreateAddress(networkIdSelect)
 
-        actionResSuccess(response).success(() => setRefresh(randomId())).reject(localErrorHunter)
+        actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter)
 
     }
 

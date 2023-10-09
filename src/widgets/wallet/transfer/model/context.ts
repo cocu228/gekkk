@@ -6,13 +6,13 @@ import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
 export interface ICtxWalletNetworks {
     networksDefault: null | Array<IResTokenNetwork>,
     networksForSelector: null | TNetworksForSelector,
-    networkIdSelect: null | number,
+    networkIdSelect: number | null,
     addressesForQR: null | string,
     loading: boolean,
     refreshKey: null | string,
     setLoading: (loading: boolean) => void
     setNetworkId: (networkId: number) => void
-    setRefresh: (refreshKey: string) => void
+    setRefresh: (quite?: boolean, amount?: number) => void
 }
 
 export const CtxWalletData = React.createContext<null | ICtxCurrency>(null);
@@ -27,6 +27,6 @@ export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>(
     },
     setNetworkId: function (networkId: number) {
     },
-    setRefresh: function (refreshKey: string) {
+    setRefresh: function (quite: boolean, amount: number) {
     }
 });

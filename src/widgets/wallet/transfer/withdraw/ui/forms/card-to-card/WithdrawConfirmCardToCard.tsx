@@ -1,21 +1,32 @@
+import md5 from 'md5';
+import {Skeleton} from "antd";
 import {AxiosResponse} from "axios";
-import {Skeleton, Input} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
+import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {MASK_CODE} from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
 import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import {codeMessage} from "@/shared/config/message";
-import {useContext, useEffect, useState} from "react";
-import FormItem from '@/shared/ui/form/form-item/FormItem';
+import useError from "@/shared/model/hooks/useError";
+import FormItem from "@/shared/ui/form/form-item/FormItem";
+import {useContext, useEffect, useRef, useState} from "react";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {apiPaymentContact, IResCommission, IResErrors} from "@/shared/api";
-import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
+import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {apiPasswordVerify, apiPaymentContact, IResCommission, IResErrors} from "@/shared/api";
+
+interface IState {
+    loading: boolean;
+    total: IResCommission;
+    confirmation: {
+        code: string;
+        token: string;
+        codeLength: number;
+    }
+}
 
 const WithdrawConfirmCardToCard = ({
     amount,
@@ -25,34 +36,11 @@ const WithdrawConfirmCardToCard = ({
     cardholderName,
     handleCancel
 }) => {
-    const {
-        networkIdSelect,
-        networksForSelector,
-        networksDefault
-    } = useContext(CtxWalletNetworks);
-    
-    const {
-        is_operable = null
-    } = getNetworkForChose(
-        networksDefault,
-        networkIdSelect
-    ) ?? {}
-    
-    const cards = storeBankCards(state => state.bankCards);
-    
     const [{
         total,
         loading,
         confirmation
-    }, setState] = useState<{
-        loading: boolean;
-        total: IResCommission;
-        confirmation: {
-            code: string;
-            token: string;
-            codeLength: number;
-        }
-    }>({
+    }, setState] = useState<IState>({
         loading: false,
         total: undefined,
         confirmation: {
@@ -61,13 +49,17 @@ const WithdrawConfirmCardToCard = ({
             codeLength: null
         }
     });
-    
+
     const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
+    const {phone} = getCookieData<{phone: string}>();
     const {account, setRefresh} = useContext(CtxRootData);
+    const cards = storeBankCards(state => state.bankCards);
+    const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
-    
-    const paymentDetails = {
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
+
+    const details = useRef({
         account: account.account_id,
         beneficiaryName: cardholderName,
         cardNumber: cardNumber,
@@ -81,40 +73,15 @@ const WithdrawConfirmCardToCard = ({
                 }
             }
         }
-    };
-    
+    });
+
     const onConfirm = async () => {
-        setState(prev => ({
-            ...prev,
-            loading: true
-        }));
-        
-        const {
-            appUuid,
-            appPass
-        } = confirmation.token
-            ? await getTransactionSignParams()
-            : {appUuid: null, appPass: null};
-        
-        const {phone} = getCookieData<{phone: string}>();
-        
-        const jwtPayload = {
-            initiator: phone,
-            confirmationToken: confirmation.token,
-            exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
-        };
-        
+        const headers = await signHeadersGeneration(confirmation.token);
+
         await apiPaymentContact(
-            paymentDetails,
+            details.current,
             false,
-            {
-                "X-Confirmation-Type": "SIGN",
-                ...(confirmation.token ? {
-                    "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
-                    "X-Confirmation-Token": confirmation.token,
-                    "X-App-Uuid": appUuid
-                } : null)
-            }
+            headers
         ).then((response: AxiosResponse<IResErrors>) => {
             const {data} = response;
 
@@ -132,7 +99,7 @@ const WithdrawConfirmCardToCard = ({
                 }));
                 return;
             }
-            
+
             setState(prev => ({
                 ...prev,
                 loading: false,
@@ -140,45 +107,26 @@ const WithdrawConfirmCardToCard = ({
             setRefresh();
             handleCancel();
         });
-        
-        // -------------- PIN CONFIRMATION --------------
-        // await apiPaymentContact(
-        //     paymentDetails,
-        //     false,
-        //     !confirmation.token ? null : {
-        //         "X-Confirmation-Type": "PIN",
-        //         "X-Confirmation-Token": confirmation.token,
-        //         "X-Confirmation-Code": confirmation.code
-        //     }
-        // ).then((response: AxiosResponse<IResErrors>) => {
-        //     const {data} = response;
-        //     
-        //     if (data?.errors) {
-        //         if (data.errors[0].code !== 449) return;
-        //        
-        //         setState(prev => ({
-        //             ...prev,
-        //             loading: false,
-        //             confirmation: {
-        //                 ...prev.confirmation,
-        //                 token: data.errors[0].properties['confirmationToken'],
-        //                 codeLength: data.errors[0].properties['confirmationCodeLength']
-        //             }
-        //         }));
-        //         return;
-        //     }
-        //    
-        //     setState(prev => ({
-        //         ...prev,
-        //         loading: false,
-        //     }));
-        //     setRefresh();
-        //     handleCancel();
-        // });
     }
-    
+
+    const onError = () => {
+        localErrorHunter({
+            code: 401,
+            message: 'Confirmation PIN is incorrect'
+        });
+
+        setState(prev => ({
+            ...prev,
+            loading: false,
+            confirmation: {
+                ...prev.confirmation,
+                code: null
+            }
+        }));
+    }
+
     useEffect(() => {
-        apiPaymentContact(paymentDetails, true).then(({data}) => {
+        apiPaymentContact(details.current, true).then(({data}) => {
             setState(prev => ({
                 ...prev,
                 total: data as IResCommission
@@ -298,14 +246,27 @@ const WithdrawConfirmCardToCard = ({
             </div>
         </>}
 
-        <Form onFinish={onConfirm}>
+        <Form onFinish={() => {
+            setState(prev => ({
+                ...prev,
+                loading: true
+            }));
+
+            !confirmation.code
+                ? onConfirm()
+                : apiPasswordVerify(md5(`${confirmation.code}_${phone}`))
+                    .then(onConfirm)
+                    .catch(onError)
+        }}>
             {!confirmation.token ? null : <>
                 <span className="text-gray-400">Transfer confirm</span>
 
-                <FormItem className={"mb-4"} name="code" label="Code" preserve
-                          rules={[{required: confirmation.token.length > 0, ...codeMessage}]}>
+                <FormItem className={"mb-4"} name="code" label="Code" preserve>
                     <Input type="text"
-                           onInput={onInput}
+                           onInput={(e) => {
+                               onInput(e);
+                               localErrorClear();
+                           }}
                            placeholder="Enter your PIN"
                            onChange={({target}) => setState(prev => ({
                                ...prev,
@@ -318,21 +279,21 @@ const WithdrawConfirmCardToCard = ({
                     />
                 </FormItem>
             </>}
-
+            <div className="row">
+                <div className="col">
+                    {localErrorInfoBox}
+                </div>
+            </div>
             <div className="row my-5">
                 <div className="col">
-                    <Button htmlType={"submit"} disabled={!total} className="w-full"
-                            size={"xl"}>Confirm</Button>
+                    <Button size={"xl"}
+                            htmlType={"submit"}
+                            className="w-full"
+                            disabled={!total || localIndicatorError || (confirmation.token && !confirmation.code)}
+                    >Confirm</Button>
                 </div>
             </div>
         </Form>
-
-        {is_operable === false && <>
-            <div className="info-box-danger">
-                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                    network for this transaction.</p>
-            </div>
-        </>}
     </>
 }
 

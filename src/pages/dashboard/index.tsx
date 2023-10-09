@@ -1,12 +1,14 @@
 import {useContext} from 'react';
-import {randomId} from "@/shared/lib/helpers";
+// import {getCookieData, randomId} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
-import PageHead from '@/shared/ui/page-head/PageHead';
-import TabsGroupPrimary from '@/shared/ui/tabs-group/primary';
+// import PageHead from '@/shared/ui/page-head/PageHead';
+// import TabsGroupPrimary from '@/shared/ui/tabs-group/primary';
 import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
 import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-
+// import {auth} from "@/processes/firebaseConfig";
+// import {onIdTokenChanged} from "firebase/auth";
+import Button from "@/shared/ui/button/Button";
 enum TabType {
     ACCOUNTS,
     CARDS,
@@ -32,6 +34,8 @@ export default () => {
 
     return (
         <div className="wrapper">
+
+            {/*<Button onClick={null}>Auth</Button>*/}
             {/*<PageHead title="Personal account"/>*/}
             
             {/*{sm ? (*/}

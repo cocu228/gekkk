@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import Transfer from "../../widgets/wallet/code-transfer";
 import History from "@/widgets/history/ui/History";
@@ -16,6 +16,7 @@ import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import { AccountRights } from "@/shared/config/account-rights";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 
 function Wallet() {
 
@@ -24,7 +25,15 @@ function Wallet() {
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
     const $currency = currencies.get(currency);
-
+    const cards = storeBankCards(state => state.bankCards);
+    const getBankCards = storeBankCards(state => state.getBankCards);
+    
+    useEffect(() => {
+        if (!cards && currency === 'EUR') {
+            getBankCards();
+        }
+    }, [currency]);
+    
     return (
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
@@ -53,11 +62,11 @@ function Wallet() {
 
                             <About data-tab={"About"}/>
 
-                            {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}
+                            {xl && <History currenciesFilter={[$currency.$const]} data-tab={"History"}/>}
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History types={[]} currenciesFilter={[currency]}/>
+                            <History currenciesFilter={[$currency.$const]}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

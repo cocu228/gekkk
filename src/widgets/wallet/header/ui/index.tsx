@@ -95,7 +95,7 @@ const WalletHeader = () => {
                     </div>
                 </div>)}
             </div>
-
+            
             {md ? null : isEUR ? (
                 <BankCards/>
             ) : (

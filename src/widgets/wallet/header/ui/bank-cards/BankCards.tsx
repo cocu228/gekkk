@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import UseModal from "@/shared/model/hooks/useModal";
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
@@ -22,6 +22,12 @@ const BankCards = () => {
             ? card.cardStatus === "ACTIVE"
             : card
     );
+
+    useEffect(() => {
+        if (!displayUnavailableCards && !bankCards?.length) {
+            setDisplayUnavailableCards(true);
+        }
+    }, [displayUnavailableCards]);
     
     const toggleUnavailableCards = () => {
         setSelectedCard(0);

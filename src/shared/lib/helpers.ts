@@ -250,3 +250,9 @@ export function debounce(func: (amount: number) => void, delay: number) {
         }, delay);
     };
 }
+
+export function numberWithSpaces(val: number) {
+    let parts = val.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return parts.join(".");
+}

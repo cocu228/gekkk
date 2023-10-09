@@ -1,4 +1,4 @@
-export const transferDescription = [
+export const transferDescriptions = [
     {value: 'transferDetails.first_element', label: 'Other'},
     {value: 'transferDetails.second_element', label: 'Top up my account'},
     {value: 'transferDetails.third_element', label: 'Loan repayment under the agreement'},

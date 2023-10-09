@@ -26,7 +26,7 @@ interface IParams {
 export const apiPaymentContact = (
     params: Partial<IParams>,
     commission: boolean = false,
-    headers: SignHeaders = null
+    headers: Partial<SignHeaders> = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_contact${commission ? "/commission" : ""}`, {
     payment_contact: params
 }, {

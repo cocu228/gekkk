@@ -47,7 +47,7 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 }
 
 
-export const headerSepaGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
+export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
 
     const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
         "X-Confirmation-Type": "SIGN",
@@ -79,35 +79,4 @@ export const headerSepaGeneration = async (token: string | null = null): Promise
         ...keys
     }
 
-}
-
-export const helperApiPaymentSepa = (response: AxiosResponse) => {
-
-    const isError = Array.isArray(response.data?.errors) && response.data.errors.length > 0
-    const isConfirmToken = isError && response.data?.errors[0]?.code === 449
-
-    let data = {
-        isConfirmToken,
-        token: null,
-        codeLength: null,
-        errors: null
-    }
-
-    if (isConfirmToken) {
-
-        data.token = uncoverArray<{
-            properties: { confirmationToken: string }
-        }>(response.data.errors).properties.confirmationToken
-
-        data.codeLength = uncoverArray<{
-            properties: {
-                confirmationCodeLength: number
-            }
-        }>(response.data.errors).properties.confirmationCodeLength
-
-        data.errors = response.data.errors
-    }
-
-
-    return actionSuccessConstructor.call(data, (!isError || isConfirmToken))
 }

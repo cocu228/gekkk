@@ -1,26 +1,22 @@
 import {useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
+import {useNavigate} from "react-router-dom";
 import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import {transferDescription} from "@/widgets/wallet/transfer/withdraw/model/transfer-description";
-import WithdrawConfirmSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawConfirmSepa";
-import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-import {useNavigate} from "react-router-dom";
-import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import Decimal from "decimal.js";
-import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
-const WithdrawFormSepa = () => {
 
+const WithdrawFormSepa = () => {
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const navigate = useNavigate();
@@ -104,7 +100,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Comment (optional)</span>
+                        <span className="font-medium">Comment</span>
                     </div>
                 </div>
                 <div className="row">

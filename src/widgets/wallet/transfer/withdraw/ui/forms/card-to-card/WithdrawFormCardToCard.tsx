@@ -165,7 +165,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">Comment (optional)</span>
+                            <span className="font-medium">Comment</span>
                         </div>
                     </div>
                     <div className="row">

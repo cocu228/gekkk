@@ -87,7 +87,7 @@ const WithdrawConfirmCrypto = memo(({
                 auto_inner_transfer: stageReq.autoInnerTransfer,
                 client_nonce: getRandomInt32()
             },
-            reSendCode ? null : input !== "" ? formatAsNumber(input) : undefined,
+            reSendCode ? null : input !== "" ? formatAsNumber(input) : null,
             reSendCode ? null : stageReq.txId
         )
 
@@ -104,17 +104,22 @@ const WithdrawConfirmCrypto = memo(({
                         txId: result.txId,
                         fee: result.fee
                     }))
-                } else {
-                    setStageReq(initStageConfirm)
+                }
+                if (result.confirmationStatusCode === 4) {
                     handleCancel()
                     setRefresh()
+                } else {
+                    localErrorHunter({message: "Something went wrong.", code: 1})
                 }
             })
             .reject((err) => {
                 if (err.code === 10035) {
                     setStageReq(prev => ({
                         ...prev,
-                        autoInnerTransfer: true
+                        autoInnerTransfer: true,
+                        // status: result.confirmationStatusCode,
+                        // txId: result.txId,
+                        // fee: result.fee
                     }))
                 } else {
                     localErrorHunter(err)

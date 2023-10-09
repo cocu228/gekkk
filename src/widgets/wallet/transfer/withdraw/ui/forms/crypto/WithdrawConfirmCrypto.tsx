@@ -87,8 +87,8 @@ const WithdrawConfirmCrypto = memo(({
                 auto_inner_transfer: stageReq.autoInnerTransfer,
                 client_nonce: getRandomInt32()
             },
-            stageReq.txId,
-            input !== "" ? formatAsNumber(input) : undefined
+            reSendCode ? null : input !== "" ? formatAsNumber(input) : undefined,
+            reSendCode ? null : stageReq.txId
         )
 
         actionResSuccess(response)
@@ -97,7 +97,7 @@ const WithdrawConfirmCrypto = memo(({
 
                 const result = uncoverResponse(response)
 
-                if (stageReq.status === null || reSendCode) {
+                if (result.confirmationStatusCode === 0 || reSendCode) {
                     setStageReq(prev => ({
                         ...prev,
                         status: result.confirmationStatusCode,

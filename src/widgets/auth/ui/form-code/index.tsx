@@ -83,7 +83,7 @@ const FormCode = memo(() => {
 
                 toggleStage("authorization");
                 sessionStorage.removeItem("session-auth");
-                login(user.phoneNumber, user.accessToken, "token-firebase");
+                login(user.phoneNumber, user.accessToken, "token-firebase", user.refreshToken);
 
             }).reject((e) => {
                 toggleStage("authorization");

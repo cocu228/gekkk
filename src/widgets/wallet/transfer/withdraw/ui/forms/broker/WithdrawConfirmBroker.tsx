@@ -125,149 +125,153 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         }));
     }
 
-    return loading ? <Loader className='mt-20'/> : <>
-        <div className="row mb-5">
-            <div className="col">
-                <div className="p-4 bg-gray-300">
-                    <div className="wrapper flex flex-col">
-                        <div className="row mb-1">
-                            <div className="col">
-                                <span className="text-red-800">Please note</span>
+    return <div>
+        {loading && <Loader className='justify-center'/>}
+        
+        <div className={loading ? 'collapse' : ''}>
+            <div className="row mb-5">
+                <div className="col">
+                    <div className="p-4 bg-gray-300">
+                        <div className="wrapper flex flex-col">
+                            <div className="row mb-1">
+                                <div className="col">
+                                    <span className="text-red-800">Please note</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                        <span className="text-gray-400">
-                            You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
-                        </span>
+                            <div className="row">
+                                <div className="col">
+                                    <span className="text-gray-400">
+                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Network</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>{label}</span>
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Beneficiary Name</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>{account.name}</span>
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Account Number</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>{account.number}</span>
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Purpose</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>Purchase of EURG for EUR</span>
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Amount</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>{amount} {$const}</span>
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Fee</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                {new Decimal(withdraw_fee).toString()} EUR
-            </div>
-        </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">You will get</span>
-            </div>
-        </div>
-        <div className="row mb-4">
-            <div className="col">
-                {new Decimal(amount).minus(withdraw_fee).toString()} EURG
-            </div>
-        </div>
-        
-        <Form
-            onFinish={() => {
-                setState(prev => ({
-                    ...prev,
-                    loading: true
-                }));
-
-                !confirmation.code
-                    ? onConfirm()
-                    : apiPasswordVerify(md5(`${confirmation.code}_${phone}`))
-                        .then(onConfirm)
-                        .catch(onError)
-            }}
-        >
-            {!confirmation.token ? null : <>
-                <span className="text-gray-400">Transfer confirm</span>
-
-                <FormItem className={"mb-4"} name="code" label="Code" preserve>
-                    <Input type="text"
-                           onInput={(e) => {
-                               onInput(e);
-                               localErrorClear();
-                           }}
-                           placeholder="Enter your PIN"
-                           onChange={({target}) => setState(prev => ({
-                               ...prev,
-                               confirmation: {
-                                   ...prev.confirmation,
-                                   code: target.value.replace(/ /g, '')
-                               }
-                           }))}
-                           autoComplete="off"
-                    />
-                </FormItem>
-            </>}
-            <div className="row">
+            <div className="row mb-2">
                 <div className="col">
-                    {localErrorInfoBox}
+                    <span className="text-gray-400">Network</span>
                 </div>
             </div>
-            <div className="row mt-4 mb-4">
+            <div className="row mb-4">
                 <div className="col">
-                    <Button size={"xl"}
-                            className="w-full"
-                            htmlType={"submit"}
-                            disabled={localIndicatorError || (confirmation.token && !confirmation.code)}
-                    >Confirm</Button>
+                    <span>{label}</span>
                 </div>
             </div>
-        </Form>
-    </>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Beneficiary Name</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    <span>{account.name}</span>
+                </div>
+            </div>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Account Number</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    <span>{account.number}</span>
+                </div>
+            </div>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Purpose</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    <span>Purchase of EURG for EUR</span>
+                </div>
+            </div>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Amount</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    <span>{amount} {$const}</span>
+                </div>
+            </div>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">Fee</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    {new Decimal(withdraw_fee).toString()} EUR
+                </div>
+            </div>
+            <div className="row mb-2">
+                <div className="col">
+                    <span className="text-gray-400">You will get</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    {new Decimal(amount).minus(withdraw_fee).toString()} EURG
+                </div>
+            </div>
+
+            <Form
+                onFinish={() => {
+                    setState(prev => ({
+                        ...prev,
+                        loading: true
+                    }));
+
+                    !confirmation.code
+                        ? onConfirm()
+                        : apiPasswordVerify(md5(`${confirmation.code}_${phone}`))
+                            .then(onConfirm)
+                            .catch(onError)
+                }}
+            >
+                {!confirmation.token ? null : <>
+                    <span className="text-gray-400">Transfer confirm</span>
+
+                    <FormItem className={"mb-4"} name="code" label="Code" preserve>
+                        <Input type="text"
+                               onInput={(e) => {
+                                   onInput(e);
+                                   localErrorClear();
+                               }}
+                               placeholder="Enter your PIN"
+                               onChange={({target}) => setState(prev => ({
+                                   ...prev,
+                                   confirmation: {
+                                       ...prev.confirmation,
+                                       code: target.value.replace(/ /g, '')
+                                   }
+                               }))}
+                               autoComplete="off"
+                        />
+                    </FormItem>
+                </>}
+                <div className="row">
+                    <div className="col">
+                        {localErrorInfoBox}
+                    </div>
+                </div>
+                <div className="row mt-4 mb-4">
+                    <div className="col">
+                        <Button size={"xl"}
+                                className="w-full"
+                                htmlType={"submit"}
+                                disabled={localIndicatorError || (confirmation.token && !confirmation.code)}
+                        >Confirm</Button>
+                    </div>
+                </div>
+            </Form>
+        </div>
+    </div>
 }
 
 export default WithdrawConfirmBroker;

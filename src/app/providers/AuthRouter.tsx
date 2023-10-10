@@ -4,59 +4,76 @@ import {createContext, FC, PropsWithChildren, useContext, useEffect, useMemo} fr
 import {clearAllCookies, getCookieData, setCookieData, throttle} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 const AuthContext = createContext({});
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "@/processes/firebaseConfig";
 
 
 interface IValue {
     token: string;
-    login: (phone: string, token: string, tokenHeaderName?: string) => void;
+    login: (phone: string, token: string, tokenHeaderName?: string, refreshToken?: string) => void;
     logout: () => void;
 }
+
+
+function inactivityTime() {
+
+    let time = undefined
+
+    document.addEventListener('mousemove', throttle(resetTimer, 5000));
+    document.addEventListener('keypress', throttle(resetTimer, 5000));
+
+    function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(fn, 900000)
+    }
+
+    function fn() {
+        this.logout()
+    }
+
+};
 
 export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
 
     useEffect(() => {
-        let inactivityTime = () => {
-            let time = undefined
-
-            document.addEventListener('mousemove', throttle(resetTimer, 5000));
-            document.addEventListener('keypress', throttle(resetTimer, 5000));
-
-            function resetTimer() {
-                clearTimeout(time);
-                time = setTimeout(fn, 900000)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log(user)
+            } else {
+                const idToken = await user.getIdToken(/* forceRefresh */ true);
+                console.log("idToken")
+                console.log(idToken)
             }
+        });
 
-            function fn() {
-                logout()
-            }
-
-        };
-
-        inactivityTime();
-
+        inactivityTime.call({logout});
     }, []);
 
     const navigate = useNavigate();
-    const {token} = getCookieData<{ token: string }>();
+    const {token, tokenHeaderName} = getCookieData<{ token: string, tokenHeaderName: string }>();
 
     // call this function when you want to authenticate the user
-    const login = (phone: string, token: string, tokenHeaderName: string = 'token') => {
+    const login = (phone: string, token: string, tokenHeaderName: string = 'token', refreshToken: string = null) => {
 
         setCookieData([
             {
                 key: "phone",
                 value: formatAsNumber(phone),
-                expiration: 9999999
+                expiration: 3600000
             }, {
                 key: "token",
                 value: token,
-                expiration: 9999999
+                expiration: 3600000
             },
             {
                 key: "tokenHeaderName",
                 value: tokenHeaderName,
-                expiration: 9999999
+                expiration: 3600000
+            }, {
+                key: "refreshToken",
+                value: refreshToken,
+                expiration: 3600000
             }])
 
         $axios.defaults.headers[tokenHeaderName] = token;
@@ -69,7 +86,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const logout = () => {
 
-        $axios.defaults.headers['token'] = undefined;
+        $axios.defaults.headers[tokenHeaderName] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
         $axios.defaults.headers['AccountId'] = undefined;
         window.recaptchaVerifier = undefined;

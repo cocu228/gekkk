@@ -1,4 +1,4 @@
-const transferDescription = [
+export const transferDescriptions = [
     {value: 'transferDetails.first_element', label: 'Other'},
     {value: 'transferDetails.second_element', label: 'Top up my account'},
     {value: 'transferDetails.third_element', label: 'Loan repayment under the agreement'},
@@ -17,4 +17,14 @@ const transferDescription = [
     {value: 'transferDetails.sixteenth_element', label: 'Commission payment'}
 ]
 
-export default transferDescription
+
+export const swiftCommission = [
+    {value: 'BENEFICIARY', label: 'BENEFICIARY'},
+    {value: 'SHARED.second_element', label: 'SHARED'},
+    {value: 'SENDER', label: 'SENDER'},
+]
+export const swiftUrgency = [
+    {value: 'NORMAL', label: 'NORMAL'},
+    {value: 'URGENT', label: 'URGENT'},
+    {value: 'EXPRESS', label: 'EXPRESS'},
+]

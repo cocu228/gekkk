@@ -60,7 +60,7 @@ const CreateCode = () => {
                     <div className="col">
                         <div className="wrapper w-full mb-3 xl:mb-8 md:mb-7">
                             <InputCurrency.Validator
-                                value={amount}
+                                value={new Decimal(amount).toNumber()}
                                 validators={[validateBalance(currencies.get(currency.$const), navigate)]}
                             >
                                 <InputCurrency.PercentSelector onSelect={setAmount}

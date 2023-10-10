@@ -1,7 +1,7 @@
 import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import GTable from "@/shared/ui/grid-table";
-import {apiHistoryTransactions} from "@/shared/api";
+import {apiHistoryTransactions, IResHistoryTransactions} from "@/shared/api";
 import {CtxRootData} from "@/processes/RootContext";
 import InfoContent from "../history/ui/InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
@@ -14,7 +14,7 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 export const UnconfirmedTransactions = () => {
 
-    const [state, setState] = useState([]);
+    const [state, setState] = useState<IResHistoryTransactions[]>([]);
     const {refreshKey, account} = useContext(CtxRootData);
     const {showModal, isModalOpen, handleCancel} = useModal();
     const {currencies} = useContext(CtxCurrencies);
@@ -86,7 +86,7 @@ export const UnconfirmedTransactions = () => {
                                             <div>
                                                 <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
                                                     {!item.is_income && '-'}
-                                                    {+item.amount.toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
+                                                    {Number(item.amount).toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
                                                 </span>
                                             </div>
                                         </GTable.Col>

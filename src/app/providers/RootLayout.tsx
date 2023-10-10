@@ -25,15 +25,10 @@ export default memo(function () {
 
     const accounts = storeAccounts(state => state.accounts);
     const getAccounts = storeAccounts(state => state.getAccounts);
-    const getBankCards = storeBankCards(state => state.getBankCards);
-    // const getOrganizations = storeOrganizations(state => state.getOrganizations);
 
     useEffect(() => {
         (async () => {
-            // getOrganizations();
             await getAccounts();
-
-            getBankCards();
         })();
     }, []);
 
@@ -42,7 +37,7 @@ export default memo(function () {
             const cookieData = getCookieData<{accountId?: string}>();
             const activeAccount = accounts.find(a => a.current);
 
-            console.log(`root: accounts`, accounts);
+
             
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId

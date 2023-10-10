@@ -1,6 +1,7 @@
 // import {apiRequestCode, apiSignIn} from "@/widgets/auth/api";
 import React, {SetStateAction} from "react";
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
+import {differenceInSeconds} from "date-fns";
 
 export const helperApiRequestCode = function (response) {
     return actionSuccessConstructor(!!response.data?.success)
@@ -18,6 +19,9 @@ export const helperApiQRCode = function (response) {
 export const helperApiCheckPassword = function (response) {
     return actionSuccessConstructor(response.data?.status === "ok")
 }
+export const helperApiVerifyPassword = function (response) {
+    return actionSuccessConstructor(response.data?.status === "ok")
+}
 
 
 export const authForTokenHashUrl = function () {
@@ -33,59 +37,79 @@ export const authForTokenHashUrl = function () {
 }
 
 
+
 export class Timer {
 
-    timerProcess: any;
-    timerRunProcess: ReturnType<typeof setInterval> | null;
+    timerProcess: ReturnType<typeof setInterval> | (() => ReturnType<typeof setInterval>);
     timeCount: number;
+    seconds: number;
     setState: React.Dispatch<React.SetStateAction<any>>;
-    setSessionGlobal: React.Dispatch<React.SetStateAction<any>>;
 
     constructor(
-        seconds: number,
         setState: React.Dispatch<React.SetStateAction<any>>,
-        setSessionGlobal: React.Dispatch<SetStateAction<any>>
+        seconds: number = 60,
     ) {
 
-        this.timerProcess = () => (() => setInterval(this.processCount.bind(this), 1000))()
-
-        this.timerRunProcess = null
+        this.timerProcess = () => setInterval(this.processCount.bind(this), 1000)
         this.timeCount = seconds
+        this.seconds = seconds
         this.setState = setState
-        this.setSessionGlobal = setSessionGlobal
+
+
+        const sessionTimer = sessionStorage.getItem("timer")
+        const waiting = "waiting" === sessionTimer
+
+        if (!waiting) {
+            if (sessionTimer) {
+
+                const date1 = new Date(sessionTimer);
+                const date2 = new Date();
+
+                const difference = differenceInSeconds(date2, date1);
+
+                if (difference <= seconds) {
+                    this.timeCount = seconds - difference
+                    this.run()
+                }
+
+            } else {
+                sessionTimer !== "waiting" && this.run()
+            }
+        }
 
     }
 
     private processCount() {
 
         if (this.timeCount === 0) {
-
-            clearTimeout(this.timerRunProcess)
-
-            this.setState(null)
-
-            // this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: null}))
-
+            this.clear()
+            sessionStorage.setItem("timer", "waiting");
         } else {
-
             this.setState(this.timeCount)
-
             this.timeCount--
         }
 
     }
 
-    run(seconds?: number) {
+    run() {
 
-        !seconds && this.setSessionGlobal((prev: object) => ({...prev, dateTimeStart: new Date()}))
+        sessionStorage.setItem("timer", String(new Date()));
 
-        this.timeCount = seconds ?? this.timeCount
-
-        this.timerRunProcess = this.timerProcess()
-
+        if (typeof this.timerProcess === "function") {
+            this.timerProcess = this.timerProcess()
+        }
     }
 
     clear() {
-        clearTimeout(this.timerRunProcess)
+        if (typeof this.timerProcess === "number") {
+            clearTimeout(this.timerProcess)
+        }
+
+        sessionStorage.removeItem("timer")
+
+        this.timerProcess = () => setInterval(this.processCount.bind(this), 1000)
+        this.timeCount = this.seconds
+
+        this.setState(null)
     }
 }

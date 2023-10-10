@@ -1,4 +1,4 @@
-import {Input} from "antd";
+import Input from "@/shared/ui/input/Input";
 import React, {useState, useEffect, createRef} from 'react';
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
@@ -26,7 +26,7 @@ const CreditCardInput = ({onChange}: {onChange: (value: string) => void}) => {
                 refs[index + 1].current.focus();
             }
         }
-        
+
         onChange(newCardNumber.join(''));
     };
 

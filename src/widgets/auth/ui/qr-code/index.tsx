@@ -6,12 +6,12 @@ import {useAuth} from "@/app/providers/AuthRouter";
 import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import { AxiosResponse } from 'axios';
 import { $AxiosResponse } from '@/shared/lib/(cs)axios';
-import { storyDisplayStage } from '../../model/story';
+import { storyDisplayAuth } from '../../model/story';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 
 const QRCode = memo(() => {
 
-    const {toggleStage} = storyDisplayStage(state => state);
+    const {toggleStage} = storyDisplayAuth(state => state);
     const [hash, setHash] = useState<null | string>(null);
     const ref = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
     const {login} = useAuth()

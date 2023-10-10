@@ -1,81 +1,84 @@
-import {useEffect, useMemo, useState} from "react";
-// import Decimal from "decimal.js";
-import {Timer} from "@/widgets/auth/model/helpers";
+import {memo} from "react";
 import {useSessionStorage} from "usehooks-ts";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {signInWithPhoneNumber, RecaptchaVerifier} from 'firebase/auth';
 import {auth} from "@/processes/firebaseConfig";
-import {differenceInSeconds} from 'date-fns';
+import Timer from "@/shared/model/hooks/useTimer";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {apiRequestCode} from "@/widgets/auth/api";
+import {helperApiRequestCode} from "@/widgets/auth/model/helpers";
+// import {storyDisplayAuth} from "@/widgets/auth/model/story";
+import useError from "@/shared/model/hooks/useError";
 
-export const ReSendCode = () => {
+export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
     const [{
-        phone,
-        dateTimeStart,
-        verificationId
-    }, setSessionGlobal] = useSessionStorage<TSessionAuth>("session-auth",
+        phone
+    }, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
         {
             phone: "",
-            dateTimeStart: null,
             verificationId: "",
             sessionIdUAS: ""
         }
     );
 
-    const [state, setState] = useState<null | number>(null)
-
-    const instanceTimer = useMemo(() => new Timer(60, setState, setSessionGlobal), [])
-
-    useEffect(() => {
-
-        if (dateTimeStart) {
-
-            const date1 = new Date(dateTimeStart);
-            const date2 = new Date();
-
-            const difference = differenceInSeconds(date2, date1);
-
-            difference <= 60 && instanceTimer.run(60 - difference)
-
-        } else {
-            instanceTimer.run()
-        }
-
-        return () => instanceTimer.clear()
-
-    }, [verificationId]);
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const onSend = () => {
 
-        if (!window.recaptchaVerifier) {
+        signInWithPhoneNumber(auth, "+" + phone, window.recaptchaVerifier)
+            .then(({verificationId}) => {
 
+                setSessionAuth(prev => ({
+                    ...prev,
+                    verificationId
+                }));
+
+            }).catch(function (error) {
+
+            localErrorHunter(error)
+        });
+
+    }
+
+    const onVerifierUAS = async () => {
+
+        const response = await apiRequestCode(formatAsNumber(phone))
+
+        helperApiRequestCode(response).success(() => {
+            setSessionAuth(prev => ({
+                ...prev,
+                sessionIdUAS: response.data.sessid
+            }))
+
+        }).reject((e) => {
+
+            localErrorHunter(e)
+        })
+    }
+
+    const onVerifier = function () {
+
+        return new Promise((resolve, reject) => {
+
+        if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
                 size: "invisible",
                 callback: (response: unknown) => {
                     onSend()
-
                 }
             })
-        } else {
-
-            signInWithPhoneNumber(auth, "+" + phone, window.recaptchaVerifier)
-                .then(function (confirmationResult) {
-                    setSessionGlobal(prev => ({
-                        ...prev,
-                        verificationId: confirmationResult.verificationId
-                    }))
-
-                    instanceTimer.run()
-
-                }).catch(function (error) {
-                console.log(error)
-            });
         }
+            window.recaptchaVerifier.verify().then(value => {
+                resolve(value)
+            })
+
+        })
     }
 
 
-    return <div>
-        {state === null ? <a onClick={onSend}>Send a repeat message to your phone</a> :
-            <span>You can resend the message via: {state}</span>}
-    </div>
-}
+    return <>
+        {localErrorSpan}
+        <Timer onAction={isUAS ? onVerifierUAS : onVerifier}/>
+    </>
+})

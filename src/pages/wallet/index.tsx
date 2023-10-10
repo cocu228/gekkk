@@ -1,30 +1,38 @@
-import {useContext} from "react";
 import {useParams} from "react-router-dom";
-import Transfer from "../../widgets/wallet/code-transfer";
+import {useContext, useEffect} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
-import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
+import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui";
-import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
-import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
-import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import { CtxRootData } from "@/processes/RootContext";
-import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
-import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
-import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
-import { AccountRights } from "@/shared/config/account-rights";
+import Transfer from "../../widgets/wallet/code-transfer";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {AccountRights} from "@/shared/config/account-rights";
+import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
+import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
+import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
+import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
+import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
+import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 
 function Wallet() {
-
     const {currency, tab} = useParams();
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
     const $currency = currencies.get(currency);
-
+    const cards = storeBankCards(state => state.bankCards);
+    const getBankCards = storeBankCards(state => state.getBankCards);
+    
+    useEffect(() => {
+        if (!cards && currency === 'EUR') {
+            getBankCards();
+        }
+    }, [currency]);
+    
     return (
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
@@ -53,11 +61,11 @@ function Wallet() {
 
                             <About data-tab={"About"}/>
 
-                            {xl && <History currenciesFilter={[currency]} data-tab={"History"}/>}
+                            {xl && <History currenciesFilter={[$currency.$const]} data-tab={"History"}/>}
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History types={[]} currenciesFilter={[currency]}/>
+                            <History currenciesFilter={[$currency.$const]}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

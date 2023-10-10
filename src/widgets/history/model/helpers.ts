@@ -1,6 +1,8 @@
 import {format, startOfMonth, subDays, subYears} from "date-fns";
 import {TabKey, HistoryTab} from "../model/types";
 import {formatForDisplay} from "@/shared/lib/date-helper";
+import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
+import Decimal from "decimal.js";
 
 // const timeZoneCustomer = 'Europe/Moscow'
 
@@ -40,3 +42,23 @@ export const containsNonLatinCharacters = (str) =>{
     return /^[^\u0000-\u007F]+$/.test(str);
 
 }
+
+// export const formatAsFee = (value: number, max = 18) => {
+//
+//     const decimal = new Decimal(value)
+//
+//     if (decimal.isFinite()) {
+//         const decimalString = decimal.toString()
+//         const regex = /e-(\d+)/;
+//         const match = decimalString.match(regex);
+//
+//         if (match && new Decimal(match[1]).toNumber() < max) {
+//             return decimal.toFixed(new Decimal(match[1]).toNumber());
+//         } else {
+//             return value;
+//         }
+//     } else {
+//         return value;
+//     }
+//
+// }

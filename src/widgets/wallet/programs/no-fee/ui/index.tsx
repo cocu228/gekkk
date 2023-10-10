@@ -11,6 +11,8 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const NoFeeProgram = () => {
     const navigate = useNavigate();
@@ -20,6 +22,9 @@ const NoFeeProgram = () => {
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     return (
         <>
@@ -119,21 +124,22 @@ const NoFeeProgram = () => {
             <div className="row mb-7">
                 <div className="col">
                     <InputCurrency.Validator
-                        value={amount}
+                        value={inputCurr.value.number}
+                        onError={setInputCurrValid}
                         description={`Minimum lock amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(100)
+                            validateMinimumAmount(100, inputCurr.value.number, currency.$const)
                         ]}
                     >
-                        <InputCurrency.PercentSelector onSelect={setAmount}
-                                                       header={<span className='text-gray-600'>Input</span>}
+                        <InputCurrency.PercentSelector onSelect={setInputCurr}
+                                                       header={<span className='text-gray-600'>Amount</span>}
                                                        currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
-                                    value={amount}
+                                    value={inputCurr.value.string}
                                     currency={currency.$const}
-                                    onChange={v => setAmount(v)}
+                                    onChange={setInputCurr}
                                 />
                             </InputCurrency.DisplayBalance>
                         </InputCurrency.PercentSelector>
@@ -193,6 +199,7 @@ const NoFeeProgram = () => {
                     <Button
                         size="xl"
                         className="w-full"
+                        disabled={inputCurrValid.value}
                         onClick={async () => {
                             setAmount('');
                             lockConfirmModal.handleCancel();

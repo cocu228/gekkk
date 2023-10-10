@@ -21,7 +21,7 @@ const ChoseNetwork = ({withdraw = false}) => {
         {/*        <span className="font-bold">{currency.name} <span>({currency.const})</span></span>*/}
         {/*    </div>*/}
         {/*</div>*/}
-        <div className="row mb-8 w-full">
+        <div className="row mb-8 w-full font-medium">
             {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
                 withdraw ? "Select withdraw network" : "Select network"}
 

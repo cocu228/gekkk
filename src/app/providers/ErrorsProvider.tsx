@@ -6,6 +6,7 @@ import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
 import PageProblems from "@/pages/page-problems/PageProblems";
 import {AxiosResponse} from "axios";
+import {useAuth} from "@/app/providers/AuthRouter";
 
 
 interface IState {
@@ -45,6 +46,7 @@ function hunter(error) {
 
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
+    const {logout} = useAuth()
 
     if (useLocation().state === 500) {
         window.history.replaceState({}, document.title)
@@ -67,7 +69,11 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
                 if (response.data.error.code === 10024) return response;
                 if (response.data.error.code === 10039) return response;
                 if (response.data.error.code === 10047) return response;
+                if (response.data.error.code === 10047) return response;
+                if (response.data.error.code === 10064) return response;
+                if (response.data.error.code === 10035) return response;
                 if (response.data.error.code === 10054) return response;
+                if (response.data.error.code === 10065) logout();
 
                 const message: string = response.data.error.message
                 const id: string = randomId()

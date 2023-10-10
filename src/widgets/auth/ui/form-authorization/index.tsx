@@ -211,6 +211,11 @@ const FormLoginAccount = memo(() => {
                     tabIndex={0}
                     htmlType="submit"
                     className="w-full">Login</Button>
+            
+            <Button disabled={loading || state.phone === ""}
+                    tabIndex={0}
+                    onClick={onSingInUAS}
+                    className="w-full mt-3">Sign in (UAS)</Button>
         </div>
 
         <div className='text-center'>

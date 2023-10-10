@@ -21,6 +21,7 @@ import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 import {apiRequestCode} from "@/widgets/auth/api";
+import {useSearchParams} from "react-router-dom";
 // import {uncoverResponse} from "@/shared/lib/helpers";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,7 +29,8 @@ import {apiRequestCode} from "@/widgets/auth/api";
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
-
+    const [params] = useSearchParams();
+    const authMethod = params.get("authMethod");
     const {toggleStage} = storyDisplayAuth(state => state)
     const {md} = useContext(BreakpointsContext)
     const {phoneValidator, pinValidator} = useValidation()
@@ -157,7 +159,7 @@ const FormLoginAccount = memo(() => {
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form autoComplete={"on"} onFinish={onFinish}>
+    return <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
@@ -211,11 +213,6 @@ const FormLoginAccount = memo(() => {
                     tabIndex={0}
                     htmlType="submit"
                     className="w-full">Login</Button>
-            
-            <Button disabled={loading || state.phone === ""}
-                    tabIndex={0}
-                    onClick={onSingInUAS}
-                    className="w-full mt-3">Sign in (UAS)</Button>
         </div>
 
         <div className='text-center'>

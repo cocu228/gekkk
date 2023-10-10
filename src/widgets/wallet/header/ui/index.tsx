@@ -46,9 +46,11 @@ const WalletHeader = () => {
                             </span>
                         </div>
                     ) : (
-                        <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
-                            Account: {account.number}
-                        </span>
+                        <div className='grid auto-cols-fr ellipsis'>
+                            <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                                Account: {account.number}
+                            </span>
+                        </div>
                     )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">

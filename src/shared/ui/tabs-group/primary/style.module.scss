@@ -25,6 +25,25 @@
   }
 }
 
+.Underline {
+  height: 2px;
+  overflow: hidden;
+  background-color: var(--color-gray-200);
+  margin: 39px calc(-1 * var(--content-pad-right)) -39px calc(-1 * var(--content-pad-left));
+
+  @include max-devices(xxl) {
+    margin: 39px calc(-1 * var(--content-pad-horizontal-md)) -39px calc(-1 * var(--content-pad-horizontal-md));
+  }
+  
+  @include max-devices(xl) {
+    margin: 39px calc(-1 * var(--content-pad-horizontal-md)) -39px calc(-1 * var(--content-pad-horizontal-md));
+  }
+
+  @include max-devices(md) {
+    margin: 55px calc(-1 * var(--content-pad-horizontal-md)) -55px calc(-1 * var(--content-pad-horizontal-md));
+  }
+}
+
 .TabsWrapper {
   width: auto;
   position: relative;
@@ -32,7 +51,6 @@
   margin-right: calc(-1 * var(--content-pad-right));
   padding-left: var(--content-pad-left);
   padding-right: var(--content-pad-right);
-  margin-bottom: 40px;
   overflow-x: auto;
 
   &::-webkit-scrollbar {
@@ -43,16 +61,16 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    background-color: var(--color-gray-200);
-    bottom: 0;
-    height: 2px;
-    width: 100%;
-  }
+  // Previous underline method
+  //&:after {
+  //  content: "";
+  //  left: 0;
+  //  right: 0;
+  //  bottom: 0;
+  //  height: 2px;
+  //  position: absolute;
+  //  background-color: var(--color-gray-200);
+  //}
 
   @include max-devices(xl) {
     padding-left: var(--content-pad-left-xl);

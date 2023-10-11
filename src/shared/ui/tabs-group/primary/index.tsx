@@ -57,17 +57,20 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
     }, [callInitValue]);
 
     return <>
-        <div className={`${styles.TabsWrapper}`}>
-            <div className='flex'>
-                {buttons.map((item, i) => <button
-                    key={"tabs-primary-button" + i}
-                    className={`
+        <div className='mb-10'>
+            <div className={styles.Underline}/>
+            <div className={styles.TabsWrapper}>
+                <div className='flex'>
+                    {buttons.map((item, i) => <button
+                        key={"tabs-primary-button" + i}
+                        className={`
                                 ${styles.TabBtn}
                                 ${isActiveClass(item === state)}
                             `}
-                    onClick={() => setState(item)}>
-                    {item.capitalize()}
-                </button>)}
+                        onClick={() => setState(item)}>
+                        {item.capitalize()}
+                    </button>)}
+                </div>
             </div>
         </div>
         {content}
@@ -75,4 +78,4 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
 }
 
 
-export default TabsGroupPrimary
+export default TabsGroupPrimary;

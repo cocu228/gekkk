@@ -15,12 +15,14 @@ export const CardStatusDescriptions: Record<string, string> = {
     PLASTIC_IN_WAY: 'In delivery service',
     STOLEN: 'Stolen',
     DEBIT_BLOCKED: 'Debit is blocked',
-    BLOCKED_BY_REGULATOR: 'Card is blocked by regulator'
+    BLOCKED_BY_REGULATOR: 'Card blocked by regulator',
+    BLOCKED_BY_CUSTOMER: 'Card blocked by client'
 }
 
 export interface IStoreBankCards {
     bankCards: IResCard[];
     getBankCards: () => Promise<void>;
+    updateCard: (card: IResCard) => void;
 }
 
 export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
@@ -32,5 +34,13 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
             ...state,
             bankCards: data.result.sort(c => c.cardStatus === 'ACTIVE' ? -1 : c.cardStatus === 'LOCKED' ? 0 : 1),
         }));
+    },
+    updateCard: (card: IResCard) => {
+        set((state) => {
+            const cardIndex = state.bankCards.findIndex(c => c.cardId === card.cardId)
+            state.bankCards[cardIndex] = card;
+            
+            return state;
+        });
     }
 })));

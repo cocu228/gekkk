@@ -16,6 +16,7 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {apiPasswordVerify, apiPaymentSepa, IResErrors} from "@/shared/api";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
+import usePinConfirmation from "./usePinConfirmation";
 
 interface IState {
     loading: boolean;
@@ -60,6 +61,8 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
+    const {confirmRequest, confirmationModal, isConfirmationRequired} = usePinConfirmation();
+    
     const details = useRef({
         purpose: "Purchase of EURG for EUR",
         iban: token_hot_address,
@@ -76,37 +79,40 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     });
 
     const onConfirm = async () => {
-        const headers = await signHeadersGeneration(confirmation.token);
-
-        await apiPaymentSepa(
-            details.current,
-            false,
-            headers
-        ).then((response: AxiosResponse<IResErrors>) => {
-            const {data} = response;
-
-            if (data?.errors) {
-                if (data.errors[0].code !== 449) return;
-
-                setState(prev => ({
-                    ...prev,
-                    loading: false,
-                    confirmation: {
-                        ...prev.confirmation,
-                        token: data.errors[0].properties['confirmationToken'],
-                        codeLength: data.errors[0].properties['confirmationCodeLength']
-                    }
-                }));
-                return;
-            }
-
-            setState(prev => ({
-                ...prev,
-                loading: false,
-            }));
-            setRefresh();
-            handleCancel();
+        confirmRequest(apiPaymentSepa, {
+            payment_details: details.current,
+            commission: false
         });
+        
+        // await apiPaymentSepa({
+        //     payment_details: details.current,
+        //     commission: false,
+        //     headers: headers
+        // }).then((response: AxiosResponse<IResErrors>) => {
+        //     const {data} = response;
+        //
+        //     if (data?.errors) {
+        //         if (data.errors[0].code !== 449) return;
+        //
+        //         setState(prev => ({
+        //             ...prev,
+        //             loading: false,
+        //             confirmation: {
+        //                 ...prev.confirmation,
+        //                 token: data.errors[0].properties['confirmationToken'],
+        //                 codeLength: data.errors[0].properties['confirmationCodeLength']
+        //             }
+        //         }));
+        //         return;
+        //     }
+        //
+        //     setState(prev => ({
+        //         ...prev,
+        //         loading: false,
+        //     }));
+        //     setRefresh();
+        //     handleCancel();
+        // });
     }
 
     const onError = () => {
@@ -219,7 +225,9 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     {new Decimal(amount).minus(withdraw_fee).toString()} EURG
                 </div>
             </div>
-
+            
+            {confirmationModal}
+            
             <Form
                 onFinish={() => {
                     setState(prev => ({

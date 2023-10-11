@@ -1,12 +1,19 @@
 import {FC, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
 import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
-import {randomId, scrollToTop} from "@/shared/lib/helpers";
+import {getCookieData, randomId, scrollToTop} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
 import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
 import PageProblems from "@/pages/page-problems/PageProblems";
-import {AxiosResponse} from "axios";
+import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from "axios";
 import {useAuth} from "@/app/providers/AuthRouter";
+import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
+import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import FormItem from "@/shared/ui/form/form-item/FormItem";
+import Input from "@/shared/ui/input/Input";
+import Button from "@/shared/ui/button/Button";
+import {apiPasswordVerify} from "@/shared/api";
 
 
 interface IState {
@@ -53,9 +60,19 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         return <PageProblems code={500}/>
     }
 
-    const [state, setState] = useState<Array<IState>>([])
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const confirmActionModal = useModal();
+    const {phone} = getCookieData<{phone: string}>();
+    const [state, setState] = useState<Array<IState>>([]);
+    const [confirmationPin, setConfirmationPin] = useState(null);
+    const [confirmRequestCfg, setConfirmRequestCfg] = useState(null);
+    
+    const actionConfirm = async () => {
+        //const verifyResponse = apiPasswordVerify(md5(`${confirmationPin}_${phone}`))
+        //const response = await $axios.request(confirmRequestCfg);
+        
+        
+    }
 
     useLayoutEffect(() => {
 
@@ -82,6 +99,18 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
                 setState(prevState => [...prevState, {message, id, response: res}])
                 scrollToTop()
             }
+            
+            // if (response.data['errors'] && response.data['errors'][0].code === 449) {
+            //     const config = response.config;
+            //    
+            //     signHeadersGeneration(response.data['errors'][0].properties['confirmationToken'])
+            //         .then(headers => {
+            //             Object.assign(config.headers, headers)
+            //            
+            //             setConfirmRequestCfg(config);
+            //             confirmActionModal.showModal();
+            //         })
+            // }
 
             return response
 
@@ -99,6 +128,24 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">{state.map((item, i) =>
             <Item key={"ErrorMessage" + i} id={item.id} message={item.message} onClick={onClose}/>)}</div>}
         {props.children}
+        
+        <Modal
+            title={'Confirm action'}
+            open={confirmActionModal.isModalOpen}
+            onCancel={confirmActionModal.handleCancel}
+        >
+            <Input type="text"
+                   placeholder="Enter your PIN"
+                   className="mb-4"
+                   onChange={({target}) => setConfirmRequestCfg(target.value)}
+                   autoComplete="off"
+            />
+            
+            <Button size={"xl"}
+                    className="w-full"
+                    onClick={() => $axios.request(confirmRequestCfg)}
+            >Confirm</Button>
+        </Modal>
     </>
 }
 

@@ -1,7 +1,7 @@
 import $axios from "@/shared/lib/(cs)axios";
 import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 
-interface IParams {
+interface IPaymentDetails {
     iban: string;
     account: string;
     purpose: string;
@@ -24,11 +24,17 @@ interface IParams {
     // originatorData: string | null;
 }
 
-export const apiPaymentSepa = (
-    payment_details: IParams,
-    commission: boolean = false,
-    headers: Partial<SignHeaders> | null = null
-) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
+interface IParams {
+    commission: boolean;
+    payment_details: IPaymentDetails;
+    headers: Partial<SignHeaders> | null;
+}
+
+export const apiPaymentSepa = ({
+    headers = null,
+    payment_details,
+    commission = false
+}: IParams) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {
     headers: headers

@@ -198,7 +198,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{new Decimal(withdraw_fee).toString()} {$const}</span>
+                <span>{new Decimal(withdraw_fee || percent_fee).toString()} {withdraw_fee ? $const : "%"}</span>
             </div>
         </div>
         {description && <>

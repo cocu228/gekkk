@@ -1,6 +1,7 @@
 import {useContext} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
+import WithdrawFormPapayaIBAN from './forms/EURG-to-EUR/WithdrawFormPapayaIBAN';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
@@ -35,10 +36,7 @@ const Withdraw = () => {
                     <WithdrawFormCrypto/> :
                     formType === 150 ?
                         <div>
-                            <b>
-                            This is PapayaIBAN Withdraw!!
-                            </b>
-                            <WithdrawFormBroker/>
+                            <WithdrawFormPapayaIBAN/>
                         </div> :
                         151 === formType ?
                             <WithdrawFormSepa/> :

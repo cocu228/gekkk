@@ -20,14 +20,17 @@ import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 
 function Wallet() {
+
     const {currency, tab} = useParams();
+
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+
     const $currency = currencies.get(currency);
     const cards = storeBankCards(state => state.bankCards);
     const getBankCards = storeBankCards(state => state.getBankCards);
-    
+
     useEffect(() => {
         if (!cards && currency === 'EUR') {
             getBankCards();

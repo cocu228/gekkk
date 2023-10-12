@@ -1,6 +1,8 @@
-import React, {useState, ReactNode, useEffect} from "react";
+import React, {useState, ReactNode, useEffect, memo, useContext} from "react";
 import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
+import {useNavigate} from "react-router-dom";
+import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 
 interface IResult {
     content: ReactNode[] | unknown[];
@@ -38,7 +40,6 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
         }),
         buttons: buttons
     }
-
 }
 
 interface IParams {
@@ -47,13 +48,16 @@ interface IParams {
     callInitValue?: any;
 }
 
-const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
-
+const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) => {
+    const navigate = useNavigate();
+    const {$const} = useContext(CtxWalletData);
     const [state, setState] = useState(initValue);
     const {content, buttons} = filterChildrenByAttribute(children, state);
 
     useEffect(() => {
+
         setState(initValue);
+
     }, [callInitValue]);
 
     return <>
@@ -67,7 +71,10 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
                                 ${styles.TabBtn}
                                 ${isActiveClass(item === state)}
                             `}
-                        onClick={() => setState(item)}>
+                        onClick={() => {
+                            setState(item)
+                            navigate(`/wallet/${$const}/${item}`)
+                        }}>
                         {item.capitalize()}
                     </button>)}
                 </div>
@@ -75,7 +82,7 @@ const TabsGroupPrimary = ({children, initValue, callInitValue}: IParams) => {
         </div>
         {content}
     </>
-}
+})
 
 
 export default TabsGroupPrimary;

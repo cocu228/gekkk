@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, memo} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
@@ -12,7 +12,7 @@ import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/brok
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
 
-const Withdraw = () => {
+const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
@@ -69,6 +69,6 @@ const Withdraw = () => {
             </>}
         </div>
     );
-};
+});
 
 export default Withdraw;

@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -30,6 +30,7 @@ function Wallet() {
     const $currency = currencies.get(currency);
     const cards = storeBankCards(state => state.bankCards);
     const getBankCards = storeBankCards(state => state.getBankCards);
+    const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
 
     useEffect(() => {
         if (!cards && currency === 'EUR') {
@@ -66,11 +67,11 @@ function Wallet() {
                             
                             <About data-tab={"About"}/>
 
-                            {xl && <History currenciesFilter={[$currency.$const]} data-tab={"History"}/>}
+                            {xl && <History currenciesFilter={currencyForHistory} data-tab={"History"}/>}
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History currenciesFilter={[$currency.$const]}/>
+                            <History currenciesFilter={currencyForHistory}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

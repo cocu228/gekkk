@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {useContext, useEffect, useState} from 'react';
+import {memo, useContext, useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
@@ -18,7 +18,7 @@ import Loader from "@/shared/ui/loader";
 
 const {RangePicker} = DatePicker;
 
-function History({currenciesFilter, types}: Partial<Props>) {
+const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -176,6 +176,6 @@ function History({currenciesFilter, types}: Partial<Props>) {
             </div>}
         </div>
     );
-}
+})
 
 export default History;

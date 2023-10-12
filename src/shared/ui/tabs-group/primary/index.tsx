@@ -40,6 +40,7 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
         }),
         buttons: buttons
     }
+
 }
 
 interface IParams {

@@ -10,6 +10,7 @@ interface Props {
 }
 
 function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
+
     const [active, setActive] = useState(false);
 
     const onClick = async () => {

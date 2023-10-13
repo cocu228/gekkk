@@ -61,7 +61,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
     const details = useRef({
-        purpose: "Purchase of EURG for EUR",
+        purpose: "Purchase of EURG tokens",
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,
@@ -186,7 +186,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    <span>Purchase of EURG for EUR</span>
+                    <span>Purchase of EURG tokens</span>
                 </div>
             </div>
             <div className="row mb-2">

@@ -4,7 +4,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import BankCards from "@/widgets/wallet/header/ui/bank-cards/BankCards";
+import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 
 const getDescription = (c, name) => {
@@ -46,9 +46,11 @@ const WalletHeader = () => {
                             </span>
                         </div>
                     ) : (
-                        <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
-                            Account: {account.number}
-                        </span>
+                        <div className='grid auto-cols-fr ellipsis'>
+                            <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                                Account: {account.number}
+                            </span>
+                        </div>
                     )}
 
                     <div className="text-2xl font-bold text-gray-600 cursor-help">
@@ -97,7 +99,7 @@ const WalletHeader = () => {
             </div>
             
             {md ? null : isEUR ? (
-                <BankCards/>
+                <BankCardsCarousel wrapperClassName="h-[200px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0"/>
             ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">

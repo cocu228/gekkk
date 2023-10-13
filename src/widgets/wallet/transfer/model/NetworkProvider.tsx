@@ -15,15 +15,11 @@ interface IProps {
     children: React.ReactNode
 }
 
-
 const NetworkProvider = ({children, ...props}: IProps) => {
 
     const isTopUp = props["data-tab"] === "Top Up"
 
     const {$const} = useContext(CtxWalletData);
-
-    // if (!$const)
-    //     return null;
 
     const initState = {
         networksForSelector: null,
@@ -107,14 +103,13 @@ const NetworkProvider = ({children, ...props}: IProps) => {
     useEffect(() => {
 
         (async () => {
+
             const changedCurrency = $const !== prevDeps.current
 
             if (changedCurrency) {
-                //
+                prevDeps.current = $const;
+                clearState(changedCurrency)
             }
-            prevDeps.current = $const;
-
-            clearState(changedCurrency)
 
             const response: AxiosResponse = await apiTokenNetworks($const, isTopUp);
 

@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -10,6 +10,7 @@ import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
+import CardsMenu from "@/widgets/wallet/cards-menu/ui/CardsMenu";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
@@ -19,14 +20,18 @@ import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 
 function Wallet() {
+
     const {currency, tab} = useParams();
+
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+
     const $currency = currencies.get(currency);
     const cards = storeBankCards(state => state.bankCards);
     const getBankCards = storeBankCards(state => state.getBankCards);
-    
+    const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
+
     useEffect(() => {
         if (!cards && currency === 'EUR') {
             getBankCards();
@@ -50,22 +55,23 @@ function Wallet() {
 
                             <Transfer data-tab={"Funds transfer"}/>
 
-                            {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && (
+                            {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tab={"Cashback Program"}/>
-                            )}
+                                <CardsMenu data-tab={"Bank cards"}></CardsMenu>
+                            </>}
 
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                <GkeCashbackProgram data-tab={"Cashback Program"}/>
                                <NoFeeProgram data-tab={"No Fee Program"}/>
                             </>}
-
+                            
                             <About data-tab={"About"}/>
 
-                            {xl && <History currenciesFilter={[$currency.$const]} data-tab={"History"}/>}
+                            {xl && <History currenciesFilter={currencyForHistory} data-tab={"History"}/>}
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History currenciesFilter={[$currency.$const]}/>
+                            <History currenciesFilter={currencyForHistory}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

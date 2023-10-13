@@ -1,7 +1,6 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {IResCard, apiGetCards} from '@/shared/api';
-import bankCards from "@/widgets/wallet/header/ui/bank-cards/BankCards";
 
 export const CardStatusDescriptions: Record<string, string> = {
     LOCKED: 'Card locked',

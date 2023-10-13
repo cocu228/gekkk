@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, memo} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
@@ -12,7 +12,7 @@ import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/brok
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
 
-const Withdraw = () => {
+const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
@@ -34,12 +34,7 @@ const Withdraw = () => {
                 {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
                     <WithdrawFormCrypto/> :
                     formType === 150 ?
-                        <div>
-                            <b>
-                            This is PapayaIBAN Withdraw!!
-                            </b>
-                            <WithdrawFormBroker/>
-                        </div> :
+                        <WithdrawFormBroker/> :
                         151 === formType ?
                             <WithdrawFormSepa/> :
                             152 === formType ?
@@ -74,6 +69,6 @@ const Withdraw = () => {
             </>}
         </div>
     );
-};
+});
 
 export default Withdraw;

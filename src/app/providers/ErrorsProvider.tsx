@@ -1,19 +1,13 @@
-import {FC, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
-import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
-import {getCookieData, randomId, scrollToTop} from "@/shared/lib/helpers";
-import {useNavigate} from "react-router-dom";
+import {AxiosResponse} from "axios";
 import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
-import PageProblems from "@/pages/page-problems/PageProblems";
-import axios, {AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
-import Modal from "@/shared/ui/modal/Modal";
-import useModal from "@/shared/model/hooks/useModal";
-import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
-import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/button/Button";
-import {apiPasswordVerify} from "@/shared/api";
+import {randomId, scrollToTop} from "@/shared/lib/helpers";
+import PageProblems from "@/pages/page-problems/PageProblems";
+import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
+import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
+import usePinConfirmation from "@/shared/model/hooks/usePinConfirmation";
 
 
 interface IState {
@@ -61,19 +55,9 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
     }
 
     const navigate = useNavigate();
-    const confirmActionModal = useModal();
-    const {phone} = getCookieData<{phone: string}>();
     const [state, setState] = useState<Array<IState>>([]);
-    const [confirmationPin, setConfirmationPin] = useState(null);
-    const [confirmRequestCfg, setConfirmRequestCfg] = useState(null);
+    const {confirmationModal, requestConfirmation} = usePinConfirmation();
     
-    const actionConfirm = async () => {
-        //const verifyResponse = apiPasswordVerify(md5(`${confirmationPin}_${phone}`))
-        //const response = await $axios.request(confirmRequestCfg);
-        
-        
-    }
-
     useLayoutEffect(() => {
 
         $axios.interceptors.response.use((response: AxiosResponse<$AxiosResponse<Record<string, unknown> | null | unknown>>) => {
@@ -100,18 +84,10 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
                 scrollToTop()
             }
             
-            // if (response.data['errors'] && response.data['errors'][0].code === 449) {
-            //     const config = response.config;
-            //    
-            //     signHeadersGeneration(response.data['errors'][0].properties['confirmationToken'])
-            //         .then(headers => {
-            //             Object.assign(config.headers, headers)
-            //            
-            //             setConfirmRequestCfg(config);
-            //             confirmActionModal.showModal();
-            //         })
-            // }
-
+            if (response.data['errors'] && response.data['errors'][0].code === 449) {
+                requestConfirmation(response.config, response.data['errors'][0]?.properties['confirmationToken']);
+            }
+            
             return response
 
         }, hunter.bind({
@@ -124,39 +100,26 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
     const onClose = (id) => setState(prevState => [...prevState.filter(it => it.id !== id)])
 
     return <>
-        {<div
-            className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">{state.map((item, i) =>
-            <Item key={"ErrorMessage" + i} id={item.id} message={item.message} onClick={onClose}/>)}</div>}
-        {props.children}
+        {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
+            {state.map((item, i) =>
+                <Item key={"ErrorMessage" + i} id={item.id} message={item.message} onClick={onClose}/>)
+            }
+        </div>}
         
-        <Modal
-            title={'Confirm action'}
-            open={confirmActionModal.isModalOpen}
-            onCancel={confirmActionModal.handleCancel}
-        >
-            <Input type="text"
-                   placeholder="Enter your PIN"
-                   className="mb-4"
-                   onChange={({target}) => setConfirmRequestCfg(target.value)}
-                   autoComplete="off"
-            />
-            
-            <Button size={"xl"}
-                    className="w-full"
-                    onClick={() => $axios.request(confirmRequestCfg)}
-            >Confirm</Button>
-        </Modal>
+        {confirmationModal}
+        
+        {props.children}
     </>
 }
 
 const Item = ({onClick, message, id}: IItem) => {
     return <InfoBox message={message}>
         <span onClick={() => onClick(id)}
-              className="absolute right-[14px] m-auto min-h-min cursor-pointer">
-        <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
-            </span>
+              className="absolute right-[14px] m-auto min-h-min cursor-pointer"
+        >
+            <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
+        </span>
     </InfoBox>
-
 }
 
-export default ErrorsProvider
+export default ErrorsProvider;

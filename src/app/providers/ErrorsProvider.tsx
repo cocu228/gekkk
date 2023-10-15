@@ -7,8 +7,9 @@ import PageProblems from "@/pages/page-problems/PageProblems";
 import $axios from "@/shared/lib/(cs)axios";
 import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
 // import usePinConfirmation from "@/shared/model/hooks/usePinConfirmation";
-import {IServiceErrorProvider, IStateErrorProvider, TResponseErrorProvider} from "@/processes/types-errors-provider";
-import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/helpers-errors-provider";
+import {IServiceErrorProvider, IStateErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
+import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
+import {CtxNeedConfirm} from "@/processes/errors-provider-context";
 
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
@@ -21,6 +22,10 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     const navigate = useNavigate();
     const [state, setState] = useState<Array<IStateErrorProvider>>([]);
+    const [needConfirm, setNeedConfirm] = useState<{ status: boolean, response: TResponseErrorProvider }>({
+        status: false,
+        response: null
+    })
     // const {confirmationModal, requestConfirmation} = usePinConfirmation();
     
     useLayoutEffect(() => {
@@ -61,16 +66,15 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         </div>}
         
         {/*{confirmationModal}*/}
-        
+        <CtxNeedConfirm.Provider value={needConfirm}>
         {props.children}
+        </CtxNeedConfirm.Provider>
     </>
 }
 
 const Item = ({onClick, message, id}: IServiceErrorProvider) => {
     return <InfoBox message={message}>
-        <span onClick={() => onClick(id)}
-              className="absolute right-[14px] m-auto min-h-min cursor-pointer"
-        >
+        <span onClick={() => onClick(id)} className="absolute right-[14px] m-auto min-h-min cursor-pointer">
             <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
         </span>
     </InfoBox>

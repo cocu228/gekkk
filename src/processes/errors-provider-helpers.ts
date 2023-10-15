@@ -1,6 +1,6 @@
 import {isNull, randomId} from "@/shared/lib/helpers";
 import {uncoverArray} from "@/shared/lib/helpers";
-import {IStateErrorProvider, TResponseErrorProvider} from "@/processes/types-errors-provider";
+import {IStateErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
 
 export const skipList = [
     10006, 10007, 10016, 10024, 10039, 10047, 10064, 10035, 10054, 10065

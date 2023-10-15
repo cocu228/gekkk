@@ -84,7 +84,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 	}
 	
 	const confirmationModal = token && <Modal
-		open={isModalOpen}
+		open={true}
 		title='Confirm action'
 		onCancel={() => {
 			handleCancel();

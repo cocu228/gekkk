@@ -16,13 +16,17 @@ export function hunterErrorStatus(error) {
 
         return Promise.reject(error);
     }
-
-
-    this.setState(prevState => [...prevState, {
-        id: randomId(),
-        message: error.message,
-        response: error.response
-    }])
+    this.setState((prevState: IStateErrorProvider) => ({
+        ...prevState,
+        errors: [
+            ...prevState.errors,
+            {
+                id: randomId(),
+                message: error.message,
+                response: error.response
+            }
+        ]
+    }));
 
     // navigate("/")
 
@@ -80,18 +84,22 @@ export class HunterErrorsApi {
         this.filterListForSkip = resCodeList;
     }
 
-    getMessageObject(): IStateErrorProvider {
+    getMessageObject() {
         if (this.typeResponseError === "GEKKARD") {
             return {
-                message: this.response.data.error.message,
-                id: randomId(),
-                res: this.response.data
+                error: {
+                    message: this.response.data.error.message,
+                    code: this.response.data.error.code,
+                    type: "GEKKARD"
+                }
             }
         } else if (this.typeResponseError === "BANK") {
             return {
-                message: uncoverArray<{ message: string }>(this.response.data.errors).message,
-                id: randomId(),
-                res: this.response.data
+                error: {
+                    message: uncoverArray<{ message: string }>(this.response.data.errors).message,
+                    code: uncoverArray<{ code: number }>(this.response.data.errors).code,
+                    type: "BANK"
+                }
             }
         } else {
             return null

@@ -12,13 +12,15 @@ import WithdrawFormSwift from "@/widgets/wallet/transfer/withdraw/ui/forms/Withd
 import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
-import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
+    const {ratesEUR} = useContext(CtxCurrencies)
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
 
@@ -30,7 +32,9 @@ const Withdraw = memo(() => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
+    const withdrawEUR = getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
+    console.log(withdrawEUR)
 
     return (
         <div className='h-full'>
@@ -55,7 +59,10 @@ const Withdraw = memo(() => {
                     <div className="col">
                         <div className='text-center'>
                             Fee is {finalFeeEntity.type.number ?
-                            <b>{new Decimal(finalFeeEntity.value.number).toString()} {currency.$const}</b> :
+                            <>
+                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const}</span>
+                                {withdrawEUR && <span className="ml-2">( ~ <b>{withdrawEUR}</b> EUR)</span>}
+                            </> :
                             <b>{new Decimal(finalFeeEntity.value.percent).toString()} %</b>
                         } per transaction
                         </div>

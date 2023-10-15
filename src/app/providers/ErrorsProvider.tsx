@@ -10,13 +10,13 @@ import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
 import {
     IServiceErrorProvider,
     IStateErrorProvider,
-    TDataErrorProvider,
+    // TDataErrorProvider,
     TResponseErrorProvider
 } from "@/processes/errors-provider-types";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+// import {Simulate} from "react-dom/test-utils";
+// import error = Simulate.error;
 
 const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
 
@@ -79,7 +79,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     }, [])
 
-    const onClose = (id) => setState(prevState => ({
+    const onClose = (id: string) => setState(prevState => ({
         ...prevState,
         errors: [...prevState.errors.filter(it => it.id !== id)]
     }))

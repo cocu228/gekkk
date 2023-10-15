@@ -2,11 +2,11 @@ import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
-import {isNull, scrollToTop, uncoverArray} from "@/shared/lib/helpers";
+import {isNull, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
 import $axios from "@/shared/lib/(cs)axios";
 import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
-import usePinConfirmation from "@/shared/model/hooks/usePinConfirmation";
+// import usePinConfirmation from "@/shared/model/hooks/usePinConfirmation";
 import {IServiceErrorProvider, IStateErrorProvider, TResponseErrorProvider} from "@/processes/types-errors-provider";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/helpers-errors-provider";
 
@@ -21,7 +21,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     const navigate = useNavigate();
     const [state, setState] = useState<Array<IStateErrorProvider>>([]);
-    const {confirmationModal, requestConfirmation} = usePinConfirmation();
+    // const {confirmationModal, requestConfirmation} = usePinConfirmation();
     
     useLayoutEffect(() => {
 
@@ -60,7 +60,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             }
         </div>}
         
-        {confirmationModal}
+        {/*{confirmationModal}*/}
         
         {props.children}
     </>

@@ -20,6 +20,8 @@ import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/fo
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useForm} from "antd/es/form/Form";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 
 const initStageConfirm = {
@@ -57,6 +59,8 @@ const WithdrawConfirmCrypto = memo(({
 
     const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
+    const setContent = useContext(CtxModalTrxInfo)
+
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
@@ -94,7 +98,6 @@ const WithdrawConfirmCrypto = memo(({
         actionResSuccess(response)
 
             .success(() => {
-
                 const result = uncoverResponse(response)
 
                 if (result.confirmationStatusCode === 0 || reSendCode) {
@@ -107,6 +110,7 @@ const WithdrawConfirmCrypto = memo(({
                 }
                 if (result.confirmationStatusCode === 4) {
                     handleCancel()
+                    setContent(CtnTrxInfo)
                     setRefresh()
                 } else {
                     localErrorHunter({message: "Something went wrong.", code: 1})

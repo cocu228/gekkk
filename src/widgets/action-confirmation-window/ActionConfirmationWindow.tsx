@@ -75,52 +75,39 @@ const ActionConfirmationWindow = () => {
             const headers = type === "SIGN"
                 ? await signHeadersGeneration(token)
                 : await pinHeadersGeneration(token, code.replace(/ /g, ''));
-            await $axios.request({
-                ...config,
-                headers: {...headers}
+            
+            try {
+                await $axios.request({
+                    ...config,
+                    headers: { ...headers }
+                });
+                setSuccess();
+                setRefresh();
+                handleCancel();
+            } catch (error) {
+                handleError();
+            }
+        };
+        
+        const handleError = () => {
+            setState(prev => ({
+                ...prev,
+                code: null,
+                loading: false
+            }));
+            
+            localErrorHunter({
+                code: 401,
+                message: "Invalid confirmation PIN"
             });
-        }
+        };
         
         if (type === 'PIN') {
-            signedRequest()
-                .then(() => {
-                    setSuccess();
-                    setRefresh();
-                    handleCancel();
-                })
-                .catch(() => {
-                setState(prev => ({
-                    ...prev,
-                    code: null,
-                    loading: false
-                }));
-                
-                localErrorHunter({
-                    code: 401,
-                    message: "Invalid confirmation PIN"
-                });
-            });
-        }
-        else {
+            signedRequest();
+        } else {
             apiPasswordVerify(md5(`${code.replace(/ /g, '')}_${phone}`))
-                .then(() => signedRequest()
-                    .then(() => {
-                        setSuccess();
-                        setRefresh();
-                        handleCancel();
-                    }))
-                .catch(() => {
-                    setState(prev => ({
-                        ...prev,
-                        code: null,
-                        loading: false
-                    }));
-                    
-                    localErrorHunter({
-                        code: 401,
-                        message: "Invalid confirmation PIN"
-                    });
-                });
+                .then(() => signedRequest())
+                .catch(handleError);
         }
     }
     

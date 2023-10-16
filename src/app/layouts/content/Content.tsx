@@ -1,7 +1,7 @@
 import React, {FC, PropsWithChildren} from "react";
 import styles from "./style.module.scss";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
-import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ActionConfirmationWindow";
+import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
 

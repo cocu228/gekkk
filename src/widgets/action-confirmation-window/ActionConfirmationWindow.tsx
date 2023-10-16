@@ -8,33 +8,39 @@ import {MASK_CODE} from "@/shared/config/mask";
 import {apiPasswordVerify} from "@/shared/api";
 import {InternalAxiosRequestConfig} from "axios";
 import useMask from "@/shared/model/hooks/useMask";
-import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import {useContext, useEffect, useState} from "react";
+import {getCookieData, scrollToTop} from "@/shared/lib/helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import {pinHeadersGeneration, signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 
 
 interface IState {
     code: string;
     token: string;
     loading: boolean;
+    codeLength: number;
+    type: "SIGN" | "PIN";
     config: InternalAxiosRequestConfig<any>;
 }
 
 const ActionConfirmationWindow = () => {
     const [{
         code,
+        type,
         token,
         config,
-        loading
+        loading,
+        codeLength
     }, setState] = useState<IState>({
         code: null,
         token: null,
+        type: "SIGN",
         config: null,
-        loading: false
+        loading: false,
+        codeLength: null
     });
     const {onInput} = useMask(MASK_CODE);
     const {setRefresh} = useContext(CtxRootData);
@@ -49,9 +55,12 @@ const ActionConfirmationWindow = () => {
                 code: null,
                 loading: false,
                 config: response.config,
-                token: response.data.errors[0].properties.confirmationToken
+                type: response.config.headers['X-Confirmation-Type'],
+                token: response.data.errors[0].properties.confirmationToken,
+                codeLength: response.data.errors[0].properties.confirmationCodeLength
             });
             
+            scrollToTop();
             showModal();
         }
     }, [response]);
@@ -63,20 +72,23 @@ const ActionConfirmationWindow = () => {
         }));
         
         const signedRequest = async () => {
-            const headers = await signHeadersGeneration(token);
+            const headers = type === "SIGN"
+                ? await signHeadersGeneration(token)
+                : await pinHeadersGeneration(token, code.replace(/ /g, ''));
             await $axios.request({
                 ...config,
                 headers: {...headers}
             });
         }
         
-        apiPasswordVerify(md5(`${code.replace(/ /g, '')}_${phone}`))
-            .then(() => signedRequest().then(() => {
-                setSuccess();
-                setRefresh();
-                handleCancel();
-            }))
-            .catch(() => {
+        if (type === 'PIN') {
+            signedRequest()
+                .then(() => {
+                    setSuccess();
+                    setRefresh();
+                    handleCancel();
+                })
+                .catch(() => {
                 setState(prev => ({
                     ...prev,
                     code: null,
@@ -88,6 +100,28 @@ const ActionConfirmationWindow = () => {
                     message: "Invalid confirmation PIN"
                 });
             });
+        }
+        else {
+            apiPasswordVerify(md5(`${code.replace(/ /g, '')}_${phone}`))
+                .then(() => signedRequest()
+                    .then(() => {
+                        setSuccess();
+                        setRefresh();
+                        handleCancel();
+                    }))
+                .catch(() => {
+                    setState(prev => ({
+                        ...prev,
+                        code: null,
+                        loading: false
+                    }));
+                    
+                    localErrorHunter({
+                        code: 401,
+                        message: "Invalid confirmation PIN"
+                    });
+                });
+        }
     }
     
     return (
@@ -107,6 +141,10 @@ const ActionConfirmationWindow = () => {
                         type="text"
                         value={code}
                         onInput={onInput}
+                        maxLength={type === "PIN"
+                            ? codeLength * 2 - 2
+                            : null
+                        }
                         autoComplete="off"
                         placeholder="Enter your PIN"
                         onChange={({target}) => {

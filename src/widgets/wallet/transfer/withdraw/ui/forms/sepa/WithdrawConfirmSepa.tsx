@@ -15,8 +15,8 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {apiPasswordVerify} from "@/shared/api/various/password";
 import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {transferDescriptions} from "../../../model/transfer-descriptions";
-import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;

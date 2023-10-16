@@ -14,7 +14,6 @@ import FormItem from "@/shared/ui/form/form-item/FormItem";
 import {useContext, useEffect, useRef, useState} from "react";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
-import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiPasswordVerify, apiPaymentContact, IResCommission, IResErrors} from "@/shared/api";
 
@@ -76,7 +75,7 @@ const WithdrawConfirmCardToCard = ({
     });
 
     const onConfirm = async () => {
-        const headers = await signHeadersGeneration(confirmation.token);
+        const headers = await confirmationHeadersGeneration(confirmation.token);
 
         await apiPaymentContact(
             details.current,

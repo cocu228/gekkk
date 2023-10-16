@@ -7,7 +7,10 @@ export type TDataErrorsBank = {
     errors: Array<{
         code: number,
         message: string,
-        properties: { confirmationToken: string }
+        properties: {
+            confirmationToken: string,
+            confirmationCodeLength: number
+        }
     }>
 }
 

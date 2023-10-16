@@ -1,4 +1,4 @@
 import React from "react";
-import {TDataErrorsBank} from "@/processes/errors-provider-types";
+import {TResponseErrorProvider} from "@/processes/errors-provider-types";
 
-export const CtxNeedConfirm = React.createContext<{ data: TDataErrorsBank | null, setSuccess: () => void }>(null);
+export const CtxNeedConfirm = React.createContext<{ actionConfirmResponse: TResponseErrorProvider | null, setSuccess: () => void }>(null);

@@ -24,7 +24,7 @@ export interface IStateErrorProvider {
         type?: string,
         response?: null | TDataErrorProvider
     }> | null,
-    trxConfirm: null | TDataErrorsBank
+    actionConfirmResponse: null | TResponseErrorProvider
 }
 
 export interface IServiceErrorProvider {

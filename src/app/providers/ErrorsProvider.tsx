@@ -6,19 +6,15 @@ import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
 import $axios from "@/shared/lib/(cs)axios";
 import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
-// import usePinConfirmation from "@/shared/model/hooks/usePinConfirmation";
 import {
     IServiceErrorProvider,
     IStateErrorProvider,
-    // TDataErrorProvider,
     TResponseErrorProvider
 } from "@/processes/errors-provider-types";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-// import {Simulate} from "react-dom/test-utils";
-// import error = Simulate.error;
 
-const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
+const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
 
     const {logout} = useAuth()
 
@@ -31,12 +27,9 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
 
     const [state, setState] = useState<IStateErrorProvider>({
         errors: [],
-        trxConfirm: null
+        actionConfirmResponse: null
     });
 
-    // const clean
-    // const {confirmationModal, requestConfirmation} = usePinConfirmation();
-    
     useLayoutEffect(() => {
 
         $axios.interceptors.response.use((response: TResponseErrorProvider) => {
@@ -67,7 +60,7 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             if (hunterErrorsApi.isAuthExpired()) logout()
 
             if (hunterErrorsApi.isConfirmationToken()) {
-                setState(prev => ({...prev, trxConfirm: response.data}))
+                setState(prev => ({...prev, actionConfirmResponse: response}))
             }
 
             return response
@@ -91,15 +84,14 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
             }
         </div>}
         
-        {/*{confirmationModal}*/}
         <CtxNeedConfirm.Provider value={{
-            data: state.trxConfirm,
+            actionConfirmResponse: state.actionConfirmResponse,
             setSuccess: () => setState(prev => ({
                 ...prev,
-                trxConfirm: null
+                actionConfirmResponse: null
             }))
         }}>
-        {props.children}
+            {props.children}
         </CtxNeedConfirm.Provider>
     </>
 }

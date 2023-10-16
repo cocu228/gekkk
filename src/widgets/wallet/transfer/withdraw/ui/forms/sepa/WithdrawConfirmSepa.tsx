@@ -17,6 +17,8 @@ import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {transferDescriptions} from "../../../model/transfer-descriptions";
 import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 interface IState {
     loading: boolean;
@@ -57,7 +59,7 @@ const WithdrawConfirmSepa = ({
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
-
+    const setContent = useContext(CtxModalTrxInfo)
     const details = useRef({
         purpose: comment,
         iban: accountNumber,
@@ -105,6 +107,7 @@ const WithdrawConfirmSepa = ({
             }));
             setRefresh();
             handleCancel();
+            setContent(CtnTrxInfo)
         });
     }
     

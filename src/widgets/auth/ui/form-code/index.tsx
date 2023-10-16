@@ -138,6 +138,7 @@ const FormCode = memo(() => {
         <FormItem name="code" label="Code" preserve >
             <Input type="text"
                    ref={inputRef}
+                   data-testid="PhoneCode"
                    placeholder="Phone code"
                    onInput={onInput}
                    onChange={({target}) => onChange(target.value)}
@@ -164,6 +165,7 @@ const FormCode = memo(() => {
                 tabIndex={0}
                 htmlType='submit'
                 className='w-full'
+                data-testid='Next'
                 disabled={loading || code === ''}
             >Next</Button>
         </div>

@@ -86,7 +86,7 @@ const HeaderDesktop = memo((props) => {
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
             >
-                <div className="flex items-center justify-end">
+                <div className="flex items-center justify-end" data-testid="HeaderMenuContainer">
                     <div className="wrapper mr-2">
                         {account.rights[AccountRights.IsJuridical] ? (
                             <SvgSchema width={32} height={22}/>

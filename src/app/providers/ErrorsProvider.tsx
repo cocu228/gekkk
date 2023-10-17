@@ -1,51 +1,20 @@
-import {FC, PropsWithChildren, useLayoutEffect, useMemo, useState} from "react";
-import $axios, {$AxiosResponse} from "@/shared/lib/(cs)axios";
-import {randomId, scrollToTop} from "@/shared/lib/helpers";
-import {useNavigate} from "react-router-dom";
 import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
-import PageProblems from "@/pages/page-problems/PageProblems";
-import {AxiosResponse} from "axios";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
+import {randomId, scrollToTop} from "@/shared/lib/helpers";
+import PageProblems from "@/pages/page-problems/PageProblems";
+import $axios from "@/shared/lib/(cs)axios";
+import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
+import {
+    IServiceErrorProvider,
+    IStateErrorProvider,
+    TResponseErrorProvider
+} from "@/processes/errors-provider-types";
+import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
+import {CtxNeedConfirm} from "@/processes/errors-provider-context";
 
-
-interface IState {
-    id: string,
-    message: string,
-    response: Record<string, unknown>
-}
-
-interface IItem {
-    onClick: (val: string) => void,
-    message: string,
-    id: string
-}
-
-function hunter(error) {
-    if (error.response?.status === 500) {
-
-        this.navigate("/", {
-            state: 500
-        });
-
-        return Promise.reject(error);
-    }
-
-    if (error.code === "ERR_CANCELED") return Promise.reject(error)
-
-
-    this.setState(prevState => [...prevState, {
-        id: randomId(),
-        message: error.message,
-        response: error.response
-    }])
-
-    // navigate("/")
-
-    return Promise.reject(error);
-}
-
-const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Element | null {
+const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
 
     const {logout} = useAuth()
 
@@ -54,63 +23,85 @@ const ErrorsProvider: FC<PropsWithChildren<unknown>> = function (props): JSX.Ele
         return <PageProblems code={500}/>
     }
 
-    const [state, setState] = useState<Array<IState>>([])
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
+    const [state, setState] = useState<IStateErrorProvider>({
+        errors: [],
+        actionConfirmResponse: null
+    });
 
     useLayoutEffect(() => {
 
-        $axios.interceptors.response.use((response: AxiosResponse<$AxiosResponse<Record<string, unknown> | null | unknown>>) => {
+        $axios.interceptors.response.use((response: TResponseErrorProvider) => {
 
-            if (response.data.result === null && response.data.error !== null) {
+            const hunterErrorsApi = new HunterErrorsApi(response)
+            hunterErrorsApi.setFilterListForSkip(skipList);
 
-                if (response.data.error.code === 10006) return response;
-                if (response.data.error.code === 10007) return response;
-                if (response.data.error.code === 10016) return response;
-                if (response.data.error.code === 10024) return response;
-                if (response.data.error.code === 10039) return response;
-                if (response.data.error.code === 10047) return response;
-                if (response.data.error.code === 10047) return response;
-                if (response.data.error.code === 10064) return response;
-                if (response.data.error.code === 10035) return response;
-                if (response.data.error.code === 10054) return response;
-                if (response.data.error.code === 10065) logout();
+            if (hunterErrorsApi.isError()) {
 
-                const message: string = response.data.error.message
-                const id: string = randomId()
-                const res: Record<string, unknown> = response.data
+                const result = hunterErrorsApi.getMessageObject()
 
-                setState(prevState => [...prevState, {message, id, response: res}])
+                setState(prevState => ({
+                    ...prevState,
+                    errors: [
+                        ...prevState.errors,
+                        {
+                            id: randomId(),
+                            message: result.error.message,
+                            code: result.error.code,
+                            type: result.error.type
+                        }
+                    ]
+                }));
+
                 scrollToTop()
+            }
+
+            if (hunterErrorsApi.isAuthExpired()) logout()
+
+            if (hunterErrorsApi.isConfirmationToken()) {
+                setState(prev => ({...prev, actionConfirmResponse: response}))
             }
 
             return response
 
-        }, hunter.bind({
+        }, hunterErrorStatus.bind({
             navigate: navigate,
             setState: setState
         }));
 
     }, [])
 
-    const onClose = (id) => setState(prevState => [...prevState.filter(it => it.id !== id)])
+    const onClose = (id: string) => setState(prevState => ({
+        ...prevState,
+        errors: [...prevState.errors.filter(it => it.id !== id)]
+    }))
 
     return <>
-        {<div
-            className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">{state.map((item, i) =>
-            <Item key={"ErrorMessage" + i} id={item.id} message={item.message} onClick={onClose}/>)}</div>}
-        {props.children}
+        {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
+            {state.errors.map((item, i) =>
+                <Item key={"ErrorMessage" + i} id={item.id} message={item.message} type={item.type} onClick={onClose}/>)
+            }
+        </div>}
+        
+        <CtxNeedConfirm.Provider value={{
+            actionConfirmResponse: state.actionConfirmResponse,
+            setSuccess: () => setState(prev => ({
+                ...prev,
+                actionConfirmResponse: null
+            }))
+        }}>
+            {props.children}
+        </CtxNeedConfirm.Provider>
     </>
 }
 
-const Item = ({onClick, message, id}: IItem) => {
-    return <InfoBox message={message}>
-        <span onClick={() => onClick(id)}
-              className="absolute right-[14px] m-auto min-h-min cursor-pointer">
-        <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
-            </span>
+const Item = ({onClick, message, id, type = "GEKKARD"}: IServiceErrorProvider) => {
+    return <InfoBox className={type !== "GEKKARD" ? "!bg-red-400 !text-red-400" : ""} message={message}>
+        <span onClick={() => onClick(id)} className="absolute right-[14px] m-auto min-h-min cursor-pointer">
+            <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
+        </span>
     </InfoBox>
-
 }
 
-export default ErrorsProvider
+export default ErrorsProvider;

@@ -19,4 +19,8 @@ export const apiUpdateCard = (cardId: string, params: Partial<IParams>) =>
         card: {
             ...params
         }
+    }, {
+        headers: {
+            "X-Confirmation-Type": "PIN"
+        }
     });

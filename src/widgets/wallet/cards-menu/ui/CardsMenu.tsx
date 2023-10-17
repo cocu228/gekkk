@@ -41,10 +41,7 @@ const CardsMenu = () => {
     }
     
     return !card ? <Loader/> : (<>
-        <BankCardsCarousel
-            onSelect={setCard}
-            cardClassName='ml-4'
-        />
+        <BankCardsCarousel onSelect={setCard}/>
         
         <span className={`
                 ${!bankCards.some(c => c.cardStatus === 'ACTIVE')
@@ -117,7 +114,10 @@ const CardsMenu = () => {
             />
         )}
         
-        <Modal>
+        <Modal
+            onCancel={confirmationModal.handleCancel}
+            open={confirmationModal.isModalOpen}
+        >
             
         </Modal>
     </>);

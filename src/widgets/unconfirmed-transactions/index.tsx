@@ -17,7 +17,6 @@ export const UnconfirmedTransactions = () => {
     const [state, setState] = useState<IResHistoryTransactions[]>([]);
     const {refreshKey, account} = useContext(CtxRootData);
     const {showModal, isModalOpen, handleCancel} = useModal();
-    const {currencies} = useContext(CtxCurrencies);
 
 
     useEffect(() => {
@@ -39,66 +38,74 @@ export const UnconfirmedTransactions = () => {
         })()
     }, [refreshKey, account])
 
+    const isOnceInfo = state.length === 1,
+        titleModal = isOnceInfo ? "Transaction info"
+            : "Unconfirmed incoming transactions",
+        content = isOnceInfo ?
+            <InfoContent handleCancel={handleCancel} {...state[0]}/> :
+            <UnConfTrxList {...state}/>
+
+
 
     return state.length > 0 && <div className="negative-margin-content">
         <InfoBox>
-            <span className="font-semibold">You have unconfirmed transactions. Please enter the sender's name <a
-                className="text-blue-400 underline"
-                href="javascript:void(0)" onClick={showModal}>here.</a></span>
+            <span className="font-semibold">You have unconfirmed transactions. Please enter the sender's name <span
+                className="text-blue-400 underline" onClick={showModal}>here.</span></span>
         </InfoBox>
 
         <Modal
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={state.length === 1
-                ? "Transaction info"
-                : "Unconfirmed incoming transactions"
-            }
+            title={titleModal}
         >
-            {state.length === 1 ? (
-                <InfoContent handleCancel={handleCancel} {...state[0]}/>
-            ) : (
-                <GTable>
-                    <GTable.Head className={styles.TableHead}>
-                        <GTable.Row>
-                            {['Date', 'Flow of funds'].map(label =>
-                                <GTable.Col className="text-start">
-                                    <div className='ellipsis ellipsis-md' data-text={label}>
-                                        <span>{label}</span>
-                                    </div>
-                                </GTable.Col>
-                            )}
-                        </GTable.Row>
-                    </GTable.Head>
-                    <GTable.Body className={styles.TableBody}>
-                        {state.map((item) => {
-                            return (
-                                <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
-                                    <TransactionInfo infoList={item}>
-                                        <GTable.Col>
-                                            <div className="ellipsis ellipsis-md">
-                                                <span>{formatForCustomer(item.datetime)}</span>
-                                            </div>
-                                        </GTable.Col>
 
-                                        <GTable.Col>
-                                            <div>
-                                                <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
-                                                    {!item.is_income && '-'}
-                                                    {Number(item.amount).toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
-                                                </span>
-                                            </div>
-                                        </GTable.Col>
-                                    </TransactionInfo>
-                                </GTable.Row>
-                            );
-                        })}
-                    </GTable.Body>
-                </GTable>
-            )}
+            {content}
+
         </Modal>
     </div>
+}
+
+const UnConfTrxList = (state) => {
+
+    const {currencies} = useContext(CtxCurrencies);
+    return <GTable>
+        <GTable.Head className={styles.TableHead}>
+            <GTable.Row>
+                {['Date', 'Flow of funds'].map(label =>
+                    <GTable.Col className="text-start">
+                        <div className='ellipsis ellipsis-md' data-text={label}>
+                            <span>{label}</span>
+                        </div>
+                    </GTable.Col>
+                )}
+            </GTable.Row>
+        </GTable.Head>
+        <GTable.Body className={styles.TableBody}>
+            {state.map((item) => {
+                return (
+                    <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
+                        <TransactionInfo infoList={item}>
+                            <GTable.Col>
+                                <div className="ellipsis ellipsis-md">
+                                    <span>{formatForCustomer(item.datetime)}</span>
+                                </div>
+                            </GTable.Col>
+
+                            <GTable.Col>
+                                <div>
+                                    <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
+                                                    {!item.is_income && '-'}
+                                        {Number(item.amount).toFixed(currencies.get(item.currency)?.roundPrec)} {item.currency}
+                                    </span>
+                                </div>
+                            </GTable.Col>
+                        </TransactionInfo>
+                    </GTable.Row>
+                );
+            })}
+        </GTable.Body>
+    </GTable>
 }
 
 export default UnconfirmedTransactions;

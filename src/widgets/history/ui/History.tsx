@@ -150,7 +150,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
                                         >
                                             {[15, 16].includes(item.tx_type)
                                                 ? '' : !item.is_income && '-'}
-                                            {+item.amount} {item.currency}
+                                            {+item.result_amount} {item.currency}
                                         </span>
                                         </div>
                                     </GTable.Col>

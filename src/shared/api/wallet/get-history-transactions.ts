@@ -10,6 +10,7 @@ export interface IResHistoryTransactions {
     status: number;
     amount: string;
     fee: number;
+    result_amount: string;
     is_income: boolean;
     balance: number;
     partner_info: string;
@@ -28,5 +29,4 @@ export const apiHistoryTransactions = (start?: string | number, end?: string, cu
             start,
             end
         }
-    })
-
+    });

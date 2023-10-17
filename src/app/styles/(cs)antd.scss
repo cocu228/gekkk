@@ -40,7 +40,7 @@
 }
 
 .ant-modal-header {
-  margin: 10px 30px;
+  margin: 10px 30px 0 30px;
 
   @include max-devices(md) {
     margin: 0;

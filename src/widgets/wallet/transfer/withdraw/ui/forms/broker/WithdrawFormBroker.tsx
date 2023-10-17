@@ -12,7 +12,7 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 import Decimal from "decimal.js";
-import {CtnTrxInfo, getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
@@ -145,9 +145,8 @@ const WithdrawFormBroker = () => {
                     size={"xl"}
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
-                    className="w-full"
-                >
-                    Sell EURG
+                    className="w-full">
+                    {network_type === 150 ? "Sell EURG" : "Buy EURG"}
                 </Button>
             </div>
         </div>

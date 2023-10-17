@@ -5,7 +5,6 @@ import {apiPaymentSepa} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
-import useError from "@/shared/model/hooks/useError";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 
@@ -26,10 +25,9 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         networkIdSelect
     ) ?? {}
 
+    const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const {account, setRefresh} = useContext(CtxRootData);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
-    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
     const details = useRef({
         purpose: "Purchase of EURG for EUR",
@@ -49,11 +47,10 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const onConfirm = async () => {
         setLoading(true);
         
-        await apiPaymentSepa({
-            payment_details: details.current,
-            commission: false,
-            headers: null
-        }).then(handleCancel);
+        await apiPaymentSepa(
+            details.current,
+            false
+        ).then(handleCancel);
     }
 
     return <div>
@@ -152,17 +149,11 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             
             <Form onFinish={onConfirm}>
-                <div className="row">
-                    <div className="col">
-                        {localErrorInfoBox}
-                    </div>
-                </div>
                 <div className="row mt-4 mb-4">
                     <div className="col">
                         <Button size={"xl"}
                                 className="w-full"
                                 htmlType={"submit"}
-                                disabled={localIndicatorError}
                         >Confirm</Button>
                     </div>
                 </div>

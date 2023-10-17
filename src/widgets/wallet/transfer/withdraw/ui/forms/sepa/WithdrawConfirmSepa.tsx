@@ -1,31 +1,16 @@
-import md5 from 'md5';
 import {Skeleton} from "antd";
-import {AxiosResponse} from "axios";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
-import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import {MASK_CODE} from "@/shared/config/mask";
-import useMask from "@/shared/model/hooks/useMask";
-import {getCookieData} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import useError from "@/shared/model/hooks/useError";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
+import {apiPaymentSepa, IResCommission} from "@/shared/api";
 import {useContext, useEffect, useRef, useState} from "react";
-import {apiPasswordVerify} from "@/shared/api/various/password";
-import {apiPaymentSepa, IResCommission, IResErrors} from "@/shared/api";
 import {transferDescriptions} from "../../../model/transfer-descriptions";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;
     total: IResCommission;
-    confirmation: {
-        code: string;
-        token: string;
-        codeLength: number;
-    }
 }
 
 const WithdrawConfirmSepa = ({
@@ -38,25 +23,16 @@ const WithdrawConfirmSepa = ({
 }) => {
     const [{
         total,
-        loading,
-        confirmation
+        loading
     }, setState] = useState<IState>({
         loading: false,
-        total: undefined,
-        confirmation: {
-            code: "",
-            token: null,
-            codeLength: null
-        }
+        total: undefined
     });
 
-    const {onInput} = useMask(MASK_CODE);
+    const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const {phone} = getCookieData<{phone: string}>();
-    const {account, setRefresh} = useContext(CtxRootData);
     const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
-    const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
     const details = useRef({
         purpose: comment,
@@ -75,53 +51,15 @@ const WithdrawConfirmSepa = ({
     });
 
     const onConfirm = async () => {
-        const headers = await signHeadersGeneration(confirmation.token);
+        setState(prev => ({
+            ...prev,
+            loading: true
+        }));
 
         await apiPaymentSepa(
             details.current,
             false,
-            headers
-        ).then((response: AxiosResponse<IResErrors>) => {
-            const {data} = response;
-
-            if (data?.errors) {
-                if (data.errors[0].code !== 449) return;
-
-                setState(prev => ({
-                    ...prev,
-                    loading: false,
-                    confirmation: {
-                        ...prev.confirmation,
-                        token: data.errors[0].properties['confirmationToken'],
-                        codeLength: data.errors[0].properties['confirmationCodeLength']
-                    }
-                }));
-                return;
-            }
-
-            setState(prev => ({
-                ...prev,
-                loading: false,
-            }));
-            setRefresh();
-            handleCancel();
-        });
-    }
-    
-    const onError = () => {
-        localErrorHunter({
-            code: 401,
-            message: 'Confirmation PIN is incorrect'
-        });
-        
-        setState(prev => ({
-            ...prev,
-            loading: false,
-            confirmation: {
-                ...prev.confirmation,
-                code: null
-            }
-        }));
+        ).then(handleCancel);
     }
     
     useEffect(() => {
@@ -238,52 +176,13 @@ const WithdrawConfirmSepa = ({
                 </div>
             </>}
 
-            <Form
-                onFinish={() => {
-                    setState(prev => ({
-                        ...prev,
-                        loading: true
-                    }));
-
-                    !confirmation.code
-                        ? onConfirm()
-                        : apiPasswordVerify(md5(`${confirmation.code}_${phone}`))
-                            .then(onConfirm)
-                            .catch(onError)
-                }}
-            >
-                {!confirmation.token ? null : <>
-                    <span className="text-gray-400">Transfer confirm</span>
-
-                    <FormItem className={"mb-4"} name="code" label="Code" preserve>
-                        <Input type="text"
-                               onInput={(e) => {
-                                   onInput(e);
-                                   localErrorClear();
-                               }}
-                               placeholder="Enter your PIN"
-                               onChange={({target}) => setState(prev => ({
-                                   ...prev,
-                                   confirmation: {
-                                       ...prev.confirmation,
-                                       code: target.value.replace(/ /g, '')
-                                   }
-                               }))}
-                               autoComplete="off"
-                        />
-                    </FormItem>
-                </>}
-                <div className="row">
-                    <div className="col">
-                        {localErrorInfoBox}
-                    </div>
-                </div>
+            <Form onFinish={onConfirm}>
                 <div className="row my-5">
                     <div className="col">
                         <Button size={"xl"}
                                 className="w-full"
                                 htmlType={"submit"}
-                                disabled={!total || localIndicatorError || (confirmation.token && !confirmation.code)}
+                                disabled={!total}
                         >Confirm</Button>
                     </div>
                 </div>

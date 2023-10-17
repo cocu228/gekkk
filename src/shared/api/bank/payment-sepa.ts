@@ -24,18 +24,15 @@ interface IPaymentDetails {
     // originatorData: string | null;
 }
 
-interface IParams {
-    commission: boolean;
-    payment_details: IPaymentDetails;
-    headers: Partial<SignHeaders> | null;
-}
-
-export const apiPaymentSepa = ({
-    headers = null,
-    payment_details,
-    commission = false
-}: IParams) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
+export const apiPaymentSepa = (
+    payment_details: IPaymentDetails,
+    commission: boolean = false,
+    headers: Partial<SignHeaders> | null = null
+) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {
-    headers: headers
+    headers: {
+        ...headers,
+        "X-Confirmation-Type": "SIGN"
+    }
 });

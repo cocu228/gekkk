@@ -14,6 +14,7 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
 import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
+import axios, {CancelToken} from "axios";
 // import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {RangePicker} = DatePicker;
@@ -32,7 +33,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
 
-    const requestHistory = async () => {
+    const requestHistory = async (cancelToken = null) => {
 
         setLoading(true)
         setAllTxVisibly(false)
@@ -48,7 +49,8 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
             currenciesFilter,
             types,
             null,
-            10
+            10,
+            cancelToken.token
         )
 
         actionResSuccess(response).success(() => {
@@ -69,6 +71,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
 
         const {data} = await apiHistoryTransactions(null, null, currenciesFilter,
             types, lastValue.id_transaction, 10)
+
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))
@@ -77,11 +80,17 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
     }
 
     useEffect(() => {
+
+        const cancelTokenSource = axios.CancelToken.source();
+
         (async () => {
             if (currenciesFilter && activeTab !== TabKey.CUSTOM) {
-                await requestHistory()
+                await requestHistory(cancelTokenSource)
             }
         })()
+
+        return () => cancelTokenSource.cancel()
+
     }, [refreshKey, activeTab, currenciesFilter]);
 
     return (

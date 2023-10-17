@@ -70,7 +70,7 @@ const WithdrawConfirmCrypto = memo(({
         currency: $const,
         token_network: networkIdSelect,
         amount: amount,
-        fee: percent_fee || withdraw_fee,
+        fee: withdraw_fee,
         address: isNull(address) ? "" : address,
         partner_info: recipient,
         tag: isNull(description) ? "" : description,
@@ -110,7 +110,7 @@ const WithdrawConfirmCrypto = memo(({
                 }
                 if (result.confirmationStatusCode === 4) {
                     handleCancel()
-                    setContent(CtnTrxInfo)
+                    setContent(<CtnTrxInfo/>)
                     setRefresh()
                 } else {
                     localErrorHunter({message: "Something went wrong.", code: 1})
@@ -202,7 +202,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-4">
             <div className="col">
-                <span>{new Decimal(withdraw_fee || percent_fee).toString()} {withdraw_fee ? $const : "%"}</span>
+                <span>{new Decimal(withdraw_fee).toString()} {$const}</span>
             </div>
         </div>
         {description && <>

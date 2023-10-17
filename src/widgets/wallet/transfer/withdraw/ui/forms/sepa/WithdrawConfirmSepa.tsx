@@ -107,7 +107,7 @@ const WithdrawConfirmSepa = ({
             }));
             setRefresh();
             handleCancel();
-            setContent(CtnTrxInfo)
+            setContent(<CtnTrxInfo/>)
         });
     }
     

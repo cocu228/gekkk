@@ -109,7 +109,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             }));
             setRefresh();
             handleCancel();
-            setContent(CtnTrxInfo)
+            setContent(<CtnTrxInfo/>)
         });
     }
 

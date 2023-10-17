@@ -108,7 +108,7 @@ const WithdrawConfirmCardToCard = ({
             }));
             setRefresh();
             handleCancel();
-            setContent(CtnTrxInfo)
+            setContent(<CtnTrxInfo/>)
         });
     }
 

@@ -16,6 +16,7 @@ import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/mo
 import Decimal from "decimal.js";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {isNull} from "@/shared/lib/helpers";
 
 const Withdraw = memo(() => {
 
@@ -32,9 +33,8 @@ const Withdraw = memo(() => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
-    const withdrawEUR = getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
-    console.log(withdrawEUR)
+    const withdrawEUR = !isNull(ratesEUR) && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
     return (
         <div className='h-full'>

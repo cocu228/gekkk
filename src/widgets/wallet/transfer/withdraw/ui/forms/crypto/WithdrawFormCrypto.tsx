@@ -12,7 +12,7 @@ import {getFinalFee, isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/with
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import Decimal from "decimal.js";
-import {calculateAmount} from "@/shared/lib/helpers";
+// import {calculateAmount} from "@/shared/lib/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
@@ -49,10 +49,13 @@ const WithdrawFormCrypto = () => {
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
+    //
+    // const finalFee = finalFeeEntity.type.percent ?
+    //     calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
+    //     finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
-    const finalFee = finalFeeEntity.type.percent ?
-        calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
-        finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
+    const finalFee = finalFeeEntity.value.number;
+
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }

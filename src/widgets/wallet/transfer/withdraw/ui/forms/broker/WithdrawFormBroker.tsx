@@ -145,9 +145,8 @@ const WithdrawFormBroker = () => {
                     size={"xl"}
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
-                    className="w-full"
-                >
-                    Sell EURG
+                    className="w-full">
+                    {network_type === 150 ? "Sell EURG" : "Buy EURG"}
                 </Button>
             </div>
         </div>

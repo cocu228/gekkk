@@ -25,10 +25,13 @@ export function validateBalance(currency: ICtxCurrency, navigate: NavigateFuncti
     })
 }
 
-export function validateMaximumAmount(max: number): IValidatorCreator {
-    return (value) => ({
-        validated: +value <= max,
-        errorMessage: `The maximum amount is ${max}`
+export function validateMaximumAmount(max: number, value: number, $const: string): IValidatorCreator {
+
+    const maxDecimal = new Decimal(max)
+
+    return () => ({
+        validated: maxDecimal.isZero() || maxDecimal.greaterThan(value),
+        errorMessage: `The maximum amount is ${max} ${$const}`
     })
 }
 

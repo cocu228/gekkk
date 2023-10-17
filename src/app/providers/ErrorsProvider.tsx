@@ -22,7 +22,6 @@ interface IItem {
 }
 
 function hunter(error) {
-
     if (error.response?.status === 500) {
 
         this.navigate("/", {
@@ -31,6 +30,8 @@ function hunter(error) {
 
         return Promise.reject(error);
     }
+
+    if (error.code === "ERR_CANCELED") return Promise.reject(error)
 
 
     this.setState(prevState => [...prevState, {

@@ -16,6 +16,8 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {apiPasswordVerify, apiPaymentSepa, IResErrors} from "@/shared/api";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 
 interface IState {
     loading: boolean;
@@ -53,6 +55,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         networkIdSelect
     ) ?? {}
 
+    const setContent = useContext(CtxModalTrxInfo)
     const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
     const {phone} = getCookieData<{phone: string}>();
@@ -106,6 +109,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             }));
             setRefresh();
             handleCancel();
+            setContent(<CtnTrxInfo/>)
         });
     }
 

@@ -17,6 +17,8 @@ import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {signHeadersGeneration} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiPasswordVerify, apiPaymentContact, IResCommission, IResErrors} from "@/shared/api";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 
 interface IState {
     loading: boolean;
@@ -49,7 +51,7 @@ const WithdrawConfirmCardToCard = ({
             codeLength: null
         }
     });
-
+    const setContent = useContext(CtxModalTrxInfo)
     const {onInput} = useMask(MASK_CODE);
     const {$const} = useContext(CtxWalletData);
     const {phone} = getCookieData<{phone: string}>();
@@ -106,6 +108,7 @@ const WithdrawConfirmCardToCard = ({
             }));
             setRefresh();
             handleCancel();
+            setContent(<CtnTrxInfo/>)
         });
     }
 

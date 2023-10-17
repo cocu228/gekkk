@@ -1,22 +1,30 @@
-import {useContext, memo} from 'react';
+import {useContext, memo, useState} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
-import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
+import {
+    CtxWalletNetworks,
+    CtxWalletData
+} from '@/widgets/wallet/transfer/model/context';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawFormSepa";
 import WithdrawFormSwift from "@/widgets/wallet/transfer/withdraw/ui/forms/WithdrawFormSwift";
 import WithdrawFormCardToCard
     from "@/widgets/wallet/transfer/withdraw/ui/forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
-import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
+import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
+import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {isNull} from "@/shared/lib/helpers";
 
 const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
+    const {ratesEUR} = useContext(CtxCurrencies)
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
+
 
     const {
         withdraw_fee = 0,
@@ -26,9 +34,11 @@ const Withdraw = memo(() => {
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
+    const withdrawEUR = !isNull(ratesEUR) && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
     return (
         <div className='h-full'>
+            <ModalTrxInfoProvider>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
                 {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
@@ -49,7 +59,10 @@ const Withdraw = memo(() => {
                     <div className="col">
                         <div className='text-center'>
                             Fee is {finalFeeEntity.type.number ?
-                            <b>{new Decimal(finalFeeEntity.value.number).toString()} {currency.$const}</b> :
+                            <>
+                                <span><b>{new Decimal(finalFeeEntity.value.number).toString()} </b>{currency.$const}</span>
+                                {withdrawEUR && <span className="ml-2">( ~ <b>{withdrawEUR}</b> EUR)</span>}
+                            </> :
                             <b>{new Decimal(finalFeeEntity.value.percent).toString()} %</b>
                         } per transaction
                         </div>
@@ -67,6 +80,7 @@ const Withdraw = memo(() => {
                 </div>}
 
             </>}
+            </ModalTrxInfoProvider>
         </div>
     );
 });

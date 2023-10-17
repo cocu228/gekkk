@@ -19,7 +19,7 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
                     <div className='flex justify-between px-2 py-1'>
-                        <span className='text-gray-600'>Accounts:</span>
+                        <span className='text-gray-600' data-testid="Accounts">Accounts:</span>
                         
                         <RefreshButton
                             calloutFunc={(e) => {

@@ -114,7 +114,7 @@ const HeaderDesktop = memo((props) => {
             </HeaderMenu>
 
             <button onClick={logout}>
-                <div className="flex items-center justify-end ml-10">
+                <div className="flex items-center justify-end ml-10" data-testid="Logout">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
                 </div>
             </button>

@@ -12,7 +12,6 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-import Decimal from "decimal.js";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
@@ -102,7 +101,7 @@ const GkeCashbackProgram = () => {
                     <InputCurrency.Validator
                         className='text-sm'
                         value={inputCurr.value.number}
-                        onError={setHasValidationError}
+                        onError={setInputCurrValid}
                         description={`Minimum order amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),

@@ -14,15 +14,14 @@ import WithdrawFormCardToCard
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
 import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
-import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
-import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
     const {ratesEUR} = useContext(CtxCurrencies)
+
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
 
@@ -38,7 +37,6 @@ const Withdraw = memo(() => {
     const withdrawEUR = !isNull(ratesEUR) && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
     return (
         <div className='h-full'>
-            <ModalTrxInfoProvider>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
                 {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
@@ -80,7 +78,6 @@ const Withdraw = memo(() => {
                 </div>}
 
             </>}
-            </ModalTrxInfoProvider>
         </div>
     );
 });

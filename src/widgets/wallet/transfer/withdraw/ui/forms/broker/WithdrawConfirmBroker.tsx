@@ -3,14 +3,16 @@ import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import {apiPaymentSepa} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
-import {useContext, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
-    
+
     const {
         networkIdSelect,
         networksForSelector,

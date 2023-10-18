@@ -17,6 +17,7 @@ import Decimal from "decimal.js";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const Withdraw = memo(() => {
 
@@ -35,7 +36,6 @@ const Withdraw = memo(() => {
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
     const withdrawEUR = !isNull(ratesEUR) && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
-
     return (
         <div className='h-full'>
             <ModalTrxInfoProvider>

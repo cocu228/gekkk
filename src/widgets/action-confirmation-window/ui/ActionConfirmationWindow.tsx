@@ -15,6 +15,8 @@ import {useContext, useEffect, useState} from "react";
 import {getCookieData, scrollToTop} from "@/shared/lib/helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
 import {pinHeadersGeneration, signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 
 interface IState {
@@ -48,7 +50,9 @@ const ActionConfirmationWindow = () => {
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const {actionConfirmResponse: response, setSuccess} = useContext(CtxNeedConfirm);
-    
+    const setContent = useContext(CtxModalTrxInfo)
+
+
     useEffect(() => {
         if (response) {
             setState({
@@ -81,9 +85,13 @@ const ActionConfirmationWindow = () => {
                     ...config,
                     headers: { ...headers }
                 });
+
+                console.log("SIGN")
+
+                handleCancel();
+                setContent(<CtnTrxInfo/>);
                 setSuccess();
                 setRefresh();
-                handleCancel();
             } catch (error) {
                 handleError();
             }

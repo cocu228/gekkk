@@ -21,7 +21,7 @@ export const CtnTrxInfo = () => {
                 successfully added to the queue. The
                 transaction may take a few
                 minutes to complete.
-                If it’s not, please, contact <span className="text-blue-400 cursor-pointer"
+                <br/>If it’s not, please, contact <span className="text-blue-400 cursor-pointer"
                                                    onClick={() => navigate("/support")}>our support</span></p>
         </div>
     </div>

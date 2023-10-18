@@ -1,4 +1,3 @@
-import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import {useNavigate} from 'react-router-dom';
@@ -13,15 +12,16 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import CodeTxInfo from "@/widgets/wallet/code-transfer/CodeTxInfo";
 import {apiCreateTxCode} from "@/widgets/wallet/code-transfer/api/create-tx-code";
 import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
 const CreateCode = () => {
     const navigate = useNavigate();
-    const [amount, setAmount] = useState("");
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const [newCode, setNewCode] = useState("");
-    const {currencies} = useContext(CtxCurrencies);
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
 
@@ -36,7 +36,7 @@ const CreateCode = () => {
         setLoading(true)
 
         const typeTx = checkbox ? 12 : 11
-        const response = await apiCreateTxCode(new Decimal(amount).toNumber(), currency.$const, typeTx)
+        const response = await apiCreateTxCode(inputCurr.value.number, currency.$const, typeTx)
 
         actionResSuccess(response).success(async () => {
             setNewCode(response.data.result.code)
@@ -60,17 +60,18 @@ const CreateCode = () => {
                     <div className="col">
                         <div className="wrapper w-full mb-3 xl:mb-8 md:mb-7">
                             <InputCurrency.Validator
-                                value={new Decimal(amount).toNumber()}
-                                validators={[validateBalance(currencies.get(currency.$const), navigate)]}
+                                value={inputCurr.value.number}
+                                onError={setInputCurrValid}
+                                validators={[validateBalance(currency, navigate)]}
                             >
-                                <InputCurrency.PercentSelector onSelect={setAmount}
+                                <InputCurrency.PercentSelector onSelect={setInputCurr}
                                                                header={<span className='text-gray-600'>Input</span>}
                                                                currency={currency}>
                                     <InputCurrency.DisplayBalance currency={currency}>
                                         <InputCurrency
-                                            value={amount}
+                                            value={inputCurr.value.string}
                                             currency={currency.$const}
-                                            onChange={v => setAmount(v)}
+                                            onChange={setInputCurr}
                                         />
                                     </InputCurrency.DisplayBalance>
                                 </InputCurrency.PercentSelector>
@@ -94,7 +95,8 @@ const CreateCode = () => {
                     </Checkbox>
                 </div>
                 <div className="row">
-                    <Button disabled={amount === "" || loading} className="w-full" size="xl" onClick={onCreateCode}>Confirm
+                    <Button disabled={inputCurrValid.value || loading} className="w-full" size="xl"
+                            onClick={onCreateCode}>Confirm
                     </Button>
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}

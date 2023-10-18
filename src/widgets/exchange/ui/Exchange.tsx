@@ -47,9 +47,9 @@ function Exchange() {
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
-    // todo change func innput
-    // const {inputCurr, setInputCurr} = useInputState()
-    // const {inputCurrValid, setInputCurrValid} = useInputValidateState()
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const {
         to,
@@ -145,13 +145,14 @@ function Exchange() {
                                 >
                                     <InputCurrency.Validator
                                         className='text-sm'
-                                        value={new Decimal(from.amount).toNumber()}
+                                        value={1000}
                                         onError={setHasValidationError}
                                         description={!from.currency ? null
                                             : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
                                         validators={[
-                                            validateBalance(currencies.get(from.currency), navigate),
-                                            validateMinimumAmount(minAmount, new Decimal(from.amount).toNumber(), currencies.get(from.currency).$const)
+                                            //validateBalance(currencies.get(from.currency), navigate),
+                                            //validateMinimumAmount(minAmount, new Decimal(from.amount).toNumber(),
+                                            // currencies.get(from.currency).$const)
                                         ]}
                                     >
                                         <InputCurrency.PercentSelector

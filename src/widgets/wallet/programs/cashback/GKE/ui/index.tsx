@@ -13,13 +13,16 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import Decimal from "decimal.js";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
 const GkeCashbackProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
     const {currencies} = useContext(CtxCurrencies);
-    const [amount, setAmount] = useState<string>('');
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const investment = storeInvestments(state => state.cashbackInvestment);
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
@@ -77,7 +80,7 @@ const GkeCashbackProgram = () => {
                 <div className="col -md:border-r-1 md:mb-5 -md:border-solid -md:border-gray-400 -md:pr-10 md:w-full w-3/5">
                     <CashbackProperties
                         locked={investment?.amount ?? 0}
-                        amount={amount}
+                        amount={inputCurr.value.number}
                         endDate={investment?.date_end}
                         startDate={investment?.date_start}
                         currency={currency.$const}
@@ -98,16 +101,16 @@ const GkeCashbackProgram = () => {
                 <div className="col">
                     <InputCurrency.Validator
                         className='text-sm'
-                        value={new Decimal(amount).toNumber()}
+                        value={inputCurr.value.number}
                         onError={setHasValidationError}
                         description={`Minimum order amount is 100 ${currency.$const}`}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(100, new Decimal(amount).toNumber(), currency.$const)
+                            validateMinimumAmount(100, inputCurr.value.number, currency.$const)
                         ]}
                     >
                         <InputCurrency.PercentSelector
-                            onSelect={setAmount}
+                            onSelect={setInputCurr}
                             currency={currencies.get(currency.$const)}
                             header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
                                 Pay from
@@ -115,9 +118,9 @@ const GkeCashbackProgram = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>
                                 <InputCurrency
-                                    value={amount}
+                                    value={inputCurr.value.string}
                                     currency={currency.$const}
-                                    onChange={v => setAmount(v)}
+                                    onChange={setInputCurr}
                                 />
                             </InputCurrency.DisplayBalance>        
                         </InputCurrency.PercentSelector>
@@ -128,7 +131,7 @@ const GkeCashbackProgram = () => {
             <div className="row mb-4">
                 <div className="col">
                     <Button
-                        disabled={!amount.length || hasValidationError}
+                        disabled={inputCurrValid.value || hasValidationError}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
                         size={"xl"}
@@ -155,7 +158,7 @@ const GkeCashbackProgram = () => {
             >
                 <CashbackProperties
                     locked={investment?.amount ?? 0}
-                    amount={amount}
+                    amount={inputCurr.value.number}
                     startDate={investment?.date_start ?? new Date()}
                     currency={currency.$const}
                     templateTerm={30}
@@ -167,10 +170,10 @@ const GkeCashbackProgram = () => {
                         size="xl"
                         className="w-full"
                         onClick={async () => {
-                            setAmount('');
+                            setInputCurr("");
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
-                                amount: +amount,
+                                amount: inputCurr.value.number,
                                 term_days: 30,
                                 templateType: 3
                             });

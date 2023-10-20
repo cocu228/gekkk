@@ -16,6 +16,7 @@ import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/mo
 import Decimal from "decimal.js";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
+import WithdrawFormPapaya from "@/widgets/wallet/transfer/withdraw/ui/forms/papaya/WithdrawFormPapaya";
 
 const Withdraw = memo(() => {
 
@@ -42,7 +43,7 @@ const Withdraw = memo(() => {
                 {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
                     <WithdrawFormCrypto/> :
                     formType === 150 ?
-                        <WithdrawFormBroker/> :
+                        <WithdrawFormPapaya/> :
                         151 === formType ?
                             <WithdrawFormSepa/> :
                             152 === formType ?

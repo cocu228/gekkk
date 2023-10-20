@@ -25,7 +25,7 @@ import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
 import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
-import {actionResSuccess} from "@/shared/lib/helpers";
+import {actionResSuccess, uncoverArray} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
 
 
@@ -117,16 +117,25 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
-                            localErrorHunter(e)
+                            localErrorHunter({
+                                code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
+                                message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
+                            })
                             setLoading(false);
                         });
                 })
                 .reject(e => {
-                    localErrorHunter(e)
+                    localErrorHunter({
+                        code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
+                        message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
+                    })
                     setLoading(false);
                 })
             ).catch(e => {
-            localErrorHunter(e)
+            localErrorHunter({
+                code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
+                message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
+            })
             setLoading(false);
         })
     }

@@ -20,14 +20,18 @@ export type TResponseErrorProvider = AxiosResponse<TDataErrorProvider>
 
 export interface IStateErrorProvider {
     errors: Array<{
-        id: string
-        message: string,
-        code?: number,
-        status?: string,
-        type?: string,
-        response?: null | TDataErrorProvider
-    }> | null,
-    actionConfirmResponse: null | TResponseErrorProvider
+        id: string;
+        message: string;
+        code?: number;
+        status?: string;
+        type?: string;
+        response?: null | TDataErrorProvider;
+    }> | null;
+    actionConfirmResponse: null | TResponseErrorProvider;
+    pending: {
+        resolve: (value: AxiosResponse<any, any> | PromiseLike<any>) => void;
+        reject: (reason?: any) => void;
+    }
 }
 
 export interface IServiceErrorProvider {

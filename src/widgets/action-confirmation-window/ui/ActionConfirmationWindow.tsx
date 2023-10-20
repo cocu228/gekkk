@@ -46,11 +46,15 @@ const ActionConfirmationWindow = () => {
     });
     const {onInput} = useMask(MASK_CODE);
     const {setRefresh} = useContext(CtxRootData);
+    const setContent = useContext(CtxModalTrxInfo);
     const {phone} = getCookieData<{phone: string}>();
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-    const {actionConfirmResponse: response, setSuccess} = useContext(CtxNeedConfirm);
-    const setContent = useContext(CtxModalTrxInfo)
+    const {
+        pending,
+        setSuccess,
+        actionConfirmResponse: response,
+    } = useContext(CtxNeedConfirm);
 
 
     useEffect(() => {
@@ -84,14 +88,14 @@ const ActionConfirmationWindow = () => {
                 await $axios.request({
                     ...config,
                     headers: { ...headers }
+                }).then(({data}) => {
+                    pending.resolve(data);
+                    
+                    handleCancel();
+                    setContent(<CtnTrxInfo/>);
+                    setSuccess();
+                    setRefresh();
                 });
-
-                console.log("SIGN")
-
-                handleCancel();
-                setContent(<CtnTrxInfo/>);
-                setSuccess();
-                setRefresh();
             } catch (error) {
                 handleError();
             }

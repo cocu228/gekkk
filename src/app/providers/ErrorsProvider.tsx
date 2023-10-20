@@ -27,7 +27,11 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
 
     const [state, setState] = useState<IStateErrorProvider>({
         errors: [],
-        actionConfirmResponse: null
+        actionConfirmResponse: null,
+        pending: {
+            reject: () => {},
+            resolve: () => {}
+        }
     });
 
     useLayoutEffect(() => {
@@ -60,7 +64,16 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             if (hunterErrorsApi.isAuthExpired()) logout()
 
             if (hunterErrorsApi.isConfirmationToken()) {
-                setState(prev => ({...prev, actionConfirmResponse: response}))
+                return new Promise((resolve, reject) => {
+                    setState(prev => ({
+                        ...prev,
+                        actionConfirmResponse: response,
+                        pending: {
+                            resolve: resolve,
+                            reject: reject
+                        }
+                    }));
+                })
             }
 
             return response
@@ -85,6 +98,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         </div>}
         
         <CtxNeedConfirm.Provider value={{
+            pending: state.pending,
             actionConfirmResponse: state.actionConfirmResponse,
             setSuccess: () => setState(prev => ({
                 ...prev,

@@ -36,16 +36,14 @@ const CurrencySelector: FC<IParams> = ({
     };
 
     return ( <>
-        <div className="flex">
+        <div className="flex relative">
             <div className="w-full">
                 {children}
             </div>
-
             <button
                 disabled={disabled}
                 className={`${styles.FieldSelectBtn} ${className} ${disabled ? 'hidden' : ''}`}
-                onClick={handleOpenTokenSelect}
-            >
+                onClick={handleOpenTokenSelect}>
                 <div className="mr-3">
                     <IconDoubleArrows/>
                 </div>

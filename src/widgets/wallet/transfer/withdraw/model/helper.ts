@@ -50,7 +50,7 @@ export const getWithdrawEUR = (curFee: number, course: number) => {
 
     if (!new Decimal(course).isZero()) {
         const decimalVal = new Decimal(course)
-        const toFixed = decimalVal.times(curFee).toFixed(3)
+        const toFixed = decimalVal.times(curFee).toFixed(2)
 
         return new Decimal(toFixed).isZero() ? null : toFixed
 

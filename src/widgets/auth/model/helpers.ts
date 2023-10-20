@@ -17,6 +17,9 @@ export const helperApiQRCode = function (response) {
     return actionSuccessConstructor(typeof response.data.result === "string")
 }
 export const helperApiCheckPassword = function (response) {
+    console.log("helperApiCheckPassword")
+    console.log("helperApiCheckPassword")
+    console.log(response)
     return actionSuccessConstructor(response.data?.status === "ok")
 }
 export const helperApiVerifyPassword = function (response) {

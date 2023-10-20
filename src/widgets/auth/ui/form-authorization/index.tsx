@@ -62,11 +62,12 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    // onSingInUAS()
-                    onSingIn()
+                    onSingInUAS()
+                    // onSingIn()
 
                 ))
             .catch(err => {
+                localErrorHunter(err)
                 setLoading(false)
             })
     }
@@ -178,9 +179,10 @@ const FormLoginAccount = memo(() => {
             <PhoneInput
                 disableDropdown
                 inputProps={{
+                    'data-testid': 'PhoneInput',
                     name: 'phone',
                     ref: inputRef,
-                    type: "tel"
+                    type: "tel",
                 }}
                 disabled={loading}
                 placeholder="Enter phone number"
@@ -199,6 +201,7 @@ const FormLoginAccount = memo(() => {
                                 ...prev,
                                 password: target.value
                             }))}
+                            data-testid="PIN"
                             placeholder="PIN"/>
         </FormItem>
 
@@ -212,7 +215,8 @@ const FormLoginAccount = memo(() => {
             <Button disabled={loading || state.phone === ""}
                     tabIndex={0}
                     htmlType="submit"
-                    className="w-full">Login</Button>
+                    className="w-full"
+                    data-testid="Login">Login</Button>
         </div>
 
         <div className='text-center'>

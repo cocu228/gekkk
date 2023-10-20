@@ -15,10 +15,10 @@ import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-// import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
+import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 
 
-const WithdrawFormBroker = () => {
+const WithdrawFormPapaya = () => {
 
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
@@ -80,7 +80,8 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
                         validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>You will pay</span>}
+                                                   header={<span
+                                                       className='text-gray-600 font-medium'>You will pay</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -118,7 +119,7 @@ const WithdrawFormBroker = () => {
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span
@@ -132,8 +133,10 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={"Withdraw confirmation"}>
-            <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
+            title={"Withdraw confirmation"}
+        >
+            <WithdrawConfirmCrypto address={account.number} recipient={account.name} description={""}
+                                   amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
             <div className="col">
@@ -142,11 +145,11 @@ const WithdrawFormBroker = () => {
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full">
-                    Buy EURG
+                    Buy EUR
                 </Button>
             </div>
         </div>
     </div>)
 };
 
-export default WithdrawFormBroker;
+export default WithdrawFormPapaya;

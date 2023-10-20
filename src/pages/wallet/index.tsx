@@ -18,6 +18,7 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
+import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 
 function Wallet() {
 
@@ -57,7 +58,8 @@ function Wallet() {
 
                             {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tab={"Cashback Program"}/>
-                                <CardsMenu data-tab={"Bank cards"}></CardsMenu>
+                                <CardsMenu data-tab={"Bank cards"}/>
+                                <QuickExchange data-tab={"Quick exchange"}/>
                             </>}
 
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>

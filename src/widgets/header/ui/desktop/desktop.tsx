@@ -86,7 +86,7 @@ const HeaderDesktop = memo((props) => {
                 className="ml-auto"
                 actions={actionsForMenuFunctions}
             >
-                <div className="flex items-center justify-end">
+                <div className="flex items-center justify-end" data-testid="HeaderMenuContainer">
                     <div className="wrapper mr-2">
                         {account.rights[AccountRights.IsJuridical] ? (
                             <SvgSchema width={32} height={22}/>
@@ -114,7 +114,7 @@ const HeaderDesktop = memo((props) => {
             </HeaderMenu>
 
             <button onClick={logout}>
-                <div className="flex items-center justify-end ml-10">
+                <div className="flex items-center justify-end ml-10" data-testid="Logout">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
                 </div>
             </button>

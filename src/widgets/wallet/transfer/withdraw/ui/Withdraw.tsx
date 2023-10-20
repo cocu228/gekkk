@@ -14,13 +14,15 @@ import WithdrawFormCardToCard
 import WithdrawFormBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawFormBroker";
 import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
-import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {isNull} from "@/shared/lib/helpers";
+import WithdrawFormPapaya from "@/widgets/wallet/transfer/withdraw/ui/forms/papaya/WithdrawFormPapaya";
 
 const Withdraw = memo(() => {
 
     const currency = useContext(CtxWalletData)
     const {ratesEUR} = useContext(CtxCurrencies)
+
     const {loading = true, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
     const formType = getNetworkForChose(networksDefault, networkIdSelect)?.network_type
 
@@ -32,19 +34,16 @@ const Withdraw = memo(() => {
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
-    const withdrawEUR = getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
-    console.log(withdrawEUR)
-
+    const withdrawEUR = !isNull(ratesEUR) && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
     return (
         <div className='h-full'>
-            <ModalTrxInfoProvider>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
                 {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
                     <WithdrawFormCrypto/> :
                     formType === 150 ?
-                        <WithdrawFormBroker/> :
+                        <WithdrawFormPapaya/> :
                         151 === formType ?
                             <WithdrawFormSepa/> :
                             152 === formType ?
@@ -80,7 +79,6 @@ const Withdraw = memo(() => {
                 </div>}
 
             </>}
-            </ModalTrxInfoProvider>
         </div>
     );
 });

@@ -66,7 +66,7 @@ const SidebarDesktop = () => {
                             <UpdateAmounts/>
                         </div>
                         <div className="row"></div>
-                        <span className="text-lg font-bold">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
+                        <span className="text-lg font-bold" data-testid="AssetValuation">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
                 </div>
             </div>

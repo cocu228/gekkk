@@ -1,18 +1,22 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import InfoBox from "@/widgets/info-box";
 import {useNavigate} from "react-router-dom";
 import Select from "@/shared/ui/select/Select";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const ChoseNetwork = ({withdraw = false}) => {
+
     const navigate = useNavigate();
     const {$const} = useContext(CtxWalletData);
     const {currencies} = useContext(CtxCurrencies);
 
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
     const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && $const !== "EURG"
+
 
     return <>
         {/*<div className="row mb-10">*/}

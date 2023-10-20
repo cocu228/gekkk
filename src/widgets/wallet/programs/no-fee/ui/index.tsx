@@ -18,7 +18,6 @@ const NoFeeProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const {currencies} = useContext(CtxCurrencies);
     const [amount, setAmount] = useState<string>('');
     const investment = storeInvestments(state => state.noFeeInvestment);
     const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
@@ -128,7 +127,7 @@ const NoFeeProgram = () => {
                         onError={setInputCurrValid}
                         description={`Minimum lock amount is 100 ${currency.$const}`}
                         validators={[
-                            validateBalance(currencies.get(currency.$const), navigate),
+                            validateBalance(currency, navigate),
                             validateMinimumAmount(100, inputCurr.value.number, currency.$const)
                         ]}
                     >
@@ -150,7 +149,7 @@ const NoFeeProgram = () => {
             <div className="row mb-4">
                 <div className="col">
                     <Button
-                        disabled={!amount.length}
+                        disabled={inputCurrValid.value}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
                         size={"xl"}

@@ -1,4 +1,4 @@
-import React, {memo, useState} from "react";
+import React, {memo, useCallback, useState} from "react";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
@@ -11,13 +11,13 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         content: null
     })
 
-    const setContent = (content: JSX.Element, title = "Transaction information") => {
+    const setContent = useCallback((content: JSX.Element, title = "Transaction information") => {
         setState({
             title,
             content
         })
         showModal()
-    }
+    }, [])
 
     const closeContent = () => {
         handleCancel()

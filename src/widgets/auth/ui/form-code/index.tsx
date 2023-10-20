@@ -25,7 +25,7 @@ import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
 import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
-import {actionResSuccess} from "@/shared/lib/helpers";
+// import {actionResSuccess} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
 
 
@@ -117,13 +117,18 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
+                            localErrorHunter(e)
                             setLoading(false);
                         });
                 })
-                .reject(v => {
+                .reject(e => {
+                    localErrorHunter(e)
                     setLoading(false);
                 })
-            )
+            ).catch(e => {
+            localErrorHunter(e)
+            setLoading(false);
+        })
     }
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
@@ -138,6 +143,7 @@ const FormCode = memo(() => {
         <FormItem name="code" label="Code" preserve >
             <Input type="text"
                    ref={inputRef}
+                   data-testid="PhoneCode"
                    placeholder="Phone code"
                    onInput={onInput}
                    onChange={({target}) => onChange(target.value)}
@@ -164,6 +170,7 @@ const FormCode = memo(() => {
                 tabIndex={0}
                 htmlType='submit'
                 className='w-full'
+                data-testid='Next'
                 disabled={loading || code === ''}
             >Next</Button>
         </div>

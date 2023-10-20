@@ -1,7 +1,7 @@
 import $axios from "@/shared/lib/(cs)axios";
 import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 
-interface IParams {
+interface IPaymentDetails {
     iban: string;
     account: string;
     purpose: string;
@@ -25,11 +25,14 @@ interface IParams {
 }
 
 export const apiPaymentSepa = (
-    payment_details: IParams,
+    payment_details: IPaymentDetails,
     commission: boolean = false,
     headers: Partial<SignHeaders> | null = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {
-    headers: headers
+    headers: {
+        ...headers,
+        "X-Confirmation-Type": "SIGN"
+    }
 });

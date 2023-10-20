@@ -117,13 +117,18 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
+                            localErrorHunter(e)
                             setLoading(false);
                         });
                 })
-                .reject(v => {
+                .reject(e => {
+                    localErrorHunter(e)
                     setLoading(false);
                 })
-            )
+            ).catch(e => {
+            localErrorHunter(e)
+            setLoading(false);
+        })
     }
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>

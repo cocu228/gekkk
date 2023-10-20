@@ -65,6 +65,7 @@ const FormLoginAccount = memo(() => {
 
                 ))
             .catch(err => {
+                localErrorHunter(err)
                 setLoading(false)
             })
     }

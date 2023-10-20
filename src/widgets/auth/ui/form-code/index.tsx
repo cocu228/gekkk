@@ -117,6 +117,8 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
+                            console.log("catch apiSignIn")
+                            console.log(e)
                             localErrorHunter({
                                 code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
                                 message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
@@ -125,6 +127,8 @@ const FormCode = memo(() => {
                         });
                 })
                 .reject(e => {
+                    console.log("reject apiRequestCode")
+                    console.log(e)
                     localErrorHunter({
                         code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
                         message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
@@ -132,6 +136,8 @@ const FormCode = memo(() => {
                     setLoading(false);
                 })
             ).catch(e => {
+            console.log("catch apiRequestCode")
+            console.log(e)
             localErrorHunter({
                 code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
                 message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message

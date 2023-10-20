@@ -141,6 +141,7 @@ const FormLoginAccount = memo(() => {
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
                 } else if (error.code === "auth/too-many-requests") {
+                    console.log(error.code)
                     onSingInUAS()
                     // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 }

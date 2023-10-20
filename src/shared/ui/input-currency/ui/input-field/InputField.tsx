@@ -36,10 +36,10 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
                 const value: string = event.target.value
                 onChange(value)
             }}
-            suffix={<>
+            suffix={<div className="flex items-center gap-2 pr-4">
+                <span className='text-gray-600 text-sm font-medium select-none'>{currency}</span>
                 {currency && <IconCoin width={34} height={34} code={currency}/>}
-                <span className='text-gray-600 text-sm font-medium mr-[17px] select-none'>{currency ?? 'Select token'}</span>
-            </>}
+            </div>}
         />
     </div>
 };

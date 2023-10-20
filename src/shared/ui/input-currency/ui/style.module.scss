@@ -51,22 +51,15 @@
   &SelectBtn {
     display: inline-flex;
     align-items: center;
-    padding: 0;
-    height: 100%;
-    gap: 0.625rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
     justify-content: flex-end;
-    color: var(--color-gray-600);
     user-select: none;
     height: 64px;
     width: 138px;
     z-index: 10;
-    margin-top: 27px;
-    margin-left: -138px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 
     @include max-devices("md") {
       gap: 0.3rem;

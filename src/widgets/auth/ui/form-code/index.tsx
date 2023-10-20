@@ -149,8 +149,12 @@ const FormCode = memo(() => {
                    onChange={({target}) => onChange(target.value)}
             />
         </FormItem>
-        
-        <span className="text-red-800">{localErrorSpan}</span>
+
+        <div className="row w-full">
+            <div className="col">
+                <span className="text-red-800">{localErrorSpan}</span>
+            </div>
+        </div>
         
         <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
             <ReSendCode isUAS={sessionIdUAS !== ""}/>

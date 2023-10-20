@@ -112,11 +112,12 @@ export class HunterErrorsApi {
 
         if (isNull(this.typeResponseError)) {
             this.isBankApi()
+            this.isServerApi()
         }
 
-        return this.typeResponseError === "BANK" && uncoverArray<{
+        return (this.typeResponseError === "BANK" && uncoverArray<{
             code: number
-        }>(this.response.data.errors).code === 449
+        }>(this.response.data.errors).code === 449) || (this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10068)
     }
 }
 

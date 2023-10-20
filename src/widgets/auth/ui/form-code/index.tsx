@@ -27,6 +27,7 @@ import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widg
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
 import {actionResSuccess, uncoverArray} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
+import {AxiosResponse} from "axios";
 
 
 declare module 'firebase/auth' {
@@ -117,31 +118,17 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
-                            console.log("catch apiSignIn")
-                            console.log(e)
-                            localErrorHunter({
-                                code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
-                                message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
-                            })
                             setLoading(false);
                         });
                 })
-                .reject(e => {
-                    console.log("reject apiRequestCode")
-                    console.log(e)
+                .reject((response: AxiosResponse) => {
                     localErrorHunter({
-                        code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
-                        message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
+                        code: uncoverArray<{ code: number }>(response.data.errors).code,
+                        message: uncoverArray<{ message: string }>(response.data.errors).message
                     })
                     setLoading(false);
                 })
             ).catch(e => {
-            console.log("catch apiRequestCode")
-            console.log(e)
-            localErrorHunter({
-                code: Array.isArray(e.errors) && uncoverArray<{ code: number }>(e.errors).code,
-                message: Array.isArray(e.errors) && uncoverArray<{ message: string }>(e.errors).message
-            })
             setLoading(false);
         })
     }

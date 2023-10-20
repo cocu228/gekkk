@@ -78,7 +78,9 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
 
     return <>
-        {localErrorSpan}
+        <div className="row w-full">
+            <div className="col">{localErrorSpan}</div>
+        </div>
         <Timer onAction={isUAS ? onVerifierUAS : onVerifier}/>
     </>
 })

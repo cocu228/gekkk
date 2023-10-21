@@ -1,4 +1,4 @@
-import {useCallback, useState, memo} from "react";
+import {useCallback, useState, memo, useContext} from "react";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
@@ -11,18 +11,21 @@ import useError from "@/shared/model/hooks/useError";
 import Timer from "@/shared/model/hooks/useTimer";
 import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
 import {useForm} from "antd/es/form/Form";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 const QuickExchangeConfirm = memo((
-    {get, pay, rate, currency}: IOperationInfo
+    {get, pay, rate, currency, handleCancel}: IOperationInfo & { handleCancel: () => void }
 ) => {
-
+    const setContent = useContext(CtxModalTrxInfo)
     const [form] = useForm();
     const {onInput} = useMask(MASK_CODE);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
     const onConfirm = () => {
-
+        setContent(<CtnTrxInfo/>)
+        handleCancel()
     }
 
     const onReSendCode = useCallback(() => {

@@ -219,7 +219,7 @@ export const QuickExchange = () => {
                        destroyOnClose
                        onCancel={handleCancel}
                        open={isModalOpen}>
-                    <QuickExchangeConfirm {...operationInfo}/>
+                    <QuickExchangeConfirm handleCancel={handleCancel} {...operationInfo}/>
                 </Modal>
                 <Button
                     size={"xl"}

@@ -18,13 +18,12 @@ import Loader from "@/shared/ui/loader";
 import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
 
 export const QuickExchange = () => {
-    const {ratesEUR} = useContext(CtxCurrencies)
-    if (isNull(ratesEUR)) return <Loader/>
+    const {ratesEUR, currencies} = useContext(CtxCurrencies)
+
+    if (isNull(ratesEUR) || currencies.get("EUR").availableBalance === null) return <Loader/>
 
 
     const commissionCoefficient = 10
-
-    const {currencies} = useContext(CtxCurrencies)
 
     const {isModalOpen, showModal, handleCancel} = useModal();
 

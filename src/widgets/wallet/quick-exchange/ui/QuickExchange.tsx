@@ -63,9 +63,19 @@ export const QuickExchange = () => {
         </div>
         <div className="row mb-8">
             <div className="col">
+                <InputCurrency.CurrencySelector
+                    onSelect={onSelectConverted}>
+                    <InputCurrency
+                        onChange={converted.setInputCurr}
+                        value={converted.inputCurr.value.string}
+                        currency={state.currency.converted.$const}/>
+                </InputCurrency.CurrencySelector>
+            </div>
+        </div>
+        <div className="row mb-8">
+            <div className="col">
                 <InputCurrency.PercentSelector
                     currency={state.currency.receive}
-                    header={<span className='text-gray-600 font-medium'>Pay from</span>}
                     onSelect={receive.setInputCurr}
                 >
                     <InputCurrency.CurrencySelector onSelect={onSelectReceive}>
@@ -74,17 +84,6 @@ export const QuickExchange = () => {
                                        currency={state.currency.receive.$const}/>
                     </InputCurrency.CurrencySelector>
                 </InputCurrency.PercentSelector>
-            </div>
-        </div>
-        <div className="row mb-10">
-            <div className="col">
-                <InputCurrency.CurrencySelector
-                    onSelect={onSelectConverted}>
-                    <InputCurrency
-                        onChange={converted.setInputCurr}
-                        value={converted.inputCurr.value.string}
-                        currency={state.currency.converted.$const}/>
-                </InputCurrency.CurrencySelector>
             </div>
         </div>
         <div className="row">

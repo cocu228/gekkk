@@ -14,15 +14,19 @@ export const QuickExchange = () => {
     const [state, setState] = useState({
         typeOperation: "EURToCrypto",
         currency: {
-            converted: currencies.get("EUR"),
-            receive: currencies.get("BTC")
+            EUR: currencies.get("EUR"),
+            Crypto: currencies.get("BTC")
         }
     });
 
-    const onChangeForSelect = (value: string) => setState(prev => ({...prev, typeOperation: value}))
+    const onChangeForSelect = (value: string) => {
+        stateInputEUR.setInputCurr("");
+        stateInputCrypto.setInputCurr("");
+        setState(prev => ({...prev, typeOperation: value}));
+    }
 
-    const converted = useInputState()
-    const receive = useInputState()
+    const stateInputEUR = useInputState()
+    const stateInputCrypto = useInputState()
     // const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
 
@@ -30,19 +34,23 @@ export const QuickExchange = () => {
         setState(prev => ({
             ...prev, currency: {
                 ...prev.currency,
-                converted: currencies.get($const)
+                Crypto: currencies.get($const)
             }
         }))
     };
 
-    const onSelectReceive = ($const: string) => {
-        setState(prev => ({
-            ...prev, currency: {
-                ...prev.currency,
-                receive: currencies.get($const)
-            }
-        }))
-    };
+    const InputEUR =
+        <InputCurrency onChange={stateInputEUR.setInputCurr}
+                       value={stateInputEUR.inputCurr.value.string}
+                       currency={state.currency.EUR.$const}/>
+
+    const InputCrypto = <InputCurrency.CurrencySelector
+        onSelect={onSelectConverted}>
+        <InputCurrency
+            onChange={stateInputCrypto.setInputCurr}
+            value={stateInputCrypto.inputCurr.value.string}
+            currency={state.currency.Crypto.$const}/>
+    </InputCurrency.CurrencySelector>
 
     return <>
         <div className="row mb-2">
@@ -63,35 +71,32 @@ export const QuickExchange = () => {
         </div>
         <div className="row mb-8">
             <div className="col">
-                <InputCurrency.CurrencySelector
-                    onSelect={onSelectConverted}>
-                    <InputCurrency
-                        onChange={converted.setInputCurr}
-                        value={converted.inputCurr.value.string}
-                        currency={state.currency.converted.$const}/>
-                </InputCurrency.CurrencySelector>
+                <InputCurrency.PercentSelector
+                    currency={state.typeOperation === "EURToCrypto" ?
+                        state.currency.EUR :
+                        state.currency.Crypto}
+                    onSelect={state.typeOperation === "EURToCrypto" ?
+                        stateInputEUR.setInputCurr :
+                        stateInputCrypto.setInputCurr}
+                >
+                    {state.typeOperation === "EURToCrypto" ? InputEUR : InputCrypto}
+                </InputCurrency.PercentSelector>
             </div>
         </div>
         <div className="row mb-8">
             <div className="col">
-                <InputCurrency.PercentSelector
-                    currency={state.currency.receive}
-                    onSelect={receive.setInputCurr}
-                >
-                    <InputCurrency.CurrencySelector onSelect={onSelectReceive}>
-                        <InputCurrency onChange={receive.setInputCurr}
-                                       value={receive.inputCurr.value.string}
-                                       currency={state.currency.receive.$const}/>
-                    </InputCurrency.CurrencySelector>
-                </InputCurrency.PercentSelector>
+                {state.typeOperation === "CryptoToEUR" ? InputEUR : InputCrypto}
             </div>
         </div>
         <div className="row">
             <div className="col">
                 <div className="wrapper">
                     <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
-                        <div className="col text-xl font-bold">
-                            <span>1 {state.currency.receive.$const} = 1 {state.currency.converted.$const}*</span>
+                        <div className={`col text-xl flex font-bold ${state.typeOperation === "EURToCrypto" ? "" :
+                            "flex-row-reverse justify-end"}`}>
+                            <div className="col"><span>1 {state.currency.EUR.$const}</span></div>
+                            <div className="col mx-2"><span> = </span></div>
+                            <div className="col"><span>1 {state.currency.Crypto.$const}</span></div>
                         </div>
 
                         <div className="col text-xs">
@@ -120,14 +125,15 @@ export const QuickExchange = () => {
                         {/*</span>*/}
                         {/*</div>*/}
                     </div>
-                    <div className="col flex flex-col w-[max-content] gap-2">
+                    <div
+                        className={`col flex flex-col w-[max-content] gap-2 ${state.typeOperation === "EURToCrypto" ? "" : "flex-col-reverse"}`}>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-start">{converted.inputCurr.value.number} {state.currency.converted.$const}</span>
+                                className="w-full text-start">{stateInputEUR.inputCurr.value.number} {state.currency.EUR.$const}</span>
                         </div>
                         <div className="row flex items-end">
                             <span
-                                className="w-full text-start">{receive.inputCurr.value.number} {state.currency.receive.$const}</span>
+                                className="w-full text-start">{stateInputCrypto.inputCurr.value.number} {state.currency.Crypto.$const}</span>
                         </div>
                         {/*<div className="row flex items-end">*/}
                         {/*    {loading ? "Loading..." : <span*/}
@@ -141,7 +147,7 @@ export const QuickExchange = () => {
             <div className="col">
                 <Button
                     size={"xl"}
-                    disabled={!receive.inputCurr.value.number}
+                    disabled={!stateInputEUR.inputCurr.value.number}
                     className="w-full">
                     Exchange
                 </Button>

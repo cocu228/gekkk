@@ -10,13 +10,23 @@ import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context"
 import Decimal from "decimal.js";
 import rate from "@/widgets/crypto-deposits/Rate";
 import {getCurrentRate} from "@/widgets/wallet/quick-exchange/model/helpers";
+import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
+import QuickExchangeConfirm from "@/widgets/wallet/quick-exchange/ui/QuickExchangeConfirm";
+import {isNull} from "@/shared/lib/helpers";
+import Loader from "@/shared/ui/loader";
+import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
 
 export const QuickExchange = () => {
+    const {ratesEUR} = useContext(CtxCurrencies)
+    if (isNull(ratesEUR)) return <Loader/>
+
 
     const commissionCoefficient = 10
 
     const {currencies} = useContext(CtxCurrencies)
-    const {ratesEUR} = useContext(CtxCurrencies)
+
+    const {isModalOpen, showModal, handleCancel} = useModal();
 
 
     const [state, setState] = useState({
@@ -93,6 +103,15 @@ export const QuickExchange = () => {
                 currency={state.currency.Crypto.$const}/>
         </InputCurrency.DisplayBalance>
     </InputCurrency.CurrencySelector>
+
+    const operationInfo: IOperationInfo = {
+        pay: state.typeOperation === "EURToCrypto" ? `${stateInputEUR.inputCurr.value.number} ${state.currency.EUR.$const}` :
+            `${stateInputCrypto.inputCurr.value.number} ${state.currency.Crypto.$const}`,
+        get: state.typeOperation !== "EURToCrypto" ? `${stateInputEUR.inputCurr.value.number} ${state.currency.EUR.$const}` :
+            `${stateInputCrypto.inputCurr.value.number} ${state.currency.Crypto.$const}`,
+        rate: currentRate.toString(),
+        currency: state.currency.Crypto.$const
+    }
 
     return <>
         <div className="row mb-2">
@@ -196,8 +215,16 @@ export const QuickExchange = () => {
         </div>
         <div className="row">
             <div className="col">
+                <Modal width={450}
+                       title="Exchange confirmation"
+                       destroyOnClose
+                       onCancel={handleCancel}
+                       open={isModalOpen}>
+                    <QuickExchangeConfirm {...operationInfo}/>
+                </Modal>
                 <Button
                     size={"xl"}
+                    onClick={showModal}
                     disabled={!stateInputEUR.inputCurr.value.number}
                     className="w-full">
                     Exchange

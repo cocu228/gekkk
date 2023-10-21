@@ -16,6 +16,9 @@ import QuickExchangeConfirm from "@/widgets/wallet/quick-exchange/ui/QuickExchan
 import {isNull} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
+import {validateBalance} from "@/shared/config/validators";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useNavigate} from "react-router-dom";
 
 export const QuickExchange = () => {
     const {ratesEUR, currencies} = useContext(CtxCurrencies)
@@ -26,7 +29,7 @@ export const QuickExchange = () => {
     const commissionCoefficient = 10
 
     const {isModalOpen, showModal, handleCancel} = useModal();
-
+    const navigate = useNavigate()
 
     const [state, setState] = useState({
         typeOperation: "EURToCrypto",
@@ -49,7 +52,7 @@ export const QuickExchange = () => {
 
     const stateInputEUR = useInputState()
     const stateInputCrypto = useInputState()
-    // const {inputCurrValid, setInputCurrValid} = useInputValidateState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     useEffect(() => {
         if (state.typeOperation === "EURToCrypto" && !new Decimal(currentRate).isZero()) {
@@ -132,6 +135,7 @@ export const QuickExchange = () => {
         <div className="row mb-8">
             <div className="col">
                 <InputCurrency.PercentSelector
+                    header={<span className="font-medium">Pay from</span>}
                     currency={state.typeOperation === "EURToCrypto" ?
                         state.currency.EUR :
                         state.currency.Crypto}
@@ -139,8 +143,24 @@ export const QuickExchange = () => {
                         stateInputEUR.setInputCurr :
                         stateInputCrypto.setInputCurr}
                 >
-                    {state.typeOperation === "EURToCrypto" ? InputEUR : InputCrypto}
+                    <InputCurrency.Validator
+                        value={state.typeOperation === "EURToCrypto" ? stateInputEUR.inputCurr.value.number :
+                            stateInputCrypto.inputCurr.value.number
+                        }
+                        onError={setInputCurrValid}
+                        validators={[
+                            validateBalance(state.typeOperation === "EURToCrypto" ?
+                                    state.currency.EUR : state.currency.Crypto,
+                                navigate)
+                        ]}>
+                        {state.typeOperation === "EURToCrypto" ? InputEUR : InputCrypto}
+                    </InputCurrency.Validator>
                 </InputCurrency.PercentSelector>
+            </div>
+        </div>
+        <div className="row mb-2">
+            <div className="col">
+                <span className="font-medium">Receive to</span>
             </div>
         </div>
         <div className="row mb-8">
@@ -224,7 +244,7 @@ export const QuickExchange = () => {
                 <Button
                     size={"xl"}
                     onClick={showModal}
-                    disabled={!stateInputEUR.inputCurr.value.number}
+                    disabled={!stateInputEUR.inputCurr.value.number || inputCurrValid.value}
                     className="w-full">
                     Exchange
                 </Button>

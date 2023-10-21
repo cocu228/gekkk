@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import Select from "@/shared/ui/select/Select";
 import {typeQuickExchangeForSelect} from "@/widgets/wallet/quick-exchange/model/entitys";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -6,10 +6,18 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 // import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Button from "@/shared/ui/button/Button";
+import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import Decimal from "decimal.js";
+import rate from "@/widgets/crypto-deposits/Rate";
+import {getCurrentRate} from "@/widgets/wallet/quick-exchange/model/helpers";
 
 export const QuickExchange = () => {
 
+    const commissionCoefficient = 10
+
     const {currencies} = useContext(CtxCurrencies)
+    const {ratesEUR} = useContext(CtxCurrencies)
+
 
     const [state, setState] = useState({
         typeOperation: "EURToCrypto",
@@ -19,18 +27,45 @@ export const QuickExchange = () => {
         }
     });
 
+    const currentRate = useMemo(() =>
+        getCurrentRate(ratesEUR, state.currency.Crypto.$const, commissionCoefficient), [state.currency.Crypto.$const])
+
+    const ratioOneEUR = new Decimal(1).div(currentRate).toString()
     const onChangeForSelect = (value: string) => {
         stateInputEUR.setInputCurr("");
         stateInputCrypto.setInputCurr("");
         setState(prev => ({...prev, typeOperation: value}));
     }
 
+
     const stateInputEUR = useInputState()
     const stateInputCrypto = useInputState()
     // const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
+    useEffect(() => {
+        if (state.typeOperation === "EURToCrypto" && !new Decimal(currentRate).isZero()) {
+            const EUR = stateInputEUR.inputCurr.value.number
+            const finalCrypto = new Decimal(EUR).div(currentRate).toString();
+            stateInputCrypto.setInputCurr(finalCrypto)
+        }
+
+    }, [stateInputEUR.inputCurr.value.number]);
+
+    useEffect(() => {
+
+        if (state.typeOperation !== "EURToCrypto" && !new Decimal(currentRate).isZero()) {
+            const Crypto = stateInputCrypto.inputCurr.value.number
+            const finalCrypto = new Decimal(Crypto).times(currentRate).toString();
+            stateInputEUR.setInputCurr(finalCrypto)
+        }
+
+    }, [stateInputCrypto.inputCurr.value.number]);
 
     const onSelectConverted = ($const: string) => {
+
+        stateInputEUR.setInputCurr("");
+        stateInputCrypto.setInputCurr("");
+
         setState(prev => ({
             ...prev, currency: {
                 ...prev.currency,
@@ -39,17 +74,24 @@ export const QuickExchange = () => {
         }))
     };
 
+
     const InputEUR =
+        <InputCurrency.DisplayBalance currency={state.currency.EUR}>
         <InputCurrency onChange={stateInputEUR.setInputCurr}
+                       readOnly={state.typeOperation !== "EURToCrypto"}
                        value={stateInputEUR.inputCurr.value.string}
                        currency={state.currency.EUR.$const}/>
+        </InputCurrency.DisplayBalance>
 
     const InputCrypto = <InputCurrency.CurrencySelector
         onSelect={onSelectConverted}>
-        <InputCurrency
-            onChange={stateInputCrypto.setInputCurr}
-            value={stateInputCrypto.inputCurr.value.string}
-            currency={state.currency.Crypto.$const}/>
+        <InputCurrency.DisplayBalance currency={state.currency.Crypto}>
+            <InputCurrency
+                readOnly={state.typeOperation === "EURToCrypto"}
+                onChange={stateInputCrypto.setInputCurr}
+                value={stateInputCrypto.inputCurr.value.string}
+                currency={state.currency.Crypto.$const}/>
+        </InputCurrency.DisplayBalance>
     </InputCurrency.CurrencySelector>
 
     return <>
@@ -94,9 +136,13 @@ export const QuickExchange = () => {
                     <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
                         <div className={`col text-xl flex font-bold ${state.typeOperation === "EURToCrypto" ? "" :
                             "flex-row-reverse justify-end"}`}>
-                            <div className="col"><span>1 {state.currency.EUR.$const}</span></div>
+                            <div className="col">
+                                <span>{state.typeOperation === "EURToCrypto" ? 1 : currentRate.toString()} {state.currency.EUR.$const}</span>
+                            </div>
                             <div className="col mx-2"><span> = </span></div>
-                            <div className="col"><span>1 {state.currency.Crypto.$const}</span></div>
+                            <div className="col">
+                                <span>{state.typeOperation === "EURToCrypto" ? ratioOneEUR : 1} {state.currency.Crypto.$const}</span>
+                            </div>
                         </div>
 
                         <div className="col text-xs">
@@ -105,6 +151,11 @@ export const QuickExchange = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div className="row">
+            <div className="col">
+                <b>Testing value: {ratesEUR[state.currency.Crypto.$const]} EUR без комиссии 10%</b>
             </div>
         </div>
         <div className="row">

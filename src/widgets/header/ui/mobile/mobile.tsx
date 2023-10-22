@@ -6,6 +6,7 @@ import {defaultItems, HeaderMenuItems} from "@/widgets/header/model/header-menu-
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useNavigate} from "react-router-dom";
+import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 
 const HeaderMobile = () => {
     const {logout} = useAuth();
@@ -29,12 +30,15 @@ const HeaderMobile = () => {
                          height={24} alt="logo"/>
                 </a>
             </div>
-            <div className="wrapper">
+            <div className="wrapper flex flex-row flex-nowrap">
                 <HeaderMenu items={items.get()} actions={actionsForMenuFunctions}>
                     <div className="wrapper flex justify-end w-[180px]">
                         <button className="arrow-down-xs"></button>
                     </div>
                 </HeaderMenu>
+                <div className="wrapper w-[32px] flex pr-4">
+                    <LocalizationMenu/>
+                </div>
             </div>
         </header>
     </>

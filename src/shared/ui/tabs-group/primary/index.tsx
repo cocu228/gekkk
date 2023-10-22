@@ -6,7 +6,7 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 
 interface IResult {
     content: ReactNode[] | unknown[];
-    buttons: string[]
+    buttons: Array<{ tag: string, name: string }>
 }
 
 function filterChildrenByAttribute(children: ReactNode, attValue: string, buttons = []): IResult {
@@ -16,10 +16,10 @@ function filterChildrenByAttribute(children: ReactNode, attValue: string, button
 
             if (React.isValidElement(child)) {
 
-                const childDataTab = child.props['data-tab'] as string | undefined;
+                const childDataTab = child.props['data-tag'] as string | undefined;
 
                 if (childDataTab !== undefined) {
-                    buttons.push(childDataTab)
+                    buttons.push({tag: childDataTab, name: child.props['data-name']})
                 }
 
                 if (childDataTab && childDataTab !== attValue) {
@@ -70,13 +70,13 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
                         key={"tabs-primary-button" + i}
                         className={`
                                 ${styles.TabBtn}
-                                ${isActiveClass(item === state)}
+                                ${isActiveClass(item.tag === state)}
                             `}
                         onClick={() => {
-                            setState(item)
-                            navigate(`/wallet/${$const}/${item}`)
+                            setState(item.tag)
+                            navigate(`/wallet/${$const}/${item.tag}`)
                         }}>
-                        {item.capitalize()}
+                        {item.name}
                     </button>)}
                 </div>
             </div>

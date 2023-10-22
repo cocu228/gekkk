@@ -4,7 +4,7 @@ import App from './App'
 import './styles/index.scss'
 import {ConfigProvider} from 'antd'
 import "./index"
-
+import "../processes/i18n.config";
 
 declare global {
     interface String {

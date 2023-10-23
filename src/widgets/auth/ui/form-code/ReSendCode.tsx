@@ -9,6 +9,7 @@ import {apiRequestCode} from "@/widgets/auth/api";
 import {helperApiRequestCode} from "@/widgets/auth/model/helpers";
 // import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import useError from "@/shared/model/hooks/useError";
+import {uncoverArray} from "@/shared/lib/helpers";
 
 export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
@@ -53,7 +54,10 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
         }).reject((e) => {
 
-            localErrorHunter(e)
+            localErrorHunter({
+                message: uncoverArray<{ message: string }>(e.data.errors)?.message,
+                code: uncoverArray<{ code: number }>(e.data.errors)?.code
+            })
         })
     }
 

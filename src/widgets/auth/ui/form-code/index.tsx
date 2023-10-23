@@ -27,6 +27,7 @@ import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widg
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
 // import {actionResSuccess} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
+import {uncoverArray} from "@/shared/lib/helpers";
 
 
 declare module 'firebase/auth' {
@@ -127,11 +128,17 @@ const FormCode = memo(() => {
                         });
                 })
                 .reject(e => {
-                    localErrorHunter(e)
+                    localErrorHunter({
+                        message: uncoverArray<{ message: string }>(e.data.errors)?.message,
+                        code: uncoverArray<{ code: number }>(e.data.errors)?.code
+                    })
                     setLoading(false);
                 })
             ).catch(e => {
-            localErrorHunter(e)
+            localErrorHunter({
+                message: uncoverArray<{ message: string }>(e.data.errors)?.message,
+                code: uncoverArray<{ code: number }>(e.data.errors)?.code
+            })
             setLoading(false);
         })
     }

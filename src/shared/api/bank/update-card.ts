@@ -15,7 +15,7 @@ export const apiUpdateCard = (cardId: string, params: Partial<IParams>) =>
     $axios.patch<
         IResErrors
         | IResCard
-    >(`/api/v2/cards/PPY${cardId}`, {
+    >(`/api/v2/cards/${cardId}`, {
         card: {
             ...params
         }

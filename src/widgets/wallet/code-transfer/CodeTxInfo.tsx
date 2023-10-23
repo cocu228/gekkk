@@ -37,7 +37,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
                     </div>
                 </div>
             </div>
-            {onBtnApply !== null && <div className="row text-right pb-10 flex justify-center items-center flex-col">
+            {onBtnApply === null && <div className="row text-right pb-10 flex justify-center items-center flex-col">
                 <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                     <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
                         <ReactQRCode

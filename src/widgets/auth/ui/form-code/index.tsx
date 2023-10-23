@@ -105,14 +105,14 @@ const FormCode = memo(() => {
     }
 
     const onCodeUAS = async () => {
-        const _phone = formatAsNumber(phone)
+        const _phone = formatAsNumber(phone);
 
         setLoading(true);
 
-        apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
-            .then(res => helperApiRequestCode(res)
-                .success(() => {
-                    apiSignIn(formatAsNumber(code), res.data.sessid, _phone)
+        // apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
+        //     .then(res => helperApiRequestCode(res)
+        //         .success(() => {
+        apiSignIn(formatAsNumber(code), sessionIdUAS, _phone)
                         .then(res => helperApiSignIn(res)
                             .success(async () => {
                                 sessionStorage.removeItem("session-auth");
@@ -126,21 +126,15 @@ const FormCode = memo(() => {
                             localErrorHunter(e)
                             setLoading(false);
                         });
-                })
-                .reject(e => {
-                    localErrorHunter({
-                        message: uncoverArray<{ message: string }>(e.data.errors)?.message,
-                        code: uncoverArray<{ code: number }>(e.data.errors)?.code
-                    })
-                    setLoading(false);
-                })
-            ).catch(e => {
-            localErrorHunter({
-                message: uncoverArray<{ message: string }>(e.data.errors)?.message,
-                code: uncoverArray<{ code: number }>(e.data.errors)?.code
-            })
-            setLoading(false);
-        })
+        // })
+        //         .reject(e => {
+        //             localErrorHunter(e)
+        //             setLoading(false);
+        //         })
+        //     ).catch(e => {
+        //     localErrorHunter(e)
+        //     setLoading(false);
+        // })
     }
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>

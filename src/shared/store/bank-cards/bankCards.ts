@@ -1,5 +1,6 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
+import {randomId} from "@/shared/lib/helpers";
 import {IResCard, apiGetCards} from '@/shared/api';
 
 export const CardStatusDescriptions: Record<string, string> = {
@@ -20,6 +21,7 @@ export const CardStatusDescriptions: Record<string, string> = {
 }
 
 export interface IStoreBankCards {
+    refreshKey: string;
     bankCards: IResCard[];
     getBankCards: () => Promise<void>;
     updateCard: (card: IResCard) => void;
@@ -27,11 +29,13 @@ export interface IStoreBankCards {
 
 export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
     bankCards: null,
+    refreshKey: null,
     getBankCards: async () => {
         const {data} = await apiGetCards();
         
         set((state) => ({
             ...state,
+            refreshKey: randomId(),
             bankCards: data.result.sort(c =>
                 c.cardStatus === 'ACTIVE' ? -1
                     : c.cardStatus === 'BLOCKED_BY_CUSTOMER' ? -1
@@ -40,10 +44,14 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
     },
     updateCard: (card: IResCard) => {
         set((state) => {
-            const cardIndex = state.bankCards.findIndex(c => c.cardId === card.cardId)
-            state.bankCards[cardIndex] = card;
-            
-            return state;
+            return ({
+                ...state,
+                refreshKey: randomId(),
+                bankCards: {
+                    ...state.bankCards.filter(c => c.cardId !== card.cardId),
+                    card
+                }
+            });
         });
     }
 })));

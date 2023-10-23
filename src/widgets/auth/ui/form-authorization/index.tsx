@@ -82,6 +82,7 @@ const FormLoginAccount = memo(() => {
 
 
         helperApiRequestCode(response).success(() => {
+
             setSessionAuth(prev => ({
                 ...prev,
                 phone: state.phone,
@@ -137,6 +138,7 @@ const FormLoginAccount = memo(() => {
                     toggleStage("code", md5(`${password}_${phone}`))
 
                 }).catch((error) => {
+
 
                 setLoading(false)
 

@@ -62,8 +62,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    // onSingInUAS()
-                    onSingIn()
+                    onSingInUAS()
+                    // onSingIn()
 
                 ))
             .catch(err => {

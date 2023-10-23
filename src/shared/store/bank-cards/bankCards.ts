@@ -32,7 +32,10 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
         
         set((state) => ({
             ...state,
-            bankCards: data.result.sort(c => c.cardStatus === 'ACTIVE' ? -1 : c.cardStatus === 'LOCKED' ? 0 : 1),
+            bankCards: data.result.sort(c =>
+                c.cardStatus === 'ACTIVE' ? -1
+                    : c.cardStatus === 'BLOCKED_BY_CUSTOMER' ? -1
+                        : c.cardStatus === 'LOCKED' ? 0 : 1),
         }));
     },
     updateCard: (card: IResCard) => {

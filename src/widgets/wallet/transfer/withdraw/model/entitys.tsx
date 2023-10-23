@@ -9,7 +9,7 @@ export const getWithdrawDesc = (miWithdraw: null | number, $const: string) => {
 export const CtnTrxInfo = () => {
     const navigate = useNavigate()
 
-    return <div className="flex flex-col">
+    return <div className="flex flex-col -mx-4">
     <div className="row mb-3">
         <div className="col w-full flex justify-center">
             <img width={40} height={40} src="/img/icon/SuccessIcon.svg" alt="SuccessIcon"/>

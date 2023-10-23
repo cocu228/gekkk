@@ -27,7 +27,7 @@ const TopUp = memo(() => {
 
             <ChoseNetwork/>
 
-            {(formType > 10 && formType < 23) || (formType > 200 && formType < 223) ?
+            {(formType >= 10 && formType < 23) || (formType >= 200 && formType <= 223) ?
                 <TopUpFormQR/> : formType === 150 ?
                     <div>
                         <b>

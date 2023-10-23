@@ -99,7 +99,7 @@ const WalletHeader = () => {
             </div>
             
             {md ? null : isEUR ? (
-                <BankCardsCarousel wrapperClassName="h-[200px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0"/>
+                <BankCardsCarousel wrapperClassName="h-[240px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0"/>
             ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">

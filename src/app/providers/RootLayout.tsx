@@ -24,6 +24,7 @@ export default memo(function () {
     })
 
     const accounts = storeAccounts(state => state.accounts);
+    const bankCards = storeBankCards(state => state.bankCards);
     const getAccounts = storeAccounts(state => state.getAccounts);
 
     useEffect(() => {

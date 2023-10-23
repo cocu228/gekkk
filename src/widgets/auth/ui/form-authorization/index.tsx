@@ -29,6 +29,7 @@ import {useSearchParams} from "react-router-dom";
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
+
     const [params] = useSearchParams();
     const authMethod = params.get("authMethod");
     const {toggleStage} = storyDisplayAuth(state => state)
@@ -62,8 +63,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    onSingInUAS()
-                    // onSingIn()
+                    // onSingInUAS()
+                    onSingIn()
 
                 ))
             .catch(err => {
@@ -136,8 +137,6 @@ const FormLoginAccount = memo(() => {
                     toggleStage("code", md5(`${password}_${phone}`))
 
                 }).catch((error) => {
-
-
 
                 setLoading(false)
 

@@ -40,7 +40,7 @@ const Withdraw = memo(() => {
         <div className='h-full'>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
-                {(formType >= 10 && formType <= 23) || (formType >= 200 && formType <= 223) ?
+                {(formType >= 10 && formType < 23) || (formType >= 200 && formType <= 223) ?
                     <WithdrawFormCrypto/> :
                     formType === 150 ?
                         <WithdrawFormPapaya/> :

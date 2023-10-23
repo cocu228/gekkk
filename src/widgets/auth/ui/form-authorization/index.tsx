@@ -21,6 +21,7 @@ import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 import {apiRequestCode} from "@/widgets/auth/api";
+import {useSearchParams} from "react-router-dom";
 // import {uncoverResponse} from "@/shared/lib/helpers";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -28,7 +29,8 @@ import {apiRequestCode} from "@/widgets/auth/api";
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
-
+    const [params] = useSearchParams();
+    const authMethod = params.get("authMethod");
     const {toggleStage} = storyDisplayAuth(state => state)
     const {md} = useContext(BreakpointsContext)
     const {phoneValidator, pinValidator} = useValidation()
@@ -60,8 +62,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    // onSingInUAS()
-                    onSingIn()
+                    onSingInUAS()
+                    // onSingIn()
 
                 ))
             .catch(err => {
@@ -158,7 +160,7 @@ const FormLoginAccount = memo(() => {
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form autoComplete={"on"} onFinish={onFinish}>
+    return <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
             Login to your account
@@ -177,9 +179,10 @@ const FormLoginAccount = memo(() => {
             <PhoneInput
                 disableDropdown
                 inputProps={{
+                    'data-testid': 'PhoneInput',
                     name: 'phone',
                     ref: inputRef,
-                    type: "tel"
+                    type: "tel",
                 }}
                 disabled={loading}
                 placeholder="Enter phone number"
@@ -198,6 +201,7 @@ const FormLoginAccount = memo(() => {
                                 ...prev,
                                 password: target.value
                             }))}
+                            data-testid="PIN"
                             placeholder="PIN"/>
         </FormItem>
 
@@ -211,7 +215,8 @@ const FormLoginAccount = memo(() => {
             <Button disabled={loading || state.phone === ""}
                     tabIndex={0}
                     htmlType="submit"
-                    className="w-full">Login</Button>
+                    className="w-full"
+                    data-testid="Login">Login</Button>
         </div>
 
         <div className='text-center'>

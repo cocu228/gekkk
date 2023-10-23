@@ -6,15 +6,13 @@ import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
-import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from '@/shared/config/validators';
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {getFinalFee, isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import Decimal from "decimal.js";
-import {calculateAmount} from "@/shared/lib/helpers";
-import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
+// import {calculateAmount} from "@/shared/lib/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
@@ -42,7 +40,7 @@ const WithdrawFormCrypto = () => {
 
     const {
         min_withdraw = 0,
-        // max_withdraw = null,
+        max_withdraw = 0,
         percent_fee = 0,
         withdraw_fee = 0,
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
@@ -51,10 +49,13 @@ const WithdrawFormCrypto = () => {
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
+    //
+    // const finalFee = finalFeeEntity.type.percent ?
+    //     calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
+    //     finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
-    const finalFee = finalFeeEntity.type.percent ?
-        calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
-        finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
+    const finalFee = finalFeeEntity.value.number;
+
     const onInput = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
@@ -77,6 +78,7 @@ const WithdrawFormCrypto = () => {
                             validators={[
                                 validateBalance(currency, navigate),
                                 validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
+                                validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const),
                             ]}
                         >
                             <InputCurrency.PercentSelector

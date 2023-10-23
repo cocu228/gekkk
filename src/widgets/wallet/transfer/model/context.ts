@@ -15,7 +15,7 @@ export interface ICtxWalletNetworks {
     setRefresh: (quite?: boolean, amount?: number) => void
 }
 
-export const CtxWalletData = React.createContext<null | ICtxCurrency>(null);
+export const CtxWalletData = React.createContext<null | ICtxCurrency>(null)
 export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>({
     networksDefault: null,
     networksForSelector: null,

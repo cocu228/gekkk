@@ -14,7 +14,7 @@ interface CardData {
 
 const BankCard = ({cardNumber, status, expiresAt, holderName, className}: CardData) => {
     return (
-        <div>
+        <div className="flex justify-center">
             {status !== 'ACTIVE' && (
                 <div className='flex absolute w-full h-full items-center justify-center'>
                     <div className='mb-4 bg-black bg-opacity-75 rounded-[6px] p-2'>

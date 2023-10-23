@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo, useTransition} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -10,6 +10,7 @@ import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
+import CardsMenu from "@/widgets/wallet/cards-menu/ui/CardsMenu";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
@@ -17,16 +18,22 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
-
+import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
+import {useTranslation} from 'react-i18next';
 function Wallet() {
+
     const {currency, tab} = useParams();
+    const {t} = useTranslation()
+
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+
     const $currency = currencies.get(currency);
     const cards = storeBankCards(state => state.bankCards);
     const getBankCards = storeBankCards(state => state.getBankCards);
-    
+    const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
+
     useEffect(() => {
         if (!cards && currency === 'EUR') {
             getBankCards();
@@ -40,32 +47,37 @@ function Wallet() {
                 <TabsGroupPrimary initValue={tab ? tab : "Top Up"} callInitValue={{...account, tab: tab}}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative min-h-[200px] md:-mt-10">
-                            <NetworkProvider data-tab={"Top Up"}>
+                            <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                 <TopUp/>
                             </NetworkProvider>
 
-                            <NetworkProvider data-tab={"Withdraw"}>
+                            <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
                                 <Withdraw/>
                             </NetworkProvider>
 
-                            <Transfer data-tab={"Funds transfer"}/>
+                            <Transfer data-tag={"funds_transfer"} data-name={t("funds_transfer")}/>
 
-                            {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && (
-                                <EurCashbackProgram data-tab={"Cashback Program"}/>
-                            )}
+                            {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
+                                <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
 
-                            {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
-                               <GkeCashbackProgram data-tab={"Cashback Program"}/>
-                               <NoFeeProgram data-tab={"No Fee Program"}/>
+                                <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+
+                                <QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>
                             </>}
 
-                            <About data-tab={"About"}/>
+                            {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
+                                <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
+                                <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
+                            </>}
 
-                            {xl && <History currenciesFilter={[$currency.$const]} data-tab={"History"}/>}
+                            <About data-tag={"about"} data-name={t("about")}/>
+
+                            {xl && <History currenciesFilter={currencyForHistory} data-tag={"history"}
+                                            data-name={t("history")}/>}
                         </div>
 
                         {!xl && <div className="substrate z-0 -ml-4 h-full">
-                            <History currenciesFilter={[$currency.$const]}/>
+                            <History currenciesFilter={currencyForHistory}/>
                         </div>}
                     </div>
                 </TabsGroupPrimary>

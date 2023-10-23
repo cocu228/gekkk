@@ -47,6 +47,7 @@ export type ITotalContainer = {
 }
 
 export interface ICtxCurrencies {
+    ratesEUR: unknown;
     currencies: Map<string, ICtxCurrency>;
     totalAmount: ITotalContainer;
 }

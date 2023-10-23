@@ -10,6 +10,7 @@ interface Props {
 }
 
 function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
+
     const [active, setActive] = useState(false);
 
     const onClick = async () => {
@@ -25,7 +26,7 @@ function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
 
                     <div data-text={"Update"} className="ellipsis">
                         <span className={`cursor-pointer ${styles.UpdateBtn} ${isActiveClass(active)}`}
-                            onClick={onClick}>
+                            onClick={onClick} data-testid="DepositCurrentRateUpdater">
                             <img width={20} height={20} src="/img/icon/DepositCurrentRateIcon.svg" alt="DepositCurrentRateIcon" />
                         </span>
                     </div>

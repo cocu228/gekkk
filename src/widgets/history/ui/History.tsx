@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {useContext, useEffect, useState} from 'react';
+import {memo, useContext, useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
@@ -14,11 +14,12 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
 import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
+import axios, {CancelToken} from "axios";
 // import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 const {RangePicker} = DatePicker;
 
-function History({currenciesFilter, types}: Partial<Props>) {
+const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -32,7 +33,7 @@ function History({currenciesFilter, types}: Partial<Props>) {
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
 
-    const requestHistory = async () => {
+    const requestHistory = async (cancelToken = null) => {
 
         setLoading(true)
         setAllTxVisibly(false)
@@ -48,7 +49,8 @@ function History({currenciesFilter, types}: Partial<Props>) {
             currenciesFilter,
             types,
             null,
-            10
+            10,
+            cancelToken.token
         )
 
         actionResSuccess(response).success(() => {
@@ -69,6 +71,7 @@ function History({currenciesFilter, types}: Partial<Props>) {
 
         const {data} = await apiHistoryTransactions(null, null, currenciesFilter,
             types, lastValue.id_transaction, 10)
+
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))
@@ -77,11 +80,17 @@ function History({currenciesFilter, types}: Partial<Props>) {
     }
 
     useEffect(() => {
+
+        const cancelTokenSource = axios.CancelToken.source();
+
         (async () => {
             if (currenciesFilter && activeTab !== TabKey.CUSTOM) {
-                await requestHistory()
+                await requestHistory(cancelTokenSource)
             }
         })()
+
+        return () => cancelTokenSource.cancel()
+
     }, [refreshKey, activeTab, currenciesFilter]);
 
     return (
@@ -141,7 +150,7 @@ function History({currenciesFilter, types}: Partial<Props>) {
                                         >
                                             {[15, 16].includes(item.tx_type)
                                                 ? '' : !item.is_income && '-'}
-                                            {+item.amount} {item.currency}
+                                            {+item.result_amount} {item.currency}
                                         </span>
                                         </div>
                                     </GTable.Col>
@@ -176,6 +185,6 @@ function History({currenciesFilter, types}: Partial<Props>) {
             </div>}
         </div>
     );
-}
+})
 
 export default History;

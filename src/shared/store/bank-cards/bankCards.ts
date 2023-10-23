@@ -1,7 +1,6 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {IResCard, apiGetCards} from '@/shared/api';
-import bankCards from "@/widgets/wallet/header/ui/bank-cards/BankCards";
 
 export const CardStatusDescriptions: Record<string, string> = {
     LOCKED: 'Card locked',
@@ -33,7 +32,10 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
         
         set((state) => ({
             ...state,
-            bankCards: data.result.sort(c => c.cardStatus === 'ACTIVE' ? -1 : c.cardStatus === 'LOCKED' ? 0 : 1),
+            bankCards: data.result.sort(c =>
+                c.cardStatus === 'ACTIVE' ? -1
+                    : c.cardStatus === 'BLOCKED_BY_CUSTOMER' ? -1
+                        : c.cardStatus === 'LOCKED' ? 0 : 1),
         }));
     },
     updateCard: (card: IResCard) => {

@@ -25,9 +25,8 @@ import {auth} from "@/processes/firebaseConfig";
 import {ReSendCode} from "@/widgets/auth/ui/form-code/ReSendCode";
 import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widgets/auth/api";
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
-import {actionResSuccess, uncoverArray} from "@/shared/lib/helpers";
+// import {actionResSuccess} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
-import {AxiosResponse} from "axios";
 
 
 declare module 'firebase/auth' {
@@ -68,6 +67,9 @@ const FormCode = memo(() => {
     }
 
     const onCode = () => {
+
+        setLoading(true);
+
         signInWithCredential(auth, PhoneAuthProvider.credential(
             verificationId,
             formatAsNumber(code)
@@ -92,7 +94,7 @@ const FormCode = memo(() => {
             })
         }).catch(error => {
             form.resetFields();
-
+            setLoading(false);
             if (error.code === "auth/code-expired") {
                 localErrorHunter({code: 0, message: "This code has expired"});
             } else if (error.code === "auth/invalid-verification-code") {
@@ -103,7 +105,9 @@ const FormCode = memo(() => {
 
     const onCodeUAS = async () => {
         const _phone = formatAsNumber(phone)
-        
+
+        setLoading(true);
+
         apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
             .then(res => helperApiRequestCode(res)
                 .success(() => {
@@ -118,24 +122,23 @@ const FormCode = memo(() => {
 
                             }))
                         .catch(e => {
+                            localErrorHunter(e)
                             setLoading(false);
                         });
                 })
-                .reject((response: AxiosResponse) => {
-                    localErrorHunter({
-                        code: uncoverArray<{ code: number }>(response.data.errors).code,
-                        message: uncoverArray<{ message: string }>(response.data.errors).message
-                    })
+                .reject(e => {
+                    localErrorHunter(e)
                     setLoading(false);
                 })
             ).catch(e => {
+            localErrorHunter(e)
             setLoading(false);
         })
     }
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
-        <h1 className={`font-extrabold text-center text-gray-600 min-w-[436px] pb-4
-                ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h1>
+        <h1 className={`font-extrabold text-center text-gray-600 pb-4
+                ${md ? 'text-2xl' : 'text-header min-w-[436px]'}`}>One-time code</h1>
         <p className='text-center mb-9 text-gray-500'>
             SMS with one-time code was sent to
             <br/>
@@ -145,13 +148,18 @@ const FormCode = memo(() => {
         <FormItem name="code" label="Code" preserve >
             <Input type="text"
                    ref={inputRef}
+                   data-testid="PhoneCode"
                    placeholder="Phone code"
                    onInput={onInput}
                    onChange={({target}) => onChange(target.value)}
             />
         </FormItem>
-        
-        <span className="text-red-800">{localErrorSpan}</span>
+
+        <div className="row w-full">
+            <div className="col">
+                <span className="text-red-800">{localErrorSpan}</span>
+            </div>
+        </div>
         
         <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
             <ReSendCode isUAS={sessionIdUAS !== ""}/>
@@ -171,6 +179,7 @@ const FormCode = memo(() => {
                 tabIndex={0}
                 htmlType='submit'
                 className='w-full'
+                data-testid='Next'
                 disabled={loading || code === ''}
             >Next</Button>
         </div>

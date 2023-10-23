@@ -27,6 +27,7 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
 
     const [state, setState] = useState({
         currencies: null,
+        ratesEUR: null,
         totalAmount: {
             EUR: null,
             BTC: null,
@@ -91,11 +92,12 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(state.currencies, ratesEUR.data.result)
-            const valueBTC: Decimal = totalizeAmount(state.currencies, ratesBTC.data.result)
+            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR))
+            const valueBTC: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesBTC))
 
             setState(prev => ({
                 ...prev,
+                ratesEUR: uncoverResponse(ratesEUR),
                 totalAmount: {
                     ...prev.totalAmount,
                     BTC: valueBTC,
@@ -108,7 +110,8 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
 
     return <CtxCurrencies.Provider value={{
         currencies: state.currencies,
-        totalAmount: state.totalAmount
+        totalAmount: state.totalAmount,
+        ratesEUR: state.ratesEUR
     }}>
         {state.currencies === null ? <Loader/> : children}
     </CtxCurrencies.Provider>

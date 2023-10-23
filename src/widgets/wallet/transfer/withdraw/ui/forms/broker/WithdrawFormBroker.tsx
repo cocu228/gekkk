@@ -15,6 +15,7 @@ import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+// import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 
 
 const WithdrawFormBroker = () => {
@@ -35,6 +36,7 @@ const WithdrawFormBroker = () => {
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
 
     const {
+        network_type = 0,
         min_withdraw = 0,
         withdraw_fee = 0,
         percent_fee = 0
@@ -116,7 +118,7 @@ const WithdrawFormBroker = () => {
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} {currency.$const}G</span>}
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span
@@ -130,8 +132,7 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={"Withdraw confirmation"}
-        >
+            title={"Withdraw confirmation"}>
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
@@ -140,9 +141,8 @@ const WithdrawFormBroker = () => {
                     size={"xl"}
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
-                    className="w-full"
-                >
-                    Sell EURG
+                    className="w-full">
+                    Buy EURG
                 </Button>
             </div>
         </div>

@@ -32,13 +32,13 @@ const FormLoginAccount = memo(() => {
 
     const [params] = useSearchParams();
     const authMethod = params.get("authMethod");
-    const {toggleStage} = storyDisplayAuth(state => state)
-    const {md} = useContext(BreakpointsContext)
-    const {phoneValidator, pinValidator} = useValidation()
-    const inputRef = useRef(null)
+    const {toggleStage} = storyDisplayAuth(state => state);
+    const {md} = useContext(BreakpointsContext);
+    const {phoneValidator, pinValidator} = useValidation();
+    const inputRef = useRef(null);
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", verificationId: "", sessionIdUAS: ""})
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+        {phone: "", verificationId: "", sessionIdUAS: ""});
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
 
     const [state, setState] = useState<{
         phone: string,
@@ -52,7 +52,6 @@ const FormLoginAccount = memo(() => {
 
     const onFinish = () => {
 
-
         // return onSingIn()
 
         const {password} = state
@@ -63,8 +62,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    // onSingInUAS()
-                    onSingIn()
+                    onSingInUAS()
+                    // onSingIn()
 
                 ))
             .catch(err => {

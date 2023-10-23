@@ -62,8 +62,8 @@ const FormLoginAccount = memo(() => {
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() =>
-                    onSingInUAS()
-                    // onSingIn()
+                    // onSingInUAS()
+                    onSingIn()
 
                 ))
             .catch(err => {
@@ -146,6 +146,8 @@ const FormLoginAccount = memo(() => {
                 } else if (error.code === "auth/too-many-requests") {
                     onSingInUAS()
                     // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
+                } else if (!!error.code) {
+                    localErrorHunter({code: 10, message: error.code.message})
                 }
                 // else if (error.code === "auth/quota-exceeded") {
                     // onSingInUAS()

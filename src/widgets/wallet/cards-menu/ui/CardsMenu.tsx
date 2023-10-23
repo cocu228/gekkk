@@ -12,6 +12,8 @@ import {MouseEvent, useContext, useEffect, useState} from "react";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
+import Form from "@/shared/ui/form/Form";
+import {apiActivateCard} from "@/shared/api/bank/activate-card";
 
 const CardsMenu = () => {
     const confirmationModal = useModal();
@@ -33,16 +35,46 @@ const CardsMenu = () => {
         confirmationModal.showModal();
     }
     
+    const onConfirm = (action: string) => {
+        confirmationModal.handleCancel();
+        
+        switch (action) {
+            case 'activate':
+                apiActivateCard(card.cardId)
+                    .then(({data}) => updateCard(data as IResCard));
+                break;
+
+            case 'blockCard':
+                apiUpdateCard(card.cardId, {
+                    status: "LOCKED"
+                }).then(({data}) => updateCard(data as IResCard));
+                break;
+                
+            case 'unblockCard':
+                apiUpdateCard(card.cardId, {
+                    status: "ACTIVE"
+                }).then(({data}) => updateCard(data as IResCard));
+                break;
+                
+            case 'dailyLimit':
+                break;
+                
+            case 'monthlyLimit':
+                break;
+        }
+    }
+    
     const {
         bankCards,
+        refreshKey,
         updateCard
     } = storeBankCards(state => state);
     
     useEffect(() => {
-        if (bankCards && !card) {
+        if (bankCards) {
             setCard(bankCards[0]);
         }
-    }, [bankCards]);
+    }, [bankCards, refreshKey]);
     
     const toggleUnavailableCards = () => {
         setValue(() => ({displayUnavailable: !displayUnavailableCards}));
@@ -64,8 +96,10 @@ const CardsMenu = () => {
             /> Display unavailable cards
         </span>
         
-        {card.cardStatus !== "PLASTIC_IN_WAY" && (
+        {card.cardStatus === "PLASTIC_IN_WAY" && (
             <MenuItem
+                onClick={onClick}
+                dataItem='activate'
                 leftPrimary='Activate card'
             />
         )}
@@ -78,23 +112,19 @@ const CardsMenu = () => {
             `}
         />
         
-        <MenuItem
-            data-item=''
-            className='rounded-b-none'
-            leftPrimary='Set day limits'
-            leftSecondary='Available'
-            rightPrimary={numberWithSpaces(1000) + ' EUR'}
-            rightSecondary={numberWithSpaces(1000) + ' EUR'}
-        />
-        
-        <MenuItem
-            data-item=''
-            className='rounded-b-none -mt-[11px]'
-            leftPrimary='Set month limits'
-            leftSecondary='Available'
-            rightPrimary={numberWithSpaces(1000) + ' EUR'}
-            rightSecondary={numberWithSpaces(1000) + ' EUR'}
-        />
+        {card.limits.map((limit, index) =>
+            <MenuItem
+                dataItem={limit.period.toLowerCase() + 'Limit'}
+                leftSecondary='Available'
+                leftPrimary={`Set ${limit.period.toLowerCase()} limit`}
+                rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
+                rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
+                className={`rounded-none -my-[1px]
+                    ${index !== 0 ? '' : 'rounded-t-[5px]'}
+                    ${index !== (card.limits.length - 1) ? '' : 'rounded-b-[5px]'}
+                `}
+            />
+        )}
         
         <MenuItem
             data-item=''
@@ -108,49 +138,73 @@ const CardsMenu = () => {
             leftPrimary='Show card data'
         />
         
-        {card.cardStatus === "ACTIVE" && (
-            <MenuItem
-                alert
-                dataItem='blockCard'
-                leftPrimary='Block card'
-                onClick={() => {
-                    apiUpdateCard(card.cardId, {status: 'LOCKED'})
-                        .then(res => {
-                            alert('card locked')
-                        });
-                }}
-            />
-        )}
-        
-        {card.cardStatus === "BLOCKED_BY_CUSTOMER" && (
-            <MenuItem
-                data-item=''
-                leftPrimary='Unblock card'
-                onClick={() => {
-                    apiUpdateCard(card.cardId, {status: 'ACTIVE'})
-                        .then(res => {
-                            updateCard(res.data as IResCard)
-                        });
-                }}
-            />
-        )}
+        <MenuItem
+            alert
+            onClick={onClick}
+            dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
+            leftPrimary={card.cardStatus === 'ACTIVE' ? 'Block card' : 'Unblock card'}
+        />
         
         <Modal
+            title='Confirm action'
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
         >
             {selectedItem === "blockCard" && (
                 <div>
-                    <div>Are you sure you want to block selected bank card?</div>
-                    
-                    <Button
-                        onClick={() => {
-                            apiUpdateCard(card.cardId, {status: 'LOCKED'})
-                                .then(confirmationModal.handleCancel);
-                        }}
-                    >Confirm</Button>
+                    <div className="row mb-5">
+                        <div className="col">
+                            Are you sure you want to block selected bank card?
+                        </div>
+                    </div>
                 </div>
             )}
+            
+            {selectedItem === "unblockCard" && (
+                <div>
+                    <div className="row mb-5">
+                        <div className="col">
+                            Are you sure you want to unblock selected bank card?
+                        </div>
+                    </div>
+                </div>
+            )}
+            
+            {selectedItem === 'activate' && (
+                <div>
+                    <div className="row mb-5">
+                        <div className="col">
+                            For security reasons your physical card was sent deactivated and could not be used without activation.
+                        </div>
+                    </div>
+                    <div className="row mb-5">
+                        <div className="col">
+                            You can still use your virtual card data for online shopping in internet. Each transaction is protected by 3D secure with one time code sent you in SMS.
+                        </div>
+                    </div>
+                    <div className="row mb-5">
+                        <div className="col">
+                            To start using your physical card you should activate it upon delivery. To do that, just press button below. We will send you a one time activation code.
+                        </div>
+                    </div>
+                    <div className="row mb-5">
+                        <div className="col font-bold">
+                            Please, activate your card only if the number embossed on your physical card is identical to your virtual card!
+                        </div>
+                    </div>
+                </div>
+            )}
+            
+            <Form onFinish={() => onConfirm(selectedItem)}>
+                <div className="row my-5">
+                    <div className="col">
+                        <Button size={"xl"}
+                                htmlType={"submit"}
+                                className="w-full"
+                        >Confirm</Button>
+                    </div>
+                </div>
+            </Form>
         </Modal>
     </>);
 }

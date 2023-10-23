@@ -37,10 +37,10 @@ const MenuItem = ({
 			</div>
 			
 			<div className='grid gap-1'>
-				<div className='row font-bold'>{rightPrimary}</div>
+				<div className='row font-bold text-right'>{rightPrimary}</div>
 				
 				{!rightSecondary ? null : (
-					<div className='row text-gray-500'>{rightSecondary}</div>
+					<div className='row text-gray-500 text-right'>{rightSecondary}</div>
 				)}
 			</div>
 		</div>

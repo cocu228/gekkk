@@ -60,7 +60,7 @@ const SidebarDesktop = () => {
             {/* Account total balance */}
             <div className={`wrapper flex-col ml-4 pt-4 pb-5 flex ${styles.Wrapper}`}>
                 <div className="row flex justify-between w-full">
-                    <div className="col">
+                    <div className="col" data-testid="AssetValuationContainer">
                         <div className="row mb-2 flex">
                             <span className="text-gray-400 text-sm font-semibold mr-3">Asset valuation</span>
                             <UpdateAmounts/>

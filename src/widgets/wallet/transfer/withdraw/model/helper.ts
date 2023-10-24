@@ -48,7 +48,7 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 
 export const getWithdrawEUR = (curFee: number, course: number) => {
 
-    if (!new Decimal(course).isZero()) {
+    if (course !== undefined && !new Decimal(course).isZero()) {
         const decimalVal = new Decimal(course)
         const toFixed = decimalVal.times(curFee).toFixed(2)
 
@@ -58,36 +58,36 @@ export const getWithdrawEUR = (curFee: number, course: number) => {
 }
 
 
-export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
-
-    const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
-        "X-Confirmation-Type": "SIGN",
-    }
-
-    if (token === null) return header
-
-    const {
-        appUuid,
-        appPass
-    } = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
-
-
-    const jwtPayload = {
-        initiator: getCookieData<{ phone: string }>().phone,
-        confirmationToken: token,
-        exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
-    };
-
-
-    const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
-        "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
-        "X-Confirmation-Token": token,
-        "X-App-Uuid": appUuid
-    }
-
-    return {
-        ...header,
-        ...keys
-    }
-
-}
+// export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
+//
+//     const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
+//         "X-Confirmation-Type": "SIGN",
+//     }
+//
+//     if (token === null) return header
+//
+//     const {
+//         appUuid,
+//         appPass
+//     } = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
+//
+//
+//     const jwtPayload = {
+//         initiator: getCookieData<{ phone: string }>().phone,
+//         confirmationToken: token,
+//         exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
+//     };
+//
+//
+//     const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
+//         "X-Confirmation-Code": generateJWT(jwtPayload, appPass),
+//         "X-Confirmation-Token": token,
+//         "X-App-Uuid": appUuid
+//     }
+//
+//     return {
+//         ...header,
+//         ...keys
+//     }
+//
+// }

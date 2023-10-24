@@ -170,10 +170,12 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
 export const uncoverResponse = (response) => response.data.result
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
-export const getCurrencyRounding = (value: number) =>
-    value >= 1000 ? Math.round(value) :
+export const getCurrencyRounding = (value: number | undefined) => {
+
+    return value === undefined ? "-" : value >= 1000 ? Math.round(value) :
         value >= 1 ? value.toFixed(2) :
             value.toFixed(Math.floor(-Math.log10(value)) + 1);
+}
 
 export const getFormattedIBAN = (iban: string) => {
     return iban.slice(0, 10) + '***' + iban.slice(-4);

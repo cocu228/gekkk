@@ -136,13 +136,6 @@ function Exchange() {
                     <div className="py-5 px-10 lg:px-5 md:px-4">
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
-                                <InputCurrency.CurrencySelector
-                                    balanceFilter
-                                    onSelect={onFromCurrencyChange}
-                                    disabled={roomType !== 'default'}
-                                    excludedCurrencies={[to.currency]}
-                                    allowedFlags={[CurrencyFlags.ExchangeAvailable]}
-                                >
                                     <InputCurrency.Validator
                                         className='text-sm'
                                         value={1000}
@@ -162,16 +155,24 @@ function Exchange() {
                                                 Pay from
                                             </span>}
                                         >
+                                            <InputCurrency.CurrencySelector
+                                                balanceFilter
+                                                onSelect={onFromCurrencyChange}
+                                                disabled={roomType !== 'default'}
+                                                excludedCurrencies={[to.currency]}
+                                                allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+                                            >
+
                                             <InputCurrency.DisplayBalance currency={currencies.get(from.currency)}>
                                                 <InputCurrency
                                                     value={from.amount}
                                                     currency={from.currency}
                                                     onChange={v => onFromValueChange(v)}
                                                 />
-                                            </InputCurrency.DisplayBalance>        
+                                            </InputCurrency.DisplayBalance>
+                                            </InputCurrency.CurrencySelector>
                                         </InputCurrency.PercentSelector>
                                     </InputCurrency.Validator>
-                                </InputCurrency.CurrencySelector>
 
                                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                                     <div

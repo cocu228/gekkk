@@ -44,7 +44,7 @@ function Wallet() {
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
                 <WalletHeader/>
-                <TabsGroupPrimary initValue={tab ? tab : "Top Up"} callInitValue={{...account, tab: tab}}>
+                <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{...account, tab: tab}}>
                     <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative min-h-[200px] md:-mt-10">
                             <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>

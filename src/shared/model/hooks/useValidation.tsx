@@ -1,7 +1,9 @@
 import {useCallback} from 'react';
 import {RuleRender} from 'antd/es/form';
+import { useTranslation } from 'react-i18next';
 
 function useValidator() {
+    const {t} = useTranslation();
 
 
     const promoCodeValidator = useCallback<RuleRender>(
@@ -30,7 +32,7 @@ function useValidator() {
                     if (!test && value.length >= 4) {
                         resolve('');
                     } else {
-                        reject(new Error('Only numbers allowed and min length 4 symbol'));
+                        reject(new Error(t("auth.invalid_pin")));
                     }
                 });
             },
@@ -48,7 +50,7 @@ function useValidator() {
                     if (!value || isV) {
                         resolve('');
                     } else {
-                        reject(new Error('Please enter your number in full'));
+                        reject(new Error(t("auth.invalid_phone")));
                     }
                 });
             },

@@ -3,6 +3,12 @@
     "lang": "ru",
     "languageName": "Russian",
     "locale": {
+      "auth": {
+        "header": "Войдите в свой аккаунт",
+        "login": "Вход в личный кабинет осуществляется через учетные данные",
+        "gekkard application": "приложения Gekkard",
+        "no_gekkard_credentials": "Нет учетных данных Gekkard? Загрузите приложение и зарегистрируйтесь: "
+      },
       "next": "Далее",
       "code": "Код",
       "login": "Логин",

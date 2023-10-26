@@ -58,26 +58,8 @@ function useValidator() {
         [],
     );
 
-    const emailValidator = useCallback<RuleRender>(
-        () => ({
-            validator(rule, value = '') {
-                return new Promise((resolve, reject) => {
-                    const isV = new RegExp(
-                        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gi,
-                    ).test(value);
 
-                    if (!value || isV) {
-                        resolve('');
-                    } else {
-                        reject(new Error('Enter correct E-mail'));
-                    }
-                });
-            },
-        }),
-        [],
-    );
-
-    return {phoneValidator, emailValidator, pinValidator, promoCodeValidator};
+    return {phoneValidator, pinValidator, promoCodeValidator};
 }
 
 export default useValidator;

@@ -29,7 +29,7 @@ function useValidator() {
             validator(rule, value = '') {
                 return new Promise((resolve, reject) => {
                     const test = /\D/.test(value)
-                    if (!test && value.length >= 4) {
+                    if (!test && value.length >= 6) {
                         resolve('');
                     } else {
                         reject(new Error(t("auth.invalid_pin")));

@@ -16,7 +16,7 @@
         "data_protection_policy": "Data protection policy",
         "legal_agreements": "Legal agreements",
         "crypto_exchange_service": "Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)",
-        "invalid_pin": "Only numbers allowed and min length 4 symbol",
+        "invalid_pin": "Only numbers allowed and min length 6 symbol",
         "invalid_phone": "Please enter your number in full"
       },
       "next": "Next",

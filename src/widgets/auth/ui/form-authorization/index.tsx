@@ -216,7 +216,7 @@ const FormLoginAccount = memo(() => {
         </div>
 
         <div className="row mb-8">
-            <Button disabled={loading || state.phone === ""}
+            <Button disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
                     tabIndex={0}
                     htmlType="submit"
                     className="w-full"

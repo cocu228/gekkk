@@ -12,20 +12,21 @@ export const LocalizationMenu = () => {
         i18n.changeLanguage(str)
     }
 
-    const menu = [(import.meta.env.DEV ?
-        {
-        key: 'RU',
-        label: (<DropdownItem onClick={() => onChange("ru")} icon={<img width={32}
-                                                                        height={32}
-                                                                        src="/img/RU.png"
-                                                                        alt="RUS"/>}>RU</DropdownItem>)
-    } : null), {
+    const menu = [{
         key: 'EN',
         label: (<DropdownItem onClick={() => onChange("en")} icon={<img width={32}
                                                                         height={32}
                                                                         src="/img/EN.png"
                                                                         alt="EN"/>}>EN</DropdownItem>)
-    }]
+    },
+        // {
+        //     key: 'RU',
+        //     label: (<DropdownItem onClick={() => onChange("ru")} icon={<img width={32}
+        //                                                                 height={32}
+        //                                                                 src="/img/RU.png"
+        //                                                                 alt="RUS"/>}>RU</DropdownItem>)
+        // }
+    ]
 
     return <>
         <Dropdown items={menu}

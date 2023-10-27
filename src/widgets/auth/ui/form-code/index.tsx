@@ -27,7 +27,7 @@ import {apiPasswordVerify, apiRequestCode, apiSignIn, apiTokenHash} from "@/widg
 import {helperApiRequestCode, helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
 // import {actionResSuccess} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
-
+import { useTranslation } from 'react-i18next';
 
 declare module 'firebase/auth' {
     interface User {
@@ -38,6 +38,7 @@ declare module 'firebase/auth' {
 
 const FormCode = memo(() => {
 
+    const {t} = useTranslation();
     const {login} = useAuth();
     const [form] = useForm();
     const inputRef = useRef(null);
@@ -138,9 +139,9 @@ const FormCode = memo(() => {
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
-                ${md ? 'text-2xl' : 'text-header min-w-[436px]'}`}>One-time code</h1>
+                ${md ? 'text-2xl' : 'text-header min-w-[436px]'}`}>{t("one-time code")}</h1>
         <p className='text-center mb-9 text-gray-500'>
-            SMS with one-time code was sent to
+            {t("sms_code_sent")}
             <br/>
             <b>+{phone}</b>
         </p>
@@ -149,7 +150,7 @@ const FormCode = memo(() => {
             <Input type="text"
                    ref={inputRef}
                    data-testid="PhoneCode"
-                   placeholder="Phone code"
+                   placeholder={t("phone_code")}
                    onInput={onInput}
                    onChange={({target}) => onChange(target.value)}
             />
@@ -180,8 +181,8 @@ const FormCode = memo(() => {
                 htmlType='submit'
                 className='w-full'
                 data-testid='Next'
-                disabled={loading || code === ''}
-            >Next</Button>
+                disabled={loading || code.length < 11} 
+            >{t("next")}</Button>
         </div>
         <a
             className='flex mt-2 justify-center underline text-gray-400 hover:text-blue-400'
@@ -189,7 +190,7 @@ const FormCode = memo(() => {
                 sessionStorage.removeItem("session-auth")
                 toggleStage('authorization')
             }}
-        >← Back to login page</a>    
+        >{t("back_to_login_page")}</a>    
     </Form>
 });
 

@@ -17,6 +17,7 @@
   "dependencies": {
     "antd": "5.2.3",
     "axios": "1.3.4",
+    "chat": "https://github.com/feojoker/gekkard-chat.git",
     "crypto-js": "^4.1.1",
     "date-fns": "2.29.3",
     "date-fns-tz": "2.0.0",

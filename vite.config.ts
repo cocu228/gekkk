@@ -17,6 +17,7 @@ export default defineConfig(({mode}) => {
         {find: '@', replacement: path.resolve(__dirname, 'src')},
         {find: '@public', replacement: path.resolve(__dirname, 'public')},
         {find: '@styles', replacement: path.resolve(__dirname, 'src/app/styles')},
+        {find: '@chat', replacement: path.resolve(__dirname, 'node_modules/chat/src')},
         {find: /\{\{MODE\}\}/, replacement: mode},
       ],
     },

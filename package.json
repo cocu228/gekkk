@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "local": "vite",
+    "apiGen": "orval",
     "start": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite build && vite preview --host",
@@ -43,6 +44,7 @@
     "@types/react-dom": "18.0.11",
     "@vitejs/plugin-react": "3.1.0",
     "autoprefixer": "10.4.13",
+    "orval": "^6.19.1",
     "path": "0.12.7",
     "postcss": "8.4.21",
     "sass": "1.58.3",

@@ -22,8 +22,11 @@ import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {useTranslation} from 'react-i18next';
 
 const SidebarDesktop = () => {
+    const {t} = useTranslation();
+
     const navigate = useNavigate();
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
@@ -62,11 +65,12 @@ const SidebarDesktop = () => {
                 <div className="row flex justify-between w-full">
                     <div className="col" data-testid="AssetValuationContainer">
                         <div className="row mb-2 flex">
-                            <span className="text-gray-400 text-sm font-semibold mr-3">Asset valuation</span>
+                            <span className="text-gray-400 text-sm font-semibold mr-3">{t("asset_valuation")}</span>
                             <UpdateAmounts/>
                         </div>
                         <div className="row"></div>
-                        <span className="text-lg font-bold" data-testid="TotalAmount">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
+                        <span className="text-lg font-bold"
+                              data-testid="TotalAmount">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
                     </div>
                 </div>
             </div>
@@ -82,7 +86,8 @@ const SidebarDesktop = () => {
                             className={styles.Name}>Euro</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? '-'} EUR</span>
+                            <span
+                                className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? '-'} EUR</span>
                         </div>
                     </div>
                 </div>
@@ -138,13 +143,13 @@ const SidebarDesktop = () => {
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1 font-medium"><span
-                            className={styles.NavName}>Crypto assets</span></div>
+                            className={styles.NavName}>{t("crypto_assets.title")}</span></div>
                     </div>
                 </div>
             </NavLink>
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
-                <NavCollapse header={"Assets"} id={"assets"}>
+                <NavCollapse header={t("assets")} id={"assets"}>
                     {helperFilterList(secondaryWallets).map((item, i) =>
                         <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
                             <div className={`${styles.Item + " " + ParentClassForCoin}`}>
@@ -167,7 +172,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full">
                                         {item.lockInBalance !== 0 ? <span
-                                            className={styles.Sum}>{`locked in: ${item.lockInBalance}`}</span> : null}
+                                            className={styles.Sum}>{t("locked_in")} {item.lockInBalance}</span> : null}
                                     </div>
                                 </div>
                             </div>
@@ -182,14 +187,15 @@ const SidebarDesktop = () => {
                              alt="ExchangeIcon"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>Exchange</span>
+                        <div className="row w-full mb-1 font-medium"><span
+                            className={styles.NavName}>{t("exchange")}</span>
                         </div>
                     </div>
                 </div>
             </NavLink>
             {/* Private exchange rooms collapse */}
-            {!(privateRooms && privateRooms.length) ? null : 
-                <NavCollapse header={"Private exchange rooms"} id={"exchange"}>
+            {!(privateRooms && privateRooms.length) ? null :
+                <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
                     {privateRooms.map((item, i) => (
                         <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`} key={item.timetick}>
                             <div className={styles.Item}>
@@ -230,13 +236,13 @@ const SidebarDesktop = () => {
 
                                     <div className="flex row w-full mb-1 justify-between">
                                         <span className={`text-gray-500 text-xs`}>
-                                            {!xxxl ? 'Number of participants' : 'Participants'}
+                                            {!xxxl ? t("number_of_participants") : t("participants")}
                                         </span>
                                         <span className='mr-[17px] text-gray-500 text-xs font-semibold'>
                                             {item.count}
                                         </span>
                                     </div>
-                                    
+
                                     {!item.room_code ? null : (
                                         <div className="flex row w-full justify-between">
                                             <span
@@ -247,7 +253,7 @@ const SidebarDesktop = () => {
                                                     roomInfoModal.showModal();
                                                 }}
                                             >
-                                                Invite link
+                                                {t("invite_link")}
                                             </span>
 
                                             <div
@@ -325,7 +331,7 @@ const SidebarDesktop = () => {
             title='Invite link'
         >
             <div className="pt-5 text-sm">
-                Are you sure you want to {selectedRoom ? 
+                Are you sure you want to {selectedRoom ?
                 `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
                 exchange room? All `
                 : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
@@ -337,13 +343,13 @@ const SidebarDesktop = () => {
                     size="xl"
                     className="w-full"
                     onClick={() => {
-                        if(window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
                             navigate('/exchange');
                         }
 
                         apiCloseRoom(selectedRoom.timetick).then(() => {
-                           removeExchangeRoom(selectedRoom.timetick);
-                           roomCloseModal.handleCancel();
+                            removeExchangeRoom(selectedRoom.timetick);
+                            roomCloseModal.handleCancel();
                         }).catch(roomCloseModal.handleCancel);
                     }}
                 >Close private exchange room</Button>

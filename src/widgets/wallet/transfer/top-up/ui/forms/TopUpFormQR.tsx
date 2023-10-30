@@ -8,21 +8,20 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import useError from "@/shared/model/hooks/useError";
 
 const TopUpFormQR = () => {
-
-    const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks)
-    const {$const, name} = useContext(CtxWalletData)
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError()
-
+    const {$const, name} = useContext(CtxWalletData);
+    const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError();
+    const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    
+    
+    
     const onCreateAddress = async () => {
-
-        setLoading(true)
-
-        const response = await apiCreateAddress(networkIdSelect)
-
-        actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter)
-
+        setLoading(true);
+        
+        const response = await apiCreateAddress(networkIdSelect);
+        
+        actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter);
     }
-
+    
     return addressesForQR !== null && (addressesForQR !== undefined ? <>
 
         <div className="row text-right pb-10 flex justify-center items-center flex-col">

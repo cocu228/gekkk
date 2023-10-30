@@ -17,7 +17,7 @@ interface IProps {
 
 const NetworkProvider = ({children, ...props}: IProps) => {
 
-    const isTopUp = props["data-tab"] === "Top Up"
+    const isTopUp = props["data-tag"] === "top_up"
 
     const {$const} = useContext(CtxWalletData);
 

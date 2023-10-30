@@ -12,10 +12,10 @@ import { AxiosResponse } from 'axios';
 import { $AxiosResponse } from '@/shared/lib/(cs)axios';
 import {useSessionStorage} from "usehooks-ts";
 import {TSessionAuth} from "@/widgets/auth/model/types";
-
+import { useTranslation } from 'react-i18next';
 
 const AuthPage = memo(() => {
-
+    const {t} = useTranslation();
     const {md} = useContext(BreakpointsContext);
     const {login} = useAuth();
     const {toggleStage} = storyDisplayAuth(state => state);
@@ -83,25 +83,24 @@ const AuthPage = memo(() => {
                         href="https://gekkard.com/terms-and-conditions.html"
                         target="_blank"
                         rel="noreferrer noopener"
-                    >General terms and conditions</a>
+                    >{t("auth.general_terms_and_conditions")}</a>
                     {' | '}
                     <a
                         className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
                         href="https://gekkard.com/data-protection-policy.html"
                         target="_blank"
                         rel="noreferrer noopener"
-                    >Data protection policy</a>
+                    >{t("auth.data_protection_policy")}</a>
                     {' | '}
                     <a
                         className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
                         href="https://gekkard.com/legal-agreements.html"
                         target="_blank"
                         rel="noreferrer noopener"
-                    >Legal agreements</a>
+                    >{t("auth.legal_agreements")}</a>
                 </p>
                 <p className={` ${md ? 'text-xs' : 'text-sm'} mb-2`}>
-                    Crypto exchange service is powered by AtlantEX OU
-                    (licensed partner for crypto wallet and exchange)
+                    {t("auth.crypto_exchange_service")}
                 </p>
                 <span
                     className={`text-gray-500 font-semibold text-sm w-full block`}>

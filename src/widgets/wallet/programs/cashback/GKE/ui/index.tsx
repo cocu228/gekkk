@@ -23,7 +23,6 @@ const GkeCashbackProgram = () => {
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const investment = storeInvestments(state => state.cashbackInvestment);
-    const [hasValidationError, setHasValidationError] = useState<boolean>(false);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
 
     return (
@@ -130,7 +129,7 @@ const GkeCashbackProgram = () => {
             <div className="row mb-4">
                 <div className="col">
                     <Button
-                        disabled={inputCurrValid.value || hasValidationError}
+                        disabled={inputCurrValid.value}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
                         size={"xl"}

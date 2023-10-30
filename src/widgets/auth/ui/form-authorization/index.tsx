@@ -22,13 +22,16 @@ import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {useSearchParams} from "react-router-dom";
-// import {uncoverResponse} from "@/shared/lib/helpers";
+import { useTranslation } from 'react-i18next';
 
+// import {uncoverResponse} from "@/shared/lib/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
+
 
     const [params] = useSearchParams();
     const authMethod = params.get("authMethod");
@@ -39,6 +42,7 @@ const FormLoginAccount = memo(() => {
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
         {phone: "", verificationId: "", sessionIdUAS: ""});
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
+    const {t} = useTranslation(); 
 
     const [state, setState] = useState<{
         phone: string,
@@ -163,15 +167,15 @@ const FormLoginAccount = memo(() => {
     return <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
         <h1 className={`font-extrabold text-center text-gray-600 pb-4
                 ${md ? 'text-2xl' : 'text-header'}`}>
-            Login to your account
+            {t("auth.login_to_your_account")}
         </h1>
 
         <p className='text-center mb-9 text-gray-500'>
-            Login to your personal account is carried out through the <a
+            {t("auth.login")} <a
                 className='font-inherit underline'
                 href={import.meta.env.VITE_APP_STORE_GEKKARD}
-                target={'_blank'}>Gekkard application
-            </a> credentials
+                target={'_blank'}> {t("auth.gekkard_application")}
+            </a> {t("auth.credentials")}
         </p>
 
         <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
@@ -185,7 +189,7 @@ const FormLoginAccount = memo(() => {
                     type: "tel",
                 }}
                 disabled={loading}
-                placeholder="Enter phone number"
+                placeholder={t("auth.enter_phone_number")}
                 value={state.phone}
                 onEnterKeyPress={(v: unknown) => onSingIn()}
                 onChange={(value: string) => setState(prevState =>
@@ -202,7 +206,7 @@ const FormLoginAccount = memo(() => {
                                 password: target.value
                             }))}
                             data-testid="PIN"
-                            placeholder="PIN"/>
+                            placeholder={t("auth.pin")}/>
         </FormItem>
 
         <div className="row text-right mb-4">
@@ -212,15 +216,15 @@ const FormLoginAccount = memo(() => {
         </div>
 
         <div className="row mb-8">
-            <Button disabled={loading || state.phone === ""}
+            <Button disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
                     tabIndex={0}
                     htmlType="submit"
                     className="w-full"
-                    data-testid="Login">Login</Button>
+                    data-testid="Login">{t("login")}</Button>
         </div>
 
         <div className='text-center'>
-            <p className='text-gray-600 mb-6'>No Gekkard credentials? Download the app and register:</p>
+            <p className='text-gray-600 mb-6'>{t("auth.no_gekkard_credentials")}</p>
 
             <ul className='flex justify-center gap-4'>
                 <li>
@@ -235,7 +239,7 @@ const FormLoginAccount = memo(() => {
 
                         <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
                            className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
-                            Download
+                            {t("auth.download")}
                         </a>
                     </div>
                 </li>

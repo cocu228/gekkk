@@ -18,12 +18,11 @@ const NoFeeProgram = () => {
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
-    const [amount, setAmount] = useState<string>('');
+    const {inputCurr, setInputCurr} = useInputState();
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const investment = storeInvestments(state => state.noFeeInvestment);
     const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
 
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     return (
         <>
@@ -84,8 +83,8 @@ const NoFeeProgram = () => {
                     <div className="row flex gap-1">
                         <div className="col w-1/3  flex flex-row items-center gap-1 justify-center">
                             <span className="text-lg font-bold">{investment?.amount ?? 0}</span>
-                            <span className="text-lg text-green font-bold">{!amount ? null : (
-                                `(+${+amount})`
+                            <span className="text-lg text-green font-bold">{!inputCurr.value.string ? null : (
+                                `(+${inputCurr.value.string})`
                             )}</span>
                         </div>
 
@@ -186,8 +185,8 @@ const NoFeeProgram = () => {
                         <InlineProperty
                             left={"Amount"}
                             right={<>
-                                {investment?.amount} {!amount ? null : (
-                                    (<span className="text-green">+({amount})</span>)
+                                {investment?.amount} {!inputCurr.value.string ? null : (
+                                    (<span className="text-green">+({inputCurr.value.string})</span>)
                                 )} {currency.$const}
                             </>}
                         />
@@ -200,10 +199,10 @@ const NoFeeProgram = () => {
                         className="w-full"
                         disabled={inputCurrValid.value}
                         onClick={async () => {
-                            setAmount('');
+                            setInputCurr('');
                             lockConfirmModal.handleCancel();
                             const {data} = await apiCreateInvestment({
-                                amount: +amount,
+                                amount: inputCurr.value.number,
                                 term_days: 90,
                                 templateType: 4
                             });

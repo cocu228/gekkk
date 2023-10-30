@@ -1,5 +1,6 @@
 import {memo, useEffect, useMemo, useState} from "react";
 import {Timer} from "@/widgets/auth/model/helpers";
+import { useTranslation } from 'react-i18next';
 
 function isPromise(obj: unknown) {
     return obj instanceof Promise;
@@ -9,6 +10,7 @@ function isPromise(obj: unknown) {
 type TProps = { onAction: () => void | Promise<unknown> }
 export default memo(({onAction}: TProps) => {
 
+    const {t} = useTranslation();
     const [state, setState] = useState<null | number>(null)
 
     const instanceTimer = useMemo(() => new Timer(setState), [])
@@ -24,7 +26,7 @@ export default memo(({onAction}: TProps) => {
 
     return <div>
         {state === null
-            ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>Resend one-time code again</a>
-            : <span className="text-gray-400">You can use the code for: {state} seconds</span>}
+            ? <a className={"text-gray-400 underline hover:text-blue-400"} onClick={onSendCode}>{t("resend_one-time_code")}</a>
+            : <span className="text-gray-400">{ t("can_use_code", {amount: state})}</span>}
     </div>
 })

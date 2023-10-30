@@ -6,9 +6,10 @@ export default defineConfig({
 			target: 'https://api-dev.gekkoin.com/gek/swagger/v1/swagger.json',
 		},
 		output: {
-			target: './src/shared/api/(gen)new/newApi.ts',
-			schemas: './src/shared/api/(gen)new/model',
 			client: 'axios-functions',
+			tsconfig: './tsconfig.json',
+			schemas: './src/shared/api/(gen)new/model',
+			target: './src/shared/api/(gen)new/newApi.ts',
 			override: {
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName

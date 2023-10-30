@@ -73,7 +73,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 			.catch(() => {
 				localErrorHunter({
 					code: 401,
-					message: "Invalid confirmation PIN"
+					message: "Invalid confirmation code"
 				})
 			})
 		
@@ -97,7 +97,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 					type="text"
 					onInput={onInput}
 					autoComplete="off"
-					placeholder="Enter your PIN"
+					placeholder="Enter code"
 					onChange={({target}) => {
 						localErrorClear();
 						setState(prev => ({

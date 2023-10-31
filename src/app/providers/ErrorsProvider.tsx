@@ -13,6 +13,7 @@ import {
 } from "@/processes/errors-provider-types";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
+import {apiGetAccountInfo} from "@/shared/api";
 
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
 
@@ -59,6 +60,10 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                 }));
 
                 scrollToTop()
+            }
+            
+            if (hunterErrorsApi.isNewWallet()) {
+                apiGetAccountInfo(true).then(() => location.reload());
             }
 
             if (hunterErrorsApi.isAuthExpired()) logout()

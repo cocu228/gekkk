@@ -60,6 +60,15 @@ export class HunterErrorsApi {
 
         return this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10065
     }
+    
+    isNewWallet() {
+        
+        if (isNull(this.typeResponseError)) {
+            this.isServerApi()
+        }
+        
+        return this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10001
+    }
 
     private isServerApi() {
 

@@ -13,8 +13,10 @@ import useModal from '@/shared/model/hooks/useModal';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
+import {useTranslation} from 'react-i18next';
 
 function Assets() {
+    const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const {xl, md, lg} = useContext(BreakpointsContext);
     const navigate = useNavigate();
@@ -28,10 +30,11 @@ function Assets() {
 
     return (
         <>
-            <PageHead title={"Crypto assets"} subtitle={"Choose and buy the assets interested you"}/>
+            <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>
             <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
                 {xl && <InfoBox/>}
-                {<div className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>
+                {<div
+                    className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>
                     <AssetsTable
                         columnKeys={columns}
                         onSelect={(currency: string) => {
@@ -52,16 +55,15 @@ function Assets() {
                             <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
                         </div>
                     </div>
-                        <div className="row mb-1 flex justify-center">
-                            <div className="col">
-                                <h5 className="font-medium max-w-[320px] text-center">Choose cryptocurrency for
-                                investing</h5>
+                    <div className="row mb-1 flex justify-center">
+                        <div className="col">
+                            <h5 className="font-medium max-w-[320px] text-center">{t("crypto_assets.choose_cryptocurrency")}</h5>
                         </div>
                     </div>
                     <div className="row mb-5 flex justify-center">
                         <div className="col flex justify-center">
                             <span
-                                className="text-gray-450 text-center leading-8 max-w-[320px]">You may swap your EURG for Bitcoin or most popular altcoins</span>
+                                className="text-gray-450 text-center leading-8 max-w-[320px]">{t("crypto_assets.swap_EURG")}</span>
                         </div>
                     </div>
                     <div className="row mb-5">
@@ -71,16 +73,11 @@ function Assets() {
                     </div>
                     <div className="row mb-5">
                         <div className="col text-sm">
-                            <p className="leading-6">Bitcoin is the first and most popular cryptocurrency in the
-                                world.</p>
+                            <p className="leading-6">{t("crypto_assets.bitcoin_first_popular")}</p>
                             <br/>
-                            <p className="leading-6">In the wake of the success of BTC, other alternative
-                                cryptocurrencies began to appear,
-                                which are called "altcoins". Keeping the essence of the Bitcoin idea, most altcoins are
-                                trying to find competitive advantages in their versions.</p>
+                            <p className="leading-6">{t("crypto_assets.alternative_cryptocurrencies")}</p>
                             <br/>
-                            <p className="leading-6">At the moment, there are more than 17 thousand different altcoins.
-                                Here you can purchase the most interesting and popular ones.</p>
+                            <p className="leading-6">{t("crypto_assets.different_altcoins")}</p>
                         </div>
                     </div>
 
@@ -100,6 +97,7 @@ function Assets() {
 const InfoBox = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, handleCancel, isModalOpen} = useModal();
+    const {t} = useTranslation();
 
     const onClick = async () => {
         setLoading(true);
@@ -124,27 +122,23 @@ const InfoBox = () => {
 
     return <div className='info-box-description'>
         <p className="leading-6">
-            By purchasing tokens, you take on all the risks associated with the volatility of cryptocurrencies.
-            If you are interested in safer investment instruments, we recommend that you use <a
+            {t("crypto_assets.risks")} <a
             className="font-bold underline hover:cursor-pointer"
-            onClick={showModal}>structured or fixed deposits</a>.</p>
+            onClick={showModal}>{t("crypto_assets.deposits")}</a>.</p>
 
         <Modal onCancel={handleCancel} open={isModalOpen}>
             <>
                 <div className="row mb-10">
                     <div className="col">
-                        <p className="font-bold text-sm leading-6 text-center">You will be directed to your personal
-                            Gekkoin
-                            account, where you can open fixed-income deposits or deposits linked to changes in the
-                            exchange
-                            rate of your chosen cryptocurrency.</p>
+                        <p className="font-bold text-sm leading-6 text-center">{t("crypto_assets.directed_to_gekkoin")}</p>
                     </div>
                 </div>
                 <div className="row relative">
                     <div className="col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button onClick={onClick}
-                                    className="w-full">Confirm</Button>}
+                                    data-testid="ConfirmToGekkard"
+                                    className="w-full">{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

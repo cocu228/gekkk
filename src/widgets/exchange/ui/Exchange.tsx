@@ -33,8 +33,10 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import Decimal from "decimal.js";
+import { useTranslation } from 'react-i18next';
 
 function Exchange() {
+    const {t} = useTranslation();
 
     const confirmModal = useModal();
     const roomInfoModal = useModal();
@@ -83,7 +85,7 @@ function Exchange() {
                     <Dropdown
                         isOpen={roomInfoModal.isModalOpen}
                         trigger={
-                            <span>Exchange</span>
+                            <span>{t("exchange.title")}</span>
                         }
                         items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>Create private exchange room</DropdownItem>)}]}
                     />
@@ -98,12 +100,12 @@ function Exchange() {
     const getHeadSubtitle = () => {
         switch (roomType) {
             case 'default':
-                return 'Cryptocurrency exchange - fast and easily';
+                return t("exchange.describe");
             case 'creator':
                 return (
                     <>
-                        You are owner of this private room. A Gekkard user will be able to join your room using this&nbsp;
-                        <button className="underline text-accent" onClick={roomInfoModal.showModal}>invite link</button>
+                        {t("exchange.owner_private_room")}&nbsp;
+                        <button className="underline text-accent" onClick={roomInfoModal.showModal}>{t("exchange.invite_link")}</button>
                     </>
                 );
             case 'visitor':
@@ -159,7 +161,7 @@ function Exchange() {
                                             onSelect={onFromValueChange}
                                             currency={currencies.get(from.currency)}
                                             header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
-                                                Pay from
+                                                {t("exchange.pay_from")}
                                             </span>}
                                         >
                                             <InputCurrency.DisplayBalance currency={currencies.get(from.currency)}>
@@ -182,7 +184,7 @@ function Exchange() {
                                     </div>
                                 </div>
 
-                                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">Receive to</div>
+                                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.recieve_to")}</div>
 
                                 <InputCurrency.CurrencySelector
                                     className='mt-0'
@@ -199,7 +201,7 @@ function Exchange() {
                                 </InputCurrency.CurrencySelector>
 
                                 <div className="mt-3 md:mt-2">
-                                    <div className="font-medium text-md lg:text-sm md:text-xs">Price</div>
+                                    <div className="font-medium text-md lg:text-sm md:text-xs">{t("exchange.pay_from")}</div>
                                     <PriceField />
                                 </div>
 
@@ -232,10 +234,10 @@ function Exchange() {
                                     size="xl"
                                     disabled={!price.amount || hasValidationError}
                                     onClick={confirmModal.showModal}
-                                >Buy {to.currency ? to.currency : "a token"}</Button>
+                                >{t("exchange.buy")} {to.currency ? to.currency : t("exchange.token")}</Button>
 
                                 <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">
-                                    order execution depends on the market situation
+                                    {t("exchange.order_execution_depends")}
                                 </div>
                             </div>
                         </div>
@@ -290,8 +292,8 @@ function Exchange() {
                 open={roomInfoModal.isModalOpen}
                 onCancel={roomInfoModal.handleCancel}
                 title={roomType == 'default'
-                    ? 'Open private exchange room'
-                    : 'Invite link'
+                    ? t("exchange.open_private_exchange_room")
+                    : t("invite_link")
                 }
             >
                 {roomType === 'default'

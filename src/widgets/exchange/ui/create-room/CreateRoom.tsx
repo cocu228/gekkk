@@ -8,6 +8,7 @@ import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';
+import { t } from 'i18next';
 
 function CreateRoom() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,19 +24,17 @@ function CreateRoom() {
     return <>
         <div className={loading ? '!collapse' : ''}>
             <ModalInfoText>
-                A private room allows you to exchange assets only
-                with those members whom you invite through a special
-                link. Trades in the private room will not be shared.
+                {t("exchange.private_room_allows")}
             </ModalInfoText>
 
             <div className="mt-4">
-                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="sell-token">From</label>
+                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="sell-token">{t("exchange.from")}</label>
                 <TokenSelect
                     id="sell-token"
                     value={from.currency}
                     onSelect={onFromCurrencyChange}
                     disabledCurrencies={[to.currency]}
-                    placeholder="Select the token"
+                    placeholder={t("exchange.select_token")}
                     allowedFlags={[
                         CurrencyFlags.ExchangeAvailable
                     ]}
@@ -43,13 +42,13 @@ function CreateRoom() {
             </div>
 
             <div className="mt-2">
-                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="get-token">To</label>
+                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="get-token">{t("exchange.to")}</label>
                 <TokenSelect
                     id="get-token"
                     value={to.currency}
                     onSelect={onToCurrencyChange}
                     disabledCurrencies={[from.currency]}
-                    placeholder="Select the token"
+                    placeholder={t("exchange.select_token")}
                     allowedFlags={[
                         CurrencyFlags.ExchangeAvailable
                     ]}
@@ -58,13 +57,13 @@ function CreateRoom() {
 
             <div className="mt-7">
                 <Checkbox className='hover:cursor-pointer'>
-                    <span className="hover:cursor-pointer text-sm">Only I can specify the sale price</span>
+                    <span className="hover:cursor-pointer text-sm">{t("exchange.only_i_can")}</span>
                 </Checkbox>
             </div>
 
             <div className="mt-6">
-                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">Purchase limit for one user</label>
-                <Input placeholder="If it is empty, then the limit is not set"/>
+                <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">{t("exchange.purchase_limit")}</label>
+                <Input placeholder={t("exchange.it_is_empty")}/>
             </div>
 
             <div className="mt-12 sm:mt-11">
@@ -87,7 +86,7 @@ function CreateRoom() {
                         });
                     }}
                 >
-                    Open private exchange room
+                {t("exchange.open_private_exchange_room")}
                 </Button>
             </div>
         </div>

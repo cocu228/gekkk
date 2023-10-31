@@ -11,7 +11,7 @@ import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {phoneMessage, pinMessage} from '@/shared/config/message';
+import {passwordMessage, phoneMessage, pinMessage} from '@/shared/config/message';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
@@ -37,7 +37,7 @@ const FormLoginAccount = memo(() => {
     const authMethod = params.get("authMethod");
     const {toggleStage} = storyDisplayAuth(state => state);
     const {md} = useContext(BreakpointsContext);
-    const {phoneValidator, pinValidator} = useValidation();
+    const {phoneValidator, passwordValidator} = useValidation();
     const inputRef = useRef(null);
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
         {phone: "", verificationId: "", sessionIdUAS: ""});
@@ -200,7 +200,7 @@ const FormLoginAccount = memo(() => {
         <span className="text-fs12 text-red-800">{localErrorSpan}</span>
 
         <FormItem name="password" label="Password"
-                  rules={[{required: true, ...pinMessage}, pinValidator]}>
+                  rules={[{required: true, ...passwordMessage}, passwordValidator]}>
             <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
                             disabled={loading}
                             onChange={({target}) => setState(prev => ({
@@ -208,7 +208,7 @@ const FormLoginAccount = memo(() => {
                                 password: target.value
                             }))}
                             data-testid="PIN"
-                            placeholder={t("auth.pin")}/>
+                            placeholder={t("auth.password")}/>
         </FormItem>
 
         <div className="row text-right mb-4">

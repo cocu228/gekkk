@@ -13,6 +13,7 @@ import {
 } from "@/processes/errors-provider-types";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
+import {apiGetAccountInfo} from "@/shared/api";
 
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
 
@@ -41,10 +42,17 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             const hunterErrorsApi = new HunterErrorsApi(response)
             hunterErrorsApi.setFilterListForSkip(skipList);
 
-            if (hunterErrorsApi.isError()) {
+            if (hunterErrorsApi.isNewWallet()) {
+                apiGetAccountInfo(true)
+                    .then(() => location.reload());
+            }
 
+            if (hunterErrorsApi.isError()) {
+                
                 const result = hunterErrorsApi.getMessageObject()
 
+                if (result.error.code === 10001) return response;
+                
                 setState(prevState => ({
                     ...prevState,
                     errors: [

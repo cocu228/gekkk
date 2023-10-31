@@ -24,7 +24,7 @@ function useValidator() {
         [],
     );
 
-    const pinValidator = useCallback<RuleRender>(
+    const passwordValidator = useCallback<RuleRender>(
         () => ({
             validator(rule, value = '') {
                 return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ function useValidator() {
                     if (!test && value.length >= 6) {
                         resolve('');
                     } else {
-                        reject(new Error(t("auth.invalid_pin")));
+                        reject(new Error(t("auth.invalid_password")));
                     }
                 });
             },
@@ -59,7 +59,7 @@ function useValidator() {
     );
 
 
-    return {phoneValidator, pinValidator, promoCodeValidator};
+    return {phoneValidator, passwordValidator, promoCodeValidator};
 }
 
 export default useValidator;

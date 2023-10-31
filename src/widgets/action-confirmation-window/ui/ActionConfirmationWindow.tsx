@@ -110,7 +110,7 @@ const ActionConfirmationWindow = () => {
             
             localErrorHunter({
                 code: 401,
-                message: "Invalid confirmation PIN"
+                message: "Invalid confirmation code"
             });
         };
         
@@ -145,7 +145,7 @@ const ActionConfirmationWindow = () => {
                             : null
                         }
                         autoComplete="off"
-                        placeholder="Enter your PIN"
+                        placeholder="Enter code"
                         onChange={({target}) => {
                             localErrorClear();
                             setState(prev => ({

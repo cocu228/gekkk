@@ -32,7 +32,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {label} = networksForSelector.find(it => it.value === networkIdSelect);
 
     const details = useRef({
-        purpose: "Purchase of EURG for EUR",
+        purpose: "Purchase of EURG tokens",
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,

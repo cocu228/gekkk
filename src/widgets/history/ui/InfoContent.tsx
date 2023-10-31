@@ -138,16 +138,18 @@ const InfoContent = (props: TypeProps) => {
                     <span className="break-all font-medium">{state.tokenNetwork}</span>
                 </div>
             </div>}
-            {state.txHash && <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Transaction:</span>
+            {(state.txHash && state.explorerBaseAddress) && (
+                <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                    <div className="col w-auto">
+                        <span className="text-gray-500 font-medium">Transaction:</span>
+                    </div>
+                    <div className="col w-auto flex items-center">
+                        <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
+                           className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
+                        <CopyIcon value={state.txHash}/>
+                    </div>
                 </div>
-                <div className="col w-auto flex items-center">
-                    <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}
-                       className="break-all font-medium underline">{asteriskText(state.txHash)}</a>
-                    <CopyIcon value={state.txHash}/>
-                </div>
-            </div>}
+            )}
                 {/*{state.state_text && <div className="row mb-4 flex flex-wrap gap-2">*/}
                 {/*    <div className="col">*/}
                 {/*        <span className="text-gray-500 font-normal">Status blockchain:</span>*/}

@@ -42,10 +42,17 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             const hunterErrorsApi = new HunterErrorsApi(response)
             hunterErrorsApi.setFilterListForSkip(skipList);
 
-            if (hunterErrorsApi.isError()) {
+            if (hunterErrorsApi.isNewWallet()) {
+                apiGetAccountInfo(true)
+                    .then(() => location.reload());
+            }
 
+            if (hunterErrorsApi.isError()) {
+                
                 const result = hunterErrorsApi.getMessageObject()
 
+                if (result.error.code === 10001) return response;
+                
                 setState(prevState => ({
                     ...prevState,
                     errors: [
@@ -60,10 +67,6 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                 }));
 
                 scrollToTop()
-            }
-            
-            if (hunterErrorsApi.isNewWallet()) {
-                apiGetAccountInfo(true).then(() => location.reload());
             }
 
             if (hunterErrorsApi.isAuthExpired()) logout()

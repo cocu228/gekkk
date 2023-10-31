@@ -3,6 +3,7 @@ import {IResOrder} from "@/shared/api";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { useTranslation } from 'react-i18next';
 
 interface IParams {
     order: IResOrder;
@@ -10,6 +11,7 @@ interface IParams {
 
 function OrderProperties({order}: IParams) {
     const {currencies} = useContext(CtxCurrencies);
+    const {t} = useTranslation();
 
     const currencyPrecision = (value: number, currency: string) =>
         Number(value.toFixed(currencies.get(currency)?.ordersPrec));
@@ -19,7 +21,7 @@ function OrderProperties({order}: IParams) {
             <div className="row mb-2">
                 <div className="col">
                     <InlineProperty
-                        left={"Start date"}
+                        left={t("exchange.start_date")}
                         right={formatForCustomer(new Date(order.time_created))}
                     />
                 </div>
@@ -28,7 +30,7 @@ function OrderProperties({order}: IParams) {
             <div className="row mb-2">
                 <div className="col">
                     <InlineProperty
-                        left={"Locked funds"}
+                        left={t("exchange.locked_funds")}
                         right={`${order.volume_source.toString()} ${order.from}`}
                     />
                 </div>
@@ -37,7 +39,7 @@ function OrderProperties({order}: IParams) {
             <div className="row">
                 <div className="col">
                     <InlineProperty
-                        left={"Price"}
+                        left={t("exchange.price")}
                         right={`1 ${order.from} ~ ${
                             currencyPrecision(order.volume_dest / order.volume_source, order.to)
                         } ${order.to}`}

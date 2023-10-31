@@ -18,6 +18,7 @@ import dayjs from 'dayjs';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import CopyIcon from '@/shared/ui/copy-icon/CopyIcon';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { useTranslation } from 'react-i18next';
 
 const {RangePicker} = DatePicker;
 
@@ -42,6 +43,7 @@ function OpenOrders({
         [dayjs(addDays(new Date(), -90)), dayjs()]
     )
     
+    const {t} = useTranslation();
     const requestOrders = async () => {
         setIsLoading(true);
         setAllOrdVisibly(false);
@@ -181,7 +183,7 @@ function OpenOrders({
                         </div>
                         <div className="flex justify-between gap-0.5 mt-1.5">
                             <div className="flex gap-2.5">
-                                <div className="text-secondary">Price: </div>
+                                <div className="text-secondary">{t("exchange.price")}: </div>
                                 <div>
                                     <span>1 {ord.from} ~ {
                                         currencyPrecision(ord.volume_dest / ord.volume_source, ord.to)
@@ -199,7 +201,7 @@ function OpenOrders({
                                         setSelectedOrder(ord);
                                         cancelOrderModal.showModal();
                                     }}
-                                >Cancel</button>
+                                >{t("exchange.cancel")}</button>
                             )}
                         </div>
                     </div>
@@ -223,11 +225,9 @@ function OpenOrders({
                 open={cancelOrderModal.isModalOpen}
                 onCancel={cancelOrderModal.handleCancel}
             >
-                <div className="text-sm mb-4">
-                    Are you sure you want to cancel this order?
-                    This action cannot be canceled.
+                <div className="text-sm mb-4"> {t("exchange.cancel_this_order")}
                 </div>
-                <div className='font-medium mb-2'>Order description:</div>
+                <div className='font-medium mb-2'>{t("exchange.order_description")}</div>
                 
                 <OrderProperties order={selectedOrder}/>
                 
@@ -245,7 +245,7 @@ function OpenOrders({
                                 setOrdersList(ordersList.filter(o => o.id !== selectedOrder.id));
                             });
                         }}
-                    >Cancel order</Button>
+                    >{t("exchange.cancel_order")}</Button>
                 </div>
             </Modal>
         </>

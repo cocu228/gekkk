@@ -188,7 +188,7 @@ const SidebarDesktop = () => {
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row w-full mb-1 font-medium"><span
-                            className={styles.NavName}>{t("exchange")}</span>
+                            className={styles.NavName}>{t("exchange.title")}</span>
                         </div>
                     </div>
                 </div>

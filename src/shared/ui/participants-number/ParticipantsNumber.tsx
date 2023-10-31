@@ -2,6 +2,7 @@ import {useState} from 'react';
 import styles from './style.module.scss';
 import {isActiveClass} from "@/shared/lib/helpers";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     quantity: number,
@@ -10,6 +11,8 @@ interface Props {
 }
 
 function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
+    const {t} = useTranslation();
+
 
     const [active, setActive] = useState(false);
 
@@ -22,11 +25,11 @@ function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
         <div className="flex flex-col items-center lg:items-start gap-2 lg:gap-1 sm:gap-2 lg:w-full">
             <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-2 lg:w-full">
                 <div className="flex gap-1">
-                    <span className='font-semibold'>Number of participants</span>
+                    <span className='font-semibold'>{t("exchange.number_of_participants")}</span>
 
                     <div data-text={"Update"} className="ellipsis">
                         <span className={`cursor-pointer ${styles.UpdateBtn} ${isActiveClass(active)}`}
-                            onClick={onClick} data-testid="DepositCurrentRateUpdater">
+                            onClick={onClick} data-testid="Updater">
                             <img width={20} height={20} src="/img/icon/DepositCurrentRateIcon.svg" alt="DepositCurrentRateIcon" />
                         </span>
                     </div>
@@ -44,7 +47,7 @@ function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
                     />
                 </div>
             </div>
-            <button className="font-medium text-secondary hover:text-blue-400" onClick={onLeave}>Leave the room</button>
+            <button className="font-medium text-secondary hover:text-blue-400" onClick={onLeave}>{t("exchange.leave_the_room")}</button>
         </div>
     );
 }

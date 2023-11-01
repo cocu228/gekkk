@@ -87,7 +87,7 @@ function Exchange() {
                         trigger={
                             <span>{t("exchange.title")}</span>
                         }
-                        items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>Create private exchange room</DropdownItem>)}]}
+                        items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>{t("exchange.create_private_exchange_room")}</DropdownItem>)}]}
                     />
                 );
             case 'creator':
@@ -201,7 +201,7 @@ function Exchange() {
                                 </InputCurrency.CurrencySelector>
 
                                 <div className="mt-3 md:mt-2">
-                                    <div className="font-medium text-md lg:text-sm md:text-xs">{t("exchange.pay_from")}</div>
+                                    <div className="font-medium text-md lg:text-sm md:text-xs">{t("exchange.price")}</div>
                                     <PriceField />
                                 </div>
 

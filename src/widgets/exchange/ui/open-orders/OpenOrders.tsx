@@ -116,7 +116,7 @@ function OpenOrders({
 
             {activeTab === TabKey.CLOSED && (
                 <div className='mb-2'>
-                    Enter period or choose from calendar
+                    {t("exchange.enter_period")}
 
                     <div className='flex grow-0 max-w-[400px]'>
                         <RangePicker
@@ -129,7 +129,7 @@ function OpenOrders({
                             className='ml-5'
                             disabled={isLoading || !customDate}
                             onClick={requestOrders}
-                        >Apply</Button>
+                        >{t("apply")}</Button>
                     </div>
                 </div>
             )}
@@ -141,7 +141,7 @@ function OpenOrders({
 
                 {!(isLoading || ordersList.length) &&
                 <div className='text-center mb-10 mt-3 text-gray-400'>
-                    You don't have any opened orders
+                    {t("exchange.no_opened_orders")}
                 </div>}
 
                 {isLoading ? null : ordersList.map((ord: IResOrder) => (
@@ -160,9 +160,7 @@ function OpenOrders({
                                 <span className='text-gray-400'>
                                     {ord.state} {ord.state !== OrderState.FAILED ? null : (
                                         <Tooltip
-                                            text={<div>
-                                                An error occurred while executing the order.
-                                                Please, contact with technical support.
+                                            text={<div>{t("exchange.error_occurred_while_executing_order")}
                                                 
                                                 <span className='flex items-center'>
                                                     Order ID: {ord.id}
@@ -211,7 +209,7 @@ function OpenOrders({
                     <div className="col flex justify-center relative">
                         {lazyLoading ? <Loader className={"w-[24px] h-[24px] top-[4px]"}/> :
                             <span onClick={requestMoreOrders}
-                                  className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
+                                  className="text-gray-400 cursor-pointer inline-flex items-center">{t("exchange.see_more")} <img
                                 className="ml-2" width={10} height={8}
                                 src="/img/icon/ArrowPlainDown.svg"
                                 alt="ArrowPlainDown"/></span>}

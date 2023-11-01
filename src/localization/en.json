@@ -1,5 +1,4 @@
-
-  {
+ {
     "lang": "en",
     "languageName": "English",
     "locale": {
@@ -19,18 +18,18 @@
         "invalid_password": "Only numbers allowed and min length 6 symbol",
         "invalid_phone": "Please enter your number in full"
       },
-
       "next": "Next",
       "login": "Login",
-
       "code": "Code",
-
       "sms_code_sent": "SMS with one-time code was sent to",
       "one-time code": "One-time code", 
       "phone_code": "Phone code",
       "back_to_login_page": "← Back to login page",
       "can_use_code": "You can use the code for: {{amount}} seconds",
       "resend_one-time_code": "Resend one-time code again",
+      "header_menu": {
+          
+      },
       "crypto_assets": {
         "title": "Crypto assets",
         "subtitle": "Choose and buy the assets interested you",
@@ -46,20 +45,17 @@
         "name": "Name",
         "price": "Price",
         "Currency": "Currency",
-        "Actions": "Actions"
+        "Actions": "Actions",
+        "buy": "Buy"
       },
-
       "locked_in": "locked in:",
-
       "confirm": "Confirm",
       "apply": "apply",
-
       "assets": "Assets",
       "private_exchange_rooms": "Private exchange rooms",
       "invite_link": "Invite link",
       "participants": "Participants",
       "number_of_participants": "Number of participants",
-
       "problem_with_form": "There was a problem with loading the form. Please try again later.",
       "code_is_required" : "Code is required!",
       "phone_number" : "Phone number:",
@@ -112,6 +108,7 @@
       "exchange": {
         "title": "Exchange",
         "describe":"Cryptocurrency exchange - fast and easily",
+        "create_private_exchange_room": "Create private exchange room",
         "private_exchange_room": "private exchange room",
         "owner_private_room": "You are owner of this private room. A Gekkard user will be able to join your room using this",
         "invite_link":"invite link",
@@ -120,7 +117,6 @@
         "open_private_exchange_room": "Open private exchange room",
         "order_execution_depends": "order execution depends on the market situation",
         "no_opened_orders": "You don't have any opened orders",
-        "enter_period": "Enter period or choose from calendar",
         "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
         "select_token":"Select the token",
         "only_i_can":"Only I can specify the sale price",
@@ -140,8 +136,13 @@
         "cancel_this_order":"Are you sure you want to cancel this order? This action cannot be canceled.",
         "order_description": "Order description:",
         "start_date": "Start date",
-        "locked_funds": "Locked funds"
+        "locked_funds": "Locked funds",
+        "error_occurred_while_executing_order": "An error occurred while executing the order. Please, contact with technical support.",
+        "see_more": "See more",
+        "enter_period": "Enter period or choose from calendar"
       },
+      "you_will_pay": "You will pay",
+      "you_will_get": "You will get",
       "support": "Support",
       "funds" : "Funds",
       "fiat": "Fiat",

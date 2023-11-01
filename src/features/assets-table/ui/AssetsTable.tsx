@@ -152,7 +152,7 @@ const AssetsTable = ({
                                                         e.stopPropagation();
                                                         navigate(`/exchange?to=${currency.$const}`)
                                                     }}
-                                                >{t("buy")}</Button>
+                                                >{t("crypto_assets.buy")}</Button>
                                             )}
                                         </GTable.Col>
                                     ))}

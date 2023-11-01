@@ -6,6 +6,7 @@ import DisplayBalance from '../balance/DisplayBalance';
 import PercentSelector from '../percent-selector/PercentSelector';
 import CurrencySelector from '../currency-selector/CurrencySelector';
 import {CtxInputCurrencyOptions, CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
+import { useTranslation } from 'react-i18next';
 
 interface IParams {
     currency?: string;
@@ -23,7 +24,8 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
     CurrencySelector: typeof CurrencySelector;
 } = ({currency, value, wrapperClassName, disabled = false, className, onChange, ...props}: IParams) => {
 
-    const inputCurrencyValid = useContext(CtxInputCurrencyValid)
+    const inputCurrencyValid = useContext(CtxInputCurrencyValid);
+    const {t} = useTranslation();
 
     return <div className={wrapperClassName}>
         <InputAntd
@@ -31,7 +33,7 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
             className={`${inputCurrencyValid ? "!border-red-800" : "border-gray-400"} ${className}`}
             disabled={disabled || !currency}
             value={value}
-            placeholder='Enter amount'
+            placeholder={t("exchange.enter_amount")}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 const value: string = event.target.value
                 onChange(value)

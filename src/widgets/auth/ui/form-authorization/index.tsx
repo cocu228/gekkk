@@ -236,11 +236,13 @@ const FormLoginAccount = memo(() => {
                                 alt="Google play"
                             />
                         </a>
-
-                        <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                           className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
-                            {t("auth.download")}
-                        </a>
+                        
+                        {!['DEV', 'LOCAL'].includes(import.meta.env.MODE) ? null : (
+                            <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
+                               className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
+                                {t("auth.download")}
+                            </a>
+                        )}
                     </div>
                 </li>
 

@@ -62,7 +62,7 @@ function Wallet() {
 
                                 <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
 
-                                <QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>
+                                {/*<QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>*/}
                             </>}
 
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>

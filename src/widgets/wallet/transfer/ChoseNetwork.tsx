@@ -40,8 +40,8 @@ const ChoseNetwork = ({withdraw = false}) => {
                                 ? null
                                 : (
                                     <span> Or you can create a <span
-                                        className='text-blue-400 hover:cursor-pointer hover:underline'
-                                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                                        //className='text-blue-400 hover:cursor-pointer hover:underline'
+                                        //onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                     >
                         {withdraw ? 'sell' : 'buy'} order
                     </span>.</span>

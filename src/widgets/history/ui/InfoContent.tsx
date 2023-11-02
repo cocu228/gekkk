@@ -14,8 +14,6 @@ import Decimal from "decimal.js";
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
 const InfoContent = (props: TypeProps) => {
-
-
     const [state, setState] = useState<ITransactionInfo | null>(null)
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4

@@ -7,8 +7,10 @@ import {promoCodeMessage} from "@/shared/config/message";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {validateStatus} from "@/features/promo-code/model";
 import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
+import { useTranslation } from 'react-i18next';
 
 const PromoCode = memo(() => {
+    const {t} = useTranslation();
     const [valInput, setValInput] = useState("");
     const {promoCodeValidator} = useValidation();
     const [message, setMessage] = useState(null);
@@ -38,7 +40,7 @@ const PromoCode = memo(() => {
     return <>
         <div className="py-10 px-8 md:px-0 md:pb-0">
             <Form onFinish={onSubmit}>
-                <h2 className="text-[var(--color-gray-600)] font-bold text-lg mb-10">Enter Promo Code</h2>
+                <h2 className="text-[var(--color-gray-600)] font-bold text-lg mb-10">{t("header_menu.enter_promo_code")}</h2>
 
                 <Form.Item
                     hasFeedback
@@ -56,7 +58,7 @@ const PromoCode = memo(() => {
                     htmlType={"submit"}
                     className={"w-full mt-10"}
                     disabled={valInput === "" || loading || isCodeApplied || containsNonLatinCharacters(valInput)}
-                >Apply</Button>
+                >{t("apply")}</Button>
             </Form>
         </div>
     </>

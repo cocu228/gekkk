@@ -217,7 +217,7 @@ const SidebarDesktop = () => {
                                     <div className="flex w-full row mb-1 justify-between">
                                         <div className={styles.RoomName}>
                                             {!xxxl
-                                                ? `${item.currency1} - ${item.currency2}: exchange room`
+                                                ? `${item.currency1} - ${item.currency2}`
                                                 : `${item.currency1} - ${item.currency2}`
                                             }
                                         </div>

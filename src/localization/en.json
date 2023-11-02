@@ -27,7 +27,32 @@
       "back_to_login_page": "← Back to login page",
       "can_use_code": "You can use the code for: {{amount}} seconds",
       "resend_one-time_code": "Resend one-time code again",
+
+      "unconfirmed_transactions" : "You have unconfirmed transactions. Please enter the sender's name",
+      "here": "here",
+
+      "transaction_info": "Transaction info",
+      "unconfirmed_incoming_transactions": "Unconfirmed incoming transactions",
+      "date": "Date",
+      "transaction_id": "Transaction ID:",
+      "transaction_type": "Transaction type:",
+      "currency": "Currency:",
+      "amount": "Amount:",
+      "fee": "Fee:",
+      "status": "Status:",
+      "sender_name": "Sender name:",
+      "address_from": "Address from:",
+      "address_to": "Address to:",
+      "token_network": "Token network:",
+      "transaction": "Transaction:",
+
+      "accordance_with_terms_conditions": "In accordance with Terms and Conditions, your bonus program will be terminated after 30 days upon request.",
+      "directed_to_gekkoin": "You will be directed to your personal Gekkoin account, where you can open fixed-income deposits or deposits linked to changes in the exchange rate of your chosen cryptocurrency",
+      
       "header_menu": {
+          "promo_code": "Promo-code",
+          "enter_promo_code": "Enter Promo Code",
+          "gekkoin_invest_platform": "Gekkoin invest platform"
           
       },
       "crypto_assets": {
@@ -50,7 +75,11 @@
       },
       "locked_in": "locked in:",
       "confirm": "Confirm",
-      "apply": "apply",
+      "apply": "Apply",
+      "done": "Done",
+
+      "your_account_has_been_topped": "Your account has been topped up for the amount:",
+
       "assets": "Assets",
       "private_exchange_rooms": "Private exchange rooms",
       "invite_link": "Invite link",

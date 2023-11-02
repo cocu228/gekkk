@@ -11,12 +11,14 @@ import {formatForCustomer} from "@/shared/lib/date-helper";
 import styles from "@/widgets/history/ui/style.module.scss";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { useTranslation } from 'react-i18next';
 
 export const UnconfirmedTransactions = () => {
 
     const [state, setState] = useState<IResHistoryTransactions[]>([]);
     const {refreshKey, account} = useContext(CtxRootData);
     const {showModal, isModalOpen, handleCancel} = useModal();
+    const {t} = useTranslation();
 
 
     useEffect(() => {
@@ -39,8 +41,8 @@ export const UnconfirmedTransactions = () => {
     }, [refreshKey, account])
 
     const isOnceInfo = state.length === 1,
-        titleModal = isOnceInfo ? "Transaction info"
-            : "Unconfirmed incoming transactions",
+        titleModal = isOnceInfo ? t("transaction_info")
+            : t("unconfirmed_incoming_transactions"),
         content = isOnceInfo ?
             <InfoContent handleCancel={handleCancel} {...state[0]}/> :
             <UnConfTrxList {...state}/>
@@ -49,8 +51,8 @@ export const UnconfirmedTransactions = () => {
 
     return state.length > 0 && <div className="negative-margin-content">
         <InfoBox>
-            <span className="font-semibold">You have unconfirmed transactions. Please enter the sender's name <span
-                className="text-blue-400 underline" onClick={showModal}>here.</span></span>
+            <span className="font-semibold">{t("unconfirmed_transactions")} <span
+                className="text-blue-400 underline" onClick={showModal}>{t("here")}</span></span>
         </InfoBox>
 
         <Modal

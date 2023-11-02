@@ -16,10 +16,12 @@ import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios, {CancelToken} from "axios";
 // import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { useTranslation } from 'react-i18next';
 
 const {RangePicker} = DatePicker;
 
 const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
+    const {t} = useTranslation();
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -111,7 +113,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
                             className='ml-5'
                             disabled={loading || !customDate}
                             onClick={() => requestHistory()}
-                        >Apply</Button>
+                        >{t("apply")}</Button>
                     </div>
                 </div>
             )}

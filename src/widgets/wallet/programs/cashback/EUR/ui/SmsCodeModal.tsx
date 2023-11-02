@@ -12,6 +12,7 @@ import { Form, Input } from 'antd';
 import { AxiosResponse } from 'axios';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { DealTurn } from '../model/helpers';
+import { t } from 'i18next';
 
 interface Props {
   cashbackId: ActiveBonusProgram;
@@ -119,13 +120,13 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
       ? (
         <>
             <h4 className={`font-extrabold text-center text-gray-600 pb-4
-          ${md ? 'text-2xl' : 'text-header'}`}>One-time code</h4>
+          ${md ? 'text-2xl' : 'text-header'}`}>{t("one-time code")}</h4>
             <p className='text-center mb-4 text-gray-500'>
               {`Enter code we've sent you by SMS to ${action} bonus program.`}
             </p>
             {action === 'stop'
               && <p className='text-center mb-8 text-gray-500'>
-                In accordance with Terms and Conditions, your bonus program will be terminated after 30 days upon request.
+                {t("accordance_with_terms_conditions")}
               </p>
             }
 
@@ -140,7 +141,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
                   >
                     <Input
                       type="text"
-                      placeholder="Phone code"
+                      placeholder={t("phone_code")}
                       onInput={onInput}
                       value={smsCode}
                       onChange={handlerInput}
@@ -153,7 +154,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
                       className='basis-2/4'
                       onClick={handleCancel}
                     >
-                      Cancel
+                      {t("cancel")}
                     </Button>
 
                     <Button
@@ -161,7 +162,7 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
                       className='basis-2/4'
                       disabled={smsCode.length < 7}
                     >
-                      Apply
+                      {t("apply")}
                     </Button>
                   </div>
               </Form>

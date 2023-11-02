@@ -30,6 +30,7 @@
 
       "unconfirmed_transactions" : "You have unconfirmed transactions. Please enter the sender's name",
       "here": "here",
+      "action": "Action",
 
       "transaction_info": "Transaction info",
       "unconfirmed_incoming_transactions": "Unconfirmed incoming transactions",
@@ -37,18 +38,18 @@
       "transaction_id": "Transaction ID:",
       "transaction_type": "Transaction type:",
       "currency": "Currency:",
-      "amount": "Amount:",
-      "fee": "Fee:",
-      "status": "Status:",
-      "sender_name": "Sender name:",
-      "address_from": "Address from:",
-      "address_to": "Address to:",
-      "token_network": "Token network:",
-      "transaction": "Transaction:",
+      "amount": "Amount",
+      "fee": "Fee",
+      "status": "Status",
+      "sender_name": "Sender name",
+      "address_from": "Address from",
+      "address_to": "Address to",
+      "token_network": "Token network",
+      "transaction": "Transaction",
 
       "accordance_with_terms_conditions": "In accordance with Terms and Conditions, your bonus program will be terminated after 30 days upon request.",
       "directed_to_gekkoin": "You will be directed to your personal Gekkoin account, where you can open fixed-income deposits or deposits linked to changes in the exchange rate of your chosen cryptocurrency",
-      
+
       "header_menu": {
           "promo_code": "Promo-code",
           "enter_promo_code": "Enter Promo Code",
@@ -77,6 +78,7 @@
       "confirm": "Confirm",
       "apply": "Apply",
       "done": "Done",
+      "cancel": "Cancel",
 
       "your_account_has_been_topped": "Your account has been topped up for the amount:",
 
@@ -97,7 +99,30 @@
       "templates": "Templates",  
       "history": "History",
       "withdraw" : "Withdraw",
+
       "funds_transfer":"Funds Transfer",
+      "create_transfer": "Create transfer",
+      "apply_code": "Apply code",
+      "funds_transfer_code": "Funds transfer code",
+      "create_special_code": "Create a special code with which you can transfer funds between Gekkoin users with or without your confirmation.",
+      "enter_top_up_code": "Enter top up code",
+      "transfer_code_info": "Transfer code info",
+      "code_applied_successfully": "The code applied successfully",
+      "create_transfer_code": "Create transfer code",
+      "unredeemed_codes_info": "Unredeemed codes info",
+      "use_confirmation": "Use confirmation",
+      "when_using_confirmation": "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds.",
+      "no_have_transfer_code": "You don't have any transfer codes for this time.",
+      "you_made_transfer": "You made a transfer in the amount of:",
+      
+      "deleting_transfer_code": "Deleting transfer code",
+      "code_will_be_deleted": "This code will be deleted from the system. It will not be possible to transfer funds using this code.",
+      "confirmation": "Confirmation",
+      "used": "used",
+      "not_used": "not used",
+      "delete_this_code": "Delete this code",
+
+      
       "about": "About",
       "top_up_account": "Top Up Account",
       "top_up_wallet": "Top Up",
@@ -160,7 +185,6 @@
         "token": "a token",
         "enter_amount": "Enter amount",
         "balance": "Balance: ",
-        "cancel": "Cancel",
         "cancel_order": "Cancel order",
         "cancel_this_order":"Are you sure you want to cancel this order? This action cannot be canceled.",
         "order_description": "Order description:",

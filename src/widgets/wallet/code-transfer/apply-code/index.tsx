@@ -61,7 +61,7 @@ const ApplyCode = () => {
                 <Input value={input} disabled={loading}
                        wrapperClassName={"w-full"}
                        onChange={({target}) => setInput(target.value)}
-                       placeholder={"Enter top up code"} type={"text"}/>
+                       placeholder={t("enter_top_up_code")} type={"text"}/>
             </div>
             <div className="col h-inherit flex items-center w-2/5">
                 <Button disabled={input === "" || loading} onClick={showModal}
@@ -70,7 +70,7 @@ const ApplyCode = () => {
                     {t("apply")}
                 </Button>
 
-                <Modal title={infoCode ? "The code applied successfully" : "Transfer code info"}
+                <Modal title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
                            onCancel={handleCancel} open={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?

@@ -199,7 +199,7 @@ function OpenOrders({
                                         setSelectedOrder(ord);
                                         cancelOrderModal.showModal();
                                     }}
-                                >{t("exchange.cancel")}</button>
+                                >{t("cancel")}</button>
                             )}
                         </div>
                     </div>

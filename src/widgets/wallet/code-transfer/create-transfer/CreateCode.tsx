@@ -14,6 +14,7 @@ import {apiCreateTxCode} from "@/widgets/wallet/code-transfer/api/create-tx-code
 import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import { useTranslation } from 'react-i18next';
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -24,6 +25,7 @@ const CreateCode = () => {
     const [newCode, setNewCode] = useState("");
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
+    const {t} = useTranslation();
 
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
@@ -52,9 +54,7 @@ const CreateCode = () => {
     return (loading ? <Loader/> : newCode ? <CodeTxInfo code={newCode}/> :
             <>
                 <div className="row bg-gray-300 -mx-14 px-14 py-4 mb-6">
-                    <p>Create a special code with which you can transfer EURG funds between Gekkoin users with or
-                        without
-                        your confirmation.</p>
+                    <p>{t("create_special_code")}</p>
                 </div>
                 <div className="row">
                     <div className="col">
@@ -65,7 +65,7 @@ const CreateCode = () => {
                                 validators={[validateBalance(currency, navigate)]}
                             >
                                 <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                               header={<span className='text-gray-600'>Input</span>}
+                                                               header={<span className='text-gray-600'></span>}
                                                                currency={currency}>
                                     <InputCurrency.DisplayBalance currency={currency}>
                                         <InputCurrency
@@ -82,10 +82,10 @@ const CreateCode = () => {
                 <div className="row mb-16">
                     <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                         <div className='flex items-center'>
-                            Use confirmation
+                            {t("use_confirmation")}
 
                             <div className="flex items-center">
-                                <Tooltip text={text}>
+                                <Tooltip text={t("when_using_confirmation")}>
                                     <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                                         <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                                     </div>
@@ -96,7 +96,7 @@ const CreateCode = () => {
                 </div>
                 <div className="row">
                     <Button disabled={inputCurrValid.value || loading} className="w-full" size="xl"
-                            onClick={onCreateCode}>Confirm
+                            onClick={onCreateCode}>{t("confirm")}
                     </Button>
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}

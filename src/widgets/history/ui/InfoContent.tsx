@@ -15,9 +15,12 @@ import { useTranslation } from 'react-i18next';
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
 const InfoContent = (props: TypeProps) => {
+<<<<<<< HEAD
     const {t} = useTranslation();
 
 
+=======
+>>>>>>> cf364906a29b705ae061df654bd7014eacd2fc55
     const [state, setState] = useState<ITransactionInfo | null>(null)
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4
@@ -58,7 +61,7 @@ const InfoContent = (props: TypeProps) => {
                 <span className="text-gray-500 leading-4 font-medium">{t("transaction_id")}</span>
             </div>
             <div className="col w-auto font-medium flex items-center">
-                <span className="leading-4 font-medium">{props.id_transaction}</span>
+                <span className="leading-4 font-medium">{asteriskText(props.id_transaction)}</span>
             </div>
                 <div className="col flex items-center"><CopyIcon value={props.id_transaction}/></div>
         </div>

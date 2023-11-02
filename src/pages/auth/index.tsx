@@ -1,63 +1,61 @@
-import React, {memo, useContext, useEffect} from 'react';
 import "@styles/index.scss";
-import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
-import FormCode from "@/widgets/auth/ui/form-code";
-import QRCode from "@/widgets/auth/ui/qr-code";
-import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import {useAuth} from "@/app/providers/AuthRouter";
-import {storyDisplayAuth} from "@/widgets/auth/model/story";
-import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
-import { AxiosResponse } from 'axios';
-import { $AxiosResponse } from '@/shared/lib/(cs)axios';
+import {AxiosResponse} from 'axios';
+import {useTranslation} from 'react-i18next';
 import {useSessionStorage} from "usehooks-ts";
+import QRCode from "@/widgets/auth/ui/qr-code";
+import FormCode from "@/widgets/auth/ui/form-code";
+import {useAuth} from "@/app/providers/AuthRouter";
+import {$AxiosResponse} from '@/shared/lib/(cs)axios';
 import {TSessionAuth} from "@/widgets/auth/model/types";
-import { useTranslation } from 'react-i18next';
+import React, {memo, useContext, useEffect} from 'react';
+import {storyDisplayAuth} from "@/widgets/auth/model/story";
+import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
+import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 
 const AuthPage = memo(() => {
+    const {login} = useAuth();
     const {t} = useTranslation();
     const {md} = useContext(BreakpointsContext);
-    const {login} = useAuth();
-    const {toggleStage} = storyDisplayAuth(state => state);
+    const {stage, toggleStage} = storyDisplayAuth(state => state);
 
-
-    const [{
-        verificationId
-    }] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", verificationId: "", sessionIdUAS: ""}
-    );
+    const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
+        phone: "",
+        sessionIdUAS: "",
+        verificationId: ""
+    });
 
     useEffect(() => {
         if (verificationId !== "") {
-            toggleStage("code")
+            toggleStage("code");
         }
     }, []);
-
-
-    const {stage} = storyDisplayAuth(state => state);
 
     useEffect(() => {
         authForTokenHashUrl().success((sessionId: string) =>
             apiTokenHash(sessionId)
                 .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
-                    .success(
-                        () => login(res.data.result.authorization, res.data.result.token, res.data.result.tokenHeaderName)
-                    )).catch(e => console.warn(e)))
+                    .success(() => login(
+                        res.data.result.authorization,
+                        res.data.result.token,
+                        res.data.result.tokenHeaderName
+                    ))).catch(e => console.warn(e)));
 
     }, []);
 
-    let content: React.ReactNode
+    let content: React.ReactNode;
 
     switch (stage) {
         case "authorization":
-            content = <FormLoginAccount/>
-            break
+            content = <FormLoginAccount/>;
+            break;
         case "code":
-            content = <FormCode/>
-            break
+            content = <FormCode/>;
+            break;
         case "qr-code":
-            content = <QRCode/>
-            break
+            content = <QRCode/>;
+            break;
     }
 
     return (

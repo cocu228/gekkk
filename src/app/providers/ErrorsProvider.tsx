@@ -11,13 +11,17 @@ import {
     IStateErrorProvider,
     TResponseErrorProvider
 } from "@/processes/errors-provider-types";
+import {apiGetAccountInfo} from "@/shared/api";
 import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-import {apiGetAccountInfo} from "@/shared/api";
+import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
+import Button from "@/shared/ui/button/Button";
 
+// todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
-
-    const {logout} = useAuth()
+    const {logout} = useAuth();
+    const {isModalOpen, showModal, handleCancel} = useModal();
 
     if (useLocation().state === 500) {
         window.history.replaceState({}, document.title)
@@ -43,8 +47,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             hunterErrorsApi.setFilterListForSkip(skipList);
 
             if (hunterErrorsApi.isNewWallet()) {
-                apiGetAccountInfo(true)
-                    .then(() => location.reload());
+                showModal();
             }
 
             if (hunterErrorsApi.isError()) {
@@ -115,6 +118,22 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         }}>
             {props.children}
         </CtxNeedConfirm.Provider>
+        
+        <Modal
+            open={isModalOpen}
+            onCancel={handleCancel}
+        >
+            <span>Your wallet not found, please, generate a new one by clicking button below</span>
+            
+            <Button
+                className='w-full'
+                onClick={() => {
+                    apiGetAccountInfo(true)
+                        .then(() => location.reload())
+                        .catch(() => {/*Display error*/});
+                }}
+            >Generate account</Button>
+        </Modal>
     </>
 }
 

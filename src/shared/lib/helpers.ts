@@ -30,7 +30,7 @@ export function throttle(callee, timeout) {
     }
 }
 
-
+export const $ENV_DEV = ['DEV', 'LOCAL'].includes(import.meta.env.MODE);
 
 export const isActiveClass = (value: boolean): string => value ? "active" : ""
 export const isNull = (value: any): boolean => value === null

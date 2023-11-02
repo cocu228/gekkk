@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from './style.module.scss'
-import Chat from 'chat';
+import Chat from 'gekkard-chat';
 import ReactDOM from "react-dom";
 import { getCookieData } from "@/shared/lib/helpers";
 

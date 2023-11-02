@@ -98,12 +98,10 @@ const WithdrawFormBroker = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>You will get</span>
                         </div>
                         <div className="row">
-                        <span>
-                          You will get
-                        </span>
+                            <span>You will pay</span>
                         </div>
                         <div className="row">
                             <span>
@@ -118,7 +116,7 @@ const WithdrawFormBroker = () => {
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).plus(withdraw_fee).toString()} EURG</span>}
                         </div>
                         <div className="row flex items-end">
                             {loading ? "Loading..." : <span

@@ -56,7 +56,7 @@ const InfoContent = (props: TypeProps) => {
                 <span className="text-gray-500 leading-4 font-medium">Transaction ID:</span>
             </div>
             <div className="col w-auto font-medium flex items-center">
-                <span className="leading-4 font-medium">{props.id_transaction}</span>
+                <span className="leading-4 font-medium">{asteriskText(props.id_transaction)}</span>
             </div>
                 <div className="col flex items-center"><CopyIcon value={props.id_transaction}/></div>
         </div>

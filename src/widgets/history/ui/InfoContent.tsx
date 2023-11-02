@@ -15,17 +15,13 @@ import { useTranslation } from 'react-i18next';
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
 const InfoContent = (props: TypeProps) => {
-<<<<<<< HEAD
-    const {t} = useTranslation();
 
-
-=======
->>>>>>> cf364906a29b705ae061df654bd7014eacd2fc55
     const [state, setState] = useState<ITransactionInfo | null>(null)
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4
 
-    const loading = isNull(state) && isAvailableType
+    const loading = isNull(state) && isAvailableType;
+    const {t} = useTranslation();
 
     const [localErrorHunter, , localErrorInfoBox] = useError()
 

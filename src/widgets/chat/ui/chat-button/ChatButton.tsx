@@ -11,7 +11,7 @@ const ChatButton: React.FC<ChatButtonProps> = ({ onClick }) => {
   return (
     <div className={styles.ChatButton} onClick={onClick}>
       <div className={styles.ChatIcon}>
-        <WechatOutlined rev={undefined} />
+        <WechatOutlined />
       </div>
     </div>
   );

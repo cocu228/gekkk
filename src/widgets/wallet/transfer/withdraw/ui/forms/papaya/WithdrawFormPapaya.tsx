@@ -81,7 +81,7 @@ const WithdrawFormPapaya = () => {
                         validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
                                                    header={<span
-                                                       className='text-gray-600 font-medium'>You will pay</span>}
+                                                       className='text-gray-600 font-medium'>Amount</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency

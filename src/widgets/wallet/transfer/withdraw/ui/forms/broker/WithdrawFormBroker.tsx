@@ -57,7 +57,7 @@ const WithdrawFormBroker = () => {
             </div>
 
             <div className="col text-xs">
-                <span><b>Note</b>:  Standard exchange fee is <b>{percent_fee}%</b>
+                <span><b>Note</b>:  Standard exchange fee is <b>1,5%</b>
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
@@ -80,7 +80,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
                         validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>You will pay</span>}
+                                                   header={<span className='text-gray-600 font-medium'>Amount</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -101,9 +101,7 @@ const WithdrawFormBroker = () => {
                             <span>You will pay</span>
                         </div>
                         <div className="row">
-                        <span>
-                          You will get
-                        </span>
+                            <span>You will get</span>
                         </div>
                         <div className="row">
                             <span>

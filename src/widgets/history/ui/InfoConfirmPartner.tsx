@@ -10,9 +10,11 @@ import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
+import { useTranslation } from 'react-i18next';
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 export const InfoConfirmPartner = (props: TypeProps) => {
+    const {t} = useTranslation();
     const {setRefresh} = useContext(CtxRootData)
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox] = useError()
@@ -42,7 +44,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         {loading ? <Loader/> : partnerInfo === null ? <div className="col">
             <div className="row mb-2">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Sender name:</span>
+                    <span className="text-gray-500 font-medium">{t("sender_name")}</span>
                 </div>
             </div>
             <div className="row flex gap-3">
@@ -50,13 +52,13 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                     <Input value={input} onChange={({target}) => setInput(target.value)}/></div>
                 <div className="col w-2/5">
                     <Button onClick={() => setPartnerInfo(input)} disabled={input === "" || containsNonLatinCharacters(input)} size={"xl"}
-                            className="w-full">Apply</Button>
+                            className="w-full">{t("apply")}</Button>
                 </div>
             </div>
         </div> : localErrorInfoBox ? localErrorInfoBox : <div className="col">
             <div className="row mb-4 flex flex-wrap gap-2">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Sender name:</span>
+                    <span className="text-gray-500 font-medium">{t("sender_name")}</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{input}</span>
@@ -65,7 +67,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
             <div className="row flex gap-3">
                 <div className="col w-full">
                     <Button onClick={confirmPartnerInfo} size={"xl"}
-                            className="w-full !font-medium">Confirm</Button>
+                            className="w-full !font-medium">{t("confirm")}</Button>
                 </div>
             </div>
         </div>}

@@ -7,6 +7,8 @@ export interface IResBalance {
     lock_in_balance: number;
     lock_orders: number;
     free_balance: number;
+    user_balance: number;
+    user_balance_EUR_equ: number;
 }
 
 export const apiGetBalance = (currency?: string) =>

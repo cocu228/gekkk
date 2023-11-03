@@ -12,9 +12,11 @@ import {IResCodeTxInfo} from "@/widgets/wallet/code-transfer/api/code-tx-info";
 import {CtxRootData} from "@/processes/RootContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
+import { useTranslation } from 'react-i18next';
 
 const ApplyCode = () => {
 
+    const {t} = useTranslation();
     const {showModal, isModalOpen, handleCancel} = useModal()
     const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
@@ -59,16 +61,16 @@ const ApplyCode = () => {
                 <Input value={input} disabled={loading}
                        wrapperClassName={"w-full"}
                        onChange={({target}) => setInput(target.value)}
-                       placeholder={"Enter top up code"} type={"text"}/>
+                       placeholder={t("enter_top_up_code")} type={"text"}/>
             </div>
             <div className="col h-inherit flex items-center w-2/5">
                 <Button disabled={input === "" || loading} onClick={showModal}
                         size={"xl"}
                         className={"w-full !h-full !font-medium"}>
-                    Apply
+                    {t("apply")}
                 </Button>
 
-                <Modal title={infoCode ? "The code applied successfully" : "Transfer code info"}
+                <Modal title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
                            onCancel={handleCancel} open={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
@@ -76,7 +78,7 @@ const ApplyCode = () => {
                             <>
                                 <div className="row mb-6">
                                     <div className="col">
-                                        <p className="text-sm">Your account has been topped up for the amount:</p>
+                                        <p className="text-sm">{t("your_account_has_been_topped")}</p>
                                     </div>
                                 </div>
                                 <div className="row mb-12">
@@ -88,7 +90,7 @@ const ApplyCode = () => {
                                     <div className="col">
                                         <Button className="w-full" size={"xl"} onClick={() => {
                                             handleCancel()
-                                        }}>Done</Button>
+                                        }}>{t("done")}</Button>
                                     </div>
                                 </div>
                             </>}

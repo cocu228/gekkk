@@ -10,17 +10,18 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import useError from "@/shared/model/hooks/useError";
 import Decimal from "decimal.js";
 // import {formatAsFee} from "@/widgets/history/model/helpers";
+import { useTranslation } from 'react-i18next';
 
 type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
 
 const InfoContent = (props: TypeProps) => {
 
-
     const [state, setState] = useState<ITransactionInfo | null>(null)
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4
 
-    const loading = isNull(state) && isAvailableType
+    const loading = isNull(state) && isAvailableType;
+    const {t} = useTranslation();
 
     const [localErrorHunter, , localErrorInfoBox] = useError()
 
@@ -45,7 +46,7 @@ const InfoContent = (props: TypeProps) => {
         <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col">
-                <span className="text-gray-500 font-medium">Date:</span>
+                <span className="text-gray-500 font-medium">{t("date")}</span>
             </div>
             <div className="col font-medium">
                 <span className="text-gray-600">{formatForCustomer(props.datetime)}</span>
@@ -53,16 +54,16 @@ const InfoContent = (props: TypeProps) => {
         </div>
             <div className="row mb-4 flex flex-nowrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 leading-4 font-medium">Transaction ID:</span>
+                <span className="text-gray-500 leading-4 font-medium">{t("transaction_id")}</span>
             </div>
             <div className="col w-auto font-medium flex items-center">
-                <span className="leading-4 font-medium">{props.id_transaction}</span>
+                <span className="leading-4 font-medium">{asteriskText(props.id_transaction)}</span>
             </div>
                 <div className="col flex items-center"><CopyIcon value={props.id_transaction}/></div>
         </div>
         <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 font-medium">Transaction type:</span>
+                <span className="text-gray-500 font-medium">{t("transaction_type")}</span>
             </div>
             <div className="col w-auto font-medium">
                 <span>{props.tx_type_text}</span>
@@ -70,7 +71,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
         <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 font-medium">Currency:</span>
+                <span className="text-gray-500 font-medium">{t("currency")}</span>
             </div>
             <div className="col w-auto font-medium">
                 <span>{props.currency}</span>
@@ -78,7 +79,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Amount:</span>
+                    <span className="text-gray-500 font-medium">{t("amount")}</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{props.amount} {props.currency}</span>
@@ -86,7 +87,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Fee:</span>
+                    <span className="text-gray-500 font-medium">{t("fee")}</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{new Decimal(props.fee).toString()} {props.currency}</span>
@@ -94,7 +95,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Status:</span>
+                    <span className="text-gray-500 font-medium">{t("amount")}</span>
                 </div>
                 <div className="col w-auto flex items-center">
                     <span className="whitespace-nowrap font-medium">{props.status_text}</span>
@@ -103,7 +104,7 @@ const InfoContent = (props: TypeProps) => {
             {!isNeedConfirm &&
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">
-                        <span className="text-gray-500 font-medium">Sender name:</span>
+                        <span className="text-gray-500 font-medium">{t("sendler_name")}</span>
                     </div>
                     <div className="col w-auto">
                         <span className="break-all font-medium">{props.partner_info}</span>
@@ -114,7 +115,7 @@ const InfoContent = (props: TypeProps) => {
             <div className="font-light">
             {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col">
-                    <span className="text-gray-500 font-medium">Address from:</span>
+                    <span className="text-gray-500 font-medium">{t("address_from")}</span>
                 </div>
                 <div className="col flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
@@ -123,7 +124,7 @@ const InfoContent = (props: TypeProps) => {
             </div>}
             {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium whitespace-nowrap">Address to:</span>
+                    <span className="text-gray-500 font-medium whitespace-nowrap">{t("address_to")}</span>
                 </div>
                 <div className="col w-auto flex items-center">
                     <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
@@ -132,7 +133,7 @@ const InfoContent = (props: TypeProps) => {
             </div>}
             {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">Token network:</span>
+                    <span className="text-gray-500 font-medium">{t("token_network")}</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{state.tokenNetwork}</span>
@@ -141,7 +142,7 @@ const InfoContent = (props: TypeProps) => {
             {(state.txHash && state.explorerBaseAddress) && (
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">
-                        <span className="text-gray-500 font-medium">Transaction:</span>
+                        <span className="text-gray-500 font-medium">{t("transaction")}</span>
                     </div>
                     <div className="col w-auto flex items-center">
                         <a target={"_blank"} href={state.explorerBaseAddress + state.txHash}

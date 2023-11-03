@@ -18,14 +18,21 @@ import Loader from "@/shared/ui/loader";
 import ETokensConst from "@/shared/config/coins/constants";
 import {storeAssets} from "@/shared/store/assets";
 
+interface IState {
+    currencies: Map<string, ICtxCurrency> | null,
+    ratesEUR: Record<ETokensConst, number>,
+    totalAmount: {
+        refreshKey: string;
+        EUR: Decimal | null;
+        BTC: Decimal | null;
+    }
+}
+
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
-
     const {refreshKey} = useContext(CtxRootData);
+    const {assets, getAssets} = storeAssets(state => state);
 
-    const getAssets = storeAssets(state => state.getAssets)
-    const assets = storeAssets(state => state.assets)
-
-    const [state, setState] = useState({
+    const [state, setState] = useState<IState>({
         currencies: null,
         ratesEUR: null,
         totalAmount: {

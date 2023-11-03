@@ -14,6 +14,7 @@ import {apiApplyCode} from "@/shared/api";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
+import { useTranslation } from 'react-i18next';
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
@@ -31,29 +32,29 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
 
     const filteredListTxCode = listTxCode.filter(item => item.currency === $const && item.isOwner === isOwner)
-
+    const {t} = useTranslation();
 
     return <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead + " py-4"}>
             <GTable.Row>
                 <GTable.Col className="text-left">
                     <div data-text={"Code"} className="col">
-                        <span>Code</span>
+                        <span>{t("code")}</span>
                     </div>
                 </GTable.Col>
                 <GTable.Col>
                     <div data-text={"Amount"} className="col ellipsis ellipsis-md">
-                        <span>Amount</span>
+                        <span>{t("amount")}</span>
                     </div>
                 </GTable.Col>
                 <GTable.Col>
                     <div data-text={"Status"} className="col ellipsis ellipsis-md">
-                        <span>Status</span>
+                        <span>{t("status")}</span>
                     </div>
                 </GTable.Col>
                 <GTable.Col>
                     <div data-text={"Action"} className="col">
-                        <span>Action</span>
+                        <span>{t("action")}</span>
                     </div>
                 </GTable.Col>
             </GTable.Row>
@@ -98,7 +99,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     </GTable.Col>
                 </GTable.Row>
             }) : <div className={styles.Row}>
-                <span>You don't have any transfer codes for this time.</span>
+                <span>{t("no_have_transfer_code")}</span>
             </div>}
         </GTable.Body>
     </GTable>
@@ -120,6 +121,7 @@ const CodeModalInfo = ({code}) => {
 }
 
 const CodeModalConfirm = ({code, amount, currency}) => {
+    const {t} = useTranslation();
 
     const [loading, setLoading] = useState(false)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
@@ -150,14 +152,14 @@ const CodeModalConfirm = ({code, amount, currency}) => {
     return <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
             <Button size={"sm"} gray onClick={() => onBtnConfirm(code)}
-                    className={"!py-3 !h-[fit-content]"}>Confirm</Button>}
+                    className={"!py-3 !h-[fit-content]"}>{t("confirm")}</Button>}
 
         <Modal title={"The code confirmed"} open={isModalOpen}
                onCancel={handleCancel}>
             {localErrorInfoBox ? localErrorInfoBox : <>
                 <div className="row mb-8 mt-2">
                     <div className="col">
-                        <p className="text-sm">You made a transfer in the amount of:</p>
+                        <p className="text-sm">{t("you_made_transfer")}</p>
                     </div>
                 </div>
                 <div className="row mb-8">
@@ -169,7 +171,7 @@ const CodeModalConfirm = ({code, amount, currency}) => {
                     <div className="col">
                         <Button className="w-full" size={"xl"} onClick={() => {
                             handleCancel()
-                        }}>Done</Button>
+                        }}>{t("done")}</Button>
                     </div>
                 </div>
             </>}

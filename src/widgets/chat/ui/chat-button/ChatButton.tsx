@@ -1,4 +1,3 @@
-import React from "react";
 import styles from './style.module.scss';
 import { WechatOutlined } from '@ant-design/icons';
 
@@ -7,7 +6,7 @@ interface ChatButtonProps {
   onClick: () => void;
 }
 
-const ChatButton: React.FC<ChatButtonProps> = ({ onClick }) => {
+const ChatButton = ({ onClick }: ChatButtonProps) => {
   return (
     <div className={styles.ChatButton} onClick={onClick}>
       <div className={styles.ChatIcon}>

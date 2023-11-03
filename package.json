@@ -17,7 +17,7 @@
   "dependencies": {
     "antd": "5.2.3",
     "axios": "1.3.4",
-    "gekkard-chat": "git+http://10.7.5.89:8080/tfs/DefaultCollection/gekkoin/_git/gek.support.chat",
+    "gekkard-chat": "git+ssh://tfs.itbuildgroup.ru:22/tfs/DefaultCollection/gekkoin/_git/gek.support.chat",
     "crypto-js": "^4.1.1",
     "date-fns": "2.29.3",
     "date-fns-tz": "2.0.0",

@@ -20,11 +20,11 @@ import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {useTranslation} from 'react-i18next';
+import {$ENV_DEV} from "@/shared/lib/helpers";
+
 function Wallet() {
-
+    const {t} = useTranslation();
     const {currency, tab} = useParams();
-    const {t} = useTranslation()
-
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
@@ -59,10 +59,11 @@ function Wallet() {
 
                             {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-
-                                <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
-
-                                {/*<QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>*/}
+                                
+                                {!$ENV_DEV ? null : <>
+                                    <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+                                    <QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>
+                                </>}
                             </>}
 
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>

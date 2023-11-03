@@ -19,19 +19,19 @@ export const LocalizationMenu = () => {
                                                                         height={32}
                                                                         src="/img/en.svg"
                                                                         alt="en"/>}>EN</DropdownItem>)
-    }, {
+    }, ...(!$ENV_DEV ? [] : [{
         key: 'de',
         label: (<DropdownItem onClick={() => onChange("de")} icon={<img width={32}
                                                                         height={32}
                                                                         src="/img/de.svg"
                                                                         alt="de"/>}>DE</DropdownItem>)
-    }, (!$ENV_DEV ? null : {
+    }, {
         key: 'ru',
         label: (<DropdownItem onClick={() => onChange("ru")} icon={<img width={32}
                                                                         height={32}
                                                                         src="/img/ru.svg"
                                                                         alt="ru"/>}>RU</DropdownItem>)
-    })];
+    }])];
 
     return <>
         <Dropdown items={menu}

@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "apiGen": "orval",
-    "start": "vite --host",
     "local": "vite --mode LOCAL",
     "build": "tsc && vite build",
+    "start": "vite --host --mode LOCAL",
     "preview": "vite build && vite preview --host",
     "PRD": "node increment-version && tsc && vite build --mode PRD",
     "STG": "node increment-version && tsc && vite build --mode STG",

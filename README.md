@@ -1,3 +1,9 @@
+## Установка пакетов
+
+Для установки пакетов требуется:
+1. Сгенерировать RSA SSH ключ и добавить его в Azure DevOps по описанной [инструкции](https://learn.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=azure-devops)
+2. Прописать `npm i` в терминале
+
 ## Command Line Interface
 
 
@@ -12,13 +18,17 @@ Vite treats index.html as source code and part of the module graph. It resolves 
 
 _package.json_
 
-```
+```json
 {
   "scripts": {
-    "dev": "vite",
-    "start": "vite --host",
+    "apiGen": "orval", // Generates api request functions
+    "local": "vite --mode LOCAL",
     "build": "tsc && vite build",
-    "preview": "vite build && vite preview --host"
+    "start": "vite --host --mode LOCAL",
+    "preview": "vite build && vite preview --host",
+    "PRD": "node increment-version && tsc && vite build --mode PRD",
+    "STG": "node increment-version && tsc && vite build --mode STG",
+    "DEV": "node increment-version && tsc && vite build --mode DEV"
   }
 }
 ```

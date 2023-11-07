@@ -4,6 +4,7 @@ import IconError from "@/shared/ui/icons/IconError";
 import {CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 import Decimal from "decimal.js";
 import {isNull} from "@/shared/lib/helpers";
+import { useTranslation } from 'react-i18next';
 
 interface IParams {
     value: number;
@@ -27,6 +28,7 @@ const Validator: FC<IParams> = (({
 
     const [error, setError] = useState<null | string | JSX.Element>(null)
     const firstEffect = useRef(true)
+    const {t} = useTranslation();
 
 
 
@@ -38,7 +40,7 @@ const Validator: FC<IParams> = (({
         } else {
 
             if (new Decimal(value).isZero() && !availableNullable) {
-                setError("Null value is not allowed");
+                setError(t("null_value"));
                 onError(true);
             } else {
                 const isValid = validators.every(validate => {

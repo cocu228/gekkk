@@ -55,8 +55,30 @@
           "promo_code": "Promo-code",
           "enter_promo_code": "Enter Promo Code",
           "gekkoin_invest_platform": "Gekkoin invest platform"
-          
       },
+    "support": {
+        "title": "Support",
+        "subtitle": "If you have any questions or difficulties, please let us know in any of the following way:",
+        "response_time": "Response time up to 24 hours"
+    },
+    "partnership_program": {
+      "title": "Partnership program",
+      "subtitle": "Earn rewards by inviting friends to Gekkard platform",
+      "reward_for_buying": "Reward for buying GKE tokens",
+      "agent_who_attracts": "The agent who attracts the referral will receive:",
+      "per_annum": "per annum",
+      "monthly_balance_first_year": "on the average monthly balance in the GKE of each attracted referral during the first year",
+      "monthly_balance_second_year": "on the average monthly balance in the GKE of eachattracted referral during the second year",
+      "rewards_transferred": "Rewards are transferred to your GKE balance at the end of the billing month.",
+      "rewards_opening": "Rewards for opening Gekkoin deposits",
+      "bring_your_friends": "Bring your friends or followers to open a structured deposit via Gekkoin - and get rewarded with 2% from each deposit’s amount opened by your referrals within a year since their registration.",
+      "reward_right_after": "You get the reward right after the closure of your referral’s deposit (if it was not closed prematurely).",
+      "agent_code": "Your agent code",
+      "referrals_info": "Referrals info",
+      "rewards": "Rewards",
+      "registration_date": "Registration date",
+      "id": "ID"
+    },
       "crypto_assets": {
         "title": "Crypto assets",
         "subtitle": "Choose and buy the assets interested you",
@@ -92,7 +114,7 @@
       "phone_number" : "Phone number:",
       "transfer_to_card": "Transfer to Card",
       "bank_transfer" : "Bank transfer",
-      "bank_cards" : "Bank cards",
+
       "no_fee_program" : "No Fee Program",
       "quick_exchange" : "Quick exchange",
       "transfer_to_contact": "Transfer to Contact",
@@ -122,6 +144,8 @@
       "not_used": "not used",
       "delete_this_code": "Delete this code",
 
+      "bank_cards" : "Bank cards",
+
       
       "about": "About",
       "top_up_account": "Top Up Account",
@@ -129,7 +153,7 @@
       "cashback_program": "Cashback Program",
       "available_funds": "Available Funds",
       "asset_valuation": "Asset Valuation",
-      "top_up": "Top up, Send, Buy and Sell your",
+      "top_up_": "Top up, Send, Buy and Sell your",
       "directly_from": "directly from your Gekkoin account",
       "eurg_description": "EURG is utility token of Gekkard platform. You can change this token at the rate of 1 EURG = 1 EUR. You can receive 3% on the balance of your funds",
       "buy_and_sell": "Buy and Sell your",
@@ -216,9 +240,19 @@
 
       "enter_period": "Enter period or choose from calendar",
       "no_have_any_transaction": "You don't have any transaction for this time",
-      "support": "Support",
       "funds" : "Funds",
       "fiat": "Fiat",
-      "crypto": "Crypto"
+      "crypto": "Crypto",
+
+      "no_have_enough_funds": "You don't have enough funds. Please",
+      "top_up": "top up",
+      "your_currency_account": "your {{currency}} account",
+      "maximum_amount": "The maximum amount is",
+      "minimum_amount": "The minimum amount is",
+      "null_value": "Null value is not allowed",
+
+      "transaction_request_successfully": "Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete.",
+      "please_contact": "If it’s not, please, contact",
+      "our_support": "our support"
     }
   }

@@ -32,6 +32,8 @@
       "here": "here",
       "action": "Action",
       "price": "Price",
+      "enter_code": "enter code",
+      "invalid_confirmation_code": "Invalid confirmation code",
 
       "transaction_info": "Transaction info",
       "unconfirmed_incoming_transactions": "Unconfirmed incoming transactions",
@@ -145,7 +147,23 @@
       "delete_this_code": "Delete this code",
 
       "bank_cards" : "Bank cards",
-
+      "display_unavailable_cards": "Display unavailable cards",
+      "block_selected_bank_card": "Are you sure you want to block selected bank card?",
+      "unblock_selected_bank_card": "Are you sure you want to unblock selected bank card?",
+      "for_security_reasons": "For security reasons your physical card was sent deactivated and could not be used without activation.",
+      "virtual_card_data_for_online": "You can still use your virtual card data for online shopping in internet. Each transaction is protected by 3D secure with one time code sent you in SMS.",
+      "using_your_physical_card": "To start using your physical card you should activate it upon delivery. To do that, just press button below. We will send you a one time activation code.",
+      "activate_your_card": "Please, activate your card only if the number embossed on your physical card is identical to your virtual card!",
+      "limit_amount": "Limit amount",
+      "disable_limits": "Disable limits temporarily",
+      "show_card_data": "Show card data",
+      "activate_card": "Activate card",
+      "block_card": "Block card",
+      "unblock_card": "Unblock card",
+      "available": "Available",
+      "set": "Set",
+      "limit": "limit",
+      "confirm_action": "Confirm action",
       
       "about": "About",
       "top_up_account": "Top Up Account",

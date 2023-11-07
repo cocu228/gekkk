@@ -17,6 +17,7 @@ import {CtxNeedConfirm} from "@/processes/errors-provider-context";
 import {pinHeadersGeneration, signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { useTranslation } from 'react-i18next';
 
 
 interface IState {
@@ -44,6 +45,7 @@ const ActionConfirmationWindow = () => {
         loading: false,
         codeLength: null
     });
+    const {t} = useTranslation();
     const {onInput} = useMask(MASK_CODE);
     const {setRefresh} = useContext(CtxRootData);
     const setContent = useContext(CtxModalTrxInfo);
@@ -110,7 +112,7 @@ const ActionConfirmationWindow = () => {
             
             localErrorHunter({
                 code: 401,
-                message: "Invalid confirmation code"
+                message: t("invalid_confirmation_code")
             });
         };
         
@@ -126,7 +128,7 @@ const ActionConfirmationWindow = () => {
     return (
         <Modal
             open={isModalOpen}
-            title='Confirm action'
+            title={t("confirm_action")}
             onCancel={() => {
                 handleCancel();
                 localErrorClear();
@@ -145,7 +147,7 @@ const ActionConfirmationWindow = () => {
                             : null
                         }
                         autoComplete="off"
-                        placeholder="Enter code"
+                        placeholder={t("enter_code")}
                         onChange={({target}) => {
                             localErrorClear();
                             setState(prev => ({
@@ -166,7 +168,7 @@ const ActionConfirmationWindow = () => {
                         disabled={!code}
                         onClick={confirm}
                         className="w-full"
-                    >Confirm</Button>
+                    >{t("confirm")}</Button>
                 </div>
             </div>
         </Modal>

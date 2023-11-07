@@ -2,12 +2,14 @@ import {IRoomInfo} from '@/shared/api';
 import ReactQRCode from 'react-qr-code';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
+import { useTranslation } from 'react-i18next';
 
 interface IParams {
     roomInfo: IRoomInfo;
 }
 
 function InviteLink({roomInfo = null}: IParams) {
+    const {t} = useTranslation();
     const getInviteUrl = (): string => {
         const {
             port,
@@ -22,8 +24,7 @@ function InviteLink({roomInfo = null}: IParams) {
     return (
         <div className="wrapper">
             <ModalInfoText>
-                Any Gekkard user will be able to join your
-                privite exchange room by folowing this link.
+                {t("exchange.any_gekkard_user")}
             </ModalInfoText>
             <div className='flex justify-center my-6 sm:mt-11 '>
                 <div className="w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
@@ -39,7 +40,7 @@ function InviteLink({roomInfo = null}: IParams) {
             </div>
             <ClipboardField value={getInviteUrl()}/>
             <div className="mt-2.5 text-sm font-medium">
-                This invite link is available for 24 hours.
+                {t("exchange.invite_link_is_available")}
             </div>
         </div>
     );

@@ -31,6 +31,7 @@
       "unconfirmed_transactions" : "You have unconfirmed transactions. Please enter the sender's name",
       "here": "here",
       "action": "Action",
+      "price": "Price",
 
       "transaction_info": "Transaction info",
       "unconfirmed_incoming_transactions": "Unconfirmed incoming transactions",
@@ -69,7 +70,6 @@
         "directed_to_gekkoin": "You will be directed to your personal Gekkoin account, where you can open fixed-income deposits or deposits linked to changes in the exchange rate of your chosen cryptocurrency.",
         "search_name": "Search name",
         "name": "Name",
-        "price": "Price",
         "Currency": "Currency",
         "Actions": "Actions",
         "buy": "Buy"
@@ -165,6 +165,21 @@
         "create_private_exchange_room": "Create private exchange room",
         "private_exchange_room": "private exchange room",
         "owner_private_room": "You are owner of this private room. A Gekkard user will be able to join your room using this",
+        
+        "any_gekkard_user": "Any Gekkard user will be able to join your privite exchange room by folowing this link.",
+        "invite_link_is_available": "This invite link is available for 24 hours.",
+        "sell": "Sell a",
+        "at_the_market_rate": "at the market rate",
+        "close": "Close",
+        "leave": "Leave",
+        "are_you_sure": "Are you sure you want to",
+        "close_private_exchange": "close the current private exchange room? All ",
+        "leave_private_exchange": "leave the current private exchange room? Your",
+        "unclosed_orders": "unclosed orders will be canceled",
+        "room_description": "Room description",
+        "room_number": "Room number",
+        "participants_number": "Participants number",
+
         "invite_link":"invite link",
         "number_of_participants": "Number of participants",
         "leave_the_room":"Leave the room",
@@ -180,7 +195,6 @@
         "to": "To",
         "pay_from": "Pay from",
         "recieve_to": "Receive to",
-        "price": "Price",
         "buy": "Buy",
         "token": "a token",
         "enter_amount": "Enter amount",
@@ -192,10 +206,16 @@
         "locked_funds": "Locked funds",
         "error_occurred_while_executing_order": "An error occurred while executing the order. Please, contact with technical support.",
         "see_more": "See more",
-        "enter_period": "Enter period or choose from calendar"
+        "orders": "Orders",
+        "opened": "opened", 
+        "closed": "closed",
+        "order_id": "Order ID:"
       },
       "you_will_pay": "You will pay",
       "you_will_get": "You will get",
+
+      "enter_period": "Enter period or choose from calendar",
+      "no_have_any_transaction": "You don't have any transaction for this time",
       "support": "Support",
       "funds" : "Funds",
       "fiat": "Fiat",

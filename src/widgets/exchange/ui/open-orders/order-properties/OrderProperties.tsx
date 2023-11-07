@@ -39,7 +39,7 @@ function OrderProperties({order}: IParams) {
             <div className="row">
                 <div className="col">
                     <InlineProperty
-                        left={t("exchange.price")}
+                        left={t("price")}
                         right={`1 ${order.from} ~ ${
                             currencyPrecision(order.volume_dest / order.volume_source, order.to)
                         } ${order.to}`}

@@ -7,6 +7,7 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
 import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthPrice";
 import {ITradeInfo, TradePriceArray, apiGetTradeInfo, apiGetRates} from '@/shared/api';
+import { t } from 'i18next';
 
 interface IParams {
     roomKey: string;
@@ -161,8 +162,8 @@ function DepthOfMarket({
         <div className={styles.Wrapper}>
             <div className={styles.Head}>
                 <div className="flex justify-between font-medium text-md lg:text-sm md:text-xs">
-                    <span>Price</span>
-                    <span>Amount</span>
+                    <span>{t("price")}</span>
+                    <span>{t("amount")}</span>
                 </div>
                 {(currencyFrom && currencyTo) && (
                     <div className={`flex justify-between items-center ${styles.Pair}`}>

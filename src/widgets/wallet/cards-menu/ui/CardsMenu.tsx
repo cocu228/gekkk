@@ -117,9 +117,9 @@ const CardsMenu = () => {
             .map((limit, index) =>
             <MenuItem
                 onClick={onClick}
-                dataItem={limit.period.toLowerCase() + 'Limit'}
-                leftSecondary='Available'
-                leftPrimary={`Set ${limit.period.toLowerCase()} limit`}
+                dataItem={limit.period.toLowerCase() + "Limit"}
+                leftSecondary={t("available")}
+                leftPrimary={t("set_limit", {period: limit.period.toLowerCase()})}
                 rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
                 rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
                 className={`rounded-none -my-[1px]

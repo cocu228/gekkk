@@ -161,8 +161,7 @@
       "block_card": "Block card",
       "unblock_card": "Unblock card",
       "available": "Available",
-      "set": "Set",
-      "limit": "limit",
+      "set_limit": "Set {{period}} limit",
       "confirm_action": "Confirm action",
       
       "about": "About",

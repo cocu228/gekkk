@@ -20,7 +20,7 @@ export function validateBalance(currency: ICtxCurrency, navigate: NavigateFuncti
         validated: new Decimal(value).lte(balance),
         errorMessage: <span className="text-fs12">
             {t("no_have_enough_funds")} <span className="text-blue-400 hover:cursor-pointer hover:underline"
-                                                      onClick={() => navigate(`/wallet/${currency.$const}/Top Up`)}
+                                                      onClick={() => navigate(`/wallet/${currency.$const}/top_up`)}
             >{t("top_up")}</span> {t("your_currency_account", {currency: currency.$const})}
         </span>
     })

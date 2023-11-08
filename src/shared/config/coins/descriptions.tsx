@@ -2038,7 +2038,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
                 </li>
                 <li className='mb-3'>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
-                        navigate('/wallet/GKE/Cashback Program');
+                        navigate('/wallet/GKE/cashback_program');
                         scrollToTop();
                     }}>
                         Cashback of 1%

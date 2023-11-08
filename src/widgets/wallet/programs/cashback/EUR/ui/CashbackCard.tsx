@@ -75,7 +75,7 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
         <div className={styles.CashbackCardButton}>
           <Button
             onClick={isCashbackCardGKE
-              ? () => navigate('/wallet/GKE/Cashback Program') 
+              ? () => navigate('/wallet/GKE/cashback_program') 
               // : () => showModal()
               : () => {}
 

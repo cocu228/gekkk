@@ -98,7 +98,6 @@
         "Actions": "Actions",
         "buy": "Buy"
       },
-      "locked_in": "locked in:",
       "confirm": "Confirm",
       "apply": "Apply",
       "done": "Done",
@@ -163,14 +162,32 @@
       "available": "Available",
       "set_limit": "Set {{period}} limit",
       "confirm_action": "Confirm action",
-      
+
+      "cashback_program": "Cashback Program",
+
+      "wallet_balance": "Wallet balance",
+      "account": "Account",
+      "locked_in": "Locked in",
+      "locked_out": "Locked out",
+      "locked_orders": "Locked orders",
+      "wallet": "wallet",
+      "wallet_": "",
+      "rate": "Rate",
+      "per_annum": "{{percent}}% per annum",
+      "eurg_tooltip_text": "We pay you 3% per annum of EURG on your balance under following conditions:\n\n (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n\n (ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.",
+      "gke_tooltip_text": "Fixed yield on average monthly balance (in GKE tokens): \n➔ 5% p.a. first year from the date of issue \n➔ 3% p.a. second year from the date of issue",
+      "": "",
+      "": "",
+      "": "",
+      "": "",
+
       "about": "About",
       "top_up_account": "Top Up Account",
       "top_up_wallet": "Top Up",
-      "cashback_program": "Cashback Program",
+      
       "available_funds": "Available Funds",
       "asset_valuation": "Asset Valuation",
-      "top_up_": "Top up, Send, Buy and Sell your",
+      "top_up_send_buy_sell": "Top up, Send, Buy and Sell your",
       "directly_from": "directly from your Gekkoin account",
       "eurg_description": "EURG is utility token of Gekkard platform. You can change this token at the rate of 1 EURG = 1 EUR. You can receive 3% on the balance of your funds",
       "buy_and_sell": "Buy and Sell your",

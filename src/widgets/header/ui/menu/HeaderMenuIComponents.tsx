@@ -1,3 +1,4 @@
+import {t} from "i18next";
 import React, {useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -9,8 +10,6 @@ import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
-import {Skeleton} from "antd";
-import { t } from "i18next";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -67,7 +66,6 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
 }
 
 export const PromoCodeModal = ({active = false}) => {
-
     const {showModal, handleCancel, isModalOpen} = useModal()
 
     return <>
@@ -81,10 +79,8 @@ export const PromoCodeModal = ({active = false}) => {
 }
 
 export const GekkoinInvestPlatform = ({active = false}) => {
-
-    const {showModal, handleCancel, isModalOpen} = useModal()
-
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
+    const {showModal, handleCancel, isModalOpen} = useModal();
 
     const onClick = async () => {
         setLoading(true)

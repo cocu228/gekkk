@@ -2,18 +2,20 @@ import styles from "./style.module.scss"
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {useMemo, useRef} from "react";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
-import {defaultItems, HeaderMenuItems} from "@/widgets/header/model/header-menu-items";
+import {getDefaultItems, HeaderMenuItems} from "@/widgets/header/model/header-menu-items";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {useNavigate} from "react-router-dom";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
+import {useTranslation} from "react-i18next";
 
 const HeaderMobile = () => {
     const {logout} = useAuth();
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
     const isOpen = storyToggleSidebar(state => state.isOpen)
-    const items = useMemo(() => new HeaderMenuItems(defaultItems), [])
+    const items = useMemo(() => new HeaderMenuItems(getDefaultItems(t)), [])
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "link", action: (value) => navigate(value)},
         {type: "change-account", action: async (value) => await navigate(value)},

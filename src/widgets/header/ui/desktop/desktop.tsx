@@ -1,26 +1,28 @@
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
-import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {AccountRights} from "@/shared/config/account-rights";
+import {getDefaultItems} from "../../model/header-menu-items";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {memo, useContext, useEffect, useMemo, useState} from "react";
-import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
+import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const HeaderDesktop = memo((props) => {
 
     const {logout} = useAuth();
-    const {account, setAccount} = useContext(CtxRootData);
     const navigate = useNavigate();
+    const {t, i18n} = useTranslation();
+    const {account, setAccount} = useContext(CtxRootData);
     const accounts = storeAccounts(state => state.accounts);
-
-    const [items, setItems] = useState(defaultItems)
+    const defaultMenuItems = useMemo(() => getDefaultItems(t), [i18n.language]);
+    const [items, setItems] = useState(defaultMenuItems);
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
@@ -37,7 +39,7 @@ const HeaderDesktop = memo((props) => {
     useEffect(() => {
         if (!account.rights) return;
 
-        let newItems = [...defaultItems]
+        let newItems = [...defaultMenuItems]
 
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
@@ -72,7 +74,7 @@ const HeaderDesktop = memo((props) => {
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
 
-    }, [account.rights]);
+    }, [account.rights, defaultMenuItems]);
 
     return <>
         <header className={`flex ${styles.Header}`}>

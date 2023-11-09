@@ -4,6 +4,8 @@ import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from '@/shared/lib/helpers';
 import {ParentClassForCoin, IconCoin} from "../icons/icon-coin";
 
+import { useTranslation } from 'react-i18next';
+
 interface Props {
     title: string;
     currency: string;
@@ -13,6 +15,7 @@ interface Props {
 
 function CryptoAssetCard({title, balance, currency, price}: Props) {
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     return (
         <Card>
@@ -39,9 +42,9 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                             className="flex-1"
                             onClick={() => {
                                 scrollToTop();
-                                navigate(`/wallet/${currency}/Top Up`);
+                                navigate(`/wallet/${currency}/top_up`);
                             }}
-                        >Top up</Button>
+                        >{t("top_up")}</Button>
 
                         <Button
                             gray
@@ -51,7 +54,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                                 scrollToTop();
                                 navigate(`/wallet/${currency}/Withdraw`);
                             }}
-                        >Withdraw</Button>
+                        >{t("withdraw")}</Button>
                     </div>
                 </div>
             </div>

@@ -15,8 +15,11 @@ import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
+import { useTranslation } from 'react-i18next';
 
 const CardsMenu = () => {
+    const {t} = useTranslation();
+
     const confirmationModal = useModal();
     const [card, setCard] = useState<IResCard>(null);
     const [switchChecked, setSwitchChecked] = useState(false);
@@ -98,14 +101,14 @@ const CardsMenu = () => {
             <Checkbox
                 onChange={toggleUnavailableCards}
                 defaultChecked={displayUnavailableCards}
-            /> Display unavailable cards
+            /> {t("display_unavailable_cards")}
         </span>
         
         {card.cardStatus === "PLASTIC_IN_WAY" && (
             <MenuItem
                 onClick={onClick}
                 dataItem='activate'
-                leftPrimary='Activate card'
+                leftPrimary={t("activate_card")}
             />
         )}
         
@@ -114,9 +117,9 @@ const CardsMenu = () => {
             .map((limit, index) =>
             <MenuItem
                 onClick={onClick}
-                dataItem={limit.period.toLowerCase() + 'Limit'}
-                leftSecondary='Available'
-                leftPrimary={`Set ${limit.period.toLowerCase()} limit`}
+                dataItem={limit.period.toLowerCase() + "Limit"}
+                leftSecondary={t("available")}
+                leftPrimary={t("set_limit", {period: limit.period.toLowerCase()})}
                 rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
                 rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
                 className={`rounded-none -my-[1px]
@@ -128,14 +131,14 @@ const CardsMenu = () => {
         
         <MenuItem
             data-item=''
-            leftPrimary='Disable limits temporarily'
+            leftPrimary={t("disable_limits")}
             rightPrimary={<Switch checked={switchChecked}/>}
             onClick={() => setSwitchChecked(!switchChecked)}
         />
         
         <MenuItem
             data-item=''
-            leftPrimary='Show card data'
+            leftPrimary={t("show_card_data")}
         />
         
         {(card.cardStatus === 'LOCKED' || card.cardStatus === 'ACTIVE') && (
@@ -143,12 +146,12 @@ const CardsMenu = () => {
                 alert
                 onClick={onClick}
                 dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
-                leftPrimary={card.cardStatus === 'ACTIVE' ? 'Block card' : 'Unblock card'}
+                leftPrimary={card.cardStatus === 'ACTIVE' ? t("block_card") : t("unblock_card")}
             />
         )}
         
         <Modal
-            title='Confirm action'
+            title={t("confirm_action")}
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
         >
@@ -156,7 +159,7 @@ const CardsMenu = () => {
                 <div>
                     <div className="row mb-5">
                         <div className="col">
-                            Are you sure you want to block selected bank card?
+                            {t("block_selected_bank_card")}
                         </div>
                     </div>
                 </div>
@@ -166,7 +169,7 @@ const CardsMenu = () => {
                 <div>
                     <div className="row mb-5">
                         <div className="col">
-                            Are you sure you want to unblock selected bank card?
+                            {t("unblock_selected_bank_card")}
                         </div>
                     </div>
                 </div>
@@ -176,22 +179,22 @@ const CardsMenu = () => {
                 <div>
                     <div className="row mb-5">
                         <div className="col">
-                            For security reasons your physical card was sent deactivated and could not be used without activation.
+                            {t("for_security_reasons")}
                         </div>
                     </div>
                     <div className="row mb-5">
                         <div className="col">
-                            You can still use your virtual card data for online shopping in internet. Each transaction is protected by 3D secure with one time code sent you in SMS.
+                            {t("virtual_card_data_for_online")}
                         </div>
                     </div>
                     <div className="row mb-5">
                         <div className="col">
-                            To start using your physical card you should activate it upon delivery. To do that, just press button below. We will send you a one time activation code.
+                            {t("using_your_physical_card")}
                         </div>
                     </div>
                     <div className="row mb-5">
                         <div className="col font-bold">
-                            Please, activate your card only if the number embossed on your physical card is identical to your virtual card!
+                            {t("activate_your_card")}
                         </div>
                     </div>
                 </div>
@@ -201,7 +204,7 @@ const CardsMenu = () => {
                 <div>
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">Limit amount</span>
+                            <span className="font-medium">{t("limit_amount")}</span>
                         </div>
                     </div>
                     <div className="row mb-5">
@@ -221,7 +224,7 @@ const CardsMenu = () => {
                         <Button size={"xl"}
                                 htmlType={"submit"}
                                 className="w-full"
-                        >Confirm</Button>
+                        >{t("confirm")}</Button>
                     </div>
                 </div>
             </Form>

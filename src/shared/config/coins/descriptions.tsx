@@ -1878,13 +1878,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
             </ul>
         </div>,
 
-        [ETokensConst.EUR]: <div>
-            <p className='mb-3'>
-                Euro (EURG) is the fiat currency of the Eurozone countries.
-                On the Gekkard platform, Euros can be exchanged for EURG cryptocurrency
-                according to the terms and conditions on this website and in the Gekkard App.
-            </p>
-        </div>,
+        // [ETokensConst.EUR]: <div>
+        //     <p className='mb-3'>
+        //         Euro (EURG) is the fiat currency of the Eurozone countries.
+        //         On the Gekkard platform, Euros can be exchanged for EURG cryptocurrency
+        //         according to the terms and conditions on this website and in the Gekkard App.
+        //     </p>
+        // </div>,
 
         [ETokensConst.EURG]: <div>
             <p className='mb-3'>
@@ -2038,7 +2038,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
                 </li>
                 <li className='mb-3'>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
-                        navigate('/wallet/GKE/Cashback Program');
+                        navigate('/wallet/GKE/cashback_program');
                         scrollToTop();
                     }}>
                         Cashback of 1%

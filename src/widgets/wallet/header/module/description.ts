@@ -1,3 +1,4 @@
+
 export function getDescriptionText(name: string, currency: string, flags: number) {
     let actions: string = actionsByFlag[flags];
     if (!actions)

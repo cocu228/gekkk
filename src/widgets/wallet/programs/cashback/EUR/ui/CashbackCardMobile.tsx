@@ -129,7 +129,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
                 className='my-10 w-full uppercase'
                 disabled={!isChecked && !isActive && !isCashbackCardGKE}
                 onClick={isCashbackCardGKE
-                  ? () => navigate('/wallet/GKE/Cashback Program')
+                  ? () => navigate('/wallet/GKE/cashback_program')
                   // : () => showSmsModal()
                   : () => {}
 

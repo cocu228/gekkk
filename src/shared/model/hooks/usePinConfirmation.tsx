@@ -13,6 +13,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import {apiPasswordVerify, SignHeaders} from "@/shared/api";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
+import { useTranslation } from 'react-i18next';
 
 interface IState {
 	code: string;
@@ -38,6 +39,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 		config: null,
 		loading: false
 	});
+	const {t} = useTranslation();
 	const {onInput} = useMask(MASK_CODE);
 	const {phone} = getCookieData<{phone: string}>();
 	const {isModalOpen, handleCancel, showModal} = useModal();
@@ -73,7 +75,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 			.catch(() => {
 				localErrorHunter({
 					code: 401,
-					message: "Invalid confirmation code"
+					message: t("invalid_confirmation_code")
 				})
 			})
 		
@@ -85,7 +87,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 	
 	const confirmationModal = <Modal
 		open={isModalOpen}
-		title='Confirm action'
+		title={t("confirm_action")}
 		onCancel={() => {
 			handleCancel();
 			localErrorClear();
@@ -97,7 +99,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 					type="text"
 					onInput={onInput}
 					autoComplete="off"
-					placeholder="Enter code"
+					placeholder={t("enter_code")}
 					onChange={({target}) => {
 						localErrorClear();
 						setState(prev => ({
@@ -120,7 +122,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
 					disabled={!code}
 					onClick={confirm}
 					className="w-full"
-				>Confirm</Button>
+				>{t("confirm")}</Button>
 			</div>
 		</div>}
 	</Modal>;

@@ -108,7 +108,7 @@ function OpenOrders({
     return (
         <>
             <div className="flex justify-between mb-2">
-                <span className="font-medium lg:text-sm md:text-md">Orders</span>
+                <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
                 {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
             </div>
 
@@ -116,7 +116,7 @@ function OpenOrders({
 
             {activeTab === TabKey.CLOSED && (
                 <div className='mb-2'>
-                    {t("exchange.enter_period")}
+                    {t("enter_period")}
 
                     <div className='flex grow-0 max-w-[400px]'>
                         <RangePicker
@@ -163,7 +163,7 @@ function OpenOrders({
                                             text={<div>{t("exchange.error_occurred_while_executing_order")}
                                                 
                                                 <span className='flex items-center'>
-                                                    Order ID: {ord.id}
+                                                    {t("exchange.order_id")} {ord.id}
                                                     <CopyIcon value={ord.id}/>
                                                 </span>
                                             </div>}
@@ -181,7 +181,7 @@ function OpenOrders({
                         </div>
                         <div className="flex justify-between gap-0.5 mt-1.5">
                             <div className="flex gap-2.5">
-                                <div className="text-secondary">{t("exchange.price")}: </div>
+                                <div className="text-secondary">{t("price")}: </div>
                                 <div>
                                     <span>1 {ord.from} ~ {
                                         currencyPrecision(ord.volume_dest / ord.volume_source, ord.to)
@@ -219,7 +219,7 @@ function OpenOrders({
 
             <Modal
                 width={450}
-                title='Cancel order'
+                title={t("exchange.cancel_order")}
                 open={cancelOrderModal.isModalOpen}
                 onCancel={cancelOrderModal.handleCancel}
             >

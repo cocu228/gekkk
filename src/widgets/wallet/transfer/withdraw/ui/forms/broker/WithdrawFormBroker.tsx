@@ -61,7 +61,7 @@ const WithdrawFormBroker = () => {
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
-                            onClick={() => navigate('/wallet/GKE/No Fee Program')}
+                            onClick={() => navigate('/wallet/GKE/no_fee_program')}
                         >
                             freeze GKE tokens    
                         </span> fee is <b>0%</b>.

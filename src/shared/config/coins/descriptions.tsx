@@ -3,9 +3,11 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import {NavigateFunction} from "react-router-dom";
 import {AccountRights} from "@/shared/config/account-rights";
 import {IAccountInfo} from "@/shared/store/accounts/accounts";
+import { useTranslation } from 'react-i18next';
 
 export function getTokenDescriptions(navigate: NavigateFunction, account: IAccountInfo) {
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    const {t} = useTranslation();
     
     return {
         [ETokensConst.ONEINCH]: <div>
@@ -1888,56 +1890,54 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
 
         [ETokensConst.EURG]: <div>
             <p className='mb-3'>
-                Gekkoin Europe (EURG) is a utility token that provides access to the Gekkoin ecosystem.
-                All EURG tokens are subject to exchange for fiat money in accordance
-                with the conditions on this site and the <a
+                {t("EUR_is_utility_token")} <a
                     className='font-bold underline hover:cursor-pointer'
                     href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
                     target="_blank"
                     rel="noopener noreferrer"
-                >Gekkard App</a>.
+                >{t("gekkard_app")}</a>.
             </p>
 
-            <p className='mb-3'>For more information of the EURG token please read our <a
+            <p className='mb-3'>{t("for_more_information")} <a
                     className='underline font-bold hover:cursor-pointer'
                     href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
                     target="_blank"
                     rel="noopener noreferrer"
-                >White Paper.</a>
+                >{t("white_paper")}</a>.
             </p>
 
             <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
                 <div className='text-xl'>
-                    The exchange rate is fixed: <span className="font-bold">1 EUR = 1 EURG*</span>
+                    {t("exchange_rate_fixed")}: <span className="font-bold">1 EUR = 1 EURG*</span>
                 </div>
 
                 <div className="col text-xs">
-                <span>* Note:  Standard exchange fee is 1,5%.
+                <span>{t("exchange_fee")} 1,5%.
                     {account.rights[AccountRights.IsJuridical] ? null : <>
-                        If you <a
+                        {t("if_you")} <a
                             className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
                             onClick={() => {
-                                navigate('/wallet/GKE/No Fee Program');
+                                navigate('/wallet/GKE/no_fee_program');
                                 scrollToTop();
                             }}
                         >
-                            freeze GKE tokens
-                        </a> fee is 0%.
+                            {t("freeze_GKE_tokens")}
+                        </a> {t("fee_is")} 0%.
                     </>}
                 </span>
                 </div>
             </div>
 
             <div className='bg-green rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
-                <p className='font-bold text-xl mb-4'>3% AER interest on account balance</p>
-                <p>You get 3% per annum of EURG on your balance once a month under the following conditions:</p>
-                <p>(i) your weighted average balance for the reporting period is equal to or higher than 300 EURG;</p>
-                <p>(ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.</p>
+                <p className='font-bold text-xl mb-4'>3% {t("AER_interest")}</p>
+                <p>{t("you_get_per_annum")}:</p>
+                <p>(i) {t("your_weighted_average")};</p>
+                <p>(ii) {t("our_upper_limit")}.</p>
             </div>
 
             <div>
                 <p className='mb-3'>
-                    Gekkoin Europe (EURG) tokens are created and redeemed in accordance with the emission rules:
+                    {t("EURG_tokens_created")}:
                 </p>
 
                 <ul className='pl-[25px] list-disc mb-3'>
@@ -1946,24 +1946,22 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
                         href='https://gekkoin.com/source/Emission-rules-Gekkoin.pdf'
                         target="_blank"
                         rel="noopener noreferrer"
-                    >Reglament of EURG emission;</a></li>
+                    >{t("reglament_emission")};</a></li>
                     <li><a 
                         className='underline font-bold hover:cursor-pointer'
                         href='https://gekkoin.com/source/Token-distribution-report.pdf'
                         target="_blank"
                         rel="noopener noreferrer"
-                    >Token’s Distribution Report.</a></li>
+                    >{t("token_distribution_report")}.</a></li>
                 </ul>
 
                 <p>
-                    EURG is built on the Ethereum platform in according to the ERC20 standard for tokens.
-                    The code of the EURG smart contract has been audited by Hacken OÜ, a cybersecurity firm.
-                    The report is publicly available <a
+                    {t("EURG_built_on")} <a
                         className='underline font-bold hover:cursor-pointer'
                         href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
                         target="_blank"
                         rel="noopener noreferrer"
-                    >here</a>.
+                    >{t("here")}</a>.
                 </p>
             </div>
 
@@ -1996,63 +1994,55 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IAccou
 
         [ETokensConst.GKE]: <div>
             <p className='mb-3'>
-                GKE tokens in the Gekkard ecosystem are the flagship of
-                a new type of crypto assets reflecting the efficient and cost-effective
-                integration of cryptocurrency and fintech solutions in the banking sector.
+                {t("GKE_tokens")}.
             </p>
 
-            <p className='mb-3 font-bold'>FUNCTIONALITY AND FEATURES</p>
+            <p className='mb-3 font-bold'>{t("functionality_and_features")}</p>
 
             <p className='mb-3'>
-                Token holders will have privileges and
-                bonuses directly related to the income of the ecosystem,
-                in addition to the potential increase in the value of the token itself.
+                {t("token_holders")}.
             </p>
 
             <ol className='pl-[16px] list-decimal'>
                 <li className='mb-3'>
-                    Fixed return on the average monthly balance (in GKE tokens):
+                    {t("fixed_return")}:
                     <ul className='pl-[25px] list-disc'>
-                        <li>5% per annum (the first year from the date of issue)</li>
-                        <li>3% per annum (the second year from the date of issue)</li>
+                        <li>5% {t("first_year")}</li>
+                        <li>3% {t("second_year")}</li>
                     </ul>
                 </li>
                 <li className='mb-3'>
-                    Referral program. The agent who attracts the referral will receive:
+                    {t("referral_program")}:
                     <ul className='pl-[25px] list-disc'>
-                        <li>2% per annum (on the average monthly balance in the GKE of each attracted referral during the first year)</li>
-                        <li>1% per annum (on the average monthly balance in the GKE of each attracted referral during the second year)</li>
+                        <li>2% {t("first_year_referral")}</li>
+                        <li>1% {t("second_year_referral")}</li>
                     </ul>
                 </li>
                 <li className='mb-3'>
-                    Additional benefit when opening <a
+                    {t("additional_benefit")} <a
                         className='font-bold underline hover:cursor-pointer'
                         href='https://web.gekkoin.com/'
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Gekkoin structured deposits
-                    </a>. (If GKE tokens
-                    are blocked in proportion of 1:1 with EURG, the deposits placed in EURG will be charged
-                    double yield, and if there is a loss, it will be expressed as a twofold reduction of the loss).
+                        {t("gekkoin_structured_deposits")}
+                    </a>. {t("GKE_tokens_blocked")}.
                 </li>
                 <li className='mb-3'>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
                         navigate('/wallet/GKE/cashback_program');
                         scrollToTop();
                     }}>
-                        Cashback of 1%
-                    </a> on Gekkard card expenses on monthly turnover in Euros
-                    (within the limits not exceeding the volume of the similar number of blocked GKE tokens).
+                        {t("cashback_of")}
+                    </a> {t("gekkard_card_expenses")}.
                 </li>
                 <li>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
-                        navigate('/wallet/GKE/No Fee Program');
+                        navigate('/wallet/GKE/no_fee_program');
                         scrollToTop();
                     }}>
-                        Crypto-fiat exchange without commission
-                    </a> (without restrictions on the maximum amount
-                    of exchange, but with the need to block the volume of GKE corresponding to the turnover in fiat).
+                        {t("crypto-fiat_exchange")}
+                    </a> {t("without_restrictions")}.
                 </li>
             </ol>
         </div>,

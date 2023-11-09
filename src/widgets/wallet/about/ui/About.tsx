@@ -6,13 +6,15 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
 
-const About = () => {
+interface IParams {
+    description: string | JSX.Element;
+}
+
+const About = ({description}: IParams) => {
     const navigate = useNavigate();
-    const {account} = useContext(CtxRootData);
     const {$const, name} = useContext(CtxWalletData);
     const {xl, md} = useContext(BreakpointsContext);
     const isEUR: boolean = $const === 'EUR';
-    const descriptions = getTokenDescriptions(navigate, account);
 
     return (
         <div>
@@ -38,7 +40,7 @@ const About = () => {
             </div>
 
             <div className='text-gray-500 text-sm font-medium'>
-                {descriptions[$const] ?? `Description for this token is not done yet.`}
+                {description}
             </div>
 
             {isEUR ? null : (

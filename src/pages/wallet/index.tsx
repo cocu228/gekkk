@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useContext, useEffect, useMemo, useTransition} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
@@ -21,13 +21,16 @@ import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {useTranslation} from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
+import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
 
 function Wallet() {
     const {t} = useTranslation();
+    const navigate = useNavigate();
     const {currency, tab} = useParams();
     const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+    const descriptions = getTokenDescriptions(navigate, account);
 
     const $currency = currencies.get(currency);
     const cards = storeBankCards(state => state.bankCards);
@@ -70,8 +73,10 @@ function Wallet() {
                                 <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                                 <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                             </>}
-
-                            <About data-tag={"about"} data-name={t("about")}/>
+                            
+                            {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
+                                <About data-tag={"about"} data-name={t("about")} description={descriptions[$currency.$const]}/>
+                            )}
 
                             {xl && <History currenciesFilter={currencyForHistory} data-tag={"history"}
                                             data-name={t("history")}/>}

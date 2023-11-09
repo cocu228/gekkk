@@ -1,4 +1,5 @@
 import React from "react";
+import {TFunction} from "i18next";
 import {
     GekkoinInvestPlatform,
     PromoCodeModal
@@ -22,60 +23,64 @@ export class HeaderMenuItems {
     }
 }
 
-
-export const defaultItems: THeaderMenuList = [
-    {
-        item: 'Dashboard',
-        id: 'dashboard',
-        action: {
-            type: "link",
-            value: "/",
+/**
+* @param t translation function
+*/
+export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
+    return [
+        {
+            item: t('header_menu.dashboard'),
+            id: 'dashboard',
+            action: {
+                type: "link",
+                value: "/",
+            },
+            style: {
+                borderTop: "1px solid var(--color-gray-400)"
+            }
         },
-        style: {
-            borderTop: "1px solid var(--color-gray-400)"
-        }
-    },
-    {
-        item: <PromoCodeModal/>,
-        id: 'promoCode',
-        action: {
-            type: null,
-            value: null,
+        {
+            item: <PromoCodeModal/>,
+            id: 'promoCode',
+            action: {
+                type: null,
+                value: null,
+            },
         },
-    },
-    {
-        item: <GekkoinInvestPlatform/>,
-        id: 'investPlatform',
-        action: {
-            type: null,
-            value: null,
+        {
+            item: <GekkoinInvestPlatform/>,
+            id: 'investPlatform',
+            action: {
+                type: null,
+                value: null,
+            },
         },
-    },
-    {
-        item: 'Partnership program',
-        id: 'partnership',
-        action: {
-            type: "link",
-            value: "partnership-program",
-        }
-    },
-    {
-        item: 'Support',
-        id: 'support',
-        action: {
-            type: "link",
-            value: "support",
-        }
-    },
-    {
-        item: 'Logout',
-        id: 'logout',
-        action: {
-            type: "logout",
-            value: null,
+        {
+            item: t('header_menu.partnership'),
+            id: 'partnership',
+            action: {
+                type: "link",
+                value: "partnership-program",
+            }
         },
-        style: {
-            borderTop: "1px solid var(--color-gray-400)"
-        }
-    },
-]
+        {
+            item: t('header_menu.support'),
+            id: 'support',
+            action: {
+                type: "link",
+                value: "support",
+            }
+        },
+        {
+            item: t('header_menu.logout'),
+            id: 'logout',
+            action: {
+                type: "logout",
+                value: null,
+            },
+            style: {
+                borderTop: "1px solid var(--color-gray-400)"
+            }
+        },
+    ]
+}

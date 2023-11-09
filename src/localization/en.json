@@ -54,7 +54,12 @@
       "directed_to_gekkoin": "You will be directed to your personal Gekkoin account, where you can open fixed-income deposits or deposits linked to changes in the exchange rate of your chosen cryptocurrency",
 
       "header_menu": {
+          "logout": "Log out",
+          "support": "Support",
+          "accounts": "Accounts",
+          "dashboard": "Dashboard",
           "promo_code": "Promo-code",
+          "partnership": "Partnership program",
           "enter_promo_code": "Enter Promo Code",
           "gekkoin_invest_platform": "Gekkoin invest platform"
       },

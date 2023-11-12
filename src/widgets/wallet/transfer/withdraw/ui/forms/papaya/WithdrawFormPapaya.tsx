@@ -135,8 +135,13 @@ const WithdrawFormPapaya = () => {
             onCancel={handleCancel}
             title={"Withdraw confirmation"}
         >
-            <WithdrawConfirmCrypto address={account.number} recipient={account.name} description={""}
-                                   amount={inputCurr.value.number} handleCancel={handleCancel}/>
+            <WithdrawConfirmCrypto
+                description={""}
+                address={account.number}
+                recipient={account.name}
+                handleCancel={handleCancel}
+                amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
+            />
         </Modal>
         <div className="row w-full mt-4">
             <div className="col">

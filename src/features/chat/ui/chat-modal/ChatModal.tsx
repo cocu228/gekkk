@@ -29,14 +29,13 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 	}
 	
 	return isOpen
-		? ReactDOM.createPortal(<>
+		? ReactDOM.createPortal(
 			<div className={styles.ChatModal}>
 				<AxiosChatInterceptor chatToken={chatConfig.token}>
 					<Chat chatConfig={chatConfig}/>
 				</AxiosChatInterceptor>
 				<button onClick={onClose}>Close</button>
-			</div>
-		</>, document.getElementById("chat") as Element)
+			</div>, document.getElementById("chat") as Element)
 		: null;
 };
 

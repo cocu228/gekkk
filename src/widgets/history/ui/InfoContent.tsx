@@ -46,7 +46,7 @@ const InfoContent = (props: TypeProps) => {
         <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col">
-                <span className="text-gray-500 font-medium">{t("date")}</span>
+                <span className="text-gray-500 font-medium">{t("date")}:</span>
             </div>
             <div className="col font-medium">
                 <span className="text-gray-600">{formatForCustomer(props.datetime)}</span>
@@ -54,7 +54,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
             <div className="row mb-4 flex flex-nowrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 leading-4 font-medium">{t("transaction_id")}</span>
+                <span className="text-gray-500 leading-4 font-medium">{t("transaction_id")}:</span>
             </div>
             <div className="col w-auto font-medium flex items-center">
                 <span className="leading-4 font-medium">{asteriskText(props.id_transaction)}</span>
@@ -63,7 +63,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
         <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 font-medium">{t("transaction_type")}</span>
+                <span className="text-gray-500 font-medium">{t("transaction_type")}:</span>
             </div>
             <div className="col w-auto font-medium">
                 <span>{props.tx_type_text}</span>
@@ -71,7 +71,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
         <div className="row mb-4 flex flex-wrap gap-2 items-center">
             <div className="col w-auto">
-                <span className="text-gray-500 font-medium">{t("currency")}</span>
+                <span className="text-gray-500 font-medium">{t("currency")}:</span>
             </div>
             <div className="col w-auto font-medium">
                 <span>{props.currency}</span>
@@ -79,7 +79,7 @@ const InfoContent = (props: TypeProps) => {
         </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">{t("amount")}</span>
+                    <span className="text-gray-500 font-medium">{t("amount")}:</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{props.amount} {props.currency}</span>
@@ -87,7 +87,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">{t("fee")}</span>
+                    <span className="text-gray-500 font-medium">{t("fee")}:</span>
                 </div>
                 <div className="col w-auto">
                     <span className="break-all font-medium">{new Decimal(props.fee).toString()} {props.currency}</span>
@@ -95,7 +95,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className="row mb-4 flex flex-wrap gap-2 items-center">
                 <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">{t("amount")}</span>
+                    <span className="text-gray-500 font-medium">{t("status")}:</span>
                 </div>
                 <div className="col w-auto flex items-center">
                     <span className="whitespace-nowrap font-medium">{props.status_text}</span>
@@ -104,7 +104,7 @@ const InfoContent = (props: TypeProps) => {
             {!isNeedConfirm &&
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">
-                        <span className="text-gray-500 font-medium">{t("sendler_name")}</span>
+                        <span className="text-gray-500 font-medium">{t("sender_name")}:</span>
                     </div>
                     <div className="col w-auto">
                         <span className="break-all font-medium">{props.partner_info}</span>

@@ -8,13 +8,13 @@ import useModal from "@/shared/model/hooks/useModal";
 
 function App() {
     Decimal.set({toExpNeg: -18})
-    const { isModalOpen, showModal, handleCancel } = useModal();
+    // const { isModalOpen, showModal, handleCancel } = useModal();
     
     return (
         <BreakpointsProvider>
             <AppRouter />
-            <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
-            {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
+            {/*<ChatButton onClick={isModalOpen ? handleCancel : showModal} />*/}
+            {/*{isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}*/}
         </BreakpointsProvider>
     )
 }

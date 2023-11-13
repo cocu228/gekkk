@@ -4,6 +4,7 @@ import {useLocation} from "react-router";
 import Modal from "@/shared/ui/modal/Modal";
 import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
+import Button from "@/shared/ui/button/Button";
 import {apiGetAccountInfo} from "@/shared/api";
 import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
@@ -18,7 +19,8 @@ import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
     const {logout} = useAuth();
     const navigate = useNavigate();
-    const {isModalOpen, showModal, handleCancel} = useModal();
+    const {isModalOpen, showModal} = useModal();
+    const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
 
     const [state, setState] = useState<IStateErrorProvider>({
         errors: [],
@@ -34,8 +36,13 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             apiGetAccountInfo(true)
                 .then(({data}) => {
                     if (!data.error) location.reload();
-
-                    navigate('/', {state: 500});
+                    
+                    if (data.error.code === 10001) {
+                        setAccountOpened(false);
+                    }
+                    else {
+                        navigate('/', {state: 500});
+                    }
                 })
         }
     }, [isModalOpen]);
@@ -44,11 +51,11 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         $axios.interceptors.response.use((response: TResponseErrorProvider) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-
+            
             if (hunterErrorsApi.isNewWallet()) {
                 showModal();
             }
-
+            
             if (hunterErrorsApi.isError()) {
                 const result = hunterErrorsApi.getMessageObject();
                 
@@ -119,18 +126,29 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         </CtxNeedConfirm.Provider>
         
         <Modal
-            title='Account generation'
+            closable={false}
             open={isModalOpen}
-            onCancel={handleCancel}
+            title='Account generation'
         >
-            <div>
+            {isAccountOpened ? (<div>
                 <div className='mb-10'>
                     This is your first time logging in to Gekkard and you do not have any accounts created yet.
                     Please wait, we are creating a new account for you. The process may take a few minutes...
                 </div>
                 
                 <Loader className='relative'/>
-            </div>
+            </div>) : (<div>
+                <div className='mb-10'>
+                    Your bank account is still in the creation process,
+                    please wait for the account to be generated and re-authorize
+                    into your Gekkard account.
+                </div>
+                
+                <Button
+                    onClick={logout}
+                    className='w-full'
+                >Log out</Button>
+            </div>)}
         </Modal>
     </>
 }

@@ -42,8 +42,7 @@ const WithdrawConfirmCrypto = memo(({
     recipient,
     description,
     handleCancel,
-                                    }: TProps) => {
-
+}: TProps) => {
     const {
         networkIdSelect,
         networksForSelector,
@@ -218,16 +217,19 @@ const WithdrawConfirmCrypto = memo(({
             </div>
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
-            <span>Transfer confirm</span>
             {!isNull(stageReq.status) && <>
+                <span>Transfer confirmation</span>
+                
                 <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
-                <Input type="text"
+                    
+                    <Input type="text"
                        onInput={onInput}
                        placeholder="Enter SMS code"
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
-                />
-            </FormItem>
+                    />
+                </FormItem>
+                
                 <Timer onAction={onReSendCode}/>
             </>}
             <div className="row mt-4 mb-5">

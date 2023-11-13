@@ -1,5 +1,5 @@
-﻿import styles from './style.module.scss'
-import Chat from 'gekkard-chat';
+﻿import styles from './style.module.scss';
+// import Chat from 'gekkard-chat';
 import ReactDOM from "react-dom";
 import { getCookieData } from "@/shared/lib/helpers";
 
@@ -31,7 +31,7 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 	return isOpen
 		? ReactDOM.createPortal(
 			<div className={styles.ChatModal}>
-				<Chat chatConfig={chatConfig} />
+				{/*<Chat chatConfig={chatConfig} />*/}
 				<button onClick={onClose}>Close</button>
 			</div>,
 			document.getElementById("chat") as Element

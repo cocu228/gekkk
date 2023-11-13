@@ -13,6 +13,9 @@ import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
+import LoginBackground from '@/assets/login-background.svg?react';
+
+
 
 const AuthPage = memo(() => {
     const {login} = useAuth();
@@ -27,12 +30,6 @@ const AuthPage = memo(() => {
     });
 
     useEffect(() => {
-        if (verificationId !== "") {
-            toggleStage("code");
-        }
-    }, []);
-
-    useEffect(() => {
         authForTokenHashUrl().success((sessionId: string) =>
             apiTokenHash(sessionId)
                 .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
@@ -44,67 +41,72 @@ const AuthPage = memo(() => {
 
     }, []);
 
-    let content: React.ReactNode;
-
-    switch (stage) {
-        case "authorization":
-            content = <FormLoginAccount/>;
-            break;
-        case "code":
-            content = <FormCode/>;
-            break;
-        case "qr-code":
-            content = <QRCode/>;
-            break;
-    }
-
     return (
-        <div className='flex items-center w-screen h-full flex-col'>
-            <div className={
-                `bg-white min-h-m rounded-lg my-10 pb-12
-                ${md ? 'w-full mt-0 px-4 rounded-none' : 'min-h-[710px] max-w-[756px] px-40 pt-10'}`
-            }>
-                <div className={`flex justify-center ${md ? 'pt-6 pb-5' : 'pt-8 pb-10'}`}>
-                    <a href="/">
-                        <img src="/img/logo.svg" width={md ? 72 : 120} alt="logo"/>
-                    </a>
-                </div>
-                {content}
-                <div id={"recaptcha-container"}></div>
-            </div>
+        <div style={{
+            background: 'var(--brand-white)',
+            height: '100vh',
+            display: 'flex',
+        }}>
+            <div style={{
+                width: '270px',
+                flex: '0 1 auto',
+            }} id={"recaptcha-container"}></div>
 
-            <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]
-            ${!md ? '' : 'px-4'}`}>
-                <p className='mb-4'>
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/terms-and-conditions.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >{t("auth.general_terms_and_conditions")}</a>
-                    {' | '}
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/data-protection-policy.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >{t("auth.data_protection_policy")}</a>
-                    {' | '}
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/legal-agreements.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >{t("auth.legal_agreements")}</a>
+            <div style={{
+                margin: '20px',
+                width: '466px',
+                flex: '0 0 auto'
+            }}>
+
+                <h1 className="typography-h1"  style={{
+                    color: 'var(--dark-blue)',
+                    marginBottom: '18px',
+                }}>
+                    Welcome to Gekkard online bank
+                </h1>
+                <FormLoginAccount/> 
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingTop: '60px',
+
+                }}>
+                    <span className="typography-b2" style={{
+                        color: 'var(--dark-grey)',
+                    }}>
+
+                        Don’t have an account? Sign up now
+                    </span>
+                    <button className='account-button'>
+                        Sign up
+                    </button>
+                </div>
+
+                <p className="typography-b4" style={{
+                    color: 'var(--light-grey)',
+                    paddingTop: '60px',
+                }}>
+                    Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.
                 </p>
-                <p className={` ${md ? 'text-xs' : 'text-sm'} mb-2`}>
-                    {t("auth.crypto_exchange_service")}
-                </p>
-                <span
-                    className={`text-gray-500 font-semibold text-sm w-full block`}>
-                    © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
-                </span>
-            </footer>
+            </div>
+            <div style={{
+                flex: '0 1 auto',
+                
+                width:"100%",
+                overflow: "hidden",
+                display: 'flex',
+                alignItems: 'top',
+                height: '100%',
+            }}>
+                <div style={{
+                    transform: 'translate(0, -10%)'
+                }}>
+
+                <LoginBackground height="130%" width="100%" />
+                </div>
+            </div>
         </div>
     )
 })

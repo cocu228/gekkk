@@ -1,0 +1,48 @@
+.account-button {
+    @extend .typography-ui-button-badge;
+
+    padding: 9px 24px 9px 24px;
+    border-radius: 8px;
+    background: var(--green);
+    color: var(--FFFFFF);
+
+    &:hover {
+        background: var(--brand-gradient);
+        color: var(--dark-blue);
+    }
+
+    &:disabled {
+        color: var(--dark-grey);
+        background: var(--pale-grey)
+    }
+
+
+}
+
+.text-button {
+    color: var(---pale-blue);
+}
+
+.second_value-button {
+
+    @extend .typography-button-badge;
+
+    padding: 9px 24px 9px 24px;
+    border-radius: 8px;
+    outline: 2px solid var(--green);
+    color: var(--green);
+    background: var(--light-green);
+
+    &:hover {
+        background: var(--brand-gradient);
+        color: var(--dark-blue);
+        outline: none;
+    }
+
+    &:disabled {
+        outline: none;
+        color: var(--mid-grey);
+        background: var(--pale-grey)
+    }
+
+}

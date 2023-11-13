@@ -133,14 +133,6 @@ const FormCode = memo(() => {
     }
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
-        <h1 className={`font-extrabold text-center text-gray-600 pb-4
-                ${md ? 'text-2xl' : 'text-header min-w-[436px]'}`}>{t("one-time code")}</h1>
-        <p className='text-center mb-9 text-gray-500'>
-            {t("sms_code_sent")}
-            <br/>
-            <b>+{phone}</b>
-        </p>
-        
         <FormItem name="code" label="Code" preserve >
             <Input type="text"
                    ref={inputRef}
@@ -158,7 +150,7 @@ const FormCode = memo(() => {
         </div>
         
         <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
-            <ReSendCode isUAS={sessionIdUAS !== ""}/>
+            
         </div>
         
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
@@ -169,23 +161,20 @@ const FormCode = memo(() => {
         {/*    )}*/}
         {/*</div>*/}
         
-        <div className="row mt-2">
-            <Button
-                size='lg'
-                tabIndex={0}
-                htmlType='submit'
-                className='w-full'
+        <div style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}>
+            <button
+                className='account-button'
                 data-testid='Next'
                 disabled={loading || code.length < 11} 
-            >{t("next")}</Button>
+            >Sig in</button>
+            
+            <ReSendCode isUAS={sessionIdUAS !== ""}/>
         </div>
-        <a
-            className='flex mt-2 justify-center underline text-gray-400 hover:text-blue-400'
-            onClick={() => {
-                sessionStorage.removeItem("session-auth")
-                toggleStage('authorization')
-            }}
-        >{t("back_to_login_page")}</a>    
     </Form>
 });
 

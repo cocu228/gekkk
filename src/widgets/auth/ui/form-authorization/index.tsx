@@ -23,6 +23,7 @@ import {apiRequestCode} from "@/widgets/auth/api";
 import {useSearchParams} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
+import FormCode from '../form-code';
 
 // import {uncoverResponse} from "@/shared/lib/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -36,7 +37,7 @@ const FormLoginAccount = memo(() => {
     const [params] = useSearchParams();
     const {md} = useContext(BreakpointsContext);
     const authMethod = params.get("authMethod");
-    const {toggleStage} = storyDisplayAuth(state => state);
+    const {toggleStage, stage} = storyDisplayAuth(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const {phoneValidator, passwordValidator} = useValidation();
 
@@ -146,100 +147,89 @@ const FormLoginAccount = memo(() => {
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
-        <h1 className={`font-extrabold text-center text-gray-600 pb-4
-                ${md ? 'text-2xl' : 'text-header'}`}>
-            {t("auth.login_to_your_account")}
-        </h1>
+    return <div>
+        <p className="tyopography-b2" style={{
+            color: 'var(--pale-blue)',
+            marginBottom: '36px',
 
-        <p className='text-center mb-9 text-gray-500'>
-            {t("auth.login")} <a
-                className='font-inherit underline'
-                href={import.meta.env.VITE_APP_STORE_GEKKARD}
-                target={'_blank'}> {t("auth.gekkard_application")}
-            </a> {t("auth.credentials")}
+        }}>
+            Log in using the form below
         </p>
+        <div style={{
+            background: 'var(--FFFFFF)',
+            padding: '24px 36px 24px 36px',
+            borderRadius: '8px 8px 0px 0px',
+            boxShadow: 'var(--active-account-shadow)'
+        }}>
 
-        <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
-                  rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-            <PhoneInput
-                disableDropdown
-                inputProps={{
-                    'data-testid': 'PhoneInput',
-                    name: 'phone',
-                    ref: inputRef,
-                    type: "tel",
-                }}
-                disabled={loading}
-                placeholder={t("auth.enter_phone_number")}
-                value={state.phone}
-                onEnterKeyPress={(v: unknown) => onSingIn()}
-                onChange={(value: string) => setState(prevState =>
-                    ({...prevState, phone: value}))}/>
-        </FormItem>
-        <span className="text-fs12 text-red-800">{localErrorSpan}</span>
+        <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
+            <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
+                    rules={[{required: true, ...phoneMessage}, phoneValidator]}>
+                <PhoneInput
+                    disableDropdown
+                    inputProps={{
+                        'data-testid': 'PhoneInput',
+                        name: 'phone',
+                        ref: inputRef,
+                        type: "tel",
+                    }}
+                    disabled={loading}
+                    label="phone"
+                    placeholder={t("auth.enter_phone_number")}
+                    value={state.phone}
+                    onEnterKeyPress={(v: unknown) => onSingIn()}
+                    onChange={(value: string) => setState(prevState =>
+                        ({...prevState, phone: value}))}/>
+            </FormItem>
+            <span className="text-fs12 text-red-800">{localErrorSpan}</span>
 
-        <FormItem name="password" label="Password"
-                  rules={[{required: true, ...passwordMessage}, passwordValidator]}>
-            <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
-                            disabled={loading}
-                            onChange={({target}) => setState(prev => ({
-                                ...prev,
-                                password: target.value
-                            }))}
-                            data-testid="PIN"
-                            placeholder={t("auth.password")}/>
-        </FormItem>
+            <FormItem name="password" label="Password"
+                    rules={[{required: true, ...passwordMessage}, passwordValidator]}>
+                <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
+                                disabled={loading}
+                                onChange={({target}) => setState(prev => ({
+                                    ...prev,
+                                    password: target.value
+                                }))}
+                                data-testid="PIN"
+                                placeholder={t("auth.password")}/>
+            </FormItem>
 
-        <div className="row text-right mb-4">
-            {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
-            {/*    your PIN? Log in with a QR code*/}
-            {/*</a>*/}
+            <div className="row text-right mb-4">
+                {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
+                {/*    your PIN? Log in with a QR code*/}
+                {/*</a>*/}
+            </div>
+
+
+            {stage !== 'code' ?
+                    <div style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}>
+                        <button className='account-button' disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
+                                tabIndex={0}
+                                data-testid="Login">{t("login")}
+                        </button>
+
+                        <button type='button' className='text-button'>
+                            Forgot password
+                        </button>
+                    </div> : null 
+            }
+            </Form>
+
+            {
+            stage === 'code' ?
+                <FormCode/>:
+                null
+            }
+
+        
         </div>
-
-        <div className="row mb-8">
-            <Button disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
-                    tabIndex={0}
-                    htmlType="submit"
-                    className="w-full"
-                    data-testid="Login">{t("login")}</Button>
-        </div>
-
-        <div className='text-center'>
-            <p className='text-gray-600 mb-6'>{t("auth.no_gekkard_credentials")}</p>
-
-            <ul className='flex justify-center gap-4'>
-                <li>
-                    <div className='grid gap-y-2'>
-                        <a href={import.meta.env.VITE_GOOGLE_PLAY_GEKKARD} target={"_blank"}>
-                            <img
-                                src='/img/google-play.svg'
-                                height="40px"
-                                alt="Google play"
-                            />
-                        </a>
-                        
-                        {!$ENV_DEV ? null : (
-                            <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                               className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
-                                {t("auth.download")}
-                            </a>
-                        )}
-                    </div>
-                </li>
-
-                <li>
-                    <a href={import.meta.env.VITE_APP_STORE_GEKKARD} target={"_blank"}>
-                        <img
-                            src='/img/app-store.svg'
-                            height="40px"
-                            alt="App store"
-                        />
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </Form>
+    </div>
 })
 
 export default FormLoginAccount

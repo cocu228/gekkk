@@ -16,10 +16,12 @@ import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios, {CancelToken} from "axios";
 // import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { useTranslation } from 'react-i18next';
 
 const {RangePicker} = DatePicker;
 
 const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
+    const {t} = useTranslation();
 
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -98,7 +100,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
             <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === TabKey.CUSTOM && (
                 <div className='flex flex-col mt-3 mb-5'>
-                    Enter period or choose from calendar
+                    {t("enter_period")}
 
                     <div className='flex grow-0 max-w-[400px]'>
                         <RangePicker
@@ -111,7 +113,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
                             className='ml-5'
                             disabled={loading || !customDate}
                             onClick={() => requestHistory()}
-                        >Apply</Button>
+                        >{t("apply")}</Button>
                     </div>
                 </div>
             )}
@@ -168,7 +170,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
                         );
                     }) : (
                         <div className={styles.Row}>
-                            <span>You don't have any transaction for this time.</span>
+                            <span>{t("no_have_any_transaction")}</span>
                         </div>
                     )}
                 </GTable.Body>

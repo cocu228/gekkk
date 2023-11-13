@@ -4,11 +4,13 @@ import {apiGetReferrals, IResReferrals} from "@/shared/api/referral/get-referral
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxRootData} from "@/processes/RootContext";
+import { useTranslation } from 'react-i18next';
 
 const TableReferrals = (props) => {
 
-    const {account} = useContext(CtxRootData)
-    const [state, setState] = useState<IResReferrals | null>(null)
+    const {t} = useTranslation();
+    const {account} = useContext(CtxRootData);
+    const [state, setState] = useState<IResReferrals | null>(null);
 
     useEffect(() => {
         (async () => {
@@ -24,10 +26,10 @@ const TableReferrals = (props) => {
             <GTable.Head className={"bg-gray-200 p-4"}>
                 <GTable.Row>
                     <GTable.Col className={`flex my-2`}>
-                        <span className="text-gray-600 font-medium">ID</span>
+                        <span className="text-gray-600 font-medium">{t("partnership_program.id")}</span>
                     </GTable.Col>
                     <GTable.Col className={`flex my-2`}>
-                        <span className="text-gray-600 font-medium">Registration date</span>
+                        <span className="text-gray-600 font-medium">{t("partnership_program.registration_date")}</span>
                     </GTable.Col>
                 </GTable.Row>
             </GTable.Head>

@@ -6,16 +6,19 @@ import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
+import { useTranslation } from 'react-i18next';
 
-const getDescription = (c, name) => {
+
+const getDescription = (c, name, t) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
-        return `Top up, Send, Buy and Sell your ${name} (${c}) directly from your Gekkoin account`
+        return `${t("top_up_send_buy_sell")} ${name} (${c}) ${t("directly_from")}`
     } else {
-        return `Buy and Sell your ${name} (${c}) directly from your Gekkoin account`
+        return `${t("buy_and_sell")} ${name} (${c}) ${t("directly_from")}`
     }
 }
 
 const WalletHeader = () => {
+    const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const {md} = useContext(BreakpointsContext);
     const {
@@ -40,60 +43,60 @@ const WalletHeader = () => {
                 </div>
                 {!md && <div className="flex flex-col content-around">
                     {!isEUR ? (
-                        <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                        <div data-text={t("wallet_balance")} className="text-sm font-medium text-gray-400 ellipsis">
                             <span>
-                                Wallet balance
+                                {t("wallet_balance")}
                             </span>
                         </div>
                     ) : (
-                        <div className='grid auto-cols-fr ellipsis'>
-                            <span data-text={"Wallet balance"} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
-                                Account: {account.number}
+                        <div className='grid auto-cols-fr'>
+                            <span data-text={account.number} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                               {t("account")}: {account.number}
                             </span>
                         </div>
                     )}
 
-                    <div className="text-2xl font-bold text-gray-600 cursor-help">
+                    <div className="text-2xl font-bold text-gray-600">
                         {availableBalance === null ? '-' : availableBalance.toNumber()} {$const}
                     </div>
                     
                     <g className="text-gray-400 text-sm">
-                        {!lockInBalance ? null : <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>}
-                        {!lockOutBalance ? null : <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>}
-                        {!lockOrders ? null : <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>}
+                        {!lockInBalance ? null : <div>{t("locked_in")}: {lockInBalance.toFixed(roundPrec)}</div>}
+                        {!lockOutBalance ? null : <div>{t("locked_out")}: {lockOutBalance.toFixed(roundPrec)}</div>}
+                        {!lockOrders ? null : <div>{t("locked_orders")}: {lockOrders.toFixed(roundPrec)}</div>}
                     </g>
                 </div>}
                 {md && <div className="flex flex-col content-around">
-                    <div data-text={"Wallet balance"} className="text-sm font-medium text-gray-400 ellipsis">
+                    <div className="text-sm font-medium text-gray-400">
                            <span>
-                              {name} wallet
+                              {name} {t("wallet")}
                            </span>
                     </div>
                     
-                    <div className="text-2xl font-bold text-gray-600 cursor-help">
+                    <div className="text-2xl font-bold text-gray-600">
                         {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
                     </div>
 
                     <g className="text-gray-400 text-sm">
-                        {!lockInBalance ? null : <div>Locked in: {lockInBalance.toFixed(roundPrec)}</div>}
-                        {!lockOutBalance ? null : <div>Locked out: {lockOutBalance.toFixed(roundPrec)}</div>}
-                        {!lockOrders ? null : <div>Locked orders: {lockOrders.toFixed(roundPrec)}</div>}
+                        {!lockInBalance ? null : <div>{t("locked_in")}: {lockInBalance.toFixed(roundPrec)}</div>}
+                        {!lockOutBalance ? null : <div>{t("locked_out")}: {lockOutBalance.toFixed(roundPrec)}</div>}
+                        {!lockOrders ? null : <div>{t("locked_orders")}: {lockOrders.toFixed(roundPrec)}</div>}
                     </g>
                 </div>}
 
 
                 {(isEURG || isGKE) && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-gray-400 text-semilight">
-                        Rate
-                        <Tooltip text={isEURG ? EurgTooltipText : GkeTooltipText}>
+                        {t("rate")}
+                        <Tooltip text={isEURG ? t("eurg_tooltip_text") : t("gke_tooltip_text")}>
                             <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 mt-[1px] cursor-help">
                                 <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                             </div>
                         </Tooltip>
                     </div>
 
-                    <div data-text={`${isEURG ? 3 : 5}% per annum`} className='text-gray-600 text-2xl ellipsis'>
-                        <span>{isEURG ? 3 : 5}% per annum</span>
+                    <div className='text-gray-600 text-2xl'>
+                        <span>{t("per_annum", {percent: isEURG ? 3 : 5})}</span>
                     </div>
                 </div>)}
             </div>
@@ -102,13 +105,13 @@ const WalletHeader = () => {
                 <BankCardsCarousel wrapperClassName="h-[240px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0"/>
             ) : (
                 <div className="text-right grid auto-cols-fr">
-                    <div data-text={`${name} wallet`} className="mb-3 ellipsis -mt-1.5">
+                    <div data-text={name} className="mb-3 ellipsis -mt-1.5">
                         <span className="font-bold text-fs32 leading-1 text-gray-600">
-                           {isEURG ? "Gekkoin Europe wallet" : <>{name} wallet</>}
+                           {isEURG ? "Gekkoin Europe " + t("wallet"): <>{name} {t("wallet")}</>}
                         </span>
                     </div>
                     <div className="max-w-[450px] font-medium text-sm text-gray-400 whitespace-pre-line">
-                        {isEURG ? EurgDescriptionText : getDescription($const, name)}
+                        {isEURG ? EurgDescriptionText : getDescription($const, name, t)}
                     </div>
                 </div>
             )}

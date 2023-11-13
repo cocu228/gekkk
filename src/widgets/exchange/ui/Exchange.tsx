@@ -87,7 +87,7 @@ function Exchange() {
                         trigger={
                             <span>{t("exchange.title")}</span>
                         }
-                        items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>Create private exchange room</DropdownItem>)}]}
+                        items={[{key: '1', label: (<DropdownItem onClick={roomInfoModal.showModal} icon={<IconPrivateRoom />}>{t("exchange.create_private_exchange_room")}</DropdownItem>)}]}
                     />
                 );
             case 'creator':
@@ -202,15 +202,15 @@ function Exchange() {
                                 </InputCurrency.CurrencySelector>
 
                                 <div className="mt-3 md:mt-2">
-                                    <div className="font-medium text-md lg:text-sm md:text-xs">{t("exchange.pay_from")}</div>
+                                    <div className="font-medium text-md lg:text-sm md:text-xs">{t("price")}</div>
                                     <PriceField />
                                 </div>
 
                                 {roomType === 'creator' && (
                                     <div className="mt-6 md:mt-3.5">
                                         <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
-                                            <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">Sell a <strong
-                                                className="font-semibold">{from.currency}</strong> at the market rate</span>
+                                            <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">{t("exchange.sell")} <strong
+                                                className="font-semibold">{from.currency}</strong> {t("exchange.at_the_market_rate")}</span>
                                         </Checkbox>
                                     </div>
                                 )}
@@ -305,19 +305,19 @@ function Exchange() {
 
             <Modal
                 width={450}
-                title={`${roomType === 'creator' ? 'Close' : 'Leave'} private exchange room`}
+                title={`${roomType === 'creator' ? t("exchange.close") : t("exchange.leave")} ${t("exchange.private_exchange_room")}`}
                 open={cancelRoomModal.isModalOpen}
                 onCancel={cancelRoomModal.handleCancel}
             >
                 <div className="text-sm">
-                    Are you sure you want to {roomType === 'creator' ? 
-                        `close the current private exchange room? All `
-                    : `leave the current private exchange room? Your `}
-                    unclosed orders will be canceled.
+                    {t("exchange.are_you_sure")} {roomType === 'creator' ? 
+                        t("exchange.close_private_exchange")
+                    : t("exchange.leave_private_exchange")}
+                    {t("exchange.unclosed_orders")}.
                 </div>
 
                 {roomType !== 'creator' ? null : <>
-                    <div className='mt-4 mb-2 font-medium'>Room description:</div>
+                    <div className='mt-4 mb-2 font-medium'>{t("exchange.room_description")}:</div>
                     <RoomProperties room={roomInfo}/>
                 </>}
 
@@ -333,7 +333,7 @@ function Exchange() {
                                 navigate('/exchange');
                             });
                         }}
-                    >{`${roomType === 'creator' ? 'Close' : 'Leave'} private exchange room`}</Button>
+                    >{`${roomType === 'creator' ? t("exchange.close") : t("exchange.leave")} ${t("exchange.private_exchange_room")}`}</Button>
                 </div>
             </Modal>
         </div>

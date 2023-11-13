@@ -1,78 +1,18 @@
+import {useContext} from "react";
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
-import {defaultItems} from "../../model/header-menu-items";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
-import {TOnActionParams} from "@/widgets/header/model/types";
 import {AccountRights} from "@/shared/config/account-rights";
-import {storeAccounts} from "@/shared/store/accounts/accounts";
-import {memo, useContext, useEffect, useMemo, useState} from "react";
-import {ItemOrganization, ItemAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 
-const HeaderDesktop = memo((props) => {
-
+const HeaderDesktop = ({items, actions}) => {
     const {logout} = useAuth();
-    const {account, setAccount} = useContext(CtxRootData);
     const navigate = useNavigate();
-    const accounts = storeAccounts(state => state.accounts);
-
-    const [items, setItems] = useState(defaultItems)
-
-    const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
-        {type: "logout", action: () => logout()},
-        {type: "link", action: (value) => navigate(value.toString())},
-        {
-            type: "change-account", action: (value) => {
-                navigate("/");
-                setAccount(value.toString());
-                window.location.reload();
-            }
-        }
-    ], []);
-
-    useEffect(() => {
-        if (!account.rights) return;
-
-        let newItems = [...defaultItems]
-
-        accounts
-            .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
-            .forEach(acc => {
-                newItems.unshift({
-                    id: acc.number,
-                    item: acc.rights[AccountRights.IsJuridical] ? (
-                        <ItemOrganization
-                        number={getFormattedIBAN(acc.number)}
-                        name={acc.name}
-                        active={account.number === acc.number}
-                        />
-                    ) : (
-                        <ItemAccount
-                            number={getFormattedIBAN(acc.number)}
-                            name={acc.name}
-                            active={account.number === acc.number}
-                        />
-                    ),
-                    action: {
-                        type: "change-account",
-                        value: acc.number,
-                    },
-                    style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    }
-                })
-            })
-
-        setItems(!account.rights[AccountRights.IsJuridical]
-            ? newItems
-            : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
-        );
-
-    }, [account.rights]);
+    const {account} = useContext(CtxRootData);
 
     return <>
         <header className={`flex ${styles.Header}`}>
@@ -81,18 +21,21 @@ const HeaderDesktop = memo((props) => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
+            
             <div className="flex ml-auto items-center">
                 <LocalizationMenu/>
             </div>
+            
             <HeaderMenu
                 items={items}
-                actions={actionsForMenuFunctions}
+                actions={actions}
             >
                 <div className="flex items-center justify-end" data-testid="HeaderMenuContainer">
                     <div className="wrapper mr-2">
                         {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
                             <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>}
                     </div>
+                    
                     {account.number && <div className="wrapper">
                         <div className="row">
                             <span className="text-sm font-bold">{account.name}</span>
@@ -104,6 +47,7 @@ const HeaderDesktop = memo((props) => {
                             </span>
                         </div>
                     </div>}
+                    
                     <img
                         className="inline-flex mb-3"
                         src="/img/icon/DropdownTriangleIcon.svg"
@@ -111,6 +55,7 @@ const HeaderDesktop = memo((props) => {
                     />
                 </div>
             </HeaderMenu>
+            
             <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10" data-testid="Logout">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
@@ -118,6 +63,6 @@ const HeaderDesktop = memo((props) => {
             </button>
         </header>
     </>
-})
+}
 
 export default HeaderDesktop;

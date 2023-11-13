@@ -1,3 +1,4 @@
+import {t} from "i18next";
 import React, {useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -9,7 +10,6 @@ import Button from "@/shared/ui/button/Button";
 import $axios from "@/shared/lib/(cs)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
-import {Skeleton} from "antd";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -66,12 +66,11 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
 }
 
 export const PromoCodeModal = ({active = false}) => {
-
     const {showModal, handleCancel, isModalOpen} = useModal()
 
     return <>
         <button className="w-full text-left" onClick={showModal}>
-            Promo-code
+            {t("header_menu.promo_code")}
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
             <PromoCode/>
@@ -80,10 +79,8 @@ export const PromoCodeModal = ({active = false}) => {
 }
 
 export const GekkoinInvestPlatform = ({active = false}) => {
-
-    const {showModal, handleCancel, isModalOpen} = useModal()
-
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
+    const {showModal, handleCancel, isModalOpen} = useModal();
 
     const onClick = async () => {
         setLoading(true)
@@ -108,24 +105,20 @@ export const GekkoinInvestPlatform = ({active = false}) => {
 
     return <>
         <button className="w-full text-left" onClick={showModal}>
-            Gekkoin invest platform
+            {t("header_menu.gekkoin_invest_platform")}
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen}>
             <>
                 <div className="row mb-10">
                     <div className="col">
-                        <p className="font-bold text-sm leading-6 text-center">You will be directed to your personal
-                            Gekkoin
-                            account, where you can open fixed-income deposits or deposits linked to changes in the
-                            exchange
-                            rate of your chosen cryptocurrency.</p>
+                        <p className="font-bold text-sm leading-6 text-center">{t("directed_to_gekkoin")}</p>
                     </div>
                 </div>
                 <div className="row relative">
                     <div className="col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button onClick={onClick}
-                                    className="w-full">Confirm</Button>}
+                                    className="w-full">{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

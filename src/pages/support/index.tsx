@@ -1,12 +1,16 @@
 import React from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
+import { useTranslation } from 'react-i18next';
+
 
 const Support = () => {
+    const {t} = useTranslation();
+    
     return (
         <div className="wrapper h-inherit w-full">
             <PageHead
-                subtitle={"If you have any questions or difficulties, please let us know in any of the following way:"}
-                title={"Support"}/>
+                subtitle={t("support.subtitle")}
+                title={t("support.title")}/>
             <div style={{
                 marginBottom: "40px",
                 minHeight: "640px"
@@ -35,7 +39,7 @@ const Support = () => {
                 </div>
                 <div className="row mt-6">
                     <div className="col">
-                        <p className="text-gray-400 text-sm font-medium">Response time up to 24 hours</p>
+                        <p className="text-gray-400 text-sm font-medium">{t("support.response_time")}</p>
                     </div>
                 </div>
             </div>

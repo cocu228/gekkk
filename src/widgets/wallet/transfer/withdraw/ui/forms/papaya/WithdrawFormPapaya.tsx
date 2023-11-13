@@ -61,7 +61,7 @@ const WithdrawFormPapaya = () => {
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> If you <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
-                            onClick={() => navigate('/wallet/GKE/No Fee Program')}
+                            onClick={() => navigate('/wallet/GKE/no_fee_program')}
                         >
                             freeze GKE tokens    
                         </span> fee is <b>0%</b>.
@@ -81,7 +81,7 @@ const WithdrawFormPapaya = () => {
                         validateBalance(currency, navigate)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
                                                    header={<span
-                                                       className='text-gray-600 font-medium'>You will pay</span>}
+                                                       className='text-gray-600 font-medium'>Amount</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -135,8 +135,13 @@ const WithdrawFormPapaya = () => {
             onCancel={handleCancel}
             title={"Withdraw confirmation"}
         >
-            <WithdrawConfirmCrypto address={account.number} recipient={account.name} description={""}
-                                   amount={inputCurr.value.number} handleCancel={handleCancel}/>
+            <WithdrawConfirmCrypto
+                description={""}
+                address={account.number}
+                recipient={account.name}
+                handleCancel={handleCancel}
+                amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
+            />
         </Modal>
         <div className="row w-full mt-4">
             <div className="col">

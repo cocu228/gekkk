@@ -7,6 +7,7 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {IconCoin} from "@/shared/ui/icons/icon-coin";
 
 const ChoseNetwork = ({withdraw = false}) => {
 
@@ -19,12 +20,6 @@ const ChoseNetwork = ({withdraw = false}) => {
 
 
     return <>
-        {/*<div className="row mb-10">*/}
-        {/*    <div className="col flex items-center gap-3 font-bold">*/}
-        {/*        <IconCoin width={40} height={40} code={currency.const}/>*/}
-        {/*        <span className="font-bold">{currency.name} <span>({currency.const})</span></span>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
         <div className="row mb-8 w-full font-medium">
             {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
                 withdraw ? "Select withdraw network" : "Select network"}
@@ -40,8 +35,8 @@ const ChoseNetwork = ({withdraw = false}) => {
                                 ? null
                                 : (
                                     <span> Or you can create a <span
-                                        className='text-blue-400 hover:cursor-pointer hover:underline'
-                                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                                        //className='text-blue-400 hover:cursor-pointer hover:underline'
+                                        //onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                     >
                         {withdraw ? 'sell' : 'buy'} order
                     </span>.</span>

@@ -7,9 +7,7 @@ import $axios from "@/shared/lib/(cs)axios";
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
-// import {storeOrganizations} from "@/shared/store/organizations";
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
-import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 
@@ -23,9 +21,7 @@ export default memo(function () {
         refreshKey: "",
     })
 
-    const accounts = storeAccounts(state => state.accounts);
-    const bankCards = storeBankCards(state => state.bankCards);
-    const getAccounts = storeAccounts(state => state.getAccounts);
+    const {accounts, getAccounts} = storeAccounts(state => state);
 
     useEffect(() => {
         (async () => {
@@ -37,8 +33,6 @@ export default memo(function () {
         if (accounts && !account) {
             const cookieData = getCookieData<{accountId?: string}>();
             const activeAccount = accounts.find(a => a.current);
-
-
             
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId
@@ -71,16 +65,15 @@ export default memo(function () {
     }}>
         {!account ? <Loader/> : (<>
             <CurrenciesProvider>
-                <>
-                    <Header/>
+                <Header/>
 
-                    <Main>
-                        <Sidebar/>
-                <Content>
-                    <Outlet/>
-                </Content>
-                    </Main>
-                </>
+                <Main>
+                    <Sidebar/>
+
+                    <Content>
+                        <Outlet/>
+                    </Content>
+                </Main>
             </CurrenciesProvider>
         </>)}
     </CtxRootData.Provider>

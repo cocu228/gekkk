@@ -7,9 +7,10 @@ import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code
 import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
+import { useTranslation } from 'react-i18next';
 
 const CancelContent = ({code, amount, confirm, currency}) => {
-
+    const {t} = useTranslation();
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [loading, setLoading] = useState(false)
     const {showModal, isModalOpen, handleCancel} = useModal()
@@ -30,13 +31,12 @@ const CancelContent = ({code, amount, confirm, currency}) => {
 
     return <>
         <Button onClick={showModal} size={"sm"} gray
-                className={"!py-3 !h-[fit-content]"}>Cancel</Button>
+                className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
         <Modal
-            title={"Deleting transfer code"} open={isModalOpen} onCancel={handleCancel}>
+            title={t("deleting_transfer_code")} open={isModalOpen} onCancel={handleCancel}>
             {loading ? <Loader/> : <div>
                 <div className="row bg-gray-300 -mx-14 px-14 py-4 mb-6">
-                    <p>This code will be deleted from the system. It will not be possible to transfer
-                        funds using this code.</p>
+                    <p>{t("code_will_be_deleted")}</p>
                 </div>
                 <div className="row mb-6 flex justify-center">
                     <div
@@ -62,7 +62,7 @@ const CancelContent = ({code, amount, confirm, currency}) => {
                             <div className="col w-1/2">
                                 <div className="row flex">
                                     <div className="col">
-                                        <span className="text-gray-400 mr-2">Amount:</span>
+                                        <span className="text-gray-400 mr-2">{t("amount")}:</span>
                                     </div>
                                     <div className="col">
                                         <span
@@ -73,10 +73,10 @@ const CancelContent = ({code, amount, confirm, currency}) => {
                             <div className="col w-1/2">
                                 <div className="row flex">
                                     <div className="col">
-                                        <span className="text-gray-400 mr-2">Confirmation:</span>
+                                        <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
                                     </div>
                                     <div className="col">
-                                        <span>{confirm ? "used" : "not used"}</span>
+                                        <span>{confirm ? t("used") : t("not_used")}</span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@ const CancelContent = ({code, amount, confirm, currency}) => {
                     </div>
                 </div>
                 <div className="row">
-                    <Button className="w-full" size="xl" onClick={onBtnCancel}>Delete this code
+                    <Button className="w-full" size="xl" onClick={onBtnCancel}>{t("delete_this_code")}
                     </Button>
                 </div>
             </div>}

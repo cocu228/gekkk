@@ -4,9 +4,11 @@ import {TPropsHeaderMenu} from "@/widgets/header/model/types";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
+import {useTranslation} from "react-i18next";
 
 const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu) => {
     const ref = useRef(null);
+    const {t} = useTranslation();
     const [isActive, toggleActive] = useState(false);
     const getAccounts = storeAccounts(state => state.getAccounts);
     const dropdownMenuFunctions =
@@ -19,7 +21,7 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
                     <div className='flex justify-between px-2 py-1'>
-                        <span className='text-gray-600' data-testid="Accounts">Accounts:</span>
+                        <span className='text-gray-600' data-testid="Accounts">{t('header_menu.accounts')}:</span>
                         
                         <RefreshButton
                             calloutFunc={(e) => {

@@ -1,10 +1,9 @@
-// import md5 from 'md5';
+import md5 from 'md5';
 import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
 import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
 import Button from '@/shared/ui/button/Button';
-import md5 from 'md5';
 import {memo, useContext, useRef, useState} from 'react';
 import ReactPhoneInput from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
@@ -23,6 +22,7 @@ import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {useSearchParams} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import {$ENV_DEV} from "@/shared/lib/helpers";
 
 // import {uncoverResponse} from "@/shared/lib/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -31,18 +31,26 @@ import { useTranslation } from 'react-i18next';
 const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
-
-
+    const {t} = useTranslation(); 
+    const inputRef = useRef(null);
     const [params] = useSearchParams();
+    const {md} = useContext(BreakpointsContext);
     const authMethod = params.get("authMethod");
     const {toggleStage} = storyDisplayAuth(state => state);
-    const {md} = useContext(BreakpointsContext);
+    const [loading, setLoading] = useState<boolean>(false);
     const {phoneValidator, passwordValidator} = useValidation();
-    const inputRef = useRef(null);
-    const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth",
-        {phone: "", verificationId: "", sessionIdUAS: ""});
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError();
-    const {t} = useTranslation(); 
+
+    const [
+        localErrorHunter,
+        localErrorSpan, ,
+        localErrorClear
+    ] = useError();
+
+    const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth", {
+        phone: "",
+        sessionIdUAS: "",
+        verificationId: ""
+    });
 
     const [state, setState] = useState<{
         phone: string,
@@ -52,103 +60,77 @@ const FormLoginAccount = memo(() => {
         password: ""
     });
 
-    const [loading, setLoading] = useState<boolean>(false);
-
     const onFinish = () => {
-
-        // return onSingIn()
-
-        const {password} = state
-        const phone = formatAsNumber(state.phone)
-
-        setLoading(true)
+        setLoading(true);
+        const {password} = state;
+        const phone = formatAsNumber(state.phone);
 
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
-                .success(() =>
-                    // onSingInUAS()
-                    onSingIn()
-
-                ))
+                .success(() => {
+                    onSingIn();
+                }))
             .catch(err => {
-                localErrorHunter(err)
-                setLoading(false)
-            })
+                localErrorHunter(err);
+                setLoading(false);
+            });
     }
 
     const onSingInUAS = async () => {
+        const {password} = state;
+        const phone = formatAsNumber(state.phone);
 
-        const {password} = state
-        const phone = formatAsNumber(state.phone)
-
-        const response = await apiRequestCode(formatAsNumber(state.phone))
-
+        const response = await apiRequestCode(formatAsNumber(state.phone));
 
         helperApiRequestCode(response).success(() => {
-
             setSessionAuth(prev => ({
                 ...prev,
                 phone: state.phone,
                 sessionIdUAS: response.data.sessid
-            }))
+            }));
 
-            toggleStage("code", md5(`${password}_${phone}`))
-
-        })
-
+            toggleStage("code", md5(`${password}_${phone}`));
+        });
     }
+    
     const onCaptchaVerify = () => {
-
         window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
             size: "invisible",
-            callback: (response: unknown) => {
+            callback: (response: unknown) => {}
+        });
 
-            }
-            });
-
-        onSingIn()
-
+        onSingIn();
     }
+    
     const onSingIn = () => {
-
-        localErrorClear()
-
-        setLoading(true)
-
+        localErrorClear();
+        setLoading(true);
 
         if (!window.recaptchaVerifier) {
-
-            onCaptchaVerify()
-
+            onCaptchaVerify();
         } else {
-
-            const {password} = state
-            const phone = formatAsNumber(state.phone)
+            const {password} = state;
+            const phone = formatAsNumber(state.phone);
 
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
-
                     window.confirmationResult = confirmationResult;
 
                     setSessionAuth(prev => ({
                         ...prev,
                         phone: state.phone,
                         verificationId: confirmationResult.verificationId
-                    }))
+                    }));
 
-                    setLoading(false)
-
-                    toggleStage("code", md5(`${password}_${phone}`))
-
+                    setLoading(false);
+                    toggleStage("code", md5(`${password}_${phone}`));
                 }).catch((error) => {
-
-
-                setLoading(false)
+                setLoading(false);
 
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
                 } else if (error.code === "auth/too-many-requests") {
-                    onSingInUAS()
+                    onSingInUAS();
                     // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 } else if (!!error.code) {
                     localErrorHunter({code: 10, message: error.code.message})
@@ -239,7 +221,7 @@ const FormLoginAccount = memo(() => {
                             />
                         </a>
                         
-                        {!['DEV', 'LOCAL'].includes(import.meta.env.MODE) ? null : (
+                        {!$ENV_DEV ? null : (
                             <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
                                className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
                                 {t("auth.download")}

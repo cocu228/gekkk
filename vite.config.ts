@@ -18,6 +18,7 @@ export default defineConfig(({mode}) => {
         {find: '@public', replacement: path.resolve(__dirname, 'public')},
         {find: '@styles', replacement: path.resolve(__dirname, 'src/app/styles')},
         {find: /\{\{MODE\}\}/, replacement: mode},
+        {find: '@chat', replacement: path.resolve(__dirname, 'node_modules/gekkard-chat/src')},
       ],
     },
     server: {

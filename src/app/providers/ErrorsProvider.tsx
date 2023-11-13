@@ -1,30 +1,26 @@
+import Loader from "@/shared/ui/loader";
 import InfoBox from "@/widgets/info-box";
 import {useLocation} from "react-router";
+import Modal from "@/shared/ui/modal/Modal";
+import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
+import Button from "@/shared/ui/button/Button";
+import {apiGetAccountInfo} from "@/shared/api";
 import {useAuth} from "@/app/providers/AuthRouter";
+import useModal from "@/shared/model/hooks/useModal";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
-import $axios from "@/shared/lib/(cs)axios";
-import {FC, PropsWithChildren, useLayoutEffect, useState} from "react";
-import {
-    IServiceErrorProvider,
-    IStateErrorProvider,
-    TResponseErrorProvider
-} from "@/processes/errors-provider-types";
-import {HunterErrorsApi, hunterErrorStatus, skipList} from "@/processes/errors-provider-helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-import {apiGetAccountInfo} from "@/shared/api";
+import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
+import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
+import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
 
+// todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
-
-    const {logout} = useAuth()
-
-    if (useLocation().state === 500) {
-        window.history.replaceState({}, document.title)
-        return <PageProblems code={500}/>
-    }
-
+    const {logout} = useAuth();
     const navigate = useNavigate();
+    const {isModalOpen, showModal} = useModal();
+    const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
 
     const [state, setState] = useState<IStateErrorProvider>({
         errors: [],
@@ -35,23 +31,33 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         }
     });
 
+    useEffect(() => {
+        if (isModalOpen) {
+            apiGetAccountInfo(true)
+                .then(({data}) => {
+                    if (!data.error) location.reload();
+                    
+                    if (data.error.code === 10001) {
+                        setAccountOpened(false);
+                    }
+                    else {
+                        navigate('/', {state: 500});
+                    }
+                })
+        }
+    }, [isModalOpen]);
+
     useLayoutEffect(() => {
-
         $axios.interceptors.response.use((response: TResponseErrorProvider) => {
-
-            const hunterErrorsApi = new HunterErrorsApi(response)
+            const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-
+            
             if (hunterErrorsApi.isNewWallet()) {
-                apiGetAccountInfo(true)
-                    .then(() => location.reload());
+                showModal();
             }
-
+            
             if (hunterErrorsApi.isError()) {
-                
-                const result = hunterErrorsApi.getMessageObject()
-
-                if (result.error.code === 10001) return response;
+                const result = hunterErrorsApi.getMessageObject();
                 
                 setState(prevState => ({
                     ...prevState,
@@ -66,10 +72,10 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                     ]
                 }));
 
-                scrollToTop()
+                scrollToTop();
             }
 
-            if (hunterErrorsApi.isAuthExpired()) logout()
+            if (hunterErrorsApi.isAuthExpired()) logout();
 
             if (hunterErrorsApi.isConfirmationToken()) {
                 return new Promise((resolve, reject) => {
@@ -84,19 +90,22 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                 })
             }
 
-            return response
-
+            return response;
         }, hunterErrorStatus.bind({
             navigate: navigate,
             setState: setState
         }));
-
-    }, [])
+    }, []);
 
     const onClose = (id: string) => setState(prevState => ({
         ...prevState,
         errors: [...prevState.errors.filter(it => it.id !== id)]
-    }))
+    }));
+
+    if (useLocation().state === 500) {
+        window.history.replaceState({}, document.title);
+        return (<PageProblems code={500}/>);
+    }
 
     return <>
         {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
@@ -115,6 +124,32 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         }}>
             {props.children}
         </CtxNeedConfirm.Provider>
+        
+        <Modal
+            closable={false}
+            open={isModalOpen}
+            title='Account generation'
+        >
+            {isAccountOpened ? (<div>
+                <div className='mb-10'>
+                    This is your first time logging in to Gekkard and you do not have any accounts created yet.
+                    Please wait, we are creating a new account for you. The process may take a few minutes...
+                </div>
+                
+                <Loader className='relative'/>
+            </div>) : (<div>
+                <div className='mb-10'>
+                    Your bank account is still in the creation process,
+                    please wait for the account to be generated and re-authorize
+                    into your Gekkard account.
+                </div>
+                
+                <Button
+                    onClick={logout}
+                    className='w-full'
+                >Log out</Button>
+            </div>)}
+        </Modal>
     </>
 }
 

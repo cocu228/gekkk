@@ -1,7 +1,9 @@
-﻿import styles from './style.module.scss';
-// import Chat from 'gekkard-chat';
+﻿import React from "react";
 import ReactDOM from "react-dom";
-import { getCookieData } from "@/shared/lib/helpers";
+import styles from './style.module.scss';
+import Chat from "@/features/chat/ui/chat/Chat";
+import {getCookieData} from "@/shared/lib/helpers";
+import AxiosChatInterceptor from "../../model/AxiosChatInterceptor";
 
 interface ChatModalProps {
 	isOpen: boolean;
@@ -9,7 +11,6 @@ interface ChatModalProps {
 }
 
 const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
-	
 	const {phone, token, tokenHeaderName} = getCookieData<{
 		phone: string,
 		token: string,
@@ -17,25 +18,25 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 	}>()
 	
 	const tokenChat = token && tokenHeaderName
-		? (tokenHeaderName === 'token-firebase') ? "FB " + token : "UAS " + token
+		? (tokenHeaderName === 'token-firebase')
+			? "FB " + token
+			: "UAS " + token 
 		: "UAS anonymous";
-	
 	
 	const chatConfig = {
 		token: tokenChat,
 		phone: phone,
 	}
 	
-	console.log(chatConfig)
-	
 	return isOpen
-		? ReactDOM.createPortal(
+		? ReactDOM.createPortal(<>
 			<div className={styles.ChatModal}>
-				{/*<Chat chatConfig={chatConfig} />*/}
+				<AxiosChatInterceptor chatToken={chatConfig.token}>
+					<Chat chatConfig={chatConfig}/>
+				</AxiosChatInterceptor>
 				<button onClick={onClose}>Close</button>
-			</div>,
-			document.getElementById("chat") as Element
-		)
+			</div>
+		</>, document.getElementById("chat") as Element)
 		: null;
 };
 

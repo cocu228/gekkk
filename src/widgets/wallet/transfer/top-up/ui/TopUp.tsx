@@ -33,7 +33,7 @@ const TopUp = memo(() => {
                         <b>
                             You can top up your EURG wallet via fiat on the EUR withdrawal form <span
                             className="text-blue-400 cursor-pointer"
-                            onClick={() => navigate("/wallet/EUR/Withdraw")}>link</span>
+                            onClick={() => navigate("/wallet/EUR/withdraw")}>link</span>
                         </b>
                     </div> :
                     151 === formType ?
@@ -43,7 +43,7 @@ const TopUp = memo(() => {
                                 <b>
                                     You can top up your EUR wallet via cryptocurrency on the EURG withdrawal form <a
                                     className="text-blue-400"
-                                    onClick={() => navigate("/wallet/EURG/Withdraw")}
+                                    onClick={() => navigate("/wallet/EURG/withdraw")}
                                     href="javascript:void(0)">link</a>
                                 </b>
                             </div> :

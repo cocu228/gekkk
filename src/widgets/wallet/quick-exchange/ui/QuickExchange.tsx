@@ -193,7 +193,7 @@ export const QuickExchange = () => {
         </div>
         <div className="row">
             <div className="col">
-                <b>Testing value: {ratesEUR[state.currency.Crypto.$const]} EUR без комиссии 10%</b>
+                <b>Testing value: {ratesEUR[state.currency.Crypto.$const]} EUR without commission 10%</b>
             </div>
         </div>
         <div className="row">

@@ -16,6 +16,7 @@
   "npm": " > 8",
   "node": " > 16",
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "@fontsource/archivo": "^5.0.15",
     "@fontsource/inter": "^5.0.15",
     "antd": "5.2.3",
@@ -38,6 +39,7 @@
     "react-router-dom": "6.8.2",
     "usehooks-ts": "2.9.1",
     "vite-plugin-svgr": "^4.1.0",
+    "uuid": "^9.0.1",
     "zustand": "4.3.6"
   },
   "devDependencies": {
@@ -45,6 +47,7 @@
     "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "3.1.0",
     "autoprefixer": "10.4.13",
     "orval": "^6.19.1",

@@ -1,7 +1,7 @@
-import React, {memo, useContext, useEffect, useState} from 'react';
-import {CtxRootData} from '@/processes/RootContext';
-import {ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetRates} from '@/shared/api';
+import React, { memo, useContext, useEffect, useState } from 'react';
+import { CtxRootData } from '@/processes/RootContext';
+import { ICtxCurrency } from '@/processes/CurrenciesContext';
+import { apiGetBalance, apiGetRates } from '@/shared/api';
 import {
     actionResSuccess,
     isNull,
@@ -13,10 +13,10 @@ import {
     walletsGeneration
 } from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import Loader from "@/shared/ui/loader";
 import ETokensConst from "@/shared/config/coins/constants";
-import {storeAssets} from "@/shared/store/assets";
+import { storeAssets } from "@/shared/store/assets";
 
 interface IState {
     currencies: Map<string, ICtxCurrency> | null,
@@ -28,9 +28,9 @@ interface IState {
     }
 }
 
-export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
-    const {refreshKey} = useContext(CtxRootData);
-    const {assets, getAssets} = storeAssets(state => state);
+export default memo(function ({ children }: { children: React.ReactNode }): JSX.Element | null {
+    const { refreshKey } = useContext(CtxRootData);
+    const { assets, getAssets } = storeAssets(state => state);
 
     const [state, setState] = useState<IState>({
         currencies: null,
@@ -63,13 +63,13 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
 
 
                     setState(prev => ({
-                                ...prev,
+                        ...prev,
                         currencies,
                         totalAmount: {
                             ...prev.totalAmount,
                             refreshKey: randomId()
                         }
-                            }));
+                    }));
 
                     //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
@@ -99,7 +99,7 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR))
+            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR)) // TODO 
             const valueBTC: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesBTC))
 
             setState(prev => ({
@@ -120,19 +120,25 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         totalAmount: state.totalAmount,
         ratesEUR: state.ratesEUR
     }}>
-        {state.currencies === null ? <Loader/> : children}
+        {state.currencies === null ? <Loader /> : children}
     </CtxCurrencies.Provider>
 });
 
 const totalizeAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
 
-    return Array.from(list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal.Value, currentValue, i, list) => {
 
-        const course = rates[currentValue.$const]
-        const value = new Decimal(course).times(currentValue.availableBalance)
+    return Array.from
+        (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {
 
-        return value.plus(previousValue)
+            const course = rates[currentValue.$const]
 
-    }, new Decimal(0))
+            if (course) {
+                const value = new Decimal(course).times(currentValue.availableBalance)
+                return value.plus(previousValue)
+            }
+
+            return previousValue;
+
+        }, new Decimal(0))
 
 }

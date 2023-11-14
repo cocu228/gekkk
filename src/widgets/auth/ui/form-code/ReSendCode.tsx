@@ -92,8 +92,6 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
         instanceTimer.run();
     }
 
-
-
     return <>
        
         <button type="button" disabled={!!state} className="second_value-button" onClick={onSendCode}>

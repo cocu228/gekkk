@@ -143,7 +143,7 @@ const FormCode = memo(() => {
             />
         </FormItem>
 
-        <div className="row w-full">
+        <div>
             <div className="col">
                 <span className="text-red-800">{localErrorSpan}</span>
             </div>

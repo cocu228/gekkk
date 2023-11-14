@@ -10,8 +10,13 @@ import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
+import { NewHeader } from '@/widgets/new-header/ui/NewHeader';
+import { useLocation } from 'react-router-dom';
+import { NewLayout } from '../layouts/new-layout/NewLayout';
 
 export default memo(function () {
+    const location = useLocation();
+    const isNewLayout = location.pathname.startsWith('/new');
     const [{
         account,
         refreshKey,
@@ -65,6 +70,10 @@ export default memo(function () {
     }}>
         {!account ? <Loader/> : (<>
             <CurrenciesProvider>
+                {isNewLayout ? <>
+                    <Outlet/> 
+                </> : <>
+                
                 <Header/>
 
                 <Main>
@@ -74,6 +83,7 @@ export default memo(function () {
                         <Outlet/>
                     </Content>
                 </Main>
+                </>}
             </CurrenciesProvider>
         </>)}
     </CtxRootData.Provider>

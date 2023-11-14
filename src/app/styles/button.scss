@@ -46,3 +46,26 @@
     }
 
 }
+
+
+.top-menu-button_active {
+    cursor: pointer;
+    background: var(--brand-white);
+    color: var(--dark-blue);
+    border: 2px solid var(--brand-white);
+    padding: 6px 18px 6px 18px;
+    border-radius: 6px;
+}
+
+.top-menu-button {
+    cursor: pointer;
+    padding: 6px 18px 6px 18px;
+    border-radius: 6px;
+    border: 2px solid var(--light-grey);
+    color: var(--brand-white);
+
+    &:hover {
+        @extend .top-menu-button_active;
+    }
+
+}

@@ -148,7 +148,7 @@ const FormLoginAccount = memo(() => {
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
     return <div>
-        <p className="tyopography-b2" style={{
+        <p className="typography-b2" style={{
             color: 'var(--pale-blue)',
             marginBottom: '36px',
 

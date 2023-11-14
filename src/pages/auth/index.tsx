@@ -2,18 +2,17 @@ import "@styles/index.scss";
 import {AxiosResponse} from 'axios';
 import {useTranslation} from 'react-i18next';
 import {useSessionStorage} from "usehooks-ts";
-import QRCode from "@/widgets/auth/ui/qr-code";
-import FormCode from "@/widgets/auth/ui/form-code";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {$AxiosResponse} from '@/shared/lib/(cs)axios';
 import {TSessionAuth} from "@/widgets/auth/model/types";
-import React, {memo, useContext, useEffect} from 'react';
+import {memo, useContext, useEffect} from 'react';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import LoginBackground from '@/assets/login-background.svg?react';
+import { NewHeader } from "@/widgets/new-header/ui/NewHeader";
 
 
 
@@ -44,69 +43,74 @@ const AuthPage = memo(() => {
     return (
         <div style={{
             background: 'var(--brand-white)',
-            height: '100vh',
-            display: 'flex',
+            position: 'relative',
         }}>
+            <NewHeader />
             <div style={{
-                width: '270px',
-                flex: '0 1 auto',
-            }} id={"recaptcha-container"}></div>
-
-            <div style={{
-                margin: '20px',
-                width: '466px',
-                flex: '0 0 auto'
-            }}>
-
-                <h1 className="typography-h1"  style={{
-                    color: 'var(--dark-blue)',
-                    marginBottom: '18px',
-                }}>
-                    Welcome to Gekkard online bank
-                </h1>
-                <FormLoginAccount/> 
-                <div style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    paddingTop: '60px',
-
-                }}>
-                    <span className="typography-b2" style={{
-                        color: 'var(--dark-grey)',
-                    }}>
-
-                        Don’t have an account? Sign up now
-                    </span>
-                    <button className='account-button'>
-                        Sign up
-                    </button>
-                </div>
-
-                <p className="typography-b4" style={{
-                    color: 'var(--light-grey)',
-                    paddingTop: '60px',
-                }}>
-                    Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.
-                </p>
-            </div>
-            <div style={{
-                flex: '0 1 auto',
-                
-                width:"100%",
-                overflow: "hidden",
+                background: 'var(--brand-white)',
+                height: '100vh',
+                width: '100vw',
                 display: 'flex',
-                alignItems: 'top',
-                height: '100%',
             }}>
                 <div style={{
-                    transform: 'translate(0, -10%)'
+                    width: '270px',
+                    flex: '0 1 auto',
+                }} id={"recaptcha-container"}></div>
+
+                <div style={{
+                    margin: '20px',
+                    width: '466px',
+                    flex: '0 0 auto'
                 }}>
 
-                <LoginBackground height="130%" width="100%" />
+                    <h1 className="typography-h1"  style={{
+                        color: 'var(--dark-blue)',
+                        marginBottom: '18px',
+                    }}>
+                        Welcome to Gekkard online bank
+                    </h1>
+                    <FormLoginAccount/> 
+                    <div style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingTop: '60px',
+
+                    }}>
+                        <span className="typography-b2" style={{
+                            color: 'var(--dark-grey)',
+                        }}>
+
+                            Don’t have an account? Sign up now
+                        </span>
+                        <button className='account-button'>
+                            Sign up
+                        </button>
+                    </div>
+
+                    <p className="typography-b4" style={{
+                        color: 'var(--light-grey)',
+                        paddingTop: '60px',
+                    }}>
+                        Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.
+                    </p>
                 </div>
-            </div>
+                <div style={{
+                    flex: '0 1 auto',
+                    width:"100%",
+                    overflow: "hidden",
+                    display: 'flex',
+                    alignItems: 'top',
+                    height: '100%',
+                }}>
+                    <div style={{
+                        transform: 'translate(0, -10%)'
+                    }}>
+                        <LoginBackground height="130%" width="100%" />
+                    </div>
+                </div>
+        </div>
         </div>
     )
 })

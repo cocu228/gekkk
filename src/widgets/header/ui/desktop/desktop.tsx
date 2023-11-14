@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -21,8 +21,12 @@ const HeaderDesktop = ({items, actions}) => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
+
+
             
-            <div className="flex ml-auto items-center">
+            <div className="flex ml-auto items-center gap-10">
+                <Link to="/new">go to new layout</Link>
+
                 <LocalizationMenu/>
             </div>
             

@@ -3,24 +3,24 @@
 
     padding: 9px 24px 9px 24px;
     border-radius: 8px;
-    background: var(--green);
-    color: var(--FFFFFF);
+    background: var(--new-green);
+    color: var(--new-FFFFFF);
 
     &:hover {
-        background: var(--brand-gradient);
-        color: var(--dark-blue);
+        background: var(--new-brand-gradient);
+        color: var(--new-dark-blue);
     }
 
     &:disabled {
-        color: var(--dark-grey);
-        background: var(--pale-grey)
+        color: var(--new-dark-grey);
+        background: var(--new-pale-grey)
     }
 
 
 }
 
 .text-button {
-    color: var(---pale-blue);
+    color: var(--new--pale-blue);
 }
 
 .second_value-button {
@@ -29,20 +29,20 @@
 
     padding: 9px 24px 9px 24px;
     border-radius: 8px;
-    outline: 2px solid var(--green);
-    color: var(--green);
-    background: var(--light-green);
+    outline: 2px solid var(--new-green);
+    color: var(--new-green);
+    background: var(--new-light-green);
 
     &:hover {
-        background: var(--brand-gradient);
-        color: var(--dark-blue);
+        background: var(--new-brand-gradient);
+        color: var(--new-dark-blue);
         outline: none;
     }
 
     &:disabled {
         outline: none;
-        color: var(--mid-grey);
-        background: var(--pale-grey)
+        color: var(--new-mid-grey);
+        background: var(--new-pale-grey)
     }
 
 }
@@ -50,9 +50,9 @@
 
 .top-menu-button_active {
     cursor: pointer;
-    background: var(--brand-white);
-    color: var(--dark-blue);
-    border: 2px solid var(--brand-white);
+    background: var(--new-brand-white);
+    color: var(--new-dark-blue);
+    border: 2px solid var(--new-brand-white);
     padding: 6px 18px 6px 18px;
     border-radius: 6px;
 }
@@ -61,8 +61,8 @@
     cursor: pointer;
     padding: 6px 18px 6px 18px;
     border-radius: 6px;
-    border: 2px solid var(--light-grey);
-    color: var(--brand-white);
+    border: 2px solid var(--new-light-grey);
+    color: var(--new-brand-white);
 
     &:hover {
         @extend .top-menu-button_active;

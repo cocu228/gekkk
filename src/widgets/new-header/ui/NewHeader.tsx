@@ -26,7 +26,7 @@ export function NewHeader ({}: NewHeaderProps) {
         justifyContent: 'space-between',
         top: 0,
         height: '70px',
-        background: 'var(--brand-dark-blue)',
+        background: 'var(--new-brand-dark-blue)',
         padding: '0 25px',
     }}>
 

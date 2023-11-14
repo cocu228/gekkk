@@ -42,12 +42,12 @@ const AuthPage = memo(() => {
 
     return (
         <div style={{
-            background: 'var(--brand-white)',
+            background: 'var(--new-brand-white)',
             position: 'relative',
         }}>
             <NewHeader />
             <div style={{
-                background: 'var(--brand-white)',
+                background: 'var(--new-brand-white)',
                 height: '100vh',
                 width: '100vw',
                 display: 'flex',
@@ -64,7 +64,7 @@ const AuthPage = memo(() => {
                 }}>
 
                     <h1 className="typography-h1"  style={{
-                        color: 'var(--dark-blue)',
+                        color: 'var(--new-dark-blue)',
                         marginBottom: '18px',
                     }}>
                         Welcome to Gekkard online bank
@@ -79,7 +79,7 @@ const AuthPage = memo(() => {
 
                     }}>
                         <span className="typography-b2" style={{
-                            color: 'var(--dark-grey)',
+                            color: 'var(--new-dark-grey)',
                         }}>
 
                             Don’t have an account? Sign up now
@@ -90,7 +90,7 @@ const AuthPage = memo(() => {
                     </div>
 
                     <p className="typography-b4" style={{
-                        color: 'var(--light-grey)',
+                        color: 'var(--new-light-grey)',
                         paddingTop: '60px',
                     }}>
                         Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.

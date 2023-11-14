@@ -5,7 +5,7 @@ export type NewLayoutProps = {};
 export function NewLayout({}: NewLayoutProps) {
   return (
     <main style={{
-        background: 'var(--brand-white)',
+        background: 'var(--new-brand-white)',
         position: 'relative',
         minHeight: '100vh',
     }}>

@@ -149,17 +149,17 @@ const FormLoginAccount = memo(() => {
 
     return <div>
         <p className="typography-b2" style={{
-            color: 'var(--pale-blue)',
+            color: 'var(--new-pale-blue)',
             marginBottom: '36px',
 
         }}>
             Log in using the form below
         </p>
         <div style={{
-            background: 'var(--FFFFFF)',
+            background: 'var(--new-FFFFFF)',
             padding: '24px 36px 24px 36px',
             borderRadius: '8px 8px 0px 0px',
-            boxShadow: 'var(--active-account-shadow)'
+            boxShadow: 'var(--new-active-account-shadow)'
         }}>
 
         <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
@@ -185,7 +185,7 @@ const FormLoginAccount = memo(() => {
 
             <FormItem name="password" label="Password"
                     rules={[{required: true, ...passwordMessage}, passwordValidator]}>
-                <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
+                <Input.Password style={{borderColor: 'var(--new-color-gray-400)'}}
                                 disabled={loading}
                                 onChange={({target}) => setState(prev => ({
                                     ...prev,

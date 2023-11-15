@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20231029-2122.4890<br/><br/>
+                    Build version 2.0.3-20231114-1318.5122<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -27,7 +27,6 @@ import type {
   GetGekV1AddressTxInfoParams,
   GetGekV1CodeTxInfoParams,
   GetGekV1InvestGetInvestmentsParams,
-  GetGekV1InvestGetTemplatesParams,
   GetGekV1ListTxCodesParams,
   GetGekV1MarketGetOrdersParams,
   GetGekV1MarketGetRatesParams,
@@ -59,7 +58,6 @@ import type {
   SessionDataDTO,
   StringApiResponse,
   StringDecimalDictionaryApiResponse,
-  TemplateDepositListApiResponse,
   TokensNetworkArrayApiResponse,
   TxCodesOutApiResponse,
   TxCodesOutListApiResponse,
@@ -75,7 +73,6 @@ import postGekV1CreateTxCodeMutator from '../../lib/(cs)axios-new';
 import getGekV1ListTxCodesMutator from '../../lib/(cs)axios-new';
 import getGekV1CodeTxInfoMutator from '../../lib/(cs)axios-new';
 import getGekV1AddressTxInfoMutator from '../../lib/(cs)axios-new';
-import getGekV1InvestGetTemplatesMutator from '../../lib/(cs)axios-new';
 import getGekV1InvestGetInvestmentsMutator from '../../lib/(cs)axios-new';
 import postGekV1InvestCreateInvestmentMutator from '../../lib/(cs)axios-new';
 import postGekV1InvestReturnInvestmentMutator from '../../lib/(cs)axios-new';
@@ -200,19 +197,6 @@ export const apiAddressTxInfo = (
  options?: SecondParameter<typeof getGekV1AddressTxInfoMutator>,) => {
       return getGekV1AddressTxInfoMutator<AddressTxOutApiResponse>(
       {url: `/gek/v1/address_tx_info`, method: 'get',
-        params
-    },
-      options);
-    }
-  
-/**
- * @summary Список шаблонов депозитов
- */
-export const apiGetTemplates = (
-    params?: GetGekV1InvestGetTemplatesParams,
- options?: SecondParameter<typeof getGekV1InvestGetTemplatesMutator>,) => {
-      return getGekV1InvestGetTemplatesMutator<TemplateDepositListApiResponse>(
-      {url: `/gek/v1/invest/get_templates`, method: 'get',
         params
     },
       options);
@@ -570,7 +554,6 @@ export type ApiCreateTxCodeResult = NonNullable<Awaited<ReturnType<typeof apiCre
 export type ApiListTxCodesResult = NonNullable<Awaited<ReturnType<typeof apiListTxCodes>>>
 export type ApiCodeTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiCodeTxInfo>>>
 export type ApiAddressTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiAddressTxInfo>>>
-export type ApiGetTemplatesResult = NonNullable<Awaited<ReturnType<typeof apiGetTemplates>>>
 export type ApiGetInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetInvestments>>>
 export type ApiCreateInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiCreateInvestment>>>
 export type ApiReturnInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiReturnInvestment>>>

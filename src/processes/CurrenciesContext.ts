@@ -16,11 +16,11 @@ export class ICtxCurrency {
     ordersPrec: null | number;
     lockOrders: null | number;
     decimalPrec: null | number;
-    user_balance: null | number;
+    userBalance: null | number;
     lockInBalance: null | number;
     lockOutBalance: null | number;
     availableBalance: null | Decimal;
-    user_balance_EUR_equ: null | number;
+    userBalanceEUREqu: null | number;
     defaultTokenNetworkIn: null | number;
     defaultTokenNetworkOut: null | number;
 
@@ -37,10 +37,10 @@ export class ICtxCurrency {
         this.defaultTokenNetworkOut = asset.default_token_network_out;
 
         this.lockOrders = wallet?.lock_orders;
-        this.user_balance = wallet?.user_balance;
+        this.userBalance = wallet?.user_balance;
         this.lockInBalance = wallet?.lock_in_balance;
         this.lockOutBalance = wallet?.lock_out_balance;
-        this.user_balance_EUR_equ = wallet?.user_balance_EUR_equ;
+        this.userBalanceEUREqu = wallet?.user_balance_EUR_equ;
         this.availableBalance = (wallet && wallet.free_balance) ? new Decimal(wallet.free_balance) : null;
     }
 }

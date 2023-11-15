@@ -131,12 +131,14 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             title='Account generation'
         >
             {isAccountOpened ? (<div>
-                <div className='mb-10'>
+                <div className='relative mb-10'>
                     This is your first time logging in to Gekkard and you do not have any accounts created yet.
                     Please wait, we are creating a new account for you. The process may take a few minutes...
                 </div>
                 
-                <Loader className='relative'/>
+                <div className='relative'>
+                    <Loader/>
+                </div>
             </div>) : (<div>
                 <div className='mb-10'>
                     Your bank account is still in the creation process,

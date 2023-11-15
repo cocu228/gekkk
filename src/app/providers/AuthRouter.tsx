@@ -1,5 +1,6 @@
 import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
+import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {createContext, FC, PropsWithChildren, useContext, useEffect, useMemo} from "react";
 import {clearAllCookies, getCookieData, setCookieData, throttle} from "@/shared/lib/helpers";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
@@ -76,9 +77,14 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
                 expiration: 3600000
             }])
 
+        // TEMP: OLD API
         $axios.defaults.headers[tokenHeaderName] = token;
         $axios.defaults.headers['Authorization'] = formatAsNumber(phone);
 
+        // NEW API
+        $new_axios.defaults.headers[tokenHeaderName] = token;
+        $new_axios.defaults.headers['Authorization'] = formatAsNumber(phone);
+        
         const pathUrl = window.location.pathname + window.location.search;
         
         navigate(pathUrl !== '/' ? pathUrl : '/wallet/EUR');

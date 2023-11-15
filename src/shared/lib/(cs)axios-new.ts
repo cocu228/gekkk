@@ -33,7 +33,7 @@ const sessionHeader = () => {
     }
 }
 
-const AXIOS_INSTANCE = axios.create({
+export const AXIOS_INSTANCE = axios.create({
     withCredentials: true,
     headers: sessionHeader(),
     paramsSerializer: {

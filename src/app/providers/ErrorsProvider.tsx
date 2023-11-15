@@ -11,6 +11,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
+import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
@@ -48,6 +49,58 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
     }, [isModalOpen]);
 
     useLayoutEffect(() => {
+        // NEW API
+        $new_axios.interceptors.response.use((response: any) => {
+            console.log(response);
+            
+            const hunterErrorsApi = new HunterErrorsApi(response);
+            hunterErrorsApi.setFilterListForSkip(skipList);
+            
+            if (hunterErrorsApi.isNewWallet()) {
+                showModal();
+            }
+            
+            if (hunterErrorsApi.isError()) {
+                const result = hunterErrorsApi.getMessageObject();
+                
+                setState(prevState => ({
+                    ...prevState,
+                    errors: [
+                        ...prevState.errors,
+                        {
+                            id: randomId(),
+                            message: result.error.message,
+                            code: result.error.code,
+                            type: result.error.type
+                        }
+                    ]
+                }));
+                
+                scrollToTop();
+            }
+            
+            if (hunterErrorsApi.isAuthExpired()) logout();
+            
+            if (hunterErrorsApi.isConfirmationToken()) {
+                return new Promise((resolve, reject) => {
+                    setState(prev => ({
+                        ...prev,
+                        actionConfirmResponse: response,
+                        pending: {
+                            resolve: resolve,
+                            reject: reject
+                        }
+                    }));
+                })
+            }
+            
+            return response;
+        }, hunterErrorStatus.bind({
+            navigate: navigate,
+            setState: setState
+        }));
+        
+        // TEMPORARY OLD API
         $axios.interceptors.response.use((response: TResponseErrorProvider) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);

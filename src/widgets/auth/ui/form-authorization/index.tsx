@@ -192,7 +192,7 @@ const FormLoginAccount = memo(() => {
                                     password: target.value
                                 }))}
                                 data-testid="PIN"
-                                placeholder={t("auth.password")}/>
+                                placeholder="Password"/>
             </FormItem>
 
             <div className="row text-right mb-4">

@@ -15,8 +15,6 @@
         color: var(--new-dark-grey);
         background: var(--new-pale-grey)
     }
-
-
 }
 
 .text-button {
@@ -44,9 +42,7 @@
         color: var(--new-mid-grey);
         background: var(--new-pale-grey)
     }
-
 }
-
 
 .top-menu-button_active {
     cursor: pointer;
@@ -67,5 +63,4 @@
     &:hover {
         @extend .top-menu-button_active;
     }
-
 }

@@ -5,7 +5,7 @@ import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
 import Button from '@/shared/ui/button/Button';
 import {memo, useContext, useRef, useState} from 'react';
-import ReactPhoneInput from "react-phone-input-2";
+import ReactPhoneInput, {} from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
@@ -25,11 +25,13 @@ import { useTranslation } from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
 import FormCode from '../form-code';
 
+import { PhoneInput, FlagImage, DialCodePreview } from 'react-international-phone';
+import 'react-international-phone/style.css';
+
 // import {uncoverResponse} from "@/shared/lib/helpers";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
-const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
 
 const FormLoginAccount = memo(() => {
     const {t} = useTranslation(); 
@@ -144,6 +146,8 @@ const FormLoginAccount = memo(() => {
             });
         }
     }
+    const [iso2, setIso2] = useState('');
+    const [dialCode, setDialCode] = useState('');
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
@@ -165,21 +169,71 @@ const FormLoginAccount = memo(() => {
         <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
             <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
                     rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-                <PhoneInput
-                    disableDropdown
-                    inputProps={{
-                        'data-testid': 'PhoneInput',
-                        name: 'phone',
-                        ref: inputRef,
-                        type: "tel",
-                    }}
-                    disabled={loading}
-                    label="phone"
-                    placeholder={t("auth.enter_phone_number")}
-                    value={state.phone}
-                    onEnterKeyPress={(v: unknown) => onSingIn()}
-                    onChange={(value: string) => setState(prevState =>
-                        ({...prevState, phone: value}))}/>
+                        {/* <div style={{
+                            display: 'flex',
+                            gap: '26px',
+                            color: 'var(--new-dark-blue'
+                        }}>
+
+                            
+                            <label className='typography-b3'>
+                                Phone number
+                            </label>
+                        </div> */}
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderBottom: '1px solid var(--new-dark-grey)',
+                    gap: '36px',
+                    
+                    
+                }}>
+                    <div style={{flex: '0 0 auto'}}>
+                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                            Сountry code
+                        </div>
+                        <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                padding: '3px 12px 3px 12px',
+                                borderRadius: '10px',
+                                background: 'var(--new-light-blue)',
+                                color: 'var(--new-pale-blue)',
+
+                            }}>
+                                {iso2 ?<FlagImage iso2={iso2} size="14px" />: null }
+                                {dialCode ?<DialCodePreview className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
+                            </div>
+                   
+                        </div>
+                    </div>
+                    <div style={{flex: '0 0 auto'}}>
+                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                            Phone number
+                        </div>
+
+                        <PhoneInput
+
+                            data-testid='PhoneInput'
+                            name='phone'
+                            ref={inputRef}
+                            disabled={loading}
+                            placeholder={t("auth.enter_phone_number")}
+                            onChange={
+                                (value: string, meta) => setState(prevState => {
+                                    setIso2(meta.country.iso2);
+                                    setDialCode(meta.country.dialCode);
+                                    return {...prevState, phone: value.slice(1)};
+                                })}
+                        />
+                    </div>
+                        
+                
+                </div>
+                        
             </FormItem>
             <span className="text-fs12 text-red-800">{localErrorSpan}</span>
 

@@ -21,12 +21,8 @@ const HeaderDesktop = ({items, actions}) => {
                     <img src="/img/logo.svg" width={165} height={55} alt="logo"/>
                 </a>
             </div>
-
-
             
             <div className="flex ml-auto items-center gap-10">
-                <Link to="/new">go to new layout</Link>
-
                 <LocalizationMenu/>
             </div>
             

@@ -1,0 +1,25 @@
+.react-international-phone-input-container.react-international-phone-input-container {
+width: 100%;
+    .react-international-phone-country-selector {
+        display: none;
+    }
+
+    .react-international-phone-input {
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+
+        @extend .typography-b3;
+        color: var(--new-dark-grey);
+    }
+}
+
+
+.cs-react-international-phone-dial-code-preview.cs-react-international-phone-dial-code-preview {
+    background: transparent;
+    border: 0;
+    padding: 0;
+
+    @extend .typography-b1;
+    color: var(--new-pale-blue);
+}

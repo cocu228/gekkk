@@ -44,12 +44,15 @@ const AuthPage = memo(() => {
         <div style={{
             background: 'var(--new-brand-white)',
             position: 'relative',
+            height: '100vh',
+            width: '100vw',
+            overflow: 'hidden',
         }}>
             <NewHeader />
             <div style={{
                 background: 'var(--new-brand-white)',
-                height: '100vh',
-                width: '100vw',
+                height: '100%',
+                width: '100%',
                 display: 'flex',
             }}>
                 <div style={{
@@ -131,17 +134,27 @@ const AuthPage = memo(() => {
                     </p>
                 </div>
                 <div style={{
+                    position: 'relative',
                     flex: '0 1 auto',
-                    width:"100%",
                     overflow: "hidden",
                     display: 'flex',
                     alignItems: 'top',
                     height: '100%',
+                    width:"100%",
+                    maxWidth: "100%",
+                    marginLeft: "50px",
+                    marginRight: "50px"
                 }}>
                     <div style={{
-                        transform: 'translate(0, -10%)'
+                        position: 'absolute',
+                        top: '80px',
+                        right: 0,
+                        width: '100%',
+
+                        maxWidth: "783px",
                     }}>
-                        <LoginBackground height="130%" width="100%" />
+
+                    <LoginBackground height="100%" width="100%" />
                     </div>
                 </div>
         </div>

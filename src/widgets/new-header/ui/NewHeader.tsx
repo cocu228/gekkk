@@ -4,20 +4,18 @@ import SupportIcon from '@/assets/support-icon.svg?react';
 import SettingsIcon from '@/assets/settings-icon.svg?react';
 import LogOutIcon from '@/assets/log-out-icon.svg?react';
 import { useAuth } from '@/app/providers/AuthRouter';
-import { Link, useLocation } from 'react-router-dom';
+import useModal from "@/shared/model/hooks/useModal";
+import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
+import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
 
 export type NewHeaderProps = {};
 
 export function NewHeader ({}: NewHeaderProps) {
     const {token, logout} = useAuth();
-    const location = useLocation();
-    const getActiveOrDefaultClass = (route: string) => {
-        if (location.pathname.includes(route)) {
-            return 'top-menu-button_active';
-        }
-
-        return 'top-menu-button';
-    }
+    const {isModalOpen, showModal, handleCancel} = useModal();
+   
+    <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
+    {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
 
     return <header style={{
         position: 'sticky',
@@ -32,16 +30,14 @@ export function NewHeader ({}: NewHeaderProps) {
 
         <Logo />
 
-        {token ? 
+
             <div style={{
                 display: 'flex',
                 gap: '24px',
             }}>
-                <Link className={getActiveOrDefaultClass('money')} to='money'>Money</Link>
-                <Link className={getActiveOrDefaultClass('crypto')} to="crypto">Crypto</Link>
-                <Link className={getActiveOrDefaultClass('pro')} to="pro">PRO</Link>
-            </div> : null
-        }
+                {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
+            </div>
+
 
         <div style={{
             display: 'flex',
@@ -56,7 +52,7 @@ export function NewHeader ({}: NewHeaderProps) {
                     <FaqIcon />
                 </button>
 
-                <button type='button'>
+                <button type='button' onClick={isModalOpen ? handleCancel : showModal}>
                     <SupportIcon />
                 </button>
             </div>

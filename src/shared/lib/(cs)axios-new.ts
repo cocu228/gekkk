@@ -1,5 +1,5 @@
+import {$ENV_MODE, getCookieData} from "@/shared/lib/helpers";
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {getCookieData} from "@/shared/lib/helpers";
 
 export type $AxiosError = {
     code: number;
@@ -12,24 +12,27 @@ export type $AxiosResponse<T> = {
     result: T;
 }
 
-const {MODE} = import.meta.env
-const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
+const API_URL = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
 
 const sessionHeader = () => {
-
-
-    const {phone, token, tokenHeaderName} = getCookieData<{ phone: string, token: string, tokenHeaderName: string }>()
-
-    const keys = token ? {
-        'Authorization': phone,
-        [tokenHeaderName]: token,
-    } : {}
-
+    const {
+        phone,
+        token,
+        tokenHeaderName
+    } = getCookieData<{
+        phone: string,
+        token: string,
+        tokenHeaderName: string
+    }>();
+    
     return {
-        'Content-Type': 'application/json;charset=UTF-8',
-        'applicationId': 'GEKKARD',
         'productId': "GEKKARD",
-        ...keys
+        'applicationId': 'GEKKARD',
+        'Content-Type': 'application/json;charset=UTF-8',
+        ...(token ? {
+            'Authorization': phone,
+            [tokenHeaderName]: token,
+        } : {})
     }
 }
 
@@ -40,7 +43,7 @@ export const AXIOS_INSTANCE = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
-    baseURL: !!API_URL_MODE ? API_URL_MODE : window.location.origin
+    baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
 export const $axios = <T>(

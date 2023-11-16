@@ -2,7 +2,7 @@ import $axios from "@/shared/lib/(cs)axios";
 import {IResCard, IResErrors} from "@/shared/api";
 
 export interface IParams {
-    status: "LOCKED" | "ACTIVE";
+    status: "BLOCKED_BY_CUSTOMER" | "ACTIVE";
     limits: [
         {
             type: "DAY" | "MONTH";

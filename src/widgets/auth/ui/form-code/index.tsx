@@ -19,6 +19,7 @@ import {apiPasswordVerify, apiSignIn} from "@/widgets/auth/api";
 import {helperApiSignIn, helperApiVerifyPassword} from "@/widgets/auth/model/helpers";
 import {useForm} from "antd/es/form/Form";
 import {useTranslation} from 'react-i18next';
+import styles from './form-code.module.scss';
 
 declare module 'firebase/auth' {
     interface User {
@@ -134,13 +135,19 @@ const FormCode = memo(() => {
     
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
         <FormItem name="code" label="Code" preserve >
-            <Input type="text"
-                   ref={inputRef}
-                   data-testid="PhoneCode"
-                   placeholder={t("phone_code")}
-                   onInput={onInput}
-                   onChange={({target}) => onChange(target.value)}
-            />
+            <div>
+                <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                SMS verification code
+                </div>
+                <Input type="text"
+                    className={styles.input}    
+                    ref={inputRef}
+                    data-testid="PhoneCode"
+                    placeholder="Enter code that we sent to your phone"
+                    onInput={onInput}
+                    onChange={({target}) => onChange(target.value)}
+                />
+            </div>
         </FormItem>
 
         <div>

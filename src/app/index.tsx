@@ -6,8 +6,7 @@ import {ConfigProvider} from 'antd'
 import "./index"
 import "../processes/i18n.config";
 
-import '@fontsource/archivo';
-import '@fontsource/inter';
+
 
 declare global {
     interface String {

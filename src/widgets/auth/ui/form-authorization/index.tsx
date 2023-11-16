@@ -24,6 +24,7 @@ import {useSearchParams} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
 import FormCode from '../form-code';
+import styles from './form-authorization.module.scss';
 
 import { PhoneInput, FlagImage, DialCodePreview } from 'react-international-phone';
 import 'react-international-phone/style.css';
@@ -186,12 +187,11 @@ const FormLoginAccount = memo(() => {
                     alignItems: 'center',
                     borderBottom: '1px solid var(--new-dark-grey)',
                     gap: '36px',
-                    
-                    
+                    paddingBottom: '10px' 
                 }}>
                     <div style={{flex: '0 0 auto'}}>
                         <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
-                            Сountry code
+                            Country code
                         </div>
                         <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
                             <div style={{
@@ -216,10 +216,15 @@ const FormLoginAccount = memo(() => {
                         </div>
 
                         <PhoneInput
+                            ref={(e) => {
+                                if (!e) {
+                                    return;
+                                }
 
-                            data-testid='PhoneInput'
+                                e.setAttribute('data-testid', 'PhoneInput');
+                                inputRef.current = e;
+                            }}
                             name='phone'
-                            ref={inputRef}
                             disabled={loading}
                             placeholder={t("auth.enter_phone_number")}
                             onChange={
@@ -239,14 +244,20 @@ const FormLoginAccount = memo(() => {
 
             <FormItem name="password" label="Password"
                     rules={[{required: true, ...passwordMessage}, passwordValidator]}>
-                <Input.Password style={{borderColor: 'var(--new-color-gray-400)'}}
-                                disabled={loading}
-                                onChange={({target}) => setState(prev => ({
-                                    ...prev,
-                                    password: target.value
-                                }))}
-                                data-testid="PIN"
-                                placeholder="Password"/>
+                <div>
+                    <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                        Password
+                    </div>
+                    <Input.Password className={styles.input}
+                        disabled={loading}
+                        onChange={({target}) => setState(prev => ({
+                            ...prev,
+                            password: target.value
+                        }))}
+                        data-testid="PIN"
+                        placeholder="Password"
+                        />
+                </div>
             </FormItem>
 
             <div className="row text-right mb-4">

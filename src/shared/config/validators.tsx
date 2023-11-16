@@ -3,6 +3,7 @@ import {ICtxCurrency} from "@/processes/CurrenciesContext";
 import Decimal from "decimal.js";
 import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
 import { useTranslation } from 'react-i18next';
+import {TFunction} from "i18next";
 
 export type IValidatorCreator = (value: number) => IValidationResult;
 
@@ -11,10 +12,8 @@ interface IValidationResult {
     errorMessage: string | JSX.Element;
 }
 
-export function validateBalance(currency: ICtxCurrency, navigate: NavigateFunction): IValidatorCreator {
-    const {t} = useTranslation();
+export function validateBalance(currency: ICtxCurrency, navigate: NavigateFunction, t: TFunction): IValidatorCreator {
     const balance = currency.availableBalance === null ? 0 : currency.availableBalance
-
 
     return (value) => ({
         validated: new Decimal(value).lte(balance),

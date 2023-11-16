@@ -26,9 +26,9 @@ const Validator: FC<IParams> = (({
     onError = (value: boolean) => {}
 }: IParams) => {
 
+    const {t} = useTranslation();
     const [error, setError] = useState<null | string | JSX.Element>(null)
     const firstEffect = useRef(true)
-    const {t} = useTranslation();
 
 
 

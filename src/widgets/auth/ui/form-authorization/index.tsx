@@ -3,9 +3,7 @@ import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
 import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
-import Button from '@/shared/ui/button/Button';
 import {memo, useContext, useRef, useState} from 'react';
-import ReactPhoneInput, {} from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
@@ -15,7 +13,6 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
-// import {apiCheckPassword} from "@/widgets/auth/api";
 import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model/helpers";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
@@ -25,13 +22,15 @@ import { useTranslation } from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
 import FormCode from '../form-code';
 import styles from './form-authorization.module.scss';
+import CloseWindow from '@/assets/close-window.svg?react';
+import SearchInInput from '@/assets/search-in-input.svg?react';
 
-import { PhoneInput, FlagImage, DialCodePreview } from 'react-international-phone';
+import { PhoneInput, FlagImage, DialCodePreview, CountrySelectorDropdown, defaultCountries } from 'react-international-phone';
 import 'react-international-phone/style.css';
+import './form-authorization.scss';
 
-// import {uncoverResponse} from "@/shared/lib/helpers";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+import Modal from '@/shared/ui/modal/Modal';
+import useModal from '@/shared/model/hooks/useModal';
 
 
 const FormLoginAccount = memo(() => {
@@ -149,10 +148,86 @@ const FormLoginAccount = memo(() => {
     }
     const [iso2, setIso2] = useState('');
     const [dialCode, setDialCode] = useState('');
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const tooltipModal = useModal(); 
+    const [currentCountriesData, setCountriesData] = useState(defaultCountries);
+    const [currentCountry, seCurrentCountry] = useState(defaultCountries[0]);
+
+    const [phoneInputValue, setPhoneInputValue] = useState('');
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
     return <div>
+            <Modal className='login-modal'
+                open={tooltipModal.isModalOpen}
+                onCancel={tooltipModal.handleCancel}
+                >
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '30px',
+                    }}>
+                        <div className='typography-h3' style={{ color: 'var(--new-pale-blue)'}}>
+                            Country code
+                        </div>
+
+                        <button type='button' onClick={tooltipModal.handleCancel}>
+                            <CloseWindow />
+                        </button>
+
+                    </div>
+
+                    <div>
+                        <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '10px',
+                            background: 'var(--new-pale-grey)',
+                            padding: '3px 12px',
+                            marginBottom: '30px',
+                        }}>
+
+                            <input 
+                                className={`${styles.searchInput} typography-b2-bold`}
+                                placeholder="Search"
+                                type='text'
+                                value={searchInputValue}
+                                onChange={(e) => {
+                                    const t = defaultCountries.filter(item => {
+                                        return item[0].startsWith(e.target.value);
+                                    });
+
+                                    setCountriesData(
+                                        t
+                                    );
+                                    seCurrentCountry(t[0]);
+                                    setSearchInputValue(e.target.value);
+                           
+                                }}
+                            />
+
+                            <SearchInInput style={{ flex: '0 0 auto'}} />
+                        </div>
+
+                        {currentCountriesData.length ? <CountrySelectorDropdown
+                        countries={currentCountriesData}
+                        className={styles.countrySelectorDropdown}
+                        show
+                        onSelect={(parsedCountry) => {
+
+                            const nextCountry = currentCountriesData.find(item => {
+                                return item[1] === parsedCountry.iso2;
+                            }) || currentCountriesData[0];
+
+                            seCurrentCountry(nextCountry);
+                            setPhoneInputValue(nextCountry[2]);
+                            tooltipModal.handleCancel();
+
+                        }}
+                        selectedCountry={currentCountry[1]} /> : null}
+                    </div>
+                </Modal>
         <p className="typography-b2" style={{
             color: 'var(--new-pale-blue)',
             marginBottom: '36px',
@@ -202,10 +277,18 @@ const FormLoginAccount = memo(() => {
                                 borderRadius: '10px',
                                 background: 'var(--new-light-blue)',
                                 color: 'var(--new-pale-blue)',
+                                cursor: 'pointer',
 
+                            }}
+                            onClick={() => {
+                                if (tooltipModal.isModalOpen) {
+                                    return;
+                                }
+
+                                tooltipModal.showModal();
                             }}>
-                                {iso2 ?<FlagImage iso2={iso2} size="14px" />: null }
-                                {dialCode ?<DialCodePreview className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
+                                {iso2 ?<FlagImage iso2={iso2 === 'kz' ? 'ru': iso2} size="14px" />: null }
+                                {dialCode ?<DialCodePreview  className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
                             </div>
                    
                         </div>
@@ -225,14 +308,17 @@ const FormLoginAccount = memo(() => {
                                 inputRef.current = e;
                             }}
                             name='phone'
+                            value={phoneInputValue}
                             disabled={loading}
                             placeholder={t("auth.enter_phone_number")}
-                            onChange={
-                                (value: string, meta) => setState(prevState => {
-                                    setIso2(meta.country.iso2);
-                                    setDialCode(meta.country.dialCode);
+                            onChange={(value: string, meta) => {
+                                setPhoneInputValue(value);
+                                setIso2(meta.country.iso2);
+                                setDialCode(meta.country.dialCode);
+                                setState(prevState => {
                                     return {...prevState, phone: value.slice(1)};
-                                })}
+                                });
+                            }}
                         />
                     </div>
                         

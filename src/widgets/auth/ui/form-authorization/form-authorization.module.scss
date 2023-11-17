@@ -14,3 +14,19 @@
         }
     }
 }
+
+.modal {
+    background: red;
+    .ant-modal-close {
+        display: none;
+    }
+}
+
+.searchInput {
+    width: 100%;
+    background: transparent;
+    color: var(--new-dark-grey);
+    &:focus {
+        outline: none;
+    }
+}

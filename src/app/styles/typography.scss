@@ -12,12 +12,27 @@
   line-height: 36px;
 }
 
+.typography-h3 {
+  font-family: Archivo;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
 .typography-b1 {
   font-family: Inter;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
 }
+
+.typography-b1-bold {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
 
 .typography-b2 {
   font-family: Inter;
@@ -27,6 +42,14 @@
   letter-spacing: 0em;
   text-align: left;
 }
+
+.typography-b2-bold {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
 
 .typography-b3 {
   font-family: Inter;

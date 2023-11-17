@@ -71,7 +71,7 @@ const Chat = ({chatConfig}: IParams) => {
 					setIsWebSocketReady={setIsWebSocketReady}
 				/>
 				
-				<Header />
+				{/* <Header /> */}
 				
 				<div className={styles.ChatBody}>
 					{!isWebSocketReady ? <Loader /> : (

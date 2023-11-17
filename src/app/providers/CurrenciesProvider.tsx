@@ -99,7 +99,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR)) // TODO 
+            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR))
             const valueBTC: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesBTC))
 
             setState(prev => ({

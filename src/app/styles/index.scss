@@ -3,8 +3,7 @@
 @import "global";
 @import "variables";
 @import "mixins";
-@import "typography";
-@import "button";
+
 @import "(cs)react-international-phone.scss";
 
 :root {
@@ -72,3 +71,5 @@ body {
 @tailwind utilities;
 
 //@import "gekkard-chat/dist/style.css";
+@import "typography";
+@import "button";

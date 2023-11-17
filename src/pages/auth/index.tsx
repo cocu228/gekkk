@@ -12,8 +12,12 @@ import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import LoginBackground from '@/assets/login-background.svg?react';
+
 import { NewHeader } from "@/widgets/new-header/ui/NewHeader";
 import {$ENV_DEV} from "@/shared/lib/helpers";
+import ForgotPassword from "@/widgets/auth/ui/forgot-password";
+import AuthFooter from "@/widgets/auth/ui/auth-footer";
+import CookiePolicyApplies from "@/widgets/auth/ui/cookie-policy-applies";
 
 const AuthPage = memo(() => {
     const {login} = useAuth();
@@ -51,18 +55,26 @@ const AuthPage = memo(() => {
             <NewHeader />
             <div style={{
                 background: 'var(--new-brand-white)',
-                height: '100%',
+                height: 'calc(100% - 70px)',
                 width: '100%',
                 display: 'flex',
+                overflow: 'auto',
             }}>
                 <div style={{
-                    width: '270px',
+                    width: md ? 0 : '270px',
                     flex: '0 1 auto',
                 }} id={"recaptcha-container"}></div>
 
                 <div style={{
+                    width: md ? '100%' : '',
                     margin: '20px',
-                    width: '466px',
+                    display: "flex",
+                    flexDirection: 'column',
+
+                }}>
+
+                <div style={{
+                    width: md ? '100%' : '499px',
                     flex: '0 0 auto'
                 }}>
 
@@ -72,9 +84,13 @@ const AuthPage = memo(() => {
                     }}>
                         Welcome to Gekkard online bank
                     </h1>
-                    <FormLoginAccount/>
+                    {stage === 'forgot-password' ?
+                        <ForgotPassword /> : 
+                        
+                        <FormLoginAccount/>
+                    }
                     
-                    <div style={{
+                    {stage !== 'forgot-password' ?<div style={{
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -91,48 +107,23 @@ const AuthPage = memo(() => {
                         <button className='account-button'>
                             Sign up
                         </button>
+                    </div> : null}
+                    
+
                     </div>
-
-                    {md ?
-                        <ul className='flex justify-center gap-4 mt-10'>
-                            <li>
-                                <div className='grid gap-y-2'>
-                                    <a href={import.meta.env.VITE_GOOGLE_PLAY_GEKKARD} target={"_blank"}>
-                                        <img
-                                            src='/img/google-play.svg'
-                                            height="40px"
-                                            alt="Google play"
-                                        />
-                                    </a>
-                                    
-                                    {!$ENV_DEV ? null : (
-                                        <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                                        className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
-                                            {t("auth.download")}
-                                        </a>
-                                    )}
-                                </div>
-                            </li>
-            
-                            <li>
-                                <a href={import.meta.env.VITE_APP_STORE_GEKKARD} target={"_blank"}>
-                                    <img
-                                        src='/img/app-store.svg'
-                                        height="40px"
-                                        alt="App store"
-                                    />
-                                </a>
-                            </li>
-                        </ul> : null
-                    }
-
-                    <p className="typography-b4" style={{
+                    <CookiePolicyApplies />
+                   
+                    <div style={{ height: "100%"}}></div>
+                    
+                    {/* <p className="typography-b4" style={{
                         color: 'var(--new-light-grey)',
                         paddingTop: '60px',
                     }}>
                         Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.
-                    </p>
+                    </p> */}
+                    <AuthFooter />
                 </div>
+                { !md ?
                 <div style={{
                     position: 'relative',
                     flex: '0 1 auto',
@@ -153,10 +144,9 @@ const AuthPage = memo(() => {
 
                         maxWidth: "783px",
                     }}>
-
-                    <LoginBackground height="100%" width="100%" />
+                        <LoginBackground height="100%" width="100%" />
                     </div>
-                </div>
+                </div> : null}
         </div>
         </div>
     )

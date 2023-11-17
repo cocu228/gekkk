@@ -365,7 +365,9 @@ const FormLoginAccount = memo(() => {
                                 data-testid="Login">{t("login")}
                         </button>
 
-                        <button type='button' className='text-button'>
+                        <button type='button' className='text-button' onClick={() => {
+                            toggleStage('forgot-password');
+                        }}>
                             Forgot password
                         </button>
                     </div> : null 

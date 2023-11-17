@@ -19,9 +19,11 @@ import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
 import {validateBalance} from "@/shared/config/validators";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const QuickExchange = () => {
     const {ratesEUR, currencies} = useContext(CtxCurrencies)
+    const {t} = useTranslation();
 
     if (isNull(ratesEUR) || currencies.get("EUR").availableBalance === null) return <Loader/>
 
@@ -151,7 +153,7 @@ export const QuickExchange = () => {
                         validators={[
                             validateBalance(state.typeOperation === "EURToCrypto" ?
                                     state.currency.EUR : state.currency.Crypto,
-                                navigate)
+                                navigate, t)
                         ]}>
                         {state.typeOperation === "EURToCrypto" ? InputEUR : InputCrypto}
                     </InputCurrency.Validator>

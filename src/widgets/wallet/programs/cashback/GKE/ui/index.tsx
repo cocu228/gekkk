@@ -14,6 +14,7 @@ import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useTranslation} from "react-i18next";
 
 const GkeCashbackProgram = () => {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ const GkeCashbackProgram = () => {
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const investment = storeInvestments(state => state.cashbackInvestment);
     const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
+    const {t} = useTranslation();
 
     return (
         <>
@@ -103,8 +105,8 @@ const GkeCashbackProgram = () => {
                         onError={setInputCurrValid}
                         description={`Minimum order amount is 100 ${currency.$const}`}
                         validators={[
-                            validateBalance(currencies.get(currency.$const), navigate),
-                            validateMinimumAmount(100, inputCurr.value.number, currency.$const)
+                            validateBalance(currencies.get(currency.$const), navigate, t),
+                            validateMinimumAmount(100, inputCurr.value.number, currency.$const, t)
                         ]}
                     >
                         <InputCurrency.PercentSelector

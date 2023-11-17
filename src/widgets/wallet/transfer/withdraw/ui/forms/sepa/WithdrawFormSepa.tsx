@@ -15,8 +15,10 @@ import {validateBalance, validateMinimumAmount} from "@/shared/config/validators
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
+import {useTranslation} from "react-i18next";
 
 const WithdrawFormSepa = () => {
+    const {t} = useTranslation();
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const navigate = useNavigate();
@@ -120,8 +122,8 @@ const WithdrawFormSepa = () => {
                         <InputCurrency.Validator value={inputCurr.value.number}
                                                  description={getWithdrawDesc(min_withdraw, currency.$const)}
                                                  onError={setInputCurrValid}
-                                                 validators={[validateBalance(currency, navigate),
-                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const)]}>
+                                                 validators={[validateBalance(currency, navigate, t),
+                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
                                 header={<span className='text-gray-600 font-medium'>Amount</span>}

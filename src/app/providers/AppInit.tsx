@@ -14,8 +14,8 @@ const AppInit = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
 
     return <ErrorsProvider>
-        {token ? <ChatButton onClick={isModalOpen ? handleCancel : showModal} /> : null}
-        {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />} 
+        {/* {token ? <ChatButton onClick={isModalOpen ? handleCancel : showModal} /> : null}
+        {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}  */}
         {content}
     </ErrorsProvider>;
 

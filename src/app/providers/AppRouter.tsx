@@ -11,9 +11,9 @@ import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support/";
 import CryptoDeposits from "@/pages/crypto-deposits";
 import PartnershipProgram from "@/pages/partnership-program";
-import { NewLayout } from '../layouts/new-layout/NewLayout';
-import { NewAccounts } from '@/pages/new-accounts';
-import { NewMoneyLayout } from '../layouts/new-money-layout/NewMoneyLayout';
+// import { NewLayout } from '../layouts/new-layout/NewLayout';
+// import { NewAccounts } from '@/pages/new-accounts';
+// import { NewMoneyLayout } from '../layouts/new-money-layout/NewMoneyLayout';
 import SupportChat from "@/pages/support/chat";
 // import Chat from "@/features/chat/ui/chat/Chat";
 // import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
@@ -23,48 +23,48 @@ const router = createBrowserRouter([
         path: "/",
         element: <AppInit/>,
         children: [
-            {
-                path: '/new',
-                element: <NewLayout/>,
-                children: [
-                    {
-                        path: 'money',
-                        element: <NewMoneyLayout />,
-                        children: [
-                            {
-                                path: 'accounts',
-                                element: <NewAccounts/>
-                            },
+            // {
+            //     path: '/new',
+            //     element: <NewLayout/>,
+            //     children: [
+            //         {
+            //             path: 'money',
+            //             element: <NewMoneyLayout />,
+            //             children: [
+            //                 {
+            //                     path: 'accounts',
+            //                     element: <NewAccounts/>
+            //                 },
 
-                            {
-                                path: 'cards',
-                                element: <div>this is cards page</div>
-                            },
-                            {
-                                path: '',
-                                element: <Navigate to="/new/money/accounts" replace />
-                            }
-                        ]
-                    },
-                    {
-                        path: 'crypto',
-                        element: <div>Crypto page</div>
-                    },
-                    {
-                        path: 'pro',
-                        element: <div>PRO page</div>
-                    },
+            //                 {
+            //                     path: 'cards',
+            //                     element: <div>this is cards page</div>
+            //                 },
+            //                 {
+            //                     path: '',
+            //                     element: <Navigate to="/new/money/accounts" replace />
+            //                 }
+            //             ]
+            //         },
+            //         {
+            //             path: 'crypto',
+            //             element: <div>Crypto page</div>
+            //         },
+            //         {
+            //             path: 'pro',
+            //             element: <div>PRO page</div>
+            //         },
 
-                    {
-                        path: '',
-                        element: <Navigate to="/new/money/accounts" replace />
-                    },
-                    {
-                        path: 'pro',
-                        element: <div>PRO page</div>
-                    },
-                ]
-            },
+            //         {
+            //             path: '',
+            //             element: <Navigate to="/new/money/accounts" replace />
+            //         },
+            //         {
+            //             path: 'pro',
+            //             element: <div>PRO page</div>
+            //         },
+            //     ]
+            // },
 
             {
                 path: '',

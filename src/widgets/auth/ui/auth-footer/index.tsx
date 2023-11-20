@@ -23,11 +23,26 @@ const AuthFooter = memo(() => {
                 color: 'var(--new-pale-blue)',
                 display: 'flex',
                 justifyContent: 'space-between',
-                
             }}>
-                <a>General terms and conditions</a>
-                <a>Data protection policy</a>
-                <a>Legal agreements</a>
+                <a
+                    href="https://gekkard.com/terms-and-conditions.html"
+                    target="_blank"
+                    rel="noreferrer noopener">
+                    General terms and conditions
+                </a>
+                <a 
+                    href="https://gekkard.com/data-protection-policy.html"
+                    target="_blank"
+                    rel="noreferrer noopener">
+                    Data protection policy
+                </a>
+                <a 
+                    href="https://gekkard.com/legal-agreements.html"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                >
+                    Legal agreements
+                </a>
         </div>
         <div className='typography-b4'
             style={{
@@ -39,7 +54,7 @@ const AuthFooter = memo(() => {
         <div className='typography-b4-bold' style={{
             color: 'var(--new-light-grey)',
         }}>
-        © Gekkard. v."{import.meta.env.VITE_APP_VERSION}"
+        © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
         </div>
 
     </div>

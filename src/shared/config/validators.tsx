@@ -25,8 +25,7 @@ export function validateBalance(currency: ICtxCurrency, navigate: NavigateFuncti
     })
 }
 
-export function validateMaximumAmount(max: number, value: number, $const: string): IValidatorCreator {
-    const {t} = useTranslation();
+export function validateMaximumAmount(max: number, value: number, $const: string, t: TFunction): IValidatorCreator {
     const maxDecimal = new Decimal(max)
 
     return () => ({
@@ -35,8 +34,7 @@ export function validateMaximumAmount(max: number, value: number, $const: string
     })
 }
 
-export function validateMinimumAmount(min: number, value: number, $const: string): IValidatorCreator {
-    const {t} = useTranslation();
+export function validateMinimumAmount(min: number, value: number, $const: string, t: TFunction): IValidatorCreator {
     const minDecimal = new Decimal(min)
 
     return () => {

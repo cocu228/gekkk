@@ -124,8 +124,8 @@ const NoFeeProgram = () => {
                         onError={setInputCurrValid}
                         description={`${t("minimum_lock_amount")} 100 ${currency.$const}`}
                         validators={[
-                            validateBalance(currency, navigate),
-                            validateMinimumAmount(100, inputCurr.value.number, currency.$const)
+                            validateBalance(currency, navigate, t),
+                            validateMinimumAmount(100, inputCurr.value.number, currency.$const, t)
                         ]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}

@@ -1,8 +1,8 @@
 ﻿import React, {useEffect, useState} from 'react';
-import {MessageFile} from '@/features/chat/model/types';
-import Loader from '@/features/chat/ui/chat/loader/Loader';
-import useFileThumbnail from '@/features/chat/model/hooks/useFileThumbnail';
-import useFileDownloader from '@/features/chat/model/hooks/useFileDownloader';
+import {MessageFile} from './../../../model/types';
+import Loader from './../../loader/Loader';
+import useFileThumbnail from './../../../model/hooks/useFileThumbnail';
+import useFileDownloader from './../../../model/hooks/useFileDownloader';
 
 interface IParams {
   file: MessageFile;

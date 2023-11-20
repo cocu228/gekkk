@@ -22,6 +22,7 @@ import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useTranslation} from "react-i18next";
 
 const {Option} = Select;
 
@@ -31,6 +32,7 @@ const WithdrawFormCardToCard = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     const navigate = useNavigate();
+    const {t} = useTranslation();
 
     const [inputs, setInputs] = useState<{
         comment: string;
@@ -187,7 +189,8 @@ const WithdrawFormCardToCard = () => {
                     <InputCurrency.Validator value={inputCurr.value.number}
                                              description={getWithdrawDesc(min_withdraw, currency.$const)}
                                              onError={setInputCurrValid}
-                                             validators={[validateBalance(currency, navigate), validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),]}>
+                                             validators={[validateBalance(currency, navigate, t),
+                                                 validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     header={<span className='text-gray-600 font-medium'>Amount</span>}

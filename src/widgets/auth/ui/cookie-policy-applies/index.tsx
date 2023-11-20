@@ -1,9 +1,15 @@
-import {memo} from 'react';
+import {memo, useState} from 'react';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import Cookie from '@/assets/cookie.svg?react';
 
 const CookiePolicyApplies = memo(() => {
     const {md} = useBreakpoints();
+    const [isShown, setIsShown] = useState(true);
+
+    if (!isShown) {
+        return null;
+    }
+
     return <div style={{
         flex: '0 0 auto',
         width: md ?'100%' : '480px',
@@ -42,8 +48,8 @@ const CookiePolicyApplies = memo(() => {
             display: 'flex',
             gap: '24px',
         }}>
-            <button type="button" className='account-button'>Accept</button>
-            <button type="button" className='second_value-button'>Cancel</button>
+            <button type="button" className='account-button' onClick={() => setIsShown(false)}>Accept</button>
+            <button type="button" className='second_value-button' onClick={() => setIsShown(false)}>Cancel</button>
 
         </div>
 

@@ -1,6 +1,4 @@
-﻿@import 'src/app/styles/typography';
-
-.MessageTimestamp {
+﻿.MessageTimestamp {
   display: flex;
   align-items: center;
   font-size: 0.875rem;
@@ -81,7 +79,7 @@
 
   .MessageText {
     color: var(--color-gray-600);
-    word-wrap: break-word;
+    word-break: break-all;
   }
 }
 

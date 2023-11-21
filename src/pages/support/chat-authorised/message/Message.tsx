@@ -12,7 +12,7 @@ export const Message = ({ message }: IParams) => {
   const isOutgoingMessage = role === 'client';
 
   return (
-    <div className={`${styles.ChatWrapper} ${isOutgoingMessage ? styles.Outgoing : ''}`}>
+    <div className={`${styles.ChatWindow} ${isOutgoingMessage ? styles.Outgoing : ''}`}>
       <div className={`${styles.Container} ${isOutgoingMessage ? styles.Outgoing : ''}`}>
         <div className={`${styles.Window} ${isOutgoingMessage ? styles.Outgoing : ''}`}>
           <div className={styles.Content}>

@@ -11,10 +11,11 @@ import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support/";
 import CryptoDeposits from "@/pages/crypto-deposits";
 import PartnershipProgram from "@/pages/partnership-program";
+import SupportChatAuthorised from '@/pages/support/chat-authorised';
+import SupportChatUnauthorised from '@/pages/support/chat-unauthorised';
 // import { NewLayout } from '../layouts/new-layout/NewLayout';
 // import { NewAccounts } from '@/pages/new-accounts';
 // import { NewMoneyLayout } from '../layouts/new-money-layout/NewMoneyLayout';
-import SupportChat from "@/pages/support/chat";
 // import Chat from "@/features/chat/ui/chat/Chat";
 // import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
 
@@ -104,7 +105,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'chat',
-                        element: <SupportChat/>
+                        element: <SupportChatAuthorised/>
                     },
                 ]
             },
@@ -124,8 +125,11 @@ const router = createBrowserRouter([
                 path: 'deposit/:id',
                 element: <CurrentDeposit/>
             },
-
         ],
+    },
+    {
+        path: 'chat',
+        element: <SupportChatUnauthorised/>
     },
     {
         path: "*",

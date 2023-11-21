@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -60,7 +60,7 @@ const HeaderDesktop = ({items, actions}) => {
             
             <button onClick={() => navigate('/support/chat')}>
                 <div className="flex items-center justify-end ml-4" data-testid="Logout">
-                    <img width={26} height={26} src={chatIcon} alt="ChatIcon"/>
+                    <img src={chatIcon} alt="ChatIcon"/>
                 </div>
             </button>
             <button onClick={logout}>

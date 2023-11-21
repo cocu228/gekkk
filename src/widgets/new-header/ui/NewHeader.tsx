@@ -4,18 +4,21 @@ import SupportIcon from '@/assets/support-icon.svg?react';
 import SettingsIcon from '@/assets/settings-icon.svg?react';
 import LogOutIcon from '@/assets/log-out-icon.svg?react';
 import { useAuth } from '@/app/providers/AuthRouter';
-import useModal from "@/shared/model/hooks/useModal";
-import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
-import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
+import {useNavigate} from "react-router-dom";
+// import useModal from "@/shared/model/hooks/useModal";
+// import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
+// import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
 
 export type NewHeaderProps = {};
 
 export function NewHeader ({}: NewHeaderProps) {
+
+    const navigate = useNavigate();
     const {token, logout} = useAuth();
-    const {isModalOpen, showModal, handleCancel} = useModal();
+    // const {isModalOpen, showModal, handleCancel} = useModal();
    
-    <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
-    {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
+    // <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
+    // {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
 
     return <header style={{
         position: 'sticky',
@@ -26,17 +29,18 @@ export function NewHeader ({}: NewHeaderProps) {
         height: '70px',
         background: 'var(--new-brand-dark-blue)',
         padding: '0 25px',
+        zIndex: '1'
     }}>
 
         <Logo />
 
 
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 gap: '24px',
             }}>
                 {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
-            </div>
+            </div> */}
 
 
         <div style={{
@@ -52,7 +56,7 @@ export function NewHeader ({}: NewHeaderProps) {
                     <FaqIcon />
                 </button>
 
-                <button type='button' onClick={isModalOpen ? handleCancel : showModal}>
+                <button type='button' onClick={() => navigate('/chat')}>
                     <SupportIcon />
                 </button>
             </div>
@@ -75,3 +79,5 @@ export function NewHeader ({}: NewHeaderProps) {
 
     </header>;
 }
+
+export default NewHeader;

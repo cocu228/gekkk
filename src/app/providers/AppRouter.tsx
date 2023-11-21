@@ -11,8 +11,8 @@ import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support/";
 import CryptoDeposits from "@/pages/crypto-deposits";
 import PartnershipProgram from "@/pages/partnership-program";
-import SupportChatAuthorised from '@/pages/support/chat-authorised';
-import SupportChatUnauthorised from '@/pages/support/chat-unauthorised';
+import SupportChatAuthorized from '@/pages/support/chat-authorized';
+import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
 // import { NewLayout } from '../layouts/new-layout/NewLayout';
 // import { NewAccounts } from '@/pages/new-accounts';
 // import { NewMoneyLayout } from '../layouts/new-money-layout/NewMoneyLayout';
@@ -105,7 +105,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'chat',
-                        element: <SupportChatAuthorised/>
+                        element: <SupportChatAuthorized/>
                     },
                 ]
             },
@@ -129,7 +129,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'chat',
-        element: <SupportChatUnauthorised/>
+        element: <SupportChatUnauthorized/>
     },
     {
         path: "*",

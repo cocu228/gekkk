@@ -1,23 +1,23 @@
 import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
-import Loader from './../chat-authorised/ui/loader/Loader';
+import Loader from '../chat-authorized/ui/loader/Loader';
 import { useState, Fragment, useEffect, useRef } from 'react';
 import { FormInstance, message } from 'antd';
-import StompInit from './../chat-authorised/stomp-init/StompInit';
-import { apiPostFile } from './../chat-authorised/api/post-file';
-import { ApiResponse } from './../chat-authorised/config/(cs)axios';
-import { MessageFormValues } from './../chat-authorised/model/types';
-import MessageForm from './../chat-authorised/message-form/MessageForm';
-import { apiPostMessage } from './../chat-authorised/api/post-message';
-import useSessionId from './../chat-authorised/model/hooks/useSessionId';
-import useDeviceIdHash from './../chat-authorised/model/hooks/useDeviceIdHash';
-import useChatMessages from './../chat-authorised/model/hooks/useChatMessages';
+import StompInit from '../chat-authorized/stomp-init/StompInit';
+import { apiPostFile } from '../chat-authorized/api/post-file';
+import { ApiResponse } from '../chat-authorized/config/(cs)axios';
+import { MessageFormValues } from '../chat-authorized/model/types';
+import MessageForm from '../chat-authorized/message-form/MessageForm';
+import { apiPostMessage } from '../chat-authorized/api/post-message';
+import useSessionId from '../chat-authorized/model/hooks/useSessionId';
+import useDeviceIdHash from '../chat-authorized/model/hooks/useDeviceIdHash';
+import useChatMessages from '../chat-authorized/model/hooks/useChatMessages';
 import { getCookieData } from "@/shared/lib/helpers";
-import AxiosChatInterceptor from "./../chat-authorised/model/AxiosChatInterceptor";
-import Message from './../chat-authorised/message/Message';
+import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
+import Message from '../chat-authorized/message/Message';
 import NewHeader from '@/widgets/new-header/ui/NewHeader';
 
-const SupportChatUnauthorised = () => {
+const SupportChatUnauthorized = () => {
     const { phone, token, tokenHeaderName } = getCookieData<{
         phone: string,
         token: string,
@@ -122,4 +122,4 @@ const SupportChatUnauthorised = () => {
     );
 };
 
-export default SupportChatUnauthorised;
+export default SupportChatUnauthorized;

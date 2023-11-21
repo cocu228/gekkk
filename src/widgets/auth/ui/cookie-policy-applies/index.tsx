@@ -12,13 +12,13 @@ const CookiePolicyApplies = memo(() => {
 
     return <div style={{
         flex: '0 0 auto',
-        width: md ?'100%' : '480px',
+        width: md ? 'calc(100% - 40px)' : '480px',
         background: 'var(--new-FFFFFF)',
-        position: md ? 'static' : 'fixed',
+        position: 'fixed',
         marginTop: md ? '40px' : '',
         marginBottom: md ? '20px' : '',
-        bottom: '29px',
-        right: '126px',
+        bottom: md ? "20px" : '29px',
+        right: md ? "20px" : '126px',
         padding: '24px 27px',
         display: 'flex',
         flexDirection: 'column',

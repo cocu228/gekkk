@@ -32,7 +32,7 @@ export function NewHeader ({}: NewHeaderProps) {
         zIndex: '1'
     }}>
 
-        <Logo />
+        <Logo className='hover:cursor-pointer' onClick={() => navigate('/')}></Logo>
 
 
             {/* <div style={{

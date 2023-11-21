@@ -83,7 +83,9 @@ const SupportChatUnauthorized = () => {
     };
 
     return (
-        <div>
+        <div
+            style={{backgroundColor: "var(--new-brand-white)"}}
+        >
             <NewHeader />
             <div className={`${styles.SupportChatComponent} py-20 px-[16.25rem] pb-6`}>
                 <StompInit
@@ -96,10 +98,10 @@ const SupportChatUnauthorized = () => {
 
                 <AxiosChatInterceptor chatToken={chatConfig.token}>
                     <div>
-                        <span className='top-6 left-2 relative'>
+                        <span className='top-6 left-2 relative typography-h1'>
                             <PageHead title={`Support chat`} />
                         </span>
-                        <div className={`${styles.ChatWrapper} max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between mb-1.5`}>
+                        <div className={`${styles.ChatWrapper} max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
 
                             <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
                                 {!isWebSocketReady ? <Loader /> : (
@@ -117,7 +119,6 @@ const SupportChatUnauthorized = () => {
                     </div>
                 </AxiosChatInterceptor>
             </div>
-
         </div>
     );
 };

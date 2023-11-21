@@ -10,7 +10,7 @@
 .ChatWrapper {
     background-color: var(--color-bgPrimary);
     box-shadow: var(--card-shadow-blured);
-    border-radius: var(--border-radius);
+    border: 2px solid var(--new-F4F4F4);
 }
 
 ::-webkit-scrollbar {

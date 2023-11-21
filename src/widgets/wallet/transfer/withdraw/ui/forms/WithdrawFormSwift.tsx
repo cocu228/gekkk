@@ -274,12 +274,7 @@ const WithdrawFormSwift = () => {
         <Modal width={450} title="Transfer confirmation"
                onCancel={handleCancel}
                open={isModalOpen}>
-
-            <WithdrawConfirmSepa {...inputs}
-                                 amount={inputCurr.value.number}
-                                 handleCancel={handleCancel}
-            />
-
+            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">
             <div className="col">

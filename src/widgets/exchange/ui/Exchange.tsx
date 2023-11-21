@@ -139,6 +139,7 @@ function Exchange() {
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
                                 <InputCurrency.CurrencySelector
+                                    className='mt-7'
                                     balanceFilter
                                     onSelect={onFromCurrencyChange}
                                     disabled={roomType !== 'default'}

@@ -3,30 +3,33 @@ import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
-import {apiPaymentSepa, IResCommission} from "@/shared/api";
+import {apiPaymentSepa, IResCommission, IResResult} from "@/shared/api";
 import {useContext, useEffect, useRef, useState} from "react";
 import {transferDescriptions} from "../../../model/transfer-descriptions";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 
 interface IState {
     loading: boolean;
     total: IResCommission;
+    status: 'error' | 'success' | null;
 }
 
 const WithdrawConfirmSepa = ({
-    beneficiaryName,
-    accountNumber,
-    transferDescription,
-    comment,
     amount,
-    handleCancel,
+    comment,
+    accountNumber,
+    beneficiaryName,
+    transferDescription,
 }) => {
     const [{
         total,
-        loading
+        status,
+        loading,
     }, setState] = useState<IState>({
+        status: null,
         loading: false,
-        total: undefined
+        total: undefined,
     });
 
     const {account} = useContext(CtxRootData);
@@ -56,10 +59,12 @@ const WithdrawConfirmSepa = ({
             loading: true
         }));
 
-        await apiPaymentSepa(
-            details.current,
-            false,
-        ).then(handleCancel);
+        const {data} = await apiPaymentSepa(details.current);
+        
+        setState(prev => ({
+            ...prev,
+            status: (data as IResResult).status !== 'ok' ? 'success' : 'error'
+        }));
     }
     
     useEffect(() => {
@@ -71,7 +76,7 @@ const WithdrawConfirmSepa = ({
         });
     }, []);
 
-    return <div>
+    return status ? <CtnTrxInfo status={status}/> : <div>
         {loading && <Loader className='justify-center'/>}
         
         <div className={loading ? 'collapse' : ''}>

@@ -145,7 +145,7 @@ const WithdrawFormSepa = () => {
             onCancel={handleCancel}
             title="Transfer confirmation"
         >
-            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
+            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">
             <div className="col">

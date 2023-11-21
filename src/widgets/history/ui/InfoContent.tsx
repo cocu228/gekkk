@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
-import {actionResSuccess, asteriskText, isNull} from "@/shared/lib/helpers";
-import {formatForCustomer} from "@/shared/lib/date-helper";
-import Loader from "@/shared/ui/loader";
-import {AxiosResponse} from "axios";
-import {IResHistoryTransactions} from "@/shared/api";
-import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
-import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import useError from "@/shared/model/hooks/useError";
 import Decimal from "decimal.js";
-// import {formatAsFee} from "@/widgets/history/model/helpers";
-import { useTranslation } from 'react-i18next';
+import {AxiosResponse} from "axios";
+import Loader from "@/shared/ui/loader";
+import {useTranslation} from 'react-i18next';
+import React, {useEffect, useState} from "react";
+import useError from "@/shared/model/hooks/useError";
+import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
+import {formatForCustomer} from "@/shared/lib/date-helper";
+import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
+import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
+import {actionResSuccess, asteriskText, isNull} from "@/shared/lib/helpers";
+import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
 
-type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
+type TypeProps = GetHistoryTrasactionOut & {
+    handleCancel: () => void
+}
 
 const InfoContent = (props: TypeProps) => {
-
     const [state, setState] = useState<ITransactionInfo | null>(null)
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4
@@ -167,4 +167,4 @@ const InfoContent = (props: TypeProps) => {
     </>
 }
 
-export default InfoContent
+export default InfoContent;

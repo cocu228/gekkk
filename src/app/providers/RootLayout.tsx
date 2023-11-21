@@ -4,13 +4,14 @@ import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import $axios from "@/shared/lib/(cs)axios";
+import {useLocation} from 'react-router-dom';
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
+import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
-import { useLocation } from 'react-router-dom';
 
 export default memo(function () {
     const location = useLocation();
@@ -53,6 +54,7 @@ export default memo(function () {
 
     const setAccount = (number: string) => {
         $axios.defaults.headers['AccountId'] = number;
+        $new_axios.defaults.headers['AccountId'] = number;
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({
             ...prev,

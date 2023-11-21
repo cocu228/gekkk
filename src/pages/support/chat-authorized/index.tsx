@@ -16,7 +16,8 @@ import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "./model/AxiosChatInterceptor";
 import Message from './message/Message';
 
-const SupportChatAuthorized = () => {
+const SupportChatAuthorised = () => {
+
     const { phone, token, tokenHeaderName } = getCookieData<{
         phone: string,
         token: string,
@@ -92,11 +93,19 @@ const SupportChatAuthorized = () => {
 
             <AxiosChatInterceptor chatToken={chatConfig.token}>
                 <div>
+
                     <span className='top-6 left-2 relative typography-h1'>
                         <PageHead title={`Support chat`} />
                     </span>
                     <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
                         <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
+========
+                    <span className='top-6 relative'>
+                        <PageHead title={`Support chat`} />
+                    </span>
+                    <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between mb-1.5`}>
+                        <div className={`max-h-[38rem] overflow-scroll`} ref={chatWindowRef}>
+
                             {!isWebSocketReady ? <Loader /> : (
                                 <div>
                                     {messages?.map((message, i, arr) => (
@@ -115,4 +124,3 @@ const SupportChatAuthorized = () => {
     );
 };
 
-export default SupportChatAuthorized;

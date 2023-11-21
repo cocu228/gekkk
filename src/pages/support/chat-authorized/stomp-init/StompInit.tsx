@@ -3,6 +3,7 @@ import {Client} from '@stomp/stompjs';
 import {ChatMessage} from '../model/types';
 import {stompConfig} from '../config/stompConfig';
 import {StompCreateMessage, ChatConfig} from './../../chat-authorized/model/types';
+import {StompCreateMessage, ChatConfig} from './../../chat-authorised/model/types';
 // import { useSoundNotification } from '@chat/hooks/useSoundNotification';
 
 type IParams = {

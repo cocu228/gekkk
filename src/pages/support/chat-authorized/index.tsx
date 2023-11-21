@@ -124,3 +124,4 @@ const SupportChatAuthorised = () => {
     );
 };
 
+export default SupportChatAuthorized;

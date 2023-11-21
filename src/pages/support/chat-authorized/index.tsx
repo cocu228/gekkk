@@ -16,7 +16,7 @@ import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "./model/AxiosChatInterceptor";
 import Message from './message/Message';
 
-const SupportChatAuthorised = () => {
+const SupportChatAuthorized = () => {
     const { phone, token, tokenHeaderName } = getCookieData<{
         phone: string,
         token: string,
@@ -115,4 +115,4 @@ const SupportChatAuthorised = () => {
     );
 };
 
-export default SupportChatAuthorised;
+export default SupportChatAuthorized;

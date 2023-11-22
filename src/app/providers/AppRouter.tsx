@@ -129,7 +129,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'chat',
-        element: <SupportChatUnauthorized/>
+        element: <SupportChatUnauthorized/> 
     },
     {
         path: "*",

@@ -1,7 +1,7 @@
 ﻿import styles from './style.module.scss';
 import {ChatMessage} from '@/features/chat/model/types';
 import {timestampToTimeFormat} from '@/features/chat/model/helpers';
-import ImagePreview from '@/pages/support/chat/ui/chat/image-preview/ImagePreview';
+import ImagePreview from '../image-preview/ImagePreview';
 
 type IParams = {
   message: ChatMessage

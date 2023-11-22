@@ -128,12 +128,10 @@ const router = createBrowserRouter([
         ],
     },
     {
-==== BASE ====
         path: 'chat',
         element: <SupportChatUnauthorized/>
     },
     {
-==== BASE ====
         path: "*",
         element: <PageProblems/>
     },

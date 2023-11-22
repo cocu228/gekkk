@@ -63,7 +63,7 @@ const WithdrawConfirmSepa = ({
         
         setState(prev => ({
             ...prev,
-            status: (data as IResResult).status !== 'ok' ? 'success' : 'error'
+            status: (data as IResResult).status === 'ok' ? 'success' : 'error'
         }));
     }
     

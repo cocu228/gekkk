@@ -51,7 +51,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
             end: end.length ? end.toString() : null,
             start: start.length ? start.toString() : null,
         }, {
-            cancelToken: cancelToken.token
+            cancelToken: cancelToken?.token
         });
         
         actionResSuccess(response).success(() => {
@@ -87,7 +87,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
         const cancelTokenSource = axios.CancelToken.source();
 
         (async () => {
-            if (currenciesFilter && activeTab !== TabKey.CUSTOM) {
+            if (activeTab !== TabKey.CUSTOM) {
                 await requestHistory(cancelTokenSource)
             }
         })()

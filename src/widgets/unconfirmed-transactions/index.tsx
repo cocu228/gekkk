@@ -13,7 +13,6 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
-import {apiHistoryTransactions} from "@/shared/api";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();

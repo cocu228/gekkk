@@ -6,7 +6,7 @@ import React, {useEffect, useState} from "react";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
+import {AdrTxTypeEnum, GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 import {actionResSuccess, asteriskText, isNull} from "@/shared/lib/helpers";
 import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
@@ -16,32 +16,27 @@ type TypeProps = GetHistoryTrasactionOut & {
 }
 
 const InfoContent = (props: TypeProps) => {
-    const [state, setState] = useState<ITransactionInfo | null>(null)
-    const isNeedConfirm = props.tx_type === 3 && props.partner_info === ""
-    const isAvailableType = props.tx_type === 3 || props.tx_type === 4
-
-    const loading = isNull(state) && isAvailableType;
     const {t} = useTranslation();
-
-    const [localErrorHunter, , localErrorInfoBox] = useError()
-
+    const [localErrorHunter, , localErrorInfoBox] = useError();
+    const [state, setState] = useState<ITransactionInfo | null>(null);
+    const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
+    const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
+    const loading = isNull(state) && isAvailableType;
+    
     useEffect(() => {
-
         if (isAvailableType) {
             (async () => {
-                setState(null)
-
-                const response: AxiosResponse = await apiTransactionInfo(+props.id_transaction)
-
+                setState(null);
+                
+                const response: AxiosResponse = await apiTransactionInfo(+props.id_transaction);
+                
                 actionResSuccess(response)
                     .success(() => setState(response.data.result))
-                    .reject(localErrorHunter)
-
-            })()
+                    .reject(localErrorHunter);
+            })();
         }
-
-    }, [props.id_transaction])
-
+    }, [props.id_transaction]);
+    
     return <> {localErrorInfoBox ? localErrorInfoBox : loading ? <Loader/> : <>
         <div className="mb-8">
         <div className="row mb-4 flex flex-wrap gap-2">
@@ -113,32 +108,34 @@ const InfoContent = (props: TypeProps) => {
         </div>
         {state !== null && <>
             <div className="font-light">
-            {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                <div className="col">
-                    <span className="text-gray-500 font-medium">{t("address_from")}</span>
-                </div>
-                <div className="col flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
-                </div>
-                <div className="col flex items-center"><CopyIcon value={state.addressFrom}/></div>
-            </div>}
-            {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium whitespace-nowrap">{t("address_to")}</span>
-                </div>
-                <div className="col w-auto flex items-center">
-                    <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
-                    <CopyIcon value={state.addressTo}/>
-                </div>
-            </div>}
-            {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                <div className="col w-auto">
-                    <span className="text-gray-500 font-medium">{t("token_network")}</span>
-                </div>
-                <div className="col w-auto">
-                    <span className="break-all font-medium">{state.tokenNetwork}</span>
-                </div>
-            </div>}
+                {(state.txType === AdrTxTypeEnum[6] || state.txType === AdrTxTypeEnum[8]) ? null : <div>
+                    {state.addressFrom && <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                        <div className="col">
+                            <span className="text-gray-500 font-medium">{t("address_from")}</span>
+                        </div>
+                        <div className="col flex items-center">
+                            <span className="break-all font-medium">{asteriskText(state.addressFrom)}</span>
+                        </div>
+                        <div className="col flex items-center"><CopyIcon value={state.addressFrom}/></div>
+                    </div>}
+                    {state.addressTo && <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                        <div className="col w-auto">
+                            <span className="text-gray-500 font-medium whitespace-nowrap">{t("address_to")}</span>
+                        </div>
+                        <div className="col w-auto flex items-center">
+                            <span className="break-all font-medium">{asteriskText(state.addressTo)}</span>
+                            <CopyIcon value={state.addressTo}/>
+                        </div>
+                    </div>}
+                    {state.tokenNetwork && <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                        <div className="col w-auto">
+                            <span className="text-gray-500 font-medium">{t("token_network")}</span>
+                        </div>
+                        <div className="col w-auto">
+                            <span className="break-all font-medium">{state.tokenNetwork}</span>
+                        </div>
+                    </div>}
+                </div>}
             {(state.txHash && state.explorerBaseAddress) && (
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">

@@ -14,7 +14,7 @@ export interface ICtxExchangeData {
     onRoomCreation?: (id: IRoomInfo) => void;
     onToValueChange?: (value: string) => void;
     onFromValueChange?: (value: string) => void;
-    onRoomClosing?: (roomNumber: string) => void;
+    onRoomClosing?: (roomNumber: number) => void;
     onToCurrencyChange?: (value: string) => void;
     onPriceAmountChange?: (valie: string) => void;
     onFromCurrencyChange?: (value: string) => void;

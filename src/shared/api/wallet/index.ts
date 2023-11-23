@@ -1,7 +1,5 @@
 export * from './create-withdraw'
 export * from './get-balance'
-export * from './get-info'
-export * from './get-history-transactions'
 export * from './update-parent-info'
 export * from './create-address'
 export * from './list-addresses'

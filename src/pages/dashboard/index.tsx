@@ -9,6 +9,8 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 // import {auth} from "@/processes/firebaseConfig";
 // import {onIdTokenChanged} from "firebase/auth";
 import Button from "@/shared/ui/button/Button";
+import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
+import {randomId} from "@/shared/lib/helpers";
 enum TabType {
     ACCOUNTS,
     CARDS,
@@ -19,9 +21,9 @@ enum TabType {
 
 const TABS = [
     //{type: TabType.ACCOUNTS, title: 'Accounts', content: <AccountsLayout/>},
-    {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
+    // {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     // {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
-    {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
+    // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
     {type: TabType.HISTORY, title: 'History', content: (
         <div className='substrate'>
             <History title='History'/>
@@ -35,29 +37,28 @@ export default () => {
     return (
         <div className="wrapper">
 
-            {/*<Button onClick={null}>Auth</Button>*/}
             {/*<PageHead title="Personal account"/>*/}
             
-            {/*{sm ? (*/}
-            {/*    <div className="w-full -sm:hidden">*/}
-            {/*        <TabsGroupPrimary initValue={"Cards"}>*/}
-            {/*            <div className='-mt-5' data-tab={"Cards"}>*/}
-            {/*                <CardsLayout/>*/}
-            {/*            </div>*/}
-            {/*            <div className='-mt-5' data-tab={"Crypto assets"}>*/}
-            {/*                <CryptoAssets/>*/}
-            {/*            </div>*/}
-            {/*            <div className='-mt-10 substrate' data-tab={"History"}>*/}
-            {/*                <History title='History'/>*/}
-            {/*            </div>*/}
-            {/*        </TabsGroupPrimary>*/}
-            {/*    </div>*/}
-            {/*) : (TABS.map(({content}) => (*/}
-            {/*        <div key={randomId()} className='mt-16'>*/}
-            {/*            {content}*/}
-            {/*        </div>*/}
-            {/*    ))*/}
-            {/*)}*/}
+            {sm ? (
+                <div className="w-full -sm:hidden">
+                    <TabsGroupPrimary initValue={"Cards"}>
+                        {/*<div className='-mt-5' data-tab={"Cards"}>*/}
+                        {/*    <CardsLayout/>*/}
+                        {/*</div>*/}
+                        {/*<div className='-mt-5' data-tab={"Crypto assets"}>*/}
+                        {/*    <CryptoAssets/>*/}
+                        {/*</div>*/}
+                        <div className='-mt-10 substrate' data-tab={"History"}>
+                            <History title='History'/>
+                        </div>
+                    </TabsGroupPrimary>
+                </div>
+            ) : (TABS.map(({content}) => (
+                    <div key={randomId()} className='mt-16'>
+                        {content}
+                    </div>
+                ))
+            )}
         </div>
     );
 }

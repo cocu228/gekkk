@@ -5,7 +5,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
-import {apiGetAccountInfo} from "@/shared/api";
+import {apiGetInfo} from "@/shared/api/(gen)new";
 import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
@@ -34,7 +34,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
 
     useEffect(() => {
         if (isModalOpen) {
-            apiGetAccountInfo(true)
+            apiGetInfo({refresh: true})
                 .then(({data}) => {
                     if (!data.error) location.reload();
                     

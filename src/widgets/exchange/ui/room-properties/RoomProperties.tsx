@@ -15,7 +15,7 @@ function RoomProperties({room}: IParams) {
                 <div className="col">
                     <InlineProperty
                         left={t("exchange.room_number")}
-                        right={room.timetick}
+                        right={room.timetick.toString()}
                     />
                 </div>
             </div>

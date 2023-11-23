@@ -3,7 +3,6 @@ import {memo, useContext, useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
-import {IResHistoryTransactions, apiHistoryTransactions} from "@/shared/api";
 import {Props, TabKey} from "../model/types";
 import {historyTabs} from "../model/helpers";
 import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
@@ -14,9 +13,10 @@ import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {CtxRootData} from '@/processes/RootContext';
 import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
-import axios, {CancelToken} from "axios";
-// import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import axios from "axios";
 import { useTranslation } from 'react-i18next';
+import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
+import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
 
 const {RangePicker} = DatePicker;
 
@@ -26,7 +26,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
     const {refreshKey} = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     // const {currencies} = useContext(CtxCurrencies);
-    const [listHistory, setListHistory] = useState<IResHistoryTransactions[]>([]);
+    const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
@@ -36,33 +36,30 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
     )
 
     const requestHistory = async (cancelToken = null) => {
-
-        setLoading(true)
-        setAllTxVisibly(false)
+        setLoading(true);
+        setAllTxVisibly(false);
 
         const {
             StartDate: start = formatForDisplay(customDate[0].toDate()),
             EndDate: end = formatForDisplay(customDate[1].toDate())
         } = historyTabs.find(tab => tab.Key === activeTab);
 
-        const response = await apiHistoryTransactions(
-            start.length ? start.toString() : null,
-            end.length ? end.toString() : null,
-            currenciesFilter,
-            types,
-            null,
-            10,
-            cancelToken.token
-        )
-
+        const response = await apiGetHistoryTransactions({
+            limit: 10,
+            tx_types: types,
+            currencies: currenciesFilter,
+            end: end.length ? end.toString() : null,
+            start: start.length ? start.toString() : null,
+        }, {
+            cancelToken: cancelToken.token
+        });
+        
         actionResSuccess(response).success(() => {
-            const {result} = response.data
-            setListHistory(result)
+            const {result} = response.data;
+            setListHistory(result);
         })
 
-        setLoading(false)
-
-
+        setLoading(false);
     }
 
     const requestMoreHistory = async () => {
@@ -71,9 +68,13 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
 
         const lastValue = listHistory[listHistory.length - 1];
 
-        const {data} = await apiHistoryTransactions(null, null, currenciesFilter,
-            types, lastValue.id_transaction, 10)
-
+        const {data} = await apiGetHistoryTransactions({
+            currencies: currenciesFilter,
+            tx_types: types,
+            from_tx_id: lastValue.id_transaction,
+            limit: 10
+        });
+        
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))

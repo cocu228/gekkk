@@ -1,9 +1,9 @@
 import React from "react";
-import {IAccountInfo} from "@/shared/store/accounts/accounts";
+import {IWalletInfo} from "@/shared/store/accounts/accounts";
 
 export interface ICtxRootData {
     refreshKey: string;
-    account: IAccountInfo;
+    account: IWalletInfo;
     setRefresh: () => void;
     setAccount: (number: string) => void;
 }

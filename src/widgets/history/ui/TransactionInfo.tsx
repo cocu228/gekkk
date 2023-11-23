@@ -1,14 +1,14 @@
-import useModal from "@/shared/model/hooks/useModal";
 import React from "react";
 import Modal from "@/shared/ui/modal/Modal";
+import useModal from "@/shared/model/hooks/useModal";
 import InfoContent from "@/widgets/history/ui/InfoContent";
-import {IResHistoryTransactions} from "@/shared/api";
-
+import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
 
 type TypeProps = {
     children: React.ReactNode,
-    infoList: IResHistoryTransactions
+    infoList: GetHistoryTrasactionOut
 }
+
 const TransactionInfo = ({children, infoList}: TypeProps) => {
 
     const {isModalOpen, showModal, handleCancel} = useModal();
@@ -23,4 +23,4 @@ const TransactionInfo = ({children, infoList}: TypeProps) => {
     </>
 }
 
-export default TransactionInfo
+export default TransactionInfo;

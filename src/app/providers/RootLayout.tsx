@@ -4,14 +4,18 @@ import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import $axios from "@/shared/lib/(cs)axios";
+import {useLocation} from 'react-router-dom';
 import {memo, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
+import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 
 export default memo(function () {
+    const location = useLocation();
+    const isNewLayout = location.pathname.startsWith('/new');
     const [{
         account,
         refreshKey,
@@ -50,6 +54,7 @@ export default memo(function () {
 
     const setAccount = (number: string) => {
         $axios.defaults.headers['AccountId'] = number;
+        $new_axios.defaults.headers['AccountId'] = number;
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({
             ...prev,
@@ -65,6 +70,10 @@ export default memo(function () {
     }}>
         {!account ? <Loader/> : (<>
             <CurrenciesProvider>
+                {isNewLayout ? <>
+                    <Outlet/> 
+                </> : <>
+                
                 <Header/>
 
                 <Main>
@@ -74,6 +83,7 @@ export default memo(function () {
                         <Outlet/>
                     </Content>
                 </Main>
+                </>}
             </CurrenciesProvider>
         </>)}
     </CtxRootData.Provider>

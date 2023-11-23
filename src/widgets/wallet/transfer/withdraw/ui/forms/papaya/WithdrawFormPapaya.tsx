@@ -16,10 +16,11 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
+import {useTranslation} from "react-i18next";
 
 
 const WithdrawFormPapaya = () => {
-
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
@@ -77,8 +78,8 @@ const WithdrawFormPapaya = () => {
                     onError={setInputCurrValid}
                     description={getWithdrawDesc(min_withdraw, currency.$const)}
                     validators={[
-                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
-                        validateBalance(currency, navigate)]}>
+                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                        validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
                                                    header={<span
                                                        className='text-gray-600 font-medium'>Amount</span>}

@@ -343,8 +343,8 @@
       "minimum_amount": "The minimum amount is",
       "null_value": "Null value is not allowed",
 
-      "transaction_request_successfully": "Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete.",
-      "please_contact": "If it’s not, please, contact",
+      "transaction_request_successfully": "Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete. If it’s not, please, contact ",
+      "transaction_request_with_errors": "Your transaction request was not completed, due to an unexpected error. Please, try again later, or contact ",
       "our_support": "our support"
     }
   }

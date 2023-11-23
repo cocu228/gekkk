@@ -8,6 +8,8 @@ import {getFormattedIBAN} from "@/shared/lib/helpers";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
+import chatIcon from '../../../../assets/support-icon-grey.svg'
+
 
 const HeaderDesktop = ({items, actions}) => {
     const {logout} = useAuth();
@@ -22,7 +24,7 @@ const HeaderDesktop = ({items, actions}) => {
                 </a>
             </div>
             
-            <div className="flex ml-auto items-center">
+            <div className="flex ml-auto items-center gap-10">
                 <LocalizationMenu/>
             </div>
             
@@ -56,6 +58,11 @@ const HeaderDesktop = ({items, actions}) => {
                 </div>
             </HeaderMenu>
             
+            <button onClick={() => navigate('/support/chat')}>
+                <div className="flex items-center justify-end ml-4" data-testid="Logout">
+                    <img src={chatIcon} alt="ChatIcon"/>
+                </div>
+            </button>
             <button onClick={logout}>
                 <div className="flex items-center justify-end ml-10" data-testid="Logout">
                     <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>

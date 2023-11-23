@@ -16,6 +16,7 @@ import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useTranslation} from "react-i18next";
 
 const {TextArea} = InputAntd;
 
@@ -26,6 +27,7 @@ export interface IWithdrawFormCryptoState {
     description: null | string,
 }
 const WithdrawFormCrypto = () => {
+    const {t} = useTranslation();
 
     const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
         address: null,
@@ -76,9 +78,9 @@ const WithdrawFormCrypto = () => {
                             description={getWithdrawDesc(min_withdraw, currency.$const)}
                             onError={setInputCurrValid}
                             validators={[
-                                validateBalance(currency, navigate),
-                                validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const),
-                                validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const),
+                                validateBalance(currency, navigate, t),
+                                validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                                validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t),
                             ]}
                         >
                             <InputCurrency.PercentSelector

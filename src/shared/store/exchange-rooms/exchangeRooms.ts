@@ -6,7 +6,7 @@ export interface IStoreListExchangeRooms {
     roomsList: IRoomInfo[];
     getRoomsList: () => void;
     addRoom: (info: IRoomInfo) => void;
-    removeRoom: (roomNumber: string) => void;
+    removeRoom: (roomNumber: number) => void;
 }
 
 export const storeListExchangeRooms = create<IStoreListExchangeRooms>()(devtools((set) => ({

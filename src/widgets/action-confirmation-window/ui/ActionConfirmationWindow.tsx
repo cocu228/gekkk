@@ -48,7 +48,6 @@ const ActionConfirmationWindow = () => {
     const {t} = useTranslation();
     const {onInput} = useMask(MASK_CODE);
     const {setRefresh} = useContext(CtxRootData);
-    const setContent = useContext(CtxModalTrxInfo);
     const {phone} = getCookieData<{phone: string}>();
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
@@ -57,8 +56,8 @@ const ActionConfirmationWindow = () => {
         setSuccess,
         actionConfirmResponse: response,
     } = useContext(CtxNeedConfirm);
-
-
+    
+    
     useEffect(() => {
         if (response) {
             setState({
@@ -87,17 +86,16 @@ const ActionConfirmationWindow = () => {
                 : await pinHeadersGeneration(token, code.replace(/ /g, ''));
             
             try {
-                await $axios.request({
+                const response = await $axios.request({
                     ...config,
                     headers: { ...headers }
-                }).then(({data}) => {
-                    pending.resolve(data);
-                    
-                    handleCancel();
-                    setContent(<CtnTrxInfo/>);
-                    setSuccess();
-                    setRefresh();
                 });
+                
+                pending.resolve(response);
+                
+                handleCancel();
+                setSuccess();
+                setRefresh();
             } catch (error) {
                 handleError();
             }
@@ -137,6 +135,14 @@ const ActionConfirmationWindow = () => {
             {loading && <Loader className=''/>}
             
             <div className={loading ? 'collapse' : ''}>
+                <div className="row -mt-5 mb-2">
+                    <div className="col">
+                        <span className='text-gray-600'>To confirm the operation, you should enter {type === 'SIGN'
+                            ? 'your PIN'
+                            : 'SMS code'}:</span>
+                    </div>
+                </div>
+                
                 <div className="mb-4">
                     <Input
                         type="text"
@@ -147,7 +153,10 @@ const ActionConfirmationWindow = () => {
                             : null
                         }
                         autoComplete="off"
-                        placeholder={t("enter_code")}
+                        placeholder={type === 'SIGN'
+                            ? 'Enter your PIN'
+                            : 'Enter SMS code'
+                        }
                         onChange={({target}) => {
                             localErrorClear();
                             setState(prev => ({
@@ -167,7 +176,7 @@ const ActionConfirmationWindow = () => {
                         size={"xl"}
                         disabled={!code}
                         onClick={confirm}
-                        className="w-full"
+                        className="w-full mt-4"
                     >{t("confirm")}</Button>
                 </div>
             </div>

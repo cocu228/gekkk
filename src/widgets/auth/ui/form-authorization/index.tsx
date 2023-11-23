@@ -3,9 +3,7 @@ import {Input} from 'antd';
 import Form from '@/shared/ui/form/Form';
 import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
-import Button from '@/shared/ui/button/Button';
 import {memo, useContext, useRef, useState} from 'react';
-import ReactPhoneInput from "react-phone-input-2";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
@@ -15,7 +13,6 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
 import {auth} from "@/processes/firebaseConfig";
 import useError from "@/shared/model/hooks/useError";
-// import {apiCheckPassword} from "@/widgets/auth/api";
 import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model/helpers";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
@@ -23,12 +20,18 @@ import {apiRequestCode} from "@/widgets/auth/api";
 import {useSearchParams} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
+import FormCode from '../form-code';
+import styles from './form-authorization.module.scss';
+import CloseWindow from '@/assets/close-window.svg?react';
+import SearchInInput from '@/assets/search-in-input.svg?react';
 
-// import {uncoverResponse} from "@/shared/lib/helpers";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+import { PhoneInput, FlagImage, DialCodePreview, CountrySelectorDropdown, defaultCountries } from 'react-international-phone';
+import 'react-international-phone/style.css';
+import './form-authorization.scss';
 
-const PhoneInput = ReactPhoneInput.default ? ReactPhoneInput.default : ReactPhoneInput;
+import Modal from '@/shared/ui/modal/Modal';
+import useModal from '@/shared/model/hooks/useModal';
+
 
 const FormLoginAccount = memo(() => {
     const {t} = useTranslation(); 
@@ -36,7 +39,7 @@ const FormLoginAccount = memo(() => {
     const [params] = useSearchParams();
     const {md} = useContext(BreakpointsContext);
     const authMethod = params.get("authMethod");
-    const {toggleStage} = storyDisplayAuth(state => state);
+    const {toggleStage, stage} = storyDisplayAuth(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const {phoneValidator, passwordValidator} = useValidation();
 
@@ -145,103 +148,244 @@ const FormLoginAccount = memo(() => {
             });
         }
     }
+    const [iso2, setIso2] = useState('');
+    const [dialCode, setDialCode] = useState('');
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const tooltipModal = useModal(); 
+    const [currentCountriesData, setCountriesData] = useState(defaultCountries);
+    const [currentCountry, seCurrentCountry] = useState(defaultCountries[0]);
+
+    const [phoneInputValue, setPhoneInputValue] = useState('');
 
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
 
-    return <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
-        <h1 className={`font-extrabold text-center text-gray-600 pb-4
-                ${md ? 'text-2xl' : 'text-header'}`}>
-            {t("auth.login_to_your_account")}
-        </h1>
+    return <div>
+            <Modal className='login-modal'
+                open={tooltipModal.isModalOpen}
+                onCancel={tooltipModal.handleCancel}
+                >
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginBottom: '30px',
+                    }}>
+                        <div className='typography-h3' style={{ color: 'var(--new-pale-blue)'}}>
+                            Country code
+                        </div>
 
-        <p className='text-center mb-9 text-gray-500'>
-            {t("auth.login")} <a
-                className='font-inherit underline'
-                href={import.meta.env.VITE_APP_STORE_GEKKARD}
-                target={'_blank'}> {t("auth.gekkard_application")}
-            </a> {t("auth.credentials")}
-        </p>
+                        <button type='button' onClick={tooltipModal.handleCancel}>
+                            <CloseWindow />
+                        </button>
 
-        <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
-                  rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-            <PhoneInput
-                disableDropdown
-                inputProps={{
-                    'data-testid': 'PhoneInput',
-                    name: 'phone',
-                    ref: inputRef,
-                    type: "tel",
-                }}
-                disabled={loading}
-                placeholder={t("auth.enter_phone_number")}
-                value={state.phone}
-                onEnterKeyPress={(v: unknown) => onSingIn()}
-                onChange={(value: string) => setState(prevState =>
-                    ({...prevState, phone: value}))}/>
-        </FormItem>
-        <span className="text-fs12 text-red-800">{localErrorSpan}</span>
-
-        <FormItem name="password" label="Password"
-                  rules={[{required: true, ...passwordMessage}, passwordValidator]}>
-            <Input.Password style={{borderColor: 'var(--color-gray-400)'}}
-                            disabled={loading}
-                            onChange={({target}) => setState(prev => ({
-                                ...prev,
-                                password: target.value
-                            }))}
-                            data-testid="PIN"
-                            placeholder={t("auth.password")}/>
-        </FormItem>
-
-        <div className="row text-right mb-4">
-            {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
-            {/*    your PIN? Log in with a QR code*/}
-            {/*</a>*/}
-        </div>
-
-        <div className="row mb-8">
-            <Button disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
-                    tabIndex={0}
-                    htmlType="submit"
-                    className="w-full"
-                    data-testid="Login">{t("login")}</Button>
-        </div>
-
-        <div className='text-center'>
-            <p className='text-gray-600 mb-6'>{t("auth.no_gekkard_credentials")}</p>
-
-            <ul className='flex justify-center gap-4'>
-                <li>
-                    <div className='grid gap-y-2'>
-                        <a href={import.meta.env.VITE_GOOGLE_PLAY_GEKKARD} target={"_blank"}>
-                            <img
-                                src='/img/google-play.svg'
-                                height="40px"
-                                alt="Google play"
-                            />
-                        </a>
-                        
-                        {!$ENV_DEV ? null : (
-                            <a href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                               className='underline hover:no-underline text-sm hover:text-blue-400 text-gray-500'>
-                                {t("auth.download")}
-                            </a>
-                        )}
                     </div>
-                </li>
 
-                <li>
-                    <a href={import.meta.env.VITE_APP_STORE_GEKKARD} target={"_blank"}>
-                        <img
-                            src='/img/app-store.svg'
-                            height="40px"
-                            alt="App store"
+                    <div>
+                        <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '10px',
+                            background: 'var(--new-pale-grey)',
+                            padding: '3px 12px',
+                            marginBottom: '30px',
+                        }}>
+
+                            <input 
+                                className={`${styles.searchInput} typography-b2-bold`}
+                                placeholder="Search"
+                                type='text'
+                                value={searchInputValue}
+                                onChange={(e) => {
+                                    const t = defaultCountries.filter(item => {
+                                        return item[0].startsWith(e.target.value);
+                                    });
+
+                                    setCountriesData(
+                                        t
+                                    );
+                                    seCurrentCountry(t[0]);
+                                    setSearchInputValue(e.target.value);
+                           
+                                }}
+                            />
+
+                            <SearchInInput style={{ flex: '0 0 auto'}} />
+                        </div>
+
+                        {currentCountriesData.length ? <CountrySelectorDropdown
+                        countries={currentCountriesData}
+                        className={styles.countrySelectorDropdown}
+                        show
+                        onSelect={(parsedCountry) => {
+
+                            const nextCountry = currentCountriesData.find(item => {
+                                return item[1] === parsedCountry.iso2;
+                            }) || currentCountriesData[0];
+
+                            seCurrentCountry(nextCountry);
+                            setPhoneInputValue(nextCountry[2]);
+                            tooltipModal.handleCancel();
+
+                        }}
+                        selectedCountry={currentCountry[1]} /> : null}
+                    </div>
+                </Modal>
+        <p className="typography-b2" style={{
+            color: 'var(--new-pale-blue)',
+            marginBottom: '36px',
+
+        }}>
+            Log in using the form below
+        </p>
+        <div style={{
+            background: 'var(--new-FFFFFF)',
+            padding: '24px 36px 24px 36px',
+            borderRadius: '8px 8px 0px 0px',
+            boxShadow: 'var(--new-active-account-shadow)'
+        }}>
+
+        <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
+            <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
+                    rules={[{required: true, ...phoneMessage}, phoneValidator]}>
+                        {/* <div style={{
+                            display: 'flex',
+                            gap: '26px',
+                            color: 'var(--new-dark-blue'
+                        }}>
+
+                            
+                            <label className='typography-b3'>
+                                Phone number
+                            </label>
+                        </div> */}
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderBottom: '1px solid var(--new-dark-grey)',
+                    gap: '36px',
+                    paddingBottom: '10px',
+                    overflow: 'hidden'
+                }}>
+                    <div style={{flex: '0 0 auto'}}>
+                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                            Country code
+                        </div>
+                        <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '6px',
+                                padding: '3px 12px 3px 12px',
+                                borderRadius: '10px',
+                                background: 'var(--new-light-blue)',
+                                color: 'var(--new-pale-blue)',
+                                cursor: 'pointer',
+
+                            }}
+                            onClick={() => {
+                                if (tooltipModal.isModalOpen) {
+                                    return;
+                                }
+
+                                tooltipModal.showModal();
+                            }}>
+                                {iso2 ?<FlagImage iso2={iso2 === 'kz' ? 'ru': iso2} size="14px" />: null }
+                                {dialCode ?<DialCodePreview  className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
+                            </div>
+                   
+                        </div>
+                    </div>
+                    <div style={{flex: '0 0 auto'}}>
+                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                            Phone number
+                        </div>
+
+                        <PhoneInput
+                            ref={(e) => {
+                                if (!e) {
+                                    return;
+                                }
+
+                                e.setAttribute('data-testid', 'PhoneInput');
+                                inputRef.current = e;
+                            }}
+                            name='phone'
+                            value={phoneInputValue}
+                            disabled={loading}
+                            placeholder={t("auth.enter_phone_number")}
+                            onChange={(value: string, meta) => {
+                                setPhoneInputValue(value);
+                                setIso2(meta.country.iso2);
+                                setDialCode(meta.country.dialCode);
+                                setState(prevState => {
+                                    return {...prevState, phone: value.slice(1)};
+                                });
+                            }}
                         />
-                    </a>
-                </li>
-            </ul>
+                    </div>
+                        
+                
+                </div>
+                        
+            </FormItem>
+            <span className="text-fs12 text-red-800">{localErrorSpan}</span>
+
+            <FormItem name="password" label="Password"
+                    rules={[{required: true, ...passwordMessage}, passwordValidator]}>
+                <div>
+                    <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                        Password
+                    </div>
+                    <Input.Password className={styles.input}
+                        disabled={loading}
+                        onChange={({target}) => setState(prev => ({
+                            ...prev,
+                            password: target.value
+                        }))}
+                        data-testid="PIN"
+                        placeholder="Password"
+                        />
+                </div>
+            </FormItem>
+
+            <div className="row text-right mb-4">
+                {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
+                {/*    your PIN? Log in with a QR code*/}
+                {/*</a>*/}
+            </div>
+
+
+            {stage !== 'code' ?
+                    <div style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}>
+                        <button className='account-button' disabled={loading || state.phone.length < 11 || !/^\d{6}$/.test(state.password)} /// <- надо переделать потом
+                                tabIndex={0}
+                                data-testid="Login">{t("login")}
+                        </button>
+
+                        <button type='button' className='text-button' onClick={() => {
+                            toggleStage('forgot-password');
+                        }}>
+                            Forgot password
+                        </button>
+                    </div> : null 
+            }
+            </Form>
+
+            {
+            stage === 'code' ?
+                <FormCode/>:
+                null
+            }
+
+        
         </div>
-    </Form>
+    </div>
 })
 
 export default FormLoginAccount

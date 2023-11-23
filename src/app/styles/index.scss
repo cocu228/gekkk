@@ -4,6 +4,8 @@
 @import "variables";
 @import "mixins";
 
+@import "(cs)react-international-phone.scss";
+
 :root {
     line-height: 1.5;
     font-weight: 400;
@@ -69,3 +71,5 @@ body {
 @tailwind utilities;
 
 //@import "gekkard-chat/dist/style.css";
+@import "typography";
+@import "button";

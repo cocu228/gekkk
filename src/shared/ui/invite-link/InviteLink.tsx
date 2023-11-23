@@ -3,9 +3,10 @@ import ReactQRCode from 'react-qr-code';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import { useTranslation } from 'react-i18next';
+import {RoomInfo} from "@/shared/api/(gen)new/model";
 
 interface IParams {
-    roomInfo: IRoomInfo;
+    roomInfo: RoomInfo;
 }
 
 function InviteLink({roomInfo = null}: IParams) {

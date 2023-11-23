@@ -62,11 +62,8 @@ function Wallet() {
 
                             {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                                
-                                {!$ENV_DEV ? null : <>
-                                    <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
-                                    <QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>
-                                </>}
+                                <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+                                <QuickExchange data-tag={"quick_exchange"} data-name={t("quick_exchange")}/>
                             </>}
 
                             {$currency.$const === "GKE" && account.rights && !account.rights[AccountRights.IsJuridical] && <>

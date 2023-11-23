@@ -1,15 +1,15 @@
-import {memo} from "react";
+import {memo, useEffect, useMemo, useState} from "react";
 import {useSessionStorage} from "usehooks-ts";
 import {TSessionAuth} from "@/widgets/auth/model/types";
 import {signInWithPhoneNumber, RecaptchaVerifier} from 'firebase/auth';
 import {auth} from "@/processes/firebaseConfig";
-import Timer from "@/shared/model/hooks/useTimer";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {apiRequestCode} from "@/widgets/auth/api";
 import {helperApiRequestCode} from "@/widgets/auth/model/helpers";
-// import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import useError from "@/shared/model/hooks/useError";
-import {uncoverArray} from "@/shared/lib/helpers";
+import { useTranslation } from "react-i18next";
+import {Timer} from "@/widgets/auth/model/helpers";
+
 
 export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
@@ -54,10 +54,7 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
 
         }).reject((e) => {
 
-            localErrorHunter({
-                message: uncoverArray<{ message: string }>(e.data.errors)?.message,
-                code: uncoverArray<{ code: number }>(e.data.errors)?.code
-            })
+            localErrorHunter(e)
         })
     }
 
@@ -80,11 +77,28 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
         })
     }
 
+    const {t} = useTranslation();
+    const [state, setState] = useState<null | number>(60)
+
+    const instanceTimer = useMemo(() => new Timer(setState), [])
+
+    useEffect(() => {
+        return () => instanceTimer.clear()
+    }, []);
+
+    const onSendCode = async () => {
+        const onAction = isUAS ? onVerifierUAS : onVerifier;
+        await onAction();
+        instanceTimer.run();
+    }
 
     return <>
-        <div className="row w-full">
+       
+        <button type="button" disabled={!!state} className="second_value-button" onClick={onSendCode}>
+            Resend code: {state}
+        </button>
+        {localErrorSpan ? <div className="row w-full">
             <div className="col">{localErrorSpan}</div>
-        </div>
-        <Timer onAction={isUAS ? onVerifierUAS : onVerifier}/>
+        </div> : null}
     </>
 })

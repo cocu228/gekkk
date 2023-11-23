@@ -1,24 +1,25 @@
-import {format, addDays} from 'date-fns';
+import dayjs from 'dayjs';
+import {DatePicker} from 'antd';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
+import {format, addDays} from 'date-fns';
 import Modal from '@/shared/ui/modal/Modal';
+import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
+import {ordersTabs} from '../../model/heplers';
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import {CtxRootData} from '@/processes/RootContext';
 import {CtxExchangeData} from '../../model/context';
 import useModal from '@/shared/model/hooks/useModal';
-import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
-import {useContext, useEffect, useState} from 'react';
-import OrderProperties from './order-properties/OrderProperties';
-import {IResOrder, apiCancelOrder, apiGetOrders} from '@/shared/api';
-import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
-import {ordersTabs} from '../../model/heplers';
 import {OrderState, TabKey} from '../../model/types';
-import {DatePicker} from 'antd';
-import dayjs from 'dayjs';
-import Tooltip from '@/shared/ui/tooltip/Tooltip';
 import CopyIcon from '@/shared/ui/copy-icon/CopyIcon';
+import {useContext, useEffect, useState} from 'react';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import { useTranslation } from 'react-i18next';
+import {GetOrderListOut} from "@/shared/api/(gen)new/model";
+import OrderProperties from './order-properties/OrderProperties';
+import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
+import {apiGetOrders, apiCancelOrder} from '@/shared/api/(gen)new';
+import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
 
 const {RangePicker} = DatePicker;
 
@@ -29,39 +30,37 @@ interface IParams {
 function OpenOrders({
     refreshKey
 }: IParams) {
+    const {t} = useTranslation();
     const cancelOrderModal = useModal();
+    const {account} = useContext(CtxRootData);
     const {roomInfo} = useContext(CtxExchangeData);
-    const [lazyLoading, setLazyLoading] = useState(false);
-    const { account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+    const [lazyLoading, setLazyLoading] = useState(false);
     const [allOrdVisibly, setAllOrdVisibly] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [ordersList, setOrdersList] = useState<IResOrder[]>([]);
-    const [selectedOrder, setSelectedOrder] = useState<IResOrder>(null);
+    const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
+    const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
     const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(addDays(new Date(), -90)), dayjs()]
     )
     
-    const {t} = useTranslation();
     const requestOrders = async () => {
         setIsLoading(true);
         setAllOrdVisibly(false);
-
+        
         const response = activeTab === TabKey.OPENED
-            ? await apiGetOrders(
-                null,
-                roomInfo?.timetick ?? null,
-                [1], null, null
-            )
-            : await apiGetOrders(
-                null,
-                roomInfo?.timetick ?? null,
-                [127, 199, 200, 201, 210, 215, 250, 251, 252, 253, 254, 255],
-                customDate[0].toDate(),
-                customDate[1].toDate()
-            );
-
+            ? await apiGetOrders({
+                ord_states: [1],
+                room_key: roomInfo?.timetick ?? null,
+            })
+            : await apiGetOrders({
+                room_key: roomInfo?.timetick,
+                end: customDate[1].format('YYYY-MM-DD'),
+                start: customDate[0].format('YYYY-MM-DD'),
+                ord_states: [127, 198, 199, 200, 210, 211],
+            });
+        
         actionResSuccess(response).success(() => {
             const {result} = response.data;
             setOrdersList(result);
@@ -73,23 +72,23 @@ function OpenOrders({
     const requestMoreOrders = async () => {
         setLazyLoading(true)
         const lastValue = ordersList[ordersList.length - 1];
-
+        
         const {data} = activeTab === TabKey.OPENED
-        ? await apiGetOrders(
-            lastValue.id.toString(),
-            roomInfo?.timetick ?? null,
-            [1], null, null
-        )
-        : await apiGetOrders(
-            lastValue.id.toString(),
-            roomInfo?.timetick ?? null,
-            [127, 199, 200, 201, 210, 215, 250, 251, 252, 253, 254, 255],
-            customDate[0].toDate(),
-            customDate[1].toDate()
-        );
-
+        ? await apiGetOrders({
+                ord_states: [1],
+                from_order_id: lastValue.id,
+                room_key: roomInfo?.timetick ?? null
+        })
+        : await apiGetOrders({
+            from_order_id: lastValue.id,
+            room_key: roomInfo?.timetick,
+            end: customDate[1].format('YYYY-MM-DD'),
+            start: customDate[0].format('YYYY-MM-DD'),
+            ord_states: [127, 198, 199, 200, 210, 211],
+        });
+        
         if (data.result.length < 10) setAllOrdVisibly(true);
-
+        
         setOrdersList(state => ([...state, ...data.result]));
         setLazyLoading(false);
     }
@@ -144,7 +143,7 @@ function OpenOrders({
                     {t("exchange.no_opened_orders")}
                 </div>}
 
-                {isLoading ? null : ordersList.map((ord: IResOrder) => (
+                {isLoading ? null : ordersList.map((ord: GetOrderListOut) => (
                     <div className={`py-2.5 rounded-md md:rounded-none ${styles.Item}`} key={ord.id}>
                         <div className="flex justify-between">
                             <div className='flex gap-2'>
@@ -236,7 +235,7 @@ function OpenOrders({
                         onClick={() => {
                             cancelOrderModal.handleCancel();
 
-                            apiCancelOrder(selectedOrder.id)
+                            apiCancelOrder({id: selectedOrder.id})
                             .then(result => {
                                 if (result.data.error) return;
                                 

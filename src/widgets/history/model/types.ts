@@ -1,3 +1,5 @@
+import {TransactTypeEnum} from "@/shared/api/(gen)new/model";
+
 export enum TabKey {
     MONTH = 'month',
     DAYS_30 = 'days_30',
@@ -17,5 +19,5 @@ export interface Props {
     title: string,
     className: string,
     currenciesFilter: string[]
-    types: number[]
+    types: TransactTypeEnum[]
 }

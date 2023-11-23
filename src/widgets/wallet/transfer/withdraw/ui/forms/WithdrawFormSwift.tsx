@@ -19,9 +19,11 @@ import {useNavigate} from "react-router-dom";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useTranslation} from "react-i18next";
 
 const WithdrawFormSwift = () => {
 
+    const {t} = useTranslation();
     const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
     const navigate = useNavigate();
@@ -254,8 +256,8 @@ const WithdrawFormSwift = () => {
                         <InputCurrency.Validator value={inputCurr.value.number}
                                                  onError={setInputCurrValid}
                                                  description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                 validators={[validateBalance(currency, navigate),
-                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const)]}>
+                                                 validators={[validateBalance(currency, navigate, t),
+                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
                                 header={<span className='text-gray-600 font-medium'>Amount</span>}
@@ -272,12 +274,7 @@ const WithdrawFormSwift = () => {
         <Modal width={450} title="Transfer confirmation"
                onCancel={handleCancel}
                open={isModalOpen}>
-
-            <WithdrawConfirmSepa {...inputs}
-                                 amount={inputCurr.value.number}
-                                 handleCancel={handleCancel}
-            />
-
+            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">
             <div className="col">

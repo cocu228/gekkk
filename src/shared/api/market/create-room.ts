@@ -5,7 +5,7 @@ export interface IRoomInfo {
     currency2: string;
     flags: number;
     to_balance_limit: number;
-    timetick?: string;
+    timetick?: number;
     room_code?: string;
     count?: number;
 }

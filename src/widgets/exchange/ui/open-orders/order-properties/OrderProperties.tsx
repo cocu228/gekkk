@@ -1,12 +1,12 @@
 import {useContext} from "react";
-import {IResOrder} from "@/shared/api";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
+import {GetOrderListOut} from "@/shared/api/(gen)new/model";
 
 interface IParams {
-    order: IResOrder;
+    order: GetOrderListOut;
 }
 
 function OrderProperties({order}: IParams) {

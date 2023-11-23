@@ -49,7 +49,7 @@ const CardsMenu = () => {
 
             case 'blockCard':
                 apiUpdateCard(card.cardId, {
-                    status: "LOCKED"
+                    status: "BLOCKED_BY_CUSTOMER"
                 }).then(({data}) => updateCard(data as IResCard));
                 break;
                 
@@ -141,7 +141,7 @@ const CardsMenu = () => {
             leftPrimary={t("show_card_data")}
         />
         
-        {(card.cardStatus === 'LOCKED' || card.cardStatus === 'ACTIVE') && (
+        {(card.cardStatus === 'BLOCKED_BY_CUSTOMER' || card.cardStatus === 'ACTIVE') && (
             <MenuItem
                 alert
                 onClick={onClick}

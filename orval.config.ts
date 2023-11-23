@@ -9,7 +9,7 @@ export default defineConfig({
 			client: 'axios-functions',
 			tsconfig: './tsconfig.json',
 			schemas: './src/shared/api/(gen)new/model',
-			target: './src/shared/api/(gen)new/newApi.ts',
+			target: './src/shared/api/(gen)new/index.ts',
 			override: {
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName

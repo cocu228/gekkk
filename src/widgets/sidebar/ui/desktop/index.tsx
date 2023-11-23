@@ -1,9 +1,8 @@
-import Decimal from "decimal.js";
 import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
-import {$ENV_DEV, scrollToTop} from "@/shared/lib/helpers";
+import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import useModal from "@/shared/model/hooks/useModal";
@@ -14,7 +13,7 @@ import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
-import {IRoomInfo, apiCloseRoom, apiGetRates} from "@/shared/api";
+import {apiCloseRoom} from "@/shared/api/(gen)new";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -23,6 +22,7 @@ import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useTranslation} from 'react-i18next';
+import {RoomInfo} from "@/shared/api/(gen)new/model";
 
 const SidebarDesktop = () => {
     const {t} = useTranslation();
@@ -34,7 +34,7 @@ const SidebarDesktop = () => {
     const {sm, md, xxxl} = useContext(BreakpointsContext);
     const {currencies, totalAmount} = useContext(CtxCurrencies);
 
-    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
+    const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const privateRooms = storeListExchangeRooms(state => state.roomsList);
@@ -70,7 +70,9 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row"></div>
                         <span className="text-lg font-bold"
-                              data-testid="TotalAmount">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿)</span>
+                              data-testid="TotalAmount">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € 
+                              {/* ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿) */}
+                              </span>
                     </div>
                 </div>
             </div>
@@ -180,103 +182,97 @@ const SidebarDesktop = () => {
                 </NavCollapse>
             )}
             
-            {!$ENV_DEV ? null : <>
-                {/* Exchange page link */}
-                <NavLink onClick={NavLinkEvent} to={"exchange"}>
-                    <div className={styles.Item}>
-                        <div className="col flex items-center pl-4">
-                            <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
-                                 alt="ExchangeIcon"/>
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-6">
-                            <div className="row w-full mb-1 font-medium"><span
-                                className={styles.NavName}>{t("exchange.title")}</span>
-                            </div>
+            {/* Exchange page link */}
+            <NavLink onClick={NavLinkEvent} to={"exchange"}>
+                <div className={styles.Item}>
+                    <div className="col flex items-center pl-4">
+                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
+                             alt="ExchangeIcon"/>
+                    </div>
+                    <div className="col flex items-center justify-center flex-col pl-6">
+                        <div className="row w-full mb-1 font-medium"><span
+                            className={styles.NavName}>{t("exchange.title")}</span>
                         </div>
                     </div>
-                </NavLink>
-                {/* Private exchange rooms collapse */}
-                {!(privateRooms && privateRooms.length) ? null :
-                    <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
-                        {privateRooms.map((item, i) => (
-                            <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`} key={item.timetick}>
-                                <div className={styles.Item}>
-                                    <div className="col flex items-center pl-4 w-[85px]">
-                                        <SvgArrow
-                                            width={14}
-                                            height={14}
-                                            className={styles.SvgArrow}
-                                        />
-                                        <img
-                                            width={50}
-                                            height={50}
-                                            className={styles.Icon}
-                                            src={`/img/icon/PrivateExchangeShield.svg`}
-                                            alt="ExchangeIcon"
-                                        />
+                </div>
+            </NavLink>
+            {/* Private exchange rooms collapse */}
+            {!(privateRooms && privateRooms.length) ? null :
+                <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
+                    {privateRooms.map((item, i) => (
+                        <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`} key={item.timetick}>
+                            <div className={styles.Item}>
+                                <div className="col flex items-center pl-4 w-[85px]">
+                                    <SvgArrow
+                                        width={14}
+                                        height={14}
+                                        className={styles.SvgArrow}
+                                    />
+                                    <img
+                                        width={50}
+                                        height={50}
+                                        className={styles.Icon}
+                                        src={`/img/icon/PrivateExchangeShield.svg`}
+                                        alt="ExchangeIcon"
+                                    />
+                                </div>
+                                <div className="col flex items-center justify-center flex-col pl-6">
+                                    <div className="flex w-full row mb-1 justify-between">
+                                        <div className={styles.RoomName}>
+                                            {!xxxl
+                                                ? `${item.currency1} - ${item.currency2}`
+                                                : `${item.currency1} - ${item.currency2}`
+                                            }
+                                        </div>
+                                        
+                                        <div
+                                            className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedRoom(item);
+                                                roomCloseModal.showModal();
+                                            }}
+                                        >
+                                            <IconClose fill="inherit" size={16}/>
+                                        </div>
                                     </div>
-                                    <div className="col flex items-center justify-center flex-col pl-6">
-                                        <div className="flex w-full row mb-1 justify-between">
-                                            <div className={styles.RoomName}>
-                                                {!xxxl
-                                                    ? `${item.currency1} - ${item.currency2}`
-                                                    : `${item.currency1} - ${item.currency2}`
-                                                }
-                                            </div>
+                                    
+                                    <div className="flex row w-full mb-1 justify-between"><span className={`text-gray-500 text-xs`}>
+                                        {!xxxl ? t("number_of_participants") : t("participants")}
+                                    </span>
+                                        <span className='mr-[17px] text-gray-500 text-xs font-semibold'>{item.count}</span>
+                                    </div>
+                                    
+                                    {!item.room_code ? null : (
+                                        <div className="flex row w-full justify-between"><span
+                                            className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedRoom(item);
+                                                roomInfoModal.showModal();
+                                            }}
+                                        >
+                                            {t("invite_link")}
+                                        </span>
                                             
                                             <div
-                                                className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setSelectedRoom(item);
-                                                    roomCloseModal.showModal();
-                                                }}
-                                            >
-                                                <IconClose fill="inherit" size={16}/>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="flex row w-full mb-1 justify-between">
-                                        <span className={`text-gray-500 text-xs`}>
-                                            {!xxxl ? t("number_of_participants") : t("participants")}
-                                        </span>
-                                            <span className='mr-[17px] text-gray-500 text-xs font-semibold'>
-                                            {item.count}
-                                        </span>
-                                        </div>
-                                        
-                                        {!item.room_code ? null : (
-                                            <div className="flex row w-full justify-between">
-                                            <span
-                                                className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                                className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     setSelectedRoom(item);
                                                     roomInfoModal.showModal();
                                                 }}
                                             >
-                                                {t("invite_link")}
-                                            </span>
-                                                
-                                                <div
-                                                    className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        setSelectedRoom(item);
-                                                        roomInfoModal.showModal();
-                                                    }}
-                                                >
-                                                    <IconParticipant fill="inherit"/>
-                                                </div>
+                                                <IconParticipant fill="inherit"/>
                                             </div>
-                                        )}
-                                    </div>
+                                        </div>
+                                    )}
                                 </div>
-                            </NavLink>
-                        ))}
-                    </NavCollapse>
-                }
-            </>}
+                            </div>
+                        </NavLink>
+                    ))}
+                </NavCollapse>
+            }
 
             {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
             {/*    <div className={`${styles.Item}`}>*/}
@@ -349,8 +345,11 @@ const SidebarDesktop = () => {
                         if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
                             navigate('/exchange');
                         }
-
-                        apiCloseRoom(selectedRoom.timetick).then(() => {
+                        
+                        // todo: ask backend to remove roomId from headers
+                        apiCloseRoom({headers: {
+                            roomId: selectedRoom.timetick
+                        }}).then(() => {
                             removeExchangeRoom(selectedRoom.timetick);
                             roomCloseModal.handleCancel();
                         }).catch(roomCloseModal.handleCancel);

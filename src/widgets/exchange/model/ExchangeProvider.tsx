@@ -181,7 +181,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         navigate(`/private-room/${info.timetick}`);
     }
 
-    const handleRoomClosing = (roomNumber: string) => {
+    const handleRoomClosing = (roomNumber: number) => {
         removeExchangeRoom(roomNumber);
         navigate('/exchange');
     }

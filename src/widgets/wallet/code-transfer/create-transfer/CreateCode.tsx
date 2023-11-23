@@ -62,7 +62,7 @@ const CreateCode = () => {
                             <InputCurrency.Validator
                                 value={inputCurr.value.number}
                                 onError={setInputCurrValid}
-                                validators={[validateBalance(currency, navigate)]}
+                                validators={[validateBalance(currency, navigate, t)]}
                             >
                                 <InputCurrency.PercentSelector onSelect={setInputCurr}
                                                                header={<span className='text-gray-600'></span>}
@@ -95,7 +95,7 @@ const CreateCode = () => {
                     </Checkbox>
                 </div>
                 <div className="row">
-                    <Button disabled={inputCurrValid.value || loading} className="w-full" size="xl"
+                    <Button disabled={/*inputCurrValid.value || */loading} className="w-full" size="xl"
                             onClick={onCreateCode}>{t("confirm")}
                     </Button>
                 </div>

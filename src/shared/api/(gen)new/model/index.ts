@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20231029-2122.4890<br/><br/>
+                    Build version 2.0.3-20231114-1318.5122<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -42,7 +42,6 @@ export * from './getDepositOutListApiResponse';
 export * from './getGekV1AddressTxInfoParams';
 export * from './getGekV1CodeTxInfoParams';
 export * from './getGekV1InvestGetInvestmentsParams';
-export * from './getGekV1InvestGetTemplatesParams';
 export * from './getGekV1ListTxCodesParams';
 export * from './getGekV1MarketGetOrdersParams';
 export * from './getGekV1MarketGetRatesParams';
@@ -87,8 +86,6 @@ export * from './sessionDataDTO';
 export * from './stringApiResponse';
 export * from './stringDecimalDictionaryApiResponse';
 export * from './stringDecimalDictionaryApiResponseResult';
-export * from './templateDeposit';
-export * from './templateDepositListApiResponse';
 export * from './tokenNetworkFormType';
 export * from './tokensNetwork';
 export * from './tokensNetworkArrayApiResponse';

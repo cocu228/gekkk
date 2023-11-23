@@ -1,18 +1,19 @@
+import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
+import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import React, {useContext, useState} from "react";
-import {
-    apiUpdatePartnerInfo,
-    IResHistoryTransactions
-} from "@/shared/api";
-import Loader from "@/shared/ui/loader";
+import {apiUpdatePartnerInfo} from "@/shared/api";
+import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {CtxRootData} from "@/processes/RootContext";
 import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
-import { useTranslation } from 'react-i18next';
+import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
 
-type TypeProps = IResHistoryTransactions & { handleCancel: () => void }
+type TypeProps = GetHistoryTrasactionOut & {
+    handleCancel: () => void
+}
+
 export const InfoConfirmPartner = (props: TypeProps) => {
     const {t} = useTranslation();
     const {setRefresh} = useContext(CtxRootData)
@@ -74,4 +75,4 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     </div>
 }
 
-export default InfoConfirmPartner
+export default InfoConfirmPartner;

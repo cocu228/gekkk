@@ -1,4 +1,4 @@
-import {createContext, FC, memo, PropsWithChildren, useEffect, useState} from 'react';
+import {createContext, FC, memo, PropsWithChildren, useContext, useEffect, useState} from 'react';
 
 type breakpoints = 'sm' | 'md' | 'lg' | 'xl' | 'xxl'| 'xxxl';
 
@@ -65,5 +65,9 @@ const BreakpointsProvider: FC<PropsWithChildren<unknown>> = memo(({children}): J
 
     return <BreakpointsContext.Provider value={result}>{children}</BreakpointsContext.Provider>;
 });
+
+export function useBreakpoints() {
+    return useContext(BreakpointsContext);
+}
 
 export default BreakpointsProvider;

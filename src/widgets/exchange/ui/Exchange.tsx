@@ -328,9 +328,9 @@ function Exchange() {
                         onClick={() => {
                             cancelRoomModal.handleCancel();
                             
-                            apiCloseRoom({headers: {
+                            apiCloseRoom({
                                 roomId: roomInfo.timetick
-                            }}).then(() => {
+                            }).then(() => {
                                 onRoomClosing(roomInfo.timetick);
                                 navigate('/exchange');
                             });

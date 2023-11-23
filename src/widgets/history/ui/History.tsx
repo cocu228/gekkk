@@ -71,7 +71,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
         const {data} = await apiGetHistoryTransactions({
             currencies: currenciesFilter,
             tx_types: types,
-            from_tx_id: lastValue.id_transaction,
+            next_key: lastValue.next_key,
             limit: 10
         });
         

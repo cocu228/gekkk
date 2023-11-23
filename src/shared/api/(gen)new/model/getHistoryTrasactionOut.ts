@@ -41,4 +41,5 @@ export interface GetHistoryTrasactionOut {
   tx_type?: TransactTypeEnum;
   /** Описание типа транзакции */
   tx_type_text?: string | null;
+  next_key?: string | null;
 }

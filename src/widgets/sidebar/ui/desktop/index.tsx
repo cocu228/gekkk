@@ -346,10 +346,9 @@ const SidebarDesktop = () => {
                             navigate('/exchange');
                         }
                         
-                        // todo: ask backend to remove roomId from headers
-                        apiCloseRoom({headers: {
+                        apiCloseRoom({
                             roomId: selectedRoom.timetick
-                        }}).then(() => {
+                        }).then(() => {
                             removeExchangeRoom(selectedRoom.timetick);
                             roomCloseModal.handleCancel();
                         }).catch(roomCloseModal.handleCancel);

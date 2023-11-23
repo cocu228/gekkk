@@ -1,9 +1,8 @@
-import Decimal from "decimal.js";
 import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
-import {$ENV_DEV, scrollToTop} from "@/shared/lib/helpers";
+import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconClose from "@/shared/ui/icons/IconClose";
 import useModal from "@/shared/model/hooks/useModal";
@@ -14,7 +13,7 @@ import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
-import {IRoomInfo, apiCloseRoom, apiGetRates} from "@/shared/api";
+import {apiCloseRoom} from "@/shared/api/(gen)new";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -23,6 +22,7 @@ import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useTranslation} from 'react-i18next';
+import {RoomInfo} from "@/shared/api/(gen)new/model";
 
 const SidebarDesktop = () => {
     const {t} = useTranslation();
@@ -34,7 +34,7 @@ const SidebarDesktop = () => {
     const {sm, md, xxxl} = useContext(BreakpointsContext);
     const {currencies, totalAmount} = useContext(CtxCurrencies);
 
-    const [selectedRoom, setSelectedRoom] = useState<IRoomInfo>(null);
+    const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
     const privateRooms = storeListExchangeRooms(state => state.roomsList);
@@ -345,8 +345,11 @@ const SidebarDesktop = () => {
                         if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
                             navigate('/exchange');
                         }
-
-                        apiCloseRoom(selectedRoom.timetick).then(() => {
+                        
+                        // todo: ask backend to remove roomId from headers
+                        apiCloseRoom({headers: {
+                            roomId: selectedRoom.timetick
+                        }}).then(() => {
                             removeExchangeRoom(selectedRoom.timetick);
                             roomCloseModal.handleCancel();
                         }).catch(roomCloseModal.handleCancel);

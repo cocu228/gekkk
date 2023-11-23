@@ -14,7 +14,8 @@ import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {apiCloseRoom, apiCreateOrder} from '@/shared/api';
+import {apiCreateOrder} from '@/shared/api';
+import {apiCloseRoom} from '@/shared/api/(gen)new'
 import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
@@ -25,7 +26,6 @@ import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
 import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
-import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
@@ -224,7 +224,7 @@ function Exchange() {
                                 <DepthOfMarket
                                     currencyFrom={from.currency}
                                     currencyTo={to.currency}
-                                    roomKey={roomInfo ? roomInfo.timetick : null}
+                                    roomKey={roomInfo?.timetick.toString() ?? null}
                                     isSwapped={price.isSwapped}
                                 />
                             </div>
@@ -327,8 +327,10 @@ function Exchange() {
                         className="w-full"
                         onClick={() => {
                             cancelRoomModal.handleCancel();
-
-                            apiCloseRoom(roomInfo.timetick).then(() => {
+                            
+                            apiCloseRoom({headers: {
+                                roomId: roomInfo.timetick
+                            }}).then(() => {
                                 onRoomClosing(roomInfo.timetick);
                                 navigate('/exchange');
                             });

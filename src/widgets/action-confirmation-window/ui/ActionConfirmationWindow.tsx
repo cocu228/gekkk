@@ -135,6 +135,14 @@ const ActionConfirmationWindow = () => {
             {loading && <Loader className=''/>}
             
             <div className={loading ? 'collapse' : ''}>
+                <div className="row -mt-5 mb-2">
+                    <div className="col">
+                        <span className='text-gray-600'>To confirm the operation, you should enter {type === 'SIGN'
+                            ? 'your PIN'
+                            : 'SMS code'}:</span>
+                    </div>
+                </div>
+                
                 <div className="mb-4">
                     <Input
                         type="text"

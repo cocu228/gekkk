@@ -26,7 +26,7 @@ const TABS = [
     // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
     {type: TabType.HISTORY, title: 'History', content: (
         <div className='substrate'>
-            <History title='History'/>
+            <History title='History' includeFiat/>
         </div>
     )}
 ];
@@ -49,7 +49,7 @@ export default () => {
                         {/*    <CryptoAssets/>*/}
                         {/*</div>*/}
                         <div className='-mt-10 substrate' data-tab={"History"}>
-                            <History title='History'/>
+                            <History title='History' includeFiat/>
                         </div>
                     </TabsGroupPrimary>
                 </div>

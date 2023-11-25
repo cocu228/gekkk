@@ -70,7 +70,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row"></div>
                         <span className="text-lg font-bold"
-                              data-testid="TotalAmount">{totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € 
+                              data-testid="TotalAmount">~ {totalAmount.EUR?.toDecimalPlaces(2).toNumber()} € 
                               {/* ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿) */}
                               </span>
                     </div>
@@ -81,7 +81,7 @@ const SidebarDesktop = () => {
                 <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
-                             alt="EURG"/>
+                             alt="EUR"/>
                     </div>
                     <div className="col flex items-center justify-center flex-col pl-6">
                         <div className="row text-gray-400 w-full mb-1"><span
@@ -89,7 +89,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? '-'} EUR</span>
+                                className={styles.Sum}>{eurWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? '-'} €</span>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ const SidebarDesktop = () => {
                         </div>
                         <div className="row w-full">
                             <span
-                                className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} EURG</span>
+                                className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber() ?? 0} ₠</span>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@ const SidebarDesktop = () => {
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.$const}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec)} ${item.$const=='BTC'?'₿':item.$const}`}</span>
                                     </div>
                                     <div className="row w-full">
                                         {item.lockInBalance !== 0 ? <span

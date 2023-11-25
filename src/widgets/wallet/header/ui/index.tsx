@@ -57,7 +57,7 @@ const WalletHeader = () => {
                     )}
 
                     <div className="text-2xl font-bold text-gray-600">
-                        {availableBalance === null ? '-' : availableBalance.toNumber()} {$const}
+                        {availableBalance === null ? '-' : availableBalance.toNumber()} {isEUR ? '€': $const=='BTC'? '₿': $const}
                     </div>
                     
                     <g className="text-gray-400 text-sm">
@@ -74,7 +74,7 @@ const WalletHeader = () => {
                     </div>
                     
                     <div className="text-2xl font-bold text-gray-600">
-                        {!availableBalance ? 0 : availableBalance.toNumber()} {$const}
+                        {!availableBalance ? 0 : availableBalance.toNumber()} {isEUR ? '€': $const=='BTC'? '₿': $const}
                     </div>
 
                     <g className="text-gray-400 text-sm">

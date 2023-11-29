@@ -16,8 +16,10 @@ const ChoseNetwork = ({withdraw = false}) => {
     const {currencies} = useContext(CtxCurrencies);
 
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
-    const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && $const !== "EURG"
-
+    const noteVisible = !withdraw
+        && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
+        && $const !== "EURG"
+        && networkIdSelect !== 148;
 
     return <>
         <div className="row mb-8 w-full font-medium">

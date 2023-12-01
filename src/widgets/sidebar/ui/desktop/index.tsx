@@ -69,7 +69,7 @@ const SidebarDesktop = () => {
                         <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
                     </div>
                     <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
-                        <span className="text-lg font-bold mr-5">~ <span data-testid="TotalAmount">{Intl.NumberFormat("en", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(totalAmount.EUR?.toNumber())}</span> €
+                        <span className="text-lg font-bold mr-5">~ <span data-testid="TotalAmount">{Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(totalAmount.EUR?.toNumber())}</span> €
                             {/* ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿) */}
                         </span>
                     </div>
@@ -93,7 +93,7 @@ const SidebarDesktop = () => {
                             <span className={styles.Name}>Euro account</span>
                         </div>
                         <div className="row w-full text-right">
-                            <span className={styles.SumEUR}>{Intl.NumberFormat("en", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(eurWallet.availableBalance?.toNumber())?? '-'} €</span>
+                            <span className={styles.SumEUR}>{Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(eurWallet.availableBalance?.toNumber())?? '-'} €</span>
                         </div>
                     </div>
                 </div>
@@ -113,14 +113,14 @@ const SidebarDesktop = () => {
                             <span className={styles.Name}>Gekkoin euro token</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>{eurgWallet.availableBalance?.toDecimalPlaces(eurgWallet.roundPrec).toNumber().toLocaleString() ?? 0} EURG</span>
+                            <span className={styles.Sum}>{eurgWallet.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: 2}) ?? 0} EURG</span>
                         </div>
                         <div className="row w-full flex justify-between">
                             <div>
                                 {eurgWallet.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(eurgWallet.lockInBalance)).toDecimalPlaces(eurgWallet.roundPrec).toNumber()}</span> : null}
                             </div>
                             <div>
-                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("en", { maximumFractionDigits: 2}).format(eurgWallet.userBalanceEUREqu)} €</span>
+                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(eurgWallet.userBalanceEUREqu)} €</span>
                             </div>
                         </div>
                     </div>
@@ -137,14 +137,14 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                         </div>
                         <div className="row w-full">   <span
-                            className={styles.Sum}>{gkeWallet.availableBalance?.toDecimalPlaces(gkeWallet.roundPrec).toNumber().toLocaleString() ?? 0} GKE</span>
+                            className={styles.Sum}>{gkeWallet.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: gkeWallet.roundPrec}) ?? 0} GKE</span>
                         </div>
                         <div className="row w-full flex justify-between">
                             <div>
                                 {gkeWallet.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(gkeWallet.lockInBalance)).toDecimalPlaces(gkeWallet.roundPrec).toNumber()}</span> : null}
                             </div>
                             <div>
-                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("en", { maximumFractionDigits: 2}).format(gkeWallet.userBalanceEUREqu)} €</span>
+                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(gkeWallet.userBalanceEUREqu)} €</span>
                             </div>
                         </div>
                     </div>
@@ -168,14 +168,14 @@ const SidebarDesktop = () => {
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance?.toDecimalPlaces(item.roundPrec).toNumber().toLocaleString()} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                        className={styles.Sum}>{`${item.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: item.roundPrec})} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                     </div>
                                     <div className="row w-full flex justify-between">
                                         <div>
-                                            {item.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(item.lockInBalance)).toDecimalPlaces(item.roundPrec).toNumber()}</span> : null}
+                                            {item.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(item.lockInBalance)).toNumber().toLocaleString("eu", { maximumFractionDigits: item.roundPrec})}</span> : null}
                                         </div>
                                         <div>
-                                            <span className={styles.EuroEqv}>~ {Intl.NumberFormat("en", { maximumFractionDigits: 2}).format(item.userBalanceEUREqu)} €</span>
+                                            <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(item.userBalanceEUREqu)} €</span>
                                         </div>
                                     </div>
 

@@ -21,7 +21,7 @@ export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets
             lockOrders: wallet.lock_orders,
             lockInBalance: wallet.lock_in_balance,
             lockOutBalance: wallet.lock_out_balance,
-            availableBalance: isNumber(wallet.free_balance) ? new Decimal(wallet.free_balance) : null,
+            availableBalance: null,//isNumber(wallet.free_balance) ? new Decimal(wallet.free_balance) : null,
             userBalanceEUREqu: wallet?.user_balance_EUR_equ
         })
     })

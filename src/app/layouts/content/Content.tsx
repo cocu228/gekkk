@@ -5,7 +5,6 @@ import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/Ac
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
-    console.log('(10) Content')
     return (
         <div className="w-full h-full md:mb-3 mb-10">
             <ModalTrxInfoProvider>

@@ -93,9 +93,8 @@ export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {
     }
 
     return <>
-       
         <button type="button" disabled={!!state} className="second_value-button" onClick={onSendCode}>
-            Resend code: {state}
+            Resend code{state ? `: ${state}` : ''}
         </button>
         {localErrorSpan ? <div className="row w-full">
             <div className="col">{localErrorSpan}</div>

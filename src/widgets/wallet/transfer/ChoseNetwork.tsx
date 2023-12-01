@@ -16,8 +16,10 @@ const ChoseNetwork = ({withdraw = false}) => {
     const {currencies} = useContext(CtxCurrencies);
 
     const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
-    const noteVisible = !withdraw && !(Array.isArray(networksForSelector) && networksForSelector.length === 0) && $const !== "EURG"
-
+    const noteVisible = !withdraw
+        && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
+        && $const !== "EURG"
+        && networkIdSelect !== 148;
 
     return <>
         <div className="row mb-8 w-full font-medium">
@@ -35,8 +37,8 @@ const ChoseNetwork = ({withdraw = false}) => {
                                 ? null
                                 : (
                                     <span> Or you can create a <span
-                                        //className='text-blue-400 hover:cursor-pointer hover:underline'
-                                        //onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
+                                        className='text-blue-400 hover:cursor-pointer hover:underline'
+                                        onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                     >
                         {withdraw ? 'sell' : 'buy'} order
                     </span>.</span>

@@ -24,6 +24,12 @@
   }
 }
 
+.TotalVal {
+  background-color: #3A5E66;
+  position: relative;
+  border-radius: 0 5px 5px 0;
+}
+
 .CloseRoomSvg {
   path {
     fill: var(--color-red-800);
@@ -40,17 +46,37 @@
 
 .Name {
   color: var(--color-gray-600);
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 300;
+  font-size: 14px;
   line-height: 24px;
   transition: .2s;
 }
 
 .Sum {
-  color: var(--color-gray-400);
-  font-size: 14px;
+  color: #3A5E66;
+  font-size: 16px;
   line-height: 20px;
-  font-weight: 500;
+  font-weight: 600;
+}
+.SumEUR {
+  color: #3A5E66;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.Income {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 300;
+  color: #45ad77;
+}
+.EuroEqv {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 300;
+  color: var(--color-gray-600);
+  margin-right: 8px;
 }
 
 .SvgArrow {
@@ -79,7 +105,7 @@
 
     .Sum {
       font-size: 14px;
-    }
+    }    
 
     .Icon {
       opacity: 1;

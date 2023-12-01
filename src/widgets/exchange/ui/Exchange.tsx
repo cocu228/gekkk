@@ -140,7 +140,6 @@ function Exchange() {
                             <div className="h-full flex flex-col">
                                 <InputCurrency.CurrencySelector
                                     className='mt-7'
-                                    balanceFilter
                                     onSelect={onFromCurrencyChange}
                                     disabled={roomType !== 'default'}
                                     excludedCurrencies={[to.currency]}

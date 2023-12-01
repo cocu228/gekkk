@@ -11,7 +11,7 @@ import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
-import { helperFilterList } from "@/widgets/sidebar/model/helpers";
+import {helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { apiCloseRoom } from "@/shared/api/(gen)new";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -20,7 +20,7 @@ import { storeInvestments } from "@/shared/store/investments/investments";
 import { ParentClassForCoin, IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
-import { CtxCurrencies } from "@/processes/CurrenciesContext";
+import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
 import { RoomInfo } from "@/shared/api/(gen)new/model";
 import Decimal from "decimal.js";
@@ -38,10 +38,12 @@ const SidebarDesktop = () => {
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
-    const privateRooms = storeListExchangeRooms(state => state.roomsList);
-    const getRoomsList = storeListExchangeRooms(state => state.getRoomsList);
+    const {
+        getRoomsList,
+        roomsList: privateRooms,
+        removeRoom: removeExchangeRoom
+    } = storeListExchangeRooms(state => state);
     const getInvestments = storeInvestments(state => state.getInvestments);
-    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -49,15 +51,14 @@ const SidebarDesktop = () => {
     }, [sm, md])
 
     useEffect(() => {
-        getInvestments();
         getRoomsList();
+        getInvestments();
     }, [account]);
 
+    const eurWallet = currencies.get("EUR");
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
-    const eurWallet = currencies.get("EUR");
-
-    const secondaryWallets = Array.from(currencies.values())
+    const secondaryWallets = Array.from(currencies.values());
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
@@ -69,14 +70,16 @@ const SidebarDesktop = () => {
                         <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
                     </div>
                     <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
-                        <span className="text-lg font-bold mr-5">~ <span data-testid="TotalAmount">{Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(totalAmount.EUR?.toNumber())}</span> €
+                        <span className="text-lg font-bold mr-5">~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount.EUR?.toNumber()) ?? '-'}</span> €
                             {/* ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿) */}
                         </span>
                     </div>
                 </div>
             </div>
-            {/* Crypto wallets wrapper */}
+            
+            {/* Wrapper */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
+            
             {/* fiat-currency wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
                 <div className={`${styles.Item}`}>
@@ -93,15 +96,15 @@ const SidebarDesktop = () => {
                             <span className={styles.Name}>Euro account</span>
                         </div>
                         <div className="row w-full text-right">
-                            <span className={styles.SumEUR}>{Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits:2}).format(eurWallet.availableBalance?.toNumber())?? '-'} €</span>
+                            <span className={styles.SumEUR}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
                         </div>
                     </div>
                 </div>
             </NavLink>
-
-            {/* Crypto wallets wrapper */}
+            
+            {/* Wrapper */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-
+            
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>
@@ -113,19 +116,24 @@ const SidebarDesktop = () => {
                             <span className={styles.Name}>Gekkoin euro token</span>
                         </div>
                         <div className="row w-full">
-                            <span className={styles.Sum}>{eurgWallet.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: 2}) ?? 0} EURG</span>
+                            <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
                         </div>
                         <div className="row w-full flex justify-between">
                             <div>
-                                {eurgWallet.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(eurgWallet.lockInBalance)).toDecimalPlaces(eurgWallet.roundPrec).toNumber()}</span> : null}
+                                {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
+                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                </span>}
                             </div>
                             <div>
-                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(eurgWallet.userBalanceEUREqu)} €</span>
+                                {!eurgWallet.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                    ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                </span>}
                             </div>
                         </div>
                     </div>
                 </div>
             </NavLink>
+            
             {/* GKE wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
                 <div className={`${styles.Item}`}>
@@ -136,21 +144,25 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-5">
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                         </div>
-                        <div className="row w-full">   <span
-                            className={styles.Sum}>{gkeWallet.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: gkeWallet.roundPrec}) ?? 0} GKE</span>
+                        <div className="row w-full"><span
+                            className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
                         </div>
                         <div className="row w-full flex justify-between">
                             <div>
-                                {gkeWallet.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(gkeWallet.lockInBalance)).toDecimalPlaces(gkeWallet.roundPrec).toNumber()}</span> : null}
+                                {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
+                                    +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                </span>}
                             </div>
                             <div>
-                                <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(gkeWallet.userBalanceEUREqu)} €</span>
+                                {!gkeWallet.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                    ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                </span>}
                             </div>
                         </div>
                     </div>
                 </div>
             </NavLink>
-
+            
             {/* Secondary options wrapper */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
             
@@ -168,14 +180,18 @@ const SidebarDesktop = () => {
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
                                     <div className="row w-full"><span
-                                        className={styles.Sum}>{`${item.availableBalance?.toNumber().toLocaleString("eu", { maximumFractionDigits: item.roundPrec})} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                        className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                     </div>
                                     <div className="row w-full flex justify-between">
                                         <div>
-                                            {item.lockInBalance !== 0 ? <span className={styles.Income}>+{(new Decimal(item.lockInBalance)).toNumber().toLocaleString("eu", { maximumFractionDigits: item.roundPrec})}</span> : null}
+                                            {!item.lockInBalance ? null : <span className={styles.Income}>
+                                                +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                            </span>}
                                         </div>
                                         <div>
-                                            <span className={styles.EuroEqv}>~ {Intl.NumberFormat("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2}).format(item.userBalanceEUREqu)} €</span>
+                                            {!item.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                                ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
+                                            </span>}
                                         </div>
                                     </div>
 
@@ -184,7 +200,7 @@ const SidebarDesktop = () => {
                         </NavLink>)}
                 </NavCollapse>
             )}
-
+            
             {/* Assets link */}
             <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                 <div className={`${styles.Item}`}>

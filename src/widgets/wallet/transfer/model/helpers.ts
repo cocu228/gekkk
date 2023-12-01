@@ -25,7 +25,7 @@ export const helperApiListAddresses = function (response: AxiosResponse) {
 export const sortingNetworksForSelector = function (networks: Array<IResTokenNetwork>): TNetworksForSelector | [] {
     return networks.map(it => ({
         value: it.id,
-        label: `${it.contract_name === 'None' ? '' : `${it.contract_name} / `}
+        label: `${it.contract_name === 'Base' ? '' : `${it.contract_name} / `}
         ${!it.network_name ? '' : `${it.network_name} / `} ${it.token_name} (${it.token_symbol})`
     }))
 }

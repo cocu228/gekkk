@@ -5,13 +5,11 @@ import {isNumber} from "@/shared/lib/helpers";
 
 export const initEmptyCurrenciesCollection = (assets: IResMarketAsset[]): Map<string, ICtxCurrency> => {
     const currencies = new Map();
-    assets.forEach(asset => currencies.set(asset.code, new ICtxCurrency(asset, null)))
+    assets.forEach(asset => currencies.set(asset.code, new ICtxCurrency(asset)))
     return currencies;
 }
 
-
 export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets: IResBalance[]): Map<string, ICtxCurrency> => {
-
     wallets.forEach(wallet => {
         currencies.set(wallet.currency, {
             ...currencies.get(wallet.currency),

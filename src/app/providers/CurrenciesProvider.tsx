@@ -43,25 +43,19 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     })
 
     useEffect(() => {
-
         (async function () {
-
             const walletsResponse = await apiGetBalance();
             const assetsResponse = assets ? assets : await getAssets()
-
 
             let currencies: Map<string, ICtxCurrency>
 
             actionResSuccess(walletsResponse)
                 .success(async function () {
-
                     currencies = isNull(state.currencies) ? initEmptyCurrenciesCollection(assetsResponse)
                         : state.currencies
 
                     currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse))
-
-
-
+                    
                     setState(prev => ({
                         ...prev,
                         currencies,
@@ -74,9 +68,9 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                     //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
                     const eurResponse = await apiGetBalance('EUR');
-
+                    
                     currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))
-
+                    
                     setState(prev => ({
                         ...prev, currencies,
                         totalAmount: {
@@ -84,12 +78,9 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                             refreshKey: randomId()
                         }
                     }))
-
-
-
+                    
                 }).reject(() => null);
         })();
-
     }, [refreshKey]);
 
 
@@ -99,8 +90,8 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR))
-            const valueBTC: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesBTC))
+            const valueEUR: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesEUR))
+            const valueBTC: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesBTC))
 
             setState(prev => ({
                 ...prev,
@@ -124,9 +115,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     </CtxCurrencies.Provider>
 });
 
-const totalizeAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
-
-
+const getTotalAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
     return Array.from
         (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {
 
@@ -139,6 +128,5 @@ const totalizeAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensCo
 
             return previousValue;
 
-        }, new Decimal(0))
-
+        }, new Decimal(0));
 }

@@ -1,10 +1,10 @@
 $breakpoints: (
-        "sm": 576px,
-        "md": 768px,
-        "lg": 992px,
-        "xl": 1200px,
-        "xxl": 1600px,
-        "xxxl": 1700px
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1600px,
+  "xxxl": 1700px
 );
 
 :root {
@@ -27,7 +27,7 @@ $breakpoints: (
   --color-green: rgb(var(--green));
   --color-red: rgb(var(--red));
   --color-orange: rgb(var(--orange));
-  --color-main-bg: #F9F9FA;
+  --color-main-bg: #f7f7f0;
   --color-blue-300: #1fb6ff;
   --color-blue-400: #00AEEF;
 
@@ -65,8 +65,8 @@ $breakpoints: (
 
   --border-radius: 6px;
 
-  --card-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
-  --card-shadow-blured: 8px 8px 25px 0 rgba(0,0,0,0.12);
+  --card-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+  --card-shadow-blured: 8px 8px 25px 0 rgba(0, 0, 0, 0.12);
   --dropdown-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
 
 

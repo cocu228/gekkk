@@ -113,7 +113,7 @@ const AuthPage = memo(() => {
                     </div>
                     <CookiePolicyApplies />
                    
-                    <div style={{ height: "100%"}}></div>
+                    <div style={{ height: "100%", minHeight: '30px'}}></div>
                     
                     {/* <p className="typography-b4" style={{
                         color: 'var(--new-light-grey)',

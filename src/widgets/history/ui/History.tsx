@@ -20,7 +20,7 @@ import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
 
 const {RangePicker} = DatePicker;
 
-const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
+const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<Props>) {
     const {t} = useTranslation();
 
     const {refreshKey} = useContext(CtxRootData);
@@ -50,8 +50,9 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
             currencies: currenciesFilter,
             end: end.length ? end.toString() : null,
             start: start.length ? start.toString() : null,
+            include_fiat: includeFiat,
         }, {
-            cancelToken: cancelToken.token
+            cancelToken: cancelToken?.token
         });
         
         actionResSuccess(response).success(() => {
@@ -71,8 +72,9 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
         const {data} = await apiGetHistoryTransactions({
             currencies: currenciesFilter,
             tx_types: types,
-            from_tx_id: lastValue.id_transaction,
-            limit: 10
+            next_key: lastValue.next_key,
+            limit: 10,
+            include_fiat: includeFiat,
         });
         
         if (data.result.length < 10) setAllTxVisibly(true)
@@ -87,7 +89,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
         const cancelTokenSource = axios.CancelToken.source();
 
         (async () => {
-            if (currenciesFilter && activeTab !== TabKey.CUSTOM) {
+            if (activeTab !== TabKey.CUSTOM) {
                 await requestHistory(cancelTokenSource)
             }
         })()
@@ -122,7 +124,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
             <GTable>
                 <GTable.Head className={styles.TableHead}>
                     <GTable.Row>
-                        {['Date', 'Flow of funds', 'Type'].map(label =>
+                        {['Date', 'Flow of funds', 'Description'].map(label =>
                             <GTable.Col className="text-start">
                                 <div className='ellipsis ellipsis-md' data-text={label}>
                                     <span>{label}</span>
@@ -162,7 +164,7 @@ const History = memo(function ({currenciesFilter, types}: Partial<Props>) {
                                         <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
                                             <div
                                                 className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
-                                                {item.tx_type_text}
+                                                {item.tx_type_text}. {item.status_text}. {item.tag} 
                                             </div>
                                         </div>
                                     </GTable.Col>

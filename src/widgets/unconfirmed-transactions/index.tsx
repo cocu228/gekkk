@@ -26,7 +26,7 @@ export const UnconfirmedTransactions = () => {
                 currencies: null,
                 end: null,
                 start: null,
-                from_tx_id: null,
+                next_key: null,
                 tx_types: [3],
                 limit: 10
             });

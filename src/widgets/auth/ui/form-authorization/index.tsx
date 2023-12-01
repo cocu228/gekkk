@@ -197,7 +197,7 @@ const FormLoginAccount = memo(() => {
                                 value={searchInputValue}
                                 onChange={(e) => {
                                     const t = defaultCountries.filter(item => {
-                                        return item[0].startsWith(e.target.value);
+                                        return item[0].toLocaleLowerCase().startsWith(e.target.value.toLocaleLowerCase());
                                     });
 
                                     setCountriesData(

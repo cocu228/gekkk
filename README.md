@@ -1,9 +1,3 @@
-## Установка пакетов
-
-Для установки пакетов требуется:
-1. Сгенерировать RSA SSH ключ и добавить его в Azure DevOps по описанной [инструкции](https://learn.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=azure-devops)
-2. Прописать `npm i` в терминале
-
 ## Command Line Interface
 
 

@@ -96,7 +96,7 @@ const InfoContent = (props: TypeProps) => {
                     <span className="whitespace-nowrap font-medium">{props.status_text}</span>
                 </div>
             </div>
-            {!isNeedConfirm &&
+            {isNeedConfirm || (state?.txType === AdrTxTypeEnum[6] || state?.txType === AdrTxTypeEnum[8]) ? null :
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">
                         <span className="text-gray-500 font-medium">{t("sender_name")}:</span>

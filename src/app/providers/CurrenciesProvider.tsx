@@ -48,7 +48,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             const walletsResponse = await apiGetBalance();
             const assetsResponse = assets ? assets : await getAssets()
 
-            console.log('responses stored')
+            console.log('1 responses stored')
 
             let currencies: Map<string, ICtxCurrency>
 
@@ -59,7 +59,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
 
                     currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse))
                     
-                    console.log('assets wallets ready')
+                    console.log('2 assets wallets ready')
 
                     setState(prev => ({
                         ...prev,
@@ -69,16 +69,18 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                             refreshKey: randomId()
                         }
                     }));
+                    
+                    console.log('3 assets wallets stored')
 
                     //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
                     const eurResponse = await apiGetBalance('EUR');
                     
-                    console.log('eur wallet response')
+                    console.log('4 eur wallet response')
 
                     currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))
                     
-                    console.log('eur wallet ready')
+                    console.log('5 eur wallet ready')
                     
                     setState(prev => ({
                         ...prev, currencies,
@@ -87,8 +89,8 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                             refreshKey: randomId()
                         }
                     }))
-
-
+                    
+                    console.log('6 eur wallet stored')
 
                 }).reject(() => null);
         })();

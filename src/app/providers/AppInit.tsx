@@ -7,7 +7,8 @@ import ErrorsProvider from "@/app/providers/ErrorsProvider";
 // import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
 
 const AppInit = () => {
-
+    console.log('(3) App init')
+    
     const { token } = useAuth();
 
     const content = !token ? <AuthPage /> : <RootLayout />;

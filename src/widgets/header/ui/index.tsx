@@ -14,6 +14,7 @@ import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const Header = () => {
+    console.log('(7) Header')
     const {logout} = useAuth();
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();

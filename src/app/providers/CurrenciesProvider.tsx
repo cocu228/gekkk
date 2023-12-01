@@ -29,6 +29,7 @@ interface IState {
 }
 
 export default memo(function ({ children }: { children: React.ReactNode }): JSX.Element | null {
+    console.log('(5) Currencies provider')
     const { refreshKey } = useContext(CtxRootData);
     const { assets, getAssets } = storeAssets(state => state);
 
@@ -99,8 +100,8 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             const ratesEUR = await apiGetRates()
             const ratesBTC = await apiGetRates("BTC")
 
-            const valueEUR: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesEUR))
-            const valueBTC: Decimal = totalizeAmount(state.currencies, uncoverResponse(ratesBTC))
+            const valueEUR: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesEUR))
+            const valueBTC: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesBTC))
 
             setState(prev => ({
                 ...prev,
@@ -124,8 +125,8 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     </CtxCurrencies.Provider>
 });
 
-const totalizeAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
-
+const getTotalAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
+    console.log('(6) Total amount')
 
     return Array.from
         (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {

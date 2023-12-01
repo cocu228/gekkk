@@ -4,6 +4,7 @@ import Decimal from "decimal.js";
 import {isNumber} from "@/shared/lib/helpers";
 
 export const initEmptyCurrenciesCollection = (assets: IResMarketAsset[]): Map<string, ICtxCurrency> => {
+    console.log('init empty collection')
     const currencies = new Map();
     assets.forEach(asset => currencies.set(asset.code, new ICtxCurrency(asset, null)))
     return currencies;
@@ -12,6 +13,8 @@ export const initEmptyCurrenciesCollection = (assets: IResMarketAsset[]): Map<st
 
 export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets: IResBalance[]): Map<string, ICtxCurrency> => {
 
+    console.log('wallets generation')
+    
     wallets.forEach(wallet => {
         currencies.set(wallet.currency, {
             ...currencies.get(wallet.currency),

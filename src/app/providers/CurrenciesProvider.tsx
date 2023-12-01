@@ -29,7 +29,6 @@ interface IState {
 }
 
 export default memo(function ({ children }: { children: React.ReactNode }): JSX.Element | null {
-    console.log('(5) Currencies provider')
     const { refreshKey } = useContext(CtxRootData);
     const { assets, getAssets } = storeAssets(state => state);
 
@@ -44,24 +43,23 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     })
 
     useEffect(() => {
-
         (async function () {
 
             const walletsResponse = await apiGetBalance();
             const assetsResponse = assets ? assets : await getAssets()
 
+            console.log('responses stored')
 
             let currencies: Map<string, ICtxCurrency>
 
             actionResSuccess(walletsResponse)
                 .success(async function () {
-
                     currencies = isNull(state.currencies) ? initEmptyCurrenciesCollection(assetsResponse)
                         : state.currencies
 
                     currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse))
-
-
+                    
+                    console.log('assets wallets ready')
 
                     setState(prev => ({
                         ...prev,
@@ -75,9 +73,13 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                     //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
                     const eurResponse = await apiGetBalance('EUR');
+                    
+                    console.log('eur wallet response')
 
                     currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))
-
+                    
+                    console.log('eur wallet ready')
+                    
                     setState(prev => ({
                         ...prev, currencies,
                         totalAmount: {
@@ -126,20 +128,19 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
 });
 
 const getTotalAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
-    console.log('(6) Total amount')
-
-    return Array.from
-        (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {
-
-            const course = rates[currentValue.$const]
-
-            if (course) {
-                const value = new Decimal(course).times(currentValue.availableBalance)
-                return value.plus(previousValue)
-            }
-
-            return previousValue;
-
-        }, new Decimal(0))
+    return new Decimal(0)
+    // Array.from
+    //     (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {
+    //
+    //         const course = rates[currentValue.$const]
+    //
+    //         if (course) {
+    //             const value = new Decimal(course).times(currentValue.availableBalance)
+    //             return value.plus(previousValue)
+    //         }
+    //
+    //         return previousValue;
+    //
+    //     }, new Decimal(0))
 
 }

@@ -138,7 +138,6 @@ const router = createBrowserRouter([
 ]);
 
 export default () => {
-    console.log('(2) App router')
     return (
         <RouterProvider router={router}/>
     )

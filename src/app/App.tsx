@@ -6,7 +6,6 @@ import BreakpointsProvider from "@/app/providers/BreakpointsProvider";
 
 function App() {
     Decimal.set({toExpNeg: -18});
-    console.log('(1) App')
     
     return (
         <BreakpointsProvider>

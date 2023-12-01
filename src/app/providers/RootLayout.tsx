@@ -14,7 +14,6 @@ import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 
 export default memo(function () {
-    console.log('(4) Root layout')
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
     const [{

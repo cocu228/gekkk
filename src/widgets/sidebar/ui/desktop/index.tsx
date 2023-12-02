@@ -62,7 +62,7 @@ const SidebarDesktop = () => {
 
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
-            {/* Account total balance */}
+            {/* Account total balance 
             <div className={styles.TotalVal}>
                 <div className="right-0 absolute mr-4 mt-3"><UpdateAmounts /></div>
                 <div className={`wrapper flex-col ml-4 pt-4 pb-4 flex ${styles.Wrapper}`}>
@@ -75,10 +75,11 @@ const SidebarDesktop = () => {
                         </span>
                     </div>
                 </div>
-            </div>
+            </div>*/}
+
             
             {/* Wrapper */}
-            <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
+            {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
             
             {/* fiat-currency wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
@@ -91,20 +92,23 @@ const SidebarDesktop = () => {
                         {/*<img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
                             alt="EUR" />*/}
                     </div>
-                    <div className="col flex items-center flex-col pl-5 pt-3">
+                    <div className="col flex items-center flex-col pl-5 pt-3 relative">
                         <div className="row w-full">
-                            <span className={styles.Name}>Euro account</span>
+                            <span className={styles.Name}>Euro</span>
                         </div>
-                        <div className="row w-full text-right">
-                            <span className={styles.SumEUR}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
+                        <div className="row w-full">
+                            <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
                         </div>
+                        <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
                     </div>
                 </div>
             </NavLink>
-            
-            {/* Wrapper */}
-            <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-            
+
+            {/* Crypto wallets wrapper */}
+            <div className={styles.AssetInfo1} >
+                <span>crypto assets</span>
+            </div>
+
             {/* EURG wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
                 <div className={`${styles.Item}`}>
@@ -165,7 +169,7 @@ const SidebarDesktop = () => {
             
             {/* Secondary options wrapper */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-            
+
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
                 <NavCollapse header={t("assets")} id={"assets"}>
@@ -200,10 +204,19 @@ const SidebarDesktop = () => {
                         </NavLink>)}
                 </NavCollapse>
             )}
-            
+
+            <div className={styles.AssetInfo2} >
+                <span>total balance</span>
+                <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+            </div>
+
             {/* Assets link */}
-            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                <div className={`${styles.Item}`}>
+            <div className={styles.AssetInfo3}>
+                <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
+                    <div className={styles.AssetInfo4}>
+                        new crypto asset
+                    </div>
+                    {/* <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
                         <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
                             alt="Invest" />
@@ -212,20 +225,22 @@ const SidebarDesktop = () => {
                         <div className="row w-full mb-1 font-medium"><span
                             className={styles.NavName}>{t("crypto_assets.title")}</span></div>
                     </div>
-                </div>
-            </NavLink>
-
+                </div> */}
+                </NavLink>
+            </div>
             {/* Exchange page link */}
             <NavLink onClick={NavLinkEvent} to={"exchange"}>
-                <div className={styles.Item}>
-                    <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
-                            alt="ExchangeIcon" />
+                <div className={styles.ItemExchange}>
+                    <div className="absolute self-center place-self-center"><span
+                        className={styles.NavName}>{t("exchange.title")}</span>
                     </div>
-                    <div className="col flex items-center justify-center flex-col pl-6">
-                        <div className="row w-full mb-1 font-medium"><span
-                            className={styles.NavName}>{t("exchange.title")}</span>
-                        </div>
+                    <div className="absolute right-4 self-center">
+                        {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
+                            alt="ExchangeIcon" /> */}
+                        <svg className={styles.Icon} width="34" height="32" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.7642 17.2405V12.2925H30.5781C32.4647 12.2925 34.102 13.3806 34.9206 14.9752C35.5355 14.0862 35.897 13.0017 35.897 11.8309C35.897 8.81559 33.501 6.37121 30.5452 6.37121H12.7643V1.4036C12.7643 0.672213 11.9558 0.2449 11.3702 0.666686L0.374295 8.58511C-0.124765 8.9445 -0.124765 9.69954 0.374295 10.0589L11.3702 17.9774C11.9559 18.3991 12.7642 17.9718 12.7642 17.2405ZM41.6257 29.941L30.6298 22.0226C30.0442 21.6008 29.2358 22.0281 29.2358 22.7595V27.7076H11.422C9.5353 27.7076 7.89798 26.6194 7.07945 25.0249C6.46447 25.9139 6.10305 26.9984 6.10305 28.1691C6.10305 31.1845 8.49908 33.6288 11.4548 33.6288H29.2358V38.5964C29.2358 39.3278 30.0442 39.7551 30.6298 39.3333L41.6257 31.4149C42.1248 31.0554 42.1248 30.3004 41.6257 29.941Z" fill="#3A5E66" />
+                        </svg>
+
                     </div>
                 </div>
             </NavLink>

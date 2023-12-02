@@ -51,8 +51,6 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
     useLayoutEffect(() => {
         // NEW API
         $new_axios.interceptors.response.use((response: any) => {
-            console.log(response);
-            
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
             

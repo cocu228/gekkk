@@ -24,37 +24,36 @@ interface IState {
     totalAmount: {
         refreshKey: string;
         EUR: Decimal | null;
-        BTC: Decimal | null;
     }
 }
 
 export default memo(function ({ children }: { children: React.ReactNode }): JSX.Element | null {
-    const { refreshKey } = useContext(CtxRootData);
-    const { assets, getAssets } = storeAssets(state => state);
-
+    const {refreshKey} = useContext(CtxRootData);
+    const {assets, getAssets} = storeAssets(state => state);
+    
     const [state, setState] = useState<IState>({
         currencies: null,
         ratesEUR: null,
         totalAmount: {
             EUR: null,
-            BTC: null,
             refreshKey: ""
         }
-    })
-
+    });
+    
     useEffect(() => {
         (async function () {
             const walletsResponse = await apiGetBalance();
-            const assetsResponse = assets ? assets : await getAssets()
-
+            const assetsResponse = assets ?? await getAssets();
+            
             let currencies: Map<string, ICtxCurrency>
-
+            
             actionResSuccess(walletsResponse)
                 .success(async function () {
-                    currencies = isNull(state.currencies) ? initEmptyCurrenciesCollection(assetsResponse)
-                        : state.currencies
-
-                    currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse))
+                    currencies = isNull(state.currencies)
+                        ? initEmptyCurrenciesCollection(assetsResponse)
+                        : state.currencies;
+                    
+                    currencies = walletsGeneration(currencies, uncoverResponse(walletsResponse));
                     
                     setState(prev => ({
                         ...prev,
@@ -69,7 +68,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
                     const eurResponse = await apiGetBalance('EUR');
                     
-                    currencies = walletsGeneration(currencies, uncoverResponse(eurResponse))
+                    currencies = walletsGeneration(currencies, uncoverResponse(eurResponse));
                     
                     setState(prev => ({
                         ...prev, currencies,
@@ -77,56 +76,42 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
                             ...prev.totalAmount,
                             refreshKey: randomId()
                         }
-                    }))
-                    
+                    }));
                 }).reject(() => null);
         })();
     }, [refreshKey]);
-
-
+    
     useEffect(() => {
-
         if (state.currencies !== null) (async () => {
-            const ratesEUR = await apiGetRates()
-            const ratesBTC = await apiGetRates("BTC")
-
-            const valueEUR: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesEUR))
-            const valueBTC: Decimal = getTotalAmount(state.currencies, uncoverResponse(ratesBTC))
-
+            const ratesEUR = await apiGetRates();
+            
+            const value: Decimal = Array.from(state.currencies.values())
+                .reduce((previousValue, currentValue) => {
+                    
+                    if (currentValue.userBalanceEUREqu) {
+                        const value = new Decimal(currentValue.userBalanceEUREqu)
+                        return value.plus(previousValue)
+                    }
+                    
+                    return previousValue;
+                }, new Decimal(0));
+            
             setState(prev => ({
                 ...prev,
                 ratesEUR: uncoverResponse(ratesEUR),
                 totalAmount: {
                     ...prev.totalAmount,
-                    BTC: valueBTC,
-                    EUR: valueEUR
+                    EUR: value
                 }
             }))
         })();
-
     }, [state.totalAmount.refreshKey]);
-
+    
     return <CtxCurrencies.Provider value={{
         currencies: state.currencies,
-        totalAmount: state.totalAmount,
+        totalAmount: state.totalAmount.EUR,
         ratesEUR: state.ratesEUR
     }}>
         {state.currencies === null ? <Loader /> : children}
     </CtxCurrencies.Provider>
 });
-
-const getTotalAmount = (list: Map<string, ICtxCurrency>, rates: Record<ETokensConst, number>) => {
-    return Array.from
-        (list.values()).filter(item => item.availableBalance !== null).reduce<Decimal>((previousValue: Decimal, currentValue, i, list) => {
-
-            const course = rates[currentValue.$const]
-
-            if (course) {
-                const value = new Decimal(course).times(currentValue.availableBalance)
-                return value.plus(previousValue)
-            }
-
-            return previousValue;
-
-        }, new Decimal(0));
-}

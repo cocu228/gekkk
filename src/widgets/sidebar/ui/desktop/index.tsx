@@ -70,8 +70,8 @@ const SidebarDesktop = () => {
                         <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
                     </div>
                     <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
-                        <span className="text-lg font-bold mr-5">~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount.EUR?.toNumber()) ?? '-'}</span> €
-                            {/* ({totalAmount.BTC?.toDecimalPlaces(6).toNumber()} ₿) */}
+                        <span className="text-lg font-bold mr-5">
+                            ~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €
                         </span>
                     </div>
                 </div>
@@ -125,7 +125,7 @@ const SidebarDesktop = () => {
                                 </span>}
                             </div>
                             <div>
-                                {!eurgWallet.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                {eurgWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                     ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
                                 </span>}
                             </div>
@@ -154,7 +154,7 @@ const SidebarDesktop = () => {
                                 </span>}
                             </div>
                             <div>
-                                {!gkeWallet.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                {gkeWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                     ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
                                 </span>}
                             </div>
@@ -189,7 +189,7 @@ const SidebarDesktop = () => {
                                             </span>}
                                         </div>
                                         <div>
-                                            {!item.userBalanceEUREqu ? null : <span className={styles.EuroEqv}>
+                                            {item.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                                 ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
                                             </span>}
                                         </div>

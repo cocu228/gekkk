@@ -129,4 +129,3 @@ export class HunterErrorsApi {
         }>(this.response.data.errors).code === 449) || (this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10068)
     }
 }
-

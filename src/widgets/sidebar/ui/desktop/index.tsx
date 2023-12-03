@@ -11,7 +11,7 @@ import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
-import {helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/sidebar/model/helpers";
+import { helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding } from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { apiCloseRoom } from "@/shared/api/(gen)new";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -20,10 +20,10 @@ import { storeInvestments } from "@/shared/store/investments/investments";
 import { ParentClassForCoin, IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
-import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
+import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
 import { RoomInfo } from "@/shared/api/(gen)new/model";
-import Decimal from "decimal.js";
+import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -77,10 +77,14 @@ const SidebarDesktop = () => {
                 </div>
             </div>*/}
 
-            
+
             {/* Wrapper */}
             {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
-            
+            <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
+                <div className={styles.CardInfo}>
+                    <BankCardsCarousel />
+                </div>
+            </div>
             {/* fiat-currency wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
                 <div className={`${styles.Item}`}>
@@ -137,7 +141,7 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            
+
             {/* GKE wallet */}
             <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
                 <div className={`${styles.Item}`}>
@@ -166,7 +170,7 @@ const SidebarDesktop = () => {
                     </div>
                 </div>
             </NavLink>
-            
+
             {/* Secondary options wrapper */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
 

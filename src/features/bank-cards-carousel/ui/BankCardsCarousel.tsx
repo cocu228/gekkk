@@ -13,11 +13,7 @@ interface IParams {
     onSelect?: (card: IResCard) => void;
 }
 
-const BankCardsCarousel = ({
-    cardClassName,
-    wrapperClassName,
-    onSelect = () => {}
-}: IParams) => {
+const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
     const carousel = useRef();
     const [value, setValue] = useSessionStorage("cards-settings", {
         displayUnavailable: null
@@ -38,31 +34,20 @@ const BankCardsCarousel = ({
     }, [bankCards]);
     
     return (
-        <div className={wrapperClassName}>
+        <div className="max-h-[600px] max-w-[1000px]">
             {!bankCards?.length ? (
-                <div className={"scale-90"}>
+                <div>
                     <SkeletonCard/>
-                </div>
-            ) : (<>
-                <Carousel
-                    draggable
-                    ref={carousel}
-                    afterChange={(i) => onSelect(bankCards[i])}
-                >
-                    {bankCards
-                        .map(card => (
-                            <div className={`${cardClassName} scale-90 mb-5`}>
-                                <BankCard
-                                    status={card.cardStatus}
-                                    className="hover:shadow-none"
+                </div>) : (<> <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
+                    {bankCards.map(card => (
+                            <div className={`${cardClassName} mb-6`}>
+                                <BankCard status={card.cardStatus}
                                     cardNumber={formatCardNumber(card.displayPan)}
                                     expiresAt={formatMonthYear(new Date(card.expiryDate))}
-                                    holderName={card.cardholder}
-                                />
+                                    holderName={card.cardholder}/>
                             </div>
                         ))}
-                </Carousel>
-            </>)}
+                </Carousel></>)}
         </div>
     )
 }

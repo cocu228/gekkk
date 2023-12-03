@@ -50,8 +50,8 @@ const WalletHeader = () => {
                         </div>
                     ) : (
                         <div className='grid auto-cols-fr'>
-                            <span data-text={account.number} className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
-                               {t("account")}: {account.number}
+                            <span className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                               IBAN: {account.number}
                             </span>
                         </div>
                     )}

@@ -9,7 +9,7 @@ interface Props {
 function PageHead({title, subtitle, rightContent}: Partial<Props>) {
 
     return (
-        <div className="mb-14 md:mb-8">
+        <div className="m-4 md:mb-8">
             <div className="flex lg:flex-col justify-between items-center lg:items-start gap-6">
                 <div className="wrapper">
                     <h1 className="mb-4 text-fs32 md:text-2xl font-bold">{title}</h1>

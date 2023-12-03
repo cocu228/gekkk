@@ -7,12 +7,12 @@
 
   &:hover {
     span {
-      color: var(--color-blue-400)
+      color: #3A5E66
     }
   }
 
   &:global(.active) {
-    img.Arrow {
+    svg.Arrow {
       transform: rotate(-180deg);
     }
 

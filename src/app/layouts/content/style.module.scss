@@ -5,7 +5,7 @@
   position: relative;
   padding-left: var(--content-pad-left);
   padding-right: var(--content-pad-right);
-  padding-top: var(--content-pad-top);
+  //padding-top: var(--content-pad-top);
 
   @include max-devices(xl) {
     padding-left: var(--content-pad-left-xl);

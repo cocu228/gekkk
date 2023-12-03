@@ -101,8 +101,8 @@ const WalletHeader = () => {
                 </div>)}
             </div>
             
-            {md ? null : isEUR ? (
-                <BankCardsCarousel wrapperClassName="h-[240px] w-[310px] -mt-16 mr-20 -xxl:-mb-10 lg:scale-75 lg:mr-0"/>
+            {/* {md ? null : isEUR ? (
+                 <div/>
             ) : (
                 <div className="text-right grid auto-cols-fr">
                     <div data-text={name} className="mb-3 ellipsis -mt-1.5">
@@ -114,7 +114,7 @@ const WalletHeader = () => {
                         {isEURG ? EurgDescriptionText : getDescription($const, name, t)}
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     </>
 }

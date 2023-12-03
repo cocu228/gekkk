@@ -1,26 +1,48 @@
-.BankCard {
-    padding: 10px;
-    max-width: 310px;
-    min-width: 310px;
+.BankCard {    
+    max-width: 1013px;
+    //min-width: 100px;
     user-select: none;
-    min-height: 195px;
-    max-height: 195px;
-    padding-left: 23px;
+    //min-height: 100px;
+    max-height: 639px;    
     border-radius: 10px;
     transition: all .2s;
-    background: url(/img/payment-card/payment-card-background.png);
+    background-color: #c8c8c8;
+    background-image: url(/img/payment-card/payment-card-background.jpg);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    aspect-ratio: 1.5852895;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 
     &:hover {
-        background: url(/img/payment-card/payment-card-background.png);
+        background: url(/img/payment-card/payment-card-background.jpg);
         box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
     }
 }
-
+.CardNumber {
+    width: 100%;
+    font-size: 13px;
+    //font-size: calc((75vw - 4.5rem) / 20);
+    font-weight: 600;
+    word-spacing: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, #ffffffe0 28.56%, #ffffffe0 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, #ffffffe0 85.68%, #ffffffe0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    //margin-left: 10%;
+    //margin-right: 10%;
+    margin-bottom: 6%;
+}
 .CardData {
     width: 100%;
-    font-size: 14px;
+    font-size: 10px;
+    //font-size: 1.4vw;
     font-weight: 600;
-    line-height: 18px;
     word-spacing: 4px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -28,23 +50,10 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;   
+    margin-left: 8%;
+}
+.CardHolderName
+{
+    margin-bottom: 6%;
 }
 
-.CardNumber {
-    width: 100%;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-    word-spacing: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: linear-gradient(to bottom, #c8c8c8 0%, #c8c8c8 14.28%, #ffffffe0 28.56%, #ffffffe0 42.84%, #c8c8c8 57.12%, #c8c8c8 71.4%, #ffffffe0 85.68%, #ffffffe0 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-}
-
-.CardBottom {
-    display: grid;
-    grid-template-columns: 1fr auto;
-}

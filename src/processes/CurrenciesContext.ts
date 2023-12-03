@@ -50,15 +50,10 @@ export class ICtxCurrency {
     }
 }
 
-export type ITotalContainer = {
-    EUR: Decimal | null;
-    BTC: Decimal | null;
-}
-
 export interface ICtxCurrencies {
     ratesEUR: unknown;
     currencies: Map<string, ICtxCurrency>;
-    totalAmount: ITotalContainer;
+    totalAmount: Decimal | null;
 }
 
 export const CtxCurrencies = React.createContext<ICtxCurrencies>(null);

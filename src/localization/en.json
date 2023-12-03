@@ -112,8 +112,8 @@
 
       "your_account_has_been_topped": "Your account has been topped up for the amount:",
 
-      "assets": "Assets",
-      "private_exchange_rooms": "Private exchange rooms",
+      "assets": "assets",
+      "private_exchange_rooms": "private exchange rooms",
       "invite_link": "Invite link",
       "participants": "Participants",
       "number_of_participants": "Number of participants",
@@ -276,7 +276,7 @@
       "sign_out": "Sign Out",
       "main": "Main",
       "exchange": {
-        "title": "Exchange",
+        "title": "Crypto exchange",
         "describe":"Cryptocurrency exchange - fast and easily",
         "create_private_exchange_room": "Create private exchange room",
         "private_exchange_room": "private exchange room",

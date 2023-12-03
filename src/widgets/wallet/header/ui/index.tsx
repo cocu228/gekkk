@@ -101,7 +101,7 @@ const WalletHeader = () => {
                 </div>)}
             </div>
             
-            {md ? null : isEUR ? (
+            {/* {md ? null : isEUR ? (
                  <div/>
             ) : (
                 <div className="text-right grid auto-cols-fr">
@@ -114,7 +114,7 @@ const WalletHeader = () => {
                         {isEURG ? EurgDescriptionText : getDescription($const, name, t)}
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     </>
 }

@@ -16,9 +16,9 @@ const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: Card
     return (
         <div className="flex justify-center">
             {status !== 'ACTIVE' && (
-                <div className='flex absolute w-full h-full items-center justify-center'>
-                    <div className='mb-4 bg-black bg-opacity-85 rounded-[6px] p-1'>
-                        <span className='font-bold select-none text-red-400 text-[10px]'>{CardStatusDescriptions[status]}</span>
+                <div className='flex absolute w-full h-full items-center justify-center font-bold select-none text-black text-lg'>
+                    <div className='mb-10 rounded-[6px] p-1'>
+                        {CardStatusDescriptions[status]}
                     </div>
                 </div>
             )}

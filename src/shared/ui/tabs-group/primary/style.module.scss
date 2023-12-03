@@ -49,10 +49,11 @@
 .TabsWrapper {
   width: auto;
   position: relative;
-  margin-left: calc(-1 * var(--content-pad-left));
-  margin-right: calc(-1 * var(--content-pad-right));
-  padding-left: var(--content-pad-left);
-  padding-right: var(--content-pad-right);
+  // margin-left: calc(-1 * var(--content-pad-left));
+  // margin-right: calc(-1 * var(--content-pad-right));
+  // padding-left: var(--content-pad-left);
+  // padding-right: var(--content-pad-right);
+  padding: 0px 5px;
   overflow-x: auto;
   
   background-color: #3A5E66;

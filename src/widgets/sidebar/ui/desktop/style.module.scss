@@ -138,7 +138,8 @@
   }
 
   &>.Item,
-  .ItemExchange {
+  .ItemExchange,
+  .ItemEuro {
     box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
 
     .RoomName {
@@ -175,7 +176,8 @@
 }
 
 .Item,
-.ItemExchange {
+.ItemExchange,
+.ItemEuro {
   height: 85px;
   position: relative;
   width: 100%;
@@ -227,4 +229,7 @@
 .ItemExchange {
   height: 60px;
   grid-template-columns: 1fr auto;
+}
+.ItemEuro {
+  height: 70px;
 }

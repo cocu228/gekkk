@@ -51,9 +51,7 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
             end: end.length ? end.toString() : null,
             start: start.length ? start.toString() : null,
             include_fiat: includeFiat,
-        }, {
-            cancelToken: cancelToken?.token
-        });
+        }, {cancelToken});
         
         actionResSuccess(response).success(() => {
             const {result} = response.data;
@@ -85,17 +83,15 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
     }
 
     useEffect(() => {
-
         const cancelTokenSource = axios.CancelToken.source();
 
         (async () => {
             if (activeTab !== TabKey.CUSTOM) {
-                await requestHistory(cancelTokenSource)
+                await requestHistory(cancelTokenSource.token);
             }
         })()
 
         return () => cancelTokenSource.cancel()
-
     }, [refreshKey, activeTab, currenciesFilter]);
 
     return (

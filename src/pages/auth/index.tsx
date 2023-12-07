@@ -14,7 +14,7 @@ import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/help
 import LoginBackground from '@/assets/login-background.svg?react';
 
 import { NewHeader } from "@/widgets/new-header/ui/NewHeader";
-import {$ENV_DEV} from "@/shared/lib/helpers";
+import {$ENV_MODE} from "@/shared/lib/helpers";
 import ForgotPassword from "@/widgets/auth/ui/forgot-password";
 import AuthFooter from "@/widgets/auth/ui/auth-footer";
 import CookiePolicyApplies from "@/widgets/auth/ui/cookie-policy-applies";
@@ -90,7 +90,7 @@ const AuthPage = memo(() => {
                         <FormLoginAccount/>
                     }
                     
-                    {stage !== 'forgot-password' ?<div style={{
+                    {stage !== 'forgot-password' ? <div style={{
                         width: '100%',
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -104,15 +104,18 @@ const AuthPage = memo(() => {
 
                             Don’t have an account? Sign up now
                         </span>
-                        <button className='account-button'>
+                        <button
+                            className='account-button'
+                            onClick={() => window.open(import.meta.env[`VITE_REGISTRATION_URL_${$ENV_MODE}`]
+                                ?? 'https://webregistration-dev.gekkard.com/', "_blank")}
+                        >
                             Sign up
                         </button>
                     </div> : null}
                     
-
                     </div>
                     <CookiePolicyApplies />
-                   
+                    
                     <div style={{ height: "100%", minHeight: '30px'}}></div>
                     
                     {/* <p className="typography-b4" style={{

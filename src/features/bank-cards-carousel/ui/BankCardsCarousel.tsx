@@ -36,7 +36,7 @@ const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
     return (
         <div className="max-h-[600px] max-w-[1000px]">
             {!bankCards?.length ? (
-                <div>
+                <div className='scale-y-95 mb-[14px]'>
                     <SkeletonCard/>
                 </div>) : (<> <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
                     {bankCards.map(card => (

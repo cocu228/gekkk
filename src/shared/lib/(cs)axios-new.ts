@@ -46,25 +46,13 @@ export const AXIOS_INSTANCE = axios.create({
     baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
+// Add .then(({data}) => data) to remove basic AxiosResponse class
 export const $axios = <T>(
     config: AxiosRequestConfig,
     options?: AxiosRequestConfig,
-): Promise<AxiosResponse<T>> => {
-    const source = axios.CancelToken.source();
-    
-    // Add .then(({data}) => data) to remove basic AxiosResponse class
-    const promise = AXIOS_INSTANCE({
-        ...config,
-        ...options,
-        cancelToken: source.token,
-    });
-    
-    // @ts-ignore
-    promise.cancel = () => {
-        source.cancel();
-    };
-    
-    return promise;
-};
+): Promise<AxiosResponse<T>> => AXIOS_INSTANCE({
+    ...config,
+    ...options,
+});
 
 export default $axios;

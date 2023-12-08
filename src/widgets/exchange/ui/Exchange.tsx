@@ -91,9 +91,9 @@ function Exchange() {
                     />
                 );
             case 'creator':
-                return `Private room ${from.currency} - ${to.currency}, ID: ...${roomInfo.timetick.toString().slice(-6)}`;
+                return `Private room`;
             case 'visitor':
-                return `Private room ${from.currency} - ${to.currency} participant, ID: ...${roomInfo.timetick.toString().slice(-6)}`;
+                return `Private room`;
         }
     };
 
@@ -104,12 +104,19 @@ function Exchange() {
             case 'creator':
                 return (
                     <>
-                        {t("exchange.owner_private_room")}&nbsp;
+                        <b>{from.currency} - {to.currency}</b>
+                        <span> (id: {roomInfo.timetick})</span>
+                        <p>{t("exchange.owner_private_room")}</p>
                         <button className="underline text-accent" onClick={roomInfoModal.showModal}>{t("exchange.invite_link")}</button>
                     </>
                 );
             case 'visitor':
-                return 'Private exchange room';
+                return (
+                    <>
+                        <b>{from.currency} - {to.currency}</b>
+                        <span> (id: {roomInfo.timetick})</span>
+                    </>
+                );
 
         }
     };

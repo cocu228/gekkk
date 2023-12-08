@@ -5,7 +5,7 @@ import {onAuthStateChanged} from "firebase/auth";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {createContext, FC, PropsWithChildren, useContext, useEffect, useMemo} from "react";
-import {clearAllCookies, getCookieData, setCookieData, throttle} from "@/shared/lib/helpers";
+import {clearCookies, getCookieData, setCookieData, throttle} from "@/shared/lib/helpers";
 
 const AuthContext = createContext({});
 
@@ -91,14 +91,14 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     };
 
     const logout = () => {
-
         $axios.defaults.headers[tokenHeaderName] = undefined;
         $axios.defaults.headers['Authorization'] = undefined;
         $axios.defaults.headers['AccountId'] = undefined;
         window.recaptchaVerifier = undefined;
-        clearAllCookies();
-        navigate('/', {replace: true});
-        location.reload();
+        
+        clearCookies();
+        
+        location.replace('/');
     };
 
     const value = useMemo<IValue>(

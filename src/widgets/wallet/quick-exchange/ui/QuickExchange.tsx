@@ -118,9 +118,9 @@ export const QuickExchange = () => {
     }
 
     return <>
-        <div className="row mb-2">
+        {/* <div className="row mb-2">
             <div className="col">
-                <span className="font-medium">Select a type of quick exchange</span>
+                <span className="font-medium">Select a type of simple exchange</span>
             </div>
         </div>
         <div className="row mb-6">
@@ -133,7 +133,7 @@ export const QuickExchange = () => {
                         value={state.typeOperation}
                 />
             </div>
-        </div>
+        </div> */}
         <div className="row mb-8">
             <div className="col">
                 <InputCurrency.PercentSelector

@@ -124,7 +124,7 @@
       "bank_transfer" : "Bank transfer",
 
       "no_fee_program" : "No Fee Program",
-      "quick_exchange" : "Quick exchange",
+      "simple_exchange" : "Simple exchange",
       "transfer_to_contact": "Transfer to Contact",
       "templates": "Templates",  
       "history": "History",
@@ -152,7 +152,7 @@
       "not_used": "not used",
       "delete_this_code": "Delete this code",
 
-      "bank_cards" : "Bank cards",
+      "bank_cards" : "Payment cards",
       "display_unavailable_cards": "Display unavailable cards",
       "block_selected_bank_card": "Are you sure you want to block selected bank card?",
       "unblock_selected_bank_card": "Are you sure you want to unblock selected bank card?",

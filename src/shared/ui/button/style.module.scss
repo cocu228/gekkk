@@ -1,13 +1,13 @@
 @import "@styles/mixins";
 
-.Button[type="button"], .Button[type="submit"], {
+.Button[type="button"], .Button[type="submit"] {
   height: auto;
-  color: white;
-  font-weight: 600;
+  color: #f7f7f0;
+  font-weight: 400;
   outline: none;
-  background: var(--color-blue-400);
+  background: #3A5E66;
   border: none;
-  border-radius: 28px;
+  border-radius: 8px;
   padding: 15px 15px;
   transition: all ease-out 0.2s;
 
@@ -16,32 +16,33 @@
   }
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+    font-weight: 600;
   }
 
   &:active {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--color-blue-400);
+    background: #1F3446;
+    color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
   }
 
   &:disabled {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    background: rgba(0, 174, 239, 0.58);
+    color: #9D9D9D;
+    background: #E7E7E7;
   }
 
   &[data-size="xl"] {
     padding: 1.13rem;
-    border-radius: 1.875rem;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 1.2;
   }
 
   &[data-size="sm"] {
     line-height: 1;
     font-size: 14px;
-    font-weight: 500;
-    border-radius: 16px;
+    font-weight: 400;
     padding: 10px 8px;
   }
 

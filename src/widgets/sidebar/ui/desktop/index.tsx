@@ -24,6 +24,7 @@ import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
 import { RoomInfo } from "@/shared/api/(gen)new/model";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -44,6 +45,7 @@ const SidebarDesktop = () => {
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
     const getInvestments = storeInvestments(state => state.getInvestments);
+    const getBankCards = storeBankCards(state => state.getBankCards);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -53,6 +55,7 @@ const SidebarDesktop = () => {
     useEffect(() => {
         getRoomsList();
         getInvestments();
+        getBankCards();
     }, [account]);
 
     const eurWallet = currencies.get("EUR");

@@ -33,15 +33,7 @@ function Wallet() {
     const descriptions = getTokenDescriptions(navigate, account);
 
     const $currency = currencies.get(currency);
-    const cards = storeBankCards(state => state.bankCards);
-    const getBankCards = storeBankCards(state => state.getBankCards);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-
-    useEffect(() => {
-        if (!cards && currency === 'EUR') {
-            getBankCards();
-        }
-    }, [currency]);
     
     return (
         <div className="flex flex-col h-full w-full">

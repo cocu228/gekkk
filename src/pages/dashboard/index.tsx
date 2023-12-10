@@ -11,6 +11,7 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import Button from "@/shared/ui/button/Button";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {randomId} from "@/shared/lib/helpers";
+import {useTranslation} from "react-i18next";
 enum TabType {
     ACCOUNTS,
     CARDS,
@@ -32,23 +33,23 @@ const TABS = [
 ];
 
 export default () => {
+    const {t} = useTranslation();
     const {sm} = useContext(BreakpointsContext);
-
+    
     return (
         <div className="wrapper">
-
             {/*<PageHead title="Personal account"/>*/}
             
             {sm ? (
                 <div className="w-full -sm:hidden">
-                    <TabsGroupPrimary initValue={"Cards"}>
+                    <TabsGroupPrimary initValue={"history"}>
                         {/*<div className='-mt-5' data-tab={"Cards"}>*/}
                         {/*    <CardsLayout/>*/}
                         {/*</div>*/}
                         {/*<div className='-mt-5' data-tab={"Crypto assets"}>*/}
                         {/*    <CryptoAssets/>*/}
                         {/*</div>*/}
-                        <div className='-mt-10 substrate' data-tab={"History"}>
+                        <div className='-mt-10 substrate' data-tag={"history"} data-name={t("history")}>
                             <History title='History' includeFiat/>
                         </div>
                     </TabsGroupPrimary>

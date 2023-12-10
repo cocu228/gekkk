@@ -85,9 +85,10 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         $new_axios.defaults.headers[tokenHeaderName] = token;
         $new_axios.defaults.headers['Authorization'] = formatAsNumber(phone);
         
-        const pathUrl = window.location.pathname + window.location.search;
+        const pathUrl = window.location.pathname
+            + window.location.search.replace('authMethod=UAS', '');
         
-        navigate(pathUrl !== '/' ? pathUrl : '/wallet/EUR');
+        navigate(!['/', '/?'].includes(pathUrl) ? pathUrl : '/wallet/EUR');
     };
 
     const logout = () => {

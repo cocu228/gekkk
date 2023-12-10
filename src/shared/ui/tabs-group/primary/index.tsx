@@ -60,10 +60,9 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
     }, [callInitValue]);
     
     return <>
-        <div className='mb-10 flex justify-center'>
-            {/* <div className={styles.Underline}/> */}
+        <div className='flex justify-center'>
             <div className={styles.TabsWrapper}>
-                <div className='flex justify-center'>
+                <div className='flex justify-center flex-wrap'>
                     {buttons.map((item, i) => <button
                         key={"tabs-primary-button" + i}
                         className={`

@@ -20,7 +20,7 @@ import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
 
 const {RangePicker} = DatePicker;
 
-const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<Props>) {
+const History = memo(function ({currenciesFilter, title, types, includeFiat}: Partial<Props>) {
     const {t} = useTranslation();
 
     const {refreshKey} = useContext(CtxRootData);
@@ -96,6 +96,8 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
 
     return (
         <div id={"History"} className="wrapper">
+            <h3 className="mb-4 font-bold">{title}</h3>
+            
             <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === TabKey.CUSTOM && (
                 <div className='flex flex-col mt-3 mb-5'>

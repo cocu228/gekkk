@@ -12,6 +12,7 @@ import Button from "@/shared/ui/button/Button";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {randomId} from "@/shared/lib/helpers";
 import {useTranslation} from "react-i18next";
+import PageHead from "@/shared/ui/page-head/PageHead";
 enum TabType {
     ACCOUNTS,
     CARDS,
@@ -38,28 +39,32 @@ export default () => {
     
     return (
         <div className="wrapper">
-            {/*<PageHead title="Personal account"/>*/}
-            
-            {sm ? (
-                <div className="w-full -sm:hidden">
-                    <TabsGroupPrimary initValue={"history"}>
-                        {/*<div className='-mt-5' data-tab={"Cards"}>*/}
-                        {/*    <CardsLayout/>*/}
-                        {/*</div>*/}
-                        {/*<div className='-mt-5' data-tab={"Crypto assets"}>*/}
-                        {/*    <CryptoAssets/>*/}
-                        {/*</div>*/}
-                        <div className='-mt-10 substrate' data-tag={"history"} data-name={t("history")}>
-                            <History title='History' includeFiat/>
-                        </div>
-                    </TabsGroupPrimary>
+            {TABS.map(({content}) => (
+                <div key={randomId()}>
+                    {content}
                 </div>
-            ) : (TABS.map(({content}) => (
-                    <div key={randomId()} className='mt-16'>
-                        {content}
-                    </div>
-                ))
-            )}
+            ))}
+            
+            {/*{sm ? (*/}
+            {/*    <div className="w-full -sm:hidden">*/}
+            {/*        <TabsGroupPrimary initValue={"history"}>*/}
+            {/*            /!*<div className='-mt-5' data-tab={"Cards"}>*!/*/}
+            {/*            /!*    <CardsLayout/>*!/*/}
+            {/*            /!*</div>*!/*/}
+            {/*            /!*<div className='-mt-5' data-tab={"Crypto assets"}>*!/*/}
+            {/*            /!*    <CryptoAssets/>*!/*/}
+            {/*            /!*</div>*!/*/}
+            {/*            <div className='-mt-10 substrate' data-tag={"history"} data-name={t("history")}>*/}
+            {/*                <History title='History' includeFiat/>*/}
+            {/*            </div>*/}
+            {/*        </TabsGroupPrimary>*/}
+            {/*    </div>*/}
+            {/*) : (TABS.map(({content}) => (*/}
+            {/*        <div key={randomId()} className='mt-16'>*/}
+            {/*            {content}*/}
+            {/*        </div>*/}
+            {/*    ))*/}
+            {/*)}*/}
         </div>
     );
 }

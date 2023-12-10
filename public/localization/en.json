@@ -44,6 +44,7 @@
       "amount": "Amount",
       "fee": "Fee",
       "status": "Status",
+      "description": "Description",
       "sender_name": "Sender name",
       "address_from": "Address from",
       "address_to": "Address to",

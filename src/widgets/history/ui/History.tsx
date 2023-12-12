@@ -96,7 +96,7 @@ const History = memo(function ({currenciesFilter, title, types, includeFiat}: Pa
 
     return (
         <div id={"History"} className="wrapper">
-            <h3 className="mb-4 font-bold">{title}</h3>
+            {/* <h3 className=" font-bold">{title}</h3> */}
             
             <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
             {activeTab === TabKey.CUSTOM && (

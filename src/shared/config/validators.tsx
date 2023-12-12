@@ -13,7 +13,7 @@ interface IValidationResult {
 }
 
 export function validateBalance(currency: ICtxCurrency, navigate: NavigateFunction, t: TFunction): IValidatorCreator {
-    const balance = currency.availableBalance === null ? 0 : currency.availableBalance
+    const balance = (!currency || currency?.availableBalance === null) ? 0 : currency.availableBalance
 
     return (value) => ({
         validated: new Decimal(value).lte(balance),

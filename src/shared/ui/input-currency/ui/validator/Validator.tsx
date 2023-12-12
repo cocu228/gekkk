@@ -25,20 +25,15 @@ const Validator: FC<IParams> = (({
     validators = [],
     onError = (value: boolean) => {}
 }: IParams) => {
-
     const {t} = useTranslation();
-    const [error, setError] = useState<null | string | JSX.Element>(null)
-    const firstEffect = useRef(true)
-
-
-
+    const firstEffect = useRef(true);
+    const [error, setError] = useState<null | string | JSX.Element>(null);
+    
     useEffect(() => {
-
         if (firstEffect.current) {
             firstEffect.current = false
             // onError(!availableNullable)
         } else {
-
             if (new Decimal(value).isZero() && !availableNullable) {
                 setError(t("null_value"));
                 onError(true);
@@ -52,25 +47,22 @@ const Validator: FC<IParams> = (({
                     }
                     return true;
                 });
-
+                
                 if (isValid) {
                     setError(null);
                     onError(false);
                 }
             }
         }
-
-
     }, [value])
-
+    
     return (
         <div>
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>
-                {isNull(error) ? firstEffect.current &&
-                    <span className='mt-0.5 text-green text-fs12'>{description}</span>
-                    : <div className="flex mt-0.5 gap-1 items-center">
+                {isNull(error) ? <span className='mt-0.5 text-green text-fs12'>{description}</span> :
+                    <div className="flex mt-0.5 gap-1 items-center">
                         <div className="mt-[1px]">
                             <IconError/>
                         </div>

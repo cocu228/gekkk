@@ -4,6 +4,8 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxExchangeData, ICtxExchangeData} from "./context";
 import React, {ReactNode, useContext, useEffect, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
+import Decimal from "decimal.js";
+import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
 interface IProps {
     to?: string;
@@ -46,10 +48,10 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         if (from === 0 && to === 0) return;
 
         const result = isSwapped
-            ? from / to
-            : to / from;
+            ? new Decimal(from).div(to)
+            : new Decimal(to).div(from);
 
-        return !Number.isFinite(result) || Number.isNaN(result) ? null :
+        return !result.isFinite() || result.isNaN() ? null :
             result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
     }
 
@@ -57,10 +59,10 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         if (from === 0 || price === 0) return;
 
         const result = isSwapped
-            ? from / price
-            : price * from;
+            ? new Decimal(from).div(price)
+            : new Decimal(price).mul(from);
 
-        return !Number.isFinite(result) || Number.isNaN(result) ? null :
+        return !result.isFinite() || result.isNaN() ? null :
             result.toFixed(currencies.get(state.to.currency)?.roundPrec);
     }
 
@@ -93,15 +95,16 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
     }
 
     const handleFromAmountChange = (value: string) => {
+        
         setState(prev => ({
             ...prev,
             from: {
                 ...prev.from,
-                amount: value
+                amount: formatAsNumberAndDot(value)
             },
             price: {
                 ...prev.price,
-                amount: calculatePrice(+value, +prev.to.amount, prev.price.isSwapped)
+                amount: calculatePrice(+formatAsNumberAndDot(value), +prev.to.amount, prev.price.isSwapped)
             }
         }));
     }
@@ -111,11 +114,11 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             ...prev,
             to: {
                 ...prev.to,
-                amount: value
+                amount: formatAsNumberAndDot(value)
             },
             price: {
                 ...prev.price,
-                amount: calculatePrice(+prev.from.amount, +value, prev.price.isSwapped)
+                amount: calculatePrice(+prev.from.amount, +formatAsNumberAndDot(value), prev.price.isSwapped)
             }
         }));
     }
@@ -131,7 +134,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             },
             price: {
                 ...prev.price,
-                amount: value
+                amount: formatAsNumberAndDot(value)
             }
         }));
     }

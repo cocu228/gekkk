@@ -150,7 +150,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                                         </div>
                                         <div className='text-base font-mono text-right'>
                                             <span className={`${[15, 16].includes(item.tx_type)
-                                                ? 'text-orange'
+                                                ? 'text-gray-600'
                                                 : item.is_income
                                                     ? 'text-green'
                                                     : 'text-red-800'}`}>

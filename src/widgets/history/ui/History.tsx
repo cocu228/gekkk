@@ -171,7 +171,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
             </GTable>
             {!loading && listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
                 <div className="col flex justify-center relative">
-                    {lazyLoading ? <Loader className={"w-[24px] h-[24px] top-[4px]"} /> :
+                    {lazyLoading ? <Loader className={" w-[24px] h-[24px] top-[4px]"} /> :
                         <span onClick={requestMoreHistory}
                             className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
                                 className="ml-2" width={10} height={8}

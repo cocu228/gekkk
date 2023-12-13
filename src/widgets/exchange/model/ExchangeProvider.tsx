@@ -22,7 +22,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
 
     const initialState: ICtxExchangeData = {
         roomInfo: roomInfo,
-        isLimitOrder: true,
+        isLimitOrder: false,
         roomType: roomInfo ? roomInfo.room_code ? "creator" : "visitor" : "default",
         to: {
             amount: null,
@@ -172,10 +172,18 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         }));
     }
 
-    const handleIsLimitOrderChange = (value: boolean) => {
+    const handleIsLimitOrderChange = () => {
         setState(prev => ({
             ...prev,
-            isLimitOrder: value
+            to: {
+                ...prev.to,
+                amount: null
+            },
+            price: {
+                ...prev.price,
+                amount: null
+            },
+            isLimitOrder: !prev.isLimitOrder
         }));
     }
 

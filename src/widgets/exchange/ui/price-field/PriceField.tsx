@@ -4,7 +4,7 @@ import Input from "@/shared/ui/input/Input";
 import {CtxExchangeData} from '../../model/context';
 import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 
-function PriceField() {
+function PriceField({disabled}: {disabled?: boolean}) {
     const {
         to,
         from,
@@ -24,7 +24,7 @@ function PriceField() {
             onChange={({target}) => onPriceAmountChange(formatAsNumberAndDot(target.value))}
             type="text"
             placeholder='0.00'
-            disabled={!(from.currency && to.currency)}
+            disabled={!(from.currency && to.currency) || disabled}
             value={!amount ? '' : amount}
             suffix={to.currency && from.currency && (
                 <div className={styles.FieldPriceLabel}>

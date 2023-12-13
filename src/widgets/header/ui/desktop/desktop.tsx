@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styles from "./style.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/app/providers/AuthRouter";
 import { CtxRootData } from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
@@ -9,7 +9,9 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/account-rights";
 import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import chatIcon from '../../../../assets/support-icon-grey.svg'
-
+import FaqIcon from '@/assets/faq-icon.svg?react';
+import SettingsIcon from '@/assets/settings-icon.svg?react';
+import { Box} from '@mui/material';
 
 const HeaderDesktop = ({ items, actions }) => {
     const { logout } = useAuth();
@@ -63,6 +65,15 @@ const HeaderDesktop = ({ items, actions }) => {
                     </div>
                 </HeaderMenu>
                 <LocalizationMenu />
+                <Box display={"flex"} alignItems={"center"} paddingLeft={"60px"} gap="16px">
+
+                    <Link to="/faq" style={{ color: 'white' }}>
+                        <FaqIcon />
+                    </Link>
+                    <Link to='/settings' style={{ color: 'white' }}>
+                        <SettingsIcon />
+                    </Link>
+                </Box>
                 <button onClick={() => navigate('/support/chat')}>
                     <div className="ml-5" data-testid="Logout">
                         <img src={chatIcon} alt="ChatIcon" />

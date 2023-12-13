@@ -90,8 +90,10 @@ const CardsMenu = () => {
     }
 
     return !card ? <Loader /> : (<>
-        <div className="max-w-[220px]">
-            <BankCardsCarousel onSelect={setCard} />
+        <div className='flex justify-center'>
+            <div className="max-w-[300px] md:max-w-[250px]">
+                <BankCardsCarousel onSelect={setCard} />
+            </div>
         </div>
 
         <span className={`

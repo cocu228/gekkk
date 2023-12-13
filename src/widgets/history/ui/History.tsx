@@ -145,7 +145,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                                     </GTable.Col>
 
                                     <GTable.Col>
-                                        <div className={"text-right"+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
+                                        <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
                                             {item.status_text}
                                         </div>
                                         <div className='text-base font-mono text-right'>

@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useContext, useEffect, useMemo, useTransition} from "react";
+import {useContext, useEffect, useMemo, useState, useTransition} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -22,6 +22,7 @@ import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {useTranslation} from 'react-i18next';
 import {$ENV_DEV} from "@/shared/lib/helpers";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
+import { NewCard } from "@/widgets/wallet/cards-menu/ui/new-card";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -34,7 +35,10 @@ function Wallet() {
 
     const $currency = currencies.get(currency);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-    
+    const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+
+   
+ 
     return (
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
@@ -54,7 +58,7 @@ function Wallet() {
 
                             {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                                <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+                                <CardsMenu isNewCardOpened={isNewCardOpened} setIsNewCardOpened={setIsNewCardOpened} data-tag={"bank_cards"} data-name={t("bank_cards")}/>
                                 <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
                             </>}
 
@@ -71,7 +75,7 @@ function Wallet() {
                                             data-name={t("history")}/>}
                         </div>
 
-                        {!xl && <div className="substrate z-0 -ml-4 h-full">
+                        {!isNewCardOpened && !xl && <div className="substrate z-0 -ml-4 h-full">
                             <History currenciesFilter={currencyForHistory}/>
                         </div>}
                     </div>

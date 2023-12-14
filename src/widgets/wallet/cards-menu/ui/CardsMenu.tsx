@@ -16,8 +16,9 @@ import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import { useTranslation } from 'react-i18next';
+import { NewCard } from "./new-card";
 
-const CardsMenu = () => {
+const CardsMenu = ({ setIsNewCardOpened, isNewCardOpened }: {setIsNewCardOpened: (isOpen: boolean) => void, isNewCardOpened: boolean}) => {
     const { t } = useTranslation();
 
     const confirmationModal = useModal();
@@ -89,6 +90,10 @@ const CardsMenu = () => {
         setDisplayUnavailableCards((prev: boolean) => !prev);
     }
 
+    if (isNewCardOpened) {
+        return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
+    }
+
     return !card ? <Loader /> : (<>
         <div className="max-w-[220px]">
             <BankCardsCarousel onSelect={setCard} />
@@ -142,6 +147,8 @@ const CardsMenu = () => {
             data-item=''
             leftPrimary={t("show_card_data")}
         />
+
+        <Button onClick={() => setIsNewCardOpened(true)}>New card</Button>
 
         {(card.cardStatus === 'BLOCKED_BY_CUSTOMER' || card.cardStatus === 'ACTIVE') && (
             <MenuItem

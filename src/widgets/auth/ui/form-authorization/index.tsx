@@ -261,9 +261,9 @@ const FormLoginAccount = memo(() => {
                     display: 'flex',
                     alignItems: 'center',
                     borderBottom: '1px solid var(--new-dark-grey)',
-                    gap: '36px',
+                    gap: '12px',
                     paddingBottom: '10px',
-                    overflow: 'hidden'
+                    overflow: 'auto'
                 }}>
                     <div style={{flex: '0 0 auto'}}>
                         <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>

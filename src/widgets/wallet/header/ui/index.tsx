@@ -1,4 +1,5 @@
 import {useContext} from "react";
+import styles from "./style.module.scss";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
@@ -7,7 +8,6 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 import { useTranslation } from 'react-i18next';
-
 
 const getDescription = (c, name, t) => {
     if (c === "BTC" || c === "ETH" || c === "XMR") {
@@ -36,7 +36,7 @@ const WalletHeader = () => {
     const isGKE: boolean = $const === 'GKE';
 
     return <>
-        <div className='grid grid-flow-col w-inherit py-6 items-start justify-between gap-10'>
+        <div className={`${styles.HeaderWalled}`}>
             <div className="grid grid-flow-col justify-start gap-5">
                 <div className="grid auto-cols-max">
                     <IconCoin code={$const}/>
@@ -50,7 +50,7 @@ const WalletHeader = () => {
                         </div>
                     ) : (
                         <div className='grid auto-cols-fr'>
-                            <span className="text-sm overflow-ellipsis font-medium text-gray-400 ellipsis">
+                            <span className="text-sm overflow-ellipsis font-medium text-gray-400">
                                IBAN: {account.number}
                             </span>
                         </div>
@@ -83,7 +83,6 @@ const WalletHeader = () => {
                         {!lockOrders ? null : <div>{t("locked_orders")}: {lockOrders.toFixed(roundPrec)}</div>}
                     </g>
                 </div>}
-
 
                 {(isEURG || isGKE) && !md && (<div className='flex flex-col auto-cols-fr ml-8'>
                     <div className="text-sm font-medium text-gray-400 text-semilight">

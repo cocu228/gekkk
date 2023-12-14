@@ -178,7 +178,7 @@ const FormCode = memo(() => {
                 className='account-button'
                 data-testid='Next'
                 disabled={loading || code.length < 11} 
-            >Sig in</button>
+            >Sign in</button>
             
             <ReSendCode isUAS={sessionIdUAS !== ""}/>
         </div>

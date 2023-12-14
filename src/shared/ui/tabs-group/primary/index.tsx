@@ -51,21 +51,18 @@ interface IParams {
 
 const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) => {
     const navigate = useNavigate();
-    const {$const} = useContext(CtxWalletData);
+    const walletContext = useContext(CtxWalletData);
     const [state, setState] = useState(initValue);
     const {content, buttons} = filterChildrenByAttribute(children, state);
-
+    
     useEffect(() => {
-
         setState(initValue);
-
     }, [callInitValue]);
-
+    
     return <>
-        <div className='mb-10 flex justify-center'>
-            {/* <div className={styles.Underline}/> */}
+        <div className='flex justify-center'>
             <div className={styles.TabsWrapper}>
-                <div className='flex justify-center'>
+                <div className='flex justify-center flex-wrap'>
                     {buttons.map((item, i) => <button
                         key={"tabs-primary-button" + i}
                         className={`
@@ -74,7 +71,10 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
                             `}
                         onClick={() => {
                             setState(item.tag)
-                            navigate(`/wallet/${$const}/${item.tag}`)
+                            
+                            if (walletContext) {
+                                navigate(`/wallet/${walletContext.$const}/${item.tag}`)
+                            }
                         }}>
                         {item.name}
                     </button>)}

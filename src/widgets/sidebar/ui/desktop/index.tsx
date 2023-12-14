@@ -108,7 +108,7 @@ const SidebarDesktop = () => {
                         <div className="row w-full">
                             <span className={styles.Name}>Euro</span>
                         </div>
-                        <div className="row w-full">
+                        <div className="row w-full font-mono">
                             <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
                         </div>
                         <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
@@ -131,7 +131,7 @@ const SidebarDesktop = () => {
                         <div className="row text-gray-400 w-full mb-1">
                             <span className={styles.Name}>Gekkoin euro token</span>
                         </div>
-                        <div className="row w-full">
+                        <div className="row w-full font-mono">
                             <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
                         </div>
                         <div className="row w-full flex justify-between">
@@ -140,7 +140,7 @@ const SidebarDesktop = () => {
                                     +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
                                 </span>}
                             </div>
-                            <div>
+                            <div className=" text-gray-500 font-mono">
                                 {eurgWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                     ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
                                 </span>}
@@ -160,7 +160,7 @@ const SidebarDesktop = () => {
                     <div className="col flex items-center justify-center flex-col pl-5">
                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                         </div>
-                        <div className="row w-full"><span
+                        <div className="row w-full font-mono"><span
                             className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
                         </div>
                         <div className="row w-full flex justify-between">
@@ -169,7 +169,7 @@ const SidebarDesktop = () => {
                                     +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
                                 </span>}
                             </div>
-                            <div>
+                            <div className=" text-gray-500 font-mono">
                                 {gkeWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                     ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
                                 </span>}
@@ -195,7 +195,7 @@ const SidebarDesktop = () => {
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="row w-full mb-1"><span
                                         className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
-                                    <div className="row w-full"><span
+                                    <div className="row w-full font-mono"><span
                                         className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                     </div>
                                     <div className="row w-full flex justify-between">
@@ -204,7 +204,7 @@ const SidebarDesktop = () => {
                                                 +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
                                             </span>}
                                         </div>
-                                        <div>
+                                        <div className=" text-gray-500 font-mono">
                                             {item.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
                                                 ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
                                             </span>}
@@ -217,7 +217,7 @@ const SidebarDesktop = () => {
                 </NavCollapse>
             )}
 
-            <div className={styles.AssetInfo2} >
+            <div className={styles.AssetInfo2 + " text-gray-500 font-mono"} >
                 <span>total balance</span>
                 <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
             </div>

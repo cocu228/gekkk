@@ -68,7 +68,7 @@ const TopUpFormSepa = () => {
                 <div className="row">
                     <div className="col flex items-center">
                         <span>Papaya Ltd</span>
-                        <CopyIcon value={account.number}/>
+                        <CopyIcon value={'Papaya Ltd'}/>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@ const TopUpFormSepa = () => {
                 <div className="row">
                     <div className="col flex items-center">
                         <span>PAPYMTMTXXX</span>
-                        <CopyIcon value={account.number}/>
+                        <CopyIcon value={'PAPYMTMTXXX'}/>
                     </div>
                 </div>
             </div>

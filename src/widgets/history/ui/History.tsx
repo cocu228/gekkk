@@ -1,29 +1,29 @@
 import dayjs from 'dayjs';
-import {memo, useContext, useEffect, useState} from 'react';
+import { memo, useContext, useEffect, useState } from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
-import {DatePicker} from 'antd';
-import {Props, TabKey} from "../model/types";
-import {historyTabs} from "../model/helpers";
-import {formatForCustomer, formatForDisplay} from "@/shared/lib/date-helper";
-import {startOfMonth} from "date-fns";
+import { DatePicker } from 'antd';
+import { Props, TabKey } from "../model/types";
+import { historyTabs } from "../model/helpers";
+import { formatForCustomer, formatForDisplay } from "@/shared/lib/date-helper";
+import { startOfMonth } from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import {CtxRootData} from '@/processes/RootContext';
-import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
+import { CtxRootData } from '@/processes/RootContext';
+import { actionResSuccess, getSecondaryTabsAsRecord } from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
-import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
-import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
+import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
+import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
 
-const {RangePicker} = DatePicker;
+const { RangePicker } = DatePicker;
 
-const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<Props>) {
-    const {t} = useTranslation();
+const History = memo(function ({ currenciesFilter, title, types, includeFiat }: Partial<Props>) {
+    const { t } = useTranslation();
 
-    const {refreshKey} = useContext(CtxRootData);
+    const { refreshKey } = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     // const {currencies} = useContext(CtxCurrencies);
     const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
@@ -51,10 +51,10 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
             end: end.length ? end.toString() : null,
             start: start.length ? start.toString() : null,
             include_fiat: includeFiat,
-        }, {cancelToken});
-        
+        }, { cancelToken });
+
         actionResSuccess(response).success(() => {
-            const {result} = response.data;
+            const { result } = response.data;
             setListHistory(result);
         })
 
@@ -67,14 +67,14 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
 
         const lastValue = listHistory[listHistory.length - 1];
 
-        const {data} = await apiGetHistoryTransactions({
+        const { data } = await apiGetHistoryTransactions({
             currencies: currenciesFilter,
             tx_types: types,
             next_key: lastValue.next_key,
             limit: 10,
             include_fiat: includeFiat,
         });
-        
+
         if (data.result.length < 10) setAllTxVisibly(true)
 
         setListHistory(prevState => ([...prevState, ...data.result]))
@@ -96,20 +96,21 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
 
     return (
         <div id={"History"} className="wrapper">
-            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+            {/* <h3 className=" font-bold">{title}</h3> */}
+
+            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === TabKey.CUSTOM && (
-                <div className='flex flex-col mt-3 mb-5'>
+                <div className='flex flex-col mt-3 mb-3'>
                     {t("enter_period")}
 
-                    <div className='flex grow-0 max-w-[400px]'>
+                    <div className='flex grow-0 max-w-[400px] p-2'>
                         <RangePicker
-                            className='mt-2 w-full'
+                            className='w-full'
                             value={customDate}
                             onChange={setCustomDate}
                         />
-
                         <Button
-                            className='ml-5'
+                            className='ml-3'
                             disabled={loading || !customDate}
                             onClick={() => requestHistory()}
                         >{t("apply")}</Button>
@@ -120,8 +121,8 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
             <GTable>
                 <GTable.Head className={styles.TableHead}>
                     <GTable.Row>
-                        {['Date', 'Flow of funds', 'Description'].map(label =>
-                            <GTable.Col className="text-start">
+                        {['Info', 'Amount'].map(label =>
+                            <GTable.Col className="text-center">
                                 <div className='ellipsis ellipsis-md' data-text={label}>
                                     <span>{label}</span>
                                 </div>
@@ -132,36 +133,30 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
                 <GTable.Body loading={loading} className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
-                            <GTable.Row cols={3} className={styles.Row + ' hover:font-medium'}>
+                            <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
                                 <TransactionInfo infoList={item}>
                                     <GTable.Col>
                                         <div className="ellipsis ellipsis-md">
-                                            <span className="">{formatForCustomer(item.datetime)}</span>
+                                            <span className="">{formatForCustomer(item.datetime)} {item.tx_type_text}</span>                                            
+                                        </div>
+                                        <div className="ellipsis ellipsis-md">
+                                            {item.tag}
                                         </div>
                                     </GTable.Col>
 
                                     <GTable.Col>
-                                        <div>
-                                        <span className={`${[15, 16].includes(item.tx_type)
-                                                ? 'text-orange'
+                                        <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
+                                            {item.status_text}
+                                        </div>
+                                        <div className='text-base font-mono text-right'>
+                                            <span className={`${[15, 16].includes(item.tx_type)
+                                                ? 'text-gray-600'
                                                 : item.is_income
-                                                ? 'text-green'
-                                                : 'text-red-800'}
-                                            `}
-                                        >
-                                            {[15, 16].includes(item.tx_type)
-                                                ? '' : !item.is_income && '-'}
-                                            {+item.result_amount} {item.currency}
-                                        </span>
-                                        </div>
-                                    </GTable.Col>
-
-                                    <GTable.Col>
-                                        <div data-text={item.tx_type_text} className="ellipsis ellipsis-md">
-                                            <div
-                                                className={+item.tx_type === 3 && item.partner_info === "" ? "text-orange" : ""}>
-                                                {item.tx_type_text}. {item.status_text}. {item.tag} 
-                                            </div>
+                                                    ? 'text-green'
+                                                    : 'text-red-800'}`}>
+                                                {[15, 16].includes(item.tx_type) ? '' : !item.is_income ? '-' : '+'}
+                                                {+item.result_amount} {item.currency}
+                                            </span>
                                         </div>
                                     </GTable.Col>
                                 </TransactionInfo>
@@ -176,12 +171,12 @@ const History = memo(function ({currenciesFilter, types, includeFiat}: Partial<P
             </GTable>
             {!loading && listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
                 <div className="col flex justify-center relative">
-                    {lazyLoading ? <Loader className={"w-[24px] h-[24px] top-[4px]"}/> :
+                    {lazyLoading ? <Loader className={" w-[24px] h-[24px] top-[4px]"} /> :
                         <span onClick={requestMoreHistory}
-                              className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
-                            className="ml-2" width={10} height={8}
-                            src="/img/icon/ArrowPlainDown.svg"
-                            alt="ArrowPlainDown"/></span>}
+                            className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
+                                className="ml-2" width={10} height={8}
+                                src="/img/icon/ArrowPlainDown.svg"
+                                alt="ArrowPlainDown" /></span>}
                 </div>
             </div>}
         </div>

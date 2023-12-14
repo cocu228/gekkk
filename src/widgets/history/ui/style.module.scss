@@ -1,38 +1,36 @@
 @import "@styles/mixins";
 
 .TableHead {
-  background-color: #eeeff2;
-  color: #282828;
-  font-size: 16px;
-  line-height: 24px;
+  background-color: #E7E7E7;
+  color: #9D9D9D;
+  font-size: 14px;
   font-weight: 500;
-  padding: 14px 20px 12px;
+  padding: 10px 15px;
   align-items: center;
 
   @include max-devices("md") {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
-
 
 .TableBody {
   display: inherit;
   position: relative;
-  min-height: 140px;
+  //min-height: 140px;
   background-color: #f9f9fa;
   border: 1px solid #eff3f8;
-  border-radius: 0 0 10px 10px;
+  border-radius: 1px 1px 8px 8px;
 
   & > .Row {
     align-items: center;
     box-sizing: border-box;
     gap: 8px;
     color: #282828;
-    padding: 14px 20px 12px;
-    font-size: 15px;
+    padding: 8px 15px;
+    font-size: 12px;
     justify-content: space-between;
-    line-height: 1.6;
-    min-height: 56px;
+    //line-height: 1.6;
+    //min-height: 56px;
     //padding: 10px 23px 8px 22px;
     position: relative;
     text-align: left;

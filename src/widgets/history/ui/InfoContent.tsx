@@ -96,6 +96,16 @@ const InfoContent = (props: TypeProps) => {
                     <span className="whitespace-nowrap font-medium">{props.status_text}</span>
                 </div>
             </div>
+            {props.tag && (
+                <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                    <div className="col w-auto">
+                        <span className="text-gray-500 font-medium">{t("description")}:</span>
+                    </div>
+                    <div className="col w-auto flex items-center">
+                        <span className="whitespace-nowrap font-medium">{props.tag}</span>
+                    </div>
+                </div>
+            )}
             {isNeedConfirm || (state?.txType === AdrTxTypeEnum[6] || state?.txType === AdrTxTypeEnum[8]) ? null :
                 <div className="row mb-4 flex flex-wrap gap-2 items-center">
                     <div className="col w-auto">

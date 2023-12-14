@@ -16,7 +16,6 @@ import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {apiCreateOrder} from '@/shared/api';
 import {apiCloseRoom} from '@/shared/api/(gen)new'
-import Confirm from '@/widgets/exchange/ui/confirm/Confirm';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
@@ -30,29 +29,28 @@ import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRoom
 import ParticipantsNumber from '@/shared/ui/participants-number/ParticipantsNumber';
 import OperationResult from '@/widgets/exchange/ui/operation-result/OperationResult';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import Decimal from "decimal.js";
 import { useTranslation } from 'react-i18next';
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import Decimal from "decimal.js";
+import useError from "@/shared/model/hooks/useError";
+import InlineProperty from "@/shared/ui/inline-property";
 
 function Exchange() {
     const {t} = useTranslation();
-
+    
     const confirmModal = useModal();
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
-
+    
     const navigate = useNavigate();
     const {currencies} = useContext(CtxCurrencies);
     const [loading, setLoading] = useState<boolean>(false);
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
     const roomsList = storeListExchangeRooms(state => state.roomsList);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
-
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
-
+    
     const {
         to,
         from,
@@ -68,7 +66,7 @@ function Exchange() {
         onFromCurrencyChange,
         onIsLimitOrderChange
     } = useContext(CtxExchangeData);
-
+    
     useEffect(() => {
         if (!(historyFilter.includes(from.currency) && historyFilter.includes(to.currency))) {
             setHistoryFilter([
@@ -77,7 +75,7 @@ function Exchange() {
             ]);
         }
     }, [from.currency, to.currency])
-
+    
     const getHeadTitle = () => {
         switch (roomType) {
             case 'default':
@@ -96,7 +94,7 @@ function Exchange() {
                 return `Private room`;
         }
     };
-
+    
     const getHeadSubtitle = () => {
         switch (roomType) {
             case 'default':
@@ -117,16 +115,56 @@ function Exchange() {
                         <span> (id: {roomInfo.timetick})</span>
                     </>
                 );
-
         }
     };
-
-
-    const minAmount = currencies.get(from.currency)?.minOrder ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber() : 0
-
-    if (!roomsList) return <Loader/>;
-
-    return (
+    
+    const minAmount = currencies.get(from.currency)
+        ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
+        : 0;
+    
+    const createOrder = async () => {
+        localErrorClear();
+        setLoading(true);
+        
+        const {data} = await apiCreateOrder({
+            from_currency: from.currency,
+            to_currency: to.currency,
+            from_amount: from.amount,
+            to_amount: isLimitOrder ? null : to.amount,
+            client_nonce: 0,
+            is_limit: isLimitOrder,
+            room_key: roomType === 'default' ? 0 : +roomInfo.timetick
+        });
+        
+        setLoading(false);
+        
+        if (data.error) {
+            localErrorHunter(data.error);
+            return;
+        }
+        
+        setOrdersRefresh(randomId());
+        confirmModal.handleCancel();
+    }
+    
+    const closeRoom = async () => {
+        localErrorClear();
+        
+        const {data} = await apiCloseRoom({
+            roomId: roomInfo.timetick
+        });
+        
+        if (data.error) {
+            localErrorHunter(data.error);
+            return;
+        }
+        
+        cancelRoomModal.handleCancel();
+        onRoomClosing(roomInfo.timetick);
+        navigate('/exchange');
+    }
+    
+    return !roomsList ? <Loader/> : (
         <div className="wrapper">
             <PageHead
                 title={getHeadTitle()}
@@ -139,10 +177,10 @@ function Exchange() {
                     />
                 )}
             />
-
+            
             <SplitGrid
                 leftColumn={
-                    <div className="py-5 px-10 lg:px-5 md:px-4">
+                    <div className="py-10 px-16 xl:py-5 xl:px-10 lg:px-5 md:px-4">
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
                                 <InputCurrency.CurrencySelector
@@ -154,14 +192,13 @@ function Exchange() {
                                 >
                                     <InputCurrency.Validator
                                         className='text-sm'
-                                        value={1000}
+                                        value={+from.amount}
                                         onError={setHasValidationError}
                                         description={!from.currency ? null
                                             : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
                                         validators={[
-                                            //validateBalance(currencies.get(from.currency), navigate),
-                                            //validateMinimumAmount(minAmount, new Decimal(from.amount).toNumber(),
-                                            // currencies.get(from.currency).$const)
+                                            validateBalance(currencies.get(from.currency), navigate, t),
+                                            validateMinimumAmount(minAmount, +from.amount, from.currency, t)
                                         ]}
                                     >
                                         <InputCurrency.PercentSelector
@@ -175,13 +212,13 @@ function Exchange() {
                                                 <InputCurrency
                                                     value={from.amount}
                                                     currency={from.currency}
-                                                    onChange={v => onFromValueChange(v)}
+                                                    onChange={onFromValueChange}
                                                 />
                                             </InputCurrency.DisplayBalance>        
                                         </InputCurrency.PercentSelector>
                                     </InputCurrency.Validator>
                                 </InputCurrency.CurrencySelector>
-
+                                
                                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                                     <div
                                         onClick={onCurrenciesSwap}
@@ -190,9 +227,9 @@ function Exchange() {
                                         <IconSwap/>
                                     </div>
                                 </div>
-
+                                
                                 <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.recieve_to")}</div>
-
+                                
                                 <InputCurrency.CurrencySelector
                                     className='mt-0'
                                     onSelect={onToCurrencyChange}
@@ -203,29 +240,30 @@ function Exchange() {
                                     <InputCurrency
                                         value={to.amount}
                                         currency={to.currency}
-                                        onChange={v => onToValueChange(v)}
+                                        disabled={isLimitOrder}
+                                        onChange={onToValueChange}
                                     />
                                 </InputCurrency.CurrencySelector>
-
+                                
                                 <div className="mt-3 md:mt-2">
                                     <div className="font-medium text-md lg:text-sm md:text-xs">{t("price")}</div>
-                                    <PriceField />
+                                    <PriceField disabled={isLimitOrder}/>
                                 </div>
-
+                                
                                 {roomType === 'creator' && (
                                     <div className="mt-6 md:mt-3.5">
-                                        <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
+                                        <Checkbox defaultChecked={isLimitOrder} onChange={onIsLimitOrderChange}>
                                             <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">{t("exchange.sell")} <strong
                                                 className="font-semibold">{from.currency}</strong> {t("exchange.at_the_market_rate")}</span>
                                         </Checkbox>
                                     </div>
                                 )}
-
+                                
                                 <div className="mt-10 md:mt-6">
                                     <OperationResult />
                                 </div>
                             </div>
-
+                            
                             <div className="wrapper">
                                 <DepthOfMarket
                                     currencyFrom={from.currency}
@@ -234,53 +272,44 @@ function Exchange() {
                                     isSwapped={price.isSwapped}
                                 />
                             </div>
-
+                            
                             <div className={`mt-7 ${styles.GridFooter}`}>
                                 <Button
                                     className="w-full"
                                     size="xl"
-                                    disabled={!price.amount || hasValidationError}
+                                    disabled={(isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
                                     onClick={confirmModal.showModal}
                                 >{t("exchange.buy")} {to.currency ? to.currency : t("exchange.token")}</Button>
-
+                                
                                 <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">
                                     {t("exchange.order_execution_depends")}
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div className="mt-12">
                             <OpenOrders refreshKey={ordersRefresh}/>
                         </div>
-
+                        
                         <Modal
                             width={400}
                             title="Confirm the order"
                             open={confirmModal.isModalOpen}
                             onCancel={confirmModal.handleCancel}
                         >
-                            <Confirm
-                                loading={loading}
-                                onConfirm={() => {
-                                    setLoading(true);
-
-                                    (async () => {
-                                        await apiCreateOrder({
-                                            from_currency: from.currency,
-                                            to_currency: to.currency,
-                                            from_amount: from.amount,
-                                            to_amount: to.amount,
-                                            client_nonce: 0,
-                                            is_limit: isLimitOrder,
-                                            room_key: roomType === 'default' ? 0 : +roomInfo.timetick
-                                        });
-
-                                        setOrdersRefresh(randomId());
-                                        confirmModal.handleCancel();
-                                        setLoading(false);
-                                    })();
-                                }}
-                            />
+                            <div className="md:mt-6">
+                                <InlineProperty left={'Will pay'} right={`${from.amount} ${from.currency}`}/>
+                                <InlineProperty left={'Will get'} right={`${to.amount} ${to.currency}`}/>
+                                <InlineProperty left={'Price'} right={`1 ${from.currency} ~ ${price.amount} ${to.currency}`}/>
+                                
+                                <div className='mt-4'>
+                                    {localErrorInfoBox}
+                                </div>
+                                
+                                <div className="mt-6 md:mt-12">
+                                    <Button disabled={loading} className="w-full" onClick={createOrder}>Confirm</Button>
+                                </div>
+                            </div>
                         </Modal>
                     </div>
                 }
@@ -293,7 +322,7 @@ function Exchange() {
                     </div>
                 }
             />
-
+            
             <Modal
                 width={450}
                 open={roomInfoModal.isModalOpen}
@@ -308,7 +337,7 @@ function Exchange() {
                     : <InviteLink roomInfo={roomInfo} />
                 }
             </Modal>
-
+            
             <Modal
                 width={450}
                 title={`${roomType === 'creator' ? t("exchange.close") : t("exchange.leave")} ${t("exchange.private_exchange_room")}`}
@@ -321,26 +350,21 @@ function Exchange() {
                     : t("exchange.leave_private_exchange")}
                     {t("exchange.unclosed_orders")}.
                 </div>
-
+                
                 {roomType !== 'creator' ? null : <>
                     <div className='mt-4 mb-2 font-medium'>{t("exchange.room_description")}:</div>
                     <RoomProperties room={roomInfo}/>
                 </>}
-
-                <div className="mt-16 sm:mt-14">
+                
+                <div className='mt-4'>
+                    {localErrorInfoBox}
+                </div>
+                
+                <div className="mt-8 sm:mt-4">
                     <Button
                         size="xl"
                         className="w-full"
-                        onClick={() => {
-                            cancelRoomModal.handleCancel();
-                            
-                            apiCloseRoom({
-                                roomId: roomInfo.timetick
-                            }).then(() => {
-                                onRoomClosing(roomInfo.timetick);
-                                navigate('/exchange');
-                            });
-                        }}
+                        onClick={closeRoom}
                     >{`${roomType === 'creator' ? t("exchange.close") : t("exchange.leave")} ${t("exchange.private_exchange_room")}`}</Button>
                 </div>
             </Modal>

@@ -20,6 +20,7 @@ import OrderProperties from './order-properties/OrderProperties';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import {apiGetOrders, apiCancelOrder} from '@/shared/api/(gen)new';
 import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
+import useError from "@/shared/model/hooks/useError";
 
 const {RangePicker} = DatePicker;
 
@@ -39,11 +40,23 @@ function OpenOrders({
     const [allOrdVisibly, setAllOrdVisibly] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
-    const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
     const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
+    const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(addDays(new Date(), -90)), dayjs()]
     )
+    
+    useEffect(() => {
+        setIsLoading(true);
+
+        (async () => {
+            await requestOrders()
+        })()
+    }, [activeTab, account, roomInfo?.timetick, refreshKey])
+    
+    const currencyPrecision = (value: number, currency: string) =>
+        Number(value.toFixed(currencies.get(currency)?.ordersPrec));
     
     const requestOrders = async () => {
         setIsLoading(true);
@@ -65,45 +78,50 @@ function OpenOrders({
             const {result} = response.data;
             setOrdersList(result);
         })
-
+        
         setIsLoading(false);
     }
-
+    
     const requestMoreOrders = async () => {
         setLazyLoading(true)
         const lastValue = ordersList[ordersList.length - 1];
         
         const {data} = activeTab === TabKey.OPENED
-        ? await apiGetOrders({
+            ? await apiGetOrders({
                 ord_states: [1],
                 from_order_id: lastValue.id,
                 room_key: roomInfo?.timetick ?? null
-        })
-        : await apiGetOrders({
-            from_order_id: lastValue.id,
-            room_key: roomInfo?.timetick,
-            end: customDate[1].format('YYYY-MM-DD'),
-            start: customDate[0].format('YYYY-MM-DD'),
-            ord_states: [127, 198, 199, 200, 210, 211],
-        });
+            })
+            : await apiGetOrders({
+                from_order_id: lastValue.id,
+                room_key: roomInfo?.timetick,
+                end: customDate[1].format('YYYY-MM-DD'),
+                start: customDate[0].format('YYYY-MM-DD'),
+                ord_states: [127, 198, 199, 200, 210, 211],
+            });
         
         if (data.result.length < 10) setAllOrdVisibly(true);
         
         setOrdersList(state => ([...state, ...data.result]));
         setLazyLoading(false);
     }
+    
+    const cancelOrder = async () => {
+        localErrorClear();
+        
+        const {data} = await apiCancelOrder({
+            id: selectedOrder.id
+        });
 
-    useEffect(() => {
-        setIsLoading(true);
-
-        (async () => {
-            await requestOrders()
-        })()
-    }, [activeTab, account, roomInfo?.timetick, refreshKey])
-
-    const currencyPrecision = (value: number, currency: string) =>
-        Number(value.toFixed(currencies.get(currency)?.ordersPrec));
-
+        if (data.error) {
+            localErrorHunter(data.error);
+            return;
+        }
+        
+        cancelOrderModal.handleCancel();
+        setOrdersList(ordersList.filter(o => o.id !== selectedOrder.id));
+    }
+    
     return (
         <>
             <div className="flex justify-between mb-2">
@@ -228,20 +246,15 @@ function OpenOrders({
                 
                 <OrderProperties order={selectedOrder}/>
                 
-                <div className="mt-14 sm:mt-12">
+                <div className='mt-4'>
+                    {localErrorInfoBox}
+                </div>
+                
+                <div className="mt-8 sm:mt-4">
                     <Button
                         size="xl"
                         className="w-full"
-                        onClick={() => {
-                            cancelOrderModal.handleCancel();
-
-                            apiCancelOrder({id: selectedOrder.id})
-                            .then(result => {
-                                if (result.data.error) return;
-                                
-                                setOrdersList(ordersList.filter(o => o.id !== selectedOrder.id));
-                            });
-                        }}
+                        onClick={cancelOrder}
                     >{t("exchange.cancel_order")}</Button>
                 </div>
             </Modal>

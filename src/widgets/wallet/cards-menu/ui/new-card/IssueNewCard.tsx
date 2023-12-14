@@ -1,10 +1,21 @@
-import { Box, Typography, Switch, TextField, Button } from '@mui/material';
+import { Box, Typography, Switch, TextField, Button, styled } from '@mui/material';
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
 import { CardDesign } from './CardDesign';
-import { RowItem } from './RowItem';
 
+const RowItem = styled(Box, {
+    shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
+})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(
+({ theme, hasBorderTop, hasBorderBottom }) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: '12px',
+    paddingBottom: '12px',
+    borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
+    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined
 
+}),
+);
 export function IssueNewCard() {
     const { close, setStep } = useNewCardContext();
 
@@ -32,7 +43,7 @@ export function IssueNewCard() {
                 image={<img width={116} src="/img/GekkardCard.png" alt="GekkardCardPreview"/>}
             />
         </Box>
-        <Box display={"flex"} flexDirection={'column'} gap="12px">
+        <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
             <RowItem hasBorderTop>
                 <Typography variant='b2 - bold' color="dark blue">Card type</Typography>
                 <div>select</div>

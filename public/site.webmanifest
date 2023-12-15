@@ -14,15 +14,15 @@
     "display": "standalone",
     "screenshots": [
         {
-        "src": "/android-chrome-192x192.png",
+        "src": "screenshot1.jpg",
         "type": "image/png",
-        "sizes": "192x192",
+        "sizes": "580x937",
         "form_factor": "narrow"
         },
         {
-        "src": "/images/screenshot2.jpg",
+        "src": "/screenshot2.jpg",
         "type": "image/png",
-        "sizes": "192x192",
+        "sizes": "720x540",
         "form_factor": "wide"
         }
     ]

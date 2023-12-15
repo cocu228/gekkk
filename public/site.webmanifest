@@ -14,13 +14,13 @@
     "display": "standalone",
     "screenshots": [
         {
-        "src": "screenshot1.jpg",
+        "src": "/screenshot1.png",
         "type": "image/png",
         "sizes": "580x937",
         "form_factor": "narrow"
         },
         {
-        "src": "/screenshot2.jpg",
+        "src": "/screenshot2.png",
         "type": "image/png",
         "sizes": "720x540",
         "form_factor": "wide"

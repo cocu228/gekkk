@@ -29,7 +29,7 @@ export function ConfirmationNewCard() {
             />
         </Box>
       
-        <Box display={"flex"} flexDirection={"column"} gap="12px">
+        <Box display={"flex"} flexDirection={"column"} gap="24px" paddingTop={"48px"}>
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">Account owner</Typography>
                 <Typography variant='b1' color="pale blue">Igor Koroshev</Typography>
@@ -55,7 +55,7 @@ export function ConfirmationNewCard() {
                 <Typography variant='b1' color="pale blue">1, 1, Street name, Region name, City, Country, 11111</Typography>
             </RowItem>
         </Box>
-        <Box display={"flex"} flexDirection={"column"} gap="6px">
+        <Box display={"flex"} flexDirection={"column"} gap="6px" paddingTop={"24px"}>
             <RowItem>
                 <Typography variant='b1' color="pale blue">Card issuance</Typography>
                 <Typography variant='b1' color="pale blue">€ 10</Typography>

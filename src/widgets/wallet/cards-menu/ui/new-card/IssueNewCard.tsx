@@ -3,6 +3,7 @@ import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
 import { CardDesign } from './CardDesign';
 import Button from '@/shared/ui/button/Button';
+import Select from '@/shared/ui/select/Select';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -11,7 +12,9 @@ const RowItem = styled(Box, {
     display: 'flex',
     justifyContent: 'space-between',
     borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
-    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined
+    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined,
+    paddingBottom: '6px',
+    alignItems: 'center',
 
 }),
 );
@@ -42,17 +45,39 @@ export function IssueNewCard() {
                 image={<img width={116} src="/img/GekkardCard.png" alt="GekkardCardPreview"/>}
             />
         </Box>
-        <Box display={"flex"} flexDirection={'column'}  paddingTop={"12px"}>
-            <RowItem hasBorderTop>
+        <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
+            <RowItem hasBorderTop hasBorderBottom paddingTop={"12px"}>
                 <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Card type</Typography>
-                <div>select</div>
+                <Box width={"100px"} >
+                    <Select className="w-full mt-2" options={[
+                        {
+                            label: 'one',
+                            value: 'one_v',
+                        },
+                        {
+                            label: 'two',
+                            value: 'two_v',
+                        }
+                    ]}/>
+                </Box>
             </RowItem>
-            <RowItem hasBorderTop>
+            <RowItem hasBorderBottom>
                 <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery type</Typography>
-                <div>select</div>
+                <Box width={"100px"} >
+                    <Select className="w-full mt-2" options={[
+                        {
+                            label: 'one',
+                            value: 'one_v',
+                        },
+                        {
+                            label: 'two',
+                            value: 'two_v',
+                        }
+                    ]}/>
+                </Box>
             </RowItem>
 
-            <RowItem hasBorderTop hasBorderBottom alignItems={'flex-end'}>
+            <RowItem hasBorderBottom  alignItems={'flex-end'}>
                 <Box display={'flex'} flexDirection={"column"} gap="6px">
                     <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery address</Typography>
                     <Typography fontSize={"16px"} variant='b2' color="dark blue">Same as the residence address</Typography>
@@ -60,61 +85,61 @@ export function IssueNewCard() {
                 <Switch />
             </RowItem>
 
-            <RowItem>
+
                 <TextField
                     fullWidth
                     label="Country"
                     placeholder="Enter country name"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="City"
                     placeholder="Enter city name"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="Region"
                     placeholder="Enter region name, if available"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="Post code"
                     placeholder="Enter post code"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="Street"
                     placeholder="Enter street name"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="House"
                     placeholder="Enter house name or number, if available"
                 />
-            </RowItem>
 
-            <RowItem>
+
+
                 <TextField
                     fullWidth
                     label="Flat"
                     placeholder="Enter flat name or number, if available"
                 />
-            </RowItem>
+
         </Box>
     
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>

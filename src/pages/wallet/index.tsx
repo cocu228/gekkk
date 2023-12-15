@@ -36,7 +36,14 @@ function Wallet() {
     const $currency = currencies.get(currency);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+    
+    const fullWidthOrHalf = useMemo(() => {
+        if(isNewCardOpened) {
+            return 1;
+        }
 
+        return xl ? 1 : 2;
+    }, [xl, isNewCardOpened]);
    
  
     return (
@@ -44,7 +51,7 @@ function Wallet() {
             <CtxWalletData.Provider value={$currency}>
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{...account, tab: tab}}>
-                    <div className="grid" style={{gridTemplateColumns: `repeat(${xl ? 1 : 2}, minmax(0, 1fr))`}}>
+                    <div className="grid" style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>
                         <div className="substrate z-10 w-inherit relative min-h-[200px]">
                             <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                 <TopUp/>

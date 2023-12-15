@@ -45,7 +45,7 @@ export function CardDesign({title, description, image, isSelected}: CardDesignPr
                     {title}
                 </Typography>
                 
-                <Typography variant='b4' color="pale blue">
+                <Typography textAlign={"left"} variant='b4' color="pale blue">
                     {description}
                 </Typography>
             </Box>

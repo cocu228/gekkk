@@ -1,7 +1,9 @@
-import { Box, Typography, styled } from '@mui/material';
+import { Box, Typography, styled, TextField } from '@mui/material';
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
-import {Button} from '@mui/material';
+import Button from '@/shared/ui/button/Button';
+import Modal from "@/shared/ui/modal/Modal";
+import { useState } from 'react';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -17,6 +19,7 @@ const RowItem = styled(Box, {
 
 export function ConfirmationNewCard() {
     const { close, setStep } = useNewCardContext();
+    const [isOpen, setIsOpen] = useState(false)
 
     return <>
         <Box display="flex" justifyContent="space-between" width="100%">
@@ -72,10 +75,35 @@ export function ConfirmationNewCard() {
         </RowItem>
 
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button>Order card</Button>
             <Button onClick={() => {
+                setIsOpen(true);
+            }}>Order card</Button>
+            <Button gray  onClick={() => {
                 setStep('IssueNewCard');
             }}>Back</Button>
         </Box>
+
+        <Modal
+            open={isOpen}
+            title={'Enter your online bank password to confirm new card order'}
+            onCancel={() => {
+                setIsOpen(false)
+            }}
+        >
+            <TextField
+                fullWidth
+                label="Flat"
+                placeholder="Enter flat name or number, if available"
+            />
+            <Box display={"flex"} gap="24px" paddingTop={"43px"}>
+                <Button onClick={() => {
+                    setIsOpen(false);
+                    setStep('CardHasBeenOrdered');
+                }}>Proceed</Button>
+                <Button gray onClick={() => {
+                    setIsOpen(false);
+                }}>Cancel</Button>
+            </Box>
+        </Modal>
     </>
 }

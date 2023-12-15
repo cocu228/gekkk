@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-export type Step = 'IssueNewCard' | 'ConfirmationNewCard';
+export type Step = 'IssueNewCard' | 'ConfirmationNewCard' | 'CardHasBeenOrdered';
 
 export type NewCardContext = {
     step: Step,

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IssueNewCard } from "./IssueNewCard";
 import { ConfirmationNewCard } from "./ConfirmationNewCard";
 import {newCardContext, Step} from './newCardContext';
+import { CardHasBeenOrdered } from "./CardHasBeenOrdered";
 
 export type NewCardProps = {
     setIsNewCardOpened: (isOpen: boolean) => void
@@ -23,5 +24,7 @@ export function NewCard({setIsNewCardOpened}: NewCardProps) {
     }}>
         {step === 'IssueNewCard' ? <IssueNewCard /> : null}
         {step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}
+        {step === 'CardHasBeenOrdered' ? <CardHasBeenOrdered /> : null}
+        
     </newCardContext.Provider>;
 }

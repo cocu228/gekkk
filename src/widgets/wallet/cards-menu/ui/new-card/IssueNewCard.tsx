@@ -1,7 +1,8 @@
-import { Box, Typography, Switch, TextField, Button, styled } from '@mui/material';
+import { Box, Typography, Switch, TextField, styled } from '@mui/material';
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
 import { CardDesign } from './CardDesign';
+import Button from '@/shared/ui/button/Button';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -9,8 +10,6 @@ const RowItem = styled(Box, {
 ({ theme, hasBorderTop, hasBorderBottom }) => ({
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: '12px',
-    paddingBottom: '12px',
     borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
     borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined
 
@@ -21,13 +20,13 @@ export function IssueNewCard() {
 
     return <>
         <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography variant="h3">Issue new card</Typography>
+            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
             <CloseWindowButton
             onClick={close}
             />
         </Box>
         <Box paddingTop={"24px"}>
-            <Typography variant='b2 - bold'>Card design</Typography>
+            <Typography fontSize={"16px"} variant='b2 - bold'>Card design</Typography>
         </Box>
         <Box display={"flex"} flexWrap={"wrap"} gap="48px" paddingTop={"12px"}>
             <CardDesign
@@ -43,76 +42,86 @@ export function IssueNewCard() {
                 image={<img width={116} src="/img/GekkardCard.png" alt="GekkardCardPreview"/>}
             />
         </Box>
-        <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
+        <Box display={"flex"} flexDirection={'column'}  paddingTop={"12px"}>
             <RowItem hasBorderTop>
-                <Typography variant='b2 - bold' color="dark blue">Card type</Typography>
+                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Card type</Typography>
                 <div>select</div>
             </RowItem>
             <RowItem hasBorderTop>
-                <Typography variant='b2 - bold' color="dark blue">Delivery type</Typography>
+                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery type</Typography>
                 <div>select</div>
             </RowItem>
 
-            <RowItem hasBorderTop hasBorderBottom>
+            <RowItem hasBorderTop hasBorderBottom alignItems={'flex-end'}>
                 <Box display={'flex'} flexDirection={"column"} gap="6px">
-                    <Typography variant='b2 - bold' color="dark blue">Delivery address</Typography>
-                    <Typography variant='b2' color="dark blue">Same as the residence address</Typography>
+                    <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery address</Typography>
+                    <Typography fontSize={"16px"} variant='b2' color="dark blue">Same as the residence address</Typography>
                 </Box>
                 <Switch />
             </RowItem>
-            <TextField
-                fullWidth
-                label="Country"
-                placeholder="Enter country name"
-            />
 
-            
+            <RowItem>
+                <TextField
+                    fullWidth
+                    label="Country"
+                    placeholder="Enter country name"
+                />
+            </RowItem>
+
+            <RowItem>
                 <TextField
                     fullWidth
                     label="City"
                     placeholder="Enter city name"
                 />
-            
+            </RowItem>
+
+            <RowItem>
                 <TextField
                     fullWidth
                     label="Region"
                     placeholder="Enter region name, if available"
                 />
+            </RowItem>
 
-            
+            <RowItem>
                 <TextField
                     fullWidth
                     label="Post code"
                     placeholder="Enter post code"
                 />
-            
-            
+            </RowItem>
+
+            <RowItem>
                 <TextField
                     fullWidth
                     label="Street"
                     placeholder="Enter street name"
                 />
+            </RowItem>
 
-            
+            <RowItem>
                 <TextField
                     fullWidth
                     label="House"
                     placeholder="Enter house name or number, if available"
                 />
+            </RowItem>
 
-            
+            <RowItem>
                 <TextField
                     fullWidth
                     label="Flat"
                     placeholder="Enter flat name or number, if available"
                 />
+            </RowItem>
         </Box>
     
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
             <Button onClick={() => {
                 setStep('ConfirmationNewCard');
             }}>Proceed</Button>
-            <Button onClick={close}>Back</Button>
+            <Button gray onClick={close}>Back</Button>
         </Box>
     </>
 }

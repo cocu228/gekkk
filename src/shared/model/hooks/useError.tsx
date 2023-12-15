@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {$AxiosError} from "@/shared/lib/(cs)axios";
+import {ErrorObject} from "@/shared/api/(gen)new/model";
 
 export type TypeUseError = [
-    localErrorHunter: (e: $AxiosError) => void,
+    localErrorHunter: (e: $AxiosError | ErrorObject) => void,
     localErrorSpan: string | null,
     localErrorInfoBox: JSX.Element | null,
     localErrorClear: () => void,
@@ -12,7 +13,7 @@ export type TypeUseError = [
 const useError = (): TypeUseError => {
 
     const [errorMessage, setIsModalOpen] = useState<string | null>(null);
-    const localErrorHunter: TypeUseError[0] = (error: $AxiosError) => {
+    const localErrorHunter: TypeUseError[0] = (error: $AxiosError | ErrorObject) => {
         setIsModalOpen(error.message);
     };
     const localErrorClear: TypeUseError[3] = () => {

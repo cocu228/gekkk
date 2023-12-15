@@ -3,8 +3,8 @@
     "languageName": "English",
     "locale": {
       "auth": {
-        "login_to_your_account": "Login to your account",
-        "login": "Login to your personal account is carried out through the",
+        "login_to_your_account": "Log in to your account",
+        "login": "Log in to your personal account is carried out through the",
         "gekkard_application": "Gekkard application",
         "credentials": "credentials",
         "no_gekkard_credentials": "No Gekkard credentials? Download the app and register: ",
@@ -16,7 +16,7 @@
         "legal_agreements": "Legal agreements",
         "crypto_exchange_service": "Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)",
         "invalid_password": "Only numbers allowed and min length 6 symbol",
-        "invalid_phone": "Please enter your number in full"
+        "invalid_phone": "Please enter your full number"
       },
       "next": "Next",
       "login": "Login",

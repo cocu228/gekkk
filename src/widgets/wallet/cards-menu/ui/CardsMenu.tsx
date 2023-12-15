@@ -95,8 +95,10 @@ const CardsMenu = ({ setIsNewCardOpened, isNewCardOpened }: {setIsNewCardOpened:
     }
 
     return !card ? <Loader /> : (<>
-        <div className="max-w-[220px]">
-            <BankCardsCarousel onSelect={setCard} />
+        <div className='flex justify-center'>
+            <div className="max-w-[220px]">
+                <BankCardsCarousel onSelect={setCard} />
+            </div>
         </div>
 
         <span className={`

@@ -1,19 +1,25 @@
 .Tab {
     //background: none;
     padding: 6px 10px;
-    border-radius: 4px;
+    //border-radius: 8px;
     font-size: 14px;
-    font-weight: 500;
-    border-style: solid;
-    border-width: 1px;
-    background-color: var(--color-main-bg);
-    border-color: var(--color-main-bg);
-    color: #888A92;
-    margin-bottom: 8px;
+    font-weight: 400;
+    border: 1px solid #3a5e66;    
+    background-color: #3a5e66;    
+    color: #F7F7F0;
     transition: .2s;
     &:global(.active) {
-        border-color: #3a5e66;
-        font-weight: 700;
-        color: var(--color-gray-600);
+        //border-color: #3a5e66;
+        background-color: #F7F7F0;
+        font-weight: 600;
+        color: black;
     }
+}
+.TabGroup{
+    background-color: #3a5e66;
+    display: inline-flex;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    padding: 0px 8px;
+    margin-bottom: 5px;
 }

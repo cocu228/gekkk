@@ -19,7 +19,7 @@ function SecondaryTabGroup({
 
     return (
         <div className="wrapper">
-            <div className={`${sm ? 'hidden' : ''} inline-flex flex-wrap rounded-[4px]`}>
+            <div className={`${sm ? 'hidden' : ''} ${styles.TabGroup}`}>               
                 {Object.keys(tabs).map(tab => (
                     <button
                         key={tab}
@@ -27,11 +27,10 @@ function SecondaryTabGroup({
                             ${styles.Tab}
                             ${tab === activeTab ? 'active' : ''}
                         `}
-                        onClick={() => setActiveTab(tab)}
-                    >
+                        onClick={() => setActiveTab(tab)}>
                         {tabs[tab]}
                     </button>
-                ))}
+                ))}                
             </div>
 
             <div className={sm ? 'block mb-4' : 'hidden'}>

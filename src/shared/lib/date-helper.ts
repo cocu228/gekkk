@@ -18,7 +18,7 @@ export const sameOrAfter = (d1 = new Date(), d2 = new Date()) => {
     return isSameSecond(d1, d2) || isAfter(d1, d2);
 }
 
-export const formatForDisplay = (value: Date | string) => typeof value === "string" ? format(new Date(value), 'yyyy-MM-dd') :
+export const formatForApi = (value: Date | string) => typeof value === "string" ? format(new Date(value), 'yyyy-MM-dd') :
     format(value, 'yyyy-MM-dd');
 
 // const timeZoneCustomer = 'Europe/Moscow'

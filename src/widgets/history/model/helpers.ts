@@ -1,6 +1,6 @@
 import {format, startOfMonth, subDays, subYears} from "date-fns";
 import {TabKey, HistoryTab} from "../model/types";
-import {formatForDisplay} from "@/shared/lib/date-helper";
+import {formatForApi} from "@/shared/lib/date-helper";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 import Decimal from "decimal.js";
 

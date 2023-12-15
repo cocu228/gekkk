@@ -2,10 +2,10 @@ import {format} from "date-fns";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 
 export const formatDateTime = (date: Date) =>
-    format(date, "MM.dd.yyyy 'at' HH:mm");
+    format(date, "dd.MM.yyyy 'at' HH:mm");
 
 export const formatDate = (date: Date) =>
-    format(date, "MM.dd.yyyy");
+    format(date, "dd.MM.yyyy");
 
 export const formatMonthYear = (date: Date) =>
     format(date, "MM/yy");

@@ -40,7 +40,7 @@ const OpenDepositModal = ({ open, onCancel, onConfirm, ...props }: IParams) => {
                             ${percentageType?.risePercentage}/${percentageType?.dropPercentage} ${tokenCurrency}`
                     )}
                 />
-                <InlineProperty left="Opened" right={format(new Date(), "MM.dd.yyyy 'at' HH:mm")} />
+                <InlineProperty left="Opened" right={format(new Date(), "dd.MM.yyyy 'at' HH:mm")} />
                 <InlineProperty left="Deposit amount" right={`${amount} EURG`} />
                 {type === DepositType.FIXED && <InlineProperty left="Payments" right='Every 30 days' />}
                 {type === DepositType.STRUCTED && <InlineProperty

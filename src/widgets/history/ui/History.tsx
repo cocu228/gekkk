@@ -5,7 +5,7 @@ import Button from '@/shared/ui/button/Button';
 import { DatePicker } from 'antd';
 import { Props, TabKey } from "../model/types";
 import { historyTabs } from "../model/helpers";
-import { formatForCustomer, formatForDisplay } from "@/shared/lib/date-helper";
+import { formatForCustomer, formatForApi } from "@/shared/lib/date-helper";
 import { startOfMonth } from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
@@ -40,8 +40,8 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
         setAllTxVisibly(false);
 
         const {
-            StartDate: start = formatForDisplay(customDate[0].toDate()),
-            EndDate: end = formatForDisplay(customDate[1].toDate())
+            StartDate: start = formatForApi(customDate[0].toDate()),
+            EndDate: end = formatForApi(customDate[1].toDate())
         } = historyTabs.find(tab => tab.Key === activeTab);
 
         const response = await apiGetHistoryTransactions({

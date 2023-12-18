@@ -4,9 +4,9 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
-import {apiGetAgentCode} from "@/shared/api/referral/get-agent-code";
 import History from "@/widgets/history/ui/History";
 import { useTranslation } from 'react-i18next';
+import {apiGetAgentCode} from "@/shared/api/(gen)new";
 
 const PartnershipProgram = () => {
 

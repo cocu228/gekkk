@@ -1,16 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react';
 import GTable from "@/shared/ui/grid-table";
-import {apiGetReferrals, IResReferrals} from "@/shared/api/referral/get-referrals";
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxRootData} from "@/processes/RootContext";
 import { useTranslation } from 'react-i18next';
+import {apiGetReferrals} from "@/shared/api/(gen)new";
+import {ReferralOut} from "@/shared/api/(gen)new/model";
 
 const TableReferrals = (props) => {
 
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
-    const [state, setState] = useState<IResReferrals | null>(null);
+    const [state, setState] = useState<ReferralOut | null>(null);
 
     useEffect(() => {
         (async () => {
@@ -47,4 +48,4 @@ const TableReferrals = (props) => {
     </>
 }
 
-export default TableReferrals
+export default TableReferrals;

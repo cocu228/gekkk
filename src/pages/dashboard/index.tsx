@@ -13,6 +13,10 @@ import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {randomId} from "@/shared/lib/helpers";
 import {useTranslation} from "react-i18next";
 import PageHead from "@/shared/ui/page-head/PageHead";
+import { BannersAndMyReward } from '@/widgets/BannersAndMyReward';
+import { Box } from '@mui/material';
+
+
 enum TabType {
     ACCOUNTS,
     CARDS,
@@ -27,9 +31,14 @@ const TABS = [
     // {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
     // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
     {type: TabType.HISTORY, title: 'History', content: (
-        <div className='substrate'>
-            <History title='History' includeFiat/>
-        </div>
+        <Box display={"flex"} gap="40px" justifyContent={"flex-start"}>
+            
+            <div className='substrate' style={{width: '100%'}}>
+                <History title='History' includeFiat/>
+            </div>
+
+            <BannersAndMyReward />
+        </Box>
     )}
 ];
 

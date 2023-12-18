@@ -14,6 +14,7 @@ import {getNetworkForChose} from "../model/helpers";
 import {apiPasswordVerify} from "../../../../shared/api/various/password";
 import {actionResSuccess} from "../../../../shared/lib/helpers";
 import {formatAsNumber} from "../../../../shared/lib/formatting-helper";
+import {useTranslation} from 'react-i18next';
 
 const NoUsagesCardToCardWithdrawConfirm = ({
                                  beneficiaryName,
@@ -52,6 +53,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
 
     const {onInput} = useMask(MASK_CODE);
+    const {t} = useTranslation();
     const onConfirm = async () => {
 
         setLoading(true)
@@ -76,13 +78,12 @@ const NoUsagesCardToCardWithdrawConfirm = ({
                     <div className="wrapper flex flex-col">
                         <div className="row mb-1">
                             <div className="col">
-                                <span className="text-red-800">Please note</span>
+                                <span className="text-red-800">{t("please_note")}</span>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col">
-                        <span className="text-gray-400">
-                            You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                        <span className="text-gray-400">{t("use_withdraw_addr_supported")}
                         </span>
                             </div>
                         </div>
@@ -92,7 +93,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Network</span>
+                <span className="text-gray-400">{t("network")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -102,7 +103,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Beneficiary Name</span>
+                <span className="text-gray-400">{t("beneficiary_name")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -112,7 +113,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Account Number</span>
+                <span className="text-gray-400">{t("account_number")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -122,7 +123,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Amount</span>
+                <span className="text-gray-400">{t("amount")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -132,7 +133,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Fee</span>
+                <span className="text-gray-400">{t("fee")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -143,7 +144,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         {!comment ? null : <>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Comment</span>
+                    <span className="text-gray-400">{t("comment")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -154,14 +155,14 @@ const NoUsagesCardToCardWithdrawConfirm = ({
         </>}
         <Form onFinish={onConfirm}>
 
-            <span>Transfer confirm</span>
+            <span>{t("transfer_confirm")}</span>
 
-            <FormItem className={"mb-4"} name="code" label="Code" preserve
+            <FormItem className={"mb-4"} name="code" label={t("code")} preserve
                       rules={[{required: true, ...codeMessage}]}>
 
                 <Input type="text"
                        onInput={onInput}
-                       placeholder="Enter your PIN"
+                       placeholder={t("enter_PIN")}
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />
@@ -170,7 +171,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
             <div className="row mb-5">
                 <div className="col">
                     <Button htmlType={"submit"} disabled={input === ""} className="w-full"
-                            size={"xl"}>Confirm</Button>
+                            size={"xl"}>{t("confirm")}</Button>
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox}
@@ -180,8 +181,7 @@ const NoUsagesCardToCardWithdrawConfirm = ({
 
         {is_operable === false && <>
             <div className="info-box-danger">
-                <p>Attention: transactions on this network may be delayed. We recommend that you use a different
-                    network for this transaction.</p>
+                <p>{t("attention")}.</p>
             </div>
         </>}
     </>

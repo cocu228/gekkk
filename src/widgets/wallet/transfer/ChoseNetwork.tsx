@@ -8,8 +8,10 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {useTranslation} from "react-i18next";
 
 const ChoseNetwork = ({withdraw = false}) => {
+    const {t} = useTranslation();
 
     const navigate = useNavigate();
     const {$const} = useContext(CtxWalletData);
@@ -24,7 +26,7 @@ const ChoseNetwork = ({withdraw = false}) => {
     return <>
         <div className="row mb-8 w-full font-medium">
             {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
-                withdraw ? "Select withdraw network" : "Select network"}
+                withdraw ? t("select_withdraw_network") : t("select_network")}
 
             <div className="col">
                 {Array.isArray(networksForSelector) &&

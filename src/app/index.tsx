@@ -6,7 +6,7 @@ import {ConfigProvider} from 'antd'
 import "./index"
 import "../processes/i18n.config";
 
-
+import ThemeCustomization from '@/materialUI'
 
 declare global {
     interface String {
@@ -24,12 +24,15 @@ Object.defineProperty(String.prototype, 'capitalize', {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
-    <ConfigProvider theme={{
-        token: {
-            fontFamily: 'inherit'
-        },
-    }}>
-        <App/>
-    </ConfigProvider>
+    <ThemeCustomization>
+
+        <ConfigProvider theme={{
+            token: {
+                fontFamily: 'inherit'
+            },
+        }}>
+            <App/>
+        </ConfigProvider>
+    </ThemeCustomization>
     // </React.StrictMode>
 )

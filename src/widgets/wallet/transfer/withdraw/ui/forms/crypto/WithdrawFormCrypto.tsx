@@ -66,10 +66,10 @@ const WithdrawFormCrypto = () => {
         <div className="flex flex-col items-center mt-2">
             <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600 font-medium">Address</span>
+                    <span className="text-gray-600 font-medium">{t("address")}</span>
                     <Input value={inputs.address} onChange={onInput}
                            disabled={!networkIdSelect}
-                           placeholder={"Enter the withdrawal address"}
+                           placeholder={t("enter_withdrawal_addr")}
                            name={"address"}/>
                 </div>
                     <div className='flex flex-col gap-2'>
@@ -85,7 +85,7 @@ const WithdrawFormCrypto = () => {
                         >
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>
@@ -101,17 +101,17 @@ const WithdrawFormCrypto = () => {
                     </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600 font-medium">Recipient</span>
+                    <span className="text-gray-600 font-medium">{t("recipient")}</span>
                             <Input value={inputs.recipient} onChange={onInput}
                                    disabled={!networkIdSelect}
                                    name={"recipient"}
-                                   placeholder={"Enter recipient name"}/>
+                                   placeholder={t("enter_recipient")}/>
 
-                    <span className="text-green text-fs12">As required by EU law, you must provide the name of the recipient of the funds</span>
+                    <span className="text-green text-fs12">{t("EW_law")}</span>
                 </div>
 
                 <div className='flex flex-col gap-2'>
-                    <span className="text-gray-600 font-medium">Description (optional)</span>
+                    <span className="text-gray-600 font-medium">{t("desc_optional")}</span>
                     <TextArea name={"description"} value={inputs.description} onChange={onInput}
                               disabled={!networkIdSelect}
                               rows={2}/>
@@ -119,7 +119,7 @@ const WithdrawFormCrypto = () => {
                 <div className="row w-full mt-4">
                     <div className="col">
                         <Modal width={450}
-                               title="Transfer confirmation"
+                               title={t("transfer_confirmation")}
                                destroyOnClose
                                onCancel={handleCancel}
                                open={isModalOpen}>
@@ -133,7 +133,7 @@ const WithdrawFormCrypto = () => {
 
                                 disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}
                                 className='w-full self-center'>
-                            Withdraw
+                            {t("withdraw")}
                         </Button>
 
                     </div>

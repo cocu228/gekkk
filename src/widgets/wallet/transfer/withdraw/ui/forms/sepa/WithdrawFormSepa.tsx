@@ -46,7 +46,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Beneficiary name</span>
+                        <span className="font-medium">{t("beneficiary_name")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -63,13 +63,12 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Account number / IBAN</span>
+                        <span className="font-medium">{t("IBAN")}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
                         <Input value={inputs.accountNumber} onChange={onInput}
-                               placeholder={""}
                                name={"accountNumber"}/>
                     </div>
                 </div>
@@ -79,7 +78,7 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Transfer description</span>
+                        <span className="font-medium">{t("transfer_desc")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -102,13 +101,12 @@ const WithdrawFormSepa = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Comment</span>
+                        <span className="font-medium">{t("сomment")}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
                         <TextArea value={inputs.comment}
-                                  placeholder={""}
                                   name={"comment"}
                                   onChange={onInput}/>
                     </div>
@@ -126,7 +124,7 @@ const WithdrawFormSepa = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                             <InputCurrency
@@ -155,7 +153,7 @@ const WithdrawFormSepa = () => {
                     onClick={showModal}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
                 >
-                    Withdraw
+                    {t("withdraw")}
                 </Button>
             </div>
         </div>

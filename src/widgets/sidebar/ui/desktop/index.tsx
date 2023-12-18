@@ -118,7 +118,7 @@ const SidebarDesktop = () => {
 
             {/* Crypto wallets wrapper */}
             <div className={styles.AssetInfo1} >
-                <span>crypto assets</span>
+                <span>{t("crypto_assets.title").toLowerCase()}</span>
             </div>
 
             {/* EURG wallet */}
@@ -218,7 +218,7 @@ const SidebarDesktop = () => {
             )}
 
             <div className={styles.AssetInfo2 + " text-gray-500 font-mono"} >
-                <span>total balance</span>
+                <span>{t("total_balance")}</span>
                 <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
             </div>
 
@@ -226,7 +226,7 @@ const SidebarDesktop = () => {
             <div className={styles.AssetInfo3}>
                 <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                     <div className={styles.AssetInfo4}>
-                        new crypto asset
+                        {t("new_asset")}
                     </div>
                     {/* <div className={`${styles.Item}`}>
                     <div className="col flex items-center pl-4">
@@ -378,7 +378,7 @@ const SidebarDesktop = () => {
             width={450}
             open={roomInfoModal.isModalOpen}
             onCancel={roomInfoModal.handleCancel}
-            title='Invite link'
+            title={t("invite_link")}
         >
             <InviteLink roomInfo={selectedRoom} />
         </Modal>

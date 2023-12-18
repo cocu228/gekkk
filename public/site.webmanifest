@@ -12,6 +12,7 @@
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone",
+    "description": "Free payment card, Euro IBAN and a way to invest online",
     "screenshots": [
         {
         "src": "/screenshot1.png",

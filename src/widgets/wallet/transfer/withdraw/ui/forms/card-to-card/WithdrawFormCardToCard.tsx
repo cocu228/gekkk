@@ -75,7 +75,9 @@ const WithdrawFormCardToCard = () => {
     useEffect(() => {
         setInputs(() => ({
             ...inputs,
-            selectedCard: cards ? cards[0].cardId : null
+            selectedCard: cards.find(c => ['ACTIVE', 'PLASTIC_IN_WAY'].includes(c.cardStatus))
+                ? cards[0].cardId
+                : null
         }));
     }, [cards]);
     
@@ -92,10 +94,13 @@ const WithdrawFormCardToCard = () => {
                         <div className="col">
                             <SearchSelect
                                 value={inputs.selectedCard}
+                                notFoundContent={<div className='my-3'>
+                                    No active cards
+                                </div>}
                                 placeholder={<span className='font-normal text-gray-400'>
                                     Choose source card
                                 </span>}
-                                prefixIcon={<IconCoin code={'EUR'}/>}
+                                prefixIcon={inputs.selectedCard ? <IconCoin code={'EUR'}/> : null}
                                 onChange={(val: string) => {
                                     setInputs(() => ({
                                         ...inputs,

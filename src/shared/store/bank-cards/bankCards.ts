@@ -22,7 +22,7 @@ export const CardStatusDescriptions: Record<string, string> = {
 
 export interface IStoreBankCards {
     refreshKey: string;
-    bankCards: IResCard[];
+    bankCards: IResCard[] | null;
     getBankCards: () => Promise<void>;
     updateCard: (card: IResCard) => void;
 }

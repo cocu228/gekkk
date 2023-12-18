@@ -4,7 +4,7 @@ import SupportIcon from '@/assets/support-icon.svg?react';
 import SettingsIcon from '@/assets/settings-icon.svg?react';
 import LogOutIcon from '@/assets/log-out-icon.svg?react';
 import { useAuth } from '@/app/providers/AuthRouter';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 // import useModal from "@/shared/model/hooks/useModal";
 // import ChatModal from '@/features/chat/ui/chat-modal/ChatModal';
 // import ChatButton from '@/features/chat/ui/chat-button/ChatButton';
@@ -52,9 +52,6 @@ export function NewHeader ({}: NewHeaderProps) {
                 display: 'flex',
                 gap: '16px',
             }}>
-                <button type='button'>
-                    <FaqIcon />
-                </button>
 
                 <button type='button' onClick={() => navigate('/chat')}>
                     <SupportIcon />

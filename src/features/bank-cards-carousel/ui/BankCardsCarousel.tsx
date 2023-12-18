@@ -9,6 +9,7 @@ import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpe
 
 interface IParams {
     cardClassName?: string;
+//    displayNewCard?: boolean;
     wrapperClassName?: string;
     onSelect?: (card: IResCard) => void;
 }
@@ -35,19 +36,22 @@ const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
     
     return (
         <div className="max-h-[600px] max-w-[1000px]">
-            {!bankCards?.length ? (
+            {!bankCards ? (
                 <div className='scale-y-95 mb-[14px]'>
                     <SkeletonCard/>
-                </div>) : (<> <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
+                </div>
+            ) : bankCards.length === 0 ? null : (
+                <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
                     {bankCards.map(card => (
-                            <div className={`${cardClassName} mb-6`}>
-                                <BankCard status={card.cardStatus}
-                                    cardNumber={formatCardNumber(card.displayPan)}
-                                    expiresAt={formatMonthYear(new Date(card.expiryDate))}
-                                    holderName={card.cardholder}/>
-                            </div>
-                        ))}
-                </Carousel></>)}
+                        <div className={`${cardClassName} mb-6`}>
+                            <BankCard status={card.cardStatus}
+                                      cardNumber={formatCardNumber(card.displayPan)}
+                                      expiresAt={formatMonthYear(new Date(card.expiryDate))}
+                                      holderName={card.cardholder}/>
+                        </div>
+                    ))}
+                </Carousel>
+            )}
         </div>
     )
 }

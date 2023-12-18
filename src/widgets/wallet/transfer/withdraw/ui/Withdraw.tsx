@@ -17,6 +17,7 @@ import Decimal from "decimal.js";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormPapaya from "@/widgets/wallet/transfer/withdraw/ui/forms/papaya/WithdrawFormPapaya";
+import WithdrawFormPhoneNumber from "@/widgets/wallet/transfer/withdraw/ui/forms/phone-number/WithdrawFormPhoneNumber";
 
 const Withdraw = memo(() => {
 

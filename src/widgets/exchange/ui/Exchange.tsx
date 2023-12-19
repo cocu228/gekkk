@@ -130,7 +130,7 @@ function Exchange() {
             from_currency: from.currency,
             to_currency: to.currency,
             from_amount: from.amount,
-            to_amount: isLimitOrder ? null : to.amount,
+            to_amount: isLimitOrder ? to.amount : null,
             client_nonce: 0,
             is_limit: isLimitOrder,
             room_key: roomType === 'default' ? 0 : +roomInfo.timetick
@@ -240,19 +240,19 @@ function Exchange() {
                                     <InputCurrency
                                         value={to.amount}
                                         currency={to.currency}
-                                        disabled={isLimitOrder}
+                                        disabled={!isLimitOrder}
                                         onChange={onToValueChange}
                                     />
                                 </InputCurrency.CurrencySelector>
                                 
                                 <div className="mt-3 md:mt-2">
                                     <div className="font-medium text-md lg:text-sm md:text-xs">{t("price")}</div>
-                                    <PriceField disabled={isLimitOrder}/>
+                                    <PriceField disabled={!isLimitOrder}/>
                                 </div>
                                 
                                 {roomType === 'creator' && (
                                     <div className="mt-6 md:mt-3.5">
-                                        <Checkbox defaultChecked={isLimitOrder} onChange={onIsLimitOrderChange}>
+                                        <Checkbox defaultChecked={!isLimitOrder} onChange={onIsLimitOrderChange}>
                                             <span className="lg:text-sm md:text-xs sm:text-[0.625rem]">{t("exchange.sell")} <strong
                                                 className="font-semibold">{from.currency}</strong> {t("exchange.at_the_market_rate")}</span>
                                         </Checkbox>
@@ -277,7 +277,7 @@ function Exchange() {
                                 <Button
                                     className="w-full"
                                     size="xl"
-                                    disabled={(isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
+                                    disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
                                     onClick={confirmModal.showModal}
                                 >{t("exchange.buy")} {to.currency ? to.currency : t("exchange.token")}</Button>
                                 

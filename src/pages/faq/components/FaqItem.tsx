@@ -16,11 +16,11 @@ export const FaqItem = styled(Box, {
   'borderColor': theme.palette['strokes 2'],
   'color': isSelected ? theme.palette.white : theme.palette['pale blue'],
   'background': isSelected
-    ? theme.palette['brand gradient']
+    ? theme.palette['dark blue']
     : theme.palette['light blue'],
   'borderRadius': '8px',
   '&:hover': {
     color: theme.palette.white,
-    background: theme.palette['brand gradient'],
+    background: theme.palette['dark blue'],
   },
 }))

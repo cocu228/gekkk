@@ -22,7 +22,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
 
     const initialState: ICtxExchangeData = {
         roomInfo: roomInfo,
-        isLimitOrder: false,
+        isLimitOrder: true,
         roomType: roomInfo ? roomInfo.room_code ? "creator" : "visitor" : "default",
         to: {
             amount: null,

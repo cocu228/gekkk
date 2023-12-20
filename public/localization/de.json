@@ -168,7 +168,7 @@
       "wallet_": "",
       "rate": "Rate",
       "per_annum": "{{percent}}% pro Jahr",
-      "eurg_tooltip_text": "Wir zahlen Ihnen 3% pro Jahr von EURG auf Ihr Guthaben unter folgenden Bedingungen:\n\n (i) Ihr gewichteter Durchschnittsbetrag für den Berichtszeitraum entspricht oder übersteigt 300 EURG\n\n (ii) unser oberes Limit für das Guthaben, um den Zinssatz zu zahlen, beträgt 100.000 EURG.",
+      "eurg_tooltip_text": "Wir zahlen Ihnen 4% pro Jahr von EURG auf Ihr Guthaben unter folgenden Bedingungen:\n\n (i) Ihr gewichteter Durchschnittsbetrag für den Berichtszeitraum entspricht oder übersteigt 300 EURG\n\n (ii) unser oberes Limit für das Guthaben, um den Zinssatz zu zahlen, beträgt 100.000 EURG.",
       "gke_tooltip_text": "Feste Rendite auf den durchschnittlichen monatlichen Saldo (in GKE-Token): \n➔ 5% p.a. im ersten Jahr ab Ausgabedatum \n➔ 3% p.a. im zweiten Jahr ab Ausgabedatum",
       "": "",
       "about": "Über",

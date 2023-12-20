@@ -95,7 +95,7 @@ const WalletHeader = () => {
                     </div>
 
                     <div className='text-gray-600 text-2xl'>
-                        <span>{t("per_annum", {percent: isEURG ? 3 : 5})}</span>
+                        <span>{t("per_annum", {percent: isEURG ? 4 : 5})}</span>
                     </div>
                 </div>)}
             </div>

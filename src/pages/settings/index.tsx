@@ -14,6 +14,7 @@ import { PersonalInformation } from './components/PersonalInformation'
 import { Pricing} from './components/Pricing'
 import { settingsContext } from './settingsContext'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
+import { useTranslation } from 'react-i18next';
 
 export const useStyles = makeStyles({
   name: 'settings-page',
@@ -31,6 +32,7 @@ const areaMap: any = {
   'Legal notices': <LegalNotices />,
 }
 export function Settings() {
+  const {t} = useTranslation();
   const { classes } = useStyles()
   const [selectedArea, setSelectedArea] = useState('')
   const area = areaMap[selectedArea] || null
@@ -46,7 +48,7 @@ export function Settings() {
         component={Typography}
         variant="h1"
       >
-        My settings
+        {t('my_settings')}
       </Box>
 
       <Box
@@ -59,7 +61,7 @@ export function Settings() {
         <Box display="flex" flexDirection={xl ? "column" : 'row'} gap="30px" marginBottom="19px">
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
             <Typography noWrap variant="h2" color="pale blue">
-              General information
+              {t('general_information')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -77,7 +79,7 @@ export function Settings() {
                       : ''
                   }
                 />
-                <Typography noWrap variant="h3">Identification status</Typography>
+                <Typography noWrap variant="h3">{t('identification_status')}</Typography>
               </FrameItem>
 
               <FrameItem
@@ -86,13 +88,13 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Personal information'}
               >
-                <Typography noWrap variant="h3">Personal information</Typography>
+                <Typography noWrap variant="h3">{t('personal_information')}</Typography>
               </FrameItem>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
             <Typography noWrap variant="h2" color="pale blue">
-              Account and app settings
+              {t('account_and_app_settings')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -103,7 +105,7 @@ export function Settings() {
                 isSelected={selectedArea === 'My reports'}
               >
                 <StatementIcon />
-                <Typography noWrap variant="h3">My reports</Typography>
+                <Typography noWrap variant="h3">{t('my_reports')}</Typography>
               </FrameItem>
               <FrameItem
                 onClick={() => {
@@ -112,13 +114,13 @@ export function Settings() {
                 isSelected={selectedArea === 'Application PIN'}
               >
                 <Typography noWrap variant="h3">* * * *</Typography>
-                <Typography noWrap variant="h3">Application PIN</Typography>
+                <Typography noWrap variant="h3">{t('application_pin')}</Typography>
               </FrameItem>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
             <Typography noWrap variant="h2" color="pale blue">
-              Documents
+              {t('documents')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -128,7 +130,7 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Pricing'}
               >
-                <Typography noWrap variant="h3">Pricing</Typography>
+                <Typography noWrap variant="h3">{t('pricing')}</Typography>
               </FrameItem>
 
               <FrameItem
@@ -137,7 +139,7 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Legal notices'}
               >
-                <Typography noWrap variant="h3">Legal notices</Typography>
+                <Typography noWrap variant="h3">{t('legal_notices')}</Typography>
               </FrameItem>
             </Box>
           </Box>

@@ -2,10 +2,13 @@ import { Box } from '@mui/material'
 
 import { AreaWrapper } from '../AreaWrapper'
 import { InfoItem } from './components/InfoItem'
+import { useTranslation } from 'react-i18next';
 
 export function PersonalInformation() {
+  const {t} = useTranslation();
+  
   return (
-    <AreaWrapper title="Personal information">
+    <AreaWrapper title={t("personal_information")}>
       <Box
         display="flex"
         flexDirection="column"
@@ -13,18 +16,18 @@ export function PersonalInformation() {
         paddingTop="36px"
         flex="0 0 auto"
       >
-        <InfoItem firstString="Name" secondString={'name'} />
+        <InfoItem firstString={t("profile_name")} secondString={'name'} />
         <InfoItem
-          firstString="Phone number"
+          firstString={t("profile_phone")}
           secondString={`+333333`}
         />
-        <InfoItem firstString="Email" secondString="no in for in account" />
+        <InfoItem firstString={t("profile_email")} secondString="no in for in account" />
         <InfoItem
-          firstString="Citizenship"
+          firstString={t("profile_citizenship")}
           secondString="no in for in account"
         />
         <InfoItem
-          firstString="Residence address"
+          firstString={t("profile_street")}
           secondString="no in for in account"
         />
       </Box>

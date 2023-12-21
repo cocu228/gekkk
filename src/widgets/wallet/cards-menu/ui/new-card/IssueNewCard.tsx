@@ -20,7 +20,7 @@ const RowItem = styled(Box, {
 }),
 );
 export function IssueNewCard() {
-    const { close, setStep } = useNewCardContext();
+    const { setStep } = useNewCardContext();
 
     return <>
         <Box display="flex" justifyContent="space-between" width="100%">

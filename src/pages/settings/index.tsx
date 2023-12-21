@@ -11,7 +11,7 @@ import { IdentificationStatus } from './components/IdentificationStatus'
 import { LegalNotices } from './components/LegalNotices'
 import { MyReports } from './components/MyReports'
 import { PersonalInformation } from './components/PersonalInformation'
-import { Pricing } from './components/Pricing'
+import { Pricing} from './components/Pricing'
 import { settingsContext } from './settingsContext'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 

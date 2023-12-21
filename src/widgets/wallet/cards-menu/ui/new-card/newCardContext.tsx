@@ -5,12 +5,10 @@ export type Step = 'IssueNewCard' | 'ConfirmationNewCard' | 'CardHasBeenOrdered'
 export type NewCardContext = {
     step: Step,
     setStep: (nextSte: Step) => void
-    close: () => void
 }
 export const newCardContext = createContext<NewCardContext>({
    step: 'IssueNewCard',
    setStep: () => {},
-   close: () => {},
 })
 
 export function useNewCardContext() {

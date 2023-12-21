@@ -35,17 +35,11 @@ function Wallet() {
 
     const $currency = currencies.get(currency);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-    const [isNewCardOpened, setIsNewCardOpened] = useState(false);
     
     const fullWidthOrHalf = useMemo(() => {
-        if(isNewCardOpened) {
-            return 1;
-        }
-
         return xl ? 1 : 2;
-    }, [xl, isNewCardOpened]);
-   
- 
+    }, [xl]);
+    
     return (
         <div className="flex flex-col h-full w-full">
             <CtxWalletData.Provider value={$currency}>
@@ -65,7 +59,7 @@ function Wallet() {
 
                             {$currency.$const === "EUR" && account.rights && !account.rights[AccountRights.IsJuridical] && <>
                                 <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                                <CardsMenu isNewCardOpened={isNewCardOpened} setIsNewCardOpened={setIsNewCardOpened} data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+                                <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
                                 <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
                             </>}
 
@@ -82,7 +76,7 @@ function Wallet() {
                                             data-name={t("history")}/>}
                         </div>
 
-                        {!isNewCardOpened && !xl && <div className="substrate z-0 -ml-4 h-full">
+                        {!xl && <div className="substrate z-0 -ml-4 h-full">
                             <History currenciesFilter={currencyForHistory}/>
                         </div>}
                     </div>

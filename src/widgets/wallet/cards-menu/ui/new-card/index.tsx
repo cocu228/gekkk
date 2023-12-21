@@ -4,23 +4,12 @@ import { ConfirmationNewCard } from "./ConfirmationNewCard";
 import {newCardContext, Step} from './newCardContext';
 import { CardHasBeenOrdered } from "./CardHasBeenOrdered";
 
-export type NewCardProps = {
-    setIsNewCardOpened: (isOpen: boolean) => void
-};
-
-export function NewCard({setIsNewCardOpened}: NewCardProps) {
+export function NewCard() {
     const [step, setStep] = useState<Step>('IssueNewCard');
-
-    useEffect(() => {
-        return () => {
-            setIsNewCardOpened(false);
-        };
-    }, []);
 
     return <newCardContext.Provider value={{
         step,
         setStep,
-        close: () => setIsNewCardOpened(false)
     }}>
         {step === 'IssueNewCard' ? <IssueNewCard /> : null}
         {step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}

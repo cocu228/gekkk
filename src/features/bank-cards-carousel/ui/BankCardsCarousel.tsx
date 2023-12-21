@@ -1,48 +1,65 @@
 import {Carousel} from "antd";
 import {IResCard} from "@/shared/api";
+import {sortCards} from "../model/helpers";
 import {useEffect, useRef, useState} from "react";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
-import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
+import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 
 interface IParams {
     cardClassName?: string;
-//    displayNewCard?: boolean;
     wrapperClassName?: string;
+    displayUnavailable?: boolean;
     onSelect?: (card: IResCard) => void;
 }
 
-const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
+const BankCardsCarousel = ({cardClassName, displayUnavailable, onSelect = () => {}}: IParams) => {
     const carousel = useRef();
-    const [value, setValue] = useSessionStorage("cards-settings", {
-        displayUnavailable: null
-    });
-    const initActiveStorage = value.displayUnavailable !== null ? value.displayUnavailable : false;
-    const [displayUnavailableCards, setDisplayUnavailableCards] = useState(initActiveStorage);
-    const bankCards = storeBankCards(state => state.bankCards)?.filter(card =>
-        !displayUnavailableCards
-            ? card.cardStatus === "ACTIVE"
-            : card
-    );
+    const bankCards = storeBankCards(state => state.bankCards);
+    const [displayedCards, setDisplayedCards] = useState<IResCard[]>(null);
     
     useEffect(() => {
-        if (!displayUnavailableCards && !bankCards?.length) {
-            setValue({displayUnavailable: true});
-            setDisplayUnavailableCards(true);
+        if (bankCards) {
+            const filteredCards = bankCards.filter(card =>
+                !displayUnavailable
+                    ? card.cardStatus === "ACTIVE"
+                    : card
+            );
+            
+            const sortedCards = sortCards(filteredCards);
+            
+            sortedCards.push({
+                cardId: 'new',
+                type: null,
+                limits: null,
+                isVirtual: null,
+                cardStatus: null,
+                displayPan: null,
+                cardholder: null,
+                expiryDate: null,
+                productType: null
+            });
+            
+            setDisplayedCards(sortedCards);
+            onSelect(sortedCards[0]);
         }
-    }, [bankCards]);
+    }, [bankCards, displayUnavailable]);
     
     return (
         <div className="max-h-[600px] max-w-[1000px]">
-            {!bankCards ? (
+            {!displayedCards ? (
                 <div className='scale-y-95 mb-[14px]'>
                     <SkeletonCard/>
                 </div>
-            ) : bankCards.length === 0 ? null : (
-                <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
-                    {bankCards.map(card => (
+            ) : (
+                <Carousel draggable ref={carousel} afterChange={(i) => onSelect(displayedCards[i])}>
+                    {displayedCards.map(card => card.cardId === 'new' ? (
+                        <div className={`${cardClassName} mb-6`}>
+                            <NewBankCard/>
+                        </div>
+                    ) : (
                         <div className={`${cardClassName} mb-6`}>
                             <BankCard status={card.cardStatus}
                                       cardNumber={formatCardNumber(card.displayPan)}

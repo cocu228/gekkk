@@ -23,9 +23,15 @@ const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: Card
                 </div>
             )}
             <div className={styles.BankCard}>
-                <div className={styles.CardNumber}>{cardNumber}</div>
-                <div className={styles.CardData}>{expiresAt}</div>
-                <div className={styles.CardData +' '+ styles.CardHolderName}>{holderName}</div>
+                <img
+                    src='/img/payment-card/payment-card-background.jpg'
+                    className='rounded-[10px]'
+                />
+                <div className='absolute'>
+                    <div className={styles.CardNumber}>{cardNumber}</div>
+                    <div className={styles.CardData}>{expiresAt}</div>
+                    <div className={styles.CardData +' '+ styles.CardHolderName}>{holderName}</div>
+                </div>
             </div>
         </div>
     )

@@ -18,7 +18,7 @@ const RowItem = styled(Box, {
 );
 
 export function ConfirmationNewCard() {
-    const { close, setStep } = useNewCardContext();
+    const { setStep } = useNewCardContext();
     const [isOpen, setIsOpen] = useState(false)
 
     return <>

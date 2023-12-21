@@ -13,15 +13,15 @@ const HeaderMobile = ({items, actions}) => {
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
     return <>
-        <header className="flex justify-between bg-white">
+        <header className="flex justify-between bg-[#1F3446]">
             <div className="flex items-center">
                 <button onClick={() => toggleSidebar.current(!isOpen)}
                         className={`${styles.NavBtn} ${isOpen ? "active" : ""}`}/>
                 
-                <a href="/">
-                    <img style={{objectFit: "contain"}} src="/img/logo.svg" width={72}
-                         height={24} alt="logo"/>
-                </a>
+                {/*<a href="/">*/}
+                {/*    <img style={{objectFit: "contain"}} src="/img/logo.svg" width={72}*/}
+                {/*         height={24} alt="logo"/>*/}
+                {/*</a>*/}
             </div>
             
             <div className="wrapper flex flex-row flex-nowrap">
@@ -29,9 +29,14 @@ const HeaderMobile = ({items, actions}) => {
                     <div className="flex items-center justify-end" data-testid="HeaderMenuContainer">
                         <div className="wrapper flex justify-end">
                             {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
-                                <img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon"/>}
+                                <img width={32}
+                                     height={32}
+                                     alt="UserIcon"
+                                     src="/img/icon/UserIcon.svg"
+                                     className={styles.AccountIcon}
+                                />}
                             
-                            <button className="arrow-down-xs"></button>
+                            <button className={`${styles.AccountIcon} arrow-down-xs`}></button>
                         </div>
                     </div>
                 </HeaderMenu>

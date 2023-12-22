@@ -7,6 +7,7 @@ import EuroIcon from '@/assets/euro.svg?react'
 import DocumentsDocumentsIcon from '@/assets/documents-documents.svg?react'
 import PinCodeIcon from '@/assets/pin-code.svg?react'
 import ReportIcon from '@/assets/report.svg?react'
+import AccountIcon from '@/assets/account.svg?react'
 
 import { FrameItem } from '@/shared/ui/FrameItem'
 
@@ -78,6 +79,7 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Personal information'}
               >
+                <AccountIcon />
                 <Typography noWrap variant="h3">{t('personal_information')}</Typography>
               </FrameItem>
             </Box>

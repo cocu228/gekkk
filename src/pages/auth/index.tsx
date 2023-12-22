@@ -63,8 +63,9 @@ const AuthPage = memo(() => {
                 <div style={{
                     width: md ? 0 : '270px',
                     flex: '0 1 auto',
-                }} id={"recaptcha-container"}></div>
-
+                }}></div>
+                
+                
                 <div style={{
                     width: md ? '100%' : '',
                     margin: '20px',

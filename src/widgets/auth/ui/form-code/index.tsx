@@ -27,7 +27,7 @@ declare module 'firebase/auth' {
     }
 }
 
-const FormCode = memo(() => {
+const FormCode = memo(({dc}: {cv: boolean, dc: () => void}) => {
     const [form] = useForm();
     const {login} = useAuth();
     const {t} = useTranslation();
@@ -136,7 +136,7 @@ const FormCode = memo(() => {
     return <Form form={form} autoComplete="off" onFinish={sessionIdUAS === "" ? onCode : onCodeUAS}>
         <FormItem name="code" label="Code" preserve >
             <div>
-                <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                <div className='typography-b3' style={{ marginTop: 4, color: 'var(--new-dark-blue)'}}>
                 SMS verification code
                 </div>
                 <Input type="text"
@@ -180,7 +180,7 @@ const FormCode = memo(() => {
                 disabled={loading || code.length < 11} 
             >Sign in</button>
             
-            <ReSendCode isUAS={sessionIdUAS !== ""}/>
+            <ReSendCode isUAS={sessionIdUAS !== ""} displayCapcha={dc}/>
         </div>
     </Form>
 });

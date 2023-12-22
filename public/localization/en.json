@@ -278,6 +278,11 @@
     "app_settings": "App Settings",
     "use_touch_id": "Use Touch ID",
     "change_application_pin": "Change Application PIN",
+    "current_online_bank_password": "Current online bank password",
+    "enter_password": "Enter password",
+    "change_application_password": "Change Application password",
+    "new_online_bank_password": "New online bank password",
+    "enter_new_password": "Enter new password",
     "optional": "optional",
     "change_language": "Change Language",
     "invite_friends": "Invite Friends",
@@ -467,6 +472,7 @@
     "account_and_app_settings": "Account and app Settings",
     "my_reports": "My reports",
     "application_pin": "Application pin",
+    "application_password": "Application password",
     "gekkard_password": "Gekkard password",
     "about_app": "About app",
     "documents": "Documents",
@@ -503,6 +509,10 @@
     "without_blockchain": "Without Blockchain description",
     "back_to_withdraw": "Back to withdraw",
     "enter_sms_code": "Enter Sms code",
-    "card_managment": "Card management"
+    "Save": "Save",
+    "card_managment": "Card management",
+    "REGISTERED": "REGISTERED",
+    "third-party_software_libraries": "Third-party software libraries",
+    "identification_status_message": "We have accepted your Application for services by setting up an Account for you and issuing Virtual Gekkard. You can make payment transactions from or to Account and use Virtual Gekkard for online purchuses."
   }
 }

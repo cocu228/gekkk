@@ -1,10 +1,12 @@
 import { Box, Button } from '@mui/material'
 
 import { AreaWrapper } from '../AreaWrapper'
+import { useTranslation } from 'react-i18next'
 
 export function LegalNotices() {
+  const {t} = useTranslation();
   return (
-    <AreaWrapper title="Change application PIN">
+    <AreaWrapper title={t("legal_notices")}>
       <Box
         display="flex"
         paddingTop="36px"
@@ -19,7 +21,7 @@ export function LegalNotices() {
           LinkComponent="a"
           variant="text-button"
         >
-          Terms & Conditions
+          {t('terms_and_conditions')}
         </Button>
         <Button
           href="https://gekkard.com/data-protection-policy.html"
@@ -28,7 +30,7 @@ export function LegalNotices() {
           variant="text-button"
           LinkComponent="a"
         >
-          Data protection
+          {t('data_protection')}
         </Button>
         <Button
           href="/"
@@ -37,7 +39,7 @@ export function LegalNotices() {
           LinkComponent="a"
           variant="text-button"
         >
-          Third-party software libraries
+          {t('third-party_software_libraries')}
         </Button>
       </Box>
     </AreaWrapper>

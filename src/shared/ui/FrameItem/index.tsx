@@ -13,6 +13,6 @@ export const FrameItem = styled(Box, {
   cursor: 'pointer',
   background: !isSelected
     ? theme.palette.white
-    : theme.palette['green'],
+    : theme.palette['brand dark blue'],
   color: !isSelected ? theme.palette['pale blue'] : theme.palette.white,
 }))

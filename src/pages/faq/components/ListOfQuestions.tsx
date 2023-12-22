@@ -1,5 +1,4 @@
 import { Box, styled, Typography } from '@mui/material'
-
 import { useFaqContext } from '../faqContext'
 import { FaqItem } from './FaqItem'
 import { faqAreasMap, faqAreasMapKeys } from '../faqAreasMap'
@@ -19,8 +18,10 @@ export interface ListOfQuestionsProps {
   isSelected: boolean
 }
 
+
 export function ListOfQuestions({ isSelected }: ListOfQuestionsProps) {
   const { setSelectedArea, selectedArea } = useFaqContext()
+
   return (
     <Wrapper isSelected={isSelected}>
       {faqAreasMapKeys.map((key) => {

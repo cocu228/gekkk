@@ -99,10 +99,7 @@ export function buttonOverrides({
             ...typography['button-badge'],
 
             '&:hover': {
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundImage: palette['brand gradient'],
+              fontWeight: 700 
             },
           },
         },

@@ -1,7 +1,8 @@
-import { Box, Typography, Switch, TextField, styled } from '@mui/material';
+import { Box, Typography, TextField, styled } from '@mui/material';
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
 import { CardDesign } from './CardDesign';
+import {Switch} from "antd";
 import Button from '@/shared/ui/button/Button';
 import Select from '@/shared/ui/select/Select';
 
@@ -19,7 +20,7 @@ const RowItem = styled(Box, {
 }),
 );
 export function IssueNewCard() {
-    const { close, setStep } = useNewCardContext();
+    const { setStep } = useNewCardContext();
 
     return <>
         <Box display="flex" justifyContent="space-between" width="100%">

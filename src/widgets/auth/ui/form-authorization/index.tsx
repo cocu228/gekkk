@@ -1,29 +1,28 @@
 import md5 from 'md5';
 import {Input} from 'antd';
+import FormCode from '../form-code';
 import Form from '@/shared/ui/form/Form';
 import '@styles/(cs)react-phone-input.scss';
+import {useTranslation} from 'react-i18next';
 import {useSessionStorage} from "usehooks-ts";
-import {memo, useContext, useRef, useState} from 'react';
+import {auth} from "@/processes/firebaseConfig";
+import {useSearchParams} from "react-router-dom";
+import {apiRequestCode} from "@/widgets/auth/api";
+import useError from "@/shared/model/hooks/useError";
+import styles from './form-authorization.module.scss';
+import {TSessionAuth} from "@/widgets/auth/model/types";
+import {memo, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import CloseWindow from '@/assets/close-window.svg?react';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
-import {passwordMessage, phoneMessage, pinMessage} from '@/shared/config/message';
+import SearchInInput from '@/assets/search-in-input.svg?react';
+import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
+import {passwordMessage, phoneMessage} from '@/shared/config/message';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
-import {auth} from "@/processes/firebaseConfig";
-import useError from "@/shared/model/hooks/useError";
 import {helperApiCheckPassword, helperApiRequestCode} from "@/widgets/auth/model/helpers";
-import {TSessionAuth} from "@/widgets/auth/model/types";
-import {apiPasswordCheck} from "@/widgets/auth/api/password-check";
-import {apiRequestCode} from "@/widgets/auth/api";
-import {useSearchParams} from "react-router-dom";
-import { useTranslation } from 'react-i18next';
-import {$ENV_DEV} from "@/shared/lib/helpers";
-import FormCode from '../form-code';
-import styles from './form-authorization.module.scss';
-import CloseWindow from '@/assets/close-window.svg?react';
-import SearchInInput from '@/assets/search-in-input.svg?react';
 
 import { PhoneInput, FlagImage, DialCodePreview, CountrySelectorDropdown, defaultCountries } from 'react-international-phone';
 import 'react-international-phone/style.css';
@@ -34,20 +33,22 @@ import useModal from '@/shared/model/hooks/useModal';
 
 
 const FormLoginAccount = memo(() => {
-    const {t} = useTranslation(); 
+    const {t} = useTranslation();
     const inputRef = useRef(null);
+    const tooltipModal = useModal();
     const [params] = useSearchParams();
+    const [iso2, setIso2] = useState('');
     const {md} = useContext(BreakpointsContext);
     const authMethod = params.get("authMethod");
-    const {toggleStage, stage} = storyDisplayAuth(state => state);
+    const [dialCode, setDialCode] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [phoneInputValue, setPhoneInputValue] = useState('');
     const {phoneValidator, passwordValidator} = useValidation();
-
-    const [
-        localErrorHunter,
-        localErrorSpan, ,
-        localErrorClear
-    ] = useError();
+    const [searchInputValue, setSearchInputValue] = useState('');
+    const {toggleStage, stage} = storyDisplayAuth(state => state);
+    const [currentCountry, seCurrentCountry] = useState(defaultCountries[0]);
+    const [localErrorHunter, localErrorSpan, , localErrorClear] = useError();
+    const [currentCountriesData, setCountriesData] = useState(defaultCountries);
 
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth", {
         phone: "",
@@ -95,13 +96,20 @@ const FormLoginAccount = memo(() => {
             toggleStage("code", md5(`${password}_${phone}`));
         });
     }
+    //todo: test this
+    const [visible, setVisible] = useState<boolean>(false);
     
     const onCaptchaVerify = () => {
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-            size: "invisible",
-            callback: (response: unknown) => {}
+        setVisible(true);
+        
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+            size: md ? "compact" : "normal",
+            badge: "bottomleft",
+            callback: (response: unknown) => {
+                setVisible(false);
+            }
         });
-
+        
         onSingIn();
     }
     
@@ -146,17 +154,7 @@ const FormLoginAccount = memo(() => {
             });
         }
     }
-    const [iso2, setIso2] = useState('');
-    const [dialCode, setDialCode] = useState('');
-    const [searchInputValue, setSearchInputValue] = useState('');
-    const tooltipModal = useModal(); 
-    const [currentCountriesData, setCountriesData] = useState(defaultCountries);
-    const [currentCountry, seCurrentCountry] = useState(defaultCountries[0]);
-
-    const [phoneInputValue, setPhoneInputValue] = useState('');
-
-    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
-
+    
     return <div>
             <Modal className='login-modal'
                 open={tooltipModal.isModalOpen}
@@ -352,7 +350,11 @@ const FormLoginAccount = memo(() => {
                 {/*    your PIN? Log in with a QR code*/}
                 {/*</a>*/}
             </div>
-
+            
+            <div style={{
+                display: visible ? 'flex' : 'none',
+                justifyContent: md ? 'center' : 'left'
+            }} id={'recaptcha-container'}/>
 
             {stage !== 'code' ?
                     <div style={{
@@ -373,17 +375,12 @@ const FormLoginAccount = memo(() => {
                         </button>
                     </div> : null 
             }
+            
             </Form>
-
-            {
-            stage === 'code' ?
-                <FormCode/>:
-                null
-            }
-
-        
+            
+            {stage !== 'code' ? null : <FormCode cv={visible} dc={() => setVisible(true)}/>}
         </div>
     </div>
 })
 
-export default FormLoginAccount
+export default FormLoginAccount;

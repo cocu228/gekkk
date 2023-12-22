@@ -30,5 +30,8 @@ export const apiPaymentContact = (
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_contact${commission ? "/commission" : ""}`, {
     payment_contact: params
 }, {
-    headers: headers
+    headers: {
+        ...headers,
+        "X-Confirmation-Type": "SIGN"
+    }
 });

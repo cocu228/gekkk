@@ -4,10 +4,23 @@ import { useState } from 'react'
 import { ListOfQuestions } from './components/ListOfQuestions'
 import { faqContext } from './faqContext'
 import { AvailableFaqAreas, faqAreasMap } from './faqAreasMap'
+import { makeStyles } from 'tss-react/mui'
 
+export const useStyles = makeStyles({ name: 'ListOfQuestions'})(({ palette }) => ({
+  root: {
+    ['& ol']: {
+      margin: '8px 0',
+      listStyleType: 'decimal',
+      "& li": {
+        marginBottom: '8px',
+      }
+    },
+  },
+}))
 export function Faq() {
   const [selectedArea, setSelectedArea] = useState<AvailableFaqAreas>('')
   const currentArea = faqAreasMap[selectedArea]
+  const { classes } = useStyles();
 
   return (
     <faqContext.Provider value={{ setSelectedArea, selectedArea }}>
@@ -24,7 +37,7 @@ export function Faq() {
         overflow="auto"
       >
         <ListOfQuestions isSelected={Boolean(currentArea)} />
-        {currentArea ? <Box>{currentArea.area}</Box> : null}
+        {currentArea ? <Box className={classes.root}>{currentArea.area}</Box> : null}
       </Box>
     </faqContext.Provider>
   )

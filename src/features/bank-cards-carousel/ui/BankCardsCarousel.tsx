@@ -29,6 +29,7 @@ const BankCardsCarousel = ({
     const navigate = useNavigate();
     const carouselRef = useRef<CarouselRef>();
     const bankCards = storeBankCards(state => state.bankCards);
+    const [selectedCard, setSelectedCard] = useState<IResCard>(null);
     const [displayedCards, setDisplayedCards] = useState<IResCard[]>([]);
     
     useEffect(() => {
@@ -65,7 +66,10 @@ const BankCardsCarousel = ({
             }
             
             setDisplayedCards(sortedCards);
-            onSelect(sortedCards[0]);
+            if (!selectedCard) {
+                setSelectedCard(displayedCards[0]);
+                onSelect(sortedCards[0]);
+            }
         }
     }, [bankCards, displayUnavailable]);
     

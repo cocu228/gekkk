@@ -85,7 +85,7 @@ const SidebarDesktop = () => {
             {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
             <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
                 <div className={styles.CardInfo}>
-                    <BankCardsCarousel />
+                    <BankCardsCarousel newCardLink/>
                 </div>
             </div>
             {/* fiat-currency wallet */}

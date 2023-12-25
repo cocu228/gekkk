@@ -23,13 +23,7 @@ export function IssueNewCard() {
     const { setStep } = useNewCardContext();
 
     return <>
-        <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
-            <CloseWindowButton
-            onClick={close}
-            />
-        </Box>
-        <Box paddingTop={"24px"}>
+        <Box>
             <Typography fontSize={"16px"} variant='b2 - bold'>Card design</Typography>
         </Box>
         <Box display={"flex"} flexWrap={"wrap"} gap="48px" paddingTop={"12px"}>
@@ -142,12 +136,11 @@ export function IssueNewCard() {
                 />
 
         </Box>
-    
+        
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button onClick={() => {
+            <Button className='w-full' onClick={() => {
                 setStep('ConfirmationNewCard');
             }}>Proceed</Button>
-            <Button gray onClick={close}>Back</Button>
         </Box>
     </>
 }

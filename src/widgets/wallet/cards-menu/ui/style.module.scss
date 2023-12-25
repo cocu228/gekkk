@@ -1,0 +1,9 @@
+﻿.CarouselBlock {
+  display: flex;
+  justify-content: center;
+  
+  &Container {
+    min-width: 220px;
+    max-width: 220px;
+  }
+}

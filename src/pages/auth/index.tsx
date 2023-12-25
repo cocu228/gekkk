@@ -24,14 +24,14 @@ const AuthPage = memo(() => {
     const {t} = useTranslation();
     const {md} = useBreakpoints();
     const {stage, toggleStage} = storyDisplayAuth(state => state);
-
+    
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
     const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
         phone: "",
         sessionIdUAS: "",
         verificationId: ""
     });
-
+    
     useEffect(() => {
         authForTokenHashUrl().success((sessionId: string) =>
             apiTokenHash(sessionId)
@@ -41,9 +41,9 @@ const AuthPage = memo(() => {
                         res.data.result.token,
                         res.data.result.tokenHeaderName
                     ))).catch(e => console.warn(e)));
-
+        
     }, []);
-
+    
     return (
         <div style={{
             background: 'var(--new-brand-white)',
@@ -64,54 +64,54 @@ const AuthPage = memo(() => {
                     width: md ? 0 : '270px',
                     flex: '0 1 auto',
                 }} id={"recaptcha-container"}></div>
-
+                
                 <div style={{
                     width: md ? '100%' : '',
                     margin: '20px',
                     display: "flex",
                     flexDirection: 'column',
-
-                }}>
-
-                <div style={{
-                    width: md ? '100%' : '499px',
-                    flex: '0 0 auto'
-                }}>
-
-                    <h1 className="typography-h1"  style={{
-                        color: 'var(--new-dark-blue)',
-                        marginBottom: '18px',
-                    }}>
-                        Welcome to Gekkard online bank
-                    </h1>
-                    {stage === 'forgot-password' ?
-                        <ForgotPassword /> : 
-                        
-                        <FormLoginAccount/>
-                    }
                     
-                    {stage !== 'forgot-password' ? <div style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingTop: '60px',
-
+                }}>
+                    
+                    <div style={{
+                        width: md ? '100%' : '499px',
+                        flex: '0 0 auto'
                     }}>
+                        
+                        <h1 className="typography-h1"  style={{
+                            color: 'var(--new-dark-blue)',
+                            marginBottom: '18px',
+                        }}>
+                            Welcome to Gekkard online bank
+                        </h1>
+                        {stage === 'forgot-password' ?
+                            <ForgotPassword /> :
+                            
+                            <FormLoginAccount/>
+                        }
+                        
+                        {stage !== 'forgot-password' ? <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingTop: '60px',
+                            
+                        }}>
                         <span className="typography-b2" style={{
                             color: 'var(--new-dark-grey)',
                         }}>
 
                             Don’t have an account? Sign up now
                         </span>
-                        <button
-                            className='account-button'
-                            onClick={() => window.open(import.meta.env[`VITE_REGISTRATION_URL_${$ENV_MODE}`]
-                                ?? 'https://webregistration-dev.gekkard.com/', "_blank")}
-                        >
-                            Sign up
-                        </button>
-                    </div> : null}
+                            <button
+                                className='account-button'
+                                onClick={() => window.open(import.meta.env[`VITE_REGISTRATION_URL_${$ENV_MODE}`]
+                                    ?? 'https://webregistration-dev.gekkard.com/', "_blank")}
+                            >
+                                Sign up
+                            </button>
+                        </div> : null}
                     
                     </div>
                     <CookiePolicyApplies />
@@ -127,30 +127,30 @@ const AuthPage = memo(() => {
                     <AuthFooter />
                 </div>
                 { !md ?
-                <div style={{
-                    position: 'relative',
-                    flex: '0 1 auto',
-                    overflow: "hidden",
-                    display: 'flex',
-                    alignItems: 'top',
-                    height: '100%',
-                    width:"100%",
-                    maxWidth: "100%",
-                    marginLeft: "50px",
-                    marginRight: "50px"
-                }}>
                     <div style={{
-                        position: 'absolute',
-                        top: '80px',
-                        right: 0,
-                        width: '100%',
-
-                        maxWidth: "783px",
+                        position: 'relative',
+                        flex: '0 1 auto',
+                        overflow: "hidden",
+                        display: 'flex',
+                        alignItems: 'top',
+                        height: '100%',
+                        width:"100%",
+                        maxWidth: "100%",
+                        marginLeft: "50px",
+                        marginRight: "50px"
                     }}>
-                        <LoginBackground height="100%" width="100%" />
-                    </div>
-                </div> : null}
-        </div>
+                        <div style={{
+                            position: 'absolute',
+                            top: '80px',
+                            right: 0,
+                            width: '100%',
+                            
+                            maxWidth: "783px",
+                        }}>
+                            <LoginBackground height="100%" width="100%" />
+                        </div>
+                    </div> : null}
+            </div>
         </div>
     )
 })

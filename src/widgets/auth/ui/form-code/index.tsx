@@ -37,7 +37,7 @@ const FormCode = memo(() => {
     const {md} = useContext(BreakpointsContext);
     const [loading, setLoading] = useState<boolean>(false);
     const {toggleStage, data} = storyDisplayAuth(state => state);
-
+    
     const [
         localErrorHunter,
         localErrorSpan, ,
@@ -53,35 +53,35 @@ const FormCode = memo(() => {
         sessionIdUAS: "",
         verificationId: ""
     });
-
+    
     useLayoutEffect(() => {
         inputRef.current.focus();
     }, []);
-
+    
     const onChange = (str: string) => {
         localErrorClear();
         setCode(str);
     }
-
+    
     const onCode = () => {
         setLoading(true);
-
+        
         signInWithCredential(auth, PhoneAuthProvider.credential(
             verificationId,
             formatAsNumber(code)
         )).then(async (result) => {
             const user = result.user;
-
+            
             const response = await apiPasswordVerify(
                 phone,
                 data,
                 user.accessToken,
                 "token-firebase"
             );
-
+            
             helperApiVerifyPassword(response).success(() => {
                 const user = result.user;
-
+                
                 toggleStage("authorization");
                 sessionStorage.removeItem("session-auth");
                 login(user.phoneNumber, user.accessToken, "token-firebase", user.refreshToken);
@@ -99,29 +99,29 @@ const FormCode = memo(() => {
             }
         })
     }
-
+    
     const onCodeUAS = async () => {
         const _phone = formatAsNumber(phone);
-
+        
         setLoading(true);
-
+        
         // apiRequestCode(_phone, formatAsNumber(code), sessionIdUAS)
         //     .then(res => helperApiRequestCode(res)
         //         .success(() => {
         apiSignIn(formatAsNumber(code), sessionIdUAS, _phone)
-                        .then(res => helperApiSignIn(res)
-                            .success(async () => {
-                                sessionStorage.removeItem("session-auth");
-                                // const response = await apiPasswordVerify(_phone, data)
-                                //
-                                login(_phone, res.data.token, "token");
-                                toggleStage("authorization");
-
-                            }))
-                        .catch(e => {
-                            localErrorHunter(e)
-                            setLoading(false);
-                        });
+            .then(res => helperApiSignIn(res)
+                .success(async () => {
+                    sessionStorage.removeItem("session-auth");
+                    // const response = await apiPasswordVerify(_phone, data)
+                    //
+                    login(_phone, res.data.token, "token");
+                    toggleStage("authorization");
+                    
+                }))
+            .catch(e => {
+                localErrorHunter(e)
+                setLoading(false);
+            });
         // })
         //         .reject(e => {
         //             localErrorHunter(e)
@@ -137,19 +137,19 @@ const FormCode = memo(() => {
         <FormItem name="code" label="Code" preserve >
             <div>
                 <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
-                SMS verification code
+                    SMS verification code
                 </div>
                 <Input type="text"
-                    className={styles.input}    
-                    ref={inputRef}
-                    data-testid="PhoneCode"
-                    placeholder="Enter code that we sent to your phone"
-                    onInput={onInput}
-                    onChange={({target}) => onChange(target.value)}
+                       className={styles.input}
+                       ref={inputRef}
+                       data-testid="PhoneCode"
+                       placeholder="Enter code that we sent to your phone"
+                       onInput={onInput}
+                       onChange={({target}) => onChange(target.value)}
                 />
             </div>
         </FormItem>
-
+        
         <div>
             <div className="col">
                 <span className="text-red-800">{localErrorSpan}</span>
@@ -157,7 +157,7 @@ const FormCode = memo(() => {
         </div>
         
         <div className={`row text-right ${localErrorSpan ? '-mt-[26px]' : '-mt-2'} text-gray-400`}>
-            
+        
         </div>
         
         {/*<div className="row text-right -mt-1 mb-12 text-gray-400">*/}
@@ -169,15 +169,15 @@ const FormCode = memo(() => {
         {/*</div>*/}
         
         <div style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}>
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        }}>
             <button
                 className='account-button'
                 data-testid='Next'
-                disabled={loading || code.length < 11} 
+                disabled={loading || code.length < 11}
             >Sign in</button>
             
             <ReSendCode isUAS={sessionIdUAS !== ""}/>

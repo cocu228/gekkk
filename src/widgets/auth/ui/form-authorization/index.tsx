@@ -34,7 +34,7 @@ import useModal from '@/shared/model/hooks/useModal';
 
 
 const FormLoginAccount = memo(() => {
-    const {t} = useTranslation(); 
+    const {t} = useTranslation();
     const inputRef = useRef(null);
     const [params] = useSearchParams();
     const {md} = useContext(BreakpointsContext);
@@ -42,19 +42,19 @@ const FormLoginAccount = memo(() => {
     const {toggleStage, stage} = storyDisplayAuth(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const {phoneValidator, passwordValidator} = useValidation();
-
+    
     const [
         localErrorHunter,
         localErrorSpan, ,
         localErrorClear
     ] = useError();
-
+    
     const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth", {
         phone: "",
         sessionIdUAS: "",
         verificationId: ""
     });
-
+    
     const [state, setState] = useState<{
         phone: string,
         password: string
@@ -62,12 +62,12 @@ const FormLoginAccount = memo(() => {
         phone: "",
         password: ""
     });
-
+    
     const onFinish = () => {
         setLoading(true);
         const {password} = state;
         const phone = formatAsNumber(state.phone);
-
+        
         apiPasswordCheck(phone, md5(`${password}_${phone}`))
             .then(res => helperApiCheckPassword(res)
                 .success(() => {
@@ -78,20 +78,20 @@ const FormLoginAccount = memo(() => {
                 setLoading(false);
             });
     }
-
+    
     const onSingInUAS = async () => {
         const {password} = state;
         const phone = formatAsNumber(state.phone);
-
+        
         const response = await apiRequestCode(formatAsNumber(state.phone));
-
+        
         helperApiRequestCode(response).success(() => {
             setSessionAuth(prev => ({
                 ...prev,
                 phone: state.phone,
                 sessionIdUAS: response.data.sessid
             }));
-
+            
             toggleStage("code", md5(`${password}_${phone}`));
         });
     }
@@ -101,35 +101,35 @@ const FormLoginAccount = memo(() => {
             size: "invisible",
             callback: (response: unknown) => {}
         });
-
+        
         onSingIn();
     }
     
     const onSingIn = () => {
         localErrorClear();
         setLoading(true);
-
+        
         if (!window.recaptchaVerifier) {
             onCaptchaVerify();
         } else {
             const {password} = state;
             const phone = formatAsNumber(state.phone);
-
+            
             signInWithPhoneNumber(auth, "+" + formatAsNumber(state.phone), window.recaptchaVerifier)
                 .then((confirmationResult) => {
                     window.confirmationResult = confirmationResult;
-
+                    
                     setSessionAuth(prev => ({
                         ...prev,
                         phone: state.phone,
                         verificationId: confirmationResult.verificationId
                     }));
-
+                    
                     setLoading(false);
                     toggleStage("code", md5(`${password}_${phone}`));
                 }).catch((error) => {
                 setLoading(false);
-
+                
                 if (error.code === "auth/invalid-phone-number") {
                     localErrorHunter({code: 0, message: "Invalid phone number"})
                 } else if (error.code === "auth/too-many-requests") {
@@ -137,8 +137,8 @@ const FormLoginAccount = memo(() => {
                     // localErrorHunter({code: 1, message: "You're seeing this error because of sending too many auth requests from or using one IP address for a given period of time"})
                 }
                 // else if (error.code === "auth/quota-exceeded") {
-                    // onSingInUAS()
-                    // localErrorHunter({code: 1, message: "Exceeded quota for updating account information."})
+                // onSingInUAS()
+                // localErrorHunter({code: 1, message: "Exceeded quota for updating account information."})
                 // }
                 // else if (error.code === "auth/invalid-verification-code") {
                 //     localErrorHunter({code: 2, message: "Invalid verification code"})
@@ -149,89 +149,89 @@ const FormLoginAccount = memo(() => {
     const [iso2, setIso2] = useState('');
     const [dialCode, setDialCode] = useState('');
     const [searchInputValue, setSearchInputValue] = useState('');
-    const tooltipModal = useModal(); 
+    const tooltipModal = useModal();
     const [currentCountriesData, setCountriesData] = useState(defaultCountries);
     const [currentCountry, seCurrentCountry] = useState(defaultCountries[0]);
-
+    
     const [phoneInputValue, setPhoneInputValue] = useState('');
-
+    
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
-
+    
     return <div>
-            <Modal className='login-modal'
-                open={tooltipModal.isModalOpen}
-                onCancel={tooltipModal.handleCancel}
-                >
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        marginBottom: '30px',
-                    }}>
-                        <div className='typography-h3' style={{ color: 'var(--new-pale-blue)'}}>
-                            Country code
-                        </div>
-
-                        <button type='button' onClick={tooltipModal.handleCancel}>
-                            <CloseWindow />
-                        </button>
-
-                    </div>
-
-                    <div>
-                        <div style={{
-                            width: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            borderRadius: '10px',
-                            background: 'var(--new-pale-grey)',
-                            padding: '3px 12px',
-                            marginBottom: '30px',
-                        }}>
-
-                            <input 
-                                className={`${styles.searchInput} typography-b2-bold`}
-                                placeholder="Search"
-                                type='text'
-                                value={searchInputValue}
-                                onChange={(e) => {
-                                    const t = defaultCountries.filter(item => {
-                                        return item[0].toLocaleLowerCase().startsWith(e.target.value.toLocaleLowerCase());
-                                    });
-
-                                    setCountriesData(
-                                        t
-                                    );
-                                    seCurrentCountry(t[0]);
-                                    setSearchInputValue(e.target.value);
-                           
-                                }}
-                            />
-
-                            <SearchInInput style={{ flex: '0 0 auto'}} />
-                        </div>
-
-                        {currentCountriesData.length ? <CountrySelectorDropdown
-                        countries={currentCountriesData}
-                        className={styles.countrySelectorDropdown}
-                        show
-                        onSelect={(parsedCountry) => {
-
-                            const nextCountry = currentCountriesData.find(item => {
-                                return item[1] === parsedCountry.iso2;
-                            }) || currentCountriesData[0];
-
-                            seCurrentCountry(nextCountry);
-                            setPhoneInputValue(nextCountry[2]);
-                            tooltipModal.handleCancel();
-
+        <Modal className='login-modal'
+               open={tooltipModal.isModalOpen}
+               onCancel={tooltipModal.handleCancel}
+        >
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: '30px',
+            }}>
+                <div className='typography-h3' style={{ color: 'var(--new-pale-blue)'}}>
+                    Country code
+                </div>
+                
+                <button type='button' onClick={tooltipModal.handleCancel}>
+                    <CloseWindow />
+                </button>
+            
+            </div>
+            
+            <div>
+                <div style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderRadius: '10px',
+                    background: 'var(--new-pale-grey)',
+                    padding: '3px 12px',
+                    marginBottom: '30px',
+                }}>
+                    
+                    <input
+                        className={`${styles.searchInput} typography-b2-bold`}
+                        placeholder="Search"
+                        type='text'
+                        value={searchInputValue}
+                        onChange={(e) => {
+                            const t = defaultCountries.filter(item => {
+                                return item[0].toLocaleLowerCase().startsWith(e.target.value.toLocaleLowerCase());
+                            });
+                            
+                            setCountriesData(
+                                t
+                            );
+                            seCurrentCountry(t[0]);
+                            setSearchInputValue(e.target.value);
+                            
                         }}
-                        selectedCountry={currentCountry[1]} /> : null}
-                    </div>
-                </Modal>
+                    />
+                    
+                    <SearchInInput style={{ flex: '0 0 auto'}} />
+                </div>
+                
+                {currentCountriesData.length ? <CountrySelectorDropdown
+                    countries={currentCountriesData}
+                    className={styles.countrySelectorDropdown}
+                    show
+                    onSelect={(parsedCountry) => {
+                        
+                        const nextCountry = currentCountriesData.find(item => {
+                            return item[1] === parsedCountry.iso2;
+                        }) || currentCountriesData[0];
+                        
+                        seCurrentCountry(nextCountry);
+                        setPhoneInputValue(nextCountry[2]);
+                        tooltipModal.handleCancel();
+                        
+                    }}
+                    selectedCountry={currentCountry[1]} /> : null}
+            </div>
+        </Modal>
         <p className="typography-b2" style={{
             color: 'var(--new-pale-blue)',
             marginBottom: '36px',
-
+            
         }}>
             Log in using the form below
         </p>
@@ -241,11 +241,11 @@ const FormLoginAccount = memo(() => {
             borderRadius: '8px 8px 0px 0px',
             boxShadow: 'var(--new-active-account-shadow)'
         }}>
-
-        <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
-            <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
-                    rules={[{required: true, ...phoneMessage}, phoneValidator]}>
-                        {/* <div style={{
+            
+            <Form autoComplete={"on"} onFinish={authMethod === 'UAS' ? onSingInUAS : onFinish}>
+                <FormItem className="mb-2" label="Phone" id={"phoneNumber"} preserve
+                          rules={[{required: true, ...phoneMessage}, phoneValidator]}>
+                    {/* <div style={{
                             display: 'flex',
                             gap: '26px',
                             color: 'var(--new-dark-blue'
@@ -256,105 +256,105 @@ const FormLoginAccount = memo(() => {
                                 Phone number
                             </label>
                         </div> */}
-
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    borderBottom: '1px solid var(--new-dark-grey)',
-                    gap: '12px',
-                    paddingBottom: '10px',
-                    overflow: 'auto'
-                }}>
-                    <div style={{flex: '0 0 auto'}}>
-                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
-                            Country code
-                        </div>
-                        <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '6px',
-                                padding: '3px 12px 3px 12px',
-                                borderRadius: '10px',
-                                background: 'var(--new-light-blue)',
-                                color: 'var(--new-pale-blue)',
-                                cursor: 'pointer',
-
-                            }}
-                            onClick={() => {
-                                if (tooltipModal.isModalOpen) {
-                                    return;
-                                }
-
-                                tooltipModal.showModal();
-                            }}>
-                                {iso2 ?<FlagImage iso2={iso2 === 'kz' ? 'ru': iso2} size="14px" />: null }
-                                {dialCode ?<DialCodePreview  className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
+                    
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        borderBottom: '1px solid var(--new-dark-grey)',
+                        gap: '12px',
+                        paddingBottom: '10px',
+                        overflow: 'auto'
+                    }}>
+                        <div style={{flex: '0 0 auto'}}>
+                            <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                                Country code
                             </div>
-                   
+                            <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    padding: '3px 12px 3px 12px',
+                                    borderRadius: '10px',
+                                    background: 'var(--new-light-blue)',
+                                    color: 'var(--new-pale-blue)',
+                                    cursor: 'pointer',
+                                    
+                                }}
+                                     onClick={() => {
+                                         if (tooltipModal.isModalOpen) {
+                                             return;
+                                         }
+                                         
+                                         tooltipModal.showModal();
+                                     }}>
+                                    {iso2 ?<FlagImage iso2={iso2 === 'kz' ? 'ru': iso2} size="14px" />: null }
+                                    {dialCode ?<DialCodePreview  className='cs-react-international-phone-dial-code-preview' dialCode={dialCode} prefix="+" />: null }
+                                </div>
+                            
+                            </div>
                         </div>
-                    </div>
-                    <div style={{flex: '0 0 auto'}}>
-                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
-                            Phone number
+                        <div style={{flex: '0 0 auto'}}>
+                            <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                                Phone number
+                            </div>
+                            
+                            <PhoneInput
+                                ref={(e) => {
+                                    if (!e) {
+                                        return;
+                                    }
+                                    
+                                    e.setAttribute('data-testid', 'PhoneInput');
+                                    inputRef.current = e;
+                                }}
+                                name='phone'
+                                value={phoneInputValue}
+                                disabled={loading}
+                                placeholder={t("auth.enter_phone_number")}
+                                onChange={(value: string, meta) => {
+                                    setPhoneInputValue(value);
+                                    setIso2(meta.country.iso2);
+                                    setDialCode(meta.country.dialCode);
+                                    setState(prevState => {
+                                        return {...prevState, phone: value.slice(1)};
+                                    });
+                                }}
+                            />
                         </div>
-
-                        <PhoneInput
-                            ref={(e) => {
-                                if (!e) {
-                                    return;
-                                }
-
-                                e.setAttribute('data-testid', 'PhoneInput');
-                                inputRef.current = e;
-                            }}
-                            name='phone'
-                            value={phoneInputValue}
-                            disabled={loading}
-                            placeholder={t("auth.enter_phone_number")}
-                            onChange={(value: string, meta) => {
-                                setPhoneInputValue(value);
-                                setIso2(meta.country.iso2);
-                                setDialCode(meta.country.dialCode);
-                                setState(prevState => {
-                                    return {...prevState, phone: value.slice(1)};
-                                });
-                            }}
-                        />
+                    
+                    
                     </div>
-                        
                 
-                </div>
-                        
-            </FormItem>
-            <span className="text-fs12 text-red-800">{localErrorSpan}</span>
-
-            <FormItem name="password" label="Password"
-                    rules={[{required: true, ...passwordMessage}, passwordValidator]}>
-                <div>
-                    <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
-                        Password
-                    </div>
-                    <Input.Password className={styles.input}
-                        disabled={loading}
-                        onChange={({target}) => setState(prev => ({
-                            ...prev,
-                            password: target.value
-                        }))}
-                        data-testid="PIN"
-                        placeholder="Password"
+                </FormItem>
+                <span className="text-fs12 text-red-800">{localErrorSpan}</span>
+                
+                <FormItem name="password" label="Password"
+                          rules={[{required: true, ...passwordMessage}, passwordValidator]}>
+                    <div>
+                        <div className='typography-b3' style={{ color: 'var(--new-dark-blue)'}}>
+                            Password
+                        </div>
+                        <Input.Password className={styles.input}
+                                        disabled={loading}
+                                        onChange={({target}) => setState(prev => ({
+                                            ...prev,
+                                            password: target.value
+                                        }))}
+                                        data-testid="PIN"
+                                        placeholder="Password"
                         />
+                    </div>
+                </FormItem>
+                
+                <div className="row text-right mb-4">
+                    {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
+                    {/*    your PIN? Log in with a QR code*/}
+                    {/*</a>*/}
                 </div>
-            </FormItem>
-
-            <div className="row text-right mb-4">
-                {/*<a onClick={() => toggleStage("qr-code")} className="text-sm font-semibold text-blue-400">Forgot*/}
-                {/*    your PIN? Log in with a QR code*/}
-                {/*</a>*/}
-            </div>
-
-
-            {stage !== 'code' ?
+                
+                
+                {stage !== 'code' ?
                     <div style={{
                         width: '100%',
                         display: 'flex',
@@ -365,22 +365,22 @@ const FormLoginAccount = memo(() => {
                                 tabIndex={0}
                                 data-testid="Login">{t("login")}
                         </button>
-
+                        
                         <button type='button' className='text-button' onClick={() => {
                             toggleStage('forgot-password');
                         }}>
                             Forgot password
                         </button>
-                    </div> : null 
-            }
+                    </div> : null
+                }
             </Form>
-
+            
             {
-            stage === 'code' ?
-                <FormCode/>:
-                null
+                stage === 'code' ?
+                    <FormCode/>:
+                    null
             }
-
+        
         
         </div>
     </div>

@@ -37,7 +37,7 @@ export function accordionOverrides({
       styleOverrides: {
         root: {
           ...typography.b1,
-          color: palette['pale blue'],
+          color: palette['dark blue'],
           padding: '0',
           minHeight: 'initial',
           [`&.Mui-expanded`]: {
@@ -50,7 +50,7 @@ export function accordionOverrides({
             },
           },
           [`& .${accordionSummaryClasses.expandIconWrapper}`]: {
-            color: palette['pale blue'],
+            color: palette['dark blue'],
           },
         },
       },
@@ -59,7 +59,7 @@ export function accordionOverrides({
       styleOverrides: {
         root: {
           ...typography.b2,
-          color: palette['pale blue'],
+          color: palette['dark blue'],
           marginTop: '24px',
           padding: 0,
         },

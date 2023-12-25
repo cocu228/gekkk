@@ -53,7 +53,7 @@ export function NewHeader ({}: NewHeaderProps) {
                 gap: '16px',
             }}>
 
-                <button type='button' onClick={() => navigate('/chat')}>
+                <button type='button' style={{color: "#F7F7F0"}} onClick={() => navigate('/chat')}>
                     <SupportIcon />
                 </button>
             </div>
@@ -63,7 +63,7 @@ export function NewHeader ({}: NewHeaderProps) {
                     display: 'flex',
                     gap: '16px',
                 }}>
-                    <button type='button'>
+                    <button type='button' style={{color: "#F7F7F0"}}>
                         <SettingsIcon />
                     </button>
 

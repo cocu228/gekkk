@@ -14,8 +14,8 @@
   transition: .2s;
   border-radius: 8px;
   margin: 4px;
-  border-width: 1px;
-  border-color: #3A5E66;
+  // border-width: 1px;
+  // border-color: #3A5E66;
 
   &:hover {
     border: #F7F7F0 solid 1px;
@@ -27,7 +27,7 @@
   }
 
   &:global(.active) {
-    border-color: var(--color-blue-400);
+    // border-color: var(--color-blue-400);
     background-color: #F7F7F0;
     font-weight: 700;
     color: black;

@@ -11,20 +11,25 @@ const Transfer = () => {
     const [btnTabs, setBtnTabs] = useState<TBtnTabs>("create-transfer")
 
     return (<>
-            <div className="row flex mb-7">
-                <div className="col">
-                    <button onClick={() => setBtnTabs("create-transfer")}
-                            className={`${styles.Tab} ${isActiveClass(btnTabs === "create-transfer")} whitespace-nowrap`}>
-                        {t("create_transfer")}
-                    </button>
-                </div>
-                <div className="col">
-                    <button onClick={() => setBtnTabs("apply-code")}
-                            className={`${styles.Tab} ${isActiveClass(btnTabs === "apply-code")} whitespace-nowrap`}>
-                        {t("apply_code")}
-                    </button>
+            <div className="wrapper">
+                <div className={styles.TabGroup}>
+                    <div className="row flex">
+                        <div className="col">
+                            <button onClick={() => setBtnTabs("create-transfer")}
+                                    className={`${styles.Tab} ${isActiveClass(btnTabs === "create-transfer")} whitespace-nowrap`}>
+                                {t("create_transfer")}
+                            </button>
+                        </div>
+                        <div className="col">
+                            <button onClick={() => setBtnTabs("apply-code")}
+                                    className={`${styles.Tab} ${isActiveClass(btnTabs === "apply-code")} whitespace-nowrap`}>
+                                {t("apply_code")}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div className="row mb-9">
                 <div className="info-box-description">
                     <div className="row mb-4">

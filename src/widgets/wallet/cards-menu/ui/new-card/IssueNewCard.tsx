@@ -25,14 +25,8 @@ export function IssueNewCard() {
     const {t} = useTranslation();
 
     return <>
-        <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography fontSize={"16px"} variant="h3">{t('Issue new card')}</Typography>
-            <CloseWindowButton
-            onClick={close}
-            />
-        </Box>
-        <Box paddingTop={"24px"}>
-            <Typography fontSize={"16px"} variant='b2 - bold'>{t('Card design')}</Typography>
+        <Box>
+            <Typography fontSize={"16px"} variant='b2 - bold'>Card design</Typography>
         </Box>
         <Box display={"flex"} flexWrap={"wrap"} gap="48px" paddingTop={"12px"}>
             <CardDesign
@@ -129,12 +123,11 @@ export function IssueNewCard() {
                     placeholder={t("enter_flat_name_or_number_if_available")}
                 />
         </Box>
-    
+        
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button onClick={() => {
+            <Button className='w-full' onClick={() => {
                 setStep('ConfirmationNewCard');
-            }}>{t('proceed')}</Button>
-            <Button gray onClick={close}>{t("back")}</Button>
+            }}>Proceed</Button>
         </Box>
     </>
 }

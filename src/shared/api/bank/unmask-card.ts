@@ -1,18 +1,18 @@
 import {IResErrors} from "@/shared/api";
 import $axios from "@/shared/lib/(cs)axios";
 
-export interface IUnmaskedCard {
+export interface IUnmaskedCardData {
     number: string;
     pin: string;
     cvc: string;
-    expireAt: Date;
+    expireAt: string;
     owner: {
         embossedName: string;
     };
 }
 
-export const apiUpdateCard = (cardId: string) =>
+export const apiUnmaskCard = (cardId: string) =>
     $axios.get<
         IResErrors
-        | IUnmaskedCard
-    >(`/api/v2/cards/${cardId}/unmask`);
+        | IUnmaskedCardData
+    >(`/api/v1/cards/${cardId}/unmask`);

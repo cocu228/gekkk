@@ -1,5 +1,6 @@
 import { Switch } from "antd";
 import {NewCard} from "./new-card";
+import styles from './style.module.scss'
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import Modal from "@/shared/ui/modal/Modal";
@@ -10,22 +11,27 @@ import useModal from "@/shared/model/hooks/useModal";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import {apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
 import {numberWithSpaces} from "@/shared/lib/helpers";
-import {MouseEvent, useEffect, useState} from "react";
+import {MouseEvent, useState} from "react";
 import {apiActivateCard} from "@/shared/api/bank/activate-card";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import useLocalStorage from "@/shared/model/hooks/useLocalStorage";
+import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
+import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 
+// todo: refactoring
 const CardsMenu = () => {
     const {t} = useTranslation();
+    const cardInfoModal = useModal();
     const confirmationModal = useModal();
     const [card, setCard] = useState<IResCard>(null);
     const {updateCard} = storeBankCards(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
+    const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
     const [{ displayUnavailable }, setValue] = useLocalStorage("cards-settings", {
         displayUnavailable: null
     });
@@ -36,6 +42,7 @@ const CardsMenu = () => {
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
         
+        setLoading(false);
         setSelectedItem(item);
         confirmationModal.showModal();
     }
@@ -47,7 +54,15 @@ const CardsMenu = () => {
             case 'activate':
                 apiActivateCard(card.cardId)
                     .then(({ data }) => {
-                        updateCard(data as IResCard);
+                        if ((data as IResErrors).errors) {
+                            confirmationModal.handleCancel();
+                            return;
+                        }
+                        
+                        updateCard({
+                            ...card,
+                            cardStatus: "ACTIVE"
+                        });
                         
                         setLoading(false);
                         confirmationModal.handleCancel();
@@ -59,6 +74,7 @@ const CardsMenu = () => {
                     status: "LOCKED"
                 }).then(({ data }) => {
                     if ((data as IResErrors).errors) {
+                        confirmationModal.handleCancel();
                         return;
                     }
                     
@@ -77,6 +93,7 @@ const CardsMenu = () => {
                     status: "ACTIVE"
                 }).then(({ data }) => {
                     if ((data as IResErrors).errors) {
+                        confirmationModal.handleCancel();
                         return;
                     }
                     
@@ -97,7 +114,66 @@ const CardsMenu = () => {
                         type: action === 'dailyLimit' ? 'DAY' : 'MONTH',
                         maxValue: limitAmount.value.number
                     }]
+                }).then(({data}) => {
+                    if ((data as IResErrors).errors) {
+                        confirmationModal.handleCancel();
+                        return;
+                    }
+                    
+                    updateCard({
+                        ...card,
+                        limits: [
+                            ...card.limits.filter(l => l.period !== (action === 'dailyLimit' ? 'DAILY' : 'MONTHLY')),
+                            {
+                                type: "ALL",
+                                period: action === 'dailyLimit' ? 'DAILY' : 'MONTHLY',
+                                usedLimit: 0,
+                                currentLimit: limitAmount.value.number,
+                                maxLimit: 100000
+                            }
+                        ]
+                    });
+                    
+                    setLimitAmount('');
+                    setLoading(false);
+                    confirmationModal.handleCancel();
                 })
+                break;
+                
+            case 'disableLimits':
+                apiUpdateCard(card.cardId, {
+                    options: {
+                        limits: {
+                            disable: true
+                        }
+                    }
+                }).then(({data}) => {
+                    if ((data as IResErrors).errors) {
+                        confirmationModal.handleCancel();
+                        return;
+                    }
+                    
+                    setSwitchChecked(!switchChecked);
+                    setLoading(false);
+                    confirmationModal.handleCancel();
+                });
+                break;
+                
+            case 'showData':
+                apiUnmaskCard(card.cardId)
+                    .then(({data}) => {
+                        if ((data as IResErrors).errors) {
+                            confirmationModal.handleCancel();
+                            return;
+                        }
+                        
+                        setCardInfo(data as IUnmaskedCardData);
+                        confirmationModal.handleCancel();
+                        cardInfoModal.showModal();
+                    });
+                break;
+                
+            default:
                 break;
         }
     }
@@ -108,8 +184,8 @@ const CardsMenu = () => {
     }
     
     return <div>
-        <div className='flex justify-center'>
-            <div className="max-w-[220px]">
+        <div className={styles.CarouselBlock}>
+            <div className={styles.CarouselBlockContainer}>
                 <BankCardsCarousel displayUnavailable={displayUnavailableCards} onSelect={setCard} />
             </div>
         </div>
@@ -150,15 +226,16 @@ const CardsMenu = () => {
                 )}
             
             <MenuItem
-                data-item=''
+                dataItem='disableLimits'
                 leftPrimary={t("disable_limits")}
                 rightPrimary={<Switch checked={switchChecked} />}
-                onClick={() => setSwitchChecked(!switchChecked)}
+                onClick={onClick}
             />
             
             <MenuItem
-                data-item=''
+                dataItem='showData'
                 leftPrimary={t("show_card_data")}
+                onClick={onClick}
             />
             
             {(card.cardStatus === 'BLOCKED_BY_CUSTOMER' || card.cardStatus === 'ACTIVE') && (
@@ -239,6 +316,26 @@ const CardsMenu = () => {
                         </div>
                     )}
                     
+                    {(selectedItem === 'disableLimits') && (
+                        <div>
+                            <div className="row mb-5">
+                                <div className="col">
+                                    {t("disable_limits")}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {(selectedItem === 'showData') && (
+                        <div>
+                            <div className="row mb-5">
+                                <div className="col">
+                                    {t("show_card_data")}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
                     <Form onFinish={() => onConfirm(selectedItem)}>
                         <div className="row my-5">
                             <div className="col">
@@ -250,6 +347,60 @@ const CardsMenu = () => {
                         </div>
                     </Form>
                 </div>}
+            </Modal>
+            
+            <Modal
+                title={t("card_info")}
+                open={cardInfoModal.isModalOpen}
+                onCancel={cardInfoModal.handleCancel}
+            >
+                {!cardInfo ? null : <div className='font-medium text-[16px]'>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span><b>{t("card_number")
+                                .toLowerCase()
+                                .capitalize()
+                            }</b>: {formatCardNumber(cardInfo.number)}</span>
+                        </div>
+                    </div>
+                    
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span><b>{t("expiration_date")
+                                }</b>: {formatMonthYear(new Date(cardInfo.expireAt))}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvc}</span>
+                        </div>
+                    </div>
+                    
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span><b>{t("card_owner")}</b>: {cardInfo.owner.embossedName}</span>
+                        </div>
+                    </div>
+                    
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span><b>{t("card_pin")}</b>: {cardInfo.pin}</span>
+                        </div>
+                    </div>
+                </div>}
+                
+                <Form onFinish={cardInfoModal.handleCancel}>
+                    <div className="row my-5">
+                        <div className="col">
+                            <Button size={"xl"}
+                                    htmlType={"submit"}
+                                    className="w-full"
+                            >{t("close")}</Button>
+                        </div>
+                    </div>
+                </Form>
             </Modal>
         </>)}
     </div>

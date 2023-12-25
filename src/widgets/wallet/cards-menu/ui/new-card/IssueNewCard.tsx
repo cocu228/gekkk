@@ -26,7 +26,7 @@ export function IssueNewCard() {
 
     return <>
         <Box>
-            <Typography fontSize={"16px"} variant='b2 - bold'>Card design</Typography>
+            <Typography fontSize={"16px"} variant='b2 - bold'>{t("card_design")}</Typography>
         </Box>
         <Box display={"flex"} flexWrap={"wrap"} gap="48px" paddingTop={"12px"}>
             <CardDesign
@@ -127,7 +127,7 @@ export function IssueNewCard() {
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
             <Button className='w-full' onClick={() => {
                 setStep('ConfirmationNewCard');
-            }}>Proceed</Button>
+            }}>{t("proceed")}</Button>
         </Box>
     </>
 }

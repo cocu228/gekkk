@@ -5,6 +5,7 @@ import { CardDesign } from './CardDesign';
 import {Switch} from "antd";
 import Button from '@/shared/ui/button/Button';
 import Select from '@/shared/ui/select/Select';
+import { useTranslation } from 'react-i18next';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -21,16 +22,17 @@ const RowItem = styled(Box, {
 );
 export function IssueNewCard() {
     const { setStep } = useNewCardContext();
+    const {t} = useTranslation();
 
     return <>
         <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
+            <Typography fontSize={"16px"} variant="h3">{t('Issue new card')}</Typography>
             <CloseWindowButton
             onClick={close}
             />
         </Box>
         <Box paddingTop={"24px"}>
-            <Typography fontSize={"16px"} variant='b2 - bold'>Card design</Typography>
+            <Typography fontSize={"16px"} variant='b2 - bold'>{t('Card design')}</Typography>
         </Box>
         <Box display={"flex"} flexWrap={"wrap"} gap="48px" paddingTop={"12px"}>
             <CardDesign
@@ -41,14 +43,14 @@ export function IssueNewCard() {
             />
             <CardDesign
                 title="Other type card"
-                description="Standard card is so good that you will love it because it is so good. Is it enough space for description or not really"
+                description="The other type description"
                 isSelected={false}
                 image={<img width={116} src="/img/GekkardCard.png" alt="GekkardCardPreview"/>}
             />
         </Box>
         <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
             <RowItem hasBorderTop hasBorderBottom paddingTop={"12px"}>
-                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Card type</Typography>
+                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('card_type')}</Typography>
                 <Box width={"100px"} >
                     <Select className="w-full mt-2" options={[
                         {
@@ -63,7 +65,7 @@ export function IssueNewCard() {
                 </Box>
             </RowItem>
             <RowItem hasBorderBottom>
-                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery type</Typography>
+                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_type')}</Typography>
                 <Box width={"100px"} >
                     <Select className="w-full mt-2" options={[
                         {
@@ -80,74 +82,59 @@ export function IssueNewCard() {
 
             <RowItem hasBorderBottom  alignItems={'flex-end'}>
                 <Box display={'flex'} flexDirection={"column"} gap="6px">
-                    <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">Delivery address</Typography>
-                    <Typography fontSize={"16px"} variant='b2' color="dark blue">Same as the residence address</Typography>
+                    <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>
+                    <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>
                 </Box>
                 <Switch />
             </RowItem>
-
+                <TextField
+                    fullWidth
+                    label={t('Country')}
+                    placeholder={t("enter_country_name")}
+                />
 
                 <TextField
                     fullWidth
-                    label="Country"
-                    placeholder="Enter country name"
+                    label={t("City")}
+                    placeholder={t("enter_city_name")}
                 />
-
-
 
                 <TextField
                     fullWidth
-                    label="City"
-                    placeholder="Enter city name"
+                    label={t("Region")}
+                    placeholder={t("enter_region_name_if_available")}
                 />
-
-
 
                 <TextField
                     fullWidth
-                    label="Region"
-                    placeholder="Enter region name, if available"
+                    label={t("post_code")}
+                    placeholder={t("enter_post_code")}
                 />
-
-
 
                 <TextField
                     fullWidth
-                    label="Post code"
-                    placeholder="Enter post code"
+                    label={t("street")}
+                    placeholder={t("enter_street_name")}
                 />
-
-
 
                 <TextField
                     fullWidth
-                    label="Street"
-                    placeholder="Enter street name"
+                    label={t("house")}
+                    placeholder={t("enter_house_name_or_number_if_available")}
                 />
-
-
 
                 <TextField
                     fullWidth
-                    label="House"
-                    placeholder="Enter house name or number, if available"
+                    label={t("flat")}
+                    placeholder={t("enter_flat_name_or_number_if_available")}
                 />
-
-
-
-                <TextField
-                    fullWidth
-                    label="Flat"
-                    placeholder="Enter flat name or number, if available"
-                />
-
         </Box>
     
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
             <Button onClick={() => {
                 setStep('ConfirmationNewCard');
-            }}>Proceed</Button>
-            <Button gray onClick={close}>Back</Button>
+            }}>{t('proceed')}</Button>
+            <Button gray onClick={close}>{t("back")}</Button>
         </Box>
     </>
 }

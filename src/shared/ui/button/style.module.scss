@@ -1,5 +1,6 @@
 @import "@styles/mixins";
 
+
 .Button[type="button"], .Button[type="submit"] {
   height: auto;
   color: #f7f7f0;
@@ -17,7 +18,7 @@
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
-    font-weight: 600;
+    // font-weight: 600; task 701
   }
 
   &:active {
@@ -54,8 +55,11 @@
 
     &:hover {
       color: #ffffff;
-      background: var(--color-blue-400);
-      border-color: var(--color-blue-400);
+      background: #45ad77;
+      border-color: #45ad77;
+      // background: var(--color-blue-400); task 701
+      // border-color: var(--color-blue-400); task 701
+
     }
   }
 

@@ -24,4 +24,4 @@ export interface IResCard {
 }
 
 export const apiGetCards = () =>
-    $axios.get<$AxiosResponse<Array<IResCard>>>('/gek/v1/wallet/get_cards');
+    $axios.get<$AxiosResponse<Array<IResCard>>>('/api/v1/bank/get_cards');

@@ -14,14 +14,12 @@ interface IParams {
     newCardLink?: boolean;
     cardClassName?: string;
     wrapperClassName?: string;
-    displayUnavailable?: boolean;
     onSelect?: (card: IResCard) => void;
 }
 
 const BankCardsCarousel = ({
     newCardLink,
     cardClassName,
-    displayUnavailable,
     onSelect = () => {}}: IParams
 ) => {
     const [params] = useSearchParams();
@@ -30,26 +28,19 @@ const BankCardsCarousel = ({
     const carouselRef = useRef<CarouselRef>();
     const bankCards = storeBankCards(state => state.bankCards);
     const [selectedCard, setSelectedCard] = useState<IResCard>(null);
-    const [displayedCards, setDisplayedCards] = useState<IResCard[]>([]);
     
     useEffect(() => {
         if (carouselRef.current) {
-            const activeCardId = isNew ? displayedCards.length - 1 : 0;
+            const activeCardId = isNew ? bankCards.length - 1 : 0;
             
             carouselRef.current.goTo(activeCardId);
-            onSelect(displayedCards[activeCardId]);   
+            onSelect(bankCards[activeCardId]);   
         }
     }, [isNew]);
     
     useEffect(() => {
         if (bankCards) {
-            const filteredCards = bankCards.filter(card =>
-                !displayUnavailable
-                    ? card.cardStatus === "ACTIVE"
-                    : card
-            );
-            
-            const sortedCards = sortCards(filteredCards);
+            const sortedCards = sortCards(bankCards);
             
             if (!sortedCards.find(c => c.cardId === 'new')) {
                 sortedCards.push({
@@ -65,13 +56,12 @@ const BankCardsCarousel = ({
                 });
             }
             
-            setDisplayedCards(sortedCards);
             if (!selectedCard) {
-                setSelectedCard(displayedCards[0]);
+                setSelectedCard(bankCards[0]);
                 onSelect(sortedCards[0]);
             }
         }
-    }, [bankCards, displayUnavailable]);
+    }, [bankCards]);
     
     return (
         <div className="max-h-[600px] max-w-[1000px]">
@@ -87,9 +77,9 @@ const BankCardsCarousel = ({
                             carouselRef.current = ref;
                         }
                     }}
-                    afterChange={(i) => onSelect(displayedCards[i])}
+                    afterChange={(i) => onSelect(bankCards[i])}
                 >
-                    {displayedCards.map(card => card.cardId === 'new' ? (
+                    {bankCards.map(card => card.cardId === 'new' ? (
                         <div
                             className={`${cardClassName} mb-6`}
                             onClick={() => {

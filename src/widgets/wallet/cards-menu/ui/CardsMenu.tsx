@@ -32,12 +32,7 @@ const CardsMenu = () => {
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
-    const [{ displayUnavailable }, setValue] = useLocalStorage("cards-settings", {
-        displayUnavailable: null
-    });
     const { inputCurr: limitAmount, setInputCurr: setLimitAmount } = useInputState();
-    const initActiveStorage = displayUnavailable !== null ? displayUnavailable : false;
-    const [displayUnavailableCards, setDisplayUnavailableCards] = useState(initActiveStorage);
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
@@ -178,24 +173,12 @@ const CardsMenu = () => {
         }
     }
     
-    const toggleUnavailableCards = () => {
-        setValue({ displayUnavailable: !displayUnavailableCards });
-        setDisplayUnavailableCards((prev: boolean) => !prev);
-    }
-    
     return <div>
         <div className={styles.CarouselBlock}>
             <div className={styles.CarouselBlockContainer}>
-                <BankCardsCarousel displayUnavailable={displayUnavailableCards} onSelect={setCard} />
+                <BankCardsCarousel onSelect={setCard} />
             </div>
         </div>
-        
-        <span className='flex align-middle mt-1 font-normal text-gray-400 mb-4'>
-            <Checkbox
-                onChange={toggleUnavailableCards}
-                defaultChecked={displayUnavailableCards}
-            /> {t("display_unavailable_cards")}
-        </span>
         
         {!card ? null : card.cardId === 'new' ? (
             <NewCard/>

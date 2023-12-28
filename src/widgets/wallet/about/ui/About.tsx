@@ -47,11 +47,11 @@ const About = ({description}: IParams) => {
 
             {isEUR ? null : (
                 <div className={`grid gap-5 grid-cols-2 mt-10 ${!md ? "max-w-[320px]" : ""}`}>
-                    <Button gray size="sm" onClick={() => navigate(`/exchange?to=${$const}`)}>
+                    <Button darkBlue size="sm" onClick={() => navigate(`/exchange?to=${$const}`)}>
                         {t("buy")}
                     </Button>
 
-                    <Button onClick={() => navigate(`/exchange?from=${$const}`)} className="relative" gray size="sm">
+                    <Button onClick={() => navigate(`/exchange?from=${$const}`)} className="relative" darkBlue size="sm">
                         {t("sell")}
                     </Button>
                 </div>

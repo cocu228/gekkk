@@ -96,13 +96,13 @@ export function IssueNewCard() {
             />
             
             {state.cardType !== 'PLASTIC' ? null : (<Box>
-                <RowItem hasBorderBottom paddingTop={"8px"} alignItems={'flex-end'}>
-                    <Box display={'flex'} flexDirection={"column"} gap="6px">
-                        <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>
-                        <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>
-                    </Box>
-                    <Switch />
-                </RowItem>
+                {/*<RowItem hasBorderBottom paddingTop={"8px"} alignItems={'flex-end'}>*/}
+                {/*    <Box display={'flex'} flexDirection={"column"} gap="6px">*/}
+                {/*        <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>*/}
+                {/*        <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>*/}
+                {/*    </Box>*/}
+                {/*    <Switch />*/}
+                {/*</RowItem>*/}
                 
                 <TextField
                     fullWidth

@@ -1,10 +1,10 @@
-import { Box, Typography, styled, TextField } from '@mui/material';
-import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
-import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
+import {useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import Button from '@/shared/ui/button/Button';
+import {useNewCardContext} from './newCardContext';
+import {CtxRootData} from "@/processes/RootContext";
+import {Box, Typography, styled, TextField} from '@mui/material';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -19,27 +19,25 @@ const RowItem = styled(Box, {
 );
 
 export function ConfirmationNewCard() {
-    const { setStep } = useNewCardContext();
-    const [isOpen, setIsOpen] = useState(false);
     const {t} = useTranslation();
-
+    const {account} = useContext(CtxRootData);
+    const [isOpen, setIsOpen] = useState(false);
+    const {
+        state,
+        setStep,
+        setState
+    } = useNewCardContext();
+    
     return <>
-        <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography variant="h3">{t("confirmation_new_card_issue")}</Typography>
-            <CloseWindowButton
-            onClick={close}
-            />
-        </Box>
-      
         <Box display={"flex"} flexDirection={"column"} gap="24px" paddingTop={"48px"}>
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("account_owner")}</Typography>
-                <Typography variant='b1' color="pale blue">Igor Koroshev</Typography>
+                <Typography variant='b1' color="pale blue">{account.name}</Typography>
             </RowItem>
 
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("account_number")}</Typography>
-                <Typography variant='b1' color="pale blue">MT0000000000000000000000000000000000</Typography>
+                <Typography variant='b1' color="pale blue">{account.number}</Typography>
             </RowItem>
 
             <RowItem>
@@ -49,13 +47,15 @@ export function ConfirmationNewCard() {
 
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("card_type")}</Typography>
-                <Typography variant='b1' color="pale blue">Plastic</Typography>
+                <Typography variant='b1' color="pale blue">{state.cardType.toLowerCase().capitalize()}</Typography>
             </RowItem>
-
-            <RowItem hasBorderBottom>
-                <Typography variant='b1 - bold' color="pale blue">{t("delivery_address")}</Typography>
-                <Typography variant='b1' color="pale blue">1, 1, Street name, Region name, City, Country, 11111</Typography>
-            </RowItem>
+            
+            {state.cardType !== 'PLASTIC' ? null : (
+                <RowItem hasBorderBottom>
+                    <Typography variant='b1 - bold' color="pale blue">{t("delivery_address")}</Typography>
+                    <Typography variant='b1' color="pale blue">1, 1, Street name, Region name, City, Country, 11111</Typography>
+                </RowItem>
+            )}
         </Box>
         <Box display={"flex"} flexDirection={"column"} gap="6px" paddingTop={"24px"}>
             <RowItem>

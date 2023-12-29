@@ -22,17 +22,14 @@ export const CardStatusDescriptions: Record<string, string> = {
 
 export interface IStoreBankCards {
     refreshKey: string;
-    displayUnavailable: boolean;
     bankCards: IResCard[] | null;
     getBankCards: () => Promise<void>;
     updateCard: (card: IResCard) => void;
-    setDisplayUnavailable: (displayUnavailable: boolean) => void;
 }
 
 export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
     bankCards: null,
     refreshKey: null,
-    displayUnavailable: null,
     getBankCards: async () => {
         const {data} = await apiGetCards();
         
@@ -51,13 +48,5 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
                     card
                 ]
             });
-        });},
-    setDisplayUnavailable: (displayUnavailable: boolean) => {
-        set((state) => {
-            return ({
-                ...state,
-                displayUnavailable
-            });
-        });
-    }
+        });}
 })));

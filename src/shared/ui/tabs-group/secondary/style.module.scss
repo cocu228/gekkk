@@ -9,8 +9,8 @@
     color: #F7F7F0;
     transition: .2s;
     &:global(.active) {
-        //border-color: #3a5e66;
         background-color: #F7F7F0;
+        border-radius: 8px;
         font-weight: 600;
         color: black;
     }

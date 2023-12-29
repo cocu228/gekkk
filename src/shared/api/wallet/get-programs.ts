@@ -9,4 +9,4 @@ export interface IResProgram {
 }
 
 export const apiGetPrograms = () =>
-  $axios.get<$AxiosResponse<Array<IResProgram>>>('/gek/v1/wallet/get_programs');
+  $axios.get<$AxiosResponse<Array<IResProgram>>>('/gek/v1/bank/get_programs');

@@ -33,7 +33,7 @@ export function Settings() {
   const {t} = useTranslation();
   const [selectedArea, setSelectedArea] = useState('')
   const area = areaMap[selectedArea] || null
-  const {xl} = useBreakpoints();
+  const {xxl} = useBreakpoints();
 
   return (
     <settingsContext.Provider
@@ -55,7 +55,7 @@ export function Settings() {
         overflow="auto"
         padding="0 60px 60px 30px"
       >
-        <Box display="flex" flexDirection={xl ? "column" : 'row'} gap="30px" marginBottom="19px">
+        <Box display="flex" flexDirection={xxl ? "column" : 'row'} gap="30px" marginBottom="19px">
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
             <Typography noWrap variant="h2" color="pale blue">
               {t('general_information')}

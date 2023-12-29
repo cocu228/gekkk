@@ -11,7 +11,6 @@ import Euro from '@/assets/euro.svg?react'
 import Other from '@/assets/other.svg?react'
 import SupportIcon from '@/assets/support-icon.svg?react'
 import { FAQTemplate } from './components/FAQTemplate'
-import { Typography } from '@mui/material'
 
 export const faqAreasMap = {
   '': null,

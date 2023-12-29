@@ -119,7 +119,7 @@ const AssetsTable = ({
                                     ${styles.Item}
                                     ${blockedCurrencies?.includes(currency.$const) ? styles.ItemBlocked : ''}
                                     ${!evenOrOdd(index) ? "bg-gray-main" : ""}
-                                    min-h-[56px] lg:min-h-[46px] font-medium hover:text-blue-300 hover:cursor-pointer gap-3`
+                                    min-h-[56px] lg:min-h-[46px] font-medium hover:font-bold hover:cursor-pointer gap-3`
                                     }
                                     onClick={() => onSelect(currency.$const)}
                                 >
@@ -146,7 +146,7 @@ const AssetsTable = ({
                                                 <Button
                                                     size={"sm"}
                                                     className='w-[60px]'
-                                                    gray
+                                                    darkBlue
                                                     onClick={(e) => {
                                                         scrollToTop();
                                                         e.stopPropagation();

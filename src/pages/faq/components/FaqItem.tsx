@@ -17,7 +17,7 @@ export const FaqItem = styled(Box, {
   'color': isSelected ? theme.palette.white : theme.palette['pale blue'],
   'background': isSelected
     ? theme.palette['dark blue']
-    : theme.palette['light blue'],
+    : theme.palette['white'],
   'borderRadius': '8px',
   '&:hover': {
     color: theme.palette.white,

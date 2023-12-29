@@ -3,6 +3,11 @@ import {IResCard, IResErrors} from "@/shared/api";
 
 export interface IParams {
     status: "LOCKED" | "ACTIVE";
+    options: {
+        limits: {
+            disable: boolean;
+        };
+    };
     limits: [
         {
             type: "DAY" | "MONTH";

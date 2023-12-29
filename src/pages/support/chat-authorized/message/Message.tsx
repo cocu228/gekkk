@@ -8,7 +8,7 @@ type IParams = {
 };
 
 export const Message = ({ message }: IParams) => {
-  const { content, sender, role, createdAt, file } = message;
+  const { content, sender, role, isRead, createdAt, file } = message; //взял isRead из пропса message для отрисовки статуса сообщения таска 558
   const isOutgoingMessage = role === 'client';
 
   return (
@@ -28,10 +28,13 @@ export const Message = ({ message }: IParams) => {
                   <span className={`typography-b2`}>{timestampToTimeFormat(createdAt)}</span>
                 </div>
               </div>
+              
 
               {content && <p className={`${styles.MessageText} typography-b1`}>{content}</p>}
 
               {file && <ImagePreview file={file} />}
+
+              {/* { (isOutgoingMessage && isRead) && <img className={styles.MessageRead} src=''/>} тут будет статус сообщения (отправлено и прочитано) таска 558  */}
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const Header = () => {
+
     const {logout} = useAuth();
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();
@@ -22,7 +23,7 @@ const Header = () => {
     const accounts = storeAccounts(state => state.accounts);
     const defaultMenuItems = useMemo(() => getDefaultItems(t), [i18n.language]);
     const [items, setItems] = useState(defaultMenuItems);
-    
+
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
@@ -34,12 +35,12 @@ const Header = () => {
             }
         }
     ], []);
-    
+
     useEffect(() => {
         if (!account?.rights) return;
-        
+
         let newItems = [...defaultMenuItems]
-        
+
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
             .forEach(acc => {
@@ -67,12 +68,12 @@ const Header = () => {
                     }
                 })
             })
-        
+
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-        
+
     }, [account?.rights, defaultMenuItems]);
 
     return md

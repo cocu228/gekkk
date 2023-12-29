@@ -7,7 +7,8 @@ const Sidebar = () => {
 
     const {md} = useContext(BreakpointsContext)
 
-    return md ? <SidebarMobile/> : <SidebarDesktop/>
+    return <SidebarDesktop/>
+    // return md ? <SidebarMobile/> : <SidebarDesktop/>
 
 }
 

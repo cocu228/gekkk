@@ -153,10 +153,10 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         errors: [...prevState.errors.filter(it => it.id !== id)]
     }));
 
-    if (useLocation().state === 500) {
-        window.history.replaceState({}, document.title);
-        return (<PageProblems code={500}/>);
-    }
+    // if (useLocation().state === 500) {
+    //     window.history.replaceState({}, document.title);
+    //     return (<PageProblems code={500}/>);
+    // }
 
     return <>
         {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">

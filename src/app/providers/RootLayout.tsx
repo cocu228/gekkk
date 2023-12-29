@@ -77,13 +77,13 @@ export default memo(function () {
 
                     <Header/>
 
-                    {/*<Main>*/}
-                    {/*    <Sidebar/>*/}
+                    <Main>
+                        <Sidebar/>
 
-                    {/*    <Content>*/}
-                    {/*        <Outlet/>*/}
-                    {/*    </Content>*/}
-                    {/*</Main>*/}
+                        {/*<Content>*/}
+                        {/*    <Outlet/>*/}
+                        {/*</Content>*/}
+                    </Main>
                 </>}
             </CurrenciesProvider>
         </>)}

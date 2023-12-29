@@ -6,7 +6,7 @@ import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
 import {useTranslation} from "react-i18next";
 
-const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu) => {
+const HeaderMenu = ({children, items, className = "", actions, mobile}: TPropsHeaderMenu) => {
     const ref = useRef(null);
     const {t} = useTranslation();
     const [isActive, toggleActive] = useState(false);
@@ -17,7 +17,7 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
     return <>
         <div ref={ref} onClick={dropdownMenuFunctions.onOpen}
              className={className + " flex items-center cursor-pointer h-full"}>
-            <div className={`wrapper relative md:pl-14 md:pr-0 pl-7 pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
+            <div className={`wrapper relative ${!mobile && 'md:pl-14 pl-7'}   md:pr-0  pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
                     <div className='flex justify-between px-2 py-1'>

@@ -17,5 +17,6 @@ export interface TPropsHeaderMenu {
     children: JSX.Element,
     className?: string,
     items: THeaderMenuList,
-    actions?: TOnActionParams
+    actions?: TOnActionParams,
+    mobile:boolean
 }

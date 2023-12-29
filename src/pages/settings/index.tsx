@@ -3,61 +3,62 @@ import { useCallback, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 
 import Ok from '@/assets/ok.svg?react'
-import StatementIcon from '@/assets/statement-icon.svg?react'
+import EuroIcon from '@/assets/euro.svg?react'
+import DocumentsDocumentsIcon from '@/assets/documents-documents.svg?react'
+import PinCodeIcon from '@/assets/pin-code.svg?react'
+import ReportIcon from '@/assets/report.svg?react'
+import AccountIcon from '@/assets/account.svg?react'
+
 import { FrameItem } from '@/shared/ui/FrameItem'
 
-import { ApplicationPIN } from './components/ApplicationPIN'
+import { ApplicationPassword } from './components/ApplicationPassword'
 import { IdentificationStatus } from './components/IdentificationStatus'
 import { LegalNotices } from './components/LegalNotices'
 import { MyReports } from './components/MyReports'
 import { PersonalInformation } from './components/PersonalInformation'
-import { Pricing } from './components/Pricing'
+import { Pricing} from './components/Pricing'
 import { settingsContext } from './settingsContext'
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
+import { useTranslation } from 'react-i18next';
 
-export const useStyles = makeStyles({
-  name: 'settings-page',
-})(({ palette }) => ({
-  okIcon: {
-    color: palette.green,
-  },
-}))
 const areaMap: any = {
   'Identification status': <IdentificationStatus />,
   'Personal information': <PersonalInformation />,
   'My reports': <MyReports />,
-  'Application PIN': <ApplicationPIN />,
+  'Application password': <ApplicationPassword />,
   'Pricing': <Pricing />,
   'Legal notices': <LegalNotices />,
 }
 export function Settings() {
-  const { classes } = useStyles()
+  const {t} = useTranslation();
   const [selectedArea, setSelectedArea] = useState('')
   const area = areaMap[selectedArea] || null
+  const {xxl} = useBreakpoints();
 
   return (
     <settingsContext.Provider
       value={{ closeArea: useCallback(() => setSelectedArea(''), []) }}
     >
       <Box
-        padding="0 30px 0 30px"
+        padding="16px 30px 0 30px"
         marginBottom="36px"
         component={Typography}
         variant="h1"
       >
-        My settings
+        {t('my_settings')}
       </Box>
 
       <Box
         display="flex"
-        flexDirection="column"
+        flexDirection="column" 
         height="100%"
         overflow="auto"
-        padding="0 30px"
+        padding="0 60px 60px 30px"
       >
-        <Box display="flex" gap="30px" marginBottom="19px">
+        <Box display="flex" flexDirection={xxl ? "column" : 'row'} gap="30px" marginBottom="19px">
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
-            <Typography variant="h2" color="pale blue">
-              General information
+            <Typography noWrap variant="h2" color="pale blue">
+              {t('general_information')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -68,14 +69,8 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Identification status'}
               >
-                <Ok
-                  className={
-                    selectedArea !== 'Identification status'
-                      ? classes.okIcon
-                      : ''
-                  }
-                />
-                <Typography variant="h3">Identification status</Typography>
+                <Ok />
+                <Typography noWrap variant="h3">{t('identification_status')}</Typography>
               </FrameItem>
 
               <FrameItem
@@ -84,13 +79,14 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Personal information'}
               >
-                <Typography variant="h3">Personal information</Typography>
+                <AccountIcon />
+                <Typography noWrap variant="h3">{t('personal_information')}</Typography>
               </FrameItem>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
-            <Typography variant="h2" color="pale blue">
-              Account and app settings
+            <Typography noWrap variant="h2" color="pale blue">
+              {t('account_and_app_settings')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -100,23 +96,23 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'My reports'}
               >
-                <StatementIcon />
-                <Typography variant="h3">My reports</Typography>
+                <ReportIcon />
+                <Typography noWrap variant="h3">{t('my_reports')}</Typography>
               </FrameItem>
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('Application PIN')
+                  setSelectedArea('Application password')
                 }}
-                isSelected={selectedArea === 'Application PIN'}
+                isSelected={selectedArea === 'Application password'}
               >
-                <Typography variant="h3">* * * *</Typography>
-                <Typography variant="h3">Application PIN</Typography>
+                <PinCodeIcon />
+                <Typography noWrap variant="h3">{t('application_password')}</Typography>
               </FrameItem>
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
-            <Typography variant="h2" color="pale blue">
-              Documents
+            <Typography noWrap variant="h2" color="pale blue">
+              {t('documents')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap="24px">
@@ -126,7 +122,8 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Pricing'}
               >
-                <Typography variant="h3">Pricing</Typography>
+                <EuroIcon />
+                <Typography noWrap variant="h3">{t('pricing')}</Typography>
               </FrameItem>
 
               <FrameItem
@@ -135,7 +132,8 @@ export function Settings() {
                 }}
                 isSelected={selectedArea === 'Legal notices'}
               >
-                <Typography variant="h3">Legal notices</Typography>
+                <DocumentsDocumentsIcon />
+                <Typography noWrap variant="h3">{t('legal_notices')}</Typography>
               </FrameItem>
             </Box>
           </Box>

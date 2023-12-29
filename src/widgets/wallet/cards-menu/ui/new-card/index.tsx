@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
-import { IssueNewCard } from "./IssueNewCard";
-import { ConfirmationNewCard } from "./ConfirmationNewCard";
-import {newCardContext, Step} from './newCardContext';
-import { CardHasBeenOrdered } from "./CardHasBeenOrdered";
+import {useState} from "react";
+import {IssueNewCard} from "./IssueNewCard";
+import {CardHasBeenOrdered} from "./CardHasBeenOrdered";
+import {ConfirmationNewCard} from "./ConfirmationNewCard";
+import {INewCardState, IStep, newCardContext} from './newCardContext';
 
-export type NewCardProps = {
-    setIsNewCardOpened: (isOpen: boolean) => void
-};
-
-export function NewCard({setIsNewCardOpened}: NewCardProps) {
-    const [step, setStep] = useState<Step>('IssueNewCard');
-
-    useEffect(() => {
-        return () => {
-            setIsNewCardOpened(false);
-        };
-    }, []);
-
+export function NewCard() {
+    const [state, setState] = useState<INewCardState>({
+        cardType: null,
+        linkedPhone: null,
+        step: 'IssueNewCard',
+        cardholderName: null,
+        isExpressDelivery: false,
+    });
+    
+    const setStep = (nextStep: IStep) => {
+        setState({
+            ...state,
+            step: nextStep
+        });
+    };
+    
     return <newCardContext.Provider value={{
-        step,
+        state,
         setStep,
-        close: () => setIsNewCardOpened(false)
+        setState
     }}>
-        {step === 'IssueNewCard' ? <IssueNewCard /> : null}
-        {step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}
-        {step === 'CardHasBeenOrdered' ? <CardHasBeenOrdered /> : null}
-        
+        {state.step === 'IssueNewCard' ? <IssueNewCard /> : null}
+        {state.step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}
+        {state.step === 'CardHasBeenOrdered' ? <CardHasBeenOrdered /> : null}
     </newCardContext.Provider>;
 }

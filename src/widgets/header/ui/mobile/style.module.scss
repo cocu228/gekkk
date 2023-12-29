@@ -5,12 +5,16 @@
   background-repeat: no-repeat;
   background-size: cover;
   margin: 12px 15px;
-
+  filter: brightness(0) invert(1);
 
   //todo change in context
   &:global(.active) {
     background-image: url("/img/icon/CloseIcon.svg");
   }
+}
+
+.AccountIcon {
+  filter: brightness(0) invert(1);
 }
 
 .ArrowBtn {
@@ -20,4 +24,5 @@
   margin: 12px 15px;
   background-repeat: no-repeat;
   background-size: cover;
+  filter: brightness(0) invert(1);
 }

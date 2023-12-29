@@ -444,7 +444,7 @@ export const apiGetCards = (
     
  options?: SecondParameter<typeof getGekV1WalletGetCardsMutator>,) => {
       return getGekV1WalletGetCardsMutator<CardListApiResponse>(
-      {url: `/gek/v1/wallet/get_cards`, method: 'get'
+      {url: `/gek/v1/bank/get_cards`, method: 'get'
     },
       options);
     }
@@ -456,7 +456,7 @@ export const apiGetPrograms = (
     
  options?: SecondParameter<typeof getGekV1WalletGetProgramsMutator>,) => {
       return getGekV1WalletGetProgramsMutator<ClientProgramListApiResponse>(
-      {url: `/gek/v1/wallet/get_programs`, method: 'get'
+      {url: `/gek/v1/bank/get_programs`, method: 'get'
     },
       options);
     }

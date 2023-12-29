@@ -36,22 +36,17 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
         set((state) => ({
             ...state,
             refreshKey: randomId(),
-            bankCards: data.result.sort(c =>
-                c.cardStatus === 'ACTIVE' ? -1
-                    : c.cardStatus === 'BLOCKED_BY_CUSTOMER' ? -1
-                        : c.cardStatus === 'LOCKED' ? 0 : 1),
-        }));
-    },
+            bankCards: data.result,
+        }));},
     updateCard: (card: IResCard) => {
         set((state) => {
             return ({
                 ...state,
                 refreshKey: randomId(),
-                bankCards: {
+                bankCards: [
                     ...state.bankCards.filter(c => c.cardId !== card.cardId),
                     card
-                }
+                ]
             });
-        });
-    }
+        });}
 })));

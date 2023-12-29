@@ -1,36 +1,65 @@
 import {Carousel} from "antd";
 import {IResCard} from "@/shared/api";
+import {sortCards} from "../model/helpers";
+import {CarouselRef} from "antd/lib/carousel";
 import {useEffect, useRef, useState} from "react";
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
-import useSessionStorage from "@/shared/model/hooks/useSessionStorage";
+import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 
 interface IParams {
+    newCardLink?: boolean;
     cardClassName?: string;
-//    displayNewCard?: boolean;
     wrapperClassName?: string;
     onSelect?: (card: IResCard) => void;
 }
 
-const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
-    const carousel = useRef();
-    const [value, setValue] = useSessionStorage("cards-settings", {
-        displayUnavailable: null
-    });
-    const initActiveStorage = value.displayUnavailable !== null ? value.displayUnavailable : false;
-    const [displayUnavailableCards, setDisplayUnavailableCards] = useState(initActiveStorage);
-    const bankCards = storeBankCards(state => state.bankCards)?.filter(card =>
-        !displayUnavailableCards
-            ? card.cardStatus === "ACTIVE"
-            : card
-    );
+const BankCardsCarousel = ({
+    newCardLink,
+    cardClassName,
+    onSelect = () => {}}: IParams
+) => {
+    const [params] = useSearchParams();
+    const isNew = params.has("new");
+    const navigate = useNavigate();
+    const carouselRef = useRef<CarouselRef>();
+    const bankCards = storeBankCards(state => state.bankCards);
+    const [selectedCard, setSelectedCard] = useState<IResCard>(null);
     
     useEffect(() => {
-        if (!displayUnavailableCards && !bankCards?.length) {
-            setValue({displayUnavailable: true});
-            setDisplayUnavailableCards(true);
+        if (carouselRef.current) {
+            const activeCardId = isNew ? bankCards.length - 1 : 0;
+            
+            carouselRef.current.goTo(activeCardId);
+            onSelect(bankCards[activeCardId]);   
+        }
+    }, [isNew]);
+    
+    useEffect(() => {
+        if (bankCards) {
+            const sortedCards = sortCards(bankCards);
+            
+            if (!sortedCards.find(c => c.cardId === 'new')) {
+                sortedCards.push({
+                    cardId: 'new',
+                    type: null,
+                    limits: null,
+                    isVirtual: null,
+                    cardStatus: null,
+                    displayPan: null,
+                    cardholder: null,
+                    expiryDate: null,
+                    productType: null
+                });
+            }
+            
+            if (!selectedCard) {
+                setSelectedCard(bankCards[0]);
+                onSelect(sortedCards[0]);
+            }
         }
     }, [bankCards]);
     
@@ -40,9 +69,26 @@ const BankCardsCarousel = ({cardClassName, onSelect = () => {}}: IParams) => {
                 <div className='scale-y-95 mb-[14px]'>
                     <SkeletonCard/>
                 </div>
-            ) : bankCards.length === 0 ? null : (
-                <Carousel draggable ref={carousel} afterChange={(i) => onSelect(bankCards[i])}>
-                    {bankCards.map(card => (
+            ) : (
+                <Carousel
+                    draggable
+                    ref={ref => {
+                        if (!carouselRef.current) {
+                            carouselRef.current = ref;
+                        }
+                    }}
+                    afterChange={(i) => onSelect(bankCards[i])}
+                >
+                    {bankCards.map(card => card.cardId === 'new' ? (
+                        <div
+                            className={`${cardClassName} mb-6`}
+                            onClick={() => {
+                                if (newCardLink) navigate("/wallet/EUR/bank_cards?new");
+                            }}
+                        >
+                            <NewBankCard/>
+                        </div>
+                    ) : (
                         <div className={`${cardClassName} mb-6`}>
                             <BankCard status={card.cardStatus}
                                       cardNumber={formatCardNumber(card.displayPan)}

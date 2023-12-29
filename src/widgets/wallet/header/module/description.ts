@@ -10,7 +10,7 @@ export function getDescriptionText(name: string, currency: string, flags: number
 export const EurgDescriptionText: string = `Utility token with a fixed rate\n1 EURG = 1 euro`;
 
 
-export const EurgTooltipText: string = `We pay you 3% per annum of EURG on your balance under following conditions:\n
+export const EurgTooltipText: string = `We pay you 4% per annum of EURG on your balance under following conditions:\n
 (i) your weighted average balance for the reporting period is equal to or higher than 300 EURG\n
 (ii) our upper limit for the balance to pay the interest rate is 100,000 EURG.`;
 

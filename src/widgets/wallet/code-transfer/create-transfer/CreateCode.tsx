@@ -15,6 +15,7 @@ import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from 'react-i18next';
+import { log } from "console";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -25,13 +26,17 @@ const CreateCode = () => {
     const [newCode, setNewCode] = useState("");
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
+    const currency = useContext(CtxWalletData)
     const {t} = useTranslation();
 
+    const isInputEmptyOrNull = inputCurr.value.number === 0
+    const isInputMoreThanBalance = inputCurr.value.number > currency.availableBalance.toNumber()
+    
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
     const [localErrorHunter, , localErrorInfoBox] = useError()
 
-    const currency = useContext(CtxWalletData)
+    
 
     const onCreateCode = async () => {
 
@@ -95,7 +100,7 @@ const CreateCode = () => {
                     </Checkbox>
                 </div>
                 <div className="row">
-                    <Button disabled={/*inputCurrValid.value || */loading} className="w-full" size="xl"
+                    <Button disabled={isInputEmptyOrNull || isInputMoreThanBalance || loading} className="w-full" size="xl"
                             onClick={onCreateCode}>{t("confirm")}
                     </Button>
                 </div>

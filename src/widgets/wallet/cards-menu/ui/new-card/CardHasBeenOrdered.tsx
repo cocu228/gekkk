@@ -3,6 +3,7 @@ import Success from '@/assets/success.svg?react'
 import Button from '@/shared/ui/button/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 export function CardHasBeenOrdered() {
@@ -28,21 +29,22 @@ export function CardHasBeenOrdered() {
     }, [seconds]);
 
     const secondsToShow = seconds >= 10000 ? '10' : `0${seconds / 1000}`;
+    const {t} = useTranslation();
 
     return <>
         <Box display={"flex"} flexDirection={"column"} gap="48px" alignItems={"center"}>
             <Typography variant='h1' color="pale blue">
-                Card has been ordered
+                {t("card_has_been_ordered")}
             </Typography>
 
             <Success />
 
             <Button gray onClick={() => {
                navigate('/'); 
-            }}>Back to main page</Button>
+            }}>{t("back_to_main_page")}</Button>
 
             <Typography variant='b2' color="dark grey">
-                You will be automatically redirected to the main page in <Typography variant="b3">00:{secondsToShow}</Typography>
+                {t("you_will_be_automatically_redirected_to_the_main_page_in")} <Typography variant="b3">00:{secondsToShow}</Typography>
             </Typography>
         </Box>
     </>

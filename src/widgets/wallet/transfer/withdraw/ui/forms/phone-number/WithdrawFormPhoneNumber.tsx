@@ -1,6 +1,7 @@
-import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
 import {MASK_PHONE} from "@/shared/config/mask";
@@ -8,23 +9,31 @@ import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from 'react';
 import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
-import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
-import {useNavigate} from "react-router-dom";
 import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
-import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import {useTranslation} from "react-i18next";
+import Form from "@/shared/ui/form/Form";
+import FormItem from "@/shared/ui/form/form-item/FormItem";
+import {codeMessage} from "@/shared/config/message";
 
 const WithdrawFormPhoneNumber = () => {
+    const {t} = useTranslation();
+    const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
+    const {inputCurr, setInputCurr} = useInputState();
+    const [isValid, setIsValid] = useState<boolean>(false);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
-    const navigate = useNavigate();
-    const {t} = useTranslation();
-
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {
+        min_withdraw = 0
+    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {};
+    
     const [inputs, setInputs] = useState<{
         comment: string;
         phoneNumber: string;
@@ -32,82 +41,93 @@ const WithdrawFormPhoneNumber = () => {
         comment: '',
         phoneNumber: null
     });
-
-
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
-
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    
+    useEffect(() => {
+        setIsValid(() => Object.keys(inputs).every(i => {
+            if (!inputs[i]) return false;
+            if (i === 'phoneNumber') return inputs[i].length > 7;
+            
+            return inputs[i].length > 0;
+        }))
+    }, [inputs]);
     
     const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
     }
-
-    const {
-        min_withdraw = 0,
-        // max_withdraw = null,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
-
-    const isValidated = () => Object.keys(inputs).every(i => {
-        if (!inputs[i]) return false;
-        if (i === 'phoneNumber') return inputs[i].length === 19;
-        
-        return inputs[i].length > 0;
-    });
     
     return (
         <div className="wrapper">
-            <div className="row mb-8 w-full">
-                <div className="col">
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className="font-medium">Phone number</span>
+            <Form>
+                <div className="row mb-5 w-full">
+                    <div className="col">
+                        <div className="row mb-2">
+                            <div className="col">
+                                <span className="font-medium text-[16px]">Phone number</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <Input
-                                type={'text'}
-                                onInput={onPhoneNumberInput}
-                                onChange={({target}) => {
-                                    setInputs(() => ({
-                                        ...inputs,
-                                        phoneNumber: target.value.replaceAll('+', '')
-                                    }));
-                                }}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row mb-8 w-full">
-                <div className="col">
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className="font-medium">Comment</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col flex items-center">
-                            <TextArea value={inputs.comment}
-                                      name={"comment"}
-                                      onChange={onInputDefault}
-                                      placeholder={""}
-                                      style={{
-                                          minHeight: 100
-                                      }}
-                            />
+                        <div className="row">
+                            <div className="col">
+                                <FormItem
+                                    preserve
+                                    name="phone"
+                                    label="Phone number"
+                                    rules={[
+                                        {required: true, message: 'Phone number is required'},
+                                        {min: 7, message: 'Minimum number length is 7 digits'}
+                                    ]}
+                                >
+                                    <Input
+                                        name={'phoneNumber'}
+                                        onChange={onInputDefault}
+                                        onInput={onPhoneNumberInput}
+                                    />
+                                </FormItem>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div className="row mb-8 w-full">
+                    <div className="col">
+                        <div className="row mb-2">
+                            <div className="col">
+                                <span className="font-medium text-[16px]">Comment</span>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col flex items-center">
+                                <FormItem
+                                    preserve
+                                    name="comment"
+                                    className='w-full'
+                                    label="Comment"
+                                    rules={[{required: true, message: 'Comment is required'}]}
+                                >
+                                    <TextArea
+                                        value={inputs.comment}
+                                        name={"comment"}
+                                        onChange={onInputDefault}
+                                        placeholder={""}
+                                        style={{
+                                            minHeight: 100
+                                        }}
+                                    />
+                                </FormItem>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Form>
             <div className="row mb-8 w-full">
                 <div className="col">
-                    <InputCurrency.Validator value={inputCurr.value.number}
-                                             description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                             onError={setInputCurrValid}
-                                             validators={[validateBalance(currency, navigate, t),
-                                                 validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
+                    <InputCurrency.Validator 
+                        value={inputCurr.value.number}
+                        description={getWithdrawDesc(min_withdraw, currency.$const)}
+                        onError={setInputCurrValid}
+                        validators={[
+                            validateBalance(currency, navigate, t),
+                            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)
+                        ]}
+                    >
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     header={<span className='text-gray-600 font-medium'>Amount</span>}
@@ -135,7 +155,7 @@ const WithdrawFormPhoneNumber = () => {
                         size={"xl"}
                         className="w-full"
                         onClick={showModal}
-                        disabled={!isValidated || inputCurrValid.value}
+                        disabled={!isValid || inputCurrValid.value}
                     >Withdraw</Button>
                 </div>
             </div>

@@ -36,7 +36,7 @@ const Header = () => {
     ], []);
     
     useEffect(() => {
-        if (!account.rights) return;
+        if (!account?.rights) return;
         
         let newItems = [...defaultMenuItems]
         
@@ -73,7 +73,7 @@ const Header = () => {
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
         
-    }, [account.rights, defaultMenuItems]);
+    }, [account?.rights, defaultMenuItems]);
 
     return md
         ? <HeaderMobile items={items} actions={actionsForMenuFunctions}/>

@@ -14,6 +14,7 @@ import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 
 export default memo(function () {
+
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
     const [{
@@ -35,9 +36,9 @@ export default memo(function () {
 
     useEffect(() => {
         if (accounts && !account) {
-            const cookieData = getCookieData<{accountId?: string}>();
+            const cookieData = getCookieData<{ accountId?: string }>();
             const activeAccount = accounts.find(a => a.current);
-            
+
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId
                 : activeAccount.number
@@ -68,21 +69,21 @@ export default memo(function () {
         setRefresh: setRefresh,
         refreshKey
     }}>
-        {!account ? <Loader/> : (<>
+        {(<>
             <CurrenciesProvider>
                 {isNewLayout ? <>
-                    <Outlet/> 
+                    <Outlet/>
                 </> : <>
-                
-                <Header/>
 
-                <Main>
-                    <Sidebar/>
+                    <Header/>
 
-                    <Content>
-                        <Outlet/>
-                    </Content>
-                </Main>
+                    {/*<Main>*/}
+                    {/*    <Sidebar/>*/}
+
+                    {/*    <Content>*/}
+                    {/*        <Outlet/>*/}
+                    {/*    </Content>*/}
+                    {/*</Main>*/}
                 </>}
             </CurrenciesProvider>
         </>)}

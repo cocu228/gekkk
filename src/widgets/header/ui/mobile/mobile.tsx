@@ -28,7 +28,7 @@ const HeaderMobile = ({items, actions}) => {
                 <HeaderMenu items={items} actions={actions}>
                     <div className="flex items-center justify-end" data-testid="HeaderMenuContainer">
                         <div className="wrapper flex justify-end">
-                            {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
+                            {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
                                 <img width={32}
                                      height={32}
                                      alt="UserIcon"

@@ -70,8 +70,6 @@ const SidebarDesktop = () => {
         secondaryWallets = Array.from(currencies.values());
     }
 
-    console.log(eurWallet)
-
     return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         <div className="wrapper">
             {/* Account total balance 

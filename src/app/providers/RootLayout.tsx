@@ -80,9 +80,9 @@ export default memo(function () {
                     <Main>
                         <Sidebar/>
 
-                        {/*<Content>*/}
-                        {/*    <Outlet/>*/}
-                        {/*</Content>*/}
+                        <Content>
+                            <Outlet/>
+                        </Content>
                     </Main>
                 </>}
             </CurrenciesProvider>

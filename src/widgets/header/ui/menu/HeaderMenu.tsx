@@ -6,7 +6,7 @@ import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
 import {useTranslation} from "react-i18next";
 
-const HeaderMenu = ({children, items, className = "", actions, mobile}: TPropsHeaderMenu) => {
+const HeaderMenu = ({children, items, className = "", actions, mobile = false}: TPropsHeaderMenu) => {
     const ref = useRef(null);
     const {t} = useTranslation();
     const [isActive, toggleActive] = useState(false);

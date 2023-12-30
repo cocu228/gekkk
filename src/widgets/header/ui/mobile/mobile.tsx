@@ -10,8 +10,8 @@ import { getFormattedIBAN } from "@/shared/lib/helpers";
 
 const HeaderMobile = ({items, actions}) => {
     const {account} = useContext(CtxRootData);
-    const isOpen = storyToggleSidebar(state => state.isOpen);
-    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
+    // const isOpen = storyToggleSidebar(state => state.isOpen);
+    // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
     return <>
         <header className={styles.Header}>

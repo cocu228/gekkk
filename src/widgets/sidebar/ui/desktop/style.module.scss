@@ -41,6 +41,16 @@
   padding: 10px 10px 5px 0;
   font-size: 12px;
   font-weight: 400;
+  @include max-devices(md) {
+    color: #778F93;
+    font-family: Archivo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    padding-left: 5%;
+  } 
 }
 
 .AssetInfo2 {
@@ -104,6 +114,14 @@
   font-size: 14px;
   line-height: 24px;
   transition: .2s;
+  @include max-devices(md) {
+    color: #3A5E66;
+    font-family: Archivo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px; 
+  }
 }
 
 .Sum {
@@ -111,6 +129,24 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
+  @include max-devices(md) {
+    color: var(--Pale-blue, #3A5E66);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; 
+  }
+}
+
+.Balance{
+  color: #929798;
+  text-align: right;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px; /* 166.667% */
 }
 
 .Income {
@@ -185,6 +221,15 @@
 .Item,
 .ItemExchange,
 .ItemEuro {
+
+  @include max-devices(md) {
+    max-width: 90%;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  } 
+
+
   height: 85px;
   position: relative;
   width: 100%;
@@ -240,4 +285,42 @@
 
 .ItemEuro {
   height: 70px;
+  
 }
+.ItemWrapper{
+  @include max-devices(md) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(247, 247, 240);
+  } 
+  
+}
+
+.ArrowMobileSidebar{
+  position: absolute;
+  display: flex;
+  height: 100%;
+  right: 0px;
+  padding-right: 4%;
+  align-self: center;
+}
+
+.BottomMobile{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: auto;
+  width: 100vw;
+  z-index: 9999;
+  overflow: auto;
+}
+
+.BottomMenuMobile{
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid rgba(58, 94, 102, 0.50);
+  background: #F7F7F0;  
+}
+ 

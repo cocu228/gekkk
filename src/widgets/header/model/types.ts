@@ -10,6 +10,7 @@ export type THeaderMenuList = Array<{
         type?: null | string,
         value?: null | string | unknown,
     },
+    icon?:string | JSX.Element,
     style?: object
 }>
 

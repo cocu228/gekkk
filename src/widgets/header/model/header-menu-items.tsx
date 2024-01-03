@@ -162,10 +162,14 @@ export const getDefaultMobileItems = (t?: TFunction): THeaderMenuList => {
                 type: "link",
                 value: null,
             },
-            icon:<Button>Get Gekkard PRO</Button>,
+            icon:<button className="flex text-sm font-normal border bg-[#1F3446] text-[#F7F7F0] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[#1F3446]">Get Gekkard PRO</button>,
             style:{
                 display:'flex',
-                justifyContent:"center"
+                justifyContent:"center",
+                width:"100%",
+                alignSelf:"center"
+
+
             }
         },
         {

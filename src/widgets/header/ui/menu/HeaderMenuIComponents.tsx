@@ -30,7 +30,7 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
         return(
             <div className={styles.AccountItem}>
                 <div className={styles.Icon}>
-                <img src={AccountMobileIcon}/>
+                    <img src={AccountMobileIcon}/>
                 </div>
                 <div className={styles.AccountInfo}>
                     <span className={styles.AccountName}>{name}</span>
@@ -73,7 +73,7 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
     if(md){
         return(
             <div className={styles.AccountItem}>
-                <div className={styles.Icon}>
+                <div className={styles.Icon +" "+ styles.OrganizationIcon}>
                     <img src={OrganizationMobileIcon}/>
                 </div>
                 <div className={styles.AccountInfo}>

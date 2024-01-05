@@ -27,6 +27,7 @@ import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarous
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 
 import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
+import Loader from "@/shared/ui/loader";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -37,7 +38,7 @@ const SidebarDesktop = () => {
     const { account } = useContext(CtxRootData);
     const { sm, md, xxxl } = useContext(BreakpointsContext);
     const { currencies, totalAmount } = useContext(CtxCurrencies);
-
+    const {setRefresh} = useContext(CtxRootData);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
@@ -60,20 +61,84 @@ const SidebarDesktop = () => {
         getBankCards();
     }, [account]);
 
+    useEffect(() => {
+        window.addEventListener("touchstart", pullStart);
+        window.addEventListener("touchmove", pull);
+        window.addEventListener("touchend", endPull);
+        return () => {
+          window.removeEventListener("touchstart", pullStart);
+          window.removeEventListener("touchmove", pull);
+          window.removeEventListener("touchend", endPull);
+        };
+      });
+    
     const eurWallet = currencies.get("EUR");
     const eurgWallet = currencies.get("EURG");
     const gkeWallet = currencies.get("GKE");
     const secondaryWallets = Array.from(currencies.values());
+    const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false)
+    const [startPoint, setStartPoint] = useState(0);
+    const [pullChange, setPullChange] = useState<number>();
+    const refreshCont = useRef<HTMLDivElement>();
+
+
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange")
     const historyPage = useMatch("/history") //not used   
+
+    const initLoading = () => {
+        refreshCont.current.classList.add(styles.Loading);
+        setRefresh()
+        setIsRefreshingFunds(true)
+        setTimeout(() => {
+            setIsRefreshingFunds(false)
+        }, 3000);
+    };
+
+    const pullStart = (e) => {
+        const { screenY } = e.targetTouches[0];
+        setStartPoint(screenY);
+    }
+
+    function pull(e){
+        const touch = e.targetTouches[0];
+        const { screenY } = touch;
+        let pullLength = startPoint < screenY ? Math.abs(screenY - startPoint) : 0;
+        setPullChange(pullLength);
+    }
+
+    function endPull(){
+        setStartPoint(0);
+        setPullChange(0);
+        if (pullChange > 220) initLoading();
+    }
+
+
+
     if(md){
         return (
         <>
         <div className={`${styles.Sidebar} flex flex-col justify-between`}>
          
-            <div className="wrapper">
+            <div className="wrapper" ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
+                <div className="p-2 rounded-full w-full flex justify-center ">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className={`w-6 h-6 ` + (isRefreshingFunds && "animate-spin")}
+                        style={{ justifyContent:"center", display:(!(!!pullChange || isRefreshingFunds) && "none"), transform: `rotate(${pullChange}deg)` }}
+                    >
+                        <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                        />
+                    </svg>
+                </div>
                 <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
                     <div className={styles.CardInfo}>
                         <BankCardsCarousel newCardLink/>
@@ -269,7 +334,7 @@ const SidebarDesktop = () => {
                             >Close private exchange room</Button>
                         </div>
                     </Modal>    
-                    {(!!homePage || !!transfersPage || !!exchangePage || !!historyPage) &&
+                    {/* {(!!homePage || !!transfersPage || !!exchangePage || !!historyPage) &&
                         <div className={styles.BottomMobile}>
                             {!(!!transfersPage || !!exchangePage || !!historyPage)&&
                                 <div>
@@ -332,7 +397,7 @@ const SidebarDesktop = () => {
                                 </div>
                             
                         </div>    
-                    }                
+                    }                 */}
                 </div>
             </div>
         </>

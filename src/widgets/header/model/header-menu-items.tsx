@@ -50,15 +50,6 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
             }
         },
         {
-            item: t("Profile Settings"),
-            id:"settings",
-            action:{
-                type: "link",
-                value:"settings"
-            },
-            icon: <img src={SettingsMobileIcon}/>
-        },
-        {
             item: <PromoCodeModal/>,
             id: 'promoCode',
             action: {

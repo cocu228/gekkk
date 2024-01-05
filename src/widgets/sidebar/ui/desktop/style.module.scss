@@ -7,10 +7,13 @@
   height: initial;
   background-color: white;
   box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
+  overscroll-behavior-y: contain;
 
   @include max-devices(md) {
     max-width: 100% !important;
     flex-basis: 100% !important;
+    padding-bottom: 100px;
+    background-color: #f7f7f0;
   }
 
   @include max-devices(xxxl) {
@@ -64,7 +67,10 @@
   border-width: 1px;
   border-style: solid;
   @include max-devices(md){
-    background-color: rgb(247, 247, 240, 0.6);
+    height: 71px;
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
     align-items: center;
     color: #3A5E66;
     font-family: Inter;
@@ -72,6 +78,9 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    align-items: end;
+    border: none;
+    justify-content: center;
   }
 }
 
@@ -79,6 +88,12 @@
   background-color: #f7f7f0;
   display: block;
   text-align: right;
+  @include max-devices(md){
+    background-color: transparent;
+    position: absolute;
+    align-self: start;
+  }
+
 }
 
 .AssetInfo4 {
@@ -107,7 +122,17 @@
   }
 }
 
-
+.AssetInfo5{
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 43px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  background-color: rgb(247, 247, 240, 0.9);
+}
 
 .CloseRoomSvg {
   path {

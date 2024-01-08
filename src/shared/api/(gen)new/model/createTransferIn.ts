@@ -13,22 +13,19 @@
  */
 
 /**
- * Флаги действий-состояний клиентских транзакций: 
-0 = None, 1 = WithdrawCreated, 2 = NetworkConfirmed, 4 = NetworkUnConfirmed, 6 = FromNetwork, 8 = AMLSended, 16 = Blocked, 32 = Cancelled, 64 = Failed, 128 = Finished
+ * Входные параметры для создания заявки на перевод средств
  */
-export type TransactStateEnum = typeof TransactStateEnum[keyof typeof TransactStateEnum];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransactStateEnum = {
-  NUMBER_0: 0,
-  NUMBER_1: 1,
-  NUMBER_2: 2,
-  NUMBER_4: 4,
-  NUMBER_6: 6,
-  NUMBER_8: 8,
-  NUMBER_16: 16,
-  NUMBER_32: 32,
-  NUMBER_64: 64,
-  NUMBER_128: 128,
-} as const;
+export interface CreateTransferIn {
+  /** Withdraw amount (without fee). */
+  amount: number;
+  /** Уникальный идентификатор заявки перевода, не должен совпадать с отправленными для исключения повторов.
+Число не превышающее int32, например миллисекунды таймера
+Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request. */
+  client_nonce?: number;
+  /** Валюта перевода */
+  currency: string;
+  /** IBAN или телефон получателя */
+  recipient: string;
+  /** Пользовательское сообщение латиницей */
+  tag?: string | null;
+}

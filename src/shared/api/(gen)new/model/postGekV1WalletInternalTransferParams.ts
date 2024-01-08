@@ -12,23 +12,7 @@
  * OpenAPI spec version: v1
  */
 
-/**
- * Флаги действий-состояний клиентских транзакций: 
-0 = None, 1 = WithdrawCreated, 2 = NetworkConfirmed, 4 = NetworkUnConfirmed, 6 = FromNetwork, 8 = AMLSended, 16 = Blocked, 32 = Cancelled, 64 = Failed, 128 = Finished
- */
-export type TransactStateEnum = typeof TransactStateEnum[keyof typeof TransactStateEnum];
-
-
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-export const TransactStateEnum = {
-  NUMBER_0: 0,
-  NUMBER_1: 1,
-  NUMBER_2: 2,
-  NUMBER_4: 4,
-  NUMBER_6: 6,
-  NUMBER_8: 8,
-  NUMBER_16: 16,
-  NUMBER_32: 32,
-  NUMBER_64: 64,
-  NUMBER_128: 128,
-} as const;
+export type PostGekV1WalletInternalTransferParams = {
+confirmationTimetick?: string;
+confirmationCode?: string;
+};

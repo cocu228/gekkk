@@ -30,7 +30,7 @@ const HeaderDesktop = ({ items, actions }) => {
                 </a>
             </div>
             <div className={styles.CommandsMenu}>
-                <HeaderMenu items={items} actions={actions} mobile={false}>
+                <HeaderMenu items={items} actions={actions}>
                     <div className={styles.AccMenu} data-testid="HeaderMenuContainer">
                         <div className="wrapper mr-2">
                             {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :

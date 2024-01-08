@@ -116,182 +116,570 @@ const SidebarDesktop = () => {
 
 
 
-    if(md){
-        return (
-        <>
-        <div className={`${styles.Sidebar} flex flex-col justify-between`}>
-         
-            <div className="wrapper" ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
-                <div className="p-2 rounded-full w-full flex justify-center ">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className={`w-6 h-6 ` + (isRefreshingFunds && "animate-spin")}
-                        style={{ justifyContent:"center", display:(!(!!pullChange || isRefreshingFunds) && "none"), transform: `rotate(${pullChange}deg)` }}
-                    >
-                        <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                        />
-                    </svg>
-                </div>
-                <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
-                    <div className={styles.CardInfo}>
-                        <BankCardsCarousel newCardLink/>
-                    </div>
-                </div>
-                <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
 
-                        
+        return(
+            md?
+                <div className={`${styles.Sidebar} flex flex-col justify-between`}>
+                    <div className="wrapper" ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
+                        <div className="p-2 rounded-full w-full flex justify-center ">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className={`w-6 h-6 ` + (isRefreshingFunds && "animate-spin")}
+                                style={{ justifyContent:"center", display:(!(!!pullChange || isRefreshingFunds) && "none"), transform: `rotate(${pullChange}deg)` }}
+                            >
+                                <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                                />
+                            </svg>
+                        </div>
+                        <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
+                            <div className={styles.CardInfo}>
+                                <BankCardsCarousel newCardLink/>
+                            </div>
+                        </div>
+                        <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+
+                                
+                            <div className={styles.AssetInfo1} >
+                                <span>{"Fiat"}</span>
+                            </div>
+
+                            
+                            
+                            <div className={styles.ItemWrapper}>
+                            
+                                <div className={`${styles.ItemEuro}`}>
+                                    <div className="col flex items-center pl-4">
+                                        {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M24.0396 42C21.739 42 19.5553 41.7042 17.4887 41.1127C15.422 40.4817 13.5308 39.5549 11.8151 38.3324C10.0994 37.1099 8.61761 35.6113 7.36981 33.8366C6.16101 32.062 5.26415 29.9916 4.67924 27.6254H0V22.893H3.91887C3.87987 22.5775 3.86038 22.262 3.86038 21.9465C3.86038 21.631 3.86038 21.3155 3.86038 21C3.86038 20.6451 3.86038 20.3296 3.86038 20.0535C3.86038 19.738 3.87987 19.4028 3.91887 19.0479H0V14.3155H4.67924C5.26415 11.9887 6.16101 9.93803 7.36981 8.16338C8.61761 6.3493 10.0799 4.8507 11.7566 3.6676C13.4723 2.44507 15.3635 1.53803 17.4302 0.946477C19.4969 0.315492 21.7195 0 24.0981 0C25.3459 0 26.5547 0.0788734 27.7245 0.23662C28.9333 0.394365 30.0252 0.630984 31 0.946477V7.33521C30.2591 7.05915 29.4013 6.84225 28.4264 6.68451C27.4906 6.48732 26.4962 6.38873 25.4434 6.38873C23.5717 6.38873 21.817 6.70423 20.1792 7.33521C18.5805 7.92676 17.1962 8.81408 16.0264 9.99718C14.8566 11.1803 13.9403 12.6197 13.2774 14.3155H26.5547V19.0479H12.166C12.127 19.3239 12.1075 19.6394 12.1075 19.9944C12.1075 20.3099 12.1075 20.6254 12.1075 20.9408C12.1075 21.2958 12.1075 21.6507 12.1075 22.0056C12.1075 22.3211 12.127 22.6169 12.166 22.893H26.5547V27.6254H13.2774C13.9403 29.3211 14.8566 30.7606 16.0264 31.9437C17.2352 33.1268 18.639 34.0338 20.2377 34.6648C21.8365 35.2958 23.5717 35.6113 25.4434 35.6113C26.4962 35.6113 27.4906 35.5127 28.4264 35.3155C29.4013 35.1183 30.2591 34.8817 31 34.6056V40.9352C29.9862 41.2507 28.8748 41.507 27.666 41.7042C26.4962 41.9014 25.2874 42 24.0396 42Z" fill="#3A5E66" />
+                                        </svg> */}
+                                        <svg width="50" height="50" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M25.0001 0.379272C38.8071 0.379272 50 11.5722 50 25.3793C50 39.1864 38.8071 50.3793 25.0001 50.3793C11.1929 50.3793 0 39.1864 0 25.3793C0 11.5722 11.1929 0.379272 25.0001 0.379272Z" fill="#3A5E66" />
+                                            <path d="M7.43047 29.5393V26.7393H28.9505V29.5393H7.43047ZM7.43047 24.0193V21.2193H28.9505V24.0193H7.43047ZM26.3905 39.7793C24.2305 39.7793 22.2305 39.4326 20.3905 38.7393C18.5771 38.0193 17.0038 37.0193 15.6705 35.7393C14.3371 34.4326 13.2971 32.8993 12.5505 31.1393C11.8038 29.3793 11.4305 27.4593 11.4305 25.3793C11.4305 23.2993 11.8038 21.3793 12.5505 19.6193C13.2971 17.8593 14.3371 16.3393 15.6705 15.0593C17.0038 13.7526 18.5771 12.7526 20.3905 12.0593C22.2305 11.3393 24.2305 10.9793 26.3905 10.9793C28.6838 10.9793 30.7771 11.3793 32.6705 12.1793C34.5905 12.9526 36.1905 14.1126 37.4705 15.6593L34.1505 18.8193C33.1371 17.7259 32.0038 16.9126 30.7505 16.3793C29.4971 15.8193 28.1371 15.5393 26.6705 15.5393C25.2038 15.5393 23.8571 15.7793 22.6305 16.2593C21.4305 16.7393 20.3771 17.4193 19.4705 18.2993C18.5905 19.1793 17.8971 20.2193 17.3905 21.4193C16.8838 22.6193 16.6305 23.9393 16.6305 25.3793C16.6305 26.8193 16.8838 28.1393 17.3905 29.3393C17.8971 30.5393 18.5905 31.5793 19.4705 32.4593C20.3771 33.3393 21.4305 34.0193 22.6305 34.4993C23.8571 34.9793 25.2038 35.2193 26.6705 35.2193C28.1371 35.2193 29.4971 34.9526 30.7505 34.4193C32.0038 33.8593 33.1371 33.0193 34.1505 31.8993L37.4705 35.0993C36.1905 36.6193 34.5905 37.7793 32.6705 38.5793C30.7771 39.3793 28.6838 39.7793 26.3905 39.7793Z" fill="white" />
+                                        </svg>
+
+
+                                        {/*<img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
+                                            alt="EUR" />*/}
+                                    </div>
+                                    <div className="col flex items-center flex-col pl-5 pt-2 relative">
+                                        <div className="row w-full">
+                                            <span className={styles.Name}>Euro</span>
+                                        </div>
+                                        <div className="row w-full font-mono">
+                                            <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className={styles.ArrowMobileSidebar}>
+                                        <img src="/img/icon/ArrowMobileSidebar.svg" width={7} alt="" />                                    
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                            
+                        </NavLink> 
                         <div className={styles.AssetInfo1} >
-                            <span>{"Fiat"}</span>
+                            <span>{"Crypto Assets"}</span>
                         </div>
-
-                        
-                        
-                        <div className={styles.ItemWrapper}>
-                        
-                            <div className={`${styles.ItemEuro}`}>
-                                <div className="col flex items-center pl-4">
-                                    {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M24.0396 42C21.739 42 19.5553 41.7042 17.4887 41.1127C15.422 40.4817 13.5308 39.5549 11.8151 38.3324C10.0994 37.1099 8.61761 35.6113 7.36981 33.8366C6.16101 32.062 5.26415 29.9916 4.67924 27.6254H0V22.893H3.91887C3.87987 22.5775 3.86038 22.262 3.86038 21.9465C3.86038 21.631 3.86038 21.3155 3.86038 21C3.86038 20.6451 3.86038 20.3296 3.86038 20.0535C3.86038 19.738 3.87987 19.4028 3.91887 19.0479H0V14.3155H4.67924C5.26415 11.9887 6.16101 9.93803 7.36981 8.16338C8.61761 6.3493 10.0799 4.8507 11.7566 3.6676C13.4723 2.44507 15.3635 1.53803 17.4302 0.946477C19.4969 0.315492 21.7195 0 24.0981 0C25.3459 0 26.5547 0.0788734 27.7245 0.23662C28.9333 0.394365 30.0252 0.630984 31 0.946477V7.33521C30.2591 7.05915 29.4013 6.84225 28.4264 6.68451C27.4906 6.48732 26.4962 6.38873 25.4434 6.38873C23.5717 6.38873 21.817 6.70423 20.1792 7.33521C18.5805 7.92676 17.1962 8.81408 16.0264 9.99718C14.8566 11.1803 13.9403 12.6197 13.2774 14.3155H26.5547V19.0479H12.166C12.127 19.3239 12.1075 19.6394 12.1075 19.9944C12.1075 20.3099 12.1075 20.6254 12.1075 20.9408C12.1075 21.2958 12.1075 21.6507 12.1075 22.0056C12.1075 22.3211 12.127 22.6169 12.166 22.893H26.5547V27.6254H13.2774C13.9403 29.3211 14.8566 30.7606 16.0264 31.9437C17.2352 33.1268 18.639 34.0338 20.2377 34.6648C21.8365 35.2958 23.5717 35.6113 25.4434 35.6113C26.4962 35.6113 27.4906 35.5127 28.4264 35.3155C29.4013 35.1183 30.2591 34.8817 31 34.6056V40.9352C29.9862 41.2507 28.8748 41.507 27.666 41.7042C26.4962 41.9014 25.2874 42 24.0396 42Z" fill="#3A5E66" />
-                                    </svg> */}
-                                    <svg width="50" height="50" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.0001 0.379272C38.8071 0.379272 50 11.5722 50 25.3793C50 39.1864 38.8071 50.3793 25.0001 50.3793C11.1929 50.3793 0 39.1864 0 25.3793C0 11.5722 11.1929 0.379272 25.0001 0.379272Z" fill="#3A5E66" />
-                                        <path d="M7.43047 29.5393V26.7393H28.9505V29.5393H7.43047ZM7.43047 24.0193V21.2193H28.9505V24.0193H7.43047ZM26.3905 39.7793C24.2305 39.7793 22.2305 39.4326 20.3905 38.7393C18.5771 38.0193 17.0038 37.0193 15.6705 35.7393C14.3371 34.4326 13.2971 32.8993 12.5505 31.1393C11.8038 29.3793 11.4305 27.4593 11.4305 25.3793C11.4305 23.2993 11.8038 21.3793 12.5505 19.6193C13.2971 17.8593 14.3371 16.3393 15.6705 15.0593C17.0038 13.7526 18.5771 12.7526 20.3905 12.0593C22.2305 11.3393 24.2305 10.9793 26.3905 10.9793C28.6838 10.9793 30.7771 11.3793 32.6705 12.1793C34.5905 12.9526 36.1905 14.1126 37.4705 15.6593L34.1505 18.8193C33.1371 17.7259 32.0038 16.9126 30.7505 16.3793C29.4971 15.8193 28.1371 15.5393 26.6705 15.5393C25.2038 15.5393 23.8571 15.7793 22.6305 16.2593C21.4305 16.7393 20.3771 17.4193 19.4705 18.2993C18.5905 19.1793 17.8971 20.2193 17.3905 21.4193C16.8838 22.6193 16.6305 23.9393 16.6305 25.3793C16.6305 26.8193 16.8838 28.1393 17.3905 29.3393C17.8971 30.5393 18.5905 31.5793 19.4705 32.4593C20.3771 33.3393 21.4305 34.0193 22.6305 34.4993C23.8571 34.9793 25.2038 35.2193 26.6705 35.2193C28.1371 35.2193 29.4971 34.9526 30.7505 34.4193C32.0038 33.8593 33.1371 33.0193 34.1505 31.8993L37.4705 35.0993C36.1905 36.6193 34.5905 37.7793 32.6705 38.5793C30.7771 39.3793 28.6838 39.7793 26.3905 39.7793Z" fill="white" />
-                                    </svg>
-
-
-                                    {/*<img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
-                                        alt="EUR" />*/}
-                                </div>
-                                <div className="col flex items-center flex-col pl-5 pt-2 relative">
-                                    <div className="row w-full">
-                                        <span className={styles.Name}>Euro</span>
+                        <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
+                            <div className={styles.ItemWrapper}>
+                                <div className={`${styles.Item}`}>
+                                    <div className="col flex items-center pl-4">
+                                        <img width={50} height={50} src={`/img/tokens/EurgIcon.svg`} alt="EURG" />
                                     </div>
-                                    <div className="row w-full font-mono">
-                                        <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
-                                    </div>
-                                    
-                                </div>
-                                <div className={styles.ArrowMobileSidebar}>
-                                    <img src="/img/icon/ArrowMobileSidebar.svg" width={7} alt="" />                                    
-                                </div> 
-                            </div>
-                        </div>
-                        
-                        
-                    </NavLink> 
-                    <div className={styles.AssetInfo1} >
-                        <span>{"Crypto Assets"}</span>
-                    </div>
-                    <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
-                        <div className={styles.ItemWrapper}>
-                            <div className={`${styles.Item}`}>
-                                <div className="col flex items-center pl-4">
-                                    <img width={50} height={50} src={`/img/tokens/EurgIcon.svg`} alt="EURG" />
-                                </div>
-                                <div className="col flex items-center justify-center flex-col pl-5">
-                                    <div className="row text-gray-400 w-full mb-1">
-                                        <span className={styles.Name}>Gekkoin euro token</span>
-                                    </div>
-                                    <div className="row w-full font-mono">
-                                        <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
-                                    </div>
-                                    <div className={"row w-full flex justify-between pr-5"}>
-                                        <div>
-                                            {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
-                                            </span>}
+                                    <div className="col flex items-center justify-center flex-col pl-5">
+                                        <div className="row text-gray-400 w-full mb-1">
+                                            <span className={styles.Name}>Gekkoin euro token</span>
                                         </div>
-                                        <div className=" text-gray-500 font-mono">
-                                            {eurgWallet.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
-                                                ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
-                                            </span>}
+                                        <div className="row w-full font-mono">
+                                            <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
                                         </div>
-                                    </div>
-                                    <div className={styles.ArrowMobileSidebar}>
-                                        <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
+                                        <div className={"row w-full flex justify-between pr-5"}>
+                                            <div>
+                                                {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
+                                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                </span>}
+                                            </div>
+                                            <div className=" text-gray-500 font-mono">
+                                                {eurgWallet.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
+                                                    ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                </span>}
+                                            </div>
+                                        </div>
+                                        <div className={styles.ArrowMobileSidebar}>
+                                            <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                    </NavLink>
+                            
+                        </NavLink>
 
-                    {/* GKE wallet */}
-                    <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
-                        <div className={styles.ItemWrapper}>
-                            <div className={`${styles.Item}`}>
-                                <div className="col flex items-center pl-4">
-                                    <img width={50} height={50} src={`/img/tokens/GkeIcon.svg`} alt="GKE" />
-                                </div>
-                                <div className="col flex items-center justify-center flex-col pl-5">
-                                    <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
+                        {/* GKE wallet */}
+                        <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
+                            <div className={styles.ItemWrapper}>
+                                <div className={`${styles.Item}`}>
+                                    <div className="col flex items-center pl-4">
+                                        <img width={50} height={50} src={`/img/tokens/GkeIcon.svg`} alt="GKE" />
                                     </div>
-                                    <div className="row w-full font-mono"><span
-                                        className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
-                                    </div>
-                                    <div className={"row w-full flex justify-between pr-5"}>
-                                        <div>
-                                            {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
-                                            </span>}
+                                    <div className="col flex items-center justify-center flex-col pl-5">
+                                        <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                         </div>
-                                        <div className=" text-gray-500 font-mono">
-                                            {gkeWallet.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
-                                                ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
-                                            </span>}
-                                        </div>    
-                                    </div>
-                                    <div className={styles.ArrowMobileSidebar}>
-                                        <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
-                                    </div>
-                                </div>    
+                                        <div className="row w-full font-mono"><span
+                                            className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
+                                        </div>
+                                        <div className={"row w-full flex justify-between pr-5"}>
+                                            <div>
+                                                {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
+                                                    +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                                </span>}
+                                            </div>
+                                            <div className=" text-gray-500 font-mono">
+                                                {gkeWallet.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
+                                                    ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                                </span>}
+                                            </div>    
+                                        </div>
+                                        <div className={styles.ArrowMobileSidebar}>
+                                            <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
+                                        </div>
+                                    </div>    
+                                </div>
                             </div>
-                        </div>
-                    </NavLink>
+                        </NavLink>
 
-                    {!secondaryWallets.length ? null : (
-                        helperFilterList(secondaryWallets).map((item, i) =>
-                                    <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
-                                        <div className={styles.ItemWrapper}>
-                                            <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                                                <div className="col flex items-center pl-4 w-[85px]">
-                                                    {/* <SvgArrow width={14} height={14} className={styles.SvgArrow} /> */}
-                                                    <IconCoin code={item.$const} />
-                                                </div>
-                                                <div className={"col flex items-center justify-center flex-col"}>
-                                                    <div className="row w-full mb-1"><span
-                                                        className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
-                                                    <div className="row w-full font-mono"><span
-                                                        className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                        {!secondaryWallets.length ? null : (
+                            helperFilterList(secondaryWallets).map((item, i) =>
+                                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
+                                            <div className={styles.ItemWrapper}>
+                                                <div className={`${styles.Item + " " + ParentClassForCoin}`}>
+                                                    <div className="col flex items-center pl-4 w-[85px]">
+                                                        {/* <SvgArrow width={14} height={14} className={styles.SvgArrow} /> */}
+                                                        <IconCoin code={item.$const} />
                                                     </div>
-                                                    <div className={"row w-full flex justify-between pr-5"}>
-                                                        <div>
-                                                            {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                                +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
-                                                            </span>}
+                                                    <div className={"col flex items-center justify-center flex-col"}>
+                                                        <div className="row w-full mb-1"><span
+                                                            className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
+                                                        <div className="row w-full font-mono"><span
+                                                            className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                                         </div>
-                                                        <div className=" text-gray-500 font-mono">
-                                                            {item.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
-                                                                ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
-                                                            </span>}
+                                                        <div className={"row w-full flex justify-between pr-5"}>
+                                                            <div>
+                                                                {!item.lockInBalance ? null : <span className={styles.Income}>
+                                                                    +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                                                </span>}
+                                                            </div>
+                                                            <div className=" text-gray-500 font-mono">
+                                                                {item.userBalanceEUREqu === null ? null : <span className={md?styles.Balance:styles.EuroEqv}>
+                                                                    ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
+                                                                </span>}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className={styles.ArrowMobileSidebar}>
-                                                        <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
+                                                        <div className={styles.ArrowMobileSidebar}>
+                                                            <img src="/img/icon/ArrowMobileSidebar.svg" width={7}  alt="" />   
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        
+                                        </NavLink>)
+                        )}
+                        <Modal
+                            width={450}
+                            open={roomInfoModal.isModalOpen}
+                            onCancel={roomInfoModal.handleCancel}
+                            title={t("invite_link")}
+                        >
+                            <InviteLink roomInfo={selectedRoom} />
+                        </Modal>
+
+                        <Modal
+                            width={450}
+                            open={roomCloseModal.isModalOpen}
+                            onCancel={roomCloseModal.handleCancel}
+                            title='Invite link'
+                        >
+                            <div className="pt-5 text-sm">
+                                Are you sure you want to {selectedRoom ?
+                                    `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
+                                exchange room? All `
+                                    : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
+                                exchange room? Your `}
+                                unclosed orders will be canceled.
+                            </div>
+                            <div className="mt-16 sm:mt-14">
+                                <Button
+                                    size="xl"
+                                    className="w-full"
+                                    onClick={() => {
+                                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                            navigate('/exchange');
+                                        }
+
+                                        apiCloseRoom({
+                                            roomId: selectedRoom.timetick
+                                        }).then(() => {
+                                            removeExchangeRoom(selectedRoom.timetick);
+                                            roomCloseModal.handleCancel();
+                                        }).catch(roomCloseModal.handleCancel);
+                                    }}
+                                >Close private exchange room</Button>
+                            </div>
+                        </Modal>    
+                    </div>
+                </div>
+            : 
+                                            
+                <div className={`${styles.Sidebar} flex flex-col justify-between`}>
+                    
+                    <div className="wrapper">
+                        {/* Account total balance 
+                        <div className={styles.TotalVal}>
+                            <div className="right-0 absolute mr-4 mt-3"><UpdateAmounts /></div>
+                            <div className={`wrapper flex-col ml-4 pt-4 pb-4 flex ${styles.Wrapper}`}>
+                                <div className="row mb-2 flex justify-center">
+                                    <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
+                                </div>
+                                <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
+                                    <span className="text-lg font-bold mr-5">
+                                        ~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €
+                                    </span>
+                                </div>
+                            </div>
+                        </div>*/}
+
+
+                        {/* Wrapper */}
+                        {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
+                        <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
+                            <div className={styles.CardInfo}>
+                                <BankCardsCarousel newCardLink/>
+                            </div>
+                        </div>
+                        {/* fiat-currency wallet */}
+                            <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                                
+                                
+                                <div className={styles.ItemWrapper}>
+                                
+                                    <div className={`${styles.ItemEuro}`}>
+                                        <div className="col flex items-center pl-4">
+                                            {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M24.0396 42C21.739 42 19.5553 41.7042 17.4887 41.1127C15.422 40.4817 13.5308 39.5549 11.8151 38.3324C10.0994 37.1099 8.61761 35.6113 7.36981 33.8366C6.16101 32.062 5.26415 29.9916 4.67924 27.6254H0V22.893H3.91887C3.87987 22.5775 3.86038 22.262 3.86038 21.9465C3.86038 21.631 3.86038 21.3155 3.86038 21C3.86038 20.6451 3.86038 20.3296 3.86038 20.0535C3.86038 19.738 3.87987 19.4028 3.91887 19.0479H0V14.3155H4.67924C5.26415 11.9887 6.16101 9.93803 7.36981 8.16338C8.61761 6.3493 10.0799 4.8507 11.7566 3.6676C13.4723 2.44507 15.3635 1.53803 17.4302 0.946477C19.4969 0.315492 21.7195 0 24.0981 0C25.3459 0 26.5547 0.0788734 27.7245 0.23662C28.9333 0.394365 30.0252 0.630984 31 0.946477V7.33521C30.2591 7.05915 29.4013 6.84225 28.4264 6.68451C27.4906 6.48732 26.4962 6.38873 25.4434 6.38873C23.5717 6.38873 21.817 6.70423 20.1792 7.33521C18.5805 7.92676 17.1962 8.81408 16.0264 9.99718C14.8566 11.1803 13.9403 12.6197 13.2774 14.3155H26.5547V19.0479H12.166C12.127 19.3239 12.1075 19.6394 12.1075 19.9944C12.1075 20.3099 12.1075 20.6254 12.1075 20.9408C12.1075 21.2958 12.1075 21.6507 12.1075 22.0056C12.1075 22.3211 12.127 22.6169 12.166 22.893H26.5547V27.6254H13.2774C13.9403 29.3211 14.8566 30.7606 16.0264 31.9437C17.2352 33.1268 18.639 34.0338 20.2377 34.6648C21.8365 35.2958 23.5717 35.6113 25.4434 35.6113C26.4962 35.6113 27.4906 35.5127 28.4264 35.3155C29.4013 35.1183 30.2591 34.8817 31 34.6056V40.9352C29.9862 41.2507 28.8748 41.507 27.666 41.7042C26.4962 41.9014 25.2874 42 24.0396 42Z" fill="#3A5E66" />
+                                            </svg> */}
+                                            <svg className={styles.Icon} width="50" height="50" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M25.0001 0.379272C38.8071 0.379272 50 11.5722 50 25.3793C50 39.1864 38.8071 50.3793 25.0001 50.3793C11.1929 50.3793 0 39.1864 0 25.3793C0 11.5722 11.1929 0.379272 25.0001 0.379272Z" fill="#3A5E66" />
+                                                <path d="M7.43047 29.5393V26.7393H28.9505V29.5393H7.43047ZM7.43047 24.0193V21.2193H28.9505V24.0193H7.43047ZM26.3905 39.7793C24.2305 39.7793 22.2305 39.4326 20.3905 38.7393C18.5771 38.0193 17.0038 37.0193 15.6705 35.7393C14.3371 34.4326 13.2971 32.8993 12.5505 31.1393C11.8038 29.3793 11.4305 27.4593 11.4305 25.3793C11.4305 23.2993 11.8038 21.3793 12.5505 19.6193C13.2971 17.8593 14.3371 16.3393 15.6705 15.0593C17.0038 13.7526 18.5771 12.7526 20.3905 12.0593C22.2305 11.3393 24.2305 10.9793 26.3905 10.9793C28.6838 10.9793 30.7771 11.3793 32.6705 12.1793C34.5905 12.9526 36.1905 14.1126 37.4705 15.6593L34.1505 18.8193C33.1371 17.7259 32.0038 16.9126 30.7505 16.3793C29.4971 15.8193 28.1371 15.5393 26.6705 15.5393C25.2038 15.5393 23.8571 15.7793 22.6305 16.2593C21.4305 16.7393 20.3771 17.4193 19.4705 18.2993C18.5905 19.1793 17.8971 20.2193 17.3905 21.4193C16.8838 22.6193 16.6305 23.9393 16.6305 25.3793C16.6305 26.8193 16.8838 28.1393 17.3905 29.3393C17.8971 30.5393 18.5905 31.5793 19.4705 32.4593C20.3771 33.3393 21.4305 34.0193 22.6305 34.4993C23.8571 34.9793 25.2038 35.2193 26.6705 35.2193C28.1371 35.2193 29.4971 34.9526 30.7505 34.4193C32.0038 33.8593 33.1371 33.0193 34.1505 31.8993L37.4705 35.0993C36.1905 36.6193 34.5905 37.7793 32.6705 38.5793C30.7771 39.3793 28.6838 39.7793 26.3905 39.7793Z" fill="white" />
+                                            </svg>
+
+
+                                            {/*<img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
+                                                alt="EUR" />*/}
                                         </div>
-                                    
-                                    </NavLink>)
-                    )}
+                                        <div className="col flex items-center flex-col pl-5 pt-2 relative">
+                                            <div className="row w-full">
+                                                <span className={styles.Name}>Euro</span>
+                                            </div>
+                                            <div className="row w-full font-mono">
+                                                <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
+                                            </div>
+                                            <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
+                                        </div>
+                                        <div className={styles.ArrowMobileSidebar}>                                   
+                                        </div> 
+                                    </div>
+                                </div>
+                                
+                                
+                            </NavLink>
+
+                        {/* Crypto wallets wrapper */}
+                        
+                        <div className={styles.AssetInfo1} >
+                            <span>{t("crypto_assets.title").toLowerCase()}</span>
+                        </div>
+
+                        {/* EURG wallet */}
+                        <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
+                            <div className={styles.ItemWrapper}>
+                                <div className={`${styles.Item}`}>
+                                    <div className="col flex items-center pl-4">
+                                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurgIcon.svg`} alt="EURG" />
+                                    </div>
+                                    <div className="col flex items-center justify-center flex-col pl-5">
+                                        <div className="row text-gray-400 w-full mb-1">
+                                            <span className={styles.Name}>Gekkoin euro token</span>
+                                        </div>
+                                        <div className="row w-full font-mono">
+                                            <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
+                                        </div>
+                                        <div className={"row w-full flex justify-between "}>
+                                            <div>
+                                                {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
+                                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                </span>}
+                                            </div>
+                                            <div className=" text-gray-500 font-mono">
+                                                {eurgWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
+                                                    ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                </span>}
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </NavLink>
+
+                        {/* GKE wallet */}
+                        <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
+                            <div className={styles.ItemWrapper}>
+                                <div className={`${styles.Item}`}>
+                                    <div className="col flex items-center pl-4">
+                                        <img width={50} height={50} className={styles.Icon} src={`/img/tokens/GkeIcon.svg`}
+                                            alt="GKE" />
+                                    </div>
+                                    <div className="col flex items-center justify-center flex-col pl-5">
+                                        <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
+                                        </div>
+                                        <div className="row w-full font-mono"><span
+                                            className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
+                                        </div>
+                                        <div className={"row w-full flex justify-between"}>
+                                            <div>
+                                                {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
+                                                    +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                                </span>}
+                                            </div>
+                                            <div className=" text-gray-500 font-mono">
+                                                {gkeWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
+                                                    ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                                </span>}
+                                            </div>    
+                                        </div>
+                                    </div>    
+                                </div>
+                                
+                            </div>
+                        </NavLink>
+
+                        
+
+                        {/* Secondary options wrapper */}
+                        <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
+
+                        {/* User assets collapse */}
+                        {!secondaryWallets.length ? null : (
+                            <NavCollapse header={t("assets")} id={"assets"}>
+                                {helperFilterList(secondaryWallets).map((item, i) =>
+                                    <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
+                                        <div className={`${styles.Item + " " + ParentClassForCoin}`}>
+                                            <div className="col flex items-center pl-4 w-[85px]">
+                                                <SvgArrow width={14} height={14} className={styles.SvgArrow} />
+                                                <IconCoin className={styles.Icon} code={item.$const} />
+                                            </div>
+                                            <div className="col flex items-center justify-center flex-col pl-6">
+                                                <div className="row w-full mb-1"><span
+                                                    className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
+                                                <div className="row w-full font-mono"><span
+                                                    className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                                </div>
+                                                <div className="row w-full flex justify-between">
+                                                    <div>
+                                                        {!item.lockInBalance ? null : <span className={styles.Income}>
+                                                            +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                                        </span>}
+                                                    </div>
+                                                    <div className=" text-gray-500 font-mono">
+                                                        {item.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
+                                                            ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
+                                                        </span>}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </NavLink>)}
+                            </NavCollapse>
+                        )}
+                        
+                        
+                        
+                        <div className={styles.AssetInfo2 + " text-gray-500 font-mono"} >
+                            <span>{t("total_balance")}</span>
+                            <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+                        </div>
+                        {/* Assets link */}
+
+                        <div className={styles.AssetInfo3}>
+                            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
+                                <div className={styles.AssetInfo4}>
+                                    {t("new_asset")}
+                                </div>
+                                {/* <div className={`${styles.Item}`}>
+                                <div className="col flex items-center pl-4">
+                                    <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
+                                        alt="Invest" />
+                                </div>
+                                <div className="col flex items-center justify-center flex-col pl-5">
+                                    <div className="row w-full mb-1 font-medium"><span
+                                        className={styles.NavName}>{t("crypto_assets.title")}</span></div>
+                                </div>
+                            </div> */}
+                            </NavLink>
+                        </div>
+
+                        
+                        {/* Exchange page link */}
+
+                            <NavLink onClick={NavLinkEvent} to={"exchange"}>
+                                <div className={styles.ItemExchange}>
+                                    <div className="absolute self-center place-self-center"><span
+                                        className={styles.NavName}>{t("exchange.title")}</span>
+                                    </div>
+                                    <div className="absolute right-4 self-center">
+                                        {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
+                                            alt="ExchangeIcon" /> */}
+                                        <svg className={styles.Icon} width="34" height="32" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.7642 17.2405V12.2925H30.5781C32.4647 12.2925 34.102 13.3806 34.9206 14.9752C35.5355 14.0862 35.897 13.0017 35.897 11.8309C35.897 8.81559 33.501 6.37121 30.5452 6.37121H12.7643V1.4036C12.7643 0.672213 11.9558 0.2449 11.3702 0.666686L0.374295 8.58511C-0.124765 8.9445 -0.124765 9.69954 0.374295 10.0589L11.3702 17.9774C11.9559 18.3991 12.7642 17.9718 12.7642 17.2405ZM41.6257 29.941L30.6298 22.0226C30.0442 21.6008 29.2358 22.0281 29.2358 22.7595V27.7076H11.422C9.5353 27.7076 7.89798 26.6194 7.07945 25.0249C6.46447 25.9139 6.10305 26.9984 6.10305 28.1691C6.10305 31.1845 8.49908 33.6288 11.4548 33.6288H29.2358V38.5964C29.2358 39.3278 30.0442 39.7551 30.6298 39.3333L41.6257 31.4149C42.1248 31.0554 42.1248 30.3004 41.6257 29.941Z" fill="#3A5E66" />
+                                        </svg>
+
+                                    </div>
+                                </div>
+                            </NavLink>
+
+                        
+                        {/* Private exchange rooms collapse */}
+                        {!(privateRooms && privateRooms.length) ? null :
+                            <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
+                                {privateRooms.map((item, i) => (
+                                    <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`} key={item.timetick}>
+                                        <div className={styles.Item}>
+                                            <div className="col flex items-center pl-4 w-[85px]">
+                                                <SvgArrow
+                                                    width={14}
+                                                    height={14}
+                                                    className={styles.SvgArrow}
+                                                />
+                                                <img
+                                                    width={50}
+                                                    height={50}
+                                                    className={styles.Icon}
+                                                    src={`/img/icon/PrivateExchangeShield.svg`}
+                                                    alt="ExchangeIcon"
+                                                />
+                                            </div>
+                                            <div className="col flex items-center justify-center flex-col pl-6">
+                                                <div className="flex w-full row mb-1 justify-between">
+                                                    <div className={styles.RoomName}>
+                                                        {!xxxl
+                                                            ? `${item.currency1} - ${item.currency2}`
+                                                            : `${item.currency1} - ${item.currency2}`
+                                                        }
+                                                    </div>
+
+                                                    <div
+                                                        className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            setSelectedRoom(item);
+                                                            roomCloseModal.showModal();
+                                                        }}
+                                                    >
+                                                        <IconClose fill="inherit" size={16} />
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex row w-full mb-1 justify-between"><span className={`text-gray-500 text-xs`}>
+                                                    {!xxxl ? t("number_of_participants") : t("participants")}
+                                                </span>
+                                                    <span className='mr-[17px] text-gray-500 text-xs font-semibold'>{item.count}</span>
+                                                </div>
+
+                                                {!item.room_code ? null : (
+                                                    <div className="flex row w-full justify-between"><span
+                                                        className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            setSelectedRoom(item);
+                                                            roomInfoModal.showModal();
+                                                        }}
+                                                    >
+                                                        {t("invite_link")}
+                                                    </span>
+
+                                                        <div
+                                                            className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setSelectedRoom(item);
+                                                                roomInfoModal.showModal();
+                                                            }}
+                                                        >
+                                                            <IconParticipant fill="inherit" />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </NavLink>
+                                ))}
+                            </NavCollapse>
+                        }
+                        
+                        {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
+                        {/*    <div className={`${styles.Item}`}>*/}
+                        {/*        <div className="col flex items-center pl-4">*/}
+                        {/*            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}*/}
+                        {/*                 alt="NewDepositIcon"/>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="col flex items-center justify-center flex-col pl-6">*/}
+                        {/*            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</NavLink>*/}
+                        {/*{!(investments && investments.length) ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>*/}
+                        {/*    {investments.map((item, i) =>*/}
+                        {/*        <NavLink onClick={NavLinkEvent} to={`/deposit/${item.id}`} key={item.id}>*/}
+                        {/*            <div className={`${styles.Item + " " + ParentClassForCoin}`}>*/}
+                        {/*                <div className="col flex items-center pl-4 w-[85px]">*/}
+                        {/*                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>*/}
+                        {/*                    <img alt={"DepositIcon.svg"} className={styles.Icon}*/}
+                        {/*                         src={"/img/icon/DepositIcon.svg"}/>*/}
+                        {/*                </div>*/}
+                        {/*                <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">*/}
+                        {/*                    <div className="row w-full mb-1"><span*/}
+                        {/*                        className={`${styles.Name} text-gray-400 text-xs`}>*/}
+                        {/*                            {item.dep_type === 1 ? 'Fixed rate' : 'Structured'} deposit, until {formatDate(new Date(item.date_end))}*/}
+                        {/*                        </span>*/}
+                        {/*                    </div>*/}
+                        {/*                    <div className="row w-full"><span*/}
+                        {/*                        className={styles.Sum}>{item.amount} €</span>*/}
+                        {/*                    </div>*/}
+                        {/*                    <div className="row w-full ellipsis ellipsis-c-none">*/}
+                        {/*                        <span className="text-gray-400 text-xs">{getDepositTitle(item.dep_type)}</span>*/}
+                        {/*                    </div>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        </NavLink>)}*/}
+                        {/*</NavCollapse>}*/}
+
+                        
+                    </div>
+                    
+                    
+                    {(!md) && <Footer textAlight={"text-left"} />}
+
                     <Modal
                         width={450}
                         open={roomInfoModal.isModalOpen}
@@ -333,468 +721,10 @@ const SidebarDesktop = () => {
                                 }}
                             >Close private exchange room</Button>
                         </div>
-                    </Modal>    
-                    {/* {(!!homePage || !!transfersPage || !!exchangePage || !!historyPage) &&
-                        <div className={styles.BottomMobile}>
-                            {!(!!transfersPage || !!exchangePage || !!historyPage)&&
-                                <div>
-                                    <div className={styles.AssetInfo2} >
-                                        <span>{t("total_balance")}</span>
-                                        <div className={styles.AssetInfo3}>
-                                            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                                                <div className={styles.NewAsset}>
-                                                    <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
-                                                </div>
-                                            </NavLink>
-                                        </div>
-                                        <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
-                                    </div>
-                                    
-                                </div>
-                            }
-                                <div className={styles.BottomMenuMobile}>
-                                    <NavLink to={"/"}>
-                                        <div className={styles.BottomMenuMobileButtons}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M14.8333 17.5C15.7668 17.5 16.2335 17.5 16.59 17.3183C16.9036 17.1586 17.1586 16.9036 17.3183 16.59C17.5 16.2335 17.5 15.7668 17.5 14.8333V9.33333C17.5 8.39991 17.5 7.9332 17.3183 7.57668C17.1586 7.26308 16.9036 7.00811 16.59 6.84832C16.2335 6.66667 15.7668 6.66667 14.8333 6.66667L5.16667 6.66667C4.23325 6.66667 3.76654 6.66667 3.41002 6.84832C3.09641 7.00811 2.84144 7.26308 2.68166 7.57668C2.5 7.9332 2.5 8.39991 2.5 9.33333L2.5 14.8333C2.5 15.7668 2.5 16.2335 2.68166 16.59C2.84144 16.9036 3.09641 17.1586 3.41002 17.3183C3.76654 17.5 4.23325 17.5 5.16667 17.5H14.8333Z" fill={!!homePage && "#3A5E66"}/>
-                                                <path d="M2.5 12.5V8.37289C2.5 7.75473 2.5 7.44566 2.59625 7.17486C2.68135 6.93546 2.82005 6.71868 3.00175 6.5411C3.20729 6.34022 3.48792 6.2107 4.04918 5.95166M2.5 9.33333L2.5 14.8333C2.5 15.7668 2.5 16.2335 2.68166 16.59C2.84144 16.9036 3.09641 17.1586 3.41002 17.3183C3.76654 17.5 4.23325 17.5 5.16667 17.5H14.8333C15.7668 17.5 16.2335 17.5 16.59 17.3183C16.9036 17.1586 17.1586 16.9036 17.3183 16.59C17.5 16.2335 17.5 15.7668 17.5 14.8333V9.33333C17.5 8.39991 17.5 7.9332 17.3183 7.57668C17.1586 7.26308 16.9036 7.00811 16.59 6.84832C16.2335 6.66667 15.7668 6.66667 14.8333 6.66667L5.16667 6.66667C4.23325 6.66667 3.76654 6.66667 3.41002 6.84832C3.09641 7.00811 2.84144 7.26308 2.68166 7.57668C2.5 7.9332 2.5 8.39991 2.5 9.33333Z" stroke={!!homePage && "#F7F7F0"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M13.3333 6.66666V3.75054C13.3333 3.05742 13.3333 2.71087 13.1873 2.49789C13.0598 2.31181 12.8622 2.18541 12.6398 2.14756C12.3852 2.10424 12.0706 2.24947 11.4413 2.53993L4.04918 5.95165C3.48792 6.2107 3.20729 6.34022 3.00175 6.54109C2.82005 6.71868 2.68135 6.93545 2.59625 7.17485C2.5 7.44565 2.5 7.75473 2.5 8.37288V12.5M13.75 12.0833H13.7583M2.5 9.33333L2.5 14.8333C2.5 15.7667 2.5 16.2335 2.68166 16.59C2.84144 16.9036 3.09641 17.1585 3.41002 17.3183C3.76654 17.5 4.23325 17.5 5.16667 17.5H14.8333C15.7668 17.5 16.2335 17.5 16.59 17.3183C16.9036 17.1585 17.1586 16.9036 17.3183 16.59C17.5 16.2335 17.5 15.7667 17.5 14.8333V9.33333C17.5 8.39991 17.5 7.9332 17.3183 7.57668C17.1586 7.26307 16.9036 7.00811 16.59 6.84832C16.2335 6.66666 15.7668 6.66666 14.8333 6.66666L5.16667 6.66666C4.23325 6.66666 3.76654 6.66666 3.41002 6.84832C3.09641 7.00811 2.84144 7.26307 2.68166 7.57668C2.5 7.9332 2.5 8.39991 2.5 9.33333ZM14.1667 12.0833C14.1667 12.3134 13.9801 12.5 13.75 12.5C13.5199 12.5 13.3333 12.3134 13.3333 12.0833C13.3333 11.8532 13.5199 11.6667 13.75 11.6667C13.9801 11.6667 14.1667 11.8532 14.1667 12.0833Z" stroke={!!homePage ? "#3A5E66" : "#9D9D9D"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M13.75 12.0833H13.7583M14.1666 12.0833C14.1666 12.3134 13.9801 12.5 13.75 12.5C13.5199 12.5 13.3333 12.3134 13.3333 12.0833C13.3333 11.8532 13.5199 11.6666 13.75 11.6666C13.9801 11.6666 14.1666 11.8532 14.1666 12.0833Z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            <span>Funds</span>
-                                        </div>
-                                    </NavLink>
-                                    
-                                    <div className={styles.BottomMenuMobileButtons}>
-                                        <svg className={styles.BottomMenuMobileButtonsIcons} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                            <g clip-path="url(#clip0_568_127)">
-                                                <path d="M8.74958 11.25L17.4996 2.50004M8.8559 11.5234L11.046 17.1551C11.2389 17.6512 11.3354 17.8993 11.4744 17.9717C11.5949 18.0345 11.7384 18.0346 11.859 17.9719C11.9981 17.8997 12.0949 17.6517 12.2884 17.1558L17.7803 3.0827C17.955 2.63505 18.0424 2.41123 17.9946 2.2682C17.9531 2.144 17.8556 2.04652 17.7314 2.00503C17.5884 1.95725 17.3646 2.0446 16.9169 2.21929L2.84379 7.71124C2.3479 7.90476 2.09995 8.00152 2.02769 8.14061C1.96505 8.26118 1.96514 8.40472 2.02792 8.52522C2.10034 8.66422 2.3484 8.76069 2.84452 8.95363L8.47619 11.1437C8.5769 11.1829 8.62725 11.2025 8.66965 11.2327C8.70724 11.2595 8.7401 11.2924 8.76691 11.33C8.79715 11.3724 8.81673 11.4227 8.8559 11.5234Z" stroke={!!transfersPage ? "#3A5E66" : "#9D9D9D"} fill={!!transfersPage ? "#3A5E66" : "none"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_568_127">
-                                                <rect width="20" height="20" fill="white"/>
-                                                </clipPath>
-                                            </defs>
-                                        </svg>                           
-                                        <span>Transfers</span>
-                                    </div>
-                                    <NavLink to={"exchange"}>
-                                        <div className={styles.BottomMenuMobileButtons}>
-                                            <svg className={styles.BottomMenuMobileButtonsIcons} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                <path d="M1.66669 8.33333C1.66669 8.33333 1.76779 7.62563 4.69672 4.6967C7.62565 1.76777 12.3744 1.76777 15.3033 4.6967C16.341 5.73443 17.0111 7.0006 17.3135 8.33333M1.66669 8.33333V3.33333M1.66669 8.33333H6.66669M18.3334 11.6667C18.3334 11.6667 18.2323 12.3744 15.3033 15.3033C12.3744 18.2322 7.62565 18.2322 4.69672 15.3033C3.65899 14.2656 2.98893 12.9994 2.68654 11.6667M18.3334 11.6667V16.6667M18.3334 11.6667H13.3334" stroke={!!exchangePage ? "#3A5E66" : "#9D9D9D"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            <span>Exchange</span>
-                                        </div>
-                                    </NavLink>
-                                    
-                                    <div className={styles.BottomMenuMobileButtons}>
-                                        <svg className={styles.BottomMenuMobileButtonsIcons} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                            <path d="M11.6666 9.16667H6.66665M8.33331 12.5H6.66665M13.3333 5.83334H6.66665M16.6666 5.66667V14.3333C16.6666 15.7335 16.6666 16.4335 16.3942 16.9683C16.1545 17.4387 15.772 17.8212 15.3016 18.0609C14.7668 18.3333 14.0668 18.3333 12.6666 18.3333H7.33331C5.93318 18.3333 5.23312 18.3333 4.69834 18.0609C4.22793 17.8212 3.84548 17.4387 3.6058 16.9683C3.33331 16.4335 3.33331 15.7335 3.33331 14.3333V5.66667C3.33331 4.26654 3.33331 3.56647 3.6058 3.0317C3.84548 2.56129 4.22793 2.17884 4.69834 1.93916C5.23312 1.66667 5.93318 1.66667 7.33331 1.66667H12.6666C14.0668 1.66667 14.7668 1.66667 15.3016 1.93916C15.772 2.17884 16.1545 2.56129 16.3942 3.0317C16.6666 3.56647 16.6666 4.26654 16.6666 5.66667Z" stroke="#9D9D9D" fill={!!historyPage ? "#3A5E66" : "none"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>  
-                                        <span>History</span>
-                                    </div>
-
-                                </div>
-                            
-                        </div>    
-                    }                 */}
-                </div>
-            </div>
-        </>
-              
-
-        )
-    }else{
-
-    
-    return <div className={`${styles.Sidebar} flex flex-col justify-between`}>
-         
-        <div className="wrapper">
-            {/* Account total balance 
-            <div className={styles.TotalVal}>
-                <div className="right-0 absolute mr-4 mt-3"><UpdateAmounts /></div>
-                <div className={`wrapper flex-col ml-4 pt-4 pb-4 flex ${styles.Wrapper}`}>
-                    <div className="row mb-2 flex justify-center">
-                        <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
-                    </div>
-                    <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
-                        <span className="text-lg font-bold mr-5">
-                            ~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €
-                        </span>
-                    </div>
-                </div>
-            </div>*/}
-
-
-            {/* Wrapper */}
-            {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
-            <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
-                <div className={styles.CardInfo}>
-                    <BankCardsCarousel newCardLink/>
-                </div>
-            </div>
-            {/* fiat-currency wallet */}
-                <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
-                    
-                    
-                    <div className={styles.ItemWrapper}>
-                    
-                        <div className={`${styles.ItemEuro}`}>
-                            <div className="col flex items-center pl-4">
-                                {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M24.0396 42C21.739 42 19.5553 41.7042 17.4887 41.1127C15.422 40.4817 13.5308 39.5549 11.8151 38.3324C10.0994 37.1099 8.61761 35.6113 7.36981 33.8366C6.16101 32.062 5.26415 29.9916 4.67924 27.6254H0V22.893H3.91887C3.87987 22.5775 3.86038 22.262 3.86038 21.9465C3.86038 21.631 3.86038 21.3155 3.86038 21C3.86038 20.6451 3.86038 20.3296 3.86038 20.0535C3.86038 19.738 3.87987 19.4028 3.91887 19.0479H0V14.3155H4.67924C5.26415 11.9887 6.16101 9.93803 7.36981 8.16338C8.61761 6.3493 10.0799 4.8507 11.7566 3.6676C13.4723 2.44507 15.3635 1.53803 17.4302 0.946477C19.4969 0.315492 21.7195 0 24.0981 0C25.3459 0 26.5547 0.0788734 27.7245 0.23662C28.9333 0.394365 30.0252 0.630984 31 0.946477V7.33521C30.2591 7.05915 29.4013 6.84225 28.4264 6.68451C27.4906 6.48732 26.4962 6.38873 25.4434 6.38873C23.5717 6.38873 21.817 6.70423 20.1792 7.33521C18.5805 7.92676 17.1962 8.81408 16.0264 9.99718C14.8566 11.1803 13.9403 12.6197 13.2774 14.3155H26.5547V19.0479H12.166C12.127 19.3239 12.1075 19.6394 12.1075 19.9944C12.1075 20.3099 12.1075 20.6254 12.1075 20.9408C12.1075 21.2958 12.1075 21.6507 12.1075 22.0056C12.1075 22.3211 12.127 22.6169 12.166 22.893H26.5547V27.6254H13.2774C13.9403 29.3211 14.8566 30.7606 16.0264 31.9437C17.2352 33.1268 18.639 34.0338 20.2377 34.6648C21.8365 35.2958 23.5717 35.6113 25.4434 35.6113C26.4962 35.6113 27.4906 35.5127 28.4264 35.3155C29.4013 35.1183 30.2591 34.8817 31 34.6056V40.9352C29.9862 41.2507 28.8748 41.507 27.666 41.7042C26.4962 41.9014 25.2874 42 24.0396 42Z" fill="#3A5E66" />
-                                </svg> */}
-                                <svg className={styles.Icon} width="50" height="50" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M25.0001 0.379272C38.8071 0.379272 50 11.5722 50 25.3793C50 39.1864 38.8071 50.3793 25.0001 50.3793C11.1929 50.3793 0 39.1864 0 25.3793C0 11.5722 11.1929 0.379272 25.0001 0.379272Z" fill="#3A5E66" />
-                                    <path d="M7.43047 29.5393V26.7393H28.9505V29.5393H7.43047ZM7.43047 24.0193V21.2193H28.9505V24.0193H7.43047ZM26.3905 39.7793C24.2305 39.7793 22.2305 39.4326 20.3905 38.7393C18.5771 38.0193 17.0038 37.0193 15.6705 35.7393C14.3371 34.4326 13.2971 32.8993 12.5505 31.1393C11.8038 29.3793 11.4305 27.4593 11.4305 25.3793C11.4305 23.2993 11.8038 21.3793 12.5505 19.6193C13.2971 17.8593 14.3371 16.3393 15.6705 15.0593C17.0038 13.7526 18.5771 12.7526 20.3905 12.0593C22.2305 11.3393 24.2305 10.9793 26.3905 10.9793C28.6838 10.9793 30.7771 11.3793 32.6705 12.1793C34.5905 12.9526 36.1905 14.1126 37.4705 15.6593L34.1505 18.8193C33.1371 17.7259 32.0038 16.9126 30.7505 16.3793C29.4971 15.8193 28.1371 15.5393 26.6705 15.5393C25.2038 15.5393 23.8571 15.7793 22.6305 16.2593C21.4305 16.7393 20.3771 17.4193 19.4705 18.2993C18.5905 19.1793 17.8971 20.2193 17.3905 21.4193C16.8838 22.6193 16.6305 23.9393 16.6305 25.3793C16.6305 26.8193 16.8838 28.1393 17.3905 29.3393C17.8971 30.5393 18.5905 31.5793 19.4705 32.4593C20.3771 33.3393 21.4305 34.0193 22.6305 34.4993C23.8571 34.9793 25.2038 35.2193 26.6705 35.2193C28.1371 35.2193 29.4971 34.9526 30.7505 34.4193C32.0038 33.8593 33.1371 33.0193 34.1505 31.8993L37.4705 35.0993C36.1905 36.6193 34.5905 37.7793 32.6705 38.5793C30.7771 39.3793 28.6838 39.7793 26.3905 39.7793Z" fill="white" />
-                                </svg>
-
-
-                                {/*<img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurIcon.svg`}
-                                    alt="EUR" />*/}
-                            </div>
-                            <div className="col flex items-center flex-col pl-5 pt-2 relative">
-                                <div className="row w-full">
-                                    <span className={styles.Name}>Euro</span>
-                                </div>
-                                <div className="row w-full font-mono">
-                                    <span className={styles.Sum}>{toLocaleFiatRounding(eurWallet.availableBalance?.toNumber()) ?? '-'} €</span>
-                                </div>
-                                <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
-                            </div>
-                            <div className={styles.ArrowMobileSidebar}>                                   
-                            </div> 
-                        </div>
-                    </div>
-                    
-                    
-                </NavLink>
-
-            {/* Crypto wallets wrapper */}
-            
-            <div className={styles.AssetInfo1} >
-                <span>{t("crypto_assets.title").toLowerCase()}</span>
-            </div>
-
-            {/* EURG wallet */}
-            <NavLink onClick={NavLinkEvent} to={"wallet/EURG"}>
-                <div className={styles.ItemWrapper}>
-                    <div className={`${styles.Item}`}>
-                        <div className="col flex items-center pl-4">
-                            <img width={50} height={50} className={styles.Icon} src={`/img/tokens/EurgIcon.svg`} alt="EURG" />
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-5">
-                            <div className="row text-gray-400 w-full mb-1">
-                                <span className={styles.Name}>Gekkoin euro token</span>
-                            </div>
-                            <div className="row w-full font-mono">
-                                <span className={styles.Sum}>{toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber()) ?? '-'} EURG</span>
-                            </div>
-                            <div className={"row w-full flex justify-between "}>
-                                <div>
-                                    {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                        +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
-                                    </span>}
-                                </div>
-                                <div className=" text-gray-500 font-mono">
-                                    {eurgWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
-                                        ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
-                                    </span>}
-                                </div>
-                                 
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-            </NavLink>
-
-            {/* GKE wallet */}
-            <NavLink onClick={NavLinkEvent} to={"wallet/GKE"}>
-                <div className={styles.ItemWrapper}>
-                    <div className={`${styles.Item}`}>
-                        <div className="col flex items-center pl-4">
-                            <img width={50} height={50} className={styles.Icon} src={`/img/tokens/GkeIcon.svg`}
-                                alt="GKE" />
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-5">
-                            <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
-                            </div>
-                            <div className="row w-full font-mono"><span
-                                className={styles.Sum}>{toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec) ?? '-'} GKE</span>
-                            </div>
-                            <div className={"row w-full flex justify-between"}>
-                                <div>
-                                    {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                        +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
-                                    </span>}
-                                </div>
-                                <div className=" text-gray-500 font-mono">
-                                    {gkeWallet.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
-                                        ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
-                                    </span>}
-                                </div>    
-                            </div>
-                        </div>    
-                    </div>
+                    </Modal>   
                     
                 </div>
-            </NavLink>
-
-            
-
-            {/* Secondary options wrapper */}
-            <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-
-            {/* User assets collapse */}
-            {!secondaryWallets.length ? null : (
-                <NavCollapse header={t("assets")} id={"assets"}>
-                    {helperFilterList(secondaryWallets).map((item, i) =>
-                        <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
-                            <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                                <div className="col flex items-center pl-4 w-[85px]">
-                                    <SvgArrow width={14} height={14} className={styles.SvgArrow} />
-                                    <IconCoin className={styles.Icon} code={item.$const} />
-                                </div>
-                                <div className="col flex items-center justify-center flex-col pl-6">
-                                    <div className="row w-full mb-1"><span
-                                        className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span></div>
-                                    <div className="row w-full font-mono"><span
-                                        className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
-                                    </div>
-                                    <div className="row w-full flex justify-between">
-                                        <div>
-                                            {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
-                                            </span>}
-                                        </div>
-                                        <div className=" text-gray-500 font-mono">
-                                            {item.userBalanceEUREqu === null ? null : <span className={styles.EuroEqv}>
-                                                ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
-                                            </span>}
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </NavLink>)}
-                </NavCollapse>
-            )}
-            
-            
-            
-            <div className={styles.AssetInfo2 + " text-gray-500 font-mono"} >
-                <span>{t("total_balance")}</span>
-                <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
-            </div>
-            {/* Assets link */}
-
-            <div className={styles.AssetInfo3}>
-                <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                    <div className={styles.AssetInfo4}>
-                        {t("new_asset")}
-                    </div>
-                    {/* <div className={`${styles.Item}`}>
-                    <div className="col flex items-center pl-4">
-                        <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
-                            alt="Invest" />
-                    </div>
-                    <div className="col flex items-center justify-center flex-col pl-5">
-                        <div className="row w-full mb-1 font-medium"><span
-                            className={styles.NavName}>{t("crypto_assets.title")}</span></div>
-                    </div>
-                </div> */}
-                </NavLink>
-            </div>
-
-            
-            {/* Exchange page link */}
-
-                <NavLink onClick={NavLinkEvent} to={"exchange"}>
-                    <div className={styles.ItemExchange}>
-                        <div className="absolute self-center place-self-center"><span
-                            className={styles.NavName}>{t("exchange.title")}</span>
-                        </div>
-                        <div className="absolute right-4 self-center">
-                            {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
-                                alt="ExchangeIcon" /> */}
-                            <svg className={styles.Icon} width="34" height="32" viewBox="0 0 42 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.7642 17.2405V12.2925H30.5781C32.4647 12.2925 34.102 13.3806 34.9206 14.9752C35.5355 14.0862 35.897 13.0017 35.897 11.8309C35.897 8.81559 33.501 6.37121 30.5452 6.37121H12.7643V1.4036C12.7643 0.672213 11.9558 0.2449 11.3702 0.666686L0.374295 8.58511C-0.124765 8.9445 -0.124765 9.69954 0.374295 10.0589L11.3702 17.9774C11.9559 18.3991 12.7642 17.9718 12.7642 17.2405ZM41.6257 29.941L30.6298 22.0226C30.0442 21.6008 29.2358 22.0281 29.2358 22.7595V27.7076H11.422C9.5353 27.7076 7.89798 26.6194 7.07945 25.0249C6.46447 25.9139 6.10305 26.9984 6.10305 28.1691C6.10305 31.1845 8.49908 33.6288 11.4548 33.6288H29.2358V38.5964C29.2358 39.3278 30.0442 39.7551 30.6298 39.3333L41.6257 31.4149C42.1248 31.0554 42.1248 30.3004 41.6257 29.941Z" fill="#3A5E66" />
-                            </svg>
-
-                        </div>
-                    </div>
-                </NavLink>
-
-            
-            {/* Private exchange rooms collapse */}
-            {!(privateRooms && privateRooms.length) ? null :
-                <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
-                    {privateRooms.map((item, i) => (
-                        <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`} key={item.timetick}>
-                            <div className={styles.Item}>
-                                <div className="col flex items-center pl-4 w-[85px]">
-                                    <SvgArrow
-                                        width={14}
-                                        height={14}
-                                        className={styles.SvgArrow}
-                                    />
-                                    <img
-                                        width={50}
-                                        height={50}
-                                        className={styles.Icon}
-                                        src={`/img/icon/PrivateExchangeShield.svg`}
-                                        alt="ExchangeIcon"
-                                    />
-                                </div>
-                                <div className="col flex items-center justify-center flex-col pl-6">
-                                    <div className="flex w-full row mb-1 justify-between">
-                                        <div className={styles.RoomName}>
-                                            {!xxxl
-                                                ? `${item.currency1} - ${item.currency2}`
-                                                : `${item.currency1} - ${item.currency2}`
-                                            }
-                                        </div>
-
-                                        <div
-                                            className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                setSelectedRoom(item);
-                                                roomCloseModal.showModal();
-                                            }}
-                                        >
-                                            <IconClose fill="inherit" size={16} />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex row w-full mb-1 justify-between"><span className={`text-gray-500 text-xs`}>
-                                        {!xxxl ? t("number_of_participants") : t("participants")}
-                                    </span>
-                                        <span className='mr-[17px] text-gray-500 text-xs font-semibold'>{item.count}</span>
-                                    </div>
-
-                                    {!item.room_code ? null : (
-                                        <div className="flex row w-full justify-between"><span
-                                            className={`underline text-gray-500 text-xs hover:text-blue-300`}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                setSelectedRoom(item);
-                                                roomInfoModal.showModal();
-                                            }}
-                                        >
-                                            {t("invite_link")}
-                                        </span>
-
-                                            <div
-                                                className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setSelectedRoom(item);
-                                                    roomInfoModal.showModal();
-                                                }}
-                                            >
-                                                <IconParticipant fill="inherit" />
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </NavLink>
-                    ))}
-                </NavCollapse>
-            }
-            
-            {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
-            {/*    <div className={`${styles.Item}`}>*/}
-            {/*        <div className="col flex items-center pl-4">*/}
-            {/*            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}*/}
-            {/*                 alt="NewDepositIcon"/>*/}
-            {/*        </div>*/}
-            {/*        <div className="col flex items-center justify-center flex-col pl-6">*/}
-            {/*            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</NavLink>*/}
-            {/*{!(investments && investments.length) ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>*/}
-            {/*    {investments.map((item, i) =>*/}
-            {/*        <NavLink onClick={NavLinkEvent} to={`/deposit/${item.id}`} key={item.id}>*/}
-            {/*            <div className={`${styles.Item + " " + ParentClassForCoin}`}>*/}
-            {/*                <div className="col flex items-center pl-4 w-[85px]">*/}
-            {/*                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>*/}
-            {/*                    <img alt={"DepositIcon.svg"} className={styles.Icon}*/}
-            {/*                         src={"/img/icon/DepositIcon.svg"}/>*/}
-            {/*                </div>*/}
-            {/*                <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">*/}
-            {/*                    <div className="row w-full mb-1"><span*/}
-            {/*                        className={`${styles.Name} text-gray-400 text-xs`}>*/}
-            {/*                            {item.dep_type === 1 ? 'Fixed rate' : 'Structured'} deposit, until {formatDate(new Date(item.date_end))}*/}
-            {/*                        </span>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="row w-full"><span*/}
-            {/*                        className={styles.Sum}>{item.amount} €</span>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="row w-full ellipsis ellipsis-c-none">*/}
-            {/*                        <span className="text-gray-400 text-xs">{getDepositTitle(item.dep_type)}</span>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </NavLink>)}*/}
-            {/*</NavCollapse>}*/}
-
-            
-        </div>
-        
-        
-        {(!md) && <Footer textAlight={"text-left"} />}
-
-        <Modal
-            width={450}
-            open={roomInfoModal.isModalOpen}
-            onCancel={roomInfoModal.handleCancel}
-            title={t("invite_link")}
-        >
-            <InviteLink roomInfo={selectedRoom} />
-        </Modal>
-
-        <Modal
-            width={450}
-            open={roomCloseModal.isModalOpen}
-            onCancel={roomCloseModal.handleCancel}
-            title='Invite link'
-        >
-            <div className="pt-5 text-sm">
-                Are you sure you want to {selectedRoom ?
-                    `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                exchange room? All `
-                    : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                exchange room? Your `}
-                unclosed orders will be canceled.
-            </div>
-            <div className="mt-16 sm:mt-14">
-                <Button
-                    size="xl"
-                    className="w-full"
-                    onClick={() => {
-                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
-                            navigate('/exchange');
-                        }
-
-                        apiCloseRoom({
-                            roomId: selectedRoom.timetick
-                        }).then(() => {
-                            removeExchangeRoom(selectedRoom.timetick);
-                            roomCloseModal.handleCancel();
-                        }).catch(roomCloseModal.handleCancel);
-                    }}
-                >Close private exchange room</Button>
-            </div>
-        </Modal>   
-        
-    </div>; 
-    }
+    )
 }
 
 export default SidebarDesktop;

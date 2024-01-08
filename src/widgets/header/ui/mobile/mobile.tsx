@@ -26,7 +26,7 @@ const HeaderMobile = ({items, actions}) => {
             {/* </div> */}
             
             {/* <div className="wrapper flex flex-row flex-nowrap"> */}
-                <HeaderMenu items={items} actions={actions} mobile={true} className="pl-5">
+                <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {/* <div className="wrapper flex justify-end"> */}
                             {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :

@@ -19,5 +19,4 @@ export interface TPropsHeaderMenu {
     className?: string,
     items: THeaderMenuList,
     actions?: TOnActionParams,
-    mobile:boolean
 }

@@ -68,66 +68,67 @@ export default memo(function () {
             account: accounts.find(a => a.number === number)
         }));
     }
-    if(md){
+    
+    return(
+        md?
 
-        return <CtxRootData.Provider value={{
-            account,
-            setAccount: setAccount,
-            setRefresh: setRefresh,
-            refreshKey
-        }}>
-            {!account ? <Loader/> : (<>
-                <CurrenciesProvider>
-                    {isNewLayout ? <>
-                        <Outlet/> 
-                    </> : <>
-                    
-                    <Header/>
-    
-                    <Main>
-                        {isHomePage && <Sidebar/>}
-    
-                        {!isHomePage &&
+            <CtxRootData.Provider value={{
+                account,
+                setAccount: setAccount,
+                setRefresh: setRefresh,
+                refreshKey
+            }}>
+                {!account ? <Loader/> : (<>
+                    <CurrenciesProvider>
+                        {isNewLayout ? <>
+                            <Outlet/> 
+                        </> : <>
+                        
+                        <Header/>
+        
+                        <Main>
+                            {isHomePage && <Sidebar/>}
+        
+                            {!isHomePage &&
+                                <Content>
+                                    <Outlet/>
+                                </Content>
+                            }
+                            <BottomMenu/>
+                        </Main>
+                        </>}
+                    </CurrenciesProvider>
+                </>)
+                }
+            </CtxRootData.Provider>
+
+        :
+
+            <CtxRootData.Provider value={{
+                account,
+                setAccount: setAccount,
+                setRefresh: setRefresh,
+                refreshKey
+            }}>
+                {!account ? <Loader/> : (<>
+                    <CurrenciesProvider>
+                        {isNewLayout ? <>
+                            <Outlet/> 
+                        </> : <>
+                        
+                        <Header/>
+
+                        <Main>
+                            <Sidebar/>
+
                             <Content>
                                 <Outlet/>
                             </Content>
-                        }
-                        <BottomMenu/>
-                    </Main>
-                    </>}
-                </CurrenciesProvider>
-            </>)
-            }
-        </CtxRootData.Provider>
-
-    }else{
-
-        return <CtxRootData.Provider value={{
-            account,
-            setAccount: setAccount,
-            setRefresh: setRefresh,
-            refreshKey
-        }}>
-            {!account ? <Loader/> : (<>
-                <CurrenciesProvider>
-                    {isNewLayout ? <>
-                        <Outlet/> 
-                    </> : <>
-                    
-                    <Header/>
-
-                    <Main>
-                        <Sidebar/>
-
-                        <Content>
-                            <Outlet/>
-                        </Content>
-                    </Main>
-                    </>}
-                </CurrenciesProvider>
-            </>)
-            }
-        </CtxRootData.Provider>
-
-    }
+                        </Main>
+                        </>}
+                    </CurrenciesProvider>
+                </>)
+                }
+            </CtxRootData.Provider>
+    )
 });

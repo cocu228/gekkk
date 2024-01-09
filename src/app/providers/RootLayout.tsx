@@ -4,19 +4,24 @@ import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
 import $axios from "@/shared/lib/(cs)axios";
-import {useLocation} from 'react-router-dom';
-import {memo, useEffect, useState} from 'react';
+import {useLocation, useMatch} from 'react-router-dom';
+import {memo, useContext, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
+import { BottomMenu } from '@/widgets/bottom-mobile/ui/BottomMenu';
+import { BreakpointsContext } from './BreakpointsProvider';
 
 export default memo(function () {
-
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
+    const { md } = useContext(BreakpointsContext);
+    const homePage = useMatch("/")
+    const dashboardPage = useMatch("")
+    const isHomePage = !!homePage || !!dashboardPage
     const [{
         account,
         refreshKey,
@@ -28,6 +33,7 @@ export default memo(function () {
 
     const {accounts, getAccounts} = storeAccounts(state => state);
 
+
     useEffect(() => {
         (async () => {
             await getAccounts();
@@ -36,9 +42,9 @@ export default memo(function () {
 
     useEffect(() => {
         if (accounts && !account) {
-            const cookieData = getCookieData<{ accountId?: string }>();
+            const cookieData = getCookieData<{accountId?: string}>();
             const activeAccount = accounts.find(a => a.current);
-
+            
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId
                 : activeAccount.number
@@ -63,29 +69,66 @@ export default memo(function () {
         }));
     }
 
-    return <CtxRootData.Provider value={{
-        account,
-        setAccount: setAccount,
-        setRefresh: setRefresh,
-        refreshKey
-    }}>
-        {(<>
-            <CurrenciesProvider>
-                {isNewLayout ? <>
-                    <Outlet/>
-                </> : <>
+    return(
+        md?
 
-                    <Header/>
-
-                    <Main>
-                        <Sidebar/>
-
-                        <Content>
+            <CtxRootData.Provider value={{
+                account,
+                setAccount: setAccount,
+                setRefresh: setRefresh,
+                refreshKey
+            }}>
+                {!account ? <Loader/> : (<>
+                    <CurrenciesProvider>
+                        {isNewLayout ? <>
                             <Outlet/>
-                        </Content>
-                    </Main>
-                </>}
-            </CurrenciesProvider>
-        </>)}
-    </CtxRootData.Provider>
+                        </> : <>
+
+                        <Header/>
+
+                        <Main>
+                            {isHomePage && <Sidebar/>}
+
+                            {!isHomePage &&
+                                <Content>
+                                    <Outlet/>
+                                </Content>
+                            }
+                            <BottomMenu/>
+                        </Main>
+                        </>}
+                    </CurrenciesProvider>
+                </>)
+                }
+            </CtxRootData.Provider>
+
+        :
+
+            <CtxRootData.Provider value={{
+                account,
+                setAccount: setAccount,
+                setRefresh: setRefresh,
+                refreshKey
+            }}>
+                {!account ? <Loader/> : (<>
+                    <CurrenciesProvider>
+                        {isNewLayout ? <>
+                            <Outlet/>
+                        </> : <>
+
+                        <Header/>
+
+                        <Main>
+                            <Sidebar/>
+
+                            <Content>
+                                <Outlet/>
+                            </Content>
+                        </Main>
+                        </>}
+                    </CurrenciesProvider>
+                </>)
+                }
+            </CtxRootData.Provider>
+    )
 });

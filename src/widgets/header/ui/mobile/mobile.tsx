@@ -29,19 +29,19 @@ const HeaderMobile = ({items, actions}) => {
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {/* <div className="wrapper flex justify-end"> */}
-                            {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
+                            {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
                                 <img width={24}
                                      height={24}
                                      alt="UserIcon"
                                      src="/img/icon/UserIconMobile.svg"
                                      className={styles.AccountIcon}
                                 />}
-                            {account.number &&
+                            {account?.number &&
                             <div className="wrapper flex flex-col justify-center  self-stretch">
-                                    <span className={styles.Name}>{account.name}</span>
+                                    <span className={styles.Name}>{account?.name}</span>
 
                                     <span className={styles.Number}>
-                                        {getFormattedIBAN(account.number)}
+                                        {getFormattedIBAN(account?.number)}
                                     </span>
                             </div>
                             }

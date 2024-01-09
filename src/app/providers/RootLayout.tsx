@@ -70,8 +70,6 @@ export default memo(function () {
     }
 
     return(
-        md?
-
             <CtxRootData.Provider value={{
                 account,
                 setAccount: setAccount,
@@ -87,43 +85,32 @@ export default memo(function () {
                         <Header/>
 
                         <Main>
-                            {isHomePage && <Sidebar/>}
+                            {md?
+                                (isHomePage?
+                                    <>
+                                        <Sidebar/>
 
-                            {!isHomePage &&
-                                <Content>
-                                    <Outlet/>
-                                </Content>
+                                        <BottomMenu/>
+                                    </>
+                                :
+                                    <>
+                                        <Content>
+                                            <Outlet/>
+                                        </Content>
+
+                                        <BottomMenu/>
+                                    </>
+                                )
+                            :
+                                (<>
+                                    <Sidebar/>
+
+                                    <Content>
+                                        <Outlet/>
+                                    </Content>
+                                </>
+                                )
                             }
-                            <BottomMenu/>
-                        </Main>
-                        </>}
-                    </CurrenciesProvider>
-                </>)
-                }
-            </CtxRootData.Provider>
-
-        :
-
-            <CtxRootData.Provider value={{
-                account,
-                setAccount: setAccount,
-                setRefresh: setRefresh,
-                refreshKey
-            }}>
-                {(<>
-                    <CurrenciesProvider>
-                        {isNewLayout ? <>
-                            <Outlet/>
-                        </> : <>
-
-                        <Header/>
-
-                        <Main>
-                            <Sidebar/>
-
-                            <Content>
-                                <Outlet/>
-                            </Content>
                         </Main>
                         </>}
                     </CurrenciesProvider>

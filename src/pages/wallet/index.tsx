@@ -70,8 +70,6 @@ function Wallet() {
         return xl ? 1 : 2;
     }, [xl]);
 
-
-    console.log($currency)
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}

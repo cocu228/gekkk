@@ -78,7 +78,7 @@ export default memo(function () {
                 setRefresh: setRefresh,
                 refreshKey
             }}>
-                {!account ? <Loader/> : (<>
+                { (<>
                     <CurrenciesProvider>
                         {isNewLayout ? <>
                             <Outlet/>
@@ -110,7 +110,7 @@ export default memo(function () {
                 setRefresh: setRefresh,
                 refreshKey
             }}>
-                {!account ? <Loader/> : (<>
+                {(<>
                     <CurrenciesProvider>
                         {isNewLayout ? <>
                             <Outlet/>

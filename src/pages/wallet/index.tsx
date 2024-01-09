@@ -60,6 +60,7 @@ function Wallet() {
     let $currency = mockEUR;
 
     if (currencies) {
+        //@ts-ignore
         $currency = currencies.get(currency);
     }
 
@@ -73,6 +74,7 @@ function Wallet() {
     console.log($currency)
     return (
         <div className="flex flex-col h-full w-full">
+            {/*@ts-ignore*/}
             <CtxWalletData.Provider value={$currency}>
                 <WalletHeader/>
                 <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>

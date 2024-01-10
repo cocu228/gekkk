@@ -14,7 +14,7 @@
 
   &:global(.active) {
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    background-color: hsla(0, 0%, 93%);
     max-height: 700px;
     border: 1px solid var(--color-gray-400);
   }
@@ -26,23 +26,18 @@
 }
 
 .DropdownItem {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 28px;
   display: flex;
   width: 100%;
   text-align: left;
-  @include max-devices(md){
-    gap:10px;
-    color: var(--Dark-blue, #1F3446);
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 166.667% */
-    padding: 12px 12px;
+  gap:10px;
+  color: var(--Dark-blue, #1F3446);
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 166.667% */
+  padding: 12px 12px;
 
-  }
   &:global(.active) {
     .SvgSchema {
       path {

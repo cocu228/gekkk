@@ -20,28 +20,13 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
     return <>
         <div ref={ref} onClick={dropdownMenuFunctions.onOpen}
              className={className + " flex items-center cursor-pointer h-full"}>
-            <div className={`wrapper relative ${!md && 'md:pl-14 pl-7'}   md:pr-0  pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
+            <div className={`wrapper relative ${!md && "md:pl-14 pl-7"}   md:pr-0  pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
-                    {!md &&
-                    
-                    <div className='flex justify-between px-2 py-1'>
-                        <span className='text-gray-600' data-testid="Accounts">{t('header_menu.accounts')}:</span>
-                        
-                        <RefreshButton
-                            calloutFunc={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                getAccounts(true);
-                            }}
-                        />
-                    </div>
-                    
-                    }
                     {items.map((item, i) => <span key={"ItemMenu_" + i}
                                                   style={item.style}
                                                   onClick={() => dropdownMenuFunctions.onAction(item.action)}
-                                                  className={`${styles.DropdownItem} h-full`}> {md && item.icon}{item.item} </span>)}
+                                                  className={`${styles.DropdownItem} h-full gap-[3%]`}>  {item.icon}{item.item} </span>)}
                     
                 </div>
             </div>

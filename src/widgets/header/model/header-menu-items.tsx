@@ -36,73 +36,11 @@ export class HeaderMenuItems {
 /**
 * @param t translation function
 */
+
 export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
     return [
         {
-            item: t('header_menu.dashboard'),
-            id: 'dashboard',
-            action: {
-                type: "link",
-                value: "/",
-            },
-            style: {
-                borderTop: "1px solid var(--color-gray-400)"
-            }
-        },
-        {
-            item: <PromoCodeModal/>,
-            id: 'promoCode',
-            action: {
-                type: null,
-                value: null,
-            },
-            icon:<img src={ActivatePromoMobileIcon}/>
-        },
-        {
-            item: <GekkoinInvestPlatform/>,
-            id: 'investPlatform',
-            action: {
-                type: null,
-                value: null,
-            },
-            icon:<img src={InvestMobileIcon}/>
-        },
-        {
-            item: t('header_menu.partnership'),
-            id: 'partnership',
-            action: {
-                type: "link",
-                value: "partnership-program",
-            },
-            icon:<img src={PartnershipMobileIcon}/>
-        },
-        {
-            item: t('header_menu.support'),
-            id: 'support',
-            action: {
-                type: "link",
-                value: "support",
-            },
-            icon:<img src={SupportMobileIcon}/>
-        },
-        {
-            item: t('header_menu.logout'),
-            id: 'logout',
-            action: {
-                type: "logout",
-                value: null,
-            },
-            icon:<img src={LogoutMobileIcon}/>,
-            style: {
-                borderTop: "1px solid var(--color-gray-400)"
-            }
-        },
-    ]
-}
-export const getDefaultMobileItems = (t?: TFunction): THeaderMenuList => {
-    return [
-        {
-            item: t("Profile Settings"),
+            item: t("settings"),
             id:"settings",
             action:{
                 type: "link",

@@ -10,7 +10,7 @@ import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {useContext, useEffect, useMemo, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {getDefaultItems, getDefaultMobileItems} from "@/widgets/header/model/header-menu-items";
+import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 
@@ -24,9 +24,7 @@ const Header = () => {
     const {account, setAccount} = useContext(CtxRootData);
     const accounts = storeAccounts(state => state.accounts);
     const defaultMenuItems = useMemo(() => getDefaultItems(t), [i18n.language]);
-    const defaultMenuMobileItems = useMemo(() => getDefaultMobileItems(t), [i18n.language]);
     const [items, setItems] = useState(defaultMenuItems);
-    const [itemsMobile, setItemsMobile] = useState(defaultMenuMobileItems);
     
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
@@ -44,36 +42,11 @@ const Header = () => {
         if (!account?.rights) return;
 
         let newItems = [...defaultMenuItems]
-
-        let newItemsMobile = [...defaultMenuMobileItems]
         
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
             .forEach(acc => {
                 newItems.unshift({
-                    id: acc.number,
-                    item: acc.rights[AccountRights.IsJuridical] ? (
-                        <ItemOrganization
-                            number={getFormattedIBAN(acc.number)}
-                            name={acc.name}
-                            active={account.number === acc.number}
-                        />
-                    ) : (
-                        <ItemAccount
-                            number={getFormattedIBAN(acc.number)}
-                            name={acc.name}
-                            active={account.number === acc.number}
-                        />
-                    ),
-                    action: {
-                        type: "change-account",
-                        value: acc.number,
-                    },
-                    style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    }
-                })
-                newItemsMobile.unshift({
                     id: acc.number,
                     item: acc.rights[AccountRights.IsJuridical] ? (
                         <ItemOrganization
@@ -104,15 +77,12 @@ const Header = () => {
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-        setItemsMobile(!account.rights[AccountRights.IsJuridical]
-            ? newItemsMobile
-            : newItemsMobile.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
-        );
+
 
     }, [account?.rights, defaultMenuItems]);
 
     return md
-        ? <HeaderMobile items={itemsMobile} actions={actionsForMenuFunctions}/>
+        ? <HeaderMobile items={items} actions={actionsForMenuFunctions}/>
         : <HeaderDesktop items={items} actions={actionsForMenuFunctions}/>;
 }
 

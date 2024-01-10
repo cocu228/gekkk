@@ -1,9 +1,9 @@
-import {useNavigate, useParams} from "react-router-dom";
 import {useContext, useMemo} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui";
+import {useNavigate, useParams} from "react-router-dom";
 import Transfer from "../../widgets/wallet/code-transfer";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
@@ -14,12 +14,12 @@ import CardsMenu from "@/widgets/wallet/cards-menu/ui/CardsMenu";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
+import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
 import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {useTranslation} from 'react-i18next';
-import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
 
 
 const mockEUR = {
@@ -52,8 +52,8 @@ function Wallet() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {currency, tab} = useParams();
-    const {xl} = useContext(BreakpointsContext);
     const {account} = useContext(CtxRootData);
+    const {xl} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
 
@@ -63,13 +63,10 @@ function Wallet() {
         //@ts-ignore
         $currency = currencies.get(currency);
     }
-
+    
+    const fullWidthOrHalf = useMemo(() => xl ? 1 : 2, [xl]);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-
-    const fullWidthOrHalf = useMemo(() => {
-        return xl ? 1 : 2;
-    }, [xl]);
-
+    
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}

@@ -17,7 +17,7 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, children, ...props
     };
     
     return (
-        <div className={styles.Select}>
+        <div className={`${styles.Select}  ${prefixIcon ? styles.SelectHasIcon : ''}`}>
             {prefixIcon && <div className={styles.SelectIcon}>
                 {prefixIcon}
             </div>}

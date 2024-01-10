@@ -1,39 +1,42 @@
 import { Box, Typography, TextField, styled } from '@mui/material';
-import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { useNewCardContext } from './newCardContext';
-import { CardDesign } from './CardDesign';
-import {Switch} from "antd";
 import Button from '@/shared/ui/button/Button';
 import Select from '@/shared/ui/select/Select';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_PHONE} from "@/shared/config/mask";
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {ValidateNewCardState} from "@/widgets/wallet/cards-menu/model/helpers";
+import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
+import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 
+// todo: fix address fields
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
-})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(
-({ theme, hasBorderTop, hasBorderBottom }) => ({
+})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(({
+    theme,
+    hasBorderTop,
+    hasBorderBottom
+}) => ({
     display: 'flex',
     justifyContent: 'space-between',
     borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
     borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined,
     paddingBottom: '6px',
     alignItems: 'center',
-
-}),
-);
+}));
 
 export function IssueNewCard() {
     const {t} = useTranslation();
-    const {
-        onInput: onPhoneNumberInput
-    } = useMask(MASK_PHONE);
-    const {
-        state,
-        setStep,
-        setState
-    } = useNewCardContext();
+    const [isValid, validate] = useState<boolean>(false);
+    const {state, setStep, setState} = useNewCardContext();
+    //const mainCard = storeBankCards(state => state.mainCard);
+    const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
+    
+    useEffect(() => {
+        validate(ValidateNewCardState(state));
+    }, [state]);
     
     return <>
         {/*<Box>*/}
@@ -59,6 +62,7 @@ export function IssueNewCard() {
                 <Box width={"150px"} >
                     <Select className="w-full mt-2"
                             placeholder='Select type...'
+                            value={state.cardType.toLowerCase()}
                             options={[{
                                 label: 'Virtual',
                                 value: 'virtual',
@@ -76,8 +80,8 @@ export function IssueNewCard() {
             
             <TextField
                 fullWidth
+                value={state.cardholderName}
                 label={t('cardholder_name')}
-                placeholder={t("enter_cardholder_name")}
                 onChange={({target}) => setState({
                     ...state,
                     cardholderName: target.value
@@ -86,6 +90,7 @@ export function IssueNewCard() {
             
             <TextField
                 fullWidth
+                value={state.linkedPhone}
                 onInput={onPhoneNumberInput}
                 label={t('linked_phone_number')}
                 placeholder={t("enter_phone_number")}
@@ -104,73 +109,107 @@ export function IssueNewCard() {
                 {/*    <Switch />*/}
                 {/*</RowItem>*/}
                 
-                <TextField
-                    fullWidth
-                    label={t('Country')}
-                    placeholder={t("enter_country_name")}
-                />
+                <RowItem hasBorderBottom>
+                    <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('Country')}</Typography>
+                    <Box width={"250px"} >
+                        <SearchSelect
+                            className="w-full mt-2"
+                            placeholder='Select country...'
+                            value={state.countryCode}
+                            notFoundContent={<span>Country not found</span>}
+                            options={deliveryCountriesList.map(c => ({
+                                label: c.name,
+                                value: c.code
+                            }))}
+                            onSelect={(code) => setState({
+                                ...state,
+                                countryCode: code
+                            })}
+                        />
+                    </Box>
+                </RowItem>
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
+                    value={state.city}
+                    onChange={({target}) => setState({
+                        ...state,
+                        city: target.value
+                    })}
                     label={t("City")}
                     placeholder={t("enter_city_name")}
                 />
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
+                    value={state.region}
+                    onChange={({target}) => setState({
+                        ...state,
+                        region: target.value
+                    })}
                     label={t("Region")}
                     placeholder={t("enter_region_name_if_available")}
                 />
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
                     label={t("post_code")}
+                    value={state.postalCode}
                     placeholder={t("enter_post_code")}
+                    onChange={({target}) => setState({
+                        ...state,
+                        postalCode: target.value
+                    })}
                 />
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
                     label={t("street")}
+                    value={state.street}
                     placeholder={t("enter_street_name")}
+                    onChange={({target}) => setState({
+                        ...state,
+                        street: target.value
+                    })}
                 />
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
+                    value={state.house}
                     label={t("house")}
                     placeholder={t("enter_house_name_or_number_if_available")}
+                    onChange={({target}) => setState({
+                        ...state,
+                        house: target.value
+                    })}
                 />
                 
                 <TextField
                     fullWidth
+                    margin={'normal'}
+                    value={state.apartmentNumber}
                     label={t("flat")}
                     placeholder={t("enter_flat_name_or_number_if_available")}
+                    onChange={({target}) => setState({
+                        ...state,
+                        apartmentNumber: target.value
+                    })}
                 />
-                
-                <RowItem hasBorderBottom>
-                    <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_type')}</Typography>
-                    <Box width={"150px"} >
-                        <Select className="w-full mt-2"
-                                placeholder='Select type...'
-                                options={[{
-                                    label: 'Standard',
-                                    value: 'standard',
-                                }, {
-                                    label: 'Express',
-                                    value: 'express',
-                                }]}
-                                onSelect={(e: 'express' | 'standard') => setState({
-                                    ...state,
-                                    isExpressDelivery: e === 'express'
-                                })}/>
-                    </Box>
-                </RowItem>
             </Box>)}
         </Box>
         
         <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button className='w-full' onClick={() => {
-                setStep('ConfirmationNewCard');
-            }}>{t("proceed")}</Button>
+            <Button className='w-full'
+                    disabled={!isValid}
+                    onClick={() => {
+                        setStep('ConfirmationNewCard');
+                    }}
+            >{t("proceed")}</Button>
         </Box>
     </>
 }

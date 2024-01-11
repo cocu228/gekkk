@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.gekkard.dev.twa",
+      "package_name": "com.gekkard.twa",
       "sha256_cert_fingerprints": [
         "9E:55:53:9E:89:A9:00:FF:92:10:D4:A8:82:B1:86:05:2C:F8:BA:AF:C8:0A:30:94:F8:E9:F4:0B:98:CB:EF:5F"
       ]

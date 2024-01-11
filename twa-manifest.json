@@ -1,8 +1,8 @@
 {
-  "packageId": "com.gekkard.dev.twa",
+  "packageId": "com.gekkard.twa",
   "host": "web.gekkard.com",
-  "name": "GekkardWeb",
-  "launcherName": "GekkardWeb",
+  "name": "GEKKARD_PWA",
+  "launcherName": "GEKKARD_PWA",
   "display": "standalone",
   "themeColor": "#1F3446",
   "themeColorDark": "#000000",

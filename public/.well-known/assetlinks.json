@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gekkard.dev.twa",
+      "sha256_cert_fingerprints": [
+        "CD:79:DB:FC:48:9D:72:F4:E2:74:8B:E6:5F:24:90:E2:06:4B:F6:50:D1:AE:EB:FB:87:B6:D4:91:D5:D5:78:23"
+      ]
+    }
+  }
+]

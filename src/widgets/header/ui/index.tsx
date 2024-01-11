@@ -13,7 +13,10 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
+
+
 const Header = () => {
+
     const {logout} = useAuth();
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();
@@ -34,10 +37,10 @@ const Header = () => {
             }
         }
     ], []);
-    
+
     useEffect(() => {
-        if (!account.rights) return;
-        
+        if (!account?.rights) return;
+
         let newItems = [...defaultMenuItems]
         
         accounts
@@ -63,17 +66,20 @@ const Header = () => {
                         value: acc.number,
                     },
                     style: {
-                        backgroundColor: "var(--color-gray-300)"
-                    }
+                        backgroundColor: "#FFF",
+                        borderRadius: "6px",
+                        marginBottom: "3px"
+                    },
                 })
             })
-        
+
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-        
-    }, [account.rights, defaultMenuItems]);
+
+
+    }, [account?.rights, defaultMenuItems]);
 
     return md
         ? <HeaderMobile items={items} actions={actionsForMenuFunctions}/>

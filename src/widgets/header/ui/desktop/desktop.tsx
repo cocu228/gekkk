@@ -1,87 +1,130 @@
-import { useContext } from "react";
+import {useContext} from "react";
 import styles from "./style.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/app/providers/AuthRouter";
-import { CtxRootData } from "@/processes/RootContext";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "@/app/providers/AuthRouter";
+import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
-import { getFormattedIBAN } from "@/shared/lib/helpers";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
-import { AccountRights } from "@/shared/config/account-rights";
-import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
+import {AccountRights} from "@/shared/config/account-rights";
+import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import chatIcon from '../../../../assets/support-icon-grey.svg'
 import FaqIcon from '@/assets/faq-icon.svg?react';
 import SettingsIcon from '@/assets/settings-icon.svg?react';
-import { Box} from '@mui/material';
+import {Box} from '@mui/material';
+import { getInitialProps, useTranslation } from "react-i18next";
 
-const HeaderDesktop = ({ items, actions }) => {
-    const { logout } = useAuth();
+const HeaderDesktop = ({items, actions}) => {
+
+    const {logout} = useAuth();
     const navigate = useNavigate();
-    const { account } = useContext(CtxRootData);
+    const {account} = useContext(CtxRootData);
+    const {t} = useTranslation()
+    const {initialLanguage} = getInitialProps();
+
+    const languageName = () => {
+        switch(initialLanguage){
+            case "en":
+                return "English"
+            case "de":
+                return "Deutsch"
+            case "ru":
+                return "Русский"
+        }
+    }
+
+    console.log(account)
+
+    let acc = {
+        "name": "Ralf Williams",
+        "phone": "79111111111",
+        "rights": {
+            "none": true,
+            "withdrawBlock": false,
+            "topUpBlock": false,
+            "exchangeBlock": false,
+            "innerTransferBlock": false,
+            "investBlock": false,
+            "logInBlock": false,
+            "allTokensNetworks": false,
+            "isJuridical": false,
+            "gkeBonusBlock": false,
+            "blockAll": false,
+            "juridicalBlock": false,
+            "deleted": false
+        },
+        "number": "MT07PAPY36836000002676370005866",
+        "current": true,
+        "account_id": "PPY6963",
+        "date_update": "2023-12-25T14:12:49.8033333"
+    }
+
 
     return <>
         <header className={styles.Header}>
             <div className={styles.ContainerLogo}>
                 <a onClick={() => navigate('/')}>
-                    <svg width="36" height="40" viewBox="0 0 36 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M35.2332 32.9258C34.4612 31.5893 33.1298 30.7731 31.7079 30.6036C31.2392 30.5011 30.7744 30.3276 30.3332 30.0753C28.0999 28.7861 27.32 25.9474 28.5568 23.6961C28.5883 23.6449 28.6198 23.5897 28.6474 23.5384C28.6513 23.5305 28.6553 23.5227 28.6592 23.5187C29.1161 22.7026 29.4194 21.7879 29.5258 20.8141C29.5258 20.8023 29.5258 20.7944 29.5258 20.7825C29.5258 20.7628 29.5297 20.7471 29.5336 20.7273C29.5336 20.7037 29.5336 20.68 29.5336 20.6564C29.5336 19.927 28.9468 19.3317 28.2181 19.3238H23.1842C22.4516 19.3238 21.8529 19.9191 21.8529 20.6564C21.8529 21.3936 22.4476 21.989 23.1842 21.989H26.4692C25.7287 23.5227 24.1571 24.5832 22.3413 24.5832C19.8086 24.5832 17.7604 22.5291 17.7604 19.998C17.7604 17.4668 19.8125 15.4127 22.3413 15.4127C24.0271 15.4127 25.5002 16.3274 26.2998 17.6876C26.5283 18.0818 26.9576 18.346 27.446 18.346C28.1787 18.346 28.7774 17.7507 28.7774 17.0134C28.7774 16.7492 28.6947 16.5048 28.5607 16.2998C27.32 14.0485 28.0999 11.2099 30.3332 9.92061C30.7705 9.66829 31.2352 9.49087 31.7079 9.3923C33.1338 9.22277 34.4612 8.41059 35.2332 7.0701C36.533 4.81886 35.761 1.9368 33.5119 0.635738C31.2628 -0.665328 28.3835 0.107426 27.0876 2.35866C26.3156 3.69916 26.2762 5.26043 26.8434 6.57727C26.9931 7.03461 27.0719 7.5235 27.0719 8.0321C27.0719 10.6185 25 12.7199 22.424 12.7593C22.4004 12.7593 22.3728 12.7593 22.3491 12.7593C22.3176 12.7593 22.2901 12.7593 22.2625 12.7593C19.6943 12.712 17.6264 10.6145 17.6264 8.0321C17.6264 7.5235 17.7052 7.03856 17.8549 6.57727C18.4221 5.25649 18.3827 3.69521 17.6107 2.35866C16.299 0.103484 13.4237 -0.66927 11.1746 0.631795C8.92548 1.93286 8.15346 4.81098 9.45329 7.06616C10.2253 8.40665 11.5566 9.22277 12.9786 9.38836C13.4512 9.49087 13.9121 9.66434 14.3493 9.91667C16.5629 11.198 17.3507 13.9973 16.1533 16.2406C16.1021 16.3234 16.0509 16.4102 16.0036 16.4969C14.6644 18.6654 11.8402 19.3908 9.61872 18.1094C9.16181 17.8453 8.76792 17.5102 8.43706 17.1356C7.57839 16.0159 6.22341 15.2905 4.70301 15.2905C2.1073 15.2905 0 17.3998 0 20.0019C0 22.604 2.1073 24.7094 4.70301 24.7094C6.22735 24.7094 7.57839 23.984 8.43706 22.8642C8.76792 22.4858 9.16181 22.1546 9.61872 21.8904C11.8402 20.6091 14.6644 21.3345 15.9997 23.503C16.047 23.5897 16.0982 23.6764 16.1494 23.7592C17.3468 25.9986 16.559 28.8018 14.3454 30.0832C13.9081 30.3395 13.4434 30.5129 12.9746 30.6115C11.5488 30.781 10.2214 31.5932 9.44935 32.9337C8.14952 35.1849 8.92154 38.067 11.1706 39.3681C13.4197 40.6691 16.2951 39.8964 17.5949 37.6451C18.367 36.3046 18.4063 34.7434 17.8391 33.4265C17.6895 32.9692 17.6107 32.4803 17.6107 31.9717C17.6107 29.3893 19.6786 27.2918 22.2467 27.2445C22.2743 27.2445 22.3058 27.2445 22.3334 27.2445C22.361 27.2445 22.3925 27.2445 22.424 27.2445C24.9921 27.2918 27.0561 29.3932 27.0561 31.9717C27.0561 32.4803 26.9773 32.9692 26.8276 33.4265C26.2604 34.7434 26.2998 36.3046 27.0719 37.6451C28.3717 39.8964 31.2471 40.6691 33.4962 39.3681C35.7492 38.067 36.5173 35.1889 35.2174 32.9337L35.2332 32.9258Z"
-                            fill="#FFFFFF" />
-                    </svg>
-                    {/* <img src="/img/logo.svg" width={165} height={55} alt="logo"/> */}
+                        <svg width="100%" height="40px" preserveAspectRatio="none" viewBox="0 0 137 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0)">
+                                <path d="M38.931 36.363c-.87-1.48-2.308-2.395-3.919-2.57-.523-.13-1.045-.304-1.524-.566-2.482-1.437-3.353-4.572-1.96-7.054a.33.33 0 00.087-.174v-.044c.523-.914.828-1.916.958-3.005v-.087-.087c0-.827-.653-1.48-1.437-1.48H25.65c-.827 0-1.48.653-1.48 1.48 0 .828.653 1.48 1.48 1.48h3.615c-.828 1.699-2.57 2.875-4.573 2.875a5.055 5.055 0 01-5.051-5.052 5.055 5.055 0 015.051-5.051 4.98 4.98 0 014.355 2.526c.261.435.74.74 1.263.74.827 0 1.48-.653 1.48-1.48 0-.306-.087-.567-.217-.785-1.394-2.482-.523-5.617 1.96-7.054.479-.261 1.001-.48 1.524-.566a5.24 5.24 0 003.919-2.57c1.437-2.482.566-5.66-1.916-7.098-2.482-1.437-5.661-.566-7.098 1.916a5.061 5.061 0 00-.262 4.66c.174.522.262 1.045.262 1.611a5.223 5.223 0 01-5.139 5.226h-.174a5.223 5.223 0 01-5.139-5.226c0-.566.087-1.089.261-1.611a5.335 5.335 0 00-.26-4.66C18.071.175 14.892-.696 12.41.741 9.929 2.178 9.058 5.357 10.495 7.84c.87 1.48 2.308 2.395 3.92 2.57.522.13 1.044.304 1.523.566 2.439 1.393 3.31 4.529 2.004 6.967-.044.087-.131.174-.175.305-1.48 2.395-4.616 3.18-7.054 1.786-.523-.305-.958-.654-1.307-1.09-.958-1.218-2.438-2.046-4.137-2.046C2.352 16.897 0 19.205 0 22.08c0 2.874 2.352 5.183 5.182 5.183a5.136 5.136 0 004.137-2.047c.349-.436.784-.784 1.307-1.089 2.438-1.437 5.574-.61 7.054 1.785.044.088.087.175.174.305 1.307 2.482.436 5.574-2.003 6.968-.479.261-1.001.479-1.524.566a5.24 5.24 0 00-3.92 2.57c-1.436 2.481-.565 5.66 1.917 7.097 2.482 1.438 5.661.567 7.098-1.916a5.061 5.061 0 00.261-4.66 4.998 4.998 0 01-.26-1.61c0-2.831 2.264-5.183 5.138-5.226h.174a5.223 5.223 0 015.139 5.226c0 .566-.088 1.088-.262 1.61a5.335 5.335 0 00.262 4.66c1.437 2.483 4.616 3.354 7.098 1.916 2.569-1.393 3.396-4.572 1.96-7.054z" fill="white"></path>
+                                <path id="Gekkard-text" fill="#fefefe" d="M56.699 16.2c0-1.089.522-1.873 1.698-1.873h5.356c1.045 0 1.524.74 1.524 1.48 0 .741-.522 1.481-1.524 1.481h-3.788v3.136h3.527c1.045 0 1.568.74 1.568 1.48s-.523 1.481-1.568 1.481h-3.527v3.266h3.962c1.046 0 1.525.74 1.525 1.48 0 .741-.523 1.481-1.524 1.481h-5.575c-.958 0-1.654-.653-1.654-1.611V16.2zM67.934 15.764c0-.87.653-1.611 1.611-1.611.915 0 1.611.61 1.611 1.611v4.66l5.313-5.618c.218-.261.653-.61 1.263-.61.827 0 1.611.61 1.611 1.568 0 .566-.348 1.002-1.045 1.742l-4.05 4.006 4.965 5.183c.479.522.914 1.001.914 1.654 0 1.002-.784 1.48-1.698 1.48-.61 0-1.045-.348-1.655-1l-5.574-6.01v5.487c0 .827-.653 1.567-1.611 1.567-.915 0-1.612-.61-1.612-1.567V15.764h-.043zM82.566 15.764c0-.87.653-1.611 1.611-1.611.914 0 1.611.61 1.611 1.611v4.66l5.313-5.618c.218-.261.653-.61 1.263-.61.827 0 1.611.61 1.611 1.568 0 .566-.348 1.002-1.045 1.742l-4.05 4.006 4.965 5.183c.479.522.914 1.001.914 1.654 0 1.002-.784 1.48-1.698 1.48-.61 0-1.045-.348-1.655-1l-5.618-6.097v5.487c0 .827-.653 1.567-1.611 1.567-.914 0-1.611-.61-1.611-1.567V15.764zM54.216 22.776c0-.828-.653-1.48-1.437-1.48h-5.574c-.827 0-1.48.652-1.48 1.48 0 .827.653 1.48 1.48 1.48h3.615c-.828 1.699-2.57 2.875-4.573 2.875a5.055 5.055 0 01-5.051-5.052 5.055 5.055 0 015.051-5.052c1.83 0 3.44 1.002 4.355 2.483.261.479.74.784 1.306.784.828 0 1.481-.654 1.481-1.481 0-.348-.13-.653-.305-.871-1.393-2.264-3.92-3.832-6.793-3.832-4.398 0-8.013 3.57-8.013 8.013-.043 4.354 3.527 7.925 7.97 7.925 4.093 0 7.49-3.092 7.968-7.098-.043-.044 0-.087 0-.174zM100.551 15.851c.348-1.001 1.219-1.785 2.308-1.785 1.132 0 1.916.74 2.308 1.785l4.224 11.715c.131.348.174.653.174.784 0 .827-.697 1.436-1.481 1.436-.914 0-1.349-.479-1.567-1.132l-.653-2.003h-5.966l-.654 2.003c-.217.654-.653 1.133-1.567 1.133-.871 0-1.612-.654-1.612-1.525 0-.348.088-.61.131-.696l4.355-11.715zm.261 7.795h4.094l-2.004-6.227h-.043l-2.047 6.227zM111.438 16.026c0-1.046.566-1.699 1.654-1.699h3.789c3.31 0 5.356 1.48 5.356 4.877 0 2.352-1.785 3.702-3.962 4.05l3.658 3.92c.304.305.435.653.435.958 0 .827-.653 1.654-1.611 1.654-.392 0-.915-.13-1.263-.566l-4.79-5.791h-.044v4.66c0 1.088-.697 1.654-1.611 1.654-.915 0-1.611-.61-1.611-1.655V16.025zm3.222 5.095h2.221c1.176 0 2.003-.697 2.003-1.916 0-1.22-.827-1.873-2.003-1.873h-2.221v3.788zM124.241 15.982c0-1.002.696-1.655 1.654-1.655h3.571c4.834 0 7.578 3.092 7.578 7.882 0 4.53-2.918 7.447-7.36 7.447h-3.745c-.697 0-1.698-.392-1.698-1.611V15.982zm3.222 10.713h2.177c2.788 0 4.05-2.047 4.05-4.616 0-2.744-1.306-4.747-4.267-4.747h-1.96v9.363z"></path>
+                            </g>
+                            <defs>
+                                <linearGradient id="paint0_linear" x1="7.703" y1="39.081" x2="41.691" y2="5.092" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#009EE2"></stop>
+                                <stop offset="1" stop-color="#76B72A"></stop>
+                                </linearGradient>
+                                <clipPath id="clip0">
+                                <path fill="#fff" d="M0 0h137v44.157H0z"></path>
+                                </clipPath>
+                            </defs>
+                        </svg>
+
                 </a>
             </div>
             <div className={styles.CommandsMenu}>
-                <HeaderMenu items={items} actions={actions}>
-                    <div className={styles.AccMenu} data-testid="HeaderMenuContainer">
-                        <div className="wrapper mr-2">
-                            {account.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :
-                                // <svg width="30" height="28" viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                //     <path d="M29.0625 28.9375C29.0625 28.9375 29.0625 27.0039 28.9014 25.9932C28.7695 25.1948 27.6636 24.1401 22.9614 22.4116C18.3325 20.7124 18.6182 21.54 18.6182 18.4126C18.6182 16.3838 19.6509 17.563 20.3101 13.7104C20.5664 12.1943 20.7715 13.2051 21.3281 10.7734C21.6211 9.49902 21.1304 9.40381 21.189 8.7959C21.2476 8.18799 21.3062 7.646 21.416 6.40088C21.5479 4.86279 20.1196 0.8125 15 0.8125C9.88037 0.8125 8.45215 4.86279 8.59131 6.4082C8.70117 7.646 8.75977 8.19531 8.81836 8.80322C8.87695 9.41113 8.38623 9.50635 8.6792 10.7808C9.23584 13.2051 9.44092 12.1943 9.69727 13.7178C10.3564 17.5703 11.3892 16.3911 11.3892 18.4199C11.3892 21.5547 11.6748 20.7271 7.0459 22.4189C2.34375 24.1401 1.23047 25.2021 1.10596 26.0005C0.9375 27.0039 0.9375 28.9375 0.9375 28.9375H15H29.0625Z" fill="#3A5E66" />
-                                // </svg>
-                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="15" cy="15.9375" r="15" fill="white" />
-                                    <path d="M29.0625 30.9375C29.0625 30.9375 29.0625 29.0039 28.9014 27.9932C28.7695 27.1948 27.6636 26.1401 22.9614 24.4116C18.3325 22.7124 18.6182 23.54 18.6182 20.4126C18.6182 18.3838 19.6509 19.563 20.3101 15.7104C20.5664 14.1943 20.7715 15.2051 21.3281 12.7734C21.6211 11.499 21.1304 11.4038 21.189 10.7959C21.2476 10.188 21.3062 9.646 21.416 8.40088C21.5479 6.86279 20.1196 2.8125 15 2.8125C9.88037 2.8125 8.45215 6.86279 8.59131 8.4082C8.70117 9.646 8.75977 10.1953 8.81836 10.8032C8.87695 11.4111 8.38623 11.5063 8.6792 12.7808C9.23584 15.2051 9.44092 14.1943 9.69727 15.7178C10.3564 19.5703 11.3892 18.3911 11.3892 20.4199C11.3892 23.5547 11.6748 22.7271 7.0459 24.4189C2.34375 26.1401 1.23047 27.2021 1.10596 28.0005C0.9375 29.0039 0.9375 30.9375 0.9375 30.9375H15H29.0625Z" fill="#3A5E66" />
-                                </svg>
-                                //<img width={32} height={32} src="/img/icon/UserIcon.svg" alt="UserIcon" />
+                <HeaderMenu items={items} actions={actions} className="pl-5">
+                    <div className="flex items-center justify-center" data-testid="HeaderMenuContainer">
+                        {/* <div className="wrapper flex justify-end"> */}
+                            {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
+                                <img width={24}
+                                    height={24}
+                                    alt="UserIcon"
+                                    src="/img/icon/UserIconMobile.svg"
+                                    className={styles.AccountIcon}
+                                />}
+                            {account?.number &&
+                            <div className="wrapper flex flex-col justify-center  self-stretch">
+                                    <span className={styles.Name}>{account?.name}</span>
+
+                                    <span className={styles.Number}>
+                                        {getFormattedIBAN(account?.number)}
+                                    </span>
+                            </div>
                             }
-                        </div>
 
-                        {account.number && <div className="wrapper">
-                            <div className="row">
-                                <span className="text-sm font-bold">{account.name}</span>
-                            </div>
-
-                            <div className="row text-start flex">
-                                <span className="text-xs text-start text-gray-400 font-bold leading-3">
-                                    {getFormattedIBAN(account.number)}
-                                </span>
-                            </div>
-                        </div>}
-
-                        <img
-                            className="inline-flex mb-3"
-                            src="/img/icon/DropdownTriangleIcon.svg"
-                            alt="DropdownTriangleIcon"
-                        />
+                            <button className={`${styles.ArrowBtn}`}></button>
+                        {/* </div> */}
                     </div>
                 </HeaderMenu>
-                <LocalizationMenu />
-                <Box display={"flex"} alignItems={"center"} paddingLeft={"60px"} gap="16px">
+                <div className={styles.HeaderItemsContainer}>
+                    <LocalizationMenu/><span className={styles.HeaderMenuTitles}>{languageName()}</span>
+                </div>
+                {/* <Box display={"flex"} alignItems={"center"} paddingLeft={"60px"} gap="16px">
 
-                    <Link to="/faq" style={{ color: 'white' }}>
-                        <FaqIcon />
+                    <Link to="/faq" style={{color: 'white'}}>
+                        <FaqIcon/>
                     </Link>
-                    <Link to='/settings' style={{ color: 'white' }}>
-                        <SettingsIcon />
+                    <Link to='/settings' style={{color: 'white'}}>
+                        <SettingsIcon/>
                     </Link>
-                </Box>
-                <button onClick={() => navigate('/support/chat')}>
-                    <div className="ml-5" data-testid="Logout">
-                        <img src={chatIcon} alt="ChatIcon" />
-                    </div>
-                </button>
+                </Box> */}
                 <button onClick={logout}>
-                    <div className="ml-5 pb-1" data-testid="Logout">
-                        <img width={26} height={26} src="/img/icon/LogoutIcon.svg" alt="UserIcon" />
+                    <div className={styles.HeaderItemsContainer}>
+                        <div className="ml-5" data-testid="Logout">
+                            <img width={22} height={22} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
+                        </div>
+                        <span className={styles.HeaderMenuTitles}>{t("logout")}</span>
                     </div>
                 </button>
             </div>

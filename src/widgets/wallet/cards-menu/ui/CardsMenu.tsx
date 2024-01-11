@@ -1,24 +1,22 @@
 import { Switch } from "antd";
 import {NewCard} from "./new-card";
-import styles from './style.module.scss'
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
+import styles from './style.module.scss';
+import {MouseEvent, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import Checkbox from "@/shared/ui/checkbox/Checkbox";
-import {apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
 import {numberWithSpaces} from "@/shared/lib/helpers";
-import {MouseEvent, useState} from "react";
 import {apiActivateCard} from "@/shared/api/bank/activate-card";
+import {apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
-import useLocalStorage from "@/shared/model/hooks/useLocalStorage";
-import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 
 // todo: refactoring
@@ -27,12 +25,17 @@ const CardsMenu = () => {
     const cardInfoModal = useModal();
     const confirmationModal = useModal();
     const [card, setCard] = useState<IResCard>(null);
-    const {updateCard} = storeBankCards(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
-    const { inputCurr: limitAmount, setInputCurr: setLimitAmount } = useInputState();
+    const {
+        updateCard
+    } = storeBankCards(state => state);
+    const {
+        inputCurr: limitAmount,
+        setInputCurr: setLimitAmount
+    } = useInputState();
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
@@ -183,6 +186,14 @@ const CardsMenu = () => {
         {!card ? null : card.cardId === 'new' ? (
             <NewCard/>
         ) : (<>
+            {card.isVirtual && (
+                <MenuItem
+                    onClick={onClick}
+                    dataItem='activate'
+                    leftPrimary={t("order_plastic_card")}
+                />
+            )}
+            
             {card.cardStatus === "PLASTIC_IN_WAY" && (
                 <MenuItem
                     onClick={onClick}

@@ -37,16 +37,21 @@
       height: 3.75rem;
     }
   }
+  
+  &HasIcon {
+    & :global(.ant-select .ant-select-selector .ant-select-selection-item) {
+      padding-left: 2.93rem;
+
+      @include max-devices("sm") {
+        padding-left: 2.55rem;
+      }
+    }
+  }
 
   & :global(.ant-select .ant-select-selector .ant-select-selection-item) {
-    padding-left: 2.93rem;
     font-weight: 500;
     font-size: 0.875rem;
     transition: all 0.2s !important;
-
-    @include max-devices("sm") {
-      padding-left: 2.55rem;
-    }
   }
 
   & :global(.ant-select-arrow) {

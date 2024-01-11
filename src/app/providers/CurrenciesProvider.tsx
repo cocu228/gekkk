@@ -112,6 +112,6 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
         totalAmount: state.totalAmount.EUR,
         ratesEUR: state.ratesEUR
     }}>
-        {state.currencies === null ? <Loader /> : children}
+        {children}
     </CtxCurrencies.Provider>
 });

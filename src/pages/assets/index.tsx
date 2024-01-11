@@ -81,7 +81,7 @@ function Assets() {
                         </div>
                     </div>
 
-                    {account.rights && !account.rights[AccountRights.IsJuridical] && (
+                    {account?.rights && !account.rights[AccountRights.IsJuridical] && (
                         <div className="row">
                             <div className="col">
                                 <InfoBox/>

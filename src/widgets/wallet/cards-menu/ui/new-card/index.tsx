@@ -3,13 +3,23 @@ import {IssueNewCard} from "./IssueNewCard";
 import {CardHasBeenOrdered} from "./CardHasBeenOrdered";
 import {ConfirmationNewCard} from "./ConfirmationNewCard";
 import {INewCardState, IStep, newCardContext} from './newCardContext';
+import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 
 export function NewCard() {
+    //const mainCard = storeBankCards(state => state.mainCard);
+    
     const [state, setState] = useState<INewCardState>({
-        cardType: null,
+        city: null,
+        houseNumber: null,
+        street: null,
+        postalCode: null,
+        countryCode: null,
         linkedPhone: null,
+        cardType: 'VIRTUAL',
         step: 'IssueNewCard',
+        recipientName: null,
         cardholderName: null,
+        apartmentNumber: null,
         isExpressDelivery: false,
     });
     

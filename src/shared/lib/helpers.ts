@@ -37,8 +37,9 @@ export const $ENV_MODE = import.meta.env.MODE.toUpperCase() === "LOCAL"
 /** Is environment equals to dev or local*/
 export const $ENV_DEV = ['DEV', 'LOCAL'].includes($ENV_MODE);
 
-export const isActiveClass = (value: boolean): string => value ? "active" : ""
-export const isNull = (value: any): boolean => value === null
+export const isActiveClass = (value: boolean): string => value ? "active" : "";
+export const isNull = (value: any): boolean => value === null;
+export const isNullOrEmpty = (value: string): boolean => value === null || value.length === 0;
 
 export const isNumber = (value: any): boolean => typeof value === "number"
 export function evenOrOdd(number) {

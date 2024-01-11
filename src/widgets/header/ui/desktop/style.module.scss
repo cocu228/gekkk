@@ -6,7 +6,9 @@
   // box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
-
+  height: 40px;
+  align-self: center;
+  margin-left: 2%;
   @include max-devices(xxxl) {
     flex-basis: var(--sidebar-width-xxxl);
   }
@@ -23,6 +25,7 @@
   display: flex;
   justify-content:flex-end;
   flex-grow: 1;
+  margin-right: 2%;
 }
 .AccMenu{
   background-color: #F4F4F4;
@@ -50,3 +53,50 @@
     padding-right: var(--content-pad-right-md);
   }
 }
+.Name{
+  color: #F5F5F5;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.HeaderItemsContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-width:80px ;
+  gap:5px
+}
+.HeaderMenuTitles{
+  color: #F5F5F5;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Number{
+  color: #929798;
+  font-family: Archivo;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.ArrowBtn {
+  background-image: url("/img/icon/OpenModalButton.svg");
+  width: 14px;
+  height: 8px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(0) invert(1);
+}
+

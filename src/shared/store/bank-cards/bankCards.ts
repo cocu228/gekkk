@@ -22,12 +22,14 @@ export const CardStatusDescriptions: Record<string, string> = {
 
 export interface IStoreBankCards {
     refreshKey: string;
+    mainCard: IResCard | null;
     bankCards: IResCard[] | null;
     getBankCards: () => Promise<void>;
     updateCard: (card: IResCard) => void;
 }
 
 export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
+    mainCard: null,
     bankCards: null,
     refreshKey: null,
     getBankCards: async () => {
@@ -37,6 +39,7 @@ export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
             ...state,
             refreshKey: randomId(),
             bankCards: data.result,
+            mainCard: data.result.find(c => c.productType === 'MAIN')
         }));},
     updateCard: (card: IResCard) => {
         set((state) => {

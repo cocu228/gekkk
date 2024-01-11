@@ -3,12 +3,12 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import {NavigateFunction} from "react-router-dom";
 import {AccountRights} from "@/shared/config/account-rights";
 import {IWalletInfo} from "@/shared/store/accounts/accounts";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo) {
+export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
     const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
     const {t} = useTranslation();
-    
+
     return {
         [ETokensConst.ONEINCH]: <div>
             <p className='mb-3'>
@@ -26,7 +26,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p>
                 1inch has a decentralized app (dApp) that can be used as a tool to find information, such as the
                 best exchange rates for cryptocurrencies. Users can choose from ten networks, including Ethereum,
-                Optimism, or Fantom, and connect their digital wallets, such as WalletConnect, Venly, or Coinbase Wallet.
+                Optimism, or Fantom, and connect their digital wallets, such as WalletConnect, Venly, or Coinbase
+                Wallet.
                 Once their wallet is connected, users can swap tokens.
             </p>
 
@@ -52,7 +53,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p>
                 1inch's limit order protocol allows users to place an order into the
                 1inch database through the 1inch user interface.
-                It does not charge any fees, and users can set parameters for conditional orders so their orders are only
+                It does not charge any fees, and users can set parameters for conditional orders so their orders are
+                only
                 executed on what they deem as profitable trades. The limit order protocol is operable on various chains,
                 including BNB Chain and Avalanche.
             </p>
@@ -94,14 +96,16 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 media network Vine co-founder Dom Hofmann. The project intentionally has no front-end interface,
                 images, statistics or functionality. Instead, it is based on a set of 8,000 text-based NFTs open
                 to how the community wants to interpret it. The NFTs contain texts of gears ranging from the
-                “Holy Greaves of Giants” to the “Grim Shout.” As of Sept. 8, 2021, the floor price of Loot on OpenSea is 8.56 ETH.
+                “Holy Greaves of Giants” to the “Grim Shout.” As of Sept. 8, 2021, the floor price of Loot on OpenSea is
+                8.56 ETH.
                 Numerous derivative projects are being built around Loot and can be found here.
             </p>
 
             <p className='mb-3'>
                 Adventure Gold was launched on Sept. 2, 2021, and allowed each owner of a Loot NFT to claim 10,000
                 tokens for free. With the price of AGLD skyrocketing in the initial days of trading, this airdrop was
-                worth as much as $70,000 per NFT. AGLD founder Will Papper claimed he wanted to set a standard for projects
+                worth as much as $70,000 per NFT. AGLD founder Will Papper claimed he wanted to set a standard for
+                projects
                 building on Loot by providing a currency for the decentralized gaming universe.
             </p>
 
@@ -109,8 +113,10 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <p className='mb-3'>
                 Adventure Gold was founded by Will Papper, who is also the co-founder of Syndicate DAO, a decentralized
-                investing protocol. Papper is a graduate of Stanford University and a crypto-native, having owned Ethereum
-                since the 2014 pre-sale. He created Adventure Gold as a reaction to Vitalik Buterin endorsing the project
+                investing protocol. Papper is a graduate of Stanford University and a crypto-native, having owned
+                Ethereum
+                since the 2014 pre-sale. He created Adventure Gold as a reaction to Vitalik Buterin endorsing the
+                project
                 and encouraging others to build upon it. Papper launched AGLD one day after Buterin’s endorsement on
                 Twitter, by writing the majority of the code in four hours at a small airport in Oregon. As of
                 Sept. 6, 2021, Adventure Gold has no official development team beyond Papper.
@@ -122,7 +128,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 Adventure Gold follows the approach the underlying Loot NFT game has hoped for, by the community
                 building on top of Loot as a form of endorsement. While the simplicity and uniqueness of Loot itself
                 inspired the Web3 community to come up with numerous derivatives projects based on its code, Adventure
-                Gold itself aims to be used as a governance token and have users vote on future in-game credits or future
+                Gold itself aims to be used as a governance token and have users vote on future in-game credits or
+                future
                 mints building on top of Loot and adopting AGLD.
             </p>
 
@@ -189,13 +196,15 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p className='mb-3'>
-                ApeCoin holders govern themselves via the decentralized governance framework controlling the ApeCoin DAO,
+                ApeCoin holders govern themselves via the decentralized governance framework controlling the ApeCoin
+                DAO,
                 and vote on how the ApeCoin DAO Ecosystem Fund should be used. The APE Foundation administers proposals
                 agreed upon by ApeCoin holders.
             </p>
 
             <p className='mb-3'>
-                ApeCoin is the APE Ecosystem’s governance token, allowing token holders to participate in ApeCoin DAO and
+                ApeCoin is the APE Ecosystem’s governance token, allowing token holders to participate in ApeCoin DAO
+                and
                 giving its participants a shared and open currency that can be used without centralized intermediaries.
                 62% of all ApeCoin was allocated to the Ecosystem Fund,
                 which will support community-driven initiatives as voted on by ApeCoin DAO members.
@@ -218,7 +227,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.ANT]: <div>
             <p>
                 Aragon (ANT) is a decentralized platform built on the Ethereum network that offers a modularized way to
-                create and manage dApps, cryptoprotocols, and decentralized autonomous organizations (DAO). The ANT ERC-20
+                create and manage dApps, cryptoprotocols, and decentralized autonomous organizations (DAO). The ANT
+                ERC-20
                 token will enable its holders to govern the Aragon Network.
             </p>
         </div>,
@@ -231,9 +241,12 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p>
-                Developers can build privacy-preserving dApps on blockchains compatible with ARPA. Some immediate use cases
-                include credit anti-fraud, secure data wallet, precision marketing, joint AI model training, and key management
-                systems. For example, banks using the ARPA network can share their credit blacklist with each other for risk
+                Developers can build privacy-preserving dApps on blockchains compatible with ARPA. Some immediate use
+                cases
+                include credit anti-fraud, secure data wallet, precision marketing, joint AI model training, and key
+                management
+                systems. For example, banks using the ARPA network can share their credit blacklist with each other for
+                risk
                 management purposes without exposing their customer data or privacy.
             </p>
         </div>,
@@ -317,39 +330,50 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.BAL]: <div>
             <p className='mb-3'>
                 Balancer Protocol is an automated portfolio manager and liquidity provider that transforms the concept
-                of an index fund so that instead of paying fees to portfolio managers to rebalance a portfolio, users can
+                of an index fund so that instead of paying fees to portfolio managers to rebalance a portfolio, users
+                can
                 collect fees from traders who rebalance their portfolio by taking advantage of arbitrage opportunities.
             </p>
 
             <p className='mb-3'>
-                The platform runs on the Ethereum network and seeks to incentivize a distributed network of computers to operate
-                an exchange where users can buy and sell any cryptocurrency. It is an emerging decentralized finance (DeFi) protocol
-                that utilizes a combination of cryptocurrency assets to provide this service, enabling trading without a financial
+                The platform runs on the Ethereum network and seeks to incentivize a distributed network of computers to
+                operate
+                an exchange where users can buy and sell any cryptocurrency. It is an emerging decentralized finance
+                (DeFi) protocol
+                that utilizes a combination of cryptocurrency assets to provide this service, enabling trading without a
+                financial
                 intermediary like an exchange.
             </p>
 
             <p className='mb-3'>
-                With Balancer, users can adjust allocations to suit their particular needs, effectively allowing them to add
-                liquidity without being exposed to the price of Ethereum (ETH). Additionally, users can earn interest from the fees
+                With Balancer, users can adjust allocations to suit their particular needs, effectively allowing them to
+                add
+                liquidity without being exposed to the price of Ethereum (ETH). Additionally, users can earn interest
+                from the fees
                 generated on the Balance Exchange. Even though the highest returns in lending are usually sourced in
-                high demand for a specific asset, users of the platform can see a considerable return on an asset that is
+                high demand for a specific asset, users of the platform can see a considerable return on an asset that
+                is
                 typically in low demand as a result of arbitrage opportunities or a desire to mitigate slippage.
             </p>
 
             <p className='mb-3'>
-                Developers can use Balancer as an open-source platform to create new treasury management systems, opening up
-                possibilities for dynamic fees and enabling the creation of liquidity bootstrapping pools (LBPs). These pools can be used,
+                Developers can use Balancer as an open-source platform to create new treasury management systems,
+                opening up
+                possibilities for dynamic fees and enabling the creation of liquidity bootstrapping pools (LBPs). These
+                pools can be used,
                 for instance, to launch a new cryptocurrency token. “Token” refers to a generic asset:
                 Balancer's first implementation was a contract system that managed ERC20 tokens on the Ethereum network.
             </p>
 
             <p className='mb-3'>
-                According to the company, its mission is to become the primary source of decentralized finance liquidity by
+                According to the company, its mission is to become the primary source of decentralized finance liquidity
+                by
                 providing the most flexible and powerful platform for asset management and decentralized exchange.
             </p>
 
             <p>
-                Balancer has introduced a native governance token, BAL, that is used by users to vote on protocol upgrades,
+                Balancer has introduced a native governance token, BAL, that is used by users to vote on protocol
+                upgrades,
                 including supported collateral, fees, and incentives.
             </p>
         </div>,
@@ -378,7 +402,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <ol className='pl-[25px] list-decimal mb-3'>
                 <li className='mb-1'>
-                    Centralization: Contemporary data solutions, such as API (application programming  interface) feeds
+                    Centralization: Contemporary data solutions, such as API (application programming interface) feeds
                     and some oracle systems, are designed to be centralized. This not only contradicts the concept of
                     decentralization and distrust, but it also constitutes potential security issue data tampering
                     and outages for the users.
@@ -392,7 +416,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
                 <li className='mb-1'>
                     High Cost: They are pricey. This is due to the costs of researching, developing, and deploying the
-                    solution, as well as the different expenditures connected with operating and sustaining it over time.
+                    solution, as well as the different expenditures connected with operating and sustaining it over
+                    time.
                 </li>
             </ol>
 
@@ -462,7 +487,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 Bluzelle uses a fast and efficient Cosmos-based blockchain. Cosmos is an "internet
                 of blockchains," or a decentralized network of interoperable blockchains that can
-                exchange information and tokens among each other without permission.  Blockchain
+                exchange information and tokens among each other without permission. Blockchain
                 interoperability is the technique by which two or more blockchains communicate with
                 each other. Additionally, Bluzelle uses a decentralized storage layer that allows
                 players to instantly store game NFTs on hundreds of nodes (computers), thus providing
@@ -551,7 +576,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 The more pieces a peer receives in exchange for pieces provided, the more productive a
                 peer-to-peer contact is perceived to be. Clients with the most productive exchanges are
-                rewarded with additional pieces, while those with the least productive exchanges are disconnected or banned.
+                rewarded with additional pieces, while those with the least productive exchanges are disconnected or
+                banned.
             </p>
 
             <p className='mb-3'>
@@ -719,7 +745,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p>
-                The CVC token  on the Civic ecosystem is used to support transactions related
+                The CVC token on the Civic ecosystem is used to support transactions related
                 to services offered by the platform. It is an ERC20 standard token facilitating
                 payments for smart contract commands and maintaining the blockchain that backs up
                 the Civic platform. Besides, CVC tokens are coming up with different new use cases
@@ -741,7 +767,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 Today, major problems in making cryptocurrency get to mainstream adoption are low transaction
                 speeds and high fees. It can take almost 10 minutes for a transaction to be completed. Also,
                 the fee of crypto transactions can sometimes cost more than the transaction itself. To solve
-                these problems, Dash was built to provide users with instantly confirmed transactions for a minuscule fee.
+                these problems, Dash was built to provide users with instantly confirmed transactions for a minuscule
+                fee.
             </p>
 
             <p className='mb-2'>
@@ -849,27 +876,34 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 An open-source blockchain leveraging smart contracts, EOS is used to deploy and run decentralized
                 applications (dApps) for real-world use. EOS can support thousands of dApps without experiencing slow
-                confirmation times or high fees, and it aims to be fast, flexible, reliable and forward-driven. EOS hopes
+                confirmation times or high fees, and it aims to be fast, flexible, reliable and forward-driven. EOS
+                hopes
                 to enable developers, entrepreneurs, and institutions to build and innovate with confidence.
             </p>
 
             <p className='mb-3'>
                 The EOS blockchain offers features that set it apart from competing blockchains. Firstly, the blockchain
-                is highly configurable, and developers can develop dApps using simple languages such as C++. Secondly, the
-                blockchain supports fast transactions, with settlement speeds of under 0.5 seconds. Lastly, the blockchain
+                is highly configurable, and developers can develop dApps using simple languages such as C++. Secondly,
+                the
+                blockchain supports fast transactions, with settlement speeds of under 0.5 seconds. Lastly, the
+                blockchain
                 maintains data integrity and security through verification standards and end-to-end authentication.
             </p>
 
             <p className='mb-3'>
                 The EOS core infrastructure has a flexible architecture and keeps much of the blockchain functionality
-                at the smart contract layer, enabling the EOS Network to remain agile and allowing block producers (BPs) to
-                reach consensus on adopting new enhancements to the platform, often without requiring a difficult-to-coordinate
+                at the smart contract layer, enabling the EOS Network to remain agile and allowing block producers (BPs)
+                to
+                reach consensus on adopting new enhancements to the platform, often without requiring a
+                difficult-to-coordinate
                 hard fork of the network.
             </p>
 
             <p>
-                EOS is the native token of the EOS blockchain. The token is used for purchasing or renting access to network
-                bandwidth and storage capacity on EOS, participating in DPoS network consensus and on-chain governance, and
+                EOS is the native token of the EOS blockchain. The token is used for purchasing or renting access to
+                network
+                bandwidth and storage capacity on EOS, participating in DPoS network consensus and on-chain governance,
+                and
                 an account for value on native EOS-based applications.
             </p>
         </div>,
@@ -879,7 +913,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 The Filecoin protocol introduces a decentralized storage network (DSN) based on blockchain.
                 As claimed by the whitepaper, with the DSN scheme, multiple independent storage providers offer data
                 storage and data retrieval to clients on the Filecoin network. In other words, the Filecoin DSN handles
-                storage and retrieval requests via two verifiable markets, i.e., the Storage Market and the Retrieval Market,
+                storage and retrieval requests via two verifiable markets, i.e., the Storage Market and the Retrieval
+                Market,
                 respectively. The two markets have the same structure but different design.
             </p>
 
@@ -887,16 +922,21 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 The Storage Market allows clients to pay storage miners to store data. The storage market is a
                 verifiable market through which clients (buyers) place matching orders with storage miners (sellers).
                 Once matched, orders are submitted to the orderbook (sets of orders). That way, the public gets access
-                to all the orders recorded on the Filecoin blockchain. Additionally, both clients and storage miners must
-                pledge and commit to their resources, where storage miners provide constant proof of storage for an order.
+                to all the orders recorded on the Filecoin blockchain. Additionally, both clients and storage miners
+                must
+                pledge and commit to their resources, where storage miners provide constant proof of storage for an
+                order.
             </p>
 
             <p className='mb-3'>
                 The Retrieval Market allows clients to retrieve data by paying retrieval miners to deliver the
-                data. In the Retrieval Market, clients can request retrieval of a specific piece from an order. Retrieval
-                miners obtain pieces from the Retrieval Market or by storing them from being a storage miner. Participants
+                data. In the Retrieval Market, clients can request retrieval of a specific piece from an order.
+                Retrieval
+                miners obtain pieces from the Retrieval Market or by storing them from being a storage miner.
+                Participants
                 in the retrieval market follow an off-chain process of exchanging pieces and settling prices. Therefore,
-                Retrieval Miners and clients exchange data without the network knowing about it. Mostly, the retrieval miner
+                Retrieval Miners and clients exchange data without the network knowing about it. Mostly, the retrieval
+                miner
                 splits the data into multiple parts, and the client pays for each part that is retrieved.
             </p>
 
@@ -912,25 +952,35 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <p className='mb-3'>
                 The participants in the Gala Games ecosystem use GALA as a non-refundable utility token and a medium
-                of exchange. Introducing GALA aims to provide a suitable and secure mode of payment and settlement between
-                participants who interact within the Gala Games ecosystem, for instance, to pay for digital goods or in-game
-                items. Such items on the Ethereum blockchain can be accessed with a variety of open-source and cryptographically
-                secure wallets and storage mechanisms. The GALA website wallet and the GALA app are open-source, keyphrase-secured
-                crypto wallets. Once you have created the wallet, nobody else other than the account owner has access to the funds
+                of exchange. Introducing GALA aims to provide a suitable and secure mode of payment and settlement
+                between
+                participants who interact within the Gala Games ecosystem, for instance, to pay for digital goods or
+                in-game
+                items. Such items on the Ethereum blockchain can be accessed with a variety of open-source and
+                cryptographically
+                secure wallets and storage mechanisms. The GALA website wallet and the GALA app are open-source,
+                keyphrase-secured
+                crypto wallets. Once you have created the wallet, nobody else other than the account owner has access to
+                the funds
                 and items stored within that wallet.
             </p>
 
             <p className='mb-3'>
                 The decentralized Gala Games ecosystem desires to make the doors wide open for users and give players
-                back the control they deserve. Through decentralization, players, in addition to owning their in-games items,
-                have a say in how the Gala Games road map develops. Players and node owners will be enlisted, through distributed
-                voting mechanisms, to help decide on the games to be added or funded by the decentralized Gala Games ecosystem.
+                back the control they deserve. Through decentralization, players, in addition to owning their in-games
+                items,
+                have a say in how the Gala Games road map develops. Players and node owners will be enlisted, through
+                distributed
+                voting mechanisms, to help decide on the games to be added or funded by the decentralized Gala Games
+                ecosystem.
             </p>
 
             <p>
                 Founder’s nodes are Gala Games ecosystem's backbone. Everyone operating a founder’s node is contributing
-                to the growth of the decentralized gaming network. By running a founder’s node, players can work to get real
-                ownership of their assets and content. A consensus vote is a voting opportunity presented to all founder’s node
+                to the growth of the decentralized gaming network. By running a founder’s node, players can work to get
+                real
+                ownership of their assets and content. A consensus vote is a voting opportunity presented to all
+                founder’s node
                 operators in the node network. Often these votes are about which games come to the Gala Games platform.
             </p>
         </div>,
@@ -938,28 +988,42 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.GRT]: <div>
             <p className='mb-3'>
                 The Graph (GRT) is a protocol for indexing and accessing blockchain data. The Graph indexes blockchain
-                records from networks like Ethereum in the same way that Google indexes the web. The Graph is a global data
-                layer that runs on top of blockchains and storage networks, acting as a uniting and organizing factor for the
-                decentralization movement. In simple terms, The Graph organizes the data and makes it easy to retrieve it from
+                records from networks like Ethereum in the same way that Google indexes the web. The Graph is a global
+                data
+                layer that runs on top of blockchains and storage networks, acting as a uniting and organizing factor
+                for the
+                decentralization movement. In simple terms, The Graph organizes the data and makes it easy to retrieve
+                it from
                 the blockchain.
             </p>
 
             <p className='mb-3'>
-                Indexing a blockchain is a hard task, and many complex smart contracts that store data on blockchain make
-                it difficult for a DApp to answer a simple query. As per the whitepaper, the Graph protocol aims to make it
-                easy to retrieve data from the blockchain by using subgraphs. According to the protocol, a subgraph seeks to
-                specify which Ethereum data the protocol indexes and how it is being stored. Subgraphs, which are open APIs
-                (application programming interfaces), organize this information that anybody may use to query. Subsequently,
-                with just a few keystrokes, this data can be transformed, categorized, and shared across apps for anyone to query.
-                All data is saved and processed in a secure manner on open networks. The Graph protocol aims to query this data
+                Indexing a blockchain is a hard task, and many complex smart contracts that store data on blockchain
+                make
+                it difficult for a DApp to answer a simple query. As per the whitepaper, the Graph protocol aims to make
+                it
+                easy to retrieve data from the blockchain by using subgraphs. According to the protocol, a subgraph
+                seeks to
+                specify which Ethereum data the protocol indexes and how it is being stored. Subgraphs, which are open
+                APIs
+                (application programming interfaces), organize this information that anybody may use to query.
+                Subsequently,
+                with just a few keystrokes, this data can be transformed, categorized, and shared across apps for anyone
+                to query.
+                All data is saved and processed in a secure manner on open networks. The Graph protocol aims to query
+                this data
                 quickly, reliably, and securely.
             </p>
 
             <p>
-                Deployed on the Ethereum blockchain, GRT is the native token of The Graph and is the platform’s cryptocurrency.
-                GRT is an ERC20-based work token and is primarily utilized for allocating resources in the network. Participants
-                stake and utilize Graph tokens (GRT) to maintain the economic security of the network and the integrity of data
-                queried. Active indexers, curators, and delegators may provide services and earn revenue from the network based
+                Deployed on the Ethereum blockchain, GRT is the native token of The Graph and is the platform’s
+                cryptocurrency.
+                GRT is an ERC20-based work token and is primarily utilized for allocating resources in the network.
+                Participants
+                stake and utilize Graph tokens (GRT) to maintain the economic security of the network and the integrity
+                of data
+                queried. Active indexers, curators, and delegators may provide services and earn revenue from the
+                network based
                 on their work and how much GRT they own.
             </p>
         </div>,
@@ -968,30 +1032,41 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 ICON (ICX) is a protocol developed for creating decentralized applications (DApps) and is based on
                 blockchain technology. The project’s conceptualization is based on the idea of connecting the world.
-                Historically, technological innovations have enabled people to connect; for instance, postal services and
-                telephones made it possible for people to connect irrespective of distance, enabling freedom of mobility.
+                Historically, technological innovations have enabled people to connect; for instance, postal services
+                and
+                telephones made it possible for people to connect irrespective of distance, enabling freedom of
+                mobility.
                 Similarly, the project intends to build a more seamless connection worldwide.
             </p>
 
             <p className='mb-3'>
-                The platform aims to remove any barriers that exist in the centralized system. ICON (ICX) seeks to create
+                The platform aims to remove any barriers that exist in the centralized system. ICON (ICX) seeks to
+                create
                 a decentralized network that enables independent blockchains with different governances to carry out
-                transactions among each other without any intermediary. The network allows anyone to develop a new blockchain
+                transactions among each other without any intermediary. The network allows anyone to develop a new
+                blockchain
                 project and join the forum.
             </p>
 
             <p className='mb-3'>
-                The protocol essentially aims for decentralized governance. In other words, every blockchain connected to
-                the nexus holds its governance. The nexus refers to a multi-channel blockchain comprising light clients of
-                respective blockchains. The platform’s tokens are integrated into the nexus chain, and the various interconnected
-                blockchains can use the tokens for transferring value. In addition, the nexus takes forward the discussions
+                The protocol essentially aims for decentralized governance. In other words, every blockchain connected
+                to
+                the nexus holds its governance. The nexus refers to a multi-channel blockchain comprising light clients
+                of
+                respective blockchains. The platform’s tokens are integrated into the nexus chain, and the various
+                interconnected
+                blockchains can use the tokens for transferring value. In addition, the nexus takes forward the
+                discussions
                 with an equal level of representation on behalf of every independent blockchain.
             </p>
 
             <p>
-                ICX is the native token of the platform that supports, verifies, and executes a negotiated agreement between
-                consenting parties within the ecosystem. The token can be used to pay the transaction fee, and other tokens
-                can be converted into ICX via decentralized exchange (DEX). Further, the issuance and storage of tokens are done
+                ICX is the native token of the platform that supports, verifies, and executes a negotiated agreement
+                between
+                consenting parties within the ecosystem. The token can be used to pay the transaction fee, and other
+                tokens
+                can be converted into ICX via decentralized exchange (DEX). Further, the issuance and storage of tokens
+                are done
                 in a public wallet called the public treasury.
             </p>
         </div>,
@@ -999,48 +1074,68 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.IDEX]: <div>
             <p className='mb-3'>
                 IDEX is a hybrid liquidity decentralized exchange (DEX) that combines a high-performance orderbook and
-                matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a specific
-                asset organized by price level. The platform blends the advantages of centralized and decentralized exchanges
-                with the performance and characteristics of a traditional orderbook and the liquidity and security of an AMM.
-                IDEX permits traders to obtain the best practices, prevent failed transactions, while providing liquidity, all
-                with the power of actual limit and stop-loss orders. IDEX operates on the Polygon blockchain, supporting MATIC
+                matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a
+                specific
+                asset organized by price level. The platform blends the advantages of centralized and decentralized
+                exchanges
+                with the performance and characteristics of a traditional orderbook and the liquidity and security of an
+                AMM.
+                IDEX permits traders to obtain the best practices, prevent failed transactions, while providing
+                liquidity, all
+                with the power of actual limit and stop-loss orders. IDEX operates on the Polygon blockchain, supporting
+                MATIC
                 and ERC-20 assets.
             </p>
 
             <p className='mb-3'>
                 The three important aspects of the platform are high-performance exchange, hybrid liquidity, and smart
                 contracts. The high-performance exchange component is analogous to that on top of centralized exchanges.
-                This design allows IDEX to match centralized exchanges in latency and performance that are unavailable from
-                other DEXs.Further, the IDEX Hybrid Liquidity (IDEX HL) incorporates a traditional orderbook and matching engine
-                with AMM liquidity pools. So, traders are seamlessly matched against the most suitable combination of limit orders
-                and pool liquidity for low-cost execution without any additional efforts. IDEX HL relies on smart contracts to
-                handle security and trade settlement, enforcing the constraints of the AMM pricing curve and enabling users to
+                This design allows IDEX to match centralized exchanges in latency and performance that are unavailable
+                from
+                other DEXs.Further, the IDEX Hybrid Liquidity (IDEX HL) incorporates a traditional orderbook and
+                matching engine
+                with AMM liquidity pools. So, traders are seamlessly matched against the most suitable combination of
+                limit orders
+                and pool liquidity for low-cost execution without any additional efforts. IDEX HL relies on smart
+                contracts to
+                handle security and trade settlement, enforcing the constraints of the AMM pricing curve and enabling
+                users to
                 manage custody of their assets.
             </p>
 
             <p className='mb-3'>
-                Next, the IDEX smart contract contains three settlement processes employed in various circumstances depending
-                on the type of liquidity being matched. The IDEX smart contracts bring programmatic guarantees to the platform.
-                So, IDEX utilizes a series of smart contracts to decentralize fund custody and trade settlement by introducing
+                Next, the IDEX smart contract contains three settlement processes employed in various circumstances
+                depending
+                on the type of liquidity being matched. The IDEX smart contracts bring programmatic guarantees to the
+                platform.
+                So, IDEX utilizes a series of smart contracts to decentralize fund custody and trade settlement by
+                introducing
                 such novel DeFi mechanisms.
             </p>
 
             <p className='mb-3'>
-                About the economics of the token, the IDEX token aligns rewards between the exchange and IDEX token stakers
-                who play a vital role in the operations of IDEX. Stakers are rewarded with half (50%) of the trade fees for
+                About the economics of the token, the IDEX token aligns rewards between the exchange and IDEX token
+                stakers
+                who play a vital role in the operations of IDEX. Stakers are rewarded with half (50%) of the trade fees
+                for
                 their participation.
             </p>
 
             <p className='mb-3'>
-                Stakingnodes keep a real-time record of system data. This reduces the IDEX's operational cost by offloading
-                popular API (application programming interface) operations. Staking nodes are evaluated by their uptime to
+                Stakingnodes keep a real-time record of system data. This reduces the IDEX's operational cost by
+                offloading
+                popular API (application programming interface) operations. Staking nodes are evaluated by their uptime
+                to
                 determine their performance. Uptime is a function of API performance and online sessions.
             </p>
 
             <p>
-                IDEX tokens should be placed as collateral to act as nodes and receive payment for node operations. In the event
-                of serving incorrect data, the respective node address will be blacklisted, and the operator must re-incubate
-                their tokens. IDEX staking allows for “riskless” staking from cold storage as no slashing mechanism is involved.
+                IDEX tokens should be placed as collateral to act as nodes and receive payment for node operations. In
+                the event
+                of serving incorrect data, the respective node address will be blacklisted, and the operator must
+                re-incubate
+                their tokens. IDEX staking allows for “riskless” staking from cold storage as no slashing mechanism is
+                involved.
             </p>
         </div>,
 
@@ -1053,7 +1148,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <p className='mb-3'>
                 Injective aims to provide financial infrastructure primitives that DeFi applications can use, such as
-                a fully decentralized on-chain orderbook that is resistant to MEV (miner extractable value). In addition,
+                a fully decentralized on-chain orderbook that is resistant to MEV (miner extractable value). In
+                addition,
                 all types of financial markets, such as spot, perpetual, futures, and options, are fully on-chain. The
                 decentralized cross-chain bridging infrastructure is compatible with Ethereum, IBC-enabled blockchains,
                 and non-EVM chains such as Solana.
@@ -1061,14 +1157,16 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <p className='mb-3'>
                 Injective also seeks to offer a next-generation, highly interoperable smart contract platform based on
-                CosmWasm, with advanced interchain capabilities. It is built using the Cosmos SDK and uses a Tendermint-based
+                CosmWasm, with advanced interchain capabilities. It is built using the Cosmos SDK and uses a
+                Tendermint-based
                 Proof-of-Stake consensus mechanism, providing instant transaction finality and fast performance (over
                 10,000 transactions per second).
             </p>
 
             <p>
                 The Injective ecosystem includes over 100 projects and more than 150,000 community members worldwide.
-                It is backed by investors such as Binance, Pantera Capital, Jump Crypto, and Mark Cuban. The INJ token is
+                It is backed by investors such as Binance, Pantera Capital, Jump Crypto, and Mark Cuban. The INJ token
+                is
                 the native utility token of Injective, and it can be used for various purposes, including protocol
                 governance, dApp value capture, PoS security, developer incentives, and staking.
             </p>
@@ -1152,57 +1250,81 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.KSM]: <div>
             <p className='mb-3'>
                 Kusama is a scalable network of blockchains meant for experimentation. Kusama is the identical
-                copy of the Polkadot blockchain and provides a pre-production environment for Polkadot. The platform allows
-                developers to experiment and test new decentralized applications (DApps) before releasing them on the network
-                in real time. The blockchains available on Kusama’s network are called Parachains that bring several breakthroughs
+                copy of the Polkadot blockchain and provides a pre-production environment for Polkadot. The platform
+                allows
+                developers to experiment and test new decentralized applications (DApps) before releasing them on the
+                network
+                in real time. The blockchains available on Kusama’s network are called Parachains that bring several
+                breakthroughs
                 compared to the legacy networks.
             </p>
 
             <p className='mb-3'>
                 While other networks only allow developers to build using smart contracts, Kusama seeks to give them
-                complete control over the underlying blockchain. This flexibility aims to provide freedom to the developers
-                to optimize for better use cases and hence better and secure DApps and services for all. Smart contracts are
-                just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols
-                on the blockchain. Moreover, Kusama also serves as a Canary Network for Polkadot. Official Polkadot upgrades are
-                tested on Kusama before they are launched. Hence, the primary use case of Kusama is to facilitate testing.
+                complete control over the underlying blockchain. This flexibility aims to provide freedom to the
+                developers
+                to optimize for better use cases and hence better and secure DApps and services for all. Smart contracts
+                are
+                just like regular contracts; however, instead of being drafted on paper, these contracts run in the form
+                of protocols
+                on the blockchain. Moreover, Kusama also serves as a Canary Network for Polkadot. Official Polkadot
+                upgrades are
+                tested on Kusama before they are launched. Hence, the primary use case of Kusama is to facilitate
+                testing.
             </p>
 
             <p>
                 KSM is the native token of the platform. KSM has many use cases on the platform like token holders can
-                validate the network, nominate other validators, and use governance rights to vote on the major decisions of
+                validate the network, nominate other validators, and use governance rights to vote on the major
+                decisions of
                 the platform, all using KSM.
             </p>
         </div>,
 
         [ETokensConst.LPT]: <div>
             <p className='mb-3'>
-                Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to build
-                video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live video
-                streaming services. It is an alternative to mainstream centralized broadcasting companies. Livepeer aims to make
+                Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to
+                build
+                video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live
+                video
+                streaming services. It is an alternative to mainstream centralized broadcasting companies. Livepeer aims
+                to make
                 video streaming more cost-friendly and reliable.
             </p>
 
             <p className='mb-3'>
-                According to the website, the Livepeer platform can reduce costs up to 50 times compared to other platforms.
-                In addition, Livepeer is more scalable and resilient without single points of failure. That means developers have
+                According to the website, the Livepeer platform can reduce costs up to 50 times compared to other
+                platforms.
+                In addition, Livepeer is more scalable and resilient without single points of failure. That means
+                developers have
                 the freedom to scale up or down and manage content creator demand.
             </p>
 
             <p className='mb-3'>
-                Therefore, Livepeer is a behind-the-scenes solution for app creators to transcode videos. Transcoding means
-                converting videos from one format to another before playback on computers on the network. Users who transcode videos
-                are known as orchestrators. Orchestrators lend their computers’ processing power to the network. Also, the first nodes
-                are called broadcasters. Thus, the broadcasters send video streams for transcoding to orchestrators. Consequently,
-                broadcasters are charged fees denominated in ether (ETH) for the transcoding work. Meanwhile, orchestrators receive
+                Therefore, Livepeer is a behind-the-scenes solution for app creators to transcode videos. Transcoding
+                means
+                converting videos from one format to another before playback on computers on the network. Users who
+                transcode videos
+                are known as orchestrators. Orchestrators lend their computers’ processing power to the network. Also,
+                the first nodes
+                are called broadcasters. Thus, the broadcasters send video streams for transcoding to orchestrators.
+                Consequently,
+                broadcasters are charged fees denominated in ether (ETH) for the transcoding work. Meanwhile,
+                orchestrators receive
                 rewards for their services.
             </p>
 
             <p>
-                The native token of the network is the Livepeer Token (LPT). LPT is used for rewarding, staking, trading, or
-                participating in governance voting. Just like any other cryptocurrency, the demand for LPT is directly proportional
-                to the network's usage. Further, orchestrators receive work in proportion to the amount of LPT they staked. Users who
-                do not want to become orchestrators can stake their LPT tokens toward the transcoders. By doing so, LPT holders get a
-                portion of the transcoders' rewards. They are also called delegators and chosen through voting. Their job is to keep
+                The native token of the network is the Livepeer Token (LPT). LPT is used for rewarding, staking,
+                trading, or
+                participating in governance voting. Just like any other cryptocurrency, the demand for LPT is directly
+                proportional
+                to the network's usage. Further, orchestrators receive work in proportion to the amount of LPT they
+                staked. Users who
+                do not want to become orchestrators can stake their LPT tokens toward the transcoders. By doing so, LPT
+                holders get a
+                portion of the transcoders' rewards. They are also called delegators and chosen through voting. Their
+                job is to keep
                 the node running smoothly for transaction validation.
             </p>
         </div>,
@@ -1211,30 +1333,42 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 Loopring (LRC) is an Ethereum token that describes itself as “an open-source, audited, and non-custodial
                 exchange protocol.” The protocol aims to allow anyone to build non-custodial, decentralized exchanges on
-                top of it by leveraging zero-knowledge proofs (ZKPs), a popular means of enhancing privacy in cryptocurrency.
+                top of it by leveraging zero-knowledge proofs (ZKPs), a popular means of enhancing privacy in
+                cryptocurrency.
                 ZKPs ensure that assets are always in the control of users.
             </p>
 
             <p className='mb-3'>
-                The majority of crypto trading takes place on centralized cryptocurrency exchanges, which are online platforms
-                run by private corporations that hold users’ funds and match trading orders. However, as indicated in the whitepaper,
-                these platforms come with a variety of risks. The three main risks of centralized exchanges include lack of security,
-                lack of transparency, and lack of liquidity. As a result, a new type of exchange called decentralized exchange has
-                evolved to address these issues. These exchanges are different from centralized exchanges because users keep control
-                of their private keys by trading directly on the underlying blockchain. However, decentralized exchanges are not completely
+                The majority of crypto trading takes place on centralized cryptocurrency exchanges, which are online
+                platforms
+                run by private corporations that hold users’ funds and match trading orders. However, as indicated in
+                the whitepaper,
+                these platforms come with a variety of risks. The three main risks of centralized exchanges include lack
+                of security,
+                lack of transparency, and lack of liquidity. As a result, a new type of exchange called decentralized
+                exchange has
+                evolved to address these issues. These exchanges are different from centralized exchanges because users
+                keep control
+                of their private keys by trading directly on the underlying blockchain. However, decentralized exchanges
+                are not completely
                 free from flaws. Performance and structural constraints continue to be a problem.
             </p>
 
             <p className='mb-3'>
                 Hence, Loopring’s stated purpose is to create a hybrid platform that combines prominent features of both
-                centralized and decentralized exchanges. The protocol aims to maintain the benefits of decentralized exchanges while
-                lowering or eliminating their inefficiencies through hybrid solutions. Loopring intends to improve order execution
-                efficiency and DEX liquidity by managing the orders in a centralized manner but settling the trade on blockchain.
+                centralized and decentralized exchanges. The protocol aims to maintain the benefits of decentralized
+                exchanges while
+                lowering or eliminating their inefficiencies through hybrid solutions. Loopring intends to improve order
+                execution
+                efficiency and DEX liquidity by managing the orders in a centralized manner but settling the trade on
+                blockchain.
             </p>
 
             <p>
-                Another prominent feature that Loopring seeks to offer is the low transaction cost. Loopring aims to execute
-                the majority of operations, such as trade and transfer settlement, off the Ethereum blockchain. This considerably
+                Another prominent feature that Loopring seeks to offer is the low transaction cost. Loopring aims to
+                execute
+                the majority of operations, such as trade and transfer settlement, off the Ethereum blockchain. This
+                considerably
                 reduces the gas usage and overall transaction cost to a fraction of what it would be on-chain.
             </p>
         </div>,
@@ -1242,27 +1376,40 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.MASK]: <div>
             <p className='mb-3'>
                 Mask Network is a gateway that allows users to access the world of decentralized web or Web 3.0 through
-                the Mask Network extension. Mask Network, rather than developing a new platform, bridges Web 2.0 and Web 3.0,
-                allowing people to access Web 3.0 within existing mainstream platforms. Web 2.0, in simple words, is what the
-                general public believes to be the "internet." Web 3.0 is about reclaiming decentralized control of user data and
+                the Mask Network extension. Mask Network, rather than developing a new platform, bridges Web 2.0 and Web
+                3.0,
+                allowing people to access Web 3.0 within existing mainstream platforms. Web 2.0, in simple words, is
+                what the
+                general public believes to be the "internet." Web 3.0 is about reclaiming decentralized control of user
+                data and
                 building a censorship-resistant, open internet driven by new technology like the blockchain.
             </p>
 
             <p className='mb-3'>
-                The problem that Mask Network is aiming to solve is the present internet is dominated by technology firms,
-                which influence how users interact with the online world, including what they publish, what they see, and whom they
-                contact. Since today's Web 2.0 platforms can make content vanish if it does not adhere to companies’ rules, users
-                typically do not have complete ownership of the content they upload.Besides this, the platform believes that many
-                issues have surfaced on social media. Users can rarely make cross-border payments, have no storage space for long-term
-                files, and have no genuinely secure encryption. The social media platforms benefit from users' data and labor, and users
+                The problem that Mask Network is aiming to solve is the present internet is dominated by technology
+                firms,
+                which influence how users interact with the online world, including what they publish, what they see,
+                and whom they
+                contact. Since today's Web 2.0 platforms can make content vanish if it does not adhere to companies’
+                rules, users
+                typically do not have complete ownership of the content they upload.Besides this, the platform believes
+                that many
+                issues have surfaced on social media. Users can rarely make cross-border payments, have no storage space
+                for long-term
+                files, and have no genuinely secure encryption. The social media platforms benefit from users' data and
+                labor, and users
                 have little leverage to stop them.
             </p>
 
             <p className='mb-3'>
-                Mask Network seeks to solve the above-mentioned persisting issues with the Mask Network extension. As mentioned on
-                the website, users can install the Mask Network extension, log in with their Mask IDs, and connect their wallets. This
-                way, users can use familiar Web 2.0 sites with Web 3.0 integrations. The Mask Network extension supports blockchains
-                like Ethereum, Binance Smart Chain (BSC), Polygon, etc. Mask Network is also compliant with various social media
+                Mask Network seeks to solve the above-mentioned persisting issues with the Mask Network extension. As
+                mentioned on
+                the website, users can install the Mask Network extension, log in with their Mask IDs, and connect their
+                wallets. This
+                way, users can use familiar Web 2.0 sites with Web 3.0 integrations. The Mask Network extension supports
+                blockchains
+                like Ethereum, Binance Smart Chain (BSC), Polygon, etc. Mask Network is also compliant with various
+                social media
                 sites like Twitter and Facebook. Users can do various things with the Mask Network extension:
             </p>
 
@@ -1287,7 +1434,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </li>
 
                 <li className='mb-3'>
-                    Users can trade NFTs directly from social media platforms. OpenSea, an NFT marketplace, powers this feature.
+                    Users can trade NFTs directly from social media platforms. OpenSea, an NFT marketplace, powers this
+                    feature.
                 </li>
 
                 <li className='mb-3'>
@@ -1296,9 +1444,12 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </ol>
 
             <p>
-                The native utility token of Mask Network is MASK. MASK is also a governance token for MaskDAO, the Mask ecosystem's
-                governing decentralized autonomous organization (DAO). Each MASK token represents one vote in DAO-related activities.
-                Apart from this, Mask Network seeks to launch the Mask Grant Program to provide financial assistance to initiatives
+                The native utility token of Mask Network is MASK. MASK is also a governance token for MaskDAO, the Mask
+                ecosystem's
+                governing decentralized autonomous organization (DAO). Each MASK token represents one vote in
+                DAO-related activities.
+                Apart from this, Mask Network seeks to launch the Mask Grant Program to provide financial assistance to
+                initiatives
                 that can contribute to or integrate into the Mask Network crypto ecosystem.
             </p>
         </div>,
@@ -1308,7 +1459,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and
                 trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track
                 the price of stocks, futures, exchange-traded funds, and other traditional financial assets and bridges
-                cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is used
+                cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is
+                used
                 for governance, CDP closure fees, and liquidity mining.
             </p>
 
@@ -1368,8 +1520,10 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                     <ul className='pl-[25px] list-disc'>
                         <li><b>Dai:</b>
                             The Dai stablecoin is a decentralized and collateral-backed pegged cryptocurrency.
-                            A pegged cryptocurrency is one whose exchange rate in relation to a traditional currency has been
-                            pre-determined by a national government. The Maker community thinks that a decentralized stablecoin
+                            A pegged cryptocurrency is one whose exchange rate in relation to a traditional currency has
+                            been
+                            pre-determined by a national government. The Maker community thinks that a decentralized
+                            stablecoin
                             is essential for any business or individual to achieve the benefits of digital currency.
                         </li>
 
@@ -1477,7 +1631,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 reliable for everyone. By having all payment requests in one place, companies that provide services
                 such as accounting, invoicing, payment processing, and auditing can connect to the same network and
                 communicate with one another utilizing the same single source of truth. Thus, in simpler terms, Request
-                is a decentralized network that permits anyone to create, fulfill, and share a payment request in a secure way.
+                is a decentralized network that permits anyone to create, fulfill, and share a payment request in a
+                secure way.
             </p>
 
             <p className='mb-3'>
@@ -1486,7 +1641,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 transactions in one place. This is a suite of financial tools that makes life easier by providing
                 an application for invoices, expenses, payroll, and accounting. Next, by using Request Create, users
                 can create and exchange payment requests in three easy steps, allowing them to spend less time on
-                payments and more time on running their business. Then there's Wooreq, a Woocommerce plugin that uses the
+                payments and more time on running their business. Then there's Wooreq, a Woocommerce plugin that uses
+                the
                 Request network to make it simple to accept cryptocurrency payments.
             </p>
 
@@ -1496,7 +1652,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 IPFS, also known as InterPlanetary File System, is a protocol and network. This is designed to
                 produce a peer-to-peer way of storing and sharing hypermedia in the distributed file system that is
                 content-addressable. The data stored on the blockchain is Hash (proof of data), which can’t be modified
-                or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher throughput
+                or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher
+                throughput
                 and lower costs.
             </p>
 
@@ -1516,7 +1673,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 percent and 0.5 percent, with the amount decreasing as the system grows. Participants are required to
                 pay a network fee in REQ, which will be burned when they use the network, meaning that the tokens are
                 sent to an unusable wallet address to remove them from circulation. Additionally, the REQ token is used
-                for governance purposes by allowing participants to vote on decisions that are crucial for the network’s long-term success.
+                for governance purposes by allowing participants to vote on decisions that are crucial for the network’s
+                long-term success.
             </p>
         </div>,
 
@@ -1700,24 +1858,31 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 Zcash facilitates optional anonymity by offering two types of addresses: transparent address
                 (T-addresses) and private addresses (Z-addresses). Transactions between T-addresses are publicly
-                viewable on the Zcash blockchain. However, Z-addresses are shielded addresses and therefore are not visible.
-                Transactions between shielded addresses do not reveal the transaction address, the amount transferred, or any
-                other sensitive information. T-addresses and Z-addresses are interoperable, and funds can be transferred between the two.
+                viewable on the Zcash blockchain. However, Z-addresses are shielded addresses and therefore are not
+                visible.
+                Transactions between shielded addresses do not reveal the transaction address, the amount transferred,
+                or any
+                other sensitive information. T-addresses and Z-addresses are interoperable, and funds can be transferred
+                between the two.
             </p>
 
             <p className='mb-3'>
                 ZEC is the native token of the Zcash platform. The token can be mined using the Equihash proof-of-work
                 algorithm. Proof of work is a transaction verification mechanism that uses hardware’s processing power
-                to produce a new block on the chain. The ZEC token gets used by Z-addresses and T-addresses for transactions.
-                Moreover, the ZEC token is the platform’s cryptocurrency and can be bought on many exchanges like Coinbase.
+                to produce a new block on the chain. The ZEC token gets used by Z-addresses and T-addresses for
+                transactions.
+                Moreover, the ZEC token is the platform’s cryptocurrency and can be bought on many exchanges like
+                Coinbase.
             </p>
 
             <p>
                 Shielded transactions of Z-addresses use the zero-knowledge succinct non-interactive argument of
                 knowledge (zk-SNARK) cryptography protocol. There are two parties in the zero-knowledge proof: the
                 prover and the verifier. The protocol states that the prover can prove to the verifier that they possess
-                specific knowledge without actually disclosing what the knowledge is. Therefore, the protocol uses a secret
-                key to confirm the possession of information. For each shielded transaction, the sender uses their key to
+                specific knowledge without actually disclosing what the knowledge is. Therefore, the protocol uses a
+                secret
+                key to confirm the possession of information. For each shielded transaction, the sender uses their key
+                to
                 generate proof that their inputs are valid. Miners check the shielded transaction by verifying the key.
                 This way, Zcash requires more work up front, but it simplifies verifying.
             </p>
@@ -1739,7 +1904,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p>
-                Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded to
+                Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded
+                to
                 numerous applications, including payments for transaction fees (on the Binance Chain), travel bookings,
                 entertainment, online services, and financial services.
             </p>
@@ -1755,7 +1921,9 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <ul className='pl-[25px] list-disc'>
                 <li className='mb-1'>The ideology of cryptocurrency creation is independence from the state.</li>
-                <li className='mb-1'>The demand for bitcoin is increasing and the number of released coins is gradually decreasing.</li>
+                <li className='mb-1'>The demand for bitcoin is increasing and the number of released coins is gradually
+                    decreasing.
+                </li>
                 <li className='mb-1'>Bitcoin emission is limited to 21,000,000 coins. No more can be created.</li>
                 <li className='mb-1'>Mining of coins requires labor, computing resources, and electricity.</li>
             </ul>
@@ -1781,7 +1949,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
             <p className='mb-3'>
                 Once generated, bought, or received, Dai can be used in the same manner as any other cryptocurrency: it
-                can be sent to others, used as payments for goods and services, and even held as savings through a feature
+                can be sent to others, used as payments for goods and services, and even held as savings through a
+                feature
                 of the Maker Protocol called the Dai Savings Rate (DSR).
             </p>
 
@@ -1891,19 +2060,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
         [ETokensConst.EURG]: <div>
             <p className='mb-3'>
                 {t("EUR_is_utility_token")} <a
-                    className='font-bold underline hover:cursor-pointer'
-                    href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >{t("gekkard_app")}</a>.
+                className='font-bold underline hover:cursor-pointer'
+                href={`${gekkardUrl ?? 'https://dev.gekkard.com'}/app-release.apk`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >{t("gekkard_app")}</a>.
             </p>
 
             <p className='mb-3'>{t("for_more_information")} <a
-                    className='underline font-bold hover:cursor-pointer'
-                    href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >{t("white_paper")}</a>.
+                className='underline font-bold hover:cursor-pointer'
+                href='https://gekkoin.com/source/Gekkoin_EURG_WP.pdf'
+                target="_blank"
+                rel="noopener noreferrer"
+            >{t("white_paper")}</a>.
             </p>
 
             <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
@@ -1912,9 +2081,9 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </div>
 
                 <div className="col text-xs">
-                <span>{t("exchange_fee")} 1,5%.
-                    {account.rights[AccountRights.IsJuridical] ? null : <>
-                        {t("if_you")} <a
+                    {account && <span>{t("exchange_fee")} 1,5%.
+                        {account.rights[AccountRights.IsJuridical] ? null : <>
+                            {t("if_you")} <a
                             className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
                             onClick={() => {
                                 navigate('/wallet/GKE/no_fee_program');
@@ -1923,8 +2092,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                         >
                             {t("freeze_GKE_tokens")}
                         </a> {t("fee_is")} 0%.
-                    </>}
-                </span>
+                        </>}
+                </span>}
                 </div>
             </div>
 
@@ -1941,13 +2110,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </p>
 
                 <ul className='pl-[25px] list-disc mb-3'>
-                    <li><a 
+                    <li><a
                         className='underline font-bold hover:cursor-pointer'
                         href='https://gekkoin.com/source/Emission-rules-Gekkoin.pdf'
                         target="_blank"
                         rel="noopener noreferrer"
                     >{t("reglament_emission")};</a></li>
-                    <li><a 
+                    <li><a
                         className='underline font-bold hover:cursor-pointer'
                         href='https://gekkoin.com/source/Token-distribution-report.pdf'
                         target="_blank"
@@ -1957,11 +2126,11 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
                 <p>
                     {t("EURG_built_on")} <a
-                        className='underline font-bold hover:cursor-pointer'
-                        href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >{t("here")}</a>.
+                    className='underline font-bold hover:cursor-pointer'
+                    href='https://gekkoin.com/source/Gekkoin_SC_Secondary_Audit_Report.pdf'
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >{t("here")}</a>.
                 </p>
             </div>
 
@@ -2020,13 +2189,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </li>
                 <li className='mb-3'>
                     {t("additional_benefit")} <a
-                        className='font-bold underline hover:cursor-pointer'
-                        href='https://web.gekkoin.com/'
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {t("gekkoin_structured_deposits")}
-                    </a>. {t("GKE_tokens_blocked")}.
+                    className='font-bold underline hover:cursor-pointer'
+                    href='https://web.gekkoin.com/'
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {t("gekkoin_structured_deposits")}
+                </a>. {t("GKE_tokens_blocked")}.
                 </li>
                 <li className='mb-3'>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
@@ -2083,7 +2252,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 initially designed to address the developer's concerns that Bitcoin was becoming too centrally
                 controlled, and to make it more difficult for largescale mining firms to gain the upper hand in mining.
                 While eventually unsuccessful in preventing enterprise miners from taking over the lion's share of
-                Litecoin mining, the cryptocurrency has reworked itself into a minable coin and a peer-to-peer payment system.
+                Litecoin mining, the cryptocurrency has reworked itself into a minable coin and a peer-to-peer payment
+                system.
             </p>
 
             <p className='mb-3'>
@@ -2128,7 +2298,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             <p className='mb-3'>
                 The Polygon platform operates using the Ethereum blockchain, and connects Ethereum-based projects. Using
                 the Polygon platform can increase the flexibility, scalability, and sovereignty of a blockchain project
-                while still affording the security, interoperability, and structural benefits of the Ethereum blockchain.
+                while still affording the security, interoperability, and structural benefits of the Ethereum
+                blockchain.
             </p>
 
             <p className='mb-3'>
@@ -2141,11 +2312,13 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.NEAR]: <div>
             <p className='mb-3'>
-                NEAR Protocol is a layer-one blockchain that was designed as a community-run cloud computing platform and
+                NEAR Protocol is a layer-one blockchain that was designed as a community-run cloud computing platform
+                and
                 that eliminates some of the limitations that have been bogging competing blockchains, such as low
                 transaction speeds, low throughput and poor interoperability. This provides the ideal environment for
                 DApps and creates a developer and user-friendly platform. For instance, NEAR uses human-readable account
-                names, unlike the cryptographic wallet addresses common to Ethereum. NEAR also introduces unique solutions
+                names, unlike the cryptographic wallet addresses common to Ethereum. NEAR also introduces unique
+                solutions
                 to scaling problems and has its own consensus mechanism called “Doomslug.”
             </p>
 
@@ -2213,7 +2386,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </p>
 
             <p>
-                Stakes deposited by validators to be eligible to validate transactions and generate new blocks and coins.
+                Stakes deposited by validators to be eligible to validate transactions and generate new blocks and
+                coins.
                 Voting power to support or oppose changes in the parameters of the protocol. Income (gas) paid to
                 validator nodes as reward for processing transactions and smart contracts under the PoS consensus.
                 Loans to validators extended against a share of their reward. Payment for services and options
@@ -2247,7 +2421,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 without any involvement with a centralized third party.
             </p>
 
-            <p className='mb-3'>The Uniswap blockchain is hosted on the Ethereum platform and governed by UNI holders.</p>
+            <p className='mb-3'>The Uniswap blockchain is hosted on the Ethereum platform and governed by UNI
+                holders.</p>
 
             <p className='mb-3'>
                 The Uniswap blockchain is open source, meaning that anyone can view and contribute to the

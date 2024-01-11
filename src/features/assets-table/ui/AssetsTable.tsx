@@ -68,7 +68,7 @@ const AssetsTable = ({
     }
 
     const tokensList = useMemo<ICtxCurrency[]>(() =>
-            Array.from(currencies.values()).filter(assetsFilter),
+            currencies ? Array.from(currencies.values()).filter(assetsFilter) : [],
         [currencies, blockedCurrencies, allowedFlags]
     );
 

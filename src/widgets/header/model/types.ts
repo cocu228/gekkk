@@ -10,6 +10,7 @@ export type THeaderMenuList = Array<{
         type?: null | string,
         value?: null | string | unknown,
     },
+    icon?:string | JSX.Element,
     style?: object
 }>
 
@@ -17,5 +18,5 @@ export interface TPropsHeaderMenu {
     children: JSX.Element,
     className?: string,
     items: THeaderMenuList,
-    actions?: TOnActionParams
+    actions?: TOnActionParams,
 }

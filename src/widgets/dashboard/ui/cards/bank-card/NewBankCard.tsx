@@ -1,5 +1,4 @@
 ﻿import styles from './style.module.scss';
-import { CardStatusDescriptions } from "@/shared/store/bank-cards/bankCards";
 
 const BankCard = () => {
 	return (

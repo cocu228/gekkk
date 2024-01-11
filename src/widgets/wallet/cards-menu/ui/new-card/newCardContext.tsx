@@ -1,4 +1,5 @@
-import { createContext, useContext } from "react";
+import {createContext, useContext} from "react";
+import {ICountryData} from "@/shared/config/delivery-coutries-list";
 
 export type IStep = 'IssueNewCard' | 'ConfirmationNewCard' | 'CardHasBeenOrdered';
 
@@ -8,6 +9,14 @@ export interface INewCardState {
     cardholderName: string;
     isExpressDelivery: boolean;
     cardType: "VIRTUAL" | "PLASTIC";
+    
+    countryCode?: string | null;
+    city?: string | null;
+    recipientName?: string | null;
+    postalCode?: string | null;
+    street?: string | null;
+    houseNumber?: string | null;
+    apartmentNumber?: string | null;
 }
 
 export type NewCardContext = {

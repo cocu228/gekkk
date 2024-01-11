@@ -1,0 +1,43 @@
+{
+  "packageId": "com.gekkard.dev.twa",
+  "host": "web.gekkard.com",
+  "name": "GekkardWeb",
+  "launcherName": "GekkardWeb",
+  "display": "standalone",
+  "themeColor": "#1F3446",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#1F3446",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://web.gekkard.com/android-chrome-192x192.png",
+  "maskableIconUrl": "https://web.gekkard.com/android-chrome-192x192.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "/Users/usermac/pwa/android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://web.gekkard.com/site.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://web.gekkard.com/",
+  "minSdkVersion": 19,
+  "orientation": "default",
+  "fingerprints": "9E:55:53:9E:89:A9:00:FF:92:10:D4:A8:82:B1:86:05:2C:F8:BA:AF:C8:0A:30:94:F8:E9:F4:0B:98:CB:EF:5F",
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}

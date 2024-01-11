@@ -15,8 +15,8 @@ export interface IResCard {
     cardholder: string;
     displayPan: string;
     isVirtual: boolean;
-    productType: string;
     limits: Array<CardLimit>;
+    productType: 'ADDITIONAL' | 'KIDS' | 'FAMILY' | 'MAIN';
     cardStatus: 'LOCKED' | 'ACTIVE' | 'UNKNOWN' | 'PENDING'
         | 'CARD_EXPIRED' | 'CLOSED_BY_BANK' | 'BLOCKED_BY_BANK'
         | 'CLOSED_BY_CUSTOMER' | 'LOST' | 'PLASTIC_IN_WAY'

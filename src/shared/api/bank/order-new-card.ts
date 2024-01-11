@@ -4,7 +4,7 @@ import $axios from "@/shared/lib/(cs)axios";
 export interface INewCard {
     accountId: string;
     cardHolderName: string;
-    format:"VIRTUAL" | "PLASTIC";
+    format: 'VIRTUAL' | 'PLASTIC';
     cardHolderPhoneNumber: string;
     type: 'ADDITIONAL' | 'KIDS' | 'FAMILY' | 'MAIN';
     
@@ -20,20 +20,12 @@ export interface INewCard {
     }
 }
 
-/*
-{
-    "city": "City",
-    "countryCode":"RU",
-    "postalCode":"Index",
-    "street":"Street address",
-    "streetNumber": "House",
-    "apartmentNumber":"Apartment",
-    "recipientName":"Recipient"
-}
-*/
-
 export const apiOrderNewCard = (card: INewCard) =>
     $axios.post<
         IResErrors
         | IResResult
-    >(`/api/v1/cards`, card);
+    >(`/api/v1/cards`, card, {
+        headers: {
+            "X-Confirmation-Type": "PIN"
+        }
+    });

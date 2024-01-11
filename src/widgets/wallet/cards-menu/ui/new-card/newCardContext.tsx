@@ -12,10 +12,10 @@ export interface INewCardState {
     
     countryCode?: string | null;
     city?: string | null;
-    region?: string | null;
+    recipientName?: string | null;
     postalCode?: string | null;
     street?: string | null;
-    house?: string | null;
+    houseNumber?: string | null;
     apartmentNumber?: string | null;
 }
 

@@ -4,11 +4,13 @@ import Button from '@/shared/ui/button/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {useNewCardContext} from "@/widgets/wallet/cards-menu/ui/new-card/newCardContext";
 
 
 export function CardHasBeenOrdered() {
-    const [seconds, setSeconds] = useState(10000);
     const navigate = useNavigate();
+    const [seconds, setSeconds] = useState(10000);
+    const {setStep} = useNewCardContext();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -24,8 +26,8 @@ export function CardHasBeenOrdered() {
         if (seconds > 0) {
             return;
         }
-
-        navigate('/');
+        
+        setStep('IssueNewCard');
     }, [seconds]);
 
     const secondsToShow = seconds >= 10000 ? '10' : `0${seconds / 1000}`;

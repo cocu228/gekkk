@@ -66,11 +66,23 @@ export function ConfirmationNewCard() {
                 <Typography variant='b1 - bold' color="pale blue">{t("card_design")}</Typography>
                 <Typography variant='b1' color="pale blue">Standard</Typography>
             </RowItem>
-
+            
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("card_type")}</Typography>
                 <Typography variant='b1' color="pale blue">{state.cardType.toLowerCase().capitalize()}</Typography>
             </RowItem>
+            
+            <RowItem>
+                <Typography variant='b1 - bold' color="pale blue">{t("cardholder").toLowerCase().capitalize()}</Typography>
+                <Typography variant='b1' color="pale blue">{state.cardholderName}</Typography>
+            </RowItem>
+            
+            {!state.recipientName ? null : (
+                <RowItem>
+                    <Typography variant='b1 - bold' color="pale blue">{t("recipient")}</Typography>
+                    <Typography variant='b1' color="pale blue">{state.recipientName}</Typography>
+                </RowItem>
+            )}
             
             {state.cardType !== 'PLASTIC' ? null : <div>
                 <RowItem>
@@ -79,9 +91,8 @@ export function ConfirmationNewCard() {
                         ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
                         ${getAddressPartOrEmpty(state.postalCode)}
                         ${getAddressPartOrEmpty(state.city)}
-                        ${getAddressPartOrEmpty(state.region)}
                         ${getAddressPartOrEmpty(state.street)}
-                        ${getAddressPartOrEmpty(state.house)}
+                        ${getAddressPartOrEmpty(state.houseNumber)}
                         ${state.apartmentNumber ?? ''}
                     `}</Typography>
                 </RowItem>
@@ -163,11 +174,11 @@ export function ConfirmationNewCard() {
                             isExpressDelivery: state.isExpressDelivery,
                             deliveryAddress: {
                                 city: state.city,
-                                countryCode: state.countryCode,
-                                postalCode: state.postalCode,
                                 street: state.street,
-                                streetNumber: '',
-                                recipientName: '',
+                                postalCode: state.postalCode,
+                                countryCode: state.countryCode,
+                                streetNumber: state.houseNumber,
+                                recipientName: state.recipientName,
                                 apartmentNumber: state.apartmentNumber
                             }
                         } : {})

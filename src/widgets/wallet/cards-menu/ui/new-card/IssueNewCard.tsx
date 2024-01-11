@@ -11,7 +11,6 @@ import {ValidateNewCardState} from "@/widgets/wallet/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 
-// todo: fix address fields
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
 })<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(({
@@ -144,18 +143,6 @@ export function IssueNewCard() {
                 <TextField
                     fullWidth
                     margin={'normal'}
-                    value={state.region}
-                    onChange={({target}) => setState({
-                        ...state,
-                        region: target.value
-                    })}
-                    label={t("Region")}
-                    placeholder={t("enter_region_name_if_available")}
-                />
-                
-                <TextField
-                    fullWidth
-                    margin={'normal'}
                     label={t("post_code")}
                     value={state.postalCode}
                     placeholder={t("enter_post_code")}
@@ -180,12 +167,12 @@ export function IssueNewCard() {
                 <TextField
                     fullWidth
                     margin={'normal'}
-                    value={state.house}
+                    value={state.houseNumber}
                     label={t("house")}
                     placeholder={t("enter_house_name_or_number_if_available")}
                     onChange={({target}) => setState({
                         ...state,
-                        house: target.value
+                        houseNumber: target.value
                     })}
                 />
                 
@@ -199,6 +186,18 @@ export function IssueNewCard() {
                         ...state,
                         apartmentNumber: target.value
                     })}
+                />
+                
+                <TextField
+                    fullWidth
+                    margin={'normal'}
+                    value={state.recipientName}
+                    onChange={({target}) => setState({
+                        ...state,
+                        recipientName: target.value
+                    })}
+                    label={t("Recipient")}
+                    placeholder={t("enter_recipient_name_if_necessary")}
                 />
             </Box>)}
         </Box>

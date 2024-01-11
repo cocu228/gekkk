@@ -300,6 +300,10 @@ const SidebarDesktop = () => {
 
                                         </NavLink>)
                         )}
+                        <div className={styles.AssetInfo5}>
+                            <span>{t("total_balance").capitalize()}</span>
+                            <span>~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+                        </div>
                         <Modal
                             width={450}
                             open={roomInfoModal.isModalOpen}

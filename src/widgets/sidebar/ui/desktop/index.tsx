@@ -268,7 +268,7 @@ const SidebarDesktop = () => {
                             helperFilterList(secondaryWallets).map((item, i) =>
                                         <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
                                             <div className={styles.ItemWrapper}>
-                                                <div className={`${styles.Item + " " + ParentClassForCoin}`}>
+                                                <div className={`${styles.Item + " " + ParentClassForCoin + " " + styles.SecondaryItem}`}>
                                                     <div className="col flex items-center pl-4 w-[85px]">
                                                         {/* <SvgArrow width={14} height={14} className={styles.SvgArrow} /> */}
                                                         <IconCoin code={item.$const} />

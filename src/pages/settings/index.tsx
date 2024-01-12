@@ -39,23 +39,30 @@ export function Settings() {
     <settingsContext.Provider
       value={{ closeArea: useCallback(() => setSelectedArea(''), []) }}
     >
-      <Box
-        padding="16px 30px 0 30px"
+      {xxl && selectedArea ? null : <Box
+        padding={xxl ? "0" : "16px 30px 0 30px"}
         marginBottom="36px"
         component={Typography}
         variant="h1"
       >
         {t('my_settings')}
-      </Box>
+      </Box>}
 
       <Box
+      position={"relative"}
         display="flex"
         flexDirection="column" 
         height="100%"
-        overflow="auto"
-        padding="0 60px 60px 30px"
+        overflow={xxl && selectedArea ? "visible" : "auto"}
+        padding={xxl ? "0" : "0 60px 60px 30px"}
       >
-        <Box display="flex" flexDirection={xxl ? "column" : 'row'} gap="30px" marginBottom="19px">
+        <Box
+          visibility={xxl && selectedArea ? 'hidden' : undefined}
+          display="flex"
+          flexDirection={xxl ? "column" : 'row'}
+          gap="30px"
+          marginBottom="19px"
+        >
           <Box display="flex" flexDirection="column" gap="24px" width="100%">
             <Typography noWrap variant="h2" color="pale blue">
               {t('general_information')}

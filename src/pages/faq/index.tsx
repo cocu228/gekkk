@@ -6,6 +6,7 @@ import { faqContext } from './faqContext'
 import { AvailableFaqAreas, faqAreasMap } from './faqAreasMap'
 import { makeStyles } from 'tss-react/mui'
 import { useTranslation } from 'react-i18next'
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 
 export const useStyles = makeStyles({ name: 'ListOfQuestions'})(({ palette }) => ({
   root: {
@@ -18,11 +19,13 @@ export const useStyles = makeStyles({ name: 'ListOfQuestions'})(({ palette }) =>
     },
   },
 }))
+
 export function Faq() {
   const [selectedArea, setSelectedArea] = useState<AvailableFaqAreas>('')
   const currentArea = faqAreasMap[selectedArea]
   const { classes } = useStyles();
   const {t} = useTranslation();
+  const {xxl} = useBreakpoints();
 
   return (
     <faqContext.Provider value={{ setSelectedArea, selectedArea }}>
@@ -33,12 +36,13 @@ export function Faq() {
         padding="0 60px 60px 30px"
         paddingTop="36px"
         display="flex"
+        flexDirection={xxl && currentArea ? "column" : 'row'}
         gap="30px"
         width="100%"
         height="100%"
         overflow="auto"
       >
-        <ListOfQuestions isSelected={Boolean(currentArea)} />
+        <ListOfQuestions  />
         {currentArea ? <Box className={classes.root}>{currentArea.area}</Box> : null}
       </Box>
     </faqContext.Provider>

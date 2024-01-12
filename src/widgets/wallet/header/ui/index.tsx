@@ -41,8 +41,8 @@ const WalletHeader = () => {
     const isGKE: boolean = $const === 'GKE';
 
     return <>
-        <div className={isEUR ? `${styles.HeaderWalled}`: styles.HeaderWalletNotEUR}>
-            {(md && !isEUR) &&
+        <div className={md?styles.HeaderWalletMobile:styles.HeaderWalletDesktop}>
+            {md &&
                 <>
                     <div className={styles.WalletInfoContainer}>
                         <div className={styles.WalletInfoHeader}>
@@ -104,7 +104,7 @@ const WalletHeader = () => {
                 </>
             }
 
-            {(!md || isEUR) &&
+            {!md &&
             <div className="grid grid-flow-col justify-start gap-5">
                 <div className="grid auto-cols-max">
                     <IconCoin code={$const}/>

@@ -94,6 +94,20 @@ const AssetsTable = ({
                         setSearchValue(e.target.value.trim().toLowerCase());
                     }}
                 />
+                {/* <input 
+                    className={styles.SearchInput}
+                    type="text" 
+                    ref={inputRef}
+                    data-testid="SearchName"
+                    placeholder={t("crypto_assets.search_name")}
+                    onChange={(e) => {
+                        setSearchValue(e.target.value.trim().toLowerCase());
+                    }}
+                /> 
+                
+                на будущее
+                
+                */}
             </div>
 
             <div style={{maxHeight: modal ? 550 : 1080}} className='mb-10'>

@@ -9,6 +9,7 @@
   height: 40px;
   align-self: center;
   margin-left: 2%;
+  box-sizing: border-box;
   @include max-devices(xxxl) {
     flex-basis: var(--sidebar-width-xxxl);
   }

@@ -18,7 +18,7 @@ export class ICtxCurrency {
     decimalPrec: null | number;
     defaultTokenNetworkIn: null | number;
     defaultTokenNetworkOut: null | number;
-    
+
     // Wallet params
     lockOrders: null | number = null;
     userBalance: null | number = null;
@@ -26,7 +26,7 @@ export class ICtxCurrency {
     lockOutBalance: null | number = null;
     availableBalance: null | Decimal = null;
     userBalanceEUREqu: null | number = null;
-    
+
     constructor(asset: IResMarketAsset, wallet?: IResBalance | null) {
         this.id = asset.unified_cryptoasset_id;
         this.name = asset.name;
@@ -38,7 +38,7 @@ export class ICtxCurrency {
         this.decimalPrec = asset.decimal_prec;
         this.defaultTokenNetworkIn = asset.default_token_network_in;
         this.defaultTokenNetworkOut = asset.default_token_network_out;
-        
+
         if (wallet) {
             this.lockOrders = wallet.lock_orders;
             this.userBalance = wallet.user_balance;
@@ -56,4 +56,8 @@ export interface ICtxCurrencies {
     totalAmount: Decimal | null;
 }
 
-export const CtxCurrencies = React.createContext<ICtxCurrencies>(null);
+export const CtxCurrencies = React.createContext<ICtxCurrencies>({
+    ratesEUR: null,
+    currencies: null,
+    totalAmount: null
+});

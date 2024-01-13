@@ -21,9 +21,16 @@ Object.defineProperty(String.prototype, 'capitalize', {
     enumerable: false
 });
 
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
 
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./pwa-examples/js13kpwa/sw.js");
+if (!navigator.onLine) {
+    alert("No internet access")
+}
+
+function updateOnlineStatus(event) {
+    const condition = navigator.onLine ? "online" : "offline";
+    alert(condition)
 }
 
 

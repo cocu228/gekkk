@@ -130,7 +130,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                         )}
                     </GTable.Row>
                 </GTable.Head>
-                <GTable.Body loading={loading} className={styles.TableBody}>
+                <GTable.Body className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
                             <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>

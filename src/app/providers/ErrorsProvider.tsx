@@ -18,6 +18,7 @@ import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
+
     const {logout} = useAuth();
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
@@ -27,8 +28,10 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         errors: [],
         actionConfirmResponse: null,
         pending: {
-            reject: () => {},
-            resolve: () => {}
+            reject: () => {
+            },
+            resolve: () => {
+            }
         }
     });
 
@@ -37,11 +40,10 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
             apiGetInfo({refresh: true})
                 .then(({data}) => {
                     if (!data.error) location.reload();
-                    
+
                     if (data.error.code === 10001) {
                         setAccountOpened(false);
-                    }
-                    else {
+                    } else {
                         navigate('/', {state: 500});
                     }
                 })
@@ -53,14 +55,14 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         $new_axios.interceptors.response.use((response: any) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-            
+
             if (hunterErrorsApi.isNewWallet()) {
                 showModal();
             }
-            
+
             if (hunterErrorsApi.isError()) {
                 const result = hunterErrorsApi.getMessageObject();
-                
+
                 setState(prevState => ({
                     ...prevState,
                     errors: [
@@ -73,12 +75,12 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                         }
                     ]
                 }));
-                
+
                 scrollToTop();
             }
-            
+
             if (hunterErrorsApi.isAuthExpired()) logout();
-            
+
             if (hunterErrorsApi.isConfirmationToken()) {
                 return new Promise((resolve, reject) => {
                     setState(prev => ({
@@ -91,25 +93,25 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                     }));
                 })
             }
-            
+
             return response;
         }, hunterErrorStatus.bind({
             navigate: navigate,
             setState: setState
         }));
-        
+
         // TEMPORARY OLD API
         $axios.interceptors.response.use((response: TResponseErrorProvider) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-            
+
             if (hunterErrorsApi.isNewWallet()) {
                 showModal();
             }
-            
+
             if (hunterErrorsApi.isError()) {
                 const result = hunterErrorsApi.getMessageObject();
-                
+
                 setState(prevState => ({
                     ...prevState,
                     errors: [
@@ -164,7 +166,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                 <Item key={"ErrorMessage" + i} id={item.id} message={item.message} type={item.type} onClick={onClose}/>)
             }
         </div>}
-        
+
         <CtxNeedConfirm.Provider value={{
             pending: state.pending,
             actionConfirmResponse: state.actionConfirmResponse,
@@ -175,7 +177,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
         }}>
             {props.children}
         </CtxNeedConfirm.Provider>
-        
+
         <Modal
             closable={false}
             open={isModalOpen}
@@ -186,7 +188,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                     This is your first time logging in to Gekkard and you do not have any accounts created yet.
                     Please wait, we are creating a new account for you. The process may take a few minutes...
                 </div>
-                
+
                 <div className='relative'>
                     <Loader/>
                 </div>
@@ -196,7 +198,7 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                     please wait for the account to be generated and re-authorize
                     into your Gekkard account.
                 </div>
-                
+
                 <Button
                     onClick={logout}
                     className='w-full'

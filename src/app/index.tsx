@@ -22,6 +22,11 @@ Object.defineProperty(String.prototype, 'capitalize', {
 });
 
 
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./pwa-examples/js13kpwa/sw.js");
+}
+
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
     <ThemeCustomization>

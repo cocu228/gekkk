@@ -10,14 +10,17 @@ import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import PageProblems from "@/pages/page-problems/PageProblems";
-import {CtxNeedConfirm} from "@/processes/errors-provider-context";
+import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
 import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
 
 // todo: refactor this
-const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | null {
+const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
+                                                                                   offline,
+                                                                                   children
+                                                                               }): JSX.Element | null {
 
     const {logout} = useAuth();
     const navigate = useNavigate();
@@ -166,17 +169,18 @@ const ErrorsProvider: FC<PropsWithChildren> = function (props): JSX.Element | nu
                 <Item key={"ErrorMessage" + i} id={item.id} message={item.message} type={item.type} onClick={onClose}/>)
             }
         </div>}
-
-        <CtxNeedConfirm.Provider value={{
-            pending: state.pending,
-            actionConfirmResponse: state.actionConfirmResponse,
-            setSuccess: () => setState(prev => ({
-                ...prev,
-                actionConfirmResponse: null
-            }))
-        }}>
-            {props.children}
-        </CtxNeedConfirm.Provider>
+        <CtxOfflineMode.Provider value={{offline}}>
+            <CtxNeedConfirm.Provider value={{
+                pending: state.pending,
+                actionConfirmResponse: state.actionConfirmResponse,
+                setSuccess: () => setState(prev => ({
+                    ...prev,
+                    actionConfirmResponse: null
+                }))
+            }}>
+                {children}
+            </CtxNeedConfirm.Provider>
+        </CtxOfflineMode.Provider>
 
         <Modal
             closable={false}

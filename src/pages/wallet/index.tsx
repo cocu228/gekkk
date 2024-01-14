@@ -20,35 +20,12 @@ import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {useTranslation} from 'react-i18next';
-
-
-const mockEUR = {
-    "id": 0,
-    "name": "Euro",
-    "flags": {
-        "none": false,
-        "structInvestAvailable": false,
-        "exchangeAvailable": false,
-        "fiatCurrency": true,
-        "accountAvailable": false
-    },
-    "$const": "EUR",
-    "minOrder": 0,
-    "roundPrec": 2,
-    "ordersPrec": 4,
-    "decimalPrec": 8,
-    "defaultTokenNetworkIn": 0,
-    "defaultTokenNetworkOut": 0,
-    "lockOrders": null,
-    "userBalance": null,
-    "lockInBalance": 0,
-    "lockOutBalance": 0,
-    "availableBalance": null,
-    "userBalanceEUREqu": null
-}
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
+import {mockEUR} from "@/processes/PWA/mock-EUR";
 
 
 function Wallet() {
+
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {currency, tab} = useParams();
@@ -63,10 +40,10 @@ function Wallet() {
         //@ts-ignore
         $currency = currencies.get(currency);
     }
-    
+
     const fullWidthOrHalf = useMemo(() => xl ? 1 : 2, [xl]);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-    
+
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}

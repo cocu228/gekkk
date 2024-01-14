@@ -25,6 +25,7 @@ import {useTranslation} from 'react-i18next';
 import {RoomInfo} from "@/shared/api/(gen)new/model";
 import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
 
 // import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 // import Loader from "@/shared/ui/loader";
@@ -39,6 +40,7 @@ const SidebarDesktop = () => {
     const {sm, md, xxxl} = useContext(BreakpointsContext);
     const {currencies, totalAmount} = useContext(CtxCurrencies);
     const {setRefresh} = useContext(CtxRootData);
+    const {offline} = useContext(CtxOfflineMode);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
@@ -149,7 +151,12 @@ const SidebarDesktop = () => {
                     </div>
                     <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
                         <div className={styles.CardInfo}>
-                            <BankCardsCarousel newCardLink/>
+                            {offline ? <div className="flex justify-center">
+                                <img
+                                    src='/img/payment-card/payment-card-background.jpg'
+                                    className='rounded-[10px]'
+                                />
+                            </div> : <BankCardsCarousel newCardLink/>}
                         </div>
                     </div>
                     <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
@@ -387,7 +394,12 @@ const SidebarDesktop = () => {
                     {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
                     <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
                         <div className={styles.CardInfo}>
-                            <BankCardsCarousel newCardLink/>
+                            {offline ? <div className="flex justify-center">
+                                <img
+                                    src='/img/payment-card/payment-card-background.jpg'
+                                    className='rounded-[10px]'
+                                />
+                            </div> : <BankCardsCarousel newCardLink/>}
                         </div>
                     </div>
                     {/* fiat-currency wallet */}

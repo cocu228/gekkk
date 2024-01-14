@@ -20,7 +20,7 @@ export function hunterErrorStatus(error) {
 
         return Promise.reject(error);
     }
-    alert("isError")
+
     this.setState((prevState: IStateErrorProvider) => ({
         ...prevState,
         errors: [

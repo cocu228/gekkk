@@ -3,7 +3,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Transfer from "../../widgets/wallet/code-transfer";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
@@ -19,16 +19,13 @@ import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
-import {useTranslation} from 'react-i18next';
-import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import {mockEUR} from "@/processes/PWA/mock-EUR";
-import {Trans, useTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import WalletButtons from "@/shared/ui/wallet-buttons";
 import TopUpButton from "@/shared/ui/ButtonsMobile/TopUp";
 import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
-
 
 
 function Wallet() {

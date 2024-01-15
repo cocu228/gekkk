@@ -1,7 +1,7 @@
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {randomId} from '@/shared/lib/helpers';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../model/context';
@@ -164,6 +164,11 @@ function Exchange() {
         navigate('/exchange');
     }
     
+    const location = useLocation()
+    const stateFromWallet = location.state
+    console.log(stateFromWallet);
+    
+
     return !roomsList ? <Loader/> : (
         <div className="wrapper">
             <PageHead

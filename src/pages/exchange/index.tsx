@@ -31,8 +31,7 @@ export default () => {
     }, [inviteCode]);
 
     if (inviteCode) return null;
-    if (roomNumber && !roomInfo) navigate('/exchange');
-
+    if (roomNumber && !roomInfo) navigate('/exchange');    
     return (
         <ExchangeProvider roomInfo={roomInfo} to={to} from={from}>
             <Exchange/>

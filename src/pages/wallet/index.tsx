@@ -1,4 +1,4 @@
-import {useContext, useMemo} from "react";
+import {useContext, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -36,17 +36,18 @@ function Wallet() {
     const {xl, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
-
+    const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+    
     let $currency = mockEUR;
 
     if (currencies) {
         //@ts-ignore
         $currency = currencies.get(currency);
     }
-
-    const fullWidthOrHalf = useMemo(() => xl ? 1 : 2, [xl]);
+	
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-
+    const fullWidthOrHalf = useMemo(() => (isNewCardOpened ? 1 : xl ? 1 : 2), [xl, isNewCardOpened]);
+	
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -68,7 +69,12 @@ function Wallet() {
 
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                                    <CardsMenu data-tag={"bank_cards"} data-name={t("bank_cards")}/>
+                                    <CardsMenu
+                                        data-tag={"bank_cards"}
+                                        data-name={t("bank_cards")}
+                                        isNewCardOpened={isNewCardOpened}
+                                        setIsNewCardOpened={setIsNewCardOpened}
+                                    />
                                     <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
                                 </>}
 
@@ -82,23 +88,23 @@ function Wallet() {
                                         description={descriptions[$currency.$const]}/>
                                 )}
 
-                                {xl && <History currenciesFilter={currencyForHistory} data-tag={"history"}
-                                                data-name={t("history")}/>}
-                            </div>
-
-                            {!xl && <div className="substrate z-0 -ml-4 h-full">
-                                <History currenciesFilter={currencyForHistory}/>
-                            </div>}
-                        </div>
-                    </TabsGroupPrimary>
-                :
-                    //для мобилки в разработке...
-                    <WalletButtons>
-                        <TopUpButton wallet/>
-                        <TransfersButton wallet/>
-                        <ExchangeButton wallet/>
-                        <ProgramsButton wallet/>
-                    </WalletButtons>
+	                            {xl && <History currenciesFilter={currencyForHistory} data-tag={"history"}
+	                                            data-name={t("history")}/>}
+	                        </div>
+	                        
+	                        {!isNewCardOpened && !xl && <div className="substrate z-0 -ml-4 h-full">
+	                            <History currenciesFilter={currencyForHistory}/>
+	                        </div>}
+	                    </div>
+	                </TabsGroupPrimary> 
+				:
+	                //для мобилки в разработке...
+	                <WalletButtons>
+		                <TopUpButton wallet/>
+		                <TransfersButton wallet/>
+		                <ExchangeButton wallet/>
+		                <ProgramsButton wallet/>
+	                </WalletButtons>
                 }
             </CtxWalletData.Provider>
         </div>

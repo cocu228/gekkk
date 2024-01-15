@@ -5,7 +5,6 @@ import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
 import {EurgTooltipText, EurgDescriptionText, GkeTooltipText} from "../module/description";
 import { useTranslation } from 'react-i18next';
 import { NavLink, useMatch } from "react-router-dom";

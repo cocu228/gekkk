@@ -11,7 +11,7 @@ import {getAddressPartOrEmpty} from "@/widgets/wallet/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-delivery-options";
 import Loader from "@/shared/ui/loader";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -31,7 +31,7 @@ export function ConfirmationNewCard() {
     const {account} = useContext(CtxRootData);
     const [isOpen, setIsOpen] = useState(false);
     const [deliveryOption, setDeliveryOption] = useState<IDeliveryOption>(null);
-    const mainCard = storeBankCards(state => state.mainCard);
+    const mainCard = storeActiveCards(state => state.mainCard);
     const {
         state,
         setStep,

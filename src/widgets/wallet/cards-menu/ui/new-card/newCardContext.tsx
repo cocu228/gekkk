@@ -20,6 +20,7 @@ export interface INewCardState {
 }
 
 export type NewCardContext = {
+    close: () => void;
     state: INewCardState;
     setStep: (nextStep: IStep) => void;
     setState: (state: INewCardState) => void;
@@ -33,6 +34,7 @@ export const newCardContext = createContext<NewCardContext>({
         step: 'IssueNewCard',
         isExpressDelivery: false,
     },
+    close: () => {},
     setStep: () => {},
     setState: () => {}
 });

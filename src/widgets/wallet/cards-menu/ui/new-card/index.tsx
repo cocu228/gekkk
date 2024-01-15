@@ -1,12 +1,21 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {IssueNewCard} from "./IssueNewCard";
 import {CardHasBeenOrdered} from "./CardHasBeenOrdered";
 import {ConfirmationNewCard} from "./ConfirmationNewCard";
 import {INewCardState, IStep, newCardContext} from './newCardContext';
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 
-export function NewCard() {
+export function NewCard({
+    setIsNewCardOpened
+}: {
+    setIsNewCardOpened: (isOpened: boolean) => void
+}) {
     //const mainCard = storeBankCards(state => state.mainCard);
+    
+    useEffect(() => {
+        return () => {
+            setIsNewCardOpened(false);
+        };
+    }, []);
     
     const [state, setState] = useState<INewCardState>({
         city: null,
@@ -33,7 +42,8 @@ export function NewCard() {
     return <newCardContext.Provider value={{
         state,
         setStep,
-        setState
+        setState,
+        close: () => setIsNewCardOpened(false)
     }}>
         {state.step === 'IssueNewCard' ? <IssueNewCard /> : null}
         {state.step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}

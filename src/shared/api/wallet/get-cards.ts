@@ -23,5 +23,9 @@ export interface IResCard {
         | 'STOLEN' | 'DEBIT_BLOCKED' | 'BLOCKED_BY_REGULATOR' | 'BLOCKED_BY_CUSTOMER';
 }
 
-export const apiGetCards = () =>
-    $axios.get<$AxiosResponse<Array<IResCard>>>('/gek/v1/bank/get_cards');
+export const apiGetCards = (filter: 0 | 1 = 0) =>
+    $axios.get<$AxiosResponse<Array<IResCard>>>('/gek/v1/bank/get_cards', {
+        params: {
+            filter
+        }
+    });

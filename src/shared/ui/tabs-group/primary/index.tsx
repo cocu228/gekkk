@@ -3,6 +3,7 @@ import styles from "@/shared/ui/tabs-group/primary/style.module.scss";
 import {isActiveClass} from "@/shared/lib/helpers";
 import {useNavigate} from "react-router-dom";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
 
 interface IResult {
     content: ReactNode[] | unknown[];
@@ -54,11 +55,12 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
     const walletContext = useContext(CtxWalletData);
     const [state, setState] = useState(initValue);
     const {content, buttons} = filterChildrenByAttribute(children, state);
-    
+    const {offline} = useContext(CtxOfflineMode);
+
     useEffect(() => {
         setState(initValue);
     }, [callInitValue]);
-    
+
     return <>
         <div className='flex justify-center'>
             <div className={styles.TabsWrapper}>
@@ -66,12 +68,12 @@ const TabsGroupPrimary = memo(({children, initValue, callInitValue}: IParams) =>
                     {buttons.map((item, i) => <button
                         key={"tabs-primary-button" + i}
                         className={`
+                                ${offline ? "disabled" : ""}
                                 ${styles.TabBtn}
                                 ${isActiveClass(item.tag === state)}
                             `}
                         onClick={() => {
                             setState(item.tag)
-                            
                             if (walletContext) {
                                 navigate(`/wallet/${walletContext.$const}/${item.tag}`)
                             }

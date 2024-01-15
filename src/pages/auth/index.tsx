@@ -5,15 +5,15 @@ import {useSessionStorage} from "usehooks-ts";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {$AxiosResponse} from '@/shared/lib/(cs)axios';
 import {TSessionAuth} from "@/widgets/auth/model/types";
-import {memo, useContext, useEffect} from 'react';
+import {memo, useEffect} from 'react';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
-import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
+import {apiTokenHash, IResSessionData} from "@/widgets/auth/api";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import LoginBackground from '@/assets/login-background.svg?react';
 
-import { NewHeader } from "@/widgets/new-header/ui/NewHeader";
+import {NewHeader} from "@/widgets/new-header/ui/NewHeader";
 import {$ENV_MODE} from "@/shared/lib/helpers";
 import ForgotPassword from "@/widgets/auth/ui/forgot-password";
 import AuthFooter from "@/widgets/auth/ui/auth-footer";
@@ -21,16 +21,16 @@ import CookiePolicyApplies from "@/widgets/auth/ui/cookie-policy-applies";
 
 const AuthPage = memo(() => {
     const {login} = useAuth();
-    const {t} = useTranslation();
+    // const {t} = useTranslation();
     const {md} = useBreakpoints();
     const {stage, toggleStage} = storyDisplayAuth(state => state);
     
-    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
-    const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
-        phone: "",
-        sessionIdUAS: "",
-        verificationId: ""
-    });
+    // const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    // const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
+    //     phone: "",
+    //     sessionIdUAS: "",
+    //     verificationId: ""
+    // });
     
     useEffect(() => {
         authForTokenHashUrl().success((sessionId: string) =>

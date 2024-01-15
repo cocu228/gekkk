@@ -8,6 +8,7 @@ import {
     getNetworkForChose,
 } from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate} from "react-router-dom";
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
 
 const TopUp = memo(() => {
 
@@ -17,7 +18,9 @@ const TopUp = memo(() => {
     const {
         is_operable = null
     } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    const {offline} = useContext(CtxOfflineMode);
 
+    if (offline) return <div>You are offline, please check your internet connection.</div>
 
 
 

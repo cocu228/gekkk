@@ -19,6 +19,9 @@ import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
+import {useTranslation} from 'react-i18next';
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
+import {mockEUR} from "@/processes/PWA/mock-EUR";
 import {Trans, useTranslation} from 'react-i18next';
 import WalletButtons from "@/shared/ui/wallet-buttons";
 import TopUpButton from "@/shared/ui/ButtonsMobile/TopUp";
@@ -26,31 +29,6 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 
-
-const mockEUR = {
-    "id": 0,
-    "name": "Euro",
-    "flags": {
-        "none": false,
-        "structInvestAvailable": false,
-        "exchangeAvailable": false,
-        "fiatCurrency": true,
-        "accountAvailable": false
-    },
-    "$const": "EUR",
-    "minOrder": 0,
-    "roundPrec": 2,
-    "ordersPrec": 4,
-    "decimalPrec": 8,
-    "defaultTokenNetworkIn": 0,
-    "defaultTokenNetworkOut": 0,
-    "lockOrders": null,
-    "userBalance": null,
-    "lockInBalance": 0,
-    "lockOutBalance": 0,
-    "availableBalance": null,
-    "userBalanceEUREqu": null
-}
 
 
 function Wallet() {
@@ -68,10 +46,10 @@ function Wallet() {
         //@ts-ignore
         $currency = currencies.get(currency);
     }
-    
+
     const fullWidthOrHalf = useMemo(() => xl ? 1 : 2, [xl]);
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-    
+
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -117,7 +95,7 @@ function Wallet() {
                         </div>
                     </TabsGroupPrimary>
                 :
-                    //для мобилки в разработке... 
+                    //для мобилки в разработке...
                     <WalletButtons>
                         <TopUpButton wallet/>
                         <TransfersButton wallet/>

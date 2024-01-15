@@ -12,6 +12,7 @@ import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-delivery-options";
 import Loader from "@/shared/ui/loader";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
+import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -51,6 +52,11 @@ export function ConfirmationNewCard() {
     }
     
     return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
+        <Box display="flex" justifyContent="space-between" width="100%">
+            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
+            <CloseWindowButton onClick={close}/>
+        </Box>
+        
         <Box display={"flex"} flexDirection={"column"} gap="24px" paddingTop={"48px"}>
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("account_owner")}</Typography>

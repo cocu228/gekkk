@@ -1,22 +1,12 @@
-import React, { memo, useContext, useEffect, useState } from 'react';
-import { CtxRootData } from '@/processes/RootContext';
-import { ICtxCurrency } from '@/processes/CurrenciesContext';
-import { apiGetBalance, apiGetRates } from '@/shared/api';
-import {
-    actionResSuccess,
-    isNull,
-    randomId,
-    uncoverResponse
-} from '@/shared/lib/helpers';
-import {
-    initEmptyCurrenciesCollection,
-    walletsGeneration
-} from "@/shared/lib/helpers-currencies-provider";
+import React, {memo, useContext, useEffect, useState} from 'react';
+import {CtxRootData} from '@/processes/RootContext';
+import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
+import {apiGetBalance, apiGetRates} from '@/shared/api';
+import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/helpers';
+import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
-import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import Loader from "@/shared/ui/loader";
 import ETokensConst from "@/shared/config/coins/constants";
-import { storeAssets } from "@/shared/store/assets";
+import {storeAssets} from "@/shared/store/assets";
 
 interface IState {
     currencies: Map<string, ICtxCurrency> | null,

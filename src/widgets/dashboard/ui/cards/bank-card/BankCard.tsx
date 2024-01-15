@@ -1,5 +1,5 @@
 import styles from './style.module.scss';
-import { CardStatusDescriptions } from "@/shared/store/bank-cards/bankCards";
+import { CardStatusDescriptions } from "@/shared/store/active-cards/activeCards";
 
 interface CardData {
     expiresAt: string;

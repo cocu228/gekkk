@@ -10,7 +10,7 @@ import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useContext, useEffect, useState} from 'react';
 import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -28,7 +28,7 @@ const {Option} = Select;
 
 const WithdrawFormCardToCard = () => {
     const currency = useContext(CtxWalletData);
-    const cards = storeBankCards(state => state.bankCards);
+    const cards = storeActiveCards(state => state.activeCards);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     const navigate = useNavigate();

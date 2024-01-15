@@ -3,7 +3,7 @@ import {NewCard} from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import styles from './style.module.scss';
-import {MouseEvent, useState} from "react";
+import {MouseEvent, useEffect, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import {useTranslation} from 'react-i18next';
@@ -11,31 +11,44 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces} from "@/shared/lib/helpers";
 import {apiActivateCard} from "@/shared/api/bank/activate-card";
-import {apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {apiGetCards, apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
+import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 
 // todo: refactoring
-const CardsMenu = () => {
+const CardsMenu = ({
+    isNewCardOpened,
+    setIsNewCardOpened
+}: {
+    isNewCardOpened: boolean;
+    setIsNewCardOpened: (isOpen: boolean) => void;
+}) => {
     const {t} = useTranslation();
     const cardInfoModal = useModal();
     const confirmationModal = useModal();
     const [card, setCard] = useState<IResCard>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
+    const [bankCards, setBankCards] = useState<IResCard[]>(null);
     const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
-    const {
-        updateCard
-    } = storeBankCards(state => state);
+    //const {
+    //    updateCard
+    //} = storeActiveCards(state => state);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
     } = useInputState();
+    
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetCards();
+            setBankCards(data.result);
+        })();
+    }, []);
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
@@ -57,10 +70,10 @@ const CardsMenu = () => {
                             return;
                         }
                         
-                        updateCard({
-                            ...card,
-                            cardStatus: "ACTIVE"
-                        });
+                        //updateCard({
+                        //    ...card,
+                        //    cardStatus: "ACTIVE"
+                        //});
                         
                         setLoading(false);
                         confirmationModal.handleCancel();
@@ -76,10 +89,10 @@ const CardsMenu = () => {
                         return;
                     }
                     
-                    updateCard({
-                        ...card,
-                        cardStatus: "BLOCKED_BY_CUSTOMER"
-                    });
+                    //updateCard({
+                    //    ...card,
+                    //    cardStatus: "BLOCKED_BY_CUSTOMER"
+                    //});
                     
                     setLoading(false);
                     confirmationModal.handleCancel();
@@ -95,10 +108,10 @@ const CardsMenu = () => {
                         return;
                     }
                     
-                    updateCard({
-                        ...card,
-                        cardStatus: "ACTIVE"
-                    });
+                    //updateCard({
+                    //    ...card,
+                    //    cardStatus: "ACTIVE"
+                    //});
                     
                     setLoading(false);
                     confirmationModal.handleCancel();
@@ -118,19 +131,19 @@ const CardsMenu = () => {
                         return;
                     }
                     
-                    updateCard({
-                        ...card,
-                        limits: [
-                            ...card.limits.filter(l => l.period !== (action === 'dailyLimit' ? 'DAILY' : 'MONTHLY')),
-                            {
-                                type: "ALL",
-                                period: action === 'dailyLimit' ? 'DAILY' : 'MONTHLY',
-                                usedLimit: 0,
-                                currentLimit: limitAmount.value.number,
-                                maxLimit: 100000
-                            }
-                        ]
-                    });
+                    //updateCard({
+                    //    ...card,
+                    //    limits: [
+                    //        ...card.limits.filter(l => l.period !== (action === 'dailyLimit' ? 'DAILY' : 'MONTHLY')),
+                    //        {
+                    //            type: "ALL",
+                    //            period: action === 'dailyLimit' ? 'DAILY' : 'MONTHLY',
+                    //            usedLimit: 0,
+                    //            currentLimit: limitAmount.value.number,
+                    //            maxLimit: 100000
+                    //        }
+                    //    ]
+                    //});
                     
                     setLimitAmount('');
                     setLoading(false);
@@ -176,16 +189,28 @@ const CardsMenu = () => {
         }
     }
     
+    if (isNewCardOpened) {
+        return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
+    }
+    
     return <div>
+        <div className='flex w-full justify-between items-center mb-2'>
+            <span className='font-medium text-lg'>Cards menu</span>
+            <span
+                onClick={() => setIsNewCardOpened(true)}
+                className='underline text-gray-400 hover:cursor-pointer hover:text-gray-600'
+            >
+                Issue a new card
+            </span>
+        </div>
+        
         <div className={styles.CarouselBlock}>
             <div className={styles.CarouselBlockContainer}>
-                <BankCardsCarousel onSelect={setCard} />
+                <BankCardsCarousel cards={bankCards} onSelect={setCard} />
             </div>
         </div>
         
-        {!card ? null : card.cardId === 'new' ? (
-            <NewCard/>
-        ) : (<>
+        {!card ? <Loader className={'relative my-20'}/> : (<>
             {card.isVirtual && (
                 <MenuItem
                     onClick={onClick}

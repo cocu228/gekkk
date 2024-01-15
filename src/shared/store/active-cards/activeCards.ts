@@ -21,35 +21,35 @@ export const CardStatusDescriptions: Record<string, string> = {
 }
 
 export interface IStoreBankCards {
-    refreshKey: string;
+    //refreshKey: string;
     mainCard: IResCard | null;
-    bankCards: IResCard[] | null;
-    getBankCards: () => Promise<void>;
-    updateCard: (card: IResCard) => void;
+    activeCards: IResCard[] | null;
+    getActiveCards: () => Promise<void>;
+    //updateCard: (card: IResCard) => void;
 }
 
-export const storeBankCards = create<IStoreBankCards>()(devtools((set) => ({
+export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
+    activeCards: null,
     mainCard: null,
-    bankCards: null,
-    refreshKey: null,
-    getBankCards: async () => {
-        const {data} = await apiGetCards();
+    //refreshKey: null,
+    getActiveCards: async () => {
+        const {data} = await apiGetCards(1);
         
         set((state) => ({
             ...state,
             refreshKey: randomId(),
-            bankCards: data.result,
+            activeCards: data.result,
             mainCard: data.result.find(c => c.productType === 'MAIN')
         }));},
-    updateCard: (card: IResCard) => {
-        set((state) => {
-            return ({
-                ...state,
-                refreshKey: randomId(),
-                bankCards: [
-                    ...state.bankCards.filter(c => c.cardId !== card.cardId),
-                    card
-                ]
-            });
-        });}
+    // updateCard: (card: IResCard) => {
+    //     set((state) => {
+    //         return ({
+    //             ...state,
+    //             refreshKey: randomId(),
+    //             activeCards: [
+    //                 ...state.activeCards.filter(c => c.cardId !== card.cardId),
+    //                 card
+    //             ]
+    //         });
+    //     });}
 })));

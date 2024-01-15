@@ -17,6 +17,7 @@ import axios from "axios";
 import { useTranslation } from 'react-i18next';
 import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
 import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
+import {CtxOfflineMode} from "@/processes/errors-provider-context";
 
 const { RangePicker } = DatePicker;
 
@@ -30,7 +31,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
-
+    const {offline} = useContext(CtxOfflineMode);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
@@ -130,7 +131,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                         )}
                     </GTable.Row>
                 </GTable.Head>
-                <GTable.Body loading={loading} className={styles.TableBody}>
+                <GTable.Body className={styles.TableBody}>
                     {listHistory.length > 0 ? listHistory.map((item) => {
                         return (
                             <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>

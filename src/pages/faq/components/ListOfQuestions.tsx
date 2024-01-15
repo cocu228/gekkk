@@ -18,7 +18,7 @@ export const Wrapper = styled(Box, {
 
 export function ListOfQuestions() {
   const { setSelectedArea, selectedArea } = useFaqContext()
-  const {xxl} = useBreakpoints();
+  const {xxl, md} = useBreakpoints();
 
   return (
     <Wrapper isSelected={Boolean(selectedArea)} isMobile={xxl}>
@@ -30,6 +30,7 @@ export function ListOfQuestions() {
         const { icon } = info
         return (
           <FaqItem
+            isMobile={md}
             isSelected={selectedArea === key}
             component="button"
             onClick={() => {

@@ -87,7 +87,7 @@ const WalletHeader = () => {
                     </div>
                     <div className={styles.EurGekkoinPrice}>
                         <span className={styles.IsEqualEuro}>
-                            {!isEUR && $const + " = " + userBalanceEUREqu/availableBalance.toNumber()  + "€"}
+                            {(!isEUR && availableBalance) && $const + " = " + userBalanceEUREqu/availableBalance.toNumber()  + "€"}
                         </span>
                         {(!isEUR && !isOnAboutPage) &&
                             <NavLink to={`/wallet/${$const}/about`}>

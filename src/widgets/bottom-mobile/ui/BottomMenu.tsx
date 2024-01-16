@@ -38,29 +38,26 @@ export function BottomMenu(){
     return(
         <>
             {isOnMainPages &&
-                <div className={styles.BottomMobile}>
+                <>
                     {!!homePage &&
-                        <div>
-                            <div className={styles.AssetInfo2} >
-                                <div className={styles.AssetInfo3}>
-                                    <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                                        <div className={styles.NewAsset}>
-                                            <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
-                                        </div>
-                                    </NavLink>
+                        <div className={styles.AssetInfo3}>
+                            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
+                                <div className={styles.NewAsset}>
+                                    <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
                                 </div>
-                            </div>
-                            
+                            </NavLink>
                         </div>
                     }
-                        <div className={styles.BottomMenuMobile}>
-                            <FundsButton/>
-                            <TransfersButton/>
-                            <ExchangeButton/>
-                            <HistoryButton/>
-                        </div>
+                    <div className={styles.BottomMobile}>
+                            <div className={styles.BottomMenuMobile}>
+                                <FundsButton/>
+                                <TransfersButton/>
+                                <ExchangeButton/>
+                                <HistoryButton/>
+                            </div>
                     
-                </div>    
+                    </div>
+                </>    
             }
         </>
     )

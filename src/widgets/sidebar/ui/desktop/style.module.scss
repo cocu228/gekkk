@@ -90,8 +90,11 @@
   text-align: right;
   @include max-devices(md) {
     background-color: transparent;
-    position: absolute;
-    align-self: start;
+    position: fixed;
+    bottom: 75px;
+    z-index: 40;
+    left: 50%;
+    transform:translateX(-50%)
   }
 
 }

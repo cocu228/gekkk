@@ -90,7 +90,6 @@ export default memo(function () {
                                     <>
                                         <Sidebar/>
 
-                                        <BottomMenu/>
                                     </>
                                 :
                                     <>
@@ -98,7 +97,6 @@ export default memo(function () {
                                             <Outlet/>
                                         </Content>
 
-                                        <BottomMenu/>
                                     </>
                                 )
                             :
@@ -112,6 +110,7 @@ export default memo(function () {
                                 )
                             }
                         </Main>
+                        {md && <BottomMenu/>}
                         </>}
                     </CurrenciesProvider>
                 </>)

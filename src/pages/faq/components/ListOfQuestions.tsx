@@ -3,7 +3,7 @@ import { useFaqContext } from '../faqContext'
 import { FaqItem } from './FaqItem'
 import { faqAreasMap, faqAreasMapKeys } from '../faqAreasMap'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { horizontalScrollTo } from '@/shared/lib/helpers'
 
 export const Wrapper = styled(Box, {
@@ -21,14 +21,17 @@ export function ListOfQuestions() {
   const { setSelectedArea, selectedArea } = useFaqContext()
   const {xxl, md} = useBreakpoints();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false)
   useEffect(() => {
+    setIsMounted(true);
     if (!selectedArea || !wrapperRef.current) {
       return;
     }
 
     horizontalScrollTo(wrapperRef.current.querySelector(`.${selectedArea}`), wrapperRef.current)
 
-  }, [selectedArea, wrapperRef])
+  }, [selectedArea, wrapperRef, isMounted])
+
 
   return (
     <Wrapper ref={wrapperRef} isSelected={Boolean(selectedArea)} isMobile={xxl}>

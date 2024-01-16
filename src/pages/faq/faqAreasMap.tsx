@@ -14,8 +14,9 @@ import { FAQTemplate } from './components/FAQTemplate'
 
 export const faqAreasMap = {
   '': null,
-  'Account opening': {
+  'account-opening': {
     icon: <CreateIntelligentAnalysisTask />,
+    title: "Account opening",
     area: (
       <FAQTemplate
         title="Account opening"
@@ -94,8 +95,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Account': {
+  'account': {
     icon: <Wallet />,
+    title:"Account",
     area: (
       <FAQTemplate
         title="Account"
@@ -206,8 +208,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Account balance': {
+  'account-balance': {
     icon: <Balances />,
+    title:"Account Balance",
     area: (
       <FAQTemplate
         title="Account Balance"
@@ -266,8 +269,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Personal information': {
+  'personal-information': {
     icon: <Account />,
+    title: "Personal information",
     area: (
       <FAQTemplate
         title="Personal information"
@@ -450,8 +454,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Security': {
+  'security': {
     icon: <Security />,
+    title: "Security",
     area: (
       <FAQTemplate
         title="Security"
@@ -693,8 +698,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Cards': {
+  'cards': {
     icon: <CreditCard />,
+    title: "Cards",
     area: (
       <FAQTemplate
         title="Cards"
@@ -1136,8 +1142,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Card purchases': {
+  'card-purchases': {
     icon: <PosMachine />,
+    title: "Card purchases",
     area: (
       <FAQTemplate
         title="Card purchases"
@@ -1263,8 +1270,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'ATM transactions': {
+  'atm-transactions': {
     icon: <Atm />,
+    title: "ATM transactions",
     area: (
       <FAQTemplate
         title="ATM transactions"
@@ -1289,8 +1297,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Money transfers': {
+  'money-transfers': {
     icon: <History />,
+    title: "Money transfers",
     area: (
       <FAQTemplate
         title="Money transfers"
@@ -1311,8 +1320,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Fees': {
+  'fees': {
     icon: <Euro />,
+    title: "Fees",
     area: (
       <FAQTemplate
         title="Fees"
@@ -1331,8 +1341,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Other': {
+  'other': {
     icon: <Other />,
+    title: "Other",
     area: (
       <FAQTemplate
         title="Other"
@@ -1384,8 +1395,9 @@ export const faqAreasMap = {
       />
     ),
   },
-  'Support chat': {
+  'support-chat': {
     icon: <SupportIcon />,
+    title: "Support chat",
     area: <FAQTemplate title="Support chat" items={[]} />,
   },
 }

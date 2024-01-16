@@ -3,6 +3,8 @@ import { useFaqContext } from '../faqContext'
 import { FaqItem } from './FaqItem'
 import { faqAreasMap, faqAreasMapKeys } from '../faqAreasMap'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
+import { useEffect, useRef } from 'react'
+import { horizontalScrollTo } from '@/shared/lib/helpers'
 
 export const Wrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile',
@@ -18,9 +20,18 @@ export const Wrapper = styled(Box, {
 export function ListOfQuestions() {
   const { setSelectedArea, selectedArea } = useFaqContext()
   const {xxl, md} = useBreakpoints();
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!selectedArea || !wrapperRef.current) {
+      return;
+    }
+
+    horizontalScrollTo(wrapperRef.current.querySelector(`.${selectedArea}`), wrapperRef.current)
+
+  }, [selectedArea, wrapperRef])
 
   return (
-    <Wrapper isSelected={Boolean(selectedArea)} isMobile={xxl}>
+    <Wrapper ref={wrapperRef} isSelected={Boolean(selectedArea)} isMobile={xxl}>
       {faqAreasMapKeys.map((key) => {
         const info = faqAreasMap[key]
         if (!info) {
@@ -29,15 +40,17 @@ export function ListOfQuestions() {
         const { icon } = info
         return (
           <FaqItem
+            className={key}
             isMobile={md}
             isSelected={selectedArea === key}
+            isSomeSelected={Boolean(selectedArea)}
             component="button"
             onClick={() => {
               setSelectedArea(key)
             }}
           >
             {icon}
-            <Typography variant="h3" width={"100%"} noWrap textAlign={"left"}>{key}</Typography>
+            <Typography variant="h3" width={"100%"} noWrap textAlign={"left"}>{info.title}</Typography>
           </FaqItem>
         )
       })}

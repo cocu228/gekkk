@@ -1,14 +1,13 @@
 import { Box, styled } from '@mui/material'
 
 export const FaqItem = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile',
-})<{ isSelected?: boolean, isMobile?: boolean }>(({ theme, isSelected, isMobile }) => ({
+  shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile' && prop !== 'isSomeSelected',
+})<{ isSelected?: boolean, isMobile?: boolean, isSomeSelected?: boolean }>(({ theme, isSelected, isMobile, isSomeSelected }) => ({
   'height': isMobile ? '95px' : '127px',
   'display': 'inline-flex',
   'cursor': 'pointer',
-  'width': isMobile ? '240px' : '30%',
+  'width': isMobile ? '45%' : isSomeSelected ? '400px' : '30%',
   'flex': '0 0 auto',
-  // 'display': 'flex',
   'flexDirection': 'column',
   'gap': '12px',
   'padding': isMobile ? '12px' : '27px',

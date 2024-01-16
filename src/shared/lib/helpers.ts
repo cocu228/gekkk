@@ -267,3 +267,13 @@ export function numberWithSpaces(val: number) {
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     return parts.join(".");
 }
+
+export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
+  const elRect = el.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+
+
+  const scrollPosition = elRect.left - parentRect.left;
+  parent.scrollLeft = parent.scrollLeft + scrollPosition;
+
+}

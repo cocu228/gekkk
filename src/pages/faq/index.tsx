@@ -25,7 +25,7 @@ export function Faq() {
   const currentArea = faqAreasMap[selectedArea]
   const { classes } = useStyles();
   const {t} = useTranslation();
-  const {xxl} = useBreakpoints();
+  const {xxl, md} = useBreakpoints();
 
   return (
     <faqContext.Provider value={{ setSelectedArea, selectedArea }}>
@@ -33,7 +33,7 @@ export function Faq() {
         {t('frequently_asked_questions')}
       </Typography>
       <Box
-        padding="0 60px 60px 30px"
+        padding={md ? '30px' :"0 60px 60px 30px"}
         paddingTop="36px"
         display="flex"
         flexDirection={xxl && currentArea ? "column" : 'row'}

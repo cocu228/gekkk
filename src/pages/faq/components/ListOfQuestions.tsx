@@ -8,12 +8,11 @@ export const Wrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile',
 })<{ isSelected?: boolean, isMobile: boolean }>(({ isSelected, isMobile }) => ({
   display: 'flex',
-  justifyContent: isSelected ? undefined : 'start',
+  justifyContent: isSelected ? undefined : 'space-between',
   flexWrap: isSelected ? undefined : 'wrap',
   flexDirection: isSelected ? isMobile ? 'row' : 'column' : undefined,
   overflow: isSelected && isMobile ? "auto" : undefined,
-  gap: '30px',
-  minWidth: '400px',
+  gap: isMobile ? '12px' : '30px',
 }))
 
 export function ListOfQuestions() {
@@ -38,7 +37,7 @@ export function ListOfQuestions() {
             }}
           >
             {icon}
-            <Typography variant="h3">{key}</Typography>
+            <Typography variant="h3" width={"100%"} noWrap textAlign={"left"}>{key}</Typography>
           </FaqItem>
         )
       })}

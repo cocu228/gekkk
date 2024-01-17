@@ -1,28 +1,27 @@
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
-import TransferTableCode from "@/widgets/wallet/code-transfer/TransferTableCode";
+import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import {apiApplyCode} from "@/shared/api";
-import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code";
+import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
-import CodeTxInfo from "@/widgets/wallet/code-transfer/CodeTxInfo";
+import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
-import {IResCodeTxInfo} from "@/widgets/wallet/code-transfer/api/code-tx-info";
 import {CtxRootData} from "@/processes/RootContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
+import {TxCodesOut} from "@/shared/api/(gen)new/model";
 
-const ApplyCode = () => {
-
+const ApplyTransferCode = () => {
     const {t} = useTranslation();
     const {showModal, isModalOpen, handleCancel} = useModal()
     const {setRefresh} = useContext(CtxRootData)
     const [input, setInput] = useState("")
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [loading, setLoading] = useState(false)
-    const [infoCode, setInfoCode] = useState<IResCodeTxInfo>(null)
+    const [infoCode, setInfoCode] = useState<TxCodesOut>(null)
 
     const [localErrorHunter, , applyTxCodeInfoBox, localErrorClear, localIndicatorError] = useError()
 
@@ -104,4 +103,4 @@ const ApplyCode = () => {
 
 }
 
-export default ApplyCode
+export default ApplyTransferCode

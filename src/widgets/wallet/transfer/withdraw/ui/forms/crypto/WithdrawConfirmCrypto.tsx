@@ -13,7 +13,7 @@ import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
@@ -44,17 +44,17 @@ const WithdrawConfirmCrypto = memo(({
     handleCancel,
 }: TProps) => {
     const {
-        networkIdSelect,
+        networkTypeSelect,
         networksForSelector,
-        networksDefault
+        tokenNetworks
     } = useContext(CtxWalletNetworks)
 
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect)
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
     const [form] = useForm();
     const {
         percent_fee = 0,
         withdraw_fee = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
@@ -67,7 +67,7 @@ const WithdrawConfirmCrypto = memo(({
 
     const fragmentReqParams = useRef<Omit<ICreateWithdrawParams, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
-        token_network: networkIdSelect,
+        token_network: networkTypeSelect,
         amount: amount,
         fee: withdraw_fee,
         address: isNull(address) ? "" : address,

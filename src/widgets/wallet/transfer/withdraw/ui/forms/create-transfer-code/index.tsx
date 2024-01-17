@@ -1,7 +1,7 @@
 import Button from "@/shared/ui/button/Button";
-import TransferTableCode from "@/widgets/wallet/code-transfer/TransferTableCode";
+import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import Modal from "@/shared/ui/modal/Modal";
-import CreateCode from "@/widgets/wallet/code-transfer/create-transfer/CreateCode";
+import CreateCode from "./CreateCode";
 import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
 

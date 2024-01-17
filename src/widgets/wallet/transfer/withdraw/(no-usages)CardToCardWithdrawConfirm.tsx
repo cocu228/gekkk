@@ -10,7 +10,7 @@ import {MASK_CODE} from "../../../../shared/config/mask";
 import Loader from "../../../../shared/ui/loader";
 import {CtxRootData} from "../../../../processes/RootContext";
 import useError from "../../../../shared/model/hooks/useError";
-import {getNetworkForChose} from "../model/helpers";
+import {getChosenNetwork} from "../model/helpers";
 import {apiPasswordVerify} from "../../../../shared/api/various/password";
 import {actionResSuccess} from "../../../../shared/lib/helpers";
 import {formatAsNumber} from "../../../../shared/lib/formatting-helper";
@@ -26,20 +26,20 @@ const NoUsagesCardToCardWithdrawConfirm = ({
                              }) => {
 
     const {
-        networkIdSelect
+        networkTypeSelect
         , networksForSelector
-        , networksDefault
+        , tokenNetworks
     } = useContext(CtxWalletNetworks)
 
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect)
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
 
     const {
         percent_fee = null,
         withdraw_fee = null,
         is_operable = null
-    } = getNetworkForChose(
-        networksDefault,
-        networkIdSelect
+    } = getChosenNetwork(
+        tokenNetworks,
+        networkTypeSelect
     ) ?? {}
 
     const {$const} = useContext(CtxWalletData)

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20240105-0635.5658<br/><br/>
+                    Build version 2.0.3-20240117-1110.5850+44d8b7d1a4aa7750a9b88523ef6fb43beb8ec118<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -16,6 +16,7 @@ export interface ClientDetails {
   address?: string | null;
   citizenship?: string | null;
   city?: string | null;
+  clientId?: string | null;
   country?: string | null;
   email?: string | null;
   name?: string | null;

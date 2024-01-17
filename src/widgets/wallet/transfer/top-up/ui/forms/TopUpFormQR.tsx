@@ -10,14 +10,14 @@ import useError from "@/shared/model/hooks/useError";
 const TopUpFormQR = () => {
     const {$const, name} = useContext(CtxWalletData);
     const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError();
-    const {setRefresh, setLoading, addressesForQR, networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {setRefresh, setLoading, addressesForQR, networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
     
     
     
     const onCreateAddress = async () => {
         setLoading(true);
         
-        const response = await apiCreateAddress(networkIdSelect);
+        const response = await apiCreateAddress(networkTypeSelect);
         
         actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter);
     }

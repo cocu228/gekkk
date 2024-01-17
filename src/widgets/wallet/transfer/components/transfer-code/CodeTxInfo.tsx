@@ -1,32 +1,32 @@
 import React, {useEffect, useState} from "react";
-import {apiCodeTxInfo, IResCodeTxInfo} from "@/widgets/wallet/code-transfer/api/code-tx-info";
+import {apiCodeTxInfo} from "@/shared/api/(gen)new";
 import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
 import Button from "@/shared/ui/button/Button";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
+import type {TxCodesOut} from "@/shared/api/(gen)new/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
-
-    const [infoCode, setInfoCode] = useState<IResCodeTxInfo | null>(null)
-    const [localErrorHunter, localErrorSpan, codeTxInfoErrorInfoBox, localErrorClear, localIndicatorError] = useError()
-
-    const [loading, setLoading] = useState(true)
-
+    const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
+    const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
+    
+    const [loading, setLoading] = useState(true);
+    
     useEffect(() => {
         (async () => {
-            const response = await apiCodeTxInfo(code)
-
-
+            const response = await apiCodeTxInfo({
+                code: code
+            });
+            
             actionResSuccess(response).success(() => {
-                setInfoCode(response.data.result)
+                setInfoCode(response.data.result);
             }).reject(localErrorHunter)
 
-            setLoading(false)
-
-        })()
-    }, [])
+            setLoading(false);
+        })();
+    }, []);
 
     return <>
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>

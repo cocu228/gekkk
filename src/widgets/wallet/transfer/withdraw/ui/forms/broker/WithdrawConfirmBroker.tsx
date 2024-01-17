@@ -5,7 +5,7 @@ import {apiPaymentSepa} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
@@ -14,22 +14,22 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const {
-        networkIdSelect,
+        networkTypeSelect,
         networksForSelector,
-        networksDefault
+        tokenNetworks
     } = useContext(CtxWalletNetworks);
 
     const {
         token_hot_address,
         withdraw_fee
-    } = getNetworkForChose(
-        networksDefault,
-        networkIdSelect
+    } = getChosenNetwork(
+        tokenNetworks,
+        networkTypeSelect
     ) ?? {}
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect);
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
         purpose: "Purchase of EURG tokens",

@@ -4,7 +4,6 @@ import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui";
 import {useNavigate, useParams} from "react-router-dom";
-import Transfer from "../../widgets/wallet/code-transfer";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
@@ -64,8 +63,6 @@ function Wallet() {
                                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>
                                     <Withdraw/>
                                 </NetworkProvider>
-
-                                <Transfer data-tag={"funds_transfer"} data-name={t("funds_transfer")}/>
 
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>

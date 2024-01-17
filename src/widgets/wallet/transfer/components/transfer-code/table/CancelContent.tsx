@@ -1,9 +1,9 @@
 import ReactQRCode from "react-qr-code";
 import Button from "@/shared/ui/button/Button";
 import React, {useState} from "react";
-import {apiCancelTxCode} from "@/widgets/wallet/code-transfer/api/cancel-code";
+import {apiCancelCode} from "@/shared/api/(gen)new";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {storeListTxCode} from "@/widgets/wallet/code-transfer/store/list-tx-code";
+import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
@@ -17,8 +17,10 @@ const CancelContent = ({code, amount, confirm, currency}) => {
 
     const onBtnCancel = async () => {
         setLoading(true)
-        const response = await apiCancelTxCode(code)
-
+        const response = await apiCancelCode({
+            code: code
+        });
+        
         actionResSuccess(response).success(() => {
             getListTxCode()
         }).reject(() => {
@@ -91,4 +93,4 @@ const CancelContent = ({code, amount, confirm, currency}) => {
         </Modal></>
 }
 
-export default CancelContent
+export default CancelContent;

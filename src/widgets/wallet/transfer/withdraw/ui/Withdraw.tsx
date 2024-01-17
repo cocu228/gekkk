@@ -6,7 +6,7 @@ import {
     CtxWalletNetworks,
     CtxWalletData
 } from '@/widgets/wallet/transfer/model/context';
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork, isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "./forms/sepa/WithdrawFormSepa";
 import WithdrawFormSwift from "./forms/WithdrawFormSwift";
 import WithdrawFormCardToCard from "./forms/card-to-card/WithdrawFormCardToCard";
@@ -17,34 +17,36 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
+import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
+import CreateTransferCode from "./forms/create-transfer-code";
 
 const Withdraw = memo(() => {
     const currency = useContext(CtxWalletData);
     const {ratesEUR} = useContext(CtxCurrencies);
     const {
+        tokenNetworks,
         loading = true,
-        networkIdSelect,
-        networksDefault
+        networkTypeSelect,
     } = useContext(CtxWalletNetworks);
     
     const {
         percent_fee = 0,
         withdraw_fee = 0,
         is_operable = null,
-        network_type: formType = null
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {};
+        network_type: networkType = null
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
     const withdrawEUR = !isNull(ratesEUR)
         && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
     
-    const getDisplayForm = (formType: number): JSX.Element => {
-        if ((formType >= 10 && formType < 23) || (formType >= 200 && formType <= 223)) {
+    const getDisplayForm = (networkType: number): JSX.Element => {
+        if (isCryptoNetwork(networkType)) {
             return <WithdrawFormCrypto/>;
         }
         
-        switch (formType) {
+        switch (networkType) {
             case 150:
                 return <WithdrawFormPapaya/>;
             case 151:
@@ -57,6 +59,11 @@ const Withdraw = memo(() => {
                 return <WithdrawFormBroker/>;
             case 155:
                 return <WithdrawFormPhoneNumber/>;
+            case 232:
+                return <div>
+                    <TransferCodeDescription/>
+                    <CreateTransferCode/>
+                </div>;
             default:
                 return <div>
                     Sorry, there are no actions available for the selected network.
@@ -68,7 +75,7 @@ const Withdraw = memo(() => {
         <div className='h-full'>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
-                {getDisplayForm(formType)}
+                {getDisplayForm(networkType)}
                 
                 {(finalFeeEntity.type.percent || finalFeeEntity.type.number) && <div className="row mt-4">
                     <div className="col">

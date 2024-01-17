@@ -11,3 +11,16 @@
     align-items: center;
     overflow: hidden;
 }
+.CryptoWalletButtons{
+    height: 50px;
+    width: 100%;
+    background: #F7F7F0; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 100%;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-items: center;
+    align-items: center;
+    overflow: hidden;
+}

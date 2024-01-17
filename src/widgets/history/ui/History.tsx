@@ -5,7 +5,7 @@ import Button from '@/shared/ui/button/Button';
 import { DatePicker } from 'antd';
 import { Props, TabKey } from "../model/types";
 import { historyTabs } from "../model/helpers";
-import { formatForCustomer, formatForApi } from "@/shared/lib/date-helper";
+import { formatForCustomer, formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import { startOfMonth } from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
@@ -18,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
 import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
+import { log } from 'console';
 
 const { RangePicker } = DatePicker;
 
@@ -35,6 +37,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
+    const {md} = useContext(BreakpointsContext);    
 
     const requestHistory = async (cancelToken = null) => {
         setLoading(true);
@@ -71,7 +74,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
         const { data } = await apiGetHistoryTransactions({
             currencies: currenciesFilter,
             tx_types: types,
-            next_key: lastValue.next_key,
+            next_key: lastValue?.next_key,
             limit: 10,
             include_fiat: includeFiat,
         });
@@ -95,6 +98,128 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
         return () => cancelTokenSource.cancel()
     }, [refreshKey, activeTab, currenciesFilter]);
 
+
+    const scrollHandler = (e) => {
+        if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
+            requestMoreHistory()
+        }
+    }
+    useEffect(()=>{
+        document.addEventListener("scroll", scrollHandler)
+        return function (){
+            document.addEventListener("scroll", scrollHandler)
+        }
+        
+    }, [])
+
+    
+    if(md){
+        return(
+            <>
+                <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
+                    {listHistory.map((item, index) => {
+                        
+                        if(listHistory[index-1]?.datetime === undefined){
+                            return(
+                                <>
+                                    <div className={styles.DataMobile}>
+                                        {formatForHistoryMobile(item.datetime)}
+                                    </div>
+                                    <div className={styles.InfoMobile}>
+                                        <div className={styles.TransactionMobile}>
+                                            <span className={styles.TypeOfTransactionMobile}>
+                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                            </span>
+                                            <span className={styles.DescriptionOfTransactionMobile}>
+                                                {item.tag?item.tag:"..."}
+                                            </span>
+                                        </div>
+                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                            <span className={styles.StatusMobile}>
+                                                {item.status_text}
+                                            </span>
+                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                            </span>
+                                        </div>
+                                        <div className={styles.ArrowBtnMobile}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
+                            return(
+                                <>
+                                    <div className={styles.DataMobile}>
+                                        {formatForHistoryMobile(item.datetime)}
+                                    </div>
+                                    <div className={styles.InfoMobile}>
+                                        <div className={styles.TransactionMobile}>
+                                            <span className={styles.TypeOfTransactionMobile}>
+                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                            </span>
+                                            <span className={styles.DescriptionOfTransactionMobile}>
+                                                {item.tag?item.tag:"..."}
+                                            </span>
+                                        </div>
+                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                            <span className={styles.StatusMobile}>
+                                                {item.status_text}
+                                            </span>
+                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                            </span>
+                                        </div>
+                                        <div className={styles.ArrowBtnMobile}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        }else{
+                            return(
+                                <>
+                                    <div className={styles.InfoMobile}>
+                                        <div className={styles.TransactionMobile}>
+                                            <span className={styles.TypeOfTransactionMobile}>
+                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                            </span>
+                                            <span className={styles.DescriptionOfTransactionMobile}>
+                                                {item.tag?item.tag:"..."}
+                                            </span>
+                                        </div>
+                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                            <span className={styles.StatusMobile}>
+                                                {item.status_text}
+                                            </span>
+                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                            </span>
+                                        </div>
+                                        <div className={styles.ArrowBtnMobile}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        }
+                    })}
+                    {!loading && listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
+                        <div className="col flex justify-center relative">
+                            {lazyLoading && <Loader className={" w-[24px] h-[24px] top-[4px]"} />}
+                        </div>
+                    </div>}
+                </div>
+            </>
+        )
+    }
     return (
         <div id={"History"} className="wrapper">
             {/* <h3 className=" font-bold">{title}</h3> */}

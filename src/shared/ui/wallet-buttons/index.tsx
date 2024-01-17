@@ -3,12 +3,13 @@ import styles from "./style.module.scss";
 
 
 interface IParams {
-    children: React.ReactNode;
+    children: React.ReactNode,
+    crypto?: boolean,
 }
 
-const WalletButtons = memo(({children}: IParams) => {
+const WalletButtons = memo(({children, crypto}: IParams) => {
     return(
-        <div className={styles.WalletButtons}> 
+        <div className={crypto?styles.CryptoWalletButtons:styles.WalletButtons}> 
             {children}
         </div>
     )

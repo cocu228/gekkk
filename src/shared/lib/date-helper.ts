@@ -26,3 +26,5 @@ export const formatForApi = (value: Date | string) => typeof value === "string" 
 const timeZoneCustomer = Intl.DateTimeFormat().resolvedOptions().timeZone
 export const formatForTimeZone = (value) => utcToZonedTime(value, timeZoneCustomer)
 export const formatForCustomer = (value) => format(formatForTimeZone(new Date(value)), "dd/MM/yy HH:mm")
+export const formatForHistoryMobile = (value) => format(formatForTimeZone(new Date(value)), "dd.MM.yy")
+export const formatForHistoryTimeMobile = (value) => format(formatForTimeZone(new Date(value)), "HH:mm")

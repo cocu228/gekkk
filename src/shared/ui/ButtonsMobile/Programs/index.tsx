@@ -4,7 +4,7 @@ import { memo } from "react"
 
 
 interface IParams {
-    wallet?: boolean
+    wallet?: boolean,
 }
 
 const ProgramsButton = memo(({wallet}:IParams) => {

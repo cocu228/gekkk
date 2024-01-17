@@ -71,16 +71,6 @@ function Exchange() {
         onIsLimitOrderChange
     } = useContext(CtxExchangeData);
 
-    const location = useLocation()
-    const stateFromWallet = location.state
-    
-    useEffect(()=>{
-        if(stateFromWallet){
-            setTimeout(()=>{
-                onFromCurrencyChange(stateFromWallet)
-            },0)
-        }        
-    }, [stateFromWallet])
     
     useEffect(() => {
         if (!(historyFilter.includes(from.currency) && historyFilter.includes(to.currency))) {

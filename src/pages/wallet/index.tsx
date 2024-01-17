@@ -43,7 +43,9 @@ function Wallet() {
         //@ts-ignore
         $currency = currencies.get(currency);
     }
-	
+
+    const isCryptoWallet = !($currency.$const === "EUR" || $currency.$const === "EURG" || $currency.$const === "GKE")
+
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (isNewCardOpened ? 1 : xl ? 1 : 2), [xl, isNewCardOpened]);
 	
@@ -96,12 +98,20 @@ function Wallet() {
 	                </TabsGroupPrimary> 
 				:
 	                //для мобилки в разработке...
-	                <WalletButtons>
-		                <TopUpButton wallet/>
-		                <TransfersButton wallet/>
-		                <ExchangeButton wallet/>
-		                <ProgramsButton wallet/>
-	                </WalletButtons>
+	                <>
+                        <WalletButtons crypto={isCryptoWallet}>
+                            <TopUpButton wallet/>
+                            <TransfersButton wallet/>
+                            <ExchangeButton wallet/>
+                            {!isCryptoWallet && <ProgramsButton wallet/>}
+                        </WalletButtons>
+                        <History currenciesFilter={currencyForHistory}/>
+
+                        {/* {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
+                            <About data-tag={"about"} data-name={t("about")}
+                                description={descriptions[$currency.$const]}/>
+                        )} */}
+                    </>
                 }
             </CtxWalletData.Provider>
         </div>

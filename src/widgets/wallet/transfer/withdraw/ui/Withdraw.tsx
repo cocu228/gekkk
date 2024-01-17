@@ -59,7 +59,7 @@ const Withdraw = memo(() => {
                 return <WithdrawFormBroker/>;
             case 155:
                 return <WithdrawFormPhoneNumber/>;
-            case 232:
+            case 231:
                 return <div>
                     <TransferCodeDescription/>
                     <CreateTransferCode/>

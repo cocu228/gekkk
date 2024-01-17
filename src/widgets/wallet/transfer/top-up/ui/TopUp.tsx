@@ -49,10 +49,7 @@ const TopUp = memo(() => {
                     </b>
                 </div>;
             case 231:
-                return <div>
-                    <TransferCodeDescription/>
-                    <ApplyTransferCode/>
-                </div>;
+                return <ApplyTransferCode/>;
             
             default:
                 return <div>

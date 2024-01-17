@@ -60,10 +60,7 @@ const Withdraw = memo(() => {
             case 155:
                 return <WithdrawFormPhoneNumber/>;
             case 231:
-                return <div>
-                    <TransferCodeDescription/>
-                    <CreateTransferCode/>
-                </div>;
+                return <CreateTransferCode/>;
             default:
                 return <div>
                     Sorry, there are no actions available for the selected network.

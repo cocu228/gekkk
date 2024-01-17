@@ -13,6 +13,7 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import {TxCodesOut} from "@/shared/api/(gen)new/model";
+import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 
 const ApplyTransferCode = () => {
     const {t} = useTranslation();
@@ -54,7 +55,9 @@ const ApplyTransferCode = () => {
 
     }
 
-    return <>
+    return <div>
+        <TransferCodeDescription/>
+        
         <div className="row flex gap-10">
             <div className="col flex items-center w-3/5">
                 <Input value={input} disabled={loading}
@@ -99,7 +102,7 @@ const ApplyTransferCode = () => {
         <div className="row mt-10">
             <TransferTableCode/>
         </div>
-    </>
+    </div>
 
 }
 

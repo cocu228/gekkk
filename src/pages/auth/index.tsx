@@ -1,10 +1,7 @@
 import "@styles/index.scss";
 import {AxiosResponse} from 'axios';
-import {useTranslation} from 'react-i18next';
-import {useSessionStorage} from "usehooks-ts";
 import {useAuth} from "@/app/providers/AuthRouter";
 import {$AxiosResponse} from '@/shared/lib/(cs)axios';
-import {TSessionAuth} from "@/widgets/auth/model/types";
 import {memo, useEffect} from 'react';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
 import {apiTokenHash, IResSessionData} from "@/widgets/auth/api";
@@ -32,17 +29,17 @@ const AuthPage = memo(() => {
     //     verificationId: ""
     // });
     
-    useEffect(() => {
-        authForTokenHashUrl().success((sessionId: string) =>
-            apiTokenHash(sessionId)
-                .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
-                    .success(() => login(
-                        res.data.result.authorization,
-                        res.data.result.token,
-                        res.data.result.tokenHeaderName
-                    ))).catch(e => console.warn(e)));
-        
-    }, []);
+    // useEffect(() => {
+    //     authForTokenHashUrl().success((sessionId: string) =>
+    //         apiTokenHash(sessionId)
+    //             .then((res: AxiosResponse<$AxiosResponse<IResSessionData>>) => helperApiTokenHash(res)
+    //                 .success(() => login(
+    //                     res.data.result.authorization,
+    //                     res.data.result.token,
+    //                     res.data.result.tokenHeaderName
+    //                 ))).catch(e => console.warn(e)));
+    //
+    // }, []);
     
     return (
         <div style={{
@@ -86,7 +83,6 @@ const AuthPage = memo(() => {
                         </h1>
                         {stage === 'forgot-password' ?
                             <ForgotPassword /> :
-                            
                             <FormLoginAccount/>
                         }
                         

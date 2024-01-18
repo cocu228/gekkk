@@ -11,6 +11,8 @@ export function sortCards (cards: IResCard[]) {
 		const statusA = priority[a.cardStatus] || 4;
 		const statusB = priority[b.cardStatus] || 4;
 		
-		return statusA - statusB;
+		return statusA !== statusB
+			? statusA - statusB                         // sort by status
+			: a.displayPan.localeCompare(b.displayPan); // sort by number
 	});
 }

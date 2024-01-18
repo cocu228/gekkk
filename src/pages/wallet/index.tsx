@@ -47,7 +47,7 @@ function Wallet() {
     const isCryptoWallet = !($currency.$const === "EUR" || $currency.$const === "EURG" || $currency.$const === "GKE")
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
-    const fullWidthOrHalf = useMemo(() => (isNewCardOpened ? 1 : xl ? 1 : 2), [xl, isNewCardOpened]);
+    const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	
     return (
         <div className="flex flex-col h-full w-full">
@@ -91,7 +91,7 @@ function Wallet() {
 	                                            data-name={t("history")}/>}
 	                        </div>
 	                        
-	                        {!isNewCardOpened && !xl && <div className="substrate z-0 -ml-4 h-full">
+	                        {!xl && <div className="substrate z-0 -ml-4 h-full">
 	                            <History currenciesFilter={currencyForHistory}/>
 	                        </div>}
 	                    </div>

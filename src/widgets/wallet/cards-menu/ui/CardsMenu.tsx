@@ -9,7 +9,7 @@ import MenuItem from "./menu-item/MenuItem";
 import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {numberWithSpaces} from "@/shared/lib/helpers";
+import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiActivateCard} from "@/shared/api/bank/activate-card";
 import {apiGetCards, apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
@@ -32,26 +32,49 @@ const CardsMenu = ({
     const [card, setCard] = useState<IResCard>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
-    const [bankCards, setBankCards] = useState<IResCard[]>(null);
     const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
-    //const {
-    //    updateCard
-    //} = storeActiveCards(state => state);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
     } = useInputState();
+    const [cardsStorage, setCardsStorage] = useState<{
+        cards: IResCard[];
+        refreshKey: string;
+    }>({
+        cards: null,
+        refreshKey: null
+    });
     
     useEffect(() => {
         (async () => {
             const {data} = await apiGetCards();
-            setBankCards(data.result);
+            setCardsStorage({
+                cards: data.result,
+                refreshKey: randomId()
+            });
         })();
     }, []);
     
+    const updateCard = (card: IResCard) => {
+        setCardsStorage({
+            cards: [
+                card,
+                ...cardsStorage.cards.filter(c => c.cardId !== card.cardId)
+            ],
+            refreshKey: randomId()
+        });
+        setCard(card);
+    }
+    
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
+        
+        if (item === 'showData') {
+            onConfirm(item);
+            cardInfoModal.showModal();
+            return;
+        }
         
         setLoading(false);
         setSelectedItem(item);
@@ -70,10 +93,10 @@ const CardsMenu = ({
                             return;
                         }
                         
-                        //updateCard({
-                        //    ...card,
-                        //    cardStatus: "ACTIVE"
-                        //});
+                        updateCard({
+                            ...card,
+                            cardStatus: "ACTIVE"
+                        });
                         
                         setLoading(false);
                         confirmationModal.handleCancel();
@@ -89,10 +112,10 @@ const CardsMenu = ({
                         return;
                     }
                     
-                    //updateCard({
-                    //    ...card,
-                    //    cardStatus: "BLOCKED_BY_CUSTOMER"
-                    //});
+                    updateCard({
+                        ...card,
+                        cardStatus: "BLOCKED_BY_CUSTOMER"
+                    });
                     
                     setLoading(false);
                     confirmationModal.handleCancel();
@@ -108,10 +131,10 @@ const CardsMenu = ({
                         return;
                     }
                     
-                    //updateCard({
-                    //    ...card,
-                    //    cardStatus: "ACTIVE"
-                    //});
+                    updateCard({
+                        ...card,
+                        cardStatus: "ACTIVE"
+                    });
                     
                     setLoading(false);
                     confirmationModal.handleCancel();
@@ -131,19 +154,19 @@ const CardsMenu = ({
                         return;
                     }
                     
-                    //updateCard({
-                    //    ...card,
-                    //    limits: [
-                    //        ...card.limits.filter(l => l.period !== (action === 'dailyLimit' ? 'DAILY' : 'MONTHLY')),
-                    //        {
-                    //            type: "ALL",
-                    //            period: action === 'dailyLimit' ? 'DAILY' : 'MONTHLY',
-                    //            usedLimit: 0,
-                    //            currentLimit: limitAmount.value.number,
-                    //            maxLimit: 100000
-                    //        }
-                    //    ]
-                    //});
+                    updateCard({
+                        ...card,
+                        limits: [
+                            ...card.limits.filter(l => l.period !== (action === 'dailyLimit' ? 'DAILY' : 'MONTHLY')),
+                            {
+                                type: "ALL",
+                                period: action === 'dailyLimit' ? 'DAILY' : 'MONTHLY',
+                                usedLimit: 0,
+                                currentLimit: limitAmount.value.number,
+                                maxLimit: 100000
+                            }
+                        ]
+                    });
                     
                     setLimitAmount('');
                     setLoading(false);
@@ -180,7 +203,6 @@ const CardsMenu = ({
                         
                         setCardInfo(data as IUnmaskedCardData);
                         confirmationModal.handleCancel();
-                        cardInfoModal.showModal();
                     });
                 break;
                 
@@ -206,7 +228,11 @@ const CardsMenu = ({
         
         <div className={styles.CarouselBlock}>
             <div className={styles.CarouselBlockContainer}>
-                <BankCardsCarousel cards={bankCards} onSelect={setCard} />
+                <BankCardsCarousel
+                    cards={cardsStorage.cards}
+                    refreshKey={cardsStorage.refreshKey}
+                    onSelect={setCard}
+                />
             </div>
         </div>
         
@@ -373,7 +399,7 @@ const CardsMenu = ({
                 open={cardInfoModal.isModalOpen}
                 onCancel={cardInfoModal.handleCancel}
             >
-                {!cardInfo ? null : <div className='font-medium text-[16px]'>
+                {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
                     <div className="row mb-2">
                         <div className="col">
                             <span><b>{t("card_number")
@@ -410,7 +436,10 @@ const CardsMenu = ({
                     </div>
                 </div>}
                 
-                <Form onFinish={cardInfoModal.handleCancel}>
+                <Form onFinish={() => {
+                    cardInfoModal.handleCancel();
+                    setCardInfo(null);
+                }}>
                     <div className="row my-5">
                         <div className="col">
                             <Button size={"xl"}

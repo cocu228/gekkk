@@ -28,6 +28,7 @@ import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 
 // import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 // import Loader from "@/shared/ui/loader";
@@ -53,6 +54,7 @@ const SidebarDesktop = () => {
     } = storeListExchangeRooms(state => state);
     const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -63,8 +65,9 @@ const SidebarDesktop = () => {
         getRoomsList();
         getInvestments();
         getActiveCards();
+        getAccountDetails();
     }, [account]);
-
+    
     let eurWallet = null;
     let eurgWallet = null;
     let gkeWallet = null;

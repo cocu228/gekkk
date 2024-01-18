@@ -6,7 +6,7 @@ export const FaqItem = styled(Box, {
   'height': isMobile ? '95px' : '127px',
   'display': 'inline-flex',
   'cursor': 'pointer',
-  'width': isMobile ? '45%' : isSomeSelected ? '400px' : '30%',
+  'width': isMobile ? isSomeSelected ? '65%' : '100%' : isSomeSelected ? '400px' : '30%',
   'flex': '0 0 auto',
   'flexDirection': 'column',
   'gap': '12px',

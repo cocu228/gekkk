@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 
 import Ok from '@/assets/ok.svg?react'
@@ -20,20 +20,39 @@ import { Pricing} from './components/Pricing'
 import { settingsContext } from './settingsContext'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom'
 
-const areaMap: any = {
-  'Identification status': <IdentificationStatus />,
-  'Personal information': <PersonalInformation />,
-  'My reports': <MyReports />,
-  'Application password': <ApplicationPassword />,
-  'Pricing': <Pricing />,
-  'Legal notices': <LegalNotices />,
+const areaMap = {
+  'identification-status': <IdentificationStatus />,
+  'personal-information': <PersonalInformation />,
+  'my-reports': <MyReports />,
+  'application-password': <ApplicationPassword />,
+  'pricing': <Pricing />,
+  'legal-notices': <LegalNotices />,
 }
+type SettingsSections = keyof typeof areaMap | '';
 export function Settings() {
   const {t} = useTranslation();
-  const [selectedArea, setSelectedArea] = useState('')
-  const area = areaMap[selectedArea] || null
   const {xxl} = useBreakpoints();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedArea = (searchParams.get('sestinasSection') || '') as SettingsSections;
+  const area = areaMap[selectedArea] || null
+
+
+  const setSelectedArea = useCallback((selectedArea: SettingsSections) => {
+    if (!areaMap[selectedArea]) {
+      searchParams.delete('sestinasSection')
+      setSearchParams(searchParams, {replace: true});
+    } else {
+      searchParams.set('sestinasSection', selectedArea);
+      setSearchParams(searchParams);
+    }
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    setSelectedArea(selectedArea);
+  }, [])
 
   return (
     <settingsContext.Provider
@@ -72,9 +91,9 @@ export function Settings() {
               <FrameItem
                 component="button"
                 onClick={() => {
-                  setSelectedArea('Identification status')
+                  setSelectedArea('identification-status')
                 }}
-                isSelected={selectedArea === 'Identification status'}
+                isSelected={selectedArea === 'identification-status'}
               >
                 <Ok />
                 <Typography noWrap variant="h3">{t('identification_status')}</Typography>
@@ -82,9 +101,9 @@ export function Settings() {
 
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('Personal information')
+                  setSelectedArea('personal-information')
                 }}
-                isSelected={selectedArea === 'Personal information'}
+                isSelected={selectedArea === 'personal-information'}
               >
                 <AccountIcon />
                 <Typography noWrap variant="h3">{t('personal_information')}</Typography>
@@ -99,18 +118,18 @@ export function Settings() {
             <Box display="flex" flexDirection="column" gap="24px">
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('My reports')
+                  setSelectedArea('my-reports')
                 }}
-                isSelected={selectedArea === 'My reports'}
+                isSelected={selectedArea === 'my-reports'}
               >
                 <ReportIcon />
                 <Typography noWrap variant="h3">{t('my_reports')}</Typography>
               </FrameItem>
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('Application password')
+                  setSelectedArea('application-password')
                 }}
-                isSelected={selectedArea === 'Application password'}
+                isSelected={selectedArea === 'application-password'}
               >
                 <PinCodeIcon />
                 <Typography noWrap variant="h3">{t('application_password')}</Typography>
@@ -125,9 +144,9 @@ export function Settings() {
             <Box display="flex" flexDirection="column" gap="24px">
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('Pricing')
+                  setSelectedArea('pricing')
                 }}
-                isSelected={selectedArea === 'Pricing'}
+                isSelected={selectedArea === 'pricing'}
               >
                 <EuroIcon />
                 <Typography noWrap variant="h3">{t('pricing')}</Typography>
@@ -135,9 +154,9 @@ export function Settings() {
 
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('Legal notices')
+                  setSelectedArea('legal-notices')
                 }}
-                isSelected={selectedArea === 'Legal notices'}
+                isSelected={selectedArea === 'legal-notices'}
               >
                 <DocumentsDocumentsIcon />
                 <Typography noWrap variant="h3">{t('legal_notices')}</Typography>

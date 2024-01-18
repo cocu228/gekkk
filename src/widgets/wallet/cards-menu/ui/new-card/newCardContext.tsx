@@ -8,6 +8,7 @@ export interface INewCardState {
     linkedPhone: string;
     cardholderName: string;
     isExpressDelivery: boolean;
+    isResidenceAddress: boolean;
     cardType: "VIRTUAL" | "PLASTIC";
     
     countryCode?: string | null;
@@ -23,6 +24,7 @@ export type NewCardContext = {
     close: () => void;
     state: INewCardState;
     setStep: (nextStep: IStep) => void;
+    switchResidenceAddress: () => void;
     setState: (state: INewCardState) => void;
 }
 
@@ -33,10 +35,12 @@ export const newCardContext = createContext<NewCardContext>({
         cardholderName: null,
         step: 'IssueNewCard',
         isExpressDelivery: false,
+        isResidenceAddress: false,
     },
     close: () => {},
     setStep: () => {},
-    setState: () => {}
+    setState: () => {},
+    switchResidenceAddress: () => {}
 });
 
 export function useNewCardContext() {

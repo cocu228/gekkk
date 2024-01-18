@@ -24,12 +24,12 @@ export default defineConfig(({mode}) => {
             ],
         },
         server: {
-            proxy: {
-                '^/(api|gek|pub/)': {
-                    target: 'https://api-dev.gekkoin.com',
-                    changeOrigin: true,
-                    secure: false,
-                },
+            // proxy: {
+                // '^/(api|gek|auth|pub/)': {
+                //     target: 'https://dev.gekkard.com',
+                //     changeOrigin: true,
+                //     secure: false,
+                // }
                 // '^/TEMP-API': {
                 //   target: 'http://10.7.14.10/pub/v1/auth',
                 //   changeOrigin: true,
@@ -48,7 +48,7 @@ export default defineConfig(({mode}) => {
                 //     });
                 //   },
                 // },
-            }
+            // }
         },
         plugins: [react(), svgr(), VitePWA({
             registerType: 'autoUpdate',

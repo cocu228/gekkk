@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.61",
+  "version": "2.0.63",
   "type": "module",
   "scripts": {
     "apiGen": "orval",
@@ -29,6 +29,7 @@
     "date-fns-tz": "2.0.0",
     "dayjs": "1.11.7",
     "decimal.js": "10.4.3",
+    "elliptic": "^6.5.4",
     "firebase": "^10.3.0",
     "i18next": "^23.6.0",
     "imask": "6.4.3",

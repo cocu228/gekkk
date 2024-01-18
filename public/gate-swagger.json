@@ -1,0 +1,1058 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Gekcore broker gate API",
+    "description": "Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>\r\n                    Build version 1.0.2-20240117-0839.5821+13b107b5a7fb9589f2e0bf7ac99502f839b9b1b1<br/><br/>\r\n                    Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>\r\n                    http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>\r\n                    В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>\r\n                    Поле <b>id</b> - используется для проброса идентификатора(<b>nonce</b>) запроса в некоторых критичных сценариях для исключения возможных повторов.<br/><br/>\r\n                    ",
+    "termsOfService": "https://gekkoin.com/source/GeneralTermsandConditions.pdf",
+    "contact": {
+      "name": "Contact gekkoin/gekkard",
+      "url": "https://gekkoin.com/contact",
+      "email": "support@gekkoin.com"
+    },
+    "license": {
+      "name": "License",
+      "url": "https://gekkoin.com/license"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/auth/v1/login_options": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Генерация случайного challenge и создание опций аутентификации FIDO2     ///",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Аутентификация пользователя, создание сеанса     ///",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/login_log": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "///  100 последних операций входа пользователя     ///",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLoginLogListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLoginLogListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLoginLogListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/logout": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Завершение текущего сеанса пользователя     ///",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/close_sessions": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Завершение сеанса пользователя или всех, кроме текущего, если не задан id     ///",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/register_options": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения     ///",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthOptionsApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/register_key": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Регистрация нового ключа устройства или пароля     ///",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/remove_key": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Удаление зарегистрированного ключа устройства     ///",
+        "parameters": [
+          {
+            "name": "key_id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/user_keys": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Список зарегистрированных ключей входа     ///",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKeyListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKeyListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserKeyListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/sessions": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Список активных сеансов     ///",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSessionListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSessionListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSessionListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/reset_password": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "/// Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту     ///",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "example": "79111111111"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Algorithm": {
+        "enum": [
+          -65535,
+          -259,
+          -258,
+          -257,
+          -47,
+          -39,
+          -38,
+          -37,
+          -36,
+          -35,
+          -8,
+          -7
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "description": "Объект-результат: null, если ошибка",
+            "nullable": true
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorObject"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор запроса, если он был или 0",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Ответы-результаты запросов API в виде текста обозначающие вариант завершения процесса. \r\nПлюс стандартные статические ответы."
+      },
+      "AssertionResponse": {
+        "type": "object",
+        "properties": {
+          "authenticatorData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "clientDataJSON": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "userHandle": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AttestationConveyancePreference": {
+        "enum": [
+          "none",
+          "indirect",
+          "direct"
+        ],
+        "type": "string"
+      },
+      "AuthIn": {
+        "type": "object",
+        "properties": {
+          "challenge_id": {
+            "type": "integer",
+            "description": "/// challenge id from login_options api     ///",
+            "format": "int64"
+          },
+          "credential": {
+            "$ref": "#/components/schemas/AuthenticatorAssertionRawResponse"
+          },
+          "credential_new": {
+            "$ref": "#/components/schemas/AuthenticatorAttestationRawResponse"
+          },
+          "signature": {
+            "type": "string",
+            "description": "/// sign EdDSA challenge (user+pass version, not FIDO2)     ///",
+            "format": "byte",
+            "nullable": true
+          },
+          "public_key": {
+            "type": "string",
+            "description": "/// EdDSA public_key from user+pass      ///",
+            "format": "byte",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "description": "/// Verification code     ///",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthOptions": {
+        "type": "object",
+        "properties": {
+          "challenge_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "challenge": {
+            "type": "string",
+            "description": "/// An ArrayBuffer, TypedArray, or DataView originating from the relying party's server and used as a cryptographic challenge.      /// This value will be signed by the authenticator and the signature will be sent back as part of the AuthenticatorAssertionResponse.signature (available in the response property of the PublicKeyCredential object returned by a successful get() call).     ///",
+            "nullable": true
+          },
+          "rpId": {
+            "type": "string",
+            "description": "/// A string that specifies the relying party's identifier (for example \"login.example.org\"). For security purposes:     /// The calling web app verifies that rpId matches the relying party's origin.     /// The authenticator verifies that rpId matches the rpId of the credential used for the authentication ceremony.     /// If rpId is omitted, it will default to the current origin's domain.     ///",
+            "nullable": true
+          },
+          "timeout": {
+            "type": "integer",
+            "description": "/// This member specifies a time, in milliseconds, that the caller is willing to wait for the call to complete. This is treated as a hint, and MAY be overridden by the client.     ///",
+            "format": "int32"
+          },
+          "userVerification": {
+            "type": "string",
+            "description": "/// This member describes the Relying Party's requirements regarding user verification for the get() operation. Eligible authenticators are filtered to only those capable of satisfying this requirement     /// possible values: preferred, required, discouraged     ///",
+            "nullable": true
+          },
+          "fido2_options": {
+            "$ref": "#/components/schemas/CredentialCreateOptions"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthOptionsApiResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/AuthOptions"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorObject"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор запроса, если он был или 0",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Объект-ответ на запрос к API, содержит в себе данные или детали ошибки"
+      },
+      "AuthenticationExtensionsClientInputs": {
+        "type": "object",
+        "properties": {
+          "example.extension": {
+            "nullable": true
+          },
+          "appid": {
+            "type": "string",
+            "nullable": true
+          },
+          "authnSel": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            },
+            "nullable": true
+          },
+          "exts": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "uvm": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticationExtensionsClientOutputs": {
+        "type": "object",
+        "properties": {
+          "example.extension": {
+            "nullable": true
+          },
+          "appid": {
+            "type": "boolean"
+          },
+          "authnSel": {
+            "type": "boolean"
+          },
+          "exts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "uvm": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticatorAssertionRawResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "rawId": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "response": {
+            "$ref": "#/components/schemas/AssertionResponse"
+          },
+          "type": {
+            "$ref": "#/components/schemas/PublicKeyCredentialType"
+          },
+          "extensions": {
+            "$ref": "#/components/schemas/AuthenticationExtensionsClientOutputs"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticatorAttachment": {
+        "enum": [
+          "platform",
+          "cross-platform"
+        ],
+        "type": "string"
+      },
+      "AuthenticatorAttestationRawResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "rawId": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/PublicKeyCredentialType"
+          },
+          "response": {
+            "$ref": "#/components/schemas/ResponseData"
+          },
+          "extensions": {
+            "$ref": "#/components/schemas/AuthenticationExtensionsClientOutputs"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticatorSelection": {
+        "type": "object",
+        "properties": {
+          "authenticatorAttachment": {
+            "$ref": "#/components/schemas/AuthenticatorAttachment"
+          },
+          "requireResidentKey": {
+            "type": "boolean"
+          },
+          "userVerification": {
+            "$ref": "#/components/schemas/UserVerificationRequirement"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticatorTransport": {
+        "enum": [
+          "usb",
+          "nfc",
+          "ble",
+          "internal"
+        ],
+        "type": "string"
+      },
+      "CredentialCreateOptions": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "rp": {
+            "$ref": "#/components/schemas/PublicKeyCredentialRpEntity"
+          },
+          "user": {
+            "$ref": "#/components/schemas/Fido2User"
+          },
+          "challenge": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "pubKeyCredParams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PubKeyCredParam"
+            },
+            "nullable": true
+          },
+          "timeout": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "attestation": {
+            "$ref": "#/components/schemas/AttestationConveyancePreference"
+          },
+          "authenticatorSelection": {
+            "$ref": "#/components/schemas/AuthenticatorSelection"
+          },
+          "excludeCredentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicKeyCredentialDescriptor"
+            },
+            "nullable": true
+          },
+          "extensions": {
+            "$ref": "#/components/schemas/AuthenticationExtensionsClientInputs"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorObject": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "Цифровой код ошибки",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "description": "Текстовое сообщение об ошибке",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Объект-ошибки для объекта-ответа"
+      },
+      "Fido2User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PubKeyCredParam": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/PublicKeyCredentialType"
+          },
+          "alg": {
+            "$ref": "#/components/schemas/Algorithm"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicKeyCredentialDescriptor": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/PublicKeyCredentialType"
+          },
+          "id": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "transports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuthenticatorTransport"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicKeyCredentialRpEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicKeyCredentialType": {
+        "enum": [
+          "public-key"
+        ],
+        "type": "string"
+      },
+      "ResponseData": {
+        "type": "object",
+        "properties": {
+          "attestationObject": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "clientDataJSON": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserKey": {
+        "type": "object",
+        "properties": {
+          "utc_create": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "public_key": {
+            "type": "string",
+            "nullable": true
+          },
+          "key_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "current": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserKeyListApiResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserKey"
+            },
+            "description": "Объект-результат: null, если ошибка",
+            "nullable": true
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorObject"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор запроса, если он был или 0",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Объект-ответ на запрос к API, содержит в себе данные или детали ошибки"
+      },
+      "UserLoginLog": {
+        "type": "object",
+        "properties": {
+          "utc_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "key_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "key_sign_num": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          },
+          "device_info": {
+            "type": "string",
+            "nullable": true
+          },
+          "login_type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLoginLogListApiResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserLoginLog"
+            },
+            "description": "Объект-результат: null, если ошибка",
+            "nullable": true
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorObject"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор запроса, если он был или 0",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Объект-ответ на запрос к API, содержит в себе данные или детали ошибки"
+      },
+      "UserSession": {
+        "type": "object",
+        "properties": {
+          "utc_create": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_agent": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          },
+          "login_type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserSessionListApiResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserSession"
+            },
+            "description": "Объект-результат: null, если ошибка",
+            "nullable": true
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorObject"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор запроса, если он был или 0",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Объект-ответ на запрос к API, содержит в себе данные или детали ошибки"
+      },
+      "UserVerificationRequirement": {
+        "enum": [
+          "required",
+          "preferred",
+          "discouraged"
+        ],
+        "type": "string"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "API методы аутентификации gekcore"
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui";
-import {useNavigate, useParams} from "react-router-dom";
+import {useMatch, useNavigate, useParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
@@ -36,6 +36,9 @@ function Wallet() {
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+
+    
+    
     
     let $currency = mockEUR;
 
@@ -45,6 +48,10 @@ function Wallet() {
     }
 
     const isCryptoWallet = !($currency.$const === "EUR" || $currency.$const === "EURG" || $currency.$const === "GKE")
+
+    const $const = currencies.get(currency)
+    const aboutPage = useMatch(`wallet/${$const.$const}/about`)
+    const isOnAboutPage = !!aboutPage
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
@@ -105,12 +112,15 @@ function Wallet() {
                             <ExchangeButton wallet/>
                             {!isCryptoWallet && <ProgramsButton wallet/>}
                         </WalletButtons>
-                        <History currenciesFilter={currencyForHistory}/>
-
-                        {/* {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
-                            <About data-tag={"about"} data-name={t("about")}
-                                description={descriptions[$currency.$const]}/>
-                        )} */}
+                        {isOnAboutPage
+                            ?
+                                !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
+                                    <About data-tag={"about"} data-name={t("about")}
+                                        description={descriptions[$currency.$const]}/>
+                                )
+                            :
+                                <History currenciesFilter={currencyForHistory}/>
+                        }
                     </>
                 }
             </CtxWalletData.Provider>

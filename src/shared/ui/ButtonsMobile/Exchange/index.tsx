@@ -16,11 +16,11 @@ const ExchangeButton = memo(({wallet}:IParams) => {
     const {currencies} = useContext(CtxCurrencies);
     const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
     let $constant
-    if(wallet){
-        const {$const} = useContext(CtxWalletData);  
-        $constant = currencies.get($const)       
+    if(wallet && currencies){
+        const {$const} = useContext(CtxWalletData);
+        $constant = currencies.get($const)
     }
-    
+
 
     return(
         <>

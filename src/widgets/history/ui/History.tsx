@@ -20,6 +20,7 @@ import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import { log } from 'console';
+import { useMatch } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
@@ -38,6 +39,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
     const {md} = useContext(BreakpointsContext);    
+    const isWalletPage = !!(useMatch('/wallet'))
 
     const requestHistory = async (cancelToken = null) => {
         setLoading(true);
@@ -113,7 +115,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
     }, [])
 
     
-    if(md){
+    if(md && isWalletPage){
         return(
             <>
                 <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>

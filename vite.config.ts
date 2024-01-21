@@ -55,6 +55,7 @@ export default defineConfig(({mode}) => {
                 registerType: 'autoUpdate',
                 includeAssets: ['**/*'],
                 workbox: {
+                    maximumFileSizeToCacheInBytes: 20000000,
                     globPatterns: ['**/*'],
                     // runtimeCaching: [
                     //     {

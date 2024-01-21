@@ -53,10 +53,11 @@ export default defineConfig(({mode}) => {
         plugins: [react(), svgr(),
             VitePWA({
                 registerType: 'autoUpdate',
-                includeAssets: ['**/*'],
+                // includeAssets: ['**/*'],
                 workbox: {
                     maximumFileSizeToCacheInBytes: 20000000,
-                    globPatterns: ['**/*'],
+                    // globPatterns: ['**/*'],
+                    globPatterns: ['**/*.{js,css,html,json,webmanifest}'],
                     // runtimeCaching: [
                     //     {
                     //         urlPattern: ({url}) => {

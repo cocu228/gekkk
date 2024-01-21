@@ -25,11 +25,11 @@ export default defineConfig(({mode}) => {
         },
         server: {
             proxy: {
-                '^/(api|gek|pub/)': {
-                    target: 'https://api-dev.gekkoin.com',
+                '^/(api|gek|auth|pub/)': {
+                    target: 'https://gate-dev.gekkard.com:6789/',
                     changeOrigin: true,
                     secure: false,
-                },
+                }
                 // '^/TEMP-API': {
                 //   target: 'http://10.7.14.10/pub/v1/auth',
                 //   changeOrigin: true,
@@ -47,19 +47,32 @@ export default defineConfig(({mode}) => {
                 //       console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
                 //     });
                 //   },
-            },
-            // }
+                // },
+            }
         },
         plugins: [react(), svgr(),
-            // VitePWA({
-            //     registerType: 'autoUpdate',
-            //     workbox: {
-            //         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-            //     },
-            //     devOptions: {
-            //         enabled: true
-            //     }
-            // })
+            VitePWA({
+                registerType: 'autoUpdate',
+                includeAssets: ['**/*'],
+                workbox: {
+                    globPatterns: ['**/*'],
+                    // runtimeCaching: [
+                    //     {
+                    //         urlPattern: ({url}) => {
+                    //             // console.log(url)
+                    //             // return !!url.pathname.startsWith("/")
+                    //         },
+                    //         handler: "StaleWhileRevalidate",
+                    //         options: {
+                    //             cacheName: "MyCache"
+                    //         }
+                    //     }
+                    // ]
+                },
+                devOptions: {
+                    enabled: true
+                }
+            })
         ]
     }
 })

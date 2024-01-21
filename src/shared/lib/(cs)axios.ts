@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getCookieData} from "@/shared/lib/helpers";
+import {$ENV_MODE, getCookieData} from "@/shared/lib/helpers";
 
 export type $AxiosError = {
     code: number;
@@ -13,7 +13,8 @@ export type $AxiosResponse<T> = {
 }
 
 const {MODE} = import.meta.env
-const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
+// const API_URL_MODE = import.meta.env[`VITE_API_URL_${MODE}`]
+const API_URL = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
 
 const sessionHeader = () => {
 
@@ -40,7 +41,7 @@ const $axios = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
-    baseURL: !!API_URL_MODE ? API_URL_MODE : window.location.origin
+    baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
 export default $axios;

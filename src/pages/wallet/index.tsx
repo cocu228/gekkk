@@ -49,8 +49,8 @@ function Wallet() {
 
     const isCryptoWallet = !($currency.$const === "EUR" || $currency.$const === "EURG" || $currency.$const === "GKE")
 
-    const $const = currencies.get(currency)
-    const aboutPage = useMatch(`wallet/${$const.$const}/about`)
+    // const $const = currencies.get(currency)
+    const aboutPage = useMatch(`wallet/${$currency.$const}/about`)
     const isOnAboutPage = !!aboutPage
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);

@@ -14,7 +14,7 @@ export type NewHeaderProps = {};
 export function NewHeader ({}: NewHeaderProps) {
 
     const navigate = useNavigate();
-    const {token, logout} = useAuth();
+    const {access, logout} = useAuth();
     // const {isModalOpen, showModal, handleCancel} = useModal();
    
     // <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
@@ -58,7 +58,7 @@ export function NewHeader ({}: NewHeaderProps) {
                 </button>
             </div>
 
-            {token ? 
+            {access ?
                 <div style={{
                     display: 'flex',
                     gap: '16px',

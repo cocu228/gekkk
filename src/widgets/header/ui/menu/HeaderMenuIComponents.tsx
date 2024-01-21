@@ -106,7 +106,7 @@ export const GekkoinInvestPlatform = ({active = false}) => {
             tokenHeaderName: string
         }>()
 
-        const response = await $axios.post('/pub/v1/auth', {
+        const response = await $axios.post('/gek/v1/auth', {
             authorization: phone,
             token: token,
             tokenHeaderName: tokenHeaderName

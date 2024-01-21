@@ -404,7 +404,7 @@ export const apiPubV1Auth = (
     params?: PostPubV1AuthParams,
  options?: SecondParameter<typeof postPubV1AuthMutator>,) => {
       return postPubV1AuthMutator<ObjectApiResponse | void>(
-      {url: `/pub/v1/auth`, method: 'post',
+      {url: `/gek/v1/auth`, method: 'post',
       headers: {'Content-Type': 'application/json', },
       data: sessionDataDTO,
         params
@@ -419,7 +419,7 @@ export const apiPubV1Assets = (
     params?: GetPubV1AssetsParams,
  options?: SecondParameter<typeof getPubV1AssetsMutator>,) => {
       return getPubV1AssetsMutator<CurrencysOutListApiResponse>(
-      {url: `/pub/v1/assets`, method: 'get',
+      {url: `/gek/v1/assets`, method: 'get',
         params
     },
       options);

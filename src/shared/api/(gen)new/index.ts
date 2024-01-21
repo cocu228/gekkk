@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20240117-1110.5850+44d8b7d1a4aa7750a9b88523ef6fb43beb8ec118<br/><br/>
+                    Build version 2.0.3-20240120-0240.5880+5eb2a730d569b4bb4379b09b79f81923edb716df<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -27,6 +27,7 @@ import type {
   GetDepositOutApiResponse,
   GetDepositOutListApiResponse,
   GetGekV1AddressTxInfoParams,
+  GetGekV1AssetsParams,
   GetGekV1BankGetCardsParams,
   GetGekV1CodeTxInfoParams,
   GetGekV1InvestGetInvestmentsParams,
@@ -43,7 +44,6 @@ import type {
   GetHistoryTrasactionOutListApiResponse,
   GetOrderListOutApiResponse,
   GetOrderListOutListApiResponse,
-  GetPubV1AssetsParams,
   GetTradeInfoOutApiResponse,
   NewOrderInfo,
   NewRoomInfo,
@@ -81,6 +81,7 @@ import postGekV1CreateTxCodeMutator from '../../lib/(cs)axios-new';
 import getGekV1ListTxCodesMutator from '../../lib/(cs)axios-new';
 import getGekV1CodeTxInfoMutator from '../../lib/(cs)axios-new';
 import getGekV1AddressTxInfoMutator from '../../lib/(cs)axios-new';
+import getGekV1AssetsMutator from '../../lib/(cs)axios-new';
 import getGekV1InvestGetInvestmentsMutator from '../../lib/(cs)axios-new';
 import postGekV1InvestCreateInvestmentMutator from '../../lib/(cs)axios-new';
 import postGekV1InvestReturnInvestmentMutator from '../../lib/(cs)axios-new';
@@ -93,7 +94,6 @@ import getGekV1MarketListRoomsMutator from '../../lib/(cs)axios-new';
 import postGekV1MarketCreateRoomMutator from '../../lib/(cs)axios-new';
 import postGekV1MarketCloseRoomMutator from '../../lib/(cs)axios-new';
 import postPubV1AuthMutator from '../../lib/(cs)axios-new';
-import getPubV1AssetsMutator from '../../lib/(cs)axios-new';
 import getGekV1ReferralGetReferralsMutator from '../../lib/(cs)axios-new';
 import getGekV1ReferralGetAgentCodeMutator from '../../lib/(cs)axios-new';
 import getGekV1ReferralGetReferralInvestmentsMutator from '../../lib/(cs)axios-new';
@@ -238,6 +238,19 @@ export const apiAddressTxInfo = (
  options?: SecondParameter<typeof getGekV1AddressTxInfoMutator>,) => {
       return getGekV1AddressTxInfoMutator<AddressTxOutApiResponse>(
       {url: `/gek/v1/address_tx_info`, method: 'get',
+        params
+    },
+      options);
+    }
+  
+/**
+ * @summary Получение информации по активам
+ */
+export const apiAssets = (
+    params?: GetGekV1AssetsParams,
+ options?: SecondParameter<typeof getGekV1AssetsMutator>,) => {
+      return getGekV1AssetsMutator<CurrencysOutListApiResponse>(
+      {url: `/gek/v1/assets`, method: 'get',
         params
     },
       options);
@@ -404,22 +417,9 @@ export const apiPubV1Auth = (
     params?: PostPubV1AuthParams,
  options?: SecondParameter<typeof postPubV1AuthMutator>,) => {
       return postPubV1AuthMutator<ObjectApiResponse | void>(
-      {url: `/pub/v1/auth`, method: 'post',
+      {url: `/gek/v1/auth`, method: 'post',
       headers: {'Content-Type': 'application/json', },
       data: sessionDataDTO,
-        params
-    },
-      options);
-    }
-  
-/**
- * @summary Получение информации по активам
- */
-export const apiPubV1Assets = (
-    params?: GetPubV1AssetsParams,
- options?: SecondParameter<typeof getPubV1AssetsMutator>,) => {
-      return getPubV1AssetsMutator<CurrencysOutListApiResponse>(
-      {url: `/pub/v1/assets`, method: 'get',
         params
     },
       options);
@@ -588,6 +588,7 @@ export type ApiCreateTxCodeResult = NonNullable<Awaited<ReturnType<typeof apiCre
 export type ApiListTxCodesResult = NonNullable<Awaited<ReturnType<typeof apiListTxCodes>>>
 export type ApiCodeTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiCodeTxInfo>>>
 export type ApiAddressTxInfoResult = NonNullable<Awaited<ReturnType<typeof apiAddressTxInfo>>>
+export type ApiAssetsResult = NonNullable<Awaited<ReturnType<typeof apiAssets>>>
 export type ApiGetInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetInvestments>>>
 export type ApiCreateInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiCreateInvestment>>>
 export type ApiReturnInvestmentResult = NonNullable<Awaited<ReturnType<typeof apiReturnInvestment>>>
@@ -600,7 +601,6 @@ export type ApiListRoomsResult = NonNullable<Awaited<ReturnType<typeof apiListRo
 export type ApiCreateRoomResult = NonNullable<Awaited<ReturnType<typeof apiCreateRoom>>>
 export type ApiCloseRoomResult = NonNullable<Awaited<ReturnType<typeof apiCloseRoom>>>
 export type ApiPubV1AuthResult = NonNullable<Awaited<ReturnType<typeof apiPubV1Auth>>>
-export type ApiPubV1AssetsResult = NonNullable<Awaited<ReturnType<typeof apiPubV1Assets>>>
 export type ApiGetReferralsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferrals>>>
 export type ApiGetAgentCodeResult = NonNullable<Awaited<ReturnType<typeof apiGetAgentCode>>>
 export type ApiGetReferralInvestmentsResult = NonNullable<Awaited<ReturnType<typeof apiGetReferralInvestments>>>

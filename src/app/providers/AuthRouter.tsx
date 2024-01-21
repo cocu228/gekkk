@@ -10,7 +10,7 @@ import {clearCookies, getCookieData, setCookieData, throttle} from "@/shared/lib
 const AuthContext = createContext({});
 
 interface IValue {
-    token: boolean;
+    access: boolean;
     login: (phone?: string, token?: string, tokenHeaderName?: string, refreshToken?: string) => void;
     logout: () => void;
 }
@@ -59,8 +59,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     // call this function when you want to authenticate the user
     const login = (phone: string, token: string, tokenHeaderName: string = 'token', refreshToken: string = null) => {
-
-
         setAccess(true)
         // setCookieData([
         //     {
@@ -109,7 +107,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const value = useMemo<IValue>(
         () => ({
-            token: access,
+            access: access,
             login,
             logout
         }),

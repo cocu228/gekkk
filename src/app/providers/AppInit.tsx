@@ -8,11 +8,11 @@ import ErrorsProvider from "@/app/providers/ErrorsProvider";
 
 const AppInit = () => {
 
-    const {token} = useAuth();
+    const {access} = useAuth();
 
     const offlineMode = !navigator.onLine;
 
-    const content = !token ? <AuthPage/> : <RootLayout/>;
+    const content = !access ? <AuthPage/> : <RootLayout/>;
     // const {isModalOpen, showModal, handleCancel} = useModal();
 
     return <ErrorsProvider offline={offlineMode}>

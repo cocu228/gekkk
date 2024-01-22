@@ -55,19 +55,21 @@ const SidebarDesktop = () => {
     const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
     const {getAccountDetails} = storeAccountDetails(state => state);
-    
+
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md])
 
     useEffect(() => {
-        getRoomsList();
-        getInvestments();
-        getActiveCards();
-        getAccountDetails();
+        if (account) {
+            getRoomsList();
+            getInvestments();
+            getActiveCards();
+            getAccountDetails();
+        }
     }, [account]);
-    
+
     let eurWallet = null;
     let eurgWallet = null;
     let gkeWallet = null;
@@ -151,30 +153,30 @@ const SidebarDesktop = () => {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                            />
+                        </svg>
+                    </div>
+                    <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
+                        <div className={styles.CardInfo}>
+                            {offline ? <div className="flex justify-center">
+                                <img
+                                    src='/img/payment-card/payment-card-background.jpg'
+                                    className='rounded-[10px]'
                                 />
-                            </svg>
+                            </div> : activeCards?.length === 0 ? (
+                                <Carousel>
+                                    <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
+                                        <NewBankCard/>
+                                    </div>
+                                </Carousel>
+                            ) : (
+                                <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
+                                    <BankCardsCarousel cards={activeCards}/>
+                                </div>
+                            )}
                         </div>
-                        <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
-                            <div className={styles.CardInfo}>
-	                            {offline ? <div className="flex justify-center">
-		                            <img
-			                            src='/img/payment-card/payment-card-background.jpg'
-			                            className='rounded-[10px]'
-		                            />
-	                            </div> : activeCards?.length === 0 ? (
-		                            <Carousel>
-			                            <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
-				                            <NewBankCard/>
-			                            </div>
-		                            </Carousel>
-	                            ) : (
-		                            <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
-			                            <BankCardsCarousel cards={activeCards}/>
-		                            </div>
-	                            )}
-                            </div>
-                        </div>
-                        <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                    </div>
+                    <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
 
 
                         <div className={styles.AssetInfo1}>
@@ -405,37 +407,37 @@ const SidebarDesktop = () => {
                         </div>*/}
 
 
-                        {/* Wrapper */}
-                        {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
-                        <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
-                            <div className={styles.CardInfo}>
-	                            {offline ? <div className="flex justify-center">
-		                            <img
-			                            src='/img/payment-card/payment-card-background.jpg'
-			                            className='rounded-[10px]'
-		                            />
-	                            </div> : activeCards?.length === 0 ? (
-		                            <Carousel>
-			                            <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
-				                            <NewBankCard/>
-			                            </div>
-		                            </Carousel>
-	                            ) : (
-		                            <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
-			                            <BankCardsCarousel cards={activeCards}/>
-		                            </div>
-	                            )}
-                            </div>
+                    {/* Wrapper */}
+                    {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
+                    <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
+                        <div className={styles.CardInfo}>
+                            {offline ? <div className="flex justify-center">
+                                <img
+                                    src='/img/payment-card/payment-card-background.jpg'
+                                    className='rounded-[10px]'
+                                />
+                            </div> : activeCards?.length === 0 ? (
+                                <Carousel>
+                                    <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
+                                        <NewBankCard/>
+                                    </div>
+                                </Carousel>
+                            ) : (
+                                <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
+                                    <BankCardsCarousel cards={activeCards}/>
+                                </div>
+                            )}
                         </div>
-                        {/* fiat-currency wallet */}
-                            <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                    </div>
+                    {/* fiat-currency wallet */}
+                    <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
 
 
-                                <div className={styles.ItemWrapper}>
+                        <div className={styles.ItemWrapper}>
 
-                                    <div className={`${styles.ItemEuro}`}>
-                                        <div className="col flex items-center pl-4">
-                                            {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <div className={`${styles.ItemEuro}`}>
+                                <div className="col flex items-center pl-4">
+                                    {/* <svg className={styles.Icon} width="50" height="50" viewBox="0 0 31 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M24.0396 42C21.739 42 19.5553 41.7042 17.4887 41.1127C15.422 40.4817 13.5308 39.5549 11.8151 38.3324C10.0994 37.1099 8.61761 35.6113 7.36981 33.8366C6.16101 32.062 5.26415 29.9916 4.67924 27.6254H0V22.893H3.91887C3.87987 22.5775 3.86038 22.262 3.86038 21.9465C3.86038 21.631 3.86038 21.3155 3.86038 21C3.86038 20.6451 3.86038 20.3296 3.86038 20.0535C3.86038 19.738 3.87987 19.4028 3.91887 19.0479H0V14.3155H4.67924C5.26415 11.9887 6.16101 9.93803 7.36981 8.16338C8.61761 6.3493 10.0799 4.8507 11.7566 3.6676C13.4723 2.44507 15.3635 1.53803 17.4302 0.946477C19.4969 0.315492 21.7195 0 24.0981 0C25.3459 0 26.5547 0.0788734 27.7245 0.23662C28.9333 0.394365 30.0252 0.630984 31 0.946477V7.33521C30.2591 7.05915 29.4013 6.84225 28.4264 6.68451C27.4906 6.48732 26.4962 6.38873 25.4434 6.38873C23.5717 6.38873 21.817 6.70423 20.1792 7.33521C18.5805 7.92676 17.1962 8.81408 16.0264 9.99718C14.8566 11.1803 13.9403 12.6197 13.2774 14.3155H26.5547V19.0479H12.166C12.127 19.3239 12.1075 19.6394 12.1075 19.9944C12.1075 20.3099 12.1075 20.6254 12.1075 20.9408C12.1075 21.2958 12.1075 21.6507 12.1075 22.0056C12.1075 22.3211 12.127 22.6169 12.166 22.893H26.5547V27.6254H13.2774C13.9403 29.3211 14.8566 30.7606 16.0264 31.9437C17.2352 33.1268 18.639 34.0338 20.2377 34.6648C21.8365 35.2958 23.5717 35.6113 25.4434 35.6113C26.4962 35.6113 27.4906 35.5127 28.4264 35.3155C29.4013 35.1183 30.2591 34.8817 31 34.6056V40.9352C29.9862 41.2507 28.8748 41.507 27.666 41.7042C26.4962 41.9014 25.2874 42 24.0396 42Z" fill="#3A5E66" />
                                             </svg> */}
                                     <svg className={styles.Icon} width="50" height="50" viewBox="0 0 50 51" fill="none"

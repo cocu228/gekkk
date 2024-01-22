@@ -55,4 +55,13 @@ export const $axios = <T>(
     ...options,
 });
 
+AXIOS_INSTANCE.interceptors.request.use(config => {
+    if (!config.headers['AccountId'] && !config.url.includes('/get_info')) {
+        return Promise.reject();
+    }
+    return config;
+});
+
+
+
 export default $axios;

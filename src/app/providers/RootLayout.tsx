@@ -12,13 +12,13 @@ import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
-import { BottomMenu } from '@/widgets/bottom-mobile/ui/BottomMenu';
-import { BreakpointsContext } from './BreakpointsProvider';
+import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
+import {BreakpointsContext} from './BreakpointsProvider';
 
 export default memo(function () {
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
-    const { md } = useContext(BreakpointsContext);
+    const {md} = useContext(BreakpointsContext);
     const homePage = useMatch("/")
     const dashboardPage = useMatch("")
     const isHomePage = !!homePage || !!dashboardPage
@@ -42,13 +42,16 @@ export default memo(function () {
 
     useEffect(() => {
         if (accounts && !account) {
-            const cookieData = getCookieData<{accountId?: string}>();
-            const activeAccount = accounts.find(a => a.current);
-            
+            const cookieData = getCookieData<{ accountId?: string }>();
+            const activeAccount = accounts.find(a => a.current) ?? accounts[0];
+
+            console.log(accounts[0].number)
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId
                 : activeAccount.number
             );
+
+            setRefresh()
         }
     }, [accounts]);
 
@@ -69,52 +72,52 @@ export default memo(function () {
         }));
     }
 
-    return(
-            <CtxRootData.Provider value={{
-                account,
-                setAccount: setAccount,
-                setRefresh: setRefresh,
-                refreshKey
-            }}>
-                { (<>
-                    <CurrenciesProvider>
-                        {isNewLayout ? <>
-                            <Outlet/>
-                        </> : <>
+    return (
+        <CtxRootData.Provider value={{
+            account,
+            setAccount: setAccount,
+            setRefresh: setRefresh,
+            refreshKey
+        }}>
+            {(<>
+                <CurrenciesProvider>
+                    {isNewLayout ? <>
+                        <Outlet/>
+                    </> : <>
 
                         <Header/>
 
                         <Main>
-                            {md?
-                                (isHomePage?
-                                    <>
+                            {md ?
+                                (isHomePage ?
+                                        <>
+                                            <Sidebar/>
+
+                                        </>
+                                        :
+                                        <>
+                                            <Content>
+                                                <Outlet/>
+                                            </Content>
+
+                                        </>
+                                )
+                                :
+                                (<>
                                         <Sidebar/>
 
-                                    </>
-                                :
-                                    <>
                                         <Content>
                                             <Outlet/>
                                         </Content>
-
                                     </>
-                                )
-                            :
-                                (<>
-                                    <Sidebar/>
-
-                                    <Content>
-                                        <Outlet/>
-                                    </Content>
-                                </>
                                 )
                             }
                         </Main>
                         {md && <BottomMenu/>}
-                        </>}
-                    </CurrenciesProvider>
-                </>)
-                }
-            </CtxRootData.Provider>
+                    </>}
+                </CurrenciesProvider>
+            </>)
+            }
+        </CtxRootData.Provider>
     )
 });

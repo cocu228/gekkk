@@ -44,4 +44,11 @@ const $axios = axios.create({
     baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
+$axios.interceptors.request.use(config => {
+    if (!config.headers['AccountId'] && !config.url.includes('/get_info')) {
+        return Promise.reject();
+    }
+    return config;
+});
+
 export default $axios;

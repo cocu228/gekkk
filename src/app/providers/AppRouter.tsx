@@ -1,4 +1,4 @@
-import {createBrowserRouter, Navigate, RouterProvider,} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/new-deposit";
 import CurrentDeposit from '@/pages/current-deposit'
@@ -13,9 +13,8 @@ import CryptoDeposits from "@/pages/crypto-deposits";
 import PartnershipProgram from "@/pages/partnership-program";
 import SupportChatAuthorized from '@/pages/support/chat-authorized';
 import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
-import { Typography } from "@mui/material";
-import { Faq } from '@/pages/faq';
-import { Settings } from '@/pages/settings';
+import {Faq} from '@/pages/faq';
+import {Settings} from '@/pages/settings';
 
 const router = createBrowserRouter([
     {

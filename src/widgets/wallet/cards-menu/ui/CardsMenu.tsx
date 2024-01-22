@@ -55,26 +55,7 @@ const CardsMenu = ({
         (async () => {
             const {data} = await apiGetCards();
             setCardsStorage({
-                cards: [
-                    ...data.result,
-                    {
-                        cardId: '1',
-                        cardholder: 'Test',
-                        displayPan: '5761 8231 9827 3192',
-                        cardStatus: 'ACTIVE',
-                        isVirtual: true,
-                        limits: [{
-                            period: 'DAILY',
-                            usedLimit: 0,
-                            currentLimit: 1000,
-                            maxLimit: 10000,
-                            type: ''
-                        }],
-                        type: '',
-                        productType: 'MAIN',
-                        expiryDate: new Date(Date.now())
-                    }
-                ],
+                cards: data.result,
                 refreshKey: randomId()
             });
         })();

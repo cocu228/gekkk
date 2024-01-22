@@ -19,12 +19,11 @@ import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
 import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
-import { log } from 'console';
 import { useMatch } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
-const History = memo(function ({ currenciesFilter, title, types, includeFiat }: Partial<Props>) {
+const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial<Props>) {
     const { t } = useTranslation();
 
     const { refreshKey } = useContext(CtxRootData);
@@ -34,7 +33,6 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
-    const {offline} = useContext(CtxOfflineMode);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
@@ -120,8 +118,10 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
             <>
                 <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                     {listHistory.map((item, index) => {
-                        
-                        if(listHistory[index-1]?.datetime === undefined){
+                        const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
+                        const doesPrevDateEqualsDate = formatForHistoryMobile(listHistory[index].datetime) === formatForHistoryMobile(listHistory[index-1].datetime)
+
+                        if(!doesPrevDateTimeExist){
                             return(
                                 <>
                                     <div className={styles.DataMobile}>
@@ -152,7 +152,7 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                                     </div>
                                 </>
                             )
-                        }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
+                        }else if(!doesPrevDateEqualsDate){
                             return(
                                 <>
                                     <div className={styles.DataMobile}>
@@ -213,11 +213,13 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                             )
                         }
                     })}
-                    {!loading && listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
-                        <div className="col flex justify-center relative">
-                            {lazyLoading && <Loader className={" w-[24px] h-[24px] top-[4px]"} />}
+                    {!loading && listHistory.length >= 10 && !allTxVisibly && 
+                        <div className="row mt-3">
+                            <div className="col flex justify-center relative">
+                                {lazyLoading && <Loader className={" w-[24px] h-[24px] top-[4px]"} />}
+                            </div>
                         </div>
-                    </div>}
+                    }
                 </div>
             </>
         )
@@ -297,16 +299,24 @@ const History = memo(function ({ currenciesFilter, title, types, includeFiat }: 
                     )}
                 </GTable.Body>
             </GTable>
-            {!loading && listHistory.length >= 10 && !allTxVisibly && <div className="row mt-3">
-                <div className="col flex justify-center relative">
-                    {lazyLoading ? <Loader className={" w-[24px] h-[24px] top-[4px]"} /> :
-                        <span onClick={requestMoreHistory}
-                            className="text-gray-400 cursor-pointer inline-flex items-center">See more <img
-                                className="ml-2" width={10} height={8}
-                                src="/img/icon/ArrowPlainDown.svg"
-                                alt="ArrowPlainDown" /></span>}
+            {!loading && listHistory.length >= 10 && !allTxVisibly && 
+                <div className="row mt-3">
+                    <div className="col flex justify-center relative">
+                        {lazyLoading ? 
+                            <Loader className={" w-[24px] h-[24px] top-[4px]"} /> 
+                            :
+                            <span onClick={requestMoreHistory} className="text-gray-400 cursor-pointer inline-flex items-center">
+                                See more 
+                                <img
+                                    className="ml-2" width={10} height={8}
+                                    src="/img/icon/ArrowPlainDown.svg"
+                                    alt="ArrowPlainDown" 
+                                />
+                            </span>
+                        }
+                    </div>
                 </div>
-            </div>}
+            }
         </div>
     );
 })

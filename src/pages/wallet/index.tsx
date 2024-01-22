@@ -104,7 +104,6 @@ function Wallet() {
 	                    </div>
 	                </TabsGroupPrimary> 
 				:
-	                //для мобилки в разработке...
 	                <>
                         <WalletButtons crypto={isCryptoWallet}>
                             <TopUpButton wallet/>

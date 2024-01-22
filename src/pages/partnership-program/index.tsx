@@ -35,7 +35,7 @@ const PartnershipProgram = () => {
 }
 
 
-const ContentDescription = (props) => {
+const ContentDescription = () => {
     const {t} = useTranslation();
 
     return <>
@@ -91,7 +91,7 @@ const ContentMain = () => {
 
     const {t} = useTranslation();
     const [state, setState] = useState<string>("")
-    const {xl, md} = useContext(BreakpointsContext);
+    const {md} = useContext(BreakpointsContext);
 
     useEffect(() => {
         (async () => {
@@ -143,9 +143,11 @@ const ContentMain = () => {
                 <History types={[17]}/>
             </div>
         </div>
-        {md&&<div className={`z-[-100] row ${md&&"bg-[#F9F9FA] absolute bottom-[38px] w-full left-[0]"}`}>
-            <Footer textAlight='text-center'/>
-        </div>}
+        {md&&
+            <div className={`z-[-100] row ${md&&"bg-[#F9F9FA] absolute bottom-[38px] w-full left-[0]"}`}>
+                <Footer textAlight='text-center'/>
+            </div>
+        }
     </>
 }
 

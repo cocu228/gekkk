@@ -37,7 +37,6 @@ function updateOnlineStatus(event) {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
     <ThemeCustomization>
-
         <ConfigProvider theme={{
             token: {
                 fontFamily: 'inherit'

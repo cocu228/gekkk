@@ -13,8 +13,8 @@ export type NewHeaderProps = {};
 
 export function NewHeader ({}: NewHeaderProps) {
 
-    const navigate = useNavigate();
-    const {access, logout} = useAuth();
+    // const navigate = useNavigate();
+    // const {access, logout} = useAuth();
     // const {isModalOpen, showModal, handleCancel} = useModal();
    
     // <ChatButton onClick={isModalOpen ? handleCancel : showModal} />
@@ -32,7 +32,8 @@ export function NewHeader ({}: NewHeaderProps) {
         zIndex: '1'
     }}>
 
-        <Logo className='hover:cursor-pointer' onClick={() => navigate('/')}></Logo>
+        {/*<Logo className='hover:cursor-pointer' onClick={() => navigate('/')}></Logo>*/}
+        <Logo className='hover:cursor-pointer' onClick={null}></Logo>
 
 
             {/* <div style={{
@@ -53,12 +54,13 @@ export function NewHeader ({}: NewHeaderProps) {
                 gap: '16px',
             }}>
 
-                <button type='button' style={{color: "#F7F7F0"}} onClick={() => navigate('/chat')}>
+                {/*<button type='button' style={{color: "#F7F7F0"}} onClick={() => navigate('/chat')}>*/}
+                <button type='button' style={{color: "#F7F7F0"}} onClick={null}>
                     <SupportIcon />
                 </button>
             </div>
 
-            {access ?
+            {false ?
                 <div style={{
                     display: 'flex',
                     gap: '16px',
@@ -67,7 +69,8 @@ export function NewHeader ({}: NewHeaderProps) {
                         <SettingsIcon />
                     </button>
 
-                    <button type='button' onClick={logout}>
+                    {/*<button type='button' onClick={logout}>*/}
+                    <button type='button' onClick={null}>
                         <LogOutIcon />
                     </button>
                 </div> : null

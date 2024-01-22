@@ -96,7 +96,7 @@ const FormLoginAccount = memo(() => {
     const {toggleStage, stage} = storyDisplayAuth(state => state);
     const [loading, setLoading] = useState<boolean>(false);
     const {phoneValidator, passwordValidator} = useValidation();
-    const {login} = useAuth();
+    // const {login} = useAuth();
 
 
     const [
@@ -164,9 +164,9 @@ const FormLoginAccount = memo(() => {
             });
 
 
-            console.log(res);
+            // console.log(res);
 
-            login()
+            location.replace('/');
 
         } catch (e) {
             alert("Request to server failed " + e);

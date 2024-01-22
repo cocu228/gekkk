@@ -8,17 +8,17 @@ import ErrorsProvider from "@/app/providers/ErrorsProvider";
 
 const AppInit = () => {
 
-    const {access} = useAuth();
+    // const {access} = useAuth();
 
     const offlineMode = !navigator.onLine;
 
-    const content = !access ? <AuthPage/> : <RootLayout/>;
+    // const content = !access ? <AuthPage/> : <RootLayout/>;
     // const {isModalOpen, showModal, handleCancel} = useModal();
 
     return <ErrorsProvider offline={offlineMode}>
         {/* {token ? <ChatButton onClick={isModalOpen ? handleCancel : showModal} /> : null}
         {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}  */}
-        {content}
+        <RootLayout/>
     </ErrorsProvider>;
 
 }

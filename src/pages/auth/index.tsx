@@ -1,13 +1,8 @@
 import "@styles/index.scss";
-import {AxiosResponse} from 'axios';
-import {useAuth} from "@/app/providers/AuthRouter";
-import {$AxiosResponse} from '@/shared/lib/(cs)axios';
-import {memo, useEffect} from 'react';
+import {memo} from 'react';
 import {storyDisplayAuth} from "@/widgets/auth/model/story";
-import {apiTokenHash, IResSessionData} from "@/widgets/auth/api";
 import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
-import {authForTokenHashUrl, helperApiTokenHash} from "@/widgets/auth/model/helpers";
 import LoginBackground from '@/assets/login-background.svg?react';
 
 import {NewHeader} from "@/widgets/new-header/ui/NewHeader";
@@ -17,7 +12,7 @@ import AuthFooter from "@/widgets/auth/ui/auth-footer";
 import CookiePolicyApplies from "@/widgets/auth/ui/cookie-policy-applies";
 
 const AuthPage = memo(() => {
-    const {login} = useAuth();
+    // const {login} = useAuth();
     // const {t} = useTranslation();
     const {md} = useBreakpoints();
     const {stage, toggleStage} = storyDisplayAuth(state => state);

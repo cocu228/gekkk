@@ -11,9 +11,6 @@ export default defineConfig(({mode}) => {
         ...process.env, ...loadEnv(mode, process.cwd()),
         VITE_APP_VERSION: JSON.stringify(require('./package.json').version)
     };
-
-    console.log(process.env)
-
     return {
         resolve: {
             alias: [
@@ -22,6 +19,9 @@ export default defineConfig(({mode}) => {
                 {find: '@styles', replacement: path.resolve(__dirname, 'src/app/styles')},
                 {find: /\{\{MODE\}\}/, replacement: mode},
             ],
+        },
+        build: {
+            target: 'modules',
         },
         server: {
             proxy: {

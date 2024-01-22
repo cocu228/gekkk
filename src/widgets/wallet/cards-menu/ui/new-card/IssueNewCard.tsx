@@ -94,6 +94,7 @@ export function IssueNewCard() {
                 fullWidth
                 value={state.cardholderName}
                 label={t('cardholder_name')}
+                placeholder={t("enter_cardholder_name")}
                 onChange={({target}) => setState({
                     ...state,
                     cardholderName: target.value

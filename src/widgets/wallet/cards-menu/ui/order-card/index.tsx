@@ -2,34 +2,33 @@ import {useEffect, useState} from "react";
 import {IssueNewCard} from "./IssueNewCard";
 import {CardHasBeenOrdered} from "./CardHasBeenOrdered";
 import {ConfirmationNewCard} from "./ConfirmationNewCard";
-import {INewCardState, IStep, newCardContext} from './newCardContext';
+import {IOrderCardState, IStep, newCardContext} from './newCardContext';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {IResCard} from "@/shared/api";
 
-export function NewCard({
+export function OrderCard({
+    card,
     setIsNewCardOpened
 }: {
+    card: IResCard;
     setIsNewCardOpened: (isOpened: boolean) => void
 }) {
-    const mainCard = storeActiveCards(state => state.mainCard);
     const accountDetails = storeAccountDetails(state => state.details);
     
-    const [state, setState] = useState<INewCardState>({
+    const [state, setState] = useState<IOrderCardState>({
+        card: card,
         city: null,
         houseNumber: null,
         street: null,
         postalCode: null,
         countryCode: null,
-        cardType: 'VIRTUAL',
         step: 'IssueNewCard',
         recipientName: null,
         apartmentNumber: null,
         isExpressDelivery: false,
         isResidenceAddress: false,
-        cardholderName: mainCard ? mainCard.cardholder : null,
-        linkedPhone: accountDetails ? accountDetails.phone : null,
     });
     
     const setStep = (nextStep: IStep) => {

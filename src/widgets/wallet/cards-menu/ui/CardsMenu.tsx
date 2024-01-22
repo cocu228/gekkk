@@ -17,6 +17,8 @@ import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
+import {useSearchParams} from "react-router-dom";
+import {OrderCard} from "@/widgets/wallet/cards-menu/ui/order-card";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -28,12 +30,15 @@ const CardsMenu = ({
 }) => {
     const {t} = useTranslation();
     const cardInfoModal = useModal();
+    const [params] = useSearchParams();
+    const newCardUrl = params.has('new');
     const confirmationModal = useModal();
     const [card, setCard] = useState<IResCard>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
+    const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
@@ -50,7 +55,26 @@ const CardsMenu = ({
         (async () => {
             const {data} = await apiGetCards();
             setCardsStorage({
-                cards: data.result,
+                cards: [
+                    ...data.result,
+                    {
+                        cardId: '1',
+                        cardholder: 'Test',
+                        displayPan: '5761 8231 9827 3192',
+                        cardStatus: 'ACTIVE',
+                        isVirtual: true,
+                        limits: [{
+                            period: 'DAILY',
+                            usedLimit: 0,
+                            currentLimit: 1000,
+                            maxLimit: 10000,
+                            type: ''
+                        }],
+                        type: '',
+                        productType: 'MAIN',
+                        expiryDate: new Date(Date.now())
+                    }
+                ],
                 refreshKey: randomId()
             });
         })();
@@ -69,6 +93,11 @@ const CardsMenu = ({
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
+        
+        if (item === 'orderPlastic') {
+            setIsOrderOpened(true);
+            return;
+        }
         
         if (item === 'showData') {
             onConfirm(item);
@@ -211,7 +240,7 @@ const CardsMenu = ({
         }
     }
     
-    if (isNewCardOpened) {
+    if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
         return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
     }
     
@@ -236,11 +265,14 @@ const CardsMenu = ({
             </div>
         </div>
         
-        {!card ? <Loader className={'relative my-20'}/> : (<>
+        {!card ? <Loader className={'relative my-20'}/>
+            : isOrderOpened
+                ? <OrderCard card={card} setIsNewCardOpened={setIsOrderOpened} />
+                : (<>
             {card.isVirtual && (
                 <MenuItem
                     onClick={onClick}
-                    dataItem='activate'
+                    dataItem='orderPlastic'
                     leftPrimary={t("order_plastic_card")}
                 />
             )}

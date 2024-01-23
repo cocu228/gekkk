@@ -319,6 +319,8 @@
       "null_value": "Nullwert ist nicht erlaubt",
       "transaction_request_successfully": "Ihr Transaktionsantrag wurde erfolgreich zur Warteschlange hinzugefügt. Die Transaktion kann einige Minuten dauern. Wenn nicht, kontaktieren Sie bitte ",
       "transaction_request_with_errors": "Ihr Transaktionsantrag wurde aufgrund eines unerwarteten Fehlers nicht abgeschlossen. Versuchen Sie es später erneut oder kontaktieren Sie ",
-      "our_support": "unseren Support"
+      "our_support": "unseren Support",
+      "quality_control": "Qualitätskontrolle",
+      "thank_you_for_rating": "Vielen Dank für Ihre Bewertung"
   }
 }

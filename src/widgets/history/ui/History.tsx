@@ -19,7 +19,7 @@ import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
 import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
-import { useMatch } from 'react-router-dom';
+import { useMatch, useParams } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
@@ -36,8 +36,14 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
-    const {md} = useContext(BreakpointsContext);    
-    const isWalletPage = !!(useMatch('/wallet'))
+    const {md} = useContext(BreakpointsContext); 
+    const {currency} = useParams()
+    
+    
+    const walletPage = useMatch(`wallet/${currency}`)   
+    const isWalletPage = !!walletPage
+    console.log(isWalletPage);
+    
 
     const requestHistory = async (cancelToken = null) => {
         setLoading(true);
@@ -119,7 +125,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                 <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                     {listHistory.map((item, index) => {
                         const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
-                        const doesPrevDateEqualsDate = formatForHistoryMobile(listHistory[index].datetime) === formatForHistoryMobile(listHistory[index-1].datetime)
 
                         if(!doesPrevDateTimeExist){
                             return(
@@ -152,7 +157,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                     </div>
                                 </>
                             )
-                        }else if(!doesPrevDateEqualsDate){
+                        }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
                             return(
                                 <>
                                     <div className={styles.DataMobile}>

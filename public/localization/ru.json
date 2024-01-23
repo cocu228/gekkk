@@ -34,7 +34,7 @@
         "action": "Действие",
         "price": "Цена",
         "enter_code": "введите код",
-      "invalid_confirmation_code": "Неверный код подтверждения",
+        "invalid_confirmation_code": "Неверный код подтверждения",
 
 
         "transaction_info": "Информация о транзакции",
@@ -134,6 +134,8 @@
         "history": "История",
         "withdraw": "Вывод средств",
 
+        "to_find_answers_to_common_questions_open_the_faq": "Чтобы найти ответы на часто задаваемые вопросы, откройте раздел Часто задаваемые вопросы (FAQ)",
+        "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Чтобы получить консультацию от службы поддержки нашего банка, откройте чат",
         "funds_transfer": "Перевод средств",
         "create_transfer": "Создать перевод",
         "apply_code": "Применить код",
@@ -345,6 +347,8 @@
         "please_contact": "Если это не так, пожалуйста, свяжитесь с",
         "our_support": "нашей службой поддержки.",
         "quality_control": "Контроль качества",
-        "thank_you_for_rating": "Спасибо за оценку"
+        "thank_you_for_rating": "Спасибо за оценку",
+        "balance": "Баланс"
+
     }
 }

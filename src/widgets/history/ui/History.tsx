@@ -42,7 +42,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     
     const walletPage = useMatch(`wallet/${currency}`)   
     const isWalletPage = !!walletPage
-    console.log(isWalletPage);
     
 
     const requestHistory = async (cancelToken = null) => {

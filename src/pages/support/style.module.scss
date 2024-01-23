@@ -16,7 +16,6 @@
 .Assets{
     display: flex;
     width: 297.838px;
-    height: 220px;
     padding: 10px 0px;
     flex-direction: column;
     align-items: center;
@@ -26,9 +25,9 @@
     display: flex;
     padding: 10px 0px;
     flex-direction: row;
+    min-height: 80px;
     justify-content: space-between;
     flex: 1 0 0;
-    height: 60px;
     align-items: center;
     align-self: stretch;
     border-radius: 8px;
@@ -88,7 +87,7 @@
 }
 .Email{
     display: flex;
-    height: 80px;
+    min-height: 80px;
     padding: 10px 0px;
     flex-direction: row;
     justify-content: space-between;
@@ -107,6 +106,7 @@
     align-items: center;
     flex: 1 0 0;
     padding: 10px 0px;
+    min-height: 80px;
     align-self: stretch;
     border-radius: 8px;
     border: 1px solid #FFF;

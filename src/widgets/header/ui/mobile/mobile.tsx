@@ -7,16 +7,40 @@ import {AccountRights} from "@/shared/config/account-rights";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useMatch, useNavigate } from "react-router-dom";
+import { useLocation, useMatch, useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HeaderMobile = ({items, actions}) => {
     const {account} = useContext(CtxRootData);
+    const { t } = useTranslation();
+    const {currency} = useParams()
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange")
     const historyPage = useMatch("/history") //not used   
     const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
     const navigate = useNavigate()
+    const location = useLocation()    
+
+    const headerTitle = () => {
+        switch(location.pathname){
+            case `/wallet/${currency}`:
+                return `${currency} ${t("balance")}`
+            case `/partnership-program`:
+                return t("partnership_program.title")
+            case `/support/chat`:
+                return t("chat")
+            case `/faq`:
+                return t("FAQ")
+            case `/crypto-assets`:
+                return t("crypto_assets.title")
+            case `/profile-settings`:
+                return t("profile_settings")
+            default:
+                return t(`${location.pathname.slice(1)}`)
+        }
+    }
+    
     const goBack = () => navigate(-1)
     // const isOpen = storyToggleSidebar(state => state.isOpen);
     // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
@@ -63,7 +87,7 @@ const HeaderMobile = ({items, actions}) => {
                     :
                             <div className="flex items-center w-full" data-testid="HeaderMenuContainer">
                                 <button className={styles.GoBackBtn} onClick={()=>{goBack()}}></button>
-                                <span></span>
+                                <span className={styles.HeaderTitle}>{headerTitle()}</span>
                             </div>
                 }
                 

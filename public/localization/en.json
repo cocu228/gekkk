@@ -555,6 +555,7 @@
     "card_has_been_ordered": "Card has been ordered",
     "back_to_main_page": "Back to main page",
     "you_will_be_automatically_redirected_to_the_main_page_in": "You will be automatically redirected to the main page in",
-    "identification_status_message": "We have accepted your Application for services by setting up an Account for you and issuing Virtual Gekkard. You can make payment transactions from or to Account and use Virtual Gekkard for online purchuses."
+    "identification_status_message": "We have accepted your Application for services by setting up an Account for you and issuing Virtual Gekkard. You can make payment transactions from or to Account and use Virtual Gekkard for online purchuses.",
+    "balance": "Balance"
   }
 }

@@ -374,7 +374,7 @@ const FormLoginAccount = memo(() => {
                     }}>
                         <div style={{flex: '0 0 auto'}}>
                             <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
-                                Country code
+                            Phone number
                             </div>
                             <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
                                 <div style={{
@@ -405,7 +405,7 @@ const FormLoginAccount = memo(() => {
                         </div>
                         <div style={{flex: '0 0 auto'}}>
                             <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
-                                Phone number
+                                 <br></br>
                             </div>
 
                             <PhoneInput
@@ -441,9 +441,9 @@ const FormLoginAccount = memo(() => {
                 <FormItem name="password" label="Password"
                           rules={[{required: true, ...passwordMessage}, passwordValidator]}>
                     <div>
-                        <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
+                        {/* <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
                             Password
-                        </div>
+                        </div> */}
                         <Input.Password className={styles.input}
                                         disabled={loading}
                                         onChange={({target}) => setState(prev => ({

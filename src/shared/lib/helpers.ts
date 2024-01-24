@@ -277,3 +277,23 @@ export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
   parent.scrollLeft = parent.scrollLeft + scrollPosition;
 
 }
+
+
+
+export function pullStart (e, setStartPoint){
+    const {screenY} = e.targetTouches[0];
+    setStartPoint(screenY);
+}
+
+export function pull(e, setPullChange, startPoint) {
+    const touch = e.targetTouches[0];
+    const {screenY} = touch;
+    let pullLength = startPoint < screenY ? Math.abs(screenY - startPoint) : 0;
+    setPullChange(pullLength);
+}
+
+export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
+    setStartPoint(0);
+    setPullChange(0);
+    if (pullChange > 220) {initLoading()};
+}

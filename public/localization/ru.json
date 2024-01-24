@@ -132,11 +132,11 @@
         "transfer_to_contact": "Перевод контакту",
         "templates": "Шаблоны",
         "history": "История",
-        "withdraw": "Вывод средств",
+        "withdraw": "Вывод",
 
         "to_find_answers_to_common_questions_open_the_faq": "Чтобы найти ответы на часто задаваемые вопросы, откройте раздел Часто задаваемые вопросы (FAQ)",
         "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Чтобы получить консультацию от службы поддержки нашего банка, откройте чат",
-        "funds_transfer": "Перевод средств",
+        "funds_transfer": "Переводы",
         "create_transfer": "Создать перевод",
         "apply_code": "Применить код",
         "funds_transfer_code": "Код для перевода средств",
@@ -157,7 +157,7 @@
         "not_used": "не исп.",
         "delete_this_code": "Удалить этот код",
 
-        "bank_cards": "Банковские карты",
+        "bank_cards": "Платежные карты",
         "display_unavailable_cards": "Показать недоступные карты",
         "block_selected_bank_card": "Вы уверены, что хотите заблокировать выбранную банковскую карту?",
         "unblock_selected_bank_card": "Вы уверены, что хотите разблокировать выбранную банковскую карту?",
@@ -176,7 +176,7 @@
         "limit": "лимит",
         "confirm_action": "Подтвердить действие",
 
-        "cashback_program": "Программа кэшбэка",
+        "cashback_program": "Программы",
 
         "wallet_balance": "Баланс кошелька",
         "account": "Счет",
@@ -190,6 +190,9 @@
         "gke_tooltip_text": "Фиксированная доходность на среднем ежемесячном балансе (в токенах GKE): \n➔ 5% годовых в первый год с даты выпуска \n➔ 3% годовых во второй год с даты выпуска",
 
         "about": "Инфо",
+        "select_network": "Выберите тип пополнения",
+        "select_withdraw_network": "Выберите тип вывода",
+        "simple_exchange": "Простой обмен",
         "EUR": "Gekkoin EUR",
         "EUR_is_utility_token": "Gekkoin Europe (EURG) – это утилитарный токен, предоставляющий доступ к экосистеме Gekkoin. Все токены EURG подлежат обмену на фиатные деньги в соответствии с условиями на этом сайте и",
         "gekkard_app": "Приложение Gekkard",
@@ -241,7 +244,7 @@
         "minimum_lock_amount": "Минимальная сумма блокировки",
 
         "top_up_account": "Пополнить счет",
-        "top_up_wallet": "Пополнить кошелек",
+        "top_up_wallet": "Пополнение",
         
         "available_funds": "Доступные средства",
         "asset_valuation": "Оценка активов",

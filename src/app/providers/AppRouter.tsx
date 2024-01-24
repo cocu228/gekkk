@@ -15,6 +15,7 @@ import SupportChatAuthorized from '@/pages/support/chat-authorized';
 import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
 import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
+import HistoryPage from "@/pages/history-page";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             {
                 path: 'crypto-assets',
                 element: <Assets/>
+            },
+            {
+                path: 'history',
+                element: <HistoryPage/>
             },
             {
                 path: 'wallet/:currency/:tab?',

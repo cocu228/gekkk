@@ -4,9 +4,9 @@ import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 interface IParams {
     account: string;
     beneficiaryName: string | null;
-    cardNumber: string | null;
-    fromCardId: string;
-    phoneNumber: string;
+    cardNumber: string | null; // By card number
+    fromCardId: string; // From card
+    phoneNumber: string; // By phone number
     purpose: string;
     amount: {
         sum: {

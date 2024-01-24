@@ -70,10 +70,10 @@ const SidebarDesktop = () => {
         }
     }, [account]);
 
-    let eurWallet = null;
-    let eurgWallet = null;
-    let gkeWallet = null;
-    let secondaryWallets = [];
+    let eurWallet: ICtxCurrency = null;
+    let eurgWallet: ICtxCurrency = null;
+    let gkeWallet: ICtxCurrency = null;
+    let secondaryWallets: ICtxCurrency[] = [];
 
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
@@ -155,7 +155,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.availableBalance?.toNumber())) ?? '-'} €</span>
+                                            className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.userBalance)) ?? '-'} €</span>
                                     </div>
                                     <div className="right-0 absolute mr-4 "><UpdateAmounts/></div>
                                 </div>
@@ -188,7 +188,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber())) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
                                     </div>
                                     {eurgWallet && <div className={"row w-full flex justify-between "}>
                                         <div>
@@ -224,7 +224,7 @@ const SidebarDesktop = () => {
                                     <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                     </div>
                                     <div className="row w-full font-mono"><span
-                                        className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                        className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                     </div>
                                     {gkeWallet && <div className={"row w-full flex justify-between"}>
                                         <div>
@@ -264,7 +264,7 @@ const SidebarDesktop = () => {
                                                 className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span>
                                             </div>
                                             <div className="row w-full font-mono"><span
-                                                className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                                className={styles.Sum}>{`${toLocaleCryptoRounding(item.userBalance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                             </div>
                                             <div className="row w-full flex justify-between">
                                                 <div>

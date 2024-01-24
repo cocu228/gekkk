@@ -79,8 +79,8 @@ declare module '@mui/material/Button' {
 }
 export function paletteOverrides(): PaletteOptions {
   return {
-    'brand dark blue': '#1F3446',
-    'brand pale blue': '#3A5E66',
+    'brand dark blue': '#29354C',
+    'brand pale blue': '#285E69',
     'brand gradient': 'linear-gradient(45deg, #00AEEF 0%, #72BF44 100%)',
     'bg-popup':
       'linear-gradient(42deg, rgba(0, 174, 239, 0.30) 15.26%, rgba(114, 191, 68, 0.30) 96.36%)',
@@ -91,9 +91,9 @@ export function paletteOverrides(): PaletteOptions {
     'light grey': '#b1b1b1ff',
     'mid grey': '#9d9d9dff',
     'dark grey': '#676767ff',
-    'dark blue': '#1f3446ff',
-    'pale blue': '#3a5e66ff',
-    'pale green': '#45ad77ff',
+    'dark blue': '#29354Cff',
+    'pale blue': '#285E69ff',
+    'pale green': '#2BAB72ff',
     'green': '#3aa535ff',
     'light blue': '#e1f1f6ff',
     'light green': '#e2ffeeff',

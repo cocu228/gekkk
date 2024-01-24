@@ -6,7 +6,7 @@
   color: #f7f7f0;
   font-weight: 400;
   outline: none;
-  background: #45ad77;
+  background: #2BAB72;
   border: none;
   border-radius: 8px;
   padding: 8px 15px;
@@ -22,7 +22,7 @@
   }
 
   &:active {
-    background: #1F3446;
+    background: #29354C;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
   }
@@ -55,8 +55,8 @@
 
     &:hover {
       color: #ffffff;
-      background: #45ad77;
-      border-color: #45ad77;
+      background: #2BAB72;
+      border-color: #2BAB72;
       // background: var(--color-blue-400); task 701
       // border-color: var(--color-blue-400); task 701
 
@@ -79,8 +79,8 @@
     box-shadow: none;
     &:hover{
       color: #ffffff;
-      background: #3A5E66;
-      border-color: #3A5E66;
+      background: #285E69;
+      border-color: #285E69;
     }
   }
 

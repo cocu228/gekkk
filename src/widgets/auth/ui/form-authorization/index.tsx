@@ -383,7 +383,7 @@ const FormLoginAccount = memo(() => {
                                     gap: '6px',
                                     padding: '3px 12px 3px 12px',
                                     borderRadius: '10px',
-                                    background: 'var(--new-light-blue)',
+                                    background: 'var(--new-pale-grey)',
                                     color: 'var(--new-pale-blue)',
                                     cursor: 'pointer',
 

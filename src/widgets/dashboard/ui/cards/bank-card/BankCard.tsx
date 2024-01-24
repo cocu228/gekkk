@@ -24,7 +24,7 @@ const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: Card
             )}
             <div className={styles.BankCard}>
                 <img
-                    src='/img/payment-card/payment-card-background.jpg'
+                    src='/img/payment-card/payment-card-background2.jpg'
                     className='rounded-[10px]'
                 />
                 <div className='absolute'>

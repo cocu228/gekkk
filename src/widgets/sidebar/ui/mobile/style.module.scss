@@ -34,7 +34,7 @@
 }
 
 .TotalVal {
-  background-color: #3A5E66;
+  background-color: #285E69;
   position: relative;
   border-radius: 0 5px 5px 0;
 }
@@ -78,7 +78,7 @@
     padding: 0;
     background-color: transparent;
     align-items: center;
-    color: #3A5E66;
+    color: #285E69;
     font-family: Inter;
     font-size: 12px;
     font-style: normal;
@@ -120,14 +120,14 @@
 
 
   &:hover {
-    background-color: #3A5E66;
+    background-color: #285E69;
     color: #f7f7f0;
     font-weight: 600;
   }
 
   :active {
     color: white;
-    background-color: #1F3446;
+    background-color: #29354C;
   }
 }
 
@@ -164,7 +164,7 @@
   line-height: 24px;
   transition: .2s;
   @include max-devices(md) {
-    color: #3A5E66;
+    color: #285E69;
     font-family: Archivo;
     font-size: 14px;
     font-style: normal;
@@ -174,12 +174,12 @@
 }
 
 .Sum {
-  color: #3A5E66;
+  color: #285E69;
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
   @include max-devices(md) {
-    color: var(--Pale-blue, #3A5E66);
+    color: var(--Pale-blue, #285E69);
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -202,7 +202,7 @@
   font-size: 12px;
   line-height: 20px;
   font-weight: 300;
-  color: #45ad77;
+  color: #2BAB72;
 }
 
 .EuroEqv {
@@ -260,7 +260,7 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #3A5E66;
+      background-color: #285E69;
       left: 0;
       top: 0;
     }
@@ -400,7 +400,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3A5E66;
+  background-color: #285E69;
 }
 
 .NewAssetIcon {
@@ -431,7 +431,7 @@
 }
 
 .BottomMenuButtonsActive {
-  color: #3A5E66;
+  color: #285E69;
 }
 
 .SecondaryItem {

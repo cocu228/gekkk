@@ -27,7 +27,7 @@ export function NewHeader ({}: NewHeaderProps) {
         alignItems: 'center',
         justifyContent: 'space-between',
         top: 0,
-        height: '60px',
+        height: '65px',
         background: 'var(--new-brand-dark-blue)',
         padding: '0 25px',
         zIndex: '1'

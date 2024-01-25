@@ -1,4 +1,4 @@
-import {TransactTypeEnum} from "@/shared/api/(gen)new/model";
+import {TransactTypeEnum} from "@/shared/(orval)api/shared/model";
 
 export enum TabKey {
     MONTH = 'month',

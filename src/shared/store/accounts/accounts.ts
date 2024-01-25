@@ -1,8 +1,8 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiGetInfo} from "@/shared/api/(gen)new";
+import {apiGetInfo} from "@/shared/(orval)api/shared";
 import {getFlagsFromMask} from '@/shared/lib/helpers';
-import {WalletInfo} from "@/shared/api/(gen)new/model";
+import {WalletInfo} from "@/shared/(orval)api/shared/model";
 import {maskAccountRights} from '@/shared/config/account-rights';
 
 export type IWalletInfo = Omit<WalletInfo, "flags" | "account"> & {

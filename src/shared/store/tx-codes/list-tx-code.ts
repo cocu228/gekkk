@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiListTxCodes} from "@/shared/api/(gen)new";
-import type {TxCodesOut} from "@/shared/api/(gen)new/model";
+import {apiListTxCodes} from "@/shared/(orval)api/shared";
+import {TxCodesOut} from "@/shared/(orval)api/shared/model";
 
 export interface IListTxCode {
     listTxCode: Array<TxCodesOut>;

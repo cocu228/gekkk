@@ -4,8 +4,8 @@ import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxRootData} from "@/processes/RootContext";
 import { useTranslation } from 'react-i18next';
-import {apiGetReferrals} from "@/shared/api/(gen)new";
-import {ReferralOut} from "@/shared/api/(gen)new/model";
+import {apiGetReferrals} from "@/shared/(orval)api/shared";
+import {ReferralOut} from "@/shared/(orval)api/shared/model";
 
 const TableReferrals = (props) => {
 

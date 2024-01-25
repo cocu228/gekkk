@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {apiCodeTxInfo} from "@/shared/api/(gen)new";
+import {apiCodeTxInfo} from "@/shared/(orval)api/shared";
 import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
 import Button from "@/shared/ui/button/Button";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import type {TxCodesOut} from "@/shared/api/(gen)new/model";
+import type {TxCodesOut} from "@/shared/(orval)api/shared/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {

@@ -1,25 +1,24 @@
 import dayjs from 'dayjs';
-import { memo, useContext, useEffect, useState } from 'react';
+import {memo, useContext, useEffect, useState} from 'react';
 import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
-import { DatePicker } from 'antd';
-import { Props, TabKey } from "../model/types";
-import { historyTabs } from "../model/helpers";
-import { formatForCustomer, formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
-import { startOfMonth } from "date-fns";
+import {DatePicker} from 'antd';
+import {Props, TabKey} from "../model/types";
+import {historyTabs} from "../model/helpers";
+import {formatForCustomer, formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile} from "@/shared/lib/date-helper";
+import {startOfMonth} from "date-fns";
 import styles from "./style.module.scss"
 import GTable from '@/shared/ui/grid-table/';
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import { CtxRootData } from '@/processes/RootContext';
-import { actionResSuccess, getSecondaryTabsAsRecord } from "@/shared/lib/helpers";
+import {CtxRootData} from '@/processes/RootContext';
+import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
-import { useTranslation } from 'react-i18next';
-import { GetHistoryTrasactionOut } from "@/shared/api/(gen)new/model";
-import { apiGetHistoryTransactions } from "@/shared/api/(gen)new";
-import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
-import { useMatch, useParams } from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
+import {apiGetHistoryTransactions} from "@/shared/(orval)api/shared";
+import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import {useMatch, useParams} from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 

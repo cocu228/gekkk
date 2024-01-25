@@ -12,7 +12,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
-import {TxCodesOut} from "@/shared/api/(gen)new/model";
+import {TxCodesOut} from "@/shared/(orval)api/shared/model";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 
 const ApplyTransferCode = () => {

@@ -6,7 +6,7 @@ import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import { useTranslation } from 'react-i18next';
-import {apiGetAgentCode} from "@/shared/api/(gen)new";
+import {apiGetAgentCode} from "@/shared/(orval)api/shared";
 import styles from "./style.module.scss"
 import Footer from "@/widgets/footer";
 

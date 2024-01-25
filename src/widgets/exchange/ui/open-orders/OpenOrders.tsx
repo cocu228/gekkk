@@ -15,10 +15,10 @@ import {OrderState, TabKey} from '../../model/types';
 import CopyIcon from '@/shared/ui/copy-icon/CopyIcon';
 import {useContext, useEffect, useState} from 'react';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {GetOrderListOut} from "@/shared/api/(gen)new/model";
+import {GetOrderListOut} from "@/shared/(orval)api/shared/model";
 import OrderProperties from './order-properties/OrderProperties';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
-import {apiGetOrders, apiCancelOrder} from '@/shared/api/(gen)new';
+import {apiGetOrders, apiCancelOrder} from '@/shared/(orval)api/shared';
 import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
 import useError from "@/shared/model/hooks/useError";
 

@@ -2,8 +2,8 @@ import {useContext} from "react";
 import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import { useTranslation } from 'react-i18next';
-import {GetOrderListOut} from "@/shared/api/(gen)new/model";
+import {useTranslation} from 'react-i18next';
+import {GetOrderListOut} from "@/shared/(orval)api/shared/model";
 
 interface IParams {
     order: GetOrderListOut;

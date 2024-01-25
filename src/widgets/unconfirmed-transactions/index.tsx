@@ -10,9 +10,9 @@ import {useContext, useEffect, useState} from "react";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import styles from "@/widgets/history/ui/style.module.scss";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {apiGetHistoryTransactions} from "@/shared/api/(gen)new";
+import {apiGetHistoryTransactions} from "@/shared/(orval)api/shared";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();

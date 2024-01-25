@@ -6,14 +6,14 @@ import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {apiCreateInvestment} from "@/shared/(orval)api/shared";
+import {apiCreateInvestment} from "@/shared/(orval)api/gek";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from 'react-i18next';
-import {InvestmentsTypeEnum} from "@/shared/(orval)api/shared/model";
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
 
 const NoFeeProgram = () => {
     const navigate = useNavigate();

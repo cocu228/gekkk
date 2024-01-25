@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiGetInvestments} from "@/shared/(orval)api/shared";
-import {GetDepositOut} from "@/shared/(orval)api/shared/model";
+import {apiGetInvestments} from "@/shared/(orval)api/gek";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreInvestments {
     noFeeInvestment: GetDepositOut;

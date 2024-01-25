@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {$AxiosError} from "@/shared/lib/(orval)axios";
-import {ErrorObject} from "@/shared/(orval)api/shared/model";
+import {ErrorObject} from "@/shared/(orval)api/gek/model";
 
 export type TypeUseError = [
     localErrorHunter: (e: $AxiosError | ErrorObject) => void,

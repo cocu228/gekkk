@@ -6,8 +6,8 @@ import React, {useContext, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {apiUpdateTxPartnerInfo} from "@/shared/(orval)api/shared";
-import {GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
+import {apiUpdateTxPartnerInfo} from "@/shared/(orval)api/gek";
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
 
 type TypeProps = GetHistoryTrasactionOut & {

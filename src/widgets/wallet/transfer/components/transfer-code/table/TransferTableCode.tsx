@@ -10,7 +10,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "../CodeTxInfo";
 import CancelContent from "./CancelContent";
-import {apiApplyCode} from "@/shared/(orval)api/shared";
+import {apiApplyCode} from "@/shared/(orval)api/gek";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";

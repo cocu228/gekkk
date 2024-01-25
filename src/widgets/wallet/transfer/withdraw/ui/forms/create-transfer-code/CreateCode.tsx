@@ -6,7 +6,7 @@ import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import {apiCreateTxCode} from "@/shared/(orval)api/shared";
+import {apiCreateTxCode} from "@/shared/(orval)api/gek";
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {validateBalance} from '@/shared/config/validators';
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";

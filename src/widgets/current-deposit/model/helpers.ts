@@ -1,7 +1,7 @@
 import {PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 import Decimal from "decimal.js";
-import {GetDepositOut} from "@/shared/(orval)api/shared/model";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 export interface InvestData {
     isClosed?: boolean;

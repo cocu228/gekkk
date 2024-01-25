@@ -6,7 +6,7 @@ import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
-import {apiGetRates} from "@/shared/(orval)api/shared";
+import {apiGetRates} from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';

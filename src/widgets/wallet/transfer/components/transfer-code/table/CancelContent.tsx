@@ -1,7 +1,7 @@
 import ReactQRCode from "react-qr-code";
 import Button from "@/shared/ui/button/Button";
 import React, {useState} from "react";
-import {apiCancelCode} from "@/shared/(orval)api/shared";
+import {apiCancelCode} from "@/shared/(orval)api/gek";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import Loader from "@/shared/ui/loader";

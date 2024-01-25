@@ -1,7 +1,7 @@
 ﻿import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {ClientDetails} from "@/shared/(orval)api/shared/model";
-import {apiBankClientDetails} from "@/shared/(orval)api/shared";
+import {ClientDetails} from "@/shared/(orval)api/gek/model";
+import {apiBankClientDetails} from "@/shared/(orval)api/gek";
 
 export interface IStoreAccounts {
 	details: ClientDetails;

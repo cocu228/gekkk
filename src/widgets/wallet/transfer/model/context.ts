@@ -1,7 +1,7 @@
 import React from 'react';
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
-import {TokensNetwork} from "@/shared/(orval)api/shared/model";
+import {TokensNetwork} from "@/shared/(orval)api/gek/model";
 
 export interface ICtxWalletNetworks {
     tokenNetworks: null | Array<TokensNetwork>,

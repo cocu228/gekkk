@@ -2,7 +2,7 @@ import {Carousel} from "antd";
 import {sortCards} from "../model/helpers";
 import {CarouselRef} from "antd/lib/carousel";
 import {useEffect, useRef, useState} from "react";
-import {Card as ICardData} from "@/shared/(orval)api/shared/model";
+import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";

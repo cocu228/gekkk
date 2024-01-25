@@ -1,6 +1,6 @@
 import {useTranslation} from 'react-i18next';
 import InlineProperty from "@/shared/ui/inline-property";
-import {RoomInfo} from "@/shared/(orval)api/shared/model";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 
 interface IParams {
     room: RoomInfo;

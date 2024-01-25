@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {apiGetRates} from "@/shared/(orval)api/shared";
+import {apiGetRates} from "@/shared/(orval)api/gek";
 import {CtxNewDeposit, ICtxNewDeposit} from "./context";
 import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 

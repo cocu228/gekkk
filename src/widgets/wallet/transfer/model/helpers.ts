@@ -1,7 +1,7 @@
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
 import {AxiosResponse} from "axios";
-import {TokensNetwork} from "@/shared/(orval)api/shared/model";
+import {TokensNetwork} from "@/shared/(orval)api/gek/model";
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
     const result = Array.isArray(response.data.result) &&

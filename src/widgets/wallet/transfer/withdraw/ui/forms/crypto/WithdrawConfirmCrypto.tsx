@@ -1,7 +1,7 @@
 import {useCallback, useContext, useState, memo, useRef} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw} from "@/shared/(orval)api/shared";
+import {apiCreateWithdraw} from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
@@ -21,7 +21,7 @@ import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useForm} from "antd/es/form/Form";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {CreateWithdrawIn} from "@/shared/(orval)api/shared/model";
+import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 

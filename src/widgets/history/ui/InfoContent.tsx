@@ -8,9 +8,9 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 import {actionResSuccess, asteriskText, isNull} from "@/shared/lib/helpers";
-import {AdrTxTypeEnum, GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
-import {AddressTxOut} from "@/shared/(orval)api/shared/model";
-import {apiAddressTxInfo} from "@/shared/(orval)api/shared";
+import {AdrTxTypeEnum, GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import {AddressTxOut} from "@/shared/(orval)api/gek/model";
+import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 
 type TypeProps = GetHistoryTrasactionOut & {
     handleCancel: () => void

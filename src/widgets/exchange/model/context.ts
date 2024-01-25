@@ -1,6 +1,6 @@
 import React from "react";
 import {IExchangeField, IExchangePrice} from "./types";
-import {RoomInfo} from "@/shared/(orval)api/shared/model";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 
 export interface ICtxExchangeData {
     to: IExchangeField;

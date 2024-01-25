@@ -1,7 +1,7 @@
 import React from "react";
 import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
-import {GetBalanceOut, CurrencysOut} from "@/shared/(orval)api/shared/model";
+import {GetBalanceOut, CurrencysOut} from "@/shared/(orval)api/gek/model";
 import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
 

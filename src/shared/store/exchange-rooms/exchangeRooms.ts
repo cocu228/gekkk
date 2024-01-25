@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiListRooms} from "@/shared/(orval)api/shared";
-import {RoomInfo} from "@/shared/(orval)api/shared/model";
+import {apiListRooms} from "@/shared/(orval)api/gek";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreListExchangeRooms {
     roomsList: RoomInfo[];

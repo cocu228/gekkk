@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {RoomInfo} from "@/shared/(orval)api/shared/model";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxExchangeData, ICtxExchangeData} from "./context";
 import React, {ReactNode, useContext, useEffect, useState} from "react";

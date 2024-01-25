@@ -2,7 +2,7 @@ import {Form} from "antd";
 import {memo, useState} from "react";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import {apiApplyCode} from "@/shared/(orval)api/shared";
+import {apiApplyCode} from "@/shared/(orval)api/gek";
 import {promoCodeMessage} from "@/shared/config/message";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {validateStatus} from "@/features/promo-code/model";

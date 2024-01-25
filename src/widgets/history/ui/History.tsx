@@ -15,8 +15,8 @@ import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
 import {useTranslation} from 'react-i18next';
-import {GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
-import {apiGetHistoryTransactions} from "@/shared/(orval)api/shared";
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
 

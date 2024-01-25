@@ -1,7 +1,7 @@
 import React, {memo, useContext, useEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetRates} from '@/shared/(orval)api/shared';
+import {apiGetBalance, apiGetRates} from '@/shared/(orval)api/gek';
 import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';

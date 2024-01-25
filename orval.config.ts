@@ -8,8 +8,8 @@ export default defineConfig({
 		output: {
 			client: 'axios-functions',
 			tsconfig: './tsconfig.json',
-			schemas: './src/shared/(orval)api/shared/model',
-			target: './src/shared/(orval)api/shared/index.ts',
+			schemas: './src/shared/(orval)api/gek/model',
+			target: './src/shared/(orval)api/gek/index.ts',
 			override: {
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName

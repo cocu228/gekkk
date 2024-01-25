@@ -6,8 +6,8 @@ import {getCurrencyRounding, uncoverResponse} from '@/shared/lib/helpers';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
 import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthPrice";
-import {apiGetRates, apiGetTradeInfo} from "@/shared/(orval)api/shared";
-import {GetTradeInfoOut} from "@/shared/(orval)api/shared/model";
+import {apiGetRates, apiGetTradeInfo} from "@/shared/(orval)api/gek";
+import {GetTradeInfoOut} from "@/shared/(orval)api/gek/model";
 import { t } from 'i18next';
 
 interface IParams {

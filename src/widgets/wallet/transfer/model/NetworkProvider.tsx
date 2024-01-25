@@ -1,16 +1,16 @@
 import {CtxWalletNetworks, ICtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {apiTokensNetworks} from "@/shared/(orval)api/shared";
+import {apiTokensNetworks} from "@/shared/(orval)api/gek";
 import {
     getChosenNetwork,
     helperApiListAddresses,
     helperApiTokenNetworks,
     sortingNetworksForSelector,
 } from "@/widgets/wallet/transfer/model/helpers";
-import {apiListAddresses} from "@/shared/(orval)api/shared";
+import {apiListAddresses} from "@/shared/(orval)api/gek";
 import {AxiosResponse} from "axios";
 import {randomId} from "@/shared/lib/helpers";
-import {TokensNetwork} from "@/shared/(orval)api/shared/model";
+import {TokensNetwork} from "@/shared/(orval)api/gek/model";
 
 interface IProps {
     children: React.ReactNode

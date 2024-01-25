@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {getRoundingValue} from "@/shared/lib/helpers";
-import {apiGetRates} from "@/shared/(orval)api/shared";
+import {apiGetRates} from "@/shared/(orval)api/gek";
 import constants from "@/shared/config/coins/constants";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import ETokensConst from "@/shared/config/coins/constants";

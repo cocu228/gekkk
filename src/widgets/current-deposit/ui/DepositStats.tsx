@@ -1,6 +1,6 @@
 import {Skeleton} from 'antd';
 import {useEffect, useState} from 'react';
-import {apiGetRates} from '@/shared/(orval)api/shared';
+import {apiGetRates} from '@/shared/(orval)api/gek';
 import {IDepositStrategyData, getDepositCurrentProfit} from '../model/helpers';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
 import Decimal from 'decimal.js';

@@ -6,7 +6,7 @@ import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
-import {apiGetInfo} from "@/shared/(orval)api/shared";
+import {apiGetInfo} from "@/shared/(orval)api/gek";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
 import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";

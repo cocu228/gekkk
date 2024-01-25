@@ -3,7 +3,7 @@ import InlineProperty from "@/shared/ui/inline-property";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useTranslation} from 'react-i18next';
-import {GetOrderListOut} from "@/shared/(orval)api/shared/model";
+import {GetOrderListOut} from "@/shared/(orval)api/gek/model";
 
 interface IParams {
     order: GetOrderListOut;

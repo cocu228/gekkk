@@ -1,6 +1,6 @@
 import ReactQRCode from 'react-qr-code';
 import {useTranslation} from 'react-i18next';
-import {RoomInfo} from "@/shared/(orval)api/shared/model";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 

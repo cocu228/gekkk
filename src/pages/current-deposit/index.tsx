@@ -11,7 +11,7 @@ import CurrentDepositType from '@/widgets/current-deposit/ui/CurrentDepositType'
 import CurrentDepositProperties from '@/widgets/current-deposit/ui/CurrentDepositProperties';
 import CurrentDepositActionsBlock from '@/widgets/current-deposit/ui/CurrentDepositActionsBlock';
 import ClosingDepositModal from '@/widgets/current-deposit/ui/ClosingDepositModal';
-import {apiReturnInvestment} from '@/shared/(orval)api/shared';
+import {apiReturnInvestment} from '@/shared/(orval)api/gek';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 function CurrentDeposit() {

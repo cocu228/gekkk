@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import Exchange from '@/widgets/exchange/ui/Exchange';
-import {apiApplyCode} from '@/shared/(orval)api/shared';
+import {apiApplyCode} from '@/shared/(orval)api/gek';
 import ExchangeProvider from '@/widgets/exchange/model/ExchangeProvider';
 import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';

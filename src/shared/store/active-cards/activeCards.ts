@@ -1,8 +1,8 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {randomId} from "@/shared/lib/helpers";
-import {apiBankGetCards} from '@/shared/(orval)api/shared';
-import {Card as ICardData} from "@/shared/(orval)api/shared/model";
+import {apiBankGetCards} from '@/shared/(orval)api/gek';
+import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 
 export const CardStatusDescriptions: Record<string, string> = {
     LOCKED: 'Card locked',

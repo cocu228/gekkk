@@ -1,6 +1,6 @@
 import {IResErrors} from "@/shared/api";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {Card as ICardData} from "@/shared/(orval)api/shared/model";
+import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 
 export const apiActivateCard = (cardId: string) =>
     $axios.patch<

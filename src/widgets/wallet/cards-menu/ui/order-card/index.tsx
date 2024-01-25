@@ -5,7 +5,7 @@ import {ConfirmationNewCard} from "./ConfirmationNewCard";
 import {IOrderCardState, IStep, newCardContext} from './newCardContext';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
-import {Card as ICardData} from "@/shared/(orval)api/shared/model";
+import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 
 export function OrderCard({
     card,

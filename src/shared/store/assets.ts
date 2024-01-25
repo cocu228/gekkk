@@ -1,8 +1,8 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {uncoverResponse} from "@/shared/lib/helpers";
-import {apiAssets} from "@/shared/(orval)api/shared";
-import {CurrencysOut} from "@/shared/(orval)api/shared/model";
+import {apiAssets} from "@/shared/(orval)api/gek";
+import {CurrencysOut} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreAssets {
     assets: Array<CurrencysOut>;

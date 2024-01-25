@@ -1,4 +1,4 @@
-﻿import {Card as ICardData} from "@/shared/(orval)api/shared/model";
+﻿import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 
 export function sortCards (cards: ICardData[]) {
 	const priority = {

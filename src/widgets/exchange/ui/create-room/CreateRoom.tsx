@@ -6,7 +6,7 @@ import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../../model/context';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import UseError from "@/shared/model/hooks/useError";
-import {apiCreateRoom} from '@/shared/(orval)api/shared';
+import {apiCreateRoom} from '@/shared/(orval)api/gek';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';

@@ -3,11 +3,11 @@ import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from "react";
 import OpenDepositModal from "../../modals/OpenDepositModal";
 import {DepositType} from "@/shared/config/deposits/types";
-import {apiCreateInvestment} from "@/shared/(orval)api/shared";
+import {apiCreateInvestment} from "@/shared/(orval)api/gek";
 import {CtxNewDeposit} from "@/widgets/new-deposit/model/context";
 import ClosingConditionsModal from "../../modals/ClosingConditionsModal";
 import DepositProperties from "../../descriptions/deposit-properties/DepositProperties";
-import {InvestmentsTypeEnum} from "@/shared/(orval)api/shared/model";
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
 
 const OpenDeposit = () => {
     const conditionsModal = useModal();

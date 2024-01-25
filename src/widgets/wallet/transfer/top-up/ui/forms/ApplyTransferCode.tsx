@@ -2,7 +2,7 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
-import {apiApplyCode} from "@/shared/(orval)api/shared";
+import {apiApplyCode} from "@/shared/(orval)api/gek";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
@@ -12,7 +12,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
-import {TxCodesOut} from "@/shared/(orval)api/shared/model";
+import {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 
 const ApplyTransferCode = () => {

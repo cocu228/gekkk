@@ -1,7 +1,7 @@
 import {useCallback, useContext, useState, memo, useRef} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw, ICreateWithdrawParams} from "@/shared/api";
+import {apiCreateWithdraw} from "@/shared/(orval)api/shared";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
@@ -18,10 +18,11 @@ import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useForm} from "antd/es/form/Form";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {CreateWithdrawIn} from "@/shared/(orval)api/shared/model";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 
 const initStageConfirm = {
@@ -65,7 +66,7 @@ const WithdrawConfirmCrypto = memo(({
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
     const [stageReq, setStageReq] = useState(initStageConfirm)
 
-    const fragmentReqParams = useRef<Omit<ICreateWithdrawParams, "client_nonce" | "auto_inner_transfer">>({
+    const fragmentReqParams = useRef<Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
         token_network: networkTypeSelect,
         amount: amount,
@@ -78,24 +79,21 @@ const WithdrawConfirmCrypto = memo(({
     const onReSendCode = useCallback(async () => {
         await onConfirm(true)
     }, [])
-
+    
     const {onInput} = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
-
-        setLoading(!reSendCode)
-
-        const response = await apiCreateWithdraw(
-            {
-                ...fragmentReqParams.current,
-                auto_inner_transfer: stageReq.autoInnerTransfer,
-                client_nonce: getRandomInt32()
-            },
-            reSendCode ? null : input !== "" ? formatAsNumber(input) : null,
-            reSendCode ? null : stageReq.txId
-        )
-
+        setLoading(!reSendCode);
+        
+        const response = await apiCreateWithdraw({
+            ...fragmentReqParams.current,
+            client_nonce: getRandomInt32(),
+            auto_inner_transfer: stageReq.autoInnerTransfer
+        }, {
+            confirmationTimetick: reSendCode ? null : stageReq.txId,
+            confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
+        });
+        
         actionResSuccess(response)
-
             .success(() => {
                 const result = uncoverResponse(response)
 

@@ -1,7 +1,7 @@
 import React, {memo, useContext, useEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetRates} from '@/shared/api';
+import {apiGetBalance, apiGetRates} from '@/shared/(orval)api/shared';
 import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
@@ -56,7 +56,9 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
 
                     //TODO eurResponse слишком долго приходит ответ от банка, но объект участвует в общей коллекции списка,
                     // поэтому его значения не дожидаются выполнения полного цикла CtxCurrency
-                    const eurResponse = await apiGetBalance('EUR');
+                    const eurResponse = await apiGetBalance({
+                        currency: 'EUR'
+                    });
                     
                     currencies = walletsGeneration(currencies, uncoverResponse(eurResponse));
                     
@@ -73,7 +75,9 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     useEffect(() => {
         if (state.currencies !== null) (async () => {
-            const ratesEUR = await apiGetRates();
+            const ratesEUR = await apiGetRates({
+                to: 'EUR'
+            });
             
             const value: Decimal = Array.from(state.currencies.values())
                 .reduce((previousValue, currentValue) => {

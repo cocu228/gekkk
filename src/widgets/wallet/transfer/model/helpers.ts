@@ -1,7 +1,7 @@
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
-import {IResTokenNetwork} from "@/shared/api";
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
 import {AxiosResponse} from "axios";
+import {TokensNetwork} from "@/shared/(orval)api/shared/model";
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
     const result = Array.isArray(response.data.result) &&
@@ -20,7 +20,7 @@ export const helperApiListAddresses = function (response: AxiosResponse) {
 }
 
 
-export const sortingNetworksForSelector = function (networks: Array<IResTokenNetwork>): TNetworksForSelector | [] {
+export const sortingNetworksForSelector = function (networks: Array<TokensNetwork>): TNetworksForSelector | [] {
     return networks.map(it => ({
         value: it.network_type,
         label: `${it.contract_name === 'Base' ? '' : `${it.contract_name} / `}
@@ -32,7 +32,7 @@ export const sortingNetworksForSelector = function (networks: Array<IResTokenNet
 //     return addresses.find(item => network.network_type.split(",").some(it => it === item.type_address))
 // }
 
-export const getChosenNetwork = function (networks: Array<IResTokenNetwork>, networkType: number): IResTokenNetwork {
+export const getChosenNetwork = function (networks: Array<TokensNetwork>, networkType: number): TokensNetwork {
     return networks?.find(it => it.network_type === networkType);
 }
 

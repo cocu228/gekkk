@@ -3,12 +3,12 @@ import Input from "@/shared/ui/input/Input";
 import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import React, {useContext, useState} from "react";
-import {apiUpdatePartnerInfo} from "@/shared/api";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
+import {apiUpdateTxPartnerInfo} from "@/shared/(orval)api/shared";
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/shared/model";
 import {containsNonLatinCharacters} from "@/widgets/history/model/helpers";
-import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
 
 type TypeProps = GetHistoryTrasactionOut & {
     handleCancel: () => void
@@ -27,7 +27,10 @@ export const InfoConfirmPartner = (props: TypeProps) => {
 
         setLoading(true)
 
-        const response = await apiUpdatePartnerInfo(input, +props.id_transaction)
+        const response = await apiUpdateTxPartnerInfo({
+            partner_info: input,
+            timetick: +props.id_transaction
+        });
 
         actionResSuccess(response).success(() => {
             props.handleCancel()

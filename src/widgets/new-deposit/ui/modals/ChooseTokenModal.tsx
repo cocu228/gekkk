@@ -1,6 +1,5 @@
 import { ModalProps } from 'antd';
 import Modal from '@/shared/ui/modal/Modal';
-import { IResMarketAsset } from '@/shared/api';
 import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import { AssetTableKeys } from '@/features/assets-table/model/types';
 import { CurrencyFlags } from '@/shared/config/mask-currency-flags';

@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
 
 export interface IDeliveryOption {
     id: number;

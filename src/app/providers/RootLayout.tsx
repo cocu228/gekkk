@@ -1,5 +1,4 @@
 import {Outlet} from 'react-router';
-import Loader from "@/shared/ui/loader";
 import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
@@ -10,7 +9,7 @@ import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
-import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(cs)axios-new";
+import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(orval)axios";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';

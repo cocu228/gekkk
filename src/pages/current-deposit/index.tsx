@@ -11,7 +11,7 @@ import CurrentDepositType from '@/widgets/current-deposit/ui/CurrentDepositType'
 import CurrentDepositProperties from '@/widgets/current-deposit/ui/CurrentDepositProperties';
 import CurrentDepositActionsBlock from '@/widgets/current-deposit/ui/CurrentDepositActionsBlock';
 import ClosingDepositModal from '@/widgets/current-deposit/ui/ClosingDepositModal';
-import { apiReturnInvestment } from '@/shared/api';
+import {apiReturnInvestment} from '@/shared/(orval)api/shared';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 function CurrentDeposit() {
@@ -80,7 +80,9 @@ function CurrentDeposit() {
                             closingModal.handleCancel();
                             
                             (async () => {
-                                const {data} = await apiReturnInvestment(investment.id.toString());
+                                const {data} = await apiReturnInvestment({
+                                    depositId: investment.id.toString()
+                                });
                                 if (data.error) return;
 
                                 navigate('/');

@@ -2,7 +2,7 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
-import {apiApplyCode} from "@/shared/api";
+import {apiApplyCode} from "@/shared/(orval)api/shared";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
@@ -37,7 +37,9 @@ const ApplyTransferCode = () => {
 
         setLoading(true)
 
-        const response = await apiApplyCode(input)
+        const response = await apiApplyCode({
+            code: input
+        });
 
         actionResSuccess(response).success(async () => {
             setRefresh()

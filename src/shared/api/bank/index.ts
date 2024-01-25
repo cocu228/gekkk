@@ -1,4 +1,5 @@
 export * from './payment-sepa'
+export * from './payment-swift'
 export * from './get-public-key'
 export * from './register-app'
 export * from './payment-contact'

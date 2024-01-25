@@ -1,10 +1,10 @@
 import React from 'react';
-import {IResTokenNetwork} from "@/shared/api";
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
+import {TokensNetwork} from "@/shared/(orval)api/shared/model";
 
 export interface ICtxWalletNetworks {
-    tokenNetworks: null | Array<IResTokenNetwork>,
+    tokenNetworks: null | Array<TokensNetwork>,
     networksForSelector: null | TNetworksForSelector,
     networkTypeSelect: number | null,
     addressesForQR: null | string,

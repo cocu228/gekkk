@@ -5,14 +5,13 @@ import {ConfirmationNewCard} from "./ConfirmationNewCard";
 import {IOrderCardState, IStep, newCardContext} from './newCardContext';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
-import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
-import {IResCard} from "@/shared/api";
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
 export function OrderCard({
     card,
     setIsNewCardOpened
 }: {
-    card: IResCard;
+    card: ICardData;
     setIsNewCardOpened: (isOpened: boolean) => void
 }) {
     const accountDetails = storeAccountDetails(state => state.details);

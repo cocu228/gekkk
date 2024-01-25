@@ -1,10 +1,9 @@
 import React from "react";
 import Decimal from "decimal.js";
 import ETokensConst from "@/shared/config/coins/constants";
-import {IResBalance, IResMarketAsset} from "@/shared/api";
+import {GetBalanceOut, CurrencysOut} from "@/shared/(orval)api/shared/model";
 import {getFlagsFromMask} from "@/shared/lib/helpers";
 import {maskCurrencyFlags} from "@/shared/config/mask-currency-flags";
-
 
 export class ICtxCurrency {
     // Asset params
@@ -27,11 +26,11 @@ export class ICtxCurrency {
     availableBalance: null | Decimal = null;
     userBalanceEUREqu: null | number = null;
 
-    constructor(asset: IResMarketAsset, wallet?: IResBalance | null) {
+    constructor(asset: CurrencysOut, wallet?: GetBalanceOut | null) {
         this.id = asset.unified_cryptoasset_id;
         this.name = asset.name;
         this.flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
-        this.$const = asset.code;
+        this.$const = asset.code as ETokensConst;
         this.minOrder = asset.min_order;
         this.roundPrec = asset.round_prec;
         this.ordersPrec = asset.orders_prec;

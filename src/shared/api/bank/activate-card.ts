@@ -1,10 +1,11 @@
-import $axios from "@/shared/lib/(cs)axios";
-import {IResCard, IResErrors} from "@/shared/api";
+import {IResErrors} from "@/shared/api";
+import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
 export const apiActivateCard = (cardId: string) =>
     $axios.patch<
         IResErrors
-        | IResCard
+        | ICardData
     >(`/api/v1/cards/${cardId}/activate`, null, {
         headers: {
             "X-Confirmation-Type": "PIN"

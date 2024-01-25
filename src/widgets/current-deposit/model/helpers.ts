@@ -1,14 +1,14 @@
-import {IResInvestment} from "@/shared/api";
 import {PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 import Decimal from "decimal.js";
+import {GetDepositOut} from "@/shared/(orval)api/shared/model";
 
 export interface InvestData {
     isClosed?: boolean;
     isFixed?: boolean;
 }
 
-export function getInvestmentData(investment: IResInvestment): InvestData {
+export function getInvestmentData(investment: GetDepositOut): InvestData {
     return {
         isClosed: new Date() > new Date(investment.date_end),
         isFixed: investment.dep_type === 1

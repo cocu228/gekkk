@@ -1,5 +1,4 @@
 import styles from './style.module.scss';
-import {apiGetRates} from "@/shared/api";
 import Input from '@/shared/ui/input/Input';
 import {useNavigate} from 'react-router-dom';
 import GTable from '@/shared/ui/grid-table/';
@@ -7,6 +6,7 @@ import {getAlignment} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {apiGetRates} from "@/shared/(orval)api/shared";
 import ETokensConst from "@/shared/config/coins/constants";
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
@@ -76,8 +76,13 @@ const AssetsTable = ({
         if (!ratesLoading) return;
 
         (async () => {
-            const {data} = (await apiGetRates());
-            setRates(data.result);
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
             setRatesLoading(false);
         })();
     }, []);

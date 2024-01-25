@@ -6,7 +6,6 @@ import {INewCardState, IStep, newCardContext} from './newCardContext';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
-import {IResCard} from "@/shared/api";
 
 export function NewCard({
     setIsNewCardOpened

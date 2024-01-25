@@ -1,5 +1,5 @@
-﻿import {IResCard, IResErrors, IResResult} from "@/shared/api";
-import $axios from "@/shared/lib/(cs)axios";
+﻿import {IResErrors, IResResult} from "@/shared/api";
+import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
 
 export interface IDeliveryData {
     isExpressDelivery: boolean;

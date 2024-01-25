@@ -10,7 +10,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "../CodeTxInfo";
 import CancelContent from "./CancelContent";
-import {apiApplyCode} from "@/shared/api";
+import {apiApplyCode} from "@/shared/(orval)api/shared";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
@@ -128,9 +128,11 @@ const CodeModalConfirm = ({code, amount, currency}) => {
     const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
     const [success, setSuccess] = useState(null)
     const {showModal, isModalOpen, handleCancel} = useModal()
-    const onBtnConfirm = async (code) => {
+    const onBtnConfirm = async (code: string) => {
         setLoading(true)
-        const response = await apiApplyCode(code)
+        const response = await apiApplyCode({
+            code: code
+        });
 
         actionResSuccess(response).success(async () => setSuccess(true)).reject(localErrorHunter)
 

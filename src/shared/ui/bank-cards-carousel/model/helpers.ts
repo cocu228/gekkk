@@ -1,6 +1,6 @@
-﻿import {IResCard} from "@/shared/api";
+﻿import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
-export function sortCards (cards: IResCard[]) {
+export function sortCards (cards: ICardData[]) {
 	const priority = {
 		ACTIVE: 1,
 		BLOCKED_BY_CUSTOMER: 2,

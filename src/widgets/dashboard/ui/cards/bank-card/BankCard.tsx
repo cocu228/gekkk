@@ -6,10 +6,7 @@ interface CardData {
     cardNumber: string;
     holderName: string;
     className?: string;
-    status: 'LOCKED' | 'ACTIVE' | 'UNKNOWN' | 'PENDING'
-    | 'CARD_EXPIRED' | 'CLOSED_BY_BANK' | 'BLOCKED_BY_BANK'
-    | 'CLOSED_BY_CUSTOMER' | 'LOST' | 'PLASTIC_IN_WAY'
-    | 'STOLEN' | 'DEBIT_BLOCKED' | 'BLOCKED_BY_REGULATOR' | 'BLOCKED_BY_CUSTOMER';
+    status: string;
 }
 
 const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: CardData) => {

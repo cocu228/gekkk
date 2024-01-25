@@ -1,5 +1,5 @@
-import {IRoomInfo} from "@/shared/api";
 import {useNavigate} from "react-router-dom";
+import {RoomInfo} from "@/shared/(orval)api/shared/model";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxExchangeData, ICtxExchangeData} from "./context";
 import React, {ReactNode, useContext, useEffect, useState} from "react";
@@ -10,7 +10,7 @@ import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 interface IProps {
     to?: string;
     from?: string;
-    roomInfo?: IRoomInfo;
+    roomInfo?: RoomInfo;
     children: ReactNode;
 }
 
@@ -187,7 +187,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         }));
     }
 
-    const handleRoomCreation = (info: IRoomInfo) => {
+    const handleRoomCreation = (info: RoomInfo) => {
         addExchangeRoom(info);
         navigate(`/private-room/${info.timetick}`);
     }

@@ -1,12 +1,11 @@
 import {createContext, useContext} from "react";
-import {ICountryData} from "@/shared/config/delivery-coutries-list";
-import {IResCard} from "@/shared/api";
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
 export type IStep = 'IssueNewCard' | 'ConfirmationNewCard' | 'CardHasBeenOrdered';
 
 export interface IOrderCardState {
     step: IStep;
-    card: IResCard;
+    card: ICardData;
     isExpressDelivery: boolean;
     isResidenceAddress: boolean;
     

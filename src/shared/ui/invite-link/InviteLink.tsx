@@ -1,4 +1,3 @@
-import {IRoomInfo} from '@/shared/api';
 import ReactQRCode from 'react-qr-code';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';

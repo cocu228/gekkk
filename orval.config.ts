@@ -8,8 +8,8 @@ export default defineConfig({
 		output: {
 			client: 'axios-functions',
 			tsconfig: './tsconfig.json',
-			schemas: './src/shared/api/(gen)new/model',
-			target: './src/shared/api/(gen)new/index.ts',
+			schemas: './src/shared/(orval)api/shared/model',
+			target: './src/shared/(orval)api/shared/index.ts',
 			override: {
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName
@@ -23,7 +23,7 @@ export default defineConfig({
 					})
 				},
 				mutator: {
-					path: './src/shared/lib/(cs)axios-new.ts',
+					path: './src/shared/lib/(orval)axios.ts',
 				},
 			}
 		}
@@ -35,8 +35,8 @@ export default defineConfig({
 		output: {
 			client: 'axios-functions',
 			tsconfig: './tsconfig.json',
-			schemas: './src/shared/api/(gen)new-auth/model',
-			target: './src/shared/api/(gen)new-auth/index.ts',
+			schemas: './src/shared/(orval)api/auth/model',
+			target: './src/shared/(orval)api/auth/index.ts',
 			override: {
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName
@@ -50,7 +50,7 @@ export default defineConfig({
 					})
 				},
 				mutator: {
-					path: './src/shared/lib/(cs)axios-new.ts',
+					path: './src/shared/lib/(orval)axios.ts',
 				},
 			}
 		}

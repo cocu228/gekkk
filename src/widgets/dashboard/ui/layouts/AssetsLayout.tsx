@@ -1,6 +1,6 @@
-import {apiGetRates} from "@/shared/api";
 import {useContext, useEffect, useState} from "react";
 import {getRoundingValue} from "@/shared/lib/helpers";
+import {apiGetRates} from "@/shared/(orval)api/shared";
 import constants from "@/shared/config/coins/constants";
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import ETokensConst from "@/shared/config/coins/constants";
@@ -23,8 +23,13 @@ function CryptoAssets() {
 
     useEffect(() => {
         (async () => {
-            const {data} = await apiGetRates();
-            setRates(data.result);
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
         })();
     }, [currencies]);
 

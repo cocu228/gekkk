@@ -1,7 +1,7 @@
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import Modal from '@/shared/ui/modal/Modal';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {randomId} from '@/shared/lib/helpers';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../model/context';
@@ -14,8 +14,8 @@ import {useContext, useEffect, useState} from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import SplitGrid from '@/shared/ui/split-grid/SplitGrid';
 import InputCurrency from '@/shared/ui/input-currency/ui';
-import {apiCreateOrder} from '@/shared/api';
-import {apiCloseRoom} from '@/shared/api/(gen)new'
+import {apiCloseRoom} from '@/shared/(orval)api/shared';
+import {apiCreateOrder} from '@/shared/(orval)api/shared';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import RoomProperties from './room-properties/RoomProperties';
 import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
@@ -143,7 +143,8 @@ function Exchange() {
             to_amount: isLimitOrder ? to.amount : null,
             client_nonce: 0,
             is_limit: isLimitOrder,
-            room_key: roomType === 'default' ? 0 : +roomInfo.timetick
+            room_key: roomType === 'default' ? 0 : +roomInfo.timetick,
+            post_only: false,
         });
 
         setLoading(false);

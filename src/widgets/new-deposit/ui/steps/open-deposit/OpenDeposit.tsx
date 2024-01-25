@@ -1,12 +1,13 @@
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import OpenDepositModal from "../../modals/OpenDepositModal";
-import { DepositType } from "@/shared/config/deposits/types";
-import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
+import {DepositType} from "@/shared/config/deposits/types";
+import {apiCreateInvestment} from "@/shared/(orval)api/shared";
+import {CtxNewDeposit} from "@/widgets/new-deposit/model/context";
 import ClosingConditionsModal from "../../modals/ClosingConditionsModal";
-import { apiCreateInvestment } from "@/shared/api/invest/create-investment";
 import DepositProperties from "../../descriptions/deposit-properties/DepositProperties";
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/shared/model";
 
 const OpenDeposit = () => {
     const conditionsModal = useModal();
@@ -74,9 +75,9 @@ const OpenDeposit = () => {
                             amount: +amount,
                             term_days: term_in_days,
                             link_currency: type === DepositType.FIXED ? 'EURG' : tokenCurrency,
-                            templateType: type === DepositType.FIXED ? 1 : (
+                            depo_template_type: InvestmentsTypeEnum[type === DepositType.FIXED ? 1 : (
                                 structedStrategy.id + structedStrategy.percentageTypes.indexOf(percentageType)
-                            )
+                            )]
                         });
                     })();
 

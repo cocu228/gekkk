@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
-                    Build version 1.0.2-20240117-0839.5821+13b107b5a7fb9589f2e0bf7ac99502f839b9b1b1<br/><br/>
+                    Build version 1.0.2-20240122-1255.5903+dff661a1ef9844ae36d83b0aa1aa317eac259d41<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -49,7 +49,7 @@ import getAuthV1ResetPasswordMutator from '../../lib/(orval)axios';
   /**
  * @summary /// Генерация случайного challenge и создание опций аутентификации FIDO2     ///
  */
-export const apiAuthLoginOptions = (
+export const apiLoginOptions = (
     
  options?: SecondParameter<typeof getAuthV1LoginOptionsMutator>,) => {
       return getAuthV1LoginOptionsMutator<AuthOptionsApiResponse>(
@@ -61,7 +61,7 @@ export const apiAuthLoginOptions = (
 /**
  * @summary /// Аутентификация пользователя, создание сеанса     ///
  */
-export const apiAuthLogin = (
+export const apiLogin = (
     authIn: AuthIn,
  options?: SecondParameter<typeof postAuthV1LoginMutator>,) => {
       return postAuthV1LoginMutator<ApiResponse>(
@@ -75,7 +75,7 @@ export const apiAuthLogin = (
 /**
  * @summary ///  100 последних операций входа пользователя     ///
  */
-export const apiAuthLoginLog = (
+export const apiLoginLog = (
     
  options?: SecondParameter<typeof getAuthV1LoginLogMutator>,) => {
       return getAuthV1LoginLogMutator<UserLoginLogListApiResponse>(
@@ -87,7 +87,7 @@ export const apiAuthLoginLog = (
 /**
  * @summary /// Завершение текущего сеанса пользователя     ///
  */
-export const apiAuthLogout = (
+export const apiLogout = (
     
  options?: SecondParameter<typeof getAuthV1LogoutMutator>,) => {
       return getAuthV1LogoutMutator<ApiResponse>(
@@ -99,7 +99,7 @@ export const apiAuthLogout = (
 /**
  * @summary /// Завершение сеанса пользователя или всех, кроме текущего, если не задан id     ///
  */
-export const apiAuthCloseSessions = (
+export const apiCloseSessions = (
     params?: GetAuthV1CloseSessionsParams,
  options?: SecondParameter<typeof getAuthV1CloseSessionsMutator>,) => {
       return getAuthV1CloseSessionsMutator<ApiResponse>(
@@ -112,7 +112,7 @@ export const apiAuthCloseSessions = (
 /**
  * @summary /// Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения     ///
  */
-export const apiAuthRegisterOptions = (
+export const apiRegisterOptions = (
     params?: GetAuthV1RegisterOptionsParams,
  options?: SecondParameter<typeof getAuthV1RegisterOptionsMutator>,) => {
       return getAuthV1RegisterOptionsMutator<AuthOptionsApiResponse>(
@@ -125,7 +125,7 @@ export const apiAuthRegisterOptions = (
 /**
  * @summary /// Регистрация нового ключа устройства или пароля     ///
  */
-export const apiAuthRegisterKey = (
+export const apiRegisterKey = (
     authIn: AuthIn,
  options?: SecondParameter<typeof postAuthV1RegisterKeyMutator>,) => {
       return postAuthV1RegisterKeyMutator<ApiResponse>(
@@ -139,7 +139,7 @@ export const apiAuthRegisterKey = (
 /**
  * @summary /// Удаление зарегистрированного ключа устройства     ///
  */
-export const apiAuthRemoveKey = (
+export const apiRemoveKey = (
     params?: GetAuthV1RemoveKeyParams,
  options?: SecondParameter<typeof getAuthV1RemoveKeyMutator>,) => {
       return getAuthV1RemoveKeyMutator<ApiResponse>(
@@ -152,7 +152,7 @@ export const apiAuthRemoveKey = (
 /**
  * @summary /// Список зарегистрированных ключей входа     ///
  */
-export const apiAuthUserKeys = (
+export const apiUserKeys = (
     
  options?: SecondParameter<typeof getAuthV1UserKeysMutator>,) => {
       return getAuthV1UserKeysMutator<UserKeyListApiResponse>(
@@ -164,7 +164,7 @@ export const apiAuthUserKeys = (
 /**
  * @summary /// Список активных сеансов     ///
  */
-export const apiAuthSessions = (
+export const apiSessions = (
     
  options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
       return getAuthV1SessionsMutator<UserSessionListApiResponse>(
@@ -176,7 +176,7 @@ export const apiAuthSessions = (
 /**
  * @summary /// Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту     ///
  */
-export const apiAuthResetPassword = (
+export const apiResetPassword = (
     params?: GetAuthV1ResetPasswordParams,
  options?: SecondParameter<typeof getAuthV1ResetPasswordMutator>,) => {
       return getAuthV1ResetPasswordMutator<ApiResponse>(
@@ -186,14 +186,14 @@ export const apiAuthResetPassword = (
       options);
     }
   
-export type ApiAuthLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiAuthLoginOptions>>>
-export type ApiAuthLoginResult = NonNullable<Awaited<ReturnType<typeof apiAuthLogin>>>
-export type ApiAuthLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiAuthLoginLog>>>
-export type ApiAuthLogoutResult = NonNullable<Awaited<ReturnType<typeof apiAuthLogout>>>
-export type ApiAuthCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiAuthCloseSessions>>>
-export type ApiAuthRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiAuthRegisterOptions>>>
-export type ApiAuthRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiAuthRegisterKey>>>
-export type ApiAuthRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiAuthRemoveKey>>>
-export type ApiAuthUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiAuthUserKeys>>>
-export type ApiAuthSessionsResult = NonNullable<Awaited<ReturnType<typeof apiAuthSessions>>>
-export type ApiAuthResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiAuthResetPassword>>>
+export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
+export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
+export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
+export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
+export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
+export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
+export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
+export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
+export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
+export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
+export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>

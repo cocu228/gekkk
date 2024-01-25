@@ -1,21 +1,18 @@
 import {Carousel} from "antd";
-import {IResCard} from "@/shared/api";
 import {sortCards} from "../model/helpers";
 import {CarouselRef} from "antd/lib/carousel";
 import {useEffect, useRef, useState} from "react";
-import {useNavigate, useSearchParams} from 'react-router-dom';
-import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
-import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 
 interface IParams {
-    cards: IResCard[];
+    cards: ICardData[];
     cardClassName?: string;
     wrapperClassName?: string;
     refreshKey?: string | null;
-    onSelect?: (card: IResCard) => void;
+    onSelect?: (card: ICardData) => void;
 }
 
 const BankCardsCarousel = ({
@@ -25,7 +22,7 @@ const BankCardsCarousel = ({
     onSelect = () => {}}: IParams
 ) => {
     const carouselRef = useRef<CarouselRef>();
-    const [selectedCard, setSelectedCard] = useState<IResCard>(null);
+    const [selectedCard, setSelectedCard] = useState<ICardData>(null);
     
     useEffect(() => {
         if (cards) {

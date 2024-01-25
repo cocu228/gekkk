@@ -31,7 +31,7 @@ import './form-authorization.scss';
 
 import Modal from '@/shared/ui/modal/Modal';
 import useModal from '@/shared/model/hooks/useModal';
-import {apiAuthLogin, apiAuthLoginOptions, apiAuthRegisterKey} from "@/shared/(orval)api/auth";
+import {apiLogin, apiLoginOptions, apiRegisterKey} from "@/shared/(orval)api/auth";
 import {useAuth} from "@/app/providers/AuthRouter";
 
 
@@ -125,7 +125,7 @@ const FormLoginAccount = memo(() => {
         const {password} = state;
         const phone = formatAsNumber(state.phone);
 
-        const response = await apiAuthLoginOptions({
+        const response = await apiLoginOptions({
             headers: {
                 'Accept': 'application/json',
                 'Access-Control-Allow-Origin': 'origin-list'
@@ -154,7 +154,7 @@ const FormLoginAccount = memo(() => {
         };
 
         try {
-            let res = await apiAuthLogin(data, {
+            let res = await apiLogin(data, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import ReactQRCode from "react-qr-code";
-import {actionResSuccess, randomId} from "@/shared/lib/helpers";
-import {apiCreateAddress} from "@/shared/api";
+import {apiCreateAddress} from "@/shared/(orval)api/shared";
+import {actionResSuccess} from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
@@ -9,15 +9,15 @@ import useError from "@/shared/model/hooks/useError";
 
 const TopUpFormQR = () => {
     const {$const, name} = useContext(CtxWalletData);
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox] = useError();
-    const {setRefresh, setLoading, addressesForQR, networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
-    
-    
+    const [localErrorHunter, , localErrorInfoBox] = useError();
+    const {setRefresh, setLoading, addressesForQR, networkTypeSelect} = useContext(CtxWalletNetworks);
     
     const onCreateAddress = async () => {
         setLoading(true);
         
-        const response = await apiCreateAddress(networkTypeSelect);
+        const response = await apiCreateAddress({
+            token_network: networkTypeSelect
+        });
         
         actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter);
     }

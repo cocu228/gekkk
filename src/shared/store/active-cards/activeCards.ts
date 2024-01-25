@@ -1,7 +1,8 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {randomId} from "@/shared/lib/helpers";
-import {IResCard, apiGetCards} from '@/shared/api';
+import {apiBankGetCards} from '@/shared/(orval)api/shared';
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
 export const CardStatusDescriptions: Record<string, string> = {
     LOCKED: 'Card locked',
@@ -22,8 +23,8 @@ export const CardStatusDescriptions: Record<string, string> = {
 
 export interface IStoreBankCards {
     //refreshKey: string;
-    mainCard: IResCard | null;
-    activeCards: IResCard[] | null;
+    mainCard: ICardData | null;
+    activeCards: ICardData[] | null;
     getActiveCards: () => Promise<void>;
     //updateCard: (card: IResCard) => void;
 }
@@ -33,7 +34,7 @@ export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
     mainCard: null,
     //refreshKey: null,
     getActiveCards: async () => {
-        const {data} = await apiGetCards(1);
+        const {data} = await apiBankGetCards({filter: 1});
         
         set((state) => ({
             ...state,

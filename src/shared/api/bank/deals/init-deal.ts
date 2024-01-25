@@ -1,5 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
-
+import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
 
 export interface DealConfirmCodeResp {
   errors: [
@@ -15,21 +14,15 @@ export interface DealConfirmCodeResp {
   ];
 }
 
-
 export const apiInitDeal = (
   accountId: string,
   turn: string,
   signal?: AbortSignal,
 ) => {
-
-  const payload = {
+  return $axios.post<DealConfirmCodeResp>(`/api/v1/accounts/deals`, {
     accountIds: [accountId],
     turn
-  };
-
-
-  return $axios.post<DealConfirmCodeResp>(`/api/v1/accounts/deals`, payload, {signal});
-
+  }, {
+    signal
+  });
 }
-
-

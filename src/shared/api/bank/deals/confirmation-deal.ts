@@ -1,5 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
-
+import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
 
 export interface DealSuccessStatusResp {
   dealsResponse: [
@@ -10,7 +9,6 @@ export interface DealSuccessStatusResp {
     }
   ];
 }
-
 
 export interface DealErrorStatusResp {
   errors: [
@@ -24,8 +22,6 @@ export interface DealErrorStatusResp {
   ];
 }
 
-
-
 export const apiConfirmationDeals = (
   accountId: string,
   turn: string,
@@ -34,13 +30,11 @@ export const apiConfirmationDeals = (
     'X-Confirmation-Token': string;
   } = null
 ) => {
-
-  const payload = {
+  
+  return $axios.post<DealSuccessStatusResp | DealErrorStatusResp>(`/api/v1/accounts/deals`, {
     accountIds: [accountId],
     turn
-  };
-
-  return $axios.post<DealSuccessStatusResp | DealErrorStatusResp>(`/api/v1/accounts/deals`, payload, { headers });
+  }, {
+    headers
+  });
 } 
-
-

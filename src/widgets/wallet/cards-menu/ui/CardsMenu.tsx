@@ -11,7 +11,9 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiActivateCard} from "@/shared/api/bank/activate-card";
-import {apiGetCards, apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
+import {apiUpdateCard, IResErrors} from "@/shared/api";
+import {apiBankGetCards} from "@/shared/(orval)api/shared";
+import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -33,7 +35,7 @@ const CardsMenu = ({
     const [params] = useSearchParams();
     const newCardUrl = params.has('new');
     const confirmationModal = useModal();
-    const [card, setCard] = useState<IResCard>(null);
+    const [card, setCard] = useState<ICardData>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
@@ -44,7 +46,7 @@ const CardsMenu = ({
         setInputCurr: setLimitAmount
     } = useInputState();
     const [cardsStorage, setCardsStorage] = useState<{
-        cards: IResCard[];
+        cards: ICardData[];
         refreshKey: string;
     }>({
         cards: null,
@@ -53,7 +55,7 @@ const CardsMenu = ({
     
     useEffect(() => {
         (async () => {
-            const {data} = await apiGetCards();
+            const {data} = await apiBankGetCards();
             setCardsStorage({
                 cards: data.result,
                 refreshKey: randomId()
@@ -61,7 +63,7 @@ const CardsMenu = ({
         })();
     }, []);
     
-    const updateCard = (card: IResCard) => {
+    const updateCard = (card: ICardData) => {
         setCardsStorage({
             cards: [
                 card,

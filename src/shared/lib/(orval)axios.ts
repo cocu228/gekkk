@@ -15,7 +15,6 @@ export type $AxiosResponse<T> = {
 const API_URL = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
 
 const sessionHeader = () => {
-
     const {
         phone,
         token,
@@ -25,7 +24,7 @@ const sessionHeader = () => {
         token: string,
         tokenHeaderName: string
     }>();
-
+    
     return {
         'productId': "GEKKARD",
         'applicationId': 'GEKKARD',
@@ -54,6 +53,13 @@ export const $axios = <T>(
 ): Promise<AxiosResponse<T>> => AXIOS_INSTANCE({
     ...config,
     ...options,
+});
+
+AXIOS_INSTANCE.interceptors.request.use(config => {
+    if (!config.headers['AccountId'] && !config.url.includes('/get_info')) {
+        return Promise.reject();
+    }
+    return config;
 });
 
 export default $axios;

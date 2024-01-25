@@ -1,12 +1,12 @@
 import {t} from 'i18next';
 import Loader from '@/shared/ui/loader';
-import {apiCreateRoom} from '@/shared/api';
 import {useContext, useState} from 'react';
 import Input from '@/shared/ui/input/Input';
 import Button from '@/shared/ui/button/Button';
 import {CtxExchangeData} from '../../model/context';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import UseError from "@/shared/model/hooks/useError";
+import {apiCreateRoom} from '@/shared/(orval)api/shared';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';

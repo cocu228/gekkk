@@ -1,5 +1,5 @@
 import {ActiveBonusProgram} from "../bank/deals";
-import {AXIOS_INSTANCE as $axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
+import {$axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
 
 export interface IResProgram {
   startDate: string;

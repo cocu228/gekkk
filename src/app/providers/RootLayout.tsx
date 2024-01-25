@@ -9,7 +9,7 @@ import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
-import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(orval)axios";
+import {$axios as $new_axios} from "@/shared/lib/(orval)axios";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';

@@ -36,7 +36,7 @@ const sessionHeader = () => {
     }
 }
 
-export const AXIOS_INSTANCE = axios.create({
+export const $axios = axios.create({
     withCredentials: true,
     headers: sessionHeader(),
     paramsSerializer: {
@@ -46,20 +46,17 @@ export const AXIOS_INSTANCE = axios.create({
     baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
-// Add .then(({data}) => data) to remove basic AxiosResponse class
-export const $axios = <T>(
-    config: AxiosRequestConfig,
-    options?: AxiosRequestConfig,
-): Promise<AxiosResponse<T>> => AXIOS_INSTANCE({
-    ...config,
-    ...options,
-});
-
-AXIOS_INSTANCE.interceptors.request.use(config => {
+$axios.interceptors.request.use(config => {
     if (!config.headers['AccountId'] && !config.url.includes('/get_info')) {
         return Promise.reject();
     }
     return config;
 });
 
-export default $axios;
+export default <T>(
+    config: AxiosRequestConfig,
+    options?: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => $axios({
+    ...config,
+    ...options,
+});

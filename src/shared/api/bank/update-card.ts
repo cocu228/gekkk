@@ -1,5 +1,5 @@
 import {IResErrors} from "@/shared/api";
-import {AXIOS_INSTANCE as $axios} from "@/shared/lib/(orval)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import {Card as ICardData} from "@/shared/(orval)api/shared/model";
 
 export interface IParams {

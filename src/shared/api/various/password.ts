@@ -1,4 +1,4 @@
-import {AXIOS_INSTANCE as $axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
+import {$axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
 
 
 export const apiPasswordVerify = (password: string) =>

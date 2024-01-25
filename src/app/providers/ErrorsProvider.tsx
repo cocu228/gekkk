@@ -8,7 +8,7 @@ import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/shared";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
-import {AXIOS_INSTANCE as $new_axios} from "@/shared/lib/(orval)axios";
+import {$axios as $new_axios} from "@/shared/lib/(orval)axios";
 import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";

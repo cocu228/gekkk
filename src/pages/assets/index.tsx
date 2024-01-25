@@ -8,7 +8,7 @@ import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {AssetTableKeys} from '@/features/assets-table/model/types';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import $axios from '@/shared/lib/(cs)axios';
+import {$axios} from '@/shared/lib/(orval)axios';
 import useModal from '@/shared/model/hooks/useModal';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';

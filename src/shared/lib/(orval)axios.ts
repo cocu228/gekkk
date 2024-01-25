@@ -1,5 +1,5 @@
 import {$ENV_MODE, getCookieData} from "@/shared/lib/helpers";
-import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
 export type $AxiosError = {
     code: number;
@@ -46,10 +46,15 @@ export const $axios = axios.create({
     baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
+function isRejectRequired(config: InternalAxiosRequestConfig<any>): boolean {
+    return !config.url.includes('/auth') && !config.headers['AccountId'] && !config.url.includes('/get_info');
+}
+
 $axios.interceptors.request.use(config => {
-    if (!config.headers['AccountId'] && !config.url.includes('/get_info')) {
+    if (isRejectRequired(config)) {
         return Promise.reject();
     }
+    
     return config;
 });
 

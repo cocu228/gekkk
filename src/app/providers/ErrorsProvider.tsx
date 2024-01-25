@@ -1,14 +1,13 @@
 import Loader from "@/shared/ui/loader";
 import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
-import $axios from "@/shared/lib/(cs)axios";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
+import {$axios} from "@/shared/lib/(orval)axios";
 import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/shared";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
-import {$axios as $new_axios} from "@/shared/lib/(orval)axios";
 import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
@@ -52,18 +51,17 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
     }, [isModalOpen]);
 
     useLayoutEffect(() => {
-        // NEW API
-        $new_axios.interceptors.response.use((response: any) => {
+        $axios.interceptors.response.use((response: any) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-
+            
             if (hunterErrorsApi.isNewWallet()) {
                 showModal();
             }
-
+            
             if (hunterErrorsApi.isError()) {
                 const result = hunterErrorsApi.getMessageObject();
-
+                
                 setState(prevState => ({
                     ...prevState,
                     errors: [
@@ -76,12 +74,12 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                         }
                     ]
                 }));
-
+                
                 scrollToTop();
             }
-
+            
             if (hunterErrorsApi.isAuthExpired()) logout();
-
+            
             if (hunterErrorsApi.isConfirmationToken()) {
                 return new Promise((resolve, reject) => {
                     setState(prev => ({
@@ -94,73 +92,24 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     }));
                 })
             }
-
-            return response;
-        }, hunterErrorStatus.bind({
-            navigate: navigate,
-            setState: setState
-        }));
-
-        // TEMPORARY OLD API
-        $axios.interceptors.response.use((response: TResponseErrorProvider) => {
-            const hunterErrorsApi = new HunterErrorsApi(response);
-            hunterErrorsApi.setFilterListForSkip(skipList);
-
-            if (hunterErrorsApi.isNewWallet()) {
-                showModal();
-            }
-
-            if (hunterErrorsApi.isError()) {
-                const result = hunterErrorsApi.getMessageObject();
-
-                setState(prevState => ({
-                    ...prevState,
-                    errors: [
-                        ...prevState.errors,
-                        {
-                            id: randomId(),
-                            message: result.error.message,
-                            code: result.error.code,
-                            type: result.error.type
-                        }
-                    ]
-                }));
-
-                scrollToTop();
-            }
-
-            if (hunterErrorsApi.isAuthExpired()) logout();
-
-            if (hunterErrorsApi.isConfirmationToken()) {
-                return new Promise((resolve, reject) => {
-                    setState(prev => ({
-                        ...prev,
-                        actionConfirmResponse: response,
-                        pending: {
-                            resolve: resolve,
-                            reject: reject
-                        }
-                    }));
-                })
-            }
-
+            
             return response;
         }, hunterErrorStatus.bind({
             navigate: navigate,
             setState: setState
         }));
     }, []);
-
+    
     const onClose = (id: string) => setState(prevState => ({
         ...prevState,
         errors: [...prevState.errors.filter(it => it.id !== id)]
     }));
-
+    
     // if (useLocation().state === 500) {
     //     window.history.replaceState({}, document.title);
     //     return (<PageProblems code={500}/>);
     // }
-
+    
     return <>
         {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
             {state.errors.map((item, i) =>

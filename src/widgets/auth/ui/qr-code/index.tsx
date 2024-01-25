@@ -4,9 +4,9 @@ import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useAuth} from "@/app/providers/AuthRouter";
 import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/helpers";
-import { AxiosResponse } from 'axios';
-import { $AxiosResponse } from '@/shared/lib/(cs)axios';
-import { storyDisplayAuth } from '../../model/story';
+import {AxiosResponse} from 'axios';
+import {$AxiosResponse} from '@/shared/lib/(orval)axios';
+import {storyDisplayAuth} from '../../model/story';
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
 
 const QRCode = memo(() => {

@@ -2,7 +2,7 @@ import md5 from 'md5';
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import Button from "@/shared/ui/button/Button";
 import {MASK_CODE} from "@/shared/config/mask";
 import {apiPasswordVerify} from "@/shared/api";

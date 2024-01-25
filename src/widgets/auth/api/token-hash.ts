@@ -1,4 +1,4 @@
-import $axios, { $AxiosResponse } from "@/shared/lib/(cs)axios";
+import {$axios, $AxiosResponse} from "@/shared/lib/(orval)axios";
 
 export interface IResSessionData {
     authorization: string,

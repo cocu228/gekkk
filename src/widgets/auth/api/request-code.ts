@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 
 export const apiRequestCode = (phone: string, code?: string, sessionId?: string) => $axios.post('/api/v1/requestCode', {
     phone,

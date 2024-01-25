@@ -7,7 +7,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";

@@ -2,14 +2,13 @@ import {Outlet} from 'react-router';
 import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 import Sidebar from "@/widgets/sidebar/ui/";
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import {useLocation, useMatch} from 'react-router-dom';
 import {memo, useContext, useEffect, useState} from 'react';
 import Content from "@/app/layouts/content/Content";
 import {storeAccounts} from '@/shared/store/accounts/accounts';
 import {CtxRootData, ICtxRootData} from '@/processes/RootContext';
 import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
-import {$axios as $new_axios} from "@/shared/lib/(orval)axios";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';
@@ -63,7 +62,6 @@ export default memo(function () {
 
     const setAccount = (number: string) => {
         $axios.defaults.headers['AccountId'] = number;
-        $new_axios.defaults.headers['AccountId'] = number;
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({
             ...prev,

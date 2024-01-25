@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 
 export const apiPasswordVerify = (phone: string, password: string, token: string, tokenHeaderName: string) => $axios.post('/api/v1/password/verify', {
     phone,

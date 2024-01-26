@@ -1,20 +1,12 @@
-body,
-html {
-    height: 100%;
-    margin: 0;
-}
-
 .logoC {
     --backColor: #F7F7F0;
     --brendBlueColor: #00AEEFFF;
     --brendGreenColor: #72BF44FF;
     --mainGreenColor: #2BB673;
     --mainGreenColorA: #2BB67355;
-
-    --new-brand-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+    --mainDarkBlueColor: #29354C;
 
     background-color: var(--backColor);
-
     position: fixed;
     top: 0;
     left: 0;
@@ -165,7 +157,7 @@ html {
 #pA,
 #pR,
 #pD {
-    stroke: #2BB673;
+    stroke: var(--mainGreenColor);
     stroke-width: 0%;
     stroke-dasharray: 80;
     /* fill: #2BB67300; */
@@ -211,12 +203,12 @@ html {
     }
 
     50% {
-        fill: #2BB673;
+        fill: var(--mainGreenColor);
     }
 
     to {
         stroke-dashoffset: 0;
-        fill: #29354C;
+        fill: var(--mainDarkBlueColor);
     }
 }
 

@@ -51,7 +51,7 @@
 
 #logoIcon #logoPath {
     /* fill: url(#paint0_linear); */
-    fill: #F7F7F000;
+    fill: #2BB67322;
     stroke-dasharray: 280;
     stroke: url(#paint0_linear);   
 
@@ -62,13 +62,11 @@
 @keyframes logoIconLine {
     from {
         stroke-dashoffset: 280;
-        /* fill: white;  */
+        fill: #2BB67311;
     }
-
     50% {
-        fill: var(--backColor);
+        fill: #2BB67355;
     }
-
     95% {
         stroke-dashoffset: 0;
         fill: var(--mainGreenColorA);

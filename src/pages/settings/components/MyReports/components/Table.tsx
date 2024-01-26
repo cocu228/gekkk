@@ -8,14 +8,15 @@ import { CtxRootData } from '@/processes/RootContext';
 export function Table() {
   const {filterByIBAN} = storeStatements(state => state);
   const {account} = useContext(CtxRootData);
-  console.log(account)
   const reports = useMemo(() => {
+    
     if (!account) {
       return [];
     }
-    return filterByIBAN(account.account_id);
 
-  }, []) ;
+    return filterByIBAN(account.number);
+
+  }, [account, filterByIBAN]) ;
   return (
     <Box paddingTop="36px" display="flex" flexDirection="column" gap="24px">
 

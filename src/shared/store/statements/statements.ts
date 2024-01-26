@@ -17,15 +17,14 @@ export const storeStatements = create<IStoreStatements>()(devtools((set, get) =>
         set((store) => {
             return {
                 ...store,
-                // statementsOrigin: data.result || null
-                statementsOrigin: mockResponse as any
+                statementsOrigin: data.result || null
+                // statementsOrigin: mockResponse as any
             };
         })
        
     },
     filterByIBAN: (iban: string) => {
         const result =  get().statementsOrigin.statements[iban];
-
         if(!result) {
             return [];
         }

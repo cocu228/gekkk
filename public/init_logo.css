@@ -78,6 +78,21 @@
         fill: url(#paint0_linear);
     }
 }
+#logoIcon #logoPath:hover
+{
+    stroke: url(#paint0_linear); 
+    fill: #2BB67355;
+    stroke-width: 1%;
+    animation: logoIconLine2 5s ease-in-out infinite;
+}
+@keyframes logoIconLine2 {
+    from {
+        stroke-dashoffset: 560;        
+    }   
+    to {
+        stroke-dashoffset: 0;
+    }
+}
 
 #logoIcon .gCircle {
     fill: #00000000;

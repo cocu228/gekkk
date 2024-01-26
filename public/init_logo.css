@@ -1,1 +1,242 @@
-.logoC{--backColor:#F7F7F0;--brendBlueColor:#00AEEFFF;--brendGreenColor:#72BF44FF;--mainGreenColor:#2BB673;--mainGreenColorA:#2BB67355;--mainDarkBlueColor:#29354C;background-color:var(--backColor);position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:999}.logoC .svg-layer{max-width:800px;width:70%;transition:transform .3s ease-in-out}#logoIcon{stroke-width:.5%;stroke:var(--mainGreenColorA);animation:3s forwards logoCircle}@keyframes logoCircle{from{stroke-dashoffset:60;stroke-dasharray:2}90%{stroke-dashoffset:0;stroke-dasharray:2;stroke-width:.5%;margin-left:0}to{margin-left:-15%;stroke-width:0}}#logoIcon #logoPath{fill:#F7F7F000;stroke-dasharray:280;stroke:url(#paint0_linear);transition:fill .3s;animation:2s forwards logoIconLine}@keyframes logoIconLine{from{stroke-dashoffset:280}50%{fill:var(--backColor)}95%{stroke-dashoffset:0;fill:var(--mainGreenColorA)}to{fill:url(#paint0_linear)}}#logoIcon #logoPath:hover{stroke:url(#paint0_linear);fill:#2BB67355;stroke-width:1%;animation:5s ease-in-out infinite logoIconLine2}@keyframes logoIconLine2{from{stroke-dashoffset:560}to{stroke-dashoffset:0}}#logoIcon .gCircle{fill:#00000000}#logoIcon .gCircle:hover{stroke-dasharray:5;animation:1s linear infinite hexagonAnim;stroke-width:1%}#logoIcon .gCircle2{fill:var(--mainGreenColorA);animation:2s forwards gCircle2Anim}@keyframes gCircle2Anim{to{fill:#00000000}}.hexagon{stroke-dasharray:50;stroke-width:1.5%;fill:none;stroke:var(--mainGreenColorA)}@keyframes hexagonAnim2{to{stroke-width:.5%}}@keyframes hexagonAnim{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}#logoTxt{position:absolute;fill:#F7F7F000}@keyframes txtAnim{90%{margin-left:0}to{margin-left:5%}}#pA,#pD,#pE,#pK,#pK2,#pR{stroke:var(--mainGreenColor);stroke-width:0;stroke-dasharray:80}#pG{animation:3s forwards logoLetter}#pE,#pK{animation:2.5s forwards logoLetter}#pK2{animation:2s forwards logoLetter}#pA{animation:1.5s forwards logoLetter}#pR{animation:1s forwards logoLetter}#pD{animation:.5s forwards logoLetter}@keyframes logoLetter{from{stroke-width:.5%;stroke-dashoffset:80}50%{fill:var(--mainGreenColor)}to{stroke-dashoffset:0;fill:var(--mainDarkBlueColor)}}#pA:hover,#pD:hover,#pE:hover,#pG:hover,#pK2:hover,#pK:hover,#pR:hover{fill:white;animation-name:none}.first-stop{stop-color:var(--brendBlueColor)}.second-stop{stop-color:var(--brendGreenColor)}
+.logoC {
+    --backColor: #F7F7F0;
+    --brendBlueColor: #00AEEFFF;
+    --brendGreenColor: #72BF44FF;
+    --mainGreenColor: #2BB673;
+    --mainGreenColorA: #2BB67355;
+    --mainDarkBlueColor: #29354C;
+
+    background-color: var(--backColor);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.logoC .svg-layer {
+    max-width: 800px;
+    width: 70%;
+    transition: transform 0.3s ease-in-out;
+}
+
+#logoIcon {    
+    stroke-width: 0.5%;
+    stroke: var(--mainGreenColorA);
+    animation: logoCircle 3s ease forwards;
+}
+
+@keyframes logoCircle {
+    from {
+        stroke-dashoffset: 60;
+        stroke-dasharray: 2;
+    }
+
+    90% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 2;
+        stroke-width: 0.5%;
+        margin-left: 0%;
+    }
+
+    to {
+        margin-left: -15%;
+        stroke-width: 0%;
+    }
+}
+
+#logoIcon #logoPath {
+    /* fill: url(#paint0_linear); */
+    fill: #F7F7F000;
+    stroke-dasharray: 280;
+    stroke: url(#paint0_linear);   
+
+    transition: fill 0.3s ease;
+    animation: logoIconLine 2s ease forwards;
+}
+
+@keyframes logoIconLine {
+    from {
+        stroke-dashoffset: 280;
+        /* fill: white;  */
+    }
+
+    50% {
+        fill: var(--backColor);
+    }
+
+    95% {
+        stroke-dashoffset: 0;
+        fill: var(--mainGreenColorA);
+    }
+
+    to {
+        fill: url(#paint0_linear);
+    }
+}
+#logoIcon #logoPath:hover
+{
+    stroke: url(#paint0_linear); 
+    fill: #2BB67355;
+    stroke-width: 1%;
+    animation: logoIconLine2 5s ease-in-out infinite;
+}
+@keyframes logoIconLine2 {
+    from {
+        stroke-dashoffset: 560;        
+    }   
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+#logoIcon .gCircle {
+    fill: #00000000;
+}
+
+#logoIcon .gCircle:hover {
+    stroke-dasharray: 5;
+    animation: hexagonAnim 1s linear infinite;
+    stroke-width: 1%;
+}
+
+#logoIcon .gCircle2 {
+    fill: var(--mainGreenColorA);
+    animation: gCircle2Anim 2s ease forwards;
+}
+@keyframes gCircle2Anim
+{
+    to{
+        fill:#00000000;
+    }
+}
+
+.hexagon {
+    stroke-dasharray: 50;
+    stroke-width: 1.5%;
+    fill: none;
+    stroke: var(--mainGreenColorA);
+    animation: hexagonAnim 1.5s ease infinite, hexagonAnim2 3S forwards;
+}
+
+@keyframes hexagonAnim2 {
+    to {
+        stroke-width: 0.5%;
+    }
+}
+
+@keyframes hexagonAnim {
+    from {
+        stroke-dashoffset: 100;
+        /* stroke: var(--brendBlueColor); */
+    }
+
+    50% {
+        /* stroke-dashoffset: 100; */
+    }
+
+    to {
+        stroke-dashoffset: 0;
+        /* stroke: var(--brendGreenColor); */
+    }
+}
+
+#logoTxt {
+    position: absolute;
+    fill: #F7F7F000;
+    animation: txtAnim 3S ease forwards;
+}
+
+@keyframes txtAnim {
+    90% {
+        margin-left: 0%;
+    }
+
+    to {
+        margin-left: 5%;
+    }
+}
+
+#pE,
+#pK,
+#pK2,
+#pA,
+#pR,
+#pD {
+    stroke: var(--mainGreenColor);
+    stroke-width: 0%;
+    stroke-dasharray: 80;
+    /* fill: #2BB67300; */
+    /* stroke-dashoffset: 100; */
+    /* -webkit-animation: logoTxtLine 1s ease-in-out alternate;
+      -moz-animation: logoTxtLine 1s ease-in-out alternate;
+      -o-animation: logoTxtLine 1s ease-in-out alternate; */
+    /* animation: logoTxtLine 2s ease; */
+}
+
+#pG {
+    animation: logoLetter 3s ease forwards;
+}
+
+#pE {
+    animation: logoLetter 2.5s ease forwards;
+}
+
+#pK {
+    animation: logoLetter 2.5s ease forwards;
+}
+
+#pK2 {
+    animation: logoLetter 2s ease forwards;
+}
+
+#pA {
+    animation: logoLetter 1.5s ease forwards;
+}
+
+#pR {
+    animation: logoLetter 1s ease forwards;
+}
+
+#pD {
+    animation: logoLetter 0.5s ease forwards;
+}
+
+@keyframes logoLetter {
+    from {
+        stroke-width: 0.5%;
+        stroke-dashoffset: 80;
+    }
+
+    50% {
+        fill: var(--mainGreenColor);
+    }
+
+    to {
+        stroke-dashoffset: 0;
+        fill: var(--mainDarkBlueColor);
+    }
+}
+
+#pG:hover,
+#pE:hover,
+#pK:hover,
+#pK2:hover,
+#pA:hover,
+#pR:hover,
+#pD:hover {
+    fill: white;
+    animation-name: none;
+}
+
+.first-stop {
+    stop-color: var(--brendBlueColor);
+}
+
+.second-stop {
+    stop-color: var(--brendGreenColor);
+}

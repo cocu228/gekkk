@@ -53,6 +53,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                                 placeholder={"Networks not found"} value={networkTypeSelect}
                                 onSelect={setNetworkType}
                                 options={networksForSelector}
+                                listHeight={500}
                     />}
             </div>
         </div>

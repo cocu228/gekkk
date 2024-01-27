@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/index.scss'
 import {ConfigProvider} from 'antd'
-import "./index"
+// import "./index"
 import "../processes/i18n.config";
 
 import ThemeCustomization from '@/materialUI'

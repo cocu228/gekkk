@@ -1,5 +1,5 @@
 import {defineConfig, loadEnv} from 'vite';
-import {VitePWA} from 'vite-plugin-pwa'
+// import {VitePWA} from 'vite-plugin-pwa'
 // import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react';
 import path from "path";
@@ -21,16 +21,16 @@ export default defineConfig(({mode}) => {
                 {find: /\{\{MODE\}\}/, replacement: mode},
             ],
         },
-        build: {
-            target: 'modules',
-        },
+        // build: {
+        //     target: 'modules',
+        // },
         server: {
-            proxy: {
-                '^/(api|gek|auth|pub/)': {
-                    target: 'https://gate-dev.gekkard.com:6789/',
-                    changeOrigin: true,
-                    secure: false,
-                }
+            // proxy: {
+                // '^/(api|gek|auth|pub/)': {
+                //     target: 'https://gate-dev.gekkard.com:6789/',
+                //     changeOrigin: true,
+                //     secure: false,
+                // }
                 // '^/TEMP-API': {
                 //   target: 'http://10.7.14.10/pub/v1/auth',
                 //   changeOrigin: true,
@@ -49,33 +49,33 @@ export default defineConfig(({mode}) => {
                 //     });
                 //   },
                 // },
-            }
+            // }
         },
         plugins: [react(), splitVendorChunkPlugin(), svgr(),
-            VitePWA({
-                registerType: 'autoUpdate',
-                // includeAssets: ['**/*'],
-                workbox: {
-                    maximumFileSizeToCacheInBytes: 20000000,
-                    // globPatterns: ['**/*'],
-                    globPatterns: ['**/*.{js,css,html,json,webmanifest}'],
-                    // runtimeCaching: [
-                    //     {
-                    //         urlPattern: ({url}) => {
-                    //             // console.log(url)
-                    //             // return !!url.pathname.startsWith("/")
-                    //         },
-                    //         handler: "StaleWhileRevalidate",
-                    //         options: {
-                    //             cacheName: "MyCache"
-                    //         }
-                    //     }
-                    // ]
-                },
-                devOptions: {
-                    enabled: true
-                }
-            })
+            // VitePWA({
+            //     registerType: 'autoUpdate',
+            //     // includeAssets: ['**/*'],
+            //     workbox: {
+            //         maximumFileSizeToCacheInBytes: 20000000,
+            //         // globPatterns: ['**/*'],
+            //         globPatterns: ['**/*.{js,css,html,json,webmanifest}'],
+            //         // runtimeCaching: [
+            //         //     {
+            //         //         urlPattern: ({url}) => {
+            //         //             // console.log(url)
+            //         //             // return !!url.pathname.startsWith("/")
+            //         //         },
+            //         //         handler: "StaleWhileRevalidate",
+            //         //         options: {
+            //         //             cacheName: "MyCache"
+            //         //         }
+            //         //     }
+            //         // ]
+            //     },
+            //     devOptions: {
+            //         enabled: true
+            //     }
+            // })
         ]
     }
 })

@@ -26,6 +26,8 @@ const HeaderMobile = ({items, actions}) => {
         switch(location.pathname){
             case `/wallet/${currency}`:
                 return `${currency} ${t("balance")}`
+            case `/wallet/${currency}/about`:
+                return `${currency} ${t("about")}`
             case `/partnership-program`:
                 return t("partnership_program.title")
             case `/support`:

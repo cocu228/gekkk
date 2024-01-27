@@ -2,7 +2,7 @@ import {useContext, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
-import WalletHeader from "@/widgets/wallet/header/ui";
+import WalletHeader from "@/widgets/wallet/header/ui/desktop";
 import {useMatch, useNavigate, useParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
@@ -25,6 +25,7 @@ import TopUpButton from "@/shared/ui/ButtonsMobile/TopUp";
 import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
+import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 
 
 function Wallet() {
@@ -60,7 +61,7 @@ function Wallet() {
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
             <CtxWalletData.Provider value={$currency}>
-                <WalletHeader/>
+                {md?<WalletHeaderMobile/>:<WalletHeader/>}
                 {!md ?
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid" style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>

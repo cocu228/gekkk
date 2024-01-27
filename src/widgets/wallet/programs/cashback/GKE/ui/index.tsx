@@ -32,7 +32,7 @@ const GkeCashbackProgram = () => {
         <>
             <div className="row mb-10">
                 <div className="col">
-                    <div className="info-box-description">
+                    <div className="info-box-description info-box-in-wallet">
                         <div className="row mb-3">
                             <div className="col">
                                 <p className="font-extrabold text-sm">

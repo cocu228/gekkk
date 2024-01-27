@@ -4,7 +4,7 @@ import {defineConfig, loadEnv} from 'vite';
 import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
-import {splitVendorChunkPlugin} from 'vite'
+// import {splitVendorChunkPlugin} from 'vite'
 
 export default defineConfig(({mode}) => {
 
@@ -51,7 +51,9 @@ export default defineConfig(({mode}) => {
                 // },
             // }
         },
-        plugins: [react(), splitVendorChunkPlugin(), svgr(),
+        plugins: [react(),
+            // splitVendorChunkPlugin(),
+            svgr(),
             // VitePWA({
             //     registerType: 'autoUpdate',
             //     // includeAssets: ['**/*'],

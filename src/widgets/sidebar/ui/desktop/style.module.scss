@@ -217,6 +217,41 @@
 
 :global(a.active) {
 
+  .ItemWrapper > .Item {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
+    .RoomName {
+      font-weight: 600;
+    }
+
+    .Sum {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .Icon {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
+    }
+
+    .Name,
+    .NavName {
+      color: var(--color-gray-600);
+      font-weight: 600;
+    }
+
+    &:after {
+      position: absolute;
+      height: 100%;
+      width: 4px;
+      content: "";
+      background-color: #285E69;
+      left: 0;
+      top: 0;
+    }
+  }
+
   .SvgArrow {
     path {
       fill: var(--color-gray-600);
@@ -326,7 +361,8 @@
 :global(a.disabled) {
   .Item,
   .ItemExchange,
-  .ItemEuro {
+  .ItemEuro,
+  .ItemWrapper {
     pointer-events: none;
   }
 }

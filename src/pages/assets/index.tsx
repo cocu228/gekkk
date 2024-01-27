@@ -31,7 +31,7 @@ function Assets() {
     return (
         <>
             {!md && <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>}
-            <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
+            <div className="wrapper grid grid-cols-1 gap-2 xxl:gap-0">
                 {!md && <InfoBox/>}
                 {<div
                     className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>

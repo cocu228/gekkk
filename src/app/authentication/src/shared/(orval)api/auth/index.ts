@@ -191,14 +191,14 @@ export const apiResetPassword = (
         options);
 }
 
-export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
-export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
-export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
-export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
-export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
-export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
-export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
-export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
-export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
-export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
-export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>
+// export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
+// export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
+// export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
+// export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
+// export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
+// export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
+// export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
+// export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
+// export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
+// export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
+// export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>

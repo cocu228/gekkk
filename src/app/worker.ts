@@ -3,8 +3,7 @@ async function loadIndexModule(url) {
         const response = await fetch(url);
         const scriptText = await response.text();
 
-        // Сохраняем скрипт в кеше
-        const cache = await caches.open('script-cache');
+        const cache = await caches.open('app.bundle');
         await cache.put(url, new Response(scriptText));
 
         return `${url} module loaded`;

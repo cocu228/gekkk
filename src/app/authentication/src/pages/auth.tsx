@@ -1,5 +1,5 @@
 import {useState} from 'preact/hooks'
-import './app.css'
+import './style.module.css'
 import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
 
 export function Auth() {

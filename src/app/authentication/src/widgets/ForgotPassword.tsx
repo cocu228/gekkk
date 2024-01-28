@@ -1,10 +1,4 @@
-import {memo, useContext, useRef, useState} from 'react';
-import {storyDisplayAuth} from '../../model/story';
-
-
-const ForgotPassword = memo(() => {
-
-    const {toggleStage} = storyDisplayAuth(state => state);
+export const ForgotPassword = () => {
 
     return <div
         className='typography-b1'
@@ -50,13 +44,13 @@ const ForgotPassword = memo(() => {
             <button className='account-button' type="button">
                 Contact support
             </button>
-            <button className='second_value-button' type="button" onClick={() => {
-                toggleStage('authorization');
-            }}>
+            <button className='second_value-button' type="button"
+                // onClick={() => {
+                //     toggleStage('authorization');
+                // }}
+            >
                 Back to Log in
             </button>
         </div>
     </div>
-})
-
-export default ForgotPassword
+}

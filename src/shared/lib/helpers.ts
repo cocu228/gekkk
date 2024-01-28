@@ -174,6 +174,7 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
 }
 
 export const uncoverResponse = (response) => response.data.result
+
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
 export const getCurrencyRounding = (value: number | undefined) =>

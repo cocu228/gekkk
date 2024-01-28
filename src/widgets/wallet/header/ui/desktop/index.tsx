@@ -56,7 +56,7 @@ const WalletHeader = () => {
                     </div>
                     <div className={styles.WalletInfoMainRight}>
                         <div className={styles.WalletInfoMainRightTextFree}>
-                            {!availableBalance ? 0 : availableBalance.toNumber()}
+                            {!availableBalance ? 0 : (availableBalance.toNumber()).toFixed(roundPrec)}
                         </div>
                         <div className={styles.WalletInfoMainRightTextIncome}>
                             {!lockInBalance ? 0 : <div>+{lockInBalance.toFixed(roundPrec)}</div>}

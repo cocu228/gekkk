@@ -1,14 +1,14 @@
 import {memo, useEffect, useMemo, useState} from "react";
 import {useSessionStorage} from "usehooks-ts";
-import {TSessionAuth} from "@/widgets/auth/model/types";
+import {TSessionAuth} from "@/widgets/(no-usages)auth/model/types";
 import {signInWithPhoneNumber, RecaptchaVerifier} from 'firebase/auth';
 // import {auth} from "@/processes/firebaseConfig";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
-import {apiRequestCode} from "@/widgets/auth/api";
-import {helperApiRequestCode} from "@/widgets/auth/model/helpers";
+import {apiRequestCode} from "@/widgets/(no-usages)auth/api";
+import {helperApiRequestCode} from "@/widgets/(no-usages)auth/model/helpers";
 import useError from "@/shared/model/hooks/useError";
 import {useTranslation} from "react-i18next";
-import {Timer} from "@/widgets/auth/model/helpers";
+import {Timer} from "@/widgets/(no-usages)auth/model/helpers";
 
 
 export const ReSendCode = memo(({isUAS}: { isUAS: boolean }) => {

@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
 import {Link, useNavigate} from "react-router-dom";
-import {useAuth} from "@/app/providers/AuthRouter";
+import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN} from "@/shared/lib/helpers";

@@ -1,15 +1,15 @@
 import "@styles/index.scss";
 import {memo} from 'react';
-import {storyDisplayAuth} from "@/widgets/auth/model/story";
-import FormLoginAccount from "@/widgets/auth/ui/form-authorization";
+import {storyDisplayAuth} from "@/widgets/(no-usages)auth/model/story";
+import FormLoginAccount from "@/widgets/(no-usages)auth/ui/form-authorization";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import LoginBackground from '@/assets/login-background.svg?react';
 
 import {NewHeader} from "@/widgets/new-header/ui/NewHeader";
 import {$ENV_MODE} from "@/shared/lib/helpers";
-import ForgotPassword from "@/widgets/auth/ui/forgot-password";
-import AuthFooter from "@/widgets/auth/ui/auth-footer";
-import CookiePolicyApplies from "@/widgets/auth/ui/cookie-policy-applies";
+import ForgotPassword from "@/widgets/(no-usages)auth/ui/forgot-password";
+import AuthFooter from "@/widgets/(no-usages)auth/ui/auth-footer";
+import CookiePolicyApplies from "@/widgets/(no-usages)auth/ui/cookie-policy-applies";
 
 const AuthPage = memo(() => {
     // const {login} = useAuth();

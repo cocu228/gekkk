@@ -1,5 +1,5 @@
 import {memo, useEffect, useMemo, useState} from "react";
-import {Timer} from "@/widgets/auth/model/helpers";
+import {Timer} from "@/widgets/(no-usages)auth/model/helpers";
 import { useTranslation } from 'react-i18next';
 
 function isPromise(obj: unknown) {

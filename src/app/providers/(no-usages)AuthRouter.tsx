@@ -52,7 +52,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
     const navigate = useNavigate();
 
-    // call this function when you want to authenticate the user
     const login = () => {
         setAccess(true)
         // setCookieData([

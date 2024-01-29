@@ -2,7 +2,7 @@ import HeaderMobile from "./mobile/mobile";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import HeaderDesktop from "./desktop/desktop";
-import {useAuth} from "@/app/providers/AuthRouter";
+import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {AccountRights} from "@/shared/config/account-rights";

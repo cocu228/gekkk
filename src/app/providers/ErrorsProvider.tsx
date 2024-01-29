@@ -4,7 +4,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {useAuth} from "@/app/providers/AuthRouter";
+import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";

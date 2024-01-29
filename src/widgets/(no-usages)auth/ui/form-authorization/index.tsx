@@ -4,12 +4,12 @@ import '@styles/(cs)react-phone-input.scss';
 import {useSessionStorage} from "usehooks-ts";
 import {memo, useRef, useState} from 'react';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {storyDisplayAuth} from "@/widgets/auth/model/story";
+import {storyDisplayAuth} from "@/widgets/(no-usages)auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import useValidation from '@/shared/model/hooks/useValidation';
 import {passwordMessage, phoneMessage} from '@/shared/config/message';
 import useError from "@/shared/model/hooks/useError";
-import {TSessionAuth} from "@/widgets/auth/model/types";
+import {TSessionAuth} from "@/widgets/(no-usages)auth/model/types";
 import {useTranslation} from 'react-i18next';
 import FormCode from '../form-code';
 import styles from './form-authorization.module.scss';
@@ -32,7 +32,7 @@ import './form-authorization.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import useModal from '@/shared/model/hooks/useModal';
 import {apiLogin, apiLoginOptions, apiRegisterKey} from "@/shared/(orval)api/auth";
-import {useAuth} from "@/app/providers/AuthRouter";
+import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 
 
 function coerceToBase64Url(thing) {

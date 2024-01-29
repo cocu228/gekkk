@@ -1,9 +1,9 @@
 import React, {memo, useContext, useEffect, useRef, useState} from 'react';
 import ReactQRCode from "react-qr-code";
-import {IResSessionData, apiTokenHash} from "@/widgets/auth/api";
+import {IResSessionData, apiTokenHash} from "@/widgets/(no-usages)auth/api";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import {useAuth} from "@/app/providers/AuthRouter";
-import {helperApiQRCode, helperApiTokenHash} from "@/widgets/auth/model/helpers";
+import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
+import {helperApiQRCode, helperApiTokenHash} from "@/widgets/(no-usages)auth/model/helpers";
 import {AxiosResponse} from 'axios';
 import {$AxiosResponse} from '@/shared/lib/(orval)axios';
 import {storyDisplayAuth} from '../../model/story';

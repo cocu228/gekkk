@@ -4,9 +4,13 @@
   font-weight: 100 1000;
   font-stretch: 25% 151%;
 }
+@font-face {
+  font-family: 'Azeret Mono';
+  src: url("/public/fonts/Azeret/AzeretMono-VariableFont_wght.ttf");
+}
 
 @layer base {
   html {
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: 'Montserrat', "Azeret Mono" ,Arial, sans-serif;
   }
 }

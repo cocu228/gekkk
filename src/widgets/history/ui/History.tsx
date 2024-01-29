@@ -19,6 +19,7 @@ import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
+import { log } from 'console';
 
 const { RangePicker } = DatePicker;
 
@@ -69,8 +70,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         setLoading(false);
     }
 
-    const requestMoreHistory = async () => {
-
+    const requestMoreHistory = async () => {  
         setLazyLoading(true)
 
         const lastValue = listHistory[listHistory.length - 1];
@@ -103,17 +103,17 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     }, [refreshKey, activeTab, currenciesFilter]);
 
 
-    const scrollHandler = (e) => {
+    const scrollHandler = (e) => {                
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
             requestMoreHistory()
         }
     }
     useEffect(()=>{
-        document.addEventListener("scroll", scrollHandler)
-        return function (){
+        md &&
             document.addEventListener("scroll", scrollHandler)
-        }
-        
+            return function (){
+                document.removeEventListener("scroll", scrollHandler)
+            }
     }, [])
 
     

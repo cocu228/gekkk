@@ -1,8 +1,5 @@
 @import "@styles/mixins";
-@font-face {
-    font-family: Azeret;
-    src: url(../../../../../../public/fonts/Azeret/AzeretMono-VariableFont_wght.ttf);
-}
+
 
 .HeaderWalletDesktop{
     display: flex;
@@ -118,7 +115,7 @@
     border-bottom: 1px dotted #DADADA;
     color: var(--Pale-blue, #3A5E66);
     text-align: right;
-    font-family: Azeret;
+    font-family: "Azeret Mono";
     font-size: 12px;
     font-style: normal;
     font-weight: 700;
@@ -133,7 +130,7 @@
     border-bottom: 1px dotted #DADADA;
     color: #2BAB72;
     text-align: right;
-    font-family: Azeret;
+    font-family: "Azeret Mono";
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -148,7 +145,7 @@
     border-bottom: 1px dotted #DADADA;
     color: #972235;
     text-align: right;
-    font-family: Azeret;
+    font-family: "Azeret Mono";
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -163,7 +160,7 @@
     border-bottom: 1px dotted #DADADA;
     color: #285E69;
     text-align: right;
-    font-family: Azeret;
+    font-family: "Azeret Mono";
     font-size: 12px;
     font-style: normal;
     font-weight: 500;

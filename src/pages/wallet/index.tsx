@@ -3,7 +3,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui/desktop";
-import {useMatch, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
@@ -26,6 +26,7 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
+import Programs from "@/widgets/programs/ui";
 
 
 function Wallet() {
@@ -48,11 +49,12 @@ function Wallet() {
         $currency = currencies.get(currency);
     }
 
-    const isCryptoWallet = !($currency.$const === "EUR" || $currency.$const === "EURG" || $currency.$const === "GKE")
+    const isCryptoWallet = !(currency === "EUR" || currency === "EURG" || currency === "GKE")
 
     // const $const = currencies.get(currency)
-    const aboutPage = useMatch(`wallet/${$currency.$const}/about`)
-    const isOnAboutPage = !!aboutPage
+    const isOnAboutPage = tab === "about"
+    const isOnProgramsPage = tab === "programs"
+    
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
@@ -83,11 +85,16 @@ function Wallet() {
                                         setIsNewCardOpened={setIsNewCardOpened}
                                     />
                                     <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
+                                </>}
+                                {$currency.$const === "EURG" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 </>}
 
                                 {$currency.$const === "GKE" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                                     <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 </>}
 
                                 {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
@@ -112,14 +119,24 @@ function Wallet() {
                             <ExchangeButton wallet/>
                             {!isCryptoWallet && <ProgramsButton wallet/>}
                         </WalletButtons>
-                        {isOnAboutPage
-                            ?
-                                !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
-                                    <About data-tag={"about"} data-name={t("about")}
-                                        description={descriptions[$currency.$const]}/>
-                                )
-                            :
-                                <History currenciesFilter={currencyForHistory}/>
+                        {!(isOnAboutPage || isOnProgramsPage) &&
+                            <History 
+                                data-tag={"history"}
+                                data-name={t("history")} 
+                                currenciesFilter={currencyForHistory}
+                            />
+                        }
+                        {isOnAboutPage &&
+                            !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
+                                <About 
+                                    data-tag={"about"} 
+                                    data-name={t("about")}
+                                    description={descriptions[$currency.$const]}
+                                />
+                            )
+                        }
+                        {isOnProgramsPage &&
+                            <Programs data-tag={"programs"} data-name={t("programs")}/>
                         }
                     </>
                 }

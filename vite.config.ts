@@ -13,7 +13,7 @@ export default defineConfig(({mode}) => {
         VITE_APP_VERSION: JSON.stringify(require('./package.json').version)
     };
     return {
-        base: '',
+        // base: '',
         resolve: {
             alias: [
                 {find: '@', replacement: path.resolve(__dirname, 'src')},

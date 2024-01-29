@@ -36,10 +36,9 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
     const {md} = useContext(BreakpointsContext); 
-    const {currency} = useParams()
-    
-    
-    const walletPage = useMatch(`wallet/${currency}`)   
+    const {currency, tab} = useParams()
+        
+    const walletPage = currency || tab  
     const isWalletPage = !!walletPage
     
 

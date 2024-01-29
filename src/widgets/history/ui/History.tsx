@@ -42,6 +42,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     const isWalletPage = !!walletPage
     
 
+    
     const requestHistory = async (cancelToken = null) => {
         setLoading(true);
         setAllTxVisibly(false);

@@ -1,12 +1,19 @@
 async function loadIndexModule(url) {
+
     try {
         const response = await fetch(url);
         const scriptText = await response.text();
 
         const cache = await caches.open('app.bundle');
+
         await cache.put(url, new Response(scriptText));
 
-        return `${url} module loaded`;
+        return {
+            status: {
+                fetch: scriptText !== "",
+                cache: true
+            }
+        };
 
     } catch (error) {
         return error.message;

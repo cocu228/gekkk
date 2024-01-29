@@ -34,7 +34,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const {device_guid} = getCookieData<{ device_guid: string }>();
     const [access, setAccess] = useState(!!device_guid)
 
-    console.log(!!device_guid)
+    // console.log(!!device_guid)
 
     // useEffect(() => {
     //     onAuthStateChanged(auth, async (user) => {
@@ -53,7 +53,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
     const navigate = useNavigate();
 
     // call this function when you want to authenticate the user
-    const login = (phone: string, token: string, tokenHeaderName: string = 'token', refreshToken: string = null) => {
+    const login = () => {
         setAccess(true)
         // setCookieData([
         //     {

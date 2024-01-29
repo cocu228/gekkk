@@ -100,16 +100,16 @@ const FormLoginAccount = memo(() => {
 
 
     const [
-        localErrorHunter,
-        localErrorSpan, ,
-        localErrorClear
+        // localErrorHunter,
+        localErrorSpan,
+        // localErrorClear
     ] = useError();
 
-    const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth", {
-        phone: "",
-        sessionIdUAS: "",
-        verificationId: ""
-    });
+    // const [, setSessionAuth] = useSessionStorage<TSessionAuth>("session-auth", {
+    //     phone: "",
+    //     sessionIdUAS: "",
+    //     verificationId: ""
+    // });
 
     const [state, setState] = useState<{
         phone: string,
@@ -154,7 +154,7 @@ const FormLoginAccount = memo(() => {
         };
 
         try {
-            let res = await apiLogin(data, {
+            let response = await apiLogin(data, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -165,8 +165,6 @@ const FormLoginAccount = memo(() => {
 
 
             // console.log(res);
-
-            location.replace('/');
 
         } catch (e) {
             alert("Request to server failed " + e);
@@ -374,7 +372,7 @@ const FormLoginAccount = memo(() => {
                     }}>
                         <div style={{flex: '0 0 auto'}}>
                             <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
-                            Phone number
+                                Phone number
                             </div>
                             <div style={{height: '36px', display: 'flex', alignItems: 'center'}}>
                                 <div style={{
@@ -405,7 +403,7 @@ const FormLoginAccount = memo(() => {
                         </div>
                         <div style={{flex: '0 0 auto'}}>
                             <div className='typography-b3' style={{color: 'var(--new-dark-blue)'}}>
-                                 <br></br>
+                                <br></br>
                             </div>
 
                             <PhoneInput

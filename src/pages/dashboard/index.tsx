@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 import PageHead from "@/shared/ui/page-head/PageHead";
 import { BannersAndMyReward } from '@/widgets/BannersAndMyReward';
 import { Box } from '@mui/material';
+import VersionsLayout from "@/widgets/dashboard/ui/layouts/VersionsLayout";
 
 
 enum TabType {
@@ -22,7 +23,8 @@ enum TabType {
     CARDS,
     DEPOSIT,
     ASSETS,
-    HISTORY
+    HISTORY,
+    VERSIONS
 }
 
 const TABS = [
@@ -30,16 +32,17 @@ const TABS = [
     // {type: TabType.CARDS, title: 'Cards', content: <CardsLayout/>},
     // {type: TabType.DEPOSIT, title: 'Deposits', content: <DepositLayout/>},
     // {type: TabType.ASSETS, title: 'Crypto assets', content: <CryptoAssets/>},
-    {type: TabType.HISTORY, title: 'History', content: (
-        <Box display={"flex"} gap="40px" justifyContent={"flex-start"}>
-            
-            <div className='substrate' style={{width: '100%'}}>
-                <History title='History' includeFiat/>
-            </div>
-
-            <BannersAndMyReward />
-        </Box>
-    )}
+    // {type: TabType.HISTORY, title: 'History', content: (
+    //     <Box display={"flex"} gap="40px" justifyContent={"flex-start"}>
+    //        
+    //         <div className='substrate' style={{width: '100%'}}>
+    //             <History title='History' includeFiat/>
+    //         </div>
+    //
+    //         <BannersAndMyReward />
+    //     </Box>
+    // )}
+    {type: TabType.VERSIONS, title: 'VERSIONS', content: <VersionsLayout/>}
 ];
 
 export default () => {

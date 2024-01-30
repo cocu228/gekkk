@@ -7,13 +7,23 @@ import {CtxExchangeData} from '../../model/context';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import UseError from "@/shared/model/hooks/useError";
 import {apiCreateRoom} from '@/shared/(orval)api/gek';
+import {RoomFlags} from "@/shared/(orval)api/gek/model";
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';
 
+interface IState {
+    isIco: boolean;
+    purchaseLimit: number;
+}
+
 function CreateRoom() {
     const [loading, setLoading] = useState<boolean>(false);
     const [localErrorHunter, , localErrorInfoBox] = UseError();
+    const [state, setState] = useState<IState>({
+        isIco: false,
+        purchaseLimit: 0
+    });
     
     const {
         to,
@@ -58,14 +68,27 @@ function CreateRoom() {
             </div>
             
             <div className="mt-7">
-                <Checkbox className='hover:cursor-pointer'>
+                <Checkbox
+                    defaultChecked={state.isIco}
+                    className='hover:cursor-pointer'
+                    onChange={(val) => setState({
+                        ...state,
+                        isIco: val
+                    })}
+                >
                     <span className="hover:cursor-pointer text-sm">{t("exchange.only_i_can")}</span>
                 </Checkbox>
             </div>
             
             <div className="mt-6">
                 <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">{t("exchange.purchase_limit")}</label>
-                <Input placeholder={t("exchange.it_is_empty")}/>
+                <Input
+                    placeholder={t("exchange.it_is_empty")}
+                    onChange={({target}) => setState({
+                        ...state,
+                        purchaseLimit: +target.value
+                    })}
+                />
             </div>
             
             <div className='mt-4'>{localErrorInfoBox}</div>
@@ -81,8 +104,8 @@ function CreateRoom() {
                         apiCreateRoom({
                             currency1: from.currency,
                             currency2: to.currency,
-                            flags: 0,
-                            to_balance_limit: 0
+                            flags: state.isIco ? 1 : 0,
+                            to_balance_limit: state.purchaseLimit
                         }).then(({data}) => {
                             if (data.error) {
                                 localErrorHunter({code: 0, message: data.error.message});

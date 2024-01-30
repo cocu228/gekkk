@@ -127,12 +127,14 @@ function Wallet() {
                             />
                         }
                         {isOnAboutPage &&
-                            !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
+                            (
+                                !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
                                 <About 
                                     data-tag={"about"} 
                                     data-name={t("about")}
                                     description={descriptions[$currency.$const]}
                                 />
+                                )
                             )
                         }
                         {isOnProgramsPage &&

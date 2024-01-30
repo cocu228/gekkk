@@ -4,7 +4,6 @@
 .HeaderWalletDesktop{
     display: flex;
     align-items: flex-start;
-    gap: 10px;
     align-self: stretch;
     margin: 20px 0px;
     padding: 10px 0px;
@@ -22,7 +21,6 @@
 }
 .IconInfo{
     display: flex;
-    padding: 10px;
     flex-direction: column;
     justify-content: center;
     align-items: start;
@@ -33,15 +31,15 @@
     width: 306px;
     height: 78px;
     align-items: flex-start;
-    margin: 0px 20px;
+    margin: 0px 15px;
 }
 .IconRate{
     display: flex;
-    margin: 10px;
     flex-direction: column;
     justify-content: center;
     align-items: start;
     align-self: center;
+    text-wrap: nowrap;
 }
 .RateText{
     color: #9D9D9D;
@@ -171,6 +169,7 @@
     display: flex;
     align-items: flex-start;
     gap: 10px;
+    text-wrap: nowrap;
 }
 .WalletName{
     color: #29354C;

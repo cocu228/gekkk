@@ -3,12 +3,14 @@
   "private": true,
   "version": "2.0.67",
   "type": "module",
+  "workspaces": [
+    "./src/shared/(orval)api",
+    "./src/shared/lib"
+  ],
   "scripts": {
-    "apiGen": "orval",
+    "orval": "orval",
     "local": "vite --mode LOCAL",
     "build": "tsc && vite build",
-    "start": "vite --host --mode LOCAL",
-    "preview": "vite build && vite preview --host",
     "PRD": "node increment-version && tsc && vite build --mode PRD",
     "STG": "node increment-version && tsc && vite build --mode STG",
     "DEV": "node increment-version && tsc && vite build --mode DEV"

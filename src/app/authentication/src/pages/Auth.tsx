@@ -1,11 +1,9 @@
-import {useState} from 'preact/hooks'
 import './style.module.css'
 import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
 
 export function Auth() {
-    const [count, setCount] = useState(0)
-    const md = count
-    setCount(1)
+
+    const md = true
     return <>
         <div style={{
             background: 'var(--new-brand-white)',

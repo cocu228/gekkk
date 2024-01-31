@@ -6622,6 +6622,14 @@ workbox-window@^7.0.0, workbox-window@7.0.0:
     "@types/trusted-types" "^2.0.2"
     workbox-core "7.0.0"
 
+"workspaces-api@file:/home/aleksmanson/projects/gekkard.front/src/shared/(orval)api":
+  version "1.0.0"
+  resolved "file:src/shared/(orval)api"
+
+"workspaces-library@file:/home/aleksmanson/projects/gekkard.front/src/shared/lib":
+  version "1.0.0"
+  resolved "file:src/shared/lib"
+
 wrap-ansi@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz"

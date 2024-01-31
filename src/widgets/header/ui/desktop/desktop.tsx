@@ -1,22 +1,17 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
-import {getFormattedIBAN} from "@/shared/lib/helpers";
+import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
-import chatIcon from '../../../../assets/support-icon-grey.svg'
-import FaqIcon from '@/assets/faq-icon.svg?react';
-import SettingsIcon from '@/assets/settings-icon.svg?react';
-import {Box} from '@mui/material';
-import { getInitialProps, useTranslation } from "react-i18next";
+import {getInitialProps, useTranslation} from "react-i18next";
 
 const HeaderDesktop = ({items, actions}) => {
 
-    const {logout} = useAuth();
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const {t} = useTranslation()

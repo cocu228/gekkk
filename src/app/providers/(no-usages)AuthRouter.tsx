@@ -95,7 +95,6 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         // window.recaptchaVerifier = undefined;
 
         clearCookies();
-
         location.replace('/');
     };
 

@@ -1,7 +1,7 @@
-<svg class="logoIcon svg-layer" viewBox="-13 -10 75 65" xmlns="http://www.w3.org/2000/svg">
+<svg class="logoIcon svg-layer" width="192" height="192" viewBox="-13 -10 75 65" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">
       <style>
         .svg-layer {          
-          max-width: 400px;
+          padding: 10%;
       }
       .logoIcon {
         transition: transform 0.3s ease-in-out;

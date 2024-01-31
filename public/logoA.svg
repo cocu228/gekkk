@@ -1,0 +1,152 @@
+<svg class="logoIcon svg-layer" viewBox="-13 -10 75 65" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        .svg-layer {          
+          max-width: 400px;
+      }
+      .logoIcon {
+        transition: transform 0.3s ease-in-out;
+        stroke-width: 0.5%;
+        stroke: #2BB67355;
+        animation: logoCircle 3s ease forwards;
+    }
+    
+    @keyframes logoCircle {
+        from {
+            stroke-dashoffset: 60;
+            stroke-dasharray: 2;
+        }
+    
+        90% {
+            stroke-dashoffset: 0;
+            stroke-dasharray: 2;
+            stroke-width: 0.5%;
+            margin-left: 0%;
+        }
+    
+        to {            
+            stroke-width: 0%;
+        }
+    }
+    
+    #logoPath {
+        fill: #2BB67322;
+        stroke-dasharray: 280;
+        stroke: url(#p_linear);
+        transition: fill 0.3s ease;
+        animation: logoIconLine 2s ease forwards;
+    }
+    
+    @keyframes logoIconLine {
+        from {
+            stroke-dashoffset: 280;
+            fill: #2BB67311;
+        }
+    
+        50% {
+            fill: #2BB67355;
+        }
+    
+        95% {
+            stroke-dashoffset: 0;
+            fill: #2BB67355;
+        }
+    
+        to {
+            fill: url(#p_linear);
+        }
+    }
+    
+    #logoPath:hover {
+        stroke: url(#p_linear);
+        fill: #2BB67355;
+        stroke-width: 1%;
+        animation: logoIconLine2 5s ease-in-out infinite;
+    }
+    
+    @keyframes logoIconLine2 {
+        from {
+            stroke-dashoffset: 560;
+        }
+    
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+    
+    .gCircle {
+        fill: #00000000;
+    }
+    
+    .gCircle:hover {
+        stroke-dasharray: 5;
+        animation: hexagonAnim 1s linear infinite;
+        stroke-width: 1%;
+    }
+    
+    .gCircle2 {
+        fill: #2BB67355;
+        animation: gCircle2Anim 2s ease forwards;
+    }
+    
+    @keyframes gCircle2Anim {
+        to {
+            fill: #00000000;
+        }
+    }
+    
+    .hexagon {
+        stroke-dasharray: 50;
+        stroke-width: 1.5%;
+        fill: none;
+        stroke: url(#p_linear);
+        animation: hexagonAnim 1.5s ease infinite, hexagonAnim2 3S forwards;
+    }
+    
+    @keyframes hexagonAnim2 {
+        to {
+            stroke-width: 0.5%;
+        }
+    }
+    
+    @keyframes hexagonAnim {
+        from {
+            stroke-dashoffset: 100;
+        }
+    
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+      </style>
+      <polygon fill="none" stroke="url(#p_linear)"
+        points="60.5,22.05 42.6,53.0537094554829 6.8,53.0537094554829 -11.1,22.05 6.8,-8.95370945548289 42.6,-8.953709455482915"
+        class="hexagon" />
+      <circle fill="none" cx="24.7" cy="22.05" r="5" class="gCircle" />
+      <circle fill="none" cx="24.7" cy="22.05" r="8.3" class="gCircle" />
+      <circle fill="none" cx="36.21813787033303" cy="28.7" r="5" class="gCircle" />
+      <circle fill="none" cx="24.7" cy="35.35" r="5" class="gCircle" />
+      <circle fill="none" cx="13.181862129666968" cy="28.7" r="5" class="gCircle" />
+      <circle fill="none" cx="13.181862129666964" cy="15.4" r="5" class="gCircle" />
+      <circle fill="none" cx="24.7" cy="8.75" r="5" class="gCircle" />
+      <circle fill="none" cx="36.21813787033303" cy="15.4" r="5" class="gCircle" />
+      <circle fill="none" cx="44.15" cy="22.05" r="5" class="gCircle" />
+      <circle fill="none" cx="34.425" cy="38.89419410360733" r="5" class="gCircle2" />
+      <circle fill="none" cx="14.975" cy="38.89419410360733" r="5" class="gCircle2" />
+      <circle fill="none" cx="5.25" cy="22.05" r="5" class="gCircle2" />
+      <circle fill="none" cx="14.975" cy="5.205805896392675" r="5" class="gCircle2" />
+      <circle fill="none" cx="34.425" cy="5.205805896392661" r="5" class="gCircle2" />
+      <circle fill="none" cx="54.65" cy="22.05" r="5" class="gCircle" />
+      <circle fill="none" cx="39.675" cy="47.98746084334394" r="5" class="gCircle" />
+      <circle fill="none" cx="9.725" cy="47.98746084334394" r="5" class="gCircle" />
+      <circle fill="none" cx="-5.25" cy="22.05" r="5" class="gCircle" />
+      <circle fill="none" cx="9.725" cy="-3.887460843343927" r="5" class="gCircle" />
+      <circle fill="none" cx="39.675" cy="-3.8874608433439484" r="5" class="gCircle" />
+      <path id="logoPath" fill="url(#p_linear)" 
+        d="M38.931 36.363c-.87-1.48-2.308-2.395-3.919-2.57-.523-.13-1.045-.304-1.524-.566-2.482-1.437-3.353-4.572-1.96-7.054a.33.33 0 00.087-.174v-.044c.523-.914.828-1.916.958-3.005v-.087-.087c0-.827-.653-1.48-1.437-1.48H25.65c-.827 0-1.48.653-1.48 1.48 0 .828.653 1.48 1.48 1.48h3.615c-.828 1.699-2.57 2.875-4.573 2.875a5.055 5.055 0 01-5.051-5.052 5.055 5.055 0 015.051-5.051 4.98 4.98 0 014.355 2.526c.261.435.74.74 1.263.74.827 0 1.48-.653 1.48-1.48 0-.306-.087-.567-.217-.785-1.394-2.482-.523-5.617 1.96-7.054.479-.261 1.001-.48 1.524-.566a5.24 5.24 0 003.919-2.57c1.437-2.482.566-5.66-1.916-7.098-2.482-1.437-5.661-.566-7.098 1.916a5.061 5.061 0 00-.262 4.66c.174.522.262 1.045.262 1.611a5.223 5.223 0 01-5.139 5.226h-.174a5.223 5.223 0 01-5.139-5.226c0-.566.087-1.089.261-1.611a5.335 5.335 0 00-.26-4.66C18.071.175 14.892-.696 12.41.741 9.929 2.178 9.058 5.357 10.495 7.84c.87 1.48 2.308 2.395 3.92 2.57.522.13 1.044.304 1.523.566 2.439 1.393 3.31 4.529 2.004 6.967-.044.087-.131.174-.175.305-1.48 2.395-4.616 3.18-7.054 1.786-.523-.305-.958-.654-1.307-1.09-.958-1.218-2.438-2.046-4.137-2.046C2.352 16.897 0 19.205 0 22.08c0 2.874 2.352 5.183 5.182 5.183a5.136 5.136 0 004.137-2.047c.349-.436.784-.784 1.307-1.089 2.438-1.437 5.574-.61 7.054 1.785.044.088.087.175.174.305 1.307 2.482.436 5.574-2.003 6.968-.479.261-1.001.479-1.524.566a5.24 5.24 0 00-3.92 2.57c-1.436 2.481-.565 5.66 1.917 7.097 2.482 1.438 5.661.567 7.098-1.916a5.061 5.061 0 00.261-4.66 4.998 4.998 0 01-.26-1.61c0-2.831 2.264-5.183 5.138-5.226h.174a5.223 5.223 0 015.139 5.226c0 .566-.088 1.088-.262 1.61a5.335 5.335 0 00.262 4.66c1.437 2.483 4.616 3.354 7.098 1.916 2.569-1.393 3.396-4.572 1.96-7.054z" />
+      <defs>
+        <linearGradient id="p_linear" x1="12" y1="45" x2="37" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#00AEEFFF" />
+          <stop offset="1" stop-color="#72BF44FF" />
+        </linearGradient>
+      </defs>
+    </svg>

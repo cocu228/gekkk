@@ -95,11 +95,11 @@
     }
     
     .hexagon {
-        stroke-dasharray: 50;
+        /* stroke-dasharray: 50; */
         stroke-width: 1.5%;
         fill: none;
         stroke: url(#p_linear);
-        animation: hexagonAnim 1.5s ease infinite, hexagonAnim2 3S forwards;
+        /* animation: hexagonAnim 1.5s ease infinite, hexagonAnim2 3S forwards; */
     }
     
     @keyframes hexagonAnim2 {

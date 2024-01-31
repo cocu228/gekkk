@@ -14,7 +14,7 @@
   "enableNotifications": true,
   "startUrl": "/",
   "iconUrl": "https://web.gekkard.com/android-chrome-192x192.png",
-  "maskableIconUrl": "https://web.gekkard.com/android-chrome-192x192.png",
+  "maskableIconUrl": "https://web.gekkard.com/logoA.svg",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "/Users/usermac/pwa/android.keystore",

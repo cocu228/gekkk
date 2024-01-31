@@ -9,7 +9,6 @@
         },
         {
             "src": "/logoA.svg",
-            "sizes": "196x196",
             "type": "image/svg+xml",
             "purpose": "maskable"
         }

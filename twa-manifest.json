@@ -21,7 +21,7 @@
     "alias": "android"
   },
   "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionCode": "1",
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://dev.gekkard.com/site.webmanifest",

@@ -13,7 +13,7 @@
   "backgroundColor": "#29354C",
   "enableNotifications": true,
   "startUrl": "/",
-  "iconUrl": "https://dev.gekkard.com/android-chrome-192x192.png",
+  "iconUrl": "https://dev.gekkard.com/logoA.svg",
   "maskableIconUrl": "https://dev.gekkard.com/logoA.svg",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {

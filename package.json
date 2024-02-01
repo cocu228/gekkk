@@ -11,6 +11,7 @@
     "orval": "orval",
     "local": "vite --mode LOCAL",
     "build": "tsc && vite build",
+
     "PRD": "node increment-version && tsc && vite build --mode PRD",
     "STG": "node increment-version && tsc && vite build --mode STG",
     "DEV": "node increment-version && tsc && vite build --mode DEV"

@@ -1,7 +1,7 @@
 import {useState} from 'preact/hooks'
-import {formatAsNumber} from "workspaces-library";
-import {setAdvCookie} from "./model/shared";
-import {apiLogin, apiLoginOptions, apiGetInfo} from "workspaces-api";
+import {setAdvCookie, formatAsNumber} from "./model/shared";
+import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
+import {apiGetInfo} from "../shared/(orval)api/gek";
 import {sha256} from 'js-sha256';
 import * as nacl from "tweetnacl";
 import * as utilNacl from "tweetnacl-util";

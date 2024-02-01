@@ -1,9 +1,13 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import styles from "./style.module.scss";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { useTranslation } from 'react-i18next';
 import { NavLink, useMatch, useParams } from "react-router-dom";
+import { getCurrencyRounding } from "@/shared/lib/helpers";
+import ETokensConst from "@/shared/config/coins/constants";
+import { apiGetRates } from "@/shared/(orval)api/gek";
+
 
 
 const WalletHeaderMobile = () => {
@@ -28,6 +32,21 @@ const WalletHeaderMobile = () => {
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
+
+    const [rates, setRates] = useState<Record<ETokensConst, number>>();
+
+
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
+        })();
+    }, [currency]);
     if(isOnProgramsPage || isOnNoFeeProgramPage){
         return <></>
     }
@@ -79,7 +98,7 @@ const WalletHeaderMobile = () => {
                         </div>
                         <div className={styles.EurGekkoinPrice}>
                             <span className={styles.IsEqualEuro}>
-                                {(!isEUR && availableBalance) && currency + " = " + (userBalanceEUREqu/availableBalance.toNumber()).toFixed(roundPrec)  + "€"}
+                                {(!isEUR && availableBalance && rates) && currency + " = " + getCurrencyRounding(rates[currency])  + "€"}
                             </span>
                             {(!isEUR && !isOnAboutPage) &&
                                 <NavLink to={`/wallet/${currency}/about`}>

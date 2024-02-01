@@ -1,11 +1,10 @@
 import {useState} from 'preact/hooks'
-import {setAdvCookie, formatAsNumber} from "./model/shared";
+import {formatAsNumber, setAdvCookie} from "./model/shared";
 import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
 import {apiGetInfo} from "../shared/(orval)api/gek";
 import {sha256} from 'js-sha256';
 import * as nacl from "tweetnacl";
 import * as utilNacl from "tweetnacl-util";
-import {RegisterDeviceKey} from "./RegisterDeviceKey.tsx";
 
 const createSeed = (str1, str2) => {
     const str = sha256(str1 + str2).toString();
@@ -188,6 +187,5 @@ export const LoginPasswordForm = () => {
             </div>
 
         </form>
-        <RegisterDeviceKey/>
     </div>
 }

@@ -1,5 +1,7 @@
 import './style.module.css'
 import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
+import {ResetPasswordForm} from "../widgets/ResetPasswordForm";
+import {RegisterDeviceKey} from "../widgets/RegisterDeviceKey";
 
 export function Auth() {
 
@@ -78,6 +80,8 @@ export function Auth() {
                         Gekkard is issued by Papaya Ltd. Papaya Ltd is licensed by the Malta Financial Services Authority as an Electronic Money Institution (EMI). Registration number C55146. Copyright © 2023 Gekkard.
                     </p> */}
                 </div>
+                <ResetPasswordForm/>
+                <RegisterDeviceKey/>
                 {!md ?
                     <div style={{
                         position: 'relative',

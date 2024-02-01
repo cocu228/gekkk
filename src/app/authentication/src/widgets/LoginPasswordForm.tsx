@@ -5,6 +5,7 @@ import {apiGetInfo} from "../shared/(orval)api/gek";
 import {sha256} from 'js-sha256';
 import * as nacl from "tweetnacl";
 import * as utilNacl from "tweetnacl-util";
+import {RegisterDeviceKey} from "./RegisterDeviceKey.tsx";
 
 const createSeed = (str1, str2) => {
     const str = sha256(str1 + str2).toString();
@@ -51,18 +52,9 @@ export const LoginPasswordForm = () => {
         //     .replace(/-/g, "+")
         //     .replace(/_/g, "/");
 
-        // const str = phone + _password
-        //
-        // const encoder = new TextEncoder();
-        // const strBytes = encoder.encode(str);
-        // const seed = new Uint8Array(32);
-
 
         const seed = createSeed(phone, _password)
         const keyPair = nacl.sign.keyPair.fromSeed(seed);
-
-        console.log(keyPair.publicKey)
-        console.log(utilNacl.encodeBase64(keyPair.publicKey));
 
         const challenge = utilNacl.decodeUTF8(response.data.result.challenge);
         const signature = nacl.sign(challenge, keyPair.secretKey);
@@ -71,6 +63,15 @@ export const LoginPasswordForm = () => {
 
         console.log(response.data.result.challenge);
         console.log(utilNacl.encodeUTF8(verifiedMsg));
+
+        console.log("Phone: ");
+        console.log(phone);
+
+        console.log("Password: ");
+        console.log(_password);
+
+        console.log("Public key (encodeBase64):");
+        console.log(utilNacl.encodeBase64(keyPair.publicKey));
 
         const data = {
             challenge_id: response.data.result.challenge_id,
@@ -187,5 +188,6 @@ export const LoginPasswordForm = () => {
             </div>
 
         </form>
+        <RegisterDeviceKey/>
     </div>
 }

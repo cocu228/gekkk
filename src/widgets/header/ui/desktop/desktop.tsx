@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
+// import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
@@ -9,6 +9,7 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import {getInitialProps, useTranslation} from "react-i18next";
+import {clearCookies} from "@/shared/lib/cookies-helper";
 
 const HeaderDesktop = ({items, actions}) => {
 
@@ -119,7 +120,7 @@ const HeaderDesktop = ({items, actions}) => {
                         <div className="ml-5" data-testid="Logout">
                             <img width={22} height={22} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
                         </div>
-                        <span className={styles.HeaderMenuTitles}>{t("logout")}</span>
+                        <span onClick={clearCookies} className={styles.HeaderMenuTitles}>{t("logout")}</span>
                     </div>
                 </button>
             </div>

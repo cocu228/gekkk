@@ -27,9 +27,20 @@
         }
     }
 
+    &LightBlue{
+        background:  #E1F1F6;
+    }
+
+    &LightGreen{
+        background: #E2FFEE;
+    }
+
+    &LightOrange{
+        background: #EFDAB8;
+    }
+
     &Active {
-        background-image: linear-gradient(277deg, #FFF 0%, #FFF 100%);
-        box-shadow: inset 0px 0px 0px 2px rgba(119, 164, 92, 1);
+        background: linear-gradient(277deg, #FFF 0%, #FFF 100%);
 
         &:after {
             opacity: 1;
@@ -74,6 +85,10 @@
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
         bottom: -22px;
+        
+        &Mobile{
+            bottom: 0;
+        }
     }
 }
 
@@ -81,13 +96,25 @@
     z-index: 0;
     width: 223px;
     margin-block: 18px;
-    margin-left: -30px;
     padding-top: 10px;
     padding-left: 30px;
     padding-bottom: 15px;
     border-radius: 0px 25px 25px 0px;
     box-shadow: 0px 6px 30px 0px rgba(0, 0, 0, 0.15);
 
+    &Mobile{
+        display: flex;
+        flex-direction: column;
+        background: white;
+        margin: 0;
+        border-radius: 0px 0px 25px 25px;
+        align-self: center;
+        max-width: 310px;
+        width: 80vw;
+        align-items: center;
+        padding-left: 0;
+        
+    }
     &Title {
         font-size: 16px;
         font-weight: 300;
@@ -95,6 +122,10 @@
         font-style: italic;
         margin-left: 10px;
         margin-bottom: 10px;
+        
+        &Mobile{
+            margin: 0;
+        }
     }
 
     &List {
@@ -102,7 +133,9 @@
         max-width: 150px;
         margin-left: 30px;
         margin-right: 10px;
-
+        &Mobile{
+            margin: 0;
+        }
         li {
             margin-bottom: 6px;
             line-height: 15px;
@@ -120,7 +153,9 @@
     @extend .CashbackCard;
     padding-bottom: 33px;
     position: relative;
-    width: 100%;
+    max-width: 365px;
+    width: 90vw;
+    align-self: center;
     overflow: hidden;
 
 
@@ -128,6 +163,8 @@
         @extend .CashbackCardName;
         margin-bottom: 38px;
     }
+
+    
 
     &Image {
         position: absolute;
@@ -197,7 +234,6 @@
 
 
 .CashbackModalDescription {
-   
 
     &Title {
         font-size: 20px;

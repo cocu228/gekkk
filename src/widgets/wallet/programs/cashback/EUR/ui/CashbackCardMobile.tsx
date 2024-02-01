@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import SmsCodeModal from './SmsCodeModal';
 import styles from './style.module.scss';
+import SvgComponent from '@/shared/ui/icons/IconSchema';
 
 interface Props {
   cashbackId: ActiveBonusProgram,
@@ -26,28 +27,29 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
 
   const [isChecked, setChecked] = useState(false);
 
-  const isCashbackCardGKE = cashbackId === ActiveBonusProgram.CASHBACK_GKE;
-
+  const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
+  const toCashbackProgram = cashbackId === ActiveBonusProgram.CASHBACK1;
 
 
   return (
-    <div className='flex mb-5 justify-center'>
+    <div className='flex flex-col pb-10 justify-center'>
       <div 
         className={` ${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
         onClick={showModal}
       >
         <div className='flex'>
-          <div className={styles.CashbackCardMobileName}>
+          <div className={styles.CashbackCardName}>
             {name}
           </div>
 
           <img
-            className={styles.CashbackCardMobileImage}
+            className={styles.CashbackCardImage}
             src={iconPath}
           />
         </div>
-        <div className={styles.CashbackCardMobileAccrualPeriod}>
-          {isActive
+
+        <div className={styles.CashbackCardAccrualPeriod}>
+          {isActive 
             ? (
               <div className="flex items-center">
                 <img
@@ -56,38 +58,29 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
                 />
                 <span> You already use this option</span>
               </div>
-            )
+            ) 
             : accrualPeriod
           }
         </div>
+
+        <div className='mt-[23px]'>
+            <span className={`${styles.CashbackCardCheckbox} ${(isActive || (toNoFeeProgram || toCashbackProgram)) ? 'pl-0' : ''}`}>
+              Bonus payments are a part of a loyalty program, provided by 
+              ADVENTARIUM PTE. LTD. Terms and Conditions can be found here
+            </span> 
+        </div>
+        
       </div>
-      <Modal 
-        onCancel={handleCancel} 
-        open={isModalOpen} 
-        className={modalColor}
-        padding={false}
-      >
-          <div className='flex items-end justify-between mt-6 p-3'>
-            <div className='mb-12'>
-              <div className={styles.CashbackCardMobileName}>
-                {name}
-              </div>
-              <div className={styles.CashbackCardMobileAccrualPeriod}>
-                {accrualPeriod}
-              </div>
-            </div>
-            <img
-              className={styles.CashbackCardMobileModalImage}
-              src={iconPath}  
-            />
-          </div>
-          <div className='flex flex-col justify-between bg-white -mx-4 -mb-4 h-[60vh]'>
-            <div className={styles.CashbackModalDescription}>
-              <div className={styles.CashbackModalDescriptionTitle}>
+
+          
+          <div className='flex flex-col justify-between -mx-4 -mb-4'>
+            <div className={styles.CashbackDescription +" " + styles.CashbackDescriptionMobile}>
+              <div className={styles.CashbackDescriptionTitle +" " + styles.CashbackDescriptionTitleMobile}>
                 Conditions
               </div>
-              <ul className={`list-disc ${styles.CashbackModalDescriptionList}`}>
-              {conditions.map((condition,i) => (
+
+              <ul className={`list-disc ${styles.CashbackDescriptionList+" "+ styles.CashbackDescriptionListMobile} `}>
+                {conditions.map((condition, i) => (
                   <li key={i}>
                     {condition}
                   </li>
@@ -96,58 +89,11 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
             </div>
            
             <div className='mx-[30px]'>
-            {!isActive
-              ? (
-                <Checkbox
-                  className={`bg-white h-[30px] w-[30px] ${isCashbackCardGKE ? 'hidden'  : ''}`}
-                  onChange={() => setChecked(!isChecked)}
-                  disabled={isCashbackCardGKE}
-                >
-                  <span className={`${styles.CashbackModalTerms} ${(isCashbackCardGKE) ? 'pl-0 text-center text-gray-500 tracking-wider text-xs' : ''}`}>
-                    Bonus payments are a part of a loyalty program, provided by
-                    FINTECH ASSETS OÜ. Terms and Conditions can be found here
-                  </span>
-                </Checkbox>
-              )
-              : (
-                <div className="flex flex-col items-center">
-                  <img
-                    className="w-9 h-9 mb-3"
-                    src='/img/cashback/active-cashback.svg'
-                  />
-                  <p className='text-lg mb-4 font-medium'>
-                    This bonus program is on
-                  </p>
-                  <p className='text-gray-500 tracking-wider text-xs text-center'>
-                    Bonus payments are a part of a loyalty program, provided by FINTECH ASSETS OÜ. I Agree with Terms and Conditions provided here
-                    </p>
-                </div>
-              )
-            }
+            
               
-              <Button 
-                className='my-10 w-full uppercase'
-                disabled={!isChecked && !isActive && !isCashbackCardGKE}
-                onClick={isCashbackCardGKE
-                  ? () => navigate('/wallet/GKE/cashback_program')
-                  // : () => showSmsModal()
-                  : () => {}
-
-                }
-                // gray={isActive}
-              >
-                {isCashbackCardGKE
-                  ? 'Go to the program'
-                  : !isActive
-                    ? 'Get it now'
-                    // : 'Deactivate'
-                    : 'Activated'
-
-                }
-              </Button>
+            
             </div>
           </div>
-      </Modal>
       {/* {isSmsModalOpen &&
         <SmsCodeModal
           cashbackId={cashbackId}
@@ -156,6 +102,30 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
           action={!isActive ? 'start' : 'stop'}
         />
       } */}
+      <div className={styles.CashbackCardButton + " " + styles.CashbackCardButtonMobile}>
+          {(toNoFeeProgram || toCashbackProgram) && 
+            <Button
+              program
+              onClick={toNoFeeProgram
+                ? () => navigate('/wallet/GKE/no_fee_program') 
+                // : () => showModal()
+                : () => navigate('/wallet/GKE/cashback_program')
+              } 
+              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
+
+              className={`whitespace-nowrap ${!(toNoFeeProgram || toCashbackProgram) ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
+            >
+              <div className='flex flex-row'>
+                <div className='flex items-center mr-2 ml-2'>
+                  <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.920044 0.347656L5.91641 5.34402L0.920044 10.3404" stroke="#3A5E66"/>
+                  </svg>
+                </div>
+                {(toNoFeeProgram || toCashbackProgram) && 'Go to the program'}
+              </div>
+            </Button>
+          }
+        </div>
     </div>
   )
 })

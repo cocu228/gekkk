@@ -14,7 +14,7 @@ import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
-import EurCashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
+import CashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
 import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
@@ -54,6 +54,7 @@ function Wallet() {
     // const $const = currencies.get(currency)
     const isOnAboutPage = tab === "about"
     const isOnProgramsPage = tab === "programs"
+    const isOnNoFeeProgramPage = tab === "no_fee_program"
     
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
@@ -77,7 +78,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
+                                    <CashbackProgram currency={currency} data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                                     <CardsMenu
                                         data-tag={"bank_cards"}
                                         data-name={t("bank_cards")}
@@ -113,13 +114,15 @@ function Wallet() {
 	                </TabsGroupPrimary> 
 				:
 	                <>
-                        <WalletButtons crypto={isCryptoWallet}>
-                            <TopUpButton wallet/>
-                            <TransfersButton wallet/>
-                            <ExchangeButton wallet/>
-                            {!isCryptoWallet && <ProgramsButton wallet/>}
-                        </WalletButtons>
-                        {!(isOnAboutPage || isOnProgramsPage) &&
+                        {!(isOnProgramsPage ||isOnNoFeeProgramPage) && 
+                            <WalletButtons crypto={isCryptoWallet}>
+                                <TopUpButton wallet/>
+                                <TransfersButton wallet/>
+                                <ExchangeButton wallet/>
+                                {!isCryptoWallet && <ProgramsButton wallet/>}
+                            </WalletButtons>
+                        }
+                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -129,16 +132,19 @@ function Wallet() {
                         {isOnAboutPage &&
                             (
                                 !Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
-                                <About 
-                                    data-tag={"about"} 
-                                    data-name={t("about")}
-                                    description={descriptions[$currency.$const]}
-                                />
+                                    <About 
+                                        data-tag={"about"} 
+                                        data-name={t("about")}
+                                        description={descriptions[$currency.$const]}
+                                    />
                                 )
                             )
                         }
                         {isOnProgramsPage &&
                             <Programs data-tag={"programs"} data-name={t("programs")}/>
+                        }
+                        {isOnNoFeeProgramPage &&
+                            <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }
                     </>
                 }

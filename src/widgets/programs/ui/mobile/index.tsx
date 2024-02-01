@@ -1,4 +1,4 @@
-import EurCashbackProgram from '@/widgets/wallet/programs/cashback/EUR/ui';
+import CashbackProgram from '@/widgets/wallet/programs/cashback/EUR/ui';
 import GkeCashbackProgram from '@/widgets/wallet/programs/cashback/GKE/ui';
 import NoFeeProgram from '@/widgets/wallet/programs/no-fee/ui';
 import React from 'react'
@@ -12,24 +12,7 @@ export default function ProgramsMobile() {
     const isEURG: boolean = currency === 'EURG';
     const isGKE: boolean = currency === 'GKE';
     
-    if(isEUR){
-        return(
-            <>
-                <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-            </>
-        )
-    }else if(isEURG){
-        return(
-            <>
-                <EurCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-            </>
-        )
-    }else{
-        return(
-            <>
-                <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
-            </>
-        )
-    }
+    return (
+        <CashbackProgram currency={currency}/>
+    )
 }

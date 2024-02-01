@@ -40,6 +40,10 @@ const HeaderMobile = ({items, actions}) => {
                 return t("crypto_assets.title")
             case `/profile-settings`:
                 return t("profile_settings")
+            case `/wallet/${currency}/programs`:
+                return t("programs")
+            case `/wallet/${currency}/no_fee_program`:
+                return t("no_fee_program")
             default:
                 return t(`${location.pathname.slice(1)}`)
         }

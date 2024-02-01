@@ -1,15 +1,24 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import styles from "./style.module.scss";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { useTranslation } from 'react-i18next';
+import { getCurrencyRounding, getRoundingValue } from "@/shared/lib/helpers";
+import { apiGetRates } from "@/shared/(orval)api/gek";
+import ETokensConst from "@/shared/config/coins/constants";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
+import { useParams } from "react-router-dom";
 
 
 const WalletHeader = () => {
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
+    const {currencies} = useContext(CtxCurrencies);
+    const {currency} = useParams()
+
+
     const {
         name,
         $const,
@@ -25,6 +34,21 @@ const WalletHeader = () => {
     const isEURG: boolean = $const === 'EURG';
     const isEUR: boolean = $const === 'EUR';
     const isGKE: boolean = $const === 'GKE';
+
+    const [rates, setRates] = useState<Record<ETokensConst, number>>();
+
+    
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
+        })();
+    }, [currency]);
 
     return(
         <>
@@ -43,7 +67,7 @@ const WalletHeader = () => {
                             {name} {t("wallet")}
                         </span>
                         <span className={styles.IsEqualEuro}>
-                            {(!isEUR && availableBalance) && "(" + $const + " = " + (userBalanceEUREqu/availableBalance.toNumber()).toFixed(roundPrec)  + "€)"}
+                            {(!isEUR && availableBalance && rates) && "(" + $const + " = " + getCurrencyRounding(rates[currency])  + "€)"}
                         </span>
                     </div>
                 </div>

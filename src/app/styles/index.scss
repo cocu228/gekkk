@@ -41,9 +41,6 @@ body {
     min-height: 100vh;
     width: 100%;
     background-color: #F7F7F0;
-    @include max-devices(md){
-        touch-action:none;
-    }
 }
 
 *, *::before, *::after {

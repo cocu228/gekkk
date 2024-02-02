@@ -23,3 +23,38 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.Header {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0px;
+  height: 65px;
+  background: var(--new-brand-dark-blue);
+  padding: 0px 25px;
+  z-index: 1;
+
+  &Container {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    align-self: center;
+    margin-left: 2%;
+    box-sizing: border-box;
+  }
+}
+
+.Main {
+  background: var(--new-brand-white);
+  height: calc(100% - 70px);
+  width: 100%;
+  display: flex;
+  overflow: auto;
+}
+
+.ReCapchaContainer {
+  width: 270px;
+  flex: 0 1 auto;
+}

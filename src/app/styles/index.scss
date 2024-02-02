@@ -22,7 +22,6 @@
     -webkit-text-size-adjust: 100%;
     @include max-devices(md){
         user-zoom: fixed;
-        overscroll-behavior: none;
     }
 }
 
@@ -42,7 +41,9 @@ body {
     min-height: 100vh;
     width: 100%;
     background-color: #F7F7F0;
-
+    @include max-devices(md){
+        overscroll-behavior-y: none;
+    }
 }
 
 *, *::before, *::after {

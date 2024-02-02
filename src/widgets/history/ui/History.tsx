@@ -116,7 +116,14 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
             }
     }, [])
 
-    
+    if(md && !listHistory.length){
+        return(
+            <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile +" h-[100px] relative"}>
+                <Loader/>
+            </div>
+        )
+    }
+
     if(md && isWalletPage){
         return(
             <>

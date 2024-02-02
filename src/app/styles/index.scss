@@ -42,7 +42,7 @@ body {
     width: 100%;
     background-color: #F7F7F0;
     @include max-devices(md){
-        overscroll-behavior-y: contain;
+        overscroll-behavior: none;
     }
 }
 

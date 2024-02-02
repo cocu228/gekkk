@@ -2,8 +2,9 @@ import MyWorker from './worker.ts?worker'
 import url from "./index.js?worker&url"
 import {getCookieData} from "@/shared/lib/cookies-helper";
 
-
 const {accountId} = getCookieData<{ accountId?: string }>()
+
+console.log("test")
 
 if (false) {
 

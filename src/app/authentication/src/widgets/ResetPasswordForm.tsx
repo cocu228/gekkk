@@ -7,7 +7,7 @@ export const ResetPasswordForm = () => {
     const [password, setPassword] = useState("")
     const [phone, setPhone] = useState("")
 
-
+    console.log(password)
     const onSubmit = () => {
         const response = apiResetPassword({phone: formatAsNumber(phone)})
         console.log(response)

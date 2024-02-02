@@ -29,9 +29,9 @@ export const RegisterDeviceKey = () => {
             }
         });
 
-        alert(credential)
+        // alert(credential)
 
-        // console.log(window.PublicKeyCredential)
+        console.log(credential)
 
     }
 

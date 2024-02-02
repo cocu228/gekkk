@@ -1,7 +1,8 @@
 import './style.module.css'
-import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
+// import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
 import {ResetPasswordForm} from "../widgets/ResetPasswordForm";
 import {RegisterDeviceKey} from "../widgets/RegisterDeviceKey";
+import {EllipticLoginPasswordForm} from "../widgets/EllipticLoginPasswordForm";
 
 export function Auth() {
 
@@ -46,7 +47,7 @@ export function Auth() {
                         }}>
                             Welcome to Gekkard online bank
                         </h1>
-                        <LoginPasswordForm/>
+                        <EllipticLoginPasswordForm/>
                         <div style={{
                             width: '100%',
                             display: 'flex',

@@ -1,5 +1,5 @@
 import {useState} from "preact/hooks";
-import {apiResetPassword} from "../shared/(orval)api/auth";
+import {apiRegisterOptions, apiResetPassword} from "../shared/(orval)api/auth";
 import {formatAsNumber} from "./model/shared";
 
 export const ResetPasswordForm = () => {
@@ -8,8 +8,19 @@ export const ResetPasswordForm = () => {
     const [phone, setPhone] = useState("")
 
     console.log(password)
+
     const onSubmit = () => {
-        const response = apiResetPassword({phone: formatAsNumber(phone)})
+        const response = apiResetPassword({phone: formatAsNumber(phone)}, {
+            withCredentials: true,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+
+        const res = apiRegisterOptions({code: "123456"})
+
+        console.log(res)
+
         console.log(response)
     }
 

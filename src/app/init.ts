@@ -5,7 +5,7 @@ import {getCookieData} from "@/shared/lib/cookies-helper";
 
 const {accountId} = getCookieData<{ accountId?: string }>()
 
-if (accountId) {
+if (false) {
 
     import('./index')
 

@@ -32,7 +32,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
 
 
   return (
-    <div className='flex flex-col pb-10 justify-center'>
+    <div className='flex flex-col relative pb-20 justify-center'>
       <div 
         className={` ${styles.CashbackCardMobile} ${className} ${isActive && styles.CashbackCardMobileActive}`}
         onClick={showModal}

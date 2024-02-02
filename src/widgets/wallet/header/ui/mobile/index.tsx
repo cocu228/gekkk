@@ -27,6 +27,7 @@ const WalletHeaderMobile = () => {
     const isOnAboutPage = tab === "about"
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"
+    const isOnCashbackProgramPage = tab === "cashback_program"
 
 
     const isEURG: boolean = currency === 'EURG';
@@ -47,7 +48,7 @@ const WalletHeaderMobile = () => {
             setRates(rates);
         })();
     }, [currency]);
-    if(isOnProgramsPage || isOnNoFeeProgramPage){
+    if(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage){
         return <></>
     }
     

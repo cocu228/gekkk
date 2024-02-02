@@ -55,6 +55,7 @@ function Wallet() {
     const isOnAboutPage = tab === "about"
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"
+    const isOnCashbackProgramPage = tab === "cashback_program"
     
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
@@ -78,7 +79,6 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <CashbackProgram currency={currency} data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                                     <CardsMenu
                                         data-tag={"bank_cards"}
                                         data-name={t("bank_cards")}
@@ -93,8 +93,8 @@ function Wallet() {
                                 </>}
 
                                 {$currency.$const === "GKE" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
-                                    <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
+                                    <GkeCashbackProgram/>
+                                    <NoFeeProgram/>
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 </>}
 
@@ -114,7 +114,7 @@ function Wallet() {
 	                </TabsGroupPrimary> 
 				:
 	                <>
-                        {!(isOnProgramsPage ||isOnNoFeeProgramPage) && 
+                        {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons crypto={isCryptoWallet}>
                                 <TopUpButton wallet/>
                                 <TransfersButton wallet/>
@@ -122,7 +122,7 @@ function Wallet() {
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage) &&
+                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -145,6 +145,9 @@ function Wallet() {
                         }
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
+                        }
+                        {isOnCashbackProgramPage &&
+                                    <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                     </>
                 }

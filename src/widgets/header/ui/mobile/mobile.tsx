@@ -30,6 +30,8 @@ const HeaderMobile = ({items, actions}) => {
                 return `${currency} ${t("about")}`
             case `/partnership-program`:
                 return t("partnership_program.title")
+            case `/wallet/GKE/cashback_program`:
+                return t("cashback_program1")
             case `/support`:
                 return t("support.title")
             case `/support/chat`:

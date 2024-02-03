@@ -6,8 +6,7 @@
         { "src": "/img/favicon/favicon-192x192.png", "type": "image/png", "sizes": "192x192" },
         { "src": "/img/favicon/favicon-512x512.png", "type": "image/png", "sizes": "512x512" },
         { "src": "/img/favicon/favicon-1024x1024.png", "type": "image/png", "sizes": "1024x1024" },
-        { "src": "/img/favicon/icon.svg", "type": "image/svg+xml", "sizes": "any" },
-        { "src": "/img/favicon/favicon-1024x1024L.png", "type": "image/png","sizes": "1024x1024", "purpose": "maskable" },
+        { "src": "/img/favicon/icon.svg", "type": "image/svg+xml", "sizes": "any" },        
         { "src": "/img/favicon/iconL.svg", "type": "image/svg+xml","sizes": "any", "purpose": "maskable" }
     ],
     "start_url": "/",

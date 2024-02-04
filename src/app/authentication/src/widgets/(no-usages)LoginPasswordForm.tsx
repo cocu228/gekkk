@@ -1,14 +1,15 @@
 import {useState} from 'preact/hooks'
-import {formatAsNumber} from "./model/shared";
-//@ts-ignore
-import elliptic from 'elliptic'
-import {setAdvCookie} from "./model/shared";
-import {coerceToBase64Url} from "./model/shared";
+import {formatAsNumber, setAdvCookie} from "./model/shared";
 import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
-//@ts-ignore
-import sha256 from "crypto-js/sha256";
 import {apiGetInfo} from "../shared/(orval)api/gek";
+import {sha256} from 'js-sha256';
+import * as nacl from "tweetnacl";
+import * as utilNacl from "tweetnacl-util";
 
+const createSeed = (str1, str2) => {
+    const str = sha256(str1 + str2).toString();
+    return utilNacl.decodeUTF8(str.slice(0, 32))
+}
 
 const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
     cookieData.forEach(({key, value, expiration}) => {
@@ -27,15 +28,15 @@ const setCookieData = (cookieData: { key: string; value: string; expiration?: nu
 };
 
 
-export const EllipticLoginPasswordForm = () => {
+export const NoUsagesLoginPasswordForm = () => {
 
     const [_password, _setPassword] = useState("")
     const [_phone, _setPhone] = useState("")
 
 
     const onFinish = async (e) => {
-        e.preventDefault()
 
+        e.preventDefault()
 
         const phone = formatAsNumber(_phone);
 
@@ -44,27 +45,31 @@ export const EllipticLoginPasswordForm = () => {
                 'Accept': 'application/json',
                 'Access-Control-Allow-Origin': 'origin-list'
             }
-        })
+        });
 
-        const challenge = response.data.result.challenge.replace(/-/g, "+").replace(/_/g, "/");
+        const seed = createSeed(phone, _password);
 
-        const uintChallenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+        console.log(sha256(phone + _password))
 
-        const passKey = sha256(phone + _password + "gekkard.com"); //makeAssertionOptions.fido2_options.rp.id);
+        const keyPair = nacl.sign.keyPair.fromSeed(seed);
+        const challenge = utilNacl.decodeUTF8(response.data.result.challenge);
+        const signature = nacl.sign(challenge, keyPair.secretKey);
 
-        const EdDSA = elliptic.eddsa;
-        const ec = new EdDSA('ed25519');
-        const key = ec.keyFromSecret(passKey.words);
-        const pub = key.getPublic();
-        const signature = key.sign(uintChallenge).toBytes();
+        const verifiedMsg = nacl.sign.open(signature, keyPair.publicKey);
+        console.log(utilNacl.encodeUTF8(verifiedMsg));
 
-        console.log(key.verify(uintChallenge, signature));
+
+        console.log("signature: ");
+        console.log(signature);
+
+        console.log("Public key (encodeBase64):");
+        console.log(utilNacl.encodeBase64(keyPair.publicKey));
 
         const data = {
             challenge_id: response.data.result.challenge_id,
             credential: null,
-            public_key: coerceToBase64Url(pub),
-            signature: coerceToBase64Url(signature)
+            public_key: utilNacl.encodeBase64(keyPair.publicKey),
+            signature: utilNacl.encodeBase64(signature)
         };
 
         try {
@@ -88,7 +93,7 @@ export const EllipticLoginPasswordForm = () => {
                 }
             }
 
-            location.reload();
+            // location.reload();
 
         } catch (e) {
             alert("Request to server failed " + e);

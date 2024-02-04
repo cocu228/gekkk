@@ -1,0 +1,15 @@
+$g: (2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 48);
+
+@each $gap in $g {
+  .gap-#{$gap} {
+    gap: #{$gap}px !important;
+  }
+
+  .gap-x-#{$gap} {
+    column-gap: #{$gap}px !important;
+  }
+
+  .gap-y-#{$gap} {
+    row-gap: #{$gap}px !important;
+  }
+}

@@ -3,25 +3,25 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
- Build version 1.0.2-20240122-1255.5903+dff661a1ef9844ae36d83b0aa1aa317eac259d41<br/><br/>
- Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
- http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
- В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
- Поле <b>id</b> - используется для проброса идентификатора(<b>nonce</b>) запроса в некоторых критичных сценариях для исключения возможных повторов.<br/><br/>
-
+                    Build version 1.0.2-20240202-0902.6046+448a20a6398e9e01512eae689a544e39eaf22356<br/><br/>
+                    Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
+                    http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
+                    В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
+                    Поле <b>id</b> - используется для проброса идентификатора(<b>nonce</b>) запроса в некоторых критичных сценариях для исключения возможных повторов.<br/><br/>
+                    
  * OpenAPI spec version: v1
  */
 import type {
-    ApiResponse,
-    AuthIn,
-    AuthOptionsApiResponse,
-    GetAuthV1CloseSessionsParams,
-    GetAuthV1RegisterOptionsParams,
-    GetAuthV1RemoveKeyParams,
-    GetAuthV1ResetPasswordParams,
-    UserKeyListApiResponse,
-    UserLoginLogListApiResponse,
-    UserSessionListApiResponse
+  ApiResponse,
+  AuthIn,
+  AuthOptionsApiResponse,
+  GetAuthV1CloseSessionsParams,
+  GetAuthV1RegisterOptionsParams,
+  GetAuthV1RemoveKeyParams,
+  GetAuthV1ResetPasswordParams,
+  UserKeyListApiResponse,
+  UserLoginLogListApiResponse,
+  UserSessionListApiResponse
 } from './model'
 import getAuthV1LoginOptionsMutator from '../../lib/(orval)axios';
 import postAuthV1LoginMutator from '../../lib/(orval)axios';
@@ -36,169 +36,164 @@ import getAuthV1SessionsMutator from '../../lib/(orval)axios';
 import getAuthV1ResetPasswordMutator from '../../lib/(orval)axios';
 
 
+
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (
-        config: any,
-        args: infer P,
-    ) => any
-    ? P
-    : never;
+  type SecondParameter<T extends (...args: any) => any> = T extends (
+  config: any,
+  args: infer P,
+) => any
+  ? P
+  : never;
 
 
-/**
- * @summary /// Генерация случайного challenge и создание опций аутентификации FIDO2     ///
+  /**
+ * @summary Генерация случайного challenge и создание опций аутентификации FIDO2
  */
 export const apiLoginOptions = (
-    options?: SecondParameter<typeof getAuthV1LoginOptionsMutator>,) => {
-    return getAuthV1LoginOptionsMutator<AuthOptionsApiResponse>(
-        {
-            url: `/auth/v1/login_options`, method: 'get'
-        },
-        options);
-}
-
+    
+ options?: SecondParameter<typeof getAuthV1LoginOptionsMutator>,) => {
+      return getAuthV1LoginOptionsMutator<AuthOptionsApiResponse>(
+      {url: `/auth/v1/login_options`, method: 'get'
+    },
+      options);
+    }
+  
 /**
- * @summary /// Аутентификация пользователя, создание сеанса     ///
+ * @summary Аутентификация пользователя, создание сеанса
  */
 export const apiLogin = (
     authIn: AuthIn,
-    options?: SecondParameter<typeof postAuthV1LoginMutator>,) => {
-    return postAuthV1LoginMutator<ApiResponse>(
-        {
-            url: `/auth/v1/login`, method: 'post',
-            headers: {'Content-Type': 'application/json',},
-            data: authIn
-        },
-        options);
-}
-
+ options?: SecondParameter<typeof postAuthV1LoginMutator>,) => {
+      return postAuthV1LoginMutator<ApiResponse>(
+      {url: `/auth/v1/login`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: authIn
+    },
+      options);
+    }
+  
 /**
- * @summary ///  100 последних операций входа пользователя     ///
+ * @summary 100 последних операций входа пользователя
  */
 export const apiLoginLog = (
-    options?: SecondParameter<typeof getAuthV1LoginLogMutator>,) => {
-    return getAuthV1LoginLogMutator<UserLoginLogListApiResponse>(
-        {
-            url: `/auth/v1/login_log`, method: 'get'
-        },
-        options);
-}
-
+    
+ options?: SecondParameter<typeof getAuthV1LoginLogMutator>,) => {
+      return getAuthV1LoginLogMutator<UserLoginLogListApiResponse>(
+      {url: `/auth/v1/login_log`, method: 'get'
+    },
+      options);
+    }
+  
 /**
- * @summary /// Завершение текущего сеанса пользователя     ///
+ * @summary Завершение текущего сеанса пользователя
  */
 export const apiLogout = (
-    options?: SecondParameter<typeof getAuthV1LogoutMutator>,) => {
-    return getAuthV1LogoutMutator<ApiResponse>(
-        {
-            url: `/auth/v1/logout`, method: 'get'
-        },
-        options);
-}
-
+    
+ options?: SecondParameter<typeof getAuthV1LogoutMutator>,) => {
+      return getAuthV1LogoutMutator<ApiResponse>(
+      {url: `/auth/v1/logout`, method: 'get'
+    },
+      options);
+    }
+  
 /**
- * @summary /// Завершение сеанса пользователя или всех, кроме текущего, если не задан id     ///
+ * @summary Завершение сеанса пользователя или всех, кроме текущего, если не задан id
  */
 export const apiCloseSessions = (
     params?: GetAuthV1CloseSessionsParams,
-    options?: SecondParameter<typeof getAuthV1CloseSessionsMutator>,) => {
-    return getAuthV1CloseSessionsMutator<ApiResponse>(
-        {
-            url: `/auth/v1/close_sessions`, method: 'get',
-            params
-        },
-        options);
-}
-
+ options?: SecondParameter<typeof getAuthV1CloseSessionsMutator>,) => {
+      return getAuthV1CloseSessionsMutator<ApiResponse>(
+      {url: `/auth/v1/close_sessions`, method: 'get',
+        params
+    },
+      options);
+    }
+  
 /**
- * @summary /// Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения     ///
+ * @summary Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения
  */
 export const apiRegisterOptions = (
     params?: GetAuthV1RegisterOptionsParams,
-    options?: SecondParameter<typeof getAuthV1RegisterOptionsMutator>,) => {
-    return getAuthV1RegisterOptionsMutator<AuthOptionsApiResponse>(
-        {
-            url: `/auth/v1/register_options`, method: 'get',
-            params
-        },
-        options);
-}
-
+ options?: SecondParameter<typeof getAuthV1RegisterOptionsMutator>,) => {
+      return getAuthV1RegisterOptionsMutator<AuthOptionsApiResponse>(
+      {url: `/auth/v1/register_options`, method: 'get',
+        params
+    },
+      options);
+    }
+  
 /**
- * @summary /// Регистрация нового ключа устройства или пароля     ///
+ * @summary Регистрация нового ключа устройства или пароля
  */
 export const apiRegisterKey = (
     authIn: AuthIn,
-    options?: SecondParameter<typeof postAuthV1RegisterKeyMutator>,) => {
-    return postAuthV1RegisterKeyMutator<ApiResponse>(
-        {
-            url: `/auth/v1/register_key`, method: 'post',
-            headers: {'Content-Type': 'application/json',},
-            data: authIn
-        },
-        options);
-}
-
+ options?: SecondParameter<typeof postAuthV1RegisterKeyMutator>,) => {
+      return postAuthV1RegisterKeyMutator<ApiResponse>(
+      {url: `/auth/v1/register_key`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: authIn
+    },
+      options);
+    }
+  
 /**
- * @summary /// Удаление зарегистрированного ключа устройства     ///
+ * @summary Удаление зарегистрированного ключа устройства
  */
 export const apiRemoveKey = (
     params?: GetAuthV1RemoveKeyParams,
-    options?: SecondParameter<typeof getAuthV1RemoveKeyMutator>,) => {
-    return getAuthV1RemoveKeyMutator<ApiResponse>(
-        {
-            url: `/auth/v1/remove_key`, method: 'get',
-            params
-        },
-        options);
-}
-
+ options?: SecondParameter<typeof getAuthV1RemoveKeyMutator>,) => {
+      return getAuthV1RemoveKeyMutator<ApiResponse>(
+      {url: `/auth/v1/remove_key`, method: 'get',
+        params
+    },
+      options);
+    }
+  
 /**
- * @summary /// Список зарегистрированных ключей входа     ///
+ * @summary Список зарегистрированных ключей входа
  */
 export const apiUserKeys = (
-    options?: SecondParameter<typeof getAuthV1UserKeysMutator>,) => {
-    return getAuthV1UserKeysMutator<UserKeyListApiResponse>(
-        {
-            url: `/auth/v1/user_keys`, method: 'get'
-        },
-        options);
-}
-
+    
+ options?: SecondParameter<typeof getAuthV1UserKeysMutator>,) => {
+      return getAuthV1UserKeysMutator<UserKeyListApiResponse>(
+      {url: `/auth/v1/user_keys`, method: 'get'
+    },
+      options);
+    }
+  
 /**
- * @summary /// Список активных сеансов     ///
+ * @summary Список активных сеансов
  */
 export const apiSessions = (
-    options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
-    return getAuthV1SessionsMutator<UserSessionListApiResponse>(
-        {
-            url: `/auth/v1/sessions`, method: 'get'
-        },
-        options);
-}
-
+    
+ options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
+      return getAuthV1SessionsMutator<UserSessionListApiResponse>(
+      {url: `/auth/v1/sessions`, method: 'get'
+    },
+      options);
+    }
+  
 /**
- * @summary /// Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту     ///
+ * @summary Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту
  */
 export const apiResetPassword = (
     params?: GetAuthV1ResetPasswordParams,
-    options?: SecondParameter<typeof getAuthV1ResetPasswordMutator>,) => {
-    return getAuthV1ResetPasswordMutator<ApiResponse>(
-        {
-            url: `/auth/v1/reset_password`, method: 'get',
-            params
-        },
-        options);
-}
-
-// export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
-// export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
-// export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
-// export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
-// export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
-// export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
-// export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
-// export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
-// export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
-// export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
-// export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>
+ options?: SecondParameter<typeof getAuthV1ResetPasswordMutator>,) => {
+      return getAuthV1ResetPasswordMutator<ApiResponse>(
+      {url: `/auth/v1/reset_password`, method: 'get',
+        params
+    },
+      options);
+    }
+  
+export type ApiLoginOptionsResult = NonNullable<Awaited<ReturnType<typeof apiLoginOptions>>>
+export type ApiLoginResult = NonNullable<Awaited<ReturnType<typeof apiLogin>>>
+export type ApiLoginLogResult = NonNullable<Awaited<ReturnType<typeof apiLoginLog>>>
+export type ApiLogoutResult = NonNullable<Awaited<ReturnType<typeof apiLogout>>>
+export type ApiCloseSessionsResult = NonNullable<Awaited<ReturnType<typeof apiCloseSessions>>>
+export type ApiRegisterOptionsResult = NonNullable<Awaited<ReturnType<typeof apiRegisterOptions>>>
+export type ApiRegisterKeyResult = NonNullable<Awaited<ReturnType<typeof apiRegisterKey>>>
+export type ApiRemoveKeyResult = NonNullable<Awaited<ReturnType<typeof apiRemoveKey>>>
+export type ApiUserKeysResult = NonNullable<Awaited<ReturnType<typeof apiUserKeys>>>
+export type ApiSessionsResult = NonNullable<Awaited<ReturnType<typeof apiSessions>>>
+export type ApiResetPasswordResult = NonNullable<Awaited<ReturnType<typeof apiResetPassword>>>

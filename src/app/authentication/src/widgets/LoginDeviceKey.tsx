@@ -1,0 +1,97 @@
+import {coerceToBase64Url} from "../shared/lib/helpers";
+import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
+
+
+const fServerRequest = async (credential: any, challengeId: number) => {
+
+    const authData = new Uint8Array(credential.response.authenticatorData),
+        clientDataJSON = new Uint8Array(credential.response.clientDataJSON),
+        rawId = new Uint8Array(credential.rawId),
+        sig = new Uint8Array(credential.response.signature),
+        userHandle = new Uint8Array(credential.response.userHandle)
+
+    const data = {
+        challenge_id: challengeId,
+        credential:
+            {
+                id: credential.id,
+                rawId: coerceToBase64Url(rawId),
+                type: credential.type,
+                extensions: credential.getClientExtensionResults(),
+                response: {
+                    authenticatorData: coerceToBase64Url(authData),
+                    clientDataJSON: coerceToBase64Url(clientDataJSON),
+                    userHandle: userHandle !== null ? coerceToBase64Url(userHandle) : null,
+                    signature: coerceToBase64Url(sig)
+                }
+            }
+    };
+
+    const response = await apiLogin(data)
+
+    if (response.data.result === 'Success') {
+        alert('Success')
+    } else {
+        alert("Bad request, look at devtools network")
+    }
+
+}
+
+
+export const LoginDeviceKey = () => {
+
+    // console.log(window.PasswordCredential)
+    // console.log(window.FederatedCredential)
+
+    const onRegister = async () => {
+        const response = await apiLoginOptions({
+            headers: {
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': 'origin-list'
+            }
+        })
+
+
+        console.log(response.data.result?.challenge_id)
+
+        if (response.data.result?.challenge_id) {
+
+            const challenge = response.data.result.challenge
+                .replace(/-/g, "+")
+                .replace(/_/g, "/")
+
+            const challengeUint8 = Uint8Array.from(atob(challenge), c => c.charCodeAt(0))
+
+            try {
+                const credentials = await navigator.credentials.get({
+                    //@ts-ignore
+                    publicKey: {
+                        ...response.data.result,
+                        challenge: challengeUint8
+                    }
+                })
+
+                await fServerRequest(credentials, response.data.result.challenge_id)
+
+            } catch (err) {
+                alert(err)
+            }
+
+
+        }
+    }
+
+    return <>
+        <div className="px-24 py-24" style={{width: "400px", borderRadius: "12px", border: "1px solid #000000"}}>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                        onClick={onRegister}>
+                        Login Device Key
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </>
+}

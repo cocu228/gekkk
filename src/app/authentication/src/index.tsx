@@ -1,7 +1,8 @@
 import {render} from 'preact'
-import {Auth} from './pages/Auth'
-import './index.css'
+// import {Auth} from './pages/Auth'
+import './app/styles/flexboxgrid.min.css'
+import './app/styles/index.scss'
+import {_Auth} from "./pages/_Auth";
 
 
-
-render(<Auth/>, document.getElementById('root')!)
+render(<_Auth/>, document.getElementById('root')!)

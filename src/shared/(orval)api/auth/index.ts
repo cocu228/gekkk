@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker gate API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange. Gate.<br/>
-                    Build version 1.0.2-20240122-1255.5903+dff661a1ef9844ae36d83b0aa1aa317eac259d41<br/><br/>
+                    Build version 1.0.2-20240202-0902.6046+448a20a6398e9e01512eae689a544e39eaf22356<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -47,7 +47,7 @@ import getAuthV1ResetPasswordMutator from '../../lib/(orval)axios';
 
 
   /**
- * @summary /// Генерация случайного challenge и создание опций аутентификации FIDO2     ///
+ * @summary Генерация случайного challenge и создание опций аутентификации FIDO2
  */
 export const apiLoginOptions = (
     
@@ -59,7 +59,7 @@ export const apiLoginOptions = (
     }
   
 /**
- * @summary /// Аутентификация пользователя, создание сеанса     ///
+ * @summary Аутентификация пользователя, создание сеанса
  */
 export const apiLogin = (
     authIn: AuthIn,
@@ -73,7 +73,7 @@ export const apiLogin = (
     }
   
 /**
- * @summary ///  100 последних операций входа пользователя     ///
+ * @summary 100 последних операций входа пользователя
  */
 export const apiLoginLog = (
     
@@ -85,7 +85,7 @@ export const apiLoginLog = (
     }
   
 /**
- * @summary /// Завершение текущего сеанса пользователя     ///
+ * @summary Завершение текущего сеанса пользователя
  */
 export const apiLogout = (
     
@@ -97,7 +97,7 @@ export const apiLogout = (
     }
   
 /**
- * @summary /// Завершение сеанса пользователя или всех, кроме текущего, если не задан id     ///
+ * @summary Завершение сеанса пользователя или всех, кроме текущего, если не задан id
  */
 export const apiCloseSessions = (
     params?: GetAuthV1CloseSessionsParams,
@@ -110,7 +110,7 @@ export const apiCloseSessions = (
     }
   
 /**
- * @summary /// Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения     ///
+ * @summary Инициализирует добавление нового ключа аутентификации - выдает challenge и высылает код смс для подтверждения
  */
 export const apiRegisterOptions = (
     params?: GetAuthV1RegisterOptionsParams,
@@ -123,7 +123,7 @@ export const apiRegisterOptions = (
     }
   
 /**
- * @summary /// Регистрация нового ключа устройства или пароля     ///
+ * @summary Регистрация нового ключа устройства или пароля
  */
 export const apiRegisterKey = (
     authIn: AuthIn,
@@ -137,7 +137,7 @@ export const apiRegisterKey = (
     }
   
 /**
- * @summary /// Удаление зарегистрированного ключа устройства     ///
+ * @summary Удаление зарегистрированного ключа устройства
  */
 export const apiRemoveKey = (
     params?: GetAuthV1RemoveKeyParams,
@@ -150,7 +150,7 @@ export const apiRemoveKey = (
     }
   
 /**
- * @summary /// Список зарегистрированных ключей входа     ///
+ * @summary Список зарегистрированных ключей входа
  */
 export const apiUserKeys = (
     
@@ -162,7 +162,7 @@ export const apiUserKeys = (
     }
   
 /**
- * @summary /// Список активных сеансов     ///
+ * @summary Список активных сеансов
  */
 export const apiSessions = (
     
@@ -174,7 +174,7 @@ export const apiSessions = (
     }
   
 /**
- * @summary /// Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту     ///
+ * @summary Инициализирует установку или сброс пароля, высылает ссылку-код на электронную почту
  */
 export const apiResetPassword = (
     params?: GetAuthV1ResetPasswordParams,

@@ -30,7 +30,7 @@ export default defineConfig({
 	},
 	gate: {
 		input: {
-			target: './gate-swagger.json',
+			target: './public/gate-swagger.json',
 		},
 		output: {
 			client: 'axios-functions',

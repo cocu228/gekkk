@@ -1,6 +1,6 @@
-import { NavLink, useMatch, useParams } from "react-router-dom"
+import { NavLink, useMatch } from "react-router-dom"
 import styles from "../styles.module.scss"
-import { memo, useContext, useEffect } from "react"
+import { memo, useContext } from "react"
 import { CtxCurrencies } from "@/processes/CurrenciesContext"
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context"
 

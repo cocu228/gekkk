@@ -6,6 +6,7 @@
 
 @import "(cs)react-international-phone.scss";
 
+
 :root {
     line-height: 1.5;
     font-weight: 400;
@@ -19,6 +20,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+    @include max-devices(md){
+        user-zoom: fixed;
+    }
 }
 
 a {
@@ -36,8 +40,10 @@ body {
     min-width: 320px;
     min-height: 100vh;
     width: 100%;
-
     background-color: #F7F7F0;
+    @include max-devices(md){
+        overscroll-behavior-y: none;
+    }
 }
 
 *, *::before, *::after {

@@ -131,6 +131,9 @@
     "apply_code": "Apply code",
     "funds_transfer_code": "Funds transfer code",
     "create_special_code": "Create a special code with which you can transfer funds between Gekkoin users with or without your confirmation.",
+    "fee_free": "Fee-free",
+    "universal_transfer_description": "transfers to Gekkard users by",
+    "phone_number_or_IBAN": "phone number or IBAN",
     "enter_top_up_code": "Enter top up code",
     "transfer_code_info": "Transfer code info",
     "code_applied_successfully": "The code applied successfully",
@@ -164,6 +167,7 @@
     "set_limit": "Set {{period}} limit",
     "confirm_action": "Confirm action",
     "cashback_program": "Programs",
+    "cashback_program1": "Cashback Program",
     "wallet_balance": "Wallet balance",
     "account": "Account",
     "locked_in": "Locked in",
@@ -556,6 +560,7 @@
     "back_to_main_page": "Back to main page",
     "you_will_be_automatically_redirected_to_the_main_page_in": "You will be automatically redirected to the main page in",
     "identification_status_message": "We have accepted your Application for services by setting up an Account for you and issuing Virtual Gekkard. You can make payment transactions from or to Account and use Virtual Gekkard for online purchuses.",
-    "balance": "Balance"
+    "balance": "Balance",
+    "programs": "Programs"
   }
 }

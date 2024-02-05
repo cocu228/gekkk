@@ -159,6 +159,7 @@
       "set_limit": "Setze das {{period}} Limit",
       "confirm_action": "Aktion bestätigen",
       "cashback_program": "Cashback-Programm",
+      "cashback_program1": "Cashback-Programm",
       "wallet_balance": "Wallet-Guthaben",
       "account": "Konto",
       "locked_in": "Eingeschlossen",
@@ -324,7 +325,8 @@
       "thank_you_for_rating": "Vielen Dank für Ihre Bewertung",
       "balance": "Bilanz",
       "to_find_answers_to_common_questions_open_the_faq": "Um Antworten auf häufig gestellte Fragen zu finden, öffnen Sie die FAQ.",
-      "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Um Rat von unserem Bank-Support-Service zu erhalten, öffnen Sie den Chat."
+      "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Um Rat von unserem Bank-Support-Service zu erhalten, öffnen Sie den Chat.",
+      "programs": "Programme"
 
   }
 }

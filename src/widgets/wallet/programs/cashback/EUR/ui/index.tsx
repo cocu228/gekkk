@@ -6,10 +6,12 @@ import Loader from '@/shared/ui/loader';
 import { dealsData } from '../model/deals-data';
 // import { dealsSelector } from '@/shared/store/deals/selectors';
 
+interface IParams{
+    currency:string
+}
 
-
-const EurCashbackProgram = () => {
-    const { sm } = useContext(BreakpointsContext);
+const CashbackProgram = ({currency}:IParams) => {
+    const { md } = useContext(BreakpointsContext);
 
     // const getDeals = storeDeals(state => state.getDeals);
     // const dealsDataSelector = dealsSelector();
@@ -23,11 +25,11 @@ const EurCashbackProgram = () => {
     return (
         <>
             <div className='grid grid-cols-1 justify-center'>
-                {dealsData.length 
-                    ? dealsData.map(cashback => {
+                {dealsData[currency].length 
+                    ? dealsData[currency].map(cashback => {
                         const { id, name, accrualPeriod, className, mobileModalColor, iconPath, conditions, isActive } = cashback;
 
-                        return !sm
+                        return !md
                         ? (
                             <CashbackCard
                                 key={id}
@@ -62,4 +64,4 @@ const EurCashbackProgram = () => {
     );
 };
 
-export default EurCashbackProgram;
+export default CashbackProgram;

@@ -49,7 +49,7 @@ const WithdrawFormPhoneNumber = () => {
             
             return inputs[i].length > 0;
         }))
-    }, [inputs]);
+    }, [inputs, inputCurr.value]);
     
     const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));

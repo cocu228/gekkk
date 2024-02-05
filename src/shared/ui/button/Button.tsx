@@ -9,6 +9,7 @@ interface Props {
     disabled: boolean;
     text: boolean;
     custom: boolean;
+    program: boolean;
     gray: boolean;
     darkBlue: boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
@@ -25,6 +26,7 @@ const Button = memo<Partial<Props>>(
          htmlType = "button",
          className,
          size,
+         program = false,
          gray = false,
          darkBlue = false,
          custom = false,
@@ -37,6 +39,7 @@ const Button = memo<Partial<Props>>(
                 .while(gray).do("Gray")
                 .while(text).do("Text")
                 .while(darkBlue).do("darkBlue")
+                .while(program).do("Program")
                 .scss(custom ? "" : "Button")}
                     type={htmlType}
                     {...props}

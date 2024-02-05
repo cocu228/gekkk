@@ -1,8 +1,4 @@
 @import "@styles/mixins";
-@font-face {
-  font-family: Azeret;
-  src: url(../../../../../../public/fonts/Azeret/AzeretMono-VariableFont_wght.ttf);
-}
 
 .TableHead {
   background-color: #E7E7E7;
@@ -81,6 +77,7 @@
 }
 .InfoMobile{
   display: flex;
+  position: relative;
   height: 53.5px;
   justify-content: space-between;
   align-items: center;
@@ -148,7 +145,7 @@
 .AmountMobile{
   color: #972235;
   text-align: right;
-  font-family: Azeret;
+  font-family: "Azeret Mono";
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -156,7 +153,7 @@
 }.IncomeMobile{
   color: #2BAB72;
   text-align: right;
-  font-family: Azeret;
+  font-family: "Azeret Mono";
   font-size: 12px;
   font-style: normal;
   font-weight: 500;

@@ -30,6 +30,8 @@ const HeaderMobile = ({items, actions}) => {
                 return `${currency} ${t("about")}`
             case `/partnership-program`:
                 return t("partnership_program.title")
+            case `/wallet/GKE/cashback_program`:
+                return t("cashback_program1")
             case `/support`:
                 return t("support.title")
             case `/support/chat`:
@@ -40,6 +42,10 @@ const HeaderMobile = ({items, actions}) => {
                 return t("crypto_assets.title")
             case `/profile-settings`:
                 return t("profile_settings")
+            case `/wallet/${currency}/programs`:
+                return t("programs")
+            case `/wallet/${currency}/no_fee_program`:
+                return t("no_fee_program")
             default:
                 return t(`${location.pathname.slice(1)}`)
         }

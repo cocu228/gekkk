@@ -19,6 +19,7 @@ import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
+import { log } from 'console';
 
 const { RangePicker } = DatePicker;
 
@@ -36,13 +37,13 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         [dayjs(startOfMonth(new Date())), dayjs()]
     )
     const {md} = useContext(BreakpointsContext); 
-    const {currency} = useParams()
-    
-    
-    const walletPage = useMatch(`wallet/${currency}`)   
+    const {currency, tab} = useParams()
+        
+    const walletPage = currency || tab  
     const isWalletPage = !!walletPage
     
 
+    
     const requestHistory = async (cancelToken = null) => {
         setLoading(true);
         setAllTxVisibly(false);
@@ -69,8 +70,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         setLoading(false);
     }
 
-    const requestMoreHistory = async () => {
-
+    const requestMoreHistory = async () => {  
         setLazyLoading(true)
 
         const lastValue = listHistory[listHistory.length - 1];
@@ -103,20 +103,27 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     }, [refreshKey, activeTab, currenciesFilter]);
 
 
-    const scrollHandler = (e) => {
+    const scrollHandler = (e) => {                
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
             requestMoreHistory()
         }
     }
     useEffect(()=>{
-        document.addEventListener("scroll", scrollHandler)
-        return function (){
+        md &&
             document.addEventListener("scroll", scrollHandler)
-        }
-        
+            return function (){
+                document.removeEventListener("scroll", scrollHandler)
+            }
     }, [])
 
-    
+    if(md && !listHistory.length){
+        return(
+            <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile +" h-[100px] relative"}>
+                <Loader/>
+            </div>
+        )
+    }
+
     if(md && isWalletPage){
         return(
             <>
@@ -131,27 +138,29 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                         {formatForHistoryMobile(item.datetime)}
                                     </div>
                                     <div className={styles.InfoMobile}>
-                                        <div className={styles.TransactionMobile}>
-                                            <span className={styles.TypeOfTransactionMobile}>
-                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                            </span>
-                                            <span className={styles.DescriptionOfTransactionMobile}>
-                                                {item.tag?item.tag:"..."}
-                                            </span>
-                                        </div>
-                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                            <span className={styles.StatusMobile}>
-                                                {item.status_text}
-                                            </span>
-                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                            </span>
-                                        </div>
-                                        <div className={styles.ArrowBtnMobile}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                            </svg>
-                                        </div>
+                                        <TransactionInfo infoList={item}>
+                                            <div className={styles.TransactionMobile}>
+                                                <span className={styles.TypeOfTransactionMobile}>
+                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                                </span>
+                                                <span className={styles.DescriptionOfTransactionMobile}>
+                                                    {item.tag?item.tag:"..."}
+                                                </span>
+                                            </div>
+                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                <span className={styles.StatusMobile}>
+                                                    {item.status_text}
+                                                </span>
+                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                </span>
+                                            </div>
+                                            <div className={styles.ArrowBtnMobile}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                </svg>
+                                            </div>
+                                        </TransactionInfo>
                                     </div>
                                 </>
                             )
@@ -162,27 +171,29 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                         {formatForHistoryMobile(item.datetime)}
                                     </div>
                                     <div className={styles.InfoMobile}>
-                                        <div className={styles.TransactionMobile}>
-                                            <span className={styles.TypeOfTransactionMobile}>
-                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                            </span>
-                                            <span className={styles.DescriptionOfTransactionMobile}>
-                                                {item.tag?item.tag:"..."}
-                                            </span>
-                                        </div>
-                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                            <span className={styles.StatusMobile}>
-                                                {item.status_text}
-                                            </span>
-                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                            </span>
-                                        </div>
-                                        <div className={styles.ArrowBtnMobile}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                            </svg>
-                                        </div>
+                                        <TransactionInfo infoList={item}>
+                                            <div className={styles.TransactionMobile}>
+                                                <span className={styles.TypeOfTransactionMobile}>
+                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                                </span>
+                                                <span className={styles.DescriptionOfTransactionMobile}>
+                                                    {item.tag?item.tag:"..."}
+                                                </span>
+                                            </div>
+                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                <span className={styles.StatusMobile}>
+                                                    {item.status_text}
+                                                </span>
+                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                </span>
+                                            </div>
+                                            <div className={styles.ArrowBtnMobile}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                </svg>
+                                            </div>
+                                        </TransactionInfo>
                                     </div>
                                 </>
                             )
@@ -190,27 +201,29 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                             return(
                                 <>
                                     <div className={styles.InfoMobile}>
-                                        <div className={styles.TransactionMobile}>
-                                            <span className={styles.TypeOfTransactionMobile}>
-                                                {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                            </span>
-                                            <span className={styles.DescriptionOfTransactionMobile}>
-                                                {item.tag?item.tag:"..."}
-                                            </span>
-                                        </div>
-                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                            <span className={styles.StatusMobile}>
-                                                {item.status_text}
-                                            </span>
-                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                            </span>
-                                        </div>
-                                        <div className={styles.ArrowBtnMobile}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                            </svg>
-                                        </div>
+                                        <TransactionInfo infoList={item}>
+                                            <div className={styles.TransactionMobile}>
+                                                <span className={styles.TypeOfTransactionMobile}>
+                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
+                                                </span>
+                                                <span className={styles.DescriptionOfTransactionMobile}>
+                                                    {item.tag?item.tag:"..."}
+                                                </span>
+                                            </div>
+                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                <span className={styles.StatusMobile}>
+                                                    {item.status_text}
+                                                </span>
+                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                </span>
+                                            </div>
+                                            <div className={styles.ArrowBtnMobile}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                </svg>
+                                            </div>
+                                        </TransactionInfo>
                                     </div>
                                 </>
                             )

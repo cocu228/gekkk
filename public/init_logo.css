@@ -12,25 +12,47 @@
 }
 
 .svg-layer {
-    position: absolute;
-    max-width: 600px;
-    max-height: 600px;
-    width: 70%;
+    /* position: absolute; */    
+    max-height: 400px;     
+    width: 80%; 
+}
+#logoIcon
+{
+    stroke-width: 0.5%; 
+    stroke: #2BB67355;
+    animation: logoCircle 3s ease forwards;
 }
 
-.logoTxt {
+@keyframes logoCircle {
+    from {
+        stroke-dashoffset: 600;
+        stroke-dasharray: 2;
+    }
 
-    fill: #F7F7F000;
+    90% {
+        stroke-dashoffset: 0;
+        stroke-dasharray: 2;
+        stroke-width: 0.5%;
+        transform: translate(0,0);
+    }
+
+    to {
+        transform: translate(-5%,0);
+        stroke-width: 0%;
+    }
+}
+
+#logoTxt { 
     animation: txtAnim 3S ease forwards;
 }
 
 @keyframes txtAnim {
-    90% {
-        margin-left: 0%;
+    90% {        
+        transform: translate(0,0);
     }
 
     to {
-        margin-left: 10%;
+        transform: translate(8%,0);       
     }
 }
 
@@ -40,9 +62,9 @@
 #pA,
 #pR,
 #pD {
-    stroke: #2BB67322;
+    stroke: #2BB673;
     stroke-width: 0%;
-    stroke-dasharray: 80;
+    stroke-dasharray: 850;
 }
 
 #pG {
@@ -76,15 +98,21 @@
 @keyframes logoLetter {
     from {
         stroke-width: 0.5%;
-        stroke-dashoffset: 80;
+        stroke-dashoffset: 850;
     }
 
-    50% {
-        fill: #2BB673;
+    60% {
+        
+        fill: #2BB67388;
+    }
+    80%
+    {
+        stroke-dashoffset: 0;
+        stroke-width: 0.5%;
     }
 
     to {
-        stroke-dashoffset: 0;
+        stroke-width: 0%;
         fill: #29354C;
     }
 }
@@ -100,35 +128,10 @@
     animation-name: none;
 }
 
-.logoIcon {
-    transition: transform 0.3s ease-in-out;
-    stroke-width: 0.5%;
-    stroke: #2BB67355;
-    animation: logoCircle 3s ease forwards;
-}
-
-@keyframes logoCircle {
-    from {
-        stroke-dashoffset: 60;
-        stroke-dasharray: 2;
-    }
-
-    90% {
-        stroke-dashoffset: 0;
-        stroke-dasharray: 2;
-        stroke-width: 0.5%;
-        margin-left: 0%;
-    }
-
-    to {
-        margin-left: -8%;
-        stroke-width: 0%;
-    }
-}
 
 #logoPath {
     fill: #2BB67322;
-    stroke-dasharray: 280;
+    stroke-dasharray: 3300;
     stroke: url(#p_linear);
     transition: fill 0.3s ease;
     animation: logoIconLine 2s ease forwards;
@@ -136,7 +139,7 @@
 
 @keyframes logoIconLine {
     from {
-        stroke-dashoffset: 280;
+        stroke-dashoffset: 3300;
         fill: #2BB67311;
     }
 
@@ -163,7 +166,7 @@
 
 @keyframes logoIconLine2 {
     from {
-        stroke-dashoffset: 560;
+        stroke-dashoffset: 6600;
     }
 
     to {
@@ -171,18 +174,20 @@
     }
 }
 
-.gCircle {
+.gC {
     fill: #00000000;
+    stroke-dasharray: 20;
 }
 
-.gCircle:hover {
-    stroke-dasharray: 5;
+.gC:hover {
+    stroke-dasharray: 50;
     animation: hexagonAnim 1s linear infinite;
-    stroke-width: 1%;
+    stroke-width: 0.5%;
 }
 
-.gCircle2 {
+.gC2 {
     fill: #2BB67355;
+    stroke-dasharray: 20;
     animation: gCircle2Anim 2s ease forwards;
 }
 
@@ -193,10 +198,11 @@
 }
 
 .hexagon {
-    stroke-dasharray: 50;
-    stroke-width: 1.5%;
+    stroke-dasharray: 600;
+    stroke-width: 1%;
+    stroke-linejoin: round;    
     fill: none;
-    stroke: #2BB67355;
+    stroke: url(#p_linear);
     animation: hexagonAnim 1.5s ease infinite, hexagonAnim2 3S forwards;
 }
 
@@ -208,10 +214,10 @@
 
 @keyframes hexagonAnim {
     from {
-        stroke-dashoffset: 100;
+        stroke-dashoffset: 1600;
     }
 
     to {
-        stroke-dashoffset: 0;
+        stroke-dashoffset: 400;
     }
 }

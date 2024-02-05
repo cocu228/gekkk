@@ -81,7 +81,7 @@ const SidebarMobile = () => {
         secondaryWallets = Array.from(currencies.values());
     }
 
-    const initLoading = () => {        
+    const initLoading = () => {
         refreshCont.current?.classList.add(styles.Loading);
         setRefresh()
         setIsRefreshingFunds(true)
@@ -93,7 +93,7 @@ const SidebarMobile = () => {
     function endPull() {
         setStartPoint(0);
         setPullChange(0);
-        if (pullChange > 220) initLoading();
+        if (pullChange > 220) initLoading();  
     }
 
     useEffect(() => {        

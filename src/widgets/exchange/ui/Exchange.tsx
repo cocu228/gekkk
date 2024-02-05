@@ -174,10 +174,7 @@ function Exchange() {
         onRoomClosing(roomInfo.timetick);
         navigate('/exchange');
     }
-
     
-
-
     return !roomsList ? <Loader/> : (
         <div className="wrapper">
             <PageHead
@@ -194,7 +191,7 @@ function Exchange() {
 
             <SplitGrid
                 leftColumn={
-                    <div className="py-10 px-16 xl:py-5 xl:px-10 lg:px-5 md:px-4">
+                    <div className="py-5 px-10 lg:px-5 md:px-4">
                         <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
                                 <InputCurrency.CurrencySelector

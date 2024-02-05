@@ -17,7 +17,7 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
-import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
+import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
 import CreateTransferCode from "./forms/create-transfer-code";
 
 const Withdraw = memo(() => {
@@ -59,6 +59,8 @@ const Withdraw = memo(() => {
                 return <WithdrawFormBroker/>;
             case 155:
                 return <WithdrawFormPhoneNumber/>;
+            case 230:
+                return <UniversalTransferForm/>;
             case 231:
                 return <CreateTransferCode/>;
             default:

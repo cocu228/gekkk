@@ -1,9 +1,13 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import styles from "./style.module.scss";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import { useTranslation } from 'react-i18next';
-import { NavLink, useMatch } from "react-router-dom";
+import { NavLink, useMatch, useParams } from "react-router-dom";
+import { getCurrencyRounding } from "@/shared/lib/helpers";
+import ETokensConst from "@/shared/config/coins/constants";
+import { apiGetRates } from "@/shared/(orval)api/gek";
+
 
 
 const WalletHeaderMobile = () => {
@@ -19,13 +23,35 @@ const WalletHeaderMobile = () => {
         userBalanceEUREqu
     } = useContext(CtxWalletData);
     
-    const aboutPage = useMatch(`wallet/${$const}/about`)
-    const isOnAboutPage = !!aboutPage
+    const {currency, tab} = useParams()
+    const isOnAboutPage = tab === "about"
+    const isOnProgramsPage = tab === "programs"
+    const isOnNoFeeProgramPage = tab === "no_fee_program"
+    const isOnCashbackProgramPage = tab === "cashback_program"
 
-    const isEURG: boolean = $const === 'EURG';
-    const isEUR: boolean = $const === 'EUR';
-    const isGKE: boolean = $const === 'GKE';
 
+    const isEURG: boolean = currency === 'EURG';
+    const isEUR: boolean = currency === 'EUR';
+    const isGKE: boolean = currency === 'GKE';
+
+    const [rates, setRates] = useState<Record<ETokensConst, number>>();
+
+
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
+        })();
+    }, [currency]);
+    if(isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage){
+        return <></>
+    }
+    
     return(
         <>
             <div className={styles.HeaderWalletMobile}>
@@ -33,7 +59,7 @@ const WalletHeaderMobile = () => {
                             <div className={styles.WalletInfoHeader}>
                                 <div className={styles.WalletInfoHeaderIconAndName}>
                                     <div className="grid auto-cols-max">
-                                        <IconCoin code={$const}/>
+                                        <IconCoin code={currency}/>
                                     </div>
                                     <div className={styles.WalletNameContainer}>
                                         <span className={styles.WalletName}>
@@ -42,7 +68,7 @@ const WalletHeaderMobile = () => {
                                     </div>
                                 </div>
                                 <div className={styles.WalletShortName}>
-                                    {$const}
+                                    {currency}
                                 </div>
                             </div>
                             <div className={styles.WalletInfoMain}>
@@ -73,10 +99,10 @@ const WalletHeaderMobile = () => {
                         </div>
                         <div className={styles.EurGekkoinPrice}>
                             <span className={styles.IsEqualEuro}>
-                                {(!isEUR && availableBalance) && $const + " = " + (userBalanceEUREqu/availableBalance.toNumber()).toFixed(roundPrec)  + "€"}
+                                {(!isEUR && availableBalance && rates) && currency + " = " + getCurrencyRounding(rates[currency])  + "€"}
                             </span>
                             {(!isEUR && !isOnAboutPage) &&
-                                <NavLink to={`/wallet/${$const}/about`}>
+                                <NavLink to={`/wallet/${currency}/about`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
                                         <circle cx="7.5" cy="7.5" r="7.5" fill="#D9D9D9"/>
                                         <circle cx="3.5" cy="7.5" r="1.5" fill="white"/>

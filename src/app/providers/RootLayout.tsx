@@ -65,7 +65,7 @@ export default memo(function () {
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({
             ...prev,
-            account: accounts.find(a => a.number === number)
+            account: accounts?.find(a => a.number === number)
         }));
     }
 

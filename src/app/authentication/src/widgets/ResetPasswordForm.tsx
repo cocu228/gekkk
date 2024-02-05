@@ -21,7 +21,23 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
         }
 
         refInputCodeEmail.current.value = ""
-        console.log(window.history.state)
+
+        var url = window.location.href;
+
+// Создаем объект URLSearchParams из строки запроса текущего URL
+        var searchParams = new URLSearchParams(window.location.search);
+
+// Удаляем параметр из объекта URLSearchParams
+        searchParams.delete('emailCode');
+
+// Получаем новую строку запроса
+        var newSearchParams = searchParams.toString();
+
+// Формируем новый URL без удаленного параметра
+        var newUrl = url.split('?')[0] + (newSearchParams ? '?' + newSearchParams : '');
+
+// Заменяем текущий URL новым URL без параметра
+        window.history.replaceState({}, document.title, newUrl);
 
         const phone = formatAsNumber(refInputLogin.current.value)
 

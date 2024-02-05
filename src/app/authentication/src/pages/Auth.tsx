@@ -2,7 +2,7 @@ import styles from './style.module.css';
 import Header from "../widgets/header/Header";
 import Button from "../widgets/components/button/Button";
 import BackgroundLogoIcon from "../widgets/components/icons/BackgroundLogoIcon";
-import {ResetPasswordForm} from "../widgets/ResetPasswordForm";
+// import {ResetPasswordForm} from "../widgets/ResetPasswordForm";
 // import {NoUsagesLoginPasswordForm} from "../widgets/(no-usages)LoginPasswordForm.tsx";
 // import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
 //import {ResetPasswordForm} from "../widgets/ResetPasswordForm";

@@ -4,15 +4,24 @@ import {formatAsNumber} from "./model/shared";
 import {sha256} from "js-sha256";
 import {eddsa} from 'elliptic'
 import {coerceToBase64Url} from "../shared/lib/helpers";
+// import {useState} from "preact/hooks";
 
-export const ResetPasswordForm = () => {
+export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
 
     const refInputCodeEmail = createRef()
     const refInputSmsEmail = createRef()
     const refInputPassword = createRef()
+    const refInputPasswordConfirm = createRef()
     const refInputLogin = createRef()
 
     const getEmailCode = async () => {
+
+        if (!refInputLogin.current.value) {
+            return alert("Enter phone number.")
+        }
+
+        refInputCodeEmail.current.value = ""
+        console.log(window.history.state)
 
         const phone = formatAsNumber(refInputLogin.current.value)
 
@@ -32,7 +41,17 @@ export const ResetPasswordForm = () => {
         const emailCode = refInputCodeEmail.current.value
         const smsCode = refInputSmsEmail.current.value
         const password = refInputPassword.current.value
+        const passwordConfirm = refInputPasswordConfirm.current.value
         const phone = refInputLogin.current.value
+
+
+        if (password !== passwordConfirm) {
+            return alert("Password doesn't match.")
+        }
+
+        if (!refInputLogin.current.value) {
+            return alert("Enter phone number.")
+        }
 
         const response = await apiRegisterOptions({code: emailCode})
 
@@ -82,9 +101,7 @@ export const ResetPasswordForm = () => {
                 <input
                     type={"text"}
                     ref={refInputLogin}
-                    value={"79111111111"}
                     name='phone'
-                    disabled={true}
                 />
             </div>
         </div>
@@ -116,10 +133,24 @@ export const ResetPasswordForm = () => {
         </div>
         <div className="row mb-16">
             <div className="col-xs-12">
+                Confirm Password
+            </div>
+            <div className="col-xs-12">
+                <input
+                    type={"text"}
+                    ref={refInputPasswordConfirm}
+                    name='password'
+                />
+            </div>
+        </div>
+        <div className="row mb-16">
+            <div className="col-xs-12">
                 Email code
             </div>
             <div className="col-xs-12">
                 <input
+                    readOnly={!!emailCode}
+                    value={emailCode}
                     type={"text"}
                     ref={refInputCodeEmail}
                     name='emailCode'
@@ -131,7 +162,8 @@ export const ResetPasswordForm = () => {
                 <button onClick={onSubmit}>Submit</button>
             </div>
             <div className="col-xs-6">
-                <button onClick={getEmailCode}>Get email code</button>
+                <button onClick={getEmailCode}>Get email code
+                </button>
             </div>
         </div>
     </div>

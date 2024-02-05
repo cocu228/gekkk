@@ -17,6 +17,11 @@ $positions: (top, bottom, left, right);
       padding-right: #{$step}px;
     }
 
+    .mx-#{$step} {
+      margin-left: #{$step}px;
+      margin-right: #{$step}px;
+    }
+
     .py-#{$step} {
       padding-top: #{$step}px;
       padding-bottom: #{$step}px;

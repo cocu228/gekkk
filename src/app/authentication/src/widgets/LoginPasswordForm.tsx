@@ -98,9 +98,7 @@ export const LoginPasswordForm = () => {
                 <input
                     type={"text"}
                     ref={refInputLogin}
-                    value={"79111111111"}
                     name='phone'
-                    disabled={true}
                 />
             </div>
         </div>

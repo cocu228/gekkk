@@ -33,12 +33,14 @@ const fServerRequest = async (credential: any, challengeId: number) => {
 
     if (response.data.result === "Success") {
         let {data} = await apiGetInfo({refresh: false});
+
         if (data.result.length > 0) {
             setCookieData([{key: "accountId", value: data.result[0].account}]);
         } else {
             let {data} = await apiGetInfo({refresh: true});
             setCookieData([{key: "accountId", value: data.result[0].account}]);
         }
+        location.replace('/');
     } else {
         alert("Bad request, look at devtools network")
     }

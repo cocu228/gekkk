@@ -19,7 +19,7 @@ const fServerRequest = async (data: any) => {
     const response = await apiRegisterKey(data);
     if (response.data.result === "Success") {
         alert("Password changed successfully!")
-        setTimeout(() => window.location.href = "/", 2000)
+        setTimeout(() => location.replace('/'), 2000)
     } else {
         alert("Bad request, look at devtools network")
     }

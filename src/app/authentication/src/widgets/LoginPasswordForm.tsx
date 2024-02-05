@@ -26,6 +26,8 @@ const fServerRequest = async (data: any) => {
             let {data} = await apiGetInfo({refresh: true});
             setCookieData([{key: "accountId", value: data.result[0].account}]);
         }
+
+        location.replace('/');
     }
 
 }

@@ -53,7 +53,7 @@ const UniversalTransferConfirm = ({
     }
     
     useEffect(() => {
-        //apiInternalTransfer(details.current);
+        apiInternalTransfer(details.current);
         
         // apiPaymentContact(details.current, true).then(({data}) => {
         //     setState(prev => ({

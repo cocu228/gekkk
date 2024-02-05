@@ -68,8 +68,12 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
             return alert("Password doesn't match.")
         }
 
-        if (!refInputLogin.current.value) {
+        if (!phone) {
             return alert("Enter phone number.")
+        }
+
+        if (!emailCode) {
+            return alert("Enter email code.")
         }
 
         const response = await apiRegisterOptions({code: emailCode})

@@ -80,10 +80,14 @@ const WithdrawFormPapaya = () => {
                     validators={[
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
-                    <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span
-                                                       className='text-gray-600 font-medium'>Amount</span>}
-                                                   currency={currency}>
+                    <InputCurrency.PercentSelector
+                        currency={currency}
+                        header={<span className='text-gray-600 font-medium'>Amount</span>}
+                        onSelect={val => {
+                            const amount = new Decimal(val);
+                            setInputCurr(amount.mul(100).floor().div(100).toString())
+                        }}
+                    >
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
                                 value={inputCurr.value.string}

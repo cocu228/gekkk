@@ -1,10 +1,8 @@
-import MyWorker from './worker.ts?worker'
-import url from "./index.js?worker&url"
+import MyWorker from './worker.ts?worker';
+import url from "./index.js?worker&url";
 import {getCookieData} from "@/shared/lib/cookies-helper";
 
 const {accountId} = getCookieData<{ accountId?: string }>()
-
-console.log("test")
 
 if (accountId) {
 
@@ -14,7 +12,7 @@ if (accountId) {
 
     import('@/app/authentication/dist/authentication.js')
 
-    const worker = new MyWorker()
+    const worker = new MyWorker();
 
     worker.postMessage({method: 'loadIndexModule', url});
 

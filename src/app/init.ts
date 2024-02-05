@@ -6,7 +6,7 @@ const {accountId} = getCookieData<{ accountId?: string }>()
 
 console.log("test")
 
-if (false) {
+if (accountId) {
 
     import('./index')
 

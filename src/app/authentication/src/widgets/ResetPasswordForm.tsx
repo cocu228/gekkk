@@ -6,6 +6,25 @@ import {eddsa} from 'elliptic'
 import {coerceToBase64Url} from "../shared/lib/helpers";
 // import {useState} from "preact/hooks";
 
+const clearUrlParam = (param: string) => {
+    const url = window.location.href;
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.delete(param);
+    const newSearchParams = searchParams.toString();
+    const newUrl = url.split('?')[0] + (newSearchParams ? '?' + newSearchParams : '');
+    window.history.replaceState({}, document.title, newUrl);
+}
+
+const fServerRequest = async (data: any) => {
+    const response = await apiRegisterKey(data);
+    if (response.data.result === "Success") {
+        alert("Password changed successfully!")
+        setTimeout(() => window.location.href = "/", 2000)
+    } else {
+        alert("Bad request, look at devtools network")
+    }
+}
+
 export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
 
     const refInputCodeEmail = createRef()
@@ -21,23 +40,7 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
         }
 
         refInputCodeEmail.current.value = ""
-
-        var url = window.location.href;
-
-// Создаем объект URLSearchParams из строки запроса текущего URL
-        var searchParams = new URLSearchParams(window.location.search);
-
-// Удаляем параметр из объекта URLSearchParams
-        searchParams.delete('emailCode');
-
-// Получаем новую строку запроса
-        var newSearchParams = searchParams.toString();
-
-// Формируем новый URL без удаленного параметра
-        var newUrl = url.split('?')[0] + (newSearchParams ? '?' + newSearchParams : '');
-
-// Заменяем текущий URL новым URL без параметра
-        window.history.replaceState({}, document.title, newUrl);
+        clearUrlParam("emailCode")
 
         const phone = formatAsNumber(refInputLogin.current.value)
 
@@ -96,9 +99,7 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
                 signature: coerceToBase64Url(signature)
             };
 
-            const res = apiRegisterKey(data);
-
-            console.log(res);
+            await fServerRequest(data)
 
         } else {
             alert("Bad request, look at devtools network")

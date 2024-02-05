@@ -1,5 +1,7 @@
 import {coerceToBase64Url} from "../shared/lib/helpers";
 import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
+import {apiGetInfo} from "../shared/(orval)api/gek";
+import {setCookieData} from "../shared/lib/cookies-helper";
 
 
 const fServerRequest = async (credential: any, challengeId: number) => {
@@ -29,11 +31,18 @@ const fServerRequest = async (credential: any, challengeId: number) => {
 
     const response = await apiLogin(data)
 
-    if (response.data.result === 'Success') {
-        alert('Success')
+    if (response.data.result === "Success") {
+        let {data} = await apiGetInfo({refresh: false});
+        if (data.result.length > 0) {
+            setCookieData([{key: "accountId", value: data.result[0].account}]);
+        } else {
+            let {data} = await apiGetInfo({refresh: true});
+            setCookieData([{key: "accountId", value: data.result[0].account}]);
+        }
     } else {
         alert("Bad request, look at devtools network")
     }
+
 
 }
 

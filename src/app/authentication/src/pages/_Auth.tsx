@@ -14,7 +14,7 @@ export function _Auth() {
         useState<"loginPassword" | "loginDeviceKey" | "resetPasswordForm">(emailCode ? "resetPasswordForm" : "loginPassword")
 
 
-    console.log(emailCode)
+    // console.log(emailCode)
 
     return <div className="px-24">
         <div className="row mt-40 mb-40">

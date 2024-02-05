@@ -1,60 +1,77 @@
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.preact:hover {
-  filter: drop-shadow(0 0 2em #673ab8aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
-.Header {
-  position: sticky;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  top: 0px;
-  height: 65px;
-  background: var(--new-brand-dark-blue);
-  padding: 0px 25px;
-  z-index: 1;
-
-  &Container {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    align-self: center;
-    margin-left: 2%;
-    box-sizing: border-box;
-  }
-}
-
 .Main {
-  background: var(--new-brand-white);
-  height: calc(100% - 70px);
   width: 100%;
   display: flex;
   overflow: auto;
+  height: calc(100% - 70px);
+  background: var(--background-primary);
+  
+  &Body {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &Background {
+    position: relative;
+    flex: 0 1 auto;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 50px;
+    margin-right: 50px;
+    
+    &Logo {
+      position: absolute;
+      top: 80px;
+      right: 0;
+      width: 100%;
+      max-width: 783px;
+    }
+  }
 }
 
 .ReCapchaContainer {
   width: 270px;
   flex: 0 1 auto;
+}
+
+.Form {
+  &Header {
+    color: var(--text-additional);
+    margin-bottom: 36px;
+  }
+  
+  &Substrate {
+    background: var(--background-primary);
+    padding: 24px 36px;
+    border-radius: 8px 8px 0 0;
+    box-shadow:
+            3px 2px 8px 0 #A8A8A84A,
+            13px 8px 15px 0 #A8A8A842,
+            28px 17px 20px 0 #A8A8A826,
+            50px 30px 23px 0 #A8A8A80A,
+            79px 47px 26px 0 #A8A8A803;
+  }
+  
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem
+  }
+  
+  &Body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;
+    line-height: 1.5714285714285714;
+    list-style: none;
+    font-family: inherit;
+  }
 }

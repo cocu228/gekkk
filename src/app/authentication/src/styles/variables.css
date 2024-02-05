@@ -1,0 +1,10 @@
+﻿:root {
+    --text-primary: #213547;
+    --text-additional: #285E69;
+    --text-additional-inverted: #676767;
+    --text-primary-inverted: #F7F7F0;
+    --background-accent: #29354C;
+    --background-primary: #f7f7f0;
+    --accent-green: #2BAB72;
+    --accent-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+}

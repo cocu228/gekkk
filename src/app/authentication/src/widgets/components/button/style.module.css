@@ -1,0 +1,21 @@
+﻿.Button {
+    border-radius: 8px;
+    border-color: transparent;
+    padding: 9px 24px 9px 24px;
+    background: var(--accent-green);
+    color: var(--background-primary);
+    
+    &:hover {
+        background: var(--accent-green-gradient);
+        color: var(--new-dark-blue);
+    }
+    
+    &:disabled {
+        color: var(--text-additional-inverted);
+        background: var(--background-primary)
+    }
+}
+
+.TextButton {
+    color: var(--text-additional);
+}

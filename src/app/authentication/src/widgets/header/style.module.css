@@ -1,0 +1,25 @@
+﻿.Header {
+    display: flex;
+    position: sticky;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    height: 65px;
+    background: var(--background-accent);
+    padding: 0 25px;
+    z-index: 1
+}
+
+.LogoContainer {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    align-self: center;
+    margin-left: 2%;
+    box-sizing: border-box;
+    
+    :hover
+    {
+        cursor: pointer;
+    }
+}

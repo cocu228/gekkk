@@ -2,7 +2,6 @@ import HeaderMobile from "./mobile/mobile";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import HeaderDesktop from "./desktop/desktop";
-import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import {getFormattedIBAN} from "@/shared/lib/helpers";
 import {AccountRights} from "@/shared/config/account-rights";
@@ -12,12 +11,23 @@ import {useContext, useEffect, useMemo, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {apiLogout} from "@/shared/(orval)api";
+import {clearCookies} from "@/shared/lib/cookies-helper";
 
 
+const logout = async () => {
+    const response = await apiLogout()
+    if (response.data.result === "Success") {
+        clearCookies();
+        location.replace('/');
+    } else {
+        alert("Failed to log out of your personal account. Please watch devtool.")
+    }
+};
 
 const Header = () => {
 
-    const {logout} = useAuth();
+    // const {logout} = useAuth();
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();
     const {md} = useContext(BreakpointsContext);

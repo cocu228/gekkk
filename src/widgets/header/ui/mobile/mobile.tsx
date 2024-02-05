@@ -1,14 +1,12 @@
 import styles from "./style.module.scss";
-import {useContext, useRef} from "react";
+import {useContext} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
-import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
-import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
-import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useLocation, useMatch, useNavigate, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {getFormattedIBAN} from "@/shared/lib/helpers";
+import {useLocation, useMatch, useNavigate, useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const HeaderMobile = ({items, actions}) => {
     const {account} = useContext(CtxRootData);

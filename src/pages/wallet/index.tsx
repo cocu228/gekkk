@@ -56,6 +56,9 @@ function Wallet() {
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"
     const isOnCashbackProgramPage = tab === "cashback_program"
+    const isEURG: boolean = currency === 'EURG';
+    const isEUR: boolean = currency === 'EUR';
+    const isGKE: boolean = currency === 'GKE';
     
 
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
@@ -78,6 +81,10 @@ function Wallet() {
                                     <Withdraw/>
                                 </NetworkProvider>
 
+                                {(isEUR || isEURG || isGKE) &&
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
+                                }
+
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
                                         data-tag={"bank_cards"}
@@ -86,15 +93,8 @@ function Wallet() {
                                         setIsNewCardOpened={setIsNewCardOpened}
                                     />
                                     <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
-                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
-                                </>}
-                                {$currency.$const === "EURG" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 </>}
 
-                                {$currency.$const === "GKE" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
-                                </>}
                                 {tab === "cashback_program" &&
                                     <GkeCashbackProgram/>
                                 }

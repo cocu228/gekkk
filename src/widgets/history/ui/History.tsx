@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import {memo, useContext, useEffect, useState} from 'react';
-import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import Button from '@/shared/ui/button/Button';
 import {DatePicker} from 'antd';
 import {Props, TabKey} from "../model/types";
@@ -19,7 +18,6 @@ import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
-import { log } from 'console';
 
 const { RangePicker } = DatePicker;
 
@@ -102,7 +100,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         return () => cancelTokenSource.cancel()
     }, [refreshKey, activeTab, currenciesFilter]);
 
-
+    
     const scrollHandler = (e) => {                
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
             requestMoreHistory()
@@ -124,9 +122,10 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         )
     }
 
-    if(md && isWalletPage){
         return(
             <>
+            <div id={"History"} className="wrapper">
+                <h2 className=" font-bold pb-3 text-xl">Last transactions</h2>
                 <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                     {listHistory.map((item, index) => {
                         const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
@@ -237,14 +236,15 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                         </div>
                     }
                 </div>
+                </div>
             </>
         )
-    }
-    return (
-        <div id={"History"} className="wrapper">
-            {/* <h3 className=" font-bold">{title}</h3> */}
-
-            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab} />
+    // }
+    // return (
+    //     
+            
+            
+{/* 
             {activeTab === TabKey.CUSTOM && (
                 <div className='flex flex-col mt-3 mb-3'>
                     {t("enter_period")}
@@ -332,9 +332,9 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                         }
                     </div>
                 </div>
-            }
-        </div>
-    );
+            }*/}
+    //     </div>
+    // ); 
 })
 
 export default History;

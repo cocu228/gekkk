@@ -516,9 +516,9 @@
     "no_cancel": "No, thank`s",
     "back_to_eur_acc": "Back to euro account",
     "sepa_eur": "Sepa Euro",
-    "account_for_top_up": "Account for topup",
-    "the_beneficiary_bank": "The beneficiary bank",
-    "bic_of_beneficiary_bank": "BIC of beneficiary bank",
+    "account_for_top_up": "Account for top up",
+    "the_beneficiary_bank": "The beneficiary's bank",
+    "bic_of_beneficiary_bank": "BIC of beneficiary's bank",
     "back_to_eur_account": "Back to Euro account",
     "send": "Send",
     "back_to": "Back to",
@@ -561,6 +561,12 @@
     "you_will_be_automatically_redirected_to_the_main_page_in": "You will be automatically redirected to the main page in",
     "identification_status_message": "We have accepted your Application for services by setting up an Account for you and issuing Virtual Gekkard. You can make payment transactions from or to Account and use Virtual Gekkard for online purchuses.",
     "balance": "Balance",
-    "programs": "Programs"
+    "programs": "Programs",
+    "free": "Free",
+    "income":"Income",
+    "outcome": "Outcome",
+    "orders": "Orders",
+    "last_transactions":"last transactions",
+    "custom_period":"custom period"
   }
 }

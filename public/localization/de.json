@@ -116,6 +116,7 @@
       "transfer_to_card": "Auf Karte überweisen",
       "bank_transfer": "Banküberweisung",
       "no_fee_program": "Kein Gebührenprogramm",
+      "simple_exchange": "Einfacher Austausch",
       "quick_exchange": "Schneller Austausch",
       "transfer_to_contact": "Überweisung an Kontakt",
       "templates": "Vorlagen",
@@ -326,7 +327,25 @@
       "balance": "Bilanz",
       "to_find_answers_to_common_questions_open_the_faq": "Um Antworten auf häufig gestellte Fragen zu finden, öffnen Sie die FAQ.",
       "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Um Rat von unserem Bank-Support-Service zu erhalten, öffnen Sie den Chat.",
-      "programs": "Programme"
+      "programs": "Programme",
+      "select_network": "Wählen Sie die Aufladeart aus",
+      "free": "Frei",
+      "income":"Einkommen",
+      "outcome": "Ergebnis",
+      "orders": "Aufträge",
+      "account_for_top_up": "Konto für Aufladung",
+      "the_beneficiary_bank": "Die Bank des Begünstigten",
+      "bic_of_beneficiary_bank": "BIC der Bank des Begünstigten",
+      "recipient": "Empfänger",
+      "last_transactions": "letzte transaktionen",
+      "custom_period":"individueller zeitraum",
+      "select_withdraw_network": "Wählen Sie die Überweisungsart",
+      "beneficiary_name": "Name des Begünstigten"
+      
+
+
+
+
 
   }
 }

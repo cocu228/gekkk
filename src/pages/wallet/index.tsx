@@ -93,10 +93,14 @@ function Wallet() {
                                 </>}
 
                                 {$currency.$const === "GKE" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
-                                    <GkeCashbackProgram/>
-                                    <NoFeeProgram/>
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 </>}
+                                {tab === "cashback_program" &&
+                                    <GkeCashbackProgram/>
+                                }
+                                {tab === "no_fee_program" &&
+                                    <NoFeeProgram />
+                                }
 
                                 {!Object.keys(descriptions).find((k: string) => k === $currency.$const) ? null : (
                                     <About data-tag={"about"} data-name={t("about")}

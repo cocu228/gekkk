@@ -567,6 +567,17 @@
     "outcome": "Outcome",
     "orders": "Orders",
     "last_transactions":"last transactions",
-    "custom_period":"custom period"
+    "custom_period":"custom period",
+    "access_management":"Access management",
+    "type":"Type",
+    "public_key":"Public key",
+    "user_keys_list":"User kyes",
+    "remove":"Remove",
+    "remove_key":"Remove key",
+    "remove_key_warning":"You're about to remove the access key. This action can lead to the loss of access on certain devices and cannot be reverted. Are you sure that you want to remove the access key?",
+    "show_more": "Show more",
+    "hide": "Hide"
+
+
   }
 }

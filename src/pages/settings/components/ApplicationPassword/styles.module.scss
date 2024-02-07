@@ -1,0 +1,39 @@
+.KeysContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+}
+.Key{
+    position: relative;
+    background: #CED4DA;
+    min-height: 60px;
+    min-width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+.KeyText{
+    display: flex;
+    flex-direction: column;
+    word-break: break-all;
+    text-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+}
+.KeyButton{
+    display: flex;
+    min-width: 150px;
+    align-items: center;
+    justify-content: center;
+    }
+.CurrentKey{
+    background: rgb(137, 210, 137);
+}

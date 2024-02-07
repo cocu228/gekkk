@@ -11,7 +11,7 @@ import AccountIcon from '@/assets/account.svg?react'
 
 import { FrameItem } from '@/shared/ui/FrameItem'
 
-import { ApplicationPassword } from './components/ApplicationPassword'
+import { AccessManagement } from './components/ApplicationPassword'
 import { IdentificationStatus } from './components/IdentificationStatus'
 import { LegalNotices } from './components/LegalNotices'
 import { MyReports } from './components/MyReports'
@@ -26,7 +26,7 @@ const areaMap = {
   'identification-status': <IdentificationStatus />,
   'personal-information': <PersonalInformation />,
   'my-reports': <MyReports />,
-  'application-password': <ApplicationPassword />,
+  'access-management': <AccessManagement />,
   'pricing': <Pricing />,
   'legal-notices': <LegalNotices />,
 }
@@ -127,12 +127,12 @@ export function Settings() {
               </FrameItem>
               <FrameItem
                 onClick={() => {
-                  setSelectedArea('application-password')
+                  setSelectedArea('access-management')
                 }}
-                isSelected={selectedArea === 'application-password'}
+                isSelected={selectedArea === 'access-management'}
               >
                 <PinCodeIcon />
-                <Typography noWrap variant="h3">{t('application_password')}</Typography>
+                <Typography noWrap variant="h3">{t('access_management')}</Typography>
               </FrameItem>
             </Box>
           </Box>

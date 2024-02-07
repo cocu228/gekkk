@@ -340,7 +340,23 @@
       "last_transactions": "letzte transaktionen",
       "custom_period":"individueller zeitraum",
       "select_withdraw_network": "Wählen Sie die Überweisungsart",
-      "beneficiary_name": "Name des Begünstigten"
+      "beneficiary_name": "Name des Begünstigten",
+      "access_management":"Zugriffsverwaltung",
+      "type":"Typ",
+      "public_key":"Öffentlicher Schlüssel",
+      "user_keys_list":"Benutzerschlüssel",
+      "remove":"Entfernen",
+      "remove_key":"Entfernen Schlüssel",
+      "remove_key_warning":"Du bist dabei, den Zugangsschlüssel zu entfernen. Diese Aktion kann zum Verlust des Zugangs auf bestimmten Geräten führen und kann nicht rückgängig gemacht werden. Bist du sicher, dass du den Zugangsschlüssel entfernen möchtest?",
+      "show_more": "Zeig mehr",
+      "hide": "Verstecken"
+
+
+
+
+
+
+
       
 
 

@@ -117,7 +117,7 @@
   {
     "version": "2.0.41",
     "date": "2023-03-27T09:33:18.689Z",
-    "description": "- Added filtration for transaction types in transaction history\n- Added the withdraw functionality for Ethereum-based ERC-20 tokens\n- Added the withdraw functionality for TRON-based TRC-20 tokens\n- Added the withdraw functionality for BSC-based BEP-20 tokens- Minor bug fixes"
+    "description": "- Added filtration for transaction types in transaction history\n- Added the withdraw functionality for Ethereum-based ERC-20 tokens\n- Added the withdraw functionality for TRON-based TRC-20 tokens\n- Added the withdraw functionality for BSC-based BEP-20 tokens\n- Minor bug fixes"
   },
   {
     "version": "2.0.40",

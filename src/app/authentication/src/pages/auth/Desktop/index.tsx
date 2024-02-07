@@ -1,0 +1,107 @@
+﻿import styles from './style.module.css';
+import Button from '../../../widgets/components/button/Button';
+import BackgroundLogoIcon from "../../../widgets/components/icons/BackgroundLogoIcon";
+
+const AuthDesktop = () => {
+	return <div className={styles.Main}>
+		<div className={styles.ReCapchaContainer} id="recaptcha-container"/>
+		
+		<div className={styles.MainBody}>
+			{/* Header */}
+			<div style={{width: '499px', flex: '0 0 auto'}}>
+				<h1 style={{color: 'var(--text-primary)', marginBottom: '18px'}}>
+					Welcome to Gekkard online bank
+				</h1>
+			</div>
+			
+			{/* Input form */}
+			<div>
+				<p className={styles.FormHeader}>
+					Log in using the form below
+				</p>
+				
+				<div className={styles.FormSubstrate}>
+					<div className={styles.FormWrapper}>
+						<form className={styles.FormBody}>
+							{/* Make form field styles */}
+							<div style={{display: "flex", flexDirection: "column"}}>
+								Login
+								<input/>
+							</div>
+							
+							<div style={{display: "flex", flexDirection: "column"}}>
+								Password
+								<input/>
+							</div>
+							
+							<div style={{
+								width: '100%',
+								display: 'flex',
+								justifyContent: 'space-between',
+								alignItems: 'center'
+							}}>
+								<Button tabIndex={0} data-testid="Login">
+									Login
+								</Button>
+								
+								<Button text>
+									Forgot password
+								</Button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			{/* Under input form */}
+			<div style={{
+				width: '100%',
+				display: 'flex',
+				justifyContent: 'space-between',
+				alignItems: 'center',
+				paddingTop: '60px'
+			}}>
+				<span className="typography-b2" style={{color: 'var(--text-additional-inverted)'}}>
+					Don’t have an account? Sign up now
+				</span>
+				
+				<Button>
+					Sign up
+				</Button>
+			</div>
+			
+			<div style={{height: '100%', minHeight: '300px'}}></div>
+			
+			<div style={{flex: '0 0 auto', display: 'flex', flexDirection: 'column'}}>
+				<div className="typography-b2" style={{marginBottom: '6px', color: '285E69ff',
+					display: 'flex', justifyContent: 'space-between'}}>
+					<a href="https://gekkard.com/terms-and-conditions.html" target="_blank" rel="noreferrer noopener">
+						General terms and conditions
+					</a>
+					
+					<a href="https://gekkard.com/data-protection-policy.html" target="_blank" rel="noreferrer noopener">
+						Data protection policy
+					</a>
+					
+					<a href="https://gekkard.com/legal-agreements.html" target="_blank" rel="noreferrer noopener">
+						Legal agreements
+					</a>
+				</div>
+				
+				<div style={{color: 'var(--text-additional-inverted)', marginBottom: '3px'}}>
+					Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
+				</div>
+				
+				<div style={{color: 'var(--text-additional-inverted)'}}>© Gekkoin. v."2.0.65"</div>
+			</div>
+		</div>
+		
+		<div className={styles.MainBackground}>
+			<div className={styles.MainBackgroundLogo}>
+				<BackgroundLogoIcon/>
+			</div>
+		</div>
+	</div>
+}
+
+export default AuthDesktop;

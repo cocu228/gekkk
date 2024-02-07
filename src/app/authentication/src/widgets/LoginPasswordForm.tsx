@@ -5,6 +5,7 @@ import {sha256} from "js-sha256";
 import {apiGetInfo} from "../shared/(orval)api/gek";
 import {createRef} from "preact";
 import {setCookieData} from "../shared/lib/cookies-helper";
+import Button from "./components/button/Button";
 
 
 const fServerRequest = async (data: any) => {
@@ -88,7 +89,7 @@ export const LoginPasswordForm = () => {
         }
     }
 
-    return <div className="px-24 py-24" style={{width: "400px", borderRadius: "12px", border: "1px solid #000000"}}>
+    return <div className="px-24 py-24" style={{width: "auto"}}>
         <div className="row">
             <h1>Login with password</h1>
         </div>
@@ -118,7 +119,7 @@ export const LoginPasswordForm = () => {
         </div>
         <div className="row mb-16">
             <div className="col-xs-6">
-                <button onClick={onSubmit}>Submit</button>
+                <Button onClick={onSubmit}>Submit</Button>
             </div>
         </div>
     </div>

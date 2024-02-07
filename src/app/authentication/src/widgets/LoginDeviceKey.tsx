@@ -1,3 +1,4 @@
+import Button from "./components/button/Button";
 import {coerceToBase64Url} from "../shared/lib/helpers";
 import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
 import {apiGetInfo} from "../shared/(orval)api/gek";
@@ -93,14 +94,12 @@ export const LoginDeviceKey = () => {
     }
 
     return <>
-        <div className="px-24 py-24" style={{width: "400px", borderRadius: "12px", border: "1px solid #000000"}}>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button
-                        onClick={onRegister}>
-                        Login Device Key
-                    </button>
-                </div>
+        <div className="px-24 py-24" style={{width: "auto"}}>
+            <div style={{display: 'grid'}}>
+                <Button
+                    onClick={onRegister}>
+                    Login Device Key
+                </Button>
             </div>
         </div>
     </>

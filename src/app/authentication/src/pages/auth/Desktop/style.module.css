@@ -1,0 +1,75 @@
+.Main {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  height: calc(100% - 70px);
+  background: var(--background-primary);
+}
+
+.MainBody {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.MainBackground {
+  position: relative;
+  flex: 0 1 auto;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.MainBackgroundLogo {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 100%;
+  max-width: 783px;
+}
+
+.ReCapchaContainer {
+  width: 270px;
+  flex: 0 1 auto;
+}
+
+.FormHeader {
+  color: var(--text-additional);
+  margin-bottom: 36px;
+}
+
+.FormSubstrate {
+  background: var(--background-primary);
+  padding: 24px 36px;
+  border-radius: 8px 8px 0 0;
+  box-shadow:
+    3px 2px 8px 0 #A8A8A84A,
+    13px 8px 15px 0 #A8A8A842,
+    28px 17px 20px 0 #A8A8A826,
+    50px 30px 23px 0 #A8A8A80A,
+    79px 47px 26px 0 #A8A8A803;
+}
+
+.FormWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem
+}
+
+.FormBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: inherit;
+}

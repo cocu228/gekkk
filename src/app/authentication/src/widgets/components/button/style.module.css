@@ -17,5 +17,13 @@
 }
 
 .TextButton {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
     color: var(--text-additional);
+    
+    :hover {
+        text-decoration: underline;
+    }
 }

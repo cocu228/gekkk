@@ -1,0 +1,33 @@
+﻿.TabButton {
+    width: 100%;
+    border-width: 2px 2px 2px 2px;
+    border-radius: 8px 8px 0 0;
+    padding: 9px 24px 9px 24px;
+    border-color: var(--text-primary);
+    
+    &:hover {
+        border-bottom-color: transparent;
+        background: var(--background-primary);
+        color: var(--new-dark-blue);
+    }
+    
+    &:disabled {
+        color: var(--text-additional-inverted);
+        background: var(--background-primary)
+    }
+}
+
+.TabButtonActive {
+    width: 100%;
+    border-width: 2px 2px 0 2px;
+    border-radius: 8px 8px 0 0;
+    padding: 9px 24px 9px 24px;
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+    background: var(--background-primary);
+
+    &:disabled {
+        color: var(--text-additional-inverted);
+        background: var(--background-primary)
+    }
+}

@@ -76,7 +76,7 @@ export function Settings() {
         padding={xxl ? "0" : "0 60px 60px 30px"}
       >
         <Box
-          visibility={xxl && selectedArea ? 'hidden' : undefined}
+          // visibility={xxl && selectedArea ? 'hidden' : undefined}
           display="flex"
           flexDirection={xxl ? "column" : 'row'}
           gap="30px"

@@ -99,15 +99,15 @@ export function AccessManagement(): JSX.Element | null{
             {t("show_more")}
           </Button> 
           : 
-          <Button 
-          onClick={()=>
-            {
-              setLimit({
-                start:0,
-                end:5
-              })
+          !(keysList.length<=5) && <Button 
+            onClick={()=>
+              {
+                setLimit({
+                  start:0,
+                  end:5
+                })
+              }
             }
-          }
           >
             {t("hide")}
           </Button>

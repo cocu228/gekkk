@@ -136,7 +136,7 @@ const FormLoginAccount = memo(() => {
 
         const uintChallenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
-        const passKey = sha256(phone + password + "gekkard.com"); //makeAssertionOptions.fido2_options.rp.id);
+        const passKey = sha256(phone + password + response.data.result.rpId);
 
         const EdDSA = elliptic.eddsa;
         const ec = new EdDSA('ed25519');

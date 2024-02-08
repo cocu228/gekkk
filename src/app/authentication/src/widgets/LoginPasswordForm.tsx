@@ -69,7 +69,7 @@ export const LoginPasswordForm = () => {
 
             const challengeUint8 = Uint8Array.from(atob(challenge), c => c.charCodeAt(0))
 
-            const SHA256Seed = sha256(phone + password);
+            const SHA256Seed = sha256(phone + password + response.data.result.rpId);
 
             const ec = new eddsa('ed25519');
             const key = ec.keyFromSecret(SHA256Seed);

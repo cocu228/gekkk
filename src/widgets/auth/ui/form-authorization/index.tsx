@@ -140,7 +140,7 @@ const FormLoginAccount = memo(() => {
 
         const EdDSA = elliptic.eddsa;
         const ec = new EdDSA('ed25519');
-        const key = ec.keyFromSecret(passKey);
+        const key = ec.keyFromSecret(passKey.words);
         const pub = key.getPublic();
         const signature = key.sign(uintChallenge).toBytes();
 

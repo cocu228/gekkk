@@ -134,7 +134,7 @@ const FormLoginAccount = memo(() => {
 
         const challenge = response.data.result.challenge.replace(/-/g, "+").replace(/_/g, "/");
 
-        const uintChallenge = Uint8Array.from(Buffer.from(challenge, 'base64'));
+        const uintChallenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
         const passKey = sha256(phone + password + response.data.result.rpId); 
 

@@ -66,6 +66,7 @@ const TopUp = memo(() => {
             {is_operable === false && <div className="row mb-4 mt-4">
                 <div className="col">
                     <div className="info-box-danger">
+                        
                         <p>Attention: transactions on this network may be delayed. We recommend that you use a different
                             network for this transaction.</p>
                     </div>

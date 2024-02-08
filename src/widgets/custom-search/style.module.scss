@@ -7,8 +7,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        .grey:hover {
+            background-color: #dadada !important;
+        }
     }
     .selector {
-        width: 400px;
+        height: 50px;
     }
 }

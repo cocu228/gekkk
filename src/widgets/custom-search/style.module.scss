@@ -1,0 +1,14 @@
+.wrapper {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .filters {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .selector {
+        width: 400px;
+    }
+}

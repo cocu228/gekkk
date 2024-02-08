@@ -4,7 +4,7 @@ import {formatAsNumber} from "./model/shared";
 import {sha256} from "js-sha256";
 import {eddsa} from 'elliptic'
 import {coerceToBase64Url} from "../shared/lib/helpers";
-// import {useState} from "preact/hooks";
+import Button from "./components/button/Button";
 
 const clearUrlParam = (param: string) => {
     const url = window.location.href;
@@ -25,7 +25,13 @@ const fServerRequest = async (data: any) => {
     }
 }
 
-export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
+export const ResetPasswordForm = ({
+    emailCode,
+    handleCancel = () => {}
+}: {
+    emailCode: string;
+    handleCancel: () => void;
+}) => {
 
     const refInputCodeEmail = createRef()
     const refInputSmsEmail = createRef()
@@ -110,7 +116,7 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
         }
     }
 
-    return <div className="px-24 py-24" style={{width: "400px", borderRadius: "12px", border: "1px solid #000000"}}>
+    return <div className="px-24 py-24" style={{width: "auto"}}>
         <div class="row">
             <h1>Reset password</h1>
         </div>
@@ -178,14 +184,10 @@ export const ResetPasswordForm = ({emailCode}: { emailCode: string }) => {
                 />
             </div>
         </div>
-        <div className="row mb-16">
-            <div className="col-xs-6">
-                <button onClick={onSubmit}>Submit</button>
-            </div>
-            <div className="col-xs-6">
-                <button onClick={getEmailCode}>Get email code
-                </button>
-            </div>
+        <div style={{width: 'auto', display: 'flex', justifyContent: 'space-between'}} className="mb-16">
+            <Button onClick={onSubmit}>Submit</Button>
+            <Button onClick={getEmailCode}>Get email code</Button>
+            <Button secondary onClick={handleCancel}>Back</Button>
         </div>
     </div>
 }

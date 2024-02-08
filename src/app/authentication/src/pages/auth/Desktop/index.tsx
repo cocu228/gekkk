@@ -1,8 +1,14 @@
 ﻿import styles from './style.module.css';
 import Button from '../../../widgets/components/button/Button';
 import BackgroundLogoIcon from "../../../widgets/components/icons/BackgroundLogoIcon";
+import TabButton from "../../../widgets/components/tab-button/TabButton";
+import {useState} from "react";
+import {LoginPasswordForm} from "../../../widgets/LoginPasswordForm";
+import {LoginDeviceKey} from "../../../widgets/LoginDeviceKey";
 
 const AuthDesktop = () => {
+	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
+	
 	return <div className={styles.Main}>
 		<div className={styles.ReCapchaContainer} id="recaptcha-container"/>
 		
@@ -20,34 +26,29 @@ const AuthDesktop = () => {
 					Log in using the form below
 				</p>
 				
+				<div style={{
+					width: 'auto',
+					margin: '4px 4px 0 4px',
+					gap: '1px',
+					display: 'grid',
+					gridTemplateColumns: 'auto auto'
+				}}>
+					<TabButton active={tab === 'PASSWORD'} onClick={() => setTab('PASSWORD')}>
+						Authorize with password
+					</TabButton>
+					
+					<TabButton active={tab === 'DEVICE_KEY'} onClick={() => setTab('DEVICE_KEY')}>
+						Authorize with device key
+					</TabButton>
+				</div>
+				
 				<div className={styles.FormSubstrate}>
 					<div className={styles.FormWrapper}>
 						<form className={styles.FormBody}>
-							{/* Make form field styles */}
-							<div style={{display: "flex", flexDirection: "column"}}>
-								Login
-								<input/>
-							</div>
-							
-							<div style={{display: "flex", flexDirection: "column"}}>
-								Password
-								<input/>
-							</div>
-							
-							<div style={{
-								width: '100%',
-								display: 'flex',
-								justifyContent: 'space-between',
-								alignItems: 'center'
-							}}>
-								<Button tabIndex={0} data-testid="Login">
-									Login
-								</Button>
-								
-								<Button text>
-									Forgot password
-								</Button>
-							</div>
+							{tab === 'PASSWORD'
+								? <LoginPasswordForm/>
+								: <LoginDeviceKey/>
+							}
 						</form>
 					</div>
 				</div>

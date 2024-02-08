@@ -98,7 +98,7 @@ export const LoginDeviceKey = () => {
             <div style={{display: 'grid'}}>
                 <Button
                     onClick={onRegister}>
-                    Login Device Key
+                    Login with Device Key
                 </Button>
             </div>
         </div>

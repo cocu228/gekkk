@@ -6,6 +6,8 @@ import {apiGetInfo} from "../shared/(orval)api/gek";
 import {createRef} from "preact";
 import {setCookieData} from "../shared/lib/cookies-helper";
 import Button from "./components/button/Button";
+import {useState} from "preact/hooks";
+import {ResetPasswordForm} from "./ResetPasswordForm";
 
 
 const fServerRequest = async (data: any) => {
@@ -37,8 +39,12 @@ export const LoginPasswordForm = () => {
 
     const refInputPassword = createRef()
     const refInputLogin = createRef()
-
-
+    const [displayForgetPassword, setDisplayForgetPassword] = useState<boolean>(false);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const emailCode = urlParams.get('emailCode');
+    
+    
     const onSubmit = async (e) => {
 
         e.preventDefault()
@@ -88,8 +94,17 @@ export const LoginPasswordForm = () => {
             alert("Bad request, look at devtools network")
         }
     }
-
-    return <div className="px-24 py-24" style={{width: "auto"}}>
+    
+    const onPasswordForget = () => {
+        setDisplayForgetPassword(true);
+    }
+    
+    return displayForgetPassword
+        ? <ResetPasswordForm
+            emailCode={emailCode}
+            handleCancel={() => setDisplayForgetPassword(false)}
+        />
+        : <div className="px-24 py-24" style={{width: "auto"}}>
         <div className="row">
             <h1>Login with password</h1>
         </div>
@@ -117,10 +132,9 @@ export const LoginPasswordForm = () => {
                 />
             </div>
         </div>
-        <div className="row mb-16">
-            <div className="col-xs-6">
-                <Button onClick={onSubmit}>Submit</Button>
-            </div>
+        <div style={{width: 'auto', display: 'flex', justifyContent: 'space-between'}} className="mb-16">
+            <Button onClick={onSubmit}>Submit</Button>
+            <Button text onClick={onPasswordForget}>Forgot password?</Button>
         </div>
     </div>
 }

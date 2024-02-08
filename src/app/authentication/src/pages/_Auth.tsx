@@ -37,7 +37,7 @@ export function _Auth() {
         </div>
         {state === "resetPasswordForm" && <div className="row mb-40">
             <div className="col-sm-6 col-xs-12">
-                <ResetPasswordForm emailCode={emailCode}/>
+                <ResetPasswordForm emailCode={emailCode} handleCancel={() => {}}/>
             </div>
         </div>}
         {state === "loginPassword" && <div className="row">

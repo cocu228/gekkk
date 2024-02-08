@@ -93,7 +93,7 @@ export const ResetPasswordForm = ({
             const SHA256Seed = sha256(phone + password + response.data.result.rpId);
 
             const ec = new eddsa('ed25519');
-            const key = ec.keyFromSecret(SHA256Seed);
+            const key = ec.keyFromSecret(Buffer.from(SHA256Seed, 'base64'));
             const pub = key.getPublic();
             const signature = key.sign(challengeUint8 as eddsa.Bytes).toBytes();
 

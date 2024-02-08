@@ -134,17 +134,20 @@ const FormLoginAccount = memo(() => {
 
         const challenge = response.data.result.challenge.replace(/-/g, "+").replace(/_/g, "/");
 
-        const uintChallenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+        const uintChallenge = Uint8Array.from(Buffer.from(challenge, 'base64'));
 
         const passKey = sha256(phone + password + response.data.result.rpId); 
 
         const EdDSA = elliptic.eddsa;
         const ec = new EdDSA('ed25519');
-        const key = ec.keyFromSecret(passKey.words);
+        const key = ec.keyFromSecret(passKey.words as unknown as elliptic.eddsa.Bytes);
         const pub = key.getPublic();
-        const signature = key.sign(uintChallenge).toBytes();
+        const signature = key.sign(uintChallenge as elliptic.eddsa.Bytes).toBytes();
 
-        console.log(key.verify(uintChallenge, signature));
+        console.log("verify signature:");
+        console.log(key.verify(uintChallenge as elliptic.eddsa.Bytes, signature));
+        console.log("Public key (elliptic):");
+        console.log(coerceToBase64Url(pub));
 
         const data = {
             challenge_id: response.data.result.challenge_id,

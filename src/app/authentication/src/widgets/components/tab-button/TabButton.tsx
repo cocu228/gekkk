@@ -15,7 +15,7 @@ const TabButton = ({
 }: IParams & HTMLAttributes<HTMLButtonElement>) => {
 	return <button
 		{...params}
-		className={`${active ? styles.TabButtonActive : styles.TabButton} ${className}`}
+		className={`${styles.TabButton} ${active ? styles.TabButtonActive : ""} ${className}`}
 	>
 		{children}
 	</button>;

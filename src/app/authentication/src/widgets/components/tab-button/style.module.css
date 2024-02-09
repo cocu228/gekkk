@@ -1,33 +1,18 @@
 ﻿.TabButton {
-    width: 100%;
-    border-width: 2px 2px 2px 2px;
+    border-width: 1px;
     border-radius: 8px 8px 0 0;
-    padding: 9px 24px 9px 24px;
-    border-color: var(--gek-text-primary);
-    
+    padding: 8px 10px;
+    border-color: white;
+    color: var(--gek-dark-grey);
+    background: var(--gek-light-grey);
+
     &:hover {
         border-bottom-color: transparent;
-        background: var(--gek-background);
-        color: var(--new-dark-blue);
-    }
-    
-    &:disabled {
-        color: var(--gek-dark-grey);
-        background: var(--gek-background)
+        color: var(--gek-dark-blue);
     }
 }
 
 .TabButtonActive {
-    width: 100%;
-    border-width: 2px 2px 0 2px;
-    border-radius: 8px 8px 0 0;
-    padding: 9px 24px 9px 24px;
-    color: var(--gek-text-primary);
-    border-color: var(--gek-text-primary);
-    background: var(--gek-background);
-
-    &:disabled {
-        color: var(--gek-dark-grey);
-        background: var(--gek-background)
-    }
+    border-width: 1px 1px 0 1px;
+    background-color: white;
 }

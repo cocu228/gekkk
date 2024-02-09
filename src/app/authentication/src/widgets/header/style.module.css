@@ -5,7 +5,7 @@
     justify-content: space-between;
     top: 0;
     height: 65px;
-    background: var(--background-accent);
+    background: var(--gek-dark-blue);
     padding: 0 25px;
     z-index: 1
 }

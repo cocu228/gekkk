@@ -10,12 +10,12 @@ const AuthDesktop = () => {
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
 	return <div className={styles.Main}>
-		<div className={styles.ReCapchaContainer} id="recaptcha-container" />
+		
 
 		<div className={styles.MainBody}>
 			{/* Header */}
 			<div style={{ width: '499px', flex: '0 0 auto' }}>
-				<h1 style={{ color: 'var(--text-primary)', marginBottom: '18px' }}>
+				<h1 style={{ color: 'var(--gek-text-primary)', marginBottom: '18px' }}>
 					Welcome to Gekkard online bank
 				</h1>
 			</div>
@@ -62,7 +62,7 @@ const AuthDesktop = () => {
 				alignItems: 'center',
 				paddingTop: '60px'
 			}}>
-				<span className="typography-b2" style={{ color: 'var(--text-additional-inverted)' }}>
+				<span className="typography-b2" style={{ color: 'var(--gek-dark-grey)' }}>
 					Don’t have an account? Sign up now
 				</span>
 
@@ -91,11 +91,11 @@ const AuthDesktop = () => {
 					</a>
 				</div>
 
-				<div style={{ color: 'var(--text-additional-inverted)', marginBottom: '3px' }}>
+				<div style={{ color: 'var(--gek-dark-grey)', marginBottom: '3px' }}>
 					Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
 				</div>
 
-				<div style={{ color: 'var(--text-additional-inverted)' }}>© Gekkoin. v."2.0.65"</div>
+				<div style={{ color: 'var(--gek-dark-grey)' }}>© Gekkoin. v."2.0.65"</div>
 			</div>
 		</div>
 

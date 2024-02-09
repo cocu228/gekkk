@@ -2,17 +2,17 @@
     border-radius: 8px;
     border-color: transparent;
     padding: 9px 24px 9px 24px;
-    background: var(--accent-green);
-    color: var(--background-primary);
+    background: var(--gek-green);
+    color: var(--gek-background);
     
     &:hover {
-        background: var(--accent-green-gradient);
+        background: var(--gek-green-gradient);
         color: var(--new-dark-blue);
     }
     
     &:disabled {
-        color: var(--text-additional-inverted);
-        background: var(--background-primary)
+        color: var(--gek-dark-grey);
+        background: var(--gek-background)
     }
 }
 
@@ -21,7 +21,7 @@
     cursor: pointer;
     background: transparent;
     border-color: transparent;
-    color: var(--text-additional);
+    color: var(--gek-additional);
     
     :hover {
         text-decoration: underline;
@@ -31,7 +31,7 @@
 .SecondaryButton {
     padding: 9px 24px;
     border-radius: 8px;
-    border: 2px solid var(--accent-green);
-    color: var(--accent-green);
-    background: var(--background-primary);
+    border: 2px solid var(--gek-green);
+    color: var(--gek-green);
+    background: var(--gek-background);
 }

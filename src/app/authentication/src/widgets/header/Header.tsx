@@ -11,7 +11,7 @@ const Header = () => {
 			</div>
 			
 			<div onClick={null}>
-				<SupportIcon stroke={"var(--background-primary)"}/>
+				<SupportIcon stroke={"var(--gek-background)"}/>
 			</div>
 		</div>
 	);

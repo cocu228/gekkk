@@ -3,7 +3,7 @@
   display: flex;
   overflow: auto;
   height: calc(100% - 70px);
-  background: var(--background-primary);
+  background: var(--gek-background);
   
   &Body {
     margin: 20px;
@@ -39,12 +39,12 @@
 
 .Form {
   &Header {
-    color: var(--text-additional);
+    color: var(--gek-additional);
     margin-bottom: 36px;
   }
   
   &Substrate {
-    background: var(--background-primary);
+    background: var(--gek-background);
     padding: 24px 36px;
     border-radius: 8px 8px 0 0;
     box-shadow:

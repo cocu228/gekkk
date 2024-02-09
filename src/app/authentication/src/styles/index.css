@@ -7,8 +7,8 @@ body {
     min-width: 320px;
     min-height: 100vh;
     width: 100%;
-    color: var(--text-primary);
-    background-color: var(--background-primary);
+    color: var(--gek-text-primary);
+    background-color: var(--gek-background);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

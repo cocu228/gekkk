@@ -7,7 +7,7 @@ import {createRef} from "preact";
 import {setCookieData} from "../shared/lib/cookies-helper";
 import Button from "./components/button/Button";
 import {useState} from "preact/hooks";
-import {ResetPasswordForm} from "./ResetPasswordForm";
+import {CallResetPasswordForm} from "./CallResetPasswordForm";
 
 
 const fServerRequest = async (data: any) => {
@@ -39,10 +39,7 @@ export const LoginPasswordForm = () => {
 
     const refInputPassword = createRef()
     const refInputLogin = createRef()
-    const [displayForgetPassword, setDisplayForgetPassword] = useState<boolean>(false);
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const emailCode = urlParams.get('emailCode');
+    const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
     
     
     const onSubmit = async (e) => {
@@ -96,13 +93,12 @@ export const LoginPasswordForm = () => {
     }
     
     const onPasswordForget = () => {
-        setDisplayForgetPassword(true);
+        setDisplayResetPassword(true);
     }
     
-    return displayForgetPassword
-        ? <ResetPasswordForm
-            emailCode={emailCode}
-            handleCancel={() => setDisplayForgetPassword(false)}
+    return displayResetPassword
+        ? <CallResetPasswordForm
+            handleCancel={() => setDisplayResetPassword(false)}
         />
         : <div className="px-24 py-24" style={{width: "auto"}}>
         <div className="row">

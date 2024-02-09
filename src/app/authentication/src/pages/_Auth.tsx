@@ -1,4 +1,3 @@
-import {ResetPasswordForm} from "../widgets/ResetPasswordForm";
 import {LoginPasswordForm} from "../widgets/LoginPasswordForm";
 // import {RegisterDeviceKey} from "../widgets/RegisterDeviceKey";
 import {LoginDeviceKey} from "../widgets/LoginDeviceKey";
@@ -37,7 +36,7 @@ export function _Auth() {
         </div>
         {state === "resetPasswordForm" && <div className="row mb-40">
             <div className="col-sm-6 col-xs-12">
-                <ResetPasswordForm emailCode={emailCode} handleCancel={() => {}}/>
+                {/*<CallResetPasswordForm handleCancel={() => {}}/>*/}
             </div>
         </div>}
         {state === "loginPassword" && <div className="row">

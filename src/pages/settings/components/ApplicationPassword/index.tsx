@@ -42,9 +42,7 @@ export function AccessManagement(): JSX.Element | null{
     
   }
   function onCloseSession(id){
-    apiCloseSessions({id: id}).then(res=>{
-      console.log(res);
-      
+    apiCloseSessions({id: id}).then(res=>{      
       setSessionClosed(n=>!n)
     })
     
@@ -188,7 +186,7 @@ export function AccessManagement(): JSX.Element | null{
             <div className='p-5'>
               <Button
                 onClick={()=>{
-                  apiCloseSessions()
+                  apiCloseSessions().then(res=>{setSessionClosed(n=>!n)})
                 }}
               >
                 {t("close_all")}

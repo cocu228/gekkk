@@ -114,10 +114,17 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
             }
     }, [])
 
-    if(md && !listHistory.length){
+    if(md && loading){
         return(
             <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile +" h-[100px] relative"}>
                 <Loader/>
+            </div>
+        )
+    }
+    if(!loading && !listHistory.length){
+        return(
+            <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile +" h-[100px] relative"}>
+                <span>There have been no transactions in this currency</span>
             </div>
         )
     }

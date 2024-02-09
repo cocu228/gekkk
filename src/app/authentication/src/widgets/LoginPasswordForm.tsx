@@ -1,13 +1,13 @@
-import {coerceToBase64Url, formatAsNumber, setAdvCookie} from "./model/shared";
-import {eddsa} from 'elliptic'
-import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
-import {sha256} from "js-sha256";
-import {apiGetInfo} from "../shared/(orval)api/gek";
-import {createRef} from "preact";
-import {setCookieData} from "../shared/lib/cookies-helper";
+import { coerceToBase64Url, formatAsNumber, setAdvCookie } from "./model/shared";
+import { eddsa } from 'elliptic'
+import { apiLogin, apiLoginOptions } from "../shared/(orval)api/auth";
+import { sha256 } from "js-sha256";
+import { apiGetInfo } from "../shared/(orval)api/gek";
+import { createRef } from "preact";
+import { setCookieData } from "../shared/lib/cookies-helper";
 import Button from "./components/button/Button";
-import {useState} from "preact/hooks";
-import {CallResetPasswordForm} from "./CallResetPasswordForm";
+import { useState } from "preact/hooks";
+import { CallResetPasswordForm } from "./CallResetPasswordForm";
 
 
 const fServerRequest = async (data: any) => {
@@ -22,12 +22,12 @@ const fServerRequest = async (data: any) => {
     });
 
     if (response.data.result === "Success") {
-        let {data} = await apiGetInfo({refresh: false});
+        let { data } = await apiGetInfo({ refresh: false });
         if (data.result.length > 0) {
-            setCookieData([{key: "accountId", value: data.result[0].account}]);
+            setCookieData([{ key: "accountId", value: data.result[0].account }]);
         } else {
-            let {data} = await apiGetInfo({refresh: true});
-            setCookieData([{key: "accountId", value: data.result[0].account}]);
+            let { data } = await apiGetInfo({ refresh: true });
+            setCookieData([{ key: "accountId", value: data.result[0].account }]);
         }
 
         location.replace('/');
@@ -40,8 +40,8 @@ export const LoginPasswordForm = () => {
     const refInputPassword = createRef()
     const refInputLogin = createRef()
     const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
-    
-    
+
+
     const onSubmit = async (e) => {
 
         e.preventDefault()
@@ -91,46 +91,41 @@ export const LoginPasswordForm = () => {
             alert("Bad request, look at devtools network")
         }
     }
-    
+
     const onPasswordForget = () => {
         setDisplayResetPassword(true);
     }
-    
+
     return displayResetPassword
         ? <CallResetPasswordForm
             handleCancel={() => setDisplayResetPassword(false)}
         />
-        : <div className="px-24 py-24" style={{width: "auto"}}>
-        <div className="row">
-            <h1>Login with password</h1>
-        </div>
-        <div className="row mb-16">
-            <div className="col-xs-12">
-                Login
+        : <div className="px-24 py-24" style={{ width: "auto", backgroundColor:"#FFF" }}>
+
+            <div className="row mb-16">
+                <div className="col-xs-12">
+                    Phone
+                </div>
+                <div className="col-xs-12">
+                    <input
+                        type={"text"}
+                        ref={refInputLogin}
+                        name='phone'
+                    />
+                </div>
             </div>
-            <div className="col-xs-12">
-                <input
-                    type={"text"}
-                    ref={refInputLogin}
-                    name='phone'
-                />
+            <div className="row mb-16">                
+                <div className="col-xs-12">
+                    <input
+                        type={"text"}
+                        ref={refInputPassword}
+                        name='password'
+                    />
+                </div>
+            </div>
+            <div style={{ width: 'auto', display: 'flex', justifyContent: 'space-between' }} className="mb-16">
+                <Button onClick={onSubmit}>Submit</Button>
+                <Button text onClick={onPasswordForget}>Forgot password?</Button>
             </div>
         </div>
-        <div className="row mb-16">
-            <div className="col-xs-12">
-                Password
-            </div>
-            <div className="col-xs-12">
-                <input
-                    type={"text"}
-                    ref={refInputPassword}
-                    name='password'
-                />
-            </div>
-        </div>
-        <div style={{width: 'auto', display: 'flex', justifyContent: 'space-between'}} className="mb-16">
-            <Button onClick={onSubmit}>Submit</Button>
-            <Button text onClick={onPasswordForget}>Forgot password?</Button>
-        </div>
-    </div>
 }

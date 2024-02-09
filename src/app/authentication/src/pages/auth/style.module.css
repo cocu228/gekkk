@@ -1,3 +1,18 @@
+footer,
+details {
+  font-size: 12px;
+
+  a {
+    text-decoration: inherit;
+    color: var(--gek-additional);
+    margin: 8px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: var(--gek-dark-blue);
+  }
+}
 
 .Main {
   width: 100%;
@@ -31,11 +46,6 @@
   right: 0;
   width: 100%;
   max-width: 783px;
-}
-
-.ReCapchaContainer {
-  width: 270px;
-  flex: 0 1 auto;
 }
 
 .FormHeader {
@@ -74,28 +84,25 @@
   list-style: none;
   font-family: inherit;
 }
+
 .Header {
   display: flex;
-  position: sticky;
+  /* position: sticky; */
   align-items: center;
   justify-content: space-between;
-  top: 0;
   height: 65px;
   background: var(--gek-dark-blue);
   padding: 0 25px;
-  z-index: 1
-}
 
-.LogoContainer {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  align-self: center;
-  margin-left: 2%;
-  box-sizing: border-box;
-  
-  :hover
-  {
+  .LogoContainer {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    align-self: center;
+    margin-left: 2%;
+
+    :hover {
       cursor: pointer;
+    }
   }
 }

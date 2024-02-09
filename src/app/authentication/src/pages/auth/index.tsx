@@ -2,7 +2,6 @@
 import { useBreakpoints } from "../../app/providers/BreakpointsProvider";
 import styles from './style.module.css';
 
-import Button from '../../widgets/components/button/Button';
 import TabButton from "../../widgets/components/tab-button/TabButton";
 import { useState } from "react";
 import { LoginPasswordForm } from "../../widgets/LoginPasswordForm";
@@ -30,24 +29,24 @@ const Auth = () => {
 					<SupportIcon stroke={"var(--gek-background)"} />
 				</div>
 			</div>
+
 			<div className={styles.Main}>
 				{
 					emailCode ? <ResetPasswordForm emailCode={emailCode} />
 						:
 						<div className={styles.MainBody}>
-							{/* Header */}
-							<div style={{ width: '499px', flex: '0 0 auto' }}>
+
+							<header>
 								<h1 style={{ color: 'var(--gek-text-primary)', marginBottom: '18px' }}>
 									Welcome to Gekkard online bank
 								</h1>
-							</div>
-
-							{/* Input form */}
-							<div>
 								<p className={styles.FormHeader}>
 									Log in using the form below
 								</p>
+							</header>
 
+							{/* Input form */}
+							<main>
 								<div style={{
 									width: 'auto',
 									margin: '4px 4px 0 4px',
@@ -74,29 +73,25 @@ const Auth = () => {
 										</form>
 									</div>
 								</div>
-							</div>
+							</main>
 
 							{/* Under input form */}
-							<div style={{
+							<details style={{
 								width: '100%',
 								display: 'flex',
 								justifyContent: 'space-between',
 								alignItems: 'center',
 								paddingTop: '60px'
 							}}>
-								<span className="typography-b2" style={{ color: 'var(--gek-dark-grey)' }}>
-									Don’t have an account? Sign up now
-								</span>
+								<summary>Don’t have an account?</summary>
 
-								<Button>
-									Sign up
-								</Button>
-							</div>
+								<a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
+									Go to Gekkard registration form
+								</a>
+							</details>
 
-							<div style={{ height: '100%', minHeight: '300px' }}></div>
-
-							<div style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column' }}>
-								<div className="typography-b2" style={{
+							<footer style={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column' }}>
+								<nav className="typography-b2" style={{
 									marginBottom: '6px', color: '285E69ff',
 									display: 'flex', justifyContent: 'space-between'
 								}}>
@@ -111,21 +106,21 @@ const Auth = () => {
 									<a href="https://gekkard.com/legal-agreements.html" target="_blank" rel="noreferrer noopener">
 										Legal agreements
 									</a>
-								</div>
+								</nav>
 
 								<div style={{ color: 'var(--gek-dark-grey)', marginBottom: '3px' }}>
 									Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
 								</div>
 
 								<div style={{ color: 'var(--gek-dark-grey)' }}>© Gekkoin. v."2.0.65"</div>
-							</div>
+							</footer>
 						</div>
 				}
 				{
 					md ? "" : <div className={styles.MainBackground}>
-						<div className={styles.MainBackgroundLogo}>
+						<figure className={styles.MainBackgroundLogo}>
 							<BackgroundLogoIcon />
-						</div>
+						</figure>
 					</div>
 				}
 			</div>

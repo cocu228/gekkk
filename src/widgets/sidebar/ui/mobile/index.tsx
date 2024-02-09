@@ -298,12 +298,12 @@ const SidebarMobile = () => {
                                                 <div className={"row w-full flex justify-between pr-5"}>
                                                     <div>
                                                         {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                                        +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                                                        +{toLocaleCryptoRounding(item.userBalance, item.roundPrec) ?? '-'}
                                                                     </span>}
                                                     </div>
                                                     <div className=" text-gray-500 font-mono">
                                                         {item.userBalanceEUREqu === null ? null :
-                                                            <span className={md ? styles.Balance : styles.EuroEqv}>
+                                                            <span className={`${md ? styles.Balance : styles.EuroEqv} font-mono`}>
                                                                         ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
                                                                     </span>}
                                                     </div>
@@ -318,9 +318,10 @@ const SidebarMobile = () => {
                                 </NavLink>)
                         )}
                         <div className={styles.AssetInfo5}>
-                            <span>{t("total_balance").capitalize()}</span>
+                            <span className="font-mono">{t("total_balance").capitalize()}</span>
                             <span>~ <span
-                                data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+                                data-testid="TotalAmount"
+                                className="font-mono">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
                         </div>
                         <Modal
                             width={450}

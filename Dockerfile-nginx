@@ -4,6 +4,7 @@ FROM nginx:alpine
 # Заменяем дефолтную страницу nginx соответствующей веб-приложению
 RUN rm -rf /usr/share/nginx/html/*
 COPY /dist /usr/share/nginx/html
+COPY /src/app/authentication/dist/authentication.js /usr/share/nginx/html/authentication.js
 #COPY --from=builder /dist /usr/share/nginx/html
 
 COPY /nginx/default.conf /etc/nginx/conf.d/default.conf

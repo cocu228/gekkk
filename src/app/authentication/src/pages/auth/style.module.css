@@ -34,12 +34,14 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+
   @media (max-width:700px) {
     align-items: center;
   }
+
   @media (min-width:700px) {
     margin-left: 150px;
-  }  
+  }
 }
 
 header {
@@ -64,7 +66,7 @@ main {
 
   @media (max-width:420px) {
     max-width: 320px;
-    max-height: 185px;
+    max-height: 250px;
   }
 
   background: white;
@@ -100,6 +102,7 @@ main {
   }
 
   input {
+    height: 36px;
 
     box-sizing: border-box;
     font-family: inherit;
@@ -125,7 +128,19 @@ main {
       outline-offset: -2px;
     }
 
+
+
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--gek-dark-blue);
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px white;
 }
 
 .MainBackground {

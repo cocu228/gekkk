@@ -9,7 +9,6 @@ import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIco
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
-
 import { coerceToBase64Url, formatAsNumber, setAdvCookie } from "../../widgets/model/shared";
 import { eddsa } from 'elliptic'
 import { apiLogin, apiLoginOptions } from "../../shared/(orval)api/auth";
@@ -20,6 +19,10 @@ import { setCookieData } from "../../shared/lib/cookies-helper";
 import Button from "../../widgets/components/button/Button";
 import { useState } from "preact/hooks";
 import { CallResetPasswordForm } from "../..//widgets/CallResetPasswordForm";
+
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import flags from 'react-phone-number-input/flags'
 
 const fServerRequest = async (data: any) => {
 
@@ -111,6 +114,7 @@ const Auth = () => {
 	const onPasswordForget = () => {
 		setDisplayResetPassword(true);
 	}
+	const [value, setValue] = useState();
 
 	return (
 		<>
@@ -141,7 +145,7 @@ const Auth = () => {
 								<main>
 									<div className={styles.FormTab}>
 										<button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >
-											Password
+											User
 										</button>
 										<button className={`${styles.TabButton} ${tab === 'DEVICE_KEY' ? styles.TabButtonActive : ""}`} onClick={() => setTab('DEVICE_KEY')} >
 											Device key
@@ -150,17 +154,15 @@ const Auth = () => {
 									<form autoComplete={"on"} className={styles.FormBody}>
 										{tab != 'PASSWORD' ? <LoginDeviceKey /> :
 											<>
-												<div>
-													<div>
-														Phone
-													</div>
-													<input type={"text"} ref={refInputLogin} name='phone' />
+												<div>													
+													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={value} onChange={setValue}/>
+													{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
 												</div>
 												<div>
-													<input type={"password"} ref={refInputPassword} name='password'/>
+													<input placeholder={"Password"} type={"password"} ref={refInputPassword} name='password'/>
 												</div>
 												<div className={styles.FormButtons} >
-													<Button onClick={onSubmit}>Submit</Button>
+													<Button type="submit" onClick={onSubmit}>Login</Button>
 													<Button text onClick={onPasswordForget}>Forgot password?</Button>
 												</div>
 											</>

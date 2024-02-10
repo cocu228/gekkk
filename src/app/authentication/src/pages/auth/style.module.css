@@ -20,14 +20,13 @@
   }
 }
 
-
 .Main {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   overflow: auto;
   justify-content: space-around;
-  /* height: calc(100% - 70px); */
+  height: calc(100% - 70px);
 }
 
 .MainBody {
@@ -38,28 +37,33 @@
   align-items: center;
 }
 
-header p {
-  color: var(--gek-additional);
-}
-header
-{
-  max-width: 466px;
+header {
+  max-width: 425px;
+
+  p {
+    color: var(--gek-additional);
+  }
 }
 
 main {
   flex: 1 1 auto;
   aspect-ratio: 1.726;
-  max-width: 430px;
+  max-width: 420px;
   min-width: 320px;
   max-height: 270px;
+
+  @media (max-width:420px) {
+    max-width: 320px;
+    max-height: 185px;
+  }
+
   background: white;
   border-radius: 8px 8px 0 0;
-  box-shadow:
-    3px 2px 8px 0 #A8A8A84A,
-    13px 8px 15px 0 #A8A8A842,
-    28px 17px 20px 0 #A8A8A826,
-    50px 30px 23px 0 #A8A8A80A,
-    79px 47px 26px 0 #A8A8A803;
+  box-shadow: 3px 2px 8px 0 #A8A8A84A,
+  13px 8px 15px 0 #A8A8A842,
+  28px 17px 20px 0 #A8A8A826,
+  50px 30px 23px 0 #A8A8A80A,
+  79px 47px 26px 0 #A8A8A803;
 
   .FormTab {
     display: flex;
@@ -70,7 +74,7 @@ main {
       width: 50%;
     }
   }
- 
+
   .FormBody {
     padding: 24px 36px;
     display: flex;
@@ -83,13 +87,13 @@ main {
   position: relative;
   flex-grow: 1;
   display: flex;
-  width: 50%; 
+  width: 50%;
   max-width: 50%;
   overflow: hidden;
 }
 
 figure {
-  position: absolute;  
+  position: absolute;
   top: 80px;
   left: 0;
   width: 100%;
@@ -115,26 +119,43 @@ details {
     color: var(--gek-dark-blue);
   }
 }
-footer p
-{
- margin: 0px;
- text-align: justify;
- color: var(--gek-mid-grey);
+
+footer {
+  p {
+    margin: 0px;
+    text-align: justify;
+    color: var(--gek-mid-grey);
+  }
+
+  p:last-child {
+    color: var(--gek-dark-grey);
+  }
 }
 
-details a {
-  color: var(--gek-green);
-  font-weight: 550;
-}
-details
-{
+details {
   flex: 1 1 auto;
+  color: black;
+
+  summary {
+    padding: 1rem;
+    cursor: pointer;
+  }   
+  summary > * { 
+    display: inline;
+  }
+  h4{
+    color: var(--gek-additional);
+  }
+  a {
+    color: var(--gek-green);
+    font-weight: 550;
+  }
 }
 
-nav
-{
- display: flex;
- justify-content: space-between;
+
+nav {
+  display: flex;
+  justify-content: space-between;
 }
 
 .TabButton {

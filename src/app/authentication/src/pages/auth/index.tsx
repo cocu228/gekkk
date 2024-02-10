@@ -61,7 +61,7 @@ const Auth = () => {
 							</main>
 							
 							<details>
-								<summary>Don’t have an account?</summary>
+								<summary><h4>Don’t have an account?</h4></summary>
 
 								<a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
 									Go to Gekkard registration form

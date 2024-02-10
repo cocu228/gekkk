@@ -61,7 +61,7 @@ export const ResetPasswordForm = ({
 			.replace(/_/g, "/");
 		
 		const challengeUint8 = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
-		const SHA256Seed = sha256(phone + password);
+		const SHA256Seed = sha256(phone + password + credentials.rpId);
 		
 		const ec = new eddsa('ed25519');
 		const key = ec.keyFromSecret(SHA256Seed);

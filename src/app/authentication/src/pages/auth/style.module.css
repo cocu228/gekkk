@@ -46,11 +46,16 @@ header {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
   flex: 1 1 auto;
   aspect-ratio: 1.726;
   max-width: 420px;
   min-width: 320px;
   max-height: 270px;
+  font-size: small;
+  font-weight: 400;
+  color: var(--gek-dark-blue);
 
   @media (max-width:420px) {
     max-width: 320px;
@@ -76,10 +81,45 @@ main {
   }
 
   .FormBody {
+    flex: 1 1 auto;
     padding: 24px 36px;
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .FormButtons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input {
+
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    vertical-align: baseline;
+    font-weight: 400;
+    line-height: 1.29;
+    letter-spacing: .16px;
+    border-radius: 0;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    width: 100%;
+
+    border: none;
+    border-bottom: 1px solid var(--gek-light-grey);
+
+    padding: 0 16px;
+    color: #161616;
+    transition: background-color 70ms cubic-bezier(.2, 0, .38, .9), outline 70ms cubic-bezier(.2, 0, .38, .9);
+
+    :focus {
+      outline: 2px solid var(--gek-light-grey);
+      outline-offset: -2px;
+    }
+
   }
 }
 
@@ -139,13 +179,16 @@ details {
   summary {
     padding: 1rem;
     cursor: pointer;
-  }   
-  summary > * { 
+  }
+
+  summary>* {
     display: inline;
   }
-  h4{
+
+  h4 {
     color: var(--gek-additional);
   }
+
   a {
     color: var(--gek-green);
     font-weight: 550;

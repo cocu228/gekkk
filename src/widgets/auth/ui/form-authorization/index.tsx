@@ -16,7 +16,7 @@ import styles from './form-authorization.module.scss';
 import CloseWindow from '@/assets/close-window.svg?react';
 import SearchInInput from '@/assets/search-in-input.svg?react';
 import elliptic from 'elliptic'
-import sha256 from 'crypto-js/sha256';
+import {sha256} from 'js-sha256';
 
 
 import {
@@ -140,7 +140,7 @@ const FormLoginAccount = memo(() => {
 
         const EdDSA = elliptic.eddsa;
         const ec = new EdDSA('ed25519');
-        const key = ec.keyFromSecret(passKey.words as unknown as elliptic.eddsa.Bytes);
+        const key = ec.keyFromSecret(passKey);
         const pub = key.getPublic();
         const signature = key.sign(uintChallenge as elliptic.eddsa.Bytes).toBytes();
 

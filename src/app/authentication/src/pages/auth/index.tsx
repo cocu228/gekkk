@@ -35,9 +35,9 @@ const Auth = () => {
 						:
 						<div className={styles.MainBody}>
 							<header>
-								<h1>
+								<h2>
 									Welcome to Gekkard online bank
-								</h1>
+								</h2>
 								<p>
 									Log in using the form below
 								</p>
@@ -92,7 +92,7 @@ const Auth = () => {
 				}
 				{
 					md ? "" : <div className={styles.MainBackground}>
-						<figure className={styles.MainBackgroundLogo}>
+						<figure>
 							<BackgroundLogoIcon />
 						</figure>
 					</div>

@@ -26,6 +26,7 @@
   height: 100%;
   display: flex;
   overflow: auto;
+  justify-content: space-around;
   /* height: calc(100% - 70px); */
 }
 
@@ -33,16 +34,24 @@
   margin: 20px;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
 }
 
 header p {
   color: var(--gek-additional);
 }
+header
+{
+  max-width: 466px;
+}
 
 main {
+  flex: 1 1 auto;
   aspect-ratio: 1.726;
-  max-width: 466px;
+  max-width: 430px;
   min-width: 320px;
+  max-height: 270px;
   background: white;
   border-radius: 8px 8px 0 0;
   box-shadow:
@@ -72,19 +81,17 @@ main {
 
 .MainBackground {
   position: relative;
-  flex: 0 1 auto;
+  flex-grow: 1;
   display: flex;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  margin-left: 50px;
-  margin-right: 50px;
+  width: 50%; 
+  max-width: 50%;
+  overflow: hidden;
 }
 
-.MainBackgroundLogo {
-  position: absolute;
+figure {
+  position: absolute;  
   top: 80px;
-  right: 0;
+  left: 0;
   width: 100%;
   max-width: 783px;
 }
@@ -95,11 +102,12 @@ details {
   padding-top: 20px;
   display: flex;
   flex-direction: column;
+  max-width: 500px;
 
   a {
     text-decoration: inherit;
     color: var(--gek-additional);
-    margin: 8px;
+    margin: 8px 0px;
   }
 
   a:hover {
@@ -110,12 +118,17 @@ details {
 footer p
 {
  margin: 0px;
+ text-align: justify;
  color: var(--gek-mid-grey);
 }
 
 details a {
   color: var(--gek-green);
-  font-weight: 600;
+  font-weight: 550;
+}
+details
+{
+  flex: 1 1 auto;
 }
 
 nav

@@ -1,90 +1,3 @@
-footer,
-details {
-  font-size: 12px;
-
-  a {
-    text-decoration: inherit;
-    color: var(--gek-additional);
-    margin: 8px;
-  }
-
-  a:hover {
-    text-decoration: underline;
-    color: var(--gek-dark-blue);
-  }
-}
-
-.Main {
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-  height: calc(100% - 70px);
-  background: var(--gek-background);
-}
-
-.MainBody {
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.MainBackground {
-  position: relative;
-  flex: 0 1 auto;
-  overflow: hidden;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
-.MainBackgroundLogo {
-  position: absolute;
-  top: 80px;
-  right: 0;
-  width: 100%;
-  max-width: 783px;
-}
-
-.FormHeader {
-  color: var(--gek-additional);
-  margin-bottom: 36px;
-}
-
-.FormSubstrate {
-  background: white;
-  padding: 24px 36px;
-  border-radius: 8px 8px 0 0;
-  box-shadow:
-    3px 2px 8px 0 #A8A8A84A,
-    13px 8px 15px 0 #A8A8A842,
-    28px 17px 20px 0 #A8A8A826,
-    50px 30px 23px 0 #A8A8A80A,
-    79px 47px 26px 0 #A8A8A803;
-}
-
-.FormWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem
-}
-
-.FormBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.88);
-  font-size: 14px;
-  line-height: 1.5714285714285714;
-  list-style: none;
-  font-family: inherit;
-}
-
 .Header {
   display: flex;
   /* position: sticky; */
@@ -105,4 +18,123 @@ details {
       cursor: pointer;
     }
   }
+}
+
+
+.Main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: auto;
+  /* height: calc(100% - 70px); */
+}
+
+.MainBody {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+header p {
+  color: var(--gek-additional);
+}
+
+main {
+  aspect-ratio: 1.726;
+  max-width: 466px;
+  min-width: 320px;
+  background: white;
+  border-radius: 8px 8px 0 0;
+  box-shadow:
+    3px 2px 8px 0 #A8A8A84A,
+    13px 8px 15px 0 #A8A8A842,
+    28px 17px 20px 0 #A8A8A826,
+    50px 30px 23px 0 #A8A8A80A,
+    79px 47px 26px 0 #A8A8A803;
+
+  .FormTab {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      align-self: stretch;
+      width: 50%;
+    }
+  }
+ 
+  .FormBody {
+    padding: 24px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+  }
+}
+
+.MainBackground {
+  position: relative;
+  flex: 0 1 auto;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.MainBackgroundLogo {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 100%;
+  max-width: 783px;
+}
+
+footer,
+details {
+  font-size: 12px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  a {
+    text-decoration: inherit;
+    color: var(--gek-additional);
+    margin: 8px;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: var(--gek-dark-blue);
+  }
+}
+footer p
+{
+ margin: 0px;
+ color: var(--gek-mid-grey);
+}
+
+details a {
+  color: var(--gek-green);
+  font-weight: 600;
+}
+
+nav
+{
+ display: flex;
+ justify-content: space-between;
+}
+
+.TabButton {
+  border-width: 0px;
+  padding: 8px 0px;
+  color: var(--gek-dark-grey);
+  background: var(#00000005);
+
+  &:hover {
+    color: var(--gek-dark-blue);
+  }
+}
+
+.TabButtonActive {
+  background-color: transparent;
 }

@@ -26,26 +26,23 @@
   display: flex;
   overflow: hidden;
   justify-content: space-between;
-  /* height: calc(100% - 70px); */
 }
 
 .MainBody {
   margin: 20px;
+  margin-left: min(20%, 150px);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 
   @media (max-width:700px) {
-    align-items: center;
-  }
-
-  @media (min-width:700px) {
-    margin-left: 150px;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 
 header {
-  max-width: 425px;
+  max-width: 500px;
 
   p {
     font-size: 14px;
@@ -57,26 +54,24 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  aspect-ratio: 1.726;
-  max-width: 420px;
+  aspect-ratio: 1.85;
+  max-width: 500px;
   min-width: 320px;
   max-height: 270px;
+  @media (min-width:700px) {
+    min-width: 500px;
+  }
   font-size: small;
   font-weight: 400;
   color: var(--gek-dark-blue);
 
-  @media (max-width:420px) {
-    max-width: 320px;
-    max-height: 250px;
-  }
-
   background: white;
   border-radius: 8px 8px 0 0;
   box-shadow: 3px 2px 8px 0 #A8A8A84A,
-  13px 8px 15px 0 #A8A8A842,
-  28px 17px 20px 0 #A8A8A826,
-  50px 30px 23px 0 #A8A8A80A,
-  79px 47px 26px 0 #A8A8A803;
+    13px 8px 15px 0 #A8A8A842,
+    28px 17px 20px 0 #A8A8A826,
+    50px 30px 23px 0 #A8A8A80A,
+    79px 47px 26px 0 #A8A8A803;
 
   .FormTab {
     display: flex;
@@ -121,13 +116,12 @@ main {
     border-bottom: 1px solid var(--gek-light-grey);
 
     padding: 0 16px;
-    color: #161616;
-    transition: background-color 70ms cubic-bezier(.2, 0, .38, .9), outline 70ms cubic-bezier(.2, 0, .38, .9);
+    color: var(--gek-dark-blue);
 
-    :focus {
-      outline: 2px solid var(--gek-light-grey);
-      outline-offset: -2px;
-    }
+  }
+
+  input:focus {
+    border-bottom: 1px solid var(--gek-mid-grey);
   }
 }
 
@@ -142,7 +136,7 @@ input:-webkit-autofill:active {
 }
 
 figure {
-  @media (max-width:700px) {
+  @media (max-width:1000px) {
     display: none;
   }
 
@@ -200,10 +194,9 @@ footer {
 details {
   flex: 1 1 auto;
   color: black;
-  align-self: normal;
 
   summary {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     cursor: pointer;
   }
 

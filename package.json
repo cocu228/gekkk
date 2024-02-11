@@ -21,6 +21,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/archivo": "^5.0.15",
+    "@fontsource/azeret-mono": "^5.0.18",
     "@fontsource/inter": "^5.0.15",
     "@mui/material": "^5.14.20",
     "@stomp/stompjs": "^7.0.0",

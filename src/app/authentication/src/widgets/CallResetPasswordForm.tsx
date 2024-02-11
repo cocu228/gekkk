@@ -1,4 +1,5 @@
 ﻿import {createRef} from "preact";
+import styles from './style.module.css';
 import {formatAsNumber} from "./model/shared";
 import Button from "./components/button/Button";
 import {apiResetPassword} from "../shared/(orval)api/auth";
@@ -28,16 +29,7 @@ export const CallResetPasswordForm = ({
         alert("A message with a confirmation code has been sent by email.")
     }
 
-    return <div className="px-24 py-24" style={{width: "auto"}}>
-        <div class="row mb-16">
-            <h1>Password reset</h1>
-            
-            <span>
-                To start the password reset process for your Gekkard account, please, enter the phone number that you have registered with Gekkard:
-                The link will be sent to your email.
-            </span>
-        </div>
-        
+    return <div className={styles.CallReset} style={{width: "auto"}}>
         <div className="row mb-16">
             <div className="col-xs-12">
                 Phone number

@@ -24,7 +24,7 @@ const Auth = () => {
 	const emailCode = urlParams.get('emailCode');
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
-	const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
+	const [displayForgotPassword, setDisplayForgotPassword] = useState<boolean>(false);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -51,7 +51,7 @@ const Auth = () => {
 	}
 
 	const onPasswordForget = () => {
-		setDisplayResetPassword(true);
+		setDisplayForgotPassword(true);
 	}
 	const [phoneValue, setPhone] = useState('');
 	const [passValue, setPass] = useState('');
@@ -71,17 +71,24 @@ const Auth = () => {
 			<div className={styles.Main}>
 				{
 					emailCode ? <ResetPasswordForm emailCode={emailCode} />
-						: displayResetPassword ? <CallResetPasswordForm handleCancel={() => setDisplayResetPassword(false)} /> :
-							<div className={styles.MainBody}>
-								<header>
-									<h2>
-										Welcome to Gekkard online bank
-									</h2>
-									<p>
-										Log in using the form below
-									</p>
-								</header>
-
+						: <div className={styles.MainBody}>
+							<header>
+								<h2>
+									{displayForgotPassword
+										? 'Password reset'
+										: 'Welcome to Gekkard online bank'
+									}
+								</h2>
+								<p>
+									{displayForgotPassword
+										? 'To start the password reset process for your Gekkard account, please,' +
+										' enter the phone number that you have registered with Gekkard: The link will be sent to your email.'
+										: 'Log in using the form below'
+									}
+								</p>
+							</header>
+							
+							{displayForgotPassword ? <CallResetPasswordForm handleCancel={() => {setDisplayForgotPassword(false)}}/> : (
 								<main>
 									<div className={styles.FormTab}>
 										<button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >
@@ -105,9 +112,11 @@ const Auth = () => {
 													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setPhone} />
 													{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
 												</div>
+												
 												<div>
 													<input placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
 												</div>
+												
 												<div className={styles.FormButtons} >
 													<Button disabled={!phoneValue || !passValue || passValue.length < 6} type="submit">Login</Button>
 													<Button text onClick={onPasswordForget}>Forgot password?</Button>
@@ -116,37 +125,39 @@ const Auth = () => {
 										}
 									</form>
 								</main>
+							)}
 
-								<details>
-									<summary><h4>Don’t have an account?</h4></summary>
+							<details>
+								<summary><h4>Don’t have an account?</h4></summary>
 
-									<a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
-										Go to Gekkard registration form
+								<a href="https://webreg.gekkard.com/" target="_blank" rel="noreferrer noopener">
+									Go to Gekkard registration form
+								</a>
+							</details>
+
+							<footer>
+								<nav>
+									<a href="https://gekkard.com/terms-and-conditions.html" target="_blank" rel="noreferrer noopener">
+										General terms and conditions
 									</a>
-								</details>
 
-								<footer>
-									<nav>
-										<a href="https://gekkard.com/terms-and-conditions.html" target="_blank" rel="noreferrer noopener">
-											General terms and conditions
-										</a>
+									<a href="https://gekkard.com/data-protection-policy.html" target="_blank" rel="noreferrer noopener">
+										Data protection policy
+									</a>
 
-										<a href="https://gekkard.com/data-protection-policy.html" target="_blank" rel="noreferrer noopener">
-											Data protection policy
-										</a>
+									<a href="https://gekkard.com/legal-agreements.html" target="_blank" rel="noreferrer noopener">
+										Legal agreements
+									</a>
+								</nav>
 
-										<a href="https://gekkard.com/legal-agreements.html" target="_blank" rel="noreferrer noopener">
-											Legal agreements
-										</a>
-									</nav>
-
-									<p>
-										Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
-									</p>
-									<p>© Gekkard. v."2.0.65"</p>
-								</footer>
-							</div>
+								<p>
+									Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
+								</p>
+								<p>© Gekkard. v."2.0.65"</p>
+							</footer>
+						</div>
 				}
+				
 				<figure>
 					<div className={styles.MainBackground}><BackgroundLogoIcon /></div>
 				</figure>

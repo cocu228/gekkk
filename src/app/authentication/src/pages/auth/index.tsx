@@ -1,5 +1,4 @@
 ﻿import { ResetPasswordForm } from "../../widgets/ResetPasswordForm";
-import { useBreakpoints } from "../../app/providers/BreakpointsProvider";
 import styles from './style.module.css';
 
 import { LoginDeviceKey } from "../../widgets/LoginDeviceKey";
@@ -50,7 +49,6 @@ const fServerRequest = async (data: any) => {
 }
 
 const Auth = () => {
-	const { md } = useBreakpoints();
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const emailCode = urlParams.get('emailCode');
@@ -151,12 +149,12 @@ const Auth = () => {
 									<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>
 										{tab != 'PASSWORD' ? <LoginDeviceKey /> :
 											<>
-												<div>													
-													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setValue}/>
+												<div>
+													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setValue} />
 													{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
 												</div>
 												<div>
-													<input placeholder={"Password"} type={"password"} ref={refInputPassword} name='password'/>
+													<input placeholder={"Password"} type={"password"} ref={refInputPassword} name='password' />
 												</div>
 												<div className={styles.FormButtons} >
 													<Button disabled={!phoneValue} type="submit">Login</Button>
@@ -197,13 +195,9 @@ const Auth = () => {
 								</footer>
 							</div>
 				}
-				{
-					md ? "" : <div className={styles.MainBackground}>
-						<figure>
-							<BackgroundLogoIcon />
-						</figure>
-					</div>
-				}
+				<figure>
+					<div className={styles.MainBackground}><BackgroundLogoIcon /></div>
+				</figure>
 			</div>
 		</>
 	);

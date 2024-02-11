@@ -1,8 +1,8 @@
 import Button from "./components/button/Button";
-import {coerceToBase64Url} from "../shared/lib/helpers";
-import {apiLogin, apiLoginOptions} from "../shared/(orval)api/auth";
-import {apiGetInfo} from "../shared/(orval)api/gek";
-import {setCookieData} from "../shared/lib/cookies-helper";
+import { coerceToBase64Url } from "../shared/lib/helpers";
+import { apiLogin, apiLoginOptions } from "../shared/(orval)api/auth";
+import { apiGetInfo } from "../shared/(orval)api/gek";
+import { setCookieData } from "../shared/lib/cookies-helper";
 
 
 const fServerRequest = async (credential: any, challengeId: number) => {
@@ -16,30 +16,30 @@ const fServerRequest = async (credential: any, challengeId: number) => {
     const data = {
         challenge_id: challengeId,
         credential:
-            {
-                id: credential.id,
-                rawId: coerceToBase64Url(rawId),
-                type: credential.type,
-                extensions: credential.getClientExtensionResults(),
-                response: {
-                    authenticatorData: coerceToBase64Url(authData),
-                    clientDataJSON: coerceToBase64Url(clientDataJSON),
-                    userHandle: userHandle !== null ? coerceToBase64Url(userHandle) : null,
-                    signature: coerceToBase64Url(sig)
-                }
+        {
+            id: credential.id,
+            rawId: coerceToBase64Url(rawId),
+            type: credential.type,
+            extensions: credential.getClientExtensionResults(),
+            response: {
+                authenticatorData: coerceToBase64Url(authData),
+                clientDataJSON: coerceToBase64Url(clientDataJSON),
+                userHandle: userHandle !== null ? coerceToBase64Url(userHandle) : null,
+                signature: coerceToBase64Url(sig)
             }
+        }
     };
 
     const response = await apiLogin(data)
 
     if (response.data.result === "Success") {
-        let {data} = await apiGetInfo({refresh: false});
+        let { data } = await apiGetInfo({ refresh: false });
 
         if (data.result.length > 0) {
-            setCookieData([{key: "accountId", value: data.result[0].account}]);
+            setCookieData([{ key: "accountId", value: data.result[0].account }]);
         } else {
-            let {data} = await apiGetInfo({refresh: true});
-            setCookieData([{key: "accountId", value: data.result[0].account}]);
+            let { data } = await apiGetInfo({ refresh: true });
+            setCookieData([{ key: "accountId", value: data.result[0].account }]);
         }
         location.replace('/');
     } else {
@@ -93,14 +93,11 @@ export const LoginDeviceKey = () => {
         }
     }
 
-    return <>
-        <div className="px-24 py-24" style={{width: "auto"}}>
-            <div style={{display: 'grid'}}>
-                <Button
-                    onClick={onRegister}>
-                    Login with Device Key
-                </Button>
-            </div>
-        </div>
+    return <>    
+        <p>Use of a hardware-based security key is fast and easy. <a href={"https://fidoalliance.org/fido2/"}>More about FIDO2.</a></p>
+        <Button
+            onClick={onRegister}>
+            Login with Device Key
+        </Button>
     </>
 }

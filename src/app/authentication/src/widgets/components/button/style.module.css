@@ -12,7 +12,7 @@
     
     &:disabled {
         color: var(--gek-dark-grey);
-        background: var(--gek-background)
+        background: var(--gek-light-grey);
     }
 }
 

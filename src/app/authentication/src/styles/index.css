@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-grow: 1;
     min-width: 320px;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     width: 100%;
     color: var(--gek-text-primary);
     background-color: var(--gek-background);

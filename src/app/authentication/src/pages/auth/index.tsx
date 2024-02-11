@@ -2,7 +2,6 @@
 import { useBreakpoints } from "../../app/providers/BreakpointsProvider";
 import styles from './style.module.css';
 
-// import { useState } from "react";
 import { LoginDeviceKey } from "../../widgets/LoginDeviceKey";
 
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
@@ -20,9 +19,10 @@ import Button from "../../widgets/components/button/Button";
 import { useState } from "preact/hooks";
 import { CallResetPasswordForm } from "../..//widgets/CallResetPasswordForm";
 
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
-import flags from 'react-phone-number-input/flags'
+import 'react-phone-number-input/style.css';
+import PhoneInput from 'react-phone-number-input';
+import flags from 'react-phone-number-input/flags';
+
 
 const fServerRequest = async (data: any) => {
 
@@ -56,20 +56,16 @@ const Auth = () => {
 	const emailCode = urlParams.get('emailCode');
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
-	const refInputPassword = createRef()
-	const refInputLogin = createRef()
+	const refInputPassword = createRef();
 	const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
 
-
 	const onSubmit = async (e) => {
-
-		e.preventDefault()
 
 		// const emailCode = refInputCodeEmail.current.value
 		// const smsCode = refInputSmsEmail.current.value
 		const password = refInputPassword.current.value
-		const phone = formatAsNumber(refInputLogin.current.value)
-
+		// const phone = formatAsNumber(refInputLogin.current.value)		
+		const phone = formatAsNumber(phoneValue);
 
 		const response = await apiLoginOptions({
 			headers: {
@@ -109,12 +105,13 @@ const Auth = () => {
 		} else {
 			alert("Bad request, look at devtools network")
 		}
+		e.preventDefault();
 	}
 
 	const onPasswordForget = () => {
 		setDisplayResetPassword(true);
 	}
-	const [value, setValue] = useState();
+	const [phoneValue, setValue] = useState();
 
 	return (
 		<>
@@ -151,18 +148,18 @@ const Auth = () => {
 											Device key
 										</button>
 									</div>
-									<form autoComplete={"on"} className={styles.FormBody}>
+									<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>
 										{tab != 'PASSWORD' ? <LoginDeviceKey /> :
 											<>
 												<div>													
-													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={value} onChange={setValue}/>
+													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setValue}/>
 													{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
 												</div>
 												<div>
 													<input placeholder={"Password"} type={"password"} ref={refInputPassword} name='password'/>
 												</div>
 												<div className={styles.FormButtons} >
-													<Button type="submit" onClick={onSubmit}>Login</Button>
+													<Button disabled={!phoneValue} type="submit">Login</Button>
 													<Button text onClick={onPasswordForget}>Forgot password?</Button>
 												</div>
 											</>

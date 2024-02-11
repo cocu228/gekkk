@@ -1,16 +1,11 @@
 ﻿import { ResetPasswordForm } from "../../widgets/ResetPasswordForm";
 import styles from './style.module.css';
 
-import { LoginDeviceKey } from "../../widgets/LoginDeviceKey";
-
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
-import { coerceToBase64Url, formatAsNumber, setAdvCookie } from "../../widgets/model/shared";
-import { eddsa } from 'elliptic'
-import { apiLogin, apiLoginOptions } from "../../shared/(orval)api/auth";
-import { sha256 } from "js-sha256";
+import { formatAsNumber } from "../../widgets/model/shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
 import { createRef } from "preact";
 import { setCookieData } from "../../shared/lib/cookies-helper";

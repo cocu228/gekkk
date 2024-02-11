@@ -194,7 +194,7 @@ export async function SignIn() {
     return true;
 }
 
-function coerceToArrayBuffer(thing, name) {
+export function coerceToArrayBuffer(thing, name) {
     if (typeof thing === "string") {
         // base64url to base64
         thing = thing.replace(/-/g, "+").replace(/_/g, "/");

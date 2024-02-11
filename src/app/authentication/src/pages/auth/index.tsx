@@ -22,31 +22,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import flags from 'react-phone-number-input/flags';
 
-
-const fServerRequest = async (data: any) => {
-
-	const response = await apiLogin(data, {
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-			'resolution': ("" + screen.width + "x" + screen.height),
-			'device_guid': setAdvCookie()
-		}
-	});
-
-	if (response.data.result === "Success") {
-		let { data } = await apiGetInfo({ refresh: false });
-		if (data.result.length > 0) {
-			setCookieData([{ key: "accountId", value: data.result[0].account }]);
-		} else {
-			let { data } = await apiGetInfo({ refresh: true });
-			setCookieData([{ key: "accountId", value: data.result[0].account }]);
-		}
-
-		location.replace('/');
-	}
-
-}
+import { SignIn, SignInUser } from "../../shared";
 
 const Auth = () => {
 	const queryString = window.location.search;
@@ -58,52 +34,29 @@ const Auth = () => {
 	const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
 
 	const onSubmit = async (e) => {
+		e.preventDefault();
 
 		// const emailCode = refInputCodeEmail.current.value
 		// const smsCode = refInputSmsEmail.current.value
-		const password = refInputPassword.current.value
+		const password = refInputPassword?.current?.value;
 		// const phone = formatAsNumber(refInputLogin.current.value)		
 		const phone = formatAsNumber(phoneValue);
 
-		const response = await apiLoginOptions({
-			headers: {
-				'Accept': 'application/json',
-				'Access-Control-Allow-Origin': 'origin-list'
+		const t = (tab === 'PASSWORD' ?
+			await SignInUser(phone, password)
+			: await SignIn());
+
+		if (t) {
+			let { data } = await apiGetInfo({ refresh: false });
+			if (data.result.length > 0) {
+				setCookieData([{ key: "accountId", value: data.result[0].account }]);
+			} else {
+				let { data } = await apiGetInfo({ refresh: true });
+				setCookieData([{ key: "accountId", value: data.result[0].account }]);
 			}
-		})
 
-		if (response.data.result?.challenge) {
-			const challenge = response.data.result.challenge
-				.replace(/-/g, "+")
-				.replace(/_/g, "/")
-
-			const challengeUint8 = Uint8Array.from(atob(challenge), c => c.charCodeAt(0))
-
-			const SHA256Seed = sha256(phone + password + response.data.result.rpId);
-
-			const ec = new eddsa('ed25519');
-			const key = ec.keyFromSecret(SHA256Seed);
-			const pub = key.getPublic();
-			const signature = key.sign(challengeUint8 as eddsa.Bytes).toBytes();
-
-			console.log("verify signature:");
-			console.log(key.verify(challengeUint8 as eddsa.Bytes, signature));
-			console.log("Public key (elliptic):");
-			console.log(coerceToBase64Url(pub));
-
-			const data = {
-				challenge_id: response.data.result.challenge_id,
-				credential: null,
-				public_key: coerceToBase64Url(pub),
-				signature: coerceToBase64Url(signature)
-			};
-
-			await fServerRequest(data)
-
-		} else {
-			alert("Bad request, look at devtools network")
+			location.replace('/');
 		}
-		e.preventDefault();
 	}
 
 	const onPasswordForget = () => {
@@ -147,7 +100,14 @@ const Auth = () => {
 										</button>
 									</div>
 									<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>
-										{tab != 'PASSWORD' ? <LoginDeviceKey /> :
+										{tab != 'PASSWORD' ?
+											<>
+												<p>Use of a hardware-based security key is fast and easy. <a href={"https://fidoalliance.org/fido2/"}>More about FIDO2.</a></p>
+												<Button type="submit">
+													Login with Device Key
+												</Button>
+											</>
+											:
 											<>
 												<div>
 													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setValue} />

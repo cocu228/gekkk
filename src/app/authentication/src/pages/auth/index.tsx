@@ -7,7 +7,6 @@ import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
 import { formatAsNumber } from "../../widgets/model/shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
-import { createRef } from "preact";
 import { setCookieData } from "../../shared/lib/cookies-helper";
 import Button from "../../widgets/components/button/Button";
 import { useState } from "preact/hooks";
@@ -25,7 +24,6 @@ const Auth = () => {
 	const emailCode = urlParams.get('emailCode');
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
-	const refInputPassword = createRef();
 	const [displayResetPassword, setDisplayResetPassword] = useState<boolean>(false);
 
 	const onSubmit = async (e) => {
@@ -33,12 +31,10 @@ const Auth = () => {
 
 		// const emailCode = refInputCodeEmail.current.value
 		// const smsCode = refInputSmsEmail.current.value
-		const password = refInputPassword?.current?.value;
-		// const phone = formatAsNumber(refInputLogin.current.value)		
-		const phone = formatAsNumber(phoneValue);
+		// const phone = formatAsNumber(refInputLogin.current.value)				
 
 		const t = (tab === 'PASSWORD' ?
-			await SignInUser(phone, password)
+			await SignInUser(formatAsNumber(phoneValue), passValue)
 			: await SignIn());
 
 		if (t) {
@@ -57,7 +53,8 @@ const Auth = () => {
 	const onPasswordForget = () => {
 		setDisplayResetPassword(true);
 	}
-	const [phoneValue, setValue] = useState();
+	const [phoneValue, setPhone] = useState('');
+	const [passValue, setPass] = useState('');
 
 	return (
 		<>
@@ -105,14 +102,14 @@ const Auth = () => {
 											:
 											<>
 												<div>
-													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setValue} />
+													<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setPhone} />
 													{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
 												</div>
 												<div>
-													<input placeholder={"Password"} type={"password"} ref={refInputPassword} name='password' />
+													<input placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
 												</div>
 												<div className={styles.FormButtons} >
-													<Button disabled={!phoneValue} type="submit">Login</Button>
+													<Button disabled={!phoneValue || !passValue || passValue.length < 6} type="submit">Login</Button>
 													<Button text onClick={onPasswordForget}>Forgot password?</Button>
 												</div>
 											</>

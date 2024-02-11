@@ -11,6 +11,22 @@ const servPath = "https://gate-dev.gekkard.com:6789/";
 export async function SignInUser(phone: string, pass: string) {
 
     if (pass === '' || pass === ' ' || phone === '' || phone === ' ') return false;
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Login with user key"
+      });
+
     let makeAssertionOptions;
     try {
         var res = await fetch(servPath + 'auth/v1/login_options', {
@@ -23,7 +39,7 @@ export async function SignInUser(phone: string, pass: string) {
         let bodyRes = await res.json();
         makeAssertionOptions = bodyRes.result;
     } catch (e) {
-        showErrorAlert("Request to server failed", e);
+        showErrorAlert("Request login_options to server failed", e);
     }
     let challenge = makeAssertionOptions.challenge.replace(/-/g, "+").replace(/_/g, "/");
     makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
@@ -60,8 +76,7 @@ export async function SignInUser(phone: string, pass: string) {
 
         response = await res.json();
     } catch (e) {
-        showErrorAlert("Request to server failed", e);
-        throw e;
+        showErrorAlert("Request login to server failed", e);        
     }
 
     console.log("Assertion Object", response);
@@ -84,6 +99,22 @@ export async function SignInUser(phone: string, pass: string) {
 }
 export async function SignIn() {
 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Login with device key"
+      });
+
     let makeAssertionOptions;
     try {
         var res = await fetch(servPath + 'auth/v1/login_options', {
@@ -96,7 +127,7 @@ export async function SignIn() {
         let bodyRes = await res.json();
         makeAssertionOptions = bodyRes.result;
     } catch (e) {
-        showErrorAlert("Request to server failed", e);
+        showErrorAlert("Request login_options to server failed", e);
     }
 
     console.log("Assertion Options Object", makeAssertionOptions);
@@ -105,7 +136,7 @@ export async function SignIn() {
     if (makeAssertionOptions == null) {
         //console.log("Error creating assertion options");
         //console.log(makeAssertionOptions.errorMessage);
-        showErrorAlert(makeAssertionOptions.errorMessage);
+        showErrorAlert(makeAssertionOptions?.errorMessage);
         return;
     }
 

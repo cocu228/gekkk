@@ -15,6 +15,7 @@ import styles from "./styles.module.scss"
 import useModal from "@/shared/model/hooks/useModal";
 import { apiRemoveKey } from '@/shared/(orval)api/auth';
 import Loader from '@/shared/ui/loader';
+import { RegisterKey } from './api/register-key';
 
 interface ILimit {
   start:number,
@@ -33,7 +34,7 @@ export function AccessManagement(): JSX.Element | null{
   const [keyDeleted, setKeyDeleted] = useState<boolean>(false)
   const [sessionClosed, setSessionClosed] = useState<boolean>(false)
   const [limit, setLimit] = useState<ILimit>({start:0,end:5})
-  const [newKey, setNewKey] = useState()
+  const [newKey, setNewKey] = useState<string>()
 
   function onRemoveKey(id){
     apiRemoveKey({key_id: id}).then(res=>{
@@ -151,8 +152,13 @@ export function AccessManagement(): JSX.Element | null{
           secondary
         >
             <div className={styles.KeyAddingContainer}>
-              <Input/>
-              <Button>
+              <Input value={newKey} onChange={(e)=>{setNewKey(e.target.value); console.log(newKey);
+              }}/>
+              <Button
+                onClick={()=>{
+                  RegisterKey(newKey)
+                }}
+              >
                 {t("add_key")}
               </Button>
             </div>
@@ -184,13 +190,13 @@ export function AccessManagement(): JSX.Element | null{
             }
             {!sessionsList.length && <Loader/>}
             <div className='p-5'>
-              <Button
+              {(sessionsList?.length > 1) && <Button
                 onClick={()=>{
                   apiCloseSessions().then(res=>{setSessionClosed(n=>!n)})
                 }}
               >
                 {t("close_all")}
-              </Button>
+              </Button>}
             </div>
             {(limit.end <= sessionsList.length-1 && sessionsList.length>5) ? <Button
               onClick={()=>

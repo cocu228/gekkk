@@ -1,25 +1,21 @@
-﻿.CallReset {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    aspect-ratio: 1.726;
-    max-width: 420px;
-    min-width: 320px;
-    max-height: 270px;
-    font-size: small;
-    font-weight: 400;
-    color: var(--gek-dark-blue);
+﻿main.CallReset {
+  aspect-ratio: none;
+  max-height: none;
+  min-height: none;
+  /* flex: 1 0 auto; */
+  height: 420px;
+}
 
-    @media (max-width:420px) {
-        max-width: 320px;
-        max-height: 250px;
-    }
+.FormBody {
+  flex: 1 1 auto;
+  padding: 24px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
 
-    background: white;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 3px 2px 8px 0 #A8A8A84A,
-    13px 8px 15px 0 #A8A8A842,
-    28px 17px 20px 0 #A8A8A826,
-    50px 30px 23px 0 #A8A8A80A,
-    79px 47px 26px 0 #A8A8A803;
+.FormButtons {
+  display: flex;
+  justify-content: space-between;
 }

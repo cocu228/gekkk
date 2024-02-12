@@ -1,5 +1,4 @@
-﻿import { ResetPasswordForm } from "../../widgets/ResetPasswordForm";
-import styles from './style.module.css';
+﻿import styles from './style.module.css';
 
 import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIcon";
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
@@ -10,7 +9,7 @@ import { apiGetInfo } from "../../shared/(orval)api/gek";
 import { setCookieData } from "../../shared/lib/cookies-helper";
 import Button from "../../widgets/components/button/Button";
 import { useState } from "preact/hooks";
-import { CallResetPasswordForm } from "../..//widgets/CallResetPasswordForm";
+import { CallResetPasswordForm } from "../../widgets/CallResetPasswordForm";
 
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
@@ -24,7 +23,7 @@ const Auth = () => {
 	const emailCode = urlParams.get('emailCode');
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
-	const [displayForgotPassword, setDisplayForgotPassword] = useState<boolean>(false);
+	const [displayForgotPassword, setDisplayForgotPassword] = useState<boolean>(!!emailCode);
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -70,8 +69,7 @@ const Auth = () => {
 
 			<div className={styles.Main}>
 				{
-					emailCode ? <ResetPasswordForm emailCode={emailCode} />
-						: <div className={styles.MainBody}>
+					 <div className={styles.MainBody}>
 							<header>
 								<h2>
 									{displayForgotPassword
@@ -82,13 +80,13 @@ const Auth = () => {
 								<p>
 									{displayForgotPassword
 										? 'To start the password reset process for your Gekkard account, please,' +
-										' enter the phone number that you have registered with Gekkard: The link will be sent to your email.'
+										' enter the phone number that you have registered with Gekkard: The link will be sent to your personal email.'
 										: 'Log in using the form below'
 									}
 								</p>
 							</header>
 							
-							{displayForgotPassword ? <CallResetPasswordForm handleCancel={() => {setDisplayForgotPassword(false)}}/> : (
+							{displayForgotPassword ? <CallResetPasswordForm emailCode={emailCode} phone={phoneValue} handleCancel={() => {setDisplayForgotPassword(false)}}/> : (
 								<main>
 									<div className={styles.FormTab}>
 										<button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >

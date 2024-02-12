@@ -1,9 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
 const sessionHeader = () => {
-    return {
-        'productId': "GEKKARD",
-        'applicationId': 'GEKKARD',
+    return {       
         'Content-Type': 'application/json',
     }
 }

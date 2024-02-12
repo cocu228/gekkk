@@ -2,6 +2,27 @@ import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
 
+/**
+ * Объект-ошибки для объекта-ответа
+ */
+export interface ErrorObject {
+    /** Цифровой код ошибки */
+    code?: number;
+    /** Текстовое сообщение об ошибке */
+    readonly message?: string | null;
+}
+/**
+ * Ответы-результаты запросов API в виде текста обозначающие вариант завершения процесса. 
+Плюс стандартные статические ответы.
+ */
+export interface ApiResponse {
+    error?: ErrorObject;
+    /** Идентификатор запроса, если он был или 0 */
+    id?: number;
+    /** Объект-результат: null, если ошибка */
+    result?: string | null;
+}
+
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
 const ec = new eddsa('ed25519');
 
@@ -18,14 +39,14 @@ export async function SignInUser(phone: string, pass: string) {
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
         }
-      });
-      Toast.fire({
+    });
+    Toast.fire({
         icon: "info",
         title: "Login with user key"
-      });
+    });
 
     let makeAssertionOptions;
     try {
@@ -76,7 +97,7 @@ export async function SignInUser(phone: string, pass: string) {
 
         response = await res.json();
     } catch (e) {
-        showErrorAlert("Request login to server failed", e);        
+        showErrorAlert("Request login to server failed", e);
     }
 
     console.log("Assertion Object", response);
@@ -106,14 +127,14 @@ export async function SignIn() {
         timer: 3000,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
         }
-      });
-      Toast.fire({
+    });
+    Toast.fire({
         icon: "info",
         title: "Login with device key"
-      });
+    });
 
     let makeAssertionOptions;
     try {
@@ -221,8 +242,231 @@ export async function SignIn() {
         title: 'Logged In!',
         text: 'You\'re logged in successfully.',
         timer: 2000
-    });    
+    });
     return true;
+}
+export async function ResetPassStart(phone: string) {
+    try {
+        let response = await fetch(servPath + 'auth/v1/reset_password?phone=' + phone, {
+            method: 'GET',
+            credentials: "include",
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        let data: ApiResponse = await response.json();
+
+        return data;
+
+    } catch (e) {
+        showErrorAlert(e);
+    }
+}
+
+export async function ResetPassSendSMS(emailcode: string) {
+    try {
+        let response = await fetch(servPath + 'auth/v1/register_options?code=' + emailcode, {
+            method: 'GET',
+            credentials: "include",
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        let data = await response.json();
+
+        return data;
+
+    } catch (e) {
+        showErrorAlert(e);
+    }
+}
+
+export async function ResetPass(makeAssertionOptions: any, pass: string, code: string) {
+
+    const challenge = makeAssertionOptions.fido2_options.challenge.replace(/-/g, "+").replace(/_/g, "/");
+    makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+
+    let passKey = sha256(makeAssertionOptions.phone + pass + makeAssertionOptions.fido2_options.rp.id);
+
+    var key = ec.keyFromSecret(passKey);
+    var pub = key.getPublic();
+    console.log("Public key (elliptic):");
+    console.log(coerceToBase64Url(pub));
+    var signature = key.sign(makeAssertionOptions.challenge).toBytes();
+
+    const data = {
+        challenge_id: makeAssertionOptions.challenge_id,
+        code,
+        public_key: coerceToBase64Url(pub),
+        signature: coerceToBase64Url(signature)
+    };
+
+    let response: ApiResponse ;
+    try {
+        let res = await fetch(servPath + "auth/v1/register_key", {
+            method: 'POST',
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        response = await res.json();
+    } catch (e) {
+        showErrorAlert("Request to server failed", e);
+        throw e;
+    }
+
+    console.log("Assertion Object", response);
+
+    // show error
+    if (response.result !== 'Success') {
+        console.log("Error doing assertion");
+        //console.log(response.errorMessage);
+        showErrorAlert(response.error?.message);
+        return;
+    }
+
+    // show success message
+    Swal.fire({
+        title: 'Password reseted!',
+        text: 'Password reset successfully.',
+        timer: 2000
+    });
+    return response;
+
+}
+
+export async function RegKeySendSMS() {
+    
+    try {
+        let response = await fetch(servPath + 'auth/v1/register_options', {
+            method: 'GET',
+            credentials: "include",
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        let data: ApiResponse = await response.json();
+
+        return data;
+
+    } catch (e) {
+        showErrorAlert(e);
+    }
+}
+
+export async function RegisterKey(makeCredentialOptions: any, code: string) {
+
+    let fido2_opt = makeCredentialOptions?.fido2_options;
+
+    console.log("Credential Options Object", makeCredentialOptions);
+
+    if (fido2_opt?.status !== "ok") {
+        showErrorAlert(fido2_opt.errorMessage);
+        return;
+    }
+
+    // Turn the challenge back into the accepted format of padded base64
+    fido2_opt.challenge = coerceToArrayBuffer(fido2_opt.challenge, 'fido2_opt.challenge');
+    // Turn ID into a UInt8Array Buffer for some reason
+    fido2_opt.user.id = coerceToArrayBuffer(fido2_opt.user.id, 'fido2_opt.user.id');
+
+    if (fido2_opt.authenticatorSelection.authenticatorAttachment === null) fido2_opt.authenticatorSelection.authenticatorAttachment = undefined;
+
+    console.log("Credential Options Formatted", fido2_opt);
+
+    Swal.fire({
+        title: 'Registering...',
+        text: 'Tap your security key to finish registration.',
+        imageUrl: "/images/securitykey.min.svg",
+        showCancelButton: true,
+        showConfirmButton: false,
+        focusConfirm: false,
+        focusCancel: false
+    });
+
+
+    console.log("Creating PublicKeyCredential...");
+
+    let newCredential;
+    try {
+        newCredential = await navigator.credentials.create({
+            publicKey: fido2_opt
+        });
+    } catch (e) {
+        var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
+        console.error(msg, e);
+        showErrorAlert(msg, e);
+    }
+
+    console.log("PublicKeyCredential Created", newCredential);
+
+    // Move data into Arrays incase it is super long
+    let attestationObject = new Uint8Array(newCredential.response.attestationObject);
+    let clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
+    let rawId = new Uint8Array(newCredential.rawId);
+
+    const data = {
+        challenge_id: makeCredentialOptions.challenge_id,
+        code,
+        credential_new:
+        {
+            id: newCredential.id,
+            rawId: coerceToBase64Url(rawId),
+            type: newCredential.type,
+            extensions: newCredential.getClientExtensionResults(),
+            response: {
+                attestationObject: coerceToBase64Url(attestationObject),
+                clientDataJSON: coerceToBase64Url(clientDataJSON),
+                transports: newCredential.response.getTransports()
+            }
+        }
+    };
+
+    let response;
+    try {
+
+        response = await fetch(servPath + 'auth/v1/register_key', {
+            method: 'POST',
+            credentials: "include",
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        let dataR = await response.json();
+
+        return dataR.result;
+    } catch (e) {
+        showErrorAlert(e);
+    }
+
+    console.log("Credential Object", response);
+
+    // show error
+    if (response !== "Success") {
+        console.log("Error creating credential");
+        //console.log(response.errorMessage);
+        //showErrorAlert(response.errorMessage);
+        return;
+    }
+
+    // show success 
+    Swal.fire({
+        title: 'Registration Successful!',
+        text: 'You\'ve registered successfully.',
+        // type: 'success',
+        timer: 2000
+    });
+
 }
 
 export function coerceToArrayBuffer(thing, name) {

@@ -1,7 +1,12 @@
 import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 
-export interface ISelect {
+export interface ISelectTxTypes {
     label: string;
     value: TransactTypeEnum[];
-    is_fiat?: boolean;
+}
+
+export interface ISelectAssets {
+    label: string;
+    value: string;
+    isFiat?: boolean; 
 }

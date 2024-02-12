@@ -14,7 +14,10 @@ const HistoryPage = () => {
 				{md && <TabSelector setTab={setCurTab} tabNames={tabs} selectedTab={curTab}/>
 }			</div>
 			<div className='wrapper'>
-				{curTab === 'Last Transactions' ? <History /> : <CustomSearch />}
+				
+				{curTab === 'Last Transactions' ? (
+						<History />
+				) : <CustomSearch />}
 			</div>
 		</>
 	);

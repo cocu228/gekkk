@@ -51,11 +51,7 @@ function isRejectRequired(config: InternalAxiosRequestConfig<any>): boolean {
 }
 
 $axios.interceptors.request.use(config => {
-    if (isRejectRequired(config)) {
-        return Promise.reject();
-    }
-    
-    return config;
+    return isRejectRequired(config) ? Promise.reject() : config;
 });
 
 export default <T>(

@@ -52,6 +52,9 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
 
     useLayoutEffect(() => {
         $axios.interceptors.response.use((response: any) => {
+            console.log('responce')
+            console.log(response)
+            
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
             

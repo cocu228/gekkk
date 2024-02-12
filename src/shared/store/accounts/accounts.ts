@@ -12,11 +12,18 @@ export type IWalletInfo = Omit<WalletInfo, "flags" | "account"> & {
 
 export interface IStoreAccounts {
     accounts: IWalletInfo[];
+    setAccounts: (accounts: WalletInfo[]) => void;
     getAccounts: (refresh?: boolean) => Promise<void>;
 }
 
 export const storeAccounts = create<IStoreAccounts>()(devtools((set) => ({
     accounts: null,
+    setAccounts: (accounts: WalletInfo[]) => {
+        set((state) => ({
+            ...state,
+            accounts: accounts.map(acc => getAccountWithRights(acc)),
+        }))
+    },
     getAccounts: async (refresh: boolean = false) => {
         const {data} = await apiGetInfo({refresh});
 

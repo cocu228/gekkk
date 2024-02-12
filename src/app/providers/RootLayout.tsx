@@ -12,8 +12,11 @@ import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';
+import {useAuth} from "@/app/providers/AuthRouter";
+import {apiGetInfo} from "@/shared/(orval)api/gek";
 
 export default memo(function () {
+    const {logout} = useAuth();
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
     const {md} = useContext(BreakpointsContext);
@@ -29,12 +32,19 @@ export default memo(function () {
         refreshKey: "",
     })
 
-    const {accounts, getAccounts} = storeAccounts(state => state);
+    const {accounts, setAccounts} = storeAccounts(state => state);
 
-
+    // TODO: move handler to ErrorsProvider.tsx
     useEffect(() => {
         (async () => {
-            await getAccounts();
+            try {
+                const {data} = await apiGetInfo({refresh: false});
+                
+                setAccounts(data.result);
+            }
+            catch (AxiosError) {
+                logout();
+            }
         })();
     }, []);
 

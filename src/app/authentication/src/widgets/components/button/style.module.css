@@ -3,11 +3,11 @@
     border-color: transparent;
     padding: 9px 24px 9px 24px;
     background: var(--gek-green);
-    color: var(--gek-background);
+    color: white;
     
     &:hover {
         background: var(--gek-green-gradient);
-        color: var(--new-dark-blue);
+        color: var(--gek-dark-blue);
     }
     
     &:disabled {

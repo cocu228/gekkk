@@ -63,7 +63,7 @@ const Auth = () => {
 				</div>
 
 				<div onClick={null}>
-					<SupportIcon stroke={"var(--gek-background)"} />
+					<SupportIcon stroke={"white"} />
 				</div>
 			</div>
 

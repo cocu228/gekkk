@@ -1,14 +1,16 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.64",
+  "version": "2.0.75",
   "type": "module",
+  "workspaces": [
+    "./src/shared/(orval)api",
+    "./src/shared/lib"
+  ],
   "scripts": {
-    "apiGen": "orval",
+    "orval": "orval",
     "local": "vite --mode LOCAL",
     "build": "tsc && vite build",
-    "start": "vite --host --mode LOCAL",
-    "preview": "vite build && vite preview --host",
     "PRD": "node increment-version && tsc && vite build --mode PRD",
     "STG": "node increment-version && tsc && vite build --mode STG",
     "DEV": "node increment-version && tsc && vite build --mode DEV"
@@ -19,6 +21,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/archivo": "^5.0.15",
+    "@fontsource/azeret-mono": "^5.0.18",
     "@fontsource/inter": "^5.0.15",
     "@mui/material": "^5.14.20",
     "@stomp/stompjs": "^7.0.0",
@@ -51,6 +54,7 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.2",
+    "@types/elliptic": "^6.4.18",
     "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",

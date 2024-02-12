@@ -1,0 +1,21 @@
+﻿main.CallReset {
+  aspect-ratio: none;
+  max-height: none;
+  min-height: none;
+  /* flex: 1 0 auto; */
+  height: 420px;
+}
+
+.FormBody {
+  flex: 1 1 auto;
+  padding: 24px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.FormButtons {
+  display: flex;
+  justify-content: space-between;
+}

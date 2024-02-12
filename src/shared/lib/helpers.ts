@@ -42,6 +42,7 @@ export const isNull = (value: any): boolean => value === null;
 export const isNullOrEmpty = (value: string): boolean => value === null || value.length === 0;
 
 export const isNumber = (value: any): boolean => typeof value === "number"
+
 export function evenOrOdd(number) {
     return number % 2 === 0
 }
@@ -55,7 +56,7 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
     return result.toDecimalPlaces(roundingValue).toNumber()
 }
 
-export function getSecondaryTabsAsRecord(tabs: Array<{Key: string, Title: string}>) {
+export function getSecondaryTabsAsRecord(tabs: Array<{ Key: string, Title: string }>) {
     let list: Record<string, string> = {};
 
     tabs.forEach(tab => Object.assign(list, {
@@ -140,14 +141,14 @@ export function getFlagsFromMask(mask: number, options: Record<string, number>) 
 
         if (mask === 0 && value === 0) {
             flags[flag] = ((mask & value) === 0);
-           continue;
+            continue;
         }
 
         flags[flag] = ((mask & value) !== 0);
     }
 
     return flags;
- }
+}
 
 export function scrollToTop() {
     window.scrollBy(0, -100); // можно использовать также метод scrollTo(0, 0)
@@ -174,6 +175,7 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
 }
 
 export const uncoverResponse = (response) => response.data.result
+
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
 export const getCurrencyRounding = (value: number | undefined) =>
@@ -216,7 +218,7 @@ export const getCookieData = <T>(): T => {
 
 
 export const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
-    cookieData.forEach(({ key, value, expiration }) => {
+    cookieData.forEach(({key, value, expiration}) => {
         const encodedValue: string = encodeURIComponent(value);
         let cookieString: string = `${key}=${encodedValue}`;
 
@@ -243,7 +245,7 @@ export function clearCookies() {
         const cookie = cookies[i];
         const eqPos = cookie.indexOf("=");
         const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-        
+
         if (!excludedCookies.includes(name)) {
             clearCookie(name);
         }
@@ -269,18 +271,17 @@ export function numberWithSpaces(val: number) {
 }
 
 export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
-  const elRect = el.getBoundingClientRect();
-  const parentRect = parent.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
 
 
-  const scrollPosition = elRect.left - parentRect.left;
-  parent.scrollLeft = parent.scrollLeft + scrollPosition;
+    const scrollPosition = elRect.left - parentRect.left;
+    parent.scrollLeft = parent.scrollLeft + scrollPosition;
 
 }
 
 
-
-export function pullStart (e, setStartPoint){
+export function pullStart(e, setStartPoint) {
     const {screenY} = e.targetTouches[0];
     setStartPoint(screenY);
 }
@@ -295,5 +296,14 @@ export function pull(e, setPullChange, startPoint) {
 export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
     setStartPoint(0);
     setPullChange(0);
-    if (pullChange > 220) {initLoading()};
+    if (pullChange > 220) {
+        initLoading()
+    }
+    ;
 }
+
+
+export const logout = () => {
+    clearCookies();
+    location.replace('/');
+};

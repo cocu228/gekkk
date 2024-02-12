@@ -71,6 +71,8 @@ export default memo(function () {
     }
 
     const setAccount = (number: string) => {
+        console.log(`Selected account: ${number}`);
+        
         $axios.defaults.headers['AccountId'] = number;
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({

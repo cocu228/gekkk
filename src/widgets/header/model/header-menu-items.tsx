@@ -1,9 +1,6 @@
 import React from "react";
 import {TFunction} from "i18next";
-import {
-    GekkoinInvestPlatform,
-    PromoCodeModal
-} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
 import SettingsMobileIcon from "@public/img/icon/SettingsMobileIcon.svg"
@@ -12,26 +9,24 @@ import SupportMobileIcon from "@public/img/icon/SupportMobileIcon.svg"
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 import ActivatePromoMobileIcon from "@public/img/icon/ActivatePromoMobileIcon.svg"
 import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
-import Button from "@/shared/ui/button/Button";
 
 
-
-export class HeaderMenuItems {
-
-    items: THeaderMenuList
-
-    constructor(defaultItems: THeaderMenuList) {
-        this.items = defaultItems
-    }
-
-    get() {
-        return this.items
-    }
-
-    set(item: THeaderMenuList[0]) {
-        this.items.unshift(item)
-    }
-}
+// export class HeaderMenuItems {
+//
+//     items: THeaderMenuList
+//
+//     constructor(defaultItems: THeaderMenuList) {
+//         this.items = defaultItems
+//     }
+//
+//     get() {
+//         return this.items
+//     }
+//
+//     set(item: THeaderMenuList[0]) {
+//         this.items.unshift(item)
+//     }
+// }
 
 /**
 * @param t translation function

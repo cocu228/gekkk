@@ -219,7 +219,7 @@ const SidebarMobile = () => {
                                         </div>
                                         <div className="row w-full font-mono">
                                             <span
-                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.availableBalance?.toNumber())) ?? '-'} EURG</span>
+                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
                                         </div>
                                         {eurgWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
@@ -255,7 +255,7 @@ const SidebarMobile = () => {
                                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                         </div>
                                         <div className="row w-full font-mono"><span
-                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.availableBalance?.toNumber(), gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                         </div>
                                         {gkeWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
@@ -293,12 +293,12 @@ const SidebarMobile = () => {
                                                     className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span>
                                                 </div>
                                                 <div className="row w-full font-mono"><span
-                                                    className={styles.Sum}>{`${toLocaleCryptoRounding(item.availableBalance?.toNumber(), item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                                    className={styles.Sum}>{`${toLocaleCryptoRounding(item.userBalance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                                 </div>
                                                 <div className={"row w-full flex justify-between pr-5"}>
                                                     <div>
                                                         {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                                        +{toLocaleCryptoRounding(item.userBalance, item.roundPrec) ?? '-'}
+                                                                        +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
                                                                     </span>}
                                                     </div>
                                                     <div className=" text-gray-500 font-mono">

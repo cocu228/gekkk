@@ -12,11 +12,11 @@ import CurrenciesProvider from "@/app/providers/CurrenciesProvider";
 import {getCookieData, randomId, setCookieData} from '@/shared/lib/helpers';
 import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';
-import {useAuth} from "@/app/providers/AuthRouter";
+// import {useAuth} from "@/app/providers/AuthRouter";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 
 export default memo(function () {
-    const {logout} = useAuth();
+    // const {logout} = useAuth();
     const location = useLocation();
     const isNewLayout = location.pathname.startsWith('/new');
     const {md} = useContext(BreakpointsContext);
@@ -43,7 +43,7 @@ export default memo(function () {
                 setAccounts(data.result);
             }
             catch (AxiosError) {
-                logout();
+                // logout();
             }
         })();
     }, []);

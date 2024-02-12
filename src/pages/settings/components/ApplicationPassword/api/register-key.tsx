@@ -114,7 +114,7 @@ async function registerNewCredential(newCredential, challenge_id, code) {
 }
 
 async function registerCredentialWithServer(formData) {
-    const servPath = "https://localhost:5173/"
+    const servPath = "https://gate-dev.gekkard.com:6789/"
     let response = await fetch(servPath + 'auth/v1/register_key', {
         method: 'POST',
         credentials: "include", 

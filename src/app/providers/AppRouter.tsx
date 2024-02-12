@@ -16,6 +16,7 @@ import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
 import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
+import Transfers from '@/pages/transfers';
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: 'partnership-program',
                 element: <PartnershipProgram/>,
+            },
+            {
+                path: "transfers/:currency?",
+                element: <Transfers/>
             },
             {
                 path: 'exchange',

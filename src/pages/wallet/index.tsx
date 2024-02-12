@@ -121,7 +121,7 @@ function Wallet() {
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons crypto={isCryptoWallet}>
                                 <TopUpButton wallet/>
-                                <TransfersButton wallet/>
+                                <TransfersButton currency={currency} wallet/>
                                 <ExchangeButton wallet/>
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>

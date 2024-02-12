@@ -35,6 +35,7 @@ const Form = ({ action, children, className, onSubmit }: Props) => {
       action={action}
       onSubmit={handleSubmit}
       noValidate
+      autoComplete={"off"}
       className={style.form + " " + className}
     >
       {children}

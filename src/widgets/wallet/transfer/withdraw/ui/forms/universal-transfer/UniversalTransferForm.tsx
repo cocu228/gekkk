@@ -23,6 +23,7 @@ const UniversalTransferForm = () => {
     const {inputCurr, setInputCurr} = useInputState();
     const [isValid, setIsValid] = useState<boolean>(false);
     const {isModalOpen, showModal, handleCancel} = useModal();
+    const [isTimerAllowed, setIsTimerAllowed] = useState(true);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
     const {
@@ -38,14 +39,20 @@ const UniversalTransferForm = () => {
     });
     
     useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsTimerAllowed(false);
+        }, 1500);
+        
+        return () => clearTimeout(timer);
+    }, []);
+    
+    useEffect(() => {
         const {
-            comment,
             requisite
         } = inputs;
         
         setIsValid(
             requisite?.length > 0
-            && comment?.length > 0
             && inputCurr.value.string?.length > 0);
     }, [inputs, inputCurr.value]);
     
@@ -150,7 +157,7 @@ const UniversalTransferForm = () => {
                         size={"xl"}
                         className="w-full"
                         onClick={showModal}
-                        disabled={!isValid || inputCurrValid.value}
+                        disabled={!isTimerAllowed && (!isValid || inputCurrValid.value)}
                     >Withdraw</Button>
                 </div>
             </div>

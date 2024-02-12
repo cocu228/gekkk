@@ -9,24 +9,13 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
 import {getRandomInt32} from "@/shared/lib/helpers";
 
-interface IState {
-    loading: boolean;
-    total: IResCommission;
-}
-
 const UniversalTransferConfirm = ({
     amount,
     comment,
     requisite,
     handleCancel
 }) => {
-    const [{
-        total,
-        loading
-    }, setState] = useState<IState>({
-        loading: false,
-        total: undefined
-    });
+    const [loading, setLoading] = useState<boolean>(false);
     
     const {$const} = useContext(CtxWalletData);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -41,10 +30,7 @@ const UniversalTransferConfirm = ({
     });
     
     const onConfirm = async () => {
-        setState(prev => ({
-            ...prev,
-            loading: true
-        }));
+        setLoading(true);
         
         // await apiPaymentContact(
         //     details.current,
@@ -117,34 +103,6 @@ const UniversalTransferConfirm = ({
                     <span>{amount ?? '-'} {$const}</span>
                 </div>
             </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">Fee</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.commission ?? '-'} {$const}</span>
-                    ) : (
-                        <Skeleton.Input style={{height: 16}} active/>
-                    )}
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">Total amount</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.total ?? '-'} {$const}</span>
-                    ) : (
-                        <Skeleton.Input style={{height: 16}} active/>
-                    )}
-                </div>
-            </div>
             {!comment ? null : <>
                 <div className="row mb-2">
                     <div className="col">
@@ -164,7 +122,6 @@ const UniversalTransferConfirm = ({
                         <Button size={"xl"}
                                 htmlType={"submit"}
                                 className="w-full"
-                                disabled={!total}
                         >Confirm</Button>
                     </div>
                 </div>

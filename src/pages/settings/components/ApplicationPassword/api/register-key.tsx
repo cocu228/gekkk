@@ -1,4 +1,5 @@
 import { apiRegisterOptions } from "@/shared/(orval)api/auth";
+import { $ENV_MODE } from "@/shared/lib";
 
 export async function RegisterKey(code) {
 
@@ -114,7 +115,7 @@ async function registerNewCredential(newCredential, challenge_id, code) {
 }
 
 async function registerCredentialWithServer(formData) {
-    const servPath = "https://gate-dev.gekkard.com:6789/"
+    const servPath = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
     let response = await fetch(servPath + 'auth/v1/register_key', {
         method: 'POST',
         credentials: "include", 

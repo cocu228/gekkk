@@ -2,7 +2,6 @@ import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
 import { RegisterKey, apiLogin, apiLoginOptions } from './apiInterfaces';
-
 import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
@@ -249,4 +248,41 @@ export function coerceToBase64Url(thing) {
     return thing;
 }
 
+export const getCookieData = <T>(): T => {
+    const cookieValue = document.cookie;
+    const cookiePairs = cookieValue.split(';');
+    const cookieData = {} as T;
 
+    for (let i = 0; i < cookiePairs.length; i++) {
+        const pair = cookiePairs[i].trim();
+        const separatorIndex = pair.indexOf('=');
+        const key = pair.substring(0, separatorIndex);
+        const value = pair.substring(separatorIndex + 1);
+
+        const decodedValue = decodeURIComponent(value);
+
+        cookieData[key] = decodedValue as T[keyof T];
+    }
+
+    return cookieData;
+};
+
+export const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
+    cookieData.forEach(({ key, value, expiration }) => {
+        const encodedValue: string = encodeURIComponent(value);
+        let cookieString: string = `${key}=${encodedValue}`;
+
+        if (expiration) {
+            const expiryDate = new Date();
+            expiryDate.setSeconds(expiryDate.getSeconds() + expiration);
+            const expires = expiryDate.toUTCString();
+            cookieString += `; expires=${expires}`;
+        }
+
+        document.cookie = cookieString + '; path=/';
+    });
+};
+
+export function clearCookie(name: string) {
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+}

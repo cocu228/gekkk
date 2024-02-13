@@ -4,9 +4,8 @@ import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIco
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
-import { formatAsNumber } from "../../shared";
+import { formatAsNumber, setCookieData } from "../../shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
-import { setCookieData } from "../../shared/cookies-helper";
 import Button from "../../widgets/components/button/Button";
 import { useState } from "preact/hooks";
 import { CallResetPasswordForm } from "../../widgets/CallResetPasswordForm";

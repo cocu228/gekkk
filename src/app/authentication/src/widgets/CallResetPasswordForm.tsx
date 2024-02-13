@@ -1,5 +1,4 @@
 ﻿import styles from './style.module.css';
-// import { formatAsNumber } from "./model/shared";
 import Button from "./components/button/Button";
 import { useState } from "preact/hooks";
 import { ResetPass } from '../shared';
@@ -47,9 +46,9 @@ export const CallResetPasswordForm = (Props) => {
 
         }
         else {
-            if (!smsSended) {                
+            if (!smsSended) {
                 let r = await RegisterOptions(ecodeValue);
-               
+
                 if (r.result?.fido2_options) {
                     setCode("paste sms code here");
                     setSmsSended(true);
@@ -67,7 +66,7 @@ export const CallResetPasswordForm = (Props) => {
             }
             else {
                 if (codeValue) {
-                    
+
                     let r = await ResetPass(optValue, passValue, codeValue);
                     if (r?.result === "Success") {
                         Swal.fire({
@@ -84,13 +83,7 @@ export const CallResetPasswordForm = (Props) => {
                 }
             }
         }
-
-
     }
-
-
-
-
 
     return <main className={styles.CallReset}>
         <Form onSubmit={onSubmit} className={styles.FormBody}>
@@ -105,7 +98,7 @@ export const CallResetPasswordForm = (Props) => {
 
             <div className={styles.FormButtons} >
                 <div>
-                    <Button type="submit">{ecodeValue ?(smsSended?"Reset password": "Send SMS" ): "Send link"}</Button>
+                    <Button type="submit">{ecodeValue ? (smsSended ? "Reset password" : "Send SMS") : "Send link"}</Button>
                     <TextInput placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
                 </div>
                 <Button text onClick={Props.handleCancel}>Back to login</Button>

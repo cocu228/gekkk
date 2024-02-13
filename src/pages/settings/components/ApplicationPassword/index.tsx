@@ -155,7 +155,7 @@ export function AccessManagement(): JSX.Element | null{
               }}/>
               <Button
                 onClick={()=>{
-                  RegisterKey(newKey)
+                  RegisterKey(newKey, keyDeleted)
                 }}
               >
                 {t("add_key")}

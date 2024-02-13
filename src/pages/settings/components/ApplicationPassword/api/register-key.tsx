@@ -1,7 +1,7 @@
 import { apiRegisterOptions } from "@/shared/(orval)api/auth";
 import { $ENV_MODE } from "@/shared/lib";
 
-export async function RegisterKey(code) {
+export async function RegisterKey(code, changeKeyList) {
 
 
     let makeCredentialOptions;
@@ -66,14 +66,14 @@ export async function RegisterKey(code) {
     console.log("PublicKeyCredential Created", newCredential);
 
     try {
-        registerNewCredential(newCredential, makeCredentialOptions.challenge_id, code);
+        registerNewCredential(newCredential, makeCredentialOptions.challenge_id, code, changeKeyList);
 
     } catch (e) {
         console.log(e.message ? e.message : e);
     }
 }
 
-async function registerNewCredential(newCredential, challenge_id, code) {
+async function registerNewCredential(newCredential, challenge_id, code, changeKeyList) {
     // Move data into Arrays incase it is super long
     let attestationObject = new Uint8Array(newCredential.response.attestationObject);
     let clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
@@ -98,7 +98,7 @@ async function registerNewCredential(newCredential, challenge_id, code) {
 
     let response;
     try {
-        response = await registerCredentialWithServer(data);
+        response = await registerCredentialWithServer(data, changeKeyList);
     } catch (e) {
         console.log(e);
     }
@@ -117,7 +117,7 @@ async function registerNewCredential(newCredential, challenge_id, code) {
 
 }
 
-async function registerCredentialWithServer(formData) {
+async function registerCredentialWithServer(formData, changeKeyList) {
     const servPath = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
     let response = await fetch(servPath + 'auth/v1/register_key', {
         method: 'POST',
@@ -130,6 +130,7 @@ async function registerCredentialWithServer(formData) {
     });
 
     let data = await response.json();
+    changeKeyList(n=>!n)
 
     return data.result;
 }

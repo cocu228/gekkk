@@ -1,8 +1,9 @@
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext'
 import { mockEUR } from '@/processes/PWA/mock-EUR'
 import ChoseNetwork from '@/widgets/wallet/transfer/ChoseNetwork'
-import ChoseNetworkMobile from '@/widgets/wallet/transfer/mobile/choose-network-mobile'
-import SelectCurrency from '@/widgets/wallet/transfer/mobile/select-currency'
+import TransfersWrapper from '@/widgets/wallet/transfer/mobile/model/TransfersWrapper'
+import ChoseNetworkMobile from '@/widgets/wallet/transfer/mobile/ui/choose-network-mobile'
+import SelectCurrency from '@/widgets/wallet/transfer/mobile/ui/select-currency'
 import NetworkProvider from '@/widgets/wallet/transfer/model/NetworkProvider'
 import { CtxWalletData } from '@/widgets/wallet/transfer/model/context'
 import React, { useContext, useEffect, useState } from 'react'
@@ -15,28 +16,28 @@ export default function Transfers({}: Props) {
     const {currency} = useParams()
     const [curr, setCurr] = useState<string>(currency) 
     const {currencies} = useContext(CtxCurrencies);
-    const $currency : ICtxCurrency = currencies.get(curr);
+    const $currency : ICtxCurrency = currencies.get(curr?curr:"EUR");
     
     useEffect(()=>{
-        console.log("currency now: " + curr);
+
     },[curr])
 
 
   return (
     <>
         {!curr?
-            <div>
-                <SelectCurrency currency={curr} setCurr={setCurr}/>
-                {curr && <ChoseNetworkMobile/>}
-            </div>
+            <TransfersWrapper>
+                <SelectCurrency data-tag={"select_currency"} currency={curr} setCurr={setCurr}/>
+                {curr && <ChoseNetworkMobile data-tag={"choose_network"}/>}
+            </TransfersWrapper>
         :
 
             <CtxWalletData.Provider value={$currency}>
                 <NetworkProvider>
-                    <div>
-                        <SelectCurrency currency={curr} setCurr={setCurr}/>
-                        {curr && <ChoseNetworkMobile/>}
-                    </div>
+                    <TransfersWrapper>
+                        <SelectCurrency data-tag={"select_currency"} currency={curr} setCurr={setCurr}/>
+                        {curr && <ChoseNetworkMobile data-tag={"choose_network"}/>}
+                    </TransfersWrapper>
                 </NetworkProvider>
             </CtxWalletData.Provider>
         }

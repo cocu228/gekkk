@@ -1,14 +1,12 @@
 import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
-import { apiLogin, apiLoginOptions } from './apiInterfaces';
+import { RegisterKey, apiLogin, apiLoginOptions } from './apiInterfaces';
 
 import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
 const ec = new eddsa('ed25519');
-
-const servPath = "https://gate-dev.gekkard.com:6789/";
 
 const Base64URL_to_Uint8Array = (str: string) =>
     Uint8Array.from(window.atob(str.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0))
@@ -61,8 +59,13 @@ export async function SignIn() {
     let assertedCredential;
     try {
         assertedCredential = await navigator.credentials.get({ publicKey: opt })
-    } catch (err) {
-        console.log(err.message ? err.message : err);
+    } catch (e) {
+        Swal.fire({
+            title: 'Browser/OS request error',
+            icon: "error",
+            text: "Could not get credentials in browser or OS.",
+            footer: e
+        });
         return false;
     }
 
@@ -92,46 +95,9 @@ export async function SignIn() {
 
     return resLogin.result === 'Success';
 }
-export async function ResetPassStart(phone: string) {
-    try {
-        let response = await fetch(servPath + 'auth/v1/reset_password?phone=' + phone, {
-            method: 'GET',
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
 
-        let data: any = await response.json();
+export async function ResetPass(opt: any, pass: string, code: string) {
 
-        return data;
-
-    } catch (e) {
-        showErrorAlert(e);
-    }
-}
-
-export async function ResetPassSendSMS(emailcode: string) {
-    try {
-        let response = await fetch(servPath + 'auth/v1/register_options?code=' + emailcode, {
-            method: 'GET',
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        let data = await response.json();
-
-        return data;
-
-    } catch (e) {
-        showErrorAlert(e);
-    }
-}
-
-export async function ResetPass(opt: any, pass: string, code: string) {  
-      
     opt.challenge = Base64URL_to_Uint8Array(opt.fido2_options.challenge);
     let passKey = sha256(opt.phone + pass + opt.fido2_options.rp.id);
 
@@ -147,74 +113,21 @@ export async function ResetPass(opt: any, pass: string, code: string) {
         public_key: coerceToBase64Url(pub),
         signature: coerceToBase64Url(signature)
     };
-
-    let response: any;
-    try {
-        let res = await fetch(servPath + "auth/v1/register_key", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-
-        response = await res.json();
-    } catch (e) {
-        showErrorAlert("Request to server failed", e);
-        throw e;
-    }
-
-    console.log("Assertion Object", response);
-
-    // show error
-    if (response.result !== 'Success') {
-        console.log("Error doing assertion");
-        //console.log(response.errorMessage);
-        showErrorAlert(response.error?.message);
-        return;
-    }
-
-    // show success message
-    Swal.fire({
-        title: 'Password reseted!',
-        text: 'Password reset successfully.',
-        timer: 2000
-    });
-    return response;
-
+    return await RegisterKey(data);
 }
 
-export async function RegKeySendSMS() {
+export async function RegisterDeviceKey(opt: any, code: string) {
 
-    try {
-        let response = await fetch(servPath + 'auth/v1/register_options', {
-            method: 'GET',
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        let data: any = await response.json();
-
-        return data;
-
-    } catch (e) {
-        showErrorAlert(e);
-    }
-}
-
-export async function RegisterKey(makeCredentialOptions: any, code: string) {
-
-    let fido2_opt = makeCredentialOptions?.fido2_options;
-
-    console.log("Credential Options Object", makeCredentialOptions);
+    let fido2_opt = opt?.fido2_options;
 
     if (fido2_opt?.status !== "ok") {
-        showErrorAlert(fido2_opt.errorMessage);
-        return;
+        Swal.fire({
+            title: 'Server request error',
+            icon: "error",
+            text: "Sorry, something went wrong! :(",
+            footer: fido2_opt?.errorMessage //rez.error?.message
+        });
+        return false;
     }
 
     // Turn the challenge back into the accepted format of padded base64
@@ -224,20 +137,15 @@ export async function RegisterKey(makeCredentialOptions: any, code: string) {
 
     if (fido2_opt.authenticatorSelection.authenticatorAttachment === null) fido2_opt.authenticatorSelection.authenticatorAttachment = undefined;
 
-    console.log("Credential Options Formatted", fido2_opt);
-
     Swal.fire({
         title: 'Registering...',
         text: 'Tap your security key to finish registration.',
-        imageUrl: "/images/securitykey.min.svg",
+        imageUrl: imgUrl,
         showCancelButton: true,
         showConfirmButton: false,
         focusConfirm: false,
         focusCancel: false
     });
-
-
-    console.log("Creating PublicKeyCredential...");
 
     let newCredential;
     try {
@@ -246,11 +154,13 @@ export async function RegisterKey(makeCredentialOptions: any, code: string) {
         });
     } catch (e) {
         var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
-        console.error(msg, e);
-        showErrorAlert(msg, e);
+        Swal.fire({
+            title: 'Browser/OS request error',
+            icon: "error",
+            text: msg,
+            footer: e
+        });
     }
-
-    console.log("PublicKeyCredential Created", newCredential);
 
     // Move data into Arrays incase it is super long
     let attestationObject = new Uint8Array(newCredential.response.attestationObject);
@@ -258,7 +168,7 @@ export async function RegisterKey(makeCredentialOptions: any, code: string) {
     let rawId = new Uint8Array(newCredential.rawId);
 
     const data = {
-        challenge_id: makeCredentialOptions.challenge_id,
+        challenge_id: opt.challenge_id,
         code,
         credential_new:
         {
@@ -273,45 +183,7 @@ export async function RegisterKey(makeCredentialOptions: any, code: string) {
             }
         }
     };
-
-    let response;
-    try {
-
-        response = await fetch(servPath + 'auth/v1/register_key', {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-
-        let dataR = await response.json();
-
-        return dataR.result;
-    } catch (e) {
-        showErrorAlert(e);
-    }
-
-    console.log("Credential Object", response);
-
-    // show error
-    if (response !== "Success") {
-        console.log("Error creating credential");
-        //console.log(response.errorMessage);
-        //showErrorAlert(response.errorMessage);
-        return;
-    }
-
-    // show success 
-    Swal.fire({
-        title: 'Registration Successful!',
-        text: 'You\'ve registered successfully.',
-        // type: 'success',
-        timer: 2000
-    });
-
+    return await RegisterKey(data);
 }
 
 export function coerceToArrayBuffer(thing, name) {
@@ -375,17 +247,6 @@ export function coerceToBase64Url(thing) {
     thing = thing.replace(/\+/g, "-").replace(/\//g, "_").replace(/=*$/g, "");
 
     return thing;
-}
-function showErrorAlert(message, error = "") {
-    let footermsg = '';
-    if (error) {
-        footermsg = 'exception:' + error.toString();
-    }
-    Swal.fire({
-        title: 'Error',
-        text: message,
-        footer: footermsg
-    })
 }
 
 

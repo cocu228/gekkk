@@ -2,12 +2,13 @@
 // import { formatAsNumber } from "./model/shared";
 import Button from "./components/button/Button";
 import { useState } from "preact/hooks";
-import { ResetPass, ResetPassSendSMS, ResetPassStart } from '../shared';
+import { ResetPass } from '../shared';
 import Form from './components/form';
 import TextInput from './components/textInput';
 import CheckList from './components/checklist';
 import PasswordInput from './components/passwordInput';
 import Swal from 'sweetalert2';
+import { RegisterOptions, ResetPassword } from '../shared/apiInterfaces';
 
 export interface Props {
     phone: string | undefined;
@@ -29,25 +30,7 @@ export const CallResetPasswordForm = (Props) => {
     const onSubmit = async (_dataObject) => {
         if (!ecodeValue) {
             if (phoneValue) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
-                Toast.fire({
-                    icon: "info",
-                    title: "Sending link to email..."
-                });
-
-
-
-                let r = await ResetPassStart(phoneValue);
+                let r = await ResetPassword(phoneValue);
                 if (r.result === "Success") {
                     setECode("paste the code here from your email");
                     Swal.fire({
@@ -57,32 +40,16 @@ export const CallResetPasswordForm = (Props) => {
                     });
                 }
                 else Swal.fire({
-                    title: 'Not success email send :(',
+                    title: 'Not success email send',
                     text: r.error?.message ?? r.result
                 });
             }
 
         }
         else {
-            if (!smsSended) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 5000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
-                Toast.fire({
-                    icon: "info",
-                    title: "Sending sms code..."
-                });
-
-                let r = await ResetPassSendSMS(ecodeValue);
-                console.log(r);
+            if (!smsSended) {                
+                let r = await RegisterOptions(ecodeValue);
+               
                 if (r.result?.fido2_options) {
                     setCode("paste sms code here");
                     setSmsSended(true);
@@ -95,27 +62,12 @@ export const CallResetPasswordForm = (Props) => {
                 }
                 else Swal.fire({
                     title: 'Not success sms send :(',
-                    text: r.error?.message ?? r.result
+                    text: r.error?.message
                 });
             }
             else {
                 if (codeValue) {
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: "top-end",
-                        showConfirmButton: false,
-                        timer: 5000,
-                        timerProgressBar: true,
-                        didOpen: (toast) => {
-                            toast.onmouseenter = Swal.stopTimer;
-                            toast.onmouseleave = Swal.resumeTimer;
-                        }
-                    });
-                    Toast.fire({
-                        icon: "info",
-                        title: "Reset password..."
-                    });
-
+                    
                     let r = await ResetPass(optValue, passValue, codeValue);
                     if (r?.result === "Success") {
                         Swal.fire({

@@ -79,7 +79,7 @@ export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiRes
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 5000,
+        timer: 10000,
         // timerProgressBar: true,
         animation: false,
         didOpen: () => {
@@ -95,7 +95,7 @@ export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiRes
     try {
         var response = await fetch(servPath + url, init);
         rez = response.ok ? await (response.json() as Promise<ApiResponse<T>>) :
-            { error: { message: response?.statusText } } as ApiResponse<T>;
+            { error: { message: ("Status: " + response.status + ". " + response?.statusText) } } as ApiResponse<T>;
     }
     catch (e) {
         rez = { error: { message: e?.message } } as ApiResponse<T>;
@@ -115,7 +115,6 @@ export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiRes
 
 export const apiGetInfo = async () =>
     await GekApi<WalletInfo[]>('gek/v1/wallet/get_info', {
-        method: 'GET',
         credentials: "include",
         headers: {
             'Accept': 'application/json',
@@ -160,4 +159,31 @@ export function setAdvCookie() {
     }
     return guid;
 }
+
+export const ResetPassword = async (phone: string) =>
+    await GekApi<string>('auth/v1/reset_password?phone=' + phone, {
+        credentials: "include",
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+export const RegisterOptions = async (emailcode?: string | null) =>
+    await GekApi<AuthOptions>('auth/v1/register_options' + (emailcode ? ('?code=' + emailcode) : ''), {
+        credentials: "include",
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+export const RegisterKey = async (data: any) =>
+    await GekApi<string>("auth/v1/register_key", {
+        method: 'POST',
+        credentials: "include",
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
 

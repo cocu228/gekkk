@@ -19,6 +19,7 @@ import TransactionInfo from '../history/ui/TransactionInfo';
 import CurrencySelector from '@/shared/ui/input-currency/ui/currency-selector/CurrencySelector';
 import { ISelectTxTypes, ISelectAssets } from './types';
 import Loader from '@/shared/ui/loader';
+
 export default function customSearch() {
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
     const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
@@ -104,33 +105,33 @@ export default function customSearch() {
         applyHandler();
         
     }, [refreshKey, activeTab]);
-    
-    const requestMoreHistory = async (currencies:string[], txTypes: TransactTypeEnum[], nextKey?: string) => {  
+
+    const requestMoreHistory = async () => {  
         setLazyLoading(true)
-        
         const lastValue = listHistory[listHistory.length - 1];
-        console.log(selectedAsset.value, lastValue);
 
         const { data } = await apiGetHistoryTransactions({
-            currencies: currencies,
-            tx_types: txTypes,
-            next_key: nextKey,
+            currencies: [selectedAsset.value],
+            tx_types: selectedTx.value,
+            next_key: lastValue?.next_key,
             limit: 10,
             // include_fiat: includeFiat,
         });
 
         if (data.result.length < 10) setAllTxVisibly(true)
+        
+        
 
         setListHistory(prevState => ([...prevState, ...data.result]))
 
         setLazyLoading(false)
     }
-    
-    const scrollHandler =  (e) => {               
+
+    const scrollHandler = async (e) => {               
         
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
-            requestMoreHistory([selectedAsset.value], selectedTx.value, listHistory[listHistory.length - 1].next_key)
-            console.log('fuck');
+            
+            await requestMoreHistory();
         }
     }
 
@@ -175,7 +176,6 @@ export default function customSearch() {
                                 placeholder={"No data avialible"} 
                                 value={selectedTx}
                                 onSelect={(_, selectedOption) => {
-                                          
                                     setSelected(selectedOption);
                                 }}
                                 options={options}
@@ -183,6 +183,8 @@ export default function customSearch() {
                     </div>
                     <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
                         <h4 className='w-40'>Currency:</h4>
+                        <CurrencySelector className='w-4 h-4'/>
+
                         <Select className={`w-full`}
                                 placeholder={"Select currency"} 
                                 value={selectedAsset}

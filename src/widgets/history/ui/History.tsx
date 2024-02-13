@@ -14,7 +14,7 @@ import {actionResSuccess, getSecondaryTabsAsRecord} from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
 import {useTranslation} from 'react-i18next';
-import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import {GetHistoryTrasactionOut, TransactTypeEnum} from "@/shared/(orval)api/gek/model";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
@@ -68,13 +68,13 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         setLoading(false);
     }
 
-    const requestMoreHistory = async () => {  
+    const requestMoreHistory = async ({currencies, txTypes, hist, isFiat}: {currencies:string[], txTypes: TransactTypeEnum[], hist: GetHistoryTrasactionOut[], isFiat?:boolean}) => {  
         setLazyLoading(true)
         const lastValue = listHistory[listHistory.length - 1];
 
         const { data } = await apiGetHistoryTransactions({
-            currencies: currenciesFilter,
-            tx_types: types,
+            currencies: currencies,
+            tx_types: txTypes,
             next_key: lastValue?.next_key,
             limit: 10,
             include_fiat: includeFiat,
@@ -103,8 +103,9 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
 
     
     const scrollHandler = (e) => {                
+        
         if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
-            requestMoreHistory()
+            requestMoreHistory({currencies:currenciesFilter, txTypes: types, hist: listHistory});
         }
     }
     useEffect(()=>{

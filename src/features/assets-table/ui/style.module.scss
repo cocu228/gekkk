@@ -10,6 +10,13 @@
     padding: 6px 20px;
   }
 
+  @include max-devices('md') {
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    // padding: 0 20px;
+  }
+
   &Blocked {
     opacity: 50%;
     pointer-events: none;
@@ -28,17 +35,39 @@
 
   @include max-devices('md') {
     margin: 0;
-    padding: 0 20px;
+    padding: 0;
   }
 }
 
 .SearchInput{
   display: flex;
-  height: 40px;
+  flex-direction: row;
+  width: 100%;
   padding: 10px 18px;
   align-items: center;
   gap: 9px;
   align-self: stretch;
   border-radius: 8px;
   background: #FFF;
+
+  .searchInputInner {
+    height: 40px;
+    width: 100%;
+    border: none;
+    align-self: stretch;
+    &:focus{
+      outline: none;
+    }
+  }
+}
+
+.MobileItem {
+  background-color: #fff;
+  margin-bottom: 9px;
+  height: 60px;
+  
+  .InnerName {
+    color: #B9B9B5;
+  }
+
 }

@@ -1,173 +1,56 @@
 import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
+import { apiLogin, apiLoginOptions } from './apiInterfaces';
 
-/**
- * Объект-ошибки для объекта-ответа
- */
-export interface ErrorObject {
-    /** Цифровой код ошибки */
-    code?: number;
-    /** Текстовое сообщение об ошибке */
-    readonly message?: string | null;
-}
-/**
- * Ответы-результаты запросов API в виде текста обозначающие вариант завершения процесса. 
-Плюс стандартные статические ответы.
- */
-export interface ApiResponse {
-    error?: ErrorObject;
-    /** Идентификатор запроса, если он был или 0 */
-    id?: number;
-    /** Объект-результат: null, если ошибка */
-    result?: string | null;
-}
+import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
 const ec = new eddsa('ed25519');
 
-
 const servPath = "https://gate-dev.gekkard.com:6789/";
 
+const Base64URL_to_Uint8Array = (str: string) =>
+    Uint8Array.from(window.atob(str.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0))
+
 export async function SignInUser(phone: string, pass: string) {
-
     if (pass === '' || pass === ' ' || phone === '' || phone === ' ') return false;
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        }
-    });
-    Toast.fire({
-        icon: "info",
-        title: "Login with user key"
-    });
 
-    let makeAssertionOptions;
-    try {
-        var res = await fetch(servPath + 'auth/v1/login_options', {
-            method: 'GET',
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json',
-            }
-        });
-        let bodyRes = await res.json();
-        makeAssertionOptions = bodyRes.result;
-    } catch (e) {
-        showErrorAlert("Request login_options to server failed", e);
-    }
-    let challenge = makeAssertionOptions.challenge.replace(/-/g, "+").replace(/_/g, "/");
-    makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+    let res = await apiLoginOptions();
+    if (!res.result) return false;
+    let opt = res.result;
 
-    let passKey = sha256(phone + pass + makeAssertionOptions.rpId);
+    let challengeBuf = Base64URL_to_Uint8Array(opt.challenge) as Buffer;
 
+    let passKey = sha256(phone + pass + opt.rpId);
     let key = ec.keyFromSecret(passKey);
     let pub = key.getPublic();
-    let signature = key.sign(makeAssertionOptions.challenge).toBytes();
+    let signature = key.sign(challengeBuf).toBytes();
 
-    console.log("Public key (elliptic):");
-    console.log(coerceToBase64Url(pub));
-
+    // console.log("Public key (elliptic):");
+    // console.log(coerceToBase64Url(pub));
     const data = {
-        challenge_id: makeAssertionOptions.challenge_id,
+        challenge_id: opt.challenge_id,
         credential: null,
         public_key: coerceToBase64Url(pub),
         signature: coerceToBase64Url(signature)
     };
-
-    let response;
-    try {
-        let res = await fetch(servPath + "auth/v1/login", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'resolution': ("" + screen.width + "x" + screen.height),
-                'device_guid': setAdvCookie()
-            }
-        });
-
-        response = await res.json();
-    } catch (e) {
-        showErrorAlert("Request login to server failed", e);
-    }
-
-    console.log("Assertion Object", response);
-
-    // show error
-    if (response.result !== 'Success') {
-        //console.log("Error doing assertion");
-        //console.log(response.errorMessage);
-        showErrorAlert(response.error?.message);
-        return false;
-    }
-
-    // show success message
-    Swal.fire({
-        title: 'Logged In!',
-        text: 'You\'re logged in successfully.',
-        timer: 2000
-    });
-    return true;
+    let resLogin = await apiLogin(data);
+    return resLogin.result === 'Success';
 }
 export async function SignIn() {
+    let opt;
 
-    const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-        }
-    });
-    Toast.fire({
-        icon: "info",
-        title: "Login with device key"
-    });
+    var res = await apiLoginOptions();
+    if (!res.result) return false;
+    opt = res.result;
 
-    let makeAssertionOptions;
-    try {
-        var res = await fetch(servPath + 'auth/v1/login_options', {
-            method: 'GET',
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json',
-            }
-        });
-        let bodyRes = await res.json();
-        makeAssertionOptions = bodyRes.result;
-    } catch (e) {
-        showErrorAlert("Request login_options to server failed", e);
-    }
-
-    console.log("Assertion Options Object", makeAssertionOptions);
-
-    // show options error to user
-    if (makeAssertionOptions == null) {
-        //console.log("Error creating assertion options");
-        //console.log(makeAssertionOptions.errorMessage);
-        showErrorAlert(makeAssertionOptions?.errorMessage);
-        return;
-    }
-
-    const challenge = makeAssertionOptions.challenge.replace(/-/g, "+").replace(/_/g, "/");
-    makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
+    opt.challenge = Base64URL_to_Uint8Array(opt.challenge);
 
     Swal.fire({
         title: 'Logging In...',
         text: 'Tap your security key to login.',
-        imageUrl: "/images/securitykey.min.svg",
+        imageUrl: imgUrl,
         showCancelButton: true,
         showConfirmButton: false,
         focusConfirm: false,
@@ -177,10 +60,10 @@ export async function SignIn() {
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
     try {
-        assertedCredential = await navigator.credentials.get({ publicKey: makeAssertionOptions })
+        assertedCredential = await navigator.credentials.get({ publicKey: opt })
     } catch (err) {
-        showErrorAlert(err.message ? err.message : err);
-        return;
+        console.log(err.message ? err.message : err);
+        return false;
     }
 
     // Move data into Arrays incase it is super long
@@ -190,7 +73,7 @@ export async function SignIn() {
     let sig = new Uint8Array(assertedCredential.response.signature);
     let userHandle = new Uint8Array(assertedCredential.response.userHandle);
     const data = {
-        challenge_id: makeAssertionOptions.challenge_id,
+        challenge_id: opt.challenge_id,
         credential:
         {
             id: assertedCredential.id,
@@ -205,45 +88,9 @@ export async function SignIn() {
             }
         }
     };
+    let resLogin = await apiLogin(data);
 
-    let response;
-    try {
-
-        let res = await fetch(servPath + "auth/v1/login", {
-            method: 'POST',
-            credentials: "include",
-            body: JSON.stringify(data),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'resolution': ("" + screen.width + "x" + screen.height),
-                'device_guid': setAdvCookie()
-            }
-        });
-
-        response = await res.json();
-    } catch (e) {
-        showErrorAlert("Request to server failed", e);
-        throw e;
-    }
-
-    //console.log("Assertion Object", response);
-
-    // show error
-    if (response.result !== 'Success') {
-        //console.log("Error doing assertion");
-        //console.log(response.errorMessage);
-        showErrorAlert(response.error?.message);
-        return false;
-    }
-
-    // show success message
-    Swal.fire({
-        title: 'Logged In!',
-        text: 'You\'re logged in successfully.',
-        timer: 2000
-    });
-    return true;
+    return resLogin.result === 'Success';
 }
 export async function ResetPassStart(phone: string) {
     try {
@@ -255,7 +102,7 @@ export async function ResetPassStart(phone: string) {
             }
         });
 
-        let data: ApiResponse = await response.json();
+        let data: any = await response.json();
 
         return data;
 
@@ -283,27 +130,25 @@ export async function ResetPassSendSMS(emailcode: string) {
     }
 }
 
-export async function ResetPass(makeAssertionOptions: any, pass: string, code: string) {
-
-    const challenge = makeAssertionOptions.fido2_options.challenge.replace(/-/g, "+").replace(/_/g, "/");
-    makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
-
-    let passKey = sha256(makeAssertionOptions.phone + pass + makeAssertionOptions.fido2_options.rp.id);
+export async function ResetPass(opt: any, pass: string, code: string) {  
+      
+    opt.challenge = Base64URL_to_Uint8Array(opt.fido2_options.challenge);
+    let passKey = sha256(opt.phone + pass + opt.fido2_options.rp.id);
 
     var key = ec.keyFromSecret(passKey);
     var pub = key.getPublic();
     console.log("Public key (elliptic):");
     console.log(coerceToBase64Url(pub));
-    var signature = key.sign(makeAssertionOptions.challenge).toBytes();
+    var signature = key.sign(opt.challenge).toBytes();
 
     const data = {
-        challenge_id: makeAssertionOptions.challenge_id,
+        challenge_id: opt.challenge_id,
         code,
         public_key: coerceToBase64Url(pub),
         signature: coerceToBase64Url(signature)
     };
 
-    let response: ApiResponse ;
+    let response: any;
     try {
         let res = await fetch(servPath + "auth/v1/register_key", {
             method: 'POST',
@@ -342,7 +187,7 @@ export async function ResetPass(makeAssertionOptions: any, pass: string, code: s
 }
 
 export async function RegKeySendSMS() {
-    
+
     try {
         let response = await fetch(servPath + 'auth/v1/register_options', {
             method: 'GET',
@@ -352,7 +197,7 @@ export async function RegKeySendSMS() {
             }
         });
 
-        let data: ApiResponse = await response.json();
+        let data: any = await response.json();
 
         return data;
 
@@ -543,20 +388,4 @@ function showErrorAlert(message, error = "") {
     })
 }
 
-export function setAdvCookie() {
-    let cookieArr = document.cookie.split(";");
-    let flag = true;
-    let guid;
-    for (let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if ("device_guid" == cookiePair[0].trim()) {
-            flag = false;
-            guid = cookiePair[1];
-        }
-    }
-    if (flag) {
-        guid = self.crypto.randomUUID();
-        document.cookie = "device_guid=" + guid + "; path = /; max-age=" + 365 * 24 * 60 * 60;
-    }
-    return guid;
-}
+

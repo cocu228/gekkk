@@ -85,57 +85,50 @@ const Auth = () => {
 						<header>
 							<h2>
 								{displayForgotPassword
-									? 'Password reset'
+									? 'Password reset form'
 									: 'Welcome to Gekkard online bank'
 								}
 							</h2>
 							<p>
 								{displayForgotPassword
-									? 'To start the password reset process for your Gekkard account, please,' +
-									' enter the phone number that you have registered with Gekkard: The link will be sent to your personal email.'
+									? 'To start the password reset process you must have an active account'
 									: 'Log in using the form below'
 								}
 							</p>
 						</header>
 
-						{displayForgotPassword ? <CallResetPasswordForm emailCode={emailCode} phone={phoneValue} handleCancel={() => { setDisplayForgotPassword(false) }} /> : (
-							<main>
-								<div className={styles.FormTab}>
-									<button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >
-										User
-									</button>
-									<button className={`${styles.TabButton} ${tab === 'DEVICE_KEY' ? styles.TabButtonActive : ""}`} onClick={() => setTab('DEVICE_KEY')} >
-										Device key
-									</button>
-								</div>
-								<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>
-									{tab != 'PASSWORD' ?
-										<>
-											<p>Use of a hardware-based security key is fast and easy. <a href={"https://fidoalliance.org/fido2/"}>More about FIDO2.</a></p>
-											<Button type="submit">
-												Login with Device Key
-											</Button>
-										</>
-										:
-										<>
-											<div>
-												<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phoneValue} onChange={setPhone} />
-												{/* <input type={"text"} ref={refInputLogin} name='phone' /> */}
-											</div>
-
-											<div>
-												<input placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
-											</div>
-
-											<div className={styles.FormButtons} >
-												<Button disabled={!phoneValue || !passValue || passValue.length < 6} type="submit">Login</Button>
-												<Button text onClick={onPasswordForget}>Forgot password?</Button>
-											</div>
-										</>
-									}
-								</form>
-							</main>
-						)}
+						<main>
+							{displayForgotPassword ? <CallResetPasswordForm emailCode={emailCode} phone={phoneValue} handleCancel={() => { setDisplayForgotPassword(false) }} /> : (
+								<>
+									<div className={styles.FormTab}>
+										<button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >
+											User
+										</button>
+										<button className={`${styles.TabButton} ${tab === 'DEVICE_KEY' ? styles.TabButtonActive : ""}`} onClick={() => setTab('DEVICE_KEY')} >
+											Device key
+										</button>
+									</div>
+									<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>
+										{tab != 'PASSWORD' ?
+											<>
+												<p>Use of a hardware-based security key is fast and easy. <a href={"https://fidoalliance.org/fido2/"}>More about FIDO2.</a></p>
+												<Button type="submit">
+													Login with Device Key
+												</Button>
+											</>
+											:
+											<>
+												<PhoneInput required flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
+												<input required minLength={6} placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
+												<div className={styles.FormButtons} >
+													<Button disabled={!phoneValue || !passValue || phoneValue.length < 8 || passValue.length < 6} type="submit">Login</Button>
+													<Button text onClick={onPasswordForget}>Forgot password?</Button>
+												</div>
+											</>
+										}
+									</form>
+								</>)}
+						</main>
 
 						<details>
 							<summary><h4>Don’t have an account?</h4></summary>

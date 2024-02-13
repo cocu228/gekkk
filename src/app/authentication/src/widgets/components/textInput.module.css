@@ -1,6 +1,6 @@
 
 .label {
-  color: darkcyan;
+  color: var(--gek-additional);
   margin-bottom: 0.25em;
 }
 
@@ -25,6 +25,7 @@
 } */
 
 .validationMessage {
+  display: none;
   font-size: 0.8em;
   color: var(--gek-red);
   margin-top: 0.5em;

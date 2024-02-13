@@ -8,6 +8,8 @@ import CheckList from './components/checklist';
 import PasswordInput from './components/passwordInput';
 import Swal from 'sweetalert2';
 import { RegisterOptions, ResetPassword } from '../shared/apiInterfaces';
+import flags from 'react-phone-number-input/flags';
+import PhoneInput from 'react-phone-number-input';
 
 export interface Props {
     phone: string | undefined;
@@ -18,6 +20,7 @@ export interface Props {
 export const CallResetPasswordForm = (Props) => {
 
     const [smsSended, setSmsSended] = useState<boolean>(false);
+    const [ecodeSended, setECodeSended] = useState<boolean>(!!Props.emailCode);
 
     const [phoneValue, setPhone] = useState(Props.phone);
     const [codeValue, setCode] = useState('');
@@ -27,82 +30,100 @@ export const CallResetPasswordForm = (Props) => {
     const [optValue, setOpt] = useState(null);
 
     const onSubmit = async (_dataObject) => {
-        if (!ecodeValue) {
+        if (!ecodeSended) {
             if (phoneValue) {
                 let r = await ResetPassword(phoneValue);
                 if (r.result === "Success") {
-                    setECode("paste the code here from your email");
+                    setECodeSended(true);
                     Swal.fire({
+                        icon:"success",
                         title: 'Email code',
                         text: 'A message with a confirmation code has been sent by email.',
                         timer: 2000
                     });
                 }
                 else Swal.fire({
+                    icon: "error",
                     title: 'Not success email send',
                     text: r.error?.message ?? r.result
                 });
             }
-
         }
-        else {
-            if (!smsSended) {
-                let r = await RegisterOptions(ecodeValue);
+        else if (!smsSended) {
+            let r = await RegisterOptions(ecodeValue);
 
-                if (r.result?.fido2_options) {
-                    setCode("paste sms code here");
-                    setSmsSended(true);
-                    setOpt(r.result)
-                    Swal.fire({
-                        title: 'Sms code',
-                        text: 'A message with a confirmation code has been sent by sms.',
-                        timer: 2000
-                    });
-                }
-                else Swal.fire({
-                    title: 'Not success sms send :(',
-                    text: r.error?.message
+            if (r.result?.fido2_options && r.result?.phone) {
+                setOpt(r.result);
+                setPhone(r.result.phone)
+                setSmsSended(true);
+
+                Swal.fire({
+                    icon:"success",
+                    title: 'Sms code sended',
+                    text: 'A message with a confirmation code has been sent by sms.',
+                    timer: 2000
                 });
             }
-            else {
-                if (codeValue) {
-
-                    let r = await ResetPass(optValue, passValue, codeValue);
-                    if (r?.result === "Success") {
-                        Swal.fire({
-                            title: 'Reset password',
-                            text: 'Reset password Success!',
-                            timer: 2000
-                        });
-                        location.replace('/');
-                    }
-                    else Swal.fire({
-                        title: 'Not success password reset :(',
-                        text: r.error?.message ?? r.result
+            else Swal.fire({
+                icon: "error",
+                title: 'Not success sms send or options get :(',
+                text: r.error?.message
+            });
+        }
+        else {
+            if (codeValue && optValue && passValue) {
+                if (passValue !== passCValue) {
+                    Swal.fire({
+                        icon:"warning",
+                        title: 'Password check failed',
+                        text: "passwords mismatch",
+                        timer: 2000
                     });
+                    return;
                 }
+
+                let r = await ResetPass(optValue, passValue, codeValue);
+                if (r?.result === "Success") {
+                    Swal.fire({
+                        icon:"success",
+                        title: 'Reset password',
+                        text: 'Reset password Success!',
+                        timer: 2000
+                    });
+                    location.replace('/');
+                }
+                else Swal.fire({
+                    icon: "error",
+                    title: 'Not success password reset :(',
+                    text: r.error?.message ?? r.result
+                });
             }
         }
     }
 
-    return <main className={styles.CallReset}>
-        <Form onSubmit={onSubmit} className={styles.FormBody}>
+    return <Form onSubmit={onSubmit} className={styles.FormBody}>
+        {(!smsSended && !ecodeSended) ?
+            <PhoneInput required flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
+            : ""}
+        {(!smsSended && ecodeSended) ?
+            <TextInput label='Рaste the email code into the field:' required minLength={10} placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />
+            : ""}
+        {(smsSended && ecodeSended) ?
             <div>
-                <TextInput required placeholder={"Phone"} type="tel" value={phoneValue} onChange={e => setPhone(e.currentTarget.value)} id='phone' name='phone' />
-                <TextInput placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />
-                <PasswordInput //minLength={8} required 
-                    placeholder={"New password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} id='password' name='password' />
-                <PasswordInput placeholder={"Confirm password"} value={passCValue} onChange={e => setCPass(e.currentTarget.value)} id="passwordC" name='passwordC' />
-                <CheckList value={passValue} />
-            </div>
-
-            <div className={styles.FormButtons} >
-                <div>
-                    <Button type="submit">{ecodeValue ? (smsSended ? "Reset password" : "Send SMS") : "Send link"}</Button>
-                    <TextInput placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
+                <TextInput required minLength={6} placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
+                <PasswordInput minLength={8} required placeholder={"New password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} id='password' name='password' />
+                <PasswordInput minLength={8} required placeholder={"Confirm password"} value={passCValue} onChange={e => setCPass(e.currentTarget.value)} id="passwordC" name='passwordC' />
+                <div className={styles.rulesList} >
+                    <CheckList value={passValue} />
+                    <div><div className={styles.rulesListH}>ℹ check list ℹ</div></div>
                 </div>
-                <Button text onClick={Props.handleCancel}>Back to login</Button>
             </div>
-        </Form>
-    </main>
+            : ""}
+
+        <div className={styles.FormButtons} >
+            <Button type="submit">{ecodeSended ? (smsSended ? "Reset password" : "Send SMS") : "Send to email"}</Button>
+            <Button text onClick={Props.handleCancel}>Back to login</Button>
+        </div>
+    </Form>
+
 }

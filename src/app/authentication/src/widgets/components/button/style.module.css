@@ -9,6 +9,9 @@
         background: var(--gek-green-gradient);
         color: var(--gek-dark-blue);
     }
+    &:active {        
+        color: var(--gek-background);
+    }
     
     &:disabled {
         color: var(--gek-dark-grey);
@@ -23,8 +26,11 @@
     border-color: transparent;
     color: var(--gek-additional);
     
-    :hover {
+    &:hover {
         text-decoration: underline;
+    }
+    &:active {        
+        color: var(--gek-dark-blue);
     }
 }
 

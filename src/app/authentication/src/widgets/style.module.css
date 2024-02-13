@@ -1,12 +1,4 @@
-﻿main.CallReset {
-  aspect-ratio: none;
-  max-height: none;
-  min-height: none;
-  /* flex: 1 0 auto; */
-  height: 420px;
-}
-
-.FormBody {
+﻿form {
   flex: 1 1 auto;
   padding: 24px 36px;
   display: flex;
@@ -15,7 +7,21 @@
   gap: 0.5rem;
 }
 
-.FormButtons {
+form .FormButtons {
   display: flex;
   justify-content: space-between;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: row;
+
+  .rulesListH {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    transform-origin: top left;
+    transform: rotate(90deg);
+    color: var(--gek-mid-grey);
+  }
 }

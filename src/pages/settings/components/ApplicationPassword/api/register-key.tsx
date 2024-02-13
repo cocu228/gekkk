@@ -1,5 +1,4 @@
 import { apiRegisterOptions } from "@/shared/(orval)api/auth";
-import Swal from 'sweetalert2';
 import { $ENV_MODE } from "@/shared/lib";
 
 export async function RegisterKey(code) {
@@ -51,15 +50,7 @@ export async function RegisterKey(code) {
     console.log("Credential Options Formatted", fido2_opt);
 
    
-    Swal.fire({
-        title: 'Registering...',
-        text: 'Tap your security key to finish registration.',
-        imageUrl: "/images/securitykey.min.svg",
-        showCancelButton: true,
-        showConfirmButton: false,
-        focusConfirm: false,
-        focusCancel: false
-    });
+
 
 
 
@@ -70,7 +61,6 @@ export async function RegisterKey(code) {
     } catch (e) {
         var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
         console.error(msg, e);
-        showErrorAlert(msg, e);
     }
 
     console.log("PublicKeyCredential Created", newCredential);
@@ -111,7 +101,6 @@ async function registerNewCredential(newCredential, challenge_id, code) {
         response = await registerCredentialWithServer(data);
     } catch (e) {
         console.log(e);
-        showErrorAlert(e)
     }
 
     console.log("Credential Object", response);
@@ -125,12 +114,7 @@ async function registerNewCredential(newCredential, challenge_id, code) {
     }
 
     // show success 
-    Swal.fire({
-        title: 'Registration Successful!',
-        text: 'You\'ve registered successfully.',
-        // type: 'success',
-        timer: 2000
-    });
+
 }
 
 async function registerCredentialWithServer(formData) {
@@ -213,15 +197,4 @@ export function coerceToBase64Url(thing) {
     thing = thing.replace(/\+/g, "-").replace(/\//g, "_").replace(/=*$/g, "");
 
     return thing;
-}
-function showErrorAlert(message, error = "") {
-    let footermsg = '';
-    if (error) {
-        footermsg = 'exception:' + error.toString();
-    }
-    Swal.fire({
-        title: 'Error',
-        text: message,
-        footer: footermsg
-    })
 }

@@ -6,10 +6,10 @@ import { DatePicker, Space, Select } from 'antd';
 import dayjs from 'dayjs';
 import { dateFormat } from './const';
 import Button from '@/shared/ui/button/Button';
-import { GetHistoryTrasactionOut, TransactTypeEnum } from '@/shared/(orval)api/gek/model';
+import { Card, GetHistoryTrasactionOut, TransactTypeEnum } from '@/shared/(orval)api/gek/model';
 import { apiAssets, apiGetHistoryTransactions } from '@/shared/(orval)api/gek';
 import { formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile } from '@/shared/lib/date-helper';
-import { actionResSuccess } from '@/shared/lib/helpers';
+import { actionResSuccess, getFlagsFromMask } from '@/shared/lib/helpers';
 import { historyTabs } from '../history/model/helpers';
 import { options } from './const';
 import axios from 'axios';
@@ -17,8 +17,10 @@ import { TabKey } from '../history/model/types';
 import { CtxRootData } from '@/processes/RootContext';
 import TransactionInfo from '../history/ui/TransactionInfo';
 import CurrencySelector from '@/shared/ui/input-currency/ui/currency-selector/CurrencySelector';
-import { ISelectTxTypes, ISelectAssets } from './types';
+import { ISelectTxTypes, ISelectAssets, ISelectCard } from './types';
 import Loader from '@/shared/ui/loader';
+import { maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
+import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 
 export default function customSearch() {
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
@@ -26,11 +28,16 @@ export default function customSearch() {
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     
     const [allAssets, setAllAssets] = useState<ISelectAssets[]>();
-    const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({label: 'Gekkoin EUR', value: 'EURG'});
+    const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({label: 'GKE Token', value: 'GKE'});
     const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
+    const [selectedCard, setSelectedCard] = useState<string>();
+    const loadActiveCards = storeActiveCards((state) => state.getActiveCards);
+    const cards = storeActiveCards((state) => state.activeCards);
+    const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
+    
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
-    const [selectedTx, setSelected] = useState(options[0]);
+    const [selectedTx, setSelectedTx] = useState(options[0]);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
 
     const { refreshKey } = useContext(CtxRootData)
@@ -46,16 +53,18 @@ export default function customSearch() {
 
     const handleReset = () => {
         setDate([dayjs('2024-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
+        setSelectedAsset({label: 'Gekkoin EUR', value: 'EURG', isFiat: true});
+        setSelectedTx(options[0]);
     };
 
     const loadAssets = async () => {
         const assets = await apiAssets();
         actionResSuccess(assets).success(() => {
             const {result} = assets.data;
-            console.log(result);
             
             const formatedResult = result.map(elem => {
-                return {value: elem.code, label: elem.name}
+                const isFiat = getFlagsFromMask(elem.flags, maskCurrencyFlags).fiatCurrency;
+                return {value: elem?.code, label: elem?.name, isFiat};
             })
             setAllAssets(formatedResult);
         });
@@ -74,6 +83,7 @@ export default function customSearch() {
             end: end.length ? end.toString() : null,
             start: start.length ? start.toString() : null,
             currencies: [selectedAsset.value],
+            card: selectedCard,
         }, { cancelToken });
 
         actionResSuccess(response).success(() => {
@@ -87,40 +97,45 @@ export default function customSearch() {
 
     const applyHandler = () => {
         const cancelTokenSource = axios.CancelToken.source();
-        console.log(selectedTx);
-        
         (async () => {
             await requestHistory(cancelTokenSource.token);
         })()
-
+        
+        if (!selectedAsset.isFiat) setSelectedCard
         return () => cancelTokenSource.cancel()
     }
 
-    useEffect(() => {
-        loadAssets();
+    useEffect(() => {        
+        (async () => {
+            loadAssets();
+            await loadActiveCards();
+            const cardsOpts:ISelectCard[] = cards.map(card => ({label: card.displayPan, value: card.cardId}))
+            console.log(cardsOpts);
+            setCardsOptions(cardsOpts);
+
+        })();
         
     }, []);
 
     useEffect(() => {
         applyHandler();
-        
     }, [refreshKey, activeTab]);
 
     const requestMoreHistory = async () => {  
         setLazyLoading(true)
         const lastValue = listHistory[listHistory.length - 1];
-
+        console.log(selectedAsset.value);
+        
         const { data } = await apiGetHistoryTransactions({
             currencies: [selectedAsset.value],
             tx_types: selectedTx.value,
             next_key: lastValue?.next_key,
             limit: 10,
-            // include_fiat: includeFiat,
+            include_fiat: true,
+            card: selectedCard,
         });
 
         if (data.result.length < 10) setAllTxVisibly(true)
-        
-        
 
         setListHistory(prevState => ([...prevState, ...data.result]))
 
@@ -170,35 +185,33 @@ export default function customSearch() {
                     </Space>
                 </div>
                 <div className='flex flex-col text-lg pt-4 gap-2'>
-                    <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
-                        <h4 className='w-40'>Type:</h4>
-                        <Select className={`w-full`}
+                    <div className={`flex flex-row items-center gap-3 ${styles.selector}`}>
+                        <h4 className='w-1/3'>Type:</h4>
+                        <Select className='w-2/3'
                                 placeholder={"No data avialible"} 
                                 value={selectedTx}
                                 onSelect={(_, selectedOption) => {
-                                    setSelected(selectedOption);
+                                    setSelectedTx(selectedOption);
                                 }}
                                 options={options}
                                 listHeight={500}/>
                     </div>
-                    <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
-                        <h4 className='w-40'>Currency:</h4>
-                        <CurrencySelector className='w-4 h-4'/>
-
-                        <Select className={`w-full`}
+                    <div className={`flex flex-row items-center  gap-3 ${styles.selector}`}>
+                        <h4 className='w-1/3' >Currency:</h4>
+                        <Select className='w-2/3'
                                 placeholder={"Select currency"} 
                                 value={selectedAsset}
                                 onSelect={(_,opt) => setSelectedAsset(opt)}
                                 options={allAssets}
                                 listHeight={500}/>
                     </div>
-                    {selectedAsset && selectedAsset.isFiat && <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
-                        <h4 className='w-40'>Card:</h4>
-                        <Select className={`w-full`}
-                                placeholder={"No dates avialible"} 
-                                value={networkTypeSelect}
-                                onSelect={setNetworkType}
-                                options={networksForSelector}
+                    {selectedAsset.isFiat && <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
+                        <h4 className='w-1/3'>Card:</h4>
+                        <Select className='w-2/3'
+                                placeholder={"Select card"} 
+                                value={selectedCard}
+                                onSelect={(_, opt) => setSelectedCard(opt.value)}
+                                options={cardsOptions}
                                 listHeight={500}/>
                     </div>}
                 </div>

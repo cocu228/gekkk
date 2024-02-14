@@ -35,9 +35,11 @@ export async function SignInUser(phone: string, pass: string) {
     let resLogin = await apiLogin(data);
     if (resLogin.result === 'Success') { AccountIdSet(); return true; }
 }
+const abortController = new AbortController();
 export async function SignIn(silent?: boolean) {
-    let opt;
-    //const abortController = new AbortController();
+    let opt;  
+    
+    if(!silent) abortController?.abort();
 
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
@@ -64,7 +66,7 @@ export async function SignIn(silent?: boolean) {
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({
                 publicKey: opt,
-                //signal: abortController.signal,
+                signal: abortController.signal,
                 // Specify 'conditional' to activate conditional UI
                 mediation: 'conditional'
             });

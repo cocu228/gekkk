@@ -68,22 +68,7 @@ const Auth = () => {
 			}
 		}
 		runCMA();
-	}, []);
-	// const onclc = async () => {
-	// 	// Availability of `window.PublicKeyCredential` means WebAuthn is usable.  
-	// 	if (window.PublicKeyCredential &&
-	// 		PublicKeyCredential.isConditionalMediationAvailable) {
-	// 		// Check if conditional mediation is available.  
-	// 		const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
-	// 		console.log(isCMA);
-	// 		if (isCMA) {
-	// 			// To abort a WebAuthn call, instantiate an `AbortController`.
-	// 			//const abortController = new AbortController();
-	// 			// Call WebAuthn authentication
-	// 			SignIn(true);
-	// 		}
-	// 	}
-	// }
+	}, []);	
 
 	const onPasswordForget = () => {
 		setDisplayForgotPassword(true);
@@ -129,7 +114,7 @@ const Auth = () => {
 											User
 										</button>
 										<button className={`${styles.TabButton} ${tab === 'DEVICE_KEY' ? styles.TabButtonActive : ""}`} onClick={() => setTab('DEVICE_KEY')} >
-											Device key
+											Gekkey
 										</button>
 									</div>
 									<form onSubmit={onSubmit} autoComplete={"on"} className={styles.FormBody}>

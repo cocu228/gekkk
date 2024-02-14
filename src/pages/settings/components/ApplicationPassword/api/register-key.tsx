@@ -1,7 +1,7 @@
 import { apiRegisterOptions } from "@/shared/(orval)api/auth";
 import { $ENV_MODE } from "@/shared/lib";
 
-export async function RegisterKey(code, changeKeyList) {
+export async function RegisterOption(setChallenge, setSmsSent) {
 
 
     let makeCredentialOptions;
@@ -66,14 +66,18 @@ export async function RegisterKey(code, changeKeyList) {
     console.log("PublicKeyCredential Created", newCredential);
 
     try {
-        registerNewCredential(newCredential, makeCredentialOptions.challenge_id, code, changeKeyList);
+        setChallenge({
+            newCredential:newCredential,
+            id:makeCredentialOptions.challenge_id,
+        })
+        setSmsSent(true)
 
     } catch (e) {
         console.log(e.message ? e.message : e);
     }
 }
 
-async function registerNewCredential(newCredential, challenge_id, code, changeKeyList) {
+export async function RegisterKey(newCredential, challenge_id, code, changeKeyList, setSmsSent) {
     // Move data into Arrays incase it is super long
     let attestationObject = new Uint8Array(newCredential.response.attestationObject);
     let clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
@@ -98,7 +102,7 @@ async function registerNewCredential(newCredential, challenge_id, code, changeKe
 
     let response;
     try {
-        response = await registerCredentialWithServer(data, changeKeyList);
+        response = await registerCredentialWithServer(data, changeKeyList, setSmsSent);
     } catch (e) {
         console.log(e);
     }
@@ -117,7 +121,7 @@ async function registerNewCredential(newCredential, challenge_id, code, changeKe
 
 }
 
-async function registerCredentialWithServer(formData, changeKeyList) {
+async function registerCredentialWithServer(formData, changeKeyList, setSmsSent) {
     const servPath = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
     let response = await fetch(servPath + 'auth/v1/register_key', {
         method: 'POST',
@@ -131,6 +135,7 @@ async function registerCredentialWithServer(formData, changeKeyList) {
 
     let data = await response.json();
     changeKeyList(n=>!n)
+    setSmsSent(false)
 
     return data.result;
 }

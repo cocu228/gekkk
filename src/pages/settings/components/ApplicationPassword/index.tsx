@@ -15,10 +15,15 @@ import styles from "./styles.module.scss"
 import useModal from "@/shared/model/hooks/useModal";
 import { apiRemoveKey } from '@/shared/(orval)api/auth';
 import Loader from '@/shared/ui/loader';
-import { RegisterKey } from './api/register-key';
+import { RegisterOption, RegisterKey } from './api/register-key';
 interface ILimit {
   start:number,
   end:number
+}
+
+interface IChallange {
+  newCredential:string,
+  id:string,
 }
 
 export function AccessManagement(): JSX.Element | null{
@@ -27,13 +32,18 @@ export function AccessManagement(): JSX.Element | null{
   const [sessionsList, setSessionsList] = useState<UserSession[]>([])
   const [loginLogList, setLoginLogList] = useState<UserLoginLog[]>([])
   const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
+  const [smsSent, setSmsSent] = useState<boolean>(false)
+  const [challenge, setChallenge] = useState<IChallange>({
+    newCredential:"",
+    id:"",
+  })
 
   const {isModalOpen, handleCancel, showModal} = useModal();
   const [keyToRemove, setKeyToRemove] = useState<UserKey>()
   const [keyDeleted, setKeyDeleted] = useState<boolean>(false)
   const [sessionClosed, setSessionClosed] = useState<boolean>(false)
   const [limit, setLimit] = useState<ILimit>({start:0,end:5})
-  const [newKey, setNewKey] = useState<string>()
+  const [smsCode, setSmsCode] = useState<string>()
 
   function onRemoveKey(id){
     apiRemoveKey({key_id: id}).then(res=>{
@@ -151,15 +161,33 @@ export function AccessManagement(): JSX.Element | null{
           secondary
         >
             <div className={styles.KeyAddingContainer}>
-              <Input value={newKey} onChange={(e)=>{setNewKey(e.target.value); console.log(newKey);
-              }}/>
-              <Button
-                onClick={()=>{
-                  RegisterKey(newKey, setKeyDeleted)
-                }}
-              >
-                {t("add_key")}
-              </Button>
+              <Input disabled={!smsSent} placeholder='Type SMS-code' value={smsCode} onChange={(e)=>{setSmsCode(e.target.value); console.log(smsCode);}}/>
+              {smsSent?
+                <>
+                  <Button
+                    onClick={()=>{
+                      RegisterKey(challenge.newCredential, challenge.id, smsCode, setKeyDeleted, setSmsSent)
+                    }}
+                  >
+                    {t("confirm")}
+                  </Button>
+                  <Button
+                    onClick={()=>{
+                      setSmsSent(false)
+                    }}
+                  >
+                    {t("cancel")}
+                  </Button>
+                </>
+              :
+                <Button
+                  onClick={()=>{
+                    RegisterOption(setChallenge, setSmsSent)
+                  }}
+                >
+                  {t("send_sms_code")}
+                </Button>
+              }
             </div>
         </AreaWrapper>
         <AreaWrapper

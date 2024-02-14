@@ -249,19 +249,19 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         return(
             <>
                 <div id={"History"} className="wrapper">
-                    <InfiniteScroller
-                        fetchNextPage={()=>{
-                            setIsFetching(true)
-                            setTimeout(()=>{
-                                setIsFetching(false)
-                            })
-                        }}
-                        hasNextPage={!!lastValue?.next_key}
-                        loadingMessage={""}
-                        endingMessage={""}
-                    >
-                        <h2 className=" font-bold pt-3 text-xl">Last transactions</h2>
-                        <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
+                    <h2 className=" font-bold pt-3 text-xl">Last transactions</h2>
+                    <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
+                        <InfiniteScroller
+                            fetchNextPage={()=>{
+                                setIsFetching(true)
+                                setTimeout(()=>{
+                                    setIsFetching(false)
+                                })
+                            }}
+                            hasNextPage={!!lastValue?.next_key}
+                            loadingMessage={""}
+                            endingMessage={""}
+                        >
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
                                 if(!doesPrevDateTimeExist){
@@ -384,8 +384,8 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                         </div>
                                     </div>
                             }
-                        </div>
-                    </InfiniteScroller>
+                        </InfiniteScroller>
+                    </div>
                 </div>
             </>
         )

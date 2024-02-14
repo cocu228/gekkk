@@ -5,6 +5,7 @@ interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement> {
     hasNextPage: boolean;
     loadingMessage: React.ReactNode;
     endingMessage: React.ReactNode;
+    children?: any //стоит подумать как это типизировать...
   }
   
   // eslint-disable-next-line react/display-name
@@ -40,7 +41,6 @@ interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement> {
         return () => observer.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
-  
       return (
         <div ref={ref} {...props} style={{ overflowAnchor: "none" }}>
           {children}

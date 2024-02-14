@@ -16,6 +16,7 @@ import flags from 'react-phone-number-input/flags';
 
 import { SignIn, SignInUser } from "../../shared";
 import Swal from 'sweetalert2';
+import '../../styles/swal-material-ui.scss';
 
 const Auth = () => {
 	const queryString = window.location.search;

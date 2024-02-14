@@ -113,8 +113,8 @@ export async function GekApi<T>(url: string, init?: RequestInit, silent?: boolea
     return rez;
 }
 
-export const apiGetInfo = async () =>
-    await GekApi<WalletInfo[]>('gek/v1/wallet/get_info', {
+export const apiGetInfo = async (refresh?: boolean) =>
+    await GekApi<WalletInfo[]>('gek/v1/wallet/get_info' + (refresh ? "?refresh=true" : ""), {
         credentials: "include",
         headers: {
             'Accept': 'application/json',

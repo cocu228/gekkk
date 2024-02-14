@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
-import { RegisterKey, apiLogin, apiLoginOptions } from './apiInterfaces';
+import { RegisterKey, apiGetInfo, apiLogin, apiLoginOptions } from './apiInterfaces';
 import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
@@ -33,11 +33,11 @@ export async function SignInUser(phone: string, pass: string) {
         signature: coerceToBase64Url(signature)
     };
     let resLogin = await apiLogin(data);
-    return resLogin.result === 'Success';
+    if (resLogin.result === 'Success') { AccountIdSet(); return true; }
 }
 export async function SignIn(silent?: boolean) {
     let opt;
-    const abortController = new AbortController();
+    //const abortController = new AbortController();
 
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
@@ -55,6 +55,7 @@ export async function SignIn(silent?: boolean) {
             focusConfirm: false,
             focusCancel: false
         });
+    else console.log("CMA login...")
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
@@ -63,7 +64,7 @@ export async function SignIn(silent?: boolean) {
             await navigator.credentials.get({ publicKey: opt }) :
             await navigator.credentials.get({
                 publicKey: opt,
-                signal: abortController.signal,
+                //signal: abortController.signal,
                 // Specify 'conditional' to activate conditional UI
                 mediation: 'conditional'
             });
@@ -75,6 +76,7 @@ export async function SignIn(silent?: boolean) {
             text: "Could not get credentials in browser or OS.",
             footer: e
         });
+        else console.log(e);
         return false;
     }
 
@@ -102,7 +104,18 @@ export async function SignIn(silent?: boolean) {
     };
     let resLogin = await apiLogin(data);
 
-    return resLogin.result === 'Success';
+    if (resLogin.result === 'Success') { AccountIdSet(); return true; }
+}
+
+async function AccountIdSet() {
+    let data = await apiGetInfo();
+    if (data.result.length > 0) {
+        setCookieData([{ key: "accountId", value: data.result[0].account }]);
+    } else {
+        let data = await apiGetInfo(true);
+        setCookieData([{ key: "accountId", value: data.result[0].account }]);
+    }
+    location.replace('/');
 }
 
 export async function ResetPass(opt: any, pass: string, code: string) {

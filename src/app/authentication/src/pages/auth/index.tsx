@@ -7,7 +7,7 @@ import SupportIcon from "../../widgets/components/icons/SupportIcon";
 import { formatAsNumber, setCookieData } from "../../shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
 import Button from "../../widgets/components/button/Button";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { CallResetPasswordForm } from "../../widgets/CallResetPasswordForm";
 
 import 'react-phone-number-input/style.css';
@@ -62,26 +62,39 @@ const Auth = () => {
 				});
 		}
 	}
-
-	useEffect(() => {
-		const runCMA = async () => {
-			// Availability of `window.PublicKeyCredential` means WebAuthn is usable.  
-			if (window.PublicKeyCredential &&
-				PublicKeyCredential.isConditionalMediationAvailable) {
-				// Check if conditional mediation is available.  
-				const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
-				console.log(isCMA);
-				if (isCMA) {
-					// To abort a WebAuthn call, instantiate an `AbortController`.
-					//const abortController = new AbortController();
-					// Call WebAuthn authentication
-					SignIn(true);
-				}
+	// useEffect(() => {
+	// 	const runCMA = async () => {
+	// 		// Availability of `window.PublicKeyCredential` means WebAuthn is usable.  
+	// 		if (window.PublicKeyCredential &&
+	// 			PublicKeyCredential.isConditionalMediationAvailable) {
+	// 			// Check if conditional mediation is available.  
+	// 			const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
+	// 			console.log(isCMA);
+	// 			if (isCMA) {
+	// 				// To abort a WebAuthn call, instantiate an `AbortController`.
+	// 				//const abortController = new AbortController();
+	// 				// Call WebAuthn authentication
+	// 				SignIn(true);
+	// 			}
+	// 		}
+	// 	}
+	// 	runCMA();
+	// }, []);
+	const onclc = async () => {
+		// Availability of `window.PublicKeyCredential` means WebAuthn is usable.  
+		if (window.PublicKeyCredential &&
+			PublicKeyCredential.isConditionalMediationAvailable) {
+			// Check if conditional mediation is available.  
+			const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
+			console.log(isCMA);
+			if (isCMA) {
+				// To abort a WebAuthn call, instantiate an `AbortController`.
+				//const abortController = new AbortController();
+				// Call WebAuthn authentication
+				SignIn(true);
 			}
 		}
-		runCMA();
-	}, []);
-
+	}
 
 	const onPasswordForget = () => {
 		setDisplayForgotPassword(true);
@@ -140,7 +153,7 @@ const Auth = () => {
 											</>
 											:
 											<>
-												<PhoneInput autoComplete={"tel webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='tel' value={phoneValue} onChange={setPhone} />
+												<PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phoneValue} onChange={setPhone} onClick={() =>  onclc()} />
 												<input required minLength={6} placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
 												<div className={styles.FormButtons} >
 													<Button disabled={!phoneValue || !passValue || phoneValue.length < 8 || passValue.length < 6} type="submit">Login</Button>

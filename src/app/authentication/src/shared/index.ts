@@ -7,7 +7,7 @@ import imgUrl from '../images/securitykey.min.svg';
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
 const ec = new eddsa('ed25519');
 
-const Base64URL_to_Uint8Array = (str: string) =>
+export const Base64URL_to_Uint8Array = (str: string) =>
     Uint8Array.from(window.atob(str.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0))
 
 export async function SignInUser(phone: string, pass: string) {
@@ -35,31 +35,41 @@ export async function SignInUser(phone: string, pass: string) {
     let resLogin = await apiLogin(data);
     return resLogin.result === 'Success';
 }
-export async function SignIn() {
+export async function SignIn(silent?: boolean) {
     let opt;
+    const abortController = new AbortController();
 
-    var res = await apiLoginOptions();
+    var res = await apiLoginOptions(silent);
     if (!res.result) return false;
     opt = res.result;
 
     opt.challenge = Base64URL_to_Uint8Array(opt.challenge);
 
-    Swal.fire({
-        title: 'Logging In...',
-        text: 'Tap your security key to login.',
-        imageUrl: imgUrl,
-        showCancelButton: true,
-        showConfirmButton: false,
-        focusConfirm: false,
-        focusCancel: false
-    });
+    if (!silent)
+        Swal.fire({
+            title: 'Logging In...',
+            text: 'Tap your security key to login.',
+            imageUrl: imgUrl,
+            showCancelButton: true,
+            showConfirmButton: false,
+            focusConfirm: false,
+            focusCancel: false
+        });
 
     // ask browser for credentials (browser will ask connected authenticators)
     let assertedCredential;
     try {
-        assertedCredential = await navigator.credentials.get({ publicKey: opt })
+        assertedCredential = !silent ?
+            await navigator.credentials.get({ publicKey: opt }) :
+            await navigator.credentials.get({
+                publicKey: opt,
+                signal: abortController.signal,
+                // Specify 'conditional' to activate conditional UI
+                mediation: 'conditional'
+            });
+
     } catch (e) {
-        Swal.fire({
+        if (!silent) Swal.fire({
             title: 'Browser/OS request error',
             icon: "error",
             text: "Could not get credentials in browser or OS.",

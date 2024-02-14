@@ -103,7 +103,7 @@ export const CallResetPasswordForm = (Props) => {
 
     return <Form onSubmit={onSubmit} className={styles.FormBody}>
         {(!smsSended && !ecodeSended) ?
-            <PhoneInput required flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
+            <PhoneInput required minLength={8} flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
             : ""}
         {(!smsSended && ecodeSended) ?
             <TextInput label='Рaste the email code into the field:' required minLength={10} placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />

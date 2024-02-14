@@ -74,7 +74,7 @@ export interface CredentialCreateOptions {
     user?: any;
 }
 
-export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiResponse<T>> {
+export async function GekApi<T>(url: string, init?: RequestInit, silent?: boolean): Promise<ApiResponse<T>> {
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
@@ -86,7 +86,7 @@ export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiRes
             Swal.showLoading();
         },
     });
-    Toast.fire({
+    if (!silent) Toast.fire({
         icon: "info",
         title: "Request to server..."
     });
@@ -103,7 +103,7 @@ export async function GekApi<T>(url: string, init?: RequestInit): Promise<ApiRes
     Toast.close();
 
     if (!rez.result)
-        Swal.fire({
+        if (!silent) Swal.fire({
             title: 'Server request error',
             icon: "error",
             text: "Sorry, something went wrong! :(",
@@ -121,13 +121,13 @@ export const apiGetInfo = async () =>
         }
     });
 
-export const apiLoginOptions = async () =>
+export const apiLoginOptions = async (silent?: boolean) =>
     await GekApi<AuthOptions>('auth/v1/login_options', {
         credentials: "include",
         headers: {
             'Accept': 'application/json',
         }
-    });
+    }, silent);
 
 export const apiLogin = async (data: any) =>
     await GekApi<string>("auth/v1/login", {

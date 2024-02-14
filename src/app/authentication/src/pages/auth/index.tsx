@@ -4,10 +4,10 @@ import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIco
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
-import { formatAsNumber, setCookieData } from "../../shared";
+import { Base64URL_to_Uint8Array, formatAsNumber, setCookieData } from "../../shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
 import Button from "../../widgets/components/button/Button";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { CallResetPasswordForm } from "../../widgets/CallResetPasswordForm";
 
 import 'react-phone-number-input/style.css';
@@ -17,6 +17,8 @@ import flags from 'react-phone-number-input/flags';
 import { SignIn, SignInUser } from "../../shared";
 import Swal from 'sweetalert2';
 import '../../styles/swal-material-ui.scss';
+import { apiLoginOptions } from '../../shared/apiInterfaces';
+
 
 const Auth = () => {
 	const queryString = window.location.search;
@@ -53,14 +55,35 @@ const Auth = () => {
 			location.replace('/');
 		}
 		else {
-			Swal.fire({
-				icon: "warning",
-				title: 'Not login',
-				text: 'Request login to server failed. :(',
-				timer: 3000
-			});
+			if (tab === 'PASSWORD')
+				Swal.fire({
+					icon: "warning",
+					title: 'Not login',
+					text: 'Request login to server failed. :(',
+					timer: 3000
+				});
 		}
 	}
+
+	useEffect(() => {
+		const runCMA = async () => {
+			// Availability of `window.PublicKeyCredential` means WebAuthn is usable.  
+			if (window.PublicKeyCredential &&
+				PublicKeyCredential.isConditionalMediationAvailable) {
+				// Check if conditional mediation is available.  
+				const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
+				console.log(isCMA);
+				if (isCMA) {
+					// To abort a WebAuthn call, instantiate an `AbortController`.
+					//const abortController = new AbortController();
+					// Call WebAuthn authentication
+					SignIn(true);
+				}
+			}
+		}
+		runCMA();
+	}, []);
+
 
 	const onPasswordForget = () => {
 		setDisplayForgotPassword(true);
@@ -119,7 +142,7 @@ const Auth = () => {
 											</>
 											:
 											<>
-												<PhoneInput required flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
+												<PhoneInput autoComplete={"tel webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='tel' value={phoneValue} onChange={setPhone} />
 												<input required minLength={6} placeholder={"Password"} type={"password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} name='password' />
 												<div className={styles.FormButtons} >
 													<Button disabled={!phoneValue || !passValue || phoneValue.length < 8 || passValue.length < 6} type="submit">Login</Button>

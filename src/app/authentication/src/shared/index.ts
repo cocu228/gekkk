@@ -135,7 +135,8 @@ export async function ResetPass(opt: any, pass: string, code: string) {
         challenge_id: opt.challenge_id,
         code,
         public_key: coerceToBase64Url(pub),
-        signature: coerceToBase64Url(signature)
+        signature: coerceToBase64Url(signature),
+        pass_key_flag: true
     };
     return await RegisterKey(data);
 }

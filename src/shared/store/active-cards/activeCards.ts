@@ -2,7 +2,7 @@ import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
 import {randomId} from "@/shared/lib/helpers";
 import {apiBankGetCards} from '@/shared/(orval)api/gek';
-import {Card as ICardData} from "@/shared/(orval)api/gek/model";
+import {Card as ICardData, CardFilter} from "@/shared/(orval)api/gek/model";
 
 export const CardStatusDescriptions: Record<string, string> = {
     LOCKED: 'Card locked',
@@ -34,7 +34,7 @@ export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
     mainCard: null,
     //refreshKey: null,
     getActiveCards: async () => {
-        const {data} = await apiBankGetCards({filter: 1});
+        const {data} = await apiBankGetCards({filter: CardFilter.Active});
         
         set((state) => ({
             ...state,

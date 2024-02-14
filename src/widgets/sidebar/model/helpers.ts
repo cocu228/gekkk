@@ -8,11 +8,11 @@ export const helperFilterList = (list: Array<ICtxCurrency>) =>
 export const toLocaleCryptoRounding = (value: number, maximumFractionDigits?: number, minimumFractionDigits?: number): string | null => {
 	const newVal = value?.toLocaleString("eu", { maximumFractionDigits, minimumFractionDigits});
     if (!newVal) return null;
-    return newVal.replace('.', ' ');
+    return newVal.replace(',', ' ');
 }
 
 export const toLocaleFiatRounding = (value: number): string | null =>{
 	const newVal = value?.toLocaleString("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2});
     if (!newVal) return null;
-    return newVal.replace('.', ' ');
+    return newVal.replace(',', ' ');
 };

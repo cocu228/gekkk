@@ -25,11 +25,10 @@ export default memo(function () {
     const isHomePage = !!homePage || !!dashboardPage
     const [{
         account,
-        refreshKey,
-
+        refreshKey
     }, setState] = useState<Omit<ICtxRootData, "setAccount" | "setRefresh">>({
         account: null,
-        refreshKey: "",
+        refreshKey: ""
     })
 
     const {accounts, setAccounts} = storeAccounts(state => state);

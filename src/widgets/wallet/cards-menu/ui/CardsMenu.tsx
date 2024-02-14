@@ -10,12 +10,10 @@ import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
-import {apiActivateCard} from "@/shared/api/bank/activate-card";
 import {apiUpdateCard, IResErrors} from "@/shared/api";
-import {apiBankGetCards} from "@/shared/(orval)api/gek";
-import {Card as ICardData} from "@/shared/(orval)api/gek/model";
+import {apiBankCardsCardIdActivate, apiBankCardsCardIdUnmask, apiBankGetCards} from "@/shared/(orval)api/gek";
+import {Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
@@ -39,7 +37,7 @@ const CardsMenu = ({
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
-    const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
+    const [cardInfo, setCardInfo] = useState<CardSecretDTO>(null);
     const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
     const {
         inputCurr: limitAmount,
@@ -98,7 +96,7 @@ const CardsMenu = ({
         
         switch (action) {
             case 'activate':
-                apiActivateCard(card.cardId)
+                apiBankCardsCardIdActivate(card.cardId)
                     .then(({ data }) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
@@ -206,14 +204,14 @@ const CardsMenu = ({
                 break;
                 
             case 'showData':
-                apiUnmaskCard(card.cardId)
+                apiBankCardsCardIdUnmask(card.cardId)
                     .then(({data}) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
                             return;
                         }
                         
-                        setCardInfo(data as IUnmaskedCardData);
+                        setCardInfo(data as CardSecretDTO);
                         confirmationModal.handleCancel();
                     });
                 break;
@@ -420,7 +418,7 @@ const CardsMenu = ({
                             <span><b>{t("card_number")
                                 .toLowerCase()
                                 .capitalize()
-                            }</b>: {formatCardNumber(cardInfo.number)}</span>
+                            }</b>: {formatCardNumber(cardInfo.pan)}</span>
                         </div>
                     </div>
                     
@@ -434,13 +432,13 @@ const CardsMenu = ({
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvc}</span>
+                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvv}</span>
                         </div>
                     </div>
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_owner")}</b>: {cardInfo.owner.embossedName}</span>
+                            <span><b>{t("card_owner")}</b>: {cardInfo.owner}</span>
                         </div>
                     </div>
                     

@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20240131-1134.6014+fe39a7223f04358cae814e56f02cf607fc156ef3<br/><br/>
+                    Build version 2.0.3-20240214-0925.6204+eac2a76deff7246e80178738e522fdbc16824d4b<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -14,7 +14,13 @@
 import type {
   AddressTxOutApiResponse,
   ApiResponse,
+  AvailableDealArrayApiResponse,
+  CardCreationResultApiResponse,
   CardIListApiResponse,
+  CardLimits,
+  CardRegistrationRequest,
+  CardSecretDTOApiResponse,
+  ChangePinModel,
   ClientDetailsApiResponse,
   ClientProgramIListApiResponse,
   CreateTransferIn,
@@ -22,6 +28,7 @@ import type {
   CreateWithdrawIn,
   CreateWithdrawOutApiResponse,
   CurrencysOutListApiResponse,
+  DealModel,
   FastCloseDepositOutApiResponse,
   GetBalanceOutListApiResponse,
   GetDepositOutApiResponse,
@@ -48,7 +55,11 @@ import type {
   NewOrderInfo,
   NewRoomInfo,
   ObjectApiResponse,
+  PaymentDetails,
+  PaymentFeeApiResponse,
+  PlasticCardForVirtualRequest,
   PostGekV1ApplyCodeParams,
+  PostGekV1BankAccountsDealsParams,
   PostGekV1CancelCodeParams,
   PostGekV1InvestCreateInvestmentParams,
   PostGekV1InvestReturnInvestmentParams,
@@ -63,6 +74,7 @@ import type {
   SessionDataDTO,
   StringApiResponse,
   StringDecimalDictionaryApiResponse,
+  SubmitNewDealApiResponse,
   TokensNetworkArrayApiResponse,
   TxCodesOutApiResponse,
   TxCodesOutListApiResponse,
@@ -74,6 +86,15 @@ import type {
 import getGekV1BankClientDetailsMutator from '../../lib/(orval)axios';
 import getGekV1BankGetCardsMutator from '../../lib/(orval)axios';
 import getGekV1BankGetProgramsMutator from '../../lib/(orval)axios';
+import getGekV1BankCardsCardIdUnmaskMutator from '../../lib/(orval)axios';
+import getGekV1BankDealsMutator from '../../lib/(orval)axios';
+import postGekV1BankAccountsDealsMutator from '../../lib/(orval)axios';
+import postGekV1BankCardsCardIdPinMutator from '../../lib/(orval)axios';
+import postGekV1BankCardsCardIdMutator from '../../lib/(orval)axios';
+import postGekV1BankCardsMutator from '../../lib/(orval)axios';
+import postGekV1BankCardsCardIdOrderMutator from '../../lib/(orval)axios';
+import postGekV1BankCardsCardIdActivateMutator from '../../lib/(orval)axios';
+import postGekV1BankPaymentCommissionMutator from '../../lib/(orval)axios';
 import getGekV1TokensNetworksMutator from '../../lib/(orval)axios';
 import postGekV1ApplyCodeMutator from '../../lib/(orval)axios';
 import postGekV1CancelCodeMutator from '../../lib/(orval)axios';
@@ -147,6 +168,104 @@ export const apiBankGetPrograms = (
  options?: SecondParameter<typeof getGekV1BankGetProgramsMutator>,) => {
       return getGekV1BankGetProgramsMutator<ClientProgramIListApiResponse>(
       {url: `/gek/v1/bank/get_programs`, method: 'get'
+    },
+      options);
+    }
+  
+export const apiBankCardsCardIdUnmask = (
+    cardId: string,
+ options?: SecondParameter<typeof getGekV1BankCardsCardIdUnmaskMutator>,) => {
+      return getGekV1BankCardsCardIdUnmaskMutator<CardSecretDTOApiResponse>(
+      {url: `/gek/v1/bank/cards/${cardId}/unmask`, method: 'get'
+    },
+      options);
+    }
+  
+export const apiBankDeals = (
+    
+ options?: SecondParameter<typeof getGekV1BankDealsMutator>,) => {
+      return getGekV1BankDealsMutator<AvailableDealArrayApiResponse>(
+      {url: `/gek/v1/bank/deals`, method: 'get'
+    },
+      options);
+    }
+  
+export const apiBankAccountsDeals = (
+    dealModel: DealModel,
+    params?: PostGekV1BankAccountsDealsParams,
+ options?: SecondParameter<typeof postGekV1BankAccountsDealsMutator>,) => {
+      return postGekV1BankAccountsDealsMutator<SubmitNewDealApiResponse>(
+      {url: `/gek/v1/bank/accounts/deals`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: dealModel,
+        params
+    },
+      options);
+    }
+  
+export const apiBankCardsCardIdPin = (
+    cardId: string,
+    changePinModel: ChangePinModel,
+ options?: SecondParameter<typeof postGekV1BankCardsCardIdPinMutator>,) => {
+      return postGekV1BankCardsCardIdPinMutator<ApiResponse>(
+      {url: `/gek/v1/bank/cards/${cardId}/pin`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: changePinModel
+    },
+      options);
+    }
+  
+export const apiBankCardsCardId = (
+    cardId: string,
+    cardLimits: CardLimits,
+ options?: SecondParameter<typeof postGekV1BankCardsCardIdMutator>,) => {
+      return postGekV1BankCardsCardIdMutator<ApiResponse>(
+      {url: `/gek/v1/bank/cards/${cardId}`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: cardLimits
+    },
+      options);
+    }
+  
+export const apiBankCards = (
+    cardRegistrationRequest: CardRegistrationRequest,
+ options?: SecondParameter<typeof postGekV1BankCardsMutator>,) => {
+      return postGekV1BankCardsMutator<ObjectApiResponse>(
+      {url: `/gek/v1/bank/cards`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: cardRegistrationRequest
+    },
+      options);
+    }
+  
+export const apiBankCardsCardIdOrder = (
+    cardId: string,
+    plasticCardForVirtualRequest: PlasticCardForVirtualRequest,
+ options?: SecondParameter<typeof postGekV1BankCardsCardIdOrderMutator>,) => {
+      return postGekV1BankCardsCardIdOrderMutator<CardCreationResultApiResponse>(
+      {url: `/gek/v1/bank/cards/${cardId}/order`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: plasticCardForVirtualRequest
+    },
+      options);
+    }
+  
+export const apiBankCardsCardIdActivate = (
+    cardId: string,
+ options?: SecondParameter<typeof postGekV1BankCardsCardIdActivateMutator>,) => {
+      return postGekV1BankCardsCardIdActivateMutator<ApiResponse>(
+      {url: `/gek/v1/bank/cards/${cardId}/activate`, method: 'post'
+    },
+      options);
+    }
+  
+export const apiBankPaymentCommission = (
+    paymentDetails: PaymentDetails,
+ options?: SecondParameter<typeof postGekV1BankPaymentCommissionMutator>,) => {
+      return postGekV1BankPaymentCommissionMutator<PaymentFeeApiResponse>(
+      {url: `/gek/v1/bank/payment/commission`, method: 'post',
+      headers: {'Content-Type': 'application/json', },
+      data: paymentDetails
     },
       options);
     }
@@ -581,6 +700,15 @@ export const apiGetHistoryTransactions = (
 export type ApiBankClientDetailsResult = NonNullable<Awaited<ReturnType<typeof apiBankClientDetails>>>
 export type ApiBankGetCardsResult = NonNullable<Awaited<ReturnType<typeof apiBankGetCards>>>
 export type ApiBankGetProgramsResult = NonNullable<Awaited<ReturnType<typeof apiBankGetPrograms>>>
+export type ApiBankCardsCardIdUnmaskResult = NonNullable<Awaited<ReturnType<typeof apiBankCardsCardIdUnmask>>>
+export type ApiBankDealsResult = NonNullable<Awaited<ReturnType<typeof apiBankDeals>>>
+export type ApiBankAccountsDealsResult = NonNullable<Awaited<ReturnType<typeof apiBankAccountsDeals>>>
+export type ApiBankCardsCardIdPinResult = NonNullable<Awaited<ReturnType<typeof apiBankCardsCardIdPin>>>
+export type ApiBankCardsCardIdResult = NonNullable<Awaited<ReturnType<typeof apiBankCardsCardId>>>
+export type ApiBankCardsResult = NonNullable<Awaited<ReturnType<typeof apiBankCards>>>
+export type ApiBankCardsCardIdOrderResult = NonNullable<Awaited<ReturnType<typeof apiBankCardsCardIdOrder>>>
+export type ApiBankCardsCardIdActivateResult = NonNullable<Awaited<ReturnType<typeof apiBankCardsCardIdActivate>>>
+export type ApiBankPaymentCommissionResult = NonNullable<Awaited<ReturnType<typeof apiBankPaymentCommission>>>
 export type ApiTokensNetworksResult = NonNullable<Awaited<ReturnType<typeof apiTokensNetworks>>>
 export type ApiApplyCodeResult = NonNullable<Awaited<ReturnType<typeof apiApplyCode>>>
 export type ApiCancelCodeResult = NonNullable<Awaited<ReturnType<typeof apiCancelCode>>>

@@ -14,6 +14,8 @@ import Loader from "@/shared/ui/loader";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiOrderVirtualCard} from "@/shared/api/bank/order-virtual-card";
+import {apiBankCards, apiBankCardsCardIdOrder} from "@/shared/(orval)api";
+import {Format} from "@/shared/(orval)api/gek/model";
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -162,13 +164,10 @@ export function ConfirmationNewCard() {
             <Box display={"flex"} gap="24px" paddingTop={"43px"}>
                 <Button onClick={() => {
                     setIsOpen(false);
-                    apiOrderVirtualCard({
+                    // Order virtual card
+                    apiBankCardsCardIdOrder(state.card.cardId, {
                         isExpressDelivery: state.isExpressDelivery,
                         deliveryAddress: {
-                            cardId: state.card.cardId,
-                            productType: state.card.productType,
-                            accountId: null,
-                            ownerClientId: null,
                             city: state.city,
                             countryCode: state.countryCode,
                             postalCode: state.postalCode,
@@ -179,14 +178,15 @@ export function ConfirmationNewCard() {
                         }
                     });
                     
-                    // apiOrderNewCard({
-                    //     format: state.cardType,
+                    // Order plastic card
+                    // apiBankCards({
                     //     type: mainCard !== null ? "ADDITIONAL" : "MAIN",
                     //     accountId: account.account_id,
-                    //     cardHolderName: state.cardholderName,
+                    //     cardHolderName: state.card.cardholder,
                     //     cardHolderPhoneNumber: state.linkedPhone,
+                    //     format: state.card.isVirtual ? Format.VIRTUAL : Format.PLASCTIC,
                     //    
-                    //     ...(state.cardType === "PLASTIC" ? {
+                    //     ...(state.card.type === "PLASTIC" ? {
                     //         isExpressDelivery: state.isExpressDelivery,
                     //         deliveryAddress: {
                     //             city: state.city,
@@ -199,6 +199,7 @@ export function ConfirmationNewCard() {
                     //         }
                     //     } : {})
                     // });
+                    
                     setStep('CardHasBeenOrdered');
                 }}>{t("proceed")}</Button>
                 <Button gray onClick={() => {

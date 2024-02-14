@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Gekcore broker API
  * Generic electronic key multi-cryptocurrency broker wallet platform with a built-in exchange.<br/>
-                    Build version 2.0.3-20240131-1134.6014+fe39a7223f04358cae814e56f02cf607fc156ef3<br/><br/>
+                    Build version 2.0.3-20240214-0925.6204+eac2a76deff7246e80178738e522fdbc16824d4b<br/><br/>
                     Данные ответов всех API содержаться в поле <b>result</b> JSON-RPC формата.<br/>
                     http ответ сервера всегда имеет код <b>200(OK)</b>, если обработка запроса прошла в штатном режиме.<br/>
                     В случае предсказуемых/обработанных ошибок, поле <b>error</b> содержит код(<b>code</b>) и описание(<b>message</b>) ошибки.<br/>
@@ -16,10 +16,24 @@ export * from './addressTxOut';
 export * from './addressTxOutApiResponse';
 export * from './adrTxStateEnum';
 export * from './adrTxTypeEnum';
+export * from './amount';
 export * from './apiResponse';
+export * from './availableDeal';
+export * from './availableDealArrayApiResponse';
 export * from './card';
+export * from './cardCreationResult';
+export * from './cardCreationResultApiResponse';
 export * from './cardFilter';
 export * from './cardIListApiResponse';
+export * from './cardLimit';
+export * from './cardLimits';
+export * from './cardLimitsOptions';
+export * from './cardLimitsOptionsLimits';
+export * from './cardRegistrationRequest';
+export * from './cardSecretDTO';
+export * from './cardSecretDTOApiResponse';
+export * from './cardStatus';
+export * from './changePinModel';
 export * from './clientDetails';
 export * from './clientDetailsApiResponse';
 export * from './clientProgram';
@@ -31,13 +45,18 @@ export * from './createWithdrawIn';
 export * from './createWithdrawOut';
 export * from './createWithdrawOutApiResponse';
 export * from './createWithdrawStatus';
+export * from './currency';
 export * from './currencyFlagsEnum';
 export * from './currencysOut';
 export * from './currencysOutListApiResponse';
+export * from './dealModel';
+export * from './deliveryAddress';
 export * from './deposit';
 export * from './errorObject';
 export * from './fastCloseDepositOut';
 export * from './fastCloseDepositOutApiResponse';
+export * from './feeType';
+export * from './format';
 export * from './getBalanceOut';
 export * from './getBalanceOutListApiResponse';
 export * from './getDepositOut';
@@ -75,7 +94,14 @@ export * from './objectApiResponse';
 export * from './objectApiResponseResult';
 export * from './options';
 export * from './orderEnumState';
+export * from './paymentDetails';
+export * from './paymentFee';
+export * from './paymentFeeApiResponse';
+export * from './paymentType';
+export * from './period';
+export * from './plasticCardForVirtualRequest';
 export * from './postGekV1ApplyCodeParams';
+export * from './postGekV1BankAccountsDealsParams';
 export * from './postGekV1CancelCodeParams';
 export * from './postGekV1InvestCreateInvestmentParams';
 export * from './postGekV1InvestReturnInvestmentParams';
@@ -84,6 +110,7 @@ export * from './postGekV1MarketCloseRoomParams';
 export * from './postGekV1WalletCreateWithdrawParams';
 export * from './postGekV1WalletInternalTransferParams';
 export * from './postPubV1AuthParams';
+export * from './priority';
 export * from './referral';
 export * from './referralOut';
 export * from './referralOutApiResponse';
@@ -95,6 +122,10 @@ export * from './sessionDataDTO';
 export * from './stringApiResponse';
 export * from './stringDecimalDictionaryApiResponse';
 export * from './stringDecimalDictionaryApiResponseResult';
+export * from './subType';
+export * from './submitNewDeal';
+export * from './submitNewDealApiResponse';
+export * from './sum';
 export * from './tokenNetworkFormType';
 export * from './tokensNetwork';
 export * from './tokensNetworkArrayApiResponse';

@@ -4,7 +4,7 @@ import BackgroundLogoIcon from "../../widgets/components/icons/BackgroundLogoIco
 import LogoIcon from "../../widgets/components/icons/LogoIcon";
 import SupportIcon from "../../widgets/components/icons/SupportIcon";
 
-import { Base64URL_to_Uint8Array, formatAsNumber, setCookieData } from "../../shared";
+import { formatAsNumber, setCookieData } from "../../shared";
 import { apiGetInfo } from "../../shared/(orval)api/gek";
 import Button from "../../widgets/components/button/Button";
 import { useEffect, useState } from "preact/hooks";
@@ -17,8 +17,6 @@ import flags from 'react-phone-number-input/flags';
 import { SignIn, SignInUser } from "../../shared";
 import Swal from 'sweetalert2';
 import '../../styles/swal-material-ui.scss';
-import { apiLoginOptions } from '../../shared/apiInterfaces';
-
 
 const Auth = () => {
 	const queryString = window.location.search;

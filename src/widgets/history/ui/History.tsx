@@ -18,8 +18,8 @@ import {GetHistoryTrasactionOut, TransactTypeEnum} from "@/shared/(orval)api/gek
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
-import { InfiniteScroller } from './InfiniteScroll';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const { RangePicker } = DatePicker;
 
@@ -36,17 +36,20 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     const [allTxVisibly, setAllTxVisibly] = useState(false);
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
-    )
-    const {md} = useContext(BreakpointsContext); 
-    const {currency, tab} = useParams()
-    const walletPage = currency || tab  
-    const isHistoryPage = !!useMatch("history")
-    const [isFetching, setIsFetching] = useState<boolean>(false)
-    
-    
+        )
+        const {md} = useContext(BreakpointsContext); 
+        const {currency, tab} = useParams()
+        const walletPage = currency || tab  
+        const isHistoryPage = !!useMatch("history")
+        const [isFetching, setIsFetching] = useState<boolean>(false)
+        
+        const {isIntersecting,ref} = useIntersectionObserver({
+            threshold:0.9
+        })
+        
     
     useEffect(()=>{
-        if(md && isFetching && !allTxVisibly){
+        if(md && isIntersecting && !allTxVisibly){
             (async () => {
                 setLazyLoading(true)
                 
@@ -66,7 +69,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                 setLazyLoading(false)
             })()
         }
-    },[isFetching])
+    },[isIntersecting])
     
 
     
@@ -133,6 +136,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
 
         return () => cancelTokenSource.cancel()
     }, [refreshKey, activeTab, currenciesFilter]);
+
     
     if(!loading && !isHistoryPage && !listHistory.length){
         return(
@@ -251,17 +255,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                 <div id={"History"} className="wrapper">
                     <h2 className=" font-bold pt-3 text-xl">Last transactions</h2>
                     <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
-                        <InfiniteScroller
-                            fetchNextPage={()=>{
-                                setIsFetching(true)
-                                setTimeout(()=>{
-                                    setIsFetching(false)
-                                })
-                            }}
-                            hasNextPage={!!lastValue?.next_key}
-                            loadingMessage={""}
-                            endingMessage={""}
-                        >
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
                                 if(!doesPrevDateTimeExist){
@@ -270,7 +263,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                             <div className={styles.DataMobile}>
                                                 {formatForHistoryMobile(item.datetime)}
                                             </div>
-                                            <div className={styles.InfoMobile}>
+                                            <div ref={ref} className={styles.InfoMobile}>
                                                 <TransactionInfo infoList={item}>
                                                     <div className={styles.TransactionMobile}>
                                                         <span className={styles.TypeOfTransactionMobile}>
@@ -303,7 +296,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                             <div className={styles.DataMobile}>
                                                 {formatForHistoryMobile(item.datetime)}
                                             </div>
-                                            <div className={styles.InfoMobile}>
+                                            <div ref={ref} className={styles.InfoMobile}>
                                                 <TransactionInfo infoList={item}>
                                                     <div className={styles.TransactionMobile}>
                                                         <span className={styles.TypeOfTransactionMobile}>
@@ -333,7 +326,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                 }else{
                                     return(
                                         <>
-                                            <div className={styles.InfoMobile}>
+                                            <div ref={ref} className={styles.InfoMobile}>
                                                 <TransactionInfo infoList={item}>
                                                     <div className={styles.TransactionMobile}>
                                                         <span className={styles.TypeOfTransactionMobile}>
@@ -384,7 +377,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                         </div>
                                     </div>
                             }
-                        </InfiniteScroller>
                     </div>
                 </div>
             </>

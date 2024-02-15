@@ -6,7 +6,7 @@ import {IWalletInfo} from "@/shared/store/accounts/accounts";
 import {useTranslation} from 'react-i18next';
 
 export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
-    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
     const {t} = useTranslation();
 
     return {

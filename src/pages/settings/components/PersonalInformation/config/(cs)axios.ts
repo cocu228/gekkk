@@ -1,4 +1,3 @@
-import {$ENV_MODE} from "@/shared/lib/helpers";
 import axios, {AxiosRequestConfig} from 'axios';
 
 export type ApiResponse<T, S extends 'success' | 'error'> = S extends 'success'
@@ -16,7 +15,7 @@ export const chat_axios = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
-    baseURL: import.meta.env[`VITE_SUPPORT_URL_${$ENV_MODE}`]
+    baseURL: import.meta.env.VITE_SUPPORT_URL
 });
 
 

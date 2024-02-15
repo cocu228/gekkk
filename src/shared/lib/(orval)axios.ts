@@ -1,5 +1,5 @@
-import {$ENV_MODE, getCookieData} from "@/shared/lib/helpers";
-import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import { getCookieData } from "@/shared/lib/helpers";
+import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 export type $AxiosError = {
     code: number;
@@ -12,7 +12,7 @@ export type $AxiosResponse<T> = {
     result: T;
 }
 
-const API_URL = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
+const API_URL = import.meta.env.VITE_API_URL;
 
 const sessionHeader = () => {
     const {
@@ -24,7 +24,7 @@ const sessionHeader = () => {
         token: string,
         tokenHeaderName: string
     }>();
-    
+
     return {
         'productId': "GEKKARD",
         'applicationId': 'GEKKARD',

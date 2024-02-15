@@ -6,7 +6,6 @@ import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import LoginBackground from '@/assets/login-background.svg?react';
 
 import {NewHeader} from "@/widgets/new-header/ui/NewHeader";
-import {$ENV_MODE} from "@/shared/lib/helpers";
 import ForgotPassword from "@/widgets/(no-usages)auth/ui/forgot-password";
 import AuthFooter from "@/widgets/(no-usages)auth/ui/auth-footer";
 import CookiePolicyApplies from "@/widgets/(no-usages)auth/ui/cookie-policy-applies";
@@ -17,7 +16,7 @@ const AuthPage = memo(() => {
     const {md} = useBreakpoints();
     const {stage, toggleStage} = storyDisplayAuth(state => state);
     
-    // const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    // const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
     // const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
     //     phone: "",
     //     sessionIdUAS: "",
@@ -97,7 +96,7 @@ const AuthPage = memo(() => {
                         </span>
                             <button
                                 className='account-button'
-                                onClick={() => window.open(import.meta.env[`VITE_REGISTRATION_URL_${$ENV_MODE}`]
+                                onClick={() => window.open(import.meta.env.VITE_REGISTRATION_URL
                                     ?? 'https://webregistration-dev.gekkard.com/', "_blank")}
                             >
                                 Sign up

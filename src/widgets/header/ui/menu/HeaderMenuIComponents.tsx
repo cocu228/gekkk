@@ -111,7 +111,7 @@ export const GekkoinInvestPlatform = ({active = false}) => {
             token: token,
             tokenHeaderName: tokenHeaderName
         })
-        const gekkoinUrl = import.meta.env[`VITE_GEKKOIN_URL_${import.meta.env.MODE}`];
+        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
         actionResSuccess(response).success(() => {
             window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })

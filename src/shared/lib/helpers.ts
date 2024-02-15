@@ -30,13 +30,6 @@ export function throttle(callee, timeout) {
     }
 }
 
-/** Current environment mode string*/
-export const $ENV_MODE = import.meta.env.MODE.toUpperCase() === "LOCAL"
-    ? "DEV"
-    : import.meta.env.MODE.toUpperCase();
-/** Is environment equals to dev or local*/
-export const $ENV_DEV = ['DEV', 'LOCAL'].includes($ENV_MODE);
-
 export const isActiveClass = (value: boolean): string => value ? "active" : "";
 export const isNull = (value: any): boolean => value === null;
 export const isNullOrEmpty = (value: string): boolean => value === null || value.length === 0;

@@ -1,5 +1,4 @@
 import { apiRegisterOptions } from "@/shared/(orval)api/auth";
-import { $ENV_MODE } from "@/shared/lib";
 
 export async function RegisterOption(setChallenge, setSmsSent) {
 
@@ -122,7 +121,7 @@ export async function RegisterKey(newCredential, challenge_id, code, changeKeyLi
 }
 
 async function registerCredentialWithServer(formData, changeKeyList, setSmsSent) {
-    const servPath = import.meta.env[`VITE_API_URL_${$ENV_MODE}`];
+    const servPath = import.meta.env.VITE_API_URL;
     let response = await fetch(servPath + 'auth/v1/register_key', {
         method: 'POST',
         credentials: "include", 

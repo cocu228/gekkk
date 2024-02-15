@@ -31,7 +31,7 @@ interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement> {
           (entries) => {
             if (entries[0]?.isIntersecting) fetchNextPage();
           },
-          { threshold: 1 }
+          { threshold: 0.999 }
         );
   
         if (observerTarget.current) {
@@ -42,7 +42,7 @@ interface InfiniteScrollProps extends React.HTMLAttributes<HTMLDivElement> {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
       return (
-        <div ref={ref} {...props} style={{ overflowAnchor: "none" }}>
+        <div ref={ref} {...props} style={{ overflowAnchor: "none",width:"100%" }}>
           {children}
           <div ref={observerTarget} />
           {hasNextPage ? loadingMessage : endingMessage}

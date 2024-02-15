@@ -152,7 +152,7 @@ export async function RegisterDeviceKey(opt: any, code: string) {
             text: "Sorry, something went wrong! :(",
             footer: fido2_opt?.errorMessage //rez.error?.message
         });
-        return false;
+        return null;
     }
 
     // Turn the challenge back into the accepted format of padded base64

@@ -1,7 +1,7 @@
 ﻿import styles from './style.module.css';
 import Button from "./components/button/Button";
 import { useState } from "preact/hooks";
-import { ResetPass } from '../shared';
+import { RegisterDeviceKey, ResetPass } from '../shared';
 import Form from './components/form';
 import TextInput from './components/textInput';
 import CheckList from './components/checklist';
@@ -18,6 +18,9 @@ export interface Props {
 }
 
 export const CallResetPasswordForm = (Props) => {
+
+    const [devKey, setdevKey] = useState<boolean>(false);
+    const checkHandler = () => {setdevKey(!devKey)};
 
     const [smsSended, setSmsSended] = useState<boolean>(false);
     const [ecodeSended, setECodeSended] = useState<boolean>(!!Props.emailCode);
@@ -36,7 +39,7 @@ export const CallResetPasswordForm = (Props) => {
                 if (r.result === "Success") {
                     setECodeSended(true);
                     Swal.fire({
-                        icon:"success",
+                        icon: "success",
                         title: 'Email code',
                         text: 'A message with a confirmation code has been sent by email.',
                         timer: 2000
@@ -58,7 +61,7 @@ export const CallResetPasswordForm = (Props) => {
                 setSmsSended(true);
 
                 Swal.fire({
-                    icon:"success",
+                    icon: "success",
                     title: 'Sms code sended',
                     text: 'A message with a confirmation code has been sent by sms.',
                     timer: 2000
@@ -71,10 +74,23 @@ export const CallResetPasswordForm = (Props) => {
             });
         }
         else {
-            if (codeValue && optValue && passValue) {
+            if(devKey && codeValue && optValue)
+            {
+                let r = await RegisterDeviceKey(optValue, codeValue);
+                if (r?.result === "Success") {
+                    Swal.fire({
+                        icon: "success",
+                        title: 'Reset password',
+                        text: 'Reset password Success!',
+                        timer: 2000
+                    });
+                    location.replace('/');
+                } 
+            }
+            else if (codeValue && optValue && passValue) {
                 if (passValue !== passCValue) {
                     Swal.fire({
-                        icon:"warning",
+                        icon: "warning",
                         title: 'Password check failed',
                         text: "passwords mismatch",
                         timer: 2000
@@ -85,7 +101,7 @@ export const CallResetPasswordForm = (Props) => {
                 let r = await ResetPass(optValue, passValue, codeValue);
                 if (r?.result === "Success") {
                     Swal.fire({
-                        icon:"success",
+                        icon: "success",
                         title: 'Reset password',
                         text: 'Reset password Success!',
                         timer: 2000
@@ -109,19 +125,28 @@ export const CallResetPasswordForm = (Props) => {
             <TextInput label='Рaste the email code into the field:' required minLength={10} placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />
             : ""}
         {(smsSended && ecodeSended) ?
-            <div>
+            <div className={styles.passWrapper}>
                 <TextInput required minLength={6} placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
+                {!devKey?
+                <>
                 <PasswordInput minLength={8} required placeholder={"New password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} id='password' name='password' />
                 <PasswordInput minLength={8} required placeholder={"Confirm password"} value={passCValue} onChange={e => setCPass(e.currentTarget.value)} id="passwordC" name='passwordC' />
+                </> : ""}
                 <div className={styles.rulesList} >
-                    <CheckList value={passValue} />
+                    {!devKey? <>
+                    <CheckList value={passValue} /> 
                     <div><div className={styles.rulesListH}>ℹ check list ℹ</div></div>
+                    </>:""}
+                    <div className={styles.deviceKey}>
+                        <label for="typeKey">Create device key</label>
+                        <input type="checkbox" id="typeKey" name="typeKey" checked={devKey} onChange={checkHandler} />
+                    </div>
                 </div>
             </div>
             : ""}
 
         <div className={styles.FormButtons} >
-            <Button type="submit">{ecodeSended ? (smsSended ? "Reset password" : "Send SMS") : "Send to email"}</Button>
+            <Button type="submit">{ecodeSended ? (smsSended ? "Confirm" : "Send SMS") : "Send to email"}</Button>
             <Button text onClick={Props.handleCancel}>Back to login</Button>
         </div>
     </Form>

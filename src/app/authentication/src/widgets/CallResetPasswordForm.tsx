@@ -80,12 +80,17 @@ export const CallResetPasswordForm = (Props) => {
                 if (r?.result === "Success") {
                     Swal.fire({
                         icon: "success",
-                        title: 'Reset password',
-                        text: 'Reset password Success!',
+                        title: 'New device key',
+                        text: 'New device key added Success!',
                         timer: 2000
                     });
                     location.replace('/');
                 } 
+                else Swal.fire({
+                    icon: "error",
+                    title: 'Not success create device key :(',
+                    text: r.error?.message ?? r.result
+                });
             }
             else if (codeValue && optValue && passValue) {
                 if (passValue !== passCValue) {
@@ -122,15 +127,15 @@ export const CallResetPasswordForm = (Props) => {
             <PhoneInput required minLength={8} flags={flags} placeholder="Enter phone number" name='phone' value={phoneValue} onChange={setPhone} />
             : ""}
         {(!smsSended && ecodeSended) ?
-            <TextInput label='Рaste the email code into the field:' required minLength={10} placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />
+            <TextInput autoComplete={"off"} label='Рaste the email code into the field:' required minLength={10} placeholder={"Email code"} type={"text"} value={ecodeValue} onChange={e => setECode(e.currentTarget.value)} id='ecode' name='ecode' />
             : ""}
         {(smsSended && ecodeSended) ?
             <div className={styles.passWrapper}>
-                <TextInput required minLength={6} placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
+                <TextInput autoComplete={"off sms new-password"} required minLength={6} placeholder={"SMS code"} type={"text"} value={codeValue} onChange={e => setCode(e.currentTarget.value)} id='code' name='code' />
                 {!devKey?
                 <>
-                <PasswordInput minLength={8} required placeholder={"New password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} id='password' name='password' />
-                <PasswordInput minLength={8} required placeholder={"Confirm password"} value={passCValue} onChange={e => setCPass(e.currentTarget.value)} id="passwordC" name='passwordC' />
+                <PasswordInput autoComplete={"new-password"} minLength={8} required placeholder={"New password"} value={passValue} onChange={e => setPass(e.currentTarget.value)} id='password' name='password' />
+                <PasswordInput autoComplete={"new-password"} minLength={8} required placeholder={"Confirm password"} value={passCValue} onChange={e => setCPass(e.currentTarget.value)} id="passwordC" name='passwordC' />
                 </> : ""}
                 <div className={styles.rulesList} >
                     {!devKey? <>

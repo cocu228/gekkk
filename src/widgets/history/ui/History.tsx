@@ -118,9 +118,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         
     }
     useEffect(()=>{
-        setLastValue(listHistory[listHistory.length - 1])
-        console.log(listHistory);
-        
+        setLastValue(listHistory[listHistory.length - 1])        
     }, [listHistory])
 
 

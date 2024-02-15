@@ -16,7 +16,10 @@ const HistoryPage = () => {
 			<div className='wrapper'>
 				
 				{curTab === 'Last Transactions' ? (
-						<History />
+					<>
+                    <h2 className=" font-bold pt-3 text-xl">Last transactions</h2>
+					<History/>
+					</>
 				) : <CustomSearch />}
 			</div>
 		</>

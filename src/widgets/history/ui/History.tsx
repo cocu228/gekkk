@@ -250,7 +250,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         return(
             <>
                 <div id={"History"} className="wrapper">
-                    <h2 className=" font-bold pt-3 text-xl">Last transactions</h2>
                     <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined

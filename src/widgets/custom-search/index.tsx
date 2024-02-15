@@ -22,6 +22,8 @@ import Loader from '@/shared/ui/loader';
 import { maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 
+import History from '../history/ui/History';
+
 export default function customSearch() {
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
     const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
@@ -40,6 +42,9 @@ export default function customSearch() {
     const [selectedTx, setSelectedTx] = useState(options[0]);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
 
+    const [historyData, setHistoryData] = useState({assets: [selectedAsset.value], types: selectedTx.value, includeFiat: selectedAsset.isFiat});
+    
+
     const { refreshKey } = useContext(CtxRootData)
 
     const handleStartDateChange: DatePickerProps['onChange'] = (newDate, dateString) => {
@@ -53,7 +58,7 @@ export default function customSearch() {
 
     const handleReset = () => {
         setDate([dayjs('2024-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
-        setSelectedAsset({label: 'Gekkoin EUR', value: 'EURG', isFiat: true});
+        setSelectedAsset({label: 'GKE Token', value: 'GKE'});
         setSelectedTx(options[0]);
     };
 
@@ -70,52 +75,27 @@ export default function customSearch() {
         });
     }
 
-    const requestHistory = async (cancelToken = null) => {
-        setLoading(true);
-
-        const start = formatForApi(date[0].toDate());
-        const end = formatForApi(date[1].toDate());
-        
-
-        const response = await apiGetHistoryTransactions({
-            limit: 10,
-            tx_types: selectedTx.value,
-            end: end.length ? end.toString() : null,
-            start: start.length ? start.toString() : null,
-            currencies: [selectedAsset.value],
-            card: selectedCard,
-        }, { cancelToken });
-
-        actionResSuccess(response).success(() => {
-            const { result } = response.data;
-            
-            setListHistory(result);
-        })
-
-        setLoading(false);
-    }
 
     const applyHandler = () => {
-        const cancelTokenSource = axios.CancelToken.source();
-        (async () => {
-            await requestHistory(cancelTokenSource.token);
-        })()
-        
-        if (!selectedAsset.isFiat) setSelectedCard
-        return () => cancelTokenSource.cancel()
+        setHistoryData({assets: [selectedAsset.value], types: selectedTx.value, includeFiat: selectedAsset.isFiat});
     }
 
     useEffect(() => {        
         (async () => {
-            loadAssets();
+            setLoading(true);
+            await loadAssets();
             await loadActiveCards();
-            const cardsOpts:ISelectCard[] = cards.map(card => ({label: card.displayPan, value: card.cardId}))
-            console.log(cardsOpts);
-            setCardsOptions(cardsOpts);
-
+            setLoading(false);
         })();
         
     }, []);
+
+    useEffect(() => {
+        if (cards) {
+            const cardsOpts:ISelectCard[] = cards.map(card => ({label: card.displayPan, value: card.cardId}))
+            setCardsOptions(cardsOpts);
+        }
+    },[cards])
 
     useEffect(() => {
         applyHandler();
@@ -124,7 +104,6 @@ export default function customSearch() {
     const requestMoreHistory = async () => {  
         setLazyLoading(true)
         const lastValue = listHistory[listHistory.length - 1];
-        console.log(selectedAsset.value);
         
         const { data } = await apiGetHistoryTransactions({
             currencies: [selectedAsset.value],
@@ -221,117 +200,7 @@ export default function customSearch() {
                 </div>
             </form>
         </div>
-        <div className={styles.histWrapper}>
-
-            {listHistory.map((item, index) => {
-                        const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
-
-                        if(!doesPrevDateTimeExist){
-                            return(
-                                <>
-                                    <div className={styles.DataMobile}>
-                                        {formatForHistoryMobile(item.datetime)}
-                                    </div>
-                                    <div className={styles.InfoMobile}>
-                                        <TransactionInfo infoList={item}>
-                                            <div className={styles.TransactionMobile}>
-                                                <span className={styles.TypeOfTransactionMobile}>
-                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                </span>
-                                                <span className={styles.DescriptionOfTransactionMobile}>
-                                                    {item.tag?item.tag:"..."}
-                                                </span>
-                                            </div>
-                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                <span className={styles.StatusMobile}>
-                                                    {item.status_text}
-                                                </span>
-                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                </span>
-                                            </div>
-                                            <div className={styles.ArrowBtnMobile}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                </svg>
-                                            </div>
-                                        </TransactionInfo>
-                                    </div>
-                                </>
-                            )
-                        }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
-                            return(
-                                <>
-                                    <div className={styles.DataMobile}>
-                                        {formatForHistoryMobile(item.datetime)}
-                                    </div>
-                                    <div className={styles.InfoMobile}>
-                                        <TransactionInfo infoList={item}>
-                                            <div className={styles.TransactionMobile}>
-                                                <span className={styles.TypeOfTransactionMobile}>
-                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                </span>
-                                                <span className={styles.DescriptionOfTransactionMobile}>
-                                                    {item.tag?item.tag:"..."}
-                                                </span>
-                                            </div>
-                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                <span className={styles.StatusMobile}>
-                                                    {item.status_text}
-                                                </span>
-                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                </span>
-                                            </div>
-                                            <div className={styles.ArrowBtnMobile}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                </svg>
-                                            </div>
-                                        </TransactionInfo>
-                                    </div>
-                                </>
-                            )
-                        }else{
-                            return(
-                                <>
-                                    <div className={styles.InfoMobile}>
-                                        <TransactionInfo infoList={item}>
-                                            <div className={styles.TransactionMobile}>
-                                                <span className={styles.TypeOfTransactionMobile}>
-                                                    {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                </span>
-                                                <span className={styles.DescriptionOfTransactionMobile}>
-                                                    {item.tag?item.tag:"..."}
-                                                </span>
-                                            </div>
-                                            <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                <span className={styles.StatusMobile}>
-                                                    {item.status_text}
-                                                </span>
-                                                <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                    {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                </span>
-                                            </div>
-                                            <div className={styles.ArrowBtnMobile}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                </svg>
-                                            </div>
-                                        </TransactionInfo>
-                                    </div>
-                                </>
-                            )
-                        }
-                    })}
-            {!loading && listHistory.length >= 10 && !allTxVisibly && 
-                <div className="row mt-3">
-                    <div className="col flex justify-center relative">
-                        {lazyLoading && <Loader className={" w-[24px] h-[24px] top-[4px]"} />}
-                    </div>
-                </div>
-            }
-        </div>
+        <History currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat}/>
         </>
     );
 }

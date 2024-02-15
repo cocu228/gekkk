@@ -41,7 +41,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         const {currency, tab} = useParams()
         const walletPage = currency || tab  
         const isHistoryPage = !!useMatch("history")
-        const [isFetching, setIsFetching] = useState<boolean>(false)
         
         const {isIntersecting,ref} = useIntersectionObserver({
             threshold:0.9

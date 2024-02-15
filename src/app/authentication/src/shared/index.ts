@@ -39,7 +39,7 @@ const abortController = new AbortController();
 export async function SignIn(silent?: boolean) {
     let opt;  
     
-    if(!silent) abortController?.abort();
+    if(!silent) abortController?.abort("new sign in");
 
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
@@ -142,6 +142,7 @@ export async function ResetPass(opt: any, pass: string, code: string) {
 }
 
 export async function RegisterDeviceKey(opt: any, code: string) {
+    abortController?.abort("new registration");
 
     let fido2_opt = opt?.fido2_options;
 

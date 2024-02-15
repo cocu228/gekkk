@@ -11,9 +11,9 @@
     "orval": "orval",
     "local": "vite",
     "build": "tsc && vite build",
-    "PRD": "node increment-version && tsc && vite build --mode PRD",
-    "STG": "node increment-version && tsc && vite build --mode STG",
-    "DEV": "node increment-version && tsc && vite build --mode DEV"
+    "PRD": "node increment-version && tsc && vite build --mode production",
+    "STG": "node increment-version && tsc && vite build --mode staging",
+    "DEV": "node increment-version && tsc && vite build --mode development"
   },
   "npm": " > 8",
   "node": " > 16",

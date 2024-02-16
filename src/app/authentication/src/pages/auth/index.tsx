@@ -17,6 +17,7 @@ import { SignIn, SignInUser } from "../../shared";
 import Swal from 'sweetalert2';
 import '../../styles/swal-material-ui.scss';
 import { useAddToHomescreenPrompt } from '../../widgets/useAddToHomescreenPrompt';
+import PwaInstallPopupIOS from 'react-pwa-install-ios';
 
 const Auth = () => {
 	const queryString = window.location.search;
@@ -159,6 +160,8 @@ const Auth = () => {
 								</button>
 								: ""
 						}
+						<PwaInstallPopupIOS delay={3} lang="en" appIcon="/img/favicon/favicon-192x192.png"/>
+						
 						<footer>
 							<nav>
 								<a href="https://gekkard.com/terms-and-conditions.html" target="_blank" rel="noreferrer noopener">

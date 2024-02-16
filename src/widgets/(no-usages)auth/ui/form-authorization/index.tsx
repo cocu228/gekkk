@@ -32,7 +32,7 @@ import './form-authorization.scss';
 import Modal from '@/shared/ui/modal/Modal';
 import useModal from '@/shared/model/hooks/useModal';
 import {apiLogin, apiLoginOptions, apiRegisterKey} from "@/shared/(orval)api/auth";
-import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
+import {useAuth} from "@/app/providers/AuthRouter";
 
 
 function coerceToBase64Url(thing) {

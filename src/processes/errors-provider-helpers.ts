@@ -12,6 +12,10 @@ export function hunterErrorStatus(error) {
 
     if (error.code === "ERR_CANCELED") return Promise.reject(error)
 
+    if (error.response?.status === 401) {
+        this.logout()
+        return Promise.reject(error)
+    }
     if (error.response?.status === 500) {
 
         this.navigate("/", {
@@ -32,8 +36,6 @@ export function hunterErrorStatus(error) {
             }
         ]
     }));
-
-    // navigate("/")
 
     return Promise.reject(error);
 }
@@ -131,6 +133,8 @@ export class HunterErrorsApi {
 
         return (this.typeResponseError === "BANK" && uncoverArray<{
             code: number
-        }>(this.response.data.errors).code === 449) || (this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10068)
+        }>(this.response.data.errors).code === 449) ||
+            (this.typeResponseError === "GEKKARD" &&
+            this.response.data.error.code === 10068)
     }
 }

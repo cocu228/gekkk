@@ -4,7 +4,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
+import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
@@ -19,7 +19,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                                                                                    children
                                                                                }): JSX.Element | null {
 
-    const {logout} = useAuth();
+    const {logout, login} = useAuth();
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
@@ -54,14 +54,14 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
         $axios.interceptors.response.use((response: any) => {
             const hunterErrorsApi = new HunterErrorsApi(response);
             hunterErrorsApi.setFilterListForSkip(skipList);
-            
+
             if (hunterErrorsApi.isNewWallet()) {
                 showModal();
             }
-            
+
             if (hunterErrorsApi.isError()) {
                 const result = hunterErrorsApi.getMessageObject();
-                
+
                 setState(prevState => ({
                     ...prevState,
                     errors: [
@@ -74,12 +74,12 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                         }
                     ]
                 }));
-                
+
                 scrollToTop();
             }
-            
+
             if (hunterErrorsApi.isAuthExpired()) logout();
-            
+
             if (hunterErrorsApi.isConfirmationToken()) {
                 return new Promise((resolve, reject) => {
                     setState(prev => ({
@@ -92,24 +92,25 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     }));
                 })
             }
-            
+
             return response;
         }, hunterErrorStatus.bind({
+            logout,
             navigate: navigate,
             setState: setState
         }));
     }, []);
-    
+
     const onClose = (id: string) => setState(prevState => ({
         ...prevState,
         errors: [...prevState.errors.filter(it => it.id !== id)]
     }));
-    
+
     // if (useLocation().state === 500) {
     //     window.history.replaceState({}, document.title);
     //     return (<PageProblems code={500}/>);
     // }
-    
+
     return <>
         {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">
             {state.errors.map((item, i) =>

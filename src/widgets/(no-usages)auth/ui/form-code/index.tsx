@@ -4,7 +4,7 @@ import {useSessionStorage} from "usehooks-ts";
 import Button from '@/shared/ui/button/Button';
 import {MASK_CODE} from '@/shared/config/mask';
 import useMask from '@/shared/model/hooks/useMask';
-import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
+import {useAuth} from "@/app/providers/AuthRouter";
 import FormItem from '@/shared/ui/form/form-item/FormItem';
 import {storyDisplayAuth} from "@/widgets/(no-usages)auth/model/story";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";

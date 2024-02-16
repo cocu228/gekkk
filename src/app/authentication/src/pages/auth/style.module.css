@@ -58,9 +58,11 @@ main {
   max-width: 500px;
   min-width: 320px;
   max-height: 270px;
+
   @media (min-width:700px) {
     min-width: 500px;
   }
+
   font-size: small;
   font-weight: 400;
   color: var(--gek-dark-blue);
@@ -68,10 +70,10 @@ main {
   background: white;
   border-radius: 8px 8px 0 0;
   box-shadow: 3px 2px 8px 0 #A8A8A84A,
-    13px 8px 15px 0 #A8A8A842,
-    28px 17px 20px 0 #A8A8A826,
-    50px 30px 23px 0 #A8A8A80A,
-    79px 47px 26px 0 #A8A8A803;
+  13px 8px 15px 0 #A8A8A842,
+  28px 17px 20px 0 #A8A8A826,
+  50px 30px 23px 0 #A8A8A80A,
+  79px 47px 26px 0 #A8A8A803;
 
   .FormTab {
     display: flex;
@@ -233,4 +235,34 @@ nav {
 
 .TabButtonActive {
   background-color: transparent;
+}
+
+.InstallButton {
+  align-self: flex-start;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: var(--gek-additional);
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--gek-dark-blue);
+
+    svg {
+      fill: var(--gek-dark-blue);
+    }
+  }
+
+  &:active {
+    color: var(--gek-green);
+
+    svg {
+      fill: var(--gek-green);
+    }
+  }
+
+  svg {
+    margin-right: 5px;
+    fill: var(--gek-additional);
+  }
 }

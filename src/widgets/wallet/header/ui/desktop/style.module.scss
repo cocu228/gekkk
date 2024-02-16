@@ -105,7 +105,6 @@
 .WalletInfoMainRightTextFree{
     display: flex;
     height: 15px;
-    justify-content: end;
     align-items: center;
     align-self: stretch;
     border-bottom: 1px dotted #DADADA;
@@ -120,7 +119,6 @@
 .WalletInfoMainRightTextIncome{
     display: flex;
     height: 15px;
-    justify-content: end;
     align-items: center;
     align-self: stretch;
     border-bottom: 1px dotted #DADADA;
@@ -135,7 +133,6 @@
 .WalletInfoMainRightTextOutcome{
     display: flex;
     height: 15px;
-    justify-content: end;
     align-items: center;
     align-self: stretch;
     border-bottom: 1px dotted #DADADA;
@@ -150,7 +147,6 @@
 .WalletInfoMainRightTextOrders{
     display: flex;
     height: 15px;
-    justify-content: end;
     align-items: center;
     align-self: stretch;
     border-bottom: 1px dotted #DADADA;
@@ -179,7 +175,6 @@
 }
 .WalletShortName{
     display: flex;
-    justify-content: end;
     align-items: flex-start;
     flex: 1 0 0;
     color: #1F3446;

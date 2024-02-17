@@ -1,11 +1,10 @@
-FROM node:18.14.1
+FROM nginx:alpine
 
-COPY . /app/
+# Заменяем дефолтную страницу nginx соответствующей веб-приложению
+RUN rm -rf /usr/share/nginx/html/*
+COPY /dist /usr/share/nginx/html
+#COPY /src/app/authentication/dist/assets/ /usr/share/nginx/html/assets/
 
-WORKDIR /app
-RUN echo "VITE_DEV_DOCKER=true" > .env.local
-EXPOSE 5173
+COPY /nginx.conf /etc/nginx/conf.d/default.conf
 
-#RUN rm package-lock.json && npm i
-RUN npm install 
-CMD npm run preview
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

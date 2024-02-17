@@ -26,18 +26,18 @@
   display: flex;
   overflow: hidden;
   justify-content: space-between;
-}
 
-.MainBody {
-  margin: 20px;
-  margin-left: min(20%, 150px);
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
-  @media (max-width:700px) {
-    margin-left: 5%;
-    margin-right: 5%;
+  .Body {
+    margin: 20px;
+    margin-left: min(20%, 150px);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  
+    @media (max-width:700px) {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
   }
 }
 
@@ -74,30 +74,6 @@ main {
   28px 17px 20px 0 #A8A8A826,
   50px 30px 23px 0 #A8A8A80A,
   79px 47px 26px 0 #A8A8A803;
-
-  .FormTab {
-    display: flex;
-    justify-content: space-around;
-
-    button {
-      align-self: stretch;
-      width: 50%;
-    }
-  }
-
-  .FormBody {
-    flex: 1 1 auto;
-    padding: 24px 36px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
-
-  .FormButtons {
-    display: flex;
-    justify-content: space-between;
-  }
 
   input {
     height: 36px;
@@ -159,12 +135,12 @@ figure {
 }
 
 a {
-  text-decoration: inherit;
+  text-decoration: underline;
   color: var(--gek-additional);
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: inherit;
   color: var(--gek-dark-blue);
 }
 
@@ -220,21 +196,6 @@ details {
 nav {
   display: flex;
   justify-content: space-between;
-}
-
-.TabButton {
-  border-width: 0px;
-  padding: 8px 0px;
-  color: var(--gek-dark-grey);
-  background: var(#00000005);
-
-  &:hover {
-    color: var(--gek-dark-blue);
-  }
-}
-
-.TabButtonActive {
-  background-color: transparent;
 }
 
 .InstallButton {

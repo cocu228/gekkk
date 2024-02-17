@@ -1,0 +1,20 @@
+main.ResetForm {
+  aspect-ratio: none;
+  max-height: none;
+  min-height: none;
+  height: 300px;
+}
+
+.FormBody {
+  flex: 1 1 auto;
+  padding: 24px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.FormButtons {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,4 +1,4 @@
-﻿import styles from './style.module.css';
+﻿import styles from './(no-usages)style.module.css';
 import Button from "./components/button/Button";
 import { useState } from "preact/hooks";
 import { RegisterDeviceKey, ResetPass } from '../shared';

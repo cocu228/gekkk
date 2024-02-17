@@ -53,7 +53,7 @@
             z-index: 999;
         }
 
-        h3 { 
+        h3 {
             font-family: sans-serif;
             text-transform: uppercase;
             letter-spacing: -2px;
@@ -62,12 +62,25 @@
         h3 span {
             text-align: center;
             display: block;
-            margin: 11px 0 17px 0;
-            font-size: 80px;
-            line-height: 80px;
-            color: #e6e6e1;
-            text-shadow: 0 13.36px 8.896px #c4b59d, 0 -2px 1px #fff;
-            letter-spacing: -4px;
+            margin: 0px 0px;
+            font-size: 5rem;
+            line-height: 5rem;
+            font-weight: 800;
+            font-family: sans-serif;
+            color: #29354C;
+            text-shadow: 0.5rem 0.5rem 0.5rem #c4b59d, 0 -2px 1px #fff;
+            letter-spacing: 2px;
+        }
+
+        .text-longshadow {
+            color: #f7f7f0;
+            padding: 0rem 3rem 0rem 3rem;
+            font-size: 2rem;
+            line-height: 4rem;
+            font-family: sans-serif;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 1px 1px rgba(30, 4, 12, 0.5), 2px 2px rgba(43, 6, 17, 0.52), 3px 3px rgba(53, 7, 22, 0.54), 4px 4px rgba(63, 8, 25, 0.56), 5px 5px rgba(71, 9, 29, 0.58), 6px 6px rgba(78, 10, 32, 0.6), 7px 7px rgba(85, 11, 34, 0.62), 8px 8px rgba(91, 12, 37, 0.64), 9px 9px rgba(96, 12, 39, 0.66), 10px 10px rgba(101, 13, 41, 0.68), 11px 11px rgba(105, 13, 43, 0.7), 12px 12px rgba(109, 14, 44, 0.72), 13px 13px rgba(113, 14, 46, 0.74), 14px 14px rgba(116, 15, 47, 0.76), 15px 15px rgba(120, 15, 48, 0.78), 16px 16px rgba(122, 15, 50, 0.8), 17px 17px rgba(125, 16, 51, 0.82), 18px 18px rgba(128, 16, 52, 0.84), 19px 19px rgba(130, 16, 53, 0.86), 20px 20px rgba(132, 17, 54, 0.88), 21px 21px rgba(134, 17, 54, 0.9), 22px 22px rgba(136, 17, 55, 0.92), 23px 23px rgba(138, 17, 56, 0.94), 24px 24px rgba(140, 18, 57, 0.96), 25px 25px rgba(141, 18, 57, 0.98);
         }
     </style>
     <title>404 not found</title>
@@ -90,7 +103,9 @@
     </div>
     <div id="logoC" class="logoC">
         <h3><span>404</span></h3>
-        <h3><span>Not found</span></h3>
+        <div style="background-color: #8F123A; width: auto; border-radius: 20px;">
+            <p class="text-longshadow"><span>NOT FOUND</span></p>
+        </div>
     </div>
 </body>
 

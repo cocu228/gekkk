@@ -2098,7 +2098,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
             </div>
 
             <div className='info-box-description mb-4'>
-                <p className='font-bold text-xl mb-4'>3% {t("AER_interest")}</p>
+                <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
                 <p>{t("you_get_per_annum")}:</p>
                 <p>(i) {t("your_weighted_average")};</p>
                 <p>(ii) {t("our_upper_limit")}.</p>

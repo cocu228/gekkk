@@ -37,9 +37,9 @@ export async function SignInUser(phone: string, pass: string) {
 }
 const abortController = new AbortController();
 export async function SignIn(silent?: boolean) {
-    let opt;  
-    
-    if(!silent) abortController?.abort("new sign in");
+    let opt;
+
+    if (!silent) abortController?.abort("new sign in");
 
     var res = await apiLoginOptions(silent);
     if (!res.result) return false;
@@ -111,12 +111,11 @@ export async function SignIn(silent?: boolean) {
 
 async function AccountIdSet() {
     let data = await apiGetInfo();
-    if (data.result.length > 0) {
+    if (data.result.length < 1)
+        data = await apiGetInfo(true);
+
+    if (data.result.length > 0)
         setCookieData([{ key: "accountId", value: data.result[0].account }]);
-    } else {
-        let data = await apiGetInfo(true);
-        setCookieData([{ key: "accountId", value: data.result[0].account }]);
-    }
     location.replace('/');
 }
 
@@ -275,26 +274,7 @@ export function coerceToBase64Url(thing) {
     return thing;
 }
 
-export const getCookieData = <T>(): T => {
-    const cookieValue = document.cookie;
-    const cookiePairs = cookieValue.split(';');
-    const cookieData = {} as T;
-
-    for (let i = 0; i < cookiePairs.length; i++) {
-        const pair = cookiePairs[i].trim();
-        const separatorIndex = pair.indexOf('=');
-        const key = pair.substring(0, separatorIndex);
-        const value = pair.substring(separatorIndex + 1);
-
-        const decodedValue = decodeURIComponent(value);
-
-        cookieData[key] = decodedValue as T[keyof T];
-    }
-
-    return cookieData;
-};
-
-export const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
+const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
     cookieData.forEach(({ key, value, expiration }) => {
         const encodedValue: string = encodeURIComponent(value);
         let cookieString: string = `${key}=${encodedValue}`;
@@ -309,7 +289,3 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
         document.cookie = cookieString + '; path=/';
     });
 };
-
-export function clearCookie(name: string) {
-    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-}

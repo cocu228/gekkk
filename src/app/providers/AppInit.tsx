@@ -1,5 +1,5 @@
 // import AuthPage from "@/pages/auth";
-import {AuthProvider} from "./AuthRouter";
+//import {AuthProvider} from "./AuthRouter";
 // import {AuthProvider} from "./AuthRouter";
 import RootLayout from "@/app/providers/RootLayout";
 import ErrorsProvider from "@/app/providers/ErrorsProvider";
@@ -22,10 +22,10 @@ const AppInit = () => {
 }
 
 
-export default () => <AuthProvider>
-    <AppInit/>
-</AuthProvider>
+// export default () => <AuthProvider>
+//     <AppInit/>
+// </AuthProvider>
 
-// export default () => <AppInit/>
+export default () => <AppInit/>
 
 // export default () => <Assets/>

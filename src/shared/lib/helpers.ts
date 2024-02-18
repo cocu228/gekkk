@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import { apiLogout } from "../(orval)api";
 
 export function randomId(value = 12): string {
     let text = "";
@@ -91,7 +92,7 @@ export const actionResSuccess = function (response) {
 
                 return {
                     reject: (val) => {
-                        return val({message: null, code: null, id: null})
+                        return val({ message: null, code: null, id: null })
                     }
                 }
             }
@@ -159,9 +160,9 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
     switch (flag) {
         case "afterPercentage":
             return amount.minus(percentageValue).toNumber();
-        case "withPercentage" :
+        case "withPercentage":
             return amount.plus(percentageValue).toNumber()
-        case "onlyPercentage" :
+        case "onlyPercentage":
             return percentageValue.toNumber()
     }
 
@@ -189,7 +190,6 @@ export function getRandomInt32() {
     return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 }
 
-
 export const getCookieData = <T>(): T => {
     const cookieValue = document.cookie;
     const cookiePairs = cookieValue.split(';');
@@ -211,7 +211,7 @@ export const getCookieData = <T>(): T => {
 
 
 export const setCookieData = (cookieData: { key: string; value: string; expiration?: number | undefined }[]): void => {
-    cookieData.forEach(({key, value, expiration}) => {
+    cookieData.forEach(({ key, value, expiration }) => {
         const encodedValue: string = encodeURIComponent(value);
         let cookieString: string = `${key}=${encodedValue}`;
 
@@ -226,24 +226,14 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
     });
 };
 
-function clearCookie(name) {
+export function clearCookie(name: string) {
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 }
-
-export function clearCookies() {
-    const excludedCookies = ['CookieAccepted'];
-    const cookies = document.cookie.split(";");
-
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-
-        if (!excludedCookies.includes(name)) {
-            clearCookie(name);
-        }
-    }
-}
+export const logout = async () => {
+    await apiLogout();
+    clearCookie("accountId");
+    location.replace('/');
+};
 
 export function debounce(func: (amount: number) => void, delay: number) {
 
@@ -275,13 +265,13 @@ export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
 
 
 export function pullStart(e, setStartPoint) {
-    const {screenY} = e.targetTouches[0];
+    const { screenY } = e.targetTouches[0];
     setStartPoint(screenY);
 }
 
 export function pull(e, setPullChange, startPoint) {
     const touch = e.targetTouches[0];
-    const {screenY} = touch;
+    const { screenY } = touch;
     let pullLength = startPoint < screenY ? Math.abs(screenY - startPoint) : 0;
     setPullChange(pullLength);
 }
@@ -294,9 +284,3 @@ export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
     }
     ;
 }
-
-
-export const logout = () => {
-    clearCookies();
-    location.replace('/');
-};

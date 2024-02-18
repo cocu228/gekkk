@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {clearCookies, getCookieData} from "@/shared/lib/helpers";
+import {getCookieData, logout} from "@/shared/lib/helpers";
 import {createContext, FC, PropsWithChildren, useContext, useMemo, useState} from "react";
 
 const AuthContext = createContext({});
@@ -87,15 +87,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
 
         navigate(!['/', '/?'].includes(pathUrl) ? pathUrl : '/wallet/EUR');
     };
-
-    const logout = () => {
-        // $axios.defaults.headers[tokenHeaderName] = undefined;
-        // $axios.defaults.headers['Authorization'] = undefined;
-        // $axios.defaults.headers['AccountId'] = undefined;
-        // window.recaptchaVerifier = undefined;
-        clearCookies();
-        location.replace('/');
-    };
+    
 
     const value = useMemo<IValue>(
         () => ({

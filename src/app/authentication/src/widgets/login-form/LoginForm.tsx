@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import {formatAsNumber} from "../../shared";
 import flags from 'react-phone-number-input/flags';
 import {SignIn, SignInUser} from "../../shared";
+import PasswordInput from '../components/passwordInput';
 
 interface IParams {
     phone: string;
@@ -70,7 +71,7 @@ export const LoginForm = ({
                 </>
                 : <>
                     <PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={onPhoneChange} />
-                    <input required minLength={6} placeholder={"Password"} type={"password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
+                    <PasswordInput id='Password' required minLength={6} placeholder={"Password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
                     
                     <div className={styles.FormButtons} >
                         <Button disabled={!phone || !password || phone.length < 8 || password.length < 6} type="submit">Login</Button>

@@ -244,6 +244,7 @@ export function clearCookie(name: string) {
 export const logout = async () => {
     await apiLogout();
     clearCookie("accountId");
+    clearCookie("phoneNumber");
     location.replace('/');
 };
 

@@ -50,7 +50,7 @@ const Auth = () => {
 					<LogoIcon />
 				</div>
 				<div onClick={null}>
-					<SupportIcon stroke={"white"} />
+					<SupportIcon fill={"white"} />
 				</div>
 			</div>
 

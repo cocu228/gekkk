@@ -3,7 +3,7 @@ import "@styles/index.scss";
 import styles from "./style.module.scss";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {HelperClassName} from "@/shared/lib/helper-class-name";
-import {$ENV, scrollToTop} from "@/shared/lib/helpers";
+import {scrollToTop} from "@/shared/lib/helpers";
 
 const hClassName = new HelperClassName(styles)
 
@@ -71,7 +71,7 @@ const PageProblems = ({code = 404}: { code?: number }) => {
                 </p>
                 <span
                     className={`text-gray-500 font-semibold text-sm w-full block`}>
-                    © Gekkard. v.{$ENV.VITE_APP_VERSION}
+                    © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
                 </span>
             </footer>
         </div>

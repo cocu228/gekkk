@@ -1,5 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const sessionHeader = () => {
     return {       
         'Content-Type': 'application/json',
@@ -13,7 +15,7 @@ export const $axios = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
-    baseURL: "https://gate-dev.gekkard.com:6789/"
+    baseURL: !!API_URL ? API_URL : window.location.origin
 });
 
 function isRejectRequired(config: InternalAxiosRequestConfig<any>): boolean {

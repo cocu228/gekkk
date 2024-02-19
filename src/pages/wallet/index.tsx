@@ -84,7 +84,6 @@ function Wallet() {
                                 {(isEUR || isEURG || isGKE) &&
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }
-
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
                                         data-tag={"bank_cards"}
@@ -151,7 +150,7 @@ function Wallet() {
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }
                         {isOnCashbackProgramPage &&
-                                    <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
+                           <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                     </>
                 }

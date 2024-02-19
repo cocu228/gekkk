@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import {IResErrors, IResCommission, IResResult, SignHeaders} from "./types";
 
 interface IPaymentDetails {

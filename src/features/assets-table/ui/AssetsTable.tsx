@@ -1,12 +1,12 @@
 import styles from './style.module.scss';
-import {apiGetRates} from "@/shared/api";
 import Input from '@/shared/ui/input/Input';
 import {useNavigate} from 'react-router-dom';
 import GTable from '@/shared/ui/grid-table/';
-import {getAlignment} from "../model/helpers";
+import {getAlignment, getWidth} from "../model/helpers";
 import {AssetTableKeys} from "../model/types";
 import Button from "@/shared/ui/button/Button";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {apiGetRates} from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
@@ -14,6 +14,7 @@ import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
 import {useTranslation} from 'react-i18next';
+import searchIcon from '../../../../public/img/icon/search-normal.svg'
 
 interface IParams {
     modal?: boolean,
@@ -76,16 +77,21 @@ const AssetsTable = ({
         if (!ratesLoading) return;
 
         (async () => {
-            const {data} = (await apiGetRates());
-            setRates(data.result);
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rates: Record<string, number> = data.result;
+            
+            setRates(rates);
             setRatesLoading(false);
         })();
     }, []);
 
     return (
         <div className={className}>
-            <div className={`${md && 'mx-5'} mb-2`}>
-                <Input
+            <div className={`mb-2`}>
+                {!md ? <Input
                     allowClear
                     ref={inputRef}
                     data-testid="SearchName"
@@ -93,23 +99,42 @@ const AssetsTable = ({
                     onChange={(e) => {
                         setSearchValue(e.target.value.trim().toLowerCase());
                     }}
+                    
+                /> :
+                <div className={styles.SearchInput}>
+                    <img src={searchIcon}/>
+                    <input 
+                    className={styles.searchInputInner}
+                    type="text" 
+                    ref={inputRef}
+                    data-testid="SearchName"
+                    placeholder={t("crypto_assets.search_name")}
+                    onChange={(e) => {
+                        setSearchValue(e.target.value.trim().toLowerCase());
+                    }}
                 />
+                </div>
+                } 
             </div>
 
-            <div style={{maxHeight: modal ? 550 : 1080}} className='mb-10'>
+            {/* <div style={{maxHeight: modal ? 550 : 1080}} className='mb-10'> */}
+            <div className='mb-10'>
+
                 <GTable>
                     <GTable.Head>
+                        {!md && 
                         <GTable.Row>
                             {columnKeys.map((item: string) => (
-                                <GTable.Col className={`flex ${getAlignment(columnKeys, item)} my-2`}>
+                                <GTable.Col className={`flex ${getAlignment(columnKeys, item, md)} my-2 ${getWidth(columnKeys, item, md)}`}>
                                     <span className="text-gray-400 font-medium">{item}</span>
                                 </GTable.Col>
                             ))}
-                        </GTable.Row>
+                        </GTable.Row>}
                     </GTable.Head>
                     <GTable.Body loading={ratesLoading}
-                                 className={`${styles.ItemsList} ${!ratesLoading && styles.Loaded}`}
-                                 style={{maxHeight: modal ? 550 : 1080}}>
+                                 className={`${styles.ItemsList} ${!ratesLoading && !md && styles.Loaded}`}
+                                //  style={{maxHeight: modal ? 550 : 1080}}>
+                                >
                         {tokensList
                             .filter((value) => searchTokenFilter(value, searchValue))
                             .map((currency, index) => (
@@ -118,18 +143,26 @@ const AssetsTable = ({
                                     grid
                                     ${styles.Item}
                                     ${blockedCurrencies?.includes(currency.$const) ? styles.ItemBlocked : ''}
-                                    ${!evenOrOdd(index) ? "bg-gray-main" : ""}
-                                    min-h-[56px] lg:min-h-[46px] font-medium hover:font-bold hover:cursor-pointer gap-3`
+                                    ${!md && !evenOrOdd(index) ? "bg-gray-main" : ""}
+                                    min-h-[56px] lg:min-h-[46px] font-medium hover:font-bold hover:cursor-pointer gap-3
+                                    ${md && styles.MobileItem}
+                                    `
                                     }
                                     onClick={() => onSelect(currency.$const)}
                                 >
                                     {columnKeys.map((key: string) => (
-                                        <GTable.Col className={`flex ${getAlignment(columnKeys, key)}`}>
+                                        <GTable.Col className={`flex ${getAlignment(columnKeys, key, md)}`}>
                                             {key === AssetTableKeys.NAME && (
                                                 <div className="flex items-center gap-3">
-                                                    <IconCoin height={29} className='max-h-[36px]'
+                                                    <IconCoin height={md ? 40 : 29} className={md ? 'max-h-[36px] max-w-[40px]': 'max-h-[40px]'}
                                                               code={currency.$const}/>
+                                                    {!md ? 
                                                     <span>{(!lg || columnKeys.length === 2) ? currency.name : currency.$const}</span>
+                                                    : 
+                                                    <div className='flex flex-col'>
+                                                        <span className='block'>{currency.$const}</span>
+                                                        <span className={`${styles.InnerName} block text-xs`}>{currency.name}</span>
+                                                    </div>}
                                                 </div>
                                             )}
 
@@ -138,7 +171,7 @@ const AssetsTable = ({
                                             )}
 
                                             {key === AssetTableKeys.PRICE && (
-                                                <span>{!rates || rates[currency.$const] === 0 ? "—" :
+                                                <span className='block'>{!rates || rates[currency.$const] === 0 ? "—" :
                                                     `${getCurrencyRounding(rates[currency.$const])} €`}</span>
                                             )}
 

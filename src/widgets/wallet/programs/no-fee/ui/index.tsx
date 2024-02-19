@@ -2,18 +2,18 @@ import {useContext, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import {apiCreateInvestment} from "@/shared/api";
 import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {apiCreateInvestment} from "@/shared/(orval)api/gek";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from 'react-i18next';
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
 
 const NoFeeProgram = () => {
     const navigate = useNavigate();
@@ -202,7 +202,7 @@ const NoFeeProgram = () => {
                             const {data} = await apiCreateInvestment({
                                 amount: inputCurr.value.number,
                                 term_days: 90,
-                                templateType: 4
+                                depo_template_type: InvestmentsTypeEnum[4]
                             });
 
                             if (data.result != null) updateNoFeeInvestment(data.result)

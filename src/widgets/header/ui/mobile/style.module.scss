@@ -1,14 +1,15 @@
 .Header{
-  height: 34px;
+  height: 55px;
+  padding:10px 0px; 
   display: flex;
   justify-content: space-between;  
-  background: #1F3446;
+  background: #29354C;
 }
 
 .Name{
-  color: #F5F5F5;
+  color: white;
   font-family: Inter;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -16,9 +17,9 @@
   margin-right: 10px;
 }
 .Number{
-  color: #929798;
-  font-family: Archivo;
-  font-size: 8px;
+  color: #B9B9B5;
+  font-family: Inter;
+  font-size: 12px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
@@ -64,4 +65,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0px 5%;
+}
+.HeaderTitle{
+  color: #F5F5F5;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }

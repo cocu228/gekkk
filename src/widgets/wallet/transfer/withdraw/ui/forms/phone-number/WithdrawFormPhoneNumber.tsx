@@ -9,7 +9,7 @@ import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from 'react';
 import WithdrawConfirmPhoneNumber from "./WithdrawConfirmPhoneNumber";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
@@ -29,10 +29,10 @@ const WithdrawFormPhoneNumber = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
     const {
         min_withdraw = 0
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {};
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
     const [inputs, setInputs] = useState<{
         comment: string;
@@ -49,7 +49,7 @@ const WithdrawFormPhoneNumber = () => {
             
             return inputs[i].length > 0;
         }))
-    }, [inputs]);
+    }, [inputs, inputCurr.value]);
     
     const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));

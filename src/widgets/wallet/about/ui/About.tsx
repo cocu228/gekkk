@@ -1,10 +1,10 @@
 import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from "@/processes/RootContext";
+//import {CtxRootData} from "@/processes/RootContext";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
+//import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
 import { useTranslation } from 'react-i18next';
 
 interface IParams {
@@ -19,9 +19,9 @@ const About = ({description}: IParams) => {
     const {t} = useTranslation();
 
     return (
-        <div>
-            <div className="flex mb-6 items-center">
-                <div className="mr-4">
+        <div className=" bg-white rounded-md px-6 py-3 mt-3"> 
+            <div className="flex mt-1 mb-3 items-center">
+                {/* <div className="mr-4">
                     <img
                         className='h-[50px] w-[50px]'
                         src={`/img/tokens/${$const.toLowerCase().capitalize()}Icon.svg`}
@@ -34,7 +34,7 @@ const About = ({description}: IParams) => {
                         }}
                         alt={$const}
                     />
-                </div>
+                </div> */}
 
                 <h1 className="font-bold text-base text-gray-600">
                     {name}

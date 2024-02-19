@@ -8,7 +8,7 @@ import {debounce} from "@/shared/lib/helpers";
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {AccountRights} from '@/shared/config/account-rights';
 import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
 import Decimal from "decimal.js";
@@ -25,7 +25,7 @@ const WithdrawFormPapaya = () => {
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
 
-    const {networkIdSelect, networksDefault, setNetworkId, setRefresh} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
@@ -41,7 +41,7 @@ const WithdrawFormPapaya = () => {
         min_withdraw = 0,
         withdraw_fee = 0,
         percent_fee = 0
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     useEffect(() => {
 
@@ -80,10 +80,14 @@ const WithdrawFormPapaya = () => {
                     validators={[
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
-                    <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span
-                                                       className='text-gray-600 font-medium'>Amount</span>}
-                                                   currency={currency}>
+                    <InputCurrency.PercentSelector
+                        currency={currency}
+                        header={<span className='text-gray-600 font-medium'>Amount</span>}
+                        onSelect={val => {
+                            const amount = new Decimal(val);
+                            setInputCurr(amount.mul(100).floor().div(100).toString())
+                        }}
+                    >
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
                                 value={inputCurr.value.string}

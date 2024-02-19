@@ -1,4 +1,4 @@
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 
 export interface AvailableDeals {
   availableDeals: Array<AvailableDeal>;
@@ -17,7 +17,9 @@ export enum ActiveBonusProgram {
   CASHBACK3 = 'WILDBERRIES_PROGRAM',
   CASHBACK_AMAZON = 'CASH_BACK_PROGRAM_4',
   CASHBACK_MOBILE_STORES = 'CASH_BACK_PROGRAM_5',
-  CASHBACK_GKE ="CASH_BACK_PROGRAM_GKE",
+  CASHBACK_GKE = "CASH_BACK_PROGRAM_GKE",
+  CASHBACK_EURG = "CASH_BACK_PROGRAM_EURG",
+  CASHBACK_FIAT = "CASHBACK_FIAT"
 }
 
 

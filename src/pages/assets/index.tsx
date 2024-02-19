@@ -8,7 +8,7 @@ import AssetsTable from '@/features/assets-table/ui/AssetsTable';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {AssetTableKeys} from '@/features/assets-table/model/types';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import $axios from '@/shared/lib/(cs)axios';
+import {$axios} from '@/shared/lib/(orval)axios';
 import useModal from '@/shared/model/hooks/useModal';
 import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
@@ -20,7 +20,7 @@ function Assets() {
     const {account} = useContext(CtxRootData);
     const {xl, md, lg} = useContext(BreakpointsContext);
     const navigate = useNavigate();
-
+    
     let columns = [
         AssetTableKeys.NAME,
         ...(!lg ? [AssetTableKeys.CURRENCY] : []),
@@ -30,65 +30,67 @@ function Assets() {
 
     return (
         <>
-            <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>
-            <div className="wrapper grid grid-cols-5 xl:grid-cols-1 gap-2 xl:gap-0">
-                {xl && <InfoBox/>}
-                {<div
-                    className={`${!md ? "substrate" : "bg-white -ml-4 -mr-4 pt-4"} col-span-3 z-10 -xl:rounded-r-none`}>
-                    <AssetsTable
-                        columnKeys={columns}
-                        onSelect={(currency: string) => {
-                            scrollToTop();
-                            navigate(`/wallet/${currency}`)
-                        }}
-                        allowedFlags={[
-                            CurrencyFlags.AccountAvailable,
-                            CurrencyFlags.ExchangeAvailable,
-                            CurrencyFlags.StructInvestAvailable,
-                        ]}
-                    />
-                </div>}
-                {!xl && <div
-                    className={`substrate h-full -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
-                    <div className="row mb-5 flex justify-center">
-                        <div className="col">
-                            <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
-                        </div>
+            {!md && <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>}
+            <div className="wrapper grid grid-cols-1 gap-2 xxl:gap-0">
+                {!md && <InfoBox/>}
+                <div className='flex flex-row '>
+                    <div
+                        className={!md ? 'substrate w-full col-span-3 z-10 -xl:rounded-r-none': 'w-full'}>
+                        <AssetsTable
+                            className='w-full'
+                            columnKeys={columns}
+                            onSelect={(currency: string) => {
+                                scrollToTop();
+                                navigate(`/wallet/${currency}`)
+                            }}
+                            allowedFlags={[
+                                CurrencyFlags.AccountAvailable,
+                                CurrencyFlags.ExchangeAvailable,
+                                CurrencyFlags.StructInvestAvailable,
+                            ]}
+                        />
                     </div>
-                    <div className="row mb-1 flex justify-center">
-                        <div className="col">
-                            <h5 className="font-medium max-w-[320px] text-center">{t("crypto_assets.choose_cryptocurrency")}</h5>
-                        </div>
-                    </div>
-                    <div className="row mb-5 flex justify-center">
-                        <div className="col flex justify-center">
-                            <span
-                                className="text-gray-450 text-center leading-8 max-w-[320px]">{t("crypto_assets.swap_EURG")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-5">
-                        <div className="col">
-                            <img width={210} height={64} src="/img/icon/InvestTokensLine.svg" alt="InvestTokensLine"/>
-                        </div>
-                    </div>
-                    <div className="row mb-5">
-                        <div className="col text-sm">
-                            <p className="leading-6">{t("crypto_assets.bitcoin_first_popular")}</p>
-                            <br/>
-                            <p className="leading-6">{t("crypto_assets.alternative_cryptocurrencies")}</p>
-                            <br/>
-                            <p className="leading-6">{t("crypto_assets.different_altcoins")}</p>
-                        </div>
-                    </div>
-
-                    {account?.rights && !account.rights[AccountRights.IsJuridical] && (
-                        <div className="row">
+                    {!xl && <div
+                        className={`substrate h-full max-w-[400px] -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
+                        <div className="row mb-5 flex justify-center">
                             <div className="col">
-                                <InfoBox/>
+                                <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
                             </div>
                         </div>
-                    )}
-                </div>}
+                        <div className="row mb-1 flex justify-center">
+                            <div className="col">
+                                <h5 className="font-medium max-w-[320px] text-center">{t("crypto_assets.choose_cryptocurrency")}</h5>
+                            </div>
+                        </div>
+                        <div className="row mb-5 flex justify-center">
+                            <div className="col flex justify-center">
+                                <span
+                                    className="text-gray-450 text-center leading-8 max-w-[320px]">{t("crypto_assets.swap_EURG")}</span>
+                            </div>
+                        </div>
+                        <div className="row mb-5">
+                            <div className="col">
+                                <img width={210} height={64} src="/img/icon/InvestTokensLine.svg" alt="InvestTokensLine"/>
+                            </div>
+                        </div>
+                        <div className="row mb-5">
+                            <div className="col text-sm">
+                                <p className="leading-6">{t("crypto_assets.bitcoin_first_popular")}</p>
+                                <br/>
+                                <p className="leading-6">{t("crypto_assets.alternative_cryptocurrencies")}</p>
+                                <br/>
+                                <p className="leading-6">{t("crypto_assets.different_altcoins")}</p>
+                            </div>
+                        </div>
+                        {account?.rights && !account.rights[AccountRights.IsJuridical] && (
+                            <div className="row">
+                                <div className="col">
+                                    <InfoBox/>
+                                </div>
+                            </div>
+                        )}
+                    </div>}
+                </div>
             </div>
         </>
     )
@@ -108,12 +110,12 @@ const InfoBox = () => {
             tokenHeaderName: string
         }>();
 
-        const response = await $axios.post('/pub/v1/auth', {
+        const response = await $axios.post('/gek/v1/auth', {
             authorization: phone,
             token: token,
             tokenHeaderName: tokenHeaderName
         });
-        const gekkoinUrl = import.meta.env[`VITE_GEKKOIN_URL_${import.meta.env.MODE}`];
+        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
         actionResSuccess(response).success(() => {
             window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })

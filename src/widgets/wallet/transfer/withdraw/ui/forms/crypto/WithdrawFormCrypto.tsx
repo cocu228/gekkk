@@ -7,7 +7,7 @@ import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {validateBalance, validateMaximumAmount, validateMinimumAmount} from '@/shared/config/validators';
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {getFinalFee, isDisabledBtnWithdraw} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
@@ -38,14 +38,14 @@ const WithdrawFormCrypto = () => {
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = 0,
         max_withdraw = 0,
         percent_fee = 0,
         withdraw_fee = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
@@ -62,13 +62,13 @@ const WithdrawFormCrypto = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
-    return Array.isArray(networksDefault) && networksDefault.length > 0 && (
+    return Array.isArray(tokenNetworks) && tokenNetworks.length > 0 && (
         <div className="flex flex-col items-center mt-2">
             <div className='flex flex-col gap-4 text-gray-400 w-full text-left'>
                 <div className='flex flex-col gap-2'>
                     <span className="text-gray-600 font-medium">{t("address")}</span>
                     <Input value={inputs.address} onChange={onInput}
-                           disabled={!networkIdSelect}
+                           disabled={!networkTypeSelect}
                            placeholder={t("enter_withdrawal_addr")}
                            name={"address"}/>
                 </div>
@@ -103,7 +103,7 @@ const WithdrawFormCrypto = () => {
                 <div className='flex flex-col gap-2'>
                     <span className="text-gray-600 font-medium">{t("recipient")}</span>
                             <Input value={inputs.recipient} onChange={onInput}
-                                   disabled={!networkIdSelect}
+                                   disabled={!networkTypeSelect}
                                    name={"recipient"}
                                    placeholder={t("enter_recipient")}/>
 
@@ -113,7 +113,7 @@ const WithdrawFormCrypto = () => {
                 <div className='flex flex-col gap-2'>
                     <span className="text-gray-600 font-medium">{t("desc_optional")}</span>
                     <TextArea name={"description"} value={inputs.description} onChange={onInput}
-                              disabled={!networkIdSelect}
+                              disabled={!networkTypeSelect}
                               rows={2}/>
                 </div>
                 <div className="row w-full mt-4">

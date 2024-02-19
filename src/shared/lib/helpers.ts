@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import { apiLogout } from "../(orval)api";
 
 export function randomId(value = 12): string {
     let text = "";
@@ -30,18 +31,12 @@ export function throttle(callee, timeout) {
     }
 }
 
-/** Current environment mode string*/
-export const $ENV_MODE = import.meta.env.MODE.toUpperCase() === "LOCAL"
-    ? "DEV"
-    : import.meta.env.MODE.toUpperCase();
-/** Is environment equals to dev or local*/
-export const $ENV_DEV = ['DEV', 'LOCAL'].includes($ENV_MODE);
-
 export const isActiveClass = (value: boolean): string => value ? "active" : "";
 export const isNull = (value: any): boolean => value === null;
 export const isNullOrEmpty = (value: string): boolean => value === null || value.length === 0;
 
 export const isNumber = (value: any): boolean => typeof value === "number"
+
 export function evenOrOdd(number) {
     return number % 2 === 0
 }
@@ -55,7 +50,7 @@ export const getRoundingValue = (balance: Decimal | number | string, roundingVal
     return result.toDecimalPlaces(roundingValue).toNumber()
 }
 
-export function getSecondaryTabsAsRecord(tabs: Array<{Key: string, Title: string}>) {
+export function getSecondaryTabsAsRecord(tabs: Array<{ Key: string, Title: string }>) {
     let list: Record<string, string> = {};
 
     tabs.forEach(tab => Object.assign(list, {
@@ -97,7 +92,7 @@ export const actionResSuccess = function (response) {
 
                 return {
                     reject: (val) => {
-                        return val({message: null, code: null, id: null})
+                        return val({ message: null, code: null, id: null })
                     }
                 }
             }
@@ -140,14 +135,14 @@ export function getFlagsFromMask(mask: number, options: Record<string, number>) 
 
         if (mask === 0 && value === 0) {
             flags[flag] = ((mask & value) === 0);
-           continue;
+            continue;
         }
 
         flags[flag] = ((mask & value) !== 0);
     }
 
     return flags;
- }
+}
 
 export function scrollToTop() {
     window.scrollBy(0, -100); // можно использовать также метод scrollTo(0, 0)
@@ -165,15 +160,16 @@ export function calculateAmount(_amount: string | number | Decimal, percentage: 
     switch (flag) {
         case "afterPercentage":
             return amount.minus(percentageValue).toNumber();
-        case "withPercentage" :
+        case "withPercentage":
             return amount.plus(percentageValue).toNumber()
-        case "onlyPercentage" :
+        case "onlyPercentage":
             return percentageValue.toNumber()
     }
 
 }
 
 export const uncoverResponse = (response) => response.data.result
+
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
 export const getCurrencyRounding = (value: number | undefined) =>
@@ -193,7 +189,6 @@ export function getRandomInt32() {
 
     return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 }
-
 
 export const getCookieData = <T>(): T => {
     const cookieValue = document.cookie;
@@ -231,24 +226,14 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
     });
 };
 
-function clearCookie(name) {
+export function clearCookie(name: string) {
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 }
-
-export function clearCookies() {
-    const excludedCookies = ['CookieAccepted'];
-    const cookies = document.cookie.split(";");
-
-    for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
-        
-        if (!excludedCookies.includes(name)) {
-            clearCookie(name);
-        }
-    }
-}
+export const logout = async () => {
+    await apiLogout();
+    clearCookie("accountId");
+    location.replace('/');
+};
 
 export function debounce(func: (amount: number) => void, delay: number) {
 
@@ -266,4 +251,36 @@ export function numberWithSpaces(val: number) {
     let parts = val.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     return parts.join(".");
+}
+
+export function horizontalScrollTo(el: HTMLElement, parent: HTMLElement) {
+    const elRect = el.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+
+
+    const scrollPosition = elRect.left - parentRect.left;
+    parent.scrollLeft = parent.scrollLeft + scrollPosition;
+
+}
+
+
+export function pullStart(e, setStartPoint) {
+    const { screenY } = e.targetTouches[0];
+    setStartPoint(screenY);
+}
+
+export function pull(e, setPullChange, startPoint) {
+    const touch = e.targetTouches[0];
+    const { screenY } = touch;
+    let pullLength = startPoint < screenY ? Math.abs(screenY - startPoint) : 0;
+    setPullChange(pullLength);
+}
+
+export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
+    setStartPoint(0);
+    setPullChange(0);
+    if (pullChange > 220) {
+        initLoading()
+    }
+    ;
 }

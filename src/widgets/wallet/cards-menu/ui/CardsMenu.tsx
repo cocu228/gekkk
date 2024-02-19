@@ -3,42 +3,88 @@ import {NewCard} from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import styles from './style.module.scss';
-import {MouseEvent, useState} from "react";
+import {MouseEvent, useEffect, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import {numberWithSpaces} from "@/shared/lib/helpers";
-import {apiActivateCard} from "@/shared/api/bank/activate-card";
-import {apiUpdateCard, IResCard, IResErrors} from "@/shared/api";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
+import {apiUpdateCard, IResErrors} from "@/shared/api";
+import {apiBankCardsCardIdActivate, apiBankCardsCardIdUnmask, apiBankGetCards} from "@/shared/(orval)api/gek";
+import {Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {apiUnmaskCard, IUnmaskedCardData} from "@/shared/api/bank/unmask-card";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-import BankCardsCarousel from "@/features/bank-cards-carousel/ui/BankCardsCarousel";
+import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
+import {useSearchParams} from "react-router-dom";
+import {OrderCard} from "@/widgets/wallet/cards-menu/ui/order-card";
 
 // todo: refactoring
-const CardsMenu = () => {
+const CardsMenu = ({
+    isNewCardOpened,
+    setIsNewCardOpened
+}: {
+    isNewCardOpened: boolean;
+    setIsNewCardOpened: (isOpen: boolean) => void;
+}) => {
     const {t} = useTranslation();
     const cardInfoModal = useModal();
+    const [params] = useSearchParams();
+    const newCardUrl = params.has('new');
     const confirmationModal = useModal();
-    const [card, setCard] = useState<IResCard>(null);
+    const [card, setCard] = useState<ICardData>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string>(null);
-    const [cardInfo, setCardInfo] = useState<IUnmaskedCardData>(null);
-    const {
-        updateCard
-    } = storeBankCards(state => state);
+    const [cardInfo, setCardInfo] = useState<CardSecretDTO>(null);
+    const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
     } = useInputState();
+    const [cardsStorage, setCardsStorage] = useState<{
+        cards: ICardData[];
+        refreshKey: string;
+    }>({
+        cards: null,
+        refreshKey: null
+    });
+    
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiBankGetCards();
+            setCardsStorage({
+                cards: data.result,
+                refreshKey: randomId()
+            });
+        })();
+    }, []);
+    
+    const updateCard = (card: ICardData) => {
+        setCardsStorage({
+            cards: [
+                card,
+                ...cardsStorage.cards.filter(c => c.cardId !== card.cardId)
+            ],
+            refreshKey: randomId()
+        });
+        setCard(card);
+    }
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
+        
+        if (item === 'orderPlastic') {
+            setIsOrderOpened(true);
+            return;
+        }
+        
+        if (item === 'showData') {
+            onConfirm(item);
+            cardInfoModal.showModal();
+            return;
+        }
         
         setLoading(false);
         setSelectedItem(item);
@@ -50,7 +96,7 @@ const CardsMenu = () => {
         
         switch (action) {
             case 'activate':
-                apiActivateCard(card.cardId)
+                apiBankCardsCardIdActivate(card.cardId)
                     .then(({ data }) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
@@ -158,16 +204,15 @@ const CardsMenu = () => {
                 break;
                 
             case 'showData':
-                apiUnmaskCard(card.cardId)
+                apiBankCardsCardIdUnmask(card.cardId)
                     .then(({data}) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
                             return;
                         }
                         
-                        setCardInfo(data as IUnmaskedCardData);
+                        setCardInfo(data as CardSecretDTO);
                         confirmationModal.handleCancel();
-                        cardInfoModal.showModal();
                     });
                 break;
                 
@@ -176,20 +221,39 @@ const CardsMenu = () => {
         }
     }
     
+    if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
+        return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
+    }
+    
     return <div>
+        <div className='flex w-full justify-between items-center mb-2'>
+            <span className='font-medium text-lg'>Cards menu</span>
+            <span
+                onClick={() => setIsNewCardOpened(true)}
+                className='underline text-gray-400 hover:cursor-pointer hover:text-gray-600'
+            >
+                Issue a new card
+            </span>
+        </div>
+        
         <div className={styles.CarouselBlock}>
             <div className={styles.CarouselBlockContainer}>
-                <BankCardsCarousel onSelect={setCard} />
+                <BankCardsCarousel
+                    cards={cardsStorage.cards}
+                    refreshKey={cardsStorage.refreshKey}
+                    onSelect={setCard}
+                />
             </div>
         </div>
         
-        {!card ? null : card.cardId === 'new' ? (
-            <NewCard/>
-        ) : (<>
+        {!card ? <Loader className={'relative my-20'}/>
+            : isOrderOpened
+                ? <OrderCard card={card} setIsNewCardOpened={setIsOrderOpened} />
+                : (<>
             {card.isVirtual && (
                 <MenuItem
                     onClick={onClick}
-                    dataItem='activate'
+                    dataItem='orderPlastic'
                     leftPrimary={t("order_plastic_card")}
                 />
             )}
@@ -348,13 +412,13 @@ const CardsMenu = () => {
                 open={cardInfoModal.isModalOpen}
                 onCancel={cardInfoModal.handleCancel}
             >
-                {!cardInfo ? null : <div className='font-medium text-[16px]'>
+                {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
                     <div className="row mb-2">
                         <div className="col">
                             <span><b>{t("card_number")
                                 .toLowerCase()
                                 .capitalize()
-                            }</b>: {formatCardNumber(cardInfo.number)}</span>
+                            }</b>: {formatCardNumber(cardInfo.pan)}</span>
                         </div>
                     </div>
                     
@@ -368,13 +432,13 @@ const CardsMenu = () => {
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvc}</span>
+                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvv}</span>
                         </div>
                     </div>
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_owner")}</b>: {cardInfo.owner.embossedName}</span>
+                            <span><b>{t("card_owner")}</b>: {cardInfo.owner}</span>
                         </div>
                     </div>
                     
@@ -385,7 +449,10 @@ const CardsMenu = () => {
                     </div>
                 </div>}
                 
-                <Form onFinish={cardInfoModal.handleCancel}>
+                <Form onFinish={() => {
+                    cardInfoModal.handleCancel();
+                    setCardInfo(null);
+                }}>
                     <div className="row my-5">
                         <div className="col">
                             <Button size={"xl"}

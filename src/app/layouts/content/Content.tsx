@@ -6,7 +6,7 @@ import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/Modal
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     return (
-        <div className="w-full h-full md:mb-3 mb-10">
+        <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
             <ModalTrxInfoProvider>
                 <UnconfirmedTransactions/>
                 <ActionConfirmationWindow/>

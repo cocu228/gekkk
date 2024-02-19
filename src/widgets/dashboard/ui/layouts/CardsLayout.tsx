@@ -4,12 +4,12 @@ import {CtxRootData} from '@/processes/RootContext';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import SkeletonCard from '../cards/skeleton-card/SkeletonCard';
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import {storeBankCards} from '@/shared/store/bank-cards/bankCards';
+import {storeActiveCards} from '@/shared/store/active-cards/activeCards';
 import {formatCardNumber, formatMonthYear} from '../../model/helpers';
 
 function CardsLayout() {
     const {account} = useContext(CtxRootData);
-    const bankCards = storeBankCards(state => state.bankCards);
+    const bankCards = storeActiveCards(state => state.activeCards);
 
     return (
         <div className="wrapper">

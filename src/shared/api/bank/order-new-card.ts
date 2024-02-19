@@ -1,5 +1,5 @@
 ﻿import {IResErrors, IResResult} from "@/shared/api";
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 
 export interface INewCard {
     accountId: string;

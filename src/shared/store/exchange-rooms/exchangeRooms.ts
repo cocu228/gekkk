@@ -1,18 +1,19 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiGetExchangeRooms, IRoomInfo} from "@/shared/api";
+import {apiListRooms} from "@/shared/(orval)api/gek";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreListExchangeRooms {
-    roomsList: IRoomInfo[];
+    roomsList: RoomInfo[];
     getRoomsList: () => void;
-    addRoom: (info: IRoomInfo) => void;
+    addRoom: (info: RoomInfo) => void;
     removeRoom: (roomNumber: number) => void;
 }
 
 export const storeListExchangeRooms = create<IStoreListExchangeRooms>()(devtools((set) => ({
     roomsList: null,
     getRoomsList: async () => {
-        const {data} = await apiGetExchangeRooms();
+        const {data} = await apiListRooms();
 
         set((state) => ({
             ...state,

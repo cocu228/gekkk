@@ -7,7 +7,7 @@ import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
@@ -22,7 +22,7 @@ const WithdrawFormSepa = () => {
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const navigate = useNavigate();
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
 
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
@@ -36,7 +36,7 @@ const WithdrawFormSepa = () => {
 
     const {
         min_withdraw = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()

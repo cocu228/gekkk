@@ -2,7 +2,7 @@ import React from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import InfoContent from "@/widgets/history/ui/InfoContent";
-import {GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
+import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 
 type TypeProps = {
     children: React.ReactNode,

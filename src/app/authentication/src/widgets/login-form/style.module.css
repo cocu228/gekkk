@@ -1,0 +1,79 @@
+.FormTab {
+  display: flex;
+  justify-content: space-around;
+
+  button {
+      align-self: stretch;
+      width: 50%;
+  }
+}
+
+.FormBody {
+  flex: 1 1 auto;
+  padding: 24px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.FormButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Description {
+  margin-top: 22px;
+  font-size: 14px;
+}
+
+input {
+  height: 36px;
+
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
+  vertical-align: baseline;
+  font-weight: 400;
+  line-height: 1.29;
+  letter-spacing: .16px;
+  border-radius: 0;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  width: 100%;
+
+  border: none;
+  border-bottom: 1px solid var(--gek-light-grey);
+
+  padding: 0 16px;
+  color: var(--gek-dark-blue);
+}
+
+input:focus {
+  border-bottom: 1px solid var(--gek-mid-grey);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--gek-dark-blue);
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px white;
+}
+
+.TabButton {
+  border-width: 0px;
+  padding: 8px 0px;
+  color: var(--gek-dark-grey);
+  background: var(#00000005);
+
+  &:hover {
+    color: var(--gek-dark-blue);
+  }
+}
+
+.TabButtonActive {
+  background-color: transparent;
+}

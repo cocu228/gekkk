@@ -8,8 +8,14 @@ export const skipList = [
 
 export function hunterErrorStatus(error) {
 
+    if (!navigator.onLine) return Promise.reject(null)
+
     if (error.code === "ERR_CANCELED") return Promise.reject(error)
 
+    if (error.response?.status === 401) {
+        this.logout()
+        return Promise.reject(error)
+    }
     if (error.response?.status === 500) {
 
         this.navigate("/", {
@@ -18,6 +24,7 @@ export function hunterErrorStatus(error) {
 
         return Promise.reject(error);
     }
+
     this.setState((prevState: IStateErrorProvider) => ({
         ...prevState,
         errors: [
@@ -30,8 +37,6 @@ export function hunterErrorStatus(error) {
         ]
     }));
 
-    // navigate("/")
-
     return Promise.reject(error);
 }
 
@@ -39,17 +44,19 @@ export class HunterErrorsApi {
 
     readonly response: TResponseErrorProvider;
     filterListForSkip: Array<number> | null;
+    offline: boolean;
     typeResponseError: "BANK" | "GEKKARD" | null;
 
     constructor(response: TResponseErrorProvider) {
         this.response = response;
         this.filterListForSkip = null;
         this.typeResponseError = null;
+        this.offline = !navigator.onLine;
     }
 
     isError() {
         this.typeResponseError = null;
-        return (this.isServerApi() || this.isBankApi()) && !this.isConfirmationToken()
+        return (!this.offline && this.isServerApi() || this.isBankApi()) && !this.isConfirmationToken()
     }
 
     isAuthExpired() {
@@ -60,13 +67,13 @@ export class HunterErrorsApi {
 
         return this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10065
     }
-    
+
     isNewWallet() {
-        
+
         if (isNull(this.typeResponseError)) {
             this.isServerApi()
         }
-        
+
         return this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10001
     }
 
@@ -126,6 +133,8 @@ export class HunterErrorsApi {
 
         return (this.typeResponseError === "BANK" && uncoverArray<{
             code: number
-        }>(this.response.data.errors).code === 449) || (this.typeResponseError === "GEKKARD" && this.response.data.error.code === 10068)
+        }>(this.response.data.errors).code === 449) ||
+            (this.typeResponseError === "GEKKARD" &&
+            this.response.data.error.code === 10068)
     }
 }

@@ -23,10 +23,30 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
             <div className={`wrapper relative ${!md && "md:pl-14 pl-7"}   md:pr-0  pr-7 min-w-[250px] ${isActive ? "active" : ""}`}>
                 {children}
                 <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
-                    {items.map((item, i) => <span key={"ItemMenu_" + i}
-                                                  style={item.style}
-                                                  onClick={() => dropdownMenuFunctions.onAction(item.action)}
-                                                  className={`${styles.DropdownItem} h-full gap-[3%]`}>  {item.icon}{item.item} </span>)}
+                    <div className='flex justify-between px-2 py-1'>
+                        <span className='text-gray-600' data-testid="Accounts">{t('header_menu.accounts')}:</span>
+                        
+                        <RefreshButton
+                            calloutFunc={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                getAccounts(true);
+                            }}
+                        />
+                    </div>
+                    {items.map((item, i) => {
+                        return (
+                            md?
+                                <span key={"ItemMenu_" + i} style={item.style} onClick={() => dropdownMenuFunctions.onAction(item.action)} className={`${styles.DropdownItem} h-full gap-[3%]`}>
+                                    {item.icon}{item.item} 
+                                </span>
+                            :
+                                item.id !== "logout" && 
+                                    <span key={"ItemMenu_" + i} style={item.style} onClick={() => dropdownMenuFunctions.onAction(item.action)} className={`${styles.DropdownItem} h-full gap-[3%]`}>
+                                        {item.icon}{item.item} 
+                                    </span>
+                        )
+                    })}
                     
                 </div>
             </div>

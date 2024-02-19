@@ -1,4 +1,4 @@
-import {createBrowserRouter, Navigate, RouterProvider,} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/new-deposit";
 import CurrentDeposit from '@/pages/current-deposit'
@@ -13,9 +13,10 @@ import CryptoDeposits from "@/pages/crypto-deposits";
 import PartnershipProgram from "@/pages/partnership-program";
 import SupportChatAuthorized from '@/pages/support/chat-authorized';
 import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
-import { Typography } from "@mui/material";
-import { Faq } from '@/pages/faq';
-import { Settings } from '@/pages/settings';
+import {Faq} from '@/pages/faq';
+import {Settings} from '@/pages/settings';
+import HistoryPage from "@/pages/history-page";
+import Transfers from '@/pages/transfers';
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
                 element: <PartnershipProgram/>,
             },
             {
+                path: "transfers/:currency?",
+                element: <Transfers/>
+            },
+            {
                 path: 'exchange',
                 element: <Exchange/>
             },
@@ -67,6 +72,10 @@ const router = createBrowserRouter([
             {
                 path: 'crypto-assets',
                 element: <Assets/>
+            },
+            {
+                path: 'history',
+                element: <HistoryPage/>
             },
             {
                 path: 'wallet/:currency/:tab?',

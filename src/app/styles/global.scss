@@ -39,6 +39,12 @@
   }
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: e-resize;
+}
+
 
 .info-box-warning {
 
@@ -113,16 +119,19 @@
 }
 
 .info-box-description {
-  background-color: var(--color-green);
+  background-color: #E2FFEE;
   font-size: 14px;
   height: min-content;
-  color: #ffffff;
+  color: #285E69;
   border-radius: 8px;
   padding: 18px 16px;
 
   @include max-devices("md") {
     margin-bottom: 16px;
   }
+}
+.info-box-in-wallet{
+  color: #3A5E66;
 }
 
 

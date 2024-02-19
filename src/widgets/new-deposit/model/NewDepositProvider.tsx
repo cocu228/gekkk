@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { CtxNewDeposit, ICtxNewDeposit } from "./context";
-import { apiGetRates } from "@/shared/api";
-import { DepositType, PercentageType, StructedDepositStrategy } from "@/shared/config/deposits/types";
+import {useEffect, useState} from "react";
+import {apiGetRates} from "@/shared/(orval)api/gek";
+import {CtxNewDeposit, ICtxNewDeposit} from "./context";
+import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 
 interface IProps {
     children: React.ReactNode;
@@ -26,7 +26,10 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         if (!state.tokenCurrency) return;
 
         (async () => {
-            const { data } = await apiGetRates();
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
             setState(prev => ({
                 ...prev,
                 rate: data.result[state.tokenCurrency]

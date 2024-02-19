@@ -1,9 +1,6 @@
 import React from "react";
 import {TFunction} from "i18next";
-import {
-    GekkoinInvestPlatform,
-    PromoCodeModal
-} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+import {GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
 import SettingsMobileIcon from "@public/img/icon/SettingsMobileIcon.svg"
@@ -12,26 +9,24 @@ import SupportMobileIcon from "@public/img/icon/SupportMobileIcon.svg"
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 import ActivatePromoMobileIcon from "@public/img/icon/ActivatePromoMobileIcon.svg"
 import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
-import Button from "@/shared/ui/button/Button";
 
 
-
-export class HeaderMenuItems {
-
-    items: THeaderMenuList
-
-    constructor(defaultItems: THeaderMenuList) {
-        this.items = defaultItems
-    }
-
-    get() {
-        return this.items
-    }
-
-    set(item: THeaderMenuList[0]) {
-        this.items.unshift(item)
-    }
-}
+// export class HeaderMenuItems {
+//
+//     items: THeaderMenuList
+//
+//     constructor(defaultItems: THeaderMenuList) {
+//         this.items = defaultItems
+//     }
+//
+//     get() {
+//         return this.items
+//     }
+//
+//     set(item: THeaderMenuList[0]) {
+//         this.items.unshift(item)
+//     }
+// }
 
 /**
 * @param t translation function
@@ -91,7 +86,7 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
                 type: "link",
                 value: null,
             },
-            icon:<button className="flex text-sm font-normal border bg-[#1F3446] text-[#F7F7F0] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[#1F3446]">Get Gekkard PRO</button>,
+            icon:<button className="flex text-sm font-normal border bg-[#29354C] text-[#F7F7F0] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[#29354C]">Get Gekkard PRO</button>,
             style:{
                 display:'flex',
                 justifyContent:"center",

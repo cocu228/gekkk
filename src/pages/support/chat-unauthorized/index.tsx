@@ -1,7 +1,7 @@
 import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
 import Loader from '../chat-authorized/ui/loader/Loader';
-import { useState, Fragment, useEffect, useRef } from 'react';
+import { useState, Fragment, useEffect, useRef, useContext } from 'react';
 import { FormInstance, message } from 'antd';
 import StompInit from '../chat-authorized/stomp-init/StompInit';
 import { apiPostFile } from '../chat-authorized/api/post-file';
@@ -16,6 +16,7 @@ import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
 import Message from '../chat-authorized/message/Message';
 import NewHeader from '@/widgets/new-header/ui/NewHeader';
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
 const SupportChatUnauthorized = () => {
     const { phone, token, tokenHeaderName } = getCookieData<{
@@ -36,6 +37,7 @@ const SupportChatUnauthorized = () => {
     }
 
     const [deviceIdHash] = useDeviceIdHash();
+    const {md} = useContext(BreakpointsContext);
     const sessionId = useSessionId(deviceIdHash);
     const { messages, setMessages } = useChatMessages(sessionId);
     const [isWebSocketReady, setIsWebSocketReady] = useState(false);
@@ -87,7 +89,7 @@ const SupportChatUnauthorized = () => {
             style={{backgroundColor: "var(--new-brand-white)"}}
         >
             <NewHeader />
-            <div className={`${styles.SupportChatComponent} py-20 px-[16.25rem] pb-6`}>
+            <div className={`${styles.SupportChatComponent} ${md? "px-[5%]" : "px-[16.25rem] py-20"}  pb-6`}>
                 <StompInit
                     chatConfig={chatConfig}
                     deviceIdHash={deviceIdHash}
@@ -103,7 +105,7 @@ const SupportChatUnauthorized = () => {
                         </span>
                         <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
 
-                            <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
+                            <div className={`${!md && "h-[38rem]"} overflow-scroll`} ref={chatWindowRef}>
                                 {!isWebSocketReady ? <Loader /> : (
                                     <div>
                                         {messages?.map((message, i, arr) => (

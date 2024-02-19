@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react'
 import {useNavigate} from 'react-router-dom';
-import {actionResSuccess, getCookieData, scrollToTop, uncoverResponse} from '@/shared/lib/helpers';
+import {$ENV, actionResSuccess, getCookieData, scrollToTop, uncoverResponse} from '@/shared/lib/helpers';
 import {CtxRootData} from '@/processes/RootContext';
 import PageHead from "@/shared/ui/page-head/PageHead";
 import {AccountRights} from '@/shared/config/account-rights';
@@ -115,7 +115,7 @@ const InfoBox = () => {
             token: token,
             tokenHeaderName: tokenHeaderName
         });
-        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
+        const gekkoinUrl = $ENV.VITE_GEKKOIN_URL;
         actionResSuccess(response).success(() => {
             window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })

@@ -152,9 +152,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     if(!md){
         return (
             <div id={"History"} className="wrapper">
-                {/* <h3 className=" font-bold">{title}</h3> */}
-    
-                <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(historyTabs)} activeTab={activeTab} setActiveTab={setActiveTab} />
+                <h3 className="pb-4 font-bold">Last transactions</h3>
                 {activeTab === TabKey.CUSTOM && (
                     <div className='flex flex-col mt-3 mb-3'>
                         {t("enter_period")}
@@ -250,6 +248,8 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         return(
             <>
                 <div id={"History"} className="wrapper">
+                <h3 className="py-4 font-bold">Last transactions</h3>
+
                     <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined

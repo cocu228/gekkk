@@ -1,12 +1,12 @@
 import ETokensConst from './constants';
-import {scrollToTop} from "@/shared/lib/helpers";
+import {$ENV, scrollToTop} from "@/shared/lib/helpers";
 import {NavigateFunction} from "react-router-dom";
 import {AccountRights} from "@/shared/config/account-rights";
 import {IWalletInfo} from "@/shared/store/accounts/accounts";
 import {useTranslation} from 'react-i18next';
 
 export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
-    const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
+    const gekkardUrl = $ENV.VITE_GEKKARD_URL;
     const {t} = useTranslation();
 
     return {

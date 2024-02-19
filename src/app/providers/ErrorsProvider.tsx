@@ -4,7 +4,6 @@ import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
-import {useAuth} from "@/app/providers/AuthRouter";
 import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
@@ -13,13 +12,16 @@ import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
 
+
+import {logout} from "@/shared/lib/helpers";
+
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                                                                                    offline,
                                                                                    children
                                                                                }): JSX.Element | null {
-
-    const {logout, login} = useAuth();
+    // todo: useAuth will not work without AuthProvider in root
+    //const {logout} = useAuth();
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);

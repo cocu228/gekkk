@@ -3,7 +3,7 @@ import Button from '../components/button/Button';
 import styles from './style.module.css';
 import PhoneInput from 'react-phone-number-input';
 import Swal from 'sweetalert2';
-import {formatAsNumber} from "../../shared";
+import {formatAsNumber, setCookieData} from "../../shared";
 import flags from 'react-phone-number-input/flags';
 import {SignIn, SignInUser} from "../../shared";
 import PasswordInput from '../components/passwordInput';
@@ -30,6 +30,10 @@ export const LoginForm = ({
 			: await SignIn());
 
 		if (t) {
+			setCookieData([{
+				key: 'phoneNumber',
+				value: phone
+			}]);
 			// show success message
 			Swal.fire({
 				icon: "success",

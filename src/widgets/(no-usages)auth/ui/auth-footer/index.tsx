@@ -1,6 +1,7 @@
 import {memo} from 'react';
 import DownloadApp from '@/assets/download-app.svg?react';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import {$ENV} from "@/shared/lib";
 
 const AuthFooter = memo(() => {
     const {md} = useBreakpoints();
@@ -54,7 +55,7 @@ const AuthFooter = memo(() => {
         <div className='typography-b4-bold' style={{
             color: 'var(--new-light-grey)',
         }}>
-        © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
+        © Gekkard. v.{$ENV.VITE_APP_VERSION}
         </div>
 
     </div>

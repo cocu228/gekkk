@@ -1,4 +1,4 @@
-import { getCookieData } from "@/shared/lib/helpers";
+import {$ENV, getCookieData} from "@/shared/lib/helpers";
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 export type $AxiosError = {
@@ -12,7 +12,7 @@ export type $AxiosResponse<T> = {
     result: T;
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = $ENV.VITE_API_URL;
 
 const sessionHeader = () => {
     const {

@@ -6,8 +6,8 @@ export const helperFilterList = (list: Array<ICtxCurrency>) =>
         (($const !== "EURG" && $const !== "GKE" && $const !== "EUR") && (lockInBalance && lockInBalance > 0)));
 
 export const toLocaleCryptoRounding = (value: number, maximumFractionDigits?: number, minimumFractionDigits?: number): string | null =>
-	value?.toLocaleString("eu", { maximumFractionDigits, minimumFractionDigits});
+	value?.toLocaleString("fr-FR", { maximumFractionDigits, minimumFractionDigits});
 
 export const toLocaleFiatRounding = (value: number): string | null =>
-	value?.toLocaleString("eu", { maximumFractionDigits: 2, minimumFractionDigits: 2});
+	value?.toLocaleString("fr-FR", { maximumFractionDigits: 2, minimumFractionDigits: 2});
 

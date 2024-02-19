@@ -46,7 +46,7 @@ export async function ResetPass(phoneNumber, newPass, emailCode, confirmCode) {
 
     const data = {
         challenge_id: makeAssertionOptions.challenge_id,
-        confirmCode,
+        code: confirmCode,
         public_key: coerceToBase64Url(pub),
         signature: coerceToBase64Url(signature)
     };

@@ -8,12 +8,17 @@ import flags from 'react-phone-number-input/flags';
 import {SignIn, SignInUser} from "../../shared";
 
 interface IParams {
+    phone: string;
     onPasswordForget: () => void;
+    onPhoneChange: (phone: string) => void;
 }
 
-export const LoginForm = ({onPasswordForget}: IParams) => {
-    const [phone, setPhone] = useState('');
-	const [password, setPassword] = useState('');
+export const LoginForm = ({
+    phone,
+    onPhoneChange,
+    onPasswordForget,
+}: IParams) => {
+    const [password, setPassword] = useState('');
 	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
 
     const onSubmit = async (e) => {
@@ -64,7 +69,7 @@ export const LoginForm = ({onPasswordForget}: IParams) => {
                     </Button>
                 </>
                 : <>
-                    <PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={setPhone} />
+                    <PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={onPhoneChange} />
                     <input required minLength={6} placeholder={"Password"} type={"password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
                     
                     <div className={styles.FormButtons} >

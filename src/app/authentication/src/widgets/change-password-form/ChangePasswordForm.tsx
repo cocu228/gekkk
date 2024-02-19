@@ -22,7 +22,9 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [smsSended, setSmsSended] = useState<boolean>(false);
 
-    const onSubmit = async () => {
+    const onSubmit = async (e: any) => {
+        e.preventDefault();
+
         if (!smsSended) {
             setLoading(true);
             let response = await RegisterOptions(emailCode);
@@ -49,7 +51,6 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
 
                 if (response?.result === "Success") {
                     Swal.fire({
-                        timer: 2000,
                         icon: "success",
                         title: 'Reset password',
                         text: 'Reset password Success!',

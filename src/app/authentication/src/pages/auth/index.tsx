@@ -11,6 +11,7 @@ import {SignIn} from "../../shared";
 import '../../styles/swal-material-ui.scss';
 import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
+import { CookiePolicy } from '../../widgets/cookie-policy/CookiePolicy';
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -18,6 +19,7 @@ const Auth = () => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const emailCode = urlParams.get('emailCode');
+	const [phone, setPhone] = useState<string>('');
 
 	const [promptable, promptToInstall, isInstalled] = useAddToHomescreenPrompt();
 	const [form, setForm] = useState<IForm>(!emailCode ? 'LOGIN' : 'RESET_PASSWORD');
@@ -71,11 +73,21 @@ const Auth = () => {
 
 					<main>
 						{form === 'LOGIN'
-							? <LoginForm onPasswordForget={() => setForm('FORGOT_PASSWORD')}/>
+							? <LoginForm
+								phone={phone}
+								onPhoneChange={(phone: string) => setPhone(phone)}
+								onPasswordForget={() => setForm('FORGOT_PASSWORD')}
+							/>
 							: form === 'FORGOT_PASSWORD'
-								? <CallResetForm handleCancel={() => setForm('LOGIN')}/>
+								? <CallResetForm
+									phone={phone}
+									handleCancel={() => setForm('LOGIN')}
+									onPhoneChange={(phone: string) => setPhone(phone)}
+								/>
 								: <ChangePasswordForm emailCode={emailCode} handleCancel={() => setForm('LOGIN')}/>}
 					</main>
+
+                    <CookiePolicy/>
 
 					<details>
 						<summary><h4>Don’t have an account?</h4></summary>

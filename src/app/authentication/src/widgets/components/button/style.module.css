@@ -40,4 +40,8 @@
     border: 2px solid var(--gek-green);
     color: var(--gek-green);
     background: var(--gek-background);
+
+    &:hover {
+        cursor: pointer;
+    }
 }

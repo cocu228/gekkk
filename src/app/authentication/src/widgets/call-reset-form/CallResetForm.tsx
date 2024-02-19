@@ -8,11 +8,16 @@ import PhoneInput from "react-phone-number-input";
 import {ResetPassword} from '../../shared/apiInterfaces';
 
 interface IParams {
+	phone: string;
 	handleCancel: () => void;
+    onPhoneChange: (phone: string) => void;
 }
 
-export const CallResetForm = ({handleCancel}: IParams) => {
-	const [phone, setPhone] = useState<string>('');
+export const CallResetForm = ({
+	phone,
+	handleCancel,
+	onPhoneChange
+}: IParams) => {
 	const [loading, setLoading] = useState<boolean>(false);
 	
 	const onSubmit = async () => {
@@ -22,10 +27,9 @@ export const CallResetForm = ({handleCancel}: IParams) => {
 			
 			if (response.result === "Success") {
 				Swal.fire({
-					timer: 2000,
 					icon: "success",
-					title: 'Email code',
-					text: 'A message with a confirmation code has been sent by email.'
+					title: 'Password reset link',
+					text: 'A password reset link has been sent to your email.'
 				}).then(() => {
 					setLoading(false);
 					handleCancel();
@@ -42,7 +46,7 @@ export const CallResetForm = ({handleCancel}: IParams) => {
 	return <main className={styles.CallReset}>
 		<Form onSubmit={onSubmit} className={styles.FormBody}>
 			<div>
-				<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phone} onChange={setPhone} />
+				<PhoneInput flags={flags} placeholder="Enter phone number" name='user' value={phone} onChange={onPhoneChange} />
 				
 				<p className={styles.Description}>The link will be sent to your personal email</p>
 			</div>

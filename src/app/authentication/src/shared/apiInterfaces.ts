@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-const servPath = "https://gate-dev.gekkard.com:6789/";
+const servPath = import.meta.env.VITE_API_URL;
 
 /**
  * Объект-ошибки для объекта-ответа

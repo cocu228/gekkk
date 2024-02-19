@@ -259,7 +259,7 @@ const FormLoginAccount = memo(() => {
 
     const [phoneInputValue, setPhoneInputValue] = useState('');
 
-    // const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
+    // const gekkardUrl = $ENV.VITE_GEKKARD_URL;
 
     return <div>
         <Modal className='login-modal'

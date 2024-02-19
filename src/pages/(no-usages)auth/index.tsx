@@ -16,7 +16,7 @@ const AuthPage = memo(() => {
     const {md} = useBreakpoints();
     const {stage, toggleStage} = storyDisplayAuth(state => state);
     
-    // const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
+    // const gekkardUrl = $ENV.VITE_GEKKARD_URL;
     // const [{verificationId}] = useSessionStorage<TSessionAuth>("session-auth", {
     //     phone: "",
     //     sessionIdUAS: "",
@@ -96,7 +96,7 @@ const AuthPage = memo(() => {
                         </span>
                             <button
                                 className='account-button'
-                                onClick={() => window.open(import.meta.env.VITE_REGISTRATION_URL
+                                onClick={() => window.open($ENV.VITE_REGISTRATION_URL
                                     ?? 'https://webregistration-dev.gekkard.com/', "_blank")}
                             >
                                 Sign up

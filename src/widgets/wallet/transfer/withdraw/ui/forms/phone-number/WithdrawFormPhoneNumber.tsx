@@ -18,7 +18,7 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import Form from "@/shared/ui/form/Form";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
-import {codeMessage} from "@/shared/config/message";
+
 
 const WithdrawFormPhoneNumber = () => {
     const {t} = useTranslation();

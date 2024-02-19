@@ -9,7 +9,7 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
-import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
+import {$ENV, actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
@@ -111,7 +111,7 @@ export const GekkoinInvestPlatform = ({active = false}) => {
             token: token,
             tokenHeaderName: tokenHeaderName
         })
-        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
+        const gekkoinUrl = $ENV.VITE_GEKKOIN_URL;
         actionResSuccess(response).success(() => {
             window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })

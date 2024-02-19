@@ -7,7 +7,7 @@ const AuthContext = createContext({});
 interface IValue {
     access: boolean;
     login: (phone?: string, token?: string, tokenHeaderName?: string, refreshToken?: string) => void;
-    logout: () => void;
+    logout: () => Promise<void>;
 }
 
 

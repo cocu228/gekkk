@@ -318,10 +318,10 @@ const SidebarMobile = () => {
                                 </NavLink>)
                         )}
                         <div className={styles.AssetInfo5}>
-                            <span className="font-mono">{t("total_balance").capitalize()}</span>
+                            <span >{t("total_balance").capitalize()}</span>
                             <span>~ <span
                                 data-testid="TotalAmount"
-                                className="font-mono">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+                                >{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
                         </div>
                         <Modal
                             width={450}

@@ -33,11 +33,11 @@ export function BottomMenu(){
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange")
     const historyPage = useMatch("/history") //not used   
-    const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
+    // const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
 
     return(
         <>
-            {isOnMainPages &&
+            {//isOnMainPages &&
                 <>
                     {!!homePage &&
                         <div className={styles.AssetInfo3}>

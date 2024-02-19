@@ -21,18 +21,17 @@ Object.defineProperty(String.prototype, 'capitalize', {
     enumerable: false
 });
 
-window.addEventListener('online', updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
+// window.addEventListener('online', updateOnlineStatus);
+// window.addEventListener('offline', updateOnlineStatus);
 
-if (!navigator.onLine) {
-    alert("No internet access")
-}
+// if (!navigator.onLine) {
+//     alert("No internet access")
+// }
 
-function updateOnlineStatus(event) {
-    const condition = navigator.onLine ? "online" : "offline";
-    alert(condition)
-}
-
+// function updateOnlineStatus(event) {
+//     const condition = navigator.onLine ? "online" : "offline";
+//     alert(condition)
+// }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>

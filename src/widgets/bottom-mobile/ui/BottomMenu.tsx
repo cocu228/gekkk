@@ -39,7 +39,8 @@ export function BottomMenu(){
         <>
             {//isOnMainPages &&
                 <>
-                    {!!homePage &&
+                    {
+                    !!homePage &&
                         <div className={styles.AssetInfo3}>
                             <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                                 <div className={styles.NewAsset}>

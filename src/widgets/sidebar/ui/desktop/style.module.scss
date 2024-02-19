@@ -91,7 +91,7 @@
   @include max-devices(md) {
     background-color: transparent;
     position: fixed;
-    bottom: 75px;
+    bottom: 70px;
     z-index: 40;
     left: 50%;
     transform:translateX(-50%)
@@ -409,7 +409,7 @@
 .BottomMenuMobile {
   height: 55px;
   width: 100%;
-  border-top: 1px solid rgba(58, 94, 102, 0.50);
+  border-top: 1px solid #B9B9B5;
   background: white;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

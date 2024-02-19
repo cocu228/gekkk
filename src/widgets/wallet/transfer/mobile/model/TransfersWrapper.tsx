@@ -6,7 +6,6 @@ type IProps = {
 export default function TransfersWrapper({children}: IProps) {
 
     function returnTitle(tag){
-        console.log(tag);
         
         if(tag === "select_currency"){            
             return "Currency:"
@@ -28,8 +27,8 @@ export default function TransfersWrapper({children}: IProps) {
                         )
                     }else{
                         return(
-                            <div>
-
+                            <div className="flex justify-center w-[100%]">
+                                {child}
                             </div>
                         )
                     }

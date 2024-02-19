@@ -12,7 +12,7 @@ import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import NetworkProvider from "../../../model/NetworkProvider";
 import { Select } from "antd";
 
-const ChooseNetworkMobile = ({withdraw = false}) => {
+const ChooseNetworkMobile = ({withdraw = false, setNumber}) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {currencies} = useContext(CtxCurrencies);
@@ -20,9 +20,11 @@ const ChooseNetworkMobile = ({withdraw = false}) => {
     const [open, setOpen] = useState<boolean>(false)
 
 
-    
-    
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
+    useEffect(()=>{
+        setNumber(networkTypeSelect)
+    },[networkTypeSelect])
+    
     const noteVisible = !withdraw
         && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
         && currency !== "EURG"
@@ -50,7 +52,6 @@ const ChooseNetworkMobile = ({withdraw = false}) => {
                         dropdownStyle={{backgroundColor:"transparent", boxShadow:"none"}}
                         className="w-full"
                         placeholder={"Networks not found"} value={networkTypeSelect}
-                        onSelect={setNetworkType}
                         options={networksForSelector}
                         listHeight={500}
                         dropdownRender={(menu)=>{

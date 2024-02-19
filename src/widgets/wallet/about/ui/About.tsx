@@ -1,10 +1,10 @@
 import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
-import {CtxRootData} from "@/processes/RootContext";
+//import {CtxRootData} from "@/processes/RootContext";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
+//import {getTokenDescriptions} from '@/shared/config/coins/descriptions';
 import { useTranslation } from 'react-i18next';
 
 interface IParams {

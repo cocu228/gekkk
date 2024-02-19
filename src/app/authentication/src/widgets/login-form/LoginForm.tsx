@@ -71,7 +71,7 @@ export const LoginForm = ({
                 </>
                 : <>
                     <PhoneInput autoComplete={"username webauthn"} required minLength={8} flags={flags} placeholder="Enter phone number" name='username' value={phone} onChange={onPhoneChange} />
-                    <PasswordInput id='Password' required minLength={6} placeholder={"Password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
+                    <PasswordInput id='Password' skipValidation required minLength={6} placeholder={"Password"} value={password} onChange={e => setPassword(e.currentTarget.value)} name='password' />
                     
                     <div className={styles.FormButtons} >
                         <Button disabled={!phone || !password || phone.length < 8 || password.length < 6} type="submit">Login</Button>

@@ -140,8 +140,11 @@ export function AccessManagement(): JSX.Element | null{
           </Box>
           <Button 
             onClick={()=>{
-              if(newPass === confirmNewPass){
+
+              if((newPass === confirmNewPass) && newPass.length > 5){
                 RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
+              }else if(newPass.length < 6){
+                alert(t("password_too_short"))
               }else{
                 alert(t("invalid_confirm_password"))
               }

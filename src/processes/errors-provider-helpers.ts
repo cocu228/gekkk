@@ -10,13 +10,13 @@ export function hunterErrorStatus(error) {
 
     if (!navigator.onLine) return Promise.reject(null)
 
-    if (error.code === "ERR_CANCELED") return Promise.reject(error)
+    if (error?.code === "ERR_CANCELED") return Promise.reject(error)
 
-    if (error.response?.status === 401) {
+    if (error?.response?.status === 401) {
         this.logout()
         return Promise.reject(error)
     }
-    if (error.response?.status === 500) {
+    if (error?.response?.status === 500) {
 
         this.navigate("/", {
             state: 500
@@ -31,8 +31,8 @@ export function hunterErrorStatus(error) {
             ...prevState.errors,
             {
                 id: randomId(),
-                message: error.message,
-                response: error.response
+                message: error?.message,
+                response: error?.response
             }
         ]
     }));

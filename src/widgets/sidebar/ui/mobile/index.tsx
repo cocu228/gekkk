@@ -191,7 +191,7 @@ const SidebarMobile = () => {
                                         </div>
                                         <div className="row w-full font-mono">
                                             <span
-                                                className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.availableBalance?.toNumber())) ?? '-'} €</span>
+                                                className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.balance?.user_balance)) ?? '-'} €</span>
                                         </div>
 
                                     </div>

@@ -11,18 +11,6 @@ export function randomId(value = 12): string {
     return text;
 }
 
-export const $ENV: ImportMetaEnv & Partial<{
-    VITE_API_URL: string;
-    VITE_BANK_API_URL: string;
-    VITE_APP_STORE_GEKKARD: string;
-    VITE_GOOGLE_PLAY_GEKKARD: string;
-    VITE_GEKKOIN_URL: string;
-    VITE_GEKKARD_URL: string;
-    VITE_REGISTRATION_URL: string;
-    VITE_SUPPORT_WS_URL: string;
-    VITE_SUPPORT_URL: string;
-}> = import.meta.env;
-
 export function getRandomNumberWithLength(length = 3) {
     const min = Math.pow(10, length - 1)
     const max = Math.pow(10, length) - 1

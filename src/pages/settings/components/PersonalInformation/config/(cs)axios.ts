@@ -1,5 +1,4 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {$ENV} from "@/shared/lib";
 
 export type ApiResponse<T, S extends 'success' | 'error'> = S extends 'success'
     ? {
@@ -16,7 +15,7 @@ export const chat_axios = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
-    baseURL: $ENV.VITE_SUPPORT_URL
+    baseURL: import.meta.env.VITE_SUPPORT_URL
 });
 
 

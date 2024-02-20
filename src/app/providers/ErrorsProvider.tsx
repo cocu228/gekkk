@@ -20,8 +20,6 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                                                                                    offline,
                                                                                    children
                                                                                }): JSX.Element | null {
-    // todo: useAuth will not work without AuthProvider in root
-    //const {logout} = useAuth();
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);

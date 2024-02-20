@@ -6,32 +6,8 @@ import { apiRegisterKey, apiRegisterOptions, apiResetPassword } from "@/shared/(
 import { useUserInfo } from "../../PersonalInformation/hooks/use-user-info";
 
 const servPath = import.meta.env.VITE_API_URL;
-export async function ResetPass(phoneNumber, newPass, emailCode, confirmCode) {
+export async function ChangePass(phoneNumber, newPass, confirmCode, makeAssertionOptions, challenge) {
     
-    let makeAssertionOptions;
-    let challenge;
-    try {  
-        let options = {
-            credentials: "include",
-            headers: {
-                'Accept': 'application/json'
-            }
-        }
-        let data;
-        
-        await apiRegisterOptions({code:emailCode}, options).then(res=>data = res.data)
-
-
-        makeAssertionOptions = data.result;
-        
-        
-        challenge = makeAssertionOptions.fido2_options.challenge.replace(/-/g, "+").replace(/_/g, "/");
-
-    } catch (e) {
-        console.error(e);
-        let msg = "Something went really wrong";
-    }   
-     
     makeAssertionOptions.challenge = Uint8Array.from(atob(challenge), c => c.charCodeAt(0));
 
     let passKey = sha256(phoneNumber + newPass + "gekkard.com"); //makeAssertionOptions.fido2_options.rp.id);
@@ -83,3 +59,36 @@ export async function ResetPass(phoneNumber, newPass, emailCode, confirmCode) {
     
 
 }
+
+
+export async function RegisterOptionsToChangePass (setOptions, setChallenge, setSent){
+    let makeAssertionOptions;
+    let challenge;
+    try {  
+        let options = {
+            credentials: "include",
+            headers: {
+                'Accept': 'application/json'
+            }
+        }
+        let data;
+        
+        await apiRegisterOptions(null, options).then(res=>data = res.data)
+
+
+        makeAssertionOptions = data.result;
+        
+        
+        challenge = makeAssertionOptions.fido2_options.challenge.replace(/-/g, "+").replace(/_/g, "/");
+
+        setOptions(makeAssertionOptions)
+        setChallenge(challenge)
+        setSent(true)
+
+    } catch (e) {
+        console.error(e);
+        let msg = "Something went really wrong";
+    }   
+     
+    
+}   

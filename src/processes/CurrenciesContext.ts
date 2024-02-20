@@ -19,6 +19,9 @@ export class ICtxCurrency {
     defaultTokenNetworkOut: null | number;
 
     // Wallet params
+    balance: null | GetBalanceOut;
+
+    // TODO: Это удалить. тот кто писал просто гений
     lockOrders: null | number = null;
     userBalance: null | number = null;
     lockInBalance: null | number = null;
@@ -26,7 +29,7 @@ export class ICtxCurrency {
     availableBalance: null | Decimal = null;
     userBalanceEUREqu: null | number = null;
 
-    constructor(asset: CurrencysOut, wallet?: GetBalanceOut | null) {
+    constructor(asset: CurrencysOut, bal?: GetBalanceOut | null) {
         this.id = asset.unified_cryptoasset_id;
         this.name = asset.name;
         this.flags = getFlagsFromMask(asset.flags, maskCurrencyFlags);
@@ -38,13 +41,16 @@ export class ICtxCurrency {
         this.defaultTokenNetworkIn = asset.default_token_network_in;
         this.defaultTokenNetworkOut = asset.default_token_network_out;
 
-        if (wallet) {
-            this.lockOrders = wallet.lock_orders;
-            this.userBalance = wallet.user_balance;
-            this.lockInBalance = wallet.lock_in_balance;
-            this.lockOutBalance = wallet.lock_out_balance;
-            this.userBalanceEUREqu = wallet.user_balance_EUR_equ;
-            this.availableBalance = wallet.free_balance ? new Decimal(wallet.free_balance) : null;
+        this.balance = bal;
+
+        // TODO: Это удалить. тот кто писал просто гений
+        if (bal) {
+            this.lockOrders = bal.lock_orders;
+            this.userBalance = bal.user_balance;
+            this.lockInBalance = bal.lock_in_balance;
+            this.lockOutBalance = bal.lock_out_balance;
+            this.userBalanceEUREqu = bal.user_balance_EUR_equ;
+            this.availableBalance = bal.free_balance ? new Decimal(bal.free_balance) : null; // что это такое? что за поле?
         }
     }
 }

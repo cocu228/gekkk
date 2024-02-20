@@ -269,18 +269,20 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                             {item.tag?item.tag:"..."}
                                                         </span>
                                                     </div>
-                                                    <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                        <span className={styles.StatusMobile}>
-                                                            {item.status_text}
-                                                        </span>
-                                                        <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                            {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                        </span>
-                                                    </div>
-                                                    <div className={styles.ArrowBtnMobile}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                        </svg>
+                                                    <div className='flex flex-row'>
+                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                            <span className={styles.StatusMobile}>
+                                                                {item.status_text}
+                                                            </span>
+                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                            </span>
+                                                        </div>
+                                                        <div className={styles.ArrowBtnMobile}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </TransactionInfo>
                                             </div>
@@ -302,18 +304,20 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                             {item.tag?item.tag:"..."}
                                                         </span>
                                                     </div>
-                                                    <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                        <span className={styles.StatusMobile}>
-                                                            {item.status_text}
-                                                        </span>
-                                                        <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                            {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                        </span>
-                                                    </div>
-                                                    <div className={styles.ArrowBtnMobile}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                        </svg>
+                                                    <div className='flex flex-row'>
+                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                            <span className={styles.StatusMobile}>
+                                                                {item.status_text}
+                                                            </span>
+                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                            </span>
+                                                        </div>
+                                                        <div className={styles.ArrowBtnMobile}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </TransactionInfo>
                                             </div>
@@ -332,18 +336,20 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                             {item.tag?item.tag:"..."}
                                                         </span>
                                                     </div>
-                                                    <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                        <span className={styles.StatusMobile}>
-                                                            {item.status_text}
-                                                        </span>
-                                                        <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                            {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                        </span>
-                                                    </div>
-                                                    <div className={styles.ArrowBtnMobile}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                        </svg>
+                                                    <div className='flex flex-row'>
+                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
+                                                            <span className={styles.StatusMobile}>
+                                                                {item.status_text}
+                                                            </span>
+                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
+                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
+                                                            </span>
+                                                        </div>
+                                                        <div className={styles.ArrowBtnMobile}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </TransactionInfo>
                                             </div>

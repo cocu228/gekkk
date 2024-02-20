@@ -140,7 +140,12 @@ export function AccessManagement(): JSX.Element | null{
           </Box>
           <Button 
             onClick={()=>{
-              RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
+              if(newPass === confirmNewPass){
+                RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
+              }else{
+                alert(t("invalid_confirm_password"))
+              }
+                
             }}
           >
             {t('send_code')}
@@ -152,8 +157,6 @@ export function AccessManagement(): JSX.Element | null{
                 setChangeCodeSent(false)
               }else if(!changeCodeSent){
                 alert(t("firstly_send_sms"))
-              }else{
-                alert(t("invalid_confirm_password"))
               }
             }}
           >

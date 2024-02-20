@@ -103,8 +103,10 @@ const AssetsTable = ({
                 /> :
                 <div className={styles.SearchInput}>
                     <img src={searchIcon}/>
-                    <input 
-                    className={styles.searchInputInner}
+                    <Input 
+                    className={`${styles.searchInputInner}`}
+                    wrapperClassName={'w-full'}
+                    
                     type="text" 
                     ref={inputRef}
                     data-testid="SearchName"

@@ -34,8 +34,5 @@ export const useInputState = (): { inputCurr: IUseInputState, setInputCurr: (val
 
     }
 
-    console.log("state")
-    console.log(state)
-
     return {inputCurr: state, setInputCurr}
 }

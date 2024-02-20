@@ -279,7 +279,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                     </div>
                                                     <div className={styles.ArrowBtnMobile}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
                                                         </svg>
                                                     </div>
                                                 </TransactionInfo>
@@ -312,7 +312,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                     </div>
                                                     <div className={styles.ArrowBtnMobile}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
                                                         </svg>
                                                     </div>
                                                 </TransactionInfo>
@@ -342,7 +342,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                     </div>
                                                     <div className={styles.ArrowBtnMobile}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
+                                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
                                                         </svg>
                                                     </div>
                                                 </TransactionInfo>

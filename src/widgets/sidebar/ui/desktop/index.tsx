@@ -137,7 +137,7 @@ const SidebarDesktop = () => {
                                             </svg> */}
                                     <svg className={styles.Icon} width="50" height="50" viewBox="0 0 50 51" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                        <path fillRule="evenodd" clipRule="evenodd"
                                               d="M25.0001 0.379272C38.8071 0.379272 50 11.5722 50 25.3793C50 39.1864 38.8071 50.3793 25.0001 50.3793C11.1929 50.3793 0 39.1864 0 25.3793C0 11.5722 11.1929 0.379272 25.0001 0.379272Z"
                                               fill="#285E69"/>
                                         <path

@@ -8,7 +8,6 @@ export function useSessionId(deviceIdHash: string) {
     async function initSession() {
       const response = await apiInitSessionId();
       if (response.status === 'success' && response.data) {
-        console.log(response.data)
         setSessionId(response.data.id);
       }
     }

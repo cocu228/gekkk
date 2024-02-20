@@ -10,7 +10,6 @@ export function getAlignment(array: Array<string>, key: string, md: boolean): st
 
 export function getWidth(array: Array<string>, key: string, md: boolean): string {
     if (!md) return;
-    console.log('e');
     
     return array.indexOf(key) === array.length - 1 && 'max-w-[100px]' ;
 }

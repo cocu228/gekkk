@@ -12,7 +12,7 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
+import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/shared/config/validators";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 
@@ -23,12 +23,8 @@ const UniversalTransferForm = () => {
     const {inputCurr, setInputCurr} = useInputState();
     const [isValid, setIsValid] = useState<boolean>(false);
     const {isModalOpen, showModal, handleCancel} = useModal();
-    const [isTimerAllowed, setIsTimerAllowed] = useState(true);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
-    const {
-        min_withdraw = 0
-    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
     const [inputs, setInputs] = useState<{
         comment: string;
@@ -37,14 +33,11 @@ const UniversalTransferForm = () => {
         comment: '',
         requisite: null
     });
-    
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsTimerAllowed(false);
-        }, 1500);
-        
-        return () => clearTimeout(timer);
-    }, []);
+
+    const {
+        min_withdraw = 0,
+        max_withdraw = 0,
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
     useEffect(() => {
         const {
@@ -93,6 +86,32 @@ const UniversalTransferForm = () => {
                 
                 <div className="row mb-8 w-full">
                     <div className="col">
+                        <InputCurrency.Validator 
+                            value={inputCurr.value.number}
+                            description={getWithdrawDesc(min_withdraw, currency.$const)}
+                            onError={setInputCurrValid}
+                            validators={[
+                                validateBalance(currency, navigate, t),
+                                validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                                validateMaximumAmount(max_withdraw, inputCurr.value.number, currency.$const, t)
+                            ]}
+                        >
+                                    <InputCurrency.PercentSelector
+                                        currency={currency}
+                                        header={<span className='text-gray-600 font-medium text-[16px]'>Amount</span>}
+                                        onSelect={setInputCurr}
+                                    >
+                                    <InputCurrency
+                                        onChange={setInputCurr}
+                                        value={inputCurr.value.string}
+                                        currency={currency.$const}/>
+                                    </InputCurrency.PercentSelector>
+                                </InputCurrency.Validator>
+                    </div>
+                </div>
+                
+                <div className="row mb-8 w-full">
+                    <div className="col">
                         <div className="row mb-2">
                             <div className="col">
                                 <span className="font-medium text-[16px]">Comment (optional)</span>
@@ -115,34 +134,11 @@ const UniversalTransferForm = () => {
                 </div>
             </Form>
             
-            <div className="row mb-8 w-full">
-                <div className="col">
-                    <InputCurrency.Validator 
-                        value={inputCurr.value.number}
-                        description={getWithdrawDesc(min_withdraw, currency.$const)}
-                        onError={setInputCurrValid}
-                        validators={[
-                            validateBalance(currency, navigate, t),
-                            validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)
-                        ]}
-                    >
-                                <InputCurrency.PercentSelector
-                                    currency={currency}
-                                    header={<span className='text-gray-600 font-medium'>Amount</span>}
-                                    onSelect={setInputCurr}
-                                >
-                                <InputCurrency
-                                    onChange={setInputCurr}
-                                    value={inputCurr.value.string}
-                                    currency={currency.$const}/>
-                                </InputCurrency.PercentSelector>
-                            </InputCurrency.Validator>
-                </div>
-            </div>
-            
-            <Modal width={450} title="Transfer confirmation"
-                   onCancel={handleCancel}
-                   open={isModalOpen}
+            <Modal width={450}
+                title={t("transfer_confirmation")}
+                destroyOnClose
+                open={isModalOpen}
+                onCancel={handleCancel}
             >
                 <UniversalTransferConfirm
                     {...inputs}
@@ -155,9 +151,9 @@ const UniversalTransferForm = () => {
                 <div className="col">
                     <Button
                         size={"xl"}
-                        className="w-full"
+                        className="w-full self-center"
                         onClick={showModal}
-                        disabled={!isTimerAllowed && (!isValid || inputCurrValid.value)}
+                        disabled={!isValid || inputCurrValid.value}
                     >Withdraw</Button>
                 </div>
             </div>

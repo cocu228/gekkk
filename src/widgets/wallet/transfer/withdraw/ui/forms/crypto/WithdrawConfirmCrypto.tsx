@@ -97,6 +97,7 @@ const WithdrawConfirmCrypto = memo(({
             .success(() => {
                 const result = uncoverResponse(response)
 
+                // todo: confirmationStatusCode 1, 2, 3
                 if (result.confirmationStatusCode === 0 || reSendCode) {
                     setStageReq(prev => ({
                         ...prev,

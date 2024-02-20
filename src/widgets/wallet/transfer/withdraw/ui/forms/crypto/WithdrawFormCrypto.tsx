@@ -1,4 +1,4 @@
-import {useCallback, useContext, useMemo, useState} from "react";
+import {useContext, useState} from "react";
 import Input from "@/shared/ui/input/Input";
 import {Input as InputAntd} from "antd";
 import Modal from "@/shared/ui/modal/Modal";
@@ -28,17 +28,18 @@ export interface IWithdrawFormCryptoState {
 }
 const WithdrawFormCrypto = () => {
     const {t} = useTranslation();
+    const navigate = useNavigate();
+    const currency = useContext(CtxWalletData);
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
         address: null,
         recipient: null,
         description: null,
     })
-
-    const navigate = useNavigate();
-    const currency = useContext(CtxWalletData);
-    const {isModalOpen, showModal, handleCancel} = useModal();
-    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = 0,
@@ -47,14 +48,7 @@ const WithdrawFormCrypto = () => {
         withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
-
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
-    //
-    // const finalFee = finalFeeEntity.type.percent ?
-    //     calculateAmount(inputCurr.value.number, new Decimal(finalFeeEntity.value.percent), "onlyPercentage") :
-    //     finalFeeEntity.type.number ? finalFeeEntity.value.number : 0;
 
     const finalFee = finalFeeEntity.value.number;
 

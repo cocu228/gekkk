@@ -60,13 +60,12 @@ const SmsCodeModal = ({ cashbackId, isModalOpen, handleCancel, action }: Props) 
         await apiInitDeal(account.account_id, actionTurn, controller.signal)
           .then(({data}) => {
             const token = (data && data.errors && data.errors[0].code === 449) ? data.errors[0].properties.confirmationToken : null;
-            console.log(token)
             setConfirmationToken(token)
           })
 
       } catch (err) {
         if (!controller.signal.aborted) {
-          console.log("ERROR", err.message)
+          //console.log("ERROR", err.message)
         }
       } finally {
         setIsLoading(false);

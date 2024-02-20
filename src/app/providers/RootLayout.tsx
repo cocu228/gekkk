@@ -52,7 +52,6 @@ export default memo(function () {
             const cookieData = getCookieData<{ accountId?: string }>();
             const activeAccount = accounts.find(a => a.current) ?? accounts[0];
 
-            console.log(accounts[0].number)
             setAccount(cookieData.hasOwnProperty("accountId")
                 ? cookieData.accountId
                 : activeAccount.number
@@ -70,8 +69,6 @@ export default memo(function () {
     }
 
     const setAccount = (number: string) => {
-        console.log(`Selected account: ${number}`);
-        
         $axios.defaults.headers['AccountId'] = number;
         setCookieData([{key: "accountId", value: number}]);
         setState(prev => ({

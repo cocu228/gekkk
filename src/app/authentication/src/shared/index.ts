@@ -22,6 +22,7 @@ export async function SignInUser(phone: string, pass: string) {
     let passKey = sha256(phone + pass + opt.rpId);
     let key = ec.keyFromSecret(passKey);
     let pub = key.getPublic();
+    console.log(`Public key (elliptic):${coerceToBase64Url(pub)}`);
     let signature = key.sign(challengeBuf).toBytes();
 
     // console.log("Public key (elliptic):");
@@ -126,8 +127,7 @@ export async function ResetPass(opt: any, pass: string, code: string) {
 
     var key = ec.keyFromSecret(passKey);
     var pub = key.getPublic();
-    console.log("Public key (elliptic):");
-    console.log(coerceToBase64Url(pub));
+    console.log(`Public key (elliptic):${coerceToBase64Url(pub)}`);
     var signature = key.sign(opt.challenge).toBytes();
 
     const data = {

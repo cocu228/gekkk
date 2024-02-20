@@ -62,8 +62,6 @@ const StompInit = ({
             )
           )
         }
-
-        console.log('Received message:', JSON.stringify(stompMessage, null, 2));
       });
     };
 

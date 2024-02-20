@@ -1,13 +1,28 @@
-import {Skeleton} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
-import {CtxRootData} from "@/processes/RootContext";
-import {useContext, useEffect, useRef, useState} from "react";
-import {apiPaymentContact, IResCommission} from "@/shared/api";
+import {useCallback, useContext, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
-import {getRandomInt32} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
+import {useForm} from "antd/es/form/Form";
+import FormItem from "@/shared/ui/form/form-item/FormItem";
+import Timer from "@/shared/model/hooks/useTimer";
+import Input from "@/shared/ui/input/Input";
+import useMask from "@/shared/model/hooks/useMask";
+import {MASK_CODE} from "@/shared/config/mask";
+import {formatAsNumber} from "@/shared/lib";
+import {CtxModalTrxInfo} from "../../../model/context";
+import {CtnTrxInfo} from "../../../model/entitys";
+import {CtxRootData} from "@/processes/RootContext";
+import useError from "@/shared/model/hooks/useError";
+import {codeMessage} from "@/shared/config/message";
+import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
+
+const initStageConfirm = {
+    status: null,
+    txId: null,
+}
 
 const UniversalTransferConfirm = ({
     amount,
@@ -15,39 +30,73 @@ const UniversalTransferConfirm = ({
     requisite,
     handleCancel
 }) => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const {
+        networkTypeSelect,
+        networksForSelector,
+    } = useContext(CtxWalletNetworks);
     
-    const {$const} = useContext(CtxWalletData);
-    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
     
+    const [form] = useForm();
+    const {onInput} = useMask(MASK_CODE);
+    const [input, setInput] = useState("");
+    const {$const} = useContext(CtxWalletData);
+    const {setRefresh} = useContext(CtxRootData);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [stageReq, setStageReq] = useState(initStageConfirm);
+    const [localErrorHunter, ,localErrorInfoBox,] = useError();
+    
+    const setContent = useContext(CtxModalTrxInfo);
+
     const details = useRef({
         tag: comment,
         amount: amount,
         currency: $const,
-        recipient: requisite,
-        client_nonce: getRandomInt32()
+        recipient: requisite
     });
-    
-    const onConfirm = async () => {
-        setLoading(true);
-        
-        // await apiPaymentContact(
-        //     details.current,
-        //     false
-        // ).then(handleCancel);
-    }
-    
-    useEffect(() => {
-        apiInternalTransfer(details.current);
-        
-        // apiPaymentContact(details.current, true).then(({data}) => {
-        //     setState(prev => ({
-        //         ...prev,
-        //         total: data as IResCommission
-        //     }));
-        // });
+
+    const onReSendCode = useCallback(async () => {
+        await onConfirm(true)
     }, []);
+    
+    const onConfirm = async (reSendCode = false) => {
+        setLoading(!reSendCode);
+        
+        const response = await apiInternalTransfer({
+            ...details.current,
+            client_nonce: getRandomInt32(),
+        }, {
+            confirmationTimetick: reSendCode ? null : stageReq.txId,
+            confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
+        });
+        
+        actionResSuccess(response)
+            .success(() => {
+                const result: CreateWithdrawOut = uncoverResponse(response);
+                
+                // todo: confirmationStatusCode 0, 2, 3
+                if (result.confirmationStatusCode === 1 || reSendCode) {
+                    setStageReq(prev => ({
+                        ...prev,
+                        status: result.confirmationStatusCode,
+                        txId: result.txId,
+                    }))
+                }
+                if (result.confirmationStatusCode === 4) {
+                    handleCancel()
+                    setContent(<CtnTrxInfo/>)
+                    setRefresh()
+                } else {
+                    localErrorHunter({message: "Something went wrong.", code: 1})
+                }
+            })
+            .reject((err) => {
+                localErrorHunter(err);
+                form.resetFields();
+            })
+
+        setLoading(false);
+    }
     
     return <div>
         {loading && <Loader className='justify-center'/>}
@@ -103,7 +152,7 @@ const UniversalTransferConfirm = ({
                     <span>{amount ?? '-'} {$const}</span>
                 </div>
             </div>
-            {!comment ? null : <>
+            {comment && <>
                 <div className="row mb-2">
                     <div className="col">
                         <span className="text-gray-400">Comment</span>
@@ -116,13 +165,32 @@ const UniversalTransferConfirm = ({
                 </div>
             </>}
 
-            <Form onFinish={onConfirm}>
-                <div className="row my-5">
-                    <div className="col">
-                        <Button size={"xl"}
-                                htmlType={"submit"}
-                                className="w-full"
-                        >Confirm</Button>
+            <Form form={form} onFinish={(e) => onConfirm()}>
+                {!isNull(stageReq.status) && <>
+                    <span>Transfer confirmation</span>
+                    
+                    <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
+                        <Input type="text"
+                           onInput={onInput}
+                           placeholder="Enter SMS code"
+                           onChange={({target}) => setInput(target.value)}
+                           autoComplete="off"
+                        />
+                    </FormItem>
+                    
+                    <Timer onAction={onReSendCode}/>
+                </>}
+
+                <div className="row mt-4 mb-5">
+                    <div className="col relative">
+                        {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
+                            <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
+                                    className="w-full"
+                                    size={"xl"}>Confirm</Button>}
+                    </div>
+                    
+                    <div className="col flex justify-center mt-4">
+                        {localErrorInfoBox}
                     </div>
                 </div>
             </Form>

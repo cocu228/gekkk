@@ -22,9 +22,7 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [smsSended, setSmsSended] = useState<boolean>(false);
 
-    const onSubmit = async (e: any) => {
-        e.preventDefault();
-
+    const onSubmit = async () => {
         if (!smsSended) {
             setLoading(true);
             let response = await RegisterOptions(emailCode);

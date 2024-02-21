@@ -56,6 +56,7 @@ function Wallet() {
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"
     const isOnCashbackProgramPage = tab === "cashback_program"
+    const isOnTopUpPage = tab === "top_up"
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
@@ -119,13 +120,13 @@ function Wallet() {
 	                <>
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons crypto={isCryptoWallet}>
-                                <TopUpButton wallet/>
+                                <TopUpButton currency={currency} wallet/>
                                 <TransfersButton currency={currency} wallet/>
                                 <ExchangeButton wallet/>
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) &&
+                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -151,6 +152,13 @@ function Wallet() {
                         }
                         {isOnCashbackProgramPage &&
                            <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
+                        }
+                        {tab === "top_up" &&
+                            <div className="mt-5">
+                                <NetworkProvider>
+                                    <TopUp/>
+                                </NetworkProvider>
+                            </div>
                         }
                     </>
                 }

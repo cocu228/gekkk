@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { isCryptoNetwork } from '../../../model/helpers';
 import WithdrawFormCrypto from '../../../withdraw/ui/forms/crypto/WithdrawFormCrypto';
 import WithdrawFormPapaya from '../../../withdraw/ui/forms/papaya/WithdrawFormPapaya';
@@ -10,12 +10,28 @@ import WithdrawFormPhoneNumber from '../../../withdraw/ui/forms/phone-number/Wit
 import UniversalTransferForm from '../../../withdraw/ui/forms/universal-transfer/UniversalTransferForm';
 import CreateTransferCode from '../../../withdraw/ui/forms/create-transfer-code';
 import { CtxWalletNetworks } from '../../../model/context';
+import Loader from '@/shared/ui/loader';
+import { ICtxCurrency } from '@/processes/CurrenciesContext';
 
-type Props = {}
+type Props = {
+    curr:ICtxCurrency
+}
 
-function GetDisplayedForm({}: Props) {
+function GetDisplayedForm({curr}: Props) {
 
-    const {networkTypeSelect} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+
+    const [loading, setLoading] = useState<boolean>(true)
+    
+    useEffect(()=>{
+
+        setLoading(true)
+        setTimeout(()=>{
+            setLoading(false)
+        }, 1000)
+
+    },[curr])
+
 
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
@@ -40,15 +56,20 @@ function GetDisplayedForm({}: Props) {
             case 231:
                 return <CreateTransferCode/>;
             default:
-                return <div>
-                    Sorry, there are no actions available for the selected network.
-                </div>;
+                    return <div>
+                        Sorry, there are no actions available for the selected network.
+                    </div>;
         }
     }
 
-  return (
-    getDisplayForm(networkTypeSelect)
-  )
+    return (
+        loading?
+                <div className='w-[100vw] h-[200px] relative mb-5'>
+                    <Loader/>
+                </div>
+            :
+                getDisplayForm(networkTypeSelect)
+    )
 }
 
 export default GetDisplayedForm

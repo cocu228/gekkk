@@ -34,7 +34,7 @@ function Wallet() {
     const navigate = useNavigate();
     const {currency, tab} = useParams();
     const {account} = useContext(CtxRootData);
-    const {xl, md} = useContext(BreakpointsContext);
+    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
@@ -65,6 +65,15 @@ function Wallet() {
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	
+
+    function needMobile (){
+        if(lg || xxl || xxxl){
+            return true
+        }else if(xl){
+            return false
+        }
+    }
+
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -83,7 +92,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs needMobile={needMobile()} data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
@@ -145,7 +154,7 @@ function Wallet() {
                             )
                         }
                         {isOnProgramsPage &&
-                            <Programs data-tag={"programs"} data-name={t("programs")}/>
+                            <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
                         }
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>

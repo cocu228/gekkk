@@ -13,6 +13,6 @@ export default function ProgramsMobile() {
     const isGKE: boolean = currency === 'GKE';
     
     return (
-        <CashbackProgram currency={currency}/>
+        <CashbackProgram mobile={true} currency={currency}/>
     )
 }

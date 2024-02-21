@@ -5,7 +5,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom'
 
-export default function ProgramsDesktop() {
+export default function ProgramsDesktop({mobile = false}) {
     const {t} = useTranslation()
     const {currency, tab} = useParams()
     const isEUR: boolean = currency === 'EUR';
@@ -13,6 +13,6 @@ export default function ProgramsDesktop() {
     const isGKE: boolean = currency === 'GKE';
 
     return(
-        <CashbackProgram currency={currency}/>
+        <CashbackProgram mobile={mobile} currency={currency}/>
     )
 }

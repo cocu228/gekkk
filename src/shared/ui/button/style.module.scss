@@ -62,6 +62,22 @@
 
     }
   }
+  &.Red {
+    color: white;
+    background: #8F123A;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+      // font-weight: 600; task 701
+    }
+  
+    &:active {
+      background: #29354C;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+  }
   &.Program{
     border-radius: 19.5px;
     background: white;

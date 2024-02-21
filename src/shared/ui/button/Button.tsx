@@ -11,6 +11,7 @@ interface Props {
     custom: boolean;
     program: boolean;
     gray: boolean;
+    red: boolean;
     darkBlue: boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex: number;
@@ -28,6 +29,7 @@ const Button = memo<Partial<Props>>(
          size,
          program = false,
          gray = false,
+         red = false,
          darkBlue = false,
          custom = false,
          text = false,
@@ -37,6 +39,7 @@ const Button = memo<Partial<Props>>(
             <button data-size={size} className={hClassName
                 .while(!!className).do(className)
                 .while(gray).do("Gray")
+                .while(red).do("Red")
                 .while(text).do("Text")
                 .while(darkBlue).do("darkBlue")
                 .while(program).do("Program")

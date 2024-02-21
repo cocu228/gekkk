@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
-import {apiApplyCode} from '@/shared/api';
 import Exchange from '@/widgets/exchange/ui/Exchange';
+import {apiApplyCode} from '@/shared/(orval)api/gek';
 import ExchangeProvider from '@/widgets/exchange/model/ExchangeProvider';
 import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
@@ -22,7 +22,9 @@ export default () => {
     useEffect(() => {
         if (inviteCode) {
             (async () => {
-                const {data} = await apiApplyCode(inviteCode);
+                const {data} = await apiApplyCode({
+                    code: inviteCode
+                });
                 getRoomsList();
 
                 navigate(`/private-room/${data.result}`);
@@ -31,8 +33,7 @@ export default () => {
     }, [inviteCode]);
 
     if (inviteCode) return null;
-    if (roomNumber && !roomInfo) navigate('/exchange');
-
+    if (roomNumber && !roomInfo) navigate('/exchange');    
     return (
         <ExchangeProvider roomInfo={roomInfo} to={to} from={from}>
             <Exchange/>

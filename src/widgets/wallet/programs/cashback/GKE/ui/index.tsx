@@ -8,13 +8,14 @@ import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {apiCreateInvestment} from '@/shared/(orval)api/gek';
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {storeInvestments} from "@/shared/store/investments/investments";
-import {apiCreateInvestment} from '@/shared/api/invest/create-investment';
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
 
 const GkeCashbackProgram = () => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const GkeCashbackProgram = () => {
         <>
             <div className="row mb-10">
                 <div className="col">
-                    <div className="info-box-description">
+                    <div className="info-box-description info-box-in-wallet">
                         <div className="row mb-3">
                             <div className="col">
                                 <p className="font-extrabold text-sm">
@@ -175,7 +176,7 @@ const GkeCashbackProgram = () => {
                             const {data} = await apiCreateInvestment({
                                 amount: inputCurr.value.number,
                                 term_days: 30,
-                                templateType: 3
+                                depo_template_type: InvestmentsTypeEnum[3]
                             });
 
                             if (data.result != null) updateCashbackInvestment(data.result)

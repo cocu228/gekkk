@@ -10,7 +10,7 @@ import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useContext, useEffect, useState} from 'react';
 import {MASK_BANK_CARD_NUMBER} from "@/shared/config/mask";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -18,7 +18,7 @@ import WithdrawConfirmCardToCard from "@/widgets/wallet/transfer/withdraw/ui/for
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useNavigate} from "react-router-dom";
 import Decimal from "decimal.js";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
@@ -28,7 +28,7 @@ const {Option} = Select;
 
 const WithdrawFormCardToCard = () => {
     const currency = useContext(CtxWalletData);
-    const cards = storeBankCards(state => state.bankCards);
+    const cards = storeActiveCards(state => state.activeCards);
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {onInput: onCardNumberInput} = useMask(MASK_BANK_CARD_NUMBER);
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ const WithdrawFormCardToCard = () => {
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
     
     const onInputDefault = ({target}) => {
         setInputs(prev => ({...prev, [target.name]: target.value}));
@@ -61,7 +61,7 @@ const WithdrawFormCardToCard = () => {
         // max_withdraw = null,
         percent_fee = 0,
         withdraw_fee = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
 
 

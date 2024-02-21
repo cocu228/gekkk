@@ -5,7 +5,7 @@ import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
+import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 
@@ -32,9 +32,9 @@ const WithdrawConfirmCardToCard = ({
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const cards = storeBankCards(state => state.bankCards);
-    const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks);
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect);
+    const cards = storeActiveCards(state => state.activeCards);
+    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
         account: account.account_id,

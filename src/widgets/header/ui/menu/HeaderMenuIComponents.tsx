@@ -7,7 +7,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
-import $axios from "@/shared/lib/(cs)axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -106,12 +106,12 @@ export const GekkoinInvestPlatform = ({active = false}) => {
             tokenHeaderName: string
         }>()
 
-        const response = await $axios.post('/pub/v1/auth', {
+        const response = await $axios.post('/gek/v1/auth', {
             authorization: phone,
             token: token,
             tokenHeaderName: tokenHeaderName
         })
-        const gekkoinUrl = import.meta.env[`VITE_GEKKOIN_URL_${import.meta.env.MODE}`];
+        const gekkoinUrl = import.meta.env.VITE_GEKKOIN_URL;
         actionResSuccess(response).success(() => {
             window.open(`${gekkoinUrl ?? 'https://dev.gekkoin.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
         })

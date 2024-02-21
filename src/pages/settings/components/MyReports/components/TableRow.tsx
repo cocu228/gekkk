@@ -1,23 +1,39 @@
 import { Box, IconButton, Typography } from '@mui/material'
 
 import Download from '@/assets/download.svg?react'
+import { StatementsByIBAN, apiDownloadStatements } from '@/shared/api/statements';
 
-export function TableRow() {
+
+export type TableRowProps = { statement: StatementsByIBAN };
+
+export function TableRow({
+  statement
+}: TableRowProps) {
+  const {
+    reportName,
+    from,
+    to,
+    downloadLink
+  } = statement;
+
   return (
     <Box display="flex" gap="30px">
       <Typography flex="0 0 auto" variant="b2" color="dark grey">
-        01.02.2023
+        {from} - {to}
       </Typography>
+
       <Typography
         display="inline-block"
         width="100%"
         variant="b1"
         color="pale blue"
       >
-        February monthly report
+        {reportName}
       </Typography>
 
-      <IconButton sx={{ flex: '0 0 auto', color: 'pale blue' }}>
+      <IconButton onClick={() => {
+        apiDownloadStatements(downloadLink)
+      }} sx={{ flex: '0 0 auto', color: 'pale blue' }}>
         <Download />
       </IconButton>
     </Box>

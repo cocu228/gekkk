@@ -1,5 +1,6 @@
-import $axios from "@/shared/lib/(cs)axios";
-import {IResCard, IResErrors} from "@/shared/api";
+import {IResErrors} from "@/shared/api";
+import {$axios} from "@/shared/lib/(orval)axios";
+import {Card as ICardData} from "@/shared/(orval)api/gek/model";
 
 export interface IParams {
     status: "LOCKED" | "ACTIVE";
@@ -19,7 +20,7 @@ export interface IParams {
 export const apiUpdateCard = (cardId: string, params: Partial<IParams>) =>
     $axios.patch<
         IResErrors
-        | IResCard
+        | ICardData
     >(`/api/v2/cards/${cardId}`, {
         card: {
             ...params

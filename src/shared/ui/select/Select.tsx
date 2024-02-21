@@ -15,7 +15,7 @@ const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null =>
                 {...props}
                 dropdownStyle={{
                     padding: 0,
-                    border: '1px solid #3a5e66',
+                    border: '1px solid #285E69',
                     textAlign: 'center'
                 }}
                 suffixIcon={

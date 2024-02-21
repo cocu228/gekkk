@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { DealTurn } from "../model/helpers";
 // import SmsCodeModal from "./SmsCodeModal";
 import styles from './style.module.scss';
+import NoFeeProgram from "../../../no-fee/ui";
 
 
 interface Props {
@@ -25,10 +26,11 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
 
   const [isChecked, setChecked] = useState(false);
 
-  const isCashbackCardGKE = cashbackId === ActiveBonusProgram.CASHBACK_GKE;
+  const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
+  const toCashbackProgram = cashbackId === ActiveBonusProgram.CASHBACK1;
 
   return (
-    <div className='flex mb-10 justify-center'>
+    <div className='flex mb-10 justify-center relative'>
       <div 
         className={` ${styles.CashbackCard} ${className} ${isActive && styles.CashbackCardActive}`}
       >
@@ -59,40 +61,32 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
         </div>
 
         <div className='mt-[23px]'>
-            <Checkbox
-              className={`bg-white ${(isActive || isCashbackCardGKE) ? 'hidden' : ''}`}
-              onChange={() => setChecked(!isChecked)}
-              disabled={isActive || isCashbackCardGKE}
-              
-            >
-            <span className={`${styles.CashbackCardCheckbox} ${(isActive || isCashbackCardGKE) ? 'pl-0' : ''}`}>
-                Bonus payments are a part of a loyalty program, provided by
-                FINTECH ASSETS OÜ. Terms and Conditions can be found here
-              </span>
-            </Checkbox>
+            <span className={`${styles.CashbackCardCheckbox} ${(isActive || (toNoFeeProgram || toCashbackProgram)) ? 'pl-0' : ''}`}>
+              Bonus payments are a part of a loyalty program, provided by 
+              ADVENTARIUM PTE. LTD. Terms and Conditions can be found here
+            </span> 
         </div>
-
         <div className={styles.CashbackCardButton}>
-          <Button
-            onClick={isCashbackCardGKE
-              ? () => navigate('/wallet/GKE/cashback_program') 
+          {(toNoFeeProgram || toCashbackProgram) && <Button
+            program
+            onClick={toNoFeeProgram
+              ? () => navigate('/wallet/GKE/no_fee_program') 
               // : () => showModal()
-              : () => {}
-
+              : () => navigate('/wallet/GKE/cashback_program')
             } 
-            disabled={!isChecked && !isActive && !isCashbackCardGKE}
+            disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
 
-            className={`whitespace-nowrap ${!isCashbackCardGKE ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
+            className={`whitespace-nowrap ${!(toNoFeeProgram || toCashbackProgram) ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
           >
-            {isCashbackCardGKE
-              ? 'Go to the program' 
-              : !isActive 
-                ? 'Activate' 
-                // : 'Deactivate'
-                : 'Activated'
-
-            }
-          </Button>
+            <div className='flex flex-row'>
+              <div className='flex items-center mr-2 ml-2'>
+                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.920044 0.347656L5.91641 5.34402L0.920044 10.3404" stroke="#3A5E66"/>
+                </svg>
+              </div>
+              {(toNoFeeProgram || toCashbackProgram) && 'Go to the program'}
+            </div>
+          </Button>}
         </div>
       </div>
 

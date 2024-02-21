@@ -1,4 +1,4 @@
-import {$AxiosResponse} from "@/shared/lib/(cs)axios";
+import {$AxiosResponse} from "@/shared/lib/(orval)axios";
 import {AxiosResponse} from "axios";
 
 type TDataErrorGekkard = $AxiosResponse<null>

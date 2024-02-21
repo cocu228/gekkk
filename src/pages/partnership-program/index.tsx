@@ -6,7 +6,10 @@ import TableReferrals from "@/widgets/partnership-program/TableReferrals";
 import {actionResSuccess, uncoverResponse} from "@/shared/lib/helpers";
 import History from "@/widgets/history/ui/History";
 import { useTranslation } from 'react-i18next';
-import {apiGetAgentCode} from "@/shared/api/(gen)new";
+import {apiGetAgentCode} from "@/shared/(orval)api/gek";
+import styles from "./style.module.scss"
+import Footer from "@/widgets/footer";
+
 
 const PartnershipProgram = () => {
 
@@ -32,13 +35,13 @@ const PartnershipProgram = () => {
 }
 
 
-const ContentDescription = (props) => {
+const ContentDescription = () => {
     const {t} = useTranslation();
 
     return <>
         <div className="row mb-8">
             <div className="col">
-                <h5 className="font-medium">{t("partnership_program.reward_for_buying")}</h5>
+                <h5 className="mt-5 font-[700]">{t("partnership_program.reward_for_buying")}</h5>
             </div>
         </div>
         <div className="row mb-5 flex justify-center text-sm">
@@ -88,6 +91,7 @@ const ContentMain = () => {
 
     const {t} = useTranslation();
     const [state, setState] = useState<string>("")
+    const {md} = useContext(BreakpointsContext);
 
     useEffect(() => {
         (async () => {
@@ -99,14 +103,16 @@ const ContentMain = () => {
     }, [])
 
     return <>
-        <div className="row mb-6">
-            <div className="col">
-                <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
+        <div className={md?styles.AgentCodeMobile:""}>
+            <div className={`row ${md?"mb-2 mt-6 ml-2":"mb-6"}`}>
+                <div className="col">
+                    <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
+                </div>
             </div>
-        </div>
-        <div className="row mb-8">
-            <div className="col">
-                <ClipboardField value={state}/>
+            <div className={`row mb-8 ${md&&"flex justify-center"}`}>
+                <div className={`col ${md&&"w-[95%]"}`}>
+                    <ClipboardField value={state}/>
+                </div>
             </div>
         </div>
         <div className="row mb-6">
@@ -114,7 +120,7 @@ const ContentMain = () => {
                 <h4 className="font-bold">{t("partnership_program.referrals_info")}</h4>
             </div>
         </div>
-        <div className="row mb-4">
+        <div className="row mb-10">
             <div className="col">
                 <TableReferrals/>
             </div>
@@ -132,11 +138,16 @@ const ContentMain = () => {
                 <h4 className="font-bold">{t("partnership_program.rewards")}</h4>
             </div>
         </div>
-        <div className="row">
+        <div className={`row ${md&&"mb-[200px]"}`}>
             <div className="col">
                 <History types={[17]}/>
             </div>
         </div>
+        {md&&
+            <div className={`z-[-100] row ${md&&"bg-[#F9F9FA] absolute bottom-[38px] w-full left-[0]"}`}>
+                <Footer textAlight='text-center'/>
+            </div>
+        }
     </>
 }
 

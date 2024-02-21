@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { IResMarketAsset } from "@/shared/api";
 import useModal from "@/shared/model/hooks/useModal";
 import ChooseTokenModal from "../../modals/ChooseTokenModal";
 import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";

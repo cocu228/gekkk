@@ -1,12 +1,8 @@
-@font-face {
-  font-family: 'Montserrat';
-  src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 1000;
-  font-stretch: 25% 151%;
-}
+@import '@fontsource/inter';
+@import '@fontsource/azeret-mono';
 
 @layer base {
   html {
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: 'Inter', 'Azeret Mono', sans-serif;
   }
 }

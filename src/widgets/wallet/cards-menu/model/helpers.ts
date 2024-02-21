@@ -1,6 +1,6 @@
-﻿import {IResCard} from "@/shared/api";
-import {INewCardState} from "@/widgets/wallet/cards-menu/ui/new-card/newCardContext";
+﻿import {INewCardState} from "@/widgets/wallet/cards-menu/ui/new-card/newCardContext";
 import {isNullOrEmpty} from "@/shared/lib/helpers";
+import {IOrderCardState} from "@/widgets/wallet/cards-menu/ui/order-card/newCardContext";
 
 export function ValidateNewCardState(state: INewCardState): boolean {
 	const {
@@ -26,6 +26,26 @@ export function ValidateNewCardState(state: INewCardState): boolean {
 		    street,
 	    );
 	}
+	
+	return requiredFields.every((f) => !isNullOrEmpty(f));
+}
+
+export function ValidateOrderCardState(state: IOrderCardState): boolean {
+	const {
+		city,
+		street,
+		postalCode,
+		countryCode,
+	} = state;
+	
+	const requiredFields = [];
+	
+	requiredFields.push(
+		countryCode,
+		city,
+		postalCode,
+		street,
+	);
 	
 	return requiredFields.every((f) => !isNullOrEmpty(f));
 }

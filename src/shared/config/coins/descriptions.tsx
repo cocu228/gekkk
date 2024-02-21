@@ -6,7 +6,7 @@ import {IWalletInfo} from "@/shared/store/accounts/accounts";
 import {useTranslation} from 'react-i18next';
 
 export function getTokenDescriptions(navigate: NavigateFunction, account: IWalletInfo | null) {
-    const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+    const gekkardUrl = import.meta.env.VITE_GEKKARD_URL;
     const {t} = useTranslation();
 
     return {
@@ -2097,8 +2097,8 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </div>
             </div>
 
-            <div className='bg-green rounded-[4px] mb-4 py-5 px-4 text-white border-[#c3e6cb]'>
-                <p className='font-bold text-xl mb-4'>3% {t("AER_interest")}</p>
+            <div className='info-box-description mb-4'>
+                <p className='font-bold text-xl mb-4'>4% {t("AER_interest")}</p>
                 <p>{t("you_get_per_annum")}:</p>
                 <p>(i) {t("your_weighted_average")};</p>
                 <p>(ii) {t("our_upper_limit")}.</p>

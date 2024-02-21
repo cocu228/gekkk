@@ -9,6 +9,7 @@
   height: 40px;
   align-self: center;
   margin-left: 2%;
+  box-sizing: border-box;
   @include max-devices(xxxl) {
     flex-basis: var(--sidebar-width-xxxl);
   }
@@ -41,8 +42,8 @@
   //z-index: 5;
   //padding-right: var(--content-pad-right);
   margin-bottom: 4px;
-  height: 70px;
-  background-color: #1F3446;
+  height: 65px;
+  background-color: #29354C;
   display: flex;
 
   @include max-devices(xl) {

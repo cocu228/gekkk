@@ -6,7 +6,8 @@ import {getCurrencyRounding, uncoverResponse} from '@/shared/lib/helpers';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
 import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthPrice";
-import {ITradeInfo, TradePriceArray, apiGetTradeInfo, apiGetRates} from '@/shared/api';
+import {apiGetRates, apiGetTradeInfo} from "@/shared/(orval)api/gek";
+import {GetTradeInfoOut} from "@/shared/(orval)api/gek/model";
 import { t } from 'i18next';
 
 interface IParams {
@@ -19,7 +20,7 @@ interface IParams {
 interface DepthOfMarketState {
     price: number;
     loading: boolean;
-    tradeInfo: ITradeInfo;
+    tradeInfo: GetTradeInfoOut;
     rate: Record<string, number>;
 }
 
@@ -94,15 +95,21 @@ function DepthOfMarket({
             }));
 
             (async () => {
-                const rate = !isSwapped
-                    ? await apiGetRates(currencyTo, currencyFrom)
-                    : await apiGetRates(currencyFrom, currencyTo);
+                const rate = await apiGetRates({
+                    ...(!isSwapped ? {
+                        to: currencyTo,
+                        from: [currencyFrom]
+                    } : {
+                        to: currencyFrom,
+                        from: [currencyTo]
+                    })
+                });
 
                 setState(prev => ({
                     ...prev,
                     rate: uncoverResponse(rate) ?? {},
                     loading: false
-                }))
+                }));
             })();
         }
     }
@@ -110,7 +117,11 @@ function DepthOfMarket({
     function updateTradeInfo() {
         updateRate();
         
-        apiGetTradeInfo(currencyFrom, currencyTo, roomKey)
+        apiGetTradeInfo({
+            room_key: Number(roomKey),
+            currency_to: currencyTo,
+            currency_from: currencyFrom
+        })
             .then(({data}) => setState(prev => ({
                     ...prev,
                     tradeInfo: data.result
@@ -124,7 +135,7 @@ function DepthOfMarket({
 
     // Generates depth of market rows
     const getDepthItems = (
-        array: Array<TradePriceArray> = [],
+        array: Array<number[]> = [],
         align: 'top' | 'bottom' = 'top',
         color: 'red' | 'green'
     ) => {

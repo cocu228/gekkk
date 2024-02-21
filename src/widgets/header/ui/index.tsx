@@ -2,9 +2,8 @@ import HeaderMobile from "./mobile/mobile";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import HeaderDesktop from "./desktop/desktop";
-import {useAuth} from "@/app/providers/AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
-import {getFormattedIBAN} from "@/shared/lib/helpers";
+import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
 import {AccountRights} from "@/shared/config/account-rights";
 import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
@@ -13,11 +12,8 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
-
-
 const Header = () => {
 
-    const {logout} = useAuth();
     const navigate = useNavigate();
     const {t, i18n} = useTranslation();
     const {md} = useContext(BreakpointsContext);

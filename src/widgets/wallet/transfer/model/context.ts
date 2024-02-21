@@ -1,32 +1,29 @@
 import React from 'react';
-import {IResTokenNetwork} from "@/shared/api";
 import {ICtxCurrency} from '@/processes/CurrenciesContext';
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
+import {TokensNetwork} from "@/shared/(orval)api/gek/model";
 
 export interface ICtxWalletNetworks {
-    networksDefault: null | Array<IResTokenNetwork>,
+    tokenNetworks: null | Array<TokensNetwork>,
     networksForSelector: null | TNetworksForSelector,
-    networkIdSelect: number | null,
+    networkTypeSelect: number | null,
     addressesForQR: null | string,
     loading: boolean,
     refreshKey: null | string,
     setLoading: (loading: boolean) => void
-    setNetworkId: (networkId: number) => void
+    setNetworkType: (networkId: number) => void
     setRefresh: (quite?: boolean, amount?: number) => void
 }
 
 export const CtxWalletData = React.createContext<null | ICtxCurrency>(null)
 export const CtxWalletNetworks = React.createContext<null | ICtxWalletNetworks>({
-    networksDefault: null,
+    tokenNetworks: null,
     networksForSelector: null,
-    networkIdSelect: null,
+    networkTypeSelect: null,
     addressesForQR: null,
     loading: true,
     refreshKey: null,
-    setLoading: function (loading: boolean) {
-    },
-    setNetworkId: function (networkId: number) {
-    },
-    setRefresh: function (quite: boolean, amount: number) {
-    }
+    setLoading: function (loading: boolean) {},
+    setNetworkType: function (networkId: number) {},
+    setRefresh: function (quite: boolean, amount: number) {}
 });

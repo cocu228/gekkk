@@ -1,9 +1,7 @@
 import {actionSuccessConstructor} from "@/shared/lib/helpers";
-import {IResTokenNetwork} from "@/shared/api";
 import {TNetworksForSelector} from "@/widgets/wallet/transfer/model/types";
 import {AxiosResponse} from "axios";
-
-// export const testGekkardAccount = (networksDefault: IResTokenNetwork[], networkIdSelect: number) => Array.isArray(networksDefault) && networksDefault.find(it => it.id === networkIdSelect)?.form_type === 3
+import {TokensNetwork} from "@/shared/(orval)api/gek/model";
 
 export const helperApiTokenNetworks = function (response: AxiosResponse) {
     const result = Array.isArray(response.data.result) &&
@@ -22,20 +20,20 @@ export const helperApiListAddresses = function (response: AxiosResponse) {
 }
 
 
-export const sortingNetworksForSelector = function (networks: Array<IResTokenNetwork>): TNetworksForSelector | [] {
+export const sortingNetworksForSelector = function (networks: Array<TokensNetwork>): TNetworksForSelector | [] {
     return networks.map(it => ({
-        value: it.id,
+        value: it.network_type,
         label: `${it.contract_name === 'Base' ? '' : `${it.contract_name} / `}
-        ${!it.network_name ? '' : `${it.network_name} / `} ${it.token_name} (${it.token_symbol})`
-    }))
+        ${!it.network_name ? '' : `${it.network_name} / `} ${it.token_name} ${!it.token_symbol ? '' : `(${it.token_symbol})`}`
+    }));
 }
 
 // export const getAddressForChose = function (addresses: Array<IResListAddresses>, network: IResTokenNetwork): undefined | IResListAddresses {
 //     return addresses.find(item => network.network_type.split(",").some(it => it === item.type_address))
 // }
 
-export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, networkId: number): IResTokenNetwork {
-    return networks?.find(it => it.id === networkId)
+export const getChosenNetwork = function (networks: Array<TokensNetwork>, networkType: number): TokensNetwork {
+    return networks?.find(it => it.network_type === networkType);
 }
 
 
@@ -82,3 +80,7 @@ export const getNetworkForChose = function (networks: Array<IResTokenNetwork>, n
 // BitcoinTest = 204,
 // MoneroTest = 205,
 // EthereumSepolia = 206
+export function isCryptoNetwork(networkType: number): boolean {
+    return (networkType >= 10 && networkType < 23)
+        || (networkType >= 200 && networkType <= 223);
+}

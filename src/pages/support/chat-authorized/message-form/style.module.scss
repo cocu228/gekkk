@@ -1,4 +1,6 @@
 ﻿@import 'src/app/styles/typography';
+@import "@styles/mixins.scss";
+
 
 .InputArea {
   display: flex;
@@ -63,6 +65,20 @@
       }
     }
 
+
+    @include max-devices(md){
+      .AddButton{
+        margin-right: .1rem;
+        width: 1.6rem;
+      }
+      .SendButton{
+        height: 2.3rem;
+        width: 4rem;
+
+        margin: 0;
+      }
+      
+    }
   }
 
 

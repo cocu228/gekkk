@@ -1,17 +1,16 @@
 import { Box, styled } from '@mui/material'
 
 export const FaqItem = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isSelected',
-})<{ isSelected?: boolean }>(({ theme, isSelected }) => ({
-  'height': '127px',
+  shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile' && prop !== 'isSomeSelected',
+})<{ isSelected?: boolean, isMobile?: boolean, isSomeSelected?: boolean }>(({ theme, isSelected, isMobile, isSomeSelected }) => ({
+  'height': isMobile ? '95px' : '127px',
   'display': 'inline-flex',
   'cursor': 'pointer',
-  'minWidth': '400px',
+  'width': isMobile ? isSomeSelected ? '65%' : '100%' : isSomeSelected ? '400px' : '30%',
   'flex': '0 0 auto',
-  // 'display': 'flex',
   'flexDirection': 'column',
   'gap': '12px',
-  'padding': '27px',
+  'padding': isMobile ? '12px' : '27px',
   'border': '2px solid',
   'borderColor': theme.palette['strokes 2'],
   'color': isSelected ? theme.palette.white : theme.palette['pale blue'],

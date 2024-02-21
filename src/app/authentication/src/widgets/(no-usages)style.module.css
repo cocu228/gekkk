@@ -1,0 +1,61 @@
+﻿form {
+  flex: 1 1 auto;
+  padding: 24px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+form .FormButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rulesList {  
+  flex: 1;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: row;
+  position: relative;  
+
+  .rulesListH {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    transform-origin: top left;
+    transform: rotate(90deg);
+    color: var(--gek-mid-grey);
+  }
+  .deviceKey
+  {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    font-size: 12px;
+    label
+    {
+      width: auto;
+      text-wrap: nowrap;
+      margin-left: 4px;
+      padding-bottom: 3px;
+      &:hover
+      {
+        text-decoration: underline;
+        color: var(--gek-dark-blue);
+      }
+    }
+    input{
+      width: auto;
+      height: 14px;
+    };
+  }
+}
+.passWrapper
+{
+  display: flex;
+  flex-direction: column;  
+  flex: 1;
+}

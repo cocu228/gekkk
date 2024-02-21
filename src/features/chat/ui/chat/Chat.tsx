@@ -36,7 +36,6 @@ const Chat = ({chatConfig}: IParams) => {
 		
 		await apiPostMessage('raw', sessionId, values.message)
 			.then(res => {
-				console.log(res)
 				form.resetFields()
 			})
 	};

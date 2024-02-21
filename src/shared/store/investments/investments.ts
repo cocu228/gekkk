@@ -1,21 +1,26 @@
 import {create} from 'zustand'
 import {devtools} from "zustand/middleware";
-import {apiInvestments, IResInvestment} from "@/shared/api";
+import {apiGetInvestments} from "@/shared/(orval)api/gek";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 export interface IStoreInvestments {
-    noFeeInvestment: IResInvestment;
-    cashbackInvestment: IResInvestment;
+    noFeeInvestment: GetDepositOut;
+    cashbackInvestment: GetDepositOut;
     getInvestments: () => void;
-    updateNoFeeInvestment: (investment: IResInvestment) => void;
-    updateCashbackInvestment: (investment: IResInvestment) => void;
+    updateNoFeeInvestment: (investment: GetDepositOut) => void;
+    updateCashbackInvestment: (investment: GetDepositOut) => void;
 }
 
 export const storeInvestments = create<IStoreInvestments>()(devtools((set) => ({
     noFeeInvestment: null,
     cashbackInvestment: null,
     getInvestments: async () => {
-        const {data} = await apiInvestments(null, null);
-
+        const {data} = await apiGetInvestments({
+            end: null,
+            start: null,
+            investment_types: [3, 4]
+        });
+        
         set((state) => ({
             ...state,
             // Get noFee investment data
@@ -25,13 +30,13 @@ export const storeInvestments = create<IStoreInvestments>()(devtools((set) => ({
             cashbackInvestment: data.result.find(i => i.dep_type === 3)
         }));
     },
-    updateNoFeeInvestment: (investment: IResInvestment) => {
+    updateNoFeeInvestment: (investment: GetDepositOut) => {
         set((state) => ({
             ...state,
             noFeeInvestment: investment
         }));
     },
-    updateCashbackInvestment: (investment: IResInvestment) => {
+    updateCashbackInvestment: (investment: GetDepositOut) => {
         set((state) => ({
             ...state,
             cashbackInvestment: investment

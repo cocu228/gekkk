@@ -4,8 +4,8 @@
     //border-radius: 8px;
     font-size: 14px;
     font-weight: 400;
-    border: 1px solid #3a5e66;    
-    background-color: #3a5e66;    
+    border: 1px solid #285E69;    
+    background-color: #285E69;    
     color: #F7F7F0;
     transition: .2s;
     &:global(.active) {
@@ -16,7 +16,7 @@
     }
 }
 .TabGroup{
-    background-color: #3a5e66;
+    background-color: #285E69;
     display: inline-flex;
     flex-wrap: wrap;
     border-radius: 8px;

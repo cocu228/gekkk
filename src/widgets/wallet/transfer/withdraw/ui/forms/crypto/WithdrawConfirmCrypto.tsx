@@ -1,7 +1,7 @@
 import {useCallback, useContext, useState, memo, useRef} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw, ICreateWithdrawParams} from "@/shared/api";
+import {apiCreateWithdraw} from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
@@ -13,15 +13,16 @@ import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {useForm} from "antd/es/form/Form";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
 
 
 const initStageConfirm = {
@@ -44,17 +45,17 @@ const WithdrawConfirmCrypto = memo(({
     handleCancel,
 }: TProps) => {
     const {
-        networkIdSelect,
+        networkTypeSelect,
         networksForSelector,
-        networksDefault
+        tokenNetworks
     } = useContext(CtxWalletNetworks)
 
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect)
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
     const [form] = useForm();
     const {
         percent_fee = 0,
         withdraw_fee = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
@@ -65,9 +66,9 @@ const WithdrawConfirmCrypto = memo(({
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
     const [stageReq, setStageReq] = useState(initStageConfirm)
 
-    const fragmentReqParams = useRef<Omit<ICreateWithdrawParams, "client_nonce" | "auto_inner_transfer">>({
+    const fragmentReqParams = useRef<Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
-        token_network: networkIdSelect,
+        token_network: networkTypeSelect,
         amount: amount,
         fee: withdraw_fee,
         address: isNull(address) ? "" : address,
@@ -78,28 +79,28 @@ const WithdrawConfirmCrypto = memo(({
     const onReSendCode = useCallback(async () => {
         await onConfirm(true)
     }, [])
-
+    
     const {onInput} = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
-
-        setLoading(!reSendCode)
-
-        const response = await apiCreateWithdraw(
-            {
-                ...fragmentReqParams.current,
-                auto_inner_transfer: stageReq.autoInnerTransfer,
-                client_nonce: getRandomInt32()
-            },
-            reSendCode ? null : input !== "" ? formatAsNumber(input) : null,
-            reSendCode ? null : stageReq.txId
-        )
-
+        setLoading(!reSendCode);
+        
+        const response = await apiCreateWithdraw({
+            ...fragmentReqParams.current,
+            client_nonce: getRandomInt32(),
+            auto_inner_transfer: stageReq.autoInnerTransfer
+        }, {
+            confirmationTimetick: reSendCode ? null : stageReq.txId,
+            confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
+        });
+        
         actionResSuccess(response)
-
             .success(() => {
                 const result = uncoverResponse(response)
-
-                if (result.confirmationStatusCode === 0 || reSendCode) {
+                
+                if (reSendCode
+                    || result.confirmationStatusCode === 0
+                    || result.confirmationStatusCode === 1
+                    || result.confirmationStatusCode === 2) {
                     setStageReq(prev => ({
                         ...prev,
                         status: result.confirmationStatusCode,
@@ -218,15 +219,20 @@ const WithdrawConfirmCrypto = memo(({
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
             {!isNull(stageReq.status) && <>
-                <span>Transfer confirmation</span>
+                <span className="text-gray-400">Transfer confirmation</span>
                 
                 <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                     
                     <Input type="text"
                        onInput={onInput}
-                       placeholder="Enter SMS code"
-                       onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
+                       onChange={({target}) => setInput(target.value)}
+                       placeholder={stageReq.status === 0
+                        ? "Enter SMS code"
+                        : stageReq.status === 1
+                            ? "Enter code"
+                            : "Enter PIN code"
+                       }
                     />
                 </FormItem>
                 

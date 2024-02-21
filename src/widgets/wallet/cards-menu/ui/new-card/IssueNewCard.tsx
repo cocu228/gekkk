@@ -6,10 +6,12 @@ import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_PHONE} from "@/shared/config/mask";
-import {storeBankCards} from "@/shared/store/bank-cards/bankCards";
 import {ValidateNewCardState} from "@/widgets/wallet/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
+import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import {Switch} from "antd";
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -29,15 +31,25 @@ const RowItem = styled(Box, {
 export function IssueNewCard() {
     const {t} = useTranslation();
     const [isValid, validate] = useState<boolean>(false);
-    const {state, setStep, setState} = useNewCardContext();
-    //const mainCard = storeBankCards(state => state.mainCard);
     const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
+    const {
+        state,
+        close,
+        setStep,
+        setState,
+        switchResidenceAddress
+    } = useNewCardContext();
     
     useEffect(() => {
         validate(ValidateNewCardState(state));
     }, [state]);
     
-    return <>
+    return <div>
+        <Box display="flex" justifyContent="space-between" width="100%">
+            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
+            <CloseWindowButton onClick={close}/>
+        </Box>
+        
         {/*<Box>*/}
         {/*    <Typography fontSize={"16px"} variant='b2 - bold'>{t("card_design")}</Typography>*/}
         {/*</Box>*/}
@@ -55,6 +67,7 @@ export function IssueNewCard() {
         {/*        image={<img width={116} src="/img/GekkardCard.png" alt="GekkardCardPreview"/>}*/}
         {/*    />*/}
         {/*</Box>*/}
+        
         <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
             <RowItem hasBorderBottom /*hasBorderTop paddingTop={"12px"}*/>
                 <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('card_type')}</Typography>
@@ -81,6 +94,7 @@ export function IssueNewCard() {
                 fullWidth
                 value={state.cardholderName}
                 label={t('cardholder_name')}
+                placeholder={t("enter_cardholder_name")}
                 onChange={({target}) => setState({
                     ...state,
                     cardholderName: target.value
@@ -100,15 +114,18 @@ export function IssueNewCard() {
             />
             
             {state.cardType !== 'PLASTIC' ? null : (<Box>
-                {/*<RowItem hasBorderBottom paddingTop={"8px"} alignItems={'flex-end'}>*/}
-                {/*    <Box display={'flex'} flexDirection={"column"} gap="6px">*/}
-                {/*        <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>*/}
-                {/*        <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>*/}
-                {/*    </Box>*/}
-                {/*    <Switch />*/}
-                {/*</RowItem>*/}
+                <RowItem hasBorderBottom paddingTop={"8px"} alignItems={'flex-end'}>
+                    <Box display={'flex'} flexDirection={"column"} gap="6px">
+                        <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>
+                        <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>
+                    </Box>
+                    <Switch
+                        checked={state.isResidenceAddress}
+                        onChange={switchResidenceAddress}
+                    />
+                </RowItem>
                 
-                <RowItem hasBorderBottom>
+                <RowItem hasBorderBottom marginTop={"8px"}>
                     <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('Country')}</Typography>
                     <Box width={"250px"} >
                         <SearchSelect
@@ -209,6 +226,7 @@ export function IssueNewCard() {
                         setStep('ConfirmationNewCard');
                     }}
             >{t("proceed")}</Button>
+            <Button gray onClick={close}>Back</Button>
         </Box>
-    </>
+    </div>
 }

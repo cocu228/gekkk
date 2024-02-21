@@ -14,7 +14,7 @@ import {Switch} from "antd";
 import {transferDescriptions, swiftUrgency, swiftCommission} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 // import Decimal from "decimal.js";
-import {getNetworkForChose} from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {useNavigate} from "react-router-dom";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
@@ -39,11 +39,11 @@ const WithdrawFormSwift = () => {
         country: null
     })
 
-    const {networkIdSelect, networksDefault} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
 
     const {
         min_withdraw = 0,
-    } = getNetworkForChose(networksDefault, networkIdSelect) ?? {}
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()

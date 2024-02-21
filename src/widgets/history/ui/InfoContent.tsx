@@ -6,10 +6,11 @@ import React, {useEffect, useState} from "react";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {AdrTxTypeEnum, GetHistoryTrasactionOut} from "@/shared/api/(gen)new/model";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 import {actionResSuccess, asteriskText, isNull} from "@/shared/lib/helpers";
-import {apiTransactionInfo, ITransactionInfo} from "@/shared/api/various/transaction-info";
+import {AdrTxTypeEnum, GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import {AddressTxOut} from "@/shared/(orval)api/gek/model";
+import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
 
 type TypeProps = GetHistoryTrasactionOut & {
     handleCancel: () => void
@@ -18,7 +19,7 @@ type TypeProps = GetHistoryTrasactionOut & {
 const InfoContent = (props: TypeProps) => {
     const {t} = useTranslation();
     const [localErrorHunter, , localErrorInfoBox] = useError();
-    const [state, setState] = useState<ITransactionInfo | null>(null);
+    const [state, setState] = useState<AddressTxOut | null>(null);
     const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
     const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
     const loading = isNull(state) && isAvailableType;
@@ -28,7 +29,9 @@ const InfoContent = (props: TypeProps) => {
             (async () => {
                 setState(null);
                 
-                const response: AxiosResponse = await apiTransactionInfo(+props.id_transaction);
+                const response: AxiosResponse = await apiAddressTxInfo({
+                    tx_id: +props.id_transaction
+                });
                 
                 actionResSuccess(response)
                     .success(() => setState(response.data.result))

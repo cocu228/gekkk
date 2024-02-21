@@ -1,7 +1,7 @@
-import { create } from 'zustand'
-import { devtools } from "zustand/middleware";
-import { ActiveBonusProgram } from '@/shared/api/bank/deals/get-deals';
-import { apiGetPrograms } from '@/shared/api/wallet/get-programs';
+import {create} from 'zustand'
+import {devtools} from "zustand/middleware";
+import {apiBankGetPrograms} from '@/shared/(orval)api/gek';
+import {ActiveBonusProgram} from '@/shared/api/bank/deals/get-deals';
 
 export interface IStoreDeals {
   deals: ActiveBonusProgram[];
@@ -29,10 +29,9 @@ export const storeDeals = create<IStoreDeals>()(devtools((set) => ({
 
     // const activeProgramsBCC = dataOrganizations[0].accounts.filter((account) => account.accountType === 'PHYSICAL' && account.status !== 'DEBIT_BLOCKED')[0].activeBonusPrograms;
 
-    const {data: userActivePrograms} = await apiGetPrograms();
-    const convertedPrograms = userActivePrograms.result.map(program => program.programType);
-
- 
+    const {data: userActivePrograms} = await apiBankGetPrograms();
+    const convertedPrograms: ActiveBonusProgram[] =
+        userActivePrograms.result.map(program => ActiveBonusProgram[program.programType]);
 
     set(() =>  ({
         deals: [...convertedPrograms, ...initialDealsState],

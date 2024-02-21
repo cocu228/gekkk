@@ -28,8 +28,8 @@ function useValidator() {
         () => ({
             validator(rule, value = '') {
                 return new Promise((resolve, reject) => {
-                    const test = /\D/.test(value)
-                    if (!test && value.length >= 6) {
+                    const test = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value)
+                    if (!test && value.length < 8) {
                         resolve('');
                     } else {
                         reject(new Error(t("auth.invalid_password")));

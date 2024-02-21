@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { AvailableFaqAreas } from './faqAreasMap'
 
 export const faqContext = createContext({
@@ -6,5 +6,6 @@ export const faqContext = createContext({
   selectedArea: '' as AvailableFaqAreas,
 })
 export function useFaqContext() {
-  return useContext(faqContext)
+
+  return useContext(faqContext);
 }

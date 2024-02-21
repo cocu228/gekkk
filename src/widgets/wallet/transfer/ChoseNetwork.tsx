@@ -9,20 +9,22 @@ import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context"
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useTranslation} from "react-i18next";
+import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 const ChoseNetwork = ({withdraw = false}) => {
     const {t} = useTranslation();
-
     const navigate = useNavigate();
     const {$const} = useContext(CtxWalletData);
+    const {md} = useBreakpoints()
     const {currencies} = useContext(CtxCurrencies);
-
-    const {setNetworkId, networksForSelector, networkIdSelect} = useContext(CtxWalletNetworks);
+    
+    const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
     const noteVisible = !withdraw
         && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
         && $const !== "EURG"
-        && networkIdSelect !== 148;
-
+        && (isCryptoNetwork(networkTypeSelect));
+    
     return <>
         <div className="row mb-8 w-full font-medium">
             {(Array.isArray(networksForSelector) && networksForSelector.length < 2) ? null :
@@ -50,9 +52,10 @@ const ChoseNetwork = ({withdraw = false}) => {
                     <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
                         Array.isArray(networksForSelector) &&
                         <Select className="w-full mt-2"
-                                placeholder={"Networks not found"} value={networkIdSelect}
-                                onSelect={setNetworkId}
+                                placeholder={"Networks not found"} value={networkTypeSelect}
+                                onSelect={setNetworkType}
                                 options={networksForSelector}
+                                listHeight={md?200:500}
                     />}
             </div>
         </div>

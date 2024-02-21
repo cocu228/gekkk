@@ -34,8 +34,8 @@ const WithdrawConfirmSepa = ({
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
-    const {networkIdSelect, networksForSelector} = useContext(CtxWalletNetworks);
-    const {label} = networksForSelector.find(it => it.value === networkIdSelect);
+    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+    const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
         purpose: comment,

@@ -1,6 +1,6 @@
 import {Skeleton} from 'antd';
-import {apiGetRates} from '@/shared/api';
 import {useEffect, useState} from 'react';
+import {apiGetRates} from '@/shared/(orval)api/gek';
 import {IDepositStrategyData, getDepositCurrentProfit} from '../model/helpers';
 import {getCurrencyRounding} from '@/shared/lib/helpers';
 import Decimal from 'decimal.js';
@@ -52,7 +52,11 @@ function DepositStats({
         }));
 
         (async () => {
-            const rate = (await apiGetRates()).data.result[linkedCurrency];
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
+            
+            const rate = data.result[linkedCurrency];
 
             setState(prev => ({
                 ...prev,

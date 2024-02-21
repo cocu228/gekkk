@@ -10,11 +10,13 @@ import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useTranslation} from "react-i18next";
 import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 const ChoseNetwork = ({withdraw = false}) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {$const} = useContext(CtxWalletData);
+    const {md} = useBreakpoints()
     const {currencies} = useContext(CtxCurrencies);
     
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
@@ -53,7 +55,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                                 placeholder={"Networks not found"} value={networkTypeSelect}
                                 onSelect={setNetworkType}
                                 options={networksForSelector}
-                                listHeight={500}
+                                listHeight={md?200:500}
                     />}
             </div>
         </div>

@@ -86,12 +86,13 @@
   background: #FFF;
 }
 .TransactionMobile{
+  max-width: 60%;
   margin-left: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1 0 0;
+  // flex: 1 0 0;
   align-self: stretch;
 }
 .TypeOfTransactionMobile{
@@ -125,12 +126,13 @@
 
 .StatusAndAmountOfTransactionMobile{
   display: flex;
-  padding-right: 10px;
+  padding-right: clamp(0px,10px,10px);
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
   gap: 6px;
   align-self: stretch;
+
 }
 .StatusMobile{
   width: 80px;

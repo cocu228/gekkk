@@ -74,8 +74,10 @@ const UniversalTransferConfirm = ({
             .success(() => {
                 const result: CreateWithdrawOut = uncoverResponse(response);
                 
-                // todo: confirmationStatusCode 0, 2, 3
-                if (result.confirmationStatusCode === 1 || reSendCode) {
+                if (reSendCode
+                    || result.confirmationStatusCode === 0
+                    || result.confirmationStatusCode === 1
+                    || result.confirmationStatusCode === 2) {
                     setStageReq(prev => ({
                         ...prev,
                         status: result.confirmationStatusCode,
@@ -167,14 +169,19 @@ const UniversalTransferConfirm = ({
 
             <Form form={form} onFinish={(e) => onConfirm()}>
                 {!isNull(stageReq.status) && <>
-                    <span>Transfer confirmation</span>
+                    <span className="text-gray-400">Transfer confirmation</span>
                     
                     <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                         <Input type="text"
                            onInput={onInput}
-                           placeholder="Enter SMS code"
-                           onChange={({target}) => setInput(target.value)}
                            autoComplete="off"
+                           onChange={({target}) => setInput(target.value)}
+                           placeholder={stageReq.status === 0
+                            ? "Enter SMS code"
+                            : stageReq.status === 1
+                                ? "Enter code"
+                                : "Enter PIN code"
+                           }
                         />
                     </FormItem>
                     

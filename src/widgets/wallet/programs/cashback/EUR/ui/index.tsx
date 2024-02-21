@@ -7,11 +7,11 @@ import { dealsData } from '../model/deals-data';
 // import { dealsSelector } from '@/shared/store/deals/selectors';
 
 interface IParams{
-    currency:string
+    currency:string,
+    mobile?:boolean
 }
 
-const CashbackProgram = ({currency}:IParams) => {
-    const { md } = useContext(BreakpointsContext);
+const CashbackProgram = ({currency, mobile}:IParams) => {
 
     // const getDeals = storeDeals(state => state.getDeals);
     // const dealsDataSelector = dealsSelector();
@@ -24,12 +24,12 @@ const CashbackProgram = ({currency}:IParams) => {
 
     return (
         <>
-            <div className='grid grid-cols-1 justify-center'>
+            <div className='grid grid-cols-1 justify-center rlative'>
                 {dealsData[currency].length 
                     ? dealsData[currency].map(cashback => {
                         const { id, name, accrualPeriod, className, mobileModalColor, iconPath, conditions, isActive } = cashback;
 
-                        return !md
+                        return !mobile
                         ? (
                             <CashbackCard
                                 key={id}

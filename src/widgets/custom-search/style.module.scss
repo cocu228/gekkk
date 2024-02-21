@@ -15,7 +15,6 @@
 }
 .selector {
     height: 50px;
-    width: 400px;
 }
 
 .histWrapper {
@@ -192,4 +191,13 @@
   align-items: center;
   gap: 10px;
   align-self: stretch;
+}
+.select {
+    width: clamp(200px, 250px, 66.6%);
+    // width: 30%;
+}
+
+.selectText {
+    width: clamp(100px, 100px, 120px);
+
 }

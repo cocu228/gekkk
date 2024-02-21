@@ -34,7 +34,7 @@ function Wallet() {
     const navigate = useNavigate();
     const {currency, tab} = useParams();
     const {account} = useContext(CtxRootData);
-    const {xl, md} = useContext(BreakpointsContext);
+    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
@@ -56,6 +56,7 @@ function Wallet() {
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"
     const isOnCashbackProgramPage = tab === "cashback_program"
+    const isOnTopUpPage = tab === "top_up"
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
@@ -64,6 +65,15 @@ function Wallet() {
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	
+
+    function needMobile (){
+        if(lg || xxl || xxxl){
+            return true
+        }else if(xl){
+            return false
+        }
+    }
+
     return (
         <div className="flex flex-col h-full w-full">
             {/*@ts-ignore*/}
@@ -82,7 +92,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs needMobile={needMobile()} data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
@@ -119,13 +129,13 @@ function Wallet() {
 	                <>
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons crypto={isCryptoWallet}>
-                                <TopUpButton wallet/>
+                                <TopUpButton currency={currency} wallet/>
                                 <TransfersButton currency={currency} wallet/>
                                 <ExchangeButton wallet/>
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) &&
+                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -144,13 +154,20 @@ function Wallet() {
                             )
                         }
                         {isOnProgramsPage &&
-                            <Programs data-tag={"programs"} data-name={t("programs")}/>
+                            <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
                         }
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }
                         {isOnCashbackProgramPage &&
                            <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
+                        }
+                        {tab === "top_up" &&
+                            <div className="mt-5">
+                                <NetworkProvider>
+                                    <TopUp/>
+                                </NetworkProvider>
+                            </div>
                         }
                     </>
                 }

@@ -123,7 +123,7 @@ export function Settings() {
                 </div>
                 {md && <Arrow />}
               </FrameItem>
-              {md && <FrameItem
+              {/* {md && <FrameItem
                 component="button"
                 onClick={() => {
                   setSelectedArea('identification-status')
@@ -141,7 +141,7 @@ export function Settings() {
                   </Typography>
                   <Arrow />
                 </div>}
-              </FrameItem>}
+              </FrameItem>} */}
 
               
             </Box>
@@ -152,7 +152,7 @@ export function Settings() {
             </Typography>
 
             <Box display="flex" flexDirection="column" gap={md ? "5px" : "24px"}>
-            {md && <FrameItem
+            {/* {md && <FrameItem
                 onClick={() => {
                   setSelectedArea('access-management')
                 }}
@@ -203,7 +203,7 @@ export function Settings() {
                   <Typography noWrap variant="h3" color={md && '#29354C'} fontWeight={md && '400'}>{'User sessions'}</Typography>
                 </div>
                 {md && <Arrow />}
-              </FrameItem>}
+              </FrameItem>} */}
               <FrameItem
                 onClick={() => {
                   setSelectedArea('access-management')
@@ -265,7 +265,7 @@ export function Settings() {
                 </div>
                 {md && <Arrow />}
               </FrameItem>
-              {md && <FrameItem
+              {/* {md && <FrameItem
                 onClick={() => {
                   setSelectedArea('my-reports')
                 }}
@@ -277,8 +277,8 @@ export function Settings() {
                   <Typography noWrap variant="h3" color={md && '#29354C'} fontWeight={md && '400'}>{'Terms and conditions'}</Typography>
                 </div>
                 {md && <Arrow />}
-              </FrameItem>}
-              <FrameItem
+              </FrameItem>} */}
+              {/* <FrameItem
                 onClick={() => {
                   setSelectedArea('my-reports')
                 }}
@@ -290,7 +290,7 @@ export function Settings() {
                   <Typography noWrap variant="h3" color={md && '#29354C'} fontWeight={md && '400'}>{'Data protection'}</Typography>
                 </div>
                 {md && <Arrow />}
-              </FrameItem>
+              </FrameItem> */}
             </Box>
           </Box>
         </Box>

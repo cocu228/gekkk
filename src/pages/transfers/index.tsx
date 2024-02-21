@@ -52,7 +52,7 @@ export default function Transfers({}: Props) {
                             data-tag={"main"}
                             className='bg-[white] align-center p-5 rounded'
                         >
-                        <GetDisplayedForm/>
+                        <GetDisplayedForm curr={$currency}/>
                         </div>
                     </TransfersWrapper>
                 </NetworkProvider>

@@ -71,6 +71,7 @@ export default function customSearch() {
                 const isFiat = getFlagsFromMask(elem.flags, maskCurrencyFlags).fiatCurrency;
                 return {value: elem?.code, label: elem?.name, isFiat};
             })
+            console.log(formatedResult);
             setAllAssets(formatedResult);
         });
     }
@@ -101,6 +102,11 @@ export default function customSearch() {
         applyHandler();
     }, [refreshKey, activeTab]);
 
+    // useEffect(() => {
+    //     console.log(selectedAsset);
+    //     console.log(asse);
+        
+    // },[selectedAsset])
     const requestMoreHistory = async () => {  
         setLazyLoading(true)
         const lastValue = listHistory[listHistory.length - 1];
@@ -163,10 +169,10 @@ export default function customSearch() {
                         />
                     </Space>
                 </div>
-                <div className='flex flex-col text-lg pt-4 gap-2'>
-                    <div className={`flex flex-row items-center gap-3 ${styles.selector}`}>
-                        <h4 className='w-1/3'>Type:</h4>
-                        <Select className='w-2/3'
+                <div className='flex flex-col text-lg pt-4 gap-2 w-full'>
+                    <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
+                        <h4 className={styles.selectText}>Type:</h4>
+                        <Select className={styles.select}
                                 placeholder={"No data avialible"} 
                                 value={selectedTx}
                                 onSelect={(_, selectedOption) => {
@@ -175,18 +181,18 @@ export default function customSearch() {
                                 options={options}
                                 listHeight={500}/>
                     </div>
-                    <div className={`flex flex-row items-center  gap-3 ${styles.selector}`}>
-                        <h4 className='w-1/3' >Currency:</h4>
-                        <Select className='w-2/3'
+                    <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
+                        <h4 className={styles.selectText} >Currency:</h4>
+                        <Select className={styles.select}
                                 placeholder={"Select currency"} 
                                 value={selectedAsset}
                                 onSelect={(_,opt) => setSelectedAsset(opt)}
                                 options={allAssets}
                                 listHeight={500}/>
                     </div>
-                    {selectedAsset.isFiat && <div className={`flex flex-row items-center justify-center gap-3 max-h-20 ${styles.selector}`}>
-                        <h4 className='w-1/3'>Card:</h4>
-                        <Select className='w-2/3'
+                    {selectedAsset.isFiat && <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
+                        <h4 className={styles.selectText}>Card:</h4>
+                        <Select className={styles.select}
                                 placeholder={"Select card"} 
                                 value={selectedCard}
                                 onSelect={(_, opt) => setSelectedCard(opt.value)}

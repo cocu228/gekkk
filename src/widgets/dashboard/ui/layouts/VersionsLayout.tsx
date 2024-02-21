@@ -4,7 +4,7 @@ import VersionCard from "@/widgets/dashboard/ui/cards/version-card/VersionCard";
 function AppVersions() {
     return (
         <div className="wrapper">
-            {versions.map((ver) => <VersionCard version={ver}/>)}
+            {versions.map((ver) => <VersionCard key={ver.version} version={ver}/>)}
         </div>
     );
 }

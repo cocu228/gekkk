@@ -7,6 +7,7 @@ export const skipList = [
 ]
 
 export function hunterErrorStatus(error) {
+    if (!error) return Promise.reject(null);
 
     if (!navigator.onLine) return Promise.reject(null)
 

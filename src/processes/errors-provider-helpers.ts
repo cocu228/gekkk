@@ -7,6 +7,9 @@ export const skipList = [
 ]
 
 export function hunterErrorStatus(error) {
+    // TODO: Возникают null/undefined-ошибки при попытке выполнения интерсептора axios,
+    // требуется доработать на стадии улучшений/доработок. Данная строчка скрывает эти
+    // ошибки от отображения в ЛК, требуется найти и устранить причину их возникновения
     if (!error) return Promise.reject(null);
 
     if (!navigator.onLine) return Promise.reject(null)

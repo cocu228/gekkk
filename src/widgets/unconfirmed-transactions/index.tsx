@@ -22,19 +22,19 @@ export const UnconfirmedTransactions = () => {
     
     useEffect(() => {
         (async () => {
-            const response = await apiGetHistoryTransactions({
-                currencies: null,
-                end: null,
-                start: null,
-                next_key: null,
-                tx_types: [3],
-                limit: 10
-            });
+            // const response = await apiGetHistoryTransactions({
+            //     currencies: null,
+            //     end: null,
+            //     start: null,
+            //     next_key: null,
+            //     tx_types: [3],
+            //     limit: 10
+            // });
             
-            actionResSuccess(response).success(() => {
-                const {result} = response.data
-                setState(result.filter(item => item.partner_info === ""))
-            });
+            // actionResSuccess(response).success(() => {
+            //     const {result} = response.data
+            //     setState(result.filter(item => item.partner_info === ""))
+            // });
         })();
     }, [refreshKey, account]);
     
@@ -79,7 +79,7 @@ const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
-            {trx.map((item) => (
+            {/* {trx.map((item) => (
                 <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
                     <TransactionInfo infoList={item}>
                         <GTable.Col>
@@ -98,7 +98,7 @@ const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
                         </GTable.Col>
                     </TransactionInfo>
                 </GTable.Row>
-            ))}
+            ))} */}
         </GTable.Body>
     </GTable>
 }

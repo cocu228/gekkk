@@ -27,9 +27,8 @@ export default function Transfers({}: Props) {
     const {currency} = useParams()
     const [curr, setCurr] = useState<string>(currency) 
     const {currencies} = useContext(CtxCurrencies);
-    const $currency : ICtxCurrency = currencies.get(curr?curr:"EUR");
-    
-            
+    const $currency : ICtxCurrency = currencies?.get(curr?curr:"EUR");
+     
 
 
 

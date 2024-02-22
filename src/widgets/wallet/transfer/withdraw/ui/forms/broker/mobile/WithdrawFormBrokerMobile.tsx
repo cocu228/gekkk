@@ -1,0 +1,159 @@
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import Modal from "@/shared/ui/modal/Modal";
+import {useNavigate} from 'react-router-dom';
+import Button from "@/shared/ui/button/Button";
+import {CtxRootData} from '@/processes/RootContext';
+import UseModal from "@/shared/model/hooks/useModal";
+import {debounce} from "@/shared/lib/helpers";
+import InputCurrency from '@/shared/ui/input-currency/ui';
+import {AccountRights} from '@/shared/config/account-rights';
+import {validateBalance, validateMinimumAmount} from '@/shared/config/validators';
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
+import Decimal from "decimal.js";
+import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
+import {useTranslation} from "react-i18next";
+// import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
+
+
+const WithdrawFormBrokerMobile = () => {
+    const {t} = useTranslation();
+
+    const navigate = useNavigate();
+    const {account} = useContext(CtxRootData);
+    const currency = useContext(CtxWalletData);
+
+    const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
+
+    const {inputCurr, setInputCurr} = useInputState()
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
+
+    const [loading, setLoading] = useState(false);
+    const {isModalOpen, showModal, handleCancel} = UseModal();
+
+    const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+    const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+
+    const {
+        network_type = 0,
+        min_withdraw = 0,
+        withdraw_fee = 0,
+        percent_fee = 0
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
+
+    useEffect(() => {
+
+        setLoading(true)
+        delayRes(inputCurr.value.number)
+        delayDisplay()
+
+    }, [inputCurr.value.number]);
+
+    return (<div className="wrapper">
+        <div className="row mb-4">
+            <div className="col">
+                <InputCurrency.Validator
+                    value={inputCurr.value.number}
+                    onError={setInputCurrValid}
+                    description={getWithdrawDesc(min_withdraw, currency.$const)}
+                    validators={[
+                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                        validateBalance(currency, navigate, t)]}>
+                    <InputCurrency.PercentSelector onSelect={setInputCurr}
+                                                   header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                                   currency={currency}>
+                        <InputCurrency.DisplayBalance currency={currency}>
+                            <InputCurrency
+                                value={inputCurr.value.string}
+                                currency={currency.$const}
+                                onChange={setInputCurr}
+                            />
+                        </InputCurrency.DisplayBalance>
+                    </InputCurrency.PercentSelector>
+                </InputCurrency.Validator>
+            </div>
+        </div>
+        <div className="row mb-4 p-2 flex flex-col gap-2 md:gap-1  bg-[#DADADA] rounded-lg rounded-tr-none">
+                <div className="col text-xl text-[#3A5E66] text-[14px] font-bold">
+                    <span>1 EUR = 1 EURG*</span>
+                </div>
+
+                <div className="col text-[#3A5E66] text-[10px] text-xs">
+                    <span><b>*NOTE</b>:  Standard exchange fee is <b className='text-[#3A5E66]'>{percent_fee}%</b>
+                        {account.rights[AccountRights.IsJuridical] ? null :
+                            <span className="font-normal"> If you <span
+                                className='text-[#45AD77] hover:cursor-pointer hover:underline'
+                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                            >
+                                freeze GKE tokens    
+                            </span> fee is <b>0%</b>.
+                        </span>}
+                    </span>
+                </div>
+            </div>
+
+
+        
+        <div className="row">
+            <div className="col">
+                <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row">
+                            <span>You will pay</span>
+                        </div>
+                        <div className="row">
+                            <span>You will get</span>
+                        </div>
+                        <div className="row">
+                            <span>
+                          Fee
+                        </span>
+                        </div>
+                    </div>
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Modal
+            width={450}
+            open={isModalOpen}
+            onCancel={handleCancel}
+            title={"Withdraw confirmation"}>
+            <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
+        </Modal>
+        <div className="row w-full mt-4 mb-[10px]">
+            <div className="col">
+                <Button
+                    size={"xl"}
+                    disabled={!inputCurr.value.number || inputCurrValid.value || loading}
+                    onClick={showModal}
+                    className="w-full">
+                    Transfer
+                </Button>
+            </div>
+        </div>
+        <div className='w-full flex justify-center'>
+            <span className='text-[#9D9D9D] text-[10px]'>
+                Fee is <span className='font-bold'>{percent_fee}%</span> per transaction
+            </span>
+        </div>
+    </div>)
+};
+
+export default WithdrawFormBrokerMobile;

@@ -1,0 +1,162 @@
+import Button from "@/shared/ui/button/Button";
+import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
+import Modal from "@/shared/ui/modal/Modal";
+import CreateCodeMobile from "./CreateCodeMobile";
+import useModal from "@/shared/model/hooks/useModal";
+import { useTranslation } from 'react-i18next';
+import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import { validateBalance } from "@/shared/config/validators";
+import { useContext, useState } from "react";
+import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
+import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
+import { useNavigate } from "react-router-dom";
+import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
+import { actionResSuccess } from "@/shared/lib";
+import { apiCreateTxCode } from "@/shared/(orval)api";
+import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
+import useError from "@/shared/model/hooks/useError";
+import Tooltip from "@/shared/ui/tooltip/Tooltip";
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
+import Decimal from "decimal.js";
+
+const CreateTransferCodeMobile = () => {
+    const {t} = useTranslation();
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const navigate = useNavigate();
+    const {inputCurr, setInputCurr} = useInputState()
+    const {setInputCurrValid} = useInputValidateState()
+    const currency = useContext(CtxWalletData)
+    const [loading, setLoading] = useState(false);
+    const [checkbox, setCheckbox] = useState(false);
+    const [newCode, setNewCode] = useState("");
+
+    const isInputEmptyOrNull = inputCurr.value.number === 0;
+    const isInputMoreThanBalance = inputCurr.value.number > currency.availableBalance.toNumber();
+    
+    const getListTxCode = storeListTxCode(state => state.getListTxCode);
+    
+    const [localErrorHunter, , localErrorInfoBox] = useError();
+    
+    const onCreateCode = async () => {
+        setLoading(true)
+        
+        const response = await apiCreateTxCode({
+            typeTx: checkbox ? 12 : 11,
+            timeLimit: false,
+            currency: currency.$const,
+            amount: inputCurr.value.number,
+            clientNonce: new Date().getTime()
+        });
+        
+        actionResSuccess(response).success(async () => {
+            setNewCode(response.data.result.code)
+            await getListTxCode()
+            setLoading(false)
+        }).reject((error) => {
+            localErrorHunter(error)
+            setLoading(false)
+        })
+
+    }
+
+    return <div>
+        <div className="row">
+            <div className="col">
+                <div className="wrapper w-full">
+                    <InputCurrency.Validator
+                        value={inputCurr.value.number}
+                        onError={setInputCurrValid}
+                        validators={[validateBalance(currency, navigate, t)]}
+                    >
+                        <InputCurrency.PercentSelector onSelect={setInputCurr}
+                                                        header={<span className='text-[#1F3446] font-medium'>Amount</span>}
+                                                        currency={currency}>
+                            <InputCurrency.DisplayBalance currency={currency}>
+                                <InputCurrency
+                                    value={inputCurr.value.string}
+                                    currency={currency.$const}
+                                    onChange={setInputCurr}
+                                />
+                            </InputCurrency.DisplayBalance>
+                        </InputCurrency.PercentSelector>
+                    </InputCurrency.Validator>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-4">
+            <span className="text-[10px] text-[#B9B9B5]">
+                *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
+            </span>
+        </div>
+        <div className="row mb-16">
+            <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
+                <div className='flex items-center'>
+                    {t("use_confirmation")}
+
+                    <div className="flex items-center">
+                        <Tooltip text={t("when_using_confirmation")}>
+                            <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                                <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
+                            </div>
+                        </Tooltip>
+                    </div>
+                </div>
+            </Checkbox>
+        </div>
+        <div className="row">
+            <div className="col">
+                <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row">
+                            <span>You will pay</span>
+                        </div>
+                        <div className="row">
+                        <span>
+                          You will get
+                        </span>
+                        </div>
+                        <div className="row">
+                            <span>
+                          Fee
+                        </span>
+                        </div>
+                    </div>
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
+                        </div>
+                        {/* <div className="row flex items-end">
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? "Loading..." : <span
+                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
+                        </div> 
+                        
+                        TODO: Для чего это в переводе другому?
+                        */}
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div className="row mb-5">
+            <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
+            <Modal onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
+                <CreateCodeMobile/>
+            </Modal>
+        </div>
+        <div className="row mb-2">
+            <h3 className="text-lg font-bold">
+                {t("unredeemed_codes_info")}
+            </h3>
+        </div>
+        <div className="row">
+            <TransferTableCode isOwner/>
+        </div>
+    </div>
+}
+
+export default CreateTransferCodeMobile;

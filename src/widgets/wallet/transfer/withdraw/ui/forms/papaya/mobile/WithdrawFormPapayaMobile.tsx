@@ -17,7 +17,7 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useTranslation} from "react-i18next";
-import WithdrawConfirmCryptoMobile from '../../crypto/WithdrawConfirmCryptoMobile/WithdrawConfirmCryptoMobile';
+import WithdrawConfirmCryptoMobile from '../../crypto/mobile/WithdrawConfirmCryptoMobile';
 
 
 const WithdrawFormPapayaMobile = () => {

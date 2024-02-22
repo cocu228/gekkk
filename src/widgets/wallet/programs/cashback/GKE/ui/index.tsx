@@ -176,7 +176,7 @@ const GkeCashbackProgram = () => {
                             const {data} = await apiCreateInvestment({
                                 amount: inputCurr.value.number,
                                 term_days: 30,
-                                depo_template_type: InvestmentsTypeEnum[3]
+                                depo_template_type: 3
                             });
 
                             if (data.result != null) updateCashbackInvestment(data.result)

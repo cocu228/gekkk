@@ -1,8 +1,7 @@
 main.ResetForm {
-  aspect-ratio: none;
+  aspect-ratio: 0;
   max-height: none;
-  min-height: none;
-  height: 300px;
+  min-height: 300px;
 }
 
 .FormBody {
@@ -17,4 +16,34 @@ main.ResetForm {
 .FormButtons {
   display: flex;
   justify-content: space-between;
+}
+
+.FormTab {
+  display: flex;
+  justify-content: space-around;
+
+  button {
+      align-self: stretch;
+      width: 50%;
+  }
+}
+
+.TabButton {
+  border-width: 0px;
+  padding: 8px 0px;
+  color: var(--gek-dark-grey);
+  background: var(#00000005);
+
+  &:hover {
+    color: var(--gek-dark-blue);
+  }
+}
+
+.TabButtonActive {
+  background-color: transparent;
+}
+
+.Description {
+  margin-top: 22px;
+  font-size: 14px;
 }

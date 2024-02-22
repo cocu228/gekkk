@@ -6,17 +6,24 @@ import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import useError from "@/shared/model/hooks/useError";
+import {getChosenNetwork} from "../../../model/helpers";
 
 const TopUpFormQR = () => {
     const {$const, name} = useContext(CtxWalletData);
     const [localErrorHunter, , localErrorInfoBox] = useError();
-    const {setRefresh, setLoading, addressesForQR, networkTypeSelect} = useContext(CtxWalletNetworks);
+    const {
+        setRefresh,
+        setLoading,
+        tokenNetworks,
+        addressesForQR,
+        networkTypeSelect
+    } = useContext(CtxWalletNetworks);
     
     const onCreateAddress = async () => {
         setLoading(true);
         
         const response = await apiCreateAddress({
-            token_network: networkTypeSelect
+            token_network: getChosenNetwork(tokenNetworks, networkTypeSelect).id
         });
         
         actionResSuccess(response).success(() => setRefresh()).reject(localErrorHunter);

@@ -202,7 +202,7 @@ const NoFeeProgram = () => {
                             const {data} = await apiCreateInvestment({
                                 amount: inputCurr.value.number,
                                 term_days: 90,
-                                depo_template_type: InvestmentsTypeEnum[4]
+                                depo_template_type: 4
                             });
 
                             if (data.result != null) updateNoFeeInvestment(data.result)

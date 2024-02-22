@@ -53,10 +53,10 @@ header {
 main {
   display: flex;
   flex-direction: column;
+  aspect-ratio: 1.85;
   flex: 1 1 auto;
   max-width: 500px;
   min-width: 320px;
-  min-height: 275px;
   max-height: 270px;
 
   @media (min-width:700px) {

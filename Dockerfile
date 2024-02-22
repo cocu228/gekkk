@@ -9,5 +9,6 @@ COPY /dist /usr/share/nginx/html
 #COPY /src/app/authentication/dist/assets/ /usr/share/nginx/html/assets/
 
 #COPY /nginx.conf /etc/nginx/conf.d/default.conf
+COPY /nginx.conf /etc/nginx/http.d/default.conf
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

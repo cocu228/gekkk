@@ -142,33 +142,30 @@ export function AccessManagement(): JSX.Element | null{
               placeholder={t("enter_confirm_code")} 
             />
           </Box>
-          <Button 
-            onClick={()=>{
-
-              if(valid && newPass === confirmNewPass){
-                RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
-              }else if(newPass !== confirmNewPass){
-                alert(t("confirm_pass_error"))
-              }else{
-                alert(t("validation_error"))
-              }
-              
-            }}
-          >
-            {t('send_code')}
-          </Button>
-          <Button
-            onClick={()=>{
-              if((newPass === confirmNewPass) && changeCodeSent){
-                ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
-                setChangeCodeSent(false)
-              }else if(!changeCodeSent){
-                alert(t("firstly_send_sms"))
-              }
-            }}
-          >
-            {t('Save')}
-          </Button>
+          <div className='w-full flex flex-row justify-between'>
+            <Button
+              disabled={!valid || !(newPass === confirmNewPass)}
+              onClick={()=>{
+                if(valid && newPass === confirmNewPass){
+                  RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
+                }
+            
+              }}
+            >
+              {t('send_code')}
+            </Button>
+            <Button
+              disabled={!changeCodeSent}
+              onClick={()=>{
+                if((newPass === confirmNewPass) && changeCodeSent){
+                  ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
+                  setChangeCodeSent(false)
+                }
+              }}
+            >
+              {t('Save')}
+            </Button>
+          </div>
         </AreaWrapper>
         <AreaWrapper secondary title={t("user_keys_list")}>
           <div className={styles.Container}>

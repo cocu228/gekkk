@@ -12,6 +12,7 @@ import CreateTransferCode from '../../../withdraw/ui/forms/create-transfer-code'
 import { CtxWalletNetworks } from '../../../model/context';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
+import WithdrawFormPapayaMobile from '../../../withdraw/ui/forms/papaya/mobile/WithdrawFormPapayaMobile';
 
 type Props = {
     curr:ICtxCurrency
@@ -19,7 +20,7 @@ type Props = {
 
 function GetDisplayedForm({curr}: Props) {
 
-    const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect} = useContext(CtxWalletNetworks);
 
     const [loading, setLoading] = useState<boolean>(true)
     
@@ -40,7 +41,7 @@ function GetDisplayedForm({curr}: Props) {
         
         switch (networkType) {
             case 150:
-                return <WithdrawFormPapaya/>;
+                return <WithdrawFormPapayaMobile/>;
             case 151:
                 return <WithdrawFormSepa/>;
             case 152:

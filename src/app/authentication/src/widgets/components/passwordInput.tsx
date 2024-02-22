@@ -23,7 +23,7 @@ const PlainTextToggle = ({
       onClick={() => setIsPlainText(!isPlainText)}
     >
       <span className="flex items-center flex-nowrap gap-2">
-        {isPlainText ? (
+        {!isPlainText ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g data-name="Layer 2">

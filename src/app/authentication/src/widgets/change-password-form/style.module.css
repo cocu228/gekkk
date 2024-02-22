@@ -1,8 +1,7 @@
 main.ResetForm {
-  aspect-ratio: none;
+  aspect-ratio: 0;
   max-height: none;
   min-height: 300px;
-  flex: 1 0 auto;
 }
 
 .FormBody {

@@ -164,7 +164,7 @@ function Wallet() {
                         }
                         {tab === "top_up" &&
                             <div className="mt-5 min-h-[200px] relative">
-                                <NetworkProvider>
+                                <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
                             </div>

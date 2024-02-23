@@ -63,6 +63,9 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                             location.replace('/');
                         });
                     }
+                    else if (response?.error?.code === 0) {
+                        setLoading(false);
+                    }
                     else Swal.fire({
                         icon: 'error',
                         title: 'Not success password reset :(',

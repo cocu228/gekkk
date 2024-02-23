@@ -184,16 +184,16 @@ export async function RegisterDeviceKey(opt: any, code: string): Promise<ApiResp
             icon: "error",
             text: msg,
             footer: e
+        }).then(() => {
+            return {
+                id: 0,
+                result: null,
+                error: {
+                    code: 0,
+                    message: 'An error accured when creating device key'
+                }
+            };
         });
-
-        return {
-            id: 0,
-            result: null,
-            error: {
-                code: 0,
-                message: 'An error accured when creating device key'
-            }
-        };
     }
 
     // Move data into Arrays incase it is super long

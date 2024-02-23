@@ -89,14 +89,14 @@ const UniversalTransferFormMobile = () => {
                     </div>
                 </div>
                 <div className="row mb-5 w-full">
-                    <div className="flex flex-row items-center">
-                        <div className="row mb-2 mr-5">
+                    <div className="flex flex-row justify-between items-center">
+                        <div className="row min-w-[80px] mb-2 mr-5">
                             <div className="col">
                                 <span className="font-medium text-[16px]">{t("contact")}:</span>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col">
+                        <div className="row flex w-full">
+                            <div className="col basis-[100%]">
                                 <Input
                                     name={'requisite'}
                                     value={inputs.requisite}

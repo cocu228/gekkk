@@ -70,14 +70,14 @@ const WithdrawFormSepaMobile = () => {
             </div>
         </div>
         <div className="row mb-8 w-full">
-            <div className="flex flex-row items-center">
-                <div className="row mb-2 mr-5">
+            <div className="flex flex-row justify-between items-center">
+                <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
                         <span className="font-medium">IBAN:</span>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col">
+                <div className="row w-full">
+                    <div className="col w-full basis-[100%]">
                         <Input value={inputs.accountNumber} onChange={onInput}
                                name={"accountNumber"}/>
                     </div>
@@ -85,13 +85,13 @@ const WithdrawFormSepaMobile = () => {
             </div>
         </div>
         <div className="flex flex-col mb-8 w-full">
-            <div className="flex flex-row items-center">
-                <div className="row mb-2 mr-5">
+            <div className="flex flex-row justify-between items-center">
+                <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
                         <span className="font-medium">{t("recipient")}:</span>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row w-full">
                     <div className="col">
                         <Input value={inputs.beneficiaryName}
                                onChange={onInput}
@@ -109,7 +109,7 @@ const WithdrawFormSepaMobile = () => {
         
         <div className="row mb-8 w-full">
             <div className="flex flex-row items-center">
-                <div className="row mb-2 mr-5">
+                <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
                         <span className="font-medium">{t("description")}:</span>
                     </div>

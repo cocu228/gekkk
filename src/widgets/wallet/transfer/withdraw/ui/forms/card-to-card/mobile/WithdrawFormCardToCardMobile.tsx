@@ -107,15 +107,16 @@ const WithdrawFormCardToCardMobile = () => {
                 </div>
             </div>
             <div className="row mb-8 w-full">
-                <div className="flex flex-row items-center">
-                    <div className="row mb-2 mr-5">
-                        <div className="col">
-                            <span className="font-medium">From card:</span>
+                <div className="flex flex-row justify-between items-center">
+                    <div className="row min-w-[80px] mb-2 mr-5">
+                        <div className="col w-full">
+                            <span className="w-full font-medium">From card:</span>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
+                    <div className="flex justify-end basis-[100%]">
+                        <div className="col basis-[100%]">
                             <SearchSelect
+                                className=""
                                 value={inputs.selectedCard}
                                 notFoundContent={<div className='my-3'>
                                     No active cards
@@ -147,13 +148,13 @@ const WithdrawFormCardToCardMobile = () => {
                 </div>
             </div>
             <div className="row mb-8 w-full">
-                <div className="flex flex-row items-center">
-                    <div className="row mb-2 mr-5">
+                <div className="flex justify-between flex-row items-center">
+                    <div className="row min-w-[80px] mb-2 mr-5">
                         <div className="col">
                             <span className="font-medium">To card:</span>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row basis-[100%]">
                         <div className="col">
                             <Input
                                 type={'text'}
@@ -170,13 +171,13 @@ const WithdrawFormCardToCardMobile = () => {
                 </div>
             </div>
             <div className="row mb-8 w-full">
-                <div className="flex flex-row items-center">
-                    <div className="row mb-2 mr-5">
+                <div className="flex flex-row justify-between items-center">
+                    <div className="row min-w-[80px] mb-2 mr-5">
                         <div className="col">
                             <span className="font-medium">Cardholder:</span>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row basis-[100%]">
                         <div className="col">
                             <Input value={inputs.cardholderName}
                                    onChange={({target}) => {
@@ -193,7 +194,7 @@ const WithdrawFormCardToCardMobile = () => {
             </div>
             <div className="row mb-8 w-full">
                 <div className="flex flex-row items-center">
-                    <div className="row mb-2 mr-5">
+                    <div className="row min-w-[80px] mb-2 mr-5">
                         <div className="col">
                             <span className="font-medium">Description:</span>
                         </div>

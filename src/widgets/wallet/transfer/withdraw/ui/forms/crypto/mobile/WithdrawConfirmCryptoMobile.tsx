@@ -282,25 +282,55 @@ const WithdrawConfirmCryptoMobile = memo(({
                         <div className="w-full flex flex-row gap-[5px] relative">
                             {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                                 <>
-                                    <div className="w-full gap-5 flex justify-between">
-                                        <Button
-                                            htmlType={"submit"}
-                                            onClick={()=>{onConfirm()}}
-                                            disabled={(input === "" && stageReq.status !== null)}
-                                            className="w-full"
-                                            size={"xl"}
-                                        >
-                                            Send SMS
-                                        </Button>
-                                        <Button
-                                            onClick={()=>{handleCancel()}}
-                                            disabled={(input === "" && stageReq.status !== null)}
-                                            red
-                                            className="w-full"
-                                            size={"xl"}
-                                        >
-                                            Cancel
-                                        </Button>
+                                    <div className="w-full gap-5 flex flex-col justify-between">
+                                        {!isNull(stageReq.status) && <>
+                                            <span className="text-gray-400">Transfer confirmation</span>
+
+                                            <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
+
+                                                <Input type="text"
+                                                    onInput={onInput}
+                                                    autoComplete="off"
+                                                    onChange={({ target }) => setInput(target.value)}
+                                                    placeholder={stageReq.status === 0
+                                                        ? "Enter SMS code"
+                                                        : stageReq.status === 1
+                                                            ? "Enter code"
+                                                            : "Enter PIN code"
+                                                    }
+                                                />
+                                            </FormItem>
+
+                                            <Timer onAction={onReSendCode} />
+                                        </>}
+                                        <div className="w-full flex flex-row">
+                                            {!stageReq.status ? <Button
+                                                htmlType={"submit"}
+                                                onClick={()=>{onConfirm()}}
+                                                disabled={(input === "" && stageReq.status !== null)}
+                                                className="w-full"
+                                                size={"xl"}
+                                            >
+                                                Send SMS
+                                            </Button> : <Button
+                                                htmlType={"submit"}
+                                                onClick={()=>{onConfirm()}}
+                                                disabled={(input === "" && stageReq.status !== null)}
+                                                className="w-full"
+                                                size={"xl"}
+                                            >
+                                                Confirm
+                                            </Button> }
+                                            <Button
+                                                onClick={()=>{handleCancel()}}
+                                                disabled={(input === "" && stageReq.status !== null)}
+                                                red
+                                                className="w-full"
+                                                size={"xl"}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </div>
                                     </div>
                                 </>
                             }

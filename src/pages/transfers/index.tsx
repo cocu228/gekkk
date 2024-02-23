@@ -51,9 +51,9 @@ export default function Transfers({}: Props) {
                         {curr && <ChoseNetworkMobile data-tag={"choose_network"}/>}
                         <div
                             data-tag={"main"}
-                            className='bg-[white] align-center p-5 pb-1 rounded'
+                            className='bg-[white] w-full align-center p-5 pb-1 rounded'
                         >
-                        <GetDisplayedForm curr={$currency}/>
+                            <GetDisplayedForm curr={$currency}/>
                         </div>
                     </TransfersWrapper>
                 </NetworkProvider>

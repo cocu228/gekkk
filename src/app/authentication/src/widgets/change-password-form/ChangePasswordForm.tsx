@@ -75,7 +75,6 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                             icon: "success",
                             title: 'New device key',
                             text: 'New device key added Success!',
-                            timer: 2000
                         }).then(() => {
                             setLoading(false);
                             location.replace('/');    
@@ -90,7 +89,7 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
             }
         }
     }
-    
+
     return <main className={styles.ResetForm}>
         <Form onSubmit={onSubmit} className={styles.FormBody}>
             <div style={{

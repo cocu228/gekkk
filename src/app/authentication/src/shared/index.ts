@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
-import { RegisterKey, apiGetInfo, apiLogin, apiLoginOptions } from './apiInterfaces';
+import { ApiResponse, RegisterKey, apiGetInfo, apiLogin, apiLoginOptions } from './apiInterfaces';
 import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
@@ -140,7 +140,7 @@ export async function ResetPass(opt: any, pass: string, code: string) {
     return await RegisterKey(data);
 }
 
-export async function RegisterDeviceKey(opt: any, code: string) {
+export async function RegisterDeviceKey(opt: any, code: string): Promise<ApiResponse<string>> {
     abortController?.abort("new registration");
 
     let fido2_opt = opt?.fido2_options;
@@ -184,6 +184,10 @@ export async function RegisterDeviceKey(opt: any, code: string) {
             icon: "error",
             text: msg,
             footer: e
+        }).then(() => {  
+            return ({
+                result: 'Error'
+            });
         });
     }
 

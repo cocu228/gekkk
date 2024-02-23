@@ -63,9 +63,6 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                             location.replace('/');
                         });
                     }
-                    else if (response?.error?.code === 0) {
-                        setLoading(false);
-                    }
                     else Swal.fire({
                         icon: 'error',
                         title: 'Not success password reset :(',
@@ -74,8 +71,6 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                 }
                 else {
                     let response = await RegisterDeviceKey(options, smsCode);
-                    
-                    console.log(response);
 
                     if (response?.result === "Success") {
                         Swal.fire({
@@ -86,6 +81,9 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                             setLoading(false);
                             location.replace('/');    
                         });
+                    }
+                    else if (response?.error?.code === 0) {
+                        setLoading(false);
                     }
                     else Swal.fire({
                         icon: "error",
@@ -120,7 +118,7 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                 : <>
                     <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
 
-                    {!isGekkey && <>
+                    {!isGekkey ? <>
                         <PasswordInput
                             id='password'
                             minLength={8}
@@ -139,6 +137,10 @@ export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) =>
                             placeholder={"Confirm password"}
                             onChange={e => setPasswordConfirm(e.currentTarget.value)}
                         />
+                    </> : <>
+                        <p className={styles.Description}>
+                            To increase the security of your account, we suggest using a hardware storage-based access key. <a href={"https://fidoalliance.org/fido2/"}>Read more about FIDO2.</a>
+                        </p>
                     </>}
 
                     <div className={styles.rulesList} >

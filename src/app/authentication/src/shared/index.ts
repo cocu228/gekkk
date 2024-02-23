@@ -179,21 +179,22 @@ export async function RegisterDeviceKey(opt: any, code: string): Promise<ApiResp
         });
     } catch (e) {
         var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
-        Swal.fire({
+        
+        await Swal.fire({
             title: 'Browser/OS request error',
             icon: "error",
             text: msg,
             footer: e
-        }).then(() => {
-            return {
-                id: 0,
-                result: null,
-                error: {
-                    code: 0,
-                    message: 'An error accured when creating device key'
-                }
-            };
         });
+
+        return {
+            id: 0,
+            result: null,
+            error: {
+                code: 0,
+                message: 'An error accured when creating device key'
+            }
+        };
     }
 
     // Move data into Arrays incase it is super long

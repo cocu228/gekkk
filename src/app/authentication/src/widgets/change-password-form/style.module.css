@@ -17,6 +17,10 @@ main.ResetForm {
   justify-content: space-between;
 }
 
+.Description {
+  margin-top: 22px;
+  font-size: 14px;
+}
 
 .rulesList {  
   flex: 1;

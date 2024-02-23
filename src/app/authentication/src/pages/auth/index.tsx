@@ -87,7 +87,10 @@ const Auth = () => {
 								/>
 								: <ChangePasswordForm
 									emailCodeDefault={emailCode}
-									handleCancel={() => setForm('LOGIN')}
+									handleCancel={() => {
+										setForm('LOGIN');
+										location.replace('/');
+									}}
 								/>
 						}
 					</main>

@@ -70,6 +70,8 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                 else {
                     let response = await RegisterDeviceKey(options, smsCode);
                     
+                    console.log(response);
+
                     if (response?.result === "Success") {
                         Swal.fire({
                             icon: "success",

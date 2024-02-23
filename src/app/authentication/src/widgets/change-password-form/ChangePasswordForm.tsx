@@ -102,6 +102,7 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                 {!isGekkey && <>
                     <PasswordInput
                         id='password'
+                        minLength={8}
                         name='password'
                         value={password}
                         placeholder={"New password"}
@@ -110,6 +111,7 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                     />
                     <PasswordInput
                         id="passwordC"
+                        minLength={8}
                         name='passwordC'
                         value={passwordConfirm}
                         autoComplete={"new-password"}
@@ -133,11 +135,12 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
             <div className={styles.FormButtons}>
                 <Button
                     type="submit"
-                    disabled={
-                        (password !== passwordConfirm)
-                        || loading
-                        || (smsSended && !smsCode)
-                    }
+                    disabled={isGekkey
+                        ? (password !== passwordConfirm)
+                            || loading
+                            || (smsSended && !smsCode)
+                        : loading
+                            || (smsSended && !smsCode)}
                 >{!smsSended
                     ? "Send SMS"
                     // : tab === 'PASSWORD'

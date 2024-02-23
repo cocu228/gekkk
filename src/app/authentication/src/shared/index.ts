@@ -184,11 +184,9 @@ export async function RegisterDeviceKey(opt: any, code: string): Promise<ApiResp
             icon: "error",
             text: msg,
             footer: e
-        }).then(() => {  
-            return ({
-                result: 'Error'
-            });
         });
+
+        return null;
     }
 
     // Move data into Arrays incase it is super long

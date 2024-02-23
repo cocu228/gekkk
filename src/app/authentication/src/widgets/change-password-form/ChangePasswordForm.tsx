@@ -21,7 +21,9 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [smsSended, setSmsSended] = useState<boolean>(false);
-	const [tab, setTab] = useState<"PASSWORD" | "DEVICE_KEY">("PASSWORD");
+
+    const [isGekkey, setIsGekkey] = useState<boolean>(false);
+    const checkHandler = () => {setIsGekkey(!isGekkey)};
 
     const onSubmit = async () => {
         if (!smsSended) {
@@ -46,7 +48,7 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
         else {
             if (smsCode) {
                 setLoading(true);
-                if (tab === "PASSWORD") {
+                if (!isGekkey) {
                     let response = await ResetPass(options, password, smsCode);
 
                     if (response?.result === "Success") {
@@ -58,7 +60,6 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                             setLoading(false);
                             location.replace('/');
                         });
-
                     }
                     else Swal.fire({
                         icon: 'error',
@@ -75,56 +76,59 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                             title: 'New device key',
                             text: 'New device key added Success!',
                             timer: 2000
+                        }).then(() => {
+                            setLoading(false);
+                            location.replace('/');    
                         });
-                        location.replace('/');
-                    } 
+                    }
                     else Swal.fire({
                         icon: "error",
                         title: 'Not success create device key :(',
                         text: response.error?.message ?? response.result
-                    });
+                    }).then(() => setLoading(false));
                 }
             }
         }
     }
-
+    
     return <main className={styles.ResetForm}>
-        <div className={styles.FormTab}>
-            <button className={`${styles.TabButton} ${tab === 'PASSWORD' ? styles.TabButtonActive : ""}`} onClick={() => setTab('PASSWORD')} >
-                Password
-            </button>
-            <button className={`${styles.TabButton} ${tab === 'DEVICE_KEY' ? styles.TabButtonActive : ""}`} onClick={() => setTab('DEVICE_KEY')} >
-                Gekkey
-            </button>
-        </div>
-        
         <Form onSubmit={onSubmit} className={styles.FormBody}>
-            <div>
-                {tab === 'PASSWORD' ? <>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                flex: '1 0 auto'
+            }}>
+                <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
+
+                {!isGekkey && <>
                     <PasswordInput
                         id='password'
                         name='password'
                         value={password}
                         placeholder={"New password"}
+                        autoComplete={"new-password"}
                         onChange={e => setPassword(e.currentTarget.value)}
                     />
                     <PasswordInput
                         id="passwordC"
                         name='passwordC'
                         value={passwordConfirm}
+                        autoComplete={"new-password"}
                         placeholder={"Confirm password"}
                         onChange={e => setPasswordConfirm(e.currentTarget.value)}
                     />
-                    <CheckList value={password}/>
-                </> : <>
-                    <p className={styles.Description}>
-                        Use of a hardware-based security key is fast and easy. <a href={"https://fidoalliance.org/fido2/"}>Read more about FIDO2.</a>
-                    </p>
                 </>}
-
-                {!smsSended ? null : (
-                    <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
-                )}
+                
+                <div className={styles.rulesList} >
+                    {!isGekkey? <>
+                    <CheckList value={password} /> 
+                    <div><div className={styles.rulesListH}>ℹ check list ℹ</div></div>
+                    </>:""}
+                    <div className={styles.deviceKey}>
+                        <label for="typeKey">Create device key</label>
+                        <input type="checkbox" id="typeKey" name="typeKey" checked={isGekkey} onChange={checkHandler} />
+                    </div>
+                </div>
             </div>
 
             <div className={styles.FormButtons}>
@@ -137,8 +141,8 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                     }
                 >{!smsSended
                     ? "Send SMS"
-                    : tab === 'PASSWORD'
-                        ? "Reset password"
+                    // : tab === 'PASSWORD'
+                        // ? "Reset password"
                         : "Register gekkey"
                 }</Button>
                 

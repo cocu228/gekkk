@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from "react";
 import Input from "@/shared/ui/input/Input";
 import {Input as InputAntd} from "antd";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "antd";
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
@@ -18,6 +18,7 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
 import { debounce } from "@/shared/lib";
+import WithdrawConfirmCryptoMobile from "./WithdrawConfirmCryptoMobile";
 
 const {TextArea} = InputAntd;
 
@@ -36,6 +37,8 @@ const WithdrawFormCryptoMobile = () => {
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const [loading, setLoading] = useState(false);
+    const [err, setErr] = useState<boolean>(false);
+    const [success, setSuccess] = useState<boolean>(false);
     
     const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
@@ -163,14 +166,19 @@ const WithdrawFormCryptoMobile = () => {
                 <div className="row w-full mt-4">
                     <div className="col">
                         <Modal width={450}
-                               title={t("transfer_confirmation")}
+                               title={t("confirm_transaction")}
                                destroyOnClose
                                onCancel={handleCancel}
-                               open={isModalOpen}>
+                               open={isModalOpen}
+                               footer={null}
+                        >
 
-                            <WithdrawConfirmCrypto {...inputs}
+                            <WithdrawConfirmCryptoMobile {...inputs}
                                                    amount={inputCurr.value.number}
                                                    handleCancel={handleCancel}
+                                                   setErr={setErr}
+                                                   success={setSuccess}
+                                                   willPay={inputCurr.value.number}
                             />
                         </Modal>
                         <Button size={"xl"} onClick={showModal}

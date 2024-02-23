@@ -18,6 +18,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useTranslation} from "react-i18next";
 import WithdrawConfirmCryptoMobile from '../../crypto/mobile/WithdrawConfirmCryptoMobile';
+import WithdrawConfirmPapayaMobile from './WithdrawConfirmPapayaMobile';
 
 
 const WithdrawFormPapayaMobile = () => {
@@ -146,7 +147,7 @@ const WithdrawFormPapayaMobile = () => {
             title={"Withdraw confirmation"}
             footer={<div></div>}
         >
-            <WithdrawConfirmCryptoMobile
+            <WithdrawConfirmPapayaMobile
                 description={""}
                 address={account.number}
                 recipient={account.name}

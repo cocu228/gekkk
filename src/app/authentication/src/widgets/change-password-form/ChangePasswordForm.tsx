@@ -10,17 +10,19 @@ import {RegisterOptions} from '../../shared/apiInterfaces';
 import Swal from 'sweetalert2';
 
 interface IParams {
-    emailCode: string;
     handleCancel: () => void;
+    emailCodeDefault?: string;
 }
 
-export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
+export const ChangePasswordForm = ({emailCodeDefault, handleCancel}: IParams) => {
     const [smsCode, setSmsCode] = useState('');
     const [password, setPassword] = useState('');
     const [options, setOptions] = useState(null);
+    const [isValid, setIsValid] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [smsSended, setSmsSended] = useState<boolean>(false);
+    const [emailCode, setEmailCode] = useState<string>(emailCodeDefault);
 
     const [isGekkey, setIsGekkey] = useState<boolean>(false);
     const checkHandler = () => {setIsGekkey(!isGekkey)};
@@ -99,55 +101,70 @@ export const ChangePasswordForm = ({emailCode, handleCancel}: IParams) => {
                 flexDirection: 'column',
                 flex: '1 0 auto'
             }}>
-                <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
+                {!smsSended ?
+                    <TextInput
+                        required
+                        id='ecode'
+                        name='ecode'
+                        type={"text"}
+                        minLength={10}
+                        value={emailCode}
+                        autoComplete={"off"}
+                        placeholder={"Email code"}
+                        label='Рaste the email code into the field:'
+                        onChange={e => setEmailCode(e.currentTarget.value)}
+                    />
+                : <>
+                    <TextInput placeholder={"SMS code"} type={"text"} value={smsCode} onChange={e => setSmsCode(e.currentTarget.value)} id='code' name='code'/>
 
-                {!isGekkey && <>
-                    <PasswordInput
-                        id='password'
-                        minLength={8}
-                        name='password'
-                        value={password}
-                        placeholder={"New password"}
-                        autoComplete={"new-password"}
-                        onChange={e => setPassword(e.currentTarget.value)}
-                    />
-                    <PasswordInput
-                        id="passwordC"
-                        minLength={8}
-                        name='passwordC'
-                        value={passwordConfirm}
-                        autoComplete={"new-password"}
-                        placeholder={"Confirm password"}
-                        onChange={e => setPasswordConfirm(e.currentTarget.value)}
-                    />
-                </>}
-                
-                <div className={styles.rulesList} >
-                    {!isGekkey? <>
-                    <CheckList value={password} /> 
-                    <div><div className={styles.rulesListH}>ℹ check list ℹ</div></div>
-                    </>:""}
-                    <div className={styles.deviceKey}>
-                        <label for="typeKey">Create device key</label>
-                        <input type="checkbox" id="typeKey" name="typeKey" checked={isGekkey} onChange={checkHandler} />
+                    {!isGekkey && <>
+                        <PasswordInput
+                            id='password'
+                            minLength={8}
+                            name='password'
+                            value={password}
+                            placeholder={"New password"}
+                            autoComplete={"new-password"}
+                            onChange={e => setPassword(e.currentTarget.value)}
+                        />
+                        <PasswordInput
+                            id="passwordC"
+                            minLength={8}
+                            name='passwordC'
+                            value={passwordConfirm}
+                            autoComplete={"new-password"}
+                            placeholder={"Confirm password"}
+                            onChange={e => setPasswordConfirm(e.currentTarget.value)}
+                        />
+                    </>}
+
+                    <div className={styles.rulesList} >
+                        {!isGekkey? <>
+                        <CheckList value={password} onValidate={setIsValid}/> 
+                        <div><div className={styles.rulesListH}>ℹ check list ℹ</div></div>
+                        </>:""}
+                        <div className={styles.deviceKey}>
+                            <label for="typeKey">Create device key</label>
+                            <input type="checkbox" id="typeKey" name="typeKey" checked={isGekkey} onChange={checkHandler} />
+                        </div>
                     </div>
-                </div>
+                </>}
             </div>
 
             <div className={styles.FormButtons}>
                 <Button
                     type="submit"
-                    disabled={isGekkey
-                        ? (password !== passwordConfirm)
-                            || loading
-                            || (smsSended && !smsCode)
-                        : loading
-                            || (smsSended && !smsCode)}
+                    disabled={loading
+                        || !emailCode
+                        || (smsSended && (!smsCode
+                            || !isGekkey && ((password !== passwordConfirm) || !isValid)
+                        ))
+                    }
                 >{!smsSended
                     ? "Send SMS"
-                    // : tab === 'PASSWORD'
-                        // ? "Reset password"
-                        : "Register gekkey"
+                    : isGekkey
+                        ? "Register gekkey"
+                        : "Reset password"
                 }</Button>
                 
                 <Button text onClick={handleCancel}>Back to login</Button>

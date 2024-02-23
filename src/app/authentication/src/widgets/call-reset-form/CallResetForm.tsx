@@ -9,12 +9,14 @@ import {ResetPassword} from '../../shared/apiInterfaces';
 
 interface IParams {
 	phone: string;
+    onContinue: () => void;
 	handleCancel: () => void;
     onPhoneChange: (phone: string) => void;
 }
 
 export const CallResetForm = ({
 	phone,
+	onContinue,
 	handleCancel,
 	onPhoneChange
 }: IParams) => {
@@ -32,7 +34,7 @@ export const CallResetForm = ({
 					text: 'A password reset link has been sent to your email.'
 				}).then(() => {
 					setLoading(false);
-					handleCancel();
+					onContinue();
 				});
 			}
 			else Swal.fire({

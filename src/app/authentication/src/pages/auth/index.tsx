@@ -82,9 +82,14 @@ const Auth = () => {
 								? <CallResetForm
 									phone={phone}
 									handleCancel={() => setForm('LOGIN')}
+									onContinue={() => setForm('RESET_PASSWORD')}
 									onPhoneChange={(phone: string) => setPhone(phone)}
 								/>
-								: <ChangePasswordForm emailCode={emailCode} handleCancel={() => setForm('LOGIN')}/>}
+								: <ChangePasswordForm
+									emailCodeDefault={emailCode}
+									handleCancel={() => setForm('LOGIN')}
+								/>
+						}
 					</main>
 
                     <CookiePolicy/>

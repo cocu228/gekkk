@@ -18,9 +18,8 @@ import { useTranslation } from 'react-i18next';
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
-const CreateCodeMobile = () => {
+const CreateCodeMobile = ({code, inputCurr = null, onClose=null}) => {
     const navigate = useNavigate();
-    const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const [newCode, setNewCode] = useState("");
     const [loading, setLoading] = useState(false);
@@ -28,44 +27,15 @@ const CreateCodeMobile = () => {
     const currency = useContext(CtxWalletData)
     const {t} = useTranslation();
     
-    const isInputEmptyOrNull = inputCurr.value.number === 0;
-    const isInputMoreThanBalance = inputCurr.value.number > currency.availableBalance.toNumber();
     
     const getListTxCode = storeListTxCode(state => state.getListTxCode);
     
     const [localErrorHunter, , localErrorInfoBox] = useError();
     
-    const onCreateCode = async () => {
-        setLoading(true)
-        
-        const response = await apiCreateTxCode({
-            typeTx: checkbox ? 12 : 11,
-            timeLimit: false,
-            currency: currency.$const,
-            amount: inputCurr.value.number,
-            clientNonce: new Date().getTime()
-        });
-        
-        actionResSuccess(response).success(async () => {
-            setNewCode(response.data.result.code)
-            await getListTxCode()
-            setLoading(false)
-        }).reject((error) => {
-            localErrorHunter(error)
-            setLoading(false)
-        })
 
-    }
-
-    return (loading ? <Loader/> : newCode ? <CodeTxInfo code={newCode}/> :
+    return (loading ? <div className="flex relative mt-10 min-h-[200px]"><Loader/></div> : code ? <CodeTxInfo onClose={onClose} inputCurr={inputCurr} code={code}/> :
             <>
-                <div className="row bg-gray-300 -mx-14 px-14 py-4 mb-6">
-                    <p>{t("create_special_code")}</p>
-                </div>
-                
-
-                
-                {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
+                {localErrorInfoBox && <div className="row min-h-[200px] mt-4">{localErrorInfoBox}</div>}
             </>
     );
 };

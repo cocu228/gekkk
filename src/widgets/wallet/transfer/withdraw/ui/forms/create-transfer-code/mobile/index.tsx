@@ -1,6 +1,6 @@
 import Button from "@/shared/ui/button/Button";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "antd";
 import CreateCodeMobile from "./CreateCodeMobile";
 import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ import useError from "@/shared/model/hooks/useError";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import Decimal from "decimal.js";
+import TransferTableCodeMobile from "@/widgets/wallet/transfer/components/mobile/table/TransferTableCodeMobile";
 
 const CreateTransferCodeMobile = () => {
     const {t} = useTranslation();
@@ -35,7 +36,7 @@ const CreateTransferCodeMobile = () => {
     const isInputMoreThanBalance = inputCurr.value.number > currency.availableBalance.toNumber();
     
     const getListTxCode = storeListTxCode(state => state.getListTxCode);
-    
+    const [isHelpClicked, setIsHelpClicked] = useState<boolean>(false)
     const [localErrorHunter, , localErrorInfoBox] = useError();
     
     const onCreateCode = async () => {
@@ -93,14 +94,28 @@ const CreateTransferCodeMobile = () => {
             <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                 <div className='flex items-center'>
                     {t("use_confirmation")}
-
-                    <div className="flex items-center">
-                        <Tooltip text={t("when_using_confirmation")}>
-                            <div className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                                <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
-                            </div>
-                        </Tooltip>
+                    <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                        <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                     </div>
+
+                        <Modal title={t("use_confirmation")} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
+                            <div>
+                                {/* TODO: image */}
+                            </div>
+                            <div className="flex items-center">
+                                <span>{t("when_using_confirmation")}</span>
+                            </div>
+                            <div className="w-full">
+                                <Button
+                                    red
+                                    size="xl"
+                                    className="w-full mt-5"
+                                    onClick={()=>{setIsHelpClicked(false)}}
+                                >
+                                    Close
+                                </Button>
+                            </div>
+                        </Modal>
                 </div>
             </Checkbox>
         </div>
@@ -143,9 +158,12 @@ const CreateTransferCodeMobile = () => {
             </div>
         </div>        
         <div className="row mb-5">
-            <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <Modal onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
-                <CreateCodeMobile/>
+            <Button disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+                onCreateCode()
+                showModal()
+            }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
+            <Modal footer={null} onCancel={handleCancel} title={t("your_transfer_code")} open={isModalOpen}>
+                <CreateCodeMobile onClose={handleCancel} inputCurr={inputCurr} code={newCode}/>
             </Modal>
         </div>
         <div className="row mb-2">
@@ -154,7 +172,7 @@ const CreateTransferCodeMobile = () => {
             </h3>
         </div>
         <div className="row">
-            <TransferTableCode isOwner/>
+            <TransferTableCodeMobile isOwner/>
         </div>
     </div>
 }

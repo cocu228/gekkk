@@ -1,6 +1,6 @@
 import {Select} from "antd";
 import Loader from "@/shared/ui/loader";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "antd";
 import Input from "@/shared/ui/input/Input";
 import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
@@ -23,6 +23,7 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
+import WithdrawConfirmCardToCardMobile from "./WithdrawConfirmCardToCardMobile";
 
 const {Option} = Select;
 
@@ -75,7 +76,7 @@ const WithdrawFormCardToCardMobile = () => {
     useEffect(() => {
         setInputs(() => ({
             ...inputs,
-            selectedCard: cards.find(c => ['ACTIVE', 'PLASTIC_IN_WAY'].includes(c.cardStatus))
+            selectedCard: cards?.find(c => ['ACTIVE', 'PLASTIC_IN_WAY'].includes(c.cardStatus))
                 ? cards[0].cardId
                 : null
         }));
@@ -258,8 +259,9 @@ const WithdrawFormCardToCardMobile = () => {
             <Modal width={450} title="Transfer confirmation"
                    onCancel={handleCancel}
                    open={isModalOpen}
+                   footer={null}
             >
-                <WithdrawConfirmCardToCard {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
+                <WithdrawConfirmCardToCardMobile {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
             </Modal>
             
             <div className="row w-full mb-[10px]">

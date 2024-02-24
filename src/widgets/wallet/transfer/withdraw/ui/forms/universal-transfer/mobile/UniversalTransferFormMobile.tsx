@@ -1,5 +1,5 @@
 import Form from "@/shared/ui/form/Form";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "antd";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -162,6 +162,7 @@ const UniversalTransferFormMobile = () => {
                 destroyOnClose
                 open={isModalOpen}
                 onCancel={handleCancel}
+                footer={null}
             >
                 <UniversalTransferConfirmMobile
                     {...inputs}

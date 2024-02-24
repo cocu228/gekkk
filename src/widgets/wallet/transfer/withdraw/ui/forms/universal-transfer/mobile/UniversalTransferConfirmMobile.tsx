@@ -106,17 +106,15 @@ const UniversalTransferConfirmMobile = ({
         <div className={loading ? 'collapse' : ''}>
             <div className="row mb-5">
                 <div className="col">
-                    <div className="p-4 bg-gray-300">
-                        <div className="wrapper flex flex-col">
+                    <div className="p-4">
+                        <div className="wrapper flex flex-row">
                             <div className="row mb-1">
-                                <div className="col">
-                                    <span className="text-red-800">Please note</span>
-                                </div>
+                                {/* image */}
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <span className="text-gray-400">
-                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                    <span className="text-gray-400 text-[10px]">
+                                        Please, check your transaction information carefully and confirm the operation.
                                     </span>
                                 </div>
                             </div>
@@ -126,7 +124,7 @@ const UniversalTransferConfirmMobile = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Network</span>
+                    <span className="text-gray-400">Type transaction</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -136,7 +134,7 @@ const UniversalTransferConfirmMobile = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Recipient's requisite</span>
+                    <span className="text-gray-400">Recipient</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -144,14 +142,47 @@ const UniversalTransferConfirmMobile = ({
                     <span>{requisite}</span>
                 </div>
             </div>
-            <div className="row mb-2">
+            <div className="w-full row">
                 <div className="col">
-                    <span className="text-gray-400">Amount</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{amount ?? '-'} {$const}</span>
+                    <div className="w-full row flex gap-4 text-gray-400 justify-around font-medium mb-4 mt-6 text-sm">
+                        <div className="col flex flex-col items-around gap-2">
+                            <div className="row">
+                                <span>You will pay</span>
+                            </div>
+                            <div className="row">
+                            <span>
+                            You will get
+                            </span>
+                            </div>
+                            <div className="row">
+                                <span>
+                            Fee
+                            </span>
+                            </div>
+                        </div>
+                        <div className="col flex flex-col w-[max-content] gap-2">
+                            <div className="row flex items-end">
+                                <span
+                                    className="w-full text-start">{amount} {$const}</span>
+                            </div>
+                            <div className="row flex items-end">
+                                <span
+                                    className="w-full text-start"
+                                >
+                                    {amount} {$const}
+                                </span>
+                            </div>
+                            <div className="row flex items-end">
+                                <span
+                                    className="w-full text-start"
+                                >
+                                    -
+                                </span>
+                            </div> 
+                            
+                           
+                        </div>
+                    </div>
                 </div>
             </div>
             {comment && <>
@@ -191,9 +222,24 @@ const UniversalTransferConfirmMobile = ({
                 <div className="row mt-4 mb-5">
                     <div className="col relative">
                         {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
-                            <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
+                            <div className="flex flex-row w-full gap-5">
+                                <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
                                     className="w-full"
-                                    size={"xl"}>Confirm</Button>}
+                                    size={"xl"}
+                                >
+                                    Confirm
+                                </Button>
+
+                                <Button
+                                    className="w-full"
+                                    onClick={handleCancel}
+                                    size={"xl"}
+                                    darkBlue
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        }
                     </div>
                     
                     <div className="col flex justify-center mt-4">

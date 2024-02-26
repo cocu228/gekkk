@@ -1,4 +1,4 @@
-import {useContext, memo} from 'react';
+import {useContext, memo, useEffect, useState} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
@@ -19,9 +19,12 @@ import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
 import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
 import CreateTransferCode from "./forms/create-transfer-code";
+import { getInitialProps, useTranslation } from 'react-i18next';
 
 const Withdraw = memo(() => {
+    const {t} = useTranslation()
     const currency = useContext(CtxWalletData);
+    const {initialLanguage} = getInitialProps()
     const {ratesEUR} = useContext(CtxCurrencies);
     const {
         tokenNetworks,
@@ -40,6 +43,8 @@ const Withdraw = memo(() => {
 
     const withdrawEUR = !isNull(ratesEUR)
         && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
+
+    const [displayedForm, setDisplayedForm] = useState(null)
     
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
@@ -65,16 +70,20 @@ const Withdraw = memo(() => {
                 return <CreateTransferCode/>;
             default:
                 return <div>
-                    Sorry, there are no actions available for the selected network.
+                    {t("no_actions_for_network")}
                 </div>;
         }
     }
+
+    useEffect(()=>{
+        setDisplayedForm(getDisplayForm(networkType))
+    },[initialLanguage])
     
     return (
         <div className='h-full'>
             {loading ? <Loader/> : <>
                 <ChoseNetwork withdraw/>
-                {getDisplayForm(networkType)}
+                {displayedForm}
                 
                 {(finalFeeEntity.type.percent || finalFeeEntity.type.number) && <div className="row mt-4">
                     <div className="col">
@@ -93,9 +102,7 @@ const Withdraw = memo(() => {
                 {is_operable === false && <div className="row mt-4">
                     <div className="col">
                         <div className="info-box-danger">
-                            <p>Attention: transactions on this network may be delayed. We recommend that you use a
-                                different
-                                network for this transaction.</p>
+                            <p>{t("attention")}</p>
                         </div>
                     </div>
                 </div>}

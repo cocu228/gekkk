@@ -227,12 +227,12 @@ const CardsMenu = ({
     
     return <div>
         <div className='flex w-full justify-between items-center mb-2'>
-            <span className='font-medium text-lg'>Cards menu</span>
+            <span className='font-medium text-lg'>{t("cards_menu")}</span>
             <span
                 onClick={() => setIsNewCardOpened(true)}
                 className='underline text-gray-400 hover:cursor-pointer hover:text-gray-600'
             >
-                Issue a new card
+                {t("issue_new_card")}
             </span>
         </div>
         

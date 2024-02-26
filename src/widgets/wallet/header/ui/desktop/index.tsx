@@ -114,16 +114,16 @@ const WalletHeader = () => {
                 {
                     isEUR ?
                         <div className={styles.IconRate}>
-                            <span className={styles.RateText}>Card</span>
-                            <span className={styles.RatePercentText}>1% cashback</span>
+                            <span className={styles.RateText}>{t("card")}</span>
+                            <span className={styles.RatePercentText}>1% {t("cashback")}</span>
                         </div> : isEURG ?
                             <div className={styles.IconRate}>
-                                <span className={styles.RateText}>Rate</span>
+                                <span className={styles.RateText}>{t("rate")}</span>
                                 <span className={styles.RatePercentText}>4% {t("partnership_program.per_annum")}</span>
                             </div> : isGKE ?
                                 <div className={styles.IconRate}>
-                                    <span className={styles.RateText}>Rate</span>
-                                    <span className={styles.RatePercentText}>5%(or 3%) per annum</span>
+                                    <span className={styles.RateText}>{t("rate")}</span>
+                                    <span className={styles.RatePercentText}>5%(or 3%) {t("partnership_program.per_annum")}</span>
                                 </div> : ""
                 }
             </div>

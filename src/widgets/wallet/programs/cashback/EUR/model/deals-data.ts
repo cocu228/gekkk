@@ -1,17 +1,19 @@
 import { ActiveBonusProgram } from '@/shared/api/bank/deals';
 import styles from '../ui/style.module.scss';
+import { useEffect, useState } from 'react';
+
 
 
 export const dealsData = {
   "EUR":[
     {
       id: ActiveBonusProgram.CASHBACK1,
-      name: '1% cashback on all card purchases',
-      accrualPeriod: 'Paid monthly',
+      name: 'cashback_programs.1_perc_cash',
+      accrualPeriod: 'cashback_programs.paid_monthly',
       conditions: [
-        'To get this cashback, you need to block GKE tokens',
-        'Cashback is accrued within the amount not exceeding the same number of blocked GKE tokens',
-        'GKE funds are blocked for 30 days'
+        'cashback_programs.block_GKE_tokens',
+        'cashback_programs.cashback_accrued',
+        'cashback_programs.gke_blocked_30days'
       ],
       className: styles.CashbackCardLightOrange,
       mobileModalColor: styles.CashbackCardLightOrange,
@@ -20,11 +22,11 @@ export const dealsData = {
     },
     {
       id: ActiveBonusProgram.CASHBACK_FIAT,
-      name: 'Crypto-fiat exchange without commission',
+      name: 'cashback_programs.cash_without_commision',
       accrualPeriod: '',
       conditions: [
-        'It is necessary to block the volume of GKE tokens corresponding to the turnover in fiat',
-        'GKE funds are blocked for 90 days'
+        'cashback_programs.necessary_block',
+        'cashback_programs.gke_blocked_90days'
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
@@ -35,11 +37,11 @@ export const dealsData = {
   "EURG":[
     {
       id: ActiveBonusProgram.CASHBACK,
-      name: '4% per annum on your balance EURG',
-      accrualPeriod: 'Monhly interest payout',
+      name: 'cashback_programs.4_perc_cash',
+      accrualPeriod: 'cashback_programs.paid_monthly_interest',
       conditions: [
-        'Your weighted average balance for the reporting period is equal to or higher than 300 EURG',
-        'Our upper limit for the balance to pay the interest rate is 100,000 EURG'
+        'cashback_programs.higher_300',
+        'cashback_programs.limit_100000'
       ],
       className: styles.CashbackCardLightGreen,
       mobileModalColor: styles.CashbackCardLightGreen,
@@ -48,12 +50,12 @@ export const dealsData = {
     },
     {
       id: ActiveBonusProgram.CASHBACK_FIAT,
-      name: 'Crypto-fiat exchange without commission',
+      name: 'cashback_programs.cash_without_commision',
       accrualPeriod: '',
       conditions: [
-        'To get this cashback, you need to block GKE tokens',
-        'Cashback is accrued within the amount not exceeding the same number of blocked GKE tokens',
-        'Сashback is credited once a month at the end of the billing period'
+        'cashback_programs.block_GKE_tokens',
+        'cashback_programs.cashback_accrued',
+        'cashback_programs.once_month'
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
@@ -64,11 +66,11 @@ export const dealsData = {
   "GKE":[
     {
       id: ActiveBonusProgram.CASHBACK,
-      name: '5% per annum on your balance GKE',
-      accrualPeriod: 'Monhly interest payout',
+      name: 'cashback_programs.5_perc_cash',
+      accrualPeriod: 'cashback_programs.paid_monthly_interest',
       conditions: [
-        '5% p.a. first year from the date of issue',
-        '3% p.a. second year from the date of issue'
+        'cashback_programs.first_year',
+        'cashback_programs.second_year'
       ],
       className: styles.CashbackCardLightGreen,
       mobileModalColor: styles.CashbackCardLightGreen,
@@ -77,12 +79,12 @@ export const dealsData = {
     },
     {
       id: ActiveBonusProgram.CASHBACK1,
-      name: '1% cashback on all card purchases',
-      accrualPeriod: 'Paid monthly',
+      name: 'cashback_programs.1_perc_cash',
+      accrualPeriod: 'cashback_programs.paid_monthly',
       conditions: [
-        'To get this cashback, you need to block GKE tokens',
-        'Cashback is accrued within the amount not exceeding the same number of blocked GKE tokens',
-        'GKE funds are blocked for 30 days'
+        'cashback_programs.block_GKE_tokens',
+        'cashback_programs.cashback_accrued',
+        'cashback_programs.gke_blocked_30days'
       ],
       className: styles.CashbackCardLightOrange,
       mobileModalColor: styles.CashbackCardLightOrange,
@@ -91,11 +93,11 @@ export const dealsData = {
     },
     {
       id: ActiveBonusProgram.CASHBACK_FIAT,
-      name: 'Crypto-fiat exchange without commission',
+      name: 'cashback_programs.cash_without_commision',
       accrualPeriod: '',
       conditions: [
-        'It is necessary to block the volume of GKE tokens corresponding to the turnover in fiat',
-        'GKE funds are blocked for 90 days'
+        'cashback_programs.necessary_block',
+        'cashback_programs.gke_blocked_90days'
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,

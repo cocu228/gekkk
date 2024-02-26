@@ -19,12 +19,15 @@ import UniversalTransferFormMobile from '../../../withdraw/ui/forms/universal-tr
 import WithdrawFormSepaMobile from '../../../withdraw/ui/forms/sepa/mobile/WithdrawFormSepaMobile';
 import WithdrawFormBrokerMobile from '../../../withdraw/ui/forms/broker/mobile/WithdrawFormBrokerMobile';
 import WithdrawFormCardToCardMobile from '../../../withdraw/ui/forms/card-to-card/mobile/WithdrawFormCardToCardMobile';
+import { getInitialProps, useTranslation } from 'react-i18next';
 
 type Props = {
     curr:ICtxCurrency
 }
 
 function GetDisplayedForm({curr}: Props) {
+    const {t} = useTranslation()
+    const {initialLanguage} = getInitialProps()
 
     const {networkTypeSelect} = useContext(CtxWalletNetworks);
 
@@ -40,6 +43,8 @@ function GetDisplayedForm({curr}: Props) {
         }, 1000)
 
     },[curr])
+
+    const [displayedForm, setDisplayedForm] = useState(null)
 
 
     const getDisplayForm = (networkType: number): JSX.Element => {
@@ -66,18 +71,21 @@ function GetDisplayedForm({curr}: Props) {
                 return <CreateTransferCodeMobile/>;
             default:
                     return <div>
-                        Sorry, there are no actions available for the selected network.
+                        {t("no_actions_for_network")}
                     </div>;
         }
     }
 
+    useEffect(()=>{
+        setDisplayedForm(getDisplayForm(networkTypeSelect))
+    },[initialLanguage])
     return (
         loading?
                 <div className='w-[100vw] h-[200px] relative mb-5'>
                     <Loader/>
                 </div>
             :
-                getDisplayForm(networkTypeSelect)
+                displayedForm
     )
 }
 

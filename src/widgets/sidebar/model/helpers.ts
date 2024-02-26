@@ -11,10 +11,3 @@ export const helperFilterList = (list: Array<ICtxCurrency>) =>
         || balance.lock_out_balance > 0
         || balance.user_balance > 0
     ));
-
-export const toLocaleCryptoRounding = (value: number, maximumFractionDigits?: number, minimumFractionDigits?: number): string | null =>
-	value?.toLocaleString("fr-FR", { maximumFractionDigits, minimumFractionDigits});
-
-export const toLocaleFiatRounding = (value: number): string | null =>
-	value?.toLocaleString("fr-FR", { maximumFractionDigits: 2, minimumFractionDigits: 2});
-

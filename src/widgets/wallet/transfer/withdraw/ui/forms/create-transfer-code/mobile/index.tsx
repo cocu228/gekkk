@@ -12,7 +12,7 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useNavigate } from "react-router-dom";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
-import { actionResSuccess } from "@/shared/lib";
+import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { apiCreateTxCode } from "@/shared/(orval)api";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
@@ -47,7 +47,7 @@ const CreateTransferCodeMobile = () => {
             timeLimit: false,
             currency: currency.$const,
             amount: inputCurr.value.number,
-            clientNonce: new Date().getTime()
+            clientNonce: getRandomInt32()
         });
         
         actionResSuccess(response).success(async () => {

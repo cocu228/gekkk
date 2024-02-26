@@ -1,7 +1,6 @@
 import styles from "../../../widgets/sidebar/ui/desktop/style.module.scss"
 import { scrollToTop } from "@/shared/lib/helpers";
 import { NavLink, useMatch } from 'react-router-dom';
-import { toLocaleFiatRounding } from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useRef } from "react";

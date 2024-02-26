@@ -11,7 +11,7 @@ import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
-import {helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/sidebar/model/helpers";
+import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
@@ -29,6 +29,7 @@ import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 
 // import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 // import Loader from "@/shared/ui/loader";

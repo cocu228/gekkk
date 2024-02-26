@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -38,8 +38,26 @@ function Wallet() {
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+    const [needMobile, setNeedMobile] = useState<boolean>(false)
 
-    
+    useEffect(() => {
+        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+            setNeedMobile(true)
+        }else{
+            setNeedMobile(false)
+        }
+        
+        function handleResize() {
+            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+                setNeedMobile(true)
+            }else{
+                setNeedMobile(false)
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
     
     
     let $currency = mockEUR;
@@ -68,13 +86,6 @@ function Wallet() {
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	
 
-    function needMobile (){
-        if(lg || xxl || xxxl){
-            return true
-        }else if(xl){
-            return false
-        }
-    }
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -94,7 +105,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs needMobile={needMobile()} data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs needMobile={needMobile} data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu

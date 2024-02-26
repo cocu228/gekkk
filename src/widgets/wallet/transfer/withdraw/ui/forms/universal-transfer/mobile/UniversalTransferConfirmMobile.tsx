@@ -1,7 +1,7 @@
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import Button from "@/shared/ui/button/Button";
-import {useCallback, useContext, useRef, useState} from "react";
+import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
@@ -20,8 +20,10 @@ import { CtxModalTrxInfo } from "../../../../model/context";
 import { CtnTrxInfo } from "../../../../model/entitys";
 
 const initStageConfirm = {
-    status: null,
     txId: null,
+    code: null,
+    status: null,
+    recipient: null
 }
 
 const UniversalTransferConfirmMobile = ({
@@ -42,11 +44,12 @@ const UniversalTransferConfirmMobile = ({
     const [input, setInput] = useState("");
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
+    const setContent = useContext(CtxModalTrxInfo);
+    const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(false);
     const [stageReq, setStageReq] = useState(initStageConfirm);
     const [localErrorHunter, ,localErrorInfoBox,] = useError();
     
-    const setContent = useContext(CtxModalTrxInfo);
 
     const details = useRef({
         tag: comment,
@@ -55,30 +58,69 @@ const UniversalTransferConfirmMobile = ({
         recipient: requisite
     });
 
-    const onReSendCode = useCallback(async () => {
-        await onConfirm(true)
-    }, []);
+    useEffect(() => {
+        (async () => {
+            // TODO: wallet not found error
+            const response = await apiInternalTransfer({
+                ...details.current,
+                client_nonce: getRandomInt32(),
+            });
+            
+            actionResSuccess(response)
+                .success(() => {
+                    const {
+                        txId,
+                        message,
+                        create_result,
+                        confirmationStatusCode
+                    }: CreateWithdrawOut = uncoverResponse(response);
+                    
+                    if (confirmationStatusCode === 0
+                        || confirmationStatusCode === 1
+                        || confirmationStatusCode === 2) {
+                        setStage(prev => ({
+                            ...prev,
+                            txId: txId,
+                            code: message,
+                            recipient: create_result,
+                            status: confirmationStatusCode
+                        }))
+                    }
+                    else {
+                        localErrorHunter({message: "Something went wrong.", code: 1})
+                    }
+                })
+                .reject((err) => {
+                    if (err.code === 10084) {
+                        localErrorHunter({message: "Wallet not found", code: err.code});
+                        return;
+                    }
+
+                    localErrorHunter(err);
+                })
+            setLoading(false);
+        })()
+    }, [])
     
-    const onConfirm = async (reSendCode = false) => {
-        setLoading(!reSendCode);
+    const onConfirm = async () => {
+        setLoading(true);
         
         const response = await apiInternalTransfer({
             ...details.current,
             client_nonce: getRandomInt32(),
         }, {
-            confirmationTimetick: reSendCode ? null : stageReq.txId,
-            confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
+            confirmationCode: stage.code,
+            confirmationTimetick: stage.txId
         });
         
         actionResSuccess(response)
             .success(() => {
                 const result: CreateWithdrawOut = uncoverResponse(response);
                 
-                if (reSendCode
-                    || result.confirmationStatusCode === 0
+                if (result.confirmationStatusCode === 0
                     || result.confirmationStatusCode === 1
                     || result.confirmationStatusCode === 2) {
-                    setStageReq(prev => ({
+                    setStage(prev => ({
                         ...prev,
                         status: result.confirmationStatusCode,
                         txId: result.txId,
@@ -99,7 +141,8 @@ const UniversalTransferConfirmMobile = ({
 
         setLoading(false);
     }
-    
+
+
     return <div>
         {loading && <Loader className='justify-center'/>}
         
@@ -216,7 +259,6 @@ const UniversalTransferConfirmMobile = ({
                         />
                     </FormItem>
                     
-                    <Timer onAction={onReSendCode}/>
                 </>}
 
                 <div className="row mt-4 mb-5">

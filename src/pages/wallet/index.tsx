@@ -52,11 +52,13 @@ function Wallet() {
     const isCryptoWallet = !(currency === "EUR" || currency === "EURG" || currency === "GKE")
 
     // const $const = currencies.get(currency)
-    const isOnAboutPage = tab === "about"
-    const isOnProgramsPage = tab === "programs"
-    const isOnNoFeeProgramPage = tab === "no_fee_program"
-    const isOnCashbackProgramPage = tab === "cashback_program"
-    const isOnTopUpPage = tab === "top_up"
+    const isOnAboutPage = tab === "about";
+    const isOnProgramsPage = tab === "programs";
+    const isOnNoFeeProgramPage = tab === "no_fee_program";
+    const isOnCashbackProgramPage = tab === "cashback_program";
+    const isOnTopUpPage = tab === "top_up";
+    const isCardsMenu = tab === "bank_cards";
+    const isQuickExchange = tab === "simple_exchange";
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
@@ -135,7 +137,7 @@ function Wallet() {
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
+                        {!(isQuickExchange || isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -156,6 +158,19 @@ function Wallet() {
                         {isOnProgramsPage &&
                             <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
                         }
+                        {isCardsMenu &&
+                            <div className="mt-4">
+                                <CardsMenu
+                                    data-tag={"bank_cards"}
+                                    data-name={t("bank_cards")}
+                                    isNewCardOpened={isNewCardOpened}
+                                    setIsNewCardOpened={setIsNewCardOpened}
+                                />
+                            </div>
+                        }
+                        {isQuickExchange && (
+                            <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
+                        )}
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }

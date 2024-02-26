@@ -81,6 +81,11 @@ const UniversalTransferConfirm = ({
                     }
                 })
                 .reject((err) => {
+                    if (err.code === 10084) {
+                        localErrorHunter({message: "Wallet not found", code: err.code});
+                        return;
+                    }
+
                     localErrorHunter(err);
                 })
             setLoading(false);

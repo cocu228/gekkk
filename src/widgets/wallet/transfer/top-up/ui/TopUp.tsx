@@ -17,8 +17,7 @@ import { getInitialProps, useTranslation } from 'react-i18next';
 const TopUp = memo(() => {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
-    const [displayedForm, setDisplayedForm] = useState(null)
-
+    
     const navigate = useNavigate();
     const {offline} = useContext(CtxOfflineMode);
     const {loading = true, networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
@@ -63,6 +62,7 @@ const TopUp = memo(() => {
                 </div>;
         }
     }
+    const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(networkTypeSelect))

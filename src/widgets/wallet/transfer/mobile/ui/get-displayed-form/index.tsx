@@ -44,9 +44,8 @@ function GetDisplayedForm({curr}: Props) {
 
     },[curr])
 
-    const [displayedForm, setDisplayedForm] = useState(null)
-
-
+    
+    
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {            
             return <WithdrawFormCryptoMobile/>;
@@ -55,11 +54,11 @@ function GetDisplayedForm({curr}: Props) {
         switch (networkType) {
             case 150:
                 return <WithdrawFormPapayaMobile/>;
-            case 151:
-                return <WithdrawFormSepaMobile/>;
-            case 152:
-                return <WithdrawFormSwift/>;
-            case 153:
+                case 151:
+                    return <WithdrawFormSepaMobile/>;
+                    case 152:
+                        return <WithdrawFormSwift/>;
+                        case 153:
                 return <WithdrawFormCardToCardMobile/>;
             case 154:
                 return <WithdrawFormBrokerMobile/>;
@@ -79,13 +78,16 @@ function GetDisplayedForm({curr}: Props) {
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(networkTypeSelect))
     },[initialLanguage])
+
+    const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
+    
     return (
         loading?
-                <div className='w-[100vw] h-[200px] relative mb-5'>
+        <div className='w-[100vw] h-[200px] relative mb-5'>
                     <Loader/>
                 </div>
             :
-                displayedForm
+            displayedForm
     )
 }
 

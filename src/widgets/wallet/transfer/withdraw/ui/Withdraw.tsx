@@ -44,7 +44,6 @@ const Withdraw = memo(() => {
     const withdrawEUR = !isNull(ratesEUR)
         && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
 
-    const [displayedForm, setDisplayedForm] = useState(null)
     
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
@@ -74,6 +73,7 @@ const Withdraw = memo(() => {
                 </div>;
         }
     }
+    const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(networkType))

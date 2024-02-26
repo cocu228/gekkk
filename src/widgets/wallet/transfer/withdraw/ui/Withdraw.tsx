@@ -77,7 +77,7 @@ const Withdraw = memo(() => {
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(networkType))
-    },[initialLanguage])
+    },[initialLanguage, networkTypeSelect])
     
     return (
         <div className='h-full'>

@@ -66,7 +66,8 @@ const TopUp = memo(() => {
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(networkTypeSelect))
-    },[initialLanguage])
+    },[initialLanguage, networkTypeSelect])
+
 
     return (<div className="wrapper">
         {loading ? <Loader/> : <>

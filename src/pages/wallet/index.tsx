@@ -41,6 +41,12 @@ function Wallet() {
     const [needMobile, setNeedMobile] = useState<boolean>(false)
 
     useEffect(() => {
+        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+            setNeedMobile(true)
+        }else{
+            setNeedMobile(false)
+        }
+        
         function handleResize() {
             if(window.innerWidth < 970 || window.innerWidth > 1200 ){
                 setNeedMobile(true)

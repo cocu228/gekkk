@@ -63,6 +63,7 @@ const WithdrawConfirmCryptoMobile = memo(({
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
     const [form] = useForm();
     const {
+        id,
         percent_fee = 0,
         withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
@@ -78,7 +79,7 @@ const WithdrawConfirmCryptoMobile = memo(({
 
     const fragmentReqParams = useRef<Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
-        token_network: networkTypeSelect,
+        token_network: id,
         amount: amount,
         fee: withdraw_fee,
         address: isNull(address) ? "" : address,

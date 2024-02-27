@@ -9,4 +9,6 @@ export interface IAppRegistration {
 export const apiRegisterApp = (appPublicKey: string) =>
     $axios.post<IAppRegistration>('/api/v1/register_app', {
         publicKey: appPublicKey
+    }, {
+        baseURL: import.meta.env.VITE_BANK_API_URL,
     });

@@ -2,26 +2,27 @@
 import {getCookieData} from "@/shared/lib/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 
-export const pinHeadersGeneration = async (
-	token: string | null = null,
-	code: string
-): Promise<Partial<SignHeaders>> => {
-	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
-		"X-Confirmation-Type": "PIN"
-	}
-	
-	if (token === null) return header;
-	
-	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
-		"X-Confirmation-Code": code,
-		"X-Confirmation-Token": token
-	};
-	
-	return ({
-		...header,
-		...keys
-	});
-}
+// Pin headers generation
+// export const pinHeadersGeneration = async (
+// 	token: string | null = null,
+// 	code: string
+// ): Promise<Partial<SignHeaders>> => {
+// 	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
+// 		"X-Confirmation-Type": "PIN"
+// 	}
+//	
+// 	if (token === null) return header;
+//	
+// 	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
+// 		"X-Confirmation-Code": code,
+// 		"X-Confirmation-Token": token
+// 	};
+//	
+// 	return ({
+// 		...header,
+// 		...keys
+// 	});
+// }
 
 export const signHeadersGeneration = async (
 	token: string | null = null
@@ -35,7 +36,7 @@ export const signHeadersGeneration = async (
 	const {
 		appUuid,
 		appPass
-	} = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
+	} = await getTransactionSignParams();
 	
 	const jwtPayload = {
 		confirmationToken: token,

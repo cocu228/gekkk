@@ -5,4 +5,6 @@ export interface IResPKey {
 }
 
 export const apiPublicKey = () =>
-    $axios.get<IResPKey>('/api/v1/public_key');
+    $axios.get<IResPKey>('/api/v1/public_key', {
+        baseURL: import.meta.env.VITE_BANK_API_URL,
+    });

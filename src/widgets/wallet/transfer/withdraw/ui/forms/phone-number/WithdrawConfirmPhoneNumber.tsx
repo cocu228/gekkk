@@ -6,6 +6,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {formatAsNumber, getCookieData} from "@/shared/lib";
 
 interface IState {
     loading: boolean;
@@ -25,7 +26,7 @@ const WithdrawConfirmPhoneNumber = ({
         loading: false,
         total: undefined
     });
-
+    
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -35,7 +36,7 @@ const WithdrawConfirmPhoneNumber = ({
         account: account.account_id,
         beneficiaryName: null,
         cardNumber: null,
-        phoneNumber: phoneNumber,
+        phoneNumber: formatAsNumber(phoneNumber),
         purpose: comment,
         amount: {
             sum: {
@@ -53,14 +54,29 @@ const WithdrawConfirmPhoneNumber = ({
             loading: true
         }));
         
-        await apiPaymentContact(
-            details.current,
-            false
-        ).then(handleCancel);
+        const {
+            bankToken
+        } = getCookieData<{
+            bankToken: string;
+        }>();
+        
+        await apiPaymentContact(details.current, false, {
+            Token: bankToken,
+            Authorization: '79111111111'
+        }).then(handleCancel);
     }
 
     useEffect(() => {
-        apiPaymentContact(details.current, true).then(({data}) => {
+        const {
+            bankToken
+        } = getCookieData<{
+            bankToken: string;
+        }>();
+        
+        apiPaymentContact(details.current, true, {
+            Token: bankToken,
+            Authorization: '79111111111'
+        }).then(({data}) => {
             setState(prev => ({
                 ...prev,
                 total: data as IResCommission

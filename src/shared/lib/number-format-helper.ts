@@ -1,11 +1,11 @@
 ﻿const NumberFiatFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2, minimumFractionDigits: 2});
 
 export function toLocaleFiatRounding(value: number): string | null {
-	return NumberFiatFormat.format(value);
+	return isNaN(value) ? null : NumberFiatFormat.format(value);
 }
 
 export function toLocaleCryptoRounding (value: number, maximumFractionDigits?: number, minimumFractionDigits?: number): string | null {
-	return value?.toLocaleString("fr-FR", {
+	return isNaN(value) ? null : value?.toLocaleString("fr-FR", {
 		maximumFractionDigits,
 		minimumFractionDigits
 	});

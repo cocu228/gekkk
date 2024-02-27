@@ -156,7 +156,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.userBalance)) ?? '-'} €</span>
+                                            className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
                                     </div>
                                     <div className="right-0 absolute mr-4 "><UpdateAmounts/></div>
                                 </div>
@@ -189,12 +189,12 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet && toLocaleCryptoRounding(eurgWallet.userBalance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
                                     </div>
                                     {eurgWallet && <div className={"row w-full flex justify-between "}>
                                         <div>
                                             {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                    +{toLocaleCryptoRounding(eurgWallet.lockInBalance, eurgWallet.roundPrec) ?? '-'}
                                                 </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">

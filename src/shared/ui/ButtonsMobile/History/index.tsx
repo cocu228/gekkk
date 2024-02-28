@@ -1,6 +1,7 @@
 import { NavLink, useMatch } from "react-router-dom"
 import styles from "../styles.module.scss"
 import { memo } from "react"
+import { useTranslation } from "react-i18next"
 
 
 interface IParams {
@@ -8,7 +9,7 @@ interface IParams {
 }
 
 const HistoryButton = memo(({ wallet }: IParams) => {
-
+    const {t} = useTranslation()
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange")
@@ -24,7 +25,7 @@ const HistoryButton = memo(({ wallet }: IParams) => {
                             stroke={(!!historyPage || wallet) ? "#29354C" : "#B9B9B5"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
 
-                    <span>History</span>
+                    <span>{t("history")}</span>
                 </div>
             </NavLink>
         </>

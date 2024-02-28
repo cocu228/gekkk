@@ -104,7 +104,7 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
                                                 onClick={()=>{
                                                     setCurr(currency.$const)
                                                     setLoading(true)
-                                                    navigate(`/transfers/${currency.$const}`)
+                                                    navigate(`/transfers?currency=${currency.$const}`)
                                                 }}
                                             >
                                                 <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
@@ -127,13 +127,14 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
                                                 onClick={()=>{
                                                     setNetworkType(network.value)
                                                     setNetwork(network.value)
+                                                    navigate(`/transfers?currency=${curr}&type=${networkTypeSelect}`)
                                                 }}
                                             >
                                                 <span className="text-[12px] text-[#1F3446] font-bold">{network.label}</span>
                                             </div>
                                         ))
                                     }
-                                </div> : (loading && child?.props["data-tag"] === "choose_network") ? <div className="min-h-[200px] flex justify-center w-full relative"><Loader/></div> : null}
+                                </div> : (loading && !network && child?.props["data-tag"] === "choose_network") ? <div className="min-h-[200px] flex justify-center w-full relative"><Loader/></div> : null}
                             </div>
                         )
                     }else{

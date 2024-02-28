@@ -1,6 +1,6 @@
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import InfoBox from "@/widgets/info-box";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
@@ -16,8 +16,9 @@ import Loader from "@/shared/ui/loader";
 const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const query = useQuery()
+    const currency = query.get("currency")
     const {currencies} = useContext(CtxCurrencies);
-    const {currency} = useParams()
     const [open, setOpen] = useState<boolean>(false)
 
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
@@ -40,7 +41,11 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
     }]
 
     useEffect(()=>{
-        setNetwork(null)
+        if(!query.get("type")){
+            setNetwork(null)
+        }else{
+            setNetwork(+query.get("type"))
+        }
     },[])
     
     return( 
@@ -95,3 +100,9 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
 }
 
 export default ChooseNetworkMobile;
+
+function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }

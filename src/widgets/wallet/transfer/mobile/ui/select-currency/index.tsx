@@ -56,7 +56,7 @@ function SelectCurrency({currency, setCurr}: IProps) {
                                     <div className='min-w-[50px] flex justify-start'>
                                         <IconCoin height={20} className='max-h-[36px]' code={currency}/>
                                     </div>
-                                    <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency).name}</span>
+                                    <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
                                 </div>
                             </div>
                         :

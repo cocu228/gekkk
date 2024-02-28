@@ -23,13 +23,16 @@ import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context"
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import { $axios } from "@/shared/lib/(orval)axios";
+import { SignTX } from "../../crypto/signTX";
 
 
 const initStageConfirm = {
     status: null,
     txId: null,
     fee: null,
-    autoInnerTransfer: false
+    autoInnerTransfer: false,
+    code: null
 }
 
 type TProps = IWithdrawFormCryptoState & {
@@ -40,7 +43,7 @@ type TProps = IWithdrawFormCryptoState & {
     handleCancel: () => void
 }
 
-const WithdrawConfirmCryptoMobile = memo(({
+const WithdrawConfirmPapayaMobile = memo(({
     address,
     willPay,
     amount,
@@ -59,6 +62,7 @@ const WithdrawConfirmCryptoMobile = memo(({
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
     const [form] = useForm();
     const {
+        id,
         percent_fee = 0,
         withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
@@ -74,7 +78,7 @@ const WithdrawConfirmCryptoMobile = memo(({
 
     const fragmentReqParams = useRef<Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
-        token_network: networkTypeSelect,
+        token_network: id,
         amount: amount,
         fee: withdraw_fee,
         address: isNull(address) ? "" : address,
@@ -89,6 +93,17 @@ const WithdrawConfirmCryptoMobile = memo(({
     const {onInput} = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
+
+        // В случае когда требуется подпись
+        let sign = null;
+        if (stageReq?.status === 2) {
+            sign = await SignTX(stageReq.txId + "" + stageReq.code);
+            $axios.defaults.headers["x-signature"] = sign;
+        }
+        else 
+        {            
+            $axios.defaults.headers["x-signature"] = "";
+        }
         
         const response = await apiCreateWithdraw({
             ...fragmentReqParams.current,
@@ -101,7 +116,7 @@ const WithdrawConfirmCryptoMobile = memo(({
         
         actionResSuccess(response)
             .success(() => {
-                const result = uncoverResponse(response)
+                const result:any = response.data?.result;
                 
                 if (reSendCode
                     || result.confirmationStatusCode === 0
@@ -111,7 +126,8 @@ const WithdrawConfirmCryptoMobile = memo(({
                         ...prev,
                         status: result.confirmationStatusCode,
                         txId: result.txId,
-                        fee: result.fee
+                        fee: result.fee,
+                        code: result.confirmCode
                     }))
                     success(true)
                 }
@@ -278,4 +294,4 @@ const WithdrawConfirmCryptoMobile = memo(({
     </>
 })
 
-export default WithdrawConfirmCryptoMobile
+export default WithdrawConfirmPapayaMobile

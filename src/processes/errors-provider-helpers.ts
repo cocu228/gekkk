@@ -16,6 +16,19 @@ export function hunterErrorStatus(error) {
 
     if (error?.code === "ERR_CANCELED") return Promise.reject(error)
 
+    if (error?.config?.baseURL === import.meta.env.VITE_BANK_API_URL && error.response?.status === 401) {
+        return new Promise((resolve, reject) => {
+            this.setState(prev => ({
+                ...prev,
+                actionConfirmResponse: error.response,
+                pending: {
+                    resolve: resolve,
+                    reject: reject
+                }
+            }));
+        });
+    }
+    
     if (error?.response?.status === 401) {
         this.logout()
         return Promise.reject(error)
@@ -60,7 +73,8 @@ export class HunterErrorsApi {
 
     isError() {
         this.typeResponseError = null;
-        return (!this.offline && this.isServerApi() || this.isBankApi()) && !this.isConfirmationToken()
+        return (!this.offline && this.isServerApi() || this.isBankApi()) && this.isTokenReceive();
+        //&& !this.isConfirmationToken()
     }
 
     isAuthExpired() {
@@ -127,18 +141,25 @@ export class HunterErrorsApi {
             return null
         }
     }
-
-    isConfirmationToken() {
-
-        if (isNull(this.typeResponseError)) {
-            this.isBankApi()
-            this.isServerApi()
-        }
-
-        return (this.typeResponseError === "BANK" && uncoverArray<{
-            code: number
-        }>(this.response.data.errors).code === 449) ||
-            (this.typeResponseError === "GEKKARD" &&
-            this.response.data.error.code === 10068)
+    
+    isTokenReceive() {
+        // @ts-ignore
+        return !!this.response?.data?.result?.sessid;
     }
+
+    // isConfirmationToken() {
+
+    //     if (isNull(this.typeResponseError)) {
+    //         this.isBankApi()
+    //         this.isServerApi()
+    //     }
+
+    //     return (this.typeResponseError === "BANK" && uncoverArray<{
+    //         code: number
+    //     }>(this.response.data.errors).code === 449) ||
+    //         (this.typeResponseError === "GEKKARD" &&
+    //         this.response.data.error.code === 10068)
+    // }
+
+
 }

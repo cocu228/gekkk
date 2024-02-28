@@ -172,12 +172,6 @@ export const uncoverResponse = (response) => response.data.result
 
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
-export const getCurrencyRounding = (value: number | undefined) =>
-    value === undefined ? "-" : value >= 1000
-        ? Math.round(value) : value >= 1
-            ? value.toFixed(2)
-            : value.toFixed(value != 0 ? Math.floor(-Math.log10(value)) + 1 : 0);
-
 export const getFormattedIBAN = (iban: string) => {
     return iban.slice(0, 10) + '***' + iban.slice(-4);
 }
@@ -232,6 +226,7 @@ export function clearCookie(name: string) {
 export const logout = async () => {
     await apiLogout();
     clearCookie("accountId");
+    clearCookie("bankToken");
     clearCookie("phoneNumber");
     location.replace('/');
 };

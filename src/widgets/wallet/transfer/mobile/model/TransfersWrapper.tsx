@@ -27,7 +27,7 @@ export default function TransfersWrapper({children}: IProps) {
                         )
                     }else{
                         return(
-                            <div className="flex justify-center w-[100%]">
+                            <div className="flex justify-center w-full">
                                 {child}
                             </div>
                         )

@@ -6,7 +6,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import {helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/sidebar/model/helpers";
+import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "../../model/story";
 import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
@@ -23,6 +23,7 @@ import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 
 
 

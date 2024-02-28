@@ -26,7 +26,7 @@ export const CookiePolicy = memo(() => {
             Our website uses cookies. The policy objective is to explain how Papaya (hereafter referred to as “we”) uses cookies and processes personal data.
             
             <div>
-                Read more information <a className='typography-b2'>here</a>.
+                Read more information <a className='typography-b2' href='https://gekkard.com/cookies-policy.html'>here</a>.
             </div>
         </div>
         

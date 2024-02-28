@@ -27,11 +27,12 @@ export default function Transfers({}: Props) {
     const {currency} = useParams()
     const [curr, setCurr] = useState<string>(currency) 
     const {currencies} = useContext(CtxCurrencies);
-    const $currency : ICtxCurrency = currencies.get(curr?curr:"EUR");
-    
-            
-
-
+    let $currency : ICtxCurrency = currencies?.get(curr?curr:"EUR");
+     
+    if(!$currency){
+        // @ts-ignore
+        $currency = mockEUR
+    }
 
     
   return (
@@ -50,9 +51,9 @@ export default function Transfers({}: Props) {
                         {curr && <ChoseNetworkMobile data-tag={"choose_network"}/>}
                         <div
                             data-tag={"main"}
-                            className='bg-[white] align-center p-5 pb-1 rounded'
+                            className='bg-[white] w-full align-center p-5 pb-1 rounded'
                         >
-                        <GetDisplayedForm curr={$currency}/>
+                            <GetDisplayedForm curr={$currency}/>
                         </div>
                     </TransfersWrapper>
                 </NetworkProvider>

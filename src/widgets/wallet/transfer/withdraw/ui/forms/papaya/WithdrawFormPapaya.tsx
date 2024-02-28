@@ -58,14 +58,14 @@ const WithdrawFormPapaya = () => {
             </div>
 
             <div className="col text-xs">
-                <span><b>Note</b>:  Standard exchange fee is <b>{percent_fee}%</b>
+                <span><b>*{t("note")}</b>: {t("exchange_fee")} <b>{percent_fee}%</b>
                     {account.rights[AccountRights.IsJuridical] ? null :
-                        <span className="font-normal"> If you <span
+                        <span className="font-normal"> {t("if_you")} <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
                             onClick={() => navigate('/wallet/GKE/no_fee_program')}
                         >
-                            freeze GKE tokens    
-                        </span> fee is <b>0%</b>.
+                            {t("freeze_GKE_tokens")}  
+                        </span> {t("fee_is")} <b>0%</b>.
                     </span>}
                 </span>
             </div>

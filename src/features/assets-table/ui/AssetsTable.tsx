@@ -12,9 +12,10 @@ import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {evenOrOdd, getCurrencyRounding, scrollToTop} from "@/shared/lib/helpers";
+import {evenOrOdd, scrollToTop} from "@/shared/lib/helpers";
 import {useTranslation} from 'react-i18next';
 import searchIcon from '../../../../public/img/icon/search-normal.svg'
+import {getCurrencyRounding} from '@/shared/lib/number-format-helper';
 
 interface IParams {
     modal?: boolean,

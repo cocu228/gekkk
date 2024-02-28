@@ -137,7 +137,7 @@ export const QuickExchange = () => {
         <div className="row mb-8">
             <div className="col">
                 <InputCurrency.PercentSelector
-                    header={<span className="font-medium">Pay from</span>}
+                    header={<span className="font-medium">{t("exchange.pay_from")}</span>}
                     currency={state.typeOperation === "EURToCrypto" ?
                         state.currency.EUR :
                         state.currency.Crypto}
@@ -162,7 +162,7 @@ export const QuickExchange = () => {
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="font-medium">Receive to</span>
+                <span className="font-medium">{t("exchange.recieve_to")}</span>
             </div>
         </div>
         <div className="row mb-8">
@@ -187,7 +187,7 @@ export const QuickExchange = () => {
 
                         <div className="col text-xs">
                             <span
-                                className="font-normal"> The final exchange rate may differ from the value shown.</span>
+                                className="font-normal">{t("exchange.info_final_exchange")}</span>
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@ export const QuickExchange = () => {
         </div>
         <div className="row">
             <div className="col">
-                <b>Testing value: {ratesEUR[state.currency.Crypto.$const]} EUR without commission 10%</b>
+                <b>{t("exchange.testing_value")}: {ratesEUR[state.currency.Crypto.$const]} EUR {t("exchange.without_comission")} 10%</b>
             </div>
         </div>
         <div className="row">
@@ -203,11 +203,11 @@ export const QuickExchange = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                          You will get
+                            {t("you_will_get")}
                         </span>
                         </div>
                         {/*<div className="row">*/}
@@ -248,7 +248,7 @@ export const QuickExchange = () => {
                     onClick={showModal}
                     disabled={!stateInputEUR.inputCurr.value.number || inputCurrValid.value}
                     className="w-full">
-                    Exchange
+                    {t("exchange.title")}
                 </Button>
             </div>
         </div>

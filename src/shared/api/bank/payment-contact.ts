@@ -26,10 +26,12 @@ interface IParams {
 export const apiPaymentContact = (
     params: Partial<IParams>,
     commission: boolean = false,
-    headers: Partial<SignHeaders> = null
+    headers: any = null
+    // headers: Partial<SignHeaders> = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_contact${commission ? "/commission" : ""}`, {
     payment_contact: params
 }, {
+    baseURL: import.meta.env.VITE_BANK_API_URL,
     headers: {
         ...headers,
         "X-Confirmation-Type": "SIGN"

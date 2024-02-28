@@ -13,17 +13,28 @@ import { CtxWalletNetworks } from '../../../model/context';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
 import WithdrawFormPapayaMobile from '../../../withdraw/ui/forms/papaya/mobile/WithdrawFormPapayaMobile';
+import WithdrawFormCryptoMobile from '../../../withdraw/ui/forms/crypto/mobile/WithdrawFormCryptoMobile';
+import CreateTransferCodeMobile from '../../../withdraw/ui/forms/create-transfer-code/mobile';
+import UniversalTransferFormMobile from '../../../withdraw/ui/forms/universal-transfer/mobile/UniversalTransferFormMobile';
+import WithdrawFormSepaMobile from '../../../withdraw/ui/forms/sepa/mobile/WithdrawFormSepaMobile';
+import WithdrawFormBrokerMobile from '../../../withdraw/ui/forms/broker/mobile/WithdrawFormBrokerMobile';
+import WithdrawFormCardToCardMobile from '../../../withdraw/ui/forms/card-to-card/mobile/WithdrawFormCardToCardMobile';
+import { getInitialProps, useTranslation } from 'react-i18next';
 
 type Props = {
     curr:ICtxCurrency
 }
 
 function GetDisplayedForm({curr}: Props) {
+    const {t} = useTranslation()
+    const {initialLanguage} = getInitialProps()
 
     const {networkTypeSelect} = useContext(CtxWalletNetworks);
 
     const [loading, setLoading] = useState<boolean>(true)
-    
+    useEffect(()=>{
+        console.log(networkTypeSelect);
+    }, [networkTypeSelect])
     useEffect(()=>{
 
         setLoading(true)
@@ -33,43 +44,51 @@ function GetDisplayedForm({curr}: Props) {
 
     },[curr])
 
-
+    
+    
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {            
-            return <WithdrawFormCrypto/>;
+            return <WithdrawFormCryptoMobile/>;
         }
         
         switch (networkType) {
             case 150:
                 return <WithdrawFormPapayaMobile/>;
-            case 151:
-                return <WithdrawFormSepa/>;
-            case 152:
-                return <WithdrawFormSwift/>;
-            case 153:
-                return <WithdrawFormCardToCard/>;
+                case 151:
+                    return <WithdrawFormSepaMobile/>;
+                    case 152:
+                        return <WithdrawFormSwift/>;
+                        case 153:
+                return <WithdrawFormCardToCardMobile/>;
             case 154:
-                return <WithdrawFormBroker/>;
+                return <WithdrawFormBrokerMobile/>;
             case 155:
                 return <WithdrawFormPhoneNumber/>;
             case 230:
-                return <UniversalTransferForm/>;
+                return <UniversalTransferFormMobile/>;
             case 231:
-                return <CreateTransferCode/>;
+                return <CreateTransferCodeMobile/>;
             default:
                     return <div>
-                        Sorry, there are no actions available for the selected network.
+                        {t("no_actions_for_network")}
                     </div>;
         }
     }
 
+    useEffect(()=>{
+        setDisplayedForm(getDisplayForm(networkTypeSelect))
+    },[initialLanguage, networkTypeSelect])
+
+
+    const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
+    
     return (
         loading?
-                <div className='w-[100vw] h-[200px] relative mb-5'>
+        <div className='w-[100vw] h-[200px] relative mb-5'>
                     <Loader/>
                 </div>
             :
-                getDisplayForm(networkTypeSelect)
+            displayedForm
     )
 }
 

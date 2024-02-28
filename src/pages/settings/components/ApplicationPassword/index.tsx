@@ -19,6 +19,8 @@ import { RegisterOption, RegisterKey } from './api/register-key';
 import { useUserInfo } from '../PersonalInformation/hooks/use-user-info';
 import { apiGetUserInfo } from '../PersonalInformation/api/get-user-info';
 import { ChangePass, RegisterOptionsToChangePass } from './api/change-password';
+import PasswordInput from './helpers/passwordInput';
+import CheckList from './helpers/checklist';
 interface ILimit {
   start:number,
   end:number
@@ -54,6 +56,7 @@ export function AccessManagement(): JSX.Element | null{
   const [phoneNumber, setPhoneNumber] = useState<string>()
   const [options, setOptions] = useState()
   const [challengeReg, setChallengeReg] = useState()
+  const [valid, setValid] = useState<boolean>(false)
 
 
   function onRemoveKey(id){
@@ -130,6 +133,7 @@ export function AccessManagement(): JSX.Element | null{
               value={confirmNewPass}
               onChange={(e)=>{setConfirmNewPass(e.target.value)}}
             />
+            <CheckList setValid={setValid} value={newPass}/>
             <Input 
               value={confirmCode}
               onChange={(e)=>{setConfirmCode(e.target.value);
@@ -138,33 +142,30 @@ export function AccessManagement(): JSX.Element | null{
               placeholder={t("enter_confirm_code")} 
             />
           </Box>
-          <Button 
-            onClick={()=>{
-
-              if((newPass === confirmNewPass) && newPass.length > 5){
-                RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
-              }else if(newPass.length < 6){
-                alert(t("password_too_short"))
-              }else{
-                alert(t("invalid_confirm_password"))
-              }
-                
-            }}
-          >
-            {t('send_code')}
-          </Button>
-          <Button
-            onClick={()=>{
-              if((newPass === confirmNewPass) && changeCodeSent){
-                ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
-                setChangeCodeSent(false)
-              }else if(!changeCodeSent){
-                alert(t("firstly_send_sms"))
-              }
-            }}
-          >
-            {t('Save')}
-          </Button>
+          <div className='w-full flex flex-row justify-between'>
+            <Button
+              disabled={!valid || !(newPass === confirmNewPass)}
+              onClick={()=>{
+                if(valid && newPass === confirmNewPass){
+                  RegisterOptionsToChangePass(setOptions, setChallengeReg, setChangeCodeSent)
+                }
+            
+              }}
+            >
+              {t('send_code')}
+            </Button>
+            <Button
+              disabled={!changeCodeSent}
+              onClick={()=>{
+                if((newPass === confirmNewPass) && changeCodeSent){
+                  ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
+                  setChangeCodeSent(false)
+                }
+              }}
+            >
+              {t('Save')}
+            </Button>
+          </div>
         </AreaWrapper>
         <AreaWrapper secondary title={t("user_keys_list")}>
           <div className={styles.Container}>

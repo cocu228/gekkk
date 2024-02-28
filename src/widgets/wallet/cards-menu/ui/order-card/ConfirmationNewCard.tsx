@@ -14,7 +14,7 @@ import Loader from "@/shared/ui/loader";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiOrderVirtualCard} from "@/shared/api/bank/order-virtual-card";
-import {apiBankCards, apiBankCardsCardIdOrder} from "@/shared/(orval)api";
+import {apiGetCards, apiPersonalize} from "@/shared/(orval)api";
 import {Format} from "@/shared/(orval)api/gek/model";
 
 const RowItem = styled(Box, {
@@ -165,7 +165,7 @@ export function ConfirmationNewCard() {
                 <Button onClick={() => {
                     setIsOpen(false);
                     // Order virtual card
-                    apiBankCardsCardIdOrder(state.card.cardId, {
+                    apiPersonalize({
                         isExpressDelivery: state.isExpressDelivery,
                         deliveryAddress: {
                             city: state.city,
@@ -176,7 +176,7 @@ export function ConfirmationNewCard() {
                             apartmentNumber: state.apartmentNumber,
                             recipientName: state.recipientName
                         }
-                    });
+                    }, {cardId: state.card.cardId});
                     
                     // Order plastic card
                     // apiBankCards({

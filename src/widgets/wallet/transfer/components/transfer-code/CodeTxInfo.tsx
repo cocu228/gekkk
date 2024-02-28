@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {apiCodeTxInfo} from "@/shared/(orval)api/gek";
 import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
@@ -7,11 +7,16 @@ import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import type {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { CtxWalletData } from "../../model/context";
+import Decimal from "decimal.js";
 
-const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
+const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
     const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
+    const currency = useContext(CtxWalletData)
     
+    const {md} = useBreakpoints()
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
@@ -32,7 +37,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>
             <div className="row mb-8">
                 <div className="col">
-                    <div className="info-box-note -mx-14 w-auto">
+                    <div className={`info-box-note ${!md && "-mx-14"} w-auto`}>
                         <span>This code can be used only once</span>
                     </div>
                 </div>
@@ -47,11 +52,70 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
                         />
                     </div>
                 </div>
+                {md && 
+                    <div className="row">
+                        <div className="col">
+                            <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
+                                <div className="col flex flex-col items-start w-[max-content] gap-2">
+                                    <div className="row">
+                                        <span>You will pay</span>
+                                    </div>
+                                    <div className="row">
+                                        <span>
+                                            You will get
+                                        </span>
+                                    </div>
+                                    <div className="row">
+                                        <span>
+                                    Fee
+                                    </span>
+                                    </div>
+                                </div>
+                                <div className="col flex flex-col w-[max-content] gap-2">
+                                    <div className="row flex items-end">
+                                        <span
+                                            className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>
+                                    </div>
+                                    <div className="row flex items-end">
+                                        {loading ? "Loading..." : <span
+                                            className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>}
+                                    </div>
+                                    <div className="row flex items-end">
+                                        {loading ? "Loading..." : <span
+                                            className="w-full text-start">-</span>}
+                                    </div> 
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col w-1/2">
+                            <div className="row flex">
+                                <div className="col">
+                                    <span className="text-gray-400 mr-2">Confirmation:</span>
+                                </div>
+                                <div className="col">
+                                    <span>{infoCode.typeTx === 12 ? <span className="text-[green]">on</span> : "off"}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                }
                 <div className="row mt-4 w-full">
                     <ClipboardField value={infoCode.code}/>
                 </div>
+                <div className="w-full mt-5">
+                    <Button
+                        size="xl"
+                        className="w-full"
+                        onClick={onClose}
+                        red
+                    >
+                        Close
+                    </Button>
+                </div>
             </div>}
-            <div className="row">
+            {!md && <div className="row">
                 <div className="col">
                     <div className="row mb-4 w-full flex">
                         <div className="col w-1/2">
@@ -76,7 +140,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null}) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
             {onBtnApply && <div className="row">
                 <div className="col">
                     <Button disabled={loading} onClick={() => onBtnApply(infoCode)}

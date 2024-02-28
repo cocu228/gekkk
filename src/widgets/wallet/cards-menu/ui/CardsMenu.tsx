@@ -11,14 +11,15 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiUpdateCard, IResErrors} from "@/shared/api";
-import {apiBankCardsCardIdActivate, apiBankCardsCardIdUnmask, apiBankGetCards} from "@/shared/(orval)api/gek";
-import {Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
+import {apiActivate, apiUnmask, apiGetCards} from "@/shared/(orval)api/gek";
+import {ClientDetails, Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {useSearchParams} from "react-router-dom";
 import {OrderCard} from "@/widgets/wallet/cards-menu/ui/order-card";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -36,9 +37,11 @@ const CardsMenu = ({
     const [card, setCard] = useState<ICardData>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<CardSecretDTO>(null);
+    const [selectedItem, setSelectedItem] = useState<string>(null);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
+    const [accountDetails, setAccountDetails] = useState<ClientDetails>(null);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
@@ -53,7 +56,9 @@ const CardsMenu = ({
     
     useEffect(() => {
         (async () => {
-            const {data} = await apiBankGetCards();
+            const {data} = await apiGetCards();
+            setAccountDetails(await getAccountDetails());
+
             setCardsStorage({
                 cards: data.result,
                 refreshKey: randomId()
@@ -96,7 +101,7 @@ const CardsMenu = ({
         
         switch (action) {
             case 'activate':
-                apiBankCardsCardIdActivate(card.cardId)
+                apiActivate({cardId: card.cardId})
                     .then(({ data }) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
@@ -204,7 +209,7 @@ const CardsMenu = ({
                 break;
                 
             case 'showData':
-                apiBankCardsCardIdUnmask(card.cardId)
+                apiUnmask({cardId: card.cardId})
                     .then(({data}) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
@@ -222,17 +227,17 @@ const CardsMenu = ({
     }
     
     if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
-        return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
+        return <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
     
     return <div>
         <div className='flex w-full justify-between items-center mb-2'>
-            <span className='font-medium text-lg'>Cards menu</span>
+            <span className='font-medium text-lg'>{t("cards_menu")}</span>
             <span
                 onClick={() => setIsNewCardOpened(true)}
                 className='underline text-gray-400 hover:cursor-pointer hover:text-gray-600'
             >
-                Issue a new card
+                {t("issue_new_card")}
             </span>
         </div>
         
@@ -248,7 +253,7 @@ const CardsMenu = ({
         
         {!card ? <Loader className={'relative my-20'}/>
             : isOrderOpened
-                ? <OrderCard card={card} setIsNewCardOpened={setIsOrderOpened} />
+                ? <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
                 : (<>
             {card.isVirtual && (
                 <MenuItem

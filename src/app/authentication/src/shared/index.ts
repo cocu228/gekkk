@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { eddsa } from 'elliptic';
 import { sha256 } from "js-sha256";
-import { RegisterKey, apiGetInfo, apiLogin, apiLoginOptions } from './apiInterfaces';
+import { ApiResponse, RegisterKey, apiGetInfo, apiLogin, apiLoginOptions } from './apiInterfaces';
 import imgUrl from '../images/securitykey.min.svg';
 
 export const formatAsNumber = (str: string) => str.replace(/\D/g, "");
@@ -140,7 +140,7 @@ export async function ResetPass(opt: any, pass: string, code: string) {
     return await RegisterKey(data);
 }
 
-export async function RegisterDeviceKey(opt: any, code: string) {
+export async function RegisterDeviceKey(opt: any, code: string): Promise<ApiResponse<string>> {
     abortController?.abort("new registration");
 
     let fido2_opt = opt?.fido2_options;
@@ -179,12 +179,22 @@ export async function RegisterDeviceKey(opt: any, code: string) {
         });
     } catch (e) {
         var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
-        Swal.fire({
+        
+        await Swal.fire({
             title: 'Browser/OS request error',
             icon: "error",
             text: msg,
             footer: e
         });
+
+        return {
+            id: 0,
+            result: null,
+            error: {
+                code: 0,
+                message: 'An error accured when creating device key'
+            }
+        };
     }
 
     // Move data into Arrays incase it is super long

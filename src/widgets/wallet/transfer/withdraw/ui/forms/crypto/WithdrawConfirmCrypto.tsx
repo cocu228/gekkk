@@ -1,35 +1,37 @@
-import {useCallback, useContext, useState, memo, useRef} from "react";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
+import { useCallback, useContext, useState, memo, useRef } from "react";
+import { CtxWalletNetworks, CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
-import {apiCreateWithdraw} from "@/shared/(orval)api/gek";
+import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
-import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
+import { actionResSuccess, getRandomInt32, isNull, uncoverResponse } from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from '@/shared/ui/form/Form';
 import FormItem from '@/shared/ui/form/form-item/FormItem';
-import {codeMessage} from "@/shared/config/message";
+import { codeMessage } from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
-import {MASK_CODE} from "@/shared/config/mask";
+import { MASK_CODE } from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
-import {CtxRootData} from "@/processes/RootContext";
+import { CtxRootData } from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
-import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
-import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
-import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
-import {useForm} from "antd/es/form/Form";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
-import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
-import {formatAsNumber} from "@/shared/lib/formatting-helper";
-
+import { IWithdrawFormCryptoState } from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
+import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
+import { useForm } from "antd/es/form/Form";
+import { CtxModalTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/context";
+import { CtnTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { CreateWithdrawIn } from "@/shared/(orval)api/gek/model";
+import { formatAsNumber } from "@/shared/lib/formatting-helper";
+import { SignTX } from "./signTX";
+import { $axios } from "@/shared/lib/(orval)axios";
 
 const initStageConfirm = {
     status: null,
     txId: null,
     fee: null,
-    autoInnerTransfer: false
+    autoInnerTransfer: false,
+    code: null
 }
 
 type TProps = IWithdrawFormCryptoState & {
@@ -50,15 +52,16 @@ const WithdrawConfirmCrypto = memo(({
         tokenNetworks
     } = useContext(CtxWalletNetworks)
 
-    const {label} = networksForSelector.find(it => it.value === networkTypeSelect)
+    const { label } = networksForSelector.find(it => it.value === networkTypeSelect)
     const [form] = useForm();
     const {
+        id,
         percent_fee = 0,
         withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
 
-    const {$const} = useContext(CtxWalletData)
-    const {setRefresh} = useContext(CtxRootData)
+    const { $const } = useContext(CtxWalletData)
+    const { setRefresh } = useContext(CtxRootData)
     const setContent = useContext(CtxModalTrxInfo)
 
     const [input, setInput] = useState("")
@@ -68,7 +71,7 @@ const WithdrawConfirmCrypto = memo(({
 
     const fragmentReqParams = useRef<Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">>({
         currency: $const,
-        token_network: networkTypeSelect,
+        token_network: id,
         amount: amount,
         fee: withdraw_fee,
         address: isNull(address) ? "" : address,
@@ -79,11 +82,22 @@ const WithdrawConfirmCrypto = memo(({
     const onReSendCode = useCallback(async () => {
         await onConfirm(true)
     }, [])
-    
-    const {onInput} = useMask(MASK_CODE)
+
+    const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
-        
+
+        // В случае когда требуется подпись
+        let sign = null;
+        if (stageReq?.status === 2) {
+            sign = await SignTX(stageReq.txId + "" + stageReq.code);
+            $axios.defaults.headers["x-signature"] = sign;
+        }
+        else 
+        {            
+            $axios.defaults.headers["x-signature"] = "";
+        }
+
         const response = await apiCreateWithdraw({
             ...fragmentReqParams.current,
             client_nonce: getRandomInt32(),
@@ -92,11 +106,11 @@ const WithdrawConfirmCrypto = memo(({
             confirmationTimetick: reSendCode ? null : stageReq.txId,
             confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
         });
-        
+
         actionResSuccess(response)
             .success(() => {
-                const result = uncoverResponse(response)
-                
+                const result:any = response.data?.result;
+
                 if (reSendCode
                     || result.confirmationStatusCode === 0
                     || result.confirmationStatusCode === 1
@@ -105,15 +119,16 @@ const WithdrawConfirmCrypto = memo(({
                         ...prev,
                         status: result.confirmationStatusCode,
                         txId: result.txId,
-                        fee: result.fee
+                        fee: result.fee,
+                        code: result.confirmCode
                     }))
                 }
                 if (result.confirmationStatusCode === 4) {
                     handleCancel()
-                    setContent(<CtnTrxInfo/>)
+                    setContent(<CtnTrxInfo />)
                     setRefresh()
                 } else {
-                    localErrorHunter({message: "Something went wrong.", code: 1})
+                    localErrorHunter({ message: "Something went wrong.", code: 1 })
                 }
             })
             .reject((err) => {
@@ -146,9 +161,9 @@ const WithdrawConfirmCrypto = memo(({
                         </div>
                         <div className="row">
                             <div className="col">
-                        <span className="text-gray-400">
-                            You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
-                        </span>
+                                <span className="text-gray-400">
+                                    You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -220,30 +235,30 @@ const WithdrawConfirmCrypto = memo(({
         <Form form={form} onFinish={(e) => onConfirm()}>
             {!isNull(stageReq.status) && <>
                 <span className="text-gray-400">Transfer confirmation</span>
-                
-                <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
-                    
+
+                <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
+
                     <Input type="text"
-                       onInput={onInput}
-                       autoComplete="off"
-                       onChange={({target}) => setInput(target.value)}
-                       placeholder={stageReq.status === 0
-                        ? "Enter SMS code"
-                        : stageReq.status === 1
-                            ? "Enter code"
-                            : "Enter PIN code"
-                       }
+                        onInput={onInput}
+                        autoComplete="off"
+                        onChange={({ target }) => setInput(target.value)}
+                        placeholder={stageReq.status === 0
+                            ? "Enter SMS code"
+                            : stageReq.status === 1
+                                ? "Enter code"
+                                : "Enter PIN code"
+                        }
                     />
                 </FormItem>
-                
-                <Timer onAction={onReSendCode}/>
+
+                <Timer onAction={onReSendCode} />
             </>}
             <div className="row mt-4 mb-5">
                 <div className="col relative">
-                    {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
+                    {loading ? <Loader className={"relative w-[24px] h-[24px]"} /> :
                         <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
-                                className="w-full"
-                                size={"xl"}>Confirm</Button>}
+                            className="w-full"
+                            size={"xl"}>Confirm</Button>}
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&

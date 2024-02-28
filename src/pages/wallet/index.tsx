@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -38,8 +38,26 @@ function Wallet() {
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
+    const [needMobile, setNeedMobile] = useState<boolean>(false)
 
-    
+    useEffect(() => {
+        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+            setNeedMobile(true)
+        }else{
+            setNeedMobile(false)
+        }
+        
+        function handleResize() {
+            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+                setNeedMobile(true)
+            }else{
+                setNeedMobile(false)
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
     
     
     let $currency = mockEUR;
@@ -52,11 +70,13 @@ function Wallet() {
     const isCryptoWallet = !(currency === "EUR" || currency === "EURG" || currency === "GKE")
 
     // const $const = currencies.get(currency)
-    const isOnAboutPage = tab === "about"
-    const isOnProgramsPage = tab === "programs"
-    const isOnNoFeeProgramPage = tab === "no_fee_program"
-    const isOnCashbackProgramPage = tab === "cashback_program"
-    const isOnTopUpPage = tab === "top_up"
+    const isOnAboutPage = tab === "about";
+    const isOnProgramsPage = tab === "programs";
+    const isOnNoFeeProgramPage = tab === "no_fee_program";
+    const isOnCashbackProgramPage = tab === "cashback_program";
+    const isOnTopUpPage = tab === "top_up";
+    const isCardsMenu = tab === "bank_cards";
+    const isQuickExchange = tab === "simple_exchange";
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
@@ -66,13 +86,6 @@ function Wallet() {
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	
 
-    function needMobile (){
-        if(lg || xxl || xxxl){
-            return true
-        }else if(xl){
-            return false
-        }
-    }
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -92,7 +105,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs needMobile={needMobile()} data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs needMobile={needMobile} data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
@@ -135,7 +148,7 @@ function Wallet() {
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
+                        {!(isQuickExchange || isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -156,6 +169,19 @@ function Wallet() {
                         {isOnProgramsPage &&
                             <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
                         }
+                        {isCardsMenu &&
+                            <div className="mt-4">
+                                <CardsMenu
+                                    data-tag={"bank_cards"}
+                                    data-name={t("bank_cards")}
+                                    isNewCardOpened={isNewCardOpened}
+                                    setIsNewCardOpened={setIsNewCardOpened}
+                                />
+                            </div>
+                        }
+                        {isQuickExchange && (
+                            <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
+                        )}
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }
@@ -163,8 +189,8 @@ function Wallet() {
                            <GkeCashbackProgram data-tag={"cashback_program"} data-name={t("cashback_program")}/>
                         }
                         {tab === "top_up" &&
-                            <div className="mt-5">
-                                <NetworkProvider>
+                            <div className="mt-5 min-h-[200px] relative">
+                                <NetworkProvider data-tag={"top_up"} data-name={t("top_up_wallet")}>
                                     <TopUp/>
                                 </NetworkProvider>
                             </div>

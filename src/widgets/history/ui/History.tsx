@@ -138,7 +138,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     if(!loading && !isHistoryPage && !listHistory.length){
         return(
             <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile +" h-[100px] relative"}>
-                <span>There have been no transactions in this currency</span>
+                <span>{t("no_transactions_warning")}</span>
             </div>
         )
     }

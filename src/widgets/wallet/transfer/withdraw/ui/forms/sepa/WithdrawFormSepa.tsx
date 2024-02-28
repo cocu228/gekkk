@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
@@ -15,9 +15,23 @@ import {validateBalance, validateMinimumAmount} from "@/shared/config/validators
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
-import {useTranslation} from "react-i18next";
+import {getInitialProps, useTranslation} from "react-i18next";
 
 const WithdrawFormSepa = () => {
+    const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
+    const {initialLanguage} = getInitialProps();
+
+    useEffect(()=>{
+        setTransferDescriptionsTranslated(
+            transferDescriptions.map(el=>{
+            return {
+                    "value" : el.value,
+                    "label" : t(`${el.value}`)
+                }
+            })
+        )
+    },[initialLanguage])
+
     const {t} = useTranslation();
     const currency = useContext(CtxWalletData);
     const {isModalOpen, showModal, handleCancel} = useModal();
@@ -89,8 +103,8 @@ const WithdrawFormSepa = () => {
                                     transferDescription: v
                                 }))}
                                 name={"transferDescription"}
-                                options={transferDescriptions}
-                                placeholder={"Transfer details"}
+                                options={transferDescriptionsTranslated}
+                                placeholder={t("transfer_details.name")}
                                 value={inputs.transferDescription}
                         />
                     </div>

@@ -180,7 +180,8 @@
       "for_more_information": "Für weitere Informationen zum EURG-Token lesen Sie bitte unser",
       "white_paper": "White Paper",
       "exchange_rate_fixed": "Der Wechselkurs ist fest",
-      "exchange_fee": "* Hinweis: Die Standardwechselgebühr beträgt ",
+      "note": "Anmerkung",
+      "exchange_fee": "Die Standardwechselgebühr beträgt ",
       "if_you": "Wenn Sie",
       "freeze_GKE_tokens": "GKE-Token einfrieren",
       "fee_is": "Gebühr beträgt",
@@ -304,7 +305,10 @@
           "orders": "Aufträge",
           "opened": "geöffnet",
           "closed": "geschlossen",
-          "order_id": "Auftrags-ID:"
+          "order_id": "Auftrags-ID:",
+          "info_final_exchange": "Der endgültige Wechselkurs kann vom angezeigten Wert abweichen.",
+          "testing_value": "Testwert",
+          "without_comission": "ohne Provision"
       },
       "you_will_pay": "Sie werden bezahlen",
       "you_will_get": "Sie werden erhalten",
@@ -349,7 +353,63 @@
       "remove_key":"Entfernen Schlüssel",
       "remove_key_warning":"Du bist dabei, den Zugangsschlüssel zu entfernen. Diese Aktion kann zum Verlust des Zugangs auf bestimmten Geräten führen und kann nicht rückgängig gemacht werden. Bist du sicher, dass du den Zugangsschlüssel entfernen möchtest?",
       "show_more": "Zeig mehr",
-      "hide": "Verstecken"
+      "hide": "Verstecken",
+      "card": "Karte",
+      "no_transactions_warning" : "In dieser Währung wurden keine Transaktionen durchgeführt",
+      "attention": "Achtung: Transaktionen in diesem Netzwerk können verzögert sein. Wir empfehlen, für diese Transaktion ein anderes Netzwerk zu verwenden.",
+      "transfer_desc": "Transferbeschreibung",
+      "сomment": "Kommentar",
+      "cashback_programs":{
+        "1_perc_cash":"1% Cashback auf alle Kartenzahlungen",
+        "4_perc_cash": "4% pro Jahr auf Ihr EURG-Guthaben",
+        "5_perc_cash": "5% pro Jahr auf Ihr GKE-Guthaben",
+        "cash_without_commision": "Krypto-Fiat-Austausch ohne Provision",
+        "paid_monthly": "Monatlich bezahlt",
+        "paid_monthly_interest": "Monatliche Zinsauszahlung",
+        "block_GKE_tokens": "Um diesen Cashback zu erhalten, müssen Sie GKE-Token blockieren",
+        "cashback_accrued": "Cashback wird innerhalb des Betrags gutgeschrieben, der nicht die gleiche Anzahl von blockierten GKE-Token übersteigt",
+        "gke_blocked_30days": "GKE-Fonds sind 30 Tage lang blockiert",
+        "necessary_block": "Es ist erforderlich, den Umfang der GKE-Token zu blockieren, der dem Umsatz in Fiat entspricht",
+        "gke_blocked_90days": "GKE-Fonds sind 90 Tage lang blockiert",
+        "higher_300": "Ihr gewichteter Durchschnittsbetrag für den Berichtszeitraum entspricht oder übersteigt 300 EURG",
+        "limit_100000": "Unsere Obergrenze für das Guthaben zur Zahlung des Zinssatzes beträgt 100.000 EURG",
+        "once_a_month": "Der Cashback wird einmal im Monat am Ende des Abrechnungszeitraums gutgeschrieben",
+        "first_year": "5% p.a. im ersten Jahr ab dem Ausgabedatum",
+        "second_year": "3% p.a. im zweiten Jahr ab dem Ausgausgabedatum",
+        "already_use": "Sie verwenden diese Option bereits",
+        "bonus_description": "Bonuszahlungen sind Teil eines Treueprogramms, das von ADVENTARIUM PTE. LTD. bereitgestellt wird. Die Geschäftsbedingungen finden Sie hier",
+        "conditions": "Bedingungen",
+        "go_to_the_program": "Zur Programmseite"
+    },
+    "cards_menu": "Kartenmenü",
+    "issue_new_card": "Neue Karte ausstellen",
+    "order_plastic_card": "Plastikkarte bestellen",
+    "cashback": "Rückvergütung",
+    "transfer_details":{
+        "name": "Überweisungsbeschreibung",
+        "first_element": "Andere",
+        "second_element": "Mein Konto aufladen",
+        "third_element": "Kreditrückzahlung gemäß Vereinbarung",
+        "fourth_element": "Dienstprogramme",
+        "fifth_element": "Meine Karte aufladen",
+        "sixth_element": "Karte aufladen",
+        "seventh_element": "Einlage aufladen",
+        "eighth_element": "Versicherung - Transport, Police",
+        "ninth_element": "Versicherung - Immobilien, Police",
+        "tenth_element": "Versicherung - Gesundheit, Police",
+        "eleventh_element": "Versicherung - Vital, Police",
+        "twelfth_element": "Steuer - Sozial",
+        "tertiary_element": "Steuer - Einkommen",
+        "fourteenth_element": "Steuer - Eigentum",
+        "fifteenth_element": "Bußgeldzahlung",
+        "sixteenth_element": "Kommissionszahlung"
+    },
+    "no_actions_for_network": "Entschuldigung, es sind keine Aktionen für das ausgewählte Netzwerk verfügbar."
+
+
+
+
+      
 
 
 

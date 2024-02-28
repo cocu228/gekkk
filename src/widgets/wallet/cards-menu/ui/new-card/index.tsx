@@ -3,18 +3,19 @@ import {IssueNewCard} from "./IssueNewCard";
 import {CardHasBeenOrdered} from "./CardHasBeenOrdered";
 import {ConfirmationNewCard} from "./ConfirmationNewCard";
 import {INewCardState, IStep, newCardContext} from './newCardContext';
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
+import {ClientDetails} from "@/shared/(orval)api/gek/model";
 
 export function NewCard({
+    accountDetails,
     setIsNewCardOpened
 }: {
+    accountDetails: ClientDetails,
     setIsNewCardOpened: (isOpened: boolean) => void
 }) {
     const mainCard = storeActiveCards(state => state.mainCard);
-    const accountDetails = storeAccountDetails(state => state.details);
-    
+
     const [state, setState] = useState<INewCardState>({
         city: null,
         houseNumber: null,

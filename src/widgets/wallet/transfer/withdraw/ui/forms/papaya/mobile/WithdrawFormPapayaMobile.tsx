@@ -17,7 +17,8 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useTranslation} from "react-i18next";
-import WithdrawConfirmCryptoMobile from '../../crypto/WithdrawConfirmCryptoMobile/WithdrawConfirmCryptoMobile';
+import WithdrawConfirmCryptoMobile from '../../crypto/mobile/WithdrawConfirmCryptoMobile';
+import WithdrawConfirmPapayaMobile from './WithdrawConfirmPapayaMobile';
 
 
 const WithdrawFormPapayaMobile = () => {
@@ -91,14 +92,14 @@ const WithdrawFormPapayaMobile = () => {
                 </div>
 
                 <div className="col text-[#3A5E66] text-[10px] text-xs">
-                    <span><b>*NOTE</b>:  Standard exchange fee is <b className='text-[#3A5E66]'>{percent_fee}%</b>
+                    <span><b>*{t("note")}</b>:  {t("exchange_fee")} <b className='text-[#3A5E66]'>{percent_fee}%</b>
                         {account.rights[AccountRights.IsJuridical] ? null :
-                            <span className="font-normal"> If you <span
+                            <span className="font-normal"> {t("if_you")} <span
                                 className='text-[#45AD77] hover:cursor-pointer hover:underline'
                                 onClick={() => navigate('/wallet/GKE/no_fee_program')}
                             >
-                                freeze GKE tokens    
-                            </span> fee is <b>0%</b>.
+                                {t("freeze_GKE_tokens")}   
+                            </span> {t("fee_is")} <b>0%</b>.
                         </span>}
                     </span>
                 </div>
@@ -146,7 +147,7 @@ const WithdrawFormPapayaMobile = () => {
             title={"Withdraw confirmation"}
             footer={<div></div>}
         >
-            <WithdrawConfirmCryptoMobile
+            <WithdrawConfirmPapayaMobile
                 description={""}
                 address={account.number}
                 recipient={account.name}

@@ -30,7 +30,7 @@ const TransfersButton = memo(({wallet}:IParams) => {
 
     return(
         <>
-            <NavLink to={currency?`/transfers/${currency}`:"transfers"}>
+            <NavLink to={currency?`/transfers?currency=${currency}`:"transfers"}>
                 <div className={styles.BottomMenuMobileButtons +` ${(isOnTransferPage || isOnTransferPageCurr || wallet) && styles.BottomMenuButtonsActive}`}>
                     <svg className={styles.BottomMenuMobileButtonsIcons} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <g clip-path="url(#clip0_568_127)">

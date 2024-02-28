@@ -18,14 +18,14 @@ import WithdrawFormPhoneNumber from '@/widgets/wallet/transfer/withdraw/ui/forms
 import WithdrawFormSepa from '@/widgets/wallet/transfer/withdraw/ui/forms/sepa/WithdrawFormSepa'
 import UniversalTransferForm from '@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm'
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 type Props = {}
 
 export default function Transfers({}: Props) {
 
-    const {currency} = useParams()
-    const [curr, setCurr] = useState<string>(currency) 
+    const query = useQuery()
+    const [curr, setCurr] = useState<string>() 
     const {currencies} = useContext(CtxCurrencies);
     const [network, setNetwork] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
@@ -37,8 +37,15 @@ export default function Transfers({}: Props) {
             },1000)
         }
     }, [loading])
+
     useEffect(()=>{
         setLoading(true)
+        if(query.get("type")){
+            setNetwork(+query.get("type"))
+        }
+        if(query.get("currency")){
+            setCurr(query.get("currency"))
+        }
     },[])
 
     let $currency : ICtxCurrency = currencies?.get(curr?curr:"EUR");
@@ -77,3 +84,10 @@ export default function Transfers({}: Props) {
     </>
   )
 }
+
+
+function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }

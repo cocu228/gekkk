@@ -45,8 +45,9 @@ const router = createBrowserRouter([
                 element: <PartnershipProgram/>,
             },
             {
-                path: "transfers/:currency?",
+                path: "transfers",
                 element: <Transfers/>
+                
             },
             {
                 path: 'exchange',

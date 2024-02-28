@@ -43,6 +43,7 @@ function GetDisplayedForm({curr}: Props) {
 
     },[curr])
 
+    console.log(networkTypeSelect);
     
     
     const getDisplayForm = (networkType: number): JSX.Element => {
@@ -53,11 +54,11 @@ function GetDisplayedForm({curr}: Props) {
         switch (networkType) {
             case 150:
                 return <WithdrawFormPapayaMobile/>;
-                case 151:
-                    return <WithdrawFormSepaMobile/>;
-                    case 152:
-                        return <WithdrawFormSwift/>;
-                        case 153:
+            case 151:
+                return <WithdrawFormSepaMobile/>;
+            case 152:
+                return <WithdrawFormSwift/>;
+            case 153:
                 return <WithdrawFormCardToCardMobile/>;
             case 154:
                 return <WithdrawFormBrokerMobile/>;

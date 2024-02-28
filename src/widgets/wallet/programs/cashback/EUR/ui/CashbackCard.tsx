@@ -8,13 +8,14 @@ import { DealTurn } from "../model/helpers";
 // import SmsCodeModal from "./SmsCodeModal";
 import styles from './style.module.scss';
 import NoFeeProgram from "../../../no-fee/ui";
+import { useTranslation } from "react-i18next";
 
 
 interface Props {
   cashbackId: ActiveBonusProgram;
   name: string;
   accrualPeriod: string;
-  iconPath: string;
+  iconPath: string; 
   className: string;
   conditions: Array<string>;
   isActive: boolean;
@@ -22,6 +23,7 @@ interface Props {
 
 const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, iconPath, conditions, isActive }): JSX.Element => {
   const navigate = useNavigate();
+  const {t} = useTranslation()
   // const { isModalOpen, showModal, handleCancel } = useModal();
 
   const [isChecked, setChecked] = useState(false);
@@ -36,7 +38,7 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
       >
         <div className='flex'>
           <div className={styles.CashbackCardName}>
-            {name}
+            {t(name)}
           </div>
 
           <img
@@ -53,17 +55,16 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
                   className="w-7 h-7 mr-2"
                   src='/img/cashback/active-cashback.svg'
                 />
-                <span> You already use this option</span>
+                <span>{t("cashback_programs.already_use")}</span>
               </div>
             ) 
-            : accrualPeriod
+            : t(accrualPeriod)
           }
         </div>
 
         <div className='mt-[23px]'>
             <span className={`${styles.CashbackCardCheckbox} ${(isActive || (toNoFeeProgram || toCashbackProgram)) ? 'pl-0' : ''}`}>
-              Bonus payments are a part of a loyalty program, provided by 
-              ADVENTARIUM PTE. LTD. Terms and Conditions can be found here
+              {t("cashback_programs.bonus_description")}
             </span> 
         </div>
         <div className={styles.CashbackCardButton}>
@@ -84,7 +85,7 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
                   <path d="M0.920044 0.347656L5.91641 5.34402L0.920044 10.3404" stroke="#3A5E66"/>
                 </svg>
               </div>
-              {(toNoFeeProgram || toCashbackProgram) && 'Go to the program'}
+              {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
             </div>
           </Button>}
         </div>
@@ -92,13 +93,13 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
 
       <div className={styles.CashbackDescription}>
         <div className={styles.CashbackDescriptionTitle}>
-          Conditions
+          {t("cashback_programs.conditions")}
         </div>
 
         <ul className={`list-disc ${styles.CashbackDescriptionList}`}>
           {conditions.map((condition, i) => (
             <li key={i}>
-              {condition}
+              {t(condition)}
             </li>
           ))}
         </ul>

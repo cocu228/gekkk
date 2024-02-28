@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styles from "./checklist.module.css";
 
 // Importing the validation rules
@@ -9,8 +10,9 @@ import {
 } from "./validationRules";
 
 interface Props {
-  value: string | undefined;
   className?: string;
+  value: string | undefined;
+  onValidate?: (value: boolean) => void;
 }
 
 const rules = [
@@ -20,12 +22,20 @@ const rules = [
   { label: "One special char", pattern: SPECIAL_CHARS_REGEX }
 ];
 
-const CheckList = (props: Props) => {
+const CheckList = ({
+  value,
+  className,
+  onValidate
+}: Props) => {
+  useEffect(() => {
+    onValidate(rules.every(r => value.match(r.pattern)));
+  }, [value])
+
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`}>
       {rules.map((rule) => {
         const cn =
-          props.value && props.value.match(rule.pattern) ? styles.passed : "";
+          value && value.match(rule.pattern) ? styles.passed : "";
         return <p className={cn}>{rule.label}</p>;
       })}
     </div>

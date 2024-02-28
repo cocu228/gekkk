@@ -1,29 +1,30 @@
 ﻿import {SignHeaders} from "@/shared/api";
-import {getCookieData} from "@/shared/lib/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 
-export const pinHeadersGeneration = async (
-	token: string | null = null,
-	code: string
-): Promise<Partial<SignHeaders>> => {
-	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
-		"X-Confirmation-Type": "PIN"
-	}
-	
-	if (token === null) return header;
-	
-	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
-		"X-Confirmation-Code": code,
-		"X-Confirmation-Token": token
-	};
-	
-	return ({
-		...header,
-		...keys
-	});
-}
+// Pin headers generation
+// export const pinHeadersGeneration = async (
+// 	token: string | null = null,
+// 	code: string
+// ): Promise<Partial<SignHeaders>> => {
+// 	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
+// 		"X-Confirmation-Type": "PIN"
+// 	}
+//	
+// 	if (token === null) return header;
+//	
+// 	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {
+// 		"X-Confirmation-Code": code,
+// 		"X-Confirmation-Token": token
+// 	};
+//	
+// 	return ({
+// 		...header,
+// 		...keys
+// 	});
+// }
 
 export const signHeadersGeneration = async (
+	phone: string,
 	token: string | null = null
 ): Promise<Partial<SignHeaders>> => {
 	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
@@ -35,12 +36,12 @@ export const signHeadersGeneration = async (
 	const {
 		appUuid,
 		appPass
-	} = token ? await getTransactionSignParams() : {appUuid: null, appPass: null};
+	} = await getTransactionSignParams();
 	
 	const jwtPayload = {
+		initiator: phone,
 		confirmationToken: token,
-		exp: Date.now() + 0.5 * 60 * 1000, // + 30sec
-		initiator: getCookieData<{ phone: string }>().phone
+		exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
 	};
 	
 	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {

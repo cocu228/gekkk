@@ -11,7 +11,7 @@ import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
 import IconParticipant from '@/shared/ui/icons/IconParticipant';
-import {helperFilterList, toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/sidebar/model/helpers";
+import {helperFilterList} from "@/widgets/sidebar/model/helpers";
 import {storyToggleSidebar} from "@/widgets/sidebar/model/story";
 import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
@@ -28,7 +28,7 @@ import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
+import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 
 // import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 // import Loader from "@/shared/ui/loader";
@@ -54,7 +54,6 @@ const SidebarDesktop = () => {
     } = storeListExchangeRooms(state => state);
     const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
-    const {getAccountDetails} = storeAccountDetails(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -66,7 +65,6 @@ const SidebarDesktop = () => {
             getRoomsList();
             getInvestments();
             getActiveCards();
-            getAccountDetails();
         }
     }, [account]);
 
@@ -155,7 +153,7 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.userBalance)) ?? '-'} €</span>
+                                            className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
                                     </div>
                                     <div className="right-0 absolute mr-4 "><UpdateAmounts/></div>
                                 </div>
@@ -188,12 +186,12 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet && toLocaleCryptoRounding(eurgWallet.userBalance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
                                     </div>
                                     {eurgWallet && <div className={"row w-full flex justify-between "}>
                                         <div>
                                             {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                    +{toLocaleCryptoRounding(eurgWallet.lockInBalance, eurgWallet.roundPrec) ?? '-'}
                                                 </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">

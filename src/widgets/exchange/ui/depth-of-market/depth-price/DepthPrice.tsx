@@ -4,7 +4,7 @@ import IconArrow from "@/shared/ui/icons/IconArrow";
 import {useContext, useEffect, useState} from "react";
 import {RateState} from "@/widgets/exchange/model/types";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {getCurrencyRounding} from "@/shared/lib/helpers";
+import {getCurrencyRounding} from "@/shared/lib/number-format-helper";
 
 interface IParams {
     amount: number;

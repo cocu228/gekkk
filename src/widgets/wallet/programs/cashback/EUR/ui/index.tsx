@@ -12,7 +12,6 @@ interface IParams{
 }
 
 const CashbackProgram = ({currency, mobile}:IParams) => {
-
     // const getDeals = storeDeals(state => state.getDeals);
     // const dealsDataSelector = dealsSelector();
 

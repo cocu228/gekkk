@@ -8,6 +8,9 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {transferDescriptions} from "../../../model/transfer-descriptions";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { apiGetUas } from "@/shared/(orval)api";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;
@@ -34,6 +37,7 @@ const WithdrawConfirmSepa = ({
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
@@ -59,23 +63,44 @@ const WithdrawConfirmSepa = ({
             loading: true
         }));
 
-        const {data} = await apiPaymentSepa(details.current);
-        
-        setState(prev => ({
-            ...prev,
-            status: (data as IResResult).status === 'ok' ? 'success' : 'error'
-        }));
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+
+        await apiPaymentSepa(details.current, false, {
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
+            
+            await apiPaymentSepa(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: data.result.token
+            }).then(({data}) => (setState(prev => ({
+                ...prev,
+                status: (data as IResResult).status === 'ok' ? 'success' : 'error'
+            }))));
+        });
     }
     
     useEffect(() => {
-        apiPaymentSepa(details.current, true).then(({data}) => {
-            setState(prev => ({
+        (async () => {
+            const {data} = await apiGetUas();
+            const {phone} = await getAccountDetails();
+            
+            apiPaymentSepa(details.current, true, {
+                Authorization: phone,
+                Token: data.result.token
+            }).then(({data}) => (setState(prev => ({
                 ...prev,
                 total: data as IResCommission
-            }));
-        });
+            }))));
+        })();
     }, []);
-
+    
     return status ? <CtnTrxInfo status={status}/> : <div>
         {loading && <Loader className='justify-center'/>}
         

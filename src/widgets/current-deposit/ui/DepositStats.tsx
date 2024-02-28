@@ -2,7 +2,7 @@ import {Skeleton} from 'antd';
 import {useEffect, useState} from 'react';
 import {apiGetRates} from '@/shared/(orval)api/gek';
 import {IDepositStrategyData, getDepositCurrentProfit} from '../model/helpers';
-import {getCurrencyRounding} from '@/shared/lib/helpers';
+import {getCurrencyRounding} from '@/shared/lib/number-format-helper';
 import Decimal from 'decimal.js';
 
 interface IDepositStats {

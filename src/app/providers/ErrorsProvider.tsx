@@ -1,25 +1,24 @@
 import Loader from "@/shared/ui/loader";
 import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
-import {useNavigate} from "react-router-dom";
+import {logout} from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
-import useModal from "@/shared/model/hooks/useModal";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
+import useModal from "@/shared/model/hooks/useModal";
+import {useLocation, useNavigate} from "react-router-dom";
 import {randomId, scrollToTop} from "@/shared/lib/helpers";
-import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
+import PageProblems from "@/pages/page-problems/PageProblems";
 import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react";
+import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
+import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-provider-types";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
-import {IStateErrorProvider, IServiceErrorProvider, TResponseErrorProvider} from "@/processes/errors-provider-types";
-
-
-import {logout} from "@/shared/lib/helpers";
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
-                                                                                   offline,
-                                                                                   children
-                                                                               }): JSX.Element | null {
+    offline,
+    children
+}): JSX.Element | null {
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
@@ -79,8 +78,8 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             }
 
             if (hunterErrorsApi.isAuthExpired()) logout();
-
-            if (hunterErrorsApi.isConfirmationToken()) {
+            
+            if (hunterErrorsApi.isTokenReceive()) {
                 return new Promise((resolve, reject) => {
                     setState(prev => ({
                         ...prev,
@@ -90,8 +89,21 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                             reject: reject
                         }
                     }));
-                })
+                });
             }
+            
+            // if (hunterErrorsApi.isConfirmationToken()) {
+            //     return new Promise((resolve, reject) => {
+            //         setState(prev => ({
+            //             ...prev,
+            //             actionConfirmResponse: response,
+            //             pending: {
+            //                 resolve: resolve,
+            //                 reject: reject
+            //             }
+            //         }));
+            //     })
+            // }
 
             return response;
         }, hunterErrorStatus.bind({
@@ -106,10 +118,10 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
         errors: [...prevState.errors.filter(it => it.id !== id)]
     }));
 
-    // if (useLocation().state === 500) {
-    //     window.history.replaceState({}, document.title);
-    //     return (<PageProblems code={500}/>);
-    // }
+    if (useLocation().state === 500) {
+        window.history.replaceState({}, document.title);
+        return (<PageProblems code={500}/>);
+    }
 
     return <>
         {<div className="flex z-50 flex-col items-center absolute top-[100px] left-0 right-0 m-auto">

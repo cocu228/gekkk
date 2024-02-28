@@ -5,7 +5,7 @@ import Button from '@/shared/ui/button/Button';
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useError from "@/shared/model/hooks/useError";
-import {actionResSuccess} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomInt32} from "@/shared/lib/helpers";
 import {apiCreateTxCode} from "@/shared/(orval)api/gek";
 import InputCurrency from '@/shared/ui/input-currency/ui';
 import {validateBalance} from '@/shared/config/validators';
@@ -43,7 +43,7 @@ const CreateCode = () => {
             timeLimit: false,
             currency: currency.$const,
             amount: inputCurr.value.number,
-            clientNonce: new Date().getTime()
+            clientNonce: getRandomInt32()
         });
         
         actionResSuccess(response).success(async () => {

@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import TextArea from "antd/es/input/TextArea";
@@ -19,11 +19,15 @@ import {useNavigate} from "react-router-dom";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import {useTranslation} from "react-i18next";
+import {getInitialProps, useTranslation} from "react-i18next";
 
 const WithdrawFormSwift = () => {
 
     const {t} = useTranslation();
+
+    const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
+    const {initialLanguage} = getInitialProps();
+
     const {isModalOpen, showModal, handleCancel} = useModal();
     const currency = useContext(CtxWalletData);
     const navigate = useNavigate();
@@ -51,6 +55,17 @@ const WithdrawFormSwift = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
+
+    useEffect(()=>{
+        setTransferDescriptionsTranslated(
+            transferDescriptions.map(el=>{
+            return {
+                    "value" : el.value,
+                    "label" : t(`${el.value}`)
+                }
+            })
+        )
+    },[initialLanguage])
     return (<div className="wrapper">
         <div className="row mb-8 w-full">
             <div className="col">
@@ -225,9 +240,10 @@ const WithdrawFormSwift = () => {
                                     ...inputs,
                                     transferDescription: v
                                 }))}
+                                listHeight={250}
                                 name={"transferDescription"}
-                                options={transferDescriptions}
-                                placeholder={"Transfer details"}
+                                options={transferDescriptionsTranslated}
+                                placeholder={t("transfer_details.name")}
                                 value={inputs.transferDescription}
                         />
                     </div>

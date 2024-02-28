@@ -1,6 +1,5 @@
 import React from "react";
 import {TResponseErrorProvider} from "@/processes/errors-provider-types";
-import {AxiosResponse} from "axios";
 
 export const CtxNeedConfirm = React.createContext<{
     setSuccess: () => void;

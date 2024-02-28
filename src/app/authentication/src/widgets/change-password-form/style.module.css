@@ -1,7 +1,6 @@
 main.ResetForm {
   aspect-ratio: 0;
   max-height: none;
-  min-height: 300px;
 }
 
 .FormBody {
@@ -18,32 +17,49 @@ main.ResetForm {
   justify-content: space-between;
 }
 
-.FormTab {
-  display: flex;
-  justify-content: space-around;
-
-  button {
-      align-self: stretch;
-      width: 50%;
-  }
-}
-
-.TabButton {
-  border-width: 0px;
-  padding: 8px 0px;
-  color: var(--gek-dark-grey);
-  background: var(#00000005);
-
-  &:hover {
-    color: var(--gek-dark-blue);
-  }
-}
-
-.TabButtonActive {
-  background-color: transparent;
-}
-
 .Description {
   margin-top: 22px;
   font-size: 14px;
+}
+
+.rulesList {  
+  flex: 1;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: row;
+  position: relative;  
+
+  .rulesListH {
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 2px;
+    font-size: 10px;
+    transform-origin: top left;
+    transform: rotate(90deg);
+    color: var(--gek-mid-grey);
+  }
+  .deviceKey
+  {
+    flex: 1;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    font-size: 12px;
+    label
+    {
+      width: auto;
+      text-wrap: nowrap;
+      margin-left: 4px;
+      padding-bottom: 3px;
+      &:hover
+      {
+        text-decoration: underline;
+        color: var(--gek-dark-blue);
+      }
+    }
+    input{
+      width: auto;
+      height: 14px;
+    };
+  }
 }

@@ -145,7 +145,7 @@ export function getFlagsFromMask(mask: number, options: Record<string, number>) 
 }
 
 export function scrollToTop() {
-    window.scrollBy(0, -100); // можно иѝпользовать также метод scrollTo(0, 0)
+    window.scrollBy(0, -100); // можно использовать также метод scrollTo(0, 0)
     if (window.pageYOffset > 0) {
         requestAnimationFrame(scrollToTop);
     }
@@ -172,22 +172,14 @@ export const uncoverResponse = (response) => response.data.result
 
 export const uncoverArray = <T>(arr: T[]): T | null => (Array.isArray(arr) && arr.length) ? arr[0] : null
 
-
-export const getCurrencyRounding = (value: number | undefined) =>
-    value === undefined ? "-" : value >= 1000
-        ? Math.round(value) : value >= 1
-            ? value.toFixed(2)
-            : value.toFixed(value != 0 ? Math.floor(-Math.log10(value)) + 1 : 0);
-
-
 export const getFormattedIBAN = (iban: string) => {
     return iban.slice(0, 10) + '***' + iban.slice(-4);
 }
 
 
 export function getRandomInt32() {
-    const minValue = -2147483648; // Минимальное 32-битное знаковое чиѝло
-    const maxValue = 2147483647;  // Макѝимальное 32-битное знаковое чиѝло
+    const minValue = -2147483648; // Минимальное 32-битное знаковое число
+    const maxValue = 2147483647;  // Максимальное 32-битное знаковое число
 
     return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 }
@@ -234,6 +226,7 @@ export function clearCookie(name: string) {
 export const logout = async () => {
     await apiLogout();
     clearCookie("accountId");
+    clearCookie("bankToken");
     clearCookie("phoneNumber");
     location.replace('/');
 };

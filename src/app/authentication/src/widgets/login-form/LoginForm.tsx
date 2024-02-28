@@ -32,7 +32,7 @@ export const LoginForm = ({
 		if (t) {
 			setCookieData([{
 				key: 'phoneNumber',
-				value: phone
+				value: formatAsNumber(phone)
 			}]);
 			// show success message
 			Swal.fire({

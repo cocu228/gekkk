@@ -47,10 +47,6 @@ export function ConfirmationNewCard() {
         })();
     }, []);
     
-    const onConfirm = () => {
-        
-    }
-    
     return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
         <Box display="flex" justifyContent="space-between" width="100%">
             <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>

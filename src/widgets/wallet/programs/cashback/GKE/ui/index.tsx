@@ -114,7 +114,7 @@ const GkeCashbackProgram = () => {
                             onSelect={setInputCurr}
                             currency={currencies.get(currency.$const)}
                             header={<span className='font-medium text-md lg:text-sm md:text-xs select-none'>
-                                Pay from
+                                {t("exchange.pay_from")}
                             </span>}
                         >
                             <InputCurrency.DisplayBalance currency={currencies.get(currency.$const)}>

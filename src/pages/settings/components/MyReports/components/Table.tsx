@@ -1,29 +1,30 @@
-import { Box, Typography } from '@mui/material'
+import {Box} from '@mui/material'
+import {TableRow} from './TableRow'
+import {useContext, useMemo} from 'react';
+import {CtxRootData} from '@/processes/RootContext';
+import {StatementsByIBAN} from '@/shared/api/statements';
 
-import { TableRow } from './TableRow'
-import { storeStatements } from '@/shared/store/statements/statements';
-import { useContext, useMemo } from 'react';
-import { CtxRootData } from '@/processes/RootContext';
+export function Table({
+    statements
+}: {
+    statements: {[key: string]: StatementsByIBAN[]}
+}) {
+    const {account} = useContext(CtxRootData);
+    const reports = useMemo(() => (
+        statements[account?.number] ?? []
+    ), [account, statements]);
 
-export function Table() {
-  const {filterByIBAN} = storeStatements(state => state);
-  const {account} = useContext(CtxRootData);
-  const reports = useMemo(() => {
-    
-    if (!account) {
-      return [];
-    }
+    console.log("reports")
+    console.log(reports)
 
-    return filterByIBAN(account.number);
-
-  }, [account, filterByIBAN]) ;
-  return (
-    <Box paddingTop="36px" display="flex" flexDirection="column" gap="24px">
-
-      {reports.map(item => {
-        return <TableRow statement={item} />
-      })}
-      
+    return <Box
+        gap="24px"
+        display="flex"
+        paddingTop="36px"
+        flexDirection="column"
+    >
+        {reports.map(item => {
+            return <TableRow statement={item} />
+        })}
     </Box>
-  )
 }

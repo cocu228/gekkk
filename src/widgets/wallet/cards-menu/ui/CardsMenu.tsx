@@ -12,13 +12,14 @@ import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiUpdateCard, IResErrors} from "@/shared/api";
 import {apiActivate, apiUnmask, apiGetCards} from "@/shared/(orval)api/gek";
-import {Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
+import {ClientDetails, Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {useSearchParams} from "react-router-dom";
 import {OrderCard} from "@/widgets/wallet/cards-menu/ui/order-card";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -36,9 +37,11 @@ const CardsMenu = ({
     const [card, setCard] = useState<ICardData>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [switchChecked, setSwitchChecked] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<string>(null);
     const [cardInfo, setCardInfo] = useState<CardSecretDTO>(null);
+    const [selectedItem, setSelectedItem] = useState<string>(null);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
+    const [accountDetails, setAccountDetails] = useState<ClientDetails>(null);
     const {
         inputCurr: limitAmount,
         setInputCurr: setLimitAmount
@@ -54,6 +57,8 @@ const CardsMenu = ({
     useEffect(() => {
         (async () => {
             const {data} = await apiGetCards();
+            setAccountDetails(await getAccountDetails());
+
             setCardsStorage({
                 cards: data.result,
                 refreshKey: randomId()
@@ -222,7 +227,7 @@ const CardsMenu = ({
     }
     
     if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
-        return <NewCard setIsNewCardOpened={setIsNewCardOpened} />;
+        return <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
     
     return <div>
@@ -248,7 +253,7 @@ const CardsMenu = ({
         
         {!card ? <Loader className={'relative my-20'}/>
             : isOrderOpened
-                ? <OrderCard card={card} setIsNewCardOpened={setIsOrderOpened} />
+                ? <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
                 : (<>
             {card.isVirtual && (
                 <MenuItem

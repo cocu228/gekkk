@@ -11,7 +11,7 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiUpdateCard, IResErrors} from "@/shared/api";
-import {apiBankCardsCardIdActivate, apiBankCardsCardIdUnmask, apiBankGetCards} from "@/shared/(orval)api/gek";
+import {apiActivate, apiUnmask, apiGetCards} from "@/shared/(orval)api/gek";
 import {Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
@@ -53,7 +53,7 @@ const CardsMenu = ({
     
     useEffect(() => {
         (async () => {
-            const {data} = await apiBankGetCards();
+            const {data} = await apiGetCards();
             setCardsStorage({
                 cards: data.result,
                 refreshKey: randomId()
@@ -96,7 +96,7 @@ const CardsMenu = ({
         
         switch (action) {
             case 'activate':
-                apiBankCardsCardIdActivate(card.cardId)
+                apiActivate({cardId: card.cardId})
                     .then(({ data }) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();
@@ -204,7 +204,7 @@ const CardsMenu = ({
                 break;
                 
             case 'showData':
-                apiBankCardsCardIdUnmask(card.cardId)
+                apiUnmask({cardId: card.cardId})
                     .then(({data}) => {
                         if ((data as IResErrors).errors) {
                             confirmationModal.handleCancel();

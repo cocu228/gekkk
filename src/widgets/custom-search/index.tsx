@@ -116,8 +116,7 @@ export default function customSearch() {
             tx_types: selectedTx.value,
             next_key: lastValue?.next_key,
             limit: 10,
-            include_fiat: true,
-            card: selectedCard,
+            include_fiat: true
         });
 
         if (data.result.length < 10) setAllTxVisibly(true)

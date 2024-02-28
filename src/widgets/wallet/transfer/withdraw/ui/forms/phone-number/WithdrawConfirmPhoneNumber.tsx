@@ -1,16 +1,19 @@
 import {Skeleton} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
+import {formatAsNumber} from "@/shared/lib";
+import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
+import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import {formatAsNumber, getCookieData} from "@/shared/lib";
+import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;
-    total: IResCommission;
+    totalCommission: IResCommission;
 }
 
 const WithdrawConfirmPhoneNumber = ({
@@ -20,15 +23,16 @@ const WithdrawConfirmPhoneNumber = ({
     handleCancel
 }) => {
     const [{
-        total,
-        loading
+        loading,
+        totalCommission
     }, setState] = useState<IState>({
         loading: false,
-        total: undefined
+        totalCommission: undefined
     });
     
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
@@ -54,34 +58,39 @@ const WithdrawConfirmPhoneNumber = ({
             loading: true
         }));
         
-        const {
-            bankToken
-        } = getCookieData<{
-            bankToken: string;
-        }>();
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
         
         await apiPaymentContact(details.current, false, {
-            Token: bankToken,
-            Authorization: '79111111111'
-        }).then(handleCancel);
-    }
-
-    useEffect(() => {
-        const {
-            bankToken
-        } = getCookieData<{
-            bankToken: string;
-        }>();
-        
-        apiPaymentContact(details.current, true, {
-            Token: bankToken,
-            Authorization: '79111111111'
-        }).then(({data}) => {
-            setState(prev => ({
-                ...prev,
-                total: data as IResCommission
-            }));
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
+            
+            await apiPaymentContact(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: response.config.headers.Token
+            }).then(handleCancel);
         });
+    }
+    
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetUas();
+            const {phone} = await getAccountDetails();
+            
+            apiPaymentContact(details.current, true, {
+                Authorization: phone,
+                Token: data.result.token
+            }).then(({data}) => setState(prev => ({
+                ...prev,
+                totalCommission: data as IResCommission
+            })));
+        })();
     }, []);
     
     return <div>
@@ -145,8 +154,8 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.commission ?? '-'} {$const}</span>
+                    {totalCommission !== undefined ? (
+                        <span>{totalCommission.commission ?? '-'} {$const}</span>
                     ) : (
                         <Skeleton.Input style={{height: 16}} active/>
                     )}
@@ -159,8 +168,8 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.total ?? '-'} {$const}</span>
+                    {totalCommission !== undefined ? (
+                        <span>{totalCommission.total ?? '-'} {$const}</span>
                     ) : (
                         <Skeleton.Input style={{height: 16}} active/>
                     )}
@@ -185,7 +194,7 @@ const WithdrawConfirmPhoneNumber = ({
                         <Button size={"xl"}
                                 htmlType={"submit"}
                                 className="w-full"
-                                disabled={!total}
+                                disabled={!totalCommission}
                         >Confirm</Button>
                     </div>
                 </div>

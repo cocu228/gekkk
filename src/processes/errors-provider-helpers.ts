@@ -73,7 +73,8 @@ export class HunterErrorsApi {
 
     isError() {
         this.typeResponseError = null;
-        return (!this.offline && this.isServerApi() || this.isBankApi()) && !this.isConfirmationToken()
+        return (!this.offline && this.isServerApi() || this.isBankApi()) && this.isTokenReceive();
+        //&& !this.isConfirmationToken()
     }
 
     isAuthExpired() {
@@ -140,18 +141,25 @@ export class HunterErrorsApi {
             return null
         }
     }
-
-    isConfirmationToken() {
-
-        if (isNull(this.typeResponseError)) {
-            this.isBankApi()
-            this.isServerApi()
-        }
-
-        return (this.typeResponseError === "BANK" && uncoverArray<{
-            code: number
-        }>(this.response.data.errors).code === 449) ||
-            (this.typeResponseError === "GEKKARD" &&
-            this.response.data.error.code === 10068)
+    
+    isTokenReceive() {
+        // @ts-ignore
+        return !!this.response?.data?.result?.sessid;
     }
+
+    // isConfirmationToken() {
+
+    //     if (isNull(this.typeResponseError)) {
+    //         this.isBankApi()
+    //         this.isServerApi()
+    //     }
+
+    //     return (this.typeResponseError === "BANK" && uncoverArray<{
+    //         code: number
+    //     }>(this.response.data.errors).code === 449) ||
+    //         (this.typeResponseError === "GEKKARD" &&
+    //         this.response.data.error.code === 10068)
+    // }
+
+
 }

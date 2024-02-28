@@ -1,5 +1,4 @@
 ﻿import {SignHeaders} from "@/shared/api";
-import {getCookieData} from "@/shared/lib/helpers";
 import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service";
 
 // Pin headers generation
@@ -25,6 +24,7 @@ import {generateJWT, getTransactionSignParams} from "@/shared/lib/crypto-service
 // }
 
 export const signHeadersGeneration = async (
+	phone: string,
 	token: string | null = null
 ): Promise<Partial<SignHeaders>> => {
 	const header: Pick<SignHeaders, "X-Confirmation-Type"> = {
@@ -39,9 +39,9 @@ export const signHeadersGeneration = async (
 	} = await getTransactionSignParams();
 	
 	const jwtPayload = {
+		initiator: phone,
 		confirmationToken: token,
-		exp: Date.now() + 0.5 * 60 * 1000, // + 30sec
-		initiator: getCookieData<{ phone: string }>().phone
+		exp: Date.now() + 0.5 * 60 * 1000 // + 30sec
 	};
 	
 	const keys: Omit<SignHeaders, "X-Confirmation-Type"> = {

@@ -4,18 +4,24 @@ import {ClientDetails} from "@/shared/(orval)api/gek/model";
 import {apiClientDetails} from "@/shared/(orval)api/gek";
 
 export interface IStoreAccounts {
-	details: ClientDetails;
-	getAccountDetails: () => Promise<void>;
+	getAccountDetails: () => Promise<ClientDetails>;
 }
 
-export const storeAccountDetails = create<IStoreAccounts>()(devtools((set) => ({
+export const storeAccountDetails = create<IStoreAccounts>()(devtools((setState, getState) => ({
 	details: null,
 	getAccountDetails: async () => {
-		const {data} = await apiClientDetails();
+		// @ts-ignore
+		const {details} = getState();
 		
-		set((state) => ({
+		const {data} = details
+			? {data: {result: details}}
+			: await apiClientDetails();
+
+		setState((state) => ({
 			...state,
 			details: data.result,
 		}));
+
+		return data.result;
 	}
 })));

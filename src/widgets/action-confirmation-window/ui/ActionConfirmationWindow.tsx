@@ -1,75 +1,46 @@
+import {$axios} from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
-import {$axios} from "@/shared/lib/(orval)axios";
+import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import {MASK_CODE} from "@/shared/config/mask";
+import {scrollToTop} from "@/shared/lib/helpers";
 import {InternalAxiosRequestConfig} from "axios";
 import useMask from "@/shared/model/hooks/useMask";
-import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import {useContext, useEffect, useState} from "react";
-import {getCookieData, scrollToTop} from "@/shared/lib/helpers";
 import {CtxNeedConfirm} from "@/processes/errors-provider-context";
-import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import {useTranslation} from 'react-i18next';
-import {setCookieData} from "@/shared/lib";
-import {apiRequestCode, apiSignIn} from "@/shared/api";
 
 interface IState {
     code: string;
-    token: string;
+    sessid: string;
     loading: boolean;
-    // return if PIN required
-    //type: "SIGN" | "PIN"; 
     config: InternalAxiosRequestConfig<any>;
 }
 
 const ActionConfirmationWindow = () => {
     const [{
         code,
-        token,
+        sessid,
         config,
         loading,
     }, setState] = useState<IState>({
         code: null,
-        token: null,
+        sessid: null,
         config: null,
         loading: false,
     });
     const {t} = useTranslation();
     const {onInput} = useMask(MASK_CODE);
-    const {setRefresh} = useContext(CtxRootData);
-    const phoneNumber = '79111111111'//getCookieData<{phoneNumber: string}>();
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const {
         pending,
         setSuccess,
-        actionConfirmResponse: response,
+        actionConfirmResponse: response
     } = useContext(CtxNeedConfirm);
-    
-    const onSingInUAS = async () => {
-        const requestCodeResponse = await apiRequestCode(phoneNumber);
-        const sessionIdUas = requestCodeResponse.data.sessid;
-
-        const {data} = await apiSignIn(
-            code.replace(/ /g, ''),
-            sessionIdUas,
-            phoneNumber
-        )
-        
-        if (!data.success) {
-            return;
-        }
-        
-        setCookieData([{
-            key: 'bankToken',
-            value: data.token,
-            expiration: data.expires_in
-        }]);
-    }
     
     useEffect(() => {
         (async () => {
@@ -78,75 +49,53 @@ const ActionConfirmationWindow = () => {
                     code: null,
                     loading: false,
                     config: response.config,
-                    //type: response.config.headers['X-Confirmation-Type'],
-                    token: response.data.errors[0].properties.confirmationToken
+                    // @ts-ignore
+                    sessid: response.data.result.sessid
                 });
                 
-                if (response.data?.errors[0]?.code === 449) {
-                    await confirm(true);
-                }
-                else {
-                    scrollToTop();
-                    showModal();
-                }
+                scrollToTop();
+                showModal();
             }
-        })()
+        })();
     }, [response]);
     
-    const confirm = async (silentMode: boolean) => {
+    const onConfirm = async () => {
         setState(prev => ({
             ...prev,
             loading: true
         }));
-        
-        const signedRequest = async () => {
-            const {bankToken} = getCookieData<{bankToken: string}>();
-            
-            const signHeaders = await signHeadersGeneration(token);
-                // type === "PIN"
-                // ? await pinHeadersGeneration(token, code.replace(/ /g, ''));
-            
-            try {
-                const response = await $axios.request({
-                    ...config,
-                    headers: {
-                        ...signHeaders,
-                        Token: bankToken,
-                        Authorization: phoneNumber
-                    }
-                });
-                
-                pending.resolve(response);
-                
-                handleCancel();
-                setSuccess();
-                //setRefresh();
-            } catch (error) {
-                handleError();
-            }
-        };
-        
-        const handleError = () => {
-            setState(prev => ({
-                ...prev,
-                code: null,
-                loading: false
-            }));
-            
-            localErrorHunter({
-                code: 401,
-                message: t("invalid_confirmation_code")
+
+        try {
+            const response = await $axios.request({
+                ...config,
+                params: {
+                    sessid,
+                    code: code.replace(/ /g, '')
+                }
             });
-        };
-        
-        if (silentMode) { //  || type === 'PIN'
-            await signedRequest();
-        } else {
-            onSingInUAS()
-                .then(signedRequest)
-                .catch(handleError);
+
+            pending.resolve(response);
+
+            handleCancel();
+            setSuccess();
+        }
+        catch (error) {
+            handleError();
         }
     }
+
+    const handleError = () => {
+        setState(prev => ({
+            ...prev,
+            code: null,
+            loading: false
+        }));
+        
+        localErrorHunter({
+            code: 401,
+            message: t("invalid_confirmation_code")
+        });
+    };
     
     return (
         <Modal
@@ -192,7 +141,7 @@ const ActionConfirmationWindow = () => {
                     <Button
                         size={"xl"}
                         disabled={!code}
-                        onClick={() => confirm(false)}
+                        onClick={onConfirm}
                         className="w-full mt-4"
                     >{t("confirm")}</Button>
                 </div>

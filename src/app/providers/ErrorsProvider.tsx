@@ -16,9 +16,9 @@ import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-p
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
-                                                                                   offline,
-                                                                                   children
-                                                                               }): JSX.Element | null {
+    offline,
+    children
+}): JSX.Element | null {
     const navigate = useNavigate();
     const {isModalOpen, showModal} = useModal();
     const [isAccountOpened, setAccountOpened] = useState<boolean>(true);
@@ -78,8 +78,8 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             }
 
             if (hunterErrorsApi.isAuthExpired()) logout();
-
-            if (hunterErrorsApi.isConfirmationToken()) {
+            
+            if (hunterErrorsApi.isTokenReceive()) {
                 return new Promise((resolve, reject) => {
                     setState(prev => ({
                         ...prev,
@@ -89,8 +89,21 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                             reject: reject
                         }
                     }));
-                })
+                });
             }
+            
+            // if (hunterErrorsApi.isConfirmationToken()) {
+            //     return new Promise((resolve, reject) => {
+            //         setState(prev => ({
+            //             ...prev,
+            //             actionConfirmResponse: response,
+            //             pending: {
+            //                 resolve: resolve,
+            //                 reject: reject
+            //             }
+            //         }));
+            //     })
+            // }
 
             return response;
         }, hunterErrorStatus.bind({

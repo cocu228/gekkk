@@ -231,7 +231,8 @@ const CardsMenu = ({
     }
     
     if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
-        return <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
+        return !accountDetails ? <Loader/>
+            : <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
     
     return <div>
@@ -260,7 +261,9 @@ const CardsMenu = ({
         
         {!card ? <Loader className={'relative my-20'}/>
             : isOrderOpened
-                ? <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
+                ? !accountDetails
+                    ? <Loader/>
+                    : <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
                 : (<>
             {card.isVirtual && (
                 <MenuItem

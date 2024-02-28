@@ -33,7 +33,6 @@ function GetDisplayedForm({curr}: Props) {
 
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(()=>{
-        console.log(networkTypeSelect);
     }, [networkTypeSelect])
     useEffect(()=>{
 
@@ -69,8 +68,8 @@ function GetDisplayedForm({curr}: Props) {
             case 231:
                 return <CreateTransferCodeMobile/>;
             default:
-                    return <div>
-                        {t("no_actions_for_network")}
+                    return <div className='min-h-[50px] mb-3 flex justify-center items-center'>
+                        <span className='text-[14px]'>{t("no_actions_for_network")}</span>
                     </div>;
         }
     }
@@ -84,7 +83,7 @@ function GetDisplayedForm({curr}: Props) {
     
     return (
         loading?
-        <div className='w-[100vw] h-[200px] relative mb-5'>
+        <div className='w-full h-[200px] relative mb-5'>
                     <Loader/>
                 </div>
             :

@@ -98,7 +98,8 @@
       "name": "Name",
       "Currency": "Currency",
       "Actions": "Actions",
-      "buy": "Buy"
+      "buy": "Buy",
+      "search_currency": "Search currency"
     },
     "confirm": "Confirm",
     "close": "Close",
@@ -626,7 +627,15 @@
       "fifteenth_element": "Fine payment",
       "sixteenth_element": "Commission payment"
     },
-    "no_actions_for_network": "Sorry, there are no actions available for the selected network."
+    "no_actions_for_network": "Sorry, there are no actions available for the selected network.",
+    "choose_currency": "Choose currency",
+    "choose_network_type": "Choose network type",
+    "select_transfer_type": "Select transfer type",
+    "select_the_currency": "Select the currency you have to transfer",
+    "networks_not_found": "Networks not found",
+    "transfers": "Transfers",
+    "free_balance": "Free balance",
+    "exchange_button": "Exchange"
 
   }
 }

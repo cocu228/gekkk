@@ -3,6 +3,8 @@ import { mockEUR } from '@/processes/PWA/mock-EUR';
 import { IconCoin } from '@/shared/ui/icons/icon-coin';
 import { ConfigProvider, Select } from 'antd'
 import React, { Dispatch, SetStateAction, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
     setCurr: Dispatch<SetStateAction<string>>,
@@ -10,8 +12,10 @@ interface IProps {
 }
 
 function SelectCurrency({currency, setCurr}: IProps) {
+    const {t} = useTranslation()
     const [open, setOpen] = useState<boolean>(false)
     const {currencies} = useContext(CtxCurrencies);
+    const navigate = useNavigate()
     const currenciesList =currencies ? [...currencies].map(el => {
         return {
             value:el[0],
@@ -36,42 +40,34 @@ function SelectCurrency({currency, setCurr}: IProps) {
                 },
             }}
         >    
-            <div className="row w-full font-medium">
+            <div 
+                className="row w-full font-medium"
+                onClick={()=>{
+                    setCurr(null)
+                    navigate("/transfers")
+                }}
+            >
                 <Select 
                     className='w-full'
-                    open={open}
-                    onDropdownVisibleChange={(visible) => setOpen(visible)}
-                    dropdownStyle={{backgroundColor:"transparent", boxShadow:"none"}}
-                    dropdownRender={(menu)=>{
-                        return(
-                            <div 
-                                className='h-[380px] overflow-auto'
-                            >
-                                    {currenciesList.map((el)=>{
-                                        return(
-                                            <div style={{backgroundColor:`${(currency === el.value)?"#7B797C":"white"}`}} onClick={()=>{setCurr(el.value);setOpen(false)}}className={`grid grid-cols-[repeat(3,1fr)] grid-rows-[1fr] gap-x-2.5 gap-y-0 mb-[5px] items-center justify-center gap-[5px] rounded-md h-[30px] bg-opacity-1 border-[1px] border-solid border-[#E0E0E0]`}>
-                                                <IconCoin height={20} className='max-h-[36px] justify-self-center' code={el.value}/>
-                                                <span className='justify-self-start text-[12px]'>{el.value}</span>
-                                                <span className='justify-self-start text-[10px]'>{currencies.get(el.value).name}</span>
-                                            </div>
-                                        )
-                                    })}
-                            </div>
-                        )
-                    }}
                     placeholder={
                         currency?
-                            <div className='grid grid-cols-[repeat(2,1fr)] grid-rows-[1fr] gap-x-2.5 gap-y-0'>
-                                <IconCoin height={20} className='max-h-[36px]' code={currency}/>
-                                {currencies?.get(currency).name}
+                            <div className='flex w-full h-full justify-start items-center'>
+                                <div className='flex justify-start items-center w-full'>
+                                    <div className='min-w-[50px] flex justify-start'>
+                                        <IconCoin height={20} className='max-h-[36px]' code={currency}/>
+                                    </div>
+                                    <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency).name}</span>
+                                </div>
                             </div>
-                        :"Choose currency"
+                        :
+                            <span className='text-[12px] text-[#3A5E66]'>{t("choose_currency")}</span>
                     }
-                    value={currency}
-                    onSelect={(e)=>{
-                        setCurr(e)
-                    }}
-                    options={currenciesList}
+                    notFoundContent={null}
+                    suffixIcon={<div className='w-[20px] h-full'>
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 6.82721L14.4826 0.263604C14.8297 -0.087868 15.3925 -0.087868 15.7397 0.263604C16.0868 0.615076 16.0868 1.18492 15.7397 1.5364L8.62854 8.7364C8.28141 9.08787 7.71859 9.08787 7.37146 8.7364L0.260349 1.5364C-0.0867844 1.18492 -0.0867844 0.615076 0.260349 0.263604C0.607482 -0.087868 1.1703 -0.087868 1.51743 0.263604L8 6.82721Z" fill="#B4C0CD"/>
+                        </svg>
+                    </div>}
                 />
             </div>
         </ConfigProvider>

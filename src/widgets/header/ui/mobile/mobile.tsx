@@ -44,6 +44,8 @@ const HeaderMobile = ({ items, actions }) => {
                 return t("programs")
             case `/wallet/${currency}/no_fee_program`:
                 return t("no_fee_program")
+            case `/transfers/${currency}`:
+                return `${t("transfers") + " " + currency}`
             default:
                 return t(`${location.pathname.slice(1)}`)
         }

@@ -33,8 +33,11 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
             $const: el[0],
             currency:el[1]
         }
-    }) : []    
+    }).sort((x,y) => { 
+        return x.$const == "EUR" ? -1 : y.$const == "EUR" ? 1 : 0; 
+      }) : []    
 
+    
     function returnTitle(tag){
         
         if(tag === "select_currency"){            

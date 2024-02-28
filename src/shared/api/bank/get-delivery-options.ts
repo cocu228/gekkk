@@ -12,4 +12,6 @@ export interface IDeliveryOption {
 }
 
 export const apiDeliveryOptions = () =>
-    $axios.get<IDeliveryOption[]>('/api/v1/cards/delivery/option');
+    $axios.get<IDeliveryOption[]>('/api/v1/cards/delivery/option', {
+        baseURL: import.meta.env.VITE_BANK_API_URL,
+    });

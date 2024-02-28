@@ -11,8 +11,8 @@ import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
 import {apiUpdateCard, IResErrors} from "@/shared/api";
-import {apiActivate, apiUnmask, apiGetCards} from "@/shared/(orval)api/gek";
-import {ClientDetails, Card as ICardData, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
+import {apiActivate, apiUnmask, apiGetCards, apiSetLimits} from "@/shared/(orval)api/gek";
+import {ClientDetails, Card as ICardData, Period, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
@@ -119,10 +119,11 @@ const CardsMenu = ({
                 break;
             
             case 'blockCard':
-                apiUpdateCard(card.cardId, {
-                    status: "LOCKED"
-                }).then(({ data }) => {
-                    if ((data as IResErrors).errors) {
+                apiSetLimits({
+                    status: "LOCKED",
+                    limits: []
+                }, {cardId: card.cardId}).then(({ data }) => {
+                    if (data.result === 'Failure') {
                         confirmationModal.handleCancel();
                         return;
                     }
@@ -138,10 +139,11 @@ const CardsMenu = ({
                 break;
             
             case 'unblockCard':
-                apiUpdateCard(card.cardId, {
-                    status: "ACTIVE"
-                }).then(({ data }) => {
-                    if ((data as IResErrors).errors) {
+                apiSetLimits({
+                    status: "ACTIVE",
+                    limits: []
+                }, {cardId: card.cardId}).then(({ data }) => {
+                    if (data.result === 'Failure') {
                         confirmationModal.handleCancel();
                         return;
                     }
@@ -158,13 +160,13 @@ const CardsMenu = ({
             
             case 'dailyLimit':
             case 'monthlyLimit':
-                apiUpdateCard(card.cardId, {
+                apiSetLimits({
                     limits: [{
-                        type: action === 'dailyLimit' ? 'DAY' : 'MONTH',
+                        type: action === 'dailyLimit' ? Period.DAILY : Period.MONTHLY,
                         maxValue: limitAmount.value.number
                     }]
-                }).then(({data}) => {
-                    if ((data as IResErrors).errors) {
+                }, {cardId: card.cardId}).then(({data}) => {
+                    if (data.result === 'Failure') {
                         confirmationModal.handleCancel();
                         return;
                     }
@@ -190,19 +192,21 @@ const CardsMenu = ({
                 break;
                 
             case 'disableLimits':
-                apiUpdateCard(card.cardId, {
+                apiSetLimits({
+                    limits: [],
                     options: {
                         limits: {
-                            disable: true
+                            disable: !switchChecked
                         }
                     }
-                }).then(({data}) => {
-                    if ((data as IResErrors).errors) {
+                }, {cardId: card.cardId}).then(({data}) => {
+                    if (data.result === 'Failure') {
                         confirmationModal.handleCancel();
                         return;
                     }
                     
                     setSwitchChecked(!switchChecked);
+                    setLimitAmount('');
                     setLoading(false);
                     confirmationModal.handleCancel();
                 });
@@ -211,12 +215,12 @@ const CardsMenu = ({
             case 'showData':
                 apiUnmask({cardId: card.cardId})
                     .then(({data}) => {
-                        if ((data as IResErrors).errors) {
+                        if (data.result.pan === null) {
                             confirmationModal.handleCancel();
                             return;
                         }
                         
-                        setCardInfo(data as CardSecretDTO);
+                        setCardInfo(data.result);
                         confirmationModal.handleCancel();
                     });
                 break;
@@ -246,7 +250,10 @@ const CardsMenu = ({
                 <BankCardsCarousel
                     cards={cardsStorage.cards}
                     refreshKey={cardsStorage.refreshKey}
-                    onSelect={setCard}
+                    onSelect={(card) => {
+                        setCard(card);
+                        setSwitchChecked(card?.options?.limits?.disable);
+                    }}
                 />
             </div>
         </div>
@@ -415,7 +422,10 @@ const CardsMenu = ({
             <Modal
                 title={t("card_info")}
                 open={cardInfoModal.isModalOpen}
-                onCancel={cardInfoModal.handleCancel}
+                onCancel={() => {
+                    cardInfoModal.handleCancel();
+                    setCardInfo(null);
+                }}
             >
                 {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
                     <div className="row mb-2">
@@ -423,7 +433,7 @@ const CardsMenu = ({
                             <span><b>{t("card_number")
                                 .toLowerCase()
                                 .capitalize()
-                            }</b>: {formatCardNumber(cardInfo.pan)}</span>
+                            }</b>: **** **{cardInfo.pan.slice(0, 2) + ' ' + cardInfo.pan.slice(2)} ****</span>
                         </div>
                     </div>
                     
@@ -437,19 +447,19 @@ const CardsMenu = ({
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvv}</span>
+                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvv ?? '-'}</span>
                         </div>
                     </div>
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_owner")}</b>: {cardInfo.owner}</span>
+                            <span><b>{t("card_owner")}</b>: {cardInfo.owner ?? '-'}</span>
                         </div>
                     </div>
                     
                     <div className="row mb-2">
                         <div className="col">
-                            <span><b>{t("card_pin")}</b>: {cardInfo.pin}</span>
+                            <span><b>{t("card_pin")}</b>: {cardInfo.pin ?? '-'}</span>
                         </div>
                     </div>
                 </div>}

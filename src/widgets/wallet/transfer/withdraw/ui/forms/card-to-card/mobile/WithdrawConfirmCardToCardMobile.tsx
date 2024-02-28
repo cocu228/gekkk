@@ -9,6 +9,9 @@ import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import { useTranslation } from "react-i18next";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { apiGetUas } from "@/shared/(orval)api";
+import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;
@@ -34,6 +37,7 @@ const WithdrawConfirmCardToCardMobile = ({
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const cards = storeActiveCards(state => state.activeCards);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector?.find(it => it.value === networkTypeSelect);
 
@@ -59,19 +63,40 @@ const WithdrawConfirmCardToCardMobile = ({
             loading: true
         }));
         
-        await apiPaymentContact(
-            details.current,
-            false
-        ).then(handleCancel);
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+        
+        await apiPaymentContact(details.current, false, {
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
+            
+            await apiPaymentContact(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: data.result.token
+            }).then(handleCancel);
+        });
     }
 
+    
     useEffect(() => {
-        apiPaymentContact(details.current, true).then(({data}) => {
-            setState(prev => ({
+        (async () => {
+            const {data} = await apiGetUas();
+            const {phone} = await getAccountDetails();
+            
+            apiPaymentContact(details.current, true, {
+                Authorization: phone,
+                Token: data.result.token
+            }).then(({data}) => setState(prev => ({
                 ...prev,
-                total: data as IResCommission
-            }));
-        });
+                totalCommission: data as IResCommission
+            })));
+        })();
     }, []);
     
     return <div>

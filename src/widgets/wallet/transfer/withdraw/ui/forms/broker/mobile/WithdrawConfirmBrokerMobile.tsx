@@ -1,7 +1,7 @@
 import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
-import {apiPaymentSepa} from "@/shared/api";
+import {IResErrors, apiPaymentSepa} from "@/shared/api";
 import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
@@ -10,6 +10,9 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useTranslation } from "react-i18next";
+import { apiGetUas } from "@/shared/(orval)api";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 
 const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSuccess = null}) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -30,6 +33,7 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
@@ -50,19 +54,43 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
     const onConfirm = async () => {
         setLoading(true);
         
-        await apiPaymentSepa(
-            details.current,
-            false
-        ).then(()=>{
-            handleCancel()
-            setSuccess(true)
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+        
+        await apiPaymentSepa(details.current, false, {
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
 
+            await apiPaymentSepa(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: data.result.token
+            }).then((response)=>{
+                if ((response.data as IResErrors).errors) {
+                    setErr(true);
+                    handleCancel();
+                    setLoading(false);
+                }
+
+                handleCancel()
+                setSuccess(true)
+            }).catch(()=>{
+                handleCancel()
+                setErr(true)
+            }).finally(()=>{
+                setLoading(false);
+            });
         }).catch(()=>{
             handleCancel()
             setErr(true)
         }).finally(()=>{
             setLoading(false);
-        })
+        });
     }
 
     return <div>

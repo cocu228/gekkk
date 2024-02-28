@@ -34,11 +34,6 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
             currency:el[1]
         }
     }) : []    
-    useEffect(() => {
-        if (inputRef && inputRef.current) {
-            inputRef.current.focus();
-        }
-    });
 
     function returnTitle(tag){
         

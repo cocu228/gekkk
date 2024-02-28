@@ -52,6 +52,7 @@ const WithdrawConfirmPhoneNumber = ({
         }
     });
 
+    // TODO: !!!Refactor bank confirmation logic in all bank methods
     const onConfirm = async () => {
         setState(prev => ({
             ...prev,
@@ -73,7 +74,7 @@ const WithdrawConfirmPhoneNumber = ({
             await apiPaymentContact(details.current, false, {
                 ...headers,
                 Authorization: phone,
-                Token: response.config.headers.Token
+                Token: data.result.token
             }).then(handleCancel);
         });
     }

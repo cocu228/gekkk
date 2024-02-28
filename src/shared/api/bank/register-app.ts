@@ -11,4 +11,8 @@ export const apiRegisterApp = (appPublicKey: string) =>
         publicKey: appPublicKey
     }, {
         baseURL: import.meta.env.VITE_BANK_API_URL,
+        headers: {
+            Productid: 'GEKKARD',
+            Applicationid: 'GEKKARD',
+        }
     });

@@ -1,6 +1,7 @@
 import { NavLink, Navigate, useMatch, useNavigate, useParams } from "react-router-dom"
 import styles from "../styles.module.scss"
 import { memo } from "react"
+import { useTranslation } from "react-i18next"
 
 
 interface IParams {
@@ -8,7 +9,7 @@ interface IParams {
 }
 
 const ProgramsButton = memo(({wallet}:IParams) => {
-
+    const {t} = useTranslation()
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange")
@@ -28,7 +29,7 @@ const ProgramsButton = memo(({wallet}:IParams) => {
                     <circle cx="17.5924" cy="7" r="1" fill="#29354C"/>
                     <path d="M4.40834 14.0771L1.69524 15.5699L5.69527 22.4946L8.1949 20.9946L3.59244 13.5C3.59244 13.5 5.01238 15.5269 5.09244 15.5C5.17249 15.4731 10.0927 12.5 10.7965 12.57C11.5003 12.6401 17.6949 13.0976 17.6949 13.9946C17.6949 14.8916 17.6949 13.9946 17.7965 14.7993C17.898 15.604 17.6949 15.5699 17.6949 15.5699M8.15531 20.0699L11.0927 19L14.2831 19.4285L17.7965 19.4285L21.6953 17.4946L25.0927 13.9946L25.0927 13.4999L24.6953 12.4946L23.5927 12L23.2967 12.07L20.6953 13.9946L17.6949 15.5699M17.6949 15.5699L13.6949 15.4946" stroke="#29354C" stroke-width="1.8"/>
                 </svg>
-                <span>Programs</span>
+                <span>{t("programs")}</span>
             </div>
         </>
     )

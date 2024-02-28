@@ -106,7 +106,9 @@
             "price": "Цена",
             "Currency": "Валюта",
             "Actions": "Действия",
-            "buy": "Купить"
+            "buy": "Купить",
+            "search_currency": "Найти валюту"
+
         },
         "confirm": "Подтвердить",
         "apply": "Применить",
@@ -428,7 +430,16 @@
             "fifteenth_element": "Оплата штрафов",
             "sixteenth_element": "Оплата комиссии"
         },
-        "no_actions_for_network": "Извините, для выбранной сети нет доступных действий."
+        "no_actions_for_network": "Извините, для выбранной сети нет доступных действий.",
+        "choose_currency": "Выберите валюту",
+        "choose_network_type": "Выберите тип сети",
+        "select_transfer_type": "Выберите тип перевода",
+        "select_the_currency": "Выберите валюту, которую нужно перевести",
+        "networks_not_found": "Сети не найдены",
+        "transfers": "Переводы",
+        "free_balance": "Свободный баланс",
+        "exchange_button": "Обмен"
+
 
 
 

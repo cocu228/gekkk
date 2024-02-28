@@ -9,6 +9,9 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { apiGetUas } from "@/shared/(orval)api";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -29,6 +32,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
@@ -49,10 +53,24 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const onConfirm = async () => {
         setLoading(true);
         
-        await apiPaymentSepa(
-            details.current,
-            false
-        ).then(handleCancel);
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+        
+        await apiPaymentSepa(details.current, false, {
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
+            
+            await apiPaymentSepa(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: data.result.token
+            }).then(handleCancel);
+        });
     }
 
     return <div>

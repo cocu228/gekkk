@@ -27,10 +27,12 @@ interface IPaymentDetails {
 export const apiPaymentSepa = (
     payment_details: IPaymentDetails,
     commission: boolean = false,
-    headers: Partial<SignHeaders> | null = null
+    headers: any = null
+    //headers: Partial<SignHeaders> | null = null
 ) => $axios.post<IResCommission | IResErrors | IResResult>(`/api/v1/payment_sepa${commission ? "/commission" : ""}`, {
     payment_sepa: payment_details
 }, {
+    baseURL: import.meta.env.VITE_BANK_API_URL,
     headers: {
         ...headers,
         "X-Confirmation-Type": "SIGN"

@@ -96,7 +96,8 @@
           "name": "Name",
           "Currency": "Währung",
           "Actions": "Aktionen",
-          "buy": "Kaufen"
+          "buy": "Kaufen",
+          "search_currency": "Währung suchen"
       },
       "confirm": "Bestätigen",
       "apply": "Anwenden",
@@ -404,7 +405,16 @@
         "fifteenth_element": "Bußgeldzahlung",
         "sixteenth_element": "Kommissionszahlung"
     },
-    "no_actions_for_network": "Entschuldigung, es sind keine Aktionen für das ausgewählte Netzwerk verfügbar."
+    "no_actions_for_network": "Entschuldigung, es sind keine Aktionen für das ausgewählte Netzwerk verfügbar.",
+    "choose_currency": "Wählen Sie die Währung",
+    "choose_network_type": "Wählen Sie den Netzwerktyp",
+    "select_transfer_type": "Wählen Sie den Überweisungstyp",
+    "select_the_currency": "Wählen Sie die Währung, die Sie überweisen möchten",
+    "networks_not_found": "Netzwerke nicht gefunden",
+    "transfers": "Überweisungen",
+    "free_balance": "Freies Guthaben",
+    "exchange_button": "Austausch"
+
 
 
 

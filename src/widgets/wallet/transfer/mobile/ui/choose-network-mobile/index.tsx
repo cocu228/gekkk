@@ -50,7 +50,13 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
     
     return( 
         <>
-            <div onClick={()=>{setNetwork(null)}} className="row w-full font-medium">
+            <div 
+                onClick={()=>{
+                    setNetwork(null)
+                    navigate(`/transfers?currency=${currency}`)
+                }} 
+                className="row w-full font-medium"
+            >
                 <div className="col">
                     <Select
                         open={open}

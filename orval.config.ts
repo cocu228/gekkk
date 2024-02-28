@@ -14,7 +14,7 @@ export default defineConfig({
 				transformer: (outputSchema) => {
 					const methodName = outputSchema.operationName
 						.replace(/(get|post|put|delete|patch)/i, 'api')
-						.replace(/(Wallet|Invest|Market|Referral)/i, '')
+						.replace(/(Wallet|Invest|Market|Referral|Bank)/i, '')
 						.replace('GekV1', '');
 					
 					return ({

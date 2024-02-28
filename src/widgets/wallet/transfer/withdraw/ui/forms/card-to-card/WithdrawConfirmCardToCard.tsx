@@ -8,10 +8,13 @@ import {apiPaymentContact, IResCommission} from "@/shared/api";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {formatCardNumber} from "@/widgets/dashboard/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { apiGetUas } from "@/shared/(orval)api";
+import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 
 interface IState {
     loading: boolean;
-    total: IResCommission;
+    totalCommission: IResCommission;
 }
 
 const WithdrawConfirmCardToCard = ({
@@ -23,16 +26,17 @@ const WithdrawConfirmCardToCard = ({
     handleCancel
 }) => {
     const [{
-        total,
-        loading
+        loading,
+        totalCommission,
     }, setState] = useState<IState>({
         loading: false,
-        total: undefined
+        totalCommission: undefined
     });
 
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const cards = storeActiveCards(state => state.activeCards);
+    const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
@@ -58,19 +62,39 @@ const WithdrawConfirmCardToCard = ({
             loading: true
         }));
         
-        await apiPaymentContact(
-            details.current,
-            false
-        ).then(handleCancel);
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+        
+        await apiPaymentContact(details.current, false, {
+            Authorization: phone,
+            Token: data.result.token
+        }).then(async (response) => {
+            // @ts-ignore
+            const confToken = response.data.errors[0].properties.confirmationToken;
+            
+            const headers = await signHeadersGeneration(phone, confToken);
+            
+            await apiPaymentContact(details.current, false, {
+                ...headers,
+                Authorization: phone,
+                Token: data.result.token
+            }).then(handleCancel);
+        });
     }
 
     useEffect(() => {
-        apiPaymentContact(details.current, true).then(({data}) => {
-            setState(prev => ({
+        (async () => {
+            const {data} = await apiGetUas();
+            const {phone} = await getAccountDetails();
+            
+            apiPaymentContact(details.current, true, {
+                Authorization: phone,
+                Token: data.result.token
+            }).then(({data}) => setState(prev => ({
                 ...prev,
-                total: data as IResCommission
-            }));
-        });
+                totalCommission: data as IResCommission
+            })));
+        })();
     }, []);
     
     return <div>
@@ -154,8 +178,8 @@ const WithdrawConfirmCardToCard = ({
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.commission ?? '-'} {$const}</span>
+                    {totalCommission !== undefined ? (
+                        <span>{totalCommission.commission ?? '-'} {$const}</span>
                     ) : (
                         <Skeleton.Input style={{height: 16}} active/>
                     )}
@@ -168,8 +192,8 @@ const WithdrawConfirmCardToCard = ({
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    {total !== undefined ? (
-                        <span>{total.total ?? '-'} {$const}</span>
+                    {totalCommission !== undefined ? (
+                        <span>{totalCommission.total ?? '-'} {$const}</span>
                     ) : (
                         <Skeleton.Input style={{height: 16}} active/>
                     )}
@@ -194,7 +218,7 @@ const WithdrawConfirmCardToCard = ({
                         <Button size={"xl"}
                                 htmlType={"submit"}
                                 className="w-full"
-                                disabled={!total}
+                                disabled={!totalCommission}
                         >Confirm</Button>
                     </div>
                 </div>

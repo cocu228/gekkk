@@ -103,7 +103,7 @@ const CardsMenu = ({
             case 'activate':
                 apiActivate({cardId: card.cardId})
                     .then(({ data }) => {
-                        if ((data as IResErrors).errors) {
+                        if (data.result === 'Failure') {
                             confirmationModal.handleCancel();
                             return;
                         }

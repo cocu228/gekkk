@@ -81,7 +81,6 @@ function Wallet() {
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
     
-
     const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 	

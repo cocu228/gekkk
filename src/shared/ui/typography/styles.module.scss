@@ -1,0 +1,22 @@
+.h {
+    font-size: clamp(0.75rem, 0.5743rem + 0.8784vw, 1.5625rem);
+    // min-height:  clamp(0.75rem, 0.5743rem + 0.8784vw, 1.5625rem);
+}
+
+.p {
+    font-size: clamp(0.75rem, 0.5743rem + 0.8784vw, 1.5625rem);
+}
+.colorDarkGreen {
+    color: #1F3446;
+}
+
+.colorLightGreen {
+    color: #3A5E66;
+}
+
+.colorPlaceHolder {
+    color: #DCDCD9;
+}
+.colorWhite {
+    color: white;
+}

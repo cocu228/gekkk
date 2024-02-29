@@ -1,0 +1,28 @@
+@import "../../../styles/mixins.scss";
+
+
+
+.SupportChatComponent {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    display: flex;
+    justify-content: center;
+}
+
+.SupportChatComponent::-webkit-scrollbar {
+    display: none;
+}
+
+.ChatWrapper {
+    background-color: var(--color-bgPrimary);
+    box-shadow: var(--card-shadow-blured);
+    border: 2px solid var(--new-F4F4F4);
+    @include max-devices(md){
+        width: 100%;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

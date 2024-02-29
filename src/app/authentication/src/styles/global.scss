@@ -1,0 +1,191 @@
+@import "mixins";
+
+.negative-margin-content {
+  margin-left: var(--content-pad-left);
+  margin-right: var(--content-pad-right);
+
+
+  @include max-devices(xl) {
+    margin-left: var(--content-pad-left-xl);
+    margin-right: var(--content-pad-right-xl);
+  }
+
+  @include max-devices(xxl) {
+    margin-left: var(--content-pad-horizontal-md);
+    margin-right: var(--content-pad-horizontal-md);
+  }
+}
+
+.arrow-down-xs {
+  background-image: url("/img/icon/DropdownTriangleIcon.svg");
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+}
+
+.substrate {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px var(--color-gray-200);
+  padding: 40px;
+
+  @include max-devices(md) {
+    padding: 12px;
+    margin: 0 -15px;
+    box-shadow: none;
+    border-radius: 0px;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: e-resize;
+}
+
+
+.info-box-warning {
+
+  padding: 1rem 0.625rem;
+  color: var(--color-orange);
+  border: 1px solid var(--color-orange);
+  background: rgba(var(--orange) / 0.08);
+  border-radius: 4px;
+
+  //@include max-devices("md") {
+  //  padding: 0.375rem 0.625rem;
+  //  font-size: 0.625rem;
+  //}
+
+  strong {
+    font-weight: 600;
+  }
+
+}
+
+
+.info-box-danger {
+
+  padding: 14px 25px 14px 38px;
+  color: var(--color-red-800);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  border: 1px solid #EB545433;
+  background-color: #EB54541A;
+  border-radius: 4px;
+  background-image: url("/img/icon/Alert.svg");
+  background-position: 10px center;
+  background-size: 21px;
+  background-repeat: no-repeat;
+
+  @include max-devices("md") {
+    padding: 0.375rem 0.625rem 0.375rem 2.5rem;
+    font-size: 0.625rem;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+}
+
+
+.info-box-note {
+  padding: 16px 54px 14px 78px;
+  color: var(--color-gray-400);
+  background-color: #FAFBFD;
+  background-image: url("/img/icon/Alert.svg");
+  background-position: 24px center;
+  background-repeat: no-repeat;
+  width: 100%;
+
+  @include max-devices("md") {
+    padding: 6px 10px 6px 48px;
+    background-position: 10px center;
+  }
+  //
+  //@include devices("md") {
+  //  padding: 0.375rem 0.625rem;
+  //  font-size: 0.625rem;
+  //}
+
+  strong {
+    font-weight: 600;
+  }
+
+}
+
+.info-box-description {
+  background-color: #E2FFEE;
+  font-size: 14px;
+  height: min-content;
+  color: #285E69;
+  border-radius: 8px;
+  padding: 18px 16px;
+
+  @include max-devices("md") {
+    margin-bottom: 16px;
+  }
+}
+.info-box-in-wallet{
+  color: #3A5E66;
+}
+
+
+//.ellipsis:not(.ellipsis-lg):hover::after {
+//  content: none;
+//}
+//
+//.ellipsis:not(.ellipsis-lg) > p, .ellipsis:not(.ellipsis-lg) > span, .ellipsis:not(.ellipsis-lg) > a {
+//  text-overflow: initial;
+//  white-space: initial;
+//  display: initial;
+//  overflow: initial;
+//}
+
+.ellipsis {
+  position: relative;
+
+  & > p, span, a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
+
+  &:hover::after {
+    content: attr(data-text); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 10%;
+    top: 100%; /* Положение подсказки */
+    z-index: 20; /* Отображаем подсказку поверх других элементов */
+    font-family: inherit; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 8px 18px; /* Поля */
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px 0 var(--color-gray-400);
+    word-wrap: break-word;
+    max-width: 700px;
+    height: auto;
+    white-space: normal;
+  }
+
+  &-c-none {
+    &:hover::after {
+      content: none;
+    }
+  }
+
+  &-md {
+    &:hover::after {
+      @include min-devices("md") {
+        content: none;
+      }
+    }
+  }
+
+}

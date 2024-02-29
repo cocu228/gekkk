@@ -1,0 +1,95 @@
+@import "fonts";
+@import "reset";
+@import "global";
+@import "variables";
+@import "mixins";
+
+@import "(cs)react-international-phone.scss";
+
+
+:root {
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: var(--color-primary);
+    background-color: var(--color-main-bg);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    @include max-devices(md){
+        user-zoom: fixed;
+    }
+}
+
+a {
+    text-decoration: inherit;
+}
+
+a:hover {
+    text-decoration: inherit;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    //place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #F7F7F0;
+    @include max-devices(md){
+        overscroll-behavior-y: none;
+    }
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: initial;
+    //display: flex;
+
+    --gek-dark-blue: #29354C;
+    --gek-additional: #285E69; 
+    --gek-green: #2BAB72;
+    --gek-red:#8F123A;
+    --gek-orange:#F8A73E;
+    --gek-background: #F7F7F0;
+    --gek-light-grey:#DCDCD9;
+    --gek-mid-grey:#B9B9B5;  
+    --gek-dark-grey: #7B797C;
+    --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+  
+}
+
+@layer components {
+    .text-header {
+        font-size: 32px;
+        line-height: 48px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    //:root {
+    //    color: #213547;
+    //    background-color: #242424;
+    //}
+}
+
+@import "(cs)antd";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//@import "gekkard-chat/dist/style.css";
+@import "typography";
+@import "button";

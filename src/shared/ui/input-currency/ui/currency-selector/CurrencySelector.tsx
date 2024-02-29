@@ -50,7 +50,7 @@ const CurrencySelector: FC<IParams> = ({
             </button>
         </div>
 
-        <Modal width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
+        <Modal className='max-h-[450px]' width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
             <AssetsTable
                 className='-mx-4 -mt-8 min-h-[500px]'
                 modal={true}

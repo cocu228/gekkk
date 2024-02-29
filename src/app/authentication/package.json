@@ -14,6 +14,7 @@
     "DEV": "tsc && vite build --mode development"
   },
   "dependencies": {
+    "antd": "^5.14.2",
     "axios": "^1.6.7",
     "elliptic": "^6.5.4",
     "js-sha256": "^0.11.0",

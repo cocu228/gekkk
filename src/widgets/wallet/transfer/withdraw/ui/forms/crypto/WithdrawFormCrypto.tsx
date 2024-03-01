@@ -99,7 +99,7 @@ const WithdrawFormCrypto = () => {
                             <Input value={inputs.recipient} onChange={onInput}
                                    disabled={!networkTypeSelect}
                                    name={"recipient"}
-                                   placeholder={t("enter_recipient")}/>
+                                   placeholder={t("enter_recepients_name")}/>
 
                     <span className="text-green text-fs12">{t("EW_law")}</span>
                 </div>

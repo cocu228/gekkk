@@ -38,7 +38,7 @@ const TopUp = memo(() => {
             case 150:
                 return <div>
                     <b>
-                        You can top up your EURG wallet via fiat on the EUR withdrawal form <span
+                        {t("top_up_EURG")} <span
                             className="text-blue-400 cursor-pointer"
                             onClick={() => {
                                 if(md){
@@ -49,7 +49,7 @@ const TopUp = memo(() => {
                                     
                             }}
                         >
-                            link
+                            {t("link")}
                         </span>
                     </b>
                 </div>;
@@ -58,7 +58,7 @@ const TopUp = memo(() => {
             case 154:
                 return <div>
                     <b>
-                        You can top up your EUR wallet via cryptocurrency on the EURG withdrawal form <a
+                        {t("top_up_EUR_via_crypto")} <a
                         className="text-blue-400"
                         onClick={() => {
                             if(md){
@@ -68,7 +68,7 @@ const TopUp = memo(() => {
                             }
                                 
                         }}
-                        href="javascript:void(0)">link</a>
+                        href="javascript:void(0)">{t("link")}</a>
                     </b>
                 </div>;
             case 231:

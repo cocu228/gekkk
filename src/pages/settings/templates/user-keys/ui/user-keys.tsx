@@ -46,7 +46,7 @@ export function UserKeys() {
                 <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
-                    placeholder={'Enter SMS-code'} 
+                    placeholder={t("enter_sms_code")} 
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                 />

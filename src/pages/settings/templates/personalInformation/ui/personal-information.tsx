@@ -9,11 +9,13 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { languageName } from "../model/language";
 import { deepCompare } from "../model/deep-compate";
+import { useTranslation } from "react-i18next";
 
 export function PersonalInformation() {
     const {md} = useBreakpoints();
     const {details, getAccountDetails} = storeAccountDetails();
     const [userInfo, setUserInfo] = useState<typeof details>(details);
+    const {t} = useTranslation()
     
     useEffect(() => {
         console.log('aaa');
@@ -46,7 +48,7 @@ export function PersonalInformation() {
                     />
                 </div>
                 <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Phone number:</Typography>
+                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>{t("phone_number")}:</Typography>
                     <MobileInput 
                         className=" min-h-[30px]"  
                         placeholder="Input phone number" 

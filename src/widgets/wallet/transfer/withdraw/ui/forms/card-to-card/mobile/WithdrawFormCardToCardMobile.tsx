@@ -93,7 +93,7 @@ const WithdrawFormCardToCardMobile = () => {
                                                  validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                                 <InputCurrency.PercentSelector
                                     currency={currency}
-                                    header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                    header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                     onSelect={setInputCurr}
                                 >
                                     <InputCurrency.DisplayBalance currency={currency}>
@@ -111,7 +111,7 @@ const WithdrawFormCardToCardMobile = () => {
                 <div className="flex flex-row justify-between items-center">
                     <div className="row min-w-[80px] mb-2 mr-5">
                         <div className="col w-full">
-                            <span className="w-full font-medium">From card:</span>
+                            <span className="w-full font-medium">{t("from_card")}:</span>
                         </div>
                     </div>
                     <div className="flex justify-end basis-[100%]">
@@ -219,16 +219,16 @@ const WithdrawFormCardToCardMobile = () => {
                     <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                         <div className="col flex flex-col w-[max-content] gap-2">
                             <div className="row">
-                                <span>You will pay</span>
+                                <span>{t("you_will_pay")}</span>
                             </div>
                             <div className="row">
                             <span>
-                            You will get
+                            {t("you_will_get")}
                             </span>
                             </div>
                             <div className="row">
                                 <span>
-                            Fee
+                            {t("fee")}
                             </span>
                             </div>
                         </div>
@@ -256,7 +256,7 @@ const WithdrawFormCardToCardMobile = () => {
                 </div>
             </div>
             
-            <Modal width={450} title="Transfer confirmation"
+            <Modal width={450} title={t("transfer_confirmation")}
                    onCancel={handleCancel}
                    open={isModalOpen}
                    footer={null}
@@ -276,7 +276,7 @@ const WithdrawFormCardToCardMobile = () => {
             </div>
             <div className='w-full flex justify-center'>
                 <span className='text-[#9D9D9D] text-[10px]'>
-                    Fee is <span className='font-bold'>{withdraw_fee} {currency.$const} </span> after 5 transaction per month
+                    {t("fee_is_prec")} <span className='font-bold'>{withdraw_fee} {currency.$const} </span> after 5 transaction per month
                 </span>
             </div>
         </div>

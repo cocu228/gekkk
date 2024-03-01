@@ -35,7 +35,7 @@ export function ChangePassword() {
                     />
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                    <Typography variant="h">Confirm password:</Typography>
+                    <Typography variant="h">{t("confirm_password")}:</Typography>
                     <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -48,7 +48,7 @@ export function ChangePassword() {
                     <CheckList setValid={setValid} value={newPass}/>
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                    <Typography variant="h">Confirmation code:</Typography>
+                    <Typography variant="h">{t("confirmation_code")}:</Typography>
                     <MobileInput 
                     value={confirmCode}
                     onChange={(e)=>{setConfirmCode(e.target.value);

@@ -65,7 +65,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                 <div className="info-box-note mb-10">
                     <div className="row mb-3">
                         <div className="col">
-                            <span className="text-red-800">Please note</span>
+                            <span className="text-red-800">{t("please_note")}</span>
                         </div>
                     </div>
                     <div className="row mb-1">

@@ -66,7 +66,7 @@ const WithdrawFormBrokerMobile = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -105,14 +105,14 @@ const WithdrawFormBrokerMobile = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
-                            <span>You will get</span>
+                            <span>{t("you_will_get")}</span>
                         </div>
                         <div className="row">
                             <span>
-                          Fee
+                          {t("fee")}
                         </span>
                         </div>
                     </div>
@@ -122,11 +122,11 @@ const WithdrawFormBrokerMobile = () => {
                                 className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                         </div>
                     </div>
@@ -138,7 +138,7 @@ const WithdrawFormBrokerMobile = () => {
             open={isModalOpen}
             footer={null}
             onCancel={handleCancel}
-            title={"Withdraw confirmation"}>
+            title={t("withdraw_confirmation")}>
             <WithdrawConfirmBrokerMobile setErr={setIsErr} setSuccess={setIsSuccess} amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4 mb-[10px]">
@@ -154,7 +154,7 @@ const WithdrawFormBrokerMobile = () => {
         </div>
         <div className='w-full flex justify-center'>
             <span className='text-[#9D9D9D] text-[10px]'>
-                Fee is <span className='font-bold'>{percent_fee}%</span> per transaction
+                {t("fee_is_perc")} <span className='font-bold'>{percent_fee}%</span> {t("per_transaction")}
             </span>
         </div>
         <Modal

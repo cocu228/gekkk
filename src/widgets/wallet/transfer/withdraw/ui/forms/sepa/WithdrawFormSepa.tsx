@@ -155,7 +155,7 @@ const WithdrawFormSepa = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title="Transfer confirmation"
+            title={t("transfer_confirmation")}
         >
             <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </Modal>

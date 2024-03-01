@@ -82,7 +82,7 @@ const WithdrawFormPapaya = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className='text-gray-600 font-medium'>Amount</span>}
+                        header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -104,16 +104,16 @@ const WithdrawFormPapaya = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                          You will get
+                          {t("you_will_get")}
                         </span>
                         </div>
                         <div className="row">
                             <span>
-                          Fee
+                          {t("fee")}
                         </span>
                         </div>
                     </div>
@@ -123,11 +123,11 @@ const WithdrawFormPapaya = () => {
                                 className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                         </div>
                     </div>
@@ -138,7 +138,7 @@ const WithdrawFormPapaya = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={"Withdraw confirmation"}
+            title={t("withdraw_confirmation")}
         >
             <WithdrawConfirmCrypto
                 description={""}

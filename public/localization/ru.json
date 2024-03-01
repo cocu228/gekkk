@@ -438,7 +438,52 @@
         "networks_not_found": "Сети не найдены",
         "transfers": "Переводы",
         "free_balance": "Свободный баланс",
-        "exchange_button": "Обмен"
+        "exchange_button": "Обмен",
+        "top_up_EUR_via_crypto":"Вы можете пополнить свой кошелек в EUR через криптовалюту на форме вывода EURG ",
+        "link": "ссылка",
+        "IBAN": "Номер счета / IBAN",
+        "address": "Адрес",
+        "country": "Страна",
+        "beneficiary_bank": "Банк получателя",
+        "intermediary_bank": "Промежуточный банк",
+        "fee_type": "Тип комиссии",
+        "urgency": "Срочность",
+        "comment_optional": "Комментарий (по желанию)",
+        "withdraw_title": "Вывод",
+        "from_card": "С карты",
+        "comment": "Комментарий",
+        "cardholder_name": "Имя владельца карты",
+        "card_number_title": "Номер карты",
+        "transfer_confirmation": "Подтверждение перевода",
+        "network": "Сеть",
+        "please_note": "Обратите внимание",
+        "use_withdraw_addr_supported": "Вы должны использовать только адрес вывода, поддерживаемый выбранным сетевым протоколом. Если другая платформа его не поддерживает, ваши активы могут быть потеряны.",
+        "to_confirm_enter_sms_code": "Для подтверждения операции вам следует ввести SMS-код",
+        "enter_sms_code": "Введите код SMS",
+        "enter_pin_code": "Введите PIN-код",
+        "account_number": "Номер счета",
+        "total_amount": "Общая сумма",
+        "fee_is_perc": "Комиссия составляет",
+        "per_transaction": "за каждую транзакцию",
+        "loading": "Загрузка",
+        "purpose": "Цель",
+        "withdraw_confirmation": "Подтверждение вывода средств",
+        "sender_card_number": "Номер карты отправителя",
+        "recepient_card_number": "Номер карты получателя",
+        "recepient_name": "Имя получателя",
+        "recepient_phone_number": "Номер телефона получателя",
+        "top_up_EURG": "Вы можете пополнить свой кошелек EURG через фиатные средства на форме вывода EUR" ,
+        "send_to_this": "Отправьте транзакцию на этот",
+        "address_small": "адрес",
+        "desc_optional": "Описание (необязательно)",
+        "EW_law": "В соответствии с законодательством ЕС вы должны указать имя получателя средств",
+        "enter_recepients_name": "Введите имя получателя"
+        
+
+
+
+
+
 
 
 

@@ -25,6 +25,7 @@ import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import { $axios } from "@/shared/lib/(orval)axios";
 import { SignTX } from "../../crypto/signTX";
+import { useTranslation } from "react-i18next";
 
 
 const initStageConfirm = {
@@ -70,7 +71,7 @@ const WithdrawConfirmPapayaMobile = memo(({
     const {$const} = useContext(CtxWalletData)
     const {setRefresh} = useContext(CtxRootData)
     const setContent = useContext(CtxModalTrxInfo)
-
+    const {t} = useTranslation()
     const [input, setInput] = useState("")
     const [loading, setLoading] = useState(false)
     const [localErrorHunter, , localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
@@ -192,16 +193,16 @@ const WithdrawConfirmPapayaMobile = memo(({
         <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
             <div className="col flex flex-col w-[max-content] gap-2">
                 <div className="row">
-                    <span>You will pay</span>
+                    <span>{t("you_will_pay")}</span>
                 </div>
                 <div className="row">
                 <span>
-                    You will get
+                    {t("you_will_get")}
                 </span>
                 </div>
                 <div className="row">
                     <span>
-                    Fee
+                    {t("fee")}
                 </span>
                 </div>
             </div>
@@ -211,11 +212,11 @@ const WithdrawConfirmPapayaMobile = memo(({
                         className="w-full text-start">{willPay} {$const}</span>
                 </div>
                 <div className="row flex items-end">
-                    {loading ? "Loading..." : <span
+                    {loading ? t("loading")+"..." : <span
                         className="w-full text-start">{willPay-withdraw_fee} EUR</span>}
                 </div>
                 <div className="row flex items-end">
-                    {loading ? "Loading..." : <span
+                    {loading ? t("loading")+"..." : <span
                         className="w-full text-start">{withdraw_fee} {$const}</span>}
                 </div>
             </div>
@@ -234,7 +235,7 @@ const WithdrawConfirmPapayaMobile = memo(({
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
             {!isNull(stageReq.status) && <>
-                <span className="text-gray-400">Transfer confirmation</span>
+                <span className="text-gray-400">{t("transfer_confirmation")}</span>
                 
                 <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                     
@@ -243,10 +244,10 @@ const WithdrawConfirmPapayaMobile = memo(({
                        autoComplete="off"
                        onChange={({target}) => setInput(target.value)}
                        placeholder={stageReq.status === 0
-                        ? "Enter SMS code"
+                        ? t("enter_sms_code") 
                         : stageReq.status === 1
-                            ? "Enter code"
-                            : "Enter PIN code"
+                            ? t("enter_code")
+                            : t("enter_pin_code") 
                        }
                     />
                 </FormItem>

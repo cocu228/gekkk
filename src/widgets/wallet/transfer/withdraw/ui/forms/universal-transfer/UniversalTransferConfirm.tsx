@@ -12,6 +12,7 @@ import {CtnTrxInfo} from "../../../model/entitys";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
+import { useTranslation } from "react-i18next";
 
 const initStageConfirm = {
     txId: null,
@@ -40,6 +41,7 @@ const UniversalTransferConfirm = ({
     const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(false);
     const [localErrorHunter, ,localErrorInfoBox,] = useError();
+    const {t} = useTranslation()
 
     const details = useRef({
         tag: comment,
@@ -142,13 +144,13 @@ const UniversalTransferConfirm = ({
                         <div className="wrapper flex flex-col">
                             <div className="row mb-1">
                                 <div className="col">
-                                    <span className="text-red-800">Please note</span>
+                                    <span className="text-red-800">{t("please_note")}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <span className="text-gray-400">
-                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                        {t("use_withdraw_addr_supported")}
                                     </span>
                                 </div>
                             </div>
@@ -158,7 +160,7 @@ const UniversalTransferConfirm = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Network</span>
+                    <span className="text-gray-400">{t("network")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -178,7 +180,7 @@ const UniversalTransferConfirm = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Amount</span>
+                    <span className="text-gray-400">{t("amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -189,7 +191,7 @@ const UniversalTransferConfirm = ({
             {comment && <>
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="text-gray-400">Comment</span>
+                        <span className="text-gray-400">{t("comment")}</span>
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -220,7 +222,7 @@ const UniversalTransferConfirm = ({
                         {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                             <Button htmlType={"submit"} disabled={!stage.recipient}
                                     className="w-full"
-                                    size={"xl"}>Confirm</Button>}
+                                    size={"xl"}>{t("confirm")}</Button>}
                     </div>
                     
                     <div className="col flex justify-center mt-4">

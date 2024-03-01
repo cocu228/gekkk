@@ -181,7 +181,7 @@ const GkeCashbackProgram = () => {
 
                             if (data.result != null) updateCashbackInvestment(data.result)
                         }}
-                    >Confirm</Button>
+                    >{t("confirm")}</Button>
                 </div>
             </Modal>
         </>

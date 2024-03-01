@@ -5,7 +5,7 @@ import {apiClientDetails} from "@/shared/(orval)api/gek";
 
 export interface IStoreAccounts {
 	details: ClientDetails;
-	getAccountDetails: () => Promise<void>;
+	getAccountDetails: () => Promise<ClientDetails>;
 }
 
 export const storeAccountDetails = create<IStoreAccounts>()(devtools((set) => ({
@@ -20,5 +20,6 @@ export const storeAccountDetails = create<IStoreAccounts>()(devtools((set) => ({
 			...state,
 			details: data.result,
 		}));
+		return data.result;
 	}
 })));

@@ -28,6 +28,7 @@ const WithdrawFormPapayaMobile = () => {
     const currency = useContext(CtxWalletData);
     const [isErr, setIsErr] = useState<boolean>(false)
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
+    const {setRefresh: setReload} = useContext(CtxRootData)
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
 
@@ -143,9 +144,12 @@ const WithdrawFormPapayaMobile = () => {
         <Modal
             width={327}
             open={isModalOpen}
-            onCancel={handleCancel}
+            onCancel={()=>{
+                handleCancel()
+                setReload()
+            }}
             title={t("withdraw_confirmation")}
-            footer={<div></div>}
+            footer={null}
         >
             <WithdrawConfirmPapayaMobile
                 description={""}
@@ -163,7 +167,6 @@ const WithdrawFormPapayaMobile = () => {
             open={isErr}
             closeIcon={<div></div>}
             onCancel={()=>{
-                handleCancel()
                 setIsErr(false)
             }}
             footer={
@@ -207,7 +210,6 @@ const WithdrawFormPapayaMobile = () => {
             open={isSuccess}
             closeIcon={<div></div>}
             onCancel={()=>{
-                handleCancel()
                 setIsSuccess(false)
             }}
             footer={

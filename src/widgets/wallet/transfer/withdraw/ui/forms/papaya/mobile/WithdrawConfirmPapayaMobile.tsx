@@ -130,10 +130,10 @@ const WithdrawConfirmPapayaMobile = memo(({
                         fee: result.fee,
                         code: result.confirmCode
                     }))
-                    success(true)
                 }
                 if (result.confirmationStatusCode === 4) {
                     handleCancel()
+                    success(true)
                     setContent(<CtnTrxInfo/>)
                     setRefresh()
                 } else {
@@ -141,7 +141,6 @@ const WithdrawConfirmPapayaMobile = memo(({
                 }
             })
             .reject((err) => {
-                setErr(true)
                 if (err.code === 10035) {
                     setStageReq(prev => ({
                         ...prev,
@@ -150,9 +149,16 @@ const WithdrawConfirmPapayaMobile = memo(({
                         // txId: result.txId,
                         // fee: result.fee
                     }))
-                } else {
+                    setErr(true)
+
+                } else if(err.code === 10064){
                     localErrorHunter(err)
                     form.resetFields();
+                    setErr(true)
+                }else {
+                    localErrorHunter(err)
+                    form.resetFields();
+
                 }
             })
 
@@ -260,7 +266,6 @@ const WithdrawConfirmPapayaMobile = memo(({
                         <>
                             <Button
                                 htmlType={"submit"}
-                                onClick={()=>{handleCancel()}}
                                 disabled={(input === "" && stageReq.status !== null)}
                                 className="w-full"
                                 size={"xl"}
@@ -268,8 +273,10 @@ const WithdrawConfirmPapayaMobile = memo(({
                                 Confirm
                             </Button>
                             <Button
-                                onClick={()=>{handleCancel()}}
-                                disabled={(input === "" && stageReq.status !== null)}
+                                onClick={()=>{
+                                    setRefresh()
+                                    handleCancel()
+                                }}
                                 red
                                 className="w-full"
                                 size={"xl"}

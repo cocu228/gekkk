@@ -27,13 +27,15 @@ export const useUserKeys = () => {
                     }
                 })
                 keysArrSort.sort((a, b) => getUnixTime(parseISO(b.utc_create)) - getUnixTime(parseISO(a.utc_create)))
-                const newArr = keysArrCurrent.concat(keysArrSort)
+                const newArr = keysArrCurrent.concat(keysArrSort);
+                console.log(newArr);
+                
                 setKeys(newArr)
             } catch(err: unknown) {
                 setKeys([]);
             }
         })();
     }, []);
-    
+
     return keys;  
 }

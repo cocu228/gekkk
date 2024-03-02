@@ -32,6 +32,7 @@ import { AppVersion } from './templates/app-version';
 import { ChangePassword } from './templates/change-password';
 import { UserKeys } from './templates/user-keys/ui/user-keys';
 import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
+import { LoginAndSignHistory } from './templates/history';
 
 const areaMap = {
   'identification-status': <IdentificationStatus />,
@@ -43,6 +44,7 @@ const areaMap = {
   'app-version': <AppVersion/>,
   'change-password': <ChangePassword/>,
   'user-keys' : <UserKeys />,
+  'history': <LoginAndSignHistory/>
 }
 
 type SettingsSections = keyof typeof areaMap | '';
@@ -148,6 +150,8 @@ export function Settings() {
             <SettingsButton 
                 icon={<Docs/>} 
                 text={'Login and sign history'}  
+                onClick={() => {setSelectedArea('history')}} 
+                isSelected={selectedArea === 'history'}
             />
             <SettingsButton 
                 icon={<Chain/>} 

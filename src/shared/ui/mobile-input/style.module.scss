@@ -9,6 +9,7 @@
     color: #3A5E66;
     border-radius: 10px;
     font-size: clamp(0.875rem, 0.7939rem + 0.4054vw, 1.25rem);
+    background-color: inherit !important;
     &::placeholder {
         color: #DCDCD9;
     }

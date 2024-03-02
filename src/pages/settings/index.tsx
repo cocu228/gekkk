@@ -33,6 +33,7 @@ import { ChangePassword } from './templates/change-password';
 import { UserKeys } from './templates/user-keys/ui/user-keys';
 import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
 import { LoginAndSignHistory } from './templates/history';
+import { UserSession } from './templates/user-session';
 
 const areaMap = {
   'identification-status': <IdentificationStatus />,
@@ -44,7 +45,8 @@ const areaMap = {
   'app-version': <AppVersion/>,
   'change-password': <ChangePassword/>,
   'user-keys' : <UserKeys />,
-  'history': <LoginAndSignHistory/>
+  'history': <LoginAndSignHistory/>,
+  'user-sessions': <UserSession/>
 }
 
 type SettingsSections = keyof typeof areaMap | '';
@@ -156,6 +158,8 @@ export function Settings() {
             <SettingsButton 
                 icon={<Chain/>} 
                 text={'User sessions'}  
+                onClick={() => {setSelectedArea('user-sessions')}} 
+                isSelected={selectedArea === 'user-sessions'}
             />
             <SettingsButton 
               icon={<PinCodeIcon/>} 

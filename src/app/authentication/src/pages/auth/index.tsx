@@ -12,6 +12,7 @@ import '../../styles/swal-material-ui.scss';
 import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import { CookiePolicy } from '../../widgets/cookie-policy/CookiePolicy';
+import SupportChatUnauthorized from '../chat/chat-unauthorized';
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -23,6 +24,8 @@ const Auth = () => {
 
 	const [promptable, promptToInstall, isInstalled] = useAddToHomescreenPrompt();
 	const [form, setForm] = useState<IForm>(!emailCode ? 'LOGIN' : 'RESET_PASSWORD');
+
+	const [chatOpened, setChatOpened] = useState<boolean>(false)
 
 	useEffect(() => {
 		const runCMA = async () => {
@@ -43,13 +46,20 @@ const Auth = () => {
 		runCMA();
 	}, []);
 
+	
 	return (
-		<>
+		chatOpened ? <SupportChatUnauthorized setClose={setChatOpened}/> : <>
+		
 			<div className={styles.Header}>
 				<div className={styles.LogoContainer}>
 					<LogoIcon />
 				</div>
-				<div onClick={null}>
+				<div 
+					onClick={()=>{
+						setChatOpened(true)
+					}}
+					style={{cursor:"pointer"}}
+				>
 					<SupportIcon fill={"white"} />
 				</div>
 			</div>

@@ -12,7 +12,7 @@ import '../../styles/swal-material-ui.scss';
 import {useAddToHomescreenPrompt} from '../../widgets/useAddToHomescreenPrompt';
 import PwaInstallPopupIOS from 'react-pwa-install-ios';
 import { CookiePolicy } from '../../widgets/cookie-policy/CookiePolicy';
-import SupportChatUnauthorized from '../chat/chat-unauthorized';
+import SupportChatUnauthorized from '../chat';
 
 type IForm = 'LOGIN' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 

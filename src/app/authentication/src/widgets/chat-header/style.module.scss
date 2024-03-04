@@ -1,5 +1,20 @@
-@import "../../../styles/mixins.scss";
+@import "../../styles/mixins.scss";
 
+
+
+
+.Header{
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  height: 60px;
+  background: var(--new-brand-dark-blue);
+  padding: 0 25px;
+  z-index: 1;
+  max-width:100%
+}
 .ContainerLogo {
   //width: var(--sidebar-width);
   //padding-left: 21px;

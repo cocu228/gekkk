@@ -1,8 +1,7 @@
 ﻿import {useEffect} from 'react';
 import {Client} from '@stomp/stompjs';
-import {ChatMessage} from '../model/types';
+import {ChatConfig, ChatMessage, StompCreateMessage} from '../model/types';
 import {stompConfig} from '../config/stompConfig';
-import {StompCreateMessage, ChatConfig} from './../../chat-authorized/model/types';
 import { StateUpdater } from 'preact/hooks';
 // import { useSoundNotification } from '@chat/hooks/useSoundNotification';
 

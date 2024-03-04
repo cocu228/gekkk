@@ -7,21 +7,8 @@ export type NewHeaderProps = {
 
 export function NewHeader ({setClose}: NewHeaderProps) {
     
-    return <header style={{
-        position: 'sticky',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        top: 0,
-        height: '60px',
-        background: 'var(--new-brand-dark-blue)',
-        padding: '0 25px',
-        zIndex: '1',
-        maxWidth:"100%"
-    }}>
+    return <header className={styles.Header}>
 
-        {/*<Logo className='hover:cursor-pointer' onClick={() => navigate('/')}></Logo>*/}
-        {/* <Logo className='hover:cursor-pointer' onClick={null}></Logo> */}
         <div className={styles.ContainerLogo}>                
                         <svg height="40px" preserveAspectRatio="xMidYMid meet" viewBox="0 0 137 45" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0)">
@@ -40,15 +27,6 @@ export function NewHeader ({setClose}: NewHeaderProps) {
                         </svg>                
             </div>
 
-
-            {/* <div style={{
-                display: 'flex',
-                gap: '24px',
-            }}>
-                {isModalOpen && <ChatModal isOpen={isModalOpen} onClose={handleCancel} />}
-            </div> */}
-
-
         <div style={{
             display: 'flex',
             gap: '32px',
@@ -59,7 +37,6 @@ export function NewHeader ({setClose}: NewHeaderProps) {
                 gap: '16px',
             }}>
 
-                {/*<button type='button' style={{color: "#F7F7F0"}} onClick={() => navigate('/chat')}>*/}
                 <button 
                     onClick={()=>{
                         setClose(false)
@@ -69,8 +46,8 @@ export function NewHeader ({setClose}: NewHeaderProps) {
                     <svg width="20" height="20" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="Frame 2626">
                         <g id="Group 151">
-                        <path id="Line 1" d="M1 1.5L7.99999 8.49999" stroke="#F7F7F0" stroke-width="2" stroke-linecap="round"/>
-                        <path id="Line 3" d="M1 8.5L7.99999 1.50001" stroke="#F7F7F0" stroke-width="2" stroke-linecap="round"/>
+                        <path id="Line 1" d="M1 1.5L7.99999 8.49999" stroke="var(--gek-background)" stroke-width="2" stroke-linecap="round"/>
+                        <path id="Line 3" d="M1 8.5L7.99999 1.50001" stroke="var(--gek-background)" stroke-width="2" stroke-linecap="round"/>
                         </g>
                         </g>
                     </svg>

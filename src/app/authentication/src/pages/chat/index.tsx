@@ -1,23 +1,21 @@
-// import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
-import Loader from '../chat-authorized/ui/loader/Loader';
-import { useState, Fragment, useEffect, useRef, useContext } from 'react';
-import StompInit from '../chat-authorized/stomp-init/StompInit';
-import { apiPostFile } from '../chat-authorized/api/post-file';
-import { ApiResponse } from '../chat-authorized/config/(cs)axios';
-import { MessageFormValues } from '../chat-authorized/model/types';
-import MessageForm from '../chat-authorized/message-form/MessageForm';
-import { apiPostMessage } from '../chat-authorized/api/post-message';
-import useSessionId from '../chat-authorized/model/hooks/useSessionId';
-import useDeviceIdHash from '../chat-authorized/model/hooks/useDeviceIdHash';
-import useChatMessages from '../chat-authorized/model/hooks/useChatMessages';
-import { getCookieData } from '../../../shared';
-import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
-import Message from '../chat-authorized/message/Message';
-import NewHeader from '../chat-header/Header';
-import { BreakpointsContext } from '../../../provider/BreakpointsProvider';
+import Loader from './ui/loader/Loader';
+import { useState, Fragment, useEffect, useRef} from 'react';
+import StompInit from './stomp-init/StompInit';
+import { apiPostFile } from './api/post-file';
+import { ApiResponse } from './config/(cs)axios';
+import { MessageFormValues } from './model/types';
+import MessageForm from './message-form/MessageForm';
+import { apiPostMessage } from './api/post-message';
+import useSessionId from './model/hooks/useSessionId';
+import useDeviceIdHash from './model/hooks/useDeviceIdHash';
+import useChatMessages from './model/hooks/useChatMessages';
+import { getCookieData } from '../../shared';
+import AxiosChatInterceptor from './model/AxiosChatInterceptor';
+import Message from './message/Message';
+import NewHeader from '../../widgets/chat-header/Header';
 import { MutableRef, StateUpdater } from 'preact/hooks';
-import PageHead from '../chat-page-head/PageHead';
+import PageHead from '../../widgets/chat-page-head/PageHead';
 
 
 interface IChatProps {
@@ -43,7 +41,6 @@ const SupportChatUnauthorized = ({setClose}: IChatProps) => {
     }
 
     const [deviceIdHash] = useDeviceIdHash();
-    const {md} = useContext(BreakpointsContext);
     const sessionId = useSessionId(deviceIdHash);
     const { messages, setMessages } = useChatMessages(sessionId);
     const [isWebSocketReady, setIsWebSocketReady] = useState(false);
@@ -95,7 +92,7 @@ const SupportChatUnauthorized = ({setClose}: IChatProps) => {
             style={{height:"100vh", backgroundColor: "var(--new-brand-white)"}}
         >
             <NewHeader setClose={setClose}/>
-            <div className={`${styles.SupportChatComponent} ${md? "px-[5%]" : "px-[16.25rem] py-20"}  pb-6`}>
+            <div className={`${styles.SupportChatComponent}`}>
                 <StompInit
                     chatConfig={chatConfig}
                     deviceIdHash={deviceIdHash}
@@ -106,12 +103,16 @@ const SupportChatUnauthorized = ({setClose}: IChatProps) => {
 
                 <AxiosChatInterceptor chatToken={chatConfig.token}>
                     <div style={{width:"90%"}}>
-                        <span className='top-6 left-2 relative typography-h1'>
+                        <span style={{
+                            position: "relative",
+                            left: "0.5rem", 
+                            top: "1.5rem" 
+                        }}>
                             <PageHead title={`Support chat`} />
                         </span>
-                        <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
+                        <div className={`${styles.ChatWrapper}`}>
 
-                            <div className={`${!md && "h-[38rem]"} overflow-scroll`} ref={chatWindowRef}>
+                            <div className={styles.ChatWrapperDiv} ref={chatWindowRef}>
                                 {!isWebSocketReady ? <Loader /> : (
                                     <div>
                                         {messages?.map((message) => (

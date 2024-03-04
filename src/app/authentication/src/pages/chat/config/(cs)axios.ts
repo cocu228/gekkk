@@ -1,4 +1,4 @@
-﻿import axios, {AxiosRequestConfig} from 'axios';
+﻿import axios, { AxiosRequestConfig } from 'axios';
 
 // type ApiResponse<T> = {
 //     status: 'success' | 'error';

@@ -20,9 +20,9 @@ export function Typography({variant, color='dark-green', className, children}: {
     
     return (
         variant === 'h' ? (
-            <h4 className={`${style.h} ${colorSelector(color)} ${className}`}>{children}</h4>
+            <h4 className={`${style.h} typography-b1 ${colorSelector(color)} ${className}`}>{children}</h4>
         ) : (
-            <p className={`${style.p} ${colorSelector(color)} ${className}`}>{children}</p>
+            <p className={`${style.p} typography-b1 ${colorSelector(color)} ${className}`}>{children}</p>
         )
     );
           

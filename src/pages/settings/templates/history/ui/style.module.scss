@@ -8,9 +8,11 @@
     backdrop-filter: blur(2px);
     color: #9D9D9D;
     font-family: Archivo;
+    font-size: 12px;
     font-style: normal;
     font-weight: 600;
     line-height: 12px; /* 100% */
-    min-height: 30px;
-    font-size: 24px;
+    @media (min-width: 770px) {
+        font-size: 18px;
+    }
 }

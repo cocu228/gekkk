@@ -24,7 +24,7 @@ export const MobileButton =  forwardRef((props: Props, ref:ForwardedRef<HTMLButt
         <button
             type={props.type}
             ref={ref} 
-            className={`${styles.button} ${variantSelector(props.varitant)} ${props.className}`}
+            className={`${styles.button} typography-ui-button-badge ${variantSelector(props.varitant)} ${props.className}`}
             onClick={onButtonClick}
             disabled={props.varitant === 'disabeled'}
         >

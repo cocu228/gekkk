@@ -18,7 +18,7 @@ export const MobileInput =  forwardRef((props: Props, ref:ForwardedRef<HTMLInput
             <input 
                 type="text" 
                 ref={ref} 
-                className={`${styles.input} ${props.className}`}
+                className={`${styles.input} ${props.className} typography-b1`}
                 value={props.value}
                 onChange={props.onChange}
                 placeholder={props.placeholder}

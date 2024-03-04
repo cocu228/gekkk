@@ -84,7 +84,7 @@ export function Settings() {
         marginBottom="36px"
         component={Typography}
         variant="h1"
-        
+        className='typography-h1'
       >
         {t('my_settings')}
       </Box>}

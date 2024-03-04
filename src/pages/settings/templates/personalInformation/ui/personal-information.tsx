@@ -10,12 +10,14 @@ import { LocalizationMenu } from "@/widgets/header/ui/LocalizationMenu";
 import { languageName } from "../model/language";
 import { deepCompare } from "../model/deep-compate";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export function PersonalInformation() {
-    const {md} = useBreakpoints();
+    const {md, xl} = useBreakpoints();
     const {details, getAccountDetails} = storeAccountDetails();
     const [userInfo, setUserInfo] = useState<typeof details>(details);
     const {t} = useTranslation()
+    const navigate = useNavigate();
     
     useEffect(() => {
         console.log('aaa');
@@ -32,68 +34,48 @@ export function PersonalInformation() {
     
     
     const resetState = () => {
-        setUserInfo(details);
+        navigate('/settings')
     };
 
     return (
         <MobileWrapper className="w-full">
             <div className="substrate w-full rounded-lg flex flex-col gap-3">
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Name:</Typography>
-                    <MobileInput 
-                        className=" min-h-[30px]"  
-                        placeholder="Input name" 
-                        value={userInfo?.name} 
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeInfo({key:"name", val: e.target.value})}
-                    />
+                <div className="w-full flex flex-col min-h-[30px]">
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Name:</Typography>
+                    <Typography variant="h" color="light-green" className="pb-2">{userInfo?.name}</Typography>
+                    <hr/>
                 </div>
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>{t("phone_number")}:</Typography>
-                    <MobileInput 
-                        className=" min-h-[30px]"  
-                        placeholder="Input phone number" 
-                        value={userInfo?.phone} 
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeInfo({key:"phone", val: e.target.value})}
-                    />
+                <div className="w-full flex flex-col min-h-[30px]">
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}:</Typography>
+                    <Typography variant="h" color="light-green" className="pb-2">{userInfo?.phone}</Typography>
+                    <hr/>
                 </div>
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Email:</Typography>
-                    <MobileInput 
-                        className=" min-h-[30px]"  
-                        placeholder="Input email" 
-                        value={userInfo?.email} 
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeInfo({key:"email", val: e.target.value})}
-                    />
+                <div className="w-full flex flex-col min-h-[30px]">
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Email:</Typography>
+                    <Typography variant="h" color="light-green" className="pb-2">{userInfo?.email}</Typography>
+                    <hr/>
                 </div>
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Citizenship:</Typography>
-                    <MobileInput 
-                        className=" min-h-[30px]"  
-                        placeholder="Input citizenship" 
-                        value={userInfo?.citizenship} 
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeInfo({key:"citizenship", val: e.target.value})}
-                    />
+                <div className="w-full flex flex-col min-h-[30px]">
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Citizenship:</Typography>
+                    <Typography variant="h" color="light-green" className="pb-2">{userInfo?.citizenship}</Typography>
+                    <hr/>
                 </div>
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Residence adress:</Typography>
-                    <MobileInput 
-                        className=" min-h-[30px]"  
-                        placeholder="Input adress" 
-                        value={userInfo?.address} 
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => changeInfo({key:"name", val: e.target.value})}
-                    />
+                <div className="w-full flex flex-col min-h-[30px]">
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Residence adress:</Typography>
+                    <Typography variant="h" color="light-green" className="pb-2">{userInfo?.address}</Typography>
+                    <hr/>
                 </div>
-                <div className="w-full flex flex-row items-center justify-between min-h-[30px]">
+                {/* <div className="w-full flex flex-col min-h-[30px]">
                     <Typography variant="h" color="dark-green" className={md && "w-[66px]"}>Language:</Typography>
                     <div className="flex flex-row gap-4">
                         <LocalizationMenu/>
                         <Typography variant="h" color="dark-green" >{languageName()}</Typography>
                     </div>
-                </div>
+                </div> */}
+                {xl && 
                 <div className="flex flex-row gap-3 justify-center min-h-[40px] pt-8">
-                    <MobileButton className={style.button} varitant={deepCompare(details, userInfo) ? "disabeled" : "light"}>Apply</MobileButton>
                     <MobileButton className={style.button} onClick={resetState}>Back</MobileButton>
-                </div>
+                </div>}
             </div>
         </MobileWrapper>
     )

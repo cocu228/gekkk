@@ -90,7 +90,6 @@ export function Settings() {
       </Box>}
 
       <Box
-      // position={"relative"}
         display="flex"
         flexDirection={selectedArea ? "row": "column"} 
         gap='15px'
@@ -184,22 +183,24 @@ export function Settings() {
                 }} 
                 isSelected={selectedArea === 'pricing'}
               />
-              <SettingsButton 
-                icon={<DocumentsDocumentsIcon/>} 
-                text={t('legal_notices')}  
-                onClick={() => {setSelectedArea('legal-notices')}} 
-                isSelected={selectedArea === 'legal-notices'}
-              />
+              <a href="https://gekkard.com/terms-and-conditions.html">
+                <SettingsButton 
+                  icon={<DocumentsDocumentsIcon/>} 
+                  text={'Terms and conditions'}
+                />
+              </a>
               <SettingsButton 
                 icon={<ReportIcon/>} 
                 text={t('my_reports')}  
                 onClick={() => {setSelectedArea('my-reports')}} 
                 isSelected={selectedArea === 'my-reports'}
               />
-              <SettingsButton 
-                icon={<DocumentsDocumentsIcon />} 
-                text={'Data protection'}  
-              />
+              <a href="https://gekkard.com/data-protection-policy.html">
+                <SettingsButton 
+                  icon={<DocumentsDocumentsIcon />} 
+                  text={'Data protection'}  
+                />
+              </a>
             </Box>
           </Box>
         </Box>

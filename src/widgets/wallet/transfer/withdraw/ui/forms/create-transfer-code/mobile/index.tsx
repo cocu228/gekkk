@@ -71,7 +71,7 @@ const CreateTransferCodeMobile = () => {
                         validators={[validateBalance(currency, navigate, t)]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                        header={<span className='text-[#1F3446] font-medium'>{t("amount")}</span>}
+                                                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                                                         currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency

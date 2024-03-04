@@ -61,7 +61,7 @@ const Validator: FC<IParams> = (({
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>
-                {isNull(error) ? <span className='mt-0.5 text-green text-fs12'>{description}</span> :
+                {isNull(error) ? <span className='mt-0.5 text-green text-fs12 md:text-[#B9B9B5] md:text-[10px]'>{description}</span> :
                     <div className="flex mt-0.5 gap-1 items-center">
                         <div className="mt-[1px]">
                             <IconError/>

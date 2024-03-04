@@ -71,7 +71,7 @@ const UniversalTransferFormMobile = () => {
                         >
                                     <InputCurrency.PercentSelector
                                         currency={currency}
-                                        header={<span className='text-gray-600 font-medium text-[16px]'>{t("amount")}</span>}
+                                        header={<span className='text-gray-600 text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                                         onSelect={setInputCurr}
                                     >
                                     
@@ -92,7 +92,7 @@ const UniversalTransferFormMobile = () => {
                     <div className="flex flex-row justify-between items-center">
                         <div className="row min-w-[80px] mb-2 mr-5">
                             <div className="col">
-                                <span className="font-medium text-[16px]">{t("contact")}:</span>
+                                <span className="text-[#1F3446] text-[12px] font-bold">{t("contact")}:</span>
                             </div>
                         </div>
                         <div className="row flex w-full">

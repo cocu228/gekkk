@@ -452,7 +452,9 @@
     "address_small": "adresse",
     "desc_optional": "Beschreibung (optional)",
     "EW_law": "Gemäß EU-Recht müssen Sie den Namen des Empfängers der Gelder angeben",
-    "enter_recepients_name": "Geben Sie den Namen des Empfängers ein"
+    "enter_recepients_name": "Geben Sie den Namen des Empfängers ein",
+    "fee_is_prec": "Gebühr ist"
+
 
 
 

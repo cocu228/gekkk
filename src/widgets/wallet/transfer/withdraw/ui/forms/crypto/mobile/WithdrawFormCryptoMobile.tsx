@@ -88,7 +88,7 @@ const WithdrawFormCryptoMobile = () => {
                     >
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className='text-[#1F3446] font-medium'>{t("amount")}</span>}
+                            header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                             onSelect={setInputCurr}
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
@@ -103,7 +103,7 @@ const WithdrawFormCryptoMobile = () => {
                     </InputCurrency.Validator>
                 </div>
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-gray-600 font-medium mr-4">{t("address")}:</span>
+                    <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("address")}:</span>
                     <div className="basis-[100%]">
                         <Input value={inputs.address} onChange={onInput}
                             disabled={!networkTypeSelect}
@@ -114,7 +114,7 @@ const WithdrawFormCryptoMobile = () => {
                 </div>
                 <div className='flex flex-col items-center  gap-2'>
                     <div className="w-full justify-between flex flex-row items-center">
-                        <span className="text-gray-600 w-max-[100px] font-medium mr-4">{t("recipient")}:</span>
+                        <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
                         <div className="basis-[100%]">
                             <Input value={inputs.recipient} onChange={onInput}
                                     disabled={!networkTypeSelect}
@@ -125,14 +125,14 @@ const WithdrawFormCryptoMobile = () => {
                         </div>
                     </div>
 
-                    <span className="text-green ml-5 text-fs12">*{t("EW_law")}</span>
+                    <span className="text-[#B9B9B5] ml-5 text-fs12">*{t("EW_law")}</span>
                 </div>
 
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-gray-600 font-medium">{t("description")}:</span>
-                    <TextArea name={"description"} value={inputs.description} onChange={onInput}
+                    <span className="text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                    <Input name={"description"} value={inputs.description} onChange={onInput}
                         disabled={!networkTypeSelect}
-                        rows={1}
+                        placeholder={t("enter_description")}
                     />
                 </div>
                 <div className="row">

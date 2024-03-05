@@ -35,16 +35,15 @@ const ChoseNetwork = ({withdraw = false}) => {
                 networksForSelector.length === 0 ?
                     <InfoBox
                         message={<span>
-                At the moment there is not a single option available
-                for {withdraw ? 'withdraw' : 'top up'} this asset. Please check it later.
+                {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("to_top_up")})}
                             {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
                                 ? null
                                 : (
-                                    <span> Or you can create a <span
+                                    <span> {t("or_create")} <span
                                         className='text-blue-400 hover:cursor-pointer hover:underline'
                                         onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                     >
-                        {withdraw ? 'sell' : 'buy'} order
+                        {withdraw ? t("sell") : t("buy")} {t("order")}
                     </span>.</span>
                                 )}
             </span>}/> :
@@ -65,13 +64,13 @@ const ChoseNetwork = ({withdraw = false}) => {
                 <div className="info-box-note mb-10">
                     <div className="row mb-3">
                         <div className="col">
-                            <span className="text-red-800">Please note</span>
+                            <span className="text-red-800">{t("please_note")}</span>
                         </div>
                     </div>
                     <div className="row mb-1">
                         <div className="col">
                             <span
-                                className="text-gray-400 font-medium text-fs14 leading-6">You should send only <b>{$const}</b> to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.</span>
+                                className="text-gray-400 font-medium text-fs14 leading-6">{t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}</span>
                         </div>
                     </div>
                 </div>

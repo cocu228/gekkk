@@ -88,7 +88,7 @@ const WithdrawFormCryptoMobile = () => {
                     >
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className='text-[#1F3446] font-medium'>{t("amount")}</span>}
+                            header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                             onSelect={setInputCurr}
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
@@ -103,36 +103,36 @@ const WithdrawFormCryptoMobile = () => {
                     </InputCurrency.Validator>
                 </div>
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-gray-600 font-medium mr-4">{t("address")}:</span>
+                    <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("address")}:</span>
                     <div className="basis-[100%]">
                         <Input value={inputs.address} onChange={onInput}
                             disabled={!networkTypeSelect}
-                            placeholder={t("enter_withdrawal_addr")}
+                            placeholder={t("enter_withdrawal_address")}
                             name={"address"}
                         />
                     </div>
                 </div>
                 <div className='flex flex-col items-center  gap-2'>
                     <div className="w-full justify-between flex flex-row items-center">
-                        <span className="text-gray-600 w-max-[100px] font-medium mr-4">{t("recipient")}:</span>
+                        <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
                         <div className="basis-[100%]">
                             <Input value={inputs.recipient} onChange={onInput}
                                     disabled={!networkTypeSelect}
                                     name={"recipient"}
-                                    placeholder={t("enter_recipient")}
+                                    placeholder={t("enter_recepients_name")}
                                     className="w-full"
                             />
                         </div>
                     </div>
 
-                    <span className="text-green ml-5 text-fs12">*{t("EW_law")}</span>
+                    <span className="text-[#B9B9B5] ml-5 text-fs12">*{t("EW_law")}</span>
                 </div>
 
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-gray-600 font-medium">{t("description")}:</span>
-                    <TextArea name={"description"} value={inputs.description} onChange={onInput}
+                    <span className="text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                    <Input name={"description"} value={inputs.description} onChange={onInput}
                         disabled={!networkTypeSelect}
-                        rows={1}
+                        placeholder={t("enter_description")}
                     />
                 </div>
                 <div className="row">
@@ -140,16 +140,16 @@ const WithdrawFormCryptoMobile = () => {
                         <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                             <div className="col flex flex-col w-[max-content] gap-2">
                                 <div className="row">
-                                    <span>You will pay</span>
+                                    <span>{t("you_will_pay")}</span>
                                 </div>
                                 <div className="row">
                                 <span>
-                                You will get
+                                {t("you_will_get")}
                                 </span>
                                 </div>
                                 <div className="row">
                                     <span>
-                                Fee
+                                {t("fee")}
                                 </span>
                                 </div>
                             </div>
@@ -159,11 +159,11 @@ const WithdrawFormCryptoMobile = () => {
                                         className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                                 </div>
                                 <div className="row flex items-end">
-                                    {loading ? "Loading..." : <span
+                                    {loading ? t("loading")+"..." : <span
                                         className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
                                 </div>
                                 <div className="row flex items-end">
-                                    {loading ? "Loading..." : <span
+                                    {loading ? t("loading")+"..." : <span
                                         className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
                                 </div>
                             </div>
@@ -196,7 +196,7 @@ const WithdrawFormCryptoMobile = () => {
                         </Button>
                         <div className='w-full flex justify-center'>
                             <span className='text-[#9D9D9D] text-[10px]'>
-                                Fee is <span className='font-bold'>{withdraw_fee} {currency.$const} </span> per transaction
+                                {t("fee_is_prec")} <span className='font-bold'>{withdraw_fee} {currency.$const} </span> {t("per_transaction")}
                             </span>
                         </div>
                     </div>

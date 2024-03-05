@@ -95,7 +95,7 @@ const router = createBrowserRouter([
                 element: <Faq />
             },
             {
-                path: 'settings',
+                path: 'settings/',
                 element: <Settings />
             }
         ],

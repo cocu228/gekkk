@@ -229,16 +229,16 @@ const WithdrawConfirmCryptoMobile = memo(({
                 <div className="row w-full flex justify-between gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                            You will get
+                            {t("you_will_get")}
                         </span>
                         </div>
                         <div className="row">
                             <span>
-                            Fee
+                            {t("fee")}
                         </span>
                         </div>
                     </div>
@@ -248,11 +248,11 @@ const WithdrawConfirmCryptoMobile = memo(({
                                 className="w-full text-start">{willPay} {$const}</span>
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{willPay-withdraw_fee} EUR</span>}
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{withdraw_fee} {$const}</span>}
                         </div>
                     </div>
@@ -260,7 +260,7 @@ const WithdrawConfirmCryptoMobile = memo(({
             
                 <Form form={form} onFinish={(e) => onConfirm()}>
                     {!isNull(stageReq.status) && <>
-                        <span className="text-gray-400">Transfer confirmation</span>
+                        <span className="text-gray-400">{t("transfer_confirmation")}</span>
             
                         <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
             
@@ -269,10 +269,10 @@ const WithdrawConfirmCryptoMobile = memo(({
                                autoComplete="off"
                                onChange={({target}) => setInput(target.value)}
                                placeholder={stageReq.status === 0
-                                ? "Enter SMS code"
+                                ? t("enter_sms_code") 
                                 : stageReq.status === 1
-                                    ? "Enter code"
-                                    : "Enter PIN code"
+                                    ? t("enter_code") 
+                                    : t("enter_pin_code") 
                                }
                             />
                         </FormItem>
@@ -285,7 +285,7 @@ const WithdrawConfirmCryptoMobile = memo(({
                                 <>
                                     <div className="w-full gap-5 flex flex-col justify-between">
                                         {!isNull(stageReq.status) && <>
-                                            <span className="text-gray-400">Transfer confirmation</span>
+                                            <span className="text-gray-400">{t("transfer_confirmation")}</span>
 
                                             <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
 
@@ -294,10 +294,10 @@ const WithdrawConfirmCryptoMobile = memo(({
                                                     autoComplete="off"
                                                     onChange={({ target }) => setInput(target.value)}
                                                     placeholder={stageReq.status === 0
-                                                        ? "Enter SMS code"
+                                                        ? t("enter_sms_code") 
                                                         : stageReq.status === 1
-                                                            ? "Enter code"
-                                                            : "Enter PIN code"
+                                                            ? t("enter_code")
+                                                            : t("enter_pin_code") 
                                                     }
                                                 />
                                             </FormItem>

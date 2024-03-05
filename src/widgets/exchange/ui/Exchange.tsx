@@ -323,7 +323,7 @@ function Exchange() {
                                 </div>
 
                                 <div className="mt-6 md:mt-12">
-                                    <Button disabled={loading} className="w-full" onClick={createOrder}>Confirm</Button>
+                                    <Button disabled={loading} className="w-full" onClick={createOrder}>{t("confirm")}</Button>
                                 </div>
                             </div>
                         </Modal>

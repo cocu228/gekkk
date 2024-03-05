@@ -10,11 +10,13 @@ import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { CtxWalletData } from "../../model/context";
 import Decimal from "decimal.js";
+import { useTranslation } from "react-i18next";
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
     const [infoCode, setInfoCode] = useState<TxCodesOut | null>(null);
     const currency = useContext(CtxWalletData)
+    const {t} = useTranslation()
     
     const {md} = useBreakpoints()
     const [loading, setLoading] = useState(true);
@@ -58,16 +60,16 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                             <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                                 <div className="col flex flex-col items-start w-[max-content] gap-2">
                                     <div className="row">
-                                        <span>You will pay</span>
+                                        <span>{t("you_will_pay")}</span>
                                     </div>
                                     <div className="row">
                                         <span>
-                                            You will get
+                                            {t("you_will_get")}
                                         </span>
                                     </div>
                                     <div className="row">
                                         <span>
-                                    Fee
+                                    {t("fee")}
                                     </span>
                                     </div>
                                 </div>
@@ -77,11 +79,11 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                                             className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>
                                     </div>
                                     <div className="row flex items-end">
-                                        {loading ? "Loading..." : <span
+                                        {loading ? t("loading")+"..." : <span
                                             className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>}
                                     </div>
                                     <div className="row flex items-end">
-                                        {loading ? "Loading..." : <span
+                                        {loading ? t("loading")+"..." : <span
                                             className="w-full text-start">-</span>}
                                     </div> 
                                     
@@ -92,7 +94,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400 mr-2">Confirmation:</span>
+                                    <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
                                 </div>
                                 <div className="col">
                                     <span>{infoCode.typeTx === 12 ? <span className="text-[green]">on</span> : "off"}</span>
@@ -121,7 +123,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400 mr-2">Amount:</span>
+                                    <span className="text-gray-400 mr-2">{t("amount")}:</span>
                                 </div>
                                 <div className="col">
                                     <span className="text-green text-right">{infoCode.amount} {infoCode.currency}</span>
@@ -131,7 +133,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         <div className="col w-1/2">
                             <div className="row flex">
                                 <div className="col">
-                                    <span className="text-gray-400 mr-2">Confirmation:</span>
+                                    <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
                                 </div>
                                 <div className="col">
                                     <span>{infoCode.typeTx === 12 ? "used" : "not used"}</span>

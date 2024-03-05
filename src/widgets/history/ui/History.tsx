@@ -175,7 +175,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                 <GTable>
                     <GTable.Head className={styles.TableHead}>
                         <GTable.Row>
-                            {['Info', 'Amount'].map(label =>
+                            {[t("info"), t("amount")].map(label =>
                                 <GTable.Col className="text-center">
                                     <div className='ellipsis ellipsis-md' data-text={label}>
                                         <span>{label}</span>
@@ -230,7 +230,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                 <Loader className={" w-[24px] h-[24px] top-[4px]"} /> 
                                 :
                                 <span onClick={()=>{requestMoreHistory({currencies:currenciesFilter, txTypes: types, hist: listHistory})}} className="text-gray-400 cursor-pointer inline-flex items-center">
-                                    See more 
+                                    {t("see_more")}
                                     <img
                                         className="ml-2" width={10} height={8}
                                         src="/img/icon/ArrowPlainDown.svg"
@@ -368,7 +368,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                                     <Loader className={" w-[24px] h-[24px] top-[4px]"} />
                                                     :
                                                     <span onClick={()=>{requestMoreHistory({currencies:currenciesFilter, txTypes: types, hist: listHistory})}} className="text-gray-400 cursor-pointer inline-flex items-center">
-                                                        See more
+                                                        {t("see_more")}
                                                         <img
                                                             className="ml-2" width={10} height={8}
                                                             src="/img/icon/ArrowPlainDown.svg"

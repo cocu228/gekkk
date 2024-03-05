@@ -37,7 +37,7 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
-        purpose: "Purchase of EURG tokens",
+        purpose: t("purchase_of", {token: "EURG"}),
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,
@@ -130,16 +130,16 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
             <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                 <div className="col flex flex-col w-[max-content] gap-2">
                     <div className="row">
-                        <span>You will pay</span>
+                        <span>{t("you_will_pay")}</span>
                     </div>
                     <div className="row">
                     <span>
-                        You will get
+                        {t("you_will_get")}
                     </span>
                     </div>
                     <div className="row">
                         <span>
-                        Fee
+                        {t("fee")}
                     </span>
                     </div>
                 </div>
@@ -149,11 +149,11 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
                             className="w-full text-start">{amount} {$const}</span>
                     </div>
                     <div className="row flex items-end">
-                        {loading ? "Loading..." : <span
+                        {loading ? t("loading")+"..." : <span
                             className="w-full text-start">{amount-withdraw_fee} EUR</span>}
                     </div>
                     <div className="row flex items-end">
-                        {loading ? "Loading..." : <span
+                        {loading ? t("loading")+"..." : <span
                             className="w-full text-start">{withdraw_fee} {$const}</span>}
                     </div>
                 </div>

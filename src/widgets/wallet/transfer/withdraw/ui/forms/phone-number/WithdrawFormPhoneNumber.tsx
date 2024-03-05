@@ -62,7 +62,7 @@ const WithdrawFormPhoneNumber = () => {
                     <div className="col">
                         <div className="row mb-2">
                             <div className="col">
-                                <span className="font-medium text-[16px]">Phone number</span>
+                                <span className="font-medium text-[16px]">{t("phone_number")}</span>
                             </div>
                         </div>
                         <div className="row">
@@ -90,7 +90,7 @@ const WithdrawFormPhoneNumber = () => {
                     <div className="col">
                         <div className="row mb-2">
                             <div className="col">
-                                <span className="font-medium text-[16px]">Comment</span>
+                                <span className="font-medium text-[16px]">{t("comment")}</span>
                             </div>
                         </div>
                         <div className="row">
@@ -99,7 +99,7 @@ const WithdrawFormPhoneNumber = () => {
                                     preserve
                                     name="comment"
                                     className='w-full'
-                                    label="Comment"
+                                    label={t("comment")}
                                     rules={[{required: true, message: 'Comment is required'}]}
                                 >
                                     <TextArea
@@ -130,7 +130,7 @@ const WithdrawFormPhoneNumber = () => {
                     >
                                 <InputCurrency.PercentSelector
                                     currency={currency}
-                                    header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                    header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                     onSelect={setInputCurr}
                                 >
                                 <InputCurrency
@@ -142,7 +142,7 @@ const WithdrawFormPhoneNumber = () => {
                 </div>
             </div>
             
-            <Modal width={450} title="Transfer confirmation"
+            <Modal width={450} title={t("transfer_confirmation")}
                    onCancel={handleCancel}
                    open={isModalOpen}
             >
@@ -156,7 +156,7 @@ const WithdrawFormPhoneNumber = () => {
                         className="w-full"
                         onClick={showModal}
                         disabled={!isValid || inputCurrValid.value}
-                    >Withdraw</Button>
+                    >{t("withdraw_title")}</Button>
                 </div>
             </div>
         </div>

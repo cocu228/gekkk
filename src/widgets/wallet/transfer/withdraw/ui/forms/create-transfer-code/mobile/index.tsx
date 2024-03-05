@@ -71,7 +71,7 @@ const CreateTransferCodeMobile = () => {
                         validators={[validateBalance(currency, navigate, t)]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                        header={<span className='text-[#1F3446] font-medium'>Amount</span>}
+                                                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                                                         currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
@@ -124,16 +124,16 @@ const CreateTransferCodeMobile = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                          You will get
+                          {t("you_will_get")}
                         </span>
                         </div>
                         <div className="row">
                             <span>
-                          Fee
+                          {t("fee")}
                         </span>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import {render} from 'preact'
-import './styles/index.css';
+import './styles/index.scss';
 import Auth from "./pages/auth";
 
 

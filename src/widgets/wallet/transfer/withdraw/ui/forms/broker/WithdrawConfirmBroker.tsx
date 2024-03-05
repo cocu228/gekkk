@@ -12,10 +12,11 @@ import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
+import { useTranslation } from "react-i18next";
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
-
+    const {t} = useTranslation()
     const {
         networkTypeSelect,
         networksForSelector,
@@ -36,7 +37,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
-        purpose: "Purchase of EURG tokens",
+        purpose: t("purchase_of", {token: "EURG"}),
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,
@@ -55,6 +56,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         
         const {data} = await apiGetUas();
         const {phone} = await getAccountDetails();
+        const {t} = useTranslation()
         
         await apiPaymentSepa(details.current, false, {
             Authorization: phone,
@@ -83,13 +85,13 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                         <div className="wrapper flex flex-col">
                             <div className="row mb-1">
                                 <div className="col">
-                                    <span className="text-red-800">Please note</span>
+                                    <span className="text-red-800">{t("please_note")}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <span className="text-gray-400">
-                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                        {t("use_withdraw_addr_supported")}
                                     </span>
                                 </div>
                             </div>
@@ -99,7 +101,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Network</span>
+                    <span className="text-gray-400">{t("network")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -109,7 +111,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Beneficiary Name</span>
+                    <span className="text-gray-400">{t("beneficiary_name")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -119,7 +121,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Account Number</span>
+                    <span className="text-gray-400">{t("account_number")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -129,17 +131,17 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Purpose</span>
+                    <span className="text-gray-400">{t("purpose")}</span>
                 </div>
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    <span>Purchase of EURG tokens</span>
+                    <span>{t("purchase_of", {token: "EURG"})} {t("for_token", {token: "EUR"})}</span>
                 </div>
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Amount</span>
+                    <span className="text-gray-400">{t("amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -149,7 +151,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Fee</span>
+                    <span className="text-gray-400">{t("fee")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -159,7 +161,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">You will get</span>
+                    <span className="text-gray-400">{t("you_will_get")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -174,7 +176,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                         <Button size={"xl"}
                                 className="w-full"
                                 htmlType={"submit"}
-                        >Confirm</Button>
+                        >{t("confirm")}</Button>
                     </div>
                 </div>
             </Form>

@@ -87,7 +87,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">From card</span>
+                            <span className="font-medium">{t("from_card")}</span>
                         </div>
                     </div>
                     <div className="row">
@@ -127,7 +127,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">Card number</span>
+                            <span className="font-medium">{t("card_number_title")}</span>
                         </div>
                     </div>
                     <div className="row">
@@ -150,7 +150,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">Cardholder name</span>
+                            <span className="font-medium">{t("cardholder_name")}</span>
                         </div>
                     </div>
                     <div className="row">
@@ -172,7 +172,7 @@ const WithdrawFormCardToCard = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className="font-medium">Comment</span>
+                            <span className="font-medium">{t("comment")}</span>
                         </div>
                     </div>
                     <div className="row">
@@ -198,7 +198,7 @@ const WithdrawFormCardToCard = () => {
                                                  validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                                 <InputCurrency.PercentSelector
                                     currency={currency}
-                                    header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                    header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                     onSelect={setInputCurr}
                                 >
                                 <InputCurrency
@@ -210,7 +210,7 @@ const WithdrawFormCardToCard = () => {
                 </div>
             </div>
             
-            <Modal width={450} title="Transfer confirmation"
+            <Modal width={450} title={t("transfer_confirmation")}
                    onCancel={handleCancel}
                    open={isModalOpen}
             >
@@ -224,7 +224,7 @@ const WithdrawFormCardToCard = () => {
                         className="w-full"
                         onClick={showModal}
                         disabled={!isValidated || inputCurrValid.value}
-                    >Withdraw</Button>
+                    >{t("withdraw_title")}</Button>
                 </div>
             </div>
         </div>

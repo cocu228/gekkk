@@ -18,6 +18,7 @@ import {codeMessage} from "@/shared/config/message";
 import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { CtxModalTrxInfo } from "../../../../model/context";
 import { CtnTrxInfo } from "../../../../model/entitys";
+import { useTranslation } from "react-i18next";
 
 const initStageConfirm = {
     txId: null,
@@ -49,7 +50,7 @@ const UniversalTransferConfirmMobile = ({
     const [loading, setLoading] = useState<boolean>(false);
     const [stageReq, setStageReq] = useState(initStageConfirm);
     const [localErrorHunter, ,localErrorInfoBox,] = useError();
-    
+    const {t} = useTranslation()    
 
     const details = useRef({
         tag: comment,
@@ -190,16 +191,16 @@ const UniversalTransferConfirmMobile = ({
                     <div className="w-full row flex gap-4 text-gray-400 justify-around font-medium mb-4 mt-6 text-sm">
                         <div className="col flex flex-col items-around gap-2">
                             <div className="row">
-                                <span>You will pay</span>
+                                <span>{t("you_will_pay")}</span>
                             </div>
                             <div className="row">
                             <span>
-                            You will get
+                                {t("you_will_get")}
                             </span>
                             </div>
                             <div className="row">
                                 <span>
-                            Fee
+                                {t("fee")}
                             </span>
                             </div>
                         </div>
@@ -231,7 +232,7 @@ const UniversalTransferConfirmMobile = ({
             {comment && <>
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="text-gray-400">Comment</span>
+                        <span className="text-gray-400">{t("comment")}</span>
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -243,7 +244,7 @@ const UniversalTransferConfirmMobile = ({
 
             <Form form={form} onFinish={(e) => onConfirm()}>
                 {!isNull(stageReq.status) && <>
-                    <span className="text-gray-400">Transfer confirmation</span>
+                    <span className="text-gray-400">{t("transfer_confirmation")}</span>
                     
                     <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                         <Input type="text"
@@ -251,10 +252,10 @@ const UniversalTransferConfirmMobile = ({
                            autoComplete="off"
                            onChange={({target}) => setInput(target.value)}
                            placeholder={stageReq.status === 0
-                            ? "Enter SMS code"
+                            ? t("enter_sms_code") 
                             : stageReq.status === 1
-                                ? "Enter code"
-                                : "Enter PIN code"
+                                ? t("enter_code")
+                                : t("enter_pin_code") 
                            }
                         />
                     </FormItem>

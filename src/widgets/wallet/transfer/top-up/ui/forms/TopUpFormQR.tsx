@@ -7,10 +7,12 @@ import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import useError from "@/shared/model/hooks/useError";
 import {getChosenNetwork} from "../../../model/helpers";
+import { useTranslation } from "react-i18next";
 
 const TopUpFormQR = () => {
     const {$const, name} = useContext(CtxWalletData);
     const [localErrorHunter, , localErrorInfoBox] = useError();
+    const {t} = useTranslation()
     const {
         setRefresh,
         setLoading,
@@ -33,8 +35,7 @@ const TopUpFormQR = () => {
 
         <div className="row text-right pb-10 flex justify-center items-center flex-col">
 
-            <h3 className="font-medium text-fs24 mb-7 text-center">Send a transaction to
-                this <b>{$const} {name}</b> address</h3>
+            <h3 className="font-medium text-fs24 mb-7 text-center">{t("send_to_this")} <b>{$const} {name}</b> {t("address_small")}</h3>
 
             <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                 <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>

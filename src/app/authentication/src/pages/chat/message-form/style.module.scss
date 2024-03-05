@@ -1,0 +1,92 @@
+﻿@import '../../../styles/fonts.scss';
+@import "../../../styles//mixins.scss";
+
+
+.InputArea {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: var(--new-F4F4F4);
+  border: 2px solid var(--new-strokes);
+  border-radius: var(--border-radius);
+  margin: 0.5rem 0 1rem 0;
+  height: 64px;
+  width: 90%;
+
+  .MessageInput {
+    flex: 1;
+    margin: 0 8px;
+  }
+
+  .InputMessage {
+    flex-grow: 1;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--new-F4F4F4);
+    color: var(--new-dark-grey);
+    margin: 0;
+
+    &::placeholder {
+      color: var(--new-dark-grey);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .MessageActions {
+    margin-bottom: 0;
+
+    .AddButton {
+      position: relative;
+      margin-right: 1.5rem;
+      border: none;
+      height: 20px;
+      width: 20px;
+      cursor: pointer;
+      font-size: 1.9rem;
+      top: 0.30rem;
+      color: var(--new-pale-blue);
+      background-color: transparent;
+      background-image: url("../../../images/upload-file-svgrepo-com.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .SendButton {
+      margin: 0 1.5rem 0.15rem 0;
+      background-color: var(--new-green);
+      color: var(--color-bgPrimary);
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.9rem;
+      height: 2.5rem;
+      width: 5.5rem;
+
+      &:hover {
+        color: var(--color-bgPrimary);
+        background-color: var(--new-pale-green);
+      }
+    }
+
+
+    @include max-devices(md){
+      .AddButton{
+        margin-right: .1rem;
+        width: 1.6rem;
+      }
+      .SendButton{
+        height: 2.3rem;
+        width: 4rem;
+
+        margin: 0;
+      }
+      
+    }
+  }
+
+
+}

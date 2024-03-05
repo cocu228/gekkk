@@ -167,7 +167,7 @@ export const apiClientDetails = (
       {url: `/gek/v1/bank/client_details`, method: 'get'
     },
       options);
-    }
+  }
   
 /**
  * @summary Получить банковские карты клиента, привязанные к IBAN счету кошелька

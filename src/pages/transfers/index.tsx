@@ -57,7 +57,7 @@ export default function Transfers({}: Props) {
 
     
   return (
-    <>
+    <div className='mb-20'>
         {!curr?
             <TransfersWrapper loading={loading} setLoading={setLoading} network={network} setNetwork={setNetwork} curr={curr} setCurr={setCurr}>
                 <SelectCurrency data-tag={"select_currency"} currency={curr} setCurr={setCurr}/>
@@ -81,7 +81,7 @@ export default function Transfers({}: Props) {
             </CtxWalletData.Provider>
         }
             
-    </>
+    </div>
   )
 }
 

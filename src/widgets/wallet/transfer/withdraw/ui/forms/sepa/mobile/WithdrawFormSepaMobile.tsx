@@ -66,7 +66,7 @@ const WithdrawFormSepaMobile = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
+                                header={<span className='text-gray-600 font-medium text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>
@@ -86,7 +86,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium">IBAN:</span>
+                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("IBAN ???")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -101,7 +101,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium">{t("recipient")}:</span>
+                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -124,7 +124,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium">{t("description")}:</span>
+                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -148,16 +148,16 @@ const WithdrawFormSepaMobile = () => {
                 <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                        You will get
+                            {t("you_will_get")}
                         </span>
                         </div>
                         <div className="row">
-                            <span>
-                        Fee
+                        <span>
+                            {t("fee")}
                         </span>
                         </div>
                     </div>
@@ -182,7 +182,7 @@ const WithdrawFormSepaMobile = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title="Transfer confirmation"
+            title={t("transfer_confirmation")}
         >
             <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </Modal>
@@ -199,7 +199,7 @@ const WithdrawFormSepaMobile = () => {
             </div>
             <div className='w-full flex justify-center'>
                 <span className='text-[#9D9D9D] text-[10px]'>
-                    Fee is <span className='font-bold'>? {currency.$const} </span> per transaction
+                    {t("fee_is_prec")} <span className='font-bold'>? {currency.$const} </span> {t("per_transaction")}
                 </span>
             </div>
         </div>

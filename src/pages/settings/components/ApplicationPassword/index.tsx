@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Grid, Input, Modal } from 'antd';
 import { apiCloseSessions, apiLoginLog, apiResetPassword, apiSessions, apiUserKeys } from '@/shared/(orval)api/auth';
 import { useEffect, useState } from 'react';
-import { log } from 'console';
 import { timestampToDayYear } from '@/features/chat/model/helpers';
 import { parseISO } from 'date-fns';
 import { UserKey, UserLoginLog, UserSession } from '@/shared/(orval)api/auth/model';
@@ -63,13 +62,12 @@ export function AccessManagement(): JSX.Element | null{
     apiRemoveKey({key_id: id}).then(res=>{
       setKeyDeleted(n=>!n)
     })
-    
   }
+  
   function onCloseSession(id){
     apiCloseSessions({id: id}).then(res=>{      
       setSessionClosed(n=>!n)
     })
-    
   }
 
   useEffect(()=>{

@@ -10,6 +10,7 @@ import {apiPaymentContact, IResCommission} from "@/shared/api";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import { useTranslation } from "react-i18next";
 
 interface IState {
     loading: boolean;
@@ -29,7 +30,7 @@ const WithdrawConfirmPhoneNumber = ({
         loading: false,
         totalCommission: undefined
     });
-    
+    const {t} = useTranslation()
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {getAccountDetails} = storeAccountDetails(state => state);
@@ -104,13 +105,13 @@ const WithdrawConfirmPhoneNumber = ({
                         <div className="wrapper flex flex-col">
                             <div className="row mb-1">
                                 <div className="col">
-                                    <span className="text-red-800">Please note</span>
+                                    <span className="text-red-800">{t("please_note")}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <span className="text-gray-400">
-                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                        {t("use_withdraw_addr_supported")}
                                     </span>
                                 </div>
                             </div>
@@ -120,7 +121,7 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Network</span>
+                    <span className="text-gray-400">{t("network")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -130,7 +131,7 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Recipient's Phone Number</span>
+                    <span className="text-gray-400">{t("recepient_phone_number")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -140,7 +141,7 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Amount</span>
+                    <span className="text-gray-400">{t("amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -150,7 +151,7 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Fee</span>
+                    <span className="text-gray-400">{t("fee")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -164,7 +165,7 @@ const WithdrawConfirmPhoneNumber = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Total amount</span>
+                    <span className="text-gray-400">{t("total_amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -179,7 +180,7 @@ const WithdrawConfirmPhoneNumber = ({
             {!comment ? null : <>
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="text-gray-400">Comment</span>
+                        <span className="text-gray-400">{t("comment")}</span>
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -196,7 +197,7 @@ const WithdrawConfirmPhoneNumber = ({
                                 htmlType={"submit"}
                                 className="w-full"
                                 disabled={!totalCommission}
-                        >Confirm</Button>
+                        >{t("confirm")}</Button>
                     </div>
                 </div>
             </Form>

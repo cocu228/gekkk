@@ -98,7 +98,7 @@ const UniversalTransferForm = () => {
                         >
                                     <InputCurrency.PercentSelector
                                         currency={currency}
-                                        header={<span className='text-gray-600 font-medium text-[16px]'>Amount</span>}
+                                        header={<span className='text-gray-600 font-medium text-[16px]'>{t("amount")}</span>}
                                         onSelect={setInputCurr}
                                     >
                                     <InputCurrency
@@ -114,7 +114,7 @@ const UniversalTransferForm = () => {
                     <div className="col">
                         <div className="row mb-2">
                             <div className="col">
-                                <span className="font-medium text-[16px]">Comment (optional)</span>
+                                <span className="font-medium text-[16px]">{t("comment_optional")}</span>
                             </div>
                         </div>
                         <div className="row">
@@ -123,7 +123,7 @@ const UniversalTransferForm = () => {
                                     name={"comment"}
                                     value={inputs.comment}
                                     onChange={onInputDefault}
-                                    placeholder={"Comment (optional)"}
+                                    placeholder={t("comment_optional")}
                                     style={{
                                         minHeight: 100
                                     }}
@@ -154,7 +154,7 @@ const UniversalTransferForm = () => {
                         className="w-full self-center"
                         onClick={showModal}
                         disabled={!isValid || inputCurrValid.value}
-                    >Withdraw</Button>
+                    >{t("withdraw_title")}</Button>
                 </div>
             </div>
         </div>

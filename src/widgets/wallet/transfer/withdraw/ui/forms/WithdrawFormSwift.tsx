@@ -71,7 +71,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Account number / IBAN</span>
+                        <span className="font-medium">{t("IBAN")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -87,7 +87,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Beneficiary name</span>
+                        <span className="font-medium">{t("beneficiary_name")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -104,7 +104,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Country</span>
+                        <span className="font-medium">{t("country")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -121,7 +121,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Address</span>
+                        <span className="font-medium">{t("address")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -155,7 +155,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Beneficiary bank</span>
+                        <span className="font-medium">{t("beneficiary_bank")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -172,7 +172,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2 flex justify-between">
                     <div className="col">
-                        <span className="font-medium">Intermediary bank</span>
+                        <span className="font-medium">{t("intermediary_bank")}</span>
                     </div>
                     <div className="col">
                         <Switch className={"bg-gray-500"}/>
@@ -184,7 +184,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Fee type</span>
+                        <span className="font-medium">{t("fee_type")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -207,7 +207,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Urgency</span>
+                        <span className="font-medium">{t("urgency")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -230,7 +230,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Transfer description</span>
+                        <span className="font-medium">{t("transfer_desc")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -254,7 +254,7 @@ const WithdrawFormSwift = () => {
             <div className="col">
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="font-medium">Comment (optional)</span>
+                        <span className="font-medium">{t("comment_optional")}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -276,7 +276,7 @@ const WithdrawFormSwift = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>Amount</span>}
+                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                             <InputCurrency
@@ -287,7 +287,7 @@ const WithdrawFormSwift = () => {
                         </InputCurrency.Validator>
                     </div>
         </div>
-        <Modal width={450} title="Transfer confirmation"
+        <Modal width={450} title={t("transfer_confirmation")}
                onCancel={handleCancel}
                open={isModalOpen}>
             <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
@@ -295,7 +295,7 @@ const WithdrawFormSwift = () => {
         <div className="row w-full">
             <div className="col">
                 <Button onClick={showModal} disabled={inputCurrValid.value} size={"xl"}
-                        className="w-full">Withdraw</Button>
+                        className="w-full">{t("withdraw_title")}</Button>
             </div>
         </div>
     </div>)

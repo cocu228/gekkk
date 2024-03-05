@@ -11,6 +11,7 @@ import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
+import { useTranslation } from "react-i18next";
 
 interface IState {
     loading: boolean;
@@ -40,6 +41,7 @@ const WithdrawConfirmSepa = ({
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
+    const {t} = useTranslation()
 
     const details = useRef({
         purpose: comment,
@@ -111,13 +113,13 @@ const WithdrawConfirmSepa = ({
                         <div className="wrapper flex flex-col">
                             <div className="row mb-1">
                                 <div className="col">
-                                    <span className="text-red-800">Please note</span>
+                                    <span className="text-red-800">{t("please_note")}</span>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
                                     <span className="text-gray-400">
-                                        You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                        {t("use_withdraw_addr_supported")}
                                     </span>
                                 </div>
                             </div>
@@ -127,7 +129,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Network</span>
+                    <span className="text-gray-400">{t("network")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -137,7 +139,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Beneficiary Name</span>
+                    <span className="text-gray-400">{t("beneficiary_name")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -147,7 +149,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Account Number</span>
+                    <span className="text-gray-400">{t("account_number")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -157,7 +159,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Amount</span>
+                    <span className="text-gray-400">{t("amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -167,7 +169,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Fee</span>
+                    <span className="text-gray-400">{t("fee")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -181,7 +183,7 @@ const WithdrawConfirmSepa = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400">Total amount</span>
+                    <span className="text-gray-400">{t("total_amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -196,7 +198,7 @@ const WithdrawConfirmSepa = ({
             {!comment ? null : <>
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="text-gray-400">Comment</span>
+                        <span className="text-gray-400">{t("comment")}</span>
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -213,7 +215,7 @@ const WithdrawConfirmSepa = ({
                                 className="w-full"
                                 htmlType={"submit"}
                                 disabled={!total}
-                        >Confirm</Button>
+                        >{t("confirm")}</Button>
                     </div>
                 </div>
             </Form>

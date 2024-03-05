@@ -7210,11 +7210,19 @@ workbox-window@^7.0.0, workbox-window@7.0.0:
     "@types/trusted-types" "^2.0.2"
     workbox-core "7.0.0"
 
+<<<<<<< Updated upstream
 "workspaces-api@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\(orval)api":
   version "1.0.0"
   resolved "file:src/shared/(orval)api"
 
 "workspaces-library@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\lib":
+=======
+"workspaces-api@file:C:\\Users\\fedorovs\\code\\gekkard.front\\src\\shared\\(orval)api":
+  version "1.0.0"
+  resolved "file:src/shared/(orval)api"
+
+"workspaces-library@file:C:\\Users\\fedorovs\\code\\gekkard.front\\src\\shared\\lib":
+>>>>>>> Stashed changes
   version "1.0.0"
   resolved "file:src/shared/lib"
 

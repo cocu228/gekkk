@@ -111,7 +111,7 @@ const ActionConfirmationWindow = () => {
             <div className={loading ? 'collapse' : ''}>
                 <div className="row -mt-5 mb-2">
                     <div className="col">
-                        <span className='text-gray-600'>To confirm the operation, you should enter SMS code:</span>
+                        <span className='text-gray-600'>{t("to_confirm_enter_sms_code")}</span>
                     </div>
                 </div>
                 
@@ -122,7 +122,7 @@ const ActionConfirmationWindow = () => {
                         maxLength={11}
                         onInput={onInput}
                         autoComplete="off"
-                        placeholder={'Enter SMS code'}
+                        placeholder={t("enter_sms_code")} 
                         onChange={({target}) => {
                             localErrorClear();
                             setState(prev => ({

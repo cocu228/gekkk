@@ -4,6 +4,7 @@ import Button from "@/shared/ui/button/Button";
 import { IDepositStrategyData } from "../model/helpers";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import { GetDepositOut } from "@/shared/(orval)api/gek/model";
+import { useTranslation } from "react-i18next";
 
 type IParams = ModalProps & {
     isFixed: boolean;
@@ -29,6 +30,7 @@ const ClosingDepositModal = ({
         risePercentage,
         dropPercentage
     } = percentageType;
+    const {t} = useTranslation()
 
     return (
         <Modal open={open} onCancel={onCancel} {...props}>
@@ -47,7 +49,7 @@ const ClosingDepositModal = ({
 
             <div className="mb-4 flex justify-between">
                 <div>
-                    <p className="font-medium text-gray-500 mb-1">Amount:</p>
+                    <p className="font-medium text-gray-500 mb-1">{t("amount")}:</p>
                     <p className="font-medium">{investment.amount} {investment.currency_id}</p>
                 </div>
                 <div>
@@ -65,7 +67,7 @@ const ClosingDepositModal = ({
                 gray
                 className="w-full rounded-b disabled:opacity-50"
                 onClick={onDepositClose}
-            >Confirm</Button>
+            >{t("confirm")}</Button>
         </Modal>
     )
 }

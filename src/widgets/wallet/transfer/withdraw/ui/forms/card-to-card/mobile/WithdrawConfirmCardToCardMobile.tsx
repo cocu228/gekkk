@@ -180,16 +180,16 @@ const WithdrawConfirmCardToCardMobile = ({
                 <div className="row w-full flex justify-between gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
                         <div className="row">
-                            <span>You will pay</span>
+                            <span>{t("you_will_pay")}</span>
                         </div>
                         <div className="row">
                         <span>
-                            You will get
+                            {t("you_will_get")}
                         </span>
                         </div>
                         <div className="row">
                             <span>
-                            Fee
+                            {t("fee")}
                         </span>
                         </div>
                     </div>
@@ -199,11 +199,11 @@ const WithdrawConfirmCardToCardMobile = ({
                                 className="w-full text-start">{amount + total?.commission ? total.commission : 0} {$const}</span>
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{amount} {$const}</span>}
                         </div>
                         <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
+                            {loading ? t("loading")+"..." : <span
                                 className="w-full text-start">{total?.commission ?? '-'} {$const}</span>}
                         </div>
                     </div>

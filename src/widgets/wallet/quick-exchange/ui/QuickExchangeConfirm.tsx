@@ -13,6 +13,7 @@ import {IOperationInfo} from "@/widgets/wallet/quick-exchange/model/types";
 import {useForm} from "antd/es/form/Form";
 import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import { useTranslation } from "react-i18next";
 
 const QuickExchangeConfirm = memo((
     {get, pay, rate, currency, handleCancel}: IOperationInfo & { handleCancel: () => void }
@@ -27,7 +28,7 @@ const QuickExchangeConfirm = memo((
         setContent(<CtnTrxInfo/>)
         handleCancel()
     }
-
+    const {t} = useTranslation()
     const onReSendCode = useCallback(() => {
         onConfirm()
     }, [])
@@ -36,7 +37,7 @@ const QuickExchangeConfirm = memo((
     return <>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">You will pay</span>
+                <span className="text-gray-400">{t("you_will_pay")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -46,7 +47,7 @@ const QuickExchangeConfirm = memo((
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">You will get</span>
+                <span className="text-gray-400">{t("you_will_get")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -69,7 +70,7 @@ const QuickExchangeConfirm = memo((
             <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}
-                       placeholder="Enter SMS code"
+                       placeholder={t("enter_sms_code")} 
                        onChange={({target}) => setInput(target.value)}
                        autoComplete="off"
                 />
@@ -80,7 +81,7 @@ const QuickExchangeConfirm = memo((
                     {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                         <Button htmlType={"submit"} disabled={input === ""}
                                 className="w-full"
-                                size={"xl"}>Confirm</Button>}
+                                size={"xl"}>{t("confirm")}</Button>}
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox}

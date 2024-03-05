@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import Card from "@/shared/ui/card/Card";
 import Button from "@/shared/ui/button/Button";
+import { useTranslation } from 'react-i18next';
 
 interface IParams {
     key?: string;
@@ -22,7 +23,7 @@ function DepositCard({
     onOpenDeposit
 }: IParams) {
     const navigate = useNavigate();
-
+    const {t} = useTranslation()
     return (
         <Card key={key}>
             <p className="text-fs14 font-semibold">{title}</p>
@@ -31,7 +32,7 @@ function DepositCard({
                 <div className='flex justify-between'>
                     {!price ? null : (
                         <p className="text-fs14 font-medium uppercase">
-                            <p className='text-fs12 mt-[4px] font-medium text-gray-400'>Amount</p>
+                            <p className='text-fs12 mt-[4px] font-medium text-gray-400'>{t("amount")}</p>
                             <strong className="text-fs24 font-bold">{price}</strong> {currency}
                         </p>
                     )}

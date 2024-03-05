@@ -11,4 +11,15 @@
     --gek-mid-grey:#B9B9B5;  
     --gek-dark-grey: #7B797C;
     --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+    
 }
+
+$breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1600px,
+  "xxxl": 1700px
+);
+

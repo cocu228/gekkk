@@ -62,7 +62,7 @@ const BreakpointsProvider: FC<PropsWithChildren<unknown>> = memo(({children}): J
             ...initResult,
         }));
     }, []);
-
+    // @ts-ignore
     return <BreakpointsContext.Provider value={result}>{children}</BreakpointsContext.Provider>;
 });
 

@@ -25,6 +25,7 @@ import { CreateWithdrawIn } from "@/shared/(orval)api/gek/model";
 import { formatAsNumber } from "@/shared/lib/formatting-helper";
 import { SignTX } from "./signTX";
 import { $axios } from "@/shared/lib/(orval)axios";
+import { useTranslation } from "react-i18next";
 
 const initStageConfirm = {
     status: null,
@@ -78,7 +79,7 @@ const WithdrawConfirmCrypto = memo(({
         partner_info: recipient,
         tag: isNull(description) ? "" : description,
     })
-
+    const {t} = useTranslation()
     const onReSendCode = useCallback(async () => {
         await onConfirm(true)
     }, [])
@@ -156,13 +157,13 @@ const WithdrawConfirmCrypto = memo(({
                     <div className="wrapper flex flex-col">
                         <div className="row mb-1">
                             <div className="col">
-                                <span className="text-red-800">Please note</span>
+                                <span className="text-red-800">{t("please_note")}</span>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col">
                                 <span className="text-gray-400">
-                                    You must only use a withdrawal address supported by the selected network. If the other platform does not support it, your assets may be lost.
+                                    {t("use_withdraw_addr_supported")}
                                 </span>
                             </div>
                         </div>
@@ -172,7 +173,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Network</span>
+                <span className="text-gray-400">{t("network")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -202,7 +203,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Amount</span>
+                <span className="text-gray-400">{t("amount")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -212,7 +213,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Fee</span>
+                <span className="text-gray-400">{t("fee")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -234,7 +235,7 @@ const WithdrawConfirmCrypto = memo(({
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
             {!isNull(stageReq.status) && <>
-                <span className="text-gray-400">Transfer confirmation</span>
+                <span className="text-gray-400">{t("transfer_confirmation")}</span>
 
                 <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
 
@@ -243,10 +244,10 @@ const WithdrawConfirmCrypto = memo(({
                         autoComplete="off"
                         onChange={({ target }) => setInput(target.value)}
                         placeholder={stageReq.status === 0
-                            ? "Enter SMS code"
+                            ? t("enter_sms_code") 
                             : stageReq.status === 1
-                                ? "Enter code"
-                                : "Enter PIN code"
+                                ? t("enter_code")
+                                : t("enter_pin_code") 
                         }
                     />
                 </FormItem>
@@ -258,7 +259,7 @@ const WithdrawConfirmCrypto = memo(({
                     {loading ? <Loader className={"relative w-[24px] h-[24px]"} /> :
                         <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
                             className="w-full"
-                            size={"xl"}>Confirm</Button>}
+                            size={"xl"}>{t("confirm")}</Button>}
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&

@@ -34,6 +34,7 @@ import { UserKeys } from './templates/user-keys/ui/user-keys';
 import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
 import { LoginAndSignHistory } from './templates/history';
 import { UserSession } from './templates/user-session';
+import { LanguageSettings } from './templates/language';
 
 const areaMap = {
   'identification-status': <IdentificationStatus />,
@@ -46,7 +47,8 @@ const areaMap = {
   'change-password': <ChangePassword/>,
   'user-keys' : <UserKeys />,
   'history': <LoginAndSignHistory/>,
-  'user-sessions': <UserSession/>
+  'user-sessions': <UserSession/>,
+  'language': <LanguageSettings/>
 }
 
 type SettingsSections = keyof typeof areaMap | '';
@@ -127,6 +129,8 @@ export function Settings() {
               <SettingsButton 
                 icon={<World/>} 
                 text={t('language')}  
+                onClick={() => {setSelectedArea('language')}} 
+                isSelected={selectedArea === 'language'}
               />
             </Box>
           </Box>

@@ -240,7 +240,7 @@ const WithdrawFormCrypto = () => {
                                 </div>
                                 <div className="row flex items-end">
                                     {loading ? t("loading")+"..." : <span
-                                        className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
+                                        className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} {currency.$const}</span>}
                                 </div>
                                 <div className="row flex items-end">
                                     {loading ? t("loading")+"..." : <span

@@ -37,7 +37,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
-        purpose: "Purchase of EURG tokens",
+        purpose: t("purchase_of", {token: "EURG"}),
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,
@@ -136,7 +136,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    <span>Purchase of EURG for EUR</span>
+                    <span>{t("purchase_of", {token: "EURG"})} {t("for_token", {token: "EUR"})}</span>
                 </div>
             </div>
             <div className="row mb-2">

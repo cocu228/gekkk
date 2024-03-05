@@ -41,7 +41,7 @@ export function PersonalInformation() {
         <MobileWrapper className="w-full">
             <div className="substrate w-full rounded-lg flex flex-col gap-3">
                 <div className="w-full flex flex-col min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Name:</Typography>
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("name")}:</Typography>
                     <Typography variant="h" color="light-green" className="pb-2">{userInfo?.name}</Typography>
                     <hr/>
                 </div>
@@ -51,17 +51,17 @@ export function PersonalInformation() {
                     <hr/>
                 </div>
                 <div className="w-full flex flex-col min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Email:</Typography>
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("email")}:</Typography>
                     <Typography variant="h" color="light-green" className="pb-2">{userInfo?.email}</Typography>
                     <hr/>
                 </div>
                 <div className="w-full flex flex-col min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Citizenship:</Typography>
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("citizenship")}:</Typography>
                     <Typography variant="h" color="light-green" className="pb-2">{userInfo?.citizenship}</Typography>
                     <hr/>
                 </div>
                 <div className="w-full flex flex-col min-h-[30px]">
-                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>Residence adress:</Typography>
+                    <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("residence_address")}:</Typography>
                     <Typography variant="h" color="light-green" className="pb-2">{userInfo?.address}</Typography>
                     <hr/>
                 </div>

@@ -37,7 +37,7 @@ const WithdrawConfirmBrokerMobile = ({amount, handleCancel, setErr = null, setSu
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
 
     const details = useRef({
-        purpose: "Purchase of EURG tokens",
+        purpose: t("purchase_of", {token: "EURG"}),
         iban: token_hot_address,
         account: account.account_id,
         beneficiaryName: account.name,

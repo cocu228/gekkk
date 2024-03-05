@@ -107,7 +107,7 @@ const WithdrawFormCryptoMobile = () => {
                     <div className="basis-[100%]">
                         <Input value={inputs.address} onChange={onInput}
                             disabled={!networkTypeSelect}
-                            placeholder={t("enter_withdrawal_addr")}
+                            placeholder={t("enter_withdrawal_address")}
                             name={"address"}
                         />
                     </div>

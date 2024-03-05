@@ -46,7 +46,7 @@ function GetDisplayedForm({curr}: Props) {
     
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {            
-            return <WithdrawFormCryptoMobile/>;
+            return <WithdrawFormCrypto/>;
         }
         
         switch (networkType) {

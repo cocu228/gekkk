@@ -55,7 +55,7 @@ export const dealsData = {
       conditions: [
         'cashback_programs.block_GKE_tokens',
         'cashback_programs.cashback_accrued',
-        'cashback_programs.once_month'
+        'cashback_programs.once_a_month'
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,

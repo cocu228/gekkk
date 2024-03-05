@@ -120,13 +120,13 @@ export function Settings() {
               />
               <SettingsButton 
                 icon={<Info/>} 
-                text={'App version'}  
+                text={t("app_version")}  
                 onClick={() => {setSelectedArea('app-version')}} 
                 isSelected={selectedArea === 'app-version'}
               />
               <SettingsButton 
                 icon={<World/>} 
-                text={'Language'}  
+                text={t('language')}  
               />
             </Box>
           </Box>
@@ -138,25 +138,25 @@ export function Settings() {
             <Box display="flex" flexDirection="column" gap={md ? "5px" : "24px"}>
             <SettingsButton 
                 icon={<Guard/>} 
-                text={'Change password'} 
+                text={t('change_password')} 
                 onClick={() => {setSelectedArea('change-password')}} 
                 isSelected={selectedArea === 'change-password'}
             />
             <SettingsButton 
                 icon={<Keys/>} 
-                text={'User keys'}
+                text={t("user_keys")}
                 onClick={() => {setSelectedArea('user-keys')}} 
                 isSelected={selectedArea === 'user-keys'}  
             />
             <SettingsButton 
                 icon={<Docs/>} 
-                text={'Login and sign history'}  
+                text={t("login_and_sign_history")}  
                 onClick={() => {setSelectedArea('history')}} 
                 isSelected={selectedArea === 'history'}
             />
             <SettingsButton 
                 icon={<Chain/>} 
-                text={'User sessions'}  
+                text={t("user_sessions")}  
                 onClick={() => {setSelectedArea('user-sessions')}} 
                 isSelected={selectedArea === 'user-sessions'}
             />
@@ -186,7 +186,7 @@ export function Settings() {
               <a href="https://gekkard.com/terms-and-conditions.html">
                 <SettingsButton 
                   icon={<DocumentsDocumentsIcon/>} 
-                  text={'Terms and conditions'}
+                  text={t('terms_and_conditions')}
                 />
               </a>
               <SettingsButton 
@@ -198,7 +198,7 @@ export function Settings() {
               <a href="https://gekkard.com/data-protection-policy.html">
                 <SettingsButton 
                   icon={<DocumentsDocumentsIcon />} 
-                  text={'Data protection'}  
+                  text={t('data_protection')}  
                 />
               </a>
             </Box>

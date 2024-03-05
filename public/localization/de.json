@@ -453,7 +453,31 @@
     "desc_optional": "Beschreibung (optional)",
     "EW_law": "Gemäß EU-Recht müssen Sie den Namen des Empfängers der Gelder angeben",
     "enter_recepients_name": "Geben Sie den Namen des Empfängers ein",
-    "fee_is_prec": "Gebühr ist"
+    "fee_is_prec": "Gebühr ist",
+    "info": "Information",
+    "purchase_of": "Kauf von {{token}} Token",
+    "for_token": "für {{token}}",
+    "see_more": "Mehr anzeigen",
+    "not_a_single_option_aviable": "Im Moment steht keine einzige Option für {{do}} dieses Asset zur Verfügung. Bitte überprüfen Sie es später.",
+    "or_create": "Oder Sie können erstellen",
+    "order": "Bestellung",
+    "to_top_up": "aufladen",
+    "to_withdraw": "abheben",
+    "you_should_send_only": "Sie sollten nur senden",
+    "you_should_send_only_2": "an die unterstützte Netzwerkadresse auf der Gekkoin-Plattform. Wenn Sie über ein anderes Netzwerk aufladen, können Ihre Vermögenswerte verloren gehen.",
+    "enter_withdrawal_address": "Geben Sie die Auszahlungsadresse ein",
+    "tether_info": "Tether (USDT) ist eine Kryptowährungs-Stablecoin, der an den US-Dollar gebunden ist und 'zu 100% durch die Reserven von Tether' abgesichert ist, gemäß der Website. USDT ist ein Typ von Kryptowährung, der eine stabile Bewertung anstrebt. Tether wurde im Juli 2014 als Real Coin gestartet und im November 2014 in Tether umbenannt. Der Handel begann im Februar 2015. Ursprünglich basierend auf der Bitcoin-Blockchain, unterstützt Tether nun die Omni- und Liquid-Protokolle von Bitcoin sowie die Blockchains Ethereum, TRON, EOS, Algorand, Solana, OMG Network und Bitcoin Cash (SLP). Tether wird von Investoren genutzt, die die typische Volatilität von Kryptowährungen vermeiden möchten, während sie Gelder innerhalb des Kryptosystems halten.",
+    "my_settings": "Meine Einstellungen",
+    "general_information": "Allgemeine Informationen",
+    "account_and_app_settings": "Konto- und App-Einstellungen",
+    "my_reports": "Meine Berichte",
+    "pricing": "Preisgestaltung",
+    "app_version": "App-Version",
+    "change_password": "Passwort ändern",
+    "user_keys": "Benutzerschlüssel",
+    "login_and_sign_history": "Anmelde- und Anmeldeverlauf",
+    "user_sessions": "Benutzersitzungen",
+    "language": "Sprache"
 
 
 

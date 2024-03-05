@@ -661,6 +661,23 @@
     "top_up_EURG": "You can top up your EURG wallet via fiat on the EUR withdrawal form",
     "send_to_this": "Send a transaction to this",
     "address_small": "address",
-    "fee_is_prec": "Fee is"
+    "fee_is_prec": "Fee is",
+    "info": "Info",
+    "purchase_of": "Purchase of {{token}} tokens",
+    "for_token": "for {{token}}",
+    "see_more": "See more",
+    "not_a_single_option_aviable": "At the moment there is not a single option available for {{do}} this asset. Please check it later.",
+    "or_create": "Or you can create a",
+    "order": "order",
+    "to_top_up": "top_up",
+    "to_withdraw": "withdraw",
+    "you_should_send_only": "You should send only",
+    "you_should_send_only_2": "to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.",
+    "tether_info": "Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed '100% by Tether's reserves,' according its website. USDT is a type of cryptocurrency pursuing a steady valuation. Tether was launched as Real Coin in July 2014 and was rebranded as Tether in November 2014. It started trading in February 2015.23 Originally based on the Bitcoin blockchain, Tether now supports Bitcoin's Omni and Liquid protocols as well as the Ethereum, TRON, EOS, Algorand, Solana, OMG Network, and Bitcoin Cash (SLP) blockchains. Tether is used by investors who want to avoid the volatility typical of cryptocurrencies while holding funds within the crypto system.",
+    "app_version": "App version",
+    "change_password": "Change password",
+    "user_keys": "User keys",
+    "login_and_sign_history": "Login and sign history",
+    "user_sessions": "User sessions"
   }
 }

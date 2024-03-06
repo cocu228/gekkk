@@ -86,7 +86,7 @@ export function Settings() {
         marginBottom="36px"
         component={Typography}
         variant="h1"
-        className='typography-h1'
+        className='text-lg'
       >
         {t('my_settings')}
       </Box>}
@@ -109,7 +109,7 @@ export function Settings() {
           marginBottom="19px"
         >
           <Box display="flex" flexDirection="column" gap="24px" >
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {t('general_information')}
             </Typography>
 
@@ -135,7 +135,7 @@ export function Settings() {
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" >
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {md ? 'Access management' : t('account_and_app_settings')}
             </Typography>
 
@@ -173,7 +173,7 @@ export function Settings() {
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px">
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {md ? 'Documents and legal notices' : t('documents')}
             </Typography>
 

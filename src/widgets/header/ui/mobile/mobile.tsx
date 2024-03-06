@@ -7,16 +7,18 @@ import { AccountRights } from "@/shared/config/account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
 import { useLocation, useMatch, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 
 const HeaderMobile = ({ items, actions }) => {
-    const { account } = useContext(CtxRootData);
-    const { t } = useTranslation();
-    const { currency } = useParams()
+    const {account} = useContext(CtxRootData);
+    const {t} = useTranslation();
+    const {currency, roomNumber} = useParams();
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
-    const exchangePage = useMatch("/exchange")
-    const historyPage = useMatch("/history") //not used   
-    const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
+    const exchangePage = useMatch("/exchange");
+    const privateRoomPage = useMatch(`/private-room/${roomNumber}`);
+    const historyPage = useMatch("/history") //not used
+    const isOnMainPages = !!homePage || !!transfersPage || !!historyPage
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -46,6 +48,9 @@ const HeaderMobile = ({ items, actions }) => {
                 return t("no_fee_program")
             case `/transfers/${currency}`:
                 return `${t("transfers") + " " + currency}`
+            case `/exchange`:
+            case `/private-room/${roomNumber}`:
+                return `${t("exchange_button")}`
             default:
                 return t(`${location.pathname.slice(1)}`)
         }
@@ -105,6 +110,12 @@ const HeaderMobile = ({ items, actions }) => {
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>
             }
+
+            {!(exchangePage || privateRoomPage) ? null : (
+                <div className="flex items-center justify-end w-full gap-2 pr-2" data-testid="ExchangeRoomMenu">
+                    <ExchangeRoomMenu roomNumber={roomNumber}/>
+                </div>
+            )}
 
             {/* <div className="wrapper w-[32px] ml-2 flex pr-4">
                     <LocalizationMenu/>

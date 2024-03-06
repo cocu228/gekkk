@@ -5,13 +5,14 @@ import styles from './style.module.scss';
 import IconDropdownArrow from '@/shared/ui/icons/IconDropdownArrow';
 
 interface Props {
+    className?: string,
     isOpen?: boolean,
     onOpen?: (value: boolean) => void | undefined,
     trigger: React.ReactNode,
     items?: MenuProps['items'],
 }
 
-function Dropdown({trigger, items, children, onOpen, isOpen}: PropsWithChildren<Props>) {
+function Dropdown({className, trigger, items, children, onOpen, isOpen}: PropsWithChildren<Props>) {
 
     const onOpenChange = (value: boolean) => {
         onOpen(value)
@@ -19,6 +20,7 @@ function Dropdown({trigger, items, children, onOpen, isOpen}: PropsWithChildren<
 
     return (
         <AntdDropdown
+            className={className}
             menu={{ items }}
             dropdownRender={(menu) => (
                 <div className={styles.DropdownContent}>

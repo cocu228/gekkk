@@ -22,7 +22,6 @@ import IconPrivateRoom from '@/shared/ui/icons/IconPrivateRoom';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import PriceField from '@/widgets/exchange/ui/price-field/PriceField';
 import OpenOrders from '@/widgets/exchange/ui/open-orders/OpenOrders';
-import CreateRoom from '@/widgets/exchange/ui/create-room/CreateRoom';
 import DropdownItem from '@/shared/ui/dropdown/dropdown-item/DropdownItem';
 import DepthOfMarket from '@/widgets/exchange/ui/depth-of-market/DepthOfMarket';
 import {storeListExchangeRooms} from '@/shared/store/exchange-rooms/exchangeRooms';
@@ -34,6 +33,8 @@ import {validateBalance, validateMinimumAmount} from "@/shared/config/validators
 import Decimal from "decimal.js";
 import useError from "@/shared/model/hooks/useError";
 import InlineProperty from "@/shared/ui/inline-property";
+import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
+import CreateRoom from '@/shared/ui/create-room/CreateRoom';
 
 function Exchange() {
 
@@ -47,13 +48,18 @@ function Exchange() {
     const roomInfoModal = useModal();
     const cancelRoomModal = useModal();
 
+    const {md} = useBreakpoints();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [ordersRefresh, setOrdersRefresh] = useState<string>('');
     const [historyFilter, setHistoryFilter] = useState<string[]>([]);
-    const roomsList = storeListExchangeRooms(state => state.roomsList);
+    const {roomsList, getRoomsList} = storeListExchangeRooms(state => state);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const [hasValidationError, setHasValidationError] = useState<boolean>(false);
+    const {
+        addRoom: addExchangeRoom,
+        removeRoom: closeExchangeRoom
+    } = storeListExchangeRooms(state => state);
 
     const {
         to,
@@ -62,7 +68,6 @@ function Exchange() {
         roomType,
         roomInfo,
         isLimitOrder,
-        onRoomClosing,
         onToValueChange,
         onCurrenciesSwap,
         onFromValueChange,
@@ -71,7 +76,12 @@ function Exchange() {
         onIsLimitOrderChange
     } = useContext(CtxExchangeData);
 
-    
+    useEffect(() => {
+        if (!roomsList) {
+            getRoomsList();
+        }
+    }, []);
+
     useEffect(() => {
         if (!(historyFilter.includes(from.currency) && historyFilter.includes(to.currency))) {
             setHistoryFilter([
@@ -170,32 +180,35 @@ function Exchange() {
             return;
         }
 
+        closeExchangeRoom(roomInfo.timetick);
         cancelRoomModal.handleCancel();
-        onRoomClosing(roomInfo.timetick);
         navigate('/exchange');
     }
     
-    return !roomsList ? <Loader/> : (
-        <div className="wrapper">
-            <PageHead
-                title={getHeadTitle()}
-                subtitle={getHeadSubtitle()}
-                rightContent={roomType !== 'creator' ? null : (
-                    <ParticipantsNumber
-                        quantity={roomInfo.count}
-                        onLeave={cancelRoomModal.showModal}
-                        onIconClick={roomInfoModal.showModal}
-                    />
-                )}
-            />
+    return !roomsList ? <Loader className='relative'/> : (
+        <div className="wrapper md:-mt-5">
+            {md ? null : (
+                <PageHead
+                    title={getHeadTitle()}
+                    subtitle={getHeadSubtitle()}
+                    rightContent={roomType !== 'creator' ? null : (
+                        <ParticipantsNumber
+                            quantity={roomInfo.count}
+                            onLeave={cancelRoomModal.showModal}
+                            onIconClick={roomInfoModal.showModal}
+                        />
+                    )}
+                />
+            )}
 
             <SplitGrid
                 leftColumn={
                     <div className="py-5 px-10 lg:px-5 md:px-4">
-                        <div className={`gap-x-14 xl:gap-x-5 ${styles.Grid}`}>
+                        <div className={`gap-x-14 xl:gap-x-2 ${styles.Grid}`}>
                             <div className="h-full flex flex-col">
+                                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.you_pay")}</div>
+                                
                                 <InputCurrency.CurrencySelector
-                                    className='mt-7'
                                     onSelect={onFromCurrencyChange}
                                     disabled={roomType !== 'default'}
                                     excludedCurrencies={[to.currency]}
@@ -212,14 +225,6 @@ function Exchange() {
                                             validateMinimumAmount(minAmount, +from.amount, from.currency, t)
                                         ]}
                                     >
-                                        <InputCurrency.PercentSelector
-                                            onSelect={onFromValueChange}
-                                            currency={currencies.get(from.currency)}
-                                            header={<span
-                                                className='font-medium text-md lg:text-sm md:text-xs select-none'>
-                                                {t("exchange.pay_from")}
-                                            </span>}
-                                        >
                                             <InputCurrency.DisplayBalance currency={currencies.get(from.currency)}>
                                                 <InputCurrency
                                                     value={from.amount}
@@ -227,8 +232,7 @@ function Exchange() {
                                                     onChange={onFromValueChange}
                                                 />
                                             </InputCurrency.DisplayBalance>
-                                        </InputCurrency.PercentSelector>
-                                    </InputCurrency.Validator>
+                                        </InputCurrency.Validator>
                                 </InputCurrency.CurrencySelector>
 
                                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
@@ -240,8 +244,7 @@ function Exchange() {
                                     </div>
                                 </div>
 
-                                <div
-                                    className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.recieve_to")}</div>
+                                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.get_no_less")}</div>
 
                                 <InputCurrency.CurrencySelector
                                     className='mt-0'
@@ -294,15 +297,15 @@ function Exchange() {
                                     size="xl"
                                     disabled={(!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) || hasValidationError}
                                     onClick={confirmModal.showModal}
-                                >{t("exchange.buy")} {to.currency ? to.currency : t("exchange.token")}</Button>
+                                >{t("exchange.create_order")}</Button>
 
                                 <div className="mt-5 lg:mt-2.5 px-8 text-secondary text-xs text-center">
-                                    {t("exchange.order_execution_depends")}
+                                    {t("exchange.broker_exchange_fee")}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-12">
+                        <div className="mt-4">
                             <OpenOrders refreshKey={ordersRefresh}/>
                         </div>
 
@@ -349,7 +352,17 @@ function Exchange() {
                 }
             >
                 {roomType === 'default'
-                    ? <CreateRoom/>
+                    ? <CreateRoom
+                        to={to}
+                        from={from}
+                        onToCurrencyChange={onToCurrencyChange}
+                        onFromCurrencyChange={onFromCurrencyChange}
+                        onRoomCreation={(roomInfo) => {
+                            addExchangeRoom(roomInfo);
+                            roomInfoModal.handleCancel();
+                            navigate(`/private-room/${roomInfo.timetick}`)
+                        }}
+                    />
                     : <InviteLink roomInfo={roomInfo}/>
                 }
             </Modal>

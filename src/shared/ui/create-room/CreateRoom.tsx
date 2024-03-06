@@ -1,13 +1,13 @@
 import {t} from 'i18next';
+import {useState} from 'react';
 import Loader from '@/shared/ui/loader';
-import {useContext, useState} from 'react';
 import Input from '@/shared/ui/input/Input';
 import Button from '@/shared/ui/button/Button';
-import {CtxExchangeData} from '../../model/context';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import UseError from "@/shared/model/hooks/useError";
 import {apiCreateRoom} from '@/shared/(orval)api/gek';
-import {RoomFlags} from "@/shared/(orval)api/gek/model";
+import {RoomInfo} from "@/shared/(orval)api/gek/model";
+import {IExchangeField} from '@/widgets/exchange/model/types';
 import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
 import TokenSelect from '@/shared/ui/search-select/token-select/TokenSelect';
@@ -17,21 +17,27 @@ interface IState {
     purchaseLimit: number;
 }
 
-function CreateRoom() {
+interface IParams {
+    to?: IExchangeField;
+    from?: IExchangeField;
+    onRoomCreation?: (roomInfo: RoomInfo) => void;
+    onToCurrencyChange?: (value: string) => void;
+    onFromCurrencyChange?: (value: string) => void;
+}
+
+function CreateRoom({
+    to,
+    from,
+    onRoomCreation,
+    onToCurrencyChange,
+    onFromCurrencyChange
+}: IParams) {
     const [loading, setLoading] = useState<boolean>(false);
     const [localErrorHunter, , localErrorInfoBox] = UseError();
     const [state, setState] = useState<IState>({
         isIco: false,
         purchaseLimit: 0
     });
-    
-    const {
-        to,
-        from,
-        onRoomCreation,
-        onToCurrencyChange,
-        onFromCurrencyChange
-    } = useContext(CtxExchangeData);
     
     return <>
         <div className={loading ? '!collapse' : ''}>

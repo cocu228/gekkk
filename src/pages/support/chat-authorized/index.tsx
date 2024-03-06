@@ -92,9 +92,9 @@ const SupportChatAuthorized = () => {
 
             <AxiosChatInterceptor chatToken={chatConfig.token}>
                 <div>
-                    <span className='top-6 left-2 relative typography-h1'>
-                        <PageHead title={`Support chat`} />
-                    </span>
+                    {/*<span className='top-6 left-2 relative typography-h1'>*/}
+                    {/*    <PageHead title={`Support chat`} />*/}
+                    {/*</span>*/}
                     <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
                         <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
                             {!isWebSocketReady ? <Loader /> : (

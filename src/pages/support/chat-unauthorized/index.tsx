@@ -15,7 +15,7 @@ import useChatMessages from '../chat-authorized/model/hooks/useChatMessages';
 import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
 import Message from '../chat-authorized/message/Message';
-import NewHeader from '@/widgets/new-header/ui/NewHeader';
+import NewHeader from '@/widgets/(no-usages)new-header/ui/NewHeader';
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
 const SupportChatUnauthorized = () => {
@@ -88,7 +88,7 @@ const SupportChatUnauthorized = () => {
         <div
             style={{backgroundColor: "var(--new-brand-white)"}}
         >
-            <NewHeader />
+            {/*<NewHeader />*/}
             <div className={`${styles.SupportChatComponent} ${md? "px-[5%]" : "px-[16.25rem] py-20"}  pb-6`}>
                 <StompInit
                     chatConfig={chatConfig}

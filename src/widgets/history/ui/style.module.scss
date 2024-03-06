@@ -87,16 +87,18 @@
 }
 .TransactionMobile{
   max-width: 60%;
-  margin-left: 15px;
+  margin-left: 7px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   // flex: 1 0 0;
   align-self: stretch;
+  overflow: hidden;
 }
 .TypeOfTransactionMobile{
-  display: flex;
+  margin-top: 10px;
+  display: inline;
   flex-direction: column;
   justify-content: flex-end;
   flex: 1 0 0;
@@ -107,9 +109,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  overflow: hidden;
 }
 .DescriptionOfTransactionMobile{
-  width: 190px;
   display: inline;
   flex: 1 0 0;
   align-self: stretch;
@@ -143,6 +147,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-wrap: nowrap;
+  word-break: keep-all;
+  word-wrap: none;
+  // text-overflow: ellipsis;
+  // text-wrap: nowrap;
+  // overflow: hidden;
 }
 .AmountMobile{
   color: #972235;
@@ -152,6 +162,9 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  text-wrap: nowrap;
+  word-break: keep-all;
+  word-wrap: none;
 }.IncomeMobile{
   color: #2BAB72;
   text-align: right;
@@ -160,10 +173,13 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  text-wrap: nowrap;
+  word-break: keep-all;
+  word-wrap: none;
 }
 .ArrowBtnMobile{
   display: flex;
-  padding-right: 10px;
+  margin: 0px 10px;
   justify-content: center;
   align-items: center;
   gap: 10px;

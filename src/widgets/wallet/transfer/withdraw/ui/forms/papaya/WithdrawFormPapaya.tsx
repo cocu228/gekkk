@@ -11,12 +11,14 @@ import {validateBalance, validateMinimumAmount} from '@/shared/config/validators
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmBroker from "@/widgets/wallet/transfer/withdraw/ui/forms/broker/WithdrawConfirmBroker";
+import {Modal as ModalAnt} from "antd"
 import Decimal from "decimal.js";
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 import {useTranslation} from "react-i18next";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 
 const WithdrawFormPapaya = () => {
@@ -26,6 +28,8 @@ const WithdrawFormPapaya = () => {
     const currency = useContext(CtxWalletData);
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
+    const {setRefresh: setReload} = useContext(CtxRootData)
+
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
@@ -35,6 +39,8 @@ const WithdrawFormPapaya = () => {
 
     const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
     const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+
+    const {md} = useBreakpoints()
 
     const {
         network_type = 0,
@@ -51,7 +57,7 @@ const WithdrawFormPapaya = () => {
 
     }, [inputCurr.value.number]);
 
-    return (<div className="wrapper">
+    return !md ? (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
             <div className="col text-xl font-bold">
                 <span>1 EUR = 1 EURG*</span>
@@ -158,6 +164,128 @@ const WithdrawFormPapaya = () => {
                     Buy EUR
                 </Button>
             </div>
+        </div>
+    </div>) : (<div className="wrapper">
+        
+
+        <div className="row mb-4">
+            <div className="col pb-[15px]">
+                <InputCurrency.Validator
+                    value={inputCurr.value.number}
+                    onError={setInputCurrValid}
+                    description={getWithdrawDesc(min_withdraw, currency.$const)}
+                    validators={[
+                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                        validateBalance(currency, navigate, t)]}>
+                    <InputCurrency.PercentSelector
+                        currency={currency}
+                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                        onSelect={val => {
+                            const amount = new Decimal(val);
+                            setInputCurr(amount.mul(100).floor().div(100).toString())
+                        }}
+                    >
+                        <InputCurrency.DisplayBalance currency={currency}>
+                            <InputCurrency
+                                value={inputCurr.value.string}
+                                currency={currency.$const}
+                                onChange={setInputCurr}
+                            />
+                        </InputCurrency.DisplayBalance>
+                    </InputCurrency.PercentSelector>
+                </InputCurrency.Validator>
+            </div>
+            <div className="row mb-4 p-2 flex flex-col gap-2 md:gap-1  bg-[#DADADA] rounded-lg rounded-tr-none">
+                <div className="col text-xl text-[#3A5E66] text-[14px] font-bold">
+                    <span>1 EUR = 1 EURG*</span>
+                </div>
+
+                <div className="col text-[#3A5E66] text-[10px] text-xs">
+                    <span><b className='uppercase'>*{t("note")}</b>:  {t("exchange_fee")} {t("to")} "Papaya IBAN" <b className='text-[#3A5E66]'>{percent_fee}%</b>
+                        {account.rights[AccountRights.IsJuridical] ? null :
+                            <span className="font-normal"> {t("if_you")} <span
+                                className='text-[#45AD77] hover:cursor-pointer hover:underline'
+                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                            >
+                                {t("freeze_GKE_tokens")}   
+                            </span> {t("fee_is")} <b>0%</b>.
+                        </span>}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div className="row">
+            <div className="col">
+                <div className="row w-[70%] justify-between flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row">
+                            <span className='text-[12px] text-[#3A5E66]'>{t("you_will_pay")}</span>
+                        </div>
+                        <div className="row">
+                        <span className='text-[12px] text-[#3A5E66]'>
+                          {t("you_will_get")}
+                        </span>
+                        </div>
+                        <div className="row">
+                            <span className='text-[12px] text-[#3A5E66]'>
+                          {t("fee")}
+                        </span>
+                        </div>
+                    </div>
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-start text-[12px] text-[#3A5E66] font-bold">{inputCurr.value.number} {currency.$const}</span>
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? t("loading")+"..." : <span
+                                className="w-full text-start text-[12px] text-[#3A5E66] font-bold">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? t("loading")+"..." : <span
+                                className="w-full text-start text-[12px] text-[#3A5E66] font-bold">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ModalAnt
+            width={327}
+            open={isModalOpen}
+            onCancel={()=>{
+                handleCancel()
+                setReload()
+            }}
+            title={t("withdraw_confirmation")}
+            footer={null}
+        >
+            <WithdrawConfirmCrypto
+                description={""}
+                address={account.number}
+                recipient={account.name}
+                handleCancel={handleCancel}
+                amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
+            />
+        </ModalAnt>
+        
+        {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO
+        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
+        <div className="row w-full mb-[10px]">
+            <div className="col">
+                <Button
+                    size={"xl"}
+                    disabled={!inputCurr.value.number || inputCurrValid.value || loading}
+                    onClick={showModal}
+                    className="w-full"
+                >
+                    Transfer
+                </Button>
+            </div>
+        </div>
+        <div className='w-full flex justify-center'>
+            <span className='text-[#9D9D9D] text-[10px]'>
+                {t("fee_is_prec")} <span className='font-bold'>{percent_fee}%</span> {t("per_transaction")}
+            </span>
         </div>
     </div>)
 };

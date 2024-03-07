@@ -42,7 +42,7 @@ function OpenOrders({
     const [allOrdVisibly, setAllOrdVisibly] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
-    const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
+    const [activeTab, setActiveTab] = useState<TabKey>(ordersTabs[0].Key);
     const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
@@ -178,10 +178,13 @@ function OpenOrders({
                 </div>}
 
                 {isLoading ? null : ordersList.map((ord: GetOrderListOut) => (
-                    <div className={`py-2.5 rounded-md md:rounded-none ${styles.Item}`} key={ord.id}>
+                    <div
+                        key={ord.id}
+                        className={`py-2.5 rounded-md md:rounded-none ${styles.Item} ${activeTab === TabKey.OPENED ? '' : 'grayscale'}`}
+                    >
                         <div className="flex justify-between">
                             <div className='flex gap-2'>
-                                <div className="text-orange bg-orange bg-opacity-10 rounded-md">
+                                <div className="bg-opacity-10 rounded-md">
                                     <strong>
                                         {currencyPrecision(ord.volume_source, ord.from)}
                                     </strong> {ord.from} &rarr; <strong>
@@ -213,7 +216,7 @@ function OpenOrders({
                             }</div>
                         </div>
                         <div className="flex justify-between gap-0.5 mt-1.5">
-                            <div className="flex gap-2.5">
+                            <div className="flex gap-2.5 items-center">
                                 <div className="text-secondary">{t("price")}: </div>
                                 <div>
                                     <span>1 {ord.from} ~ {
@@ -227,7 +230,7 @@ function OpenOrders({
 
                             {ord.state !== OrderState.OPENED ? null : (
                                 <button
-                                    className="text-secondary"
+                                    className={styles.CancelOrderBtn}
                                     onClick={() => {
                                         setSelectedOrder(ord);
                                         cancelOrderModal.showModal();

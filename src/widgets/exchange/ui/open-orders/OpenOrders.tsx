@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {DatePicker} from 'antd';
+import {DatePicker, Switch} from 'antd';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {format, addDays} from 'date-fns';
@@ -21,6 +21,7 @@ import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import {apiGetOrders, apiCancelOrder} from '@/shared/(orval)api/gek';
 import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
 import useError from "@/shared/model/hooks/useError";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 const {RangePicker} = DatePicker;
 
@@ -32,6 +33,7 @@ function OpenOrders({
     refreshKey
 }: IParams) {
     const {t} = useTranslation();
+    const {md} = useBreakpoints();
     const cancelOrderModal = useModal();
     const {account} = useContext(CtxRootData);
     const {roomInfo} = useContext(CtxExchangeData);
@@ -129,10 +131,24 @@ function OpenOrders({
                 {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
             </div>
 
-            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(ordersTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+            {!md ? (
+                <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(ordersTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+            ) : (
+                <div className='flex gap-x-4 w-full justify-center'>
+                    <span>Closed orders</span>
+                    <Switch
+                        defaultChecked={activeTab === ordersTabs[0].Key}
+                        onChange={(isCheked) => setActiveTab(isCheked
+                            ? ordersTabs[0].Key
+                            : ordersTabs[1].Key
+                        )}
+                    />
+                    <span>Active orders</span>
+                </div>
+            )}
 
             {activeTab === TabKey.CLOSED && (
-                <div className='mb-2'>
+                <div className='mt-2 mb-4'>
                     {t("enter_period")}
 
                     <div className='flex grow-0 max-w-[400px]'>

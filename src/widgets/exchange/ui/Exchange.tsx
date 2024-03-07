@@ -272,7 +272,7 @@ function Exchange() {
                                             <span
                                                 className="lg:text-sm md:text-xs sm:text-[0.625rem]">{t("exchange.sell")}
                                                 <strong
-                                                    className="font-semibold">{from.currency}</strong> {t("exchange.at_the_market_rate")}</span>
+                                                    className="font-semibold"> {from.currency}</strong> {t("exchange.at_the_market_rate")}</span>
                                         </Checkbox>
                                     </div>
                                 )}

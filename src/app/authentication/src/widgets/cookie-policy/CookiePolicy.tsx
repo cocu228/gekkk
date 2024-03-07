@@ -10,9 +10,14 @@ export const CookiePolicy = memo(() => {
     
     const acceptCookies = () => {
         setIsShown(false);
+
+        let currentDate = new Date();
+        currentDate.setFullYear(currentDate.getFullYear() + 1);
+        
         setCookieData([{
             key: 'CookieAccepted',
-            value: 'true'
+            value: 'true',
+            expiration: currentDate.getTime()
         }]);
     }
     

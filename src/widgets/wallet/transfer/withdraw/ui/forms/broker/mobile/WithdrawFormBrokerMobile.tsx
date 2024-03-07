@@ -32,6 +32,7 @@ const WithdrawFormBrokerMobile = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
+    const { setRefresh: setReload } = useContext(CtxRootData)
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
@@ -160,7 +161,7 @@ const WithdrawFormBrokerMobile = () => {
             </span>
         </div>
         <StatusModalError open={isErr} setIsErr={setIsErr}/>
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/>
+        <StatusModalSuccess refresh={setReload} open={isSuccess} setIsSuccess={setIsSuccess}/>
     </div>)
 };
 

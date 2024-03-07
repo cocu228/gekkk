@@ -165,7 +165,7 @@ const WithdrawFormPapayaMobile = () => {
         </Modal>
         
         <StatusModalError open={isErr} setIsErr={setIsErr}/>
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/>
+        <StatusModalSuccess refresh={setReload} open={isSuccess} setIsSuccess={setIsSuccess}/>
         <div className="row w-full mb-[10px]">
             <div className="col">
                 <Button

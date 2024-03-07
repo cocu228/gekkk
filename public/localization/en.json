@@ -679,6 +679,7 @@
     "change_password": "Change password",
     "user_keys": "User keys",
     "login_and_sign_history": "Login and sign history",
-    "user_sessions": "User sessions"
+    "user_sessions": "User sessions",
+    "enter_description": "Enter description"
   }
 }

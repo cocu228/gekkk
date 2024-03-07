@@ -126,14 +126,14 @@ function OpenOrders({
     
     return (
         <>
-            <div className="flex justify-between mb-2">
-                <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
-                {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
-            </div>
+            {!md ? (<>
+                <div className="flex justify-between mb-2">
+                    <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
+                    {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
+                </div>
 
-            {!md ? (
                 <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(ordersTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
-            ) : (
+            </>) : (
                 <div className='flex gap-x-4 w-full justify-center'>
                     <span>Closed orders</span>
                     <Switch

@@ -1,5 +1,5 @@
 ﻿import styles from './style.module.scss';
-import {timestampToDateFormat} from '../../model/helpers';
+import {timestampToDateFormat} from './../model/helpers';
 
 interface IParams {
     createdAt: number;

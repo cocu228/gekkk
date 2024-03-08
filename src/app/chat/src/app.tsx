@@ -36,7 +36,7 @@ const getCookieData = () => {
 
 const SupportChatAuthorized = () => {
 
-
+    //@ts-ignore
     const {phone, token, tokenHeaderName} = getCookieData()
 
     const tokenChat = token && tokenHeaderName
@@ -107,13 +107,15 @@ const SupportChatAuthorized = () => {
             />
 
             <AxiosChatInterceptor chatToken={chatConfig.token}>
-                <div>
-                    <span className='top-6 left-2 relative typography-h1'>
-                        Support chat
-                    </span>
+                <>
                     <div
                         className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
-                        <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
+                        <div className={`h-full overflow-scroll`} ref={chatWindowRef}>
+
+                            <span style={{fontSize: "12px"}} className='top-6 left-2 relative'>
+                                Support chat
+                            </span>
+
                             {!isWebSocketReady ? <Loader/> : (
                                 <div>
                                     {messages?.map((message, i, arr) => (
@@ -126,7 +128,7 @@ const SupportChatAuthorized = () => {
                         </div>
                         <MessageForm onSubmit={handleSendMessage} onFileUpload={handleSendFile}/>
                     </div>
-                </div>
+                </>
             </AxiosChatInterceptor>
         </div>
     );

@@ -1,0 +1,25 @@
+{
+  "name": "chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "local": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "local-auth": "vite",
+    "build-auth": "tsc && vite build",
+    "PRD": "tsc && vite build --mode production",
+    "STG": "tsc && vite build --mode staging",
+    "DEV": "tsc && vite build --mode development"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.7.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-css-injected-by-js": "^3.3.1"
+  }
+}

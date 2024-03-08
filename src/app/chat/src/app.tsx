@@ -11,16 +11,33 @@ import {apiPostMessage} from './api/post-message';
 import useSessionId from './model/hooks/useSessionId';
 import useDeviceIdHash from './model/hooks/useDeviceIdHash';
 import useChatMessages from './model/hooks/useChatMessages';
-import {getCookieData} from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "./model/AxiosChatInterceptor";
 import Message from './message/Message';
 
+const getCookieData = () => {
+
+    const cookieValue = document.cookie;
+    const cookiePairs = cookieValue.split(';');
+    const cookieData = {};
+
+    for (let i = 0; i < cookiePairs.length; i++) {
+        const pair = cookiePairs[i].trim();
+        const separatorIndex = pair.indexOf('=');
+        const key = pair.substring(0, separatorIndex);
+        const value = pair.substring(separatorIndex + 1);
+
+        const decodedValue = decodeURIComponent(value);
+
+        cookieData[key] = decodedValue;
+    }
+
+    return cookieData;
+};
+
 const SupportChatAuthorized = () => {
-    const { phone, token, tokenHeaderName } = getCookieData<{
-        phone: string,
-        token: string,
-        tokenHeaderName: string
-    }>()
+
+
+    const {phone, token, tokenHeaderName} = getCookieData()
 
     const tokenChat = token && tokenHeaderName
         ? (tokenHeaderName === 'token-firebase')
@@ -35,7 +52,7 @@ const SupportChatAuthorized = () => {
 
     const [deviceIdHash] = useDeviceIdHash();
     const sessionId = useSessionId(deviceIdHash);
-    const { messages, setMessages } = useChatMessages(sessionId);
+    const {messages, setMessages} = useChatMessages(sessionId);
     const [isWebSocketReady, setIsWebSocketReady] = useState(false);
     const chatWindowRef = useRef(null);
 
@@ -63,7 +80,7 @@ const SupportChatAuthorized = () => {
     };
 
     const handleSendFile = async (options: any) => {
-        const { file, onSuccess, onError } = options;
+        const {file, onSuccess, onError} = options;
 
         if (!sessionId) return
 
@@ -91,22 +108,23 @@ const SupportChatAuthorized = () => {
 
             <AxiosChatInterceptor chatToken={chatConfig.token}>
                 <div>
-                    {/*<span className='top-6 left-2 relative typography-h1'>*/}
-                    {/*    <PageHead title={`Support chat`} />*/}
-                    {/*</span>*/}
-                    <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
+                    <span className='top-6 left-2 relative typography-h1'>
+                        Support chat
+                    </span>
+                    <div
+                        className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
                         <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
-                            {!isWebSocketReady ? <Loader /> : (
+                            {!isWebSocketReady ? <Loader/> : (
                                 <div>
                                     {messages?.map((message, i, arr) => (
                                         <Fragment key={message.id}>
-                                            <Message key={message.id} message={message} />
+                                            <Message key={message.id} message={message}/>
                                         </Fragment>
                                     ))}
                                 </div>
                             )}
                         </div>
-                        <MessageForm onSubmit={handleSendMessage} onFileUpload={handleSendFile} />
+                        <MessageForm onSubmit={handleSendMessage} onFileUpload={handleSendFile}/>
                     </div>
                 </div>
             </AxiosChatInterceptor>

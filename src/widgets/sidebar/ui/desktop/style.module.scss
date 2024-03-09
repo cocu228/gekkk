@@ -406,7 +406,7 @@
   overflow: auto;
 }
 .AddBottomMenuPadding{
-  padding-bottom: env(safe-area-inset-bottom, 20px);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .BottomMenuMobile {

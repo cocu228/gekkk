@@ -406,8 +406,8 @@
   overflow: auto;
 }
 .AddBottomMenuPadding{
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-top: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom, 5px);
+  padding-top: 10px;
 }
 
 

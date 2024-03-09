@@ -52,7 +52,8 @@ const SupportChatAuthorized = () => {
     }, [messages]);
 
     const handleSendMessage = async (values: MessageFormValues, form: FormInstance<any>) => {
-        if (!values.message || !sessionId) {
+        // if (!values.message || !sessionId) {
+        if (!values.message) {
             message.error('Type your message before submit')
             return
         }

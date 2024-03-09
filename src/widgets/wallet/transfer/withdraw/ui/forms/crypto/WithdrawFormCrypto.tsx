@@ -2,6 +2,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import Input from "@/shared/ui/input/Input";
 import {Input as InputAntd} from "antd";
 import Modal from "@/shared/ui/modal/Modal";
+import {Modal as ModalAnt} from "antd"
 import {useNavigate} from 'react-router-dom';
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
@@ -252,13 +253,14 @@ const WithdrawFormCrypto = () => {
                 </div>
                 <div className="row w-full mt-4">
                     <div className="col">
-                        <Modal width={450}
+                        <ModalAnt width={450}
                                title={t("confirm_transaction")}
                                destroyOnClose
                                onCancel={handleCancel}
                                open={isModalOpen}
                                footer={null}
                                className="h-[100%]"
+                               centered
                         >
 
                             <WithdrawConfirmCrypto {...inputs}
@@ -266,7 +268,7 @@ const WithdrawFormCrypto = () => {
                                                    handleCancel={handleCancel}
 
                             />
-                        </Modal>
+                        </ModalAnt>
                         <Button size={"xl"} onClick={showModal}
 
                                 disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}

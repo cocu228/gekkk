@@ -10,9 +10,11 @@ export const CookiePolicy = memo(() => {
     
     const acceptCookies = () => {
         setIsShown(false);
+
         setCookieData([{
             key: 'CookieAccepted',
-            value: 'true'
+            value: 'true',
+            expiration: 365 * 24 * 60 * 60 // One year in seconds
         }]);
     }
     

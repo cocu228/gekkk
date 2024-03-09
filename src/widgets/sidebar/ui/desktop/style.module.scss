@@ -405,6 +405,9 @@
   z-index: 41;
   overflow: auto;
 }
+.AddBottomMenuPadding{
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
 
 .BottomMenuMobile {
   height: 55px;

@@ -49,7 +49,7 @@ export function BottomMenu(){
                 <>
                     {
                     !!homePage &&
-                        <div className={styles.AssetInfo3}>
+                        <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
                             <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                                 <div className={styles.NewAsset}>
                                     <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />

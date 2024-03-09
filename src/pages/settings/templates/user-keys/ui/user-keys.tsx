@@ -66,7 +66,7 @@ export function UserKeys() {
                 {keysList.map((key,index) => <div className='substrate w-full rounded-lg flex flex-row items-center justify-between mt-6 max-h-[500px] gap-3'>
                 <div className="w-4/5 overflow-hidden">
                 {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-                    <Typography variant="p" color="light-green">{formatDate(key?.utc_create)}</Typography>
+                    <Typography variant="p" color="light-green">{formatDate(getUnixTime(parseISO(key?.utc_create)))}</Typography>
                     <Typography variant="p" color="light-green">{t("type")}: {key.key_type}</Typography>
                     <Typography variant="h" color="light-green">{t("public_key")}: {key?.public_key}</Typography>
                 </div>

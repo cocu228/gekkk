@@ -57,7 +57,7 @@ export function BottomMenu(){
                             </NavLink>
                         </div>
                     }
-                    <div className={styles.BottomMobile}>
+                    <div className={styles.BottomMobile + " " + (needBottomPadding && styles.AddBottomMenuPaddingTop)}>
                             <div className={styles.BottomMenuMobile  + " " + (needBottomPadding && styles.AddBottomMenuPadding)}>
                                 <FundsButton/>
                                 <TransfersButton/>

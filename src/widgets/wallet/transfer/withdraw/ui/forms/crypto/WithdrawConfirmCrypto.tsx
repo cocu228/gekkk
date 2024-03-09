@@ -29,6 +29,8 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import StatusModalSuccess from "../../modals/StatusModalSuccess";
 import StatusModalError from "../../modals/StatusModalError";
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+import styles from "../styles.module.scss"
 
 const initStageConfirm = {
     status: null,
@@ -170,19 +172,19 @@ const WithdrawConfirmCrypto = memo(({
 
     if(md && networkTypeSelect === 150){ // Papaya modal
         return  <>
-        <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
+        <hr className={styles.ModalLine}/>
         <div className="row mb-5">
             <div className="col">
                 <div className="p-4">
-                    <div className="wrapper flex flex-row">
-                        <div className="row mb-1">
+                    <div className={`wrapper ${styles.ModalInfo}`}>
+                        <div className={styles.ModalInfoIcon}>
                             <div className="col">
-                                {/* image ! */}
+                                <WarningIcon/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col">
-                                <span className="text-[10px] text-[#7B797C]">
+                                <span className={styles.ModalInfoText}>
                                     Please, check your transaction information carefully and confirm the operation.
                                 </span>
                             </div>
@@ -191,46 +193,68 @@ const WithdrawConfirmCrypto = memo(({
                 </div>
             </div>
         </div>
-        <div className="row mb-2">
-            <div className="col">
-                <span className="text-gray-400">Type Transaction</span>
+        <div className={styles.ModalRows}>
+            <div className="row">
+                <div className="col">
+                    <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+                </div>
+            </div>
+            <div className="row mb-4">
+                <div className="col">
+                    <span className={styles.ModalRowsValue}>{label}</span>
+                </div>
             </div>
         </div>
-        <div className="row mb-4">
-            <div className="col">
-                <span>{label}</span>
-            </div>
-        </div>
-        <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-            <div className="col flex flex-col w-[max-content] gap-2">
+        <div className={styles.ModalPayInfo}>
+            <div className={styles.ModalPayInfoCol}>
                 <div className="row">
-                    <span>{t("you_will_pay")}</span>
+                    <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
                 </div>
                 <div className="row">
-                <span>
-                    {t("you_will_get")}
+                <span className={styles.ModalPayInfoText}>
+                    {t("you_will_get")}:
                 </span>
                 </div>
                 <div className="row">
-                    <span>
-                    {t("fee")}
-                </span>
+                    <span className={styles.ModalPayInfoTextFee}>
+                        {t("fee")}:
+                    </span>
                 </div>
             </div>
-            <div className="col flex flex-col w-[max-content] gap-2">
-                <div className="row flex items-end">
-                    <span
-                        className="w-full text-start">{amount} {$const}</span>
+            <div className={styles.ModalPayInfoColValue}>
+
+                <div className={styles.ModalPayInfoCol}>
+                    <div className={styles.ModalPayInfoValueFlex}>
+                        <span
+                            className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                    </div>
+                    <div className={styles.ModalPayInfoValueFlex}>
+                        <span
+                            className={styles.ModalPayInfoValueFlexText}>
+                                {amount-withdraw_fee}
+                        </span>
+                    </div>
+                    <div className={styles.ModalPayInfoValueFlex}>
+                        <span
+                            className={styles.ModalPayInfoValueFlexTextFee}>
+                                {withdraw_fee}
+                        </span>
+                    </div>
                 </div>
-                <div className="row flex items-end">
-                    {loading ? t("loading")+"..." : <span
-                        className="w-full text-start">{amount-withdraw_fee} EUR</span>}
-                </div>
-                <div className="row flex items-end">
-                    {loading ? t("loading")+"..." : <span
-                        className="w-full text-start">{withdraw_fee} {$const}</span>}
+                
+                <div className={styles.ModalPayInfoCol}>
+                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                        {$const}
+                    </span>
+                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                        EUR
+                    </span>
+                    <span className={styles.ModalPayInfoValueFlexTextFee}>
+                        {$const}
+                    </span>
                 </div>
             </div>
+            
         </div>
         {description && <>
             <div className="row mb-2">
@@ -265,7 +289,7 @@ const WithdrawConfirmCrypto = memo(({
                 
                 <Timer onAction={onReSendCode}/>
             </>}
-            <div className="row mt-4 mb-5">
+            <div className="row mt-4">
                 <div className="flex flex-row gap-[5px] relative">
                     {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                         <>
@@ -502,36 +526,56 @@ const WithdrawConfirmCrypto = memo(({
                         </div>
                     </>}
                 </div>
-                <div className="row w-full flex justify-between gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row text-[#3A5E66] font-regular">
-                            <span>{t("you_will_pay")}</span>
+                <div className={styles.ModalPayInfo}>
+                    <div className={styles.ModalPayInfoCol}>
+                        <div className="row">
+                            <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
                         </div>
-                        <div className="row text-[#3A5E66] font-regular">
-                        <span>
-                            {t("you_will_get")}
+                        <div className="row">
+                        <span className={styles.ModalPayInfoText}>
+                            {t("you_will_get")}:
                         </span>
                         </div>
                         <div className="row">
-                            <span>
-                            {t("fee")}
-                        </span>
+                            <span className={styles.ModalPayInfoTextFee}>
+                                {t("fee")}:
+                            </span>
                         </div>
                     </div>
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row flex items-end">
-                            <span
-                                className="w-full text-start text-[#3A5E66] font-semibold">{amount} {$const}</span>
+                    <div className={styles.ModalPayInfoColValue}>
+
+                        <div className={styles.ModalPayInfoCol}>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>
+                                        {amount-withdraw_fee}
+                                </span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexTextFee}>
+                                        {withdraw_fee}
+                                </span>
+                            </div>
                         </div>
-                        <div className="row flex items-end">
-                            {loading ? t("loading")+"..." : <span
-                                className="w-full text-start text-[#3A5E66] font-semibold ">{amount-withdraw_fee} {$const}</span>}
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? t("loading")+"..." : <span
-                                className="w-full text-start text-[#3A5E66] font-semibold">{withdraw_fee} {$const}</span>}
+                        
+                        <div className={styles.ModalPayInfoCol}>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                {$const}
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                EUR
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextFee}>
+                                {$const}
+                            </span>
                         </div>
                     </div>
+                    
                 </div>
             
                 <Form form={form} onFinish={(e) => onConfirm()}>

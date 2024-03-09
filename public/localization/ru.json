@@ -503,7 +503,9 @@
         "login_and_sign_history": "История входа и подписи",
         "user_sessions": "Сеансы пользователя",
         "language": "Язык",
-        "enter_description": "Введите описание"
+        "enter_description": "Введите описание",
+        "confirm_transaction": "Подтвердить транзакцию",
+        "type_transaction": "Тип транзакции"
 
 
         

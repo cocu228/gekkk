@@ -478,7 +478,9 @@
     "login_and_sign_history": "Anmelde- und Anmeldeverlauf",
     "user_sessions": "Benutzersitzungen",
     "language": "Sprache",
-    "enter_description": "Beschreibung eingeben"
+    "enter_description": "Beschreibung eingeben",
+    "confirm_transaction": "Transaktion bestätigen",
+    "type_transaction": "Transaktionstyp"
 
 
 

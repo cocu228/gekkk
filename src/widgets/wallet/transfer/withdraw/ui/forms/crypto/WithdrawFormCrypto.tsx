@@ -20,6 +20,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {useTranslation} from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { debounce } from "@/shared/lib";
+import styles from "../styles.module.scss"
 
 const {TextArea} = InputAntd;
 
@@ -184,7 +185,7 @@ const WithdrawFormCrypto = () => {
                     </InputCurrency.Validator>
                 </div>
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("address")}:</span>
+                    <span className={styles.TitleColTextMargin}>{t("address")}:</span>
                     <div className="basis-[100%]">
                         <Input value={inputs.address} onChange={onInput}
                             disabled={!networkTypeSelect}
@@ -195,7 +196,7 @@ const WithdrawFormCrypto = () => {
                 </div>
                 <div className='flex flex-col items-center  gap-2'>
                     <div className="w-full justify-between flex flex-row items-center">
-                        <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
+                        <span className={styles.TitleColTextMargin}>{t("recipient")}:</span>
                         <div className="basis-[100%]">
                             <Input value={inputs.recipient} onChange={onInput}
                                     disabled={!networkTypeSelect}
@@ -210,51 +211,64 @@ const WithdrawFormCrypto = () => {
                 </div>
 
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                    <span className={styles.TitleColText}>{t("description")}:</span>
                     <Input name={"description"} value={inputs.description} onChange={onInput}
                         disabled={!networkTypeSelect}
                         placeholder={t("enter_description")}
                     />
                 </div>
-                <div className="row">
-                    <div className="col">
-                        <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                            <div className="col flex flex-col w-[max-content] gap-2">
-                                <div className="row">
-                                    <span>{t("you_will_pay")}</span>
-                                </div>
-                                <div className="row">
-                                <span>
-                                {t("you_will_get")}
-                                </span>
-                                </div>
-                                <div className="row">
-                                    <span>
-                                {t("fee")}
-                                </span>
-                                </div>
-                            </div>
-                            <div className="col flex flex-col w-[max-content] gap-2">
-                                <div className="row flex items-end">
-                                    <span
-                                        className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
-                                </div>
-                                <div className="row flex items-end">
-                                    {loading ? t("loading")+"..." : <span
-                                        className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} {currency.$const}</span>}
-                                </div>
-                                <div className="row flex items-end">
-                                    {loading ? t("loading")+"..." : <span
-                                        className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
-                                </div>
-                            </div>
+                
+                <div className={styles.PayInfo}>
+                    <div className={styles.PayInfoCol}>
+                        <div className="row">
+                            <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                        </div>
+                        <div className="row">
+                        <span className={styles.PayInfoText}>
+                            {t("you_will_get")}:
+                        </span>
+                        </div>
+                        <div className="row">
+                            <span className={styles.PayInfoTextFee}>
+                                {t("fee")}:
+                            </span>
                         </div>
                     </div>
+                    <div className={styles.PayInfoColValue}>
+
+                        <div className={styles.PayInfoCol}>
+                            <div className={styles.PayInfoValueFlex}>
+                                <span
+                                    className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                            </div>
+                            <div className={styles.PayInfoValueFlex}>
+                                {loading ? t("loading")+"..." : <span
+                                    className={styles.PayInfoValueFlexText}>{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()}</span>}
+                            </div>
+                            <div className={styles.PayInfoValueFlex}>
+                                {loading ? t("loading")+"..." : <span
+                                    className={styles.PayInfoValueFlexTextFee}>{new Decimal(withdraw_fee).toString()}</span>}
+                            </div>
+                        </div>
+                        
+                        <div className={styles.PayInfoCol}>
+                            <span className={styles.PayInfoValueFlexTextCurrency}>
+                                {currency.$const}
+                            </span>
+                            <span className={styles.PayInfoValueFlexTextCurrency}>
+                                {currency.$const}
+                            </span>
+                            <span className={styles.PayInfoValueFlexTextFee}>
+                                {currency.$const}
+                            </span>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div className="row w-full mt-4">
                     <div className="col">
                         <ModalAnt width={450}
-                               title={t("confirm_transaction")}
+                               title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
                                destroyOnClose
                                onCancel={handleCancel}
                                open={isModalOpen}
@@ -269,15 +283,21 @@ const WithdrawFormCrypto = () => {
 
                             />
                         </ModalAnt>
-                        <Button size={"xl"} onClick={showModal}
-
-                                disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}
-                                className='w-full mb-[10px] self-center'>
-                            {t("withdraw")}
-                        </Button>
-                        <div className='w-full flex justify-center'>
-                            <span className='text-[#9D9D9D] text-[10px]'>
-                                {t("fee_is_prec")} <span className='font-bold'>{withdraw_fee} {currency.$const} </span> {t("per_transaction")}
+                        <div className={styles.Button}>
+                            <div className="col">
+                                <Button
+                                    size={"xl"}
+                                    disabled={!inputCurr.value.number || inputCurrValid.value || loading}
+                                    onClick={showModal}
+                                    className="w-full"
+                                >
+                                    Transfer
+                                </Button>
+                            </div>
+                        </div>
+                        <div className={styles.BottomFeeInfo}>
+                            <span className={styles.BottomFeeInfoText}>
+                                {t("fee_is_prec")} <span className={styles.BottomFeeInfoTextBold}>{withdraw_fee} {currency.$const}</span> {t("per_transaction")}
                             </span>
                         </div>
                     </div>

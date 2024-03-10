@@ -21,9 +21,9 @@ import { IExchangeField } from '@/widgets/exchange/model/types';
 import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
 
 export const ExchangeRoomMenu = ({
-    roomNumber
+    roomId
 }: {
-    roomNumber: string;
+    roomId: string;
 }) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -46,9 +46,9 @@ export const ExchangeRoomMenu = ({
 
     useEffect(() => {
         if (roomsList) {
-            setActive(roomsList.find(r => r.timetick === +roomNumber));
+            setActive(roomsList.find(r => r.timetick === +roomId));
         }
-    }, [roomsList, roomNumber])
+    }, [roomsList, roomId])
 
     return !roomsList ? null : (
         <div>
@@ -139,7 +139,7 @@ export const ExchangeRoomMenu = ({
                         onRoomCreation={(roomInfo) => {
                             addExchangeRoom(roomInfo);
                             roomModal.handleCancel();
-                            navigate(`/private-room/${roomInfo.timetick}`)
+                            navigate(`/private-room?roomId=${roomInfo.timetick}`)
                         }}
                         onToCurrencyChange={(value) => setTo({...to, currency: value})}
                         onFromCurrencyChange={(value) => setFrom({...from, currency: value})}
@@ -197,7 +197,7 @@ const RoomItem = ({
             icon={<div className={styles.RoomsMenuItemIcon}>
                 <IconPrivateRoom/>
             </div>}
-            onClick={() => navigate(`private-room/${room.timetick}`)}
+            onClick={() => navigate(`private-room?roomId=${room.timetick}`)}
         >
             <div className='flex flex-auto justify-between w-full'>
                 <div className={styles.RoomsMenuItem}>

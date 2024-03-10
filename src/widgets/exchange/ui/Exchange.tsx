@@ -366,7 +366,7 @@ function Exchange() {
                         onRoomCreation={(roomInfo) => {
                             addExchangeRoom(roomInfo);
                             roomInfoModal.handleCancel();
-                            navigate(`/private-room/${roomInfo.timetick}`)
+                            navigate(`/private-room?roomId=${roomInfo.timetick}`)
                         }}
                     />
                     : <InviteLink roomInfo={roomInfo}/>

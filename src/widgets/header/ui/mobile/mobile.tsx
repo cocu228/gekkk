@@ -5,18 +5,20 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useLocation, useMatch, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useMatch, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 
 const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
     const {t} = useTranslation();
-    const {currency, roomNumber} = useParams();
+    const {currency} = useParams();
+    const [params] = useSearchParams();
+    const roomId = params.get('roomId');
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange");
-    const privateRoomPage = useMatch(`/private-room/${roomNumber}`);
+    const privateRoomPage = useMatch('/private-room');
     const historyPage = useMatch("/history") //not used
     const isOnMainPages = !!homePage || !!transfersPage || !!historyPage
     const navigate = useNavigate()
@@ -25,9 +27,7 @@ const HeaderMobile = ({ items, actions }) => {
     const headerTitle = () => {
         switch (location.pathname) {
             case `/wallet/${currency}`:
-                return `${currency} ${t("balance")}`
-            case `/wallet/${currency}/about`:
-                return `${currency} ${t("about")}`
+                return t("Wallet");
             case `/partnership-program`:
                 return t("partnership_program.title")
             case `/wallet/GKE/cashback_program`:
@@ -49,7 +49,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `/transfers/${currency}`:
                 return `${t("transfers") + " " + currency}`
             case `/exchange`:
-            case `/private-room/${roomNumber}`:
+            case `/private-room`:
                 return `${t("exchange_button")}`
             default:
                 return t(`${location.pathname.slice(1)}`)
@@ -105,15 +105,15 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 </HeaderMenu>
                 :
-                <div className="flex items-center w-full" data-testid="HeaderMenuContainer">
-                    <button className={styles.GoBackBtn} onClick={() => { goBack() }}></button>
+                <div className="flex items-center w-full" onClick={() => { goBack() }} data-testid="HeaderMenuContainer">
+                    <div className={styles.GoBackIcon}></div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>
             }
 
             {!(exchangePage || privateRoomPage) ? null : (
                 <div className="flex items-center justify-end w-full gap-2 pr-2" data-testid="ExchangeRoomMenu">
-                    <ExchangeRoomMenu roomNumber={roomNumber}/>
+                    <ExchangeRoomMenu roomId={roomId}/>
                 </div>
             )}
 

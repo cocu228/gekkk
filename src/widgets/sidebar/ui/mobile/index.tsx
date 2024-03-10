@@ -352,7 +352,7 @@ const SidebarMobile = () => {
                                     size="xl"
                                     className="w-full"
                                     onClick={() => {
-                                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                        if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
                                             navigate('/exchange');
                                         }
 

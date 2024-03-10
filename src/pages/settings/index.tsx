@@ -164,12 +164,12 @@ export function Settings() {
                 onClick={() => {setSelectedArea('user-sessions')}} 
                 isSelected={selectedArea === 'user-sessions'}
             />
-            <SettingsButton 
+            {/* <SettingsButton 
               icon={<PinCodeIcon/>} 
               text={t('access_management')}  
               onClick={() => {setSelectedArea('access-management')}} 
               isSelected={selectedArea === 'access-management'}
-            />
+            /> */}
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px">

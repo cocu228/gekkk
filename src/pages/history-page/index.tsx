@@ -18,7 +18,7 @@ const HistoryPage = () => {
 				{curTab === 'Last Transactions' ? (
 					<>
 					{!md && <h2 className=" font-bold p-3 text-xl">Last transactions</h2>}
-					<History/>
+					<History includeFiat={true}/>
 					</>
 				) : <CustomSearch />}
 			</div>

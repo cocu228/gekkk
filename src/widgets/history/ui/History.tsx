@@ -23,12 +23,11 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 const { RangePicker } = DatePicker;
 
-const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial<Props>) {
+const History = memo(function ({ currenciesFilter, types, includeFiat, data }: Partial<Props>) {
     const { t } = useTranslation();
 
     const { refreshKey } = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    // const {currencies} = useContext(CtxCurrencies);
     const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
     const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(listHistory[listHistory.length - 1])
     const [loading, setLoading] = useState(false);
@@ -37,14 +36,14 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
         )
-        const {md} = useContext(BreakpointsContext); 
-        const {currency, tab} = useParams()
-        const walletPage = currency || tab  
-        const isHistoryPage = !!useMatch("history")
-        
-        const {isIntersecting,ref} = useIntersectionObserver({
-            threshold:0.9
-        })
+    const {md} = useContext(BreakpointsContext); 
+    const {currency, tab} = useParams()
+    const walletPage = currency || tab  
+    const isHistoryPage = !!useMatch("history")
+    
+    const {isIntersecting,ref} = useIntersectionObserver({
+        threshold:0.9
+    })
         
     
     useEffect(()=>{
@@ -77,16 +76,17 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         setAllTxVisibly(false);
         
         const {
-            StartDate: start = formatForApi(customDate[0].toDate()),
-            EndDate: end = formatForApi(customDate[1].toDate())
-        } = historyTabs.find(tab => tab.Key === activeTab);
-
+            StartDate: start = formatForApi(data[0].toDate()),
+            EndDate: end = formatForApi(data[1].toDate())
+            } = historyTabs.find(tab => tab.Key === activeTab);
+            console.log(formatForApi(data[1].toDate()), start);
+            
         const response = await apiGetHistoryTransactions({
             limit: 10,
             tx_types: types,
             currencies: currenciesFilter,
-            end: end.length ? end.toString() : null,
-            start: start.length ? start.toString() : null,
+            end: formatForApi(data[1].toDate()).toString() ? formatForApi(data[1].toDate()).toString() : null,
+            start: formatForApi(data[0].toDate()).toString() ? formatForApi(data[0].toDate()).toString() : null,
             include_fiat: includeFiat,
         }, { cancelToken });
 

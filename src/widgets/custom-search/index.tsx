@@ -205,7 +205,7 @@ export default function customSearch() {
                 </div>
             </form>
         </div>
-        <History currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat}/>
+        <History currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat} data={date}/>
         </>
     );
 }

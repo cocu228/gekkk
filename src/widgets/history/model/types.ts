@@ -21,5 +21,6 @@ export interface Props {
     className: string,
     currenciesFilter: string[],
     types: TransactTypeEnum[],
-    includeFiat: boolean
+    includeFiat: boolean,
+    data:[dayjs.Dayjs,dayjs.Dayjs],
 }

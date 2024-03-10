@@ -41,6 +41,7 @@ function Wallet() {
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
     const [needMobile, setNeedMobile] = useState<boolean>(false)
 
+    // TODO: Почему не используются брейкпоинты?
     useEffect(() => {
         if(window.innerWidth < 970 || window.innerWidth > 1200 ){
             setNeedMobile(true)
@@ -160,6 +161,7 @@ function Wallet() {
                                     <Withdraw/>
                                 </NetworkProvider>
 
+                                {/* TODO: Зачем передача needMobile через 3 файла? */}
                                 {(isEUR || isEURG || isGKE) &&
                                     <Programs needMobile={needMobile} data-tag={"programs"} data-name={t("programs")}/>
                                 }

@@ -20,10 +20,11 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import React from 'react';
 
 const { RangePicker } = DatePicker;
 
-const History = memo(function ({ currenciesFilter, types, includeFiat, data }: Partial<Props>) {
+const History = memo(function ({ currenciesFilter, types, includeFiat, date }: Partial<Props>) {
     const { t } = useTranslation();
 
     const { refreshKey } = useContext(CtxRootData);
@@ -57,6 +58,8 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
                     next_key: lastValue.next_key,
                     limit: 10,
                     include_fiat: includeFiat,
+                    end: date ? formatForApi(date[1].toDate()).toString() : null,
+                    start: date ? formatForApi(date[0].toDate()).toString() : null,
                 });
                 
                 if (data.result.length < 10) setAllTxVisibly(true)
@@ -75,18 +78,15 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
         setLoading(true);
         setAllTxVisibly(false);
         
-        const {
-            StartDate: start = formatForApi(data[0].toDate()),
-            EndDate: end = formatForApi(data[1].toDate())
-            } = historyTabs.find(tab => tab.Key === activeTab);
-            console.log(formatForApi(data[1].toDate()), start);
+        
+        if (date) console.log(formatForApi(date[0].toDate()), formatForApi(date[1].toDate()));
             
         const response = await apiGetHistoryTransactions({
             limit: 10,
             tx_types: types,
             currencies: currenciesFilter,
-            end: formatForApi(data[1].toDate()).toString() ? formatForApi(data[1].toDate()).toString() : null,
-            start: formatForApi(data[0].toDate()).toString() ? formatForApi(data[0].toDate()).toString() : null,
+            end: date ? formatForApi(date[1].toDate()).toString() : null,
+            start: date ? formatForApi(date[0].toDate()).toString() : null,
             include_fiat: includeFiat,
         }, { cancelToken });
 
@@ -126,8 +126,12 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
         const cancelTokenSource = axios.CancelToken.source();
 
         (async () => {
-            if (activeTab !== TabKey.CUSTOM) {
-                await requestHistory(cancelTokenSource.token);
+            try {
+                if (activeTab !== TabKey.CUSTOM) {
+                    await requestHistory(cancelTokenSource.token);
+                }
+            } catch (err: unknown) {
+                console.log(err);
             }
         })()
 
@@ -176,7 +180,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
                     <GTable.Head className={styles.TableHead}>
                         <GTable.Row>
                             {[t("info"), t("amount")].map(label =>
-                                <GTable.Col className="text-center">
+                                <GTable.Col key={label} className="text-center">
                                     <div className='ellipsis ellipsis-md' data-text={label}>
                                         <span>{label}</span>
                                     </div>
@@ -255,8 +259,8 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
                                 if(!doesPrevDateTimeExist){
                                     return(
-                                        <>
-                                            <div className={styles.DataMobile}>
+                                        <React.Fragment key={index}>
+                                            <div className={styles.DataMobile} key={index}>
                                                 {formatForHistoryMobile(item.datetime)}
                                             </div>
                                             <div ref={ref} className={styles.InfoMobile}>
@@ -286,7 +290,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, data }: P
                                                     </div>
                                                 </TransactionInfo>
                                             </div>
-                                        </>
+                                        </React.Fragment>
                                     )
                                 }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
                                     return(

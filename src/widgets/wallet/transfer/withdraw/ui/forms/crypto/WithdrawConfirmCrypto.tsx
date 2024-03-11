@@ -96,7 +96,6 @@ const WithdrawConfirmCrypto = memo(({
     const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
-        console.log('asdasd')
 
         // В случае когда требуется подпись
         let sign = null;

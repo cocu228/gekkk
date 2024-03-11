@@ -12,25 +12,17 @@
 }
 
 .FieldsSpacer {
-  margin: 0.5rem 0 -0.8rem;
+  margin-bottom: -0.5rem;
 
   svg {
     width: 27px;
     height: 27px;
     fill: var(--color-secondary);
-
-    @include max-devices("md") {
-      width: 18px;
-      height: 18px;
-    }
   }
 }
 
 .SwapButton {
   z-index: 1;
-  border: 1px solid;
-  border-color: var(--color-gray-400);
-  border-radius: 5px;
   background-color: #ffffff;
 
   &:hover {

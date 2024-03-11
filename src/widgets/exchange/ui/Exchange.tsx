@@ -35,6 +35,7 @@ import useError from "@/shared/model/hooks/useError";
 import InlineProperty from "@/shared/ui/inline-property";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import CreateRoom from '@/shared/ui/create-room/CreateRoom';
+import InlineData from './inline-data/InlineData';
 
 function Exchange() {
 
@@ -312,22 +313,48 @@ function Exchange() {
 
                         <Modal
                             width={400}
+                            padding={false}
                             title="Confirm the order"
                             open={confirmModal.isModalOpen}
                             onCancel={confirmModal.handleCancel}
                         >
-                            <div className="md:mt-6">
-                                <InlineProperty left={'Will pay'} right={`${from.amount} ${from.currency}`}/>
-                                <InlineProperty left={'Will get'} right={`${to.amount} ${to.currency}`}/>
-                                <InlineProperty left={'Price'}
-                                                right={`1 ${from.currency} ~ ${price.amount} ${to.currency}`}/>
+                            <div className='px-5'>
+                                <div className='flex items-center gap-2 mb-4'>
+                                    <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.93073 0.540263C8.09863 -0.180088 6.90137 -0.180088 6.06927 0.540263C5.40746 1.11329 4.45697 1.9803 3.2188 3.2188C1.9803 4.45697 1.11362 5.40712 0.540263 6.06894C-0.180088 6.90104 -0.180088 8.09863 0.540263 8.93073C1.11329 9.59254 1.9803 10.5427 3.2188 11.7809C4.45697 13.0194 5.40712 13.8864 6.06894 14.4597C6.90104 15.1801 8.09863 15.1801 8.93073 14.4597C9.59254 13.8864 10.543 13.0197 11.7812 11.7812C13.0197 10.5427 13.8864 9.59288 14.4597 8.93073C15.1801 8.09863 15.1801 6.90104 14.4597 6.06894C13.8864 5.40712 13.0197 4.45697 11.7812 3.2188C10.543 1.9803 9.59254 1.11362 8.93073 0.540263ZM6.21627 4.55241C6.18568 4.1214 6.37923 3.69704 6.79827 3.59195C7.02798 3.53544 7.26378 3.50752 7.50033 3.5088C7.7777 3.5088 8.01183 3.54405 8.20206 3.59195C8.62143 3.69704 8.81499 4.12107 8.78406 4.55241C8.72087 5.44903 8.59982 7.00613 8.46878 7.87913C8.42555 8.16681 8.25261 8.41424 7.96593 8.46246C7.84321 8.48308 7.6899 8.49772 7.50033 8.49772C7.31077 8.49772 7.15745 8.48308 7.03473 8.46246C6.74805 8.41424 6.57478 8.16647 6.53188 7.87913C6.40085 7.00613 6.27979 5.44903 6.21627 4.55241ZM7.5 11.8234C7.65286 11.8234 7.80422 11.7933 7.94544 11.7348C8.08667 11.6763 8.21499 11.5906 8.32307 11.4825C8.43116 11.3744 8.5169 11.2461 8.5754 11.1049C8.6339 10.9637 8.664 10.8123 8.664 10.6594C8.664 10.5066 8.6339 10.3552 8.5754 10.214C8.5169 10.0728 8.43116 9.94445 8.32307 9.83636C8.21499 9.72827 8.08667 9.64253 7.94544 9.58404C7.80422 9.52554 7.65286 9.49543 7.5 9.49543C7.19129 9.49543 6.89522 9.61807 6.67693 9.83636C6.45863 10.0547 6.336 10.3507 6.336 10.6594C6.336 10.9681 6.45863 11.2642 6.67693 11.4825C6.89522 11.7008 7.19129 11.8234 7.5 11.8234Z" fill="#8F123A"/>
+                                    </svg>
 
-                                <div className='mt-4'>
+                                    <span className='text-fs12 text-[#7B797C]'>
+                                        Please, check your order information carefully and confirm the operation.
+                                    </span>
+                                </div>
+
+                                <div className='text-[#7B797C] text-fs12 mb-4'>
+                                    Order type: <span className='font-semibold text-[#285E69]'>
+                                        {isLimitOrder ? 'Limit' : 'Market'}
+                                    </span>
+                                </div>
+
+                                <InlineData left='You pay' center={from.amount} right={from.currency}/>
+                                {!isLimitOrder ? null : <>
+                                    <InlineData left='Get no less' center={to.amount} right={to.currency}/>
+                                    <InlineData left='Price' center={price.amount} right={`${from.currency}/${to.currency}`}/>
+                                </>}
+
+                                <div className='my-4'>
                                     {localErrorInfoBox}
                                 </div>
 
-                                <div className="mt-6 md:mt-12">
-                                    <Button disabled={loading} className="w-full" onClick={createOrder}>{t("confirm")}</Button>
+                                <div className='flex flex-col mt-6 md:mt-12 gap-1'>
+                                    <div className="text-secondary text-xs text-center">
+                                        {t("exchange.broker_exchange_fee")}
+                                    </div>
+
+                                    <div className="flex gap-4">
+                                        <Button disabled={loading} className="w-full" onClick={createOrder}>{t("confirm")}</Button>
+
+                                        <Button gray disabled={loading} className="w-full" onClick={createOrder}>{t("cancel")}</Button>
+                                    </div>
                                 </div>
                             </div>
                         </Modal>

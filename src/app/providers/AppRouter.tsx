@@ -14,6 +14,7 @@ import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
+import { MainCardPage } from '@/pages/card-menu';
 
 const router = createBrowserRouter([
     {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
             {
                 path: 'settings',
                 element: <Settings />
+            },
+            {
+                path: 'card-menu',
+                element: <MainCardPage/>
             }
         ],
     },

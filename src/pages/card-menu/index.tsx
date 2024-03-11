@@ -1,0 +1,1 @@
+export { MainCardPage } from './components/card-main-page';

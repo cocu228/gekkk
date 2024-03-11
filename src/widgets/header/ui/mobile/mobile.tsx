@@ -43,6 +43,8 @@ const HeaderMobile = ({ items, actions }) => {
             case `exchange`:
             case `private-room`:
                 return t("exchange_button");
+            case 'card-menu':
+                return 'Card menu'
             default:
                 return t(`${location.pathname.slice(1)}`)
         }

@@ -5,7 +5,7 @@ import styles from './style.module.scss';
 interface Props {
     wrapperClassName?: string;
     className?: string;
-    onClick?: () => void;
+    onClick?: MouseEventHandler<HTMLDivElement>;
     placeholder?: string;
     type?: ButtonTypes;
     children?: ReactNode;
@@ -13,25 +13,22 @@ interface Props {
     dataItem?: string;
 }
 
-export const MobileButton =  forwardRef((props: Props, ref:ForwardedRef<HTMLButtonElement>) => {
-    const onButtonClick = () => {
-        props.onClick();
-    };
+export const MenuButton =  (props: Props) => {
+    
 
     const variantSelector = (variant: string | undefined) => {
         return styles[variant ?? 'default'];
     };
     return (
-        <button
-            data-item={props.dataItem && null}
-            type={props.type}
-            ref={ref} 
+        <div
+            data-item={props.dataItem || null}
+            // type={props.type}
             className={`${styles.button} typography-ui-button-badge ${variantSelector(props.varitant)} ${props.className}`}
-            onClick={onButtonClick}
-            disabled={props.varitant === 'disabeled'}
+            onClick={props.onClick}
+            // disabled={props.varitant === 'disabeled'}
         >
             {props.children}
-        </button>
+        </div>
     );
-}, )
+};
 

@@ -25,9 +25,7 @@ const HeaderMobile = ({ items, actions }) => {
     const location = useLocation()
 
     const headerTitle = () => {
-        const page = location.pathname.split('/')[1];
-        console.log(page);
-        switch (page) {
+        switch (location.pathname.split('/')[1]) {
             case `wallet`:
                 return t("Wallet");
             case `partnership-program`:

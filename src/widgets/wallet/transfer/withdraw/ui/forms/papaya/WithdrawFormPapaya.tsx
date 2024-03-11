@@ -287,12 +287,13 @@ const WithdrawFormPapaya = () => {
         {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO
         <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
         <div className={styles.Button}>
-            <div className="col">
+            <div className={styles.ButtonContainerCenter}>
                 <Button
                     size={"xl"}
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full"
+                    greenTransfer
                 >
                     Transfer
                 </Button>

@@ -14,6 +14,7 @@ interface Props {
     red: boolean;
     darkBlue: boolean;
     whiteGreenTransfer:boolean;
+    greenTransfer:boolean;
     blueTransfer:boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex: number;
@@ -36,6 +37,7 @@ const Button = memo<Partial<Props>>(
          custom = false,
          text = false,
          whiteGreenTransfer = false,
+         greenTransfer = false,
          blueTransfer = false,
          ...props
      }): JSX.Element | null => {
@@ -47,6 +49,7 @@ const Button = memo<Partial<Props>>(
                 .while(text).do("Text")
                 .while(darkBlue).do("darkBlue")
                 .while(whiteGreenTransfer).do("whiteGreenTransfer")
+                .while(greenTransfer).do("GreenTransfer")
                 .while(blueTransfer).do("blueTransfer")
                 .while(program).do("Program")
                 .scss(custom ? "" : "Button")}

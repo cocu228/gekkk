@@ -173,165 +173,166 @@ const WithdrawConfirmCrypto = memo(({
 
     if(md && networkTypeSelect === 150){ // Papaya modal
         return  <>
-        <hr className={styles.ModalLine}/>
-        <div className="row mb-5">
-            <div className="col">
-                <div className="p-4">
-                    <div className={`wrapper ${styles.ModalInfo}`}>
-                        <div className={styles.ModalInfoIcon}>
-                            <div className="col">
-                                <WarningIcon/>
+            <hr className={styles.ModalLine}/>
+            <div className="row mb-5">
+                <div className="col">
+                    <div className="p-4">
+                        <div className={`wrapper ${styles.ModalInfo}`}>
+                            <div className={styles.ModalInfoIcon}>
+                                <div className="col">
+                                    <WarningIcon/>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <span className={styles.ModalInfoText}>
-                                    Please, check your transaction information carefully and confirm the operation.
-                                </span>
+                            <div className="row">
+                                <div className="col">
+                                    <span className={styles.ModalInfoText}>
+                                        Please, check your transaction information carefully and confirm the operation.
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className={styles.ModalRows}>
-            <div className="row">
-                <div className="col">
-                    <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+            <div className={styles.ModalRows}>
+                <div className="row">
+                    <div className="col">
+                        <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+                    </div>
+                </div>
+                <div className="row mb-4">
+                    <div className="col">
+                        <span className={styles.ModalRowsValue}>{label}</span>
+                    </div>
                 </div>
             </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span className={styles.ModalRowsValue}>{label}</span>
-                </div>
-            </div>
-        </div>
-        <div className={styles.ModalPayInfo}>
-            <div className={styles.ModalPayInfoCol}>
-                <div className="row">
-                    <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                <span className={styles.ModalPayInfoText}>
-                    {t("you_will_get")}:
-                </span>
-                </div>
-                <div className="row">
-                    <span className={styles.ModalPayInfoTextFee}>
-                        {t("fee")}:
+            <div className={styles.ModalPayInfo}>
+                <div className={styles.ModalPayInfoCol}>
+                    <div className="row">
+                        <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
+                    </div>
+                    <div className="row">
+                    <span className={styles.ModalPayInfoText}>
+                        {t("you_will_get")}:
                     </span>
+                    </div>
+                    <div className="row">
+                        <span className={styles.ModalPayInfoTextFee}>
+                            {t("fee")}:
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.ModalPayInfoColValue}>
+                <div className={styles.ModalPayInfoColValue}>
 
-                <div className={styles.ModalPayInfoCol}>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        <span
-                            className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                    <div className={styles.ModalPayInfoCol}>
+                        <div className={styles.ModalPayInfoValueFlex}>
+                            <span
+                                className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                        </div>
+                        <div className={styles.ModalPayInfoValueFlex}>
+                            <span
+                                className={styles.ModalPayInfoValueFlexText}>
+                                    {amount-withdraw_fee}
+                            </span>
+                        </div>
+                        <div className={styles.ModalPayInfoValueFlex}>
+                            <span
+                                className={styles.ModalPayInfoValueFlexTextFee}>
+                                    {withdraw_fee}
+                            </span>
+                        </div>
                     </div>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        <span
-                            className={styles.ModalPayInfoValueFlexText}>
-                                {amount-withdraw_fee}
-                        </span>
-                    </div>
-                    <div className={styles.ModalPayInfoValueFlex}>
-                        <span
-                            className={styles.ModalPayInfoValueFlexTextFee}>
-                                {withdraw_fee}
-                        </span>
-                    </div>
-                </div>
-                
-                <div className={styles.ModalPayInfoCol}>
-                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                        {$const}
-                    </span>
-                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                        EUR
-                    </span>
-                    <span className={styles.ModalPayInfoValueFlexTextFee}>
-                        {$const}
-                    </span>
-                </div>
-            </div>
-            
-        </div>
-        {description && <>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">Description</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{description}</span>
-                </div>
-            </div>
-        </>}
-        <Form form={form} onFinish={(e) => onConfirm()}>
-            {!isNull(stageReq.status) && <>
-                <span className="text-gray-400">{t("transfer_confirmation")}</span>
-                
-                <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                     
-                    <Input type="text"
-                       onInput={onInput}
-                       autoComplete="off"
-                       onChange={({target}) => setInput(target.value)}
-                       placeholder={stageReq.status === 0
-                        ? t("enter_sms_code") 
-                        : stageReq.status === 1
-                            ? t("enter_code")
-                            : t("enter_pin_code") 
-                       }
-                    />
-                </FormItem>
+                    <div className={styles.ModalPayInfoCol}>
+                        <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                            {$const}
+                        </span>
+                        <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                            EUR
+                        </span>
+                        <span className={styles.ModalPayInfoValueFlexTextFee}>
+                            {$const}
+                        </span>
+                    </div>
+                </div>
                 
-                <Timer onAction={onReSendCode}/>
-            </>}
-            <div className="row mt-4">
-                <div className="flex flex-row gap-[5px] relative">
-                    {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
-                        <>
-                            <Button
-                                htmlType={"submit"}
-                                disabled={(input === "" && stageReq.status !== null)}
-                                className="w-full"
-                                size={"xl"}
-                            >
-                                Confirm
-                            </Button>
-                            <Button
-                                onClick={()=>{
-                                    setRefresh()
-                                    handleCancel()
-                                }}
-                                whiteGreenTransfer
-                                className="w-full"
-                                size={"xl"}
-                            >
-                                Cancel
-                            </Button>
-                        </>
-                    }
-                </div>
-                <div className="col flex justify-center mt-4">
-                    {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&
-                        <InfoBox>The address is within our system. The transfer will be made via the internal network,
-                            and not through the blockchain. Are you sure you want to continue?</InfoBox>}
-                </div>
             </div>
-        </Form>
-        <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
-        <StatusModalError setIsErr={setErr} open={isErr}/>
-        {/*{is_operable === false && <>*/}
-        {/*    <div className="info-box-danger">*/}
-        {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
-        {/*            network for this transaction.</p>*/}
-        {/*    </div>*/}
-        {/*</>}*/}
-    </>
+            {description && <>
+                <div className="row mb-2">
+                    <div className="col">
+                        <span className="text-gray-400">Description</span>
+                    </div>
+                </div>
+                <div className="row mb-4">
+                    <div className="col">
+                        <span>{description}</span>
+                    </div>
+                </div>
+            </>}
+            <Form form={form} onFinish={(e) => onConfirm()}>
+                {!isNull(stageReq.status) && <>
+                    <span className="text-gray-400">{t("transfer_confirmation")}</span>
+                    
+                    <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
+                        
+                        <Input type="text"
+                        onInput={onInput}
+                        autoComplete="off"
+                        onChange={({target}) => setInput(target.value)}
+                        placeholder={stageReq.status === 0
+                            ? t("enter_sms_code") 
+                            : stageReq.status === 1
+                                ? t("enter_code")
+                                : t("enter_pin_code") 
+                        }
+                        />
+                    </FormItem>
+                    
+                    <Timer onAction={onReSendCode}/>
+                </>}
+                <div className="row mt-4">
+                    <div className="flex flex-row gap-[5px] relative">
+                        {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
+                            <div className={styles.ButtonContainer}>
+                                <Button
+                                    htmlType={"submit"}
+                                    disabled={(input === "" && stageReq.status !== null)}
+                                    className={styles.ButtonTwo}
+                                    size={"xl"}
+                                    greenTransfer
+                                >
+                                    Confirm
+                                </Button>
+                                <Button
+                                    onClick={()=>{
+                                        setRefresh()
+                                        handleCancel()
+                                    }}
+                                    whiteGreenTransfer
+                                    className={styles.ButtonTwo}
+                                    size={"xl"}
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        }
+                    </div>
+                    <div className="col flex justify-center mt-4">
+                        {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&
+                            <InfoBox>The address is within our system. The transfer will be made via the internal network,
+                                and not through the blockchain. Are you sure you want to continue?</InfoBox>}
+                    </div>
+                </div>
+            </Form>
+            <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
+            <StatusModalError setIsErr={setErr} open={isErr}/>
+            {/*{is_operable === false && <>*/}
+            {/*    <div className="info-box-danger">*/}
+            {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
+            {/*            network for this transaction.</p>*/}
+            {/*    </div>*/}
+            {/*</>}*/}
+        </>
     }
 
     return !md ? <>
@@ -462,19 +463,19 @@ const WithdrawConfirmCrypto = memo(({
         <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
         <div className="flex justify-center">
 
-            <div className="w-full flex flex-col items-center self-center">
+            <div className="w-full flex flex-col items-start self-center w-[90%]">
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">
-                            <div className="wrapper flex flex-row">
-                                <div className="row mb-1">
+                            <div className={`wrapper ${styles.ModalInfo}`}>
+                                <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        {/* image ! */}
+                                        <WarningIcon/>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <span className="text-[10px] text-[#7B797C]">
+                                        <span className={styles.ModalInfoText}>
                                             Please, check your transaction information carefully and confirm the operation.
                                         </span>
                                     </div>
@@ -483,46 +484,46 @@ const WithdrawConfirmCrypto = memo(({
                         </div>
                     </div>
                 </div>
-                <div className="w-full">
+                <div className={styles.ModalRows}>
                     {label && <> <div className="row mb-2">
                         <div className="col">
-                            <span className="text-gray-400 font-normal">Type Transaction</span>
+                            <span className={styles.ModalRowsTitle}>Type Transaction</span>
                         </div>
                     </div>
                     <div className="row mb-4">
                         <div className="col text-[#3A5E66] font-semibold">
-                            <span>{label}</span>
+                            <span className={styles.ModalRowsValue}>{label}</span>
                         </div>
                     </div> </>}
                     {address && <> <div className="row mb-2">
                         <div className="col">
-                            <span className="text-gray-400">{t("address")}</span>
+                            <span className={styles.ModalRowsTitle} >{t("address")}</span>
                         </div>
                     </div>
                     <div className="row mb-4">
                         <div className="col text-[#3A5E66] font-semibold ">
-                            <span className="break-keep text-nowrap text-ellipsis">{address}</span>
+                            <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{address}</span>
                         </div>
                     </div> </>}
                     {recipient && <> <div className="row mb-2">
                         <div className="col">
-                            <span className="text-gray-400">{t("recipient")}</span>
+                            <span className={styles.ModalRowsTitle}>{t("recipient")}</span>
                         </div>
                     </div>
                     <div className="row mb-4">
                         <div className="col text-[#3A5E66] font-semibold">
-                            <span>{recipient}</span>
+                            <span className={styles.ModalRowsValue}>{recipient}</span>
                         </div>
                     </div> </>}
                     {description && <>
                         <div className="row mb-2">
                             <div className="col">
-                                <span className="text-gray-400">Description</span>
+                                <span className={styles.ModalRowsTitle}>Description</span>
                             </div>
                         </div>
                         <div className="row mb-4">
                             <div className="col text-[#3A5E66] font-semibold">
-                                <span>{description}</span>
+                                <span className={styles.ModalRowsValue}>{description}</span>
                             </div>
                         </div>
                     </>}
@@ -579,7 +580,7 @@ const WithdrawConfirmCrypto = memo(({
                     
                 </div>
             
-                <Form form={form} onFinish={(e) => onConfirm()}>
+                <Form form={form} wrapperClassName="w-full" onFinish={(e) => onConfirm()}>
                     <div className="w-full row mt-4 mb-5">
                         <div className="w-full flex flex-row gap-[5px] relative">
                             {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
@@ -605,27 +606,28 @@ const WithdrawConfirmCrypto = memo(({
 
                                             <Timer onAction={onReSendCode} />
                                         </>}
-                                        <div className="w-full flex gap-5 flex-row">
+                                        <div className={styles.ButtonContainer + " w-full px-4"}>
                                             {isNull(stageReq.status) ? <Button
                                                 htmlType={"submit"}
                                                 onClick={()=>{onConfirm()}}
                                                 disabled={(input === "" && stageReq.status !== null)}
-                                                className="basis-full text-[20px]"
+                                                className={styles.ButtonTwo}
+                                                greenTransfer
                                             >
                                                 Send SMS
                                             </Button> : <Button
                                                 htmlType={"submit"}
                                                 onClick={()=>{onConfirm()}}
                                                 disabled={(input === "" && stageReq.status !== null)}
-                                                className="w-full text-[20px]"
+                                                className={styles.ButtonTwo}
+                                                greenTransfer
                                             >
                                                 Confirm
                                             </Button> }
                                             <Button
                                                 onClick={()=>{handleCancel()}}
-                                                disabled={(input === "" && stageReq.status !== null)}
                                                 whiteGreenTransfer
-                                                className=""
+                                                className={styles.ButtonTwo}
                                                 size={"xl"}
                                             >
                                                 Cancel

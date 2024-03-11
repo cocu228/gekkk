@@ -170,7 +170,7 @@ const WithdrawFormCrypto = () => {
                     >
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                            header={<span className={styles.TitleColText}>{t("amount")}</span>}
                             onSelect={setInputCurr}
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
@@ -283,17 +283,16 @@ const WithdrawFormCrypto = () => {
 
                             />
                         </ModalAnt>
-                        <div className={styles.Button}>
-                            <div className="col">
+                        <div className={styles.ButtonContainerCenter}>
                                 <Button
                                     size={"xl"}
                                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                                     onClick={showModal}
                                     className="w-full"
+                                    greenTransfer
                                 >
                                     Transfer
                                 </Button>
-                            </div>
                         </div>
                         <div className={styles.BottomFeeInfo}>
                             <span className={styles.BottomFeeInfoText}>

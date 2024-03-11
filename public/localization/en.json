@@ -682,6 +682,7 @@
     "user_sessions": "User sessions",
     "enter_description": "Enter description",
     "confirm_transaction": "Confirm transaction",
-    "type_transaction": "Type transaction"
+    "type_transaction": "Type transaction",
+    "contact": "Contact"
   }
 }

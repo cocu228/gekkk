@@ -20,6 +20,7 @@ import WithdrawFormSepaMobile from '../../../withdraw/ui/forms/sepa/mobile/Withd
 import WithdrawFormBrokerMobile from '../../../withdraw/ui/forms/broker/mobile/WithdrawFormBrokerMobile';
 import WithdrawFormCardToCardMobile from '../../../withdraw/ui/forms/card-to-card/mobile/WithdrawFormCardToCardMobile';
 import { getInitialProps, useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
     curr:ICtxCurrency
@@ -28,6 +29,8 @@ type Props = {
 function GetDisplayedForm({curr}: Props) {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
+    const query = useQuery()
+
 
     const {networkTypeSelect} = useContext(CtxWalletNetworks);
 
@@ -74,7 +77,7 @@ function GetDisplayedForm({curr}: Props) {
     }
 
     useEffect(()=>{
-        setDisplayedForm(getDisplayForm(networkTypeSelect))
+        setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))
     },[initialLanguage, networkTypeSelect])
 
     console.log(networkTypeSelect);
@@ -93,3 +96,9 @@ function GetDisplayedForm({curr}: Props) {
 }
 
 export default GetDisplayedForm
+
+function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }

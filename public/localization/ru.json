@@ -505,7 +505,8 @@
         "language": "Язык",
         "enter_description": "Введите описание",
         "confirm_transaction": "Подтвердить транзакцию",
-        "type_transaction": "Тип транзакции"
+        "type_transaction": "Тип транзакции",
+        "contact": "Контакт"
 
 
         

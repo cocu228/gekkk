@@ -128,9 +128,24 @@
     }
 }
 
+.ButtonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+    &Center{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+}
 .Button{
     width: 100%; 
     margin-bottom: 10px;
+    &Two{
+        width: 120px;
+    }
 }
 
 .BottomFeeInfo{

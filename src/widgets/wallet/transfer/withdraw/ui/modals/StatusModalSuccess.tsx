@@ -3,7 +3,8 @@ import { Modal } from 'antd';
 import Button from '@/shared/ui/button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-
+import styles from "../forms/styles.module.scss"
+import ReceiptIcon from "@/assets/receipt.svg?react"
 
 type Props = {
     open: boolean;
@@ -24,21 +25,7 @@ function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
                 setIsSuccess(false)
                 refresh()
             }}
-            footer={
-                <div className='w-full mt-[60px]'>
-                    <Button
-                        className='w-full'
-                        onClick={()=>{
-                            setIsSuccess(false)
-                            refresh()
-                        }}
-                        size='xl'
-                        blueTransfer
-                    >
-                        {t("close")}
-                    </Button>
-                </div>
-            }
+            footer={null}
         >
             <div className='w-full flex flex-col gap-[30px] items-center'>
                 <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,6 +39,29 @@ function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
                     <span className='text-[12px] text-[#9D9D9D]'>
                         Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete. If it’s not, please, contact <NavLink to={"/support"}><span className='text-[#45AD77]'>our support team</span></NavLink>
                     </span>
+                </div>
+                <div className={styles.ButtonContainer + " mt-[30px] px-4"}>
+                    <Button
+                        className='w-full'
+                        onClick={()=>{
+                            // to receipt TODO
+                        }}
+                        size='xl'
+                        whiteGreenTransfer
+                    >
+                        <ReceiptIcon/>  {t("receipt")}
+                    </Button>
+                    <Button
+                        className='w-full'
+                        onClick={()=>{
+                            setIsSuccess(false)
+                            refresh()
+                        }}
+                        size='xl'
+                        blueTransfer
+                    >
+                        {t("close")}
+                    </Button>
                 </div>
             </div>
         </Modal>

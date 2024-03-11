@@ -268,13 +268,19 @@ function OpenOrders({
                 <div className='mt-4'>
                     {localErrorInfoBox}
                 </div>
-                
-                <div className="mt-8 sm:mt-4">
+
+                <div className="flex gap-4 mt-8 sm:mt-4">
                     <Button
                         size="xl"
                         className="w-full"
                         onClick={cancelOrder}
                     >{t("exchange.cancel_order")}</Button>
+
+                    <Button
+                        gray
+                        className="w-full"
+                        onClick={cancelOrderModal.handleCancel}
+                    >{t("cancel")}</Button>
                 </div>
             </Modal>
         </>

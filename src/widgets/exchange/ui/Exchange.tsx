@@ -209,6 +209,7 @@ function Exchange() {
                                 <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">{t("exchange.you_pay")}</div>
                                 
                                 <InputCurrency.CurrencySelector
+                                    balanceFilter
                                     onSelect={onFromCurrencyChange}
                                     disabled={roomType !== 'default'}
                                     excludedCurrencies={[to.currency]}

@@ -20,37 +20,31 @@ const HeaderMobile = ({ items, actions }) => {
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
     const historyPage = useMatch("/history") //not used
-    const isOnMainPages = !!homePage || !!transfersPage || !!historyPage
+    const isOnMainPages = !!homePage || !!historyPage
     const navigate = useNavigate()
     const location = useLocation()
 
     const headerTitle = () => {
-        switch (location.pathname) {
-            case `/wallet/${currency}`:
+        const page = location.pathname.split('/')[1];
+        console.log(page);
+        switch (page) {
+            case `wallet`:
                 return t("Wallet");
-            case `/partnership-program`:
-                return t("partnership_program.title")
-            case `/wallet/GKE/cashback_program`:
-                return t("cashback_program1")
-            case `/support`:
-                return t("support.title")
-            case `/support/chat`:
-                return t("chat")
-            case `/faq`:
-                return t("FAQ")
-            case `/crypto-assets`:
-                return t("crypto_assets.title")
-            case `/profile-settings`:
-                return t("profile_settings")
-            case `/wallet/${currency}/programs`:
-                return t("programs")
-            case `/wallet/${currency}/no_fee_program`:
-                return t("no_fee_program")
-            case `/transfers/${currency}`:
-                return `${t("transfers") + " " + currency}`
-            case `/exchange`:
-            case `/private-room`:
-                return `${t("exchange_button")}`
+            case `partnership-program`:
+                return t("partnership_program.title");
+            case `support`:
+                return t("support.title");
+            case `faq`:
+                return t("FAQ");
+            case `crypto-assets`:
+                return t("crypto_assets.title");
+            case `profile-settings`:
+                return t("profile_settings");
+            case `transfers`:
+                return t("transfers");
+            case `exchange`:
+            case `private-room`:
+                return t("exchange_button");
             default:
                 return t(`${location.pathname.slice(1)}`)
         }

@@ -10,15 +10,14 @@ import {useTranslation} from 'react-i18next';
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {numberWithSpaces, randomId} from "@/shared/lib/helpers";
-import {apiUpdateCard, IResErrors} from "@/shared/api";
 import {apiActivate, apiUnmask, apiGetCards, apiSetLimits} from "@/shared/(orval)api/gek";
 import {ClientDetails, Card as ICardData, Period, type CardSecretDTO} from "@/shared/(orval)api/gek/model";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
-import {formatCardNumber, formatMonthYear} from "@/widgets/dashboard/model/helpers";
+import {formatMonthYear} from "@/widgets/dashboard/model/helpers";
 import {useSearchParams} from "react-router-dom";
-import {OrderCard} from "@/widgets/wallet/cards-menu/ui/order-card";
+import {OrderCard} from "@/widgets/cards-menu/ui/order-card";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 
 // todo: refactoring

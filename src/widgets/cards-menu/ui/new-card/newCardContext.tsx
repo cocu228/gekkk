@@ -1,5 +1,4 @@
 import {createContext, useContext} from "react";
-import {ICountryData} from "@/shared/config/delivery-coutries-list";
 
 export type IStep = 'IssueNewCard' | 'ConfirmationNewCard' | 'CardHasBeenOrdered';
 

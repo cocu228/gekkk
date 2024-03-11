@@ -5,14 +5,13 @@ import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
 import {Box, Typography, styled, TextField} from '@mui/material';
-import {apiOrderNewCard} from "@/shared/api/bank/order-new-card";
 import Select from "@/shared/ui/select/Select";
-import {getAddressPartOrEmpty} from "@/widgets/wallet/cards-menu/model/helpers";
+import {getAddressPartOrEmpty} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-delivery-options";
 import Loader from "@/shared/ui/loader";
-import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
+import {apiPersonalize} from "@/shared/(orval)api";
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -32,7 +31,6 @@ export function ConfirmationNewCard() {
     const {account} = useContext(CtxRootData);
     const [isOpen, setIsOpen] = useState(false);
     const [deliveryOption, setDeliveryOption] = useState<IDeliveryOption>(null);
-    const mainCard = storeActiveCards(state => state.mainCard);
     const {
         state,
         setStep,
@@ -47,7 +45,7 @@ export function ConfirmationNewCard() {
         })();
     }, []);
     
-    return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
+    return !deliveryOption ? <Loader className={'relative mt-10'}/> : <>
         <Box display="flex" justifyContent="space-between" width="100%">
             <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
             <CloseWindowButton onClick={close}/>
@@ -70,13 +68,8 @@ export function ConfirmationNewCard() {
             </RowItem>
             
             <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("card_type")}</Typography>
-                <Typography variant='b1' color="pale blue">{state.cardType.toLowerCase().capitalize()}</Typography>
-            </RowItem>
-            
-            <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("cardholder").toLowerCase().capitalize()}</Typography>
-                <Typography variant='b1' color="pale blue">{state.cardholderName}</Typography>
+                <Typography variant='b1' color="pale blue">{state.card.cardholder}</Typography>
             </RowItem>
             
             {!state.recipientName ? null : (
@@ -86,40 +79,38 @@ export function ConfirmationNewCard() {
                 </RowItem>
             )}
             
-            {state.cardType !== 'PLASTIC' ? null : <div>
-                <RowItem>
-                    <Typography variant='b1 - bold' color="pale blue">{t("delivery_address")}</Typography>
-                    <Typography variant='b1' maxWidth={'350px'} textAlign={'right'} color="pale blue">{`
-                        ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
-                        ${getAddressPartOrEmpty(state.postalCode)}
-                        ${getAddressPartOrEmpty(state.city)}
-                        ${getAddressPartOrEmpty(state.street)}
-                        ${getAddressPartOrEmpty(state.houseNumber)}
-                        ${state.apartmentNumber ?? ''}
-                    `}</Typography>
-                </RowItem>
+            <RowItem>
+                <Typography variant='b1 - bold' color="pale blue">{t("delivery_address")}</Typography>
+                <Typography variant='b1' maxWidth={'350px'} textAlign={'right'} color="pale blue">{`
+                       ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
+                       ${getAddressPartOrEmpty(state.postalCode)}
+                       ${getAddressPartOrEmpty(state.city)}
+                       ${getAddressPartOrEmpty(state.street)}
+                       ${getAddressPartOrEmpty(state.houseNumber)}
+                       ${state.apartmentNumber ?? ''}
+                   `}</Typography>
+            </RowItem>
+            
+            <RowItem hasBorderBottom alignItems={'center'} paddingBottom={'6px'}>
+                <Typography variant='b1 - bold' color="pale blue">{t("delivery_type")}</Typography>
                 
-                <RowItem hasBorderBottom alignItems={'center'} paddingBottom={'6px'}>
-                    <Typography variant='b1 - bold' color="pale blue">{t("delivery_type")}</Typography>
-                    
-                    <Box width={"200px"} >
-                        <Select className="w-full mt-2"
-                                placeholder='Select type...'
-                                value={state.isExpressDelivery ? 'express' : 'standard'}
-                                options={[{
-                                    label: 'Standard (0 €)',
-                                    value: 'standard',
-                                }, {
-                                    label: `Express (${deliveryOption.cost} €)`,
-                                    value: 'express',
-                                }]}
-                                onSelect={(e: 'express' | 'standard') => setState({
-                                    ...state,
-                                    isExpressDelivery: e === 'express'
-                                })}/>
-                    </Box>
-                </RowItem>
-            </div>}
+                <Box width={"200px"} >
+                    <Select className="w-full mt-2"
+                            placeholder='Select type...'
+                            value={state.isExpressDelivery ? 'express' : 'standard'}
+                            options={[{
+                                label: 'Standard (0 €)',
+                                value: 'standard',
+                            }, {
+                                label: `Express (${deliveryOption.cost} €)`,
+                                value: 'express',
+                            }]}
+                            onSelect={(e: 'express' | 'standard') => setState({
+                                ...state,
+                                isExpressDelivery: e === 'express'
+                            })}/>
+                </Box>
+            </RowItem>
         </Box>
         
         <Box display={"flex"} flexDirection={"column"} gap="6px" paddingTop={"24px"}>
@@ -165,26 +156,42 @@ export function ConfirmationNewCard() {
             <Box display={"flex"} gap="24px" paddingTop={"43px"}>
                 <Button onClick={() => {
                     setIsOpen(false);
-                    apiOrderNewCard({
-                        format: state.cardType,
-                        type: mainCard !== null ? "ADDITIONAL" : "MAIN",
-                        accountId: account.account_id,
-                        cardHolderName: state.cardholderName,
-                        cardHolderPhoneNumber: state.linkedPhone,
-                        
-                        ...(state.cardType === "PLASTIC" ? {
-                            isExpressDelivery: state.isExpressDelivery,
-                            deliveryAddress: {
-                                city: state.city,
-                                street: state.street,
-                                postalCode: state.postalCode,
-                                countryCode: state.countryCode,
-                                streetNumber: state.houseNumber,
-                                recipientName: state.recipientName,
-                                apartmentNumber: state.apartmentNumber
-                            }
-                        } : {})
-                    });
+                    // Order virtual card
+                    apiPersonalize({
+                        isExpressDelivery: state.isExpressDelivery,
+                        deliveryAddress: {
+                            city: state.city,
+                            countryCode: state.countryCode,
+                            postalCode: state.postalCode,
+                            street: state.street,
+                            streetNumber: state.houseNumber,
+                            apartmentNumber: state.apartmentNumber,
+                            recipientName: state.recipientName
+                        }
+                    }, {cardId: state.card.cardId});
+                    
+                    // Order plastic card
+                    // apiBankCards({
+                    //     type: mainCard !== null ? "ADDITIONAL" : "MAIN",
+                    //     accountId: account.account_id,
+                    //     cardHolderName: state.card.cardholder,
+                    //     cardHolderPhoneNumber: state.linkedPhone,
+                    //     format: state.card.isVirtual ? Format.VIRTUAL : Format.PLASCTIC,
+                    //    
+                    //     ...(state.card.type === "PLASTIC" ? {
+                    //         isExpressDelivery: state.isExpressDelivery,
+                    //         deliveryAddress: {
+                    //             city: state.city,
+                    //             street: state.street,
+                    //             postalCode: state.postalCode,
+                    //             countryCode: state.countryCode,
+                    //             streetNumber: state.houseNumber,
+                    //             recipientName: state.recipientName,
+                    //             apartmentNumber: state.apartmentNumber
+                    //         }
+                    //     } : {})
+                    // });
+                    
                     setStep('CardHasBeenOrdered');
                 }}>{t("proceed")}</Button>
                 <Button gray onClick={() => {

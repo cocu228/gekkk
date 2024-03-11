@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_PHONE} from "@/shared/config/mask";
-import {ValidateNewCardState} from "@/widgets/wallet/cards-menu/model/helpers";
+import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";

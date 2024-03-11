@@ -4,7 +4,7 @@ import Button from '@/shared/ui/button/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {useNewCardContext} from "@/widgets/wallet/cards-menu/ui/new-card/newCardContext";
+import {useNewCardContext} from "@/widgets/cards-menu/ui/new-card/newCardContext";
 
 
 export function CardHasBeenOrdered() {

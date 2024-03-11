@@ -1,16 +1,12 @@
 import { Box, Typography, TextField, styled } from '@mui/material';
 import { useNewCardContext } from './newCardContext';
 import Button from '@/shared/ui/button/Button';
-import Select from '@/shared/ui/select/Select';
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_PHONE} from "@/shared/config/mask";
-import {ValidateNewCardState, ValidateOrderCardState} from "@/widgets/wallet/cards-menu/model/helpers";
+import {ValidateOrderCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {Switch} from "antd";
 
 const RowItem = styled(Box, {

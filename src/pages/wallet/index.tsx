@@ -9,7 +9,7 @@ import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import CardsMenu from "@/widgets/wallet/cards-menu/ui/CardsMenu";
+import CardsMenu from "@/widgets/cards-menu/ui/CardsMenu";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";

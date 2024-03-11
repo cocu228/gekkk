@@ -353,7 +353,7 @@ function Exchange() {
                                     <div className="flex gap-4">
                                         <Button disabled={loading} className="w-full" onClick={createOrder}>{t("confirm")}</Button>
 
-                                        <Button gray disabled={loading} className="w-full" onClick={createOrder}>{t("cancel")}</Button>
+                                        <Button gray disabled={loading} className="w-full" onClick={confirmModal.handleCancel}>{t("cancel")}</Button>
                                     </div>
                                 </div>
                             </div>

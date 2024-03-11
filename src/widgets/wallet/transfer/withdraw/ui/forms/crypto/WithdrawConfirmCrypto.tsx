@@ -96,6 +96,7 @@ const WithdrawConfirmCrypto = memo(({
     const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
+        console.log('asdasd')
 
         // В случае когда требуется подпись
         let sign = null;
@@ -461,7 +462,7 @@ const WithdrawConfirmCrypto = memo(({
         <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
         <div className="flex justify-center">
 
-            <div className="w-full flex flex-col items-center self-center w-[90%]">
+            <div className="w-full flex flex-col items-center self-center">
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">

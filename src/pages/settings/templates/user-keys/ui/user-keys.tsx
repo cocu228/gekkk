@@ -16,7 +16,12 @@ import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
 import Modal from "@/shared/ui/modal/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
+import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
 
+interface IChallange {
+  newCredential:string,
+  id:string,
+}
 
 export function UserKeys() {
     const [code, setCode] = useState<string>('');
@@ -26,6 +31,13 @@ export function UserKeys() {
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
     const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
+
+    const [smsSent, setSmsSent] = useState<boolean>(false)
+    const [challenge, setChallenge] = useState<IChallange>({
+      newCredential:"",
+      id:"",
+    })
+
 
 
     function onRemoveKey(id){
@@ -50,13 +62,26 @@ export function UserKeys() {
                     placeholder={t("enter_sms_code")} 
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
+                    disabled={!smsSent}
                 />
             </div>
             <div className="flex flex-row mt-10 min-h-[45px] gap-2">
-                <MobileButton varitant="light" className="w-48">
+                <MobileButton  
+                  varitant="light" 
+                  className="w-48"
+                  onClick={()=> {
+                    RegisterOption(setChallenge, setSmsSent)
+                  }}
+                >
                     Send SMS-code
                 </MobileButton>
-                <MobileButton className="w-24" varitant={code ? 'default' : 'disabeled'}>
+                <MobileButton 
+                  className="w-24" 
+                  varitant={code ? 'default' : 'disabeled'}
+                  onClick={()=>{
+                    RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                  }}  
+                >
                     Create key
                 </MobileButton>
             </div>

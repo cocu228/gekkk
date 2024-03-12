@@ -5,7 +5,7 @@ import styles from './style.module.scss';
 interface Props {
     wrapperClassName?: string;
     className?: string;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
     placeholder?: string;
     type?: ButtonTypes;
     children?: ReactNode;
@@ -14,8 +14,8 @@ interface Props {
 }
 
 export const MobileButton =  forwardRef((props: Props, ref:ForwardedRef<HTMLButtonElement>) => {
-    const onButtonClick = () => {
-        props.onClick();
+    const onButtonClick = (e) => {
+        props.onClick(e);
     };
 
     const variantSelector = (variant: string | undefined) => {

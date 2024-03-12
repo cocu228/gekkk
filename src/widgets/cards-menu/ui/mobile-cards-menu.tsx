@@ -30,7 +30,7 @@ import { Typography } from "@/shared/ui/typography/typography";
 import { Outlet } from "react-router-dom";
 
 // todo: refactoring
-const CardsMenu = ({
+const MobileCardsMenu = ({
     isNewCardOpened,
     setIsNewCardOpened,
     isMobile,
@@ -251,7 +251,7 @@ const CardsMenu = ({
             : <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
     
-    if (isMobile) return (
+    return (
         <div className="flex flex-col items-center gap-2">
         <div className={styles.CarouselBlock}>
             <div className={styles.CarouselBlockMobile}>
@@ -265,11 +265,12 @@ const CardsMenu = ({
                 />
             </div>
         </div>
+        
         {!card ? <Loader className={'relative my-20'}/>
             : isOrderOpened
                 ? !accountDetails
                     ? <Loader/>
-                    : <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
+                    : <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} isMobile/>
                 : (<>
             {card.isVirtual && (
                 <MobileMenuItem
@@ -313,15 +314,7 @@ const CardsMenu = ({
                 leftPrimary={t("show_card_data")}
                 onClick={onClick}
             />
-            
-            {/* {(card.cardStatus === 'BLOCKED_BY_CUSTOMER' || card.cardStatus === 'ACTIVE') && (
-                <MenuItem
-                    alert
-                    onClick={onClick}
-                    dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
-                    leftPrimary={card.cardStatus === 'ACTIVE' ? t("block_card") : t("unblock_card")}
-                />
-            )} */}
+            {/* <Outlet/> */}
             
             <a className={`${styles.link} typography-b1`} href="#">How it works?</a>
 
@@ -516,257 +509,6 @@ const CardsMenu = ({
         </>)}
     </div>
     );
-
-
-    //=============================================================================================================================
-    return <div>
-        <div className='flex w-full justify-between items-center mb-2'>
-            <span className='font-medium text-lg'>{t("cards_menu")}</span>
-            <span
-                onClick={() => setIsNewCardOpened(true)}
-                className='underline text-gray-400 hover:cursor-pointer hover:text-gray-600'
-            >
-                {t("issue_new_card")}
-            </span>
-        </div>
-        
-        <div className={styles.CarouselBlock}>
-            <div className={styles.CarouselBlockContainer}>
-                <BankCardsCarousel
-                    cards={cardsStorage.cards}
-                    refreshKey={cardsStorage.refreshKey}
-                    onSelect={(card) => {
-                        setCard(card);
-                        setSwitchChecked(card?.options?.limits?.disable);
-                    }}
-                />
-            </div>
-        </div>
-        
-        {!card ? <Loader className={'relative my-20'}/>
-            : isOrderOpened
-                ? !accountDetails
-                    ? <Loader/>
-                    : <OrderCard accountDetails={accountDetails} card={card} setIsNewCardOpened={setIsOrderOpened} />
-                : (<>
-            {card.isVirtual && (
-                <MenuItem
-                    onClick={onClick}
-                    dataItem='orderPlastic'
-                    leftPrimary={t("order_plastic_card")}
-                />
-            )}
-            
-            {card.cardStatus === "PLASTIC_IN_WAY" && (
-                <MenuItem
-                    onClick={onClick}
-                    dataItem='activate'
-                    leftPrimary={t("activate_card")}
-                />
-            )}
-            
-            {card.limits
-                .sort(l => l.period === 'MONTHLY' ? -1 : 1)
-                .map((limit, index) =>
-                    <MenuItem
-                        onClick={onClick}
-                        dataItem={limit.period.toLowerCase() + "Limit"}
-                        leftSecondary={t("available")}
-                        leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
-                        rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
-                        rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
-                        className={`rounded-none -my-[1px]
-                    ${index !== 0 ? '' : 'rounded-t-[5px]'}
-                    ${index !== (card.limits.length - 1) ? '' : 'rounded-b-[5px]'}
-                `}
-                    />
-                )}
-            
-            <MenuItem
-                dataItem='disableLimits'
-                leftPrimary={t("disable_limits")}
-                rightPrimary={<Switch checked={switchChecked} />}
-                onClick={onClick}
-            />
-            
-            <MenuItem
-                dataItem='showData'
-                leftPrimary={t("show_card_data")}
-                onClick={onClick}
-            />
-            
-            {(card.cardStatus === 'BLOCKED_BY_CUSTOMER' || card.cardStatus === 'ACTIVE') && (
-                <MenuItem
-                    alert
-                    onClick={onClick}
-                    dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
-                    leftPrimary={card.cardStatus === 'ACTIVE' ? t("block_card") : t("unblock_card")}
-                />
-            )}
-            
-            <Modal
-                title={t("confirm_action")}
-                open={confirmationModal.isModalOpen}
-                onCancel={confirmationModal.handleCancel}
-            >
-                {loading ? <Loader/> : <div className={`${styles.underline}`}>
-                    {selectedItem === "blockCard" && (
-                        <div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("block_selected_bank_card")}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {selectedItem === "unblockCard" && (
-                        <div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("unblock_selected_bank_card")}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {selectedItem === 'activate' && (
-                        <div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("for_security_reasons")}
-                                </div>
-                            </div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("virtual_card_data_for_online")}
-                                </div>
-                            </div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("using_your_physical_card")}
-                                </div>
-                            </div>
-                            <div className="row mb-5">
-                                <div className="col font-bold">
-                                    {t("activate_your_card")}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {(selectedItem === 'dailyLimit' || selectedItem === 'monthlyLimit') && (
-                        <div>
-                            <div className="row mb-2">
-                                <div className="col">
-                                    <span className="font-medium">{t("limit_amount")}</span>
-                                </div>
-                            </div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    <InputCurrency
-                                        onChange={setLimitAmount}
-                                        value={limitAmount.value.string}
-                                        currency={'EUR'} />
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {(selectedItem === 'disableLimits') && (
-                        <div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("disable_limits")}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    {(selectedItem === 'showData') && (
-                        <div>
-                            <div className="row mb-5">
-                                <div className="col">
-                                    {t("show_card_data")}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    
-                    <Form onFinish={() => onConfirm(selectedItem)}>
-                        <div className="row my-5">
-                            <div className="col">
-                                <Button size={"xl"}
-                                        htmlType={"submit"}
-                                        className="w-full"
-                                >{t("confirm")}</Button>
-                            </div>
-                        </div>
-                    </Form>
-                </div>}
-            </Modal>
-            
-            <Modal
-                title={t("card_info")}
-                open={cardInfoModal.isModalOpen}
-                onCancel={() => {
-                    cardInfoModal.handleCancel();
-                    setCardInfo(null);
-                }}
-            >
-                {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span><b>{t("card_number")
-                                .toLowerCase()
-                                .capitalize()
-                            }</b>: **** **{cardInfo.pan.slice(0, 2) + ' ' + cardInfo.pan.slice(2)} ****</span>
-                        </div>
-                    </div>
-                    
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span><b>{t("expiration_date")
-                                }</b>: {formatMonthYear(new Date(cardInfo.expireAt))}
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span><b>{t("card_cvc")}</b>: {cardInfo.cvv ?? '-'}</span>
-                        </div>
-                    </div>
-                    
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span><b>{t("card_owner")}</b>: {cardInfo.owner ?? '-'}</span>
-                        </div>
-                    </div>
-                    
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span><b>{t("card_pin")}</b>: {cardInfo.pin ?? '-'}</span>
-                        </div>
-                    </div>
-                </div>}
-                
-                <Form onFinish={() => {
-                    cardInfoModal.handleCancel();
-                    setCardInfo(null);
-                }}>
-                    <div className="row my-5">
-                        <div className="col">
-                            <Button size={"xl"}
-                                    htmlType={"submit"}
-                                    className="w-full"
-                            >{t("close")}</Button>
-                        </div>
-                    </div>
-                </Form>
-            </Modal>
-        </>)}
-    </div>
 }
 
-export default CardsMenu;
+export default MobileCardsMenu;

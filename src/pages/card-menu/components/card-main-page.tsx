@@ -1,11 +1,11 @@
-import CardsMenu from '@/widgets/cards-menu/ui/CardsMenu';
+import MobileCardsMenu from '@/widgets/cards-menu/ui/mobile-cards-menu';
 import { useState } from 'react';
 
 export function MainCardPage() {
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
 
     return <div>
-        <CardsMenu 
+        <MobileCardsMenu 
             isMobile
             isNewCardOpened={isNewCardOpened}
             setIsNewCardOpened={setIsNewCardOpened} 

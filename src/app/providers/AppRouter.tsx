@@ -15,6 +15,7 @@ import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
+import { OrderCard } from '@/widgets/cards-menu/ui/components/order-card';
 
 const router = createBrowserRouter([
     {
@@ -100,7 +101,17 @@ const router = createBrowserRouter([
             },
             {
                 path: 'card-menu',
-                element: <MainCardPage/>
+                element: <MainCardPage/>,
+                children: [
+                    {
+                        path: 'order',
+                        element: <OrderCard/>
+                    },
+                    {
+                        path: 'chat',
+                        element: <SupportChatAuthorized/>
+                    },
+                ]
             }
         ],
     },

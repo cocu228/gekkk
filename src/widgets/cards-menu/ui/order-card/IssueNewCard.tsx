@@ -56,7 +56,6 @@ export function IssueNewCard() {
                     onChange={switchResidenceAddress}
                 />
             </RowItem>
-            
             <RowItem hasBorderBottom marginTop={"8px"}>
                 <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('Country')}</Typography>
                 <Box width={"250px"} >

@@ -2,7 +2,11 @@
 
 .Select {
   position: relative;
-
+  &Mobile {
+    height: 30px;
+    width: 100%;
+    font-size: 12px;
+  }
   &Icon {
     position: absolute;
     left: 1rem;
@@ -71,7 +75,9 @@
       fill: var(--color-secondary);
     }
   }
-
+  &:placeholder {
+    color: #DCDCD9;
+  }
   & :global(.ant-select-open .ant-select-arrow) {
     background: var(--color-bgSecondary);
   }
@@ -82,6 +88,14 @@
     display: inline-flex;
     align-items: center;
     padding: 0 2.8rem 0 0.575rem;
+  }
+  &:placeholder {
+    color: #DCDCD9;
+  }
+  &Mobile {
+    height: 30px;
+    width: 100%;
+    
   }
 
   &Active {

@@ -19,33 +19,34 @@ export const UnconfirmedTransactions = () => {
     const {refreshKey, account} = useContext(CtxRootData);
     const {showModal, isModalOpen, handleCancel} = useModal();
     const [state, setState] = useState<GetHistoryTrasactionOut[]>([]);
-    
+
     useEffect(() => {
         (async () => {
-            // const response = await apiGetHistoryTransactions({
-            //     currencies: null,
-            //     end: null,
-            //     start: null,
-            //     next_key: null,
-            //     tx_types: [3],
-            //     limit: 10
-            // });
-            
-            // actionResSuccess(response).success(() => {
-            //     const {result} = response.data
-            //     setState(result.filter(item => item.partner_info === ""))
-            // });
+            const response = await apiGetHistoryTransactions({
+                currencies: null,
+                end: null,
+                start: null,
+                next_key: null,
+                tx_types: [3],
+                limit: 10
+            });
+
+            actionResSuccess(response).success(() => {
+                const {result} = response.data
+                setState(result.filter(item => item.partner_info === ""))
+            });
         })();
     }, [refreshKey, account]);
-    
+
     const isOnceInfo = state.length === 1;
+
     const titleModal = isOnceInfo
         ? t("transaction_info")
         : t("unconfirmed_incoming_transactions");
     const content = isOnceInfo
         ? <InfoContent handleCancel={handleCancel} {...state[0]}/>
         : <UnConfTrxList trx={state}/>;
-    
+
     return state.length > 0 && <div className="negative-margin-content">
         <InfoBox>
             <span className="font-semibold">{t("unconfirmed_transactions")} <span
@@ -63,9 +64,10 @@ export const UnconfirmedTransactions = () => {
     </div>
 }
 
-const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
+const UnConfTrxList = ({trx}: { trx: GetHistoryTrasactionOut[] }) => {
+
     const {currencies} = useContext(CtxCurrencies);
-    
+
     return <GTable>
         <GTable.Head className={styles.TableHead}>
             <GTable.Row>
@@ -79,7 +81,7 @@ const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
-            {/* {trx.map((item) => (
+            {trx.map((item) => (
                 <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
                     <TransactionInfo infoList={item}>
                         <GTable.Col>
@@ -87,7 +89,7 @@ const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
                                 <span>{formatForCustomer(item.datetime)}</span>
                             </div>
                         </GTable.Col>
-                        
+
                         <GTable.Col>
                             <div>
                                 <span className={`${item.is_income ? 'text-green' : 'text-red-800'}`}>
@@ -98,7 +100,7 @@ const UnConfTrxList = ({trx}: {trx: GetHistoryTrasactionOut[]}) => {
                         </GTable.Col>
                     </TransactionInfo>
                 </GTable.Row>
-            ))} */}
+            ))}
         </GTable.Body>
     </GTable>
 }

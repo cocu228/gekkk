@@ -3,7 +3,7 @@ import { Typography } from "@/shared/ui/typography/typography"
 import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import style from './style.module.scss'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserKeys } from "../model/use-user-keys";
 import { t } from "i18next";
 import Loader from "@/shared/ui/loader";
@@ -25,10 +25,10 @@ interface IChallange {
 
 export function UserKeys() {
     const [code, setCode] = useState<string>('');
-    const keysList = useUserKeys();
-    const {isModalOpen, handleCancel, showModal} = useModal();
     const [keyToRemove, setKeyToRemove] = useState<UserKey>();
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
+    const keysList = useUserKeys(keyDeleted);
+    const {isModalOpen, handleCancel, showModal} = useModal();
     const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
 
@@ -51,6 +51,8 @@ export function UserKeys() {
           setSessionClosed(n=>!n)
         })
       }
+
+
 
     return (
         <MobileWrapper className="w-[90%]">
@@ -80,6 +82,7 @@ export function UserKeys() {
                   varitant={code ? 'default' : 'disabeled'}
                   onClick={()=>{
                     RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                    setCode("")
                   }}  
                 >
                     Create key

@@ -32,7 +32,7 @@ function GetDisplayedForm({curr}: Props) {
     const query = useQuery()
 
 
-    const {networkTypeSelect} = useContext(CtxWalletNetworks);
+    const {networkTypeSelect, setNetworkType} = useContext(CtxWalletNetworks);
 
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(()=>{
@@ -75,6 +75,8 @@ function GetDisplayedForm({curr}: Props) {
                     </div>;
         }
     }
+
+
 
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))

@@ -481,7 +481,10 @@
     "enter_description": "Beschreibung eingeben",
     "confirm_transaction": "Transaktion bestätigen",
     "type_transaction": "Transaktionstyp",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "your_transfer_code": "Ihr Überweisungscode",
+    "cancel_code": "Abbruchcode",
+    "when_using_confirmation_mobile": "Bei Verwendung der Bestätigung über das Mobilgerät werden Ihre Mittel vom Konto abgebucht, sobald der Benutzer den Code anwendet, jedoch werden die Mittel nur dann dem Empfänger gutgeschrieben, wenn Sie die Überweisung bestätigen."
 
 
 

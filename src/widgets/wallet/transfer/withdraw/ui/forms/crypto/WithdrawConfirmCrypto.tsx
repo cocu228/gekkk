@@ -367,7 +367,7 @@ const WithdrawConfirmCrypto = memo(({
         </div>
         <div className="row mb-2">
             <div className="col">
-                <span className="text-gray-400">Address</span>
+                <span className="text-gray-400">{t("address")}</span>
             </div>
         </div>
         <div className="row mb-4">
@@ -462,7 +462,7 @@ const WithdrawConfirmCrypto = memo(({
         <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
         <div className="flex justify-center">
 
-            <div className="w-full flex flex-col items-start self-center w-[90%]">
+            <div className="flex flex-col items-start self-center w-[90%]">
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">

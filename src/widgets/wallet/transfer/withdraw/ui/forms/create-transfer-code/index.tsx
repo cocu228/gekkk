@@ -1,7 +1,7 @@
 import Button from "@/shared/ui/button/Button";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import Modal from "@/shared/ui/modal/Modal";
-import {Modal as MoadlAnt} from "antd"
+import {Modal as MoadlAnt, Switch} from "antd"
 import CreateCode from "./CreateCode";
 import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,7 @@ import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
-
+import styles from "../styles.module.scss"
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -111,8 +111,35 @@ const CreateTransferCode = () => {
                 *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
             </span>
         </div>
-        <div className="row mb-16">
-            <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
+        <div className="row mb-16 md:mb-2">
+            {md ? <div className="flex flex-row gap-4">
+                <Switch onChange={(e) => setCheckbox(e)}/>
+                <div className='flex items-center'>
+                    {t("use_confirmation")}
+                    <div onClick={()=>{setIsHelpClicked(true)}} className="ml-4 inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                        <img src="/img/icon/UseConfirmation.svg" alt="tooltip"/>
+                    </div>
+                        <MoadlAnt title={<span className={styles.MainModalTitle}>{t("use_confirmation")}</span>} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
+                            <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
+                            <div className="flex flex-row mt-4 items-center">
+                                <img className="mr-2" src="/img/icon/UseConfirmation.svg" alt="tooltip"/>
+                                <div className="flex items-center">
+                                    <span>{t("when_using_confirmation_mobile")}</span>
+                                </div>
+                            </div>
+                            <div className={styles.ButtonContainerCenter}>
+                                <Button
+                                    blueTransfer
+                                    size="xl"
+                                    className="w-full mt-5"
+                                    onClick={()=>{setIsHelpClicked(false)}}
+                                >
+                                    {t("close")}
+                                </Button>
+                            </div>
+                        </MoadlAnt>
+                </div>
+            </div> : <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                 <div className='flex items-center'>
                     {t("use_confirmation")}
                     <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
@@ -138,9 +165,10 @@ const CreateTransferCode = () => {
                             </div>
                         </MoadlAnt>
                 </div>
-            </Checkbox>
+            </Checkbox>}
+                
         </div>
-        <div className="row">
+        {!md ? <div className="row">
             <div className="col">
                 <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
                     <div className="col flex flex-col w-[max-content] gap-2">
@@ -177,13 +205,65 @@ const CreateTransferCode = () => {
                     </div>
                 </div>
             </div>
-        </div>        
-        <div className="row mb-5">
-            <Button disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+        </div> : <div className={styles.PayInfo}>
+                <div className={styles.PayInfoCol}>
+                    <div className="row">
+                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                    </div>
+                    <div className="row">
+                    <span className={styles.PayInfoText}>
+                        {t("you_will_get")}:
+                    </span>
+                    </div>
+                    <div className="row">
+                        <span className={styles.PayInfoTextFee}>
+                            {t("fee")}:
+                        </span>
+                    </div>
+                </div>
+                <div className={styles.PayInfoColValue}>
+
+                    <div className={styles.PayInfoCol}>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}
+                            >
+                                {inputCurr.value.number}
+                            </span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexTextFee}
+                            >
+                                -
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className={styles.PayInfoCol}>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency.$const}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            EUR
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextFee}>
+                            {currency.$const}
+                        </span>
+                    </div>
+                </div>
+                
+            </div>}     
+        <div className={styles.ButtonContainerCenter}>
+            <Button greenTransfer disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
                 onCreateCode()
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={t("your_transfer_code")} open={isModalOpen}>
+            <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={<span className={styles.MainModalTitle}>{t("your_transfer_code")}</span>} open={isModalOpen}>
                 <CreateCodeMobile onClose={()=>{handleCancel();setNewCode("")}} inputCurr={inputCurr} code={newCode}/>
             </MoadlAnt>
         </div>

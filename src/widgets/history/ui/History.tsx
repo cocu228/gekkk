@@ -189,37 +189,51 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, date }: P
                         </GTable.Row>
                     </GTable.Head>
                     <GTable.Body className={styles.TableBody}>
-                        {listHistory.length > 0 ? listHistory.map((item) => {
+                        {listHistory.length > 0 ? listHistory.map((item, index) => {
+                            const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
                             return (
-                                <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
-                                    <TransactionInfo infoList={item}>
-                                        <GTable.Col>
-                                            <div className="ellipsis ellipsis-md">
-                                                <span className="">{formatForCustomer(item.datetime)} {item.tx_type_text}</span>                                            
+                                <>
+                                    <GTable.Row>
+                                        {!doesPrevDateTimeExist ?
+                                            <div className={styles.DataMobile} key={index}>
+                                                {formatForHistoryMobile(item.datetime)}
+                                            </div> : formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime) &&
+                                    
+                                            <div className={styles.DataMobile}>
+                                                {formatForHistoryMobile(item.datetime)}
                                             </div>
-                                            <div className="ellipsis ellipsis-md">
-                                                {item.tag}
-                                            </div>
-                                        </GTable.Col>
-    
-                                        <GTable.Col>
-                                            <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
-                                                {item.status_text}
-                                            </div>
-                                            <div className='text-base font-mono text-right'>
-                                                <span className={`${[15, 16].includes(item.tx_type)
-                                                    ? 'text-gray-600'
-                                                    : item.is_income
-                                                        ? 'text-green'
-                                                        : 'text-red-800'}`}>
-                                                    {[15, 16].includes(item.tx_type) ? '' : !item.is_income ? '-' : '+'}
-                                                    {+item.result_amount} {item.currency}
-                                                </span>
-                                            </div>
-                                        </GTable.Col>
-                                    </TransactionInfo>
-                                </GTable.Row>
+                                        }
+                                    </GTable.Row>
+                                    <GTable.Row cols={2} className={styles.Row + '  hover:font-medium'}>
+                                        <TransactionInfo infoList={item}>
+                                            <GTable.Col>
+                                                <div className="ellipsis ellipsis-md">
+                                                    <span className="">{formatForCustomer(item.datetime)} {item.tx_type_text}</span>
+                                                </div>
+                                                <div className="ellipsis ellipsis-md">
+                                                    {item.tag}
+                                                </div>
+                                            </GTable.Col>
+                                            <GTable.Col>
+                                                <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
+                                                    {item.status_text}
+                                                </div>
+                                                <div className='text-base font-mono text-right'>
+                                                    <span className={`${[15, 16].includes(item.tx_type)
+                                                        ? 'text-gray-600'
+                                                        : item.is_income
+                                                            ? 'text-green'
+                                                            : 'text-red-800'}`}>
+                                                        {[15, 16].includes(item.tx_type) ? '' : !item.is_income ? '-' : '+'}
+                                                        {+item.result_amount} {item.currency}
+                                                    </span>
+                                                </div>
+                                            </GTable.Col>
+                                        </TransactionInfo>
+                                    </GTable.Row>
+                                </>
                             );
+                            
                         }) : (
                             <div className={styles.Row}>
                                 <span>{t("no_have_any_transaction")}</span>
@@ -257,47 +271,17 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, date }: P
                     <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
-                                if(!doesPrevDateTimeExist){
-                                    return(
-                                        <React.Fragment key={index}>
-                                            <div className={styles.DataMobile} key={index}>
-                                                {formatForHistoryMobile(item.datetime)}
-                                            </div>
-                                            <div ref={ref} className={styles.InfoMobile}>
-                                                <TransactionInfo infoList={item}>
-                                                    <div className={styles.TransactionMobile}>
-                                                        <span className={styles.TypeOfTransactionMobile}>
-                                                            {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                        </span>
-                                                        <span className={styles.DescriptionOfTransactionMobile}>
-                                                            {item.tag?item.tag:"..."}
-                                                        </span>
-                                                    </div>
-                                                    <div className='flex flex-row'>
-                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                            <span className={styles.StatusMobile}>
-                                                                {item.status_text}
-                                                            </span>
-                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                            </span>
-                                                        </div>
-                                                        <div className={styles.ArrowBtnMobile}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </TransactionInfo>
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                                }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
                                     return(
                                         <>
-                                            <div className={styles.DataMobile}>
-                                                {formatForHistoryMobile(item.datetime)}
-                                            </div>
+                                            {!doesPrevDateTimeExist ?
+                                                <div className={styles.DataMobile} key={index}>
+                                                    {formatForHistoryMobile(item.datetime)}
+                                                </div> : formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime) &&
+                                        
+                                                <div className={styles.DataMobile}>
+                                                    {formatForHistoryMobile(item.datetime)}
+                                                </div>
+                                            }
                                             <div ref={ref} className={styles.InfoMobile}>
                                                 <TransactionInfo infoList={item}>
                                                     <div className={styles.TransactionMobile}>
@@ -327,39 +311,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat, date }: P
                                             </div>
                                         </>
                                     )
-                                }else{
-                                    return(
-                                        <>
-                                            <div ref={ref} className={styles.InfoMobile}>
-                                                <TransactionInfo infoList={item}>
-                                                    <div className={styles.TransactionMobile}>
-                                                        <span className={styles.TypeOfTransactionMobile}>
-                                                            {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                        </span>
-                                                        <span className={styles.DescriptionOfTransactionMobile}>
-                                                            {item.tag?item.tag:"..."}
-                                                        </span>
-                                                    </div>
-                                                    <div className='flex flex-row'>
-                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                            <span className={styles.StatusMobile}>
-                                                                {item.status_text}
-                                                            </span>
-                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                            </span>
-                                                        </div>
-                                                        <div className={styles.ArrowBtnMobile}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </TransactionInfo>
-                                            </div>
-                                        </>
-                                    )
-                                }
                             })}
                             {
                                 (!loading && listHistory.length >= 10 && !allTxVisibly) &&

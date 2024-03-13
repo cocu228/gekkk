@@ -96,7 +96,7 @@ const WithdrawConfirmCrypto = memo(({
     const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
-
+        console.log(`onConfirm start — stageReq?.status: ${stageReq?.status}`)
         // В случае когда требуется подпись
         let sign = null;
         if (stageReq?.status === 2) {

@@ -1,0 +1,347 @@
+.Title {
+  margin-bottom: 2rem;
+}
+
+.TitleCol {
+  padding-bottom: 15px;
+}
+
+.TitleColText {
+  font-weight: 700;
+  color: #1F3446;
+  font-size: 12px;
+}
+
+.TitleColTextMargin {
+  font-weight: 700;
+  color: #1F3446;
+  font-size: 12px;
+  margin-right: 2rem;
+}
+
+.EURCost {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.25rem;
+  border-radius: 0.5rem;
+  border-top-right-radius: 0;
+  background: #DADADA;
+}
+
+.EURCostValue {
+  font-weight: 700;
+  color: #3A5E66;
+  color: 14px;
+}
+
+.EURCostInfo {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: #3A5E66;
+}
+
+.EURCostInfoText {
+  font-size: 10px;
+}
+
+.EURCostInfoTextUppercase {
+  text-transform: uppercase;
+}
+
+.EURCostInfoTextLink {
+  color: #45AD77;
+}
+
+.EURCostInfoTextLink:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.PayInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-top: 1.5rem;
+  gap: 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 12px;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 70%;
+}
+
+.PayInfoCol {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.PayInfoColValue {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.PayInfoText {
+  color: #3A5E66;
+  text-wrap: nowrap;
+}
+
+.PayInfoTextFee {
+  color: #9D9D9D;
+}
+
+.PayInfoValueFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.PayInfoValueFlexText {
+  width: 100%;
+  font-weight: 600;
+  color: #1F3446;
+  text-align: end;
+  text-wrap: nowrap;
+  overflow: scroll;
+  max-width: 20vw;
+}
+
+.PayInfoValueFlexTextFee {
+  color: #9D9D9D;
+  text-align: start;
+  text-wrap: nowrap;
+  overflow: scroll;
+  max-width: 20vw;
+}
+
+.PayInfoValueFlexTextCurrency {
+  width: 100%;
+  font-weight: 600;
+  color: #1F3446;
+  text-align: start;
+  text-wrap: nowrap;
+}
+
+.ButtonContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.ButtonContainerCenter {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 10px;
+}
+
+.Button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.ButtonTwo {
+  width: 120px;
+}
+
+.BottomFeeInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+.BottomFeeInfoText {
+  color: #9D9D9D;
+  font-size: 10px;
+}
+
+.BottomFeeInfoTextBold {
+  font-weight: bold;
+}
+
+.MainModalTitle {
+  font-size: 12px;
+  color: #1F3446;
+  font-weight: 600;
+}
+
+.ModalLine {
+  border: 0px;
+  height: 1px;
+  background: #3A5E66;
+}
+
+.ModalInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ModalInfoIcon {
+  margin-right: .5rem;
+}
+
+.ModalInfoText {
+  font-size: 10px;
+  color: #7B797C;
+  font-weight: 400;
+}
+
+.ModalRows {
+  margin-left: 1rem;
+}
+
+.ModalRowsTitle {
+  color: #9D9D9D;
+}
+
+.ModalRowsValue {
+  color: #3A5E66;
+  font-weight: 600;
+}
+
+.ModalPayInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-top: 1.5rem;
+  gap: 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 70%;
+}
+
+.ModalPayInfoCol {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.ModalPayInfoColValue {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.ModalPayInfoText {
+  color: #3A5E66;
+  text-wrap: nowrap;
+}
+
+.ModalPayInfoTextFee {
+  color: #9D9D9D;
+}
+
+.ModalPayInfoValueFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ModalPayInfoValueFlexText {
+  width: 100%;
+  font-weight: 600;
+  color: #1F3446;
+  text-align: end;
+  text-wrap: nowrap;
+  overflow: scroll;
+  max-width: 20vw;
+}
+
+.ModalPayInfoValueFlexTextFee {
+  color: #9D9D9D;
+  text-align: start;
+  text-wrap: nowrap;
+  overflow: scroll;
+  max-width: 20vw;
+}
+
+.ModalPayInfoValueFlexTextCurrency {
+  width: 100%;
+  font-weight: 600;
+  color: #1F3446;
+  text-align: start;
+  text-wrap: nowrap;
+}
+/*# sourceMappingURL=styles.module.css.map */

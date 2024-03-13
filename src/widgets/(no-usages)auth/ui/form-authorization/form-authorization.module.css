@@ -1,0 +1,36 @@
+.input.input.input.input.input.input.input {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--new-dark-grey);
+  padding: 0;
+  padding-top: 6px;
+}
+
+.input.input.input.input.input.input.input input {
+  height: 36px;
+  padding: 0;
+  padding-bottom: 12px;
+}
+
+.input.input.input.input.input.input.input input:active {
+  border: 0;
+}
+
+.modal {
+  background: red;
+}
+
+.modal .ant-modal-close {
+  display: none;
+}
+
+.searchInput {
+  width: 100%;
+  background: transparent;
+  color: var(--new-dark-grey);
+}
+
+.searchInput:focus {
+  outline: none;
+}
+/*# sourceMappingURL=form-authorization.module.css.map */

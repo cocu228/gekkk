@@ -9,7 +9,7 @@ export async function SignTX(signData: string) {
 
     const publicKey: PublicKeyCredentialRequestOptions = {
         challenge: hash.digest(),
-        rpId: "localhost",
+        rpId: "gekkard.com",
         allowCredentials: [],
         userVerification: "required",
     }

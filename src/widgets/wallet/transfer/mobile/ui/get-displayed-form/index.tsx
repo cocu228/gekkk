@@ -20,6 +20,7 @@ import WithdrawFormSepaMobile from '../../../withdraw/ui/forms/sepa/mobile/Withd
 import WithdrawFormBrokerMobile from '../../../withdraw/ui/forms/broker/mobile/WithdrawFormBrokerMobile';
 import WithdrawFormCardToCardMobile from '../../../withdraw/ui/forms/card-to-card/mobile/WithdrawFormCardToCardMobile';
 import { getInitialProps, useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
     curr:ICtxCurrency
@@ -28,8 +29,10 @@ type Props = {
 function GetDisplayedForm({curr}: Props) {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
+    const query = useQuery()
 
-    const {networkTypeSelect} = useContext(CtxWalletNetworks);
+
+    const {networkTypeSelect, setNetworkType} = useContext(CtxWalletNetworks);
 
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(()=>{
@@ -51,21 +54,21 @@ function GetDisplayedForm({curr}: Props) {
         
         switch (networkType) {
             case 150:
-                return <WithdrawFormPapayaMobile/>;
+                return <WithdrawFormPapaya/>;
             case 151:
-                return <WithdrawFormSepaMobile/>;
+                return <WithdrawFormSepa/>;
             case 152:
                 return <WithdrawFormSwift/>;
             case 153:
-                return <WithdrawFormCardToCardMobile/>;
+                return <WithdrawFormCardToCard/>;
             case 154:
-                return <WithdrawFormBrokerMobile/>;
+                return <WithdrawFormBroker/>;
             case 155:
                 return <WithdrawFormPhoneNumber/>;
             case 230:
-                return <UniversalTransferFormMobile/>;
+                return <UniversalTransferForm/>;
             case 231:
-                return <CreateTransferCodeMobile/>;
+                return <CreateTransferCode/>;
             default:
                     return <div className='min-h-[50px] mb-3 flex justify-center items-center'>
                         <span className='text-[14px]'>{t("no_actions_for_network")}</span>
@@ -73,10 +76,14 @@ function GetDisplayedForm({curr}: Props) {
         }
     }
 
+
+
     useEffect(()=>{
-        setDisplayedForm(getDisplayForm(networkTypeSelect))
+        setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))
     },[initialLanguage, networkTypeSelect])
 
+    console.log(networkTypeSelect);
+    
 
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
     
@@ -91,3 +98,9 @@ function GetDisplayedForm({curr}: Props) {
 }
 
 export default GetDisplayedForm
+
+function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }

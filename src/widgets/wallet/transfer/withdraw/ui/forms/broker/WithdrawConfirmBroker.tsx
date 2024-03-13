@@ -56,7 +56,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
         
         const {data} = await apiGetUas();
         const {phone} = await getAccountDetails();
-        const {t} = useTranslation()
         
         await apiPaymentSepa(details.current, false, {
             Authorization: phone,

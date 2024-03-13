@@ -46,7 +46,7 @@
 }
 
 .ant-switch {
-  color: var(--color-blue-400);
+  color: #2BAB72;
 }
 
 .ant-switch .ant-switch-inner{
@@ -54,7 +54,15 @@
 }
 
 .ant-switch.ant-switch-checked .ant-switch-inner {
-  background: var(--color-blue-400);
+  background: #2BAB72;
+}
+
+.ant-switch.ant-switch-handle::before {
+  background-color: #285E69;
+}
+
+.ant-switch.ant-switch-checked .ant-switch-handle::before {
+  background-color: #285E69;
 }
 
 .ant-modal-header {

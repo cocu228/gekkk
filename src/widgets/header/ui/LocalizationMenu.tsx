@@ -18,7 +18,7 @@ export const LocalizationMenu = () => {
                                                                         height={25}
                                                                         src="/img/en.svg"
                                                                         alt="en"/>}>EN</DropdownItem>)
-    }, ...(!import.meta.env.DEV ? [] : [{
+    }, {
         key: 'de',
         label: (<DropdownItem onClick={() => onChange("de")} icon={<img width={25}
                                                                         height={25}
@@ -30,7 +30,7 @@ export const LocalizationMenu = () => {
                                                                         height={25}
                                                                         src="/img/ru.svg"
                                                                         alt="ru"/>}>RU</DropdownItem>)
-    }])];
+    }];
 
     return <>
         <Dropdown items={menu}

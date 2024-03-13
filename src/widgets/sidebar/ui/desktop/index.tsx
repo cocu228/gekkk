@@ -4,7 +4,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import IconClose from "@/shared/ui/icons/IconClose";
+import IconCross from "@/shared/ui/icons/IconCross";
 import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
@@ -339,7 +339,7 @@ const SidebarDesktop = () => {
                     {!(privateRooms && privateRooms.length) ? null :
                         <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
                             {privateRooms.map((item, i) => (
-                                <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`}
+                                <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
                                          key={item.timetick}>
                                     <div className={styles.Item}>
                                         <div className="col flex items-center pl-4 w-[85px]">
@@ -373,7 +373,7 @@ const SidebarDesktop = () => {
                                                         roomCloseModal.showModal();
                                                     }}
                                                 >
-                                                    <IconClose fill="inherit" size={16}/>
+                                                    <IconCross fill="inherit" size={16}/>
                                                 </div>
                                             </div>
 
@@ -488,7 +488,7 @@ const SidebarDesktop = () => {
                             size="xl"
                             className="w-full"
                             onClick={() => {
-                                if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
                                     navigate('/exchange');
                                 }
 
@@ -502,7 +502,6 @@ const SidebarDesktop = () => {
                         >Close private exchange room</Button>
                     </div>
                 </Modal>
-
             </div>
     )
 }

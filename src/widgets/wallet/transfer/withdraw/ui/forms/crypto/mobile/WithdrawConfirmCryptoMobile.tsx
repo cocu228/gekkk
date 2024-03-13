@@ -161,7 +161,7 @@ const WithdrawConfirmCryptoMobile = memo(({
 
     return <>
         <div className="flex justify-center">
-            <div className="w-full flex flex-col items-center self-center w-[90%]">
+            <div className="flex flex-col items-center self-center w-[90%]">
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">

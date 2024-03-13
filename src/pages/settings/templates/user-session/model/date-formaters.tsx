@@ -1,16 +1,14 @@
-export function getTimeAndTimeZone(dateTimeString: string): string {
-    let date = new Date(dateTimeString);
+export function getTime(inputDate: number): string {
+    const date = new Date(inputDate * 1000);
 
-    let hours = date.getUTCHours();
-    let minutes = date.getUTCMinutes();
 
-    let formattedHours = hours < 10 ? `0${hours}` : hours.toString();
-    let formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
 
-    let timeZoneOffset = date.getTimezoneOffset() / 60;
-    let timeZone = timeZoneOffset >= 0 ? `+${timeZoneOffset}` : timeZoneOffset.toString();
-
-    return `${formattedHours}:${formattedMinutes} ${timeZone}`;
+    return `${hours}:${minutes}`;
 }
 export function getDate(dateTimeString: string): string {
     let date: Date = new Date(dateTimeString);

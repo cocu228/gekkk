@@ -44,7 +44,7 @@
     color: var(--color-secondary);
 
     @include max-devices("md") {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
     }
   }
 
@@ -125,27 +125,6 @@
 
     @include max-devices("md") {
       min-width: 1.875rem;
-    }
-  }
-
-  &PriceLabel {
-    display: inline-flex;
-    align-items: center;
-    height: 100%;
-    gap: 0.25rem;
-    font-weight: 500;
-    white-space: nowrap;
-    text-align: right;
-
-    @include max-devices("lg") {
-      font-size: 0.875rem;
-      flex-shrink: initial;
-      white-space: initial;
-    }
-
-    @include max-devices("md") {
-      margin-right: -0.3rem;
-      font-size: 0.56rem;
     }
   }
 

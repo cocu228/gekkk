@@ -18,12 +18,11 @@
 .Head {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  min-height: 2.812rem;
+  min-height: 1.812rem;
   margin-bottom: 0.4rem;
 
   @include max-devices(md) {
-    min-height: 2.187rem;
+    min-height: 1.187rem;
     margin-bottom: 0.3rem;
   }
 }

@@ -13,6 +13,9 @@ interface Props {
     gray: boolean;
     red: boolean;
     darkBlue: boolean;
+    whiteGreenTransfer:boolean;
+    greenTransfer:boolean;
+    blueTransfer:boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
     tabIndex: number;
     onClick: React.MouseEventHandler;
@@ -33,6 +36,9 @@ const Button = memo<Partial<Props>>(
          darkBlue = false,
          custom = false,
          text = false,
+         whiteGreenTransfer = false,
+         greenTransfer = false,
+         blueTransfer = false,
          ...props
      }): JSX.Element | null => {
         return (
@@ -42,6 +48,9 @@ const Button = memo<Partial<Props>>(
                 .while(red).do("Red")
                 .while(text).do("Text")
                 .while(darkBlue).do("darkBlue")
+                .while(whiteGreenTransfer).do("whiteGreenTransfer")
+                .while(greenTransfer).do("GreenTransfer")
+                .while(blueTransfer).do("blueTransfer")
                 .while(program).do("Program")
                 .scss(custom ? "" : "Button")}
                     type={htmlType}

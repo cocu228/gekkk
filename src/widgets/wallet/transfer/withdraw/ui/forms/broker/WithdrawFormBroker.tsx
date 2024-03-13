@@ -16,6 +16,7 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 // import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 
 
@@ -25,6 +26,7 @@ const WithdrawFormBroker = () => {
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
+    const {md} = useBreakpoints()
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
 
@@ -52,7 +54,7 @@ const WithdrawFormBroker = () => {
 
     }, [inputCurr.value.number]);
 
-    return (<div className="wrapper">
+    return !md ? (<div className="wrapper">
         <div className="row mb-8 flex flex-col gap-2 md:gap-1 font-medium info-box-warning">
             <div className="col text-xl font-bold">
                 <span>1 EUR = 1 EURG*</span>
@@ -146,6 +148,110 @@ const WithdrawFormBroker = () => {
                 </Button>
             </div>
         </div>
+    </div>) : (<div className="wrapper">
+        <div className="row mb-4">
+            <div className="col">
+                <InputCurrency.Validator
+                    value={inputCurr.value.number}
+                    onError={setInputCurrValid}
+                    description={getWithdrawDesc(min_withdraw, currency.$const)}
+                    validators={[
+                        validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
+                        validateBalance(currency, navigate, t)]}>
+                    <InputCurrency.PercentSelector onSelect={setInputCurr}
+                                                   header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                                   currency={currency}>
+                        <InputCurrency.DisplayBalance currency={currency}>
+                            <InputCurrency
+                                value={inputCurr.value.string}
+                                currency={currency.$const}
+                                onChange={setInputCurr}
+                            />
+                        </InputCurrency.DisplayBalance>
+                    </InputCurrency.PercentSelector>
+                </InputCurrency.Validator>
+            </div>
+        </div>
+        <div className="row mb-4 p-2 flex flex-col gap-2 md:gap-1  bg-[#DADADA] rounded-lg rounded-tr-none">
+                <div className="col text-xl text-[#3A5E66] text-[14px] font-bold">
+                    <span>1 EUR = 1 EURG*</span>
+                </div>
+
+                <div className="col text-[#3A5E66] text-[10px] text-xs">
+                    <span><b>*{t("note")}</b>: {t("exchange_fee")} <b className='text-[#3A5E66]'>{percent_fee}%</b>
+                        {account.rights[AccountRights.IsJuridical] ? null :
+                            <span className="font-normal"> {t("if_you")} <span
+                                className='text-[#45AD77] hover:cursor-pointer hover:underline'
+                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                            >
+                                {t("freeze_GKE_tokens")}    
+                            </span> {t("fee_is")} <b>0%</b>.
+                        </span>}
+                    </span>
+                </div>
+            </div>
+
+
+        
+        <div className="row">
+            <div className="col">
+                <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row">
+                            <span>{t("you_will_pay")}</span>
+                        </div>
+                        <div className="row">
+                            <span>{t("you_will_get")}</span>
+                        </div>
+                        <div className="row">
+                            <span>
+                          {t("fee")}
+                        </span>
+                        </div>
+                    </div>
+                    <div className="col flex flex-col w-[max-content] gap-2">
+                        <div className="row flex items-end">
+                            <span
+                                className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? t("loading")+"..." : <span
+                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
+                        </div>
+                        <div className="row flex items-end">
+                            {loading ? t("loading")+"..." : <span
+                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Modal
+            width={450}
+            open={isModalOpen}
+            footer={null}
+            onCancel={handleCancel}
+            title={t("withdraw_confirmation")}>
+            <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
+        </Modal>
+        <div className="row w-full mt-4 mb-[10px]">
+            <div className="col">
+                <Button
+                    size={"xl"}
+                    disabled={!inputCurr.value.number || inputCurrValid.value || loading}
+                    onClick={showModal}
+                    className="w-full">
+                    Transfer
+                </Button>
+            </div>
+        </div>
+        <div className='w-full flex justify-center'>
+            <span className='text-[#9D9D9D] text-[10px]'>
+                {t("fee_is_perc")} <span className='font-bold'>{percent_fee}%</span> {t("per_transaction")}
+            </span>
+        </div>
+        {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO: Реализовать модалку
+        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
     </div>)
 };
 

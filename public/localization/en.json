@@ -141,6 +141,7 @@
     "create_transfer_code": "Create transfer code",
     "unredeemed_codes_info": "Unredeemed codes info",
     "use_confirmation": "Use confirmation",
+    "when_using_confirmation_mobile": "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer.",
     "when_using_confirmation": "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds.",
     "no_have_transfer_code": "You don't have any transfer codes for this time.",
     "you_made_transfer": "You made a transfer in the amount of:",
@@ -300,6 +301,8 @@
     "sign_out": "Sign Out",
     "main": "Main",
     "exchange": {
+      "you_pay": "You pay",
+      "get_no_less": "Get no less",
       "title": "Crypto exchange",
       "describe": "Cryptocurrency exchange - fast and easily",
       "create_private_exchange_room": "Create private exchange room",
@@ -322,7 +325,7 @@
       "number_of_participants": "Number of participants",
       "leave_the_room": "Leave the room",
       "open_private_exchange_room": "Open private exchange room",
-      "order_execution_depends": "order execution depends on the market situation",
+      "broker_exchange_fee": "Broker exchange Fee 0%",
       "no_opened_orders": "You don't have any opened orders",
       "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
       "select_token": "Select the token",
@@ -333,8 +336,7 @@
       "to": "To",
       "pay_from": "Pay from",
       "recieve_to": "Receive to",
-      "buy": "Buy",
-      "token": "a token",
+      "create_order": "Create order",
       "enter_amount": "Enter amount",
       "balance": "Balance: ",
       "cancel_order": "Cancel order",
@@ -678,6 +680,12 @@
     "change_password": "Change password",
     "user_keys": "User keys",
     "login_and_sign_history": "Login and sign history",
-    "user_sessions": "User sessions"
+    "user_sessions": "User sessions",
+    "enter_description": "Enter description",
+    "confirm_transaction": "Confirm transaction",
+    "type_transaction": "Type transaction",
+    "contact": "Contact",
+    "your_transfer_code": "Your transfer code",
+    "cancel_code": "Cancel code"
   }
 }

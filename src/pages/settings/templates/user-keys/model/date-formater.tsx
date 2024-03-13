@@ -1,17 +1,11 @@
-export function formatDate(inputDate) {
-    let date = new Date(inputDate);
-    
-    let day = date.getUTCDate();
-    let month = date.getUTCMonth() + 1;
-    let year = date.getUTCFullYear() % 100;
+export function formatDate(inputDate: number) {
+    const date = new Date(inputDate * 1000);
 
-    let hour = date.getUTCHours();
-    let minute = date.getUTCMinutes();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
 
-    let formattedDate = `${year < 10 ? '0' : ''}${year}/${month < 10 ? '0' : ''}${month}/${day < 10 ? '0' : ''}${day}`;
-    let formattedTime = `${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute}`;
-    
-    let timeZoneOffset = '+0';
-
-    return `${formattedDate} ${formattedTime} ${timeZoneOffset}`;
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
 }

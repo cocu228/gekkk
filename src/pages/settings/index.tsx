@@ -34,6 +34,7 @@ import { UserKeys } from './templates/user-keys/ui/user-keys';
 import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
 import { LoginAndSignHistory } from './templates/history';
 import { UserSession } from './templates/user-session';
+import { LanguageSettings } from './templates/language';
 
 const areaMap = {
   'identification-status': <IdentificationStatus />,
@@ -46,7 +47,8 @@ const areaMap = {
   'change-password': <ChangePassword/>,
   'user-keys' : <UserKeys />,
   'history': <LoginAndSignHistory/>,
-  'user-sessions': <UserSession/>
+  'user-sessions': <UserSession/>,
+  'language': <LanguageSettings/>
 }
 
 type SettingsSections = keyof typeof areaMap | '';
@@ -84,7 +86,7 @@ export function Settings() {
         marginBottom="36px"
         component={Typography}
         variant="h1"
-        className='typography-h1'
+        className='text-lg'
       >
         {t('my_settings')}
       </Box>}
@@ -107,7 +109,7 @@ export function Settings() {
           marginBottom="19px"
         >
           <Box display="flex" flexDirection="column" gap="24px" >
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {t('general_information')}
             </Typography>
 
@@ -127,11 +129,13 @@ export function Settings() {
               <SettingsButton 
                 icon={<World/>} 
                 text={t('language')}  
+                onClick={() => {setSelectedArea('language')}} 
+                isSelected={selectedArea === 'language'}
               />
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" >
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {md ? 'Access management' : t('account_and_app_settings')}
             </Typography>
 
@@ -160,16 +164,16 @@ export function Settings() {
                 onClick={() => {setSelectedArea('user-sessions')}} 
                 isSelected={selectedArea === 'user-sessions'}
             />
-            <SettingsButton 
+            {/* <SettingsButton 
               icon={<PinCodeIcon/>} 
               text={t('access_management')}  
               onClick={() => {setSelectedArea('access-management')}} 
               isSelected={selectedArea === 'access-management'}
-            />
+            /> */}
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" gap="24px">
-            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'}>
+            <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
               {md ? 'Documents and legal notices' : t('documents')}
             </Typography>
 

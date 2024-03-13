@@ -199,16 +199,14 @@ function DepthOfMarket({
             <div className={styles.RedWrapper}>
                 {getDepthItems(tradeInfo?.asks, 'bottom', 'red')}
             </div>
-            <div className="my-auto">
-                <DepthPrice
-                    loading={loading}
-                    currency={isSwapped ? currencyTo : currencyFrom}
-                    amount={roomKey
-                        ? price
-                        : rate[isSwapped ? currencyTo : currencyFrom]
-                    }
-                />
-            </div>
+            <DepthPrice
+                loading={loading}
+                currency={isSwapped ? currencyTo : currencyFrom}
+                amount={roomKey
+                    ? price
+                    : rate[isSwapped ? currencyTo : currencyFrom]
+                }
+            />
             <div className={styles.GreenWrapper}>
                 {getDepthItems(tradeInfo?.bids, 'top', 'green')}
             </div>

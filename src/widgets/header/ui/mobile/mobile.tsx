@@ -5,47 +5,46 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useLocation, useMatch, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useMatch, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 
 const HeaderMobile = ({ items, actions }) => {
-    const { account } = useContext(CtxRootData);
-    const { t } = useTranslation();
-    const { currency } = useParams()
+    const {account} = useContext(CtxRootData);
+    const {t} = useTranslation();
+    const {currency} = useParams();
+    const [params] = useSearchParams();
+    const roomId = params.get('roomId');
     const homePage = useMatch("/")
     const transfersPage = useMatch("/transfers") //not used
-    const exchangePage = useMatch("/exchange")
-    const historyPage = useMatch("/history") //not used   
-    const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
+    const exchangePage = useMatch("/exchange");
+    const privateRoomPage = useMatch('/private-room');
+    const historyPage = useMatch("/history") //not used
+    const isOnMainPages = !!homePage || !!historyPage
     const navigate = useNavigate()
     const location = useLocation()
 
     const headerTitle = () => {
-        switch (location.pathname) {
-            case `/wallet/${currency}`:
-                return `${currency} ${t("balance")}`
-            case `/wallet/${currency}/about`:
-                return `${currency} ${t("about")}`
-            case `/partnership-program`:
-                return t("partnership_program.title")
-            case `/wallet/GKE/cashback_program`:
-                return t("cashback_program1")
-            case `/support`:
-                return t("support.title")
-            case `/support/chat`:
-                return t("chat")
-            case `/faq`:
-                return t("FAQ")
-            case `/crypto-assets`:
-                return t("crypto_assets.title")
-            case `/profile-settings`:
-                return t("profile_settings")
-            case `/wallet/${currency}/programs`:
-                return t("programs")
-            case `/wallet/${currency}/no_fee_program`:
-                return t("no_fee_program")
-            case `/transfers/${currency}`:
-                return `${t("transfers") + " " + currency}`
+        switch (location.pathname.split('/')[1]) {
+            case `wallet`:
+                return t("Wallet");
+            case `partnership-program`:
+                return t("partnership_program.title");
+            case `support`:
+                return t("support.title");
+            case `faq`:
+                return t("FAQ");
+            case `crypto-assets`:
+                return t("crypto_assets.title");
+            case `profile-settings`:
+                return t("profile_settings");
+            case `transfers`:
+                return t("transfers");
+            case `exchange`:
+            case `private-room`:
+                return t("exchange_button");
+            case 'card-menu':
+                return 'Card menu'
             default:
                 return t(`${location.pathname.slice(1)}`)
         }
@@ -100,11 +99,17 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 </HeaderMenu>
                 :
-                <div className="flex items-center w-full" data-testid="HeaderMenuContainer">
-                    <button className={styles.GoBackBtn} onClick={() => { goBack() }}></button>
+                <div className="flex items-center w-full" onClick={() => { goBack() }} data-testid="HeaderMenuContainer">
+                    <div className={styles.GoBackIcon}></div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>
             }
+
+            {!(exchangePage || privateRoomPage) ? null : (
+                <div className="flex items-center justify-end w-full gap-2 pr-2" data-testid="ExchangeRoomMenu">
+                    <ExchangeRoomMenu roomId={roomId}/>
+                </div>
+            )}
 
             {/* <div className="wrapper w-[32px] ml-2 flex pr-4">
                     <LocalizationMenu/>

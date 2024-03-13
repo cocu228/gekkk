@@ -3,7 +3,7 @@ import { scrollToTop } from "@/shared/lib/helpers";
 import { NavLink, useMatch } from 'react-router-dom';
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useCallback, useContext, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +19,7 @@ export function BottomMenu(){
     
     const { sm, md } = useContext(BreakpointsContext);
     const { totalAmount } = useContext(CtxCurrencies);
+    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>()
 
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
@@ -34,13 +35,21 @@ export function BottomMenu(){
     const historyPage = useMatch("/history") //not used   
     // const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
 
+    useEffect(()=>{
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            setNeedBottomPadding(true)
+        }else{
+            setNeedBottomPadding(false)
+        }
+    },[])
+
     return(
         <>
             {//isOnMainPages &&
                 <>
                     {
                     !!homePage &&
-                        <div className={styles.AssetInfo3}>
+                        <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
                             <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                                 <div className={styles.NewAsset}>
                                     <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
@@ -49,7 +58,7 @@ export function BottomMenu(){
                         </div>
                     }
                     <div className={styles.BottomMobile}>
-                            <div className={styles.BottomMenuMobile}>
+                            <div className={styles.BottomMenuMobile  + " " + (needBottomPadding && styles.AddBottomMenuPadding)}>
                                 <FundsButton/>
                                 <TransfersButton/>
                                 <ExchangeButton/>

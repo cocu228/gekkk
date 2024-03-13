@@ -7,7 +7,7 @@ export interface IStoreListExchangeRooms {
     roomsList: RoomInfo[];
     getRoomsList: () => void;
     addRoom: (info: RoomInfo) => void;
-    removeRoom: (roomNumber: number) => void;
+    removeRoom: (roomId: number) => void;
 }
 
 export const storeListExchangeRooms = create<IStoreListExchangeRooms>()(devtools((set) => ({
@@ -29,11 +29,11 @@ export const storeListExchangeRooms = create<IStoreListExchangeRooms>()(devtools
             ]
         }));
     },
-    removeRoom: (roomNumber) => {
+    removeRoom: (roomId) => {
         set((state) => ({
             ...state,
             roomsList: [
-                ...state.roomsList.filter(r => r.timetick !== roomNumber)
+                ...state.roomsList.filter(r => r.timetick !== roomId)
             ]
         }));
     }

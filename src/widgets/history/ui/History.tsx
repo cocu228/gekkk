@@ -20,15 +20,15 @@ import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {useMatch, useParams} from 'react-router-dom';
 import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import React from 'react';
 
 const { RangePicker } = DatePicker;
 
-const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial<Props>) {
+const History = memo(function ({ currenciesFilter, types, includeFiat, date }: Partial<Props>) {
     const { t } = useTranslation();
 
     const { refreshKey } = useContext(CtxRootData);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
-    // const {currencies} = useContext(CtxCurrencies);
     const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
     const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(listHistory[listHistory.length - 1])
     const [loading, setLoading] = useState(false);
@@ -37,14 +37,14 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
         [dayjs(startOfMonth(new Date())), dayjs()]
         )
-        const {md} = useContext(BreakpointsContext); 
-        const {currency, tab} = useParams()
-        const walletPage = currency || tab  
-        const isHistoryPage = !!useMatch("history")
-        
-        const {isIntersecting,ref} = useIntersectionObserver({
-            threshold:0.9
-        })
+    const {md} = useContext(BreakpointsContext); 
+    const {currency, tab} = useParams()
+    const walletPage = currency || tab  
+    const isHistoryPage = !!useMatch("history")
+    
+    const {isIntersecting,ref} = useIntersectionObserver({
+        threshold:0.9
+    })
         
     
     useEffect(()=>{
@@ -58,6 +58,8 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                     next_key: lastValue.next_key,
                     limit: 10,
                     include_fiat: includeFiat,
+                    end: date ? formatForApi(date[1].toDate()).toString() : null,
+                    start: date ? formatForApi(date[0].toDate()).toString() : null,
                 });
                 
                 if (data.result.length < 10) setAllTxVisibly(true)
@@ -76,17 +78,15 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         setLoading(true);
         setAllTxVisibly(false);
         
-        const {
-            StartDate: start = formatForApi(customDate[0].toDate()),
-            EndDate: end = formatForApi(customDate[1].toDate())
-        } = historyTabs.find(tab => tab.Key === activeTab);
-
+        
+        if (date) console.log(formatForApi(date[0].toDate()), formatForApi(date[1].toDate()));
+            
         const response = await apiGetHistoryTransactions({
             limit: 10,
             tx_types: types,
             currencies: currenciesFilter,
-            end: end.length ? end.toString() : null,
-            start: start.length ? start.toString() : null,
+            end: date ? formatForApi(date[1].toDate()).toString() : null,
+            start: date ? formatForApi(date[0].toDate()).toString() : null,
             include_fiat: includeFiat,
         }, { cancelToken });
 
@@ -126,8 +126,12 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
         const cancelTokenSource = axios.CancelToken.source();
 
         (async () => {
-            if (activeTab !== TabKey.CUSTOM) {
-                await requestHistory(cancelTokenSource.token);
+            try {
+                if (activeTab !== TabKey.CUSTOM) {
+                    await requestHistory(cancelTokenSource.token);
+                }
+            } catch (err: unknown) {
+                console.log(err);
             }
         })()
 
@@ -176,7 +180,7 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                     <GTable.Head className={styles.TableHead}>
                         <GTable.Row>
                             {[t("info"), t("amount")].map(label =>
-                                <GTable.Col className="text-center">
+                                <GTable.Col key={label} className="text-center">
                                     <div className='ellipsis ellipsis-md' data-text={label}>
                                         <span>{label}</span>
                                     </div>
@@ -185,37 +189,51 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                         </GTable.Row>
                     </GTable.Head>
                     <GTable.Body className={styles.TableBody}>
-                        {listHistory.length > 0 ? listHistory.map((item) => {
+                        {listHistory.length > 0 ? listHistory.map((item, index) => {
+                            const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
                             return (
-                                <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
-                                    <TransactionInfo infoList={item}>
-                                        <GTable.Col>
-                                            <div className="ellipsis ellipsis-md">
-                                                <span className="">{formatForCustomer(item.datetime)} {item.tx_type_text}</span>                                            
+                                <>
+                                    <GTable.Row>
+                                        {!doesPrevDateTimeExist ?
+                                            <div className={styles.DataMobile} key={index}>
+                                                {formatForHistoryMobile(item.datetime)}
+                                            </div> : formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime) &&
+                                    
+                                            <div className={styles.DataMobile}>
+                                                {formatForHistoryMobile(item.datetime)}
                                             </div>
-                                            <div className="ellipsis ellipsis-md">
-                                                {item.tag}
-                                            </div>
-                                        </GTable.Col>
-    
-                                        <GTable.Col>
-                                            <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
-                                                {item.status_text}
-                                            </div>
-                                            <div className='text-base font-mono text-right'>
-                                                <span className={`${[15, 16].includes(item.tx_type)
-                                                    ? 'text-gray-600'
-                                                    : item.is_income
-                                                        ? 'text-green'
-                                                        : 'text-red-800'}`}>
-                                                    {[15, 16].includes(item.tx_type) ? '' : !item.is_income ? '-' : '+'}
-                                                    {+item.result_amount} {item.currency}
-                                                </span>
-                                            </div>
-                                        </GTable.Col>
-                                    </TransactionInfo>
-                                </GTable.Row>
+                                        }
+                                    </GTable.Row>
+                                    <GTable.Row cols={2} className={styles.Row + '  hover:font-medium'}>
+                                        <TransactionInfo infoList={item}>
+                                            <GTable.Col>
+                                                <div className="ellipsis ellipsis-md">
+                                                    <span className="">{formatForCustomer(item.datetime)} {item.tx_type_text}</span>
+                                                </div>
+                                                <div className="ellipsis ellipsis-md">
+                                                    {item.tag}
+                                                </div>
+                                            </GTable.Col>
+                                            <GTable.Col>
+                                                <div className={"text-right "+(item.tx_type === 3 && item.partner_info === "" ? "text-orange" : "")}>
+                                                    {item.status_text}
+                                                </div>
+                                                <div className='text-base font-mono text-right'>
+                                                    <span className={`${[15, 16].includes(item.tx_type)
+                                                        ? 'text-gray-600'
+                                                        : item.is_income
+                                                            ? 'text-green'
+                                                            : 'text-red-800'}`}>
+                                                        {[15, 16].includes(item.tx_type) ? '' : !item.is_income ? '-' : '+'}
+                                                        {+item.result_amount} {item.currency}
+                                                    </span>
+                                                </div>
+                                            </GTable.Col>
+                                        </TransactionInfo>
+                                    </GTable.Row>
+                                </>
                             );
+                            
                         }) : (
                             <div className={styles.Row}>
                                 <span>{t("no_have_any_transaction")}</span>
@@ -253,12 +271,17 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                     <div id="MainContainerHistoryMobile" className={styles.MainContainerMobile}>
                             {listHistory.map((item, index) => {
                                 const doesPrevDateTimeExist = listHistory[index-1]?.datetime !== undefined
-                                if(!doesPrevDateTimeExist){
                                     return(
                                         <>
-                                            <div className={styles.DataMobile}>
-                                                {formatForHistoryMobile(item.datetime)}
-                                            </div>
+                                            {!doesPrevDateTimeExist ?
+                                                <div className={styles.DataMobile} key={index}>
+                                                    {formatForHistoryMobile(item.datetime)}
+                                                </div> : formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime) &&
+                                        
+                                                <div className={styles.DataMobile}>
+                                                    {formatForHistoryMobile(item.datetime)}
+                                                </div>
+                                            }
                                             <div ref={ref} className={styles.InfoMobile}>
                                                 <TransactionInfo infoList={item}>
                                                     <div className={styles.TransactionMobile}>
@@ -288,74 +311,6 @@ const History = memo(function ({ currenciesFilter, types, includeFiat }: Partial
                                             </div>
                                         </>
                                     )
-                                }else if(formatForHistoryMobile(listHistory[index].datetime) !== formatForHistoryMobile(listHistory[index-1].datetime)){
-                                    return(
-                                        <>
-                                            <div className={styles.DataMobile}>
-                                                {formatForHistoryMobile(item.datetime)}
-                                            </div>
-                                            <div ref={ref} className={styles.InfoMobile}>
-                                                <TransactionInfo infoList={item}>
-                                                    <div className={styles.TransactionMobile}>
-                                                        <span className={styles.TypeOfTransactionMobile}>
-                                                            {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                        </span>
-                                                        <span className={styles.DescriptionOfTransactionMobile}>
-                                                            {item.tag?item.tag:"..."}
-                                                        </span>
-                                                    </div>
-                                                    <div className='flex flex-row'>
-                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                            <span className={styles.StatusMobile}>
-                                                                {item.status_text}
-                                                            </span>
-                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                            </span>
-                                                        </div>
-                                                        <div className={styles.ArrowBtnMobile}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </TransactionInfo>
-                                            </div>
-                                        </>
-                                    )
-                                }else{
-                                    return(
-                                        <>
-                                            <div ref={ref} className={styles.InfoMobile}>
-                                                <TransactionInfo infoList={item}>
-                                                    <div className={styles.TransactionMobile}>
-                                                        <span className={styles.TypeOfTransactionMobile}>
-                                                            {formatForHistoryTimeMobile(item.datetime)} {item.tx_type_text}
-                                                        </span>
-                                                        <span className={styles.DescriptionOfTransactionMobile}>
-                                                            {item.tag?item.tag:"..."}
-                                                        </span>
-                                                    </div>
-                                                    <div className='flex flex-row'>
-                                                        <div className={styles.StatusAndAmountOfTransactionMobile}>
-                                                            <span className={styles.StatusMobile}>
-                                                                {item.status_text}
-                                                            </span>
-                                                            <span className={item.is_income ? styles.IncomeMobile :styles.AmountMobile}>
-                                                                {item.is_income?"+":"-"}{item.amount + " " + item.currency}
-                                                            </span>
-                                                        </div>
-                                                        <div className={styles.ArrowBtnMobile}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
-                                                                <path fillRule="evenodd" clipRule="evenodd" d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" fill="#9D9D9D"/>
-                                                            </svg>
-                                                        </div>
-                                                    </div>
-                                                </TransactionInfo>
-                                            </div>
-                                        </>
-                                    )
-                                }
                             })}
                             {
                                 (!loading && listHistory.length >= 10 && !allTxVisibly) &&

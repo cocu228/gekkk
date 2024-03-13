@@ -1,18 +1,23 @@
 .inputWrapper {
     border: 1px solid #E0E0E0;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 5px;
 } 
 
 .input {
     width: 100%;
     color: #3A5E66;
-    border-radius: 10px;
+    border-radius: 2px;
     background-color: inherit !important;
     &::placeholder {
         color: #DCDCD9;
     }
     &:focus {
         outline: none;
+    }
+    &:disabled {
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        color: #9D9D9D;
+        background: #E7E7E7;
     }
 }

@@ -1,13 +1,14 @@
 import {useContext} from 'react';
 import styles from './style.module.scss'
 import Select from "@/shared/ui/select/Select";
+import {TabKey} from '@/widgets/exchange/model/types';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
 
 interface TabGroupParams {
     tabs: Record<string, string>,
     activeTab: string,
-    setActiveTab: (key: string) => void,
+    setActiveTab: (key: TabKey) => void,
 }
 
 function SecondaryTabGroup({
@@ -29,7 +30,7 @@ function SecondaryTabGroup({
                             ${styles.Tab}
                             ${tab === activeTab ? 'active' : ''}
                         `}
-                        onClick={() => setActiveTab(tab)}>
+                        onClick={() => setActiveTab(TabKey[tab])}>
                         {tabs[tab]}
                     </button>
                 ))}

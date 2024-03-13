@@ -5,7 +5,7 @@ import { UserKey } from "@/shared/(orval)api/auth/model";
 import parseISO from "date-fns/parseISO";
 
 
-export const useUserKeys = () => {
+export const useUserKeys = (keyChanged:boolean) => {
     const [keys, setKeys] = useState<UserKey[]>([]);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export const useUserKeys = () => {
                 setKeys([]);
             }
         })();
-    }, []);
+    }, [keyChanged]);
 
     return keys;  
 }

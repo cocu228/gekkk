@@ -12,8 +12,7 @@ interface IParams {
     currency: string;
 }
 
-const DepthPrice = ({loading, currency, amount}: IParams) => {
-    const {currencies} = useContext(CtxCurrencies);
+const DepthPrice = ({loading, amount}: IParams) => {
     const [{
         rateState,
         displayAmount
@@ -35,22 +34,21 @@ const DepthPrice = ({loading, currency, amount}: IParams) => {
     
     return (
         <div
-            className={`flex items-center gap-1 my-4 md:my-3.5 font-semibold text-md lg:text-sm md:text-md
+            className={`flex gap-1 my-4 w-full md:my-3.5 font-semibold text-md lg:text-sm md:text-md
                 ${styles.Rate}
                 ${rateState === RateState.UP ? styles.RateUp :
                 rateState === RateState.DOWN ? styles.RateDown : 'fill-none'}`
             }
         >
-            {loading ? (
+            {(loading && !displayAmount) ? (
                 <Loader className='relative h-[25px] w-[25px]' />
-            ) : (
-                <>
-                    <IconArrow/> {displayAmount
-                        ? `~${getCurrencyRounding(displayAmount)}`
-                        : '-'
-                    }
-                </>
-            )}
+            ) : <div className="flex items-center w-full justify-center">
+                {displayAmount ? (
+                    <>~{getCurrencyRounding(displayAmount)} <IconArrow/></>
+                ) : (
+                    <>-</>
+                )}
+            </div>}
         </div>
     )
 }

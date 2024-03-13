@@ -1,25 +1,15 @@
-import React from "react";
-
 interface Props {
     className?: string
     size?: number,
-    fill?: string,
+    stroke?: string,
 }
 
-function IconClose({fill, size, className = ''}: Props) {
+function IconClose({stroke, size, className = ''}: Props) {
     return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 21 22"
-            className={`${className}`}
-            {...(size ? {width: size, height: size} : {})}
-        >
-            <path
-                fillRule="evenodd"
-                d="M4.725 4.825a1.02 1.02 0 000 1.443L9.056 10.6l-4.33 4.331a1.02 1.02 0 101.443 1.444l4.331-4.331 4.331 4.331a1.02 1.02 0 101.444-1.444l-4.331-4.33 4.33-4.332a1.02 1.02 0 00-1.443-1.443L10.5 9.155l-4.331-4.33a1.02 1.02 0 00-1.444 0z"
-                clipRule="evenodd"
-                fill={fill}
-            />
+        <svg width={size} height={size} viewBox="0 0 20 20" fill='transparent' className={className} xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="18" height="18" rx="9" stroke={stroke} stroke-width="2"/>
+            <path d="M6.5 6.5L13.5 13.5" stroke={stroke} stroke-width="2" stroke-linecap="round"/>
+            <path d="M6.5 13.5L13.5 6.50001" stroke={stroke} stroke-width="2" stroke-linecap="round"/>
         </svg>
     );
 }

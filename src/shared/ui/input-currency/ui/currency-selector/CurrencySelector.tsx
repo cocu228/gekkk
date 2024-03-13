@@ -52,8 +52,8 @@ const CurrencySelector: FC<IParams> = ({
 
         <Modal className='max-h-[450px]' width={450} title="Select a token" open={tokenSelectOpen} onCancel={handleCloseTokenSelect}>
             <AssetsTable
+                modal
                 className='-mx-4 -mt-8 min-h-[500px]'
-                modal={true}
                 balanceFilter={balanceFilter}
                 onSelect={($const: string) => {
                     onSelect($const);
@@ -63,7 +63,7 @@ const CurrencySelector: FC<IParams> = ({
                 allowedFlags={allowedFlags}
                 columnKeys={[
                     AssetTableKeys.NAME,
-                    AssetTableKeys.CURRENCY
+                    AssetTableKeys.BALANCE
                 ]}
             />
         </Modal>

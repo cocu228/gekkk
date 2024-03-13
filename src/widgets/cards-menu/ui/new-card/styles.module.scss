@@ -1,0 +1,25 @@
+.BankCard {    
+    max-width: 220px;
+    //min-width: 100px;
+    user-select: none;
+    //min-height: 100px;
+    max-height: 639px;    
+    border-radius: 10px;
+    transition: all .2s;
+    background-color: #c8c8c8;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    aspect-ratio: 1.5852895;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    &:hover {
+        //background: url(/img/payment-card/payment-card-background.jpg);
+        box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
+    }
+}
+.selectDesign {
+    color: #29354C;
+}

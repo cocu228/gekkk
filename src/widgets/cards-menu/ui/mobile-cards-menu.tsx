@@ -106,12 +106,6 @@ const MobileCardsMenu = ({
             return;
         }
         
-        // if (item === 'showData') {
-        //     onConfirm(item);
-        //     cardInfoModal.showModal();
-        //     return;
-        // }
-        
         setLoading(false);
         setSelectedItem(item);
         confirmationModal.showModal();
@@ -270,7 +264,7 @@ const MobileCardsMenu = ({
     
     if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
         return !accountDetails ? <Loader/>
-            : <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
+            : <NewCard isMobile accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
     console.log(selectedItem);
 
@@ -459,6 +453,7 @@ const MobileCardsMenu = ({
                     <Lock /> <div>{card.cardStatus === 'ACTIVE' ? t("block_card") : t("unblock_card")}</div>
                 </MenuButton>
                 <MenuButton 
+                    onClick={() => setIsNewCardOpened(true)}
                     varitant="light" 
                     className="w-[135px] flex flex-row gap-1 items-center justify-center"
                 >

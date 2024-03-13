@@ -39,27 +39,9 @@ function Wallet() {
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    const [needMobile, setNeedMobile] = useState<boolean>(false)
 
-    // TODO: Почему не используются брейкпоинты?
-    useEffect(() => {
-        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-            setNeedMobile(true)
-        }else{
-            setNeedMobile(false)
-        }
-        
-        function handleResize() {
-            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-                setNeedMobile(true)
-            }else{
-                setNeedMobile(false)
-            }
-        }
-        
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    // TODO: Почему не используются брейкпоинты? PS: убрал внутрь Programs этот useEffect 
+
     
     
     let $currency = mockEUR;
@@ -161,9 +143,9 @@ function Wallet() {
                                     <Withdraw/>
                                 </NetworkProvider>
 
-                                {/* TODO: Зачем передача needMobile через 3 файла? */}
+                                {/* TODO: Зачем передача needMobile через 3 файла? PS: Убрал внутрь*/}
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs needMobile={needMobile} data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
@@ -225,7 +207,7 @@ function Wallet() {
                             )
                         }
                         {isOnProgramsPage &&
-                            <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
+                            <Programs data-tag={"programs"} data-name={t("programs")}/>
                         }
                         {isCardsMenu &&
                             <div className="mt-4">

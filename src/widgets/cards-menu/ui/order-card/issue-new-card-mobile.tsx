@@ -159,14 +159,5 @@ export function IssueNewCardMobile() {
                 </MobileButton>
             </div>
         </Box>
-        {/* <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button className='w-full'
-                    disabled={!isValid}
-                    onClick={() => {
-                        setStep('ConfirmationNewCard');
-                    }}
-            >{t("proceed")}</Button>
-            <Button gray onClick={close}>Back</Button>
-        </Box> */}
     </div>
 }

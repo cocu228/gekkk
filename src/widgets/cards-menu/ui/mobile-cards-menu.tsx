@@ -3,7 +3,7 @@ import {NewCard} from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import styles from './style.module.scss';
-import {MouseEvent, MouseEventHandler, useEffect, useState} from "react";
+import {MouseEvent, MouseEventHandler, useEffect, useMemo, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import {useTranslation} from 'react-i18next';
@@ -23,11 +23,13 @@ import {storeAccountDetails} from "@/shared/store/account-details/accountDetails
 import Arrow from '@/assets/arrow.svg?react';
 import Lock from '@/assets/lock.svg?react';
 import Warning from '@/assets/warning.svg?react';
+import Warn from '@/assets/warnn.svg?react';
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
 import { Typography } from "@/shared/ui/typography/typography";
 import { Outlet } from "react-router-dom";
+import { useCardStore } from "../model/currentCardStore";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -63,6 +65,9 @@ const MobileCardsMenu = ({
         cards: null,
         refreshKey: null
     });
+
+
+    const setCurrentCard = useCardStore((state) => state.setCard);
     
     useEffect(() => {
         (async () => {
@@ -88,24 +93,24 @@ const MobileCardsMenu = ({
             ],
             refreshKey: randomId()
         });
+        setCurrentCard(card);
         setCard(card);
     }
-    console.log(selectedItem);
+
     
     const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
         const item = event.currentTarget.getAttribute('data-item');
-        console.log(item);
         
         if (item === 'orderPlastic') {
             setIsOrderOpened(true);
             return;
         }
         
-        if (item === 'showData') {
-            onConfirm(item);
-            cardInfoModal.showModal();
-            return;
-        }
+        // if (item === 'showData') {
+        //     onConfirm(item);
+        //     cardInfoModal.showModal();
+        //     return;
+        // }
         
         setLoading(false);
         setSelectedItem(item);
@@ -236,6 +241,7 @@ const MobileCardsMenu = ({
                             return;
                         }
                         
+                        
                         setCardInfo(data.result);
                         confirmationModal.handleCancel();
                     });
@@ -245,12 +251,130 @@ const MobileCardsMenu = ({
                 break;
         }
     }
+    useEffect(() => {
+        try {
+            apiUnmask({cardId: card.cardId})
+                        .then(({data}) => {
+                            if (data.result.pan === null) {
+                                confirmationModal.handleCancel();
+                                return;
+                            }
+                            
+                            setCardInfo(data.result);
+                            confirmationModal.handleCancel();
+                        })
+        } catch(err: unknown) {
+
+        }
+    }, [card])
     
     if (isNewCardOpened || newCardUrl || (cardsStorage.cards && cardsStorage.cards.length === 0)) {
         return !accountDetails ? <Loader/>
             : <NewCard accountDetails={accountDetails} setIsNewCardOpened={setIsNewCardOpened} />;
     }
+    console.log(selectedItem);
+
+    if (selectedItem == 'how-it-works') {
+        return (
+            <div className="flex items-center justify-center">
+                <div className="substrate w-full rounded-xl">
+                    <p className={`typography-b1 ${styles.howText}`}>
+                    The function of setting / disabling limits allows you to create limits yourself, which regulate your expenses on your card. Limits apply to the
+                    following card transactions:
+                    <br/>
+                    -Cash withdrawal from the card<br/>
+                    -Payment of purchases on the card<br/>
+
+                    Day limit<br/>
+
+                    It is possible to indicate the maximum amount of transactions within one day. For example, if
+                    you specify a daily limit of 1000 EUR, you will not
+                    be able to carry out transactions (cash
+                    withdrawals and purchases) of more than 1000
+                    EUR in one day. In «Available» field you can see
+                    the amount available for use before reaching the
+                    limit. If some amount is held when making a
+                    cash withdrawal or purchase, then the Available value is also reduced by this amount. If the daily
+                    limit is reached, you will not be able to pay for
+                    the purchase or withdraw cash from the card.
+                    <br/>
+                    Month Limit
+                    <br/>
+                    Here it is possible to indicate the amount of
+                    expenses within one month from the moment
+                    the limit is set, for example, 10 000 EUR. In the
+                    case of such a setting, it will not be possible to
+                    carry out transactions (cash withdrawals and
+                    purchases) by more than 10,000 EUR per month.
+                    If specified Daily Limit is more than specified
+                    Monthly limit, the value of the Monthly Limit is
+                    automatically increased to the value of the Daily
+                    Limit. In «Available» field you can see the
+                    amount available for use before reaching the
+                    limit. If some amount is held when making a
+                    cash withdrawal or purchase, then the Available
+                    value is also reduced by this amount. If the
+                    Monthly limit is reached, you will not be able to
+                    pay for the purchase or withdraw cash from the
+                    card.
+                    <br/>
+                    Temporarily disable limits
+                    <br/>
+                    To temporarily deactivate Daily and Monthly
+                    limits you should turn the "Disable Limits
+                    Temporarily” switch to the ON position. You can
+                    only deactivate limits until the first cash
+                    withdrawal or purchase transaction, or until 3
+                    minutes have passed since the deactivation.
+                    After that the "Disable Limits Temporarily”
+                    switch automatically returns to the OFF position.
+                    Next to the switch "Disable Limits Temporarily”,
+                    the timeout counter is displayed.
+                    </p>
+                    <div className="mt-5 h-[50px] flex items-center justify-center">
+                        <MobileButton className="w-[115px]" onClick={() => setSelectedItem('')}>
+                            Back
+                        </MobileButton>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     
+    if (selectedItem === 'showData') {
+        return (
+            <div className="mt-10 flex flex-column justify-center w-full">
+                <div className="substrate flex rounded-lg w-full">
+                {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
+                    <div className='flex flex-row gap-2'>
+                        <Warn className="w-10" />
+                        <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">Be careful, do not to show or tell this data to other people, to avoid using the card or its data without your knowledge.</h3>
+                    </div>
+                    
+                    <div className={`flex items-center justify-center mt-4 ${styles.infoContainer} min-h-[40px]`}>
+                        <span className="typography-b1">**** **<b className={styles.infoData}>{cardInfo.pan.slice(0, 2) + ' ' + cardInfo.pan.slice(2)}</b> ****</span>
+                    </div>
+                    <div className="flex flex-row gap-4 mt-2">
+                        <div className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}>
+                            <span className="typography-b1"><span className={styles.infoPlaceholder}>CV/CVV</span><b className={styles.infoData}> {cardInfo.cvv ?? '-'}</b></span>
+                        </div>
+                        <div className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}>
+                            <span className="typography-b1"><span className={styles.infoPlaceholder}>PIN</span><b className={styles.infoData}> {cardInfo.pin ?? '-'}</b></span>
+                        </div>
+                    </div>
+
+                    <div className="mt-3 flex flex-row justify-end min-h-[40px]">
+                        <MobileButton onClick={() => {
+                            setSelectedItem('f')
+                            confirmationModal.handleCancel()
+                        }}>Close</MobileButton>
+                    </div>
+                </div>}
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="flex flex-col items-center gap-2">
         <div className={styles.CarouselBlock}>
@@ -259,6 +383,7 @@ const MobileCardsMenu = ({
                     cards={cardsStorage.cards}
                     refreshKey={cardsStorage.refreshKey}
                     onSelect={(card) => {
+                        setCurrentCard(card);
                         setCard(card);
                         setSwitchChecked(card?.options?.limits?.disable);
                     }}
@@ -291,15 +416,20 @@ const MobileCardsMenu = ({
             
             {card.limits
                 .sort(l => l.period === 'MONTHLY' ? -1 : 1)
-                .map((limit, index) =>
-                    <MobileMenuItem
-                        onClick={onClick}
-                        dataItem={limit.period.toLowerCase() + "Limit"}
-                        leftSecondary={t("available")}
-                        leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
-                        rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
-                        rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
-                    />
+                .map((limit, index) =>{                    
+                    return (
+                        <MobileMenuItem
+                            progres={(limit.usedLimit/limit.currentLimit)*100}
+                            key={index}
+                            onClick={onClick}
+                            dataItem={limit.period.toLowerCase() + "Limit"}
+                            leftSecondary={t("available")}
+                            leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
+                            rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
+                            rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
+                        />
+                    )
+                }
                 )}
             
             <MobileMenuItem
@@ -314,9 +444,11 @@ const MobileCardsMenu = ({
                 leftPrimary={t("show_card_data")}
                 onClick={onClick}
             />
-            {/* <Outlet/> */}
             
-            <a className={`${styles.link} typography-b1`} href="#">How it works?</a>
+            <a className={`${styles.link} typography-b1`} onClick={(e) => {
+                e.preventDefault();
+                setSelectedItem('how-it-works');
+            }}>How it works?</a>
 
             <div className="flex flex-row min-h-[43px] justify-between w-full">
                 <MenuButton onClick={onClick}                     
@@ -433,10 +565,10 @@ const MobileCardsMenu = ({
                     <Form onFinish={() => onConfirm(selectedItem)}>
                         <div className="row my-5">
                             <div className="flex flex-row min-h-[43px] justify-between">
-                                <MobileButton varitant="light"
-                                        className="w-[120px]"
+                                <MobileButton
+                                        className={`w-[120px] ${styles.lightButton}`}
                                 >{t("confirm")}</MobileButton>
-                                {(selectedItem === "blockCard" || selectedItem === "dailyLimit") && <MobileButton varitant={selectedItem === "blockCard" ? "alarm" : "outline"} className="w-[120px]" onClick={() => confirmationModal.handleCancel()}>
+                                {(selectedItem === "blockCard" || selectedItem === "dailyLimit" || selectedItem === "monthlyLimit") && <MobileButton varitant={selectedItem === "blockCard" ? "alarm" : "outline"} className="w-[120px]" onClick={() => confirmationModal.handleCancel()}>
                                     Cancel
                                 </MobileButton>    
                                 }

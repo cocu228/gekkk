@@ -310,8 +310,8 @@ const WithdrawFormSepa = () => {
                     </div>
                 </div>
                 <div className="row w-full">
-                    <div className="col">
-                        <Select className="w-full"
+                    <div className="row w-full">
+                        <Select className="w-[65%]"
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,
                                     transferDescription: v

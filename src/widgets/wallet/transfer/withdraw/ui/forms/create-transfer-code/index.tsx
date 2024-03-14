@@ -264,7 +264,7 @@ const CreateTransferCode = () => {
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
             <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={<span className={styles.MainModalTitle}>{t("your_transfer_code")}</span>} open={isModalOpen}>
-                <CreateCodeMobile onClose={()=>{handleCancel();setNewCode("")}} inputCurr={inputCurr} code={newCode}/>
+                <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </MoadlAnt>
         </div>
         <div className="row mb-2">

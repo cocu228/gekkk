@@ -45,7 +45,7 @@ const History = memo(function ({
   const { t } = useTranslation();
 
   const { refreshKey } = useContext(CtxRootData);
-  const [activeTab, setActiveTab] = useState<string>(currTab.Key);
+  const [activeTab, setActiveTab] = useState<string>(currTab ? currTab.Key : historyTabs[0].Key);
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
   const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(
     listHistory[listHistory.length - 1]
@@ -154,7 +154,7 @@ const History = memo(function ({
 
     (async () => {
       try {
-        if (currTab.Key !== TabKey.CUSTOM) {
+        if (activeTab !== TabKey.CUSTOM) {
           await requestHistory(cancelTokenSource.token);
         }else{
           await requestHistory()
@@ -165,7 +165,7 @@ const History = memo(function ({
     })();
 
     return () => cancelTokenSource.cancel();
-  }, [refreshKey, currTab, currenciesFilter]);
+  }, [refreshKey, activeTab, currenciesFilter]);
 
   if (!loading && !isHistoryPage && !listHistory.length) {
     return (
@@ -190,7 +190,7 @@ const History = memo(function ({
   if (!md) {
     return (
       <div id={"History"} className="wrapper">
-        {currTab.Key === TabKey.CUSTOM && (
+        {activeTab === TabKey.CUSTOM && (
           <div className="flex flex-col mt-3 mb-3">
             {t("enter_period")}
 

@@ -13,7 +13,7 @@ import { actionResSuccess, getFlagsFromMask } from '@/shared/lib/helpers';
 import { historyTabs } from '../history/model/helpers';
 import { options } from './const';
 import axios from 'axios';
-import { TabKey } from '../history/model/types';
+import { HistoryTab, TabKey } from '../history/model/types';
 import { CtxRootData } from '@/processes/RootContext';
 import TransactionInfo from '../history/ui/TransactionInfo';
 import CurrencySelector from '@/shared/ui/input-currency/ui/currency-selector/CurrencySelector';
@@ -22,9 +22,14 @@ import Loader from '@/shared/ui/loader';
 import { maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 
+
 import History from '../history/ui/History';
+import { useTranslation } from 'react-i18next';
+
+
 
 export default function customSearch() {
+
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
     const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -37,6 +42,8 @@ export default function customSearch() {
     const cards = storeActiveCards((state) => state.activeCards);
     const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
     
+    const {t} = useTranslation()
+
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
     const [selectedTx, setSelectedTx] = useState(options[0]);
@@ -200,12 +207,12 @@ export default function customSearch() {
                     </div>}
                 </div>
                 <div className='flex pt-4 gap-5'>
-                    <Button size='sm' onClick={() => applyHandler()}>Apply</Button>
-                    <Button size='sm' gray={true} className='grey' onClick={handleReset} >Clear</Button>
+                    <Button size='sm' onClick={() => applyHandler()}>{t("apply")}</Button>
+                    <Button size='sm' gray={true} className='grey' onClick={handleReset} >{t("clear")}</Button>
                 </div>
             </form>
         </div>
-        <History currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat} date={date}/>
+        {allAssets && <History currTab={historyTabs[1]} currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat} date={date}/>}
         </>
     );
 }

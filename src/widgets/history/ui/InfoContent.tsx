@@ -247,8 +247,7 @@ const InfoContent = (props: TypeProps) => {
               </div>
             </>
           )}
-          {/* {isNeedConfirm && <InfoConfirmPartner {...props} />} */}
-          <InfoConfirmPartner {...props} />
+          {isNeedConfirm && <InfoConfirmPartner {...props} />}
         </>
       )}
     </>

@@ -18,6 +18,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import styles from "../styles.module.scss"
 
 const WithdrawFormSepa = () => {
     const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
@@ -187,7 +188,7 @@ const WithdrawFormSepa = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>
@@ -207,7 +208,7 @@ const WithdrawFormSepa = () => {
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("IBAN ???")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("IBAN ???")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -218,11 +219,12 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
         </div>
+        
         <div className="flex flex-col mb-8 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("recipient")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -245,7 +247,7 @@ const WithdrawFormSepa = () => {
             <div className="flex flex-row items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("description")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -264,40 +266,56 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
         </div>
-        <div className="row">
-            <div className="col">
-                <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row">
-                            <span>{t("you_will_pay")}</span>
-                        </div>
-                        <div className="row">
-                        <span>
-                            {t("you_will_get")}
-                        </span>
-                        </div>
-                        <div className="row">
-                        <span>
-                            {t("fee")}
-                        </span>
-                        </div>
-                    </div>
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row flex items-end">
-                            <span
-                                className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
-                        </div>
-                        {/* <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
-                        </div> */}
-                    </div>
+        <div className={styles.PayInfo}>
+            <div className={styles.PayInfoCol}>
+                <div className="row">
+                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                </div>
+                <div className="row">
+                <span className={styles.PayInfoText}>
+                    {t("you_will_get")}:
+                </span>
+                </div>
+                <div className="row">
+                    <span className={styles.PayInfoTextFee}>
+                        {t("fee")}:
+                    </span>
                 </div>
             </div>
+            <div className={styles.PayInfoColValue}>
+
+                <div className={styles.PayInfoCol}>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}
+                        </span>
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span
+                            className={styles.PayInfoValueFlexTextFee}
+                        >
+                            -                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div className={styles.PayInfoCol}>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {currency.$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {currency.$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextFee}>
+                        {currency.$const}
+                    </span>
+                </div>
+            </div>
+            
         </div>
         <ModalAnt 
             width={450}
@@ -309,10 +327,11 @@ const WithdrawFormSepa = () => {
             <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
         </ModalAnt>
         <div className="flex flex-col w-full">
-            <div className="col mb-[10px]">
+            <div className={styles.ButtonContainerCenter}>
                 <Button
+                    greenTransfer
                     size={"xl"}
-                    className="w-full"
+                    className={"w-full"}
                     onClick={showModal}
                     disabled={!Object.entries(inputs).filter(el=>el[0] !== "comment").every(v => v[1] !== null && v[1] !== '') || inputCurrValid.value}
                 >

@@ -88,7 +88,7 @@ const WithdrawFormCryptoMobile = () => {
                     >
                         <InputCurrency.PercentSelector
                             currency={currency}
-                            header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                            header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                             onSelect={setInputCurr}
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
@@ -103,7 +103,7 @@ const WithdrawFormCryptoMobile = () => {
                     </InputCurrency.Validator>
                 </div>
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("address")}:</span>
+                    <span className="mr-4 text-[#1F3446] text-[12px] font-semibold">{t("address")}:</span>
                     <div className="basis-[100%]">
                         <Input value={inputs.address} onChange={onInput}
                             disabled={!networkTypeSelect}
@@ -114,7 +114,7 @@ const WithdrawFormCryptoMobile = () => {
                 </div>
                 <div className='flex flex-col items-center  gap-2'>
                     <div className="w-full justify-between flex flex-row items-center">
-                        <span className="mr-4 text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
+                        <span className="mr-4 text-[#1F3446] text-[12px] font-semibold">{t("recipient")}:</span>
                         <div className="basis-[100%]">
                             <Input value={inputs.recipient} onChange={onInput}
                                     disabled={!networkTypeSelect}
@@ -129,7 +129,7 @@ const WithdrawFormCryptoMobile = () => {
                 </div>
 
                 <div className='flex flex-row items-center justify-between gap-2'>
-                    <span className="text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                    <span className="text-[#1F3446] text-[12px] font-semibold">{t("description")}:</span>
                     <Input name={"description"} value={inputs.description} onChange={onInput}
                         disabled={!networkTypeSelect}
                         placeholder={t("enter_description")}

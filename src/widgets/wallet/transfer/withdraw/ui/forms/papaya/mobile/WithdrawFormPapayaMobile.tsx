@@ -72,7 +72,7 @@ const WithdrawFormPapayaMobile = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())

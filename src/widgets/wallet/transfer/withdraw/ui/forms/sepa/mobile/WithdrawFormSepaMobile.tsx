@@ -66,7 +66,7 @@ const WithdrawFormSepaMobile = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                                 onSelect={setInputCurr}
                             >
                                 <InputCurrency.DisplayBalance currency={currency}>
@@ -86,7 +86,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("IBAN ???")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("IBAN")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -101,7 +101,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("recipient")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("recipient")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">
@@ -124,7 +124,7 @@ const WithdrawFormSepaMobile = () => {
             <div className="flex flex-row items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
                     <div className="col">
-                        <span className="font-medium text-[#1F3446] text-[12px] font-bold">{t("description")}:</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("description")}:</span>
                     </div>
                 </div>
                 <div className="row w-full">

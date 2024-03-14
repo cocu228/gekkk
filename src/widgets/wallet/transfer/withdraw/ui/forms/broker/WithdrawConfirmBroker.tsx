@@ -78,6 +78,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             Token: data.result.token
         }).then(async (response) => {
             // @ts-ignore
+            
             const confToken = response.data.errors[0].properties.confirmationToken;
             
             const headers = await signHeadersGeneration(phone, confToken);
@@ -86,9 +87,21 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                 ...headers,
                 Authorization: phone,
                 Token: data.result.token
-            }).then(()=>{handleCancel()}).catch(()=>{setErr(true)});
-            setSuccess(true)
-        }).catch(()=>{setErr(true)});
+            }).then((response)=>{
+                if(md){                    
+                    //@ts-ignore
+                    if(response.data.status === "ok"){
+                        setSuccess(true)
+                    }else{
+                        setErr(true)
+                    }
+                }
+                handleCancel();
+            })
+
+            
+
+        })
     }
 
     return !md ? <div>

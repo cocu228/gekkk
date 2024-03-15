@@ -1,0 +1,14 @@
+:root {
+  --gek-text-primary: #29354C;
+  --gek-dark-blue: #29354C;
+  --gek-additional: #285E69;
+  --gek-green: #2BAB72;
+  --gek-red:#8F123A;
+  --gek-orange:#F8A73E;
+  --gek-background: #F7F7F0;
+  --gek-light-grey:#DCDCD9;
+  --gek-mid-grey:#B9B9B5;
+  --gek-dark-grey: #7B797C;
+  --gek-green-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+}
+/*# sourceMappingURL=variables.css.map */

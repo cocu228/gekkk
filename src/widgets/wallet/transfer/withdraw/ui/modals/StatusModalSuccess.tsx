@@ -3,15 +3,17 @@ import { Modal } from 'antd';
 import Button from '@/shared/ui/button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-
+import styles from "../forms/styles.module.scss"
+import ReceiptIcon from "@/assets/receipt.svg?react"
 
 type Props = {
     open: boolean;
     width?: number;
-    setIsSuccess: Dispatch<SetStateAction<boolean>>
+    setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    refresh: () => void;
 }
 
-function StatusModalSuccess({open, width = 418, setIsSuccess}: Props) {
+function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
   const {t} = useTranslation()
 
   return (
@@ -21,33 +23,15 @@ function StatusModalSuccess({open, width = 418, setIsSuccess}: Props) {
             closeIcon={<div></div>}
             onCancel={()=>{
                 setIsSuccess(false)
+                refresh()
             }}
-            footer={
-                <div className='w-full mt-[60px]'>
-                    <Button
-                        className='w-full'
-                        onClick={()=>{
-                            setIsSuccess(false)
-                        }}
-                        size='xl'
-                        blueTransfer
-                    >
-                        {t("close")}
-                    </Button>
-                </div>
-            }
+            footer={null}
         >
             <div className='w-full flex flex-col gap-[30px] items-center'>
                 <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_1190_22983)">
-                        <path d="M54 0C24.2252 0 0 24.2252 0 54C0 83.7748 24.2252 108 54 108C83.7748 108 108 83.7748 108 54C108 24.2252 83.7748 0 54 0ZM54 8.30769C79.2845 8.30769 99.6923 28.7155 99.6923 54C99.6923 79.2845 79.2845 99.6923 54 99.6923C28.7155 99.6923 8.30769 79.2845 8.30769 54C8.30769 28.7155 28.7155 8.30769 54 8.30769ZM54 29.0769C51.7059 29.0769 49.8462 30.9367 49.8462 33.2308V58.1538C49.8462 60.448 51.7059 62.3077 54 62.3077C56.2941 62.3077 58.1538 60.448 58.1538 58.1538V33.2308C58.1538 30.9367 56.2941 29.0769 54 29.0769ZM54 70.6154C51.7059 70.6154 49.8462 72.4751 49.8462 74.7692C49.8462 77.0633 51.7059 78.9231 54 78.9231C56.2941 78.9231 58.1538 77.0633 58.1538 74.7692C58.1538 72.4751 56.2941 70.6154 54 70.6154Z" fill="#8F123A"/>
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_1190_22983">
-                            <rect width="108" height="108" fill="white"/>
-                        </clipPath>
-                    </defs>
+                    <path d="M54 0C24.3 0 0 24.3 0 54C0 83.7 24.3 108 54 108C83.7 108 108 83.7 108 54C108 24.3 83.7 0 54 0ZM54 99.9C28.62 99.9 8.1 79.38 8.1 54C8.1 28.62 28.62 8.1 54 8.1C79.38 8.1 99.9 28.62 99.9 54C99.9 79.38 79.38 99.9 54 99.9ZM82.08 38.88C82.08 39.96 81.54 41.04 81 41.58L50.76 71.82C50.22 72.36 49.14 72.9 48.06 72.9C46.98 72.9 45.9 72.36 45.36 71.82L28.08 54.54C27 53.5846 26.1692 52.5877 26.1692 51.5077C26.1692 49.3477 27.6231 47.3538 30.3231 47.3538C31.5692 47.5615 32.4 48.6 32.94 49.14L47.52 63.72L75.06 36.18C75.6 35.64 76.68 35.1 77.76 35.1C79.92 34.56 82.08 36.72 82.08 38.88Z" fill="#45AD77"/>
                 </svg>
+
                 <div className='text-center w-[80%] flex flex-col items-center gap-[30px]'>
                     <span className='font-bold text-[20px] text-[#3A5E66]'>
                         Success!
@@ -55,6 +39,29 @@ function StatusModalSuccess({open, width = 418, setIsSuccess}: Props) {
                     <span className='text-[12px] text-[#9D9D9D]'>
                         Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete. If it’s not, please, contact <NavLink to={"/support"}><span className='text-[#45AD77]'>our support team</span></NavLink>
                     </span>
+                </div>
+                <div className={styles.ButtonContainer + " mt-[30px] px-4"}>
+                    <Button
+                        className='w-full'
+                        onClick={()=>{
+                            // to receipt TODO
+                        }}
+                        size='xl'
+                        whiteGreenTransfer
+                    >
+                        <ReceiptIcon/>  {t("receipt")}
+                    </Button>
+                    <Button
+                        className='w-full'
+                        onClick={()=>{
+                            setIsSuccess(false)
+                            refresh()
+                        }}
+                        size='xl'
+                        blueTransfer
+                    >
+                        {t("close")}
+                    </Button>
                 </div>
             </div>
         </Modal>

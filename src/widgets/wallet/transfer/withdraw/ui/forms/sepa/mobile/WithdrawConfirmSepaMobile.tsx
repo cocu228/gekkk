@@ -159,7 +159,7 @@ const WithdrawConfirmSepaMobile = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400 text-[#1F3446] text-[12px] font-bold">{t("amount")}</span>
+                    <span className="text-[#1F3446] text-[12px] font-semibold">{t("amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -169,7 +169,7 @@ const WithdrawConfirmSepaMobile = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400 text-[#1F3446] text-[12px] font-bold">{t("fee")}</span>
+                    <span className="text-[#1F3446] text-[12px] font-semibold">{t("fee")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -183,7 +183,7 @@ const WithdrawConfirmSepaMobile = ({
             </div>
             <div className="row mb-2">
                 <div className="col">
-                    <span className="text-gray-400 text-[#1F3446] text-[12px] font-bold">{t("total_amount")}</span>
+                    <span className="text-[#1F3446] text-[12px] font-semibold">{t("total_amount")}</span>
                 </div>
             </div>
             <div className="row mb-4">
@@ -198,7 +198,7 @@ const WithdrawConfirmSepaMobile = ({
             {!comment ? null : <>
                 <div className="row mb-2">
                     <div className="col">
-                        <span className="text-gray-400 text-[#1F3446] text-[12px] font-bold">{t("comment")}</span>
+                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("comment")}</span>
                     </div>
                 </div>
                 <div className="row mb-4">

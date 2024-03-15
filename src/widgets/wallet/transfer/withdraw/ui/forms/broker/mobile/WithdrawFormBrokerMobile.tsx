@@ -32,6 +32,7 @@ const WithdrawFormBrokerMobile = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
+    const { setRefresh: setReload } = useContext(CtxRootData)
 
     const {inputCurr, setInputCurr} = useInputState()
     const {inputCurrValid, setInputCurrValid} = useInputValidateState()
@@ -68,7 +69,7 @@ const WithdrawFormBrokerMobile = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                                   header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -160,7 +161,7 @@ const WithdrawFormBrokerMobile = () => {
             </span>
         </div>
         <StatusModalError open={isErr} setIsErr={setIsErr}/>
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/>
+        <StatusModalSuccess refresh={setReload} open={isSuccess} setIsSuccess={setIsSuccess}/>
     </div>)
 };
 

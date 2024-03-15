@@ -18,11 +18,12 @@ import IconQR from '@/shared/ui/icons/IconQR';
 import IconAddRoom from '@/shared/ui/icons/IconAddRoom';
 import CreateRoom from '@/shared/ui/create-room/CreateRoom';
 import { IExchangeField } from '@/widgets/exchange/model/types';
+import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
 
 export const ExchangeRoomMenu = ({
-    roomNumber
+    roomId
 }: {
-    roomNumber: string;
+    roomId: string;
 }) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -37,24 +38,33 @@ export const ExchangeRoomMenu = ({
         currency: null
     });
     const [active, setActive] = useState<RoomInfo>(null);
-    const {roomsList, removeRoom} = storeListExchangeRooms(state => state);
     const {
-        addRoom: addExchangeRoom,
-        removeRoom: closeExchangeRoom
+        roomsList,
+        removeRoom,
+        addRoom: addExchangeRoom
     } = storeListExchangeRooms(state => state);
 
     useEffect(() => {
         if (roomsList) {
-            setActive(roomsList.find(r => r.timetick === +roomNumber));
+            setActive(roomsList.find(r => r.timetick === +roomId));
         }
-    }, [roomsList, roomNumber])
+    }, [roomsList, roomId])
 
     return !roomsList ? null : (
         <div>
             <Dropdown
                 className={'min-w-[214px] flex justify-end bg-transparent'}
                 trigger={<div className='flex gap-2 items-center'>
-                    <span className={styles.HeaderTitle}>Rooms</span>
+                    {!active ? <span className={styles.HeaderTitle}>Rooms</span> : (
+                        <div className={styles.RoomsMenuItem}>
+                            <span className={`${styles.RoomsMenuItemTokens} text-white`}>
+                                {active.currency1} - {active.currency2}
+                            </span>
+                            <span className={`${styles.RoomsMenuItemNumber} text-white`}>
+                                {active.timetick}
+                            </span>
+                        </div>
+                    )}
                     <button className={styles.ArrowBtn}></button>
                 </div>}
                 items={[
@@ -88,13 +98,26 @@ export const ExchangeRoomMenu = ({
                         </DropdownItem>
                     }, {
                         key: 'close-room',
-                        label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={roomCloseModal.showModal}>
+                        label: <DropdownItem className='w-full border-b-1 border-[#285e69] bg-[#DCDCD9]' onClick={roomCloseModal.showModal}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#1F3446]'>Close current room</span>
+                                <span className='font-semibold text-[#8F123A]'>Close current room</span>
 
                                 <IconClose
                                     size={22}
-                                    stroke='#285E69'
+                                    stroke='#8F123A'
+                                />
+                            </div>
+                        </DropdownItem>
+                    }, {
+                        key: 'back',
+                        label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={() => navigate('/exchange')}>
+                            <div className='flex justify-between items-center w-full'>
+                                <span className='font-semibold text-[#1F3446]'>Back to exchange</span>
+
+                                <img
+                                    src={LogoutMobileIcon}
+                                    height={22}
+                                    width={22}
                                 />
                             </div>
                         </DropdownItem>
@@ -106,7 +129,7 @@ export const ExchangeRoomMenu = ({
                 width={450}
                 open={roomModal.isModalOpen}
                 onCancel={roomModal.handleCancel}
-                title={t("invite_link")}
+                title={active ? t("invite_link") : t("exchange.open_private_exchange_room")}
             >
                 {active
                     ? <InviteLink roomInfo={active}/>
@@ -116,7 +139,7 @@ export const ExchangeRoomMenu = ({
                         onRoomCreation={(roomInfo) => {
                             addExchangeRoom(roomInfo);
                             roomModal.handleCancel();
-                            navigate(`/private-room/${roomInfo.timetick}`)
+                            navigate(`/private-room?roomId=${roomInfo.timetick}`)
                         }}
                         onToCurrencyChange={(value) => setTo({...to, currency: value})}
                         onFromCurrencyChange={(value) => setFrom({...from, currency: value})}
@@ -174,7 +197,7 @@ const RoomItem = ({
             icon={<div className={styles.RoomsMenuItemIcon}>
                 <IconPrivateRoom/>
             </div>}
-            onClick={() => navigate(`private-room/${room.timetick}`)}
+            onClick={() => navigate(`private-room?roomId=${room.timetick}`)}
         >
             <div className='flex flex-auto justify-between w-full'>
                 <div className={styles.RoomsMenuItem}>

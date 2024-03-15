@@ -1,4 +1,4 @@
-@import "@styles/mixins";
+@import "../../../app/styles/mixins.scss";
 
 
 .Button[type="button"], .Button[type="submit"] {
@@ -11,6 +11,8 @@
   border-radius: 8px;
   padding: 8px 15px;
   transition: all ease-out 0.2s;
+
+
 
   &:focus {
     outline: none;
@@ -106,16 +108,116 @@
       border-color: #285E69;
     }
   }
+
   &.whiteGreenTransfer{
     color:#2BAB72;
     background: #F7F7F0;
     border: 2px solid #2BAB72;
     box-shadow: none;
+    max-height: 43px;
+    max-width: 120px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 14px;
+
+
+    &:focus {
+      outline: none;
+    }
+  
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+      // font-weight: 600; task 701
+    }
+  
+    &:active {
+      background: #d8d8d2;
+      color:#2BAB72;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+
+    &:disabled {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      color: #9D9D9D;
+      background: #E7E7E7;
+    }
+    
+    @include max-devices(md){
+      font-weight: bold;
+    }
+  }
+  &.GreenTransfer{
+    color:#FFFFFF;
+    background: #45AD77;
+    box-shadow: none;
+    max-height: 43px;
+    max-width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+
+
+    &:focus {
+      outline: none;
+    }
+  
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+      // font-weight: 600; task 701
+    }
+  
+    &:active {
+      background: #29354C;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+    
+    &:disabled {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      color: #9D9D9D;
+      background: #E7E7E7;
+    }
+
+    @include max-devices(md){
+      font-weight: bold;
+    }
   }
   &.blueTransfer{
     color:#ffffff;
     background: #285E69;
     box-shadow: none;
+    max-height: 43px;
+    max-width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+
+    &:focus {
+      outline: none;
+    }
+  
+    &:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+      // font-weight: 600; task 701
+    }
+  
+    &:active {
+      background: #1b4249;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+
+    &:disabled {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      color: #9D9D9D;
+      background: #E7E7E7;
+    }
+
+    @include max-devices(md){
+      font-weight: bold;
+    }
   }
 
 }

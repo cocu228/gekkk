@@ -8,6 +8,7 @@ import { formatDate } from '../../user-keys/model/date-formater';
 import { t } from 'i18next';
 import { Typography } from '@/shared/ui/typography/typography';
 import { getDate, getTimeAndTimeZone } from "../model/date-formaters";
+import { getUnixTime, parseISO } from 'date-fns';
 
 
 export function LoginAndSignHistory() {
@@ -24,7 +25,7 @@ export function LoginAndSignHistory() {
                 </div>
             ): null}
             <div className={'substrate substrate w-full rounded-lg flex flex-col'}>
-                <Typography variant='h' color='light-green'>{getTimeAndTimeZone(login?.utc_time)}</Typography>
+                <Typography variant='h' color='light-green'>{getTimeAndTimeZone(getUnixTime(parseISO(login?.utc_time)))}</Typography>
                 <Typography variant='h' color='light-green'>{login.device_info}</Typography>
                 <Typography variant='h' color='light-green'>{t("ip")}: {login?.ip}</Typography>
             </div>

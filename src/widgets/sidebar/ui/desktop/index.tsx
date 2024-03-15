@@ -339,7 +339,7 @@ const SidebarDesktop = () => {
                     {!(privateRooms && privateRooms.length) ? null :
                         <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
                             {privateRooms.map((item, i) => (
-                                <NavLink onClick={NavLinkEvent} to={`private-room/${item.timetick}`}
+                                <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
                                          key={item.timetick}>
                                     <div className={styles.Item}>
                                         <div className="col flex items-center pl-4 w-[85px]">
@@ -488,7 +488,7 @@ const SidebarDesktop = () => {
                             size="xl"
                             className="w-full"
                             onClick={() => {
-                                if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
                                     navigate('/exchange');
                                 }
 

@@ -29,6 +29,8 @@ export default function Transfers({}: Props) {
     const {currencies} = useContext(CtxCurrencies);
     const [network, setNetwork] = useState<number>()
     const [loading, setLoading] = useState<boolean>(false)
+    const {setNetworkType} = useContext(CtxWalletNetworks);
+
 
     useEffect(()=>{
         if(loading){
@@ -37,11 +39,13 @@ export default function Transfers({}: Props) {
             },1000)
         }
     }, [loading])
+    
 
     useEffect(()=>{
         setLoading(true)
         if(query.get("type")){
-            setNetwork(+query.get("type"))
+            setNetworkType(+query.get("type"))
+            setNetwork(+query.get("type"))            
         }
         if(query.get("currency")){
             setCurr(query.get("currency"))

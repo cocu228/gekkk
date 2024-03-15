@@ -1,0 +1,203 @@
+:root {
+  --accent: 0 174 239;
+  --accent-light: 239 243 248;
+  --primary: 58 58 58;
+  --secondary: 180 192 205;
+  --bgPrimary: 255 255 255;
+  --bgSecondary: 248 248 250;
+  --green: 43 182 115;
+  --red: 235 84 84;
+  --orange: 252 154 23;
+  --color-accent: rgb(var(--accent));
+  --color-accent-light: rgb(var(--accent-light));
+  --color-primary: rgb(var(--primary));
+  --color-secondary: #CED4DA;
+  --color-bgPrimary: rgb(var(--bgPrimary));
+  --color-bgSecondary: rgb(var(--bgSecondary));
+  --color-green: rgb(var(--green));
+  --color-red: rgb(var(--red));
+  --color-orange: rgb(var(--orange));
+  --color-main-bg: #f7f7f0;
+  --color-blue-300: #1fb6ff;
+  --color-blue-400: #00AEEF;
+  --color-gray-200: #dee2e7;
+  --color-gray-300: #F8F8FA;
+  --color-gray-400: #b4c0cd;
+  --color-gray-450: #A6B6C6;
+  --color-gray-500: #888a92;
+  --color-gray-600: #3a3a3a;
+  --color-red-800: #EB5454;
+  --sidebar-width: 21rem;
+  --sidebar-width-xxxl: 19rem;
+  --sidebar-width-xxl: 17rem;
+  --content-pad-left: 6rem;
+  --content-pad-right: 9rem;
+  --content-pad-top: 3rem;
+  --content-pad-left-xxl: 3.6rem;
+  --content-pad-right-xxl: 3.6rem;
+  --content-pad-left-xl: 2.4rem;
+  --content-pad-right-xl: 2.4rem;
+  --content-pad-left-md: 1rem;
+  --content-pad-right-md: 1rem;
+  --content-pad-top-md: 1rem;
+  --content-pad-horizontal-md: 1rem;
+  --content-margin-horizontal-negative-md: -16px;
+  --modal-pad-horizontal: 3.5rem;
+  --modal-pad-horizontal-sm: 1.56rem;
+  --modal-pad-horizontal-negative: -3.5rem;
+  --modal-pad-horizontal-sm-negative: -1.56rem;
+  --border-radius: 6px;
+  --card-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+  --card-shadow-blured: 8px 8px 25px 0 rgba(0, 0, 0, 0.12);
+  --dropdown-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
+  --new-brand-dark-blue: #29354C;
+  --new-brand-gradient: linear-gradient(45deg, #00AEEF 0%, #72BF44 100%);
+  --new-brand-white: #F7F7F0;
+  --new-pale-grey: #e7e7e7ff;
+  --new-strokes: #e0e0e0ff;
+  --new-light-grey: #b1b1b1ff;
+  --new-mid-grey: #9d9d9dff;
+  --new-dark-grey: #676767ff;
+  --new-dark-blue: #29354Cff;
+  --new-pale-blue: #285E69ff;
+  --new-pale-green: #2BAB72ff;
+  --new-green: #2BAB72ff;
+  --new-light-blue: #e1f1f6ff;
+  --new-light-green: #e2ffeeff;
+  --new-green-numbers: #2BAB72ff;
+  --new-red-numbers: #8D1239ff;
+  --new-FFFFFF: #FFFFFF;
+  --new-FEEEEE65: #EEEEEEA6;
+  --new-F4F4F4: #f4f4f4;
+  --new-active-account-shadow: 3px 2px 8px 0px #A8A8A84A, 13px 8px 15px 0px #A8A8A842, 28px 17px 20px 0px #A8A8A826, 50px 30px 23px 0px #A8A8A80A, 79px 47px 26px 0px #A8A8A803;
+}
+
+.ant-input, .ant-input[type="tel"], .ant-input[type="password"] {
+  padding: 20px 12px 20px 12px;
+  border-color: var(--color-secondary);
+  font-weight: normal;
+}
+
+.ant-input:disabled, .ant-input[type="tel"]:disabled, .ant-input[type="password"]:disabled {
+  background-color: var(--color-gray-300) !important;
+}
+
+.ant-input:hover, .ant-input[type="tel"]:hover, .ant-input[type="password"]:hover {
+  border-color: var(--color-blue-400);
+}
+
+.ant-picker-cell .ant-picker-cell-in-view .ant-picker-cell-range-end .ant-picker-cell-today {
+  background: red;
+}
+
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background: #285E69;
+}
+
+.ant-picker-range .ant-picker-active-bar {
+  background: #285E69;
+}
+
+.ant-picker:hover, .ant-picker-focused {
+  border-color: #285E69;
+}
+
+.ant-picker {
+  border-color: var(--color-secondary);
+}
+
+.anticon-swap-right svg {
+  margin-top: 0.075rem;
+}
+
+.anticon-swap-right svg path {
+  d: path("M 868.06 412.8025 C 873.295 407.2675 878.53 401.7325 878.53 396.205 C 883.7575 390.67 883.7575 379.6 883.7575 374.065 C 883.7575 368.53 883.7575 357.4675 878.53 351.9325 C 873.295 346.3975 873.295 340.8625 868.06 335.3275 L 658.78 113.9725 C 637.855 91.84 606.46 91.84 585.535 113.9725 C 564.61 136.1125 564.61 169.315 585.535 191.4475 L 705.8725 318.73 L 98.9575 318.73 C 67.57 318.73 46.6375 340.8625 46.6375 374.065 C 46.6375 407.2675 67.57 429.4075 98.9575 429.4075 L 705.8725 429.4075 L 585.535 556.6825 C 564.61 578.8225 564.61 612.025 585.535 634.1575 C 606.46 656.29 637.855 656.29 658.78 634.1575 L 868.06 412.8025 Z");
+}
+
+.ant-switch {
+  color: #2BAB72;
+}
+
+.ant-switch .ant-switch-inner {
+  background: var(--color-gray-400);
+}
+
+.ant-switch.ant-switch-checked .ant-switch-inner {
+  background: #2BAB72;
+}
+
+.ant-switch.ant-switch-handle::before {
+  background-color: #285E69;
+}
+
+.ant-switch.ant-switch-checked .ant-switch-handle::before {
+  background-color: #285E69;
+}
+
+.ant-modal-header {
+  margin: 10px 30px 0 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .ant-modal-header {
+    margin: 0;
+  }
+}
+
+.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+  border-color: var(--color-blue-400);
+}
+
+.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled {
+  background-color: var(--color-gray-300) !important;
+}
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover, .ant-input-affix-wrapper-focused {
+  border-color: var(--color-blue-400);
+}
+
+.ant-select-selection-placeholder {
+  color: #495057 !important;
+}
+
+.anticon {
+  font-size: 20px;
+}
+
+.ant-form-item-explain {
+  margin-top: 4px;
+}
+
+.ant-input-affix-wrapper > .ant-input[type="password"], .ant-input-affix-wrapper > .ant-input[type="text"] {
+  padding-top: 16px;
+  padding-left: 0;
+  padding-bottom: 16px;
+}
+
+.ant-carousel .slick-dots li {
+  margin-inline: 3px;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: #285E69;
+}
+
+.ant-carousel .slick-dots li button {
+  height: 5px;
+  border-radius: 2px;
+  background: var(--color-gray-400);
+}
+
+.ant-select-item-option {
+  height: 60px !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ant-form {
+  font-family: inherit;
+}
+/*# sourceMappingURL=(cs)antd.css.map */

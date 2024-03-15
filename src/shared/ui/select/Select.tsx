@@ -6,6 +6,7 @@ import IconDropdownArrow from '../icons/IconDropdownArrow';
 interface Props extends SelectProps {
     prefixIcon?: ComponentType<SVGProps<SVGSVGElement>>;
     name?: string;
+    isMobile?: boolean;
 }
 
 const Select = memo<Props>(({prefixIcon: Icon, ...props}): JSX.Element | null => {

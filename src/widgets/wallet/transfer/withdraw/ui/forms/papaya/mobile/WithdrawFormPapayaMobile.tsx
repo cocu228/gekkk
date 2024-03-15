@@ -72,7 +72,7 @@ const WithdrawFormPapayaMobile = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -165,7 +165,7 @@ const WithdrawFormPapayaMobile = () => {
         </Modal>
         
         <StatusModalError open={isErr} setIsErr={setIsErr}/>
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/>
+        <StatusModalSuccess refresh={setReload} open={isSuccess} setIsSuccess={setIsSuccess}/>
         <div className="row w-full mb-[10px]">
             <div className="col">
                 <Button

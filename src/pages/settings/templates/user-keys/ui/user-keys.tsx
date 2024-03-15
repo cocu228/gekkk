@@ -3,7 +3,7 @@ import { Typography } from "@/shared/ui/typography/typography"
 import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import style from './style.module.scss'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserKeys } from "../model/use-user-keys";
 import { t } from "i18next";
 import Loader from "@/shared/ui/loader";
@@ -16,16 +16,28 @@ import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
 import Modal from "@/shared/ui/modal/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
+import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
 
+interface IChallange {
+  newCredential:string,
+  id:string,
+}
 
 export function UserKeys() {
     const [code, setCode] = useState<string>('');
-    const keysList = useUserKeys();
-    const {isModalOpen, handleCancel, showModal} = useModal();
     const [keyToRemove, setKeyToRemove] = useState<UserKey>();
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
+    const keysList = useUserKeys(keyDeleted);
+    const {isModalOpen, handleCancel, showModal} = useModal();
     const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
+
+    const [smsSent, setSmsSent] = useState<boolean>(false)
+    const [challenge, setChallenge] = useState<IChallange>({
+      newCredential:"",
+      id:"",
+    })
+
 
 
     function onRemoveKey(id){
@@ -40,6 +52,8 @@ export function UserKeys() {
         })
       }
 
+
+
     return (
         <MobileWrapper className="w-[90%]">
             <div className="substrate w-full rounded-lg flex flex-row justify-between items-center">
@@ -50,13 +64,27 @@ export function UserKeys() {
                     placeholder={t("enter_sms_code")} 
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
+                    disabled={!smsSent}
                 />
             </div>
             <div className="flex flex-row mt-10 min-h-[45px] gap-2">
-                <MobileButton varitant="light" className="w-48">
+                <MobileButton  
+                  varitant="light" 
+                  className="w-48"
+                  onClick={()=> {
+                    RegisterOption(setChallenge, setSmsSent)
+                  }}
+                >
                     Send SMS-code
                 </MobileButton>
-                <MobileButton className="w-24" varitant={code ? 'default' : 'disabeled'}>
+                <MobileButton 
+                  className="w-24" 
+                  varitant={code ? 'default' : 'disabeled'}
+                  onClick={()=>{
+                    RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                    setCode("")
+                  }}  
+                >
                     Create key
                 </MobileButton>
             </div>
@@ -66,7 +94,7 @@ export function UserKeys() {
                 {keysList.map((key,index) => <div className='substrate w-full rounded-lg flex flex-row items-center justify-between mt-6 max-h-[500px] gap-3'>
                 <div className="w-4/5 overflow-hidden">
                 {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-                    <Typography variant="p" color="light-green">{formatDate(key?.utc_create)}</Typography>
+                    <Typography variant="p" color="light-green">{formatDate(getUnixTime(parseISO(key?.utc_create)))}</Typography>
                     <Typography variant="p" color="light-green">{t("type")}: {key.key_type}</Typography>
                     <Typography variant="h" color="light-green">{t("public_key")}: {key?.public_key}</Typography>
                 </div>

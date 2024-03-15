@@ -21,5 +21,7 @@ export interface Props {
     className: string,
     currenciesFilter: string[],
     types: TransactTypeEnum[],
-    includeFiat: boolean
+    includeFiat: boolean,
+    date:[dayjs.Dayjs,dayjs.Dayjs],
+    currTab?: HistoryTab,
 }

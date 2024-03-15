@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 import CashbackCard from './CashbackCard';
 import CashbackCardMobile from './CashbackCardMobile';
@@ -8,10 +8,9 @@ import { dealsData } from '../model/deals-data';
 
 interface IParams{
     currency:string,
-    mobile?:boolean
 }
 
-const CashbackProgram = ({currency, mobile}:IParams) => {
+const CashbackProgram = ({currency}:IParams) => {
     // const getDeals = storeDeals(state => state.getDeals);
     // const dealsDataSelector = dealsSelector();
 
@@ -21,6 +20,26 @@ const CashbackProgram = ({currency, mobile}:IParams) => {
     //     })()
     // }, [])
 
+    const [needMobile, setNeedMobile] = useState<boolean>(false)
+    useEffect(() => {
+        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+            setNeedMobile(true)
+        }else{
+            setNeedMobile(false)
+        }
+        
+        function handleResize() {
+            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
+                setNeedMobile(true)
+            }else{
+                setNeedMobile(false)
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+
     return (
         <>
             <div className='grid grid-cols-1 justify-center rlative'>
@@ -28,7 +47,7 @@ const CashbackProgram = ({currency, mobile}:IParams) => {
                     ? dealsData[currency].map(cashback => {
                         const { id, name, accrualPeriod, className, mobileModalColor, iconPath, conditions, isActive } = cashback;
 
-                        return !mobile
+                        return !needMobile
                         ? (
                             <CashbackCard
                                 key={id}

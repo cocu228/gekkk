@@ -11,6 +11,9 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { CtxWalletData } from "../../model/context";
 import Decimal from "decimal.js";
 import { useTranslation } from "react-i18next";
+import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
     const [localErrorHunter, , codeTxInfoErrorInfoBox] = useError();
@@ -37,14 +40,29 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
 
     return <>
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>
-            <div className="row mb-8">
+            {md && <hr className={styles.ModalLine}/>}
+
+            {!md ? <div className="row mb-8">
                 <div className="col">
                     <div className={`info-box-note ${!md && "-mx-14"} w-auto`}>
                         <span>This code can be used only once</span>
                     </div>
                 </div>
-            </div>
-            {onBtnApply === null && <div className="row text-right pb-10 flex justify-center items-center flex-col">
+            </div> : <div className={`wrapper my-4 ml-4 ${styles.ModalInfo}`}>
+                <div className={styles.ModalInfoIcon}>
+                    <div className="col">
+                        <WarningIcon/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <span className={styles.ModalInfoText}>
+                            This code can be used only once
+                        </span>
+                    </div>
+                </div>
+            </div>}
+            {onBtnApply === null && <div className="row text-right pb-10 md:pb-0 flex justify-center items-center flex-col">
                 <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                     <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
                         <ReactQRCode
@@ -55,41 +73,58 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                     </div>
                 </div>
                 {md && 
-                    <div className="row">
-                        <div className="col">
-                            <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                                <div className="col flex flex-col items-start w-[max-content] gap-2">
-                                    <div className="row">
-                                        <span>{t("you_will_pay")}</span>
-                                    </div>
-                                    <div className="row">
-                                        <span>
-                                            {t("you_will_get")}
-                                        </span>
-                                    </div>
-                                    <div className="row">
-                                        <span>
-                                    {t("fee")}
-                                    </span>
-                                    </div>
+                    <div className="w-full row">
+                        
+                        <div className={styles.ModalPayInfo + " ml-10 px-4"}>
+                            <div className={styles.ModalPayInfoCol + " items-start"}>
+                                <div className="row">
+                                    <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
                                 </div>
-                                <div className="col flex flex-col w-[max-content] gap-2">
-                                    <div className="row flex items-end">
-                                        <span
-                                            className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>
-                                    </div>
-                                    <div className="row flex items-end">
-                                        {loading ? t("loading")+"..." : <span
-                                            className="w-full text-start">{typeof inputCurr === "number"?inputCurr:inputCurr.value.number} {currency.$const}</span>}
-                                    </div>
-                                    <div className="row flex items-end">
-                                        {loading ? t("loading")+"..." : <span
-                                            className="w-full text-start">-</span>}
-                                    </div> 
-                                    
-                                   
+                                <div className="row">
+                                <span className={styles.ModalPayInfoText}>
+                                    {t("you_will_get")}:
+                                </span>
+                                </div>
+                                <div className="row">
+                                    <span className={styles.ModalPayInfoTextFee}>
+                                        {t("fee")}:
+                                    </span>
                                 </div>
                             </div>
+                            <div className={styles.ModalPayInfoColValue}>
+
+                                <div className={styles.ModalPayInfoCol}>
+                                    <div className={styles.ModalPayInfoValueFlex}>
+                                        <span
+                                            className={styles.ModalPayInfoValueFlexText}>{typeof inputCurr === "number"?inputCurr:inputCurr.value.number}</span>
+                                    </div>
+                                    <div className={styles.ModalPayInfoValueFlex}>
+                                        <span
+                                            className={styles.ModalPayInfoValueFlexText}>
+                                                {typeof inputCurr === "number"?inputCurr:inputCurr.value.number}
+                                        </span>
+                                    </div>
+                                    <div className={styles.ModalPayInfoValueFlex}>
+                                        <span
+                                            className={styles.ModalPayInfoValueFlexTextFee}>
+                                                -
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div className={styles.ModalPayInfoCol}>
+                                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                        {currency.$const}
+                                    </span>
+                                    <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                        {currency.$const}
+                                    </span>
+                                    <span className={styles.ModalPayInfoValueFlexTextFee}>
+                                        {currency.$const}
+                                    </span>
+                                </div>
+                            </div>
+                        
                         </div>
                         <div className="col w-1/2">
                             <div className="row flex">
@@ -103,13 +138,13 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         </div>
                     </div> 
                 }
-                <div className="row mt-4 w-full">
+                <div className="row mt-4 w-full md:flex md:justify-center">
                     <ClipboardField value={infoCode.code}/>
                 </div>
-                <div className="w-full mt-5">
+                <div className={styles.ButtonContainerCenter}>
                     <Button
                         size="xl"
-                        className="w-full"
+                        className="w-full mt-4"
                         onClick={onClose}
                         blueTransfer
                     >

@@ -17,6 +17,7 @@ import {validateBalance, validateMaximumAmount, validateMinimumAmount} from "@/s
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import styles from "../styles.module.scss"
 
 const UniversalTransferForm = () => {
     const {t} = useTranslation();
@@ -179,7 +180,7 @@ const UniversalTransferForm = () => {
                         >
                                     <InputCurrency.PercentSelector
                                         currency={currency}
-                                        header={<span className='text-gray-600 text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                                         onSelect={setInputCurr}
                                     >
                                     
@@ -200,7 +201,7 @@ const UniversalTransferForm = () => {
                     <div className="flex flex-row justify-between items-center">
                         <div className="row min-w-[80px] mb-2 mr-5">
                             <div className="col">
-                                <span className="text-[#1F3446] text-[12px] font-bold">{t("contact")}:</span>
+                                <span className="text-[#1F3446] text-[12px] font-semibold">{t("contact")}:</span>
                             </div>
                         </div>
                         <div className="row flex w-full">
@@ -219,54 +220,64 @@ const UniversalTransferForm = () => {
 
             </Form>
             <span className="text-[#B9B9B5] text-[10px]">
-                <span className="font-bold">*Fee-free</span> to Gekkard users by phone number or IBAN.
+                <span className="font-bold">*Fee-free</span> transfers to Gekkard users by phone number or IBAN.
             </span>
-            <div className="row">
-                <div className="col">
-                    <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                        <div className="col flex flex-col w-[max-content] gap-2">
-                            <div className="row">
-                                <span>{t("you_will_pay")}</span>
-                            </div>
-                            <div className="row">
-                            <span>
-                                {t("you_will_get")}
-                            </span>
-                            </div>
-                            <div className="row">
-                                <span>
-                                {t("fee")}
-                            </span>
-                            </div>
-                        </div>
-                        <div className="col flex flex-col w-[max-content] gap-2">
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
-                            </div>
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start"
-                                >
-                                    -
-                                    {/* TODO: Зачем тут это? */}
-                                </span>
-                            </div>
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start"
-                                >
-                                    -
-                                </span>
-                            </div> 
-                            
-                           
-                        </div>
+
+            <div className={styles.PayInfo}>
+                <div className={styles.PayInfoCol}>
+                    <div className="row">
+                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                    </div>
+                    <div className="row">
+                    <span className={styles.PayInfoText}>
+                        {t("you_will_get")}:
+                    </span>
+                    </div>
+                    <div className="row">
+                        <span className={styles.PayInfoTextFee}>
+                            {t("fee")}:
+                        </span>
                     </div>
                 </div>
+                <div className={styles.PayInfoColValue}>
+
+                    <div className={styles.PayInfoCol}>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}
+                            >
+                                {inputCurr.value.number}
+                            </span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexTextFee}
+                            >
+                                -
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className={styles.PayInfoCol}>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency.$const}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            EUR
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextFee}>
+                            {currency.$const}
+                        </span>
+                    </div>
+                </div>
+                
             </div>
             <ModalAnt width={450}
-                title={t("transfer_confirmation")}
+                title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
                 destroyOnClose
                 open={isModalOpen}
                 onCancel={handleCancel}
@@ -279,15 +290,14 @@ const UniversalTransferForm = () => {
                 />
             </ModalAnt>
             
-            <div className="row w-full mb-[10px]">
-                <div className="col">
-                    <Button
-                        size={"xl"}
-                        className="w-full self-center"
-                        onClick={showModal}
-                        disabled={!isValid || inputCurrValid.value}
-                    >Transfer</Button>
-                </div>
+            <div className={styles.ButtonContainerCenter}>
+                <Button
+                    size={"xl"}
+                    className="w-full self-center"
+                    onClick={showModal}
+                    disabled={!isValid || inputCurrValid.value}
+                    greenTransfer
+                >{t("transfer")}</Button>
             </div>
             <div className='w-full flex justify-center'>
                 <span className='text-[#9D9D9D] text-[10px]'>

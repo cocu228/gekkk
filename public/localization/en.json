@@ -141,6 +141,7 @@
     "create_transfer_code": "Create transfer code",
     "unredeemed_codes_info": "Unredeemed codes info",
     "use_confirmation": "Use confirmation",
+    "when_using_confirmation_mobile": "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer.",
     "when_using_confirmation": "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds.",
     "no_have_transfer_code": "You don't have any transfer codes for this time.",
     "you_made_transfer": "You made a transfer in the amount of:",
@@ -679,6 +680,12 @@
     "change_password": "Change password",
     "user_keys": "User keys",
     "login_and_sign_history": "Login and sign history",
-    "user_sessions": "User sessions"
+    "user_sessions": "User sessions",
+    "enter_description": "Enter description",
+    "confirm_transaction": "Confirm transaction",
+    "type_transaction": "Type transaction",
+    "contact": "Contact",
+    "your_transfer_code": "Your transfer code",
+    "cancel_code": "Cancel code"
   }
 }

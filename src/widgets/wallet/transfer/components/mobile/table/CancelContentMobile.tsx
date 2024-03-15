@@ -9,12 +9,17 @@ import {Modal} from "antd";
 import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
+import styles from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+
 
 const CancelContentMobile = ({code, date, amount, confirm, currency}) => {
     const {t} = useTranslation();
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
     const [loading, setLoading] = useState(false)
     const {showModal, isModalOpen, handleCancel} = useModal()
+    const {md} = useBreakpoints()
 
     const onBtnCancel = async () => {
         setLoading(true)
@@ -36,8 +41,8 @@ const CancelContentMobile = ({code, date, amount, confirm, currency}) => {
         <Button onClick={showModal} size={"sm"} gray
                 className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
         <Modal
-            title={t("cancel_code")} footer={null} open={isModalOpen} onCancel={handleCancel}>
-            {loading ? <Loader/> : <div>
+            title={<span className={styles.MainModalTitle}>{t("cancel_code")}</span>} footer={null} open={isModalOpen} onCancel={handleCancel}>
+            {!md ? (loading ? <Loader/> : <div>
                 <div className="row w-full px-5 py-4 mb-6">
                     <p className="text-[12px]">{t("code_will_be_deleted")}</p>
                 </div>
@@ -79,6 +84,68 @@ const CancelContentMobile = ({code, date, amount, confirm, currency}) => {
                     </Button>
                     <Button darkBlue className="w-full" size="xl" onClick={handleCancel}>{t("cancel")}
                     </Button>
+                </div>
+            </div>) : <div>
+                <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
+                <div className="row mb-5">
+                    <div className="col">
+                        <div className="p-4">
+                            <div className={`wrapper ${styles.ModalInfo}`}>
+                                <div className={styles.ModalInfoIcon}>
+                                    <div className="col">
+                                        <WarningIcon/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span className={styles.ModalInfoText}>
+                                            {t("code_will_be_deleted")}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.ModalRows}>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("transaction_code")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{code}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("date")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{formatForHistoryMobile(date)} at {formatForHistoryTimeMobile(date)}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("amount")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{amount} {currency}</span>
+                        </div>
+                    </div>
+                    <div className={styles.ButtonContainer}>
+                        <Button greenTransfer className={styles.ButtonTwo} size="xl" onClick={onBtnCancel}>
+                            {t("confirm")}
+                        </Button>
+                        <Button whiteGreenTransfer className={styles.ButtonTwo} size="xl" onClick={handleCancel}>
+                            {t("cancel")}
+                        </Button>
+                    </div>
                 </div>
             </div>}
         </Modal></>

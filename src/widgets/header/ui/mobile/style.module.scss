@@ -58,7 +58,7 @@
 
 
 
-.GoBackBtn{
+.GoBackIcon{
   background-image: url("/img/icon/GoBackButtonMobile.svg");
   width: 6px;
   height: 12px;
@@ -67,6 +67,7 @@
   margin: 0px 5%;
 }
 .HeaderTitle{
+  user-select: none;
   color: #F5F5F5;
   font-family: Inter;
   font-size: 14px;
@@ -80,6 +81,7 @@
   display: flex;
   text-align: left;
   flex-direction: column;
+  gap: 4px;
 
   &Tokens {
     color: #3A5E66;

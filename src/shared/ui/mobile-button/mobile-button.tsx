@@ -1,20 +1,21 @@
-import { forwardRef, ForwardedRef, ChangeEvent, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, useLayoutEffect } from 'react';
+import { forwardRef, ForwardedRef, ChangeEvent, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, useLayoutEffect, MouseEventHandler } from 'react';
 import { ButtonTypes, ButtonVariants } from './types';
 import styles from './style.module.scss';
 
 interface Props {
     wrapperClassName?: string;
     className?: string;
-    onClick?: () => void;
+    onClick?: () => void
     placeholder?: string;
     type?: ButtonTypes;
     children?: ReactNode;
     varitant?: ButtonVariants;
+    dataItem?: string;
 }
 
 export const MobileButton =  forwardRef((props: Props, ref:ForwardedRef<HTMLButtonElement>) => {
     const onButtonClick = () => {
-        props.onClick();
+        if (props.type !== 'submit' && props.onClick)  props.onClick();
     };
 
     const variantSelector = (variant: string | undefined) => {
@@ -22,6 +23,7 @@ export const MobileButton =  forwardRef((props: Props, ref:ForwardedRef<HTMLButt
     };
     return (
         <button
+            data-item={props.dataItem && null}
             type={props.type}
             ref={ref} 
             className={`${styles.button} typography-ui-button-badge ${variantSelector(props.varitant)} ${props.className}`}

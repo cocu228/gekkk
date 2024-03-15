@@ -116,7 +116,7 @@ const SidebarMobile = () => {
             <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
                 <div className={`${styles.Sidebar} flex flex-col justify-between`}>
                     <div className="wrapper" ref={refreshCont} style={{marginTop: pullChange / 3.118 || ""}}>
-                        <div className="p-2 rounded-full w-full flex justify-center ">
+                        <div className="p-2 rounded-full w-full flex justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -146,12 +146,12 @@ const SidebarMobile = () => {
                                     />
                                 </div> : activeCards?.length === 0 ? (
                                     <Carousel>
-                                        <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
+                                        <div onClick={() => navigate('/card-menu')}>
                                             <NewBankCard/>
                                         </div>
                                     </Carousel>
                                 ) : (
-                                    <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
+                                    <div onClick={() => navigate('/card-menu')}>
                                         <BankCardsCarousel cards={activeCards}/>
                                     </div>
                                 )}
@@ -352,7 +352,7 @@ const SidebarMobile = () => {
                                     size="xl"
                                     className="w-full"
                                     onClick={() => {
-                                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                        if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
                                             navigate('/exchange');
                                         }
 

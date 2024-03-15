@@ -1,0 +1,63 @@
+.Rate svg {
+  width: 1em;
+  height: 1em;
+  fill: inherit;
+}
+
+.RateUp {
+  color: var(--color-green);
+  fill: var(--color-green);
+}
+
+.RateUp svg {
+  -webkit-animation: rotateUp 0.5s;
+          animation: rotateUp 0.5s;
+}
+
+.RateDown {
+  color: var(--color-red);
+  fill: var(--color-red);
+}
+
+.RateDown svg {
+  animation: rotateDown 0.5s reverse;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+@-webkit-keyframes rotateDown {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 180deg;
+  }
+}
+
+@keyframes rotateDown {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 180deg;
+  }
+}
+
+@-webkit-keyframes rotateUp {
+  from {
+    rotate: 180deg;
+  }
+  to {
+    rotate: 0deg;
+  }
+}
+
+@keyframes rotateUp {
+  from {
+    rotate: 180deg;
+  }
+  to {
+    rotate: 0deg;
+  }
+}
+/*# sourceMappingURL=style.module.css.map */

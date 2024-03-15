@@ -1,0 +1,14 @@
+.Icon {
+  pointer-events: none;
+  -webkit-filter: saturate(10%) invert(0%);
+          filter: saturate(10%) invert(0%);
+  opacity: 0.3;
+}
+
+.ParentClassForCoin:hover .Icon {
+  opacity: 1;
+  pointer-events: none;
+  -webkit-filter: saturate(100%) invert(0%);
+          filter: saturate(100%) invert(0%);
+}
+/*# sourceMappingURL=style.module.css.map */

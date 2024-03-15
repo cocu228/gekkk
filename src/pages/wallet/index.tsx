@@ -140,7 +140,6 @@ function Wallet() {
                                     <Withdraw/>
                                 </NetworkProvider>
 
-                                {/* TODO: Зачем передача needMobile через 3 файла? PS: Убрал внутрь*/}
                                 {(isEUR || isEURG || isGKE) &&
                                     <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }

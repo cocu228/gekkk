@@ -4,11 +4,9 @@ import base64url from "base64url";
 export async function SignTX(signData: string) {
 
     let hash = createHash().update(signData);
-
-    let hex = hash.digest("hex");    
-
+    let chall = hash.digest();
     const publicKey: PublicKeyCredentialRequestOptions = {
-        challenge: hash.digest(),
+        challenge: chall,
         rpId: "gekkard.com",
         allowCredentials: [],
         userVerification: "required",
@@ -43,7 +41,7 @@ export async function SignTX(signData: string) {
                 signature: coerceToBase64Url(sig)
             }
         }
-    };  
+    };
     return base64url(JSON.stringify(data));
 }
 

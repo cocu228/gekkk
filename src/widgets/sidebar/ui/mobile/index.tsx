@@ -54,7 +54,6 @@ const SidebarMobile = () => {
     } = storeListExchangeRooms(state => state);
     const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
-    const {getAccountDetails} = storeAccountDetails(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -66,7 +65,6 @@ const SidebarMobile = () => {
             getRoomsList();
             getInvestments();
             getActiveCards();
-            getAccountDetails();
         }
     }, [account]);
 

@@ -28,21 +28,17 @@ import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/programs/ui";
 import { pull, pullStart } from "@/shared/lib";
-
+import PendingTransactions from "@/widgets/pending-transactions";
 
 function Wallet() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {currency, tab} = useParams();
     const {account} = useContext(CtxRootData);
-    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-
-    // TODO: Почему не используются брейкпоинты? PS: убрал внутрь Programs этот useEffect 
-
-    
+    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     
     let $currency = mockEUR;
 
@@ -105,7 +101,8 @@ function Wallet() {
 
     return (
         <div ref={refreshCont} style={{marginTop: (pullChange / 3.118) || "0px"}} className="flex flex-col h-full w-full">
-            
+            {isEUR && <PendingTransactions/>}
+
             <div className="rounded-full w-full flex justify-center ">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -100,7 +100,7 @@ const ActionConfirmationWindow = () => {
     return (
         <Modal
             open={isModalOpen}
-            title={t("confirm_action")}
+            title={t("identity_verification")}
             onCancel={() => {
                 handleCancel();
                 localErrorClear();
@@ -109,9 +109,9 @@ const ActionConfirmationWindow = () => {
             {loading && <Loader className=''/>}
             
             <div className={loading ? 'collapse' : ''}>
-                <div className="row -mt-5 mb-2">
+                <div className="row -mt-5 mb-5">
                     <div className="col">
-                        <span className='text-gray-600'>{t("to_confirm_enter_sms_code")}</span>
+                        <span className='text-gray-600'>{t("action_confirmation_message")}</span>
                     </div>
                 </div>
                 

@@ -13,6 +13,7 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import IconGkeOrange from "@/shared/ui/icons/IconGkeOrange";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();
@@ -48,10 +49,11 @@ export const UnconfirmedTransactions = () => {
         : <UnConfTrxList trx={state}/>;
 
     return state.length > 0 && <div className="negative-margin-content">
-        <InfoBox>
-            <span className="font-semibold">{t("unconfirmed_transactions")} <span
-                className="text-blue-400 underline hover:cursor-pointer" onClick={showModal}>{t("here")}</span></span>
-        </InfoBox>
+        <InfoBox
+            onClick={showModal}
+            message={t("unconfirmed_transactions")}
+            icon={<IconGkeOrange height={30} width={30}/>}
+        />
 
         <Modal
             width={450}

@@ -128,7 +128,7 @@ const Support = () => {
                         </div>
                         <div className="row">
                             <a className="text-lg font-bold" target="_blank"
-                               href="mailto:Support@gekkoin.com">Support@gekkoin.com</a>
+                               href="mailto:support@gekkard.com">support@gekkard.com</a>
                         </div>
                     </div>
                     <div className="col w-25 flex flex-col">
@@ -138,7 +138,7 @@ const Support = () => {
                         </div>
                         <div className="row">
                             <a className="text-lg font-bold"
-                               href="https://t.me/gekkoin_com">https://t.me/gekkoin_com</a>
+                               href="https://t.me/gekkard_support">https://t.me/gekkard_support</a>
                         </div>
                     </div>
                 </div>

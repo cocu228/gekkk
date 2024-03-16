@@ -9,7 +9,6 @@ import { actionResSuccess } from "@/shared/lib/helpers";
 import { apiUpdateTxPartnerInfo } from "@/shared/(orval)api/gek";
 import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
-import { latinPattern } from "@/widgets/cards-menu/ui/order-card/IssueNewCard";
 
 type TypeProps = GetHistoryTrasactionOut & {
   handleCancel: () => void;
@@ -75,14 +74,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                 ref={applyInputRef}
                 autoComplete="on"
                 value={input}
-                onChange={({ target }) => {
-                  const inputValue = target.value;
-                  if (!latinPattern.test(inputValue)) {
-                    return null;
-                  } else {
-                    setInput(target.value);
-                  }
-                }}
+                onChange={({ target }) => setInput(target.value)}
               />
             </div>
             <div className="col w-2/5">

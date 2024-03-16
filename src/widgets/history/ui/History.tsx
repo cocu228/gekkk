@@ -248,7 +248,7 @@ const History = memo(function ({
                     </GTable.Row>
                     <GTable.Row
                       cols={2}
-                      className={styles.Row + "  hover:font-medium"}
+                      className={styles.Row + "  hover:font-mediums"}
                     >
                       <TransactionInfo infoList={item}>
                         <GTable.Col>

@@ -194,14 +194,21 @@
 
 .ModalRows{
     margin-left: 1rem;
+    width: 100%;
+
 
     &Title{
         color: #9D9D9D;
     }
 
     &Value{
+        display: inline-block;
         color: #3A5E66;
         font-weight: 600;
+        width: 100%;
+        overflow: hidden;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
     }
 }
 

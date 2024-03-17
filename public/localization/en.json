@@ -691,6 +691,10 @@
     "type_transaction": "Type transaction",
     "contact": "Contact",
     "your_transfer_code": "Your transfer code",
-    "cancel_code": "Cancel code"
+    "cancel_code": "Cancel code",
+    "transaction_code": "Transaction code",
+    "confirm_code": "Confirm code",
+    "send_sms": "Send SMS",
+    "sign_transfer": "Sign transfer"
   }
 }

@@ -273,7 +273,7 @@ const CreateTransferCode = () => {
             </h3>
         </div>
         <div className="row">
-            <TransferTableCodeMobile isOwner/>
+            <TransferTableCode isOwner/>
         </div>
     </div>
 }

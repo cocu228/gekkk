@@ -240,8 +240,10 @@
     }
 
     &Text{
+        overflow-wrap: normal;
         color:#3A5E66;
         text-wrap: nowrap;
+        word-break: keep-all;
         &Fee{
             color: #9D9D9D;
         }
@@ -253,13 +255,15 @@
         align-items: center; 
 
         &Text{
+            overflow-wrap: normal;
             width: 100%; 
             font-weight: 600; 
             color: #1F3446;
             text-align: end;
-            text-wrap: nowrap;
             overflow: scroll;
             max-width: 20vw;
+            text-wrap: nowrap;
+            word-break: keep-all;
 
 
             &Fee{

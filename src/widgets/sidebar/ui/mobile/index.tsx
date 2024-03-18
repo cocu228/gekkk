@@ -11,7 +11,6 @@ import { storyToggleSidebar } from "../../model/story";
 import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -22,7 +21,6 @@ import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 
 
@@ -52,7 +50,6 @@ const SidebarMobile = () => {
         getRoomsList,
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
-    const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
 
     const NavLinkEvent = useCallback(() => {
@@ -63,7 +60,6 @@ const SidebarMobile = () => {
     useEffect(() => {
         if (account) {
             getRoomsList();
-            getInvestments();
             getActiveCards();
         }
     }, [account]);

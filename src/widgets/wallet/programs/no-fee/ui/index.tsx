@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
@@ -6,24 +6,37 @@ import useModal from "@/shared/model/hooks/useModal";
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import {apiCreateInvestment} from "@/shared/(orval)api/gek";
+import {apiCreateInvestment, apiGetInvestments} from "@/shared/(orval)api/gek";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
-import { useTranslation } from 'react-i18next';
-import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
+import {useTranslation} from 'react-i18next';
+import {CtxRootData} from "@/processes/RootContext";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
+import { uncoverArray } from "@/shared/lib";
 
 const NoFeeProgram = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
+    const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
     const {inputCurr, setInputCurr} = useInputState();
+    const [investment, setInvestment] = useState<GetDepositOut>(null);
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
-    const investment = storeInvestments(state => state.noFeeInvestment);
-    const updateNoFeeInvestment = storeInvestments(state => state.updateNoFeeInvestment);
-    const {t} = useTranslation();
+
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetInvestments({
+                end: null,
+                start: null,
+                investment_types: [4]
+            });
+    
+            setInvestment(uncoverArray(data.result));
+        })();
+    }, [account])
 
     return (
         <>
@@ -205,7 +218,9 @@ const NoFeeProgram = () => {
                                 depo_template_type: 4
                             });
 
-                            if (data.result != null) updateNoFeeInvestment(data.result)
+                            if (data.result != null) {
+                                setInvestment(data.result);
+                            }
                         }}
                     >{t("confirm")}</Button>
                 </div>

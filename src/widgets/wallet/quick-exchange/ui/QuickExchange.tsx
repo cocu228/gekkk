@@ -1,14 +1,10 @@
-import React, {useContext, useEffect, useMemo, useState} from "react";
-import Select from "@/shared/ui/select/Select";
-import {typeQuickExchangeForSelect} from "@/widgets/wallet/quick-exchange/model/entitys";
+import {useContext, useEffect, useMemo, useState} from "react";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 // import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import Button from "@/shared/ui/button/Button";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 import Decimal from "decimal.js";
-import rate from "@/widgets/crypto-deposits/Rate";
 import {getCurrentRate} from "@/widgets/wallet/quick-exchange/model/helpers";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
@@ -22,17 +18,16 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 export const QuickExchange = () => {
-    const {ratesEUR, currencies} = useContext(CtxCurrencies)
     const {t} = useTranslation();
-
-    if (isNull(ratesEUR) || currencies.get("EUR").availableBalance === null) return <Loader/>
-
-
-    const commissionCoefficient = 10
-
+    const navigate = useNavigate();
+    const stateInputEUR = useInputState();
+    const stateInputCrypto = useInputState();
+    const {ratesEUR, currencies} = useContext(CtxCurrencies);
     const {isModalOpen, showModal, handleCancel} = useModal();
-    const navigate = useNavigate()
-
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+    
+    if (isNull(ratesEUR) || currencies.get("EUR").availableBalance === null) return <Loader/>
+    
     const [state, setState] = useState({
         typeOperation: "EURToCrypto",
         currency: {
@@ -40,21 +35,19 @@ export const QuickExchange = () => {
             Crypto: currencies.get("BTC")
         }
     });
+    
+    const commissionCoefficient = 10;
 
     const currentRate = useMemo(() =>
         getCurrentRate(ratesEUR, state.currency.Crypto.$const, commissionCoefficient), [state.currency.Crypto.$const])
 
-    const ratioOneEUR = new Decimal(1).div(currentRate).toString()
+    const ratioOneEUR = new Decimal(1).div(currentRate).toString();
+
     const onChangeForSelect = (value: string) => {
         stateInputEUR.setInputCurr("");
         stateInputCrypto.setInputCurr("");
         setState(prev => ({...prev, typeOperation: value}));
     }
-
-
-    const stateInputEUR = useInputState()
-    const stateInputCrypto = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
 
     useEffect(() => {
         if (state.typeOperation === "EURToCrypto" && !new Decimal(currentRate).isZero()) {
@@ -87,7 +80,6 @@ export const QuickExchange = () => {
             }
         }))
     };
-
 
     const InputEUR =
         <InputCurrency.DisplayBalance currency={state.currency.EUR}>

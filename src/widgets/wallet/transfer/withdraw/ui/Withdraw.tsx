@@ -2,10 +2,7 @@ import {useContext, memo, useEffect, useState} from 'react';
 import Loader from "@/shared/ui/loader";
 import WithdrawFormCrypto from './forms/crypto/WithdrawFormCrypto';
 import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
-import {
-    CtxWalletNetworks,
-    CtxWalletData
-} from '@/widgets/wallet/transfer/model/context';
+import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
 import {getChosenNetwork, isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "./forms/sepa/WithdrawFormSepa";
 import WithdrawFormSwift from "./forms/WithdrawFormSwift";
@@ -13,19 +10,18 @@ import WithdrawFormCardToCard from "./forms/card-to-card/WithdrawFormCardToCard"
 import WithdrawFormBroker from "./forms/broker/WithdrawFormBroker";
 import {getFinalFee, getWithdrawEUR} from "@/widgets/wallet/transfer/withdraw/model/helper";
 import Decimal from "decimal.js";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {isNull} from "@/shared/lib/helpers";
 import WithdrawFormPapaya from "./forms/papaya/WithdrawFormPapaya";
 import WithdrawFormPhoneNumber from "./forms/phone-number/WithdrawFormPhoneNumber";
 import UniversalTransferForm from "@/widgets/wallet/transfer/withdraw/ui/forms/universal-transfer/UniversalTransferForm";
 import CreateTransferCode from "./forms/create-transfer-code";
-import { getInitialProps, useTranslation } from 'react-i18next';
+import {getInitialProps, useTranslation} from 'react-i18next';
+import {apiGetRates} from '@/shared/(orval)api';
 
 const Withdraw = memo(() => {
     const {t} = useTranslation()
     const currency = useContext(CtxWalletData);
     const {initialLanguage} = getInitialProps()
-    const {ratesEUR} = useContext(CtxCurrencies);
+    const [withdrawEUR, setWithdrawEUR] = useState<string>(null);
     const {
         tokenNetworks,
         loading = true,
@@ -41,10 +37,21 @@ const Withdraw = memo(() => {
     
     const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
 
-    const withdrawEUR = !isNull(ratesEUR)
-        && getWithdrawEUR(finalFeeEntity.value.number, ratesEUR[currency.$const]);
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetRates({
+                to: 'EUR'
+            });
 
-    
+            const result = getWithdrawEUR(
+                finalFeeEntity.value.number,
+                data.result[currency.$const]
+            );
+
+            setWithdrawEUR(result);
+        })();
+    }, []);
+
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
             return <WithdrawFormCrypto/>;

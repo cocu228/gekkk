@@ -6,7 +6,7 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconCross from "@/shared/ui/icons/IconCross";
 import useModal from "@/shared/model/hooks/useModal";
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
@@ -17,7 +17,6 @@ import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -42,17 +41,17 @@ const SidebarDesktop = () => {
     const {account} = useContext(CtxRootData);
     const {sm, md, xxxl} = useContext(BreakpointsContext);
     const {currencies, totalAmount} = useContext(CtxCurrencies);
-    const {setRefresh} = useContext(CtxRootData);
     const {offline} = useContext(CtxOfflineMode);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
+    const [params] = useSearchParams()
+    const roomId = params.get('roomId')
 
     const {
         getRoomsList,
         roomsList: privateRooms,
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
-    const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
 
     const NavLinkEvent = useCallback(() => {
@@ -63,7 +62,6 @@ const SidebarDesktop = () => {
     useEffect(() => {
         if (account) {
             getRoomsList();
-            getInvestments();
             getActiveCards();
         }
     }, [account]);
@@ -340,7 +338,8 @@ const SidebarDesktop = () => {
                         <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
                             {privateRooms.map((item, i) => (
                                 <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
-                                         key={item.timetick}>
+                                        className={({isActive}) => (isActive && +roomId === item.timetick) ? 'active' : ''}
+                                        key={item.timetick}>
                                     <div className={styles.Item}>
                                         <div className="col flex items-center pl-4 w-[85px]">
                                             <SvgArrow

@@ -50,6 +50,8 @@
     "transaction": "Transaction",
     "accordance_with_terms_conditions": "In accordance with Terms and Conditions, your bonus program will be terminated after 30 days upon request.",
     "directed_to_gekkoin": "You will be directed to your personal Gekkoin account, where you can open fixed-income deposits or deposits linked to changes in the exchange rate of your chosen cryptocurrency",
+    "notifications_modal": "To enable Gekkard notifications, click the Allow button in the pop-up window",
+    "notifications_denied_modal": "Notifications permission denied, please enable it in your browser",
     "header_menu": {
       "logout": "Log out",
       "support": "Support",
@@ -58,6 +60,7 @@
       "promo_code": "Promo-code",
       "partnership": "Partnership program",
       "enter_promo_code": "Enter Promo Code",
+      "enable_notifications": "Enable notifications",
       "gekkoin_invest_platform": "Gekkoin invest platform"
     },
     "support": {

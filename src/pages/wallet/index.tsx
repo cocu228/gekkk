@@ -14,10 +14,9 @@ import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
-import CashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
-import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
+// import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {mockEUR} from "@/processes/PWA/mock-EUR";
 import {useTranslation} from 'react-i18next';
 import WalletButtons from "@/shared/ui/wallet-buttons";
@@ -27,7 +26,7 @@ import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/programs/ui";
-import { pull, pullStart } from "@/shared/lib";
+import {getCookieData, pull, pullStart} from "@/shared/lib";
 import PendingTransactions from "@/widgets/pending-transactions";
 
 function Wallet() {
@@ -39,6 +38,7 @@ function Wallet() {
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
     const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
+    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
     
     let $currency = mockEUR;
 
@@ -56,7 +56,7 @@ function Wallet() {
     const isOnCashbackProgramPage = tab === "cashback_program";
     const isOnTopUpPage = tab === "top_up";
     const isCardsMenu = tab === "bank_cards";
-    const isQuickExchange = tab === "simple_exchange";
+    // const isQuickExchange = tab === "simple_exchange";
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
@@ -101,7 +101,7 @@ function Wallet() {
 
     return (
         <div ref={refreshCont} style={{marginTop: (pullChange / 3.118) || "0px"}} className="flex flex-col h-full w-full">
-            {isEUR && <PendingTransactions/>}
+            {isEUR && notificationsEnabled === 'true' && <PendingTransactions/>}
 
             <div className="rounded-full w-full flex justify-center ">
                 <svg
@@ -150,7 +150,7 @@ function Wallet() {
                                         isNewCardOpened={isNewCardOpened}
                                         setIsNewCardOpened={setIsNewCardOpened}
                                     />
-                                    <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
+                                    {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
                                 </>}
 
                                 {tab === "cashback_program" &&
@@ -184,7 +184,7 @@ function Wallet() {
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isQuickExchange || isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
+                        {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -215,9 +215,9 @@ function Wallet() {
                                 />
                             </div>
                         }
-                        {isQuickExchange && (
+                        {/* {isQuickExchange && (
                             <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
-                        )}
+                        )} */}
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }

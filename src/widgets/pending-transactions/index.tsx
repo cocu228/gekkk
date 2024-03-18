@@ -13,8 +13,8 @@ import {formatCardNumber} from '../dashboard/model/helpers';
 import BankCard from "../dashboard/ui/cards/bank-card/BankCard";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get-pending-transactions.ts";
-import { apiSetPendingTxStatus } from '@/shared/api/bank/set-pending-tx-status.ts';
-import { generateJWT, getTransactionSignParams } from '@/shared/lib/crypto-service';
+import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
+import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 
 export const PendingTransactions = () => {
     // TODO: Test transactions
@@ -94,7 +94,7 @@ export const PendingTransactions = () => {
 
     }
 
-    return state.length > 0 && <div className="negative-margin-content">
+    return state.length > 0 && <div>
         <InfoBox
             message={t("pending_transactions")}
             onClick={showModal}

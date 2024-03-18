@@ -269,13 +269,16 @@
             max-width: 20vw;
             text-wrap: nowrap;
             word-break: keep-all;
+            white-space: nowrap;
 
 
             &Fee{
+                overflow-wrap: normal;
                 color: #9D9D9D;
                 text-align: start;
                 text-wrap: nowrap;
-
+                word-break: keep-all;
+                white-space: nowrap;
                 overflow: scroll;
                 max-width: 20vw;
             }

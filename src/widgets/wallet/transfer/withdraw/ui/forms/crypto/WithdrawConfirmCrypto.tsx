@@ -37,7 +37,6 @@ const initStageConfirm = {
     txId: null,
     fee: null,
     autoInnerTransfer: false,
-    message: null,
     code: null
 }
 
@@ -136,11 +135,7 @@ const WithdrawConfirmCrypto = memo(({
                         txId: result.txId,
                         fee: result.fee,
                         code: result.confirmCode,
-                        message: result.message
                     }))
-                }
-                if (result.confirmationStatusCode === 2) {
-                    setInput(result.message);
                 }
                 if (result.confirmationStatusCode === 4) {
 
@@ -155,6 +150,9 @@ const WithdrawConfirmCrypto = memo(({
                 } else {
                     localErrorHunter({ message: "Something went wrong.", code: 1 })
                 }
+
+                console.log(`onConfirm end — stageReq?.status: ${stageReq?.status}`)
+                console.log(`onConfirm end — result.confirmationStatusCode: ${result.confirmationStatusCode}`)
             })
             .reject((err) => {
                 if (err.code === 10035) {

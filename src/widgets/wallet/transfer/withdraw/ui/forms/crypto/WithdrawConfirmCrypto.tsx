@@ -233,12 +233,12 @@ const WithdrawConfirmCrypto = memo(({
                     <div className={styles.ModalPayInfoCol}>
                         <div className={styles.ModalPayInfoValueFlex}>
                             <span
-                                className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                                className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>
                         </div>
                         <div className={styles.ModalPayInfoValueFlex}>
                             <span
                                 className={styles.ModalPayInfoValueFlexText}>
-                                    {amount-withdraw_fee}
+                                    {amount}
                             </span>
                         </div>
                         <div className={styles.ModalPayInfoValueFlex}>
@@ -570,12 +570,12 @@ const WithdrawConfirmCrypto = memo(({
                         <div className={styles.ModalPayInfoCol}>
                             <div className={styles.ModalPayInfoValueFlex}>
                                 <span
-                                    className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                                    className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>
                                 <span
                                     className={styles.ModalPayInfoValueFlexText}>
-                                        {amount-withdraw_fee}
+                                        {amount}
                                 </span>
                             </div>
                             <div className={styles.ModalPayInfoValueFlex}>

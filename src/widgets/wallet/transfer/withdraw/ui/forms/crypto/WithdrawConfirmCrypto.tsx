@@ -276,7 +276,7 @@ const WithdrawConfirmCrypto = memo(({
                 </div>
             </>}
             <Form form={form} onFinish={(e) => onConfirm()}>
-                {stageReq.status === 0 || stageReq.status === 1 && <>
+                {(stageReq.status === 0 || stageReq.status === 1) && <>
                     <span className="text-gray-400">{t("transfer_confirmation")}</span>
                     
                     <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
@@ -307,10 +307,11 @@ const WithdrawConfirmCrypto = memo(({
                                     size={"xl"}
                                     greenTransfer
                                 >
-                                    {stageReq.status !== 2
-                                        ? 'Confirm'
-                                        : 'Sign'
-                                    }
+                                    {t(isNull(stageReq.status)
+                                        ? "send_sms"
+                                        : stageReq.status === 2
+                                            ? "sign_transfer"
+                                            : "confirm")}
                                 </Button>
                                 <Button
                                     onClick={()=>{
@@ -428,7 +429,7 @@ const WithdrawConfirmCrypto = memo(({
             </div>
         </>}
         <Form form={form} onFinish={(e) => onConfirm()}>
-            {!isNull(stageReq.status) && <>
+            {(stageReq.status === 0 || stageReq.status === 1) && <>
                 <span className="text-gray-400">{t("transfer_confirmation")}</span>
 
                 <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
@@ -450,10 +451,21 @@ const WithdrawConfirmCrypto = memo(({
             </>}
             <div className="row mt-4 mb-5">
                 <div className="col relative">
-                    {loading ? <Loader className={"relative w-[24px] h-[24px]"} /> :
-                        <Button htmlType={"submit"} disabled={(input === "" && stageReq.status !== null)}
+                    {loading
+                        ? <Loader className={"relative w-[24px] h-[24px]"}/>
+                        : <Button
                             className="w-full"
-                            size={"xl"}>{t("confirm")}</Button>}
+                            htmlType={"submit"}
+                            disabled={(input === "" && stageReq.status !== null)}
+                            size={"xl"}
+                        >
+                            {t(isNull(stageReq.status)
+                                ? "send_sms"
+                                : stageReq.status === 2
+                                    ? "sign_transfer"
+                                    : "confirm")}
+                        </Button>
+                    }
                 </div>
                 <div className="col flex justify-center mt-4">
                     {localErrorInfoBox ? localErrorInfoBox : stageReq.autoInnerTransfer &&
@@ -595,7 +607,7 @@ const WithdrawConfirmCrypto = memo(({
                             {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
                                 <>
                                     <div className="w-full gap-5 flex flex-col justify-between">
-                                        {!isNull(stageReq.status) && <>
+                                        {(stageReq.status === 0 || stageReq.status === 1) && <>
                                             <span className="text-gray-400">{t("transfer_confirmation")}</span>
 
                                             <FormItem name="code" label="Code" preserve rules={[{ required: true, ...codeMessage }]}>
@@ -616,36 +628,20 @@ const WithdrawConfirmCrypto = memo(({
                                             <Timer onAction={onReSendCode} />
                                         </>}
                                         <div className={styles.ButtonContainer + " w-full"}>
-                                            
-                                            {stageReq.status === 2 ? 
-                                                    <Button
-                                                        htmlType={"submit"}
-                                                        onClick={()=>{onConfirm()}}
-                                                        disabled={(input === "" && stageReq.status !== null)}
-                                                        className={styles.ButtonTwo}
-                                                        greenTransfer
-                                                    >
-                                                        {t("sign_transfer")}
-                                                    </Button> 
-                                                : 
-                                                    isNull(stageReq.status) ? <Button
-                                                        htmlType={"submit"}
-                                                        onClick={()=>{onConfirm()}}
-                                                        disabled={(input === "" && stageReq.status !== null)}
-                                                        className={styles.ButtonTwo}
-                                                        greenTransfer
-                                                    >
-                                                        {t("send_sms")}
-                                                    </Button> : <Button
-                                                        htmlType={"submit"}
-                                                        onClick={()=>{onConfirm()}}
-                                                        disabled={(input === "" && stageReq.status !== null)}
-                                                        className={styles.ButtonTwo}
-                                                        greenTransfer
-                                                    >
-                                                        {t("confirm")}
-                                                    </Button> 
-                                            }
+                                            <Button
+                                                htmlType={"submit"}
+                                                onClick={()=>{onConfirm()}}
+                                                disabled={(input === "" && stageReq.status !== null)}
+                                                className={styles.ButtonTwo}
+                                                greenTransfer
+                                            >
+                                                {t(isNull(stageReq.status)
+                                                    ? "send_sms"
+                                                    : stageReq.status === 2
+                                                        ? "sign_transfer"
+                                                        : "confirm")}
+                                            </Button>
+
                                             <Button
                                                 onClick={()=>{handleCancel()}}
                                                 whiteGreenTransfer

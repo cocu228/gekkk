@@ -302,7 +302,7 @@ const WithdrawConfirmCrypto = memo(({
                             <div className={styles.ButtonContainer}>
                                 <Button
                                     htmlType={"submit"}
-                                    disabled={(input === "" && stageReq.status !== null)}
+                                    disabled={(input === "" && (stageReq.status === 0 || stageReq.status === 1))}
                                     className={styles.ButtonTwo}
                                     size={"xl"}
                                     greenTransfer
@@ -456,7 +456,7 @@ const WithdrawConfirmCrypto = memo(({
                         : <Button
                             className="w-full"
                             htmlType={"submit"}
-                            disabled={(input === "" && stageReq.status !== null)}
+                            disabled={(input === "" && (stageReq.status === 0 || stageReq.status === 1))}
                             size={"xl"}
                         >
                             {t(isNull(stageReq.status)
@@ -631,7 +631,7 @@ const WithdrawConfirmCrypto = memo(({
                                             <Button
                                                 htmlType={"submit"}
                                                 onClick={()=>{onConfirm()}}
-                                                disabled={(input === "" && stageReq.status !== null)}
+                                                disabled={(input === "" && (stageReq.status === 0 || stageReq.status === 1))}
                                                 className={styles.ButtonTwo}
                                                 greenTransfer
                                             >

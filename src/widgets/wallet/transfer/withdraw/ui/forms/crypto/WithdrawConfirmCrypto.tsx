@@ -37,6 +37,7 @@ const initStageConfirm = {
     txId: null,
     fee: null,
     autoInnerTransfer: false,
+    message: null,
     code: null
 }
 
@@ -96,7 +97,7 @@ const WithdrawConfirmCrypto = memo(({
     const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
-        console.log(`onConfirm start — stageReq?.status: ${stageReq?.status}`)
+        console.log(`onConfirm start — stageReq?.status: ${stageReq?.status}`)
         // В случае когда требуется подпись
         let sign = null;
         if (stageReq?.status === 2) {
@@ -114,7 +115,11 @@ const WithdrawConfirmCrypto = memo(({
             auto_inner_transfer: stageReq.autoInnerTransfer
         }, {
             confirmationTimetick: reSendCode ? null : stageReq.txId,
-            confirmationCode: reSendCode ? null : input !== "" ? formatAsNumber(input) : null
+            confirmationCode: reSendCode
+                ? null
+                : input !== ""
+                    ? formatAsNumber(input)
+                    : null
         });
 
         actionResSuccess(response)
@@ -130,8 +135,12 @@ const WithdrawConfirmCrypto = memo(({
                         status: result.confirmationStatusCode,
                         txId: result.txId,
                         fee: result.fee,
-                        code: result.confirmCode
+                        code: result.confirmCode,
+                        message: result.message
                     }))
+                }
+                if (result.confirmationStatusCode === 2) {
+                    setInput(result.message);
                 }
                 if (result.confirmationStatusCode === 4) {
 
@@ -269,7 +278,7 @@ const WithdrawConfirmCrypto = memo(({
                 </div>
             </>}
             <Form form={form} onFinish={(e) => onConfirm()}>
-                {!isNull(stageReq.status) && <>
+                {stageReq.status === 0 || stageReq.status === 1 && <>
                     <span className="text-gray-400">{t("transfer_confirmation")}</span>
                     
                     <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
@@ -279,10 +288,10 @@ const WithdrawConfirmCrypto = memo(({
                         autoComplete="off"
                         onChange={({target}) => setInput(target.value)}
                         placeholder={stageReq.status === 0
-                            ? t("enter_sms_code") 
+                            ? t("enter_sms_code")
                             : stageReq.status === 1
                                 ? t("enter_code")
-                                : t("enter_pin_code") 
+                                : t("enter_pin_code")
                         }
                         />
                     </FormItem>
@@ -300,7 +309,10 @@ const WithdrawConfirmCrypto = memo(({
                                     size={"xl"}
                                     greenTransfer
                                 >
-                                    Confirm
+                                    {stageReq.status !== 2
+                                        ? 'Confirm'
+                                        : 'Sign'
+                                    }
                                 </Button>
                                 <Button
                                     onClick={()=>{

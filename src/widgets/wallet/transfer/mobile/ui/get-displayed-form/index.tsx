@@ -12,13 +12,6 @@ import CreateTransferCode from '../../../withdraw/ui/forms/create-transfer-code'
 import { CtxWalletNetworks } from '../../../model/context';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
-import WithdrawFormPapayaMobile from '../../../withdraw/ui/forms/papaya/mobile/WithdrawFormPapayaMobile';
-import WithdrawFormCryptoMobile from '../../../withdraw/ui/forms/crypto/mobile/WithdrawFormCryptoMobile';
-import CreateTransferCodeMobile from '../../../withdraw/ui/forms/create-transfer-code/mobile';
-import UniversalTransferFormMobile from '../../../withdraw/ui/forms/universal-transfer/mobile/UniversalTransferFormMobile';
-import WithdrawFormSepaMobile from '../../../withdraw/ui/forms/sepa/mobile/WithdrawFormSepaMobile';
-import WithdrawFormBrokerMobile from '../../../withdraw/ui/forms/broker/mobile/WithdrawFormBrokerMobile';
-import WithdrawFormCardToCardMobile from '../../../withdraw/ui/forms/card-to-card/mobile/WithdrawFormCardToCardMobile';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 

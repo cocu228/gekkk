@@ -488,7 +488,9 @@
     "transaction_code": "Transaktionscode",
     "confirm_code": "Bestätigungscode",
     "send_sms": "SMS senden",
-    "sign_transfer": "Überweisung unterschreiben"
+    "sign_transfer": "Überweisung unterschreiben",
+    "to_card": "Auf die Karte",
+    "cardholder": "Karteninhaber"
 
 
 

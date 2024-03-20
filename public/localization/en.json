@@ -698,6 +698,8 @@
     "transaction_code": "Transaction code",
     "confirm_code": "Confirm code",
     "send_sms": "Send SMS",
-    "sign_transfer": "Sign transfer"
+    "sign_transfer": "Sign transfer",
+    "to_card": "To card",
+    "cardholder": "Cardholder"
   }
 }

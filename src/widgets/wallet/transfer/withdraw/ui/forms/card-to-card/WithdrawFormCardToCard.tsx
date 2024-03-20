@@ -25,6 +25,7 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import styles from "../styles.module.scss"
 
 const {Option} = Select;
 
@@ -263,10 +264,10 @@ const WithdrawFormCardToCard = () => {
                             <span className="w-full text-[#1F3446] text-[12px] font-semibold">{t("from_card")}:</span>
                         </div>
                     </div>
-                    <div className="flex justify-end basis-[100%]">
-                        <div className="col basis-[100%]">
+                    <div className="flex justify-end w-full">
+                        <div className="col w-full">
                             <SearchSelect
-                                className=""
+                                className="row"
                                 value={inputs.selectedCard}
                                 notFoundContent={<div className='my-3'>
                                     No active cards
@@ -363,64 +364,82 @@ const WithdrawFormCardToCard = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col">
-                    <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-                        <div className="col flex flex-col w-[max-content] gap-2">
-                            <div className="row">
-                                <span>{t("you_will_pay")}</span>
-                            </div>
-                            <div className="row">
-                            <span>
-                            {t("you_will_get")}
-                            </span>
-                            </div>
-                            <div className="row">
-                                <span>
-                            {t("fee")}
-                            </span>
-                            </div>
-                        </div>
-                        <div className="col flex flex-col w-[max-content] gap-2">
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
-                            </div>
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start"
-                                >
-                                    {new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR
-                                </span>
-                            </div>
-                            <div className="row flex items-end">
-                                <span
-                                    className="w-full text-start"
-                                >
-                                    {new Decimal(withdraw_fee).toString()} {currency.$const}
-                                </span>
-                            </div>
-                        </div>
+            
+            <div className={styles.PayInfo}>
+                <div className={styles.PayInfoCol}>
+                    <div className="row">
+                        <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                    </div>
+                    <div className="row">
+                    <span className={styles.PayInfoText}>
+                        {t("you_will_get")}:
+                    </span>
+                    </div>
+                    <div className="row">
+                        <span className={styles.PayInfoTextFee}>
+                            {t("fee")}:
+                        </span>
                     </div>
                 </div>
+                <div className={styles.PayInfoColValue}>
+
+                    <div className={styles.PayInfoCol}>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexText}
+                            >
+                                {inputCurr.value.number}
+                            </span>
+                        </div>
+                        <div className={styles.PayInfoValueFlex}>
+                            <span
+                                className={styles.PayInfoValueFlexTextFee}
+                            >
+                                {withdraw_fee}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div className={styles.PayInfoCol}>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            {currency.$const}
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextCurrency}>
+                            EURG
+                        </span>
+                        <span className={styles.PayInfoValueFlexTextFee}>
+                            {currency.$const}
+                        </span>
+                    </div>
+                </div>
+                
             </div>
             
-            <ModalAnt width={450} title={t("transfer_confirmation")}
-                   onCancel={handleCancel}
-                   open={isModalOpen}
-                   footer={null}
+            <ModalAnt width={450} 
+                    title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+                    onCancel={handleCancel}
+                    open={isModalOpen}
+                    footer={null}
+                    centered
             >
                 <WithdrawConfirmCardToCard {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
             </ModalAnt>
             
             <div className="row w-full mb-[10px]">
-                <div className="col">
+                <div className={styles.ButtonContainerCenter}>
                     <Button
+                        greenTransfer
                         size={"xl"}
                         className="w-full"
                         onClick={showModal}
                         disabled={!isValidated || inputCurrValid.value}
-                    >Transfer</Button>
+                    >
+                        {t("transfer")}
+                    </Button>
                 </div>
             </div>
             <div className='w-full flex justify-center'>

@@ -515,7 +515,14 @@
         "send_sms": "Отправить SMS",
         "sign_transfer": "Подписать перевод",
         "to_card": "Сделать перевод",
-        "cardholder": "Держатель карты"
+        "cardholder": "Держатель карты",
+        "select_card": "Выберите карту",
+        "select_currency": "Выберите валюту",
+        "no_data_avialible": "Нет доступных данных",
+        "clear": "Очистить"
+        
+
+        
 
 
 

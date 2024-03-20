@@ -490,7 +490,12 @@
     "send_sms": "SMS senden",
     "sign_transfer": "Überweisung unterschreiben",
     "to_card": "Auf die Karte",
-    "cardholder": "Karteninhaber"
+    "cardholder": "Karteninhaber",
+    "select_card": "Karte auswählen",
+    "select_currency": "Währung auswählen",
+    "no_data_avialible": "Keine Daten verfügbar",
+    "clear": "löschen"
+
 
 
 

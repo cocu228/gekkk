@@ -25,6 +25,7 @@ import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 
 import History from '../history/ui/History';
 import { useTranslation } from 'react-i18next';
+import { formatCardNumber } from '../dashboard/model/helpers';
 
 
 
@@ -100,7 +101,7 @@ export default function customSearch() {
 
     useEffect(() => {
         if (cards) {
-            const cardsOpts:ISelectCard[] = cards.map(card => ({label: card.displayPan, value: card.cardId}))
+            const cardsOpts:ISelectCard[] = cards.map(card => ({label: formatCardNumber(card.displayPan), value: card.cardId}))
             setCardsOptions(cardsOpts);
         }
     },[cards])
@@ -161,7 +162,7 @@ export default function customSearch() {
         <>
         <div className={styles.wrapper}>
             <form className={styles.filters}>
-                <h4 className='text-base pt-4'>Enter period or choose from calendar</h4>
+                <h4 className='text-base pt-4'>{t("enter_period")}</h4>
                 <div>
                     <Space direction="vertical" className='flex flex-row gap-1 font-extrabold pt-4'>
                         <DatePicker  
@@ -177,9 +178,9 @@ export default function customSearch() {
                 </div>
                 <div className='flex flex-col text-lg pt-4 gap-2 w-full'>
                     <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
-                        <h4 className={styles.selectText}>Type:</h4>
+                        <h4 className={styles.selectText}>{t("type")}:</h4>
                         <Select className={styles.select}
-                                placeholder={"No data avialible"} 
+                                placeholder={t("no_data_avialible")} 
                                 value={selectedTx}
                                 onSelect={(_, selectedOption) => {
                                     setSelectedTx(selectedOption);
@@ -188,18 +189,18 @@ export default function customSearch() {
                                 listHeight={500}/>
                     </div>
                     <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
-                        <h4 className={styles.selectText} >Currency:</h4>
+                        <h4 className={styles.selectText} >{t("currency")}:</h4>
                         <Select className={styles.select}
-                                placeholder={"Select currency"} 
+                                placeholder={t("select_currency")} 
                                 value={selectedAsset}
                                 onSelect={(_,opt) => setSelectedAsset(opt)}
                                 options={allAssets}
                                 listHeight={500}/>
                     </div>
                     {selectedAsset.isFiat && <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
-                        <h4 className={styles.selectText}>Card:</h4>
+                        <h4 className={styles.selectText}>{t("card")}:</h4>
                         <Select className={styles.select}
-                                placeholder={"Select card"} 
+                                placeholder={t("select_card")} 
                                 value={selectedCard}
                                 onSelect={(_, opt) => setSelectedCard(opt.value)}
                                 options={cardsOptions}

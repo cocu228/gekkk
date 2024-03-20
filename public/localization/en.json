@@ -700,6 +700,10 @@
     "send_sms": "Send SMS",
     "sign_transfer": "Sign transfer",
     "to_card": "To card",
-    "cardholder": "Cardholder"
+    "cardholder": "Cardholder",
+    "select_card": "Select card",
+    "select_currency": "Select currency",
+    "no_data_avialible": "No data avialible",
+    "clear": "Clear"
   }
 }

@@ -7,6 +7,7 @@ import { historyTabs } from "@/widgets/history/model/helpers";
 import CustomSearch from "@/widgets/custom-search";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from "react-i18next";
+
 const HistoryPage = () => {
 	const [curTab, setCurTab] = useState(historyTabs[0]);
 	const {md} = useContext(BreakpointsContext); 
@@ -18,7 +19,7 @@ const HistoryPage = () => {
 }			</div>
 			<div className='wrapper'>
 				
-				{curTab.Title === 'last transactions' ? (
+				{curTab.Title === 'last_transactions' ? (
 					<>
 					{!md && <h2 className=" font-bold p-3 text-xl">{t("last_transactions")}</h2>}
 					<History currTab={curTab} includeFiat={true}/>

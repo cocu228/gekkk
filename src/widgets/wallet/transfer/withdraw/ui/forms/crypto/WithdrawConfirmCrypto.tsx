@@ -116,9 +116,11 @@ const WithdrawConfirmCrypto = memo(({
             confirmationTimetick: reSendCode ? null : stageReq.txId,
             confirmationCode: reSendCode
                 ? null
-                : input !== ""
-                    ? formatAsNumber(input)
-                    : null
+                : stageReq.status === 2
+                    ? stageReq.code
+                    : input !== ""
+                        ? formatAsNumber(input)
+                        : null
         });
 
         actionResSuccess(response)
@@ -307,11 +309,9 @@ const WithdrawConfirmCrypto = memo(({
                                     size={"xl"}
                                     greenTransfer
                                 >
-                                    {t(isNull(stageReq.status)
-                                        ? "send_sms"
-                                        : stageReq.status === 2
-                                            ? "sign_transfer"
-                                            : "confirm")}
+                                    {t(stageReq.status === 2
+                                        ? "sign_transfer"
+                                        : "confirm")}
                                 </Button>
                                 <Button
                                     onClick={()=>{
@@ -459,11 +459,9 @@ const WithdrawConfirmCrypto = memo(({
                             disabled={(input === "" && (stageReq.status === 0 || stageReq.status === 1))}
                             size={"xl"}
                         >
-                            {t(isNull(stageReq.status)
-                                ? "send_sms"
-                                : stageReq.status === 2
-                                    ? "sign_transfer"
-                                    : "confirm")}
+                            {t(stageReq.status === 2
+                                ? "sign_transfer"
+                                : "confirm")}
                         </Button>
                     }
                 </div>
@@ -635,11 +633,9 @@ const WithdrawConfirmCrypto = memo(({
                                                 className={styles.ButtonTwo}
                                                 greenTransfer
                                             >
-                                                {t(isNull(stageReq.status)
-                                                    ? "send_sms"
-                                                    : stageReq.status === 2
-                                                        ? "sign_transfer"
-                                                        : "confirm")}
+                                                {t(stageReq.status === 2
+                                                    ? "sign_transfer"
+                                                    : "confirm")}
                                             </Button>
 
                                             <Button

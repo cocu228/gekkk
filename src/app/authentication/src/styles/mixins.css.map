@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "ACAA,AAAA,KAAK,CAAC;EACF,kBAAkB,CAAA,QAAC;EAEnB,eAAe,CAAA,QAAC;EAChB,gBAAgB,CAAA,QAAC;EACjB,WAAW,CAAA,QAAC;EACZ,SAAS,CAAA,OAAC;EACV,YAAY,CAAA,OAAC;EACb,gBAAgB,CAAA,QAAC;EACjB,gBAAgB,CAAA,OAAC;EACjB,cAAc,CAAA,OAAC;EACf,eAAe,CAAA,QAAC;EAChB,oBAAoB,CAAA,iDAAC;CAExB",
+    "sources": [
+        "mixins.scss",
+        "variables.scss"
+    ],
+    "names": [],
+    "file": "mixins.css"
+}

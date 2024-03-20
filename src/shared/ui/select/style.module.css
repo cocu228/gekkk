@@ -1,0 +1,25 @@
+.Select :global(.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector) {
+  border-color: #285E69;
+}
+
+.Select :global(.ant-select-focused:where(.css-dev-only-do-not-override-1jiluyh).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector) {
+  border-color: #285E69;
+}
+
+.Select :global(.ant-select-single:not(.ant-select-customize-input) .ant-select-selector) {
+  height: 58px;
+  max-width: 100%;
+  width: 100%;
+  font-size: medium;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--color-gray-600);
+  border-color: var(--color-secondary);
+}
+
+.Select :global(.ant-select-open) .DropdownIcon {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+/*# sourceMappingURL=style.module.css.map */

@@ -23,4 +23,5 @@ export interface Props {
     types: TransactTypeEnum[],
     includeFiat: boolean,
     date:[dayjs.Dayjs,dayjs.Dayjs],
+    currTab?: HistoryTab,
 }

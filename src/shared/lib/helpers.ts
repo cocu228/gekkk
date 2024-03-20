@@ -280,3 +280,20 @@ export function endPull(setStartPoint, setPullChange, pullChange, initLoading) {
     }
     ;
 }
+
+//Скрывает цифры банковской карты с 5 по 12 включительно 
+export function maskFullCardNumber(cardNumber: string): string { 
+    // Проверяем, содержит ли номер карты достаточное количество символов
+    if (cardNumber.length < 12) {
+        return cardNumber;
+    }
+
+    // Заменяем цифры с 7 по 12 звездочками
+    const maskedDigits = cardNumber.slice(6, 12).replace(/\d/g, "*");
+    const formattedNumber = cardNumber.slice(0, 6) + maskedDigits + cardNumber.slice(12);
+
+    // Добавляем пробелы каждые 4 символа
+    const cardNumberWithSpaces = formattedNumber.replace(/(.{4})/g, "$1 ");
+    
+    return cardNumberWithSpaces.trim();
+  }

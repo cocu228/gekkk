@@ -238,11 +238,11 @@ const WithdrawFormPapaya = () => {
                 <div className={styles.PayInfoCol}>
                     <div className={styles.PayInfoValueFlex}>
                         <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>
                     </div>
                     <div className={styles.PayInfoValueFlex}>
                         {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number-withdraw_fee}</span>}
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>}
                     </div>
                     <div className={styles.PayInfoValueFlex}>
                         {loading ? t("loading")+"..." : <span

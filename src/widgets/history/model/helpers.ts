@@ -28,13 +28,13 @@ export const historyTabs: Array<HistoryTab> = [
     // },
     {
         Key: TabKey.YEAR,
-        Title: 'last transactions',
+        Title: 'last_transactions',
         StartDate:"",
         EndDate: ""
     },
     {
         Key: TabKey.CUSTOM,
-        Title: 'custom period',
+        Title: 'custom_period',
     }
 ];
 

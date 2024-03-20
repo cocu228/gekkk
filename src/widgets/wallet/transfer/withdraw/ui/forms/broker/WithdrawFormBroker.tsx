@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
+import {Modal as ModalAnt} from "antd"
 import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
@@ -17,6 +18,7 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import styles from "../styles.module.scss"
 // import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
 
 
@@ -27,6 +29,8 @@ const WithdrawFormBroker = () => {
     const {account} = useContext(CtxRootData);
     const currency = useContext(CtxWalletData);
     const {md} = useBreakpoints()
+    const {setRefresh: setReload} = useContext(CtxRootData)
+
 
     const {networkTypeSelect, tokenNetworks, setNetworkType, setRefresh} = useContext(CtxWalletNetworks);
 
@@ -149,8 +153,10 @@ const WithdrawFormBroker = () => {
             </div>
         </div>
     </div>) : (<div className="wrapper">
-        <div className="row mb-4">
-            <div className="col">
+        
+
+        <div className={styles.Title}>
+            <div className={styles.TitleCol}>
                 <InputCurrency.Validator
                     value={inputCurr.value.number}
                     onError={setInputCurrValid}
@@ -158,9 +164,14 @@ const WithdrawFormBroker = () => {
                     validators={[
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
-                    <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
-                                                   currency={currency}>
+                    <InputCurrency.PercentSelector
+                        currency={currency}
+                        header={<span className={styles.TitleColText}>{t("amount")}</span>}
+                        onSelect={val => {
+                            const amount = new Decimal(val);
+                            setInputCurr(amount.mul(100).floor().div(100).toString())
+                        }}
+                    >
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
                                 value={inputCurr.value.string}
@@ -171,87 +182,111 @@ const WithdrawFormBroker = () => {
                     </InputCurrency.PercentSelector>
                 </InputCurrency.Validator>
             </div>
-        </div>
-        <div className="row mb-4 p-2 flex flex-col gap-2 md:gap-1  bg-[#DADADA] rounded-lg rounded-tr-none">
-                <div className="col text-xl text-[#3A5E66] text-[14px] font-bold">
-                    <span>1 EUR = 1 EURG*</span>
+            <div className={styles.EURCost}>
+                <div className="col">
+                    <span className={styles.EURCostValue}>
+                        1 EUR = 1 EURG*
+                    </span>
                 </div>
 
-                <div className="col text-[#3A5E66] text-[10px] text-xs">
-                    <span><b>*{t("note")}</b>: {t("exchange_fee")} <b className='text-[#3A5E66]'>{percent_fee}%</b>
+                <div className={styles.EURCostInfo}>
+                    <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("exchange_fee")} <b className={styles.EURCostInfoTextUppercase}>{percent_fee}%</b>
                         {account.rights[AccountRights.IsJuridical] ? null :
-                            <span className="font-normal"> {t("if_you")} <span
-                                className='text-[#45AD77] hover:cursor-pointer hover:underline'
+                            <span> {t("if_you")} <span
+                                className={styles.EURCostInfoTextLink}
                                 onClick={() => navigate('/wallet/GKE/no_fee_program')}
                             >
-                                {t("freeze_GKE_tokens")}    
+                                {t("freeze_GKE_tokens")}   
                             </span> {t("fee_is")} <b>0%</b>.
                         </span>}
                     </span>
                 </div>
             </div>
-
-
-        
-        <div className="row">
-            <div className="col">
-                <div className="row flex gap-4 text-gray-400 font-medium mb-14 mt-6 text-sm">
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row">
-                            <span>{t("you_will_pay")}</span>
-                        </div>
-                        <div className="row">
-                            <span>{t("you_will_get")}</span>
-                        </div>
-                        <div className="row">
-                            <span>
-                          {t("fee")}
-                        </span>
-                        </div>
-                    </div>
-                    <div className="col flex flex-col w-[max-content] gap-2">
-                        <div className="row flex items-end">
-                            <span
-                                className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? t("loading")+"..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EURG</span>}
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? t("loading")+"..." : <span
-                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
-                        </div>
-                    </div>
+        </div>
+        <div className={styles.PayInfo}>
+            <div className={styles.PayInfoCol}>
+                <div className="row">
+                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                </div>
+                <div className="row">
+                <span className={styles.PayInfoText}>
+                    {t("you_will_get")}:
+                </span>
+                </div>
+                <div className="row">
+                    <span className={styles.PayInfoTextFee}>
+                        {t("fee")}:
+                    </span>
                 </div>
             </div>
+            <div className={styles.PayInfoColValue}>
+
+                <div className={styles.PayInfoCol}>
+                    <div className={styles.PayInfoValueFlex}>
+                        <span
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        {loading ? t("loading")+"..." : <span
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>}
+                    </div>
+                    <div className={styles.PayInfoValueFlex}>
+                        {loading ? t("loading")+"..." : <span
+                            className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                    </div>
+                </div>
+                
+                <div className={styles.PayInfoCol}>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        {currency.$const}
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextCurrency}>
+                        EURG
+                    </span>
+                    <span className={styles.PayInfoValueFlexTextFee}>
+                        {currency.$const}
+                    </span>
+                </div>
+            </div>
+            
         </div>
-        <Modal
-            width={450}
+        
+        <ModalAnt
+            width={327}
             open={isModalOpen}
+            onCancel={()=>{
+                handleCancel()
+                setReload()
+            }}
+            title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
             footer={null}
-            onCancel={handleCancel}
-            title={t("withdraw_confirmation")}>
-            <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
-        </Modal>
-        <div className="row w-full mt-4 mb-[10px]">
-            <div className="col">
+        >
+            <WithdrawConfirmBroker
+                handleCancel={()=>{handleCancel();setReload()}}
+                amount={inputCurr.value.number}
+            />
+        </ModalAnt>
+        
+        {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO
+        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
+        <div className={styles.Button}>
+            <div className={styles.ButtonContainerCenter}>
                 <Button
                     size={"xl"}
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
-                    className="w-full">
+                    className="w-full"
+                    greenTransfer
+                >
                     Transfer
                 </Button>
             </div>
         </div>
-        <div className='w-full flex justify-center'>
-            <span className='text-[#9D9D9D] text-[10px]'>
-                {t("fee_is_perc")} <span className='font-bold'>{percent_fee}%</span> {t("per_transaction")}
+        <div className={styles.BottomFeeInfo}>
+            <span className={styles.BottomFeeInfoText}>
+                {t("fee_is_prec")} <span className={styles.BottomFeeInfoTextBold}>{percent_fee}%</span> {t("per_transaction")}
             </span>
         </div>
-        {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO: Реализовать модалку
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
     </div>)
 };
 

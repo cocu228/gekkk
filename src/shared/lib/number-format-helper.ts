@@ -15,4 +15,6 @@ export const getCurrencyRounding = (value: number | undefined) =>
     value === undefined ? "-" : value >= 1000
         ? Math.round(value) : value >= 1
             ? value.toFixed(2)
-            : value.toFixed(value != 0 ? Math.floor(-Math.log10(value)) + 1 : 0);
+            : value.toFixed(value != 0
+				? Math.floor(-Math.log10(value)) + 3
+				: 0);

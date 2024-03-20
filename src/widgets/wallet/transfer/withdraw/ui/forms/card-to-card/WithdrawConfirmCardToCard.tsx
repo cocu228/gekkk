@@ -12,6 +12,13 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { apiGetUas } from "@/shared/(orval)api";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import styles from "../styles.module.scss"
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+import { maskFullCardNumber } from "@/shared/lib";
+import StatusModalSuccess from "../../modals/StatusModalSuccess";
+import StatusModalError from "../../modals/StatusModalError";
+
 
 interface IState {
     loading: boolean;
@@ -35,13 +42,17 @@ const WithdrawConfirmCardToCard = ({
     });
 
     const {t} = useTranslation()
-
+    const {md} = useBreakpoints()
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
+
+    const [isErr, setErr] = useState<boolean>(false)
+    const [isSuccess, setSuccess] = useState<boolean>(false)
+    const { setRefresh } = useContext(CtxRootData)
 
     const details = useRef({
         account: account.account_id,
@@ -81,7 +92,25 @@ const WithdrawConfirmCardToCard = ({
                 ...headers,
                 Authorization: phone,
                 Token: data.result.token
-            }).then(handleCancel);
+            }).then((res)=>{
+                if(md){                    
+                    //@ts-ignore
+                    if(res.data.status === "ok"){
+                        setSuccess(true)
+                        handleCancel()
+                    }else{
+                        setErr(true)
+                        setState(prev => ({
+                            ...prev,
+                            loading: false
+                        }));
+                    }
+                }
+            }).catch(()=>{
+                setErr(true)
+            });
+        }).catch(()=>{
+            setErr(true)
         });
     }
 
@@ -99,8 +128,13 @@ const WithdrawConfirmCardToCard = ({
             })));
         })();
     }, []);
+
+    useEffect(()=>{
+        console.log(cards?.filter(c => c.cardStatus === "ACTIVE")[0]);
+        
+    })
     
-    return <div>
+    return !md ? <div>
         {loading && <Loader className='justify-center'/>}
         
         <div className={loading ? 'collapse' : ''}>
@@ -227,6 +261,160 @@ const WithdrawConfirmCardToCard = ({
                 </div>
             </Form>
         </div>
+    </div> : <div>
+        {loading && <Loader className='justify-center'/>}
+        
+        <div className={loading ? 'collapse' : ''}>
+                <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
+                <div className="row mb-5">
+                    <div className="col">
+                        <div className="p-4">
+                            <div className={`wrapper ${styles.ModalInfo}`}>
+                                <div className={styles.ModalInfoIcon}>
+                                    <div className="col">
+                                        <WarningIcon/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span className={styles.ModalInfoText}>
+                                            Please, check your transaction information carefully and confirm the operation.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.ModalRows}>
+                    {label && <> <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{label}</span>
+                        </div>
+                    </div> </>}
+                    {cards?.filter(c => c.cardStatus === "ACTIVE")[0] && <> <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle} >{t("from_card")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold ">
+                            <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{formatCardNumber(`${cards?.filter(c => c.cardStatus === "ACTIVE")[0].displayPan}`)}</span>
+                        </div>
+                    </div> </>}
+                    {cardNumber && <> <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle} >{t("to_card")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold ">
+                            <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{maskFullCardNumber(cardNumber)}</span>
+                        </div>
+                    </div> </>}
+                    {cardholderName && <> <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("cardholder")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{cardholderName}</span>
+                        </div>
+                    </div> </>}
+                    {comment && <>
+                        <div className="row mb-2">
+                            <div className="col">
+                                <span className={styles.ModalRowsTitle}>{t('description')}</span>
+                            </div>
+                        </div>
+                        <div className="row mb-4">
+                            <div className="col text-[#3A5E66] font-semibold">
+                                <span className={styles.ModalRowsValue}>{comment}</span>
+                            </div>
+                        </div>
+                    </>}
+                </div>
+                
+                <div className={styles.ModalPayInfo}>
+                    <div className={styles.ModalPayInfoCol}>
+                        <div className="row">
+                            <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
+                        </div>
+                        <div className="row">
+                        <span className={styles.ModalPayInfoText}>
+                            {t("you_will_get")}:
+                        </span>
+                        </div>
+                        <div className="row">
+                            <span className={styles.ModalPayInfoTextFee}>
+                                {t("fee")}:
+                            </span>
+                        </div>
+                    </div>
+                    <div className={styles.ModalPayInfoColValue}>
+
+                        <div className={styles.ModalPayInfoCol}>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>{amount + (totalCommission?.commission ? totalCommission?.commission : 0)}</span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>
+                                        {amount}
+                                </span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexTextFee}>
+                                        {totalCommission?.commission ?? '-'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div className={styles.ModalPayInfoCol}>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                {$const}
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                {$const}
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextFee}>
+                                {$const}
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+
+            <Form onFinish={onConfirm}>
+                <div className="row my-5">
+                    <div className={styles.ButtonContainer}>
+                        <Button 
+                                size={"xl"}
+                                htmlType={"submit"}
+                                className={styles.ButtonTwo}
+                                disabled={!totalCommission}
+                                greenTransfer
+                        >{t("confirm")}</Button>
+                        <Button size={"xl"}
+                                onClick={handleCancel}
+                                className={styles.ButtonTwo}
+                                whiteGreenTransfer
+                        >{t("cancel")}</Button>
+                    </div>
+                </div>
+            </Form>
+        </div>
+        <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
+        <StatusModalError setIsErr={setErr} open={isErr}/>
     </div>
 }
 

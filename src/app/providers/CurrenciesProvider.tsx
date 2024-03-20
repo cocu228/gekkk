@@ -75,6 +75,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     useEffect(() => {
         if (state.currencies !== null) (async () => {
+            // TODO: Fix QuickExchange to remove this request
             const ratesEUR = await apiGetRates({
                 to: 'EUR'
             });

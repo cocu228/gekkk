@@ -1,5 +1,5 @@
 import {addDays} from "date-fns";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
@@ -8,27 +8,41 @@ import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {formatForCustomer} from "@/shared/lib/date-helper";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {apiCreateInvestment} from '@/shared/(orval)api/gek';
+import {apiCreateInvestment, apiGetInvestments} from '@/shared/(orval)api/gek';
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {useTranslation} from "react-i18next";
-import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
+import Loader from "@/shared/ui/loader";
+import {CtxRootData} from "@/processes/RootContext";
+import {uncoverArray} from "@/shared/lib";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 const GkeCashbackProgram = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const lockConfirmModal = useModal();
     const currency = useContext(CtxWalletData);
+    const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
-    const investment = storeInvestments(state => state.cashbackInvestment);
-    const updateCashbackInvestment = storeInvestments(state => state.updateCashbackInvestment);
-    const {t} = useTranslation();
+    const {inputCurr, setInputCurr} = useInputState();
+    const [investment, setInvestment] = useState<GetDepositOut>(null);
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
 
-    return (
+    useEffect(() => {
+        (async () => {
+            const {data} = await apiGetInvestments({
+                end: null,
+                start: null,
+                investment_types: [3]
+            });
+
+            setInvestment(uncoverArray(data.result));
+        })();
+    }, [account]);
+
+    return !currencies ? <Loader/> : (
         <>
             <div className="row mb-10">
                 <div className="col">
@@ -179,7 +193,9 @@ const GkeCashbackProgram = () => {
                                 depo_template_type: 3
                             });
 
-                            if (data.result != null) updateCashbackInvestment(data.result)
+                            if (data.result != null) {
+                                setInvestment(data.result);
+                            }
                         }}
                     >{t("confirm")}</Button>
                 </div>

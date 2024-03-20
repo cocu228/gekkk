@@ -6,6 +6,7 @@ import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
 import {useTranslation} from "react-i18next";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
+import Button from "@/shared/ui/button/Button";
 
 const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu) => {
     const ref = useRef(null);
@@ -35,19 +36,20 @@ const HeaderMenu = ({children, items, className = "", actions}: TPropsHeaderMenu
                         />
                     </div>
                     {items.map((item, i) => {
+                        if (!md && item.id === "logout")
+                            return null;
+
                         return (
-                            md?
-                                <span key={"ItemMenu_" + i} style={item.style} onClick={() => dropdownMenuFunctions.onAction(item.action)} className={`${styles.DropdownItem} h-full gap-[3%]`}>
-                                    {item.icon}{item.item} 
-                                </span>
-                            :
-                                item.id !== "logout" && 
-                                    <span key={"ItemMenu_" + i} style={item.style} onClick={() => dropdownMenuFunctions.onAction(item.action)} className={`${styles.DropdownItem} h-full gap-[3%]`}>
-                                        {item.icon}{item.item} 
-                                    </span>
+                            <span
+                                style={item.style}
+                                key={"ItemMenu_" + i}
+                                className={`${styles.DropdownItem} h-full gap-[3%]`}
+                                onClick={() => dropdownMenuFunctions.onAction(item.action)}
+                            >
+                                {item.icon}{item.item} 
+                            </span>
                         )
                     })}
-                    
                 </div>
             </div>
         </div>

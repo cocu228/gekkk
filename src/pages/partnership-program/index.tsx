@@ -38,7 +38,33 @@ const PartnershipProgram = () => {
 const ContentDescription = () => {
     const {t} = useTranslation();
 
+    const [state, setState] = useState<string>("")
+    const {md} = useContext(BreakpointsContext);
+
+    useEffect(() => {
+        (async () => {
+            const response = await apiGetAgentCode()
+            actionResSuccess(response).success(() => {
+                setState(uncoverResponse(response))
+            })
+        })()
+    }, []);
+
     return <>
+         {md && 
+            <div className={md?styles.AgentCodeMobile:""}>
+            <div className={`row ${md?"mb-2 mt-6 ml-2":"mb-6"}`}>
+                <div className="col">
+                    <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
+                </div>
+            </div>
+            <div className={`row mb-8 ${md&&"flex justify-center"}`}>
+                <div className={`col ${md&&"w-[95%]"}`}>
+                    <ClipboardField value={state}/>
+                </div>
+            </div>
+            </div>
+        }
         <div className="row mb-8">
             <div className="col">
                 <h5 className="mt-5 font-[700]">{t("partnership_program.reward_for_buying")}</h5>
@@ -103,7 +129,8 @@ const ContentMain = () => {
     }, [])
 
     return <>
-        <div className={md?styles.AgentCodeMobile:""}>
+        {!md && 
+            <div className={md?styles.AgentCodeMobile:""}>
             <div className={`row ${md?"mb-2 mt-6 ml-2":"mb-6"}`}>
                 <div className="col">
                     <h4 className="font-bold">{t("partnership_program.agent_code")}</h4>
@@ -114,7 +141,8 @@ const ContentMain = () => {
                     <ClipboardField value={state}/>
                 </div>
             </div>
-        </div>
+            </div>
+        }
         <div className="row mb-6">
             <div className="col">
                 <h4 className="font-bold">{t("partnership_program.referrals_info")}</h4>

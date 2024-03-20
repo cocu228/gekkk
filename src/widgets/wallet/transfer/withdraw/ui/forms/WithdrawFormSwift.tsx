@@ -20,6 +20,7 @@ import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys"
 import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {getInitialProps, useTranslation} from "react-i18next";
+import styles from "../forms/styles.module.scss"
 
 const WithdrawFormSwift = () => {
 
@@ -287,10 +288,10 @@ const WithdrawFormSwift = () => {
                         </InputCurrency.Validator>
                     </div>
         </div>
-        <Modal width={450} title={t("transfer_confirmation")}
+        <Modal width={450} title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
                onCancel={handleCancel}
                open={isModalOpen}>
-            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number}/>
+            <WithdrawConfirmSepa handleCancel={handleCancel} {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">
             <div className="col">

@@ -15,8 +15,6 @@ import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { validateBalance } from "@/shared/config/validators";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
-import TransferTableCodeMobile from "@/widgets/wallet/transfer/components/mobile/table/TransferTableCodeMobile";
-import CreateCodeMobile from "./mobile/CreateCodeMobile";
 import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
@@ -92,7 +90,7 @@ const CreateTransferCode = () => {
                         validators={[validateBalance(currency, navigate, t)]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                        header={<span className='text-[#1F3446] text-[12px] font-bold'>{t("amount")}</span>}
+                                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
                                                         currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
@@ -264,7 +262,7 @@ const CreateTransferCode = () => {
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
             <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={<span className={styles.MainModalTitle}>{t("your_transfer_code")}</span>} open={isModalOpen}>
-                <CreateCodeMobile onClose={()=>{handleCancel();setNewCode("")}} inputCurr={inputCurr} code={newCode}/>
+                <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </MoadlAnt>
         </div>
         <div className="row mb-2">
@@ -273,7 +271,7 @@ const CreateTransferCode = () => {
             </h3>
         </div>
         <div className="row">
-            <TransferTableCodeMobile isOwner/>
+            <TransferTableCode isOwner/>
         </div>
     </div>
 }

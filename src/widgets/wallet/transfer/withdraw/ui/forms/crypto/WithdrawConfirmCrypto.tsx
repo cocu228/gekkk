@@ -96,18 +96,7 @@ const WithdrawConfirmCrypto = memo(({
     const { onInput } = useMask(MASK_CODE)
     const onConfirm = async (reSendCode = false) => {
         setLoading(!reSendCode);
-        console.log(`onConfirm start — stageReq?.status: ${stageReq?.status}`)
-        // В случае когда требуется подпись
-        let sign = null;
-        if (stageReq?.status === 2) {
-            sign = await SignTX(stageReq.txId + "" + stageReq.code);
-            $axios.defaults.headers["x-signature"] = sign;
-        }
-        else 
-        {            
-            $axios.defaults.headers["x-signature"] = "";
-        }
-
+        
         const response = await apiCreateWithdraw({
             ...fragmentReqParams.current,
             client_nonce: getRandomInt32(),
@@ -119,8 +108,15 @@ const WithdrawConfirmCrypto = memo(({
                 : stageReq.status === 2
                     ? stageReq.code
                     : input !== ""
-                        ? formatAsNumber(input)
+                    ? formatAsNumber(input)
                         : null
+                    }, {
+            headers: {
+                // В случае когда требуется подпись
+                ...(stageReq?.status !== 2 ? {} : {
+                    "x-signature": await SignTX(stageReq.txId + "" + stageReq.code)
+                })
+            }
         });
 
         actionResSuccess(response)
@@ -140,21 +136,17 @@ const WithdrawConfirmCrypto = memo(({
                     }))
                 }
                 if (result.confirmationStatusCode === 4) {
-
                     if(md){
+                        handleCancel()
                         setSuccess(true)
                     }else{
                         handleCancel()
                         setContent(<CtnTrxInfo />)
                         setRefresh()
                     }
-                    
                 } else {
                     localErrorHunter({ message: "Something went wrong.", code: 1 })
                 }
-
-                console.log(`onConfirm end — stageReq?.status: ${stageReq?.status}`)
-                console.log(`onConfirm end — result.confirmationStatusCode: ${result.confirmationStatusCode}`)
             })
             .reject((err) => {
                 if (err.code === 10035) {

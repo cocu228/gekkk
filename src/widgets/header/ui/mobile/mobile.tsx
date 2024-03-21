@@ -49,8 +49,6 @@ const HeaderMobile = ({ items, actions }) => {
                 return t(`${location.pathname.slice(1)}`)
         }
     }
-
-    const goBack = () => navigate(-1)
     // const isOpen = storyToggleSidebar(state => state.isOpen);
     // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
@@ -99,7 +97,7 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 </HeaderMenu>
                 :
-                <div className="flex items-center w-full" onClick={() => { goBack() }} data-testid="HeaderMenuContainer">
+                <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
                     <div className={styles.GoBackIcon}></div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>

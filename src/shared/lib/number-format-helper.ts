@@ -14,9 +14,12 @@ export function toLocaleCryptoRounding (value: number, maximumFractionDigits?: n
 }
 
 export const getCurrencyRounding = (value: number | undefined) =>
+	// If value more than 1000, cut off fractional part 
     value === undefined ? "-" : value >= 1000
+		// If value more than 1, display 2 fractional digits
         ? Math.round(value) : value >= 1
             ? value.toFixed(2)
             : value.toFixed(value != 0
-				? Math.floor(-Math.log10(value)) + 3
+				// If value lower than 0.01 EUR display 2 last fractionals, else - 4 last fractionals
+				? Math.floor(-Math.log10(value)) + (value >= 0.01 ? 4 : 2)
 				: 0);

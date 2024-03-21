@@ -45,9 +45,16 @@ export default function customSearch() {
     
     const {t} = useTranslation()
 
+    const translatedOptions = options.map(el=>{
+        return {
+            ...el,
+            label: t(el.t)
+        }
+    })
+
     const [loading, setLoading] = useState(false);
     const [lazyLoading, setLazyLoading] = useState(false);
-    const [selectedTx, setSelectedTx] = useState(options[0]);
+    const [selectedTx, setSelectedTx] = useState(translatedOptions[0]);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
 
     const [historyData, setHistoryData] = useState({assets: [selectedAsset.value], types: selectedTx.value, includeFiat: selectedAsset.isFiat});
@@ -185,7 +192,7 @@ export default function customSearch() {
                                 onSelect={(_, selectedOption) => {
                                     setSelectedTx(selectedOption);
                                 }}
-                                options={options}
+                                options={translatedOptions}
                                 listHeight={500}/>
                     </div>
                     <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>

@@ -1,11 +1,13 @@
-﻿const NumberFiatFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2, minimumFractionDigits: 2});
+﻿import {isNull} from "./helpers";
+
+const NumberFiatFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2, minimumFractionDigits: 2});
 
 export function toLocaleFiatRounding(value: number): string | null {
-	return isNaN(value) ? null : NumberFiatFormat.format(value);
+	return (isNaN(value) || isNull(value)) ? null : NumberFiatFormat.format(value);
 }
 
 export function toLocaleCryptoRounding (value: number, maximumFractionDigits?: number, minimumFractionDigits?: number): string | null {
-	return isNaN(value) ? null : value?.toLocaleString("fr-FR", {
+	return (isNaN(value) || isNull(value)) ? null : value?.toLocaleString("fr-FR", {
 		maximumFractionDigits,
 		minimumFractionDigits
 	});

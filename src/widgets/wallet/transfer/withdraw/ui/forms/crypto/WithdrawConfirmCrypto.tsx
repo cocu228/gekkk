@@ -137,7 +137,6 @@ const WithdrawConfirmCrypto = memo(({
                 }
                 if (result.confirmationStatusCode === 4) {
                     if(md){
-                        handleCancel()
                         setSuccess(true)
                     }else{
                         handleCancel()
@@ -326,7 +325,7 @@ const WithdrawConfirmCrypto = memo(({
                     </div>
                 </div>
             </Form>
-            <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
+            <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} cancelParent={handleCancel} open={isSuccess}/>
             <StatusModalError setIsErr={setErr} open={isErr}/>
             {/*{is_operable === false && <>*/}
             {/*    <div className="info-box-danger">*/}
@@ -650,7 +649,7 @@ const WithdrawConfirmCrypto = memo(({
                         </div>
                     </div>
                 </Form>
-                <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
+                <StatusModalSuccess refresh={setRefresh} cancelParent={handleCancel} setIsSuccess={setSuccess} open={isSuccess}/>
                 <StatusModalError setIsErr={setErr} open={isErr}/>
                 {/*{is_operable === false && <>*/}
                 {/*    <div className="info-box-danger">*/}

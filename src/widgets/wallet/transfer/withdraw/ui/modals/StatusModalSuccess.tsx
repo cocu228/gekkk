@@ -10,10 +10,17 @@ type Props = {
     open: boolean;
     width?: number;
     setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    cancelParent?: () => void;
     refresh: () => void;
 }
 
-function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
+function StatusModalSuccess({
+    open,
+    width = 418,
+    refresh,
+    setIsSuccess,
+    cancelParent
+}: Props) {
   const {t} = useTranslation()
 
   return (
@@ -54,8 +61,9 @@ function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
                     <Button
                         className='w-full'
                         onClick={()=>{
-                            setIsSuccess(false)
-                            refresh()
+                            setIsSuccess(false);
+                            cancelParent();
+                            refresh();
                         }}
                         size='xl'
                         blueTransfer

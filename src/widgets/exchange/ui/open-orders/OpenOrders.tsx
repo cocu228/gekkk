@@ -138,7 +138,7 @@ function OpenOrders({
                 />
             </>) : (
                 <div className='flex gap-x-4 w-full justify-center'>
-                    <span>Closed orders</span>
+                    <span>{t("exchange.closed_orders")}</span>
                     <Switch
                         defaultChecked={activeTab === ordersTabs[0].Key}
                         onChange={(isCheked) => setActiveTab(isCheked
@@ -146,7 +146,7 @@ function OpenOrders({
                             : ordersTabs[1].Key
                         )}
                     />
-                    <span>Active orders</span>
+                    <span>{t("exchange.active_orders")}</span>
                 </div>
             )}
 

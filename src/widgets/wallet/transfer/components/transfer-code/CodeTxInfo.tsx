@@ -132,7 +132,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                                     <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
                                 </div>
                                 <div className="col">
-                                    <span>{infoCode.typeTx === 12 ? <span className="text-[green]">on</span> : "off"}</span>
+                                    <span>{infoCode.typeTx === 12 ? <span className="text-[green]">{t("on")}</span> : t("off")}</span>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +209,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                     <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
                             size={"xl"}
                             className={"w-full !h-full !font-medium"}>
-                        Confirm
+                        {t("confirm")}
                     </Button>
                 </div>
             </div>}

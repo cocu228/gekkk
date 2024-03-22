@@ -186,7 +186,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
 
         <Modal title={"Your transfer code"} open={isModalOpen}
                onCancel={handleCancel}>
-            <CodeTxInfo inputCurr={inputCurr} code={code}/>
+            <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
         </Modal>
     </> : <>
         <span onClick={showModal}
@@ -196,7 +196,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
                onCancel={handleCancel}
                footer={null}
         >
-            <CodeTxInfo inputCurr={inputCurr} code={code}/>
+            <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
         </ModalAnt>
     </>
 }

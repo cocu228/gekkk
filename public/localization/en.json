@@ -307,6 +307,8 @@
       "you_pay": "You pay",
       "get_no_less": "Get no less",
       "title": "Crypto exchange",
+      "rooms":"Rooms",
+      "new_room": "New room",
       "describe": "Cryptocurrency exchange - fast and easily",
       "create_private_exchange_room": "Create private exchange room",
       "private_exchange_room": "private exchange room",
@@ -355,7 +357,9 @@
       "order_id": "Order ID:",
       "info_final_exchange": "The final exchange rate may differ from the value shown.",
       "testing_value": "Testing value",
-      "without_comission": "without comission"
+      "without_comission": "without comission",
+      "closed_orders": "Closed orders",
+      "active_orders": "Active orders"
     },
     "you_will_pay": "You will pay",
     "you_will_get": "You will get",
@@ -704,6 +708,11 @@
     "select_card": "Select card",
     "select_currency": "Select currency",
     "no_data_avialible": "No data avialible",
-    "clear": "Clear"
+    "clear": "Clear",
+    "investments": "Investments",
+    "rewards": "Rewards",
+    "are_you_sure_close": "Are you sure you want to close {{currency1}} - {{currency2}} private exchange room? All unclosed orders will be canceled",
+    "are_you_sure_leave": "Are you sure you want to leave {{currency1}} - {{currency2}} private exchange room? Your unclosed orders will be canceled"
+
   }
 }

@@ -259,7 +259,15 @@
       "sign_out": "Abmelden",
       "main": "Haupt",
       "exchange": {
+          "you_pay": "Sie zahlen",
+          "get_no_less": "Bekommen Sie nicht weniger",
+          "create_order": "Bestellung erstellen",
+          "broker_exchange_fee": "Maklerwechselgebühr 0%",
           "title": "Austausch",
+          "closed_orders": "Abgeschlossene Bestellungen",
+          "active_orders": "Aktive Bestellungen",
+          "rooms": "Zimmer",
+          "new_room": "Neues Zimmer",
           "describe": "Kryptowährungsumtausch - schnell und einfach",
           "create_private_exchange_room": "Privaten Austauschraum erstellen",
           "private_exchange_room": "Privater Austauschraum",
@@ -494,7 +502,11 @@
     "select_card": "Karte auswählen",
     "select_currency": "Währung auswählen",
     "no_data_avialible": "Keine Daten verfügbar",
-    "clear": "löschen"
+    "clear": "löschen",
+    "investments": "Investitionen",
+    "rewards": "Belohnungen",
+    "are_you_sure_close": "Sind Sie sicher, dass Sie den privaten Austauschraum {{currency1}} - {{currency2}} schließen möchten? Alle offenen Aufträge werden storniert.",
+    "are_you_sure_leave": "Sind Sie sicher, dass Sie den privaten Austauschraum {{currency1}} - {{currency2}} verlassen möchten? Ihre offenen Aufträge werden storniert."
 
 
 

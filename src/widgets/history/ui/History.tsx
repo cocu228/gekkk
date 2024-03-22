@@ -66,11 +66,16 @@ const History = memo(function ({
     threshold: 0.9,
   });
 
+
+
   useEffect(() => {
-    if (md && isIntersecting && !allTxVisibly) {
+    if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0") ) {
+
       (async () => {
         setLazyLoading(true);
 
+        console.log(lastValue?.next_key);
+        
         const { data } = await apiGetHistoryTransactions({
           currencies: currenciesFilter,
           tx_types: types,

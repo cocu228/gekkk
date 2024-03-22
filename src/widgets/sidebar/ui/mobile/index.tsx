@@ -11,7 +11,6 @@ import { storyToggleSidebar } from "../../model/story";
 import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -22,7 +21,6 @@ import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 
 
@@ -52,9 +50,7 @@ const SidebarMobile = () => {
         getRoomsList,
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
-    const getInvestments = storeInvestments(state => state.getInvestments);
     const {activeCards, getActiveCards} = storeActiveCards(state => state);
-    const {getAccountDetails} = storeAccountDetails(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -64,9 +60,7 @@ const SidebarMobile = () => {
     useEffect(() => {
         if (account) {
             getRoomsList();
-            getInvestments();
             getActiveCards();
-            getAccountDetails();
         }
     }, [account]);
 
@@ -116,7 +110,7 @@ const SidebarMobile = () => {
             <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
                 <div className={`${styles.Sidebar} flex flex-col justify-between`}>
                     <div className="wrapper" ref={refreshCont} style={{marginTop: pullChange / 3.118 || ""}}>
-                        <div className="p-2 rounded-full w-full flex justify-center ">
+                        <div className="p-2 rounded-full w-full flex justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -146,12 +140,12 @@ const SidebarMobile = () => {
                                     />
                                 </div> : activeCards?.length === 0 ? (
                                     <Carousel>
-                                        <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
+                                        <div onClick={() => navigate('/card-menu')}>
                                             <NewBankCard/>
                                         </div>
                                     </Carousel>
                                 ) : (
-                                    <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
+                                    <div onClick={() => navigate('/card-menu')}>
                                         <BankCardsCarousel cards={activeCards}/>
                                     </div>
                                 )}
@@ -352,7 +346,7 @@ const SidebarMobile = () => {
                                     size="xl"
                                     className="w-full"
                                     onClick={() => {
-                                        if (window.location.pathname === `/private-room/${selectedRoom.timetick}`) {
+                                        if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
                                             navigate('/exchange');
                                         }
 

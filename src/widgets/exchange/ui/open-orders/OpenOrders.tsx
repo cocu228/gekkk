@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import {DatePicker} from 'antd';
+import {DatePicker, Switch} from 'antd';
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import {format, addDays} from 'date-fns';
@@ -21,6 +21,7 @@ import SecondaryTabGroup from '@/shared/ui/tabs-group/secondary';
 import {apiGetOrders, apiCancelOrder} from '@/shared/(orval)api/gek';
 import {actionResSuccess, getSecondaryTabsAsRecord} from '@/shared/lib/helpers';
 import useError from "@/shared/model/hooks/useError";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 const {RangePicker} = DatePicker;
 
@@ -32,6 +33,7 @@ function OpenOrders({
     refreshKey
 }: IParams) {
     const {t} = useTranslation();
+    const {md} = useBreakpoints();
     const cancelOrderModal = useModal();
     const {account} = useContext(CtxRootData);
     const {roomInfo} = useContext(CtxExchangeData);
@@ -124,15 +126,32 @@ function OpenOrders({
     
     return (
         <>
-            <div className="flex justify-between mb-2">
-                <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
-                {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
-            </div>
+            {!md ? (<>
+                <div className="flex justify-between mb-2">
+                    <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
+                </div>
 
-            <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(ordersTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+                <SecondaryTabGroup
+                    activeTab={activeTab}
+                    setActiveTab={(value) => setActiveTab(value)}
+                    tabs={getSecondaryTabsAsRecord(ordersTabs)}
+                />
+            </>) : (
+                <div className='flex gap-x-4 w-full justify-center'>
+                    <span>{t("exchange.closed_orders")}</span>
+                    <Switch
+                        defaultChecked={activeTab === ordersTabs[0].Key}
+                        onChange={(isCheked) => setActiveTab(isCheked
+                            ? ordersTabs[0].Key
+                            : ordersTabs[1].Key
+                        )}
+                    />
+                    <span>{t("exchange.active_orders")}</span>
+                </div>
+            )}
 
             {activeTab === TabKey.CLOSED && (
-                <div className='mb-2'>
+                <div className='mt-2 mb-4'>
                     {t("enter_period")}
 
                     <div className='flex grow-0 max-w-[400px]'>
@@ -162,10 +181,13 @@ function OpenOrders({
                 </div>}
 
                 {isLoading ? null : ordersList.map((ord: GetOrderListOut) => (
-                    <div className={`py-2.5 rounded-md md:rounded-none ${styles.Item}`} key={ord.id}>
+                    <div
+                        key={ord.id}
+                        className={`py-2.5 rounded-md md:rounded-none ${styles.Item} ${activeTab === TabKey.OPENED ? '' : 'grayscale'}`}
+                    >
                         <div className="flex justify-between">
                             <div className='flex gap-2'>
-                                <div className="text-orange bg-orange bg-opacity-10 rounded-md">
+                                <div className="bg-opacity-10 rounded-md">
                                     <strong>
                                         {currencyPrecision(ord.volume_source, ord.from)}
                                     </strong> {ord.from} &rarr; <strong>
@@ -197,7 +219,7 @@ function OpenOrders({
                             }</div>
                         </div>
                         <div className="flex justify-between gap-0.5 mt-1.5">
-                            <div className="flex gap-2.5">
+                            <div className="flex gap-2.5 items-center">
                                 <div className="text-secondary">{t("price")}: </div>
                                 <div>
                                     <span>1 {ord.from} ~ {
@@ -211,7 +233,7 @@ function OpenOrders({
 
                             {ord.state !== OrderState.OPENED ? null : (
                                 <button
-                                    className="text-secondary"
+                                    className={styles.CancelOrderBtn}
                                     onClick={() => {
                                         setSelectedOrder(ord);
                                         cancelOrderModal.showModal();
@@ -249,13 +271,19 @@ function OpenOrders({
                 <div className='mt-4'>
                     {localErrorInfoBox}
                 </div>
-                
-                <div className="mt-8 sm:mt-4">
+
+                <div className="flex gap-4 mt-8 sm:mt-4">
                     <Button
                         size="xl"
                         className="w-full"
                         onClick={cancelOrder}
                     >{t("exchange.cancel_order")}</Button>
+
+                    <Button
+                        gray
+                        className="w-full"
+                        onClick={cancelOrderModal.handleCancel}
+                    >{t("cancel")}</Button>
                 </div>
             </Modal>
         </>

@@ -2,6 +2,7 @@ import {useContext} from 'react';
 import styles from './style.module.scss';
 import Input from "@/shared/ui/input/Input";
 import {CtxExchangeData} from '../../model/context';
+import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 
 function PriceField({disabled}: {disabled?: boolean}) {
@@ -12,6 +13,8 @@ function PriceField({disabled}: {disabled?: boolean}) {
         onPriceAmountChange,
         onPriceCurrenciesSwap
     } = useContext(CtxExchangeData);
+
+    const {md} = useBreakpoints();
     
     const {
         amount,
@@ -26,19 +29,20 @@ function PriceField({disabled}: {disabled?: boolean}) {
             placeholder='0.00'
             disabled={!(from.currency && to.currency) || disabled}
             value={!amount ? '' : amount}
-            suffix={to.currency && from.currency && (
+            prefix={to.currency && from.currency && (
                 <div className={styles.FieldPriceLabel}>
-                    <span>{isSwapped
-                        ? `${from.currency} per 1 ${to.currency}`
-                        : `${to.currency} per 1 ${from.currency}`
-                    }</span>
                     <button
                         className={styles.FieldSwitchBtn}
                         onClick={onPriceCurrenciesSwap}
                     >
+                        <span>{isSwapped
+                            ? `${from.currency} per 1 ${to.currency}`
+                            : `${to.currency} per 1 ${from.currency}`
+                        }</span>
+
                         <img
-                            width={24}
-                            height={24}
+                            width={md ? 20 : 24}
+                            height={md ? 20 : 24}
                             src='/img/icon/ExchangeOrange.svg'
                             alt="ExchangeIcon"
                         />

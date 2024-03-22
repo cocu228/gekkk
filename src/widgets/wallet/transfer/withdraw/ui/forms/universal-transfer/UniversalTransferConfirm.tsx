@@ -5,7 +5,7 @@ import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
-import {actionResSuccess, getRandomInt32, uncoverResponse} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomInt32, isNull, uncoverResponse} from "@/shared/lib/helpers";
 import {useForm} from "antd/es/form/Form";
 import {CtxModalTrxInfo} from "../../../model/context";
 import {CtnTrxInfo} from "../../../model/entitys";
@@ -13,6 +13,12 @@ import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { useTranslation } from "react-i18next";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import styles from "../styles.module.scss"
+import StatusModalSuccess from "../../modals/StatusModalSuccess";
+import StatusModalError from "../../modals/StatusModalError";
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+
 
 const initStageConfirm = {
     txId: null,
@@ -41,6 +47,9 @@ const UniversalTransferConfirm = ({
     const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(false);
     const [localErrorHunter, ,localErrorInfoBox,] = useError();
+    const [isErr, setErr] = useState<boolean>(false)
+    const [isSuccess, setSuccess] = useState<boolean>(false)
+    const {md} = useBreakpoints()
     const {t} = useTranslation()
 
     const details = useRef({
@@ -80,14 +89,16 @@ const UniversalTransferConfirm = ({
                     }
                     else {
                         localErrorHunter({message: "Something went wrong.", code: 1})
+                        setErr(true)
                     }
                 })
                 .reject((err) => {
                     if (err.code === 10084) {
                         localErrorHunter({message: "Wallet not found", code: err.code});
+                        setErr(true)
                         return;
                     }
-
+                    err.code && setErr(true)
                     localErrorHunter(err);
                 })
             setLoading(false);
@@ -119,22 +130,28 @@ const UniversalTransferConfirm = ({
                     }))
                 }
                 if (result.confirmationStatusCode === 4) {
-                    handleCancel()
-                    setContent(<CtnTrxInfo/>)
-                    setRefresh()
+                    if(md){
+                        setSuccess(true)
+                    }else{
+                        handleCancel()
+                        setContent(<CtnTrxInfo />)
+                        setRefresh()
+                    }
                 } else {
                     localErrorHunter({message: "Something went wrong.", code: 1})
+                    setErr(true)
                 }
             })
             .reject((err) => {
                 localErrorHunter(err);
-                form.resetFields();
+                form.resetFields();                
+                err.code && setErr(true)
             })
 
         setLoading(false);
     }
     
-    return <div>
+    return !md ? <div>
         {loading && <Loader className='justify-center'/>}
         
         <div className={loading ? 'collapse' : ''}>
@@ -231,7 +248,153 @@ const UniversalTransferConfirm = ({
                 </div>
             </Form>
         </div>
-    </div>
+    </div> : <div>
+            {loading && <Loader className='justify-center'/>}
+            
+            <div className={loading ? 'collapse' : ''}>
+                <hr className={styles.ModalLine}/>
+                <div className="row mb-5">
+                    <div className="col">
+                        <div className="p-4">
+                            <div className={`wrapper ${styles.ModalInfo}`}>
+                                <div className={styles.ModalInfoIcon}>
+                                    <div className="col">
+                                        <WarningIcon/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <span className={styles.ModalInfoText}>
+                                            Please, check your transaction information carefully and confirm the operation.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div className={styles.ModalRows}>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col text-[#3A5E66] font-semibold">
+                            <span className={styles.ModalRowsValue}>{label}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>{t("recipient")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col">
+                            <span className={styles.ModalRowsValue}>{requisite}</span>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.ModalPayInfo}>
+                    <div className={styles.ModalPayInfoCol}>
+                        <div className="row">
+                            <span className={styles.ModalPayInfoText}>{t("you_will_pay")}:</span>
+                        </div>
+                        <div className="row">
+                        <span className={styles.ModalPayInfoText}>
+                            {t("you_will_get")}:
+                        </span>
+                        </div>
+                        <div className="row">
+                            <span className={styles.ModalPayInfoTextFee}>
+                                {t("fee")}:
+                            </span>
+                        </div>
+                    </div>
+                    <div className={styles.ModalPayInfoColValue}>
+
+                        <div className={styles.ModalPayInfoCol}>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexText}>
+                                        {amount}
+                                </span>
+                            </div>
+                            <div className={styles.ModalPayInfoValueFlex}>
+                                <span
+                                    className={styles.ModalPayInfoValueFlexTextFee}>
+                                        -
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div className={styles.ModalPayInfoCol}>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                {$const}
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextCurrency}>
+                                EUR
+                            </span>
+                            <span className={styles.ModalPayInfoValueFlexTextFee}>
+                                {$const}
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+                {comment && <>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className="text-gray-400">{t("comment")}</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col">
+                            <span>{comment}</span>
+                        </div>
+                    </div>
+                </>}
+
+                <Form form={form} onFinish={(e) => onConfirm()}>
+
+                    <div className="row mt-4">
+                        <div className="col relative">
+                            {loading ? <Loader className={"relative w-[24px] h-[24px]"}/> :
+                                <div className={styles.ButtonContainer + " px-4"}>
+                                    <Button htmlType={"submit"}
+                                        className={styles.ButtonTwo}
+                                        size={"xl"}
+                                        greenTransfer
+                                    >
+                                        Confirm
+                                    </Button>
+
+                                    <Button
+                                        className={styles.ButtonTwo}
+                                        onClick={handleCancel}
+                                        size={"xl"}
+                                        whiteGreenTransfer
+                                    >
+                                        Cancel
+                                    </Button>
+                                </div>
+                            }
+                        </div>
+                        
+                        <div className="col flex justify-center mt-4">
+                            {localErrorInfoBox}
+                        </div>
+                    </div>
+                </Form>
+            </div>
+            <StatusModalSuccess setIsSuccess={setSuccess} open={isSuccess} refresh={setRefresh}/>
+            <StatusModalError setIsErr={setErr} open={isErr}/>
+        </div>
 }
 
 export default UniversalTransferConfirm;

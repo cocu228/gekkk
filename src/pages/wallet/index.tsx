@@ -9,15 +9,14 @@ import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
 import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import NoFeeProgram from "@/widgets/wallet/programs/no-fee/ui";
-import CardsMenu from "@/widgets/wallet/cards-menu/ui/CardsMenu";
+import CardsMenu from "@/widgets/cards-menu/ui/CardsMenu";
 import Withdraw from "@/widgets/wallet/transfer/withdraw/ui/Withdraw";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {getTokenDescriptions} from "@/shared/config/coins/descriptions";
-import CashbackProgram from "@/widgets/wallet/programs/cashback/EUR/ui";
 import GkeCashbackProgram from "@/widgets/wallet/programs/cashback/GKE/ui";
 import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider";
-import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
+// import {QuickExchange} from "@/widgets/wallet/quick-exchange/ui/QuickExchange";
 import {mockEUR} from "@/processes/PWA/mock-EUR";
 import {useTranslation} from 'react-i18next';
 import WalletButtons from "@/shared/ui/wallet-buttons";
@@ -27,39 +26,19 @@ import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/programs/ui";
-import { pull, pullStart } from "@/shared/lib";
-
+import {getCookieData, pull, pullStart} from "@/shared/lib";
+import PendingTransactions from "@/widgets/pending-transactions";
 
 function Wallet() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {currency, tab} = useParams();
     const {account} = useContext(CtxRootData);
-    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {currencies} = useContext(CtxCurrencies);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    const [needMobile, setNeedMobile] = useState<boolean>(false)
-
-    useEffect(() => {
-        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-            setNeedMobile(true)
-        }else{
-            setNeedMobile(false)
-        }
-        
-        function handleResize() {
-            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-                setNeedMobile(true)
-            }else{
-                setNeedMobile(false)
-            }
-        }
-        
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-      }, []);
-    
+    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
+    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
     
     let $currency = mockEUR;
 
@@ -77,12 +56,12 @@ function Wallet() {
     const isOnCashbackProgramPage = tab === "cashback_program";
     const isOnTopUpPage = tab === "top_up";
     const isCardsMenu = tab === "bank_cards";
-    const isQuickExchange = tab === "simple_exchange";
+    // const isQuickExchange = tab === "simple_exchange";
     const isEURG: boolean = currency === 'EURG';
     const isEUR: boolean = currency === 'EUR';
     const isGKE: boolean = currency === 'GKE';
     
-    const currencyForHistory = useMemo(() => [$currency.$const], [currency]);
+    const currencyForHistory = useMemo(() => [currency], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 
     const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false)
@@ -122,7 +101,8 @@ function Wallet() {
 
     return (
         <div ref={refreshCont} style={{marginTop: (pullChange / 3.118) || "0px"}} className="flex flex-col h-full w-full">
-            
+            {isEUR && notificationsEnabled === 'true' && <PendingTransactions/>}
+
             <div className="rounded-full w-full flex justify-center ">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +141,7 @@ function Wallet() {
                                 </NetworkProvider>
 
                                 {(isEUR || isEURG || isGKE) &&
-                                    <Programs needMobile={needMobile} data-tag={"programs"} data-name={t("programs")}/>
+                                    <Programs data-tag={"programs"} data-name={t("programs")}/>
                                 }
                                 {$currency.$const === "EUR" && account?.rights && !account?.rights[AccountRights.IsJuridical] && <>
                                     <CardsMenu
@@ -170,7 +150,7 @@ function Wallet() {
                                         isNewCardOpened={isNewCardOpened}
                                         setIsNewCardOpened={setIsNewCardOpened}
                                     />
-                                    <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
+                                    {/* <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/> */}
                                 </>}
 
                                 {tab === "cashback_program" &&
@@ -204,7 +184,7 @@ function Wallet() {
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
-                        {!(isQuickExchange || isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
+                        {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&
                             <History 
                                 data-tag={"history"}
                                 data-name={t("history")} 
@@ -223,7 +203,7 @@ function Wallet() {
                             )
                         }
                         {isOnProgramsPage &&
-                            <Programs needMobile={true} data-tag={"programs"} data-name={t("programs")}/>
+                            <Programs data-tag={"programs"} data-name={t("programs")}/>
                         }
                         {isCardsMenu &&
                             <div className="mt-4">
@@ -235,9 +215,9 @@ function Wallet() {
                                 />
                             </div>
                         }
-                        {isQuickExchange && (
+                        {/* {isQuickExchange && (
                             <QuickExchange data-tag={"simple_exchange"} data-name={t("simple_exchange")}/>
-                        )}
+                        )} */}
                         {isOnNoFeeProgramPage &&
                             <NoFeeProgram data-tag={"no_fee_program"} data-name={t("no_fee_program")}/>
                         }

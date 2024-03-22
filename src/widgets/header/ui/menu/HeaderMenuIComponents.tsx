@@ -1,5 +1,5 @@
 import {t} from "i18next";
-import React, {useContext, useState} from "react";
+import {useContext, useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
@@ -9,12 +9,11 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
-import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
+import {actionResSuccess, getCookieData, getFormattedIBAN, setCookieData, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
-
-
+import {Switch} from "antd";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -89,6 +88,77 @@ export const PromoCodeModal = ({active = false}) => {
         </button>
         <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
             <PromoCode/>
+        </Modal>
+    </>
+}
+
+export const EnableNotifications = () => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const {showModal, handleCancel, isModalOpen} = useModal();
+    const {notificationsEnabled} =
+        getCookieData<{notificationsEnabled: string}>();
+    const [state, setState] = useState<boolean>(notificationsEnabled === 'true');
+
+    return <>
+        <div
+            onClick={() => {
+                showModal();
+                setLoading(true);
+
+                Notification.requestPermission().then((result) => {
+                    if (result === "granted") {
+                        setState(!state);
+                        setCookieData([{
+                            key: 'notificationsEnabled',
+                            value: `${!state}`,
+                            expiration: 365 * 24 * 60 * 60 // One year in seconds
+                        }]);
+
+                        window.location.reload();                
+                    }
+                    else if (result === "denied") {
+                        setLoading(false);
+                    }
+                    else {
+                        handleCancel();
+                        setLoading(false);
+                    }
+                });
+            }}
+            className="w-full flex items-center justify-between"
+        >
+            <div>{t("header_menu.enable_notifications")}</div>
+            <div className="pointer-events-none">
+                <Switch checked={state}/>
+            </div>
+        </div>
+
+        <Modal
+            closable={false}
+            open={isModalOpen}
+            onCancel={handleCancel}
+        >
+            <>
+                <div className="row mb-20">
+                    <div className="col">
+                        <p className="font-bold text-sm leading-6 text-center">
+                            {loading
+                                ? t("notifications_modal")
+                                : t("notifications_denied_modal")
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div className="row relative">
+                    <div className="col">
+                        {loading ? <Loader className={"w-[50px] h-[50px]"}/> :
+                            <Button
+                                onClick={handleCancel}
+                                className="w-full"
+                            >{t("close")}</Button>}
+                    </div>
+                </div>
+            </>
         </Modal>
     </>
 }

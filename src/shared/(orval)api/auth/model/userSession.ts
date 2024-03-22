@@ -18,4 +18,5 @@ export interface UserSession {
   login_type?: string | null;
   user_agent?: string | null;
   utc_create?: string;
+  current?: boolean;
 }

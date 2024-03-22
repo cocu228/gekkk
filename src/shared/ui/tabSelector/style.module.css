@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-size: 17px;
+  font-weight: 500;
+  border-bottom: 1px solid #29354c;
+  padding-bottom: 20px;
+}
+
+.unSelected {
+  color: #b9b9b5;
+}
+
+.tab:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.module.css.map */

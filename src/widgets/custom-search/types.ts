@@ -2,6 +2,7 @@ import { Card, TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 
 export interface ISelectTxTypes {
     label: string;
+    t: string;
     value: TransactTypeEnum[];
 }
 

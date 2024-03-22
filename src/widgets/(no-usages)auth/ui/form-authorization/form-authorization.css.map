@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,YAAY,CAAC;EACT,OAAO,EAAE,CAAC;CAcb;;AAfD,AAEI,YAFQ,CAER,eAAe,CAAC;EACZ,OAAO,EAAE,CAAC;CAKb;;AARL,AAKQ,YALI,CAER,eAAe,GAGP,CAAC,CAAC;EACF,OAAO,EAAE,SAAS;CACrB;;AAPT,AASI,YATQ,CASR,kBAAkB,CAAC;EACf,OAAO,EAAE,CAAC;CACb;;AAXL,AAYI,YAZQ,CAYR,gBAAgB,CAAC;EACb,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "form-authorization.scss"
+    ],
+    "names": [],
+    "file": "form-authorization.css"
+}

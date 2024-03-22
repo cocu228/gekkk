@@ -1,0 +1,30 @@
+@import "@fontsource/archivo";
+
+.button {
+    border-radius: 10px;
+    font-family: 'Archivo', sans-serif;
+    background-color: #285E69;
+    min-width: 60px;
+    min-height: 30px;
+    color: white;
+    transition: ease-in-out .2s;
+    :hover {
+        cursor: pointer;
+    }
+    :focus { 
+        outline: none;
+    }
+}
+
+.disabeled {
+    background-color: #B9B9B5;
+}
+.warn {
+    background-color: #F8A73E;
+}
+.alarm {
+    background-color: #8F123A;
+}
+.light {
+    background-color: #2BAB72;
+}

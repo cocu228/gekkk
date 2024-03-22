@@ -1,0 +1,23 @@
+.Container {
+    gap: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr .75fr .75fr;
+}
+
+.Left {
+    color: #3A5E66
+}
+
+.Center {
+    display: flex;
+    color: #1F3446;
+    font-weight: 600;
+    justify-content: right;
+}
+
+.Right {
+    font-weight: 600;
+    color: #1F3446;
+    justify-content: left;
+}

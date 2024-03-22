@@ -11,10 +11,10 @@ interface TabGroupParams {
 }
 
 function SecondaryTabGroup({
-                               tabs,
-                               activeTab,
-                               setActiveTab
-                           }: TabGroupParams) {
+    tabs,
+    activeTab,
+    setActiveTab
+}: TabGroupParams) {
     if (!tabs) return null;
     const {sm} = useContext(BreakpointsContext);
     const {offline} = useContext(CtxOfflineMode);

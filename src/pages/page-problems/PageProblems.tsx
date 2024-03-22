@@ -31,7 +31,7 @@ const PageProblems = ({code = 404}: { code?: number }) => {
             <div className={hClassName.scss("Wrapper")}>
                 <div className="row">
                     <a href="/">
-                        <img src="/img/logo.svg" alt="logo"/>
+                        <img className='min-w-[200px]' src="/img/logo.svg" alt="logo"/>
                     </a></div>
                 <div className="row pt-20">
                     <h1 className={hClassName.scss("Title")}>{text.title[code]}</h1>
@@ -39,41 +39,9 @@ const PageProblems = ({code = 404}: { code?: number }) => {
                 <div className="row pt-4">
                     {text.subscribe[code]}
                 </div>
-            </div>
-            <footer className={`text-center text-gray-500 mt-auto mb-10 font-normal mb max-w-[756px]
-            ${!md ? '' : 'px-4'}`}>
-                <p className='mb-4'>
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/terms-and-conditions.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >General terms and conditions</a>
-                    {' | '}
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/data-protection-policy.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >Data protection policy</a>
-                    {' | '}
-                    <a
-                        className={`${md ? 'text-xs' : 'text-sm'} hover:underline`}
-                        href="https://gekkard.com/legal-agreements.html"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    >Legal agreements</a>
-                </p>
+                <img className='w-[80%]' src="/img/errimage.jpg" />
 
-                <p className={` ${md ? 'text-xs' : 'text-sm'} mb-2`}>
-                    Crypto exchange service is powered by AtlantEX OU
-                    (licensed partner for crypto wallet and exchange)
-                </p>
-                <span
-                    className={`text-gray-500 font-semibold text-sm w-full block`}>
-                    © Gekkard. v.{import.meta.env.VITE_APP_VERSION}
-                </span>
-            </footer>
+            </div>            
         </div>
     )
 }

@@ -1,0 +1,8 @@
+.Child:hover + .TooltipContent {
+  visibility: visible;
+}
+
+.TooltipContent:hover {
+  visibility: visible;
+}
+/*# sourceMappingURL=style.module.css.map */

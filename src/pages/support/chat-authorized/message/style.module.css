@@ -1,0 +1,170 @@
+.MessageTimestamp {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.875rem;
+  color: var(--new-light-grey);
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.MessageTimestamp .MessageDate {
+  margin-right: 0.25rem;
+}
+
+.ChatWindow {
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  width: 100%;
+}
+
+.ChatWindow.Outgoing {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.ChatWindow .Container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 100%;
+  margin: 0 3rem 0 0;
+}
+
+.ChatWindow .Container.Outgoing {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin: 0 0 0 3rem;
+}
+
+.ChatWindow .Window {
+  position: relative;
+  display: inline-block;
+  padding: 0.95rem;
+  font-size: .85rem;
+  text-align: left;
+  color: black;
+  border-radius: var(--border-radius);
+  background-color: var(--new-light-green);
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.ChatWindow .Window.Outgoing {
+  background-color: var(--new-light-blue);
+}
+
+.ChatWindow .MessageHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.ChatWindow .MessageHeader .AuthorDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ChatWindow .MessageHeader .AuthorDetails .Author {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.ChatWindow .MessageHeader .AuthorDetails .Role {
+  margin-left: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.ChatWindow .MessageText {
+  color: var(--color-gray-600);
+  word-break: break-all;
+}
+
+.SupportChatComponent {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 0 0 0 5rem;
+}
+
+.SupportChatComponent::-webkit-scrollbar {
+  display: none;
+}
+
+.Content {
+  max-height: 600px;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.Content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.Content .Message {
+  margin: 1rem;
+}
+
+.Content .Message .MessageHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.Content .Message .MessageHeader .AuthorDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Content .Message .MessageHeader .AuthorDetails .AuthorName {
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+
+.Content .Message .MessageHeader .AuthorDetails .AuthorRole {
+  margin-left: 0.5rem;
+  color: var(--new-pale-blue);
+}
+/*# sourceMappingURL=style.module.css.map */

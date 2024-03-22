@@ -125,7 +125,7 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
                                                 onClick={()=>{
                                                     setNetworkType(network.value)
                                                     setNetwork(network.value)
-                                                    navigate(`/transfers?currency=${curr}&type=${networkTypeSelect}`)
+                                                    navigate(`/transfers?currency=${curr}&type=${network.value}`)
                                                 }}
                                             >
                                                 <span className="text-[12px] text-[#1F3446] font-bold">{network.label}</span>

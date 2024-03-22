@@ -187,20 +187,8 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
         }));
     }
 
-    const handleRoomCreation = (info: RoomInfo) => {
-        addExchangeRoom(info);
-        navigate(`/private-room/${info.timetick}`);
-    }
-
-    const handleRoomClosing = (roomNumber: number) => {
-        removeExchangeRoom(roomNumber);
-        navigate('/exchange');
-    }
-
     return <CtxExchangeData.Provider value={{
         ...state,
-        onRoomClosing: handleRoomClosing,
-        onRoomCreation: handleRoomCreation,
         onToValueChange: handleToAmountChange,
         onCurrenciesSwap: handleCurrenciesSwap,
         onFromValueChange: handleFromAmountChange,

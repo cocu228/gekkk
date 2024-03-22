@@ -25,7 +25,7 @@ export function SettingsButton(props: Props ) {
       >
         <div className='flex gap-7 items-center'>
           {props.icon}
-          <Typography variant="h" color={props.isSelected ? "white" : "dark-green"} className="font-normal">{props.text}</Typography>
+          <Typography variant="h" color={props.isSelected ? "white" : "dark-green"} className="font-normal ">{props.text}</Typography>
         </div>
         {md && <Arrow />}
       </FrameItem>

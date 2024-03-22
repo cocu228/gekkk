@@ -98,6 +98,9 @@
   }
 
 }
+.AddBottomAssetButtonMargin{
+  bottom: 90px;
+}
 
 .AssetInfo4 {
   display: inline-block;
@@ -405,6 +408,11 @@
   z-index: 41;
   overflow: auto;
 }
+.AddBottomMenuPadding{
+  padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
+  padding-top: 25px;
+}
+
 
 .BottomMenuMobile {
   height: 55px;

@@ -12,7 +12,7 @@ import {CurrencyFlags} from '@/shared/config/mask-currency-flags';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {evenOrOdd, scrollToTop} from "@/shared/lib/helpers";
+import {evenOrOdd, getRoundingValue, scrollToTop} from "@/shared/lib/helpers";
 import {useTranslation} from 'react-i18next';
 import searchIcon from '../../../../public/img/icon/search-normal.svg'
 import {getCurrencyRounding} from '@/shared/lib/number-format-helper';
@@ -149,9 +149,12 @@ const AssetsTable = ({
                                     ${!md && !evenOrOdd(index) ? "bg-gray-main" : ""}
                                     min-h-[56px] lg:min-h-[46px] font-medium hover:font-bold hover:cursor-pointer gap-3
                                     ${md && styles.MobileItem}
-                                    `
-                                    }
+                                    `}
                                     onClick={() => onSelect(currency.$const)}
+                                    customTemplateColumns={!(md && !!columnKeys.find(c => c === AssetTableKeys.PRICE))
+                                        ? null
+                                        : '1fr 0.58fr 0.5fr'
+                                    }
                                 >
                                     {columnKeys.map((key: string) => (
                                         <GTable.Col className={`flex ${getAlignment(columnKeys, key, md)}`}>
@@ -174,8 +177,20 @@ const AssetsTable = ({
                                             )}
 
                                             {key === AssetTableKeys.PRICE && (
-                                                <span className='block'>{!rates || rates[currency.$const] === 0 ? "—" :
+                                                <span className='block md:text-[14px]'>{!rates || rates[currency.$const] === 0 ? "—" :
                                                     `${getCurrencyRounding(rates[currency.$const])} €`}</span>
+                                            )}
+
+                                            {key === AssetTableKeys.BALANCE && (
+                                                <div className="flex flex-col justify-evenly min-w-[150px]">
+                                                    <span className="self-start text-[12px] text-[#7B797C] font-regular">{t("free_balance")}:</span>
+                                                    <span className="self-end text-[12px] text-[#1F3446] font-regular">
+                                                        {currency.availableBalance
+                                                            ? `${getRoundingValue(currency.availableBalance, currency.roundPrec)} ${currency.$const}`
+                                                            : "—"
+                                                        }
+                                                    </span>
+                                                </div>
                                             )}
 
                                             {key === AssetTableKeys.ACTIONS && (

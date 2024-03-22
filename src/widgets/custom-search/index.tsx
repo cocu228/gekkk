@@ -26,6 +26,8 @@ import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 import History from '../history/ui/History';
 import { useTranslation } from 'react-i18next';
 import { formatCardNumber } from '../dashboard/model/helpers';
+import { useIntersectionObserver } from '../history/hooks/useIntersectionObserver';
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 
 
@@ -42,6 +44,16 @@ export default function customSearch() {
     const loadActiveCards = storeActiveCards((state) => state.getActiveCards);
     const cards = storeActiveCards((state) => state.activeCards);
     const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
+
+    const {md} = useBreakpoints()
+
+    const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(
+        listHistory[listHistory.length - 1]
+    );
+
+    const { isIntersecting, ref } = useIntersectionObserver({
+        threshold: 0.9,
+      });
     
     const {t} = useTranslation()
 
@@ -122,39 +134,39 @@ export default function customSearch() {
     //     console.log(asse);
         
     // },[selectedAsset])
-    const requestMoreHistory = async () => {  
-        setLazyLoading(true)
-        const lastValue = listHistory[listHistory.length - 1];
-        
-        const { data } = await apiGetHistoryTransactions({
-            currencies: [selectedAsset.value],
-            tx_types: selectedTx.value,
-            next_key: lastValue?.next_key,
-            limit: 10,
-            include_fiat: true
-        });
 
-        if (data.result.length < 10) setAllTxVisibly(true)
 
-        setListHistory(prevState => ([...prevState, ...data.result]))
-
-        setLazyLoading(false)
-    }
-
-    const scrollHandler = async (e) => {               
-        
-        if(e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 10){
+    useEffect(() => {
+        if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0") ) {
+    
+          (async () => {
+            setLazyLoading(true);
+    
+            console.log(lastValue?.next_key);
             
-            await requestMoreHistory();
+            const { data } = await apiGetHistoryTransactions({
+              currencies: historyData.assets,
+              tx_types: historyData.types,
+              next_key: lastValue.next_key,
+              limit: 10,
+              include_fiat: historyData.includeFiat,
+              end: date ? formatForApi(date[1].toDate()).toString() : null,
+              start: date ? formatForApi(date[0].toDate()).toString() : null,
+            });
+    
+            if (data.result.length < 10) setAllTxVisibly(true);
+    
+            setListHistory((prevState) => [...prevState, ...data.result]);
+            setLazyLoading(false);
+          })();
         }
-    }
+      }, [isIntersecting]);
 
-    useEffect(()=>{
-            document.addEventListener("scroll", scrollHandler)
-            return function (){
-                document.removeEventListener("scroll", scrollHandler)
-            }
-    }, [])
+      useEffect(() => {
+        setLastValue(listHistory[listHistory.length - 1]);
+      }, [listHistory]);
+
+
 
     
     if (loading) {

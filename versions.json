@@ -1,5 +1,10 @@
 ﻿[
   {
+    "version": "2.0.66",
+    "date": "2024-03-22T14:30:18.689Z",
+    "description": "- Added the ability to sign withdrawals with FIDO-key for better safety and smoother user experience\n- Updated the withdrawal logic and changed the technical addresses management for better withdrawal speed and possible fee economy\n- Minor bug fixes"
+  },
+  {
     "version": "2.0.65",
     "date": "2024-02-07T13:40:18.689Z",
     "description": "- Added the functionality for sending internal transfers to other Gekkard users using only their phone number or IBAN\n- Updated authentication process with the ability to use FIDO-keys\n- Merged Withdraw and Transfer pages — now you can initiate transfers of all kinds in one place\n- Minor bug fixes"

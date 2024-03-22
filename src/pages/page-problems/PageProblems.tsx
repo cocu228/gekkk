@@ -31,7 +31,7 @@ const PageProblems = ({code = 404}: { code?: number }) => {
             <div className={hClassName.scss("Wrapper")}>
                 <div className="row">
                     <a href="/">
-                        <img className='w-auto' src="/img/logo.svg" alt="logo"/>
+                        <img className='min-w-[200px]' src="/img/logo.svg" alt="logo"/>
                     </a></div>
                 <div className="row pt-20">
                     <h1 className={hClassName.scss("Title")}>{text.title[code]}</h1>

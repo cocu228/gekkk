@@ -4,7 +4,7 @@ import MessageType from '../../types/MessageType';
 import placeholderProfilePNG from './profile.png';
 import { calculateTimeAgo } from '../../utils/date-utils';
 import useColorSet from '../../hooks/useColorSet';
-import MinChatUIContext from '../../contexts/MinChatUIContext';
+import MinChatUIContext from '../../contexts/ChatThemeContext';
 
 export type Props = {
   title: string;

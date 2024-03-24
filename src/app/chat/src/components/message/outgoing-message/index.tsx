@@ -6,7 +6,7 @@ import TextContent from '../text-content'
 import Timestamp from '../timestamp'
 import { Props } from '..'
 import useColorSet from '../../../hooks/useColorSet'
-import MinChatUIContext from '../../../contexts/MinChatUIContext'
+import MinChatUIContext from '../../../contexts/ChatThemeContext'
 
 
 export const Wrapper = styled.div<{ firstMessage?: boolean, lastMessage?: boolean }>`

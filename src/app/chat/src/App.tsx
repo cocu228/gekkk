@@ -1,18 +1,28 @@
 import {
-    MinChatUiProvider,
+    ChatThemeProvider,
     MainContainer,
     MessageInput,
     MessageContainer,
     MessageList,
     MessageHeader
 } from "./";
-import StompInit from "./utils/stomp-init";
+import StompSocketProvider from "./providers/StompSocketProvider";
+import {useState} from "react";
+import {ChatMessage} from "./types/Shared";
 
 function App() {
+    const [messages, setMessages] = useState<ChatMessage[]>([])
+    const onSendMessage = (message: string) => {
+        console.log(message)
+    }
+    const onAttachClick = () => {
+
+    }
+    console.log(messages)
+
     return (
-        <StompInit deviceIdHash={"0001"} sessionId={"0002"} setMessages={""} setIsWebSocketReady={(a) => null}
-                   chatConfig={{}}>
-            <MinChatUiProvider theme="#72BF44">
+        <StompSocketProvider setMessages={setMessages}>
+            <ChatThemeProvider theme="#72BF44">
                 <MainContainer style={{height: '100vh'}}>
                     <MessageContainer>
                         <MessageHeader/>
@@ -32,12 +42,13 @@ function App() {
                                 },
                             }]}
                         />
-                        <MessageInput showSendButton onAttachClick={() => console.log("Hello")}
+                        <MessageInput onSendMessage={onSendMessage} showSendButton
+                                      onAttachClick={onAttachClick}
                                       placeholder="Type message here"/>
                     </MessageContainer>
                 </MainContainer>
-            </MinChatUiProvider>
-        </StompInit>
+            </ChatThemeProvider>
+        </StompSocketProvider>
     )
 }
 

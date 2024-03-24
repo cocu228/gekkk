@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 import useTypingListener from '../../hooks/useTypingListener'
 import useColorSet from '../../hooks/useColorSet'
-import MinChatUIContext from '../../contexts/MinChatUIContext'
+import MinChatUIContext from '../../contexts/ChatThemeContext'
 
 export type Props = {
     onSendMessage?: (text: string) => void

@@ -8,7 +8,7 @@ import TextContent from '../text-content'
 import { Props } from '..'
 import Timestamp from '../timestamp'
 import useColorSet from '../../../hooks/useColorSet'
-import MinChatUIContext from '../../../contexts/MinChatUIContext'
+import MinChatUIContext from '../../../contexts/ChatThemeContext'
 
 
 const MessageContainer = styled(MyMessageContainer)`

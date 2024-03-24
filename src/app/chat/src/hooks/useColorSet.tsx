@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import MinChatUIContext from "../contexts/MinChatUIContext";
+import MinChatUIContext from "../contexts/ChatThemeContext";
 
 
 

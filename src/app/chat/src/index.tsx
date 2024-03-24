@@ -13,7 +13,7 @@ import useCheckIsMobile from "./hooks/useCheckIsMobile";
 import useTypingListener from "./hooks/useTypingListener";
 
 import Sidebar from "./components/sidebar"
-import MinChatUiProvider from "./providers/MinChatUiProvider";
+import ChatThemeProvider from "./providers/ChatThemeProvider";
 
 
 
@@ -33,5 +33,5 @@ export {
   Sidebar,
   MessageListBackground,
   MessageContainer,
-  MinChatUiProvider
+  ChatThemeProvider
 }

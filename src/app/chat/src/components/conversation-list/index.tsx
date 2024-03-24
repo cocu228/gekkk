@@ -4,7 +4,7 @@ import Loading from '../loading';
 import ConversationType from '../../types/ConversationType';
 import Conversation from '../conversation';
 import useColorSet from '../../hooks/useColorSet';
-import MinChatUIContext from '../../contexts/MinChatUIContext';
+import MinChatUIContext from '../../contexts/ChatThemeContext';
 
 export interface Props {
   onConversationClick?: (index: number) => void;

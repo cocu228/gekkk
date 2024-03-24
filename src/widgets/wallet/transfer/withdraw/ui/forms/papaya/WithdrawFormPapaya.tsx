@@ -295,7 +295,7 @@ const WithdrawFormPapaya = () => {
                     className="w-full"
                     greenTransfer
                 >
-                    Transfer
+                    {t("withdraw")}
                 </Button>
             </div>
         </div>

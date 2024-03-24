@@ -25,7 +25,7 @@ export function ChangePassword() {
         <MobileWrapper className="w-full">
             <div className="substrate w-full rounded-lg flex flex-col gap-3">
                 <div className="flex flex-row justify-between items-center">
-                    <Typography variant="h">New password:</Typography>
+                    <Typography variant="h">{t("new_password")}:</Typography>
                     <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -73,15 +73,15 @@ export function ChangePassword() {
                     {t('send_code')}
                     </MobileButton>
                     <MobileButton
-                    varitant={!changeCodeSent ? 'disabeled' : 'default'}
-                    onClick={()=>{
-                        if((newPass === confirmNewPass) && changeCodeSent){
-                        ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
-                        setChangeCodeSent(false)
-                        }
-                    }}
+                        varitant={!changeCodeSent ? 'disabeled' : 'default'}
+                        onClick={()=>{
+                            if((newPass === confirmNewPass) && changeCodeSent){
+                            ChangePass(phoneNumber, newPass, confirmCode, options, challengeReg)
+                            setChangeCodeSent(false)
+                            }
+                        }}
                     >
-                    {t('Save')}
+                        <span className="capitalize">{t('save')}</span>
                     </MobileButton>
                 </div>
             </div>

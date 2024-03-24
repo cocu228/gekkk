@@ -155,7 +155,7 @@ const SidebarMobile = () => {
 
 
                             <div className={styles.AssetInfo1}>
-                                <span>{"Fiat"}</span>
+                                <span>{t("fiat")}</span>
                             </div>
 
 
@@ -199,7 +199,7 @@ const SidebarMobile = () => {
 
                         </NavLink>
                         <div className={styles.AssetInfo1}>
-                            <span>{"Crypto Assets"}</span>
+                            <span>{t("crypto_assets.title")}</span>
                         </div>
                         <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
                                 to={!currencies ? "" : "wallet/EURG"}>

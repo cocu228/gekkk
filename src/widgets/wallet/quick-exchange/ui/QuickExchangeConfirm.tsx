@@ -66,7 +66,7 @@ const QuickExchangeConfirm = memo((
             </div>
         </div>
         <Form form={form} onFinish={onConfirm}>
-            <span>Transfer confirm</span>
+            <span>{t("transfer_confirm")}</span>
             <FormItem name="code" label="Code" preserve rules={[{required: true, ...codeMessage}]}>
                 <Input type="text"
                        onInput={onInput}

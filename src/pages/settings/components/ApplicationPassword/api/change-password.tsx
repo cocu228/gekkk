@@ -3,7 +3,6 @@ import elliptic from 'elliptic'
 import sha256 from 'crypto-js/sha256';
 import { eddsa } from "elliptic";
 import { apiRegisterKey, apiRegisterOptions, apiResetPassword } from "@/shared/(orval)api";
-import { useUserInfo } from "../../PersonalInformation/hooks/use-user-info";
 
 const servPath = import.meta.env.VITE_API_URL;
 export async function ChangePass(phoneNumber, newPass, confirmCode, makeAssertionOptions, challenge) {

@@ -224,7 +224,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                             <div className="row">
                                 <div className="col">
                                     <span className={styles.ModalInfoText}>
-                                        Please, check your transaction information carefully and confirm the operation.
+                                        {t("check_your_information_carefully")}
                                     </span>
                                 </div>
                             </div>

@@ -291,7 +291,7 @@ const WithdrawFormCrypto = () => {
                                     className="w-full"
                                     greenTransfer
                                 >
-                                    Transfer
+                                    {t("withdraw")}
                                 </Button>
                         </div>
                         <div className={styles.BottomFeeInfo}>

@@ -57,7 +57,7 @@ export function UserKeys() {
     return (
         <MobileWrapper className="w-[90%]">
             <div className="substrate w-full rounded-lg flex flex-row justify-between items-center">
-                <Typography variant={"h"}>Add new Gekkey:</Typography>
+                <Typography variant={"h"}>{t("add_new_gekkey")}:</Typography>
                 <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -75,7 +75,7 @@ export function UserKeys() {
                     RegisterOption(setChallenge, setSmsSent)
                   }}
                 >
-                    Send SMS-code
+                    {t("send_sms_code")}
                 </MobileButton>
                 <MobileButton 
                   className="w-24" 
@@ -85,7 +85,7 @@ export function UserKeys() {
                     setCode("")
                   }}  
                 >
-                    Create key
+                    {t("create_key")}
                 </MobileButton>
             </div>
 
@@ -100,14 +100,16 @@ export function UserKeys() {
                 </div>
                 <div className="w-1/5 min-h-[45px] flex items-center justify-center">
                     <MobileButton
-                    className={`w-full ${style.button}`}
-                    onClick={()=>{
-                        showModal()
-                        setKeyToRemove(key)
-                    }}
-                    varitant={index === 0 ? 'warn' : 'alarm'}
+                      className={`w-full ${style.button}`}
+                      onClick={()=>{
+                          showModal()
+                          setKeyToRemove(key)
+                      }}
+                      varitant={index === 0 ? 'warn' : 'alarm'}
                     >
-                    {index === 0 ? 'Current' : t("remove")}
+                      <span className="capitalize">
+                        {index === 0 ? t("current") : t("remove")}
+                      </span>
                     </MobileButton>
                 </div>
                 </div>)

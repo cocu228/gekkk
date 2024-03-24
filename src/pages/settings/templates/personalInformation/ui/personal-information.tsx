@@ -41,7 +41,7 @@ export function PersonalInformation() {
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}:</Typography>
+                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}</Typography>
                         <Typography variant="h" color="light-green" className="pb-2">{userInfo?.phone}</Typography>
                         <hr/>
                     </div>

@@ -185,7 +185,7 @@ const WithdrawConfirmCrypto = memo(({
                             <div className="row">
                                 <div className="col">
                                     <span className={styles.ModalInfoText}>
-                                        Please, check your transaction information carefully and confirm the operation.
+                                        {t("check_your_information_carefully")}
                                     </span>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@ const WithdrawConfirmCrypto = memo(({
                                     className={styles.ButtonTwo}
                                     size={"xl"}
                                 >
-                                    Cancel
+                                    {t("cancel")}
                                 </Button>
                             </div>
                         }
@@ -486,7 +486,7 @@ const WithdrawConfirmCrypto = memo(({
                                 <div className="row">
                                     <div className="col">
                                         <span className={styles.ModalInfoText}>
-                                            Please, check your transaction information carefully and confirm the operation.
+                                            {t("check_your_information_carefully")}
                                         </span>
                                     </div>
                                 </div>

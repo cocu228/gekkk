@@ -342,7 +342,7 @@ const MobileCardsMenu = ({
                 {!cardInfo ? <Loader className='relative my-10'/> : <div className='font-medium text-[16px]'>
                     <div className='flex flex-row gap-2'>
                         <Warn className="w-10" />
-                        <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">Be careful, do not to show or tell this data to other people, to avoid using the card or its data without your knowledge.</h3>
+                        <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">{t("be_careful")}</h3>
                     </div>
                     
                     <div className={`flex items-center justify-center mt-4 ${styles.infoContainer} min-h-[40px]`}>
@@ -361,7 +361,7 @@ const MobileCardsMenu = ({
                         <MobileButton onClick={() => {
                             setSelectedItem('f')
                             confirmationModal.handleCancel()
-                        }}>Close</MobileButton>
+                        }}>{t("close")}</MobileButton>
                     </div>
                 </div>}
                 </div>

@@ -38,10 +38,15 @@ function StatusModalError({open, width = 418, setIsErr}: Props) {
             </svg>
             <div className='text-center w-[80%] flex flex-col items-center gap-[30px]'>
                 <span className='font-bold text-[20px] text-[#3A5E66]'>
-                    Transfer error
+                    {t("transfer_error")}
                 </span>
                 <span className='text-[12px] text-[#9D9D9D]'>
-                    Your transaction was not completed due to an unexpected error. Please try again later or contact <NavLink to={"/support"}><span className='text-[#45AD77]'>our support team</span></NavLink>
+                    {t("your_transfer_was_not_completed")} 
+                    <NavLink to={"/support"}>
+                        <span className='text-[#45AD77]'>
+                            {t("our_support_team")}
+                        </span>
+                    </NavLink>
                 </span>
             </div>
             <div className={styles.ButtonContainerCenter + " mt-[30px]"}>

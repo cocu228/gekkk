@@ -158,10 +158,11 @@
 
 .HType:after {
   content: "";
-  background: var(--gek-additional);
+  //background: var(--gek-additional);
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 1px;
+  height: 2px;
   width: 75px;
+  border-bottom: var(--gek-additional) 1px solid;
 }

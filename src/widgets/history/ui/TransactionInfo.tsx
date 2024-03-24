@@ -13,8 +13,9 @@ type TypeProps = {
 }
 
 const TransactionInfo = ({ item }: TypeProps) => {
-    const {currencies} = useContext(CtxCurrencies);
+    const { currencies } = useContext(CtxCurrencies);
     const { isModalOpen, showModal, handleCancel } = useModal();
+    const cur = currencies?.get(item.currency);
     return <>
         <div onClick={showModal} className={styles.HistoryTxRow}>
             <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg#type" + item.tx_type} /></svg>
@@ -34,7 +35,7 @@ const TransactionInfo = ({ item }: TypeProps) => {
             <div className={styles.HAmount}>
                 <span className={`${[15, 16].includes(item.tx_type) ? ""
                     : item.is_income ? styles.HAmountGreen : styles.HAmountRed}`}>
-                    {toLocaleCryptoRounding(item.result_amount, currencies.get(item.currency).roundPrec) } {item.currency}
+                    {toLocaleCryptoRounding(item.result_amount, cur?.roundPrec ?? 2)} {item.currency}
                 </span>
             </div>
         </div>

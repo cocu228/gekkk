@@ -331,15 +331,14 @@ const SidebarMobile = () => {
                             width={450}
                             open={roomCloseModal.isModalOpen}
                             onCancel={roomCloseModal.handleCancel}
-                            title='Invite link'
+                            title={t("invite_link")}
                         >
                             <div className="pt-5 text-sm">
-                                Are you sure you want to {selectedRoom ?
-                                `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                                    exchange room? All `
-                                : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                                    exchange room? Your `}
-                                unclosed orders will be canceled.
+                                {selectedRoom ?
+                                    t("are_you_sure_close", {currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2})
+                                : 
+                                    t("are_you_sure_leave", {currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2})
+                                }
                             </div>
                             <div className="mt-16 sm:mt-14">
                                 <Button
@@ -357,7 +356,7 @@ const SidebarMobile = () => {
                                             roomCloseModal.handleCancel();
                                         }).catch(roomCloseModal.handleCancel);
                                     }}
-                                >Close private exchange room</Button>
+                                >{t("close_private_exchange_room")}</Button>
                             </div>
                         </Modal>
                     </div>

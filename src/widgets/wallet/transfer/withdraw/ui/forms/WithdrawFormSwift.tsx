@@ -56,6 +56,18 @@ const WithdrawFormSwift = () => {
         setInputs(prev => ({...prev, [target.name]: target.value}))
     }
 
+    const translatedSwiftComission = swiftCommission.map(el => {
+        return {
+            ...el,
+            label: t(el.t).toUpperCase()
+        }
+    })
+    const translatedSwiftUrgency = swiftUrgency.map(el => {
+        return {
+            ...el,
+            label: t(el.t).toUpperCase()
+        }
+    })
 
     useEffect(()=>{
         setTransferDescriptionsTranslated(
@@ -196,7 +208,7 @@ const WithdrawFormSwift = () => {
                                     transferFee: v
                                 }))}
                                 name={"transferFee"}
-                                options={swiftCommission}
+                                options={translatedSwiftComission}
                                 placeholder={"Transfer fee"}
                                 value={inputs.transferFee}
                         />
@@ -219,7 +231,7 @@ const WithdrawFormSwift = () => {
                                     transferUrgency: v
                                 }))}
                                 name={"transferUrgency"}
-                                options={swiftUrgency}
+                                options={translatedSwiftUrgency}
                                 placeholder={"Transfer urgency"}
                                 value={inputs.transferUrgency}
                         />

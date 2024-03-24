@@ -118,7 +118,7 @@ const GkeCashbackProgram = () => {
                         className='text-sm'
                         value={inputCurr.value.number}
                         onError={setInputCurrValid}
-                        description={`Minimum order amount is 100 ${currency.$const}`}
+                        description={t("minimum_order_amount", {amount: 100 + " " + currency.$const})}
                         validators={[
                             validateBalance(currencies.get(currency.$const), navigate, t),
                             validateMinimumAmount(100, inputCurr.value.number, currency.$const, t)

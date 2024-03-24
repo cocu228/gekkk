@@ -418,7 +418,7 @@ const MobileCardsMenu = ({
                             onClick={onClick}
                             dataItem={limit.period.toLowerCase() + "Limit"}
                             leftSecondary={t("available")}
-                            leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
+                            leftPrimary={t("set_limit", { period: t(limit.period.toLowerCase()) })}
                             rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
                             rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
                         />

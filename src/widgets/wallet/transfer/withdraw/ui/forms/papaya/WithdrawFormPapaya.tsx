@@ -65,7 +65,7 @@ const WithdrawFormPapaya = () => {
             </div>
 
             <div className="col text-xs">
-                <span><b>*{t("note")}</b>: {t("exchange_fee")} <b>{percent_fee}%</b>
+                <span><b>*{t("note")}</b>: {t("withdraw_fee", {to: '"Papaya IBAN"'})} <b>{percent_fee}%</b>
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> {t("if_you")} <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
@@ -204,7 +204,7 @@ const WithdrawFormPapaya = () => {
                 </div>
 
                 <div className={styles.EURCostInfo}>
-                    <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("exchange_fee")} {t("to")} "Papaya IBAN" <b className={styles.EURCostInfoTextUppercase}>{percent_fee}%</b>
+                    <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("withdraw_fee", {to: "Papaya IBAN"})}  <b className={styles.EURCostInfoTextUppercase}>{percent_fee}%</b>
                         {account.rights[AccountRights.IsJuridical] ? null :
                             <span> {t("if_you")} <span
                                 className={styles.EURCostInfoTextLink}

@@ -112,7 +112,7 @@ export const ExchangeRoomMenu = ({
                         key: 'back',
                         label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={() => navigate('/exchange')}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#1F3446]'>{("back_to_exchange")}</span>
+                                <span className='font-semibold text-[#1F3446]'>{t("back_to_exchange")}</span>
 
                                 <img
                                     src={LogoutMobileIcon}
@@ -151,7 +151,7 @@ export const ExchangeRoomMenu = ({
                 width={450}
                 open={roomCloseModal.isModalOpen}
                 onCancel={roomCloseModal.handleCancel}
-                title='Invite link'
+                title={t("invite_link")}
             >
                 <div className="pt-5 text-sm">
                     {active ?
@@ -174,7 +174,7 @@ export const ExchangeRoomMenu = ({
                                 navigate('/exchange');
                             }).catch(roomCloseModal.handleCancel);
                         }}
-                    >Close private exchange room</Button>
+                    >{t("close_private_exchange_room")}</Button>
                 </div>
             </Modal>
         </div>

@@ -99,10 +99,10 @@ const WithdrawFormCardToCard = () => {
                             <SearchSelect
                                 value={inputs.selectedCard}
                                 notFoundContent={<div className='my-3'>
-                                    No active cards
+                                    {t("no_active_cards")}
                                 </div>}
                                 placeholder={<span className='font-normal text-gray-400'>
-                                    Choose source card
+                                    {t("choose_source_card")}
                                 </span>}
                                 prefixIcon={inputs.selectedCard ? <IconCoin code={'EUR'}/> : null}
                                 onChange={(val: string) => {
@@ -270,10 +270,10 @@ const WithdrawFormCardToCard = () => {
                                 className="row"
                                 value={inputs.selectedCard}
                                 notFoundContent={<div className='my-3'>
-                                    No active cards
+                                    {t("no_active_cards")}
                                 </div>}
                                 placeholder={<span className='font-normal text-gray-400'>
-                                    Choose source card
+                                    {t("choose_source_card")}
                                 </span>}
                                 prefixIcon={inputs.selectedCard ? <IconCoin code={'EUR'}/> : null}
                                 onChange={(val: string) => {
@@ -444,7 +444,7 @@ const WithdrawFormCardToCard = () => {
             </div>
             <div className='w-full flex justify-center'>
                 <span className='text-[#9D9D9D] text-[10px]'>
-                    {t("fee_is_prec")} <span className='font-bold'>{withdraw_fee} {currency.$const} </span> after 5 transaction per month
+                    {t("fee_is_prec")} <span className='font-bold'>{withdraw_fee} {currency.$const} </span> {t("after_n_transactions_per_m", {times: 5, period: t("month")})}
                 </span>
             </div>
         </div>

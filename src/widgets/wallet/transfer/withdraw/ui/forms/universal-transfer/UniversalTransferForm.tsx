@@ -210,7 +210,7 @@ const UniversalTransferForm = () => {
                                     name={'requisite'}
                                     value={inputs.requisite}
                                     onInput={onInputDefault}
-                                    placeholder={"Enter the user's phone number or IBAN"}
+                                    placeholder={t("enter_phone_or_IBAN")}
                                 />
                             </div>
                         </div>
@@ -220,7 +220,7 @@ const UniversalTransferForm = () => {
 
             </Form>
             <span className="text-[#B9B9B5] text-[10px]">
-                <span className="font-bold">*Fee-free</span> transfers to Gekkard users by phone number or IBAN.
+                <span className="font-bold">*{t("fee_free")}</span> {t("transfers_to_users_by_number_or_IBAN")}.
             </span>
 
             <div className={styles.PayInfo}>

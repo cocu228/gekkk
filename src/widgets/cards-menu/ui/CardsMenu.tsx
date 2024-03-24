@@ -295,7 +295,7 @@ const CardsMenu = ({
                         onClick={onClick}
                         dataItem={limit.period.toLowerCase() + "Limit"}
                         leftSecondary={t("available")}
-                        leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
+                        leftPrimary={t("set_limit", { period: t(limit.period.toLowerCase()) })}
                         rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
                         rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
                     />
@@ -572,7 +572,7 @@ const CardsMenu = ({
                         onClick={onClick}
                         dataItem={limit.period.toLowerCase() + "Limit"}
                         leftSecondary={t("available")}
-                        leftPrimary={t("set_limit", { period: limit.period.toLowerCase() })}
+                        leftPrimary={t("set_limit", { period: t(limit.period.toLowerCase()) })}
                         rightSecondary={numberWithSpaces(limit.usedLimit) + ' EUR'}
                         rightPrimary={numberWithSpaces(limit.currentLimit) + ' EUR'}
                         className={`rounded-none -my-[1px]

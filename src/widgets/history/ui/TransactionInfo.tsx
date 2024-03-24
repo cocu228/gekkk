@@ -7,6 +7,8 @@ import styles from "./style.module.scss";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useContext } from "react";
 import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
+import { useTranslation } from "react-i18next";
+
 
 type TypeProps = {
     item: GetHistoryTrasactionOut
@@ -16,6 +18,7 @@ const TransactionInfo = ({ item }: TypeProps) => {
     const { currencies } = useContext(CtxCurrencies);
     const { isModalOpen, showModal, handleCancel } = useModal();
     const cur = currencies?.get(item.currency);
+    const {t} = useTranslation()
     return <>
         <div onClick={showModal} className={styles.HistoryTxRow}>
             <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg#type" + item.tx_type} /></svg>
@@ -39,7 +42,7 @@ const TransactionInfo = ({ item }: TypeProps) => {
                 </span>
             </div>
         </div>
-        <Modal width={450} title="Transaction info" onCancel={handleCancel}
+        <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
             open={isModalOpen}>
             <InfoContent handleCancel={handleCancel} {...item} />
         </Modal>

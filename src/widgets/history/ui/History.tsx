@@ -283,7 +283,7 @@ const History = memo(function ({
             const doesPrevDateTimeExist =
               listHistory[index - 1]?.datetime !== undefined;
             return (
-              <>
+              <div ref={ref}>
                 {!doesPrevDateTimeExist ? (
                   <div className={styles.DataMobile} key={index}>
                     {formatForHistoryMobile(item.datetime)}
@@ -297,7 +297,7 @@ const History = memo(function ({
                   )
                 )}                
                   <TransactionInfo item={item}/>
-              </>
+              </div>
             );
           })}
           {!loading && listHistory.length >= 10 && !allTxVisibly && (

@@ -1,26 +1,30 @@
-import Modal from "@/shared/ui/modal/Modal";
-import useModal from "@/shared/model/hooks/useModal";
-import InfoContent from "@/widgets/history/ui/InfoContent";
 import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import styles from "./style.module.scss";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import { useContext } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
 import { useTranslation } from "react-i18next";
 
 
 type TypeProps = {
-    item: GetHistoryTrasactionOut
+    item: GetHistoryTrasactionOut,
+    showModal: () => void,
+    setItem: Dispatch<SetStateAction<GetHistoryTrasactionOut>>
 }
 
-const TransactionInfo = ({ item }: TypeProps) => {
+const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
     const { currencies } = useContext(CtxCurrencies);
-    const { isModalOpen, showModal, handleCancel } = useModal();
     const cur = currencies?.get(item.currency);
     const {t} = useTranslation()
     return <>
-        <div onClick={showModal} className={styles.HistoryTxRow}>
+        <div 
+            onClick={()=>{
+                showModal()
+                setItem(item)
+            }} 
+            className={styles.HistoryTxRow}
+        >
             <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg#type" + item.tx_type} /></svg>
             <div className={styles.HType}>
                 {formatForHistoryTimeMobile(item.datetime)}{" "}
@@ -42,10 +46,6 @@ const TransactionInfo = ({ item }: TypeProps) => {
                 </span>
             </div>
         </div>
-        <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
-            open={isModalOpen}>
-            <InfoContent handleCancel={handleCancel} {...item} />
-        </Modal>
     </>
 }
 

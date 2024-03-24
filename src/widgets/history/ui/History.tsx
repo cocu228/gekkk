@@ -26,6 +26,9 @@ import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useMatch, useParams } from "react-router-dom";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import InfoContent from "./InfoContent";
+import useModal from "@/shared/model/hooks/useModal";
+import Modal from "@/shared/ui/modal/Modal";
 
 const { RangePicker } = DatePicker;
 
@@ -38,6 +41,9 @@ const History = memo(function ({
 }: Partial<Props>) {
   const { t } = useTranslation();
 
+  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({})
+
+  const { isModalOpen, showModal, handleCancel } = useModal();
   const { refreshKey } = useContext(CtxRootData);
   const [activeTab, setActiveTab] = useState<string>(currTab ? currTab.Key : historyTabs[0].Key);
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
@@ -180,7 +186,7 @@ const History = memo(function ({
     return (
       <div
         id="MainContainerHistoryMobile"
-        className={styles.MainContainerMobile + " h-[100px] relative"}
+        className={"h-[100px] relative"}
       >
         <Loader />
       </div>
@@ -188,87 +194,91 @@ const History = memo(function ({
   }
   if (!md) {
     return (
-      <div id={"History"} className="wrapper max-w-[600px] m-auto">
-        {activeTab === TabKey.CUSTOM && (
-          <div className="flex flex-col mb-3">
-            {t("enter_period")}
-
-            <div className="flex grow-0 p-2">
-              <RangePicker
-                className="w-full"
-                value={customDate}
-                onChange={setCustomDate}
-              />
-              <Button
-                className="ml-3"
-                disabled={loading || !customDate}
-                onClick={() => requestHistory()}
-              >
-                {t("apply")}
-              </Button>
+      <>
+        <div id={"History"} className="wrapper max-w-[600px] m-auto">
+          {activeTab === TabKey.CUSTOM && (
+            <div className="flex flex-col mb-3">
+              {t("enter_period")}
+              <div className="flex grow-0 p-2">
+                <RangePicker
+                  className="w-full"
+                  value={customDate}
+                  onChange={setCustomDate}
+                />
+                <Button
+                  className="ml-3"
+                  disabled={loading || !customDate}
+                  onClick={() => requestHistory()}
+                >
+                  {t("apply")}
+                </Button>
+              </div>
             </div>
-          </div>
-        )}
-        {listHistory.length > 0 ? (
-          listHistory.map((item, index) => {
-            const doesPrevDateTimeExist =
-              listHistory[index - 1]?.datetime !== undefined;
-            return (
-              <>
-                {!doesPrevDateTimeExist ? (
-                  <div className={styles.DataMobile} key={index}>
-                    {formatForHistoryMobile(item.datetime)}
-                  </div>
-                ) : (
-                  formatForHistoryMobile(listHistory[index].datetime) !==
-                  formatForHistoryMobile(
-                    listHistory[index - 1].datetime
-                  ) && (
-                    <div className={styles.DataMobile}>
+          )}
+          {listHistory.length > 0 ? (
+            listHistory.map((item, index) => {
+              const doesPrevDateTimeExist =
+                listHistory[index - 1]?.datetime !== undefined;
+              return (
+                <>
+                  {!doesPrevDateTimeExist ? (
+                    <div className={styles.DataMobile} key={index}>
                       {formatForHistoryMobile(item.datetime)}
                     </div>
-                  )
-                )}
-                <TransactionInfo item={item}/>                 
-              </>
-            );
-          })
-        ) : (
-          <div className={styles.Row}>
-            <span>{t("no_have_any_transaction")}</span>
-          </div>
-        )}
-
-        {!loading && listHistory.length >= 10 && !allTxVisibly && (
-          <div className="row mt-3">
-            <div className="col flex justify-center relative">
-              {lazyLoading ? (
-                <Loader className={" w-[24px] h-[24px] top-[4px]"} />
-              ) : (
-                <span
-                  onClick={() => {
-                    requestMoreHistory({
-                      currencies: currenciesFilter,
-                      txTypes: types,
-                      hist: listHistory,
-                    });
-                  }}
-                  className="text-gray-400 cursor-pointer inline-flex items-center"
-                >
-                  {t("see_more")}
-                  <img
-                    className="ml-2"
-                    width={10}
-                    height={8}
-                    src="/img/icon/ArrowPlainDown.svg"
-                    alt="ArrowPlainDown"
-                  />
-                </span>
-              )}
+                  ) : (
+                    formatForHistoryMobile(listHistory[index].datetime) !==
+                    formatForHistoryMobile(
+                      listHistory[index - 1].datetime
+                    ) && (
+                      <div className={styles.DataMobile}>
+                        {formatForHistoryMobile(item.datetime)}
+                      </div>
+                    )
+                  )}
+                  <TransactionInfo setItem={setSelectedItem} showModal={showModal} item={item}/>
+                </>
+              );
+            })
+          ) : (
+            <div className={styles.Row}>
+              <span>{t("no_have_any_transaction")}</span>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+          {!loading && listHistory.length >= 10 && !allTxVisibly && (
+            <div className="row mt-3">
+              <div className="col flex justify-center relative">
+                {lazyLoading ? (
+                  <Loader className={" w-[24px] h-[24px] top-[4px]"} />
+                ) : (
+                  <span
+                    onClick={() => {
+                      requestMoreHistory({
+                        currencies: currenciesFilter,
+                        txTypes: types,
+                        hist: listHistory,
+                      });
+                    }}
+                    className="text-gray-400 cursor-pointer inline-flex items-center"
+                  >
+                    {t("see_more")}
+                    <img
+                      className="ml-2"
+                      width={10}
+                      height={8}
+                      src="/img/icon/ArrowPlainDown.svg"
+                      alt="ArrowPlainDown"
+                    />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+        <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
+            open={isModalOpen}>
+            <InfoContent handleCancel={handleCancel} {...selectedItem} />
+        </Modal>
+      </>
     );
   }
 
@@ -296,7 +306,7 @@ const History = memo(function ({
                     </div>
                   )
                 )}                
-                  <TransactionInfo item={item}/>
+                  <TransactionInfo setItem={setSelectedItem} showModal={showModal} item={item}/>
               </div>
             );
           })}
@@ -333,6 +343,10 @@ const History = memo(function ({
           )}
         </div>
       </div>
+      <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
+          open={isModalOpen}>
+          <InfoContent handleCancel={handleCancel} {...selectedItem} />
+      </Modal>
     </>
   );
 });

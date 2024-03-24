@@ -5,19 +5,15 @@ import { DatePicker } from "antd";
 import { Props, TabKey } from "../model/types";
 import { historyTabs } from "../model/helpers";
 import {
-  formatForCustomer,
   formatForApi,
   formatForHistoryMobile,
-  formatForHistoryTimeMobile,
 } from "@/shared/lib/date-helper";
 import { startOfMonth } from "date-fns";
 import styles from "./style.module.scss";
-import GTable from "@/shared/ui/grid-table/";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import { CtxRootData } from "@/processes/RootContext";
 import {
   actionResSuccess,
-  getSecondaryTabsAsRecord,
 } from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
@@ -29,9 +25,7 @@ import {
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useMatch, useParams } from "react-router-dom";
-import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import React from "react";
 
 const { RangePicker } = DatePicker;
 
@@ -69,13 +63,13 @@ const History = memo(function ({
 
 
   useEffect(() => {
-    if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0") ) {
+    if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0")) {
 
       (async () => {
         setLazyLoading(true);
 
         console.log(lastValue?.next_key);
-        
+
         const { data } = await apiGetHistoryTransactions({
           currencies: currenciesFilter,
           tx_types: types,
@@ -161,7 +155,7 @@ const History = memo(function ({
       try {
         if (activeTab !== TabKey.CUSTOM) {
           await requestHistory(cancelTokenSource.token);
-        }else{
+        } else {
           await requestHistory()
         }
       } catch (err: unknown) {
@@ -194,12 +188,12 @@ const History = memo(function ({
   }
   if (!md) {
     return (
-      <div id={"History"} className="wrapper">
+      <div id={"History"} className="wrapper max-w-[600px] m-auto">
         {activeTab === TabKey.CUSTOM && (
-          <div className="flex flex-col mt-3 mb-3">
+          <div className="flex flex-col mb-3">
             {t("enter_period")}
 
-            <div className="flex grow-0 max-w-[400px] p-2">
+            <div className="flex grow-0 p-2">
               <RangePicker
                 className="w-full"
                 value={customDate}
@@ -215,98 +209,36 @@ const History = memo(function ({
             </div>
           </div>
         )}
-
-        <GTable>
-          <GTable.Head className={styles.TableHead}>
-            <GTable.Row>
-              {[t("info"), t("amount")].map((label) => (
-                <GTable.Col key={label} className="text-center">
-                  <div className="ellipsis ellipsis-md" data-text={label}>
-                    <span>{label}</span>
+        {listHistory.length > 0 ? (
+          listHistory.map((item, index) => {
+            const doesPrevDateTimeExist =
+              listHistory[index - 1]?.datetime !== undefined;
+            return (
+              <>
+                {!doesPrevDateTimeExist ? (
+                  <div className={styles.DataMobile} key={index}>
+                    {formatForHistoryMobile(item.datetime)}
                   </div>
-                </GTable.Col>
-              ))}
-            </GTable.Row>
-          </GTable.Head>
-          <GTable.Body className={styles.TableBody}>
-            {listHistory.length > 0 ? (
-              listHistory.map((item, index) => {
-                const doesPrevDateTimeExist =
-                  listHistory[index - 1]?.datetime !== undefined;
-                return (
-                  <>
-                    <GTable.Row>
-                      {!doesPrevDateTimeExist ? (
-                        <div className={styles.DataMobile} key={index}>
-                          {formatForHistoryMobile(item.datetime)}
-                        </div>
-                      ) : (
-                        formatForHistoryMobile(listHistory[index].datetime) !==
-                          formatForHistoryMobile(
-                            listHistory[index - 1].datetime
-                          ) && (
-                          <div className={styles.DataMobile}>
-                            {formatForHistoryMobile(item.datetime)}
-                          </div>
-                        )
-                      )}
-                    </GTable.Row>
-                    <GTable.Row
-                      cols={2}
-                      className={styles.Row + "  hover:font-mediums"}
-                    >
-                      <TransactionInfo infoList={item}>
-                        <GTable.Col>
-                          <div className="ellipsis ellipsis-md">
-                            <span className="">
-                              {formatForCustomer(item.datetime)}{" "}
-                              {item.tx_type_text}
-                            </span>
-                          </div>
-                          <div className="ellipsis ellipsis-md">{item.tag}</div>
-                        </GTable.Col>
-                        <GTable.Col>
-                          <div
-                            className={
-                              "text-right " +
-                              (item.tx_type === 3 && item.partner_info === ""
-                                ? "text-orange"
-                                : "")
-                            }
-                          >
-                            {item.status_text}
-                          </div>
-                          <div className="text-base font-mono text-right">
-                            <span
-                              className={`${
-                                [15, 16].includes(item.tx_type)
-                                  ? "text-gray-600"
-                                  : item.is_income
-                                  ? "text-green"
-                                  : "text-red-800"
-                              }`}
-                            >
-                              {[15, 16].includes(item.tx_type)
-                                ? ""
-                                : !item.is_income
-                                ? "-"
-                                : "+"}
-                              {+item.result_amount} {item.currency}
-                            </span>
-                          </div>
-                        </GTable.Col>
-                      </TransactionInfo>
-                    </GTable.Row>
-                  </>
-                );
-              })
-            ) : (
-              <div className={styles.Row}>
-                <span>{t("no_have_any_transaction")}</span>
-              </div>
-            )}
-          </GTable.Body>
-        </GTable>
+                ) : (
+                  formatForHistoryMobile(listHistory[index].datetime) !==
+                  formatForHistoryMobile(
+                    listHistory[index - 1].datetime
+                  ) && (
+                    <div className={styles.DataMobile}>
+                      {formatForHistoryMobile(item.datetime)}
+                    </div>
+                  )
+                )}
+                <TransactionInfo item={item}/>                 
+              </>
+            );
+          })
+        ) : (
+          <div className={styles.Row}>
+            <span>{t("no_have_any_transaction")}</span>
+          </div>
+        )}
+
         {!loading && listHistory.length >= 10 && !allTxVisibly && (
           <div className="row mt-3">
             <div className="col flex justify-center relative">
@@ -358,60 +290,13 @@ const History = memo(function ({
                   </div>
                 ) : (
                   formatForHistoryMobile(listHistory[index].datetime) !==
-                    formatForHistoryMobile(listHistory[index - 1].datetime) && (
+                  formatForHistoryMobile(listHistory[index - 1].datetime) && (
                     <div className={styles.DataMobile}>
                       {formatForHistoryMobile(item.datetime)}
                     </div>
                   )
-                )}
-                <div ref={ref} className={styles.InfoMobile}>
-                  <TransactionInfo infoList={item}>
-                    <div className={styles.TransactionMobile}>
-                      <span className={styles.TypeOfTransactionMobile}>
-                        {formatForHistoryTimeMobile(item.datetime)}{" "}
-                        {item.tx_type_text}
-                      </span>
-                      <span className={styles.DescriptionOfTransactionMobile}>
-                        {item.tag ? item.tag : "..."}
-                      </span>
-                    </div>
-                    <div className="flex flex-row">
-                      <div
-                        className={styles.StatusAndAmountOfTransactionMobile}
-                      >
-                        <span className={styles.StatusMobile}>
-                          {item.status_text}
-                        </span>
-                        <span
-                          className={
-                            item.is_income
-                              ? styles.IncomeMobile
-                              : styles.AmountMobile
-                          }
-                        >
-                          {item.is_income ? "+" : "-"}
-                          {item.amount + " " + item.currency}
-                        </span>
-                      </div>
-                      <div className={styles.ArrowBtnMobile}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="7"
-                          height="13"
-                          viewBox="0 0 7 13"
-                          fill="none"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z"
-                            fill="#9D9D9D"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </TransactionInfo>
-                </div>
+                )}                
+                  <TransactionInfo item={item}/>
               </>
             );
           })}

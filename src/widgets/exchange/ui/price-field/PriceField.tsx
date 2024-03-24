@@ -4,6 +4,7 @@ import Input from "@/shared/ui/input/Input";
 import {CtxExchangeData} from '../../model/context';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
+import { useTranslation } from 'react-i18next';
 
 function PriceField({disabled}: {disabled?: boolean}) {
     const {
@@ -15,6 +16,8 @@ function PriceField({disabled}: {disabled?: boolean}) {
     } = useContext(CtxExchangeData);
 
     const {md} = useBreakpoints();
+
+    const {t} = useTranslation()
     
     const {
         amount,
@@ -36,8 +39,8 @@ function PriceField({disabled}: {disabled?: boolean}) {
                         onClick={onPriceCurrenciesSwap}
                     >
                         <span>{isSwapped
-                            ? `${from.currency} per 1 ${to.currency}`
-                            : `${to.currency} per 1 ${from.currency}`
+                            ? `${from.currency} ${t("per")} 1 ${to.currency}`
+                            : `${to.currency} ${t("per")} 1 ${from.currency}`
                         }</span>
 
                         <img

@@ -297,7 +297,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className='ml-5'>
                 <span className='text-[10px]'>
-                *As required by EU law, you must provide the name of the recipient of the funds
+                *{t("EW_law")}
                 </span>
             </div>
         </div>

@@ -57,7 +57,9 @@
           "promo_code": "Promo-Code",
           "partnership": "Partnerschaftsprogramm",
           "enter_promo_code": "Promo-Code eingeben",
-          "gekkard_invest_platform": "Gekkard Investitionsplattform"
+          "gekkard_invest_platform": "Gekkard Investitionsplattform",
+          "enable_notifications": "Benachrichtigungen aktivieren",
+          "gekkoin_invest_platform": "Gekkoin Investitionsplattform"
       },
       "support": {
           "title": "Support",
@@ -183,6 +185,7 @@
       "exchange_rate_fixed": "Der Wechselkurs ist fest",
       "note": "Anmerkung",
       "exchange_fee": "Die Standardwechselgebühr beträgt ",
+      "withdraw_fee": "Standardabhebegebühr nach {{to}} beträgt",
       "if_you": "Wenn Sie",
       "freeze_GKE_tokens": "GKE-Token einfrieren",
       "fee_is": "Gebühr beträgt",
@@ -506,7 +509,32 @@
     "investments": "Investitionen",
     "rewards": "Belohnungen",
     "are_you_sure_close": "Sind Sie sicher, dass Sie den privaten Austauschraum {{currency1}} - {{currency2}} schließen möchten? Alle offenen Aufträge werden storniert.",
-    "are_you_sure_leave": "Sind Sie sicher, dass Sie den privaten Austauschraum {{currency1}} - {{currency2}} verlassen möchten? Ihre offenen Aufträge werden storniert."
+    "are_you_sure_leave": "Sind Sie sicher, dass Sie den privaten Austauschraum {{currency1}} - {{currency2}} verlassen möchten? Ihre offenen Aufträge werden storniert.",
+    "select_a_token": "Wählen Sie ein Token aus",
+    "minimum_order_amount": "Der Mindestbestellwert beträgt {{amount}}",
+    "per": "pro",
+    "close_current_room": "Aktuellen Raum schließen",
+    "back_to_exchange": "Zurück zum Austausch",
+    "close_private_exchange_room": "Private Austauschraum schließen",
+    "beneficiary": "Begünstigter",
+    "shared": "geteilt",
+    "sender": "absender",
+    "normal": "normal",
+    "urgent": "dringend",
+    "express": "express",
+    "after_n_transactions_per_m": "nach {{times}} Transaktionen pro {{period}}",
+    "month": "monat",
+    "description": "Beschreibung",
+    "no_active_cards": "Keine aktiven Karten",
+    "choose_source_card": "Wählen Sie die Quellkarte",
+    "to": "zu",
+    "fee_free": "Kostenlos",
+    "transfers_to_users_by_number_or_IBAN": "Überweisungen an Gekkard-Benutzer per Telefonnummer oder IBAN",
+    "enter_phone_or_IBAN": "Geben Sie die Telefonnummer oder IBAN des Benutzers ein",
+    "monthly": "monatlich",
+    "daily": "täglich"
+    
+
 
 
 

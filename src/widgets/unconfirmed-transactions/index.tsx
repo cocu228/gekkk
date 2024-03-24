@@ -85,7 +85,7 @@ const UnConfTrxList = ({trx}: { trx: GetHistoryTrasactionOut[] }) => {
         <GTable.Body className={styles.TableBody}>
             {trx.map((item) => (
                 <GTable.Row cols={2} className={styles.Row + ' hover:font-medium'}>
-                    <TransactionInfo infoList={item}>
+                    {/* <TransactionInfo infoList={item}> */}
                         <GTable.Col>
                             <div className="ellipsis ellipsis-md">
                                 <span>{formatForCustomer(item.datetime)}</span>
@@ -100,7 +100,7 @@ const UnConfTrxList = ({trx}: { trx: GetHistoryTrasactionOut[] }) => {
                                 </span>
                             </div>
                         </GTable.Col>
-                    </TransactionInfo>
+                    {/* </TransactionInfo> */}
                 </GTable.Row>
             ))}
         </GTable.Body>

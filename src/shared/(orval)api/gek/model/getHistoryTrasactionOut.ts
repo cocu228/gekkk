@@ -34,7 +34,7 @@ export interface GetHistoryTrasactionOut {
   /** Информация об отправителе/получателе */
   partner_info?: string | null;
   /** Сумма поступившая на счет или списанная со счета(вычет комиссии при входящих, суммирование при исходящих движениях) */
-  result_amount?: string | null;
+  result_amount?: number | null;
   status?: TransactStateEnum;
   /** Статус в числовом виде */
   status_text?: string | null;

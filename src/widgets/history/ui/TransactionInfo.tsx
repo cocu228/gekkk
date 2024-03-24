@@ -1,25 +1,49 @@
-import React from "react";
-import Modal from "@/shared/ui/modal/Modal";
-import useModal from "@/shared/model/hooks/useModal";
-import InfoContent from "@/widgets/history/ui/InfoContent";
-import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
+import { formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
+import styles from "./style.module.scss";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
+
 
 type TypeProps = {
-    children: React.ReactNode,
-    infoList: GetHistoryTrasactionOut
+    item: GetHistoryTrasactionOut,
+    showModal: () => void,
+    setItem: Dispatch<SetStateAction<GetHistoryTrasactionOut>>
 }
 
-const TransactionInfo = ({children, infoList}: TypeProps) => {
-
-    const {isModalOpen, showModal, handleCancel} = useModal();
-
+const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
+    const { currencies } = useContext(CtxCurrencies);
+    const cur = currencies?.get(item.currency);
     return <>
-        {children}
-        <Modal width={450} title="Transaction info" onCancel={handleCancel}
-               open={isModalOpen}>
-            <InfoContent handleCancel={handleCancel} {...infoList}/>
-        </Modal>
-        <a className="absolute top-0 bottom-0 w-full left-0 cursor-pointer" onClick={showModal}> </a>
+        <div 
+            onClick={()=>{
+                showModal()
+                setItem(item)
+            }} 
+            className={styles.HistoryTxRow}
+        >
+            <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg?v1#type" + item.tx_type} /></svg>
+            <div className={styles.HType}>
+                {formatForHistoryTimeMobile(item.datetime)}{" "}
+                {item.tx_type_text}
+            </div>
+            <div className={(item.tx_type === 3 && item.partner_info === "" ? styles.HStateOrg : styles.HState)}>
+                {item.status_text}
+            </div>
+            <div className={styles.HTypeImg2}>
+                <svg width="7" height="13" viewBox="0 0 7 13" fill="#9D9D9D" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" />
+                </svg>
+            </div>
+            <div className={styles.HTag}>{item.tag}</div>
+            <div className={styles.HAmount}>
+                <span className={`${[15, 16].includes(item.tx_type) ? ""
+                    : item.is_income ? styles.HAmountGreen : styles.HAmountRed}`}>
+                    {toLocaleCryptoRounding(item.result_amount, cur?.roundPrec ?? 2)} {item.currency}
+                </span>
+            </div>
+        </div>
     </>
 }
 

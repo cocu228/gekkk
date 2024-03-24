@@ -63,8 +63,8 @@
             "support": "Техническая поддержка",
             "partnership": "Партнёрская программа",
             "enter_promo_code": "Введите промокод",
-            "gekkoin_invest_platform": "Инвестиционная платформа Gekkoin"
-            
+            "gekkoin_invest_platform": "Инвестиционная платформа Gekkoin",
+            "enable_notifications": "Включить уведомления"            
         },
         "support": {
             "title": "Поддержка",
@@ -204,6 +204,7 @@
         "exchange_rate_fixed": "Курс обмена фиксирован",
         "note": "Примечание",
         "exchange_fee": "Стандартная комиссия за обмен составляет ",
+        "withdraw_fee": "Стандартная комиссия за снятие на {{to}} составляет",
         "if_you": "Если вы",
         "freeze_GKE_tokens": "замораживаете токены GKE",
         "fee_is": "комиссия составляет",
@@ -521,7 +522,7 @@
         "confirm_code": "Подтвердить код",
         "send_sms": "Отправить SMS",
         "sign_transfer": "Подписать перевод",
-        "to_card": "Сделать перевод",
+        "to_card": "На карту",
         "cardholder": "Держатель карты",
         "select_card": "Выберите карту",
         "select_currency": "Выберите валюту",
@@ -530,7 +531,32 @@
         "investments": "Инвестиции",
         "rewards": "Награды",
         "are_you_sure_close": "Вы уверены, что хотите закрыть приватную комнату обмена {{currency1}} - {{currency2}}? Все незакрытые ордера будут отменены.",
-        "are_you_sure_leave": "Вы уверены, что хотите покинуть приватную комнату обмена {{currency1}} - {{currency2}}? Ваши незакрытые ордера будут отменены."
+        "are_you_sure_leave": "Вы уверены, что хотите покинуть приватную комнату обмена {{currency1}} - {{currency2}}? Ваши незакрытые ордера будут отменены.",
+        "select_a_token": "Выберите токен",
+        "minimum_order_amount": "Минимальная сумма заказа составляет {{amount}}",
+        "per": "за",
+        "close_current_room": "Закрыть текущую комнату",
+        "back_to_exchange": "Вернуться к обмену",
+        "close_private_exchange_room": "Закрыть приватную комнату обмена",
+        "beneficiary": "получатель",
+        "shared": "общий",
+        "sender": "отправитель",
+        "normal": "обычный",
+        "urgent": "срочный",
+        "express": "экспресс",
+        "after_n_transactions_per_m": "после {{times}} транзакций в {{period}}",
+        "month": "месяц",
+        "description": "Описание",
+        "no_active_cards": "Нет активных карт",
+        "choose_source_card": "Выберите исходную карту",
+        "to": "для",
+        "fee_free": "Бескомиссионные",
+        "transfers_to_users_by_number_or_IBAN": "переводы пользователям Gekkard по номеру телефона или IBAN",
+        "enter_phone_or_IBAN": "Введите номер телефона пользователя или IBAN",
+        "monthly": "ежемесячный",
+        "daily": "ежедневный"
+
+
         
 
         

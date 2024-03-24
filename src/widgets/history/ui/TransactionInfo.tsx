@@ -4,7 +4,6 @@ import styles from "./style.module.scss";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
-import { useTranslation } from "react-i18next";
 
 
 type TypeProps = {
@@ -16,7 +15,6 @@ type TypeProps = {
 const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
     const { currencies } = useContext(CtxCurrencies);
     const cur = currencies?.get(item.currency);
-    const {t} = useTranslation()
     return <>
         <div 
             onClick={()=>{

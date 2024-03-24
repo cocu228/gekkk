@@ -23,7 +23,7 @@ const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
             }} 
             className={styles.HistoryTxRow}
         >
-            <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg?v1#type" + item.tx_type} /></svg>
+            <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg?v2#type" + item.tx_type} /></svg>
             <div className={styles.HType}>
                 {formatForHistoryTimeMobile(item.datetime)}{" "}
                 {item.tx_type_text}

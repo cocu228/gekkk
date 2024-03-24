@@ -55,7 +55,7 @@
 .MainContainerMobile {
   display: flex;
   padding: 10px 5px;
-  flex-direction: column;  
+  flex-direction: column;
   align-self: center;
   max-width: 400px;
   margin: auto;
@@ -69,18 +69,19 @@
 
 .HistoryTxRow {
   display: grid;
-  grid-template-columns: auto 1fr 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   grid-row: 1fr 1fr;
   font-size: small;
   background-color: white;
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     background-color: #f9f9fa;
   }
 
   border-radius: 8px;
-  padding: 2px 10px;
+  padding: 2px 10px 3px 10px;
   margin-bottom: 4px;
 }
 
@@ -91,6 +92,7 @@
   stroke: var(--gek-additional);
   grid-row: 1 / span 2;
   align-self: center;
+  padding-top: 1px;
 }
 
 .HTypeImg2 {
@@ -103,18 +105,18 @@
   padding: 4px 0px 2px 2px;
   grid-row: 1;
   position: relative;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.HState,.HStateOrg {
+.HState,
+.HStateOrg {
   padding: 2px 2px 2px 0px;
   grid-row: 1;
   text-align: right;
 }
-.HStateOrg
-{
+
+.HStateOrg {
   color: var(--gek-orange);
 }
 
@@ -122,33 +124,34 @@
   padding: 4px 0px 2px 2px;
   grid-row: 2;
   position: relative;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
   color: var(--gek-mid-grey);
   font-size: smaller;
+  text-overflow: ellipsis;
 }
 
 .HAmount {
   padding: 2px 2px 2px 0px;
   grid-row: 2;
   text-align: right;
-  font-size: medium;
-  font-family: monospace;
-  font-weight: 500;
+  //font-size: medium;
+  // font-family: monospace;
+  //font-weight: 500;
   white-space: nowrap;
 }
+
 .HAmountRed {
-  color: var(--gek-red); 
-  &::before
-  {
+  color: var(--gek-red);
+
+  &::before {
     content: "-";
-  } 
+  }
 }
+
 .HAmountGreen {
-  color: var(--gek-green);  
-  &::before
-  {
+  color: var(--gek-green);
+
+  &::before {
     content: "+";
   }
 }
@@ -159,17 +162,6 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 0.5px;
+  height: 1px;
   width: 75px;
 }
-
-.HTag:after {
-  content: "";
-  background: var(--gek-additional);
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 0.5px;
-  width: 75px;
-}
-

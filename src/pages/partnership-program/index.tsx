@@ -8,7 +8,7 @@ import History from "@/widgets/history/ui/History";
 import { useTranslation } from 'react-i18next';
 import {apiGetAgentCode} from "@/shared/(orval)api/gek";
 import styles from "./style.module.scss"
-import Footer from "@/widgets/footer";
+// import Footer from "@/widgets/footer";
 
 
 const PartnershipProgram = () => {
@@ -171,11 +171,11 @@ const ContentMain = () => {
                 <History types={[17]}/>
             </div>
         </div>
-        {md&&
+        {/* {md&&
             <div className={`z-[-100] row ${md&&"bg-[#F9F9FA] absolute bottom-[38px] w-full left-[0]"}`}>
                 <Footer textAlight='text-center'/>
             </div>
-        }
+        } */}
     </>
 }
 

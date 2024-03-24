@@ -4,12 +4,16 @@ import InfoContent from "@/widgets/history/ui/InfoContent";
 import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import styles from "./style.module.scss";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
+import { useContext } from "react";
+import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
 
 type TypeProps = {
     item: GetHistoryTrasactionOut
 }
 
 const TransactionInfo = ({ item }: TypeProps) => {
+    const {currencies} = useContext(CtxCurrencies);
     const { isModalOpen, showModal, handleCancel } = useModal();
     return <>
         <div onClick={showModal} className={styles.HistoryTxRow}>
@@ -30,7 +34,7 @@ const TransactionInfo = ({ item }: TypeProps) => {
             <div className={styles.HAmount}>
                 <span className={`${[15, 16].includes(item.tx_type) ? ""
                     : item.is_income ? styles.HAmountGreen : styles.HAmountRed}`}>
-                    {item.result_amount} {item.currency}
+                    {toLocaleCryptoRounding(item.result_amount, currencies.get(item.currency).roundPrec) } {item.currency}
                 </span>
             </div>
         </div>

@@ -13,10 +13,19 @@
     "STG": "tsc && vite build --mode staging",
     "DEV": "tsc && vite build --mode development"
   },
+  "alias": {
+    "react": "preact-compat",
+    "react-dom": "preact-compat"
+  },
   "dependencies": {
-
+    "@types/styled-components": "^5.1.28",
+    "preact": "^10.20.1",
+    "styled-components": "^5.3.11",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "2.1.4",
     "@preact/preset-vite": "^2.7.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

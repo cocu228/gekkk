@@ -34,6 +34,8 @@ export const makeApiRequest = async <T>(
     errorMessage?: string,
 ): Promise<ApiResponse<T, 'success' | 'error'>> => {
 
+
+    console.log("awd")
     try {
         const response = await chat_axios.request({
             method,
@@ -41,6 +43,7 @@ export const makeApiRequest = async <T>(
             data,
             ...customConfig
         });
+
 
         // Check the HTTP status code for success
         if (response.status >= 200 && response.status < 300) {

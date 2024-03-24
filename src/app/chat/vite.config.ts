@@ -4,6 +4,16 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 export default defineConfig({
     base: "./",
+    esbuild: {
+        jsxFactory: 'h',
+        jsxFragment: 'Fragment',
+    },
+    resolve: {
+        alias: [
+            {find: 'react', replacement: 'preact/compat'},
+            {find: 'react-dom', replacement: 'preact/compat'}
+        ]
+    },
     build: {
         rollupOptions: {
             input: {
@@ -14,5 +24,6 @@ export default defineConfig({
             }
         },
     },
-    plugins: [cssInjectedByJsPlugin()],
+    plugins: [cssInjectedByJsPlugin(), ],
+    // plugins: [],
 })

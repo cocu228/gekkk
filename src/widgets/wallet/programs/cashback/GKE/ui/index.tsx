@@ -50,9 +50,7 @@ const GkeCashbackProgram = () => {
                         <div className="row mb-3">
                             <div className="col">
                                 <p className="font-extrabold text-sm">
-                                    Locking {currency.$const} tokens gives you
-                                    access to the cashback of 1% on Gekkard card spending,
-                                    on monthly turnover in euros
+                                    {t("locked_tokens_give_you_access", {currency: currency.$const})}
                                 </p>
                             </div>
                         </div>
@@ -67,8 +65,7 @@ const GkeCashbackProgram = () => {
                                 />
 
                                 <p className="text-sm">
-                                    up to the amount not exceeding a similar number of
-                                    blocked {currency.$const} tokens
+                                    {t("up_amount_not_exceeding_similar", {currency: currency.$const})}
                                 </p>
                             </div>
                         </div>
@@ -83,7 +80,7 @@ const GkeCashbackProgram = () => {
                                 />
 
                                 <p className="text-sm">
-                                    cashback is credited once a month at the end of the billing period
+                                    {t("cashback_is_credited_once_a_month")}
                                 </p>
                             </div>
                         </div>
@@ -105,9 +102,7 @@ const GkeCashbackProgram = () => {
 
                 <div className="col md:w-full w-2/5 -md:pl-5 md:flex md:justify-center">
                     <p className="text-fs12 text-gray-500 text-center leading-4 md:text-center md:max-w-[280px]">
-                        At the end of the program term, the
-                        blocked {currency.$const} funds will
-                        return to your account
+                        {t("end_of_the_program_term", {currency: currency.$const})}
                     </p>
                 </div>
             </div>
@@ -151,7 +146,7 @@ const GkeCashbackProgram = () => {
                         className="w-full"
                         size={"xl"}
                     >
-                        Lock {currency.$const} tokens
+                        {t("lock_tokens", {currency: currency.$const})}
                     </Button>
                 </div>
             </div>
@@ -159,15 +154,14 @@ const GkeCashbackProgram = () => {
             <div className="row">
                 <div className="col flex justify-center">
                     <span className="text-fs12 text-gray-500 text-center leading-4">
-                        The period of locking tokens is 30 days.
-                        At the end of this period the funds will return to your account.
+                        {t("period_of_locking_tokens_GKE", {days: 30})}
                     </span>
                 </div>
             </div>
 
             <Modal
                 width={400}
-                title="Confirm locking"
+                title={t("confirm_locking")}
                 open={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
             >
@@ -212,30 +206,33 @@ function CashbackProperties({
     startDate,
     templateTerm
 }) {
+
+    const {t} = useTranslation()
+
     return (
         <>
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"Start date"} right={!startDate ? '-' : formatForCustomer(startDate)}/>
+                    <InlineProperty left={t("start_date")} right={!startDate ? '-' : formatForCustomer(startDate)}/>
                 </div>
             </div>
 
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"Term"} right={`${templateTerm} days`}/>
+                    <InlineProperty left={t("term")} right={`${templateTerm} ${t("days")}`}/>
                 </div>
             </div>
 
             <div className="row mb-2">
                 <div className="col">
-                    <InlineProperty left={"End date"} right={!endDate ? '-' : formatForCustomer(endDate)}/>
+                    <InlineProperty left={t("end_date")} right={!endDate ? '-' : formatForCustomer(endDate)}/>
                 </div>
             </div>
 
             <div className="row">
                 <div className="col">
                     <InlineProperty
-                        left={"Locked funds"}
+                        left={t("locked_funds")}
                         right={<>
                             {locked} {!amount ? null : (
                                 (<span className="text-green">+({amount})</span>)

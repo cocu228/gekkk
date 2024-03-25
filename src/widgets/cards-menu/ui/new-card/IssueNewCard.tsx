@@ -84,7 +84,7 @@ export function IssueNewCard() {
                     ...state,
                     city: target.value
                 })}
-                label={t("City")}
+                label={t("city")}
                 placeholder={t("enter_city_name")}
             />
             

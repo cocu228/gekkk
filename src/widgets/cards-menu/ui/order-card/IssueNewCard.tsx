@@ -105,7 +105,7 @@ export function IssueNewCard() {
               });
             }
           }}
-          label={t("City")}
+          label={t("city")}
           placeholder={t("enter_city_name")}
         />
 

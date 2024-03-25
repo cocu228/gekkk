@@ -48,7 +48,7 @@ const NoFeeProgram = () => {
                         </p>
 
                         <p className="text-sm">
-                        {t("up_amount_not_exceeding_similar", {currency: currency.$const})}
+                            {t("up_amount_not_exceeding_similar", {currency: currency.$const})} {t("funds_are_blocked_for", {days: 90})}
                         </p>
                     </div>
                 </div>
@@ -171,7 +171,7 @@ const NoFeeProgram = () => {
             <div className="row">
                 <div className="col flex justify-center">
                     <span className="text-fs12 text-gray-500 text-center leading-4">
-                        {t("period_of_locking_tokens")}
+                        {t("period_of_locking_tokens", {days: 90})}
                     </span>
                 </div>
             </div>

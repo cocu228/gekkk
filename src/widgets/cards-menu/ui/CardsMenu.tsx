@@ -303,7 +303,7 @@ const CardsMenu = ({
             
             <MobileMenuItem
                 dataItem='disableLimits'
-                leftPrimary={'Disable limits for 3 minutes'}
+                leftPrimary={t("disable_limits_for_minutes", {minutes: 3})}
                 rightPrimary={<Switch checked={switchChecked} />}
                 onClick={onClick}
             />
@@ -337,7 +337,7 @@ const CardsMenu = ({
                     varitant="light" 
                     className="w-[135px] flex flex-row gap-1 items-center justify-center"
                 >
-                    <div>Order new card</div>
+                    <div>{t("order_new_card")}</div>
                 </MenuButton>
             </div>
             
@@ -444,7 +444,7 @@ const CardsMenu = ({
                                         className="w-[120px]"
                                 >{t("confirm")}</MobileButton>
                                 {(selectedItem === "blockCard" || selectedItem === "dailyLimit") && <MobileButton varitant={selectedItem === "blockCard" ? "alarm" : "outline"} className="w-[120px]" onClick={() => confirmationModal.handleCancel()}>
-                                    Cancel
+                                    {t("cancel")}
                                 </MobileButton>    
                                 }
                             </div>

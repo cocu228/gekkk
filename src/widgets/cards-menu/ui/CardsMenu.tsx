@@ -325,7 +325,7 @@ const CardsMenu = ({
             
             <a className={`${styles.link} typography-b1`} href="#">How it works?</a>
 
-            <div className="flex flex-row min-h-[43px] justify-between w-full">
+            <div className="flex flex-row min-h-[43px] justify-between w-full mb-10">
                 <MenuButton onClick={onClick}                     
                     dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
                     varitant="alarm" 

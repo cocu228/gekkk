@@ -58,7 +58,7 @@ const AssetsTable = ({
     const {t} = useTranslation();
 
     const assetsFilter = (asset: ICtxCurrency) => {
-        if (balanceFilter && !asset.availableBalance?.greaterThan(0)) {
+        if (balanceFilter && asset.balance?.free_balance <= 0) {
             return false;
         }
 
@@ -185,8 +185,8 @@ const AssetsTable = ({
                                                 <div className="flex flex-col justify-evenly min-w-[150px]">
                                                     <span className="self-start text-[12px] text-[#7B797C] font-regular">{t("free_balance")}:</span>
                                                     <span className="self-end text-[12px] text-[#1F3446] font-regular">
-                                                        {currency.availableBalance
-                                                            ? `${getRoundingValue(currency.availableBalance, currency.roundPrec)} ${currency.$const}`
+                                                        {currency.balance?.free_balance
+                                                            ? `${getRoundingValue(currency.balance.free_balance, currency.roundPrec)} ${currency.$const}`
                                                             : "—"
                                                         }
                                                     </span>

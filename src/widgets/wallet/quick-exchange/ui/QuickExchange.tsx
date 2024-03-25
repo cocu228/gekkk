@@ -26,7 +26,7 @@ export const QuickExchange = () => {
     const {isModalOpen, showModal, handleCancel} = useModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     
-    if (isNull(ratesEUR) || currencies.get("EUR").availableBalance === null) return <Loader/>
+    if (isNull(ratesEUR) || currencies.get("EUR").balance.free_balance === null) return <Loader/>
     
     const [state, setState] = useState({
         typeOperation: "EURToCrypto",

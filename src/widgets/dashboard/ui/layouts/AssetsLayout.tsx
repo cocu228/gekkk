@@ -12,7 +12,7 @@ import {CtxCurrencies} from "@/processes/CurrenciesContext";
 const assetsFiler = (item: ICtxCurrency) =>
     item.$const !== ETokensConst.EUR
     && ([ETokensConst.EURG, ETokensConst.GKE].includes(item.$const)
-    || item.availableBalance?.comparedTo(0));
+    || item.balance?.free_balance === 0);
 
 const assetsSorter = (item: ICtxCurrency) =>
     [ETokensConst.EURG, ETokensConst.GKE].includes(item.$const) ? -1 : 1;
@@ -47,7 +47,7 @@ function CryptoAssets() {
                             currency={item.$const}
                             key={"CryptoAssetCard_" + i}
                             price={!rates ? null : +rates[item.$const].toFixed(currencies.get("EURG").roundPrec)}
-                            balance={item.availableBalance ? getRoundingValue(item.availableBalance, item.roundPrec) : 0}
+                            balance={item.balance?.free_balance ? getRoundingValue(item.balance.free_balance, item.roundPrec) : 0}
                         />
                     ))}
             </CardsGrid>

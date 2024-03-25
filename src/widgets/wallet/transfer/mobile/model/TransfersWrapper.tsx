@@ -61,7 +61,7 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
     }
     function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
         return (currency.$const?.toLowerCase().includes(searchValue) ||
-            currency.name?.toLowerCase().includes(searchValue)) && currency.availableBalance;
+            currency.name?.toLowerCase().includes(searchValue)) && currency.balance?.free_balance;
     }
 
     return (
@@ -111,7 +111,7 @@ export default function TransfersWrapper({children, curr, setCurr, network, setN
                                                 </div>
                                                 <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
                                                     <span className="self-start text-[12px] text-[#7B797C] font-regular">{t("free_balance")}:</span>
-                                                    <span className="self-end text-[12px] text-[#1F3446] font-regular">{getRoundingValue(currency.currency.availableBalance, currency.currency.roundPrec)} {currency.$const}</span>
+                                                    <span className="self-end text-[12px] text-[#1F3446] font-regular">{getRoundingValue(currency.currency.balance.free_balance, currency.currency.roundPrec)} {currency.$const}</span>
                                                 </div>
                                             </div>
                                         ))

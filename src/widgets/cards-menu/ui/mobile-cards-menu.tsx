@@ -444,7 +444,7 @@ const MobileCardsMenu = ({
                 setSelectedItem('how-it-works');
             }}>How it works?</a>
 
-            <div className="flex flex-row min-h-[43px] justify-between w-full">
+            <div className="flex flex-row min-h-[43px] justify-between w-full mb-10">
                 <MenuButton onClick={onClick}                     
                     dataItem={card.cardStatus === 'ACTIVE' ? 'blockCard' : 'unblockCard'}
                     varitant="alarm" 

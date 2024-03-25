@@ -23,6 +23,7 @@ export const CardStatusDescriptions: Record<string, string> = {
 
 export interface IStoreBankCards {
     //refreshKey: string;
+    loading: boolean;
     mainCard: ICardData | null;
     activeCards: ICardData[] | null;
     getActiveCards: () => Promise<void>;
@@ -30,14 +31,21 @@ export interface IStoreBankCards {
 }
 
 export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
-    activeCards: null,
+    loading: false,
     mainCard: null,
+    activeCards: null,
     //refreshKey: null,
     getActiveCards: async () => {
+        set((state) => ({
+            ...state,
+            loading: true,
+        }));
+
         const {data} = await apiGetCards({filter: CardFilter.Active});
         
         set((state) => ({
             ...state,
+            loading: false,
             refreshKey: randomId(),
             activeCards: data.result,
             mainCard: data.result.find(c => c.productType === 'MAIN')

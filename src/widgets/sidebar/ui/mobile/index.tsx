@@ -8,7 +8,7 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import {useTranslation} from 'react-i18next';
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
@@ -54,10 +54,10 @@ const SidebarMobile = () => {
         }
     }, [account]);
 
-    let eurWallet = null;
-    let eurgWallet = null;
-    let gkeWallet = null;
-    let secondaryWallets = [];
+    let eurWallet: ICtxCurrency = null;
+    let eurgWallet: ICtxCurrency = null;
+    let gkeWallet: ICtxCurrency = null;
+    let secondaryWallets: ICtxCurrency[] = [];
 
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
@@ -199,18 +199,18 @@ const SidebarMobile = () => {
                                         </div>
                                         <div className="row w-full font-mono">
                                             <span
-                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
+                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? '-'} EURG</span>
                                         </div>
                                         {eurgWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
-                                                {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                        +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                {!eurgWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                        +{toLocaleFiatRounding(eurgWallet.balance.lock_in_balance) ?? '-'}
                                                     </span>}
                                             </div>
                                             <div className=" text-gray-500 font-mono">
-                                                {eurgWallet.userBalanceEUREqu === null ? null :
+                                                {eurgWallet.balance.user_balance_EUR_equ === null ? null :
                                                     <span className={styles.Balance}>
-                                                        ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                        ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
                                                     </span>}
                                             </div>
                                         </div>}
@@ -235,18 +235,18 @@ const SidebarMobile = () => {
                                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                         </div>
                                         <div className="row w-full font-mono"><span
-                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                         </div>
                                         {gkeWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
-                                                {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                        +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                                {!gkeWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                        +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                                     </span>}
                                             </div>
                                             <div className=" text-gray-500 font-mono">
-                                                {gkeWallet.userBalanceEUREqu === null ? null :
+                                                {gkeWallet.balance.user_balance_EUR_equ === null ? null :
                                                     <span className={styles.Balance}>
-                                                        ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                                        ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
                                                     </span>}
                                             </div>
                                         </div>}

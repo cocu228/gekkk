@@ -383,12 +383,6 @@ const WithdrawConfirmSepa = ({
         </div>
         <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
         <StatusModalError setIsErr={setErr} open={isErr}/>
-        {/*{is_operable === false && <>*/}
-        {/*    <div className="info-box-danger">*/}
-        {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
-        {/*            network for this transaction.</p>*/}
-        {/*    </div>*/}
-        {/*</>}*/}
     </div>
 </div>
 </>

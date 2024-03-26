@@ -1174,21 +1174,15 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.USDT]: <div>
             <p className='mb-3'>
-                Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed "100% by
-                Tether's reserves," according its website. USDT is a type of cryptocurrency pursuing a
-                steady valuation.
+                {t("tether_info_p1")}
             </p>
 
             <p className='mb-3'>
-                Tether was launched as Real Coin in July 2014 and was rebranded as Tether in November 2014.
-                It started trading in February 2015.23 Originally based on the Bitcoin blockchain, Tether now
-                supports Bitcoin's Omni and Liquid protocols as well as the Ethereum, TRON, EOS, Algorand, Solana,
-                OMG Network, and Bitcoin Cash (SLP) blockchains.
+                {t("tether_info_p2")}
             </p>
 
             <p>
-                Tether is used by investors who want to avoid the volatility typical of cryptocurrencies while
-                holding funds within the crypto system.
+                {t("tether_info_p3")}
             </p>
         </div>,
 
@@ -1890,74 +1884,57 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.BNB]: <div>
             <p className='mb-3'>
-                Binance Coin is the cryptocurrency issued by the Binance exchange and trades with the BNB symbol.
+                {t("bnb.binance_coin_is")}
             </p>
 
             <p className='mb-3'>
-                BNB was initially based on the Ethereum network but is now the native currency of Binance's own
-                blockchain, the Binance chain.
+                {t("bnb.bnb_was_initially")}
             </p>
 
             <p className='mb-3'>
-                Every quarter, Binance uses one-fifth of its profits to repurchase and permanently destroy, or "burn,"
-                Binance coins held in its treasury.
+                {t("bnb.every_quarter")}
             </p>
 
             <p>
-                Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded
-                to
-                numerous applications, including payments for transaction fees (on the Binance Chain), travel bookings,
-                entertainment, online services, and financial services.
+                {t("bnb.binance_was_created")}
             </p>
         </div>,
 
         [ETokensConst.BTC]: <div>
             <p className='mb-3'>
-                The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on
-                the Internet through the digital ledger known as the blockchain.
+                {t("btc.first_cryptocurrency")}
             </p>
 
-            <p className='mb-2'>The value of bitcoin is formed by several factors:</p>
+            <p className='mb-2'>{t("btc.bitcoin_value_factors")}</p>
 
             <ul className='pl-[25px] list-disc'>
-                <li className='mb-1'>The ideology of cryptocurrency creation is independence from the state.</li>
-                <li className='mb-1'>The demand for bitcoin is increasing and the number of released coins is gradually
-                    decreasing.
+                <li className='mb-1'>{t("btc.ideology")}</li>
+                <li className='mb-1'>{t("btc.demand_increasing")}
                 </li>
-                <li className='mb-1'>Bitcoin emission is limited to 21,000,000 coins. No more can be created.</li>
-                <li className='mb-1'>Mining of coins requires labor, computing resources, and electricity.</li>
+                <li className='mb-1'>{t("btc.emission_limit")}</li>
+                <li className='mb-1'>{t("btc.mining_requirements")}</li>
             </ul>
         </div>,
 
         [ETokensConst.DAI]: <div>
             <p className='mb-3'>
-                The Dai stablecoin uses a basket of crypto assets as collateral at a ratio of 150% to the value of its
-                tokens. It is pegged to the U.S. dollar.
+                {t("dai.the_dai_stablecoin")}
             </p>
 
             <p className='mb-3'>
-                Dai is held in cryptocurrency wallets or within platforms, and is supported on
-                Ethereum and other popular blockchains.
+                {t("dai.dai_is_held")}
             </p>
 
             <p className='mb-3'>
-                Dai is easy to generate, access, and use. Users generate Dai by depositing collateral assets into Maker
-                Vaults within the Maker Protocol. This is how Dai is entered into circulation and how users gain access
-                to liquidity. Others obtain Dai by buying it from brokers or exchanges, or simply by receiving it as a
-                means of payment.
+                {t("dai.dai_is_easy")}
             </p>
 
             <p className='mb-3'>
-                Once generated, bought, or received, Dai can be used in the same manner as any other cryptocurrency: it
-                can be sent to others, used as payments for goods and services, and even held as savings through a
-                feature
-                of the Maker Protocol called the Dai Savings Rate (DSR).
+                {t("dai.once_generated")}
             </p>
 
             <p>
-                Every Dai in circulation is directly backed by excess collateral, meaning that the value of the
-                collateral is higher than the value of the Dai debt, and all Dai transactions
-                are publicly viewable on the Ethereum blockchain.
+                {t("dai.every_dai")}
             </p>
         </div>,
 
@@ -2023,28 +2000,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.ETH]: <div>
             <p className='mb-3'>
-                Ethereum (ETH) is both a cryptocurrency and a decentralized computing platform.
-                Developers can use the platform to create decentralized applications
-                and issue new crypto assets known as Ethereum tokens.
+                {t("eth.etherum_is_both")}
             </p>
 
             <p className='mb-3'>
-                Ethereum is similar to Bitcoin and other coins. But Ether is
-                much more than just a blockchain-platform, which performs a
-                direct function of currency services. It's a complex system
-                of smart contracts, the idea of which is to combine completely
-                different areas and improve processes, optimize routine operations.
+                {t("eth.ethereum_is_similar")}
             </p>
 
             <ul className='pl-[25px] list-disc'>
                 <li className='mb-1'>
-                    Smart contracts are algorithms in the network that track if-then type operations.
-                    They oversee the compliance of all parties with the terms of the transaction
-                    (performing actions, transferring money, etc.).
+                    {t("eth.smart_contracts_are")}
                 </li>
                 <li className='mb-1'>
-                    Smart contracts eliminate the need for an intermediary, which increases speed,
-                    increases safety, and reduces the costs of transaction processing.
+                    {t("eth.smart_contracts_eliminate")}
                 </li>
             </ul>
         </div>,
@@ -2398,19 +2366,15 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.TRX]: <div>
             <p className='mb-3'>
-                Tron is a blockchain-based decentralized digital platform with its own cryptocurrency, called Tronix or
-                TRX. Founded in 2017 by a Singapore non-profit organization, the Tron Foundation, Tron aims to host a
-                global entertainment system for the cost-effective sharing of digital content.
+                {t("trx.tron_is_a")}
             </p>
 
             <p className='mb-3'>
-                Initially marketed primarily in Asia, Tron had now gone global. The platform had more than 50 million
-                accounts.
+                {t("trx.initially_marketed")}
             </p>
 
             <p>
-                Founded by Justin Sun, now its CEO, Tron has offices in Singapore and San Francisco. Born in 1990, Sun
-                also is the CEO of BitTorrent, the file-sharing program.
+                {t("trx.founded_by")}
             </p>
         </div>,
 
@@ -2434,31 +2398,34 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.XMR]: <div>
             <p className='mb-3'>
-                Monero (XMR) is a private, secure, and untraceable cryptocurrency. With Monero, you are in complete
-                control of your funds and privacy, no one else can see anyone else’s balances or transactions.
+                {t("xmr.monero_is_a")}
             </p>
 
-            <p className='mb-2'>The main features of the coin:</p>
+            <p className='mb-2'>
+                {t("xmr.the_main_features")}
+            </p>
 
             <ul className='pl-[25px] list-disc'>
                 <li className='mb-1'>
                     <a className='font-bold'>
-                        Anonymity.
-                    </a> Monero transactions are anonymous. It's impossible to find
-                    out the balance through its blockchain.
+                        {t("xmr.anonymity")}
+                    </a>
+
+                    {t("xmr.monero_transactions_are")}
                 </li>
                 <li className='mb-1'>
                     <a className='font-bold'>
-                        Security.
-                    </a> Complex mathematical solutions protect users' wallets and
-                    transactions conducted in Monero coins.
+                        {t("xmr.security")}
+                    </a>
+
+                    {t("xmr.complex_mathematical")}
                 </li>
                 <li className='mb-1'>
                     <a className='font-bold'>
-                        Decentralization.
-                    </a> Monero is not controlled by anyone,
-                    there are no controlling bodies or centralized servers in this system.
-                    The coin is managed by the community of the network.
+                        {t("xmr.decentralization")}
+                    </a>
+                    
+                    {t("xmr.monero_is_not")}
                 </li>
             </ul>
         </div>,

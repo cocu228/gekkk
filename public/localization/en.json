@@ -690,7 +690,9 @@
     "to_withdraw": "withdraw",
     "you_should_send_only": "You should send only",
     "you_should_send_only_2": "to supported network address on Gekkoin platform. If you are top up via another network your assets may be lost.",
-    "tether_info": "Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed '100% by Tether's reserves,' according its website. USDT is a type of cryptocurrency pursuing a steady valuation. Tether was launched as Real Coin in July 2014 and was rebranded as Tether in November 2014. It started trading in February 2015.23 Originally based on the Bitcoin blockchain, Tether now supports Bitcoin's Omni and Liquid protocols as well as the Ethereum, TRON, EOS, Algorand, Solana, OMG Network, and Bitcoin Cash (SLP) blockchains. Tether is used by investors who want to avoid the volatility typical of cryptocurrencies while holding funds within the crypto system.",
+    "tether_info_p1": "Tether (USDT) is a cryptocurrency stablecoin pegged to the U.S. dollar and backed '100% by Tether's reserves,' according its website. USDT is a type of cryptocurrency pursuing a steady valuation.",
+    "tether_info_p2": "Tether was launched as Real Coin in July 2014 and was rebranded as Tether in November 2014. It started trading in February 2015.23 Originally based on the Bitcoin blockchain, Tether now supports Bitcoin's Omni and Liquid protocols as well as the Ethereum, TRON, EOS, Algorand, Solana, OMG Network, and Bitcoin Cash (SLP) blockchains.",
+    "tether_info_p3": "Tether is used by investors who want to avoid the volatility typical of cryptocurrencies while holding funds within the crypto system.",
     "app_version": "App version",
     "change_password": "Change password",
     "user_keys": "User keys",
@@ -793,7 +795,49 @@
     "enter_house_number": "Enter house number",
     "enter_fiat_number": "Enter fiat number",
     "enter_recipient_name": "Enter recipient name",
-    "country_not_found": "Country not found"
+    "country_not_found": "Country not found",
+    "btc":{
+      "first_cryptocurrency": "The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on the Internet through the digital ledger known as the blockchain.", 
+			"bitcoin_value_factors": "The value of bitcoin is formed by several factors:", 
+			"ideology": "The ideology of cryptocurrency creation is independence from the state.", 
+			"demand_increasing": "The demand for bitcoin is increasing and the number of released coins is gradually decreasing.", 
+			"emission_limit": "Bitcoin emission is limited to 21,000,000 coins. No more can be created.", 
+			"mining_requirements": "Mining of coins requires labor, computing resources, and electricity." 
+    },
+    "dai":{
+      "the_dai_stablecoin": "The Dai stablecoin uses a basket of crypto assets as collateral at a ratio of 150% to the value of its tokens. It is pegged to the U.S. dollar.",
+      "dai_is_held": "Dai is held in cryptocurrency wallets or within platforms, and is supported on Ethereum and other popular blockchains.",
+      "dai_is_easy": "Dai is easy to generate, access, and use. Users generate Dai by depositing collateral assets into Maker Vaults within the Maker Protocol. This is how Dai is entered into circulation and how users gain access to liquidity. Others obtain Dai by buying it from brokers or exchanges, or simply by receiving it as a means of payment.",
+      "once_generated": "Once generated, bought, or received, Dai can be used in the same manner as any other cryptocurrency: it can be sent to others, used as payments for goods and services, and even held as savings through a feature of the Maker Protocol called the Dai Savings Rate (DSR).",
+      "every_dai": "Every Dai in circulation is directly backed by excess collateral, meaning that the value of the collateral is higher than the value of the Dai debt, and all Dai transactions are publicly viewable on the Ethereum blockchain."
+    },
+    "eth":{
+      "etherum_is_both": "Ethereum (ETH) is both a cryptocurrency and a decentralized computing platform. Developers can use the platform to create decentralized applications and issue new crypto assets known as Ethereum tokens.",
+      "ethereum_is_similar": "Ethereum is similar to Bitcoin and other coins. But Ether is much more than just a blockchain-platform, which performs a direct function of currency services. It's a complex system of smart contracts, the idea of which is to combine completely different areas and improve processes, optimize routine operations.",
+      "smart_contracts_are": "Smart contracts are algorithms in the network that track if-then type operations. They oversee the compliance of all parties with the terms of the transaction (performing actions, transferring money, etc.).",
+      "smart_contracts_eliminate": "Smart contracts eliminate the need for an intermediary, which increases speed, increases safety, and reduces the costs of transaction processing."
+    },
+    "bnb":{
+      "binance_coin_is": "Binance Coin is the cryptocurrency issued by the Binance exchange and trades with the BNB symbol.",
+      "bnb_was_initially": "BNB was initially based on the Ethereum network but is now the native currency of Binance's own blockchain, the Binance chain.",
+      "every_quarter": "Every quarter, Binance uses one-fifth of its profits to repurchase and permanently destroy, or 'burn,' Binance coins held in its treasury.",
+      "binance_was_created": "Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded to numerous applications, including payments for transaction fees (on the Binance Chain), travel bookings, entertainment, online services, and financial services."
+    },
+    "trx":{
+      "tron_is_a": "Tron is a blockchain-based decentralized digital platform with its own cryptocurrency, called Tronix or TRX. Founded in 2017 by a Singapore non-profit organization, the Tron Foundation, Tron aims to host a global entertainment system for the cost-effective sharing of digital content.",
+      "initially_marketed": "Initially marketed primarily in Asia, Tron had now gone global. The platform had more than 50 million accounts.",
+      "founded_by": "Founded by Justin Sun, now its CEO, Tron has offices in Singapore and San Francisco. Born in 1990, Sun also is the CEO of BitTorrent, the file-sharing program."
+    },
+    "xmr":{
+      "monero_is_a": "Monero (XMR) is a private, secure, and untraceable cryptocurrency. With Monero, you are in complete control of your funds and privacy, no one else can see anyone else’s balances or transactions.",
+      "the_main_features": "The main features of the coin:",
+      "anonymity": "Anonymity.",
+      "monero_transactions_are": "Monero transactions are anonymous. It's impossible to find out the balance through its blockchain.",
+      "security": "Security.",
+      "complex_mathematical": "Complex mathematical solutions protect users' wallets and transactions conducted in Monero coins.",
+      "decentralization": "Decentralization.",
+      "monero_is_not": "Monero is not controlled by anyone, there are no controlling bodies or centralized servers in this system. The coin is managed by the community of the network."
+    }
     
     
 

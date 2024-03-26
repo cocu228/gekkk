@@ -476,7 +476,9 @@
     "you_should_send_only": "Sie sollten nur senden",
     "you_should_send_only_2": "an die unterstützte Netzwerkadresse auf der Gekkoin-Plattform. Wenn Sie über ein anderes Netzwerk aufladen, können Ihre Vermögenswerte verloren gehen.",
     "enter_withdrawal_address": "Geben Sie die Auszahlungsadresse ein",
-    "tether_info": "Tether (USDT) ist eine Kryptowährungs-Stablecoin, der an den US-Dollar gebunden ist und 'zu 100% durch die Reserven von Tether' abgesichert ist, gemäß der Website. USDT ist ein Typ von Kryptowährung, der eine stabile Bewertung anstrebt. Tether wurde im Juli 2014 als Real Coin gestartet und im November 2014 in Tether umbenannt. Der Handel begann im Februar 2015. Ursprünglich basierend auf der Bitcoin-Blockchain, unterstützt Tether nun die Omni- und Liquid-Protokolle von Bitcoin sowie die Blockchains Ethereum, TRON, EOS, Algorand, Solana, OMG Network und Bitcoin Cash (SLP). Tether wird von Investoren genutzt, die die typische Volatilität von Kryptowährungen vermeiden möchten, während sie Gelder innerhalb des Kryptosystems halten.",
+    "tether_info_p1": "Tether (USDT) ist eine Kryptowährungs-Stablecoin, der an den US-Dollar gebunden ist und zu 100 % durch die Reserven von Tether abgesichert ist, so die Website. USDT ist ein Typ von Kryptowährung, der eine stabile Bewertung anstrebt.",
+    "tether_info_p2": "Tether wurde im Juli 2014 als echte Münze eingeführt und im November 2014 in Tether umbenannt. Der Handel begann im Februar 2015. Ursprünglich basierend auf der Bitcoin-Blockchain, unterstützt Tether jetzt auch Bitcoins Omni und Liquid Protokolle sowie die Ethereum-, Tron-, EOS-, Algorand-, Solana-, OMG Network- und Bitcoin Cash (SLP)-Blockchains.",
+    "tether_info_p3": "Tether wird von Investoren verwendet, die die Volatilität typischer Kryptowährungen vermeiden möchten, während sie ihre Gelder im Kryptosystem halten.",
     "my_settings": "Meine Einstellungen",
     "general_information": "Allgemeine Informationen",
     "account_and_app_settings": "Konto- und App-Einstellungen",
@@ -614,7 +616,49 @@
     "enter_house_number": "Hausnummer eingeben",
     "enter_fiat_number": "Fiat-Nummer eingeben",
     "enter_recipient_name": "Empfängernamen eingeben",
-    "country_not_found": "Land nicht gefunden"
+    "country_not_found": "Land nicht gefunden",
+    "btc":{ 
+        "first_cryptocurrency": "Die weltweit erste Kryptowährung, Bitcoin (BTC), wird sicher im Internet über das digitale Hauptbuch namens Blockchain gespeichert und ausgetauscht.",  
+        "bitcoin_value_factors": "Der Wert von Bitcoin wird durch mehrere Faktoren gebildet:",  
+        "ideology": "Die Ideologie der Schaffung von Kryptowährungen besteht in der Unabhängigkeit vom Staat.",  
+        "demand_increasing": "Die Nachfrage nach Bitcoin steigt und die Anzahl der ausgegebenen Münzen nimmt allmählich ab.",  
+        "emission_limit": "Die Bitcoin-Emission ist auf 21.000.000 Münzen begrenzt. Es können keine weiteren erstellt werden.",  
+        "mining_requirements": "Die Münzprägung erfordert Arbeit, Rechenressourcen und Strom."  
+    },
+    "dai":{
+        "the_dai_stablecoin": "Der Dai-Stablecoin verwendet einen Korb von Krypto-Assets als Sicherheit im Verhältnis von 150% zum Wert seiner Tokens. Er ist an den US-Dollar gebunden.",
+        "dai_is_held": "Dai wird in Krypto-Wallets oder auf Plattformen gehalten und wird auf Ethereum und anderen beliebten Blockchains unterstützt.",
+        "dai_is_easy": "Dai ist einfach zu generieren, zugänglich und zu verwenden. Benutzer generieren Dai, indem sie Sicherheitswerte in Maker Vaults innerhalb des Maker-Protokolls hinterlegen. So gelangt Dai in Umlauf und Benutzer erhalten Zugang zur Liquidität. Andere erhalten Dai, indem sie es von Brokern oder Börsen kaufen oder einfach als Zahlungsmittel erhalten.",
+        "once_generated": "Einmal generiert, gekauft oder erhalten, kann Dai auf die gleiche Weise wie jede andere Kryptowährung verwendet werden: Es kann an andere gesendet, als Zahlung für Waren und Dienstleistungen verwendet und sogar als Ersparnis über eine Funktion des Maker-Protokolls namens Dai Savings Rate (DSR) gehalten werden.",
+        "every_dai": "Jeder im Umlauf befindliche Dai ist direkt durch überschüssige Sicherheiten gedeckt, was bedeutet, dass der Wert der Sicherheiten höher ist als der Wert der Dai-Schulden, und alle Dai-Transaktionen sind öffentlich auf der Ethereum-Blockchain einsehbar."
+    },
+    "eth":{
+        "etherum_is_both": "Ethereum (ETH) ist sowohl eine Kryptowährung als auch eine dezentrale Rechenplattform. Entwickler können die Plattform nutzen, um dezentrale Anwendungen zu erstellen und neue Krypto-Assets, die als Ethereum-Token bekannt sind, auszugeben.",
+        "ethereum_is_similar": "Ethereum ähnelt Bitcoin und anderen Münzen. Aber Ether ist viel mehr als nur eine Blockchain-Plattform, die eine direkte Funktion von Währungsdiensten ausführt. Es handelt sich um ein komplexes System von Smart Contracts, deren Idee darin besteht, völlig unterschiedliche Bereiche zu kombinieren und Prozesse zu verbessern sowie Routineoperationen zu optimieren.",
+        "smart_contracts_are": "Smart Contracts sind Algorithmen im Netzwerk, die Operationen vom Typ Wenn-Dann verfolgen. Sie überwachen die Einhaltung der Bedingungen der Transaktion durch alle Parteien (Durchführung von Aktionen, Geldüberweisungen usw.).",
+        "smart_contracts_eliminate": "Smart Contracts beseitigen die Notwendigkeit eines Vermittlers, was die Geschwindigkeit erhöht, die Sicherheit verbessert und die Kosten der Transaktionsabwicklung reduziert."
+    },
+    "bnb":{
+        "binance_coin_is": "Binance Coin ist die Kryptowährung, die von der Börse Binance ausgegeben wird und mit dem Symbol BNB gehandelt wird.",
+        "bnb_was_initially": "BNB basierte ursprünglich auf dem Ethereum-Netzwerk, ist aber jetzt die eigene Währung der eigenen Blockchain von Binance, der Binance Chain.",
+        "every_quarter": "Jedes Quartal verwendet Binance ein Fünftel seiner Gewinne, um Binance-Münzen, die sich in seinem Schatzamt befinden, zurückzukaufen und dauerhaft zu zerstören oder 'zu verbrennen'.",
+        "binance_was_created": "Binance wurde 2017 als Utility-Token für ermäßigte Handelsgebühren geschaffen, aber seine Verwendungszwecke haben sich auf zahlreiche Anwendungen ausgeweitet, darunter Zahlungen für Transaktionsgebühren (auf der Binance Chain), Reisebuchungen, Unterhaltung, Online-Dienste und Finanzdienstleistungen."
+    },
+    "trx":{
+        "tron_is_a": "Tron ist eine auf Blockchain basierende dezentralisierte digitale Plattform mit ihrer eigenen Kryptowährung, genannt Tronix oder TRX. Gegründet im Jahr 2017 von einer gemeinnützigen Organisation aus Singapur, der Tron Foundation, zielt Tron darauf ab, ein globales Unterhaltungssystem für den kostengünstigen Austausch digitaler Inhalte zu hosten.",
+        "initially_marketed": "Ursprünglich hauptsächlich in Asien vermarktet, ist Tron jetzt global geworden. Die Plattform verzeichnete mehr als 50 Millionen Konten.",
+        "founded_by": "Gegründet von Justin Sun, heute CEO, hat Tron Büros in Singapur und San Francisco. Sun, geboren 1990, ist auch CEO von BitTorrent, dem Filesharing-Programm."
+    },
+    "xmr":{ 
+        "monero_is_a": "Monero (XMR) ist eine private, sichere und nicht nachverfolgbare Kryptowährung. Mit Monero haben Sie die vollständige Kontrolle über Ihre Gelder und Privatsphäre, niemand sonst kann die Kontostände oder Transaktionen anderer sehen.", 
+        "the_main_features": "Die Hauptmerkmale der Münze:", 
+        "anonymity": "Anonymität.", 
+        "monero_transactions_are": "Monero-Transaktionen sind anonym. Es ist unmöglich, den Kontostand über seine Blockchain herauszufinden.", 
+        "security": "Sicherheit.", 
+        "complex_mathematical": "Komplexe mathematische Lösungen schützen die Geldbörsen der Benutzer und Transaktionen, die in Monero-Münzen durchgeführt werden.", 
+        "decentralization": "Dezentralisierung.", 
+        "monero_is_not": "Monero wird von niemandem kontrolliert, es gibt keine Kontrollorgane oder zentralisierten Server in diesem System. Die Münze wird von der Community des Netzwerks verwaltet." 
+    }
 
 
     

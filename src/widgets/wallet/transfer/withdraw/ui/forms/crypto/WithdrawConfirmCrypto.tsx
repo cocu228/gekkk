@@ -309,6 +309,7 @@ const WithdrawConfirmCrypto = memo(
                   rules={[{ required: true, ...codeMessage }]}
                 >
                   <Input
+                    onlyLetters={true}
                     type="text"
                     onInput={onInput}
                     autoComplete="off"
@@ -492,6 +493,7 @@ const WithdrawConfirmCrypto = memo(
                 rules={[{ required: true, ...codeMessage }]}
               >
                 <Input
+                  onlyLetters={true}
                   type="text"
                   onInput={onInput}
                   autoComplete="off"
@@ -724,12 +726,11 @@ const WithdrawConfirmCrypto = memo(
                               rules={[{ required: true, ...codeMessage }]}
                             >
                               <Input
+                                onlyLetters={true}
                                 type="text"
                                 onInput={onInput}
                                 autoComplete="off"
-                                onChange={({ target }) =>
-                                  setInput(target.value)
-                                }
+                                onChange={inputChange}
                                 placeholder={
                                   stageReq.status === 0
                                     ? t("enter_sms_code")

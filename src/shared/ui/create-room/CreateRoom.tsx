@@ -107,6 +107,7 @@ function CreateRoom({
             {t("exchange.purchase_limit")}
           </label>
           <Input
+            onlyLetters={true}
             placeholder={t("exchange.it_is_empty")}
             // onChange={({ target }) =>
             //   setState({

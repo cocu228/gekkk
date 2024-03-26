@@ -22,6 +22,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
 
   return (
     <Input
+      onlyLetters={true}
       className={styles.Field}
       onChange={priceChange}
       type="text"

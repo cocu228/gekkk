@@ -64,6 +64,7 @@ const PromoCode = memo(() => {
               disabled={loading}
               onChange={handlerInput}
               type={"text"}
+              onlyLetters={true}
             />
           </Form.Item>
 

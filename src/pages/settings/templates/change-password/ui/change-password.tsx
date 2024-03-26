@@ -49,6 +49,7 @@ export function ChangePassword() {
                     onChange={(e)=>{setNewPass(e.target.value)}}
                     /> */}
           <Input
+            onlyLetters={true}
             onChange={passSave}
             value={newPass}
             wrapperClassName="w-1/2"
@@ -68,6 +69,7 @@ export function ChangePassword() {
             }}
           /> */}
           <Input
+            onlyLetters={true}
             onChange={passConfirm}
             value={confirmNewPass}
             wrapperClassName="w-1/2"
@@ -91,6 +93,7 @@ export function ChangePassword() {
             className="min-h-[40px]"
           /> */}
           <Input
+            onlyLetters={true}
             disabled={!changeCodeSent}
             onChange={codeConfirm}
             value={confirmCode}

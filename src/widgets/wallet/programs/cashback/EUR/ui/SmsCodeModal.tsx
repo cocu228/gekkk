@@ -140,6 +140,7 @@ const SmsCodeModal = ({
                 rules={[{ required: true }]}
               >
                 <Input
+                  onlyLetters={true}
                   type="text"
                   placeholder={t("phone_code")}
                   onInput={onInput}

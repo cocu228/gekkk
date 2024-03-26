@@ -81,6 +81,7 @@ const UniversalTransferForm = () => {
             <div className="row">
               <div className="col">
                 <Input
+                  onlyLetters={true}
                   name={"requisite"}
                   value={inputs.requisite}
                   onChange={onInputDefault}
@@ -242,6 +243,7 @@ const UniversalTransferForm = () => {
             <div className="row flex w-full">
               <div className="col basis-[100%]">
                 <Input
+                  onlyLetters={true}
                   name={"requisite"}
                   value={inputs.requisite}
                   onChange={onInputDefault}

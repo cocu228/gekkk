@@ -154,6 +154,7 @@ const FormCode = memo(() => {
             data-testid="PhoneCode"
             placeholder="Enter code that we sent to your phone"
             onInput={onInput}
+            onlyLetters={true}
             onChange={({ target }) => onChange(target.value)}
           />
         </div>

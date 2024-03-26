@@ -55,6 +55,10 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     !loading && applyInputRef.current && applyInputRef.current.focus();
   }, []);
 
+  const inputChage = (target: any) => {
+    setInput(target.value);
+  };
+
   return (
     <div className="row relative font-medium">
       {loading ? (
@@ -74,7 +78,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                 ref={applyInputRef}
                 autoComplete="on"
                 value={input}
-                onChange={({ target }) => setInput(target.value)}
+                onChange={inputChage}
               />
             </div>
             <div className="col w-2/5">

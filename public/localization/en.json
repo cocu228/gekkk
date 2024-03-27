@@ -837,6 +837,129 @@
       "complex_mathematical": "Complex mathematical solutions protect users' wallets and transactions conducted in Monero coins.",
       "decentralization": "Decentralization.",
       "monero_is_not": "Monero is not controlled by anyone, there are no controlling bodies or centralized servers in this system. The coin is managed by the community of the network."
+    },
+    "usdc":{
+      "usdc_is": "USD Coin (USDC) is a stablecoin redeemable on a 1:1 basis for US dollars, backed by dollar denominated assets held in segregated accounts with US regulated financial institutions. The launch of USDC was powered by a collaboration between Coinbase and Circle through the co-founding of the CENTRE Consortium. Coinbase customers with US dollar accounts may exchange 1 USDC for US$1.00 (and vice versa) on Coinbase in jurisdictions where USDC support is available. The graph above reflects USDC’s current and historical redemption value of US$1.00, which may not match the price of USDC on other exchanges. Note: Coinbase only supports USDC running on Ethereum (ERC-20)."
+    },
+    "xrp":{
+      "xrp_is": "Ripple is a digital payment platform that uses blockchain technology and a native cryptocurrency to facilitate faster and cheaper global transactions. XRP is the native token for the Ripple ledger and is used to enhance currency conversion and international financial transfers.",
+      "payment_platform": "The Ripple payment platform enables fast and cheap cross-border transactions."
+    },
+    "sol":{
+      "sol_is_a_blockchain": "Solana is a blockchain platform designed to host decentralized, scalable applications.",
+      "sol_can_process": "Solana can process many more transactions per second and charges much lower transaction fees than rival blockchains like Ethereum.",
+      "native_currency": "Solana's native cryptocurrency, which has the ticker SOL, has a market capitalization of over $66 billion, making it the fifth-largest cryptocurrency.",
+      "proof_of_stake": "Solana is a proof-of-stake (PoS) blockchain and also uses a new technology called Proof of History (PoH)."
+    },
+    "ada":{
+      "third_generation": "Cardano is a third-generation, decentralized proof-of-stake (PoS) blockchain platform designed to be a more efficient alternative to proof-of-work (PoW) networks. Scalability, interoperability, and sustainability on PoW networks are limited by the infrastructure burden of growing costs, energy use, and slow transaction times.",
+      "co_founder": "Charles Hoskinson, the co-founder of the proof-of-work (PoW) blockchain Ethereum, understood the implications of these challenges to blockchain networks, and began developing Cardano and its primary cryptocurrency, ada, in 2015, launching the platform and the ADA token in 2017.",
+      "blockchain_platform": "Cardano is a blockchain platform that aims to be a decentralized application (DApp) development platform with a multi-asset ledger and verifiable smart contracts. Cardano is being built in five stages: foundation, decentralization, smart contracts, scaling, and governance. Cardano runs on the proof-of-stake Ouroboros consensus protocol and developments are informed by scholarly academic research. The primary cryptocurrency of Cardano is called 'ada'. Cardano oversight is decentralized and shared by The Cardano Foundation, IOHK, and EMURGO."
+    },
+    "doge":{
+      "open_source": "Dogecoin is an open-source cryptocurrency started in 2013 by Jackson Palmer and Billy Markus.",
+      "initially_started": "Dogecoin initially started as a joke based on a popular meme featuring a Shiba Inu (a Japanese breed of dog).",
+      "based_on": "It is based on Litecoin and uses the same proof-of-work technology.",
+      "loyal_community": "Dogecoin has a loyal community of supporters who trade it and use it as a tipping currency for social media content."
+    },
+    "matic":{
+      "polygon_is_a": "Polygon is a cryptocurrency, with the symbol MATIC, and also a technology platform that enables blockchain networks to connect and scale.",
+      "the_polygon_platform": "The Polygon platform operates using the Ethereum blockchain, and connects Ethereum-based projects. Using the Polygon platform can increase the flexibility, scalability, and sovereignty of a blockchain project while still affording the security, interoperability, and structural benefits of the Ethereum blockchain.",
+      "matic_is_an": "MATIC is an ERC-20 token, meaning that it's compatible with other Ethereum-based digital currencies. MATIC is used to govern and secure the Polygon network and to pay network transaction fees.",
+      "polygon_uses_a": "Polygon uses a modified proof-of-stake consensus mechanism to efficiently operate the platform."
+    },
+    "link_token":{
+      "cryptocurrency": "Chainlink (LINK) is a cryptocurrency and technology platform that enables non-blockchain enterprises to securely connect with blockchain platforms. Chainlink is middleware that connects blockchain-based smart contracts with external data, such as baseball scores or stock prices.",
+      "tokens_called": "Chainlink tokens—called LINK—serve as currency to pay Chainlink network operators for retrieving and preparing off-chain data and performing computations.",
+      "decentralized": "Chainlink is known as a decentralized oracle network or blockchain abstraction layer. Chainlink uses blockchain technology to securely enable computations on and off blockchain, supporting what it calls hybrid smart contracts.",
+      "chainlink": "Enterprises that use Chainlink can access any of the major blockchain networks, including Ethereum, Solana, and Terra. The Chainlink blockchain is hosted on the Ethereum platform, which uses the proof of work operating protocol.",
+      "open_source": "Chainlink is an open-source blockchain project, meaning that anyone can view the project's code and contribute."
+    },
+    "dot":{
+      "cryptocurrency": "Polkadot (DOT) is a unique PoS cryptocurrency aimed at delivering interoperability among other blockchains. Its protocol is designed to connect permissioned and permissionless blockchains as well as oracles to allow systems to work together under one roof. Polkadot’s core component is its relay chain, which allows the interoperability of varying networks. It also allows for parachains, or parallel blockchains with their own native tokens for specific-use cases.",
+      "differs": "Where Polkadot differs from Ethereum is that rather than creating just dApps on Polkadot, developers can create their own blockchain while also using the security that Polkadot’s chain already has. With Ethereum, developers can create new blockchains but need to create their own security measures, which can leave new and smaller projects open to attack because the larger a blockchain, the more security it has. This concept in Polkadot is known as shared security.",
+      "another": "Polkadot was created by Gavin Wood, another member of the core founders of the Ethereum project who had differing opinions about the project’s future."
+    },
+    "avax":{
+      "cryptocurrency": "Avalanche (AVAX) is a cryptocurrency and blockchain platform that rivals Ethereum. AVAX is the native token of the Avalanche blockchain, which—like Ethereum—uses smart contracts to support a variety of blockchain projects.",
+      "provide": "The Avalanche blockchain can provide near-instant transaction finality. AVAX is used to pay transaction processing fees and secure the Avalanche network, and acts as a basic unit of account among blockchains in the Avalanche network. Transaction fees and the rate of AVAX coin creation are determined using a governance model.",
+      "competitor": "Avalanche is a competitor to Ethereum that prioritizes scalability and transaction processing speed."
+    },
+    "ltc":{
+      "cryptocurrency": "Litecoin (LTC) is a cryptocurrency created from a fork in the Bitcoin blockchain in 2011. It was initially designed to address the developer's concerns that Bitcoin was becoming too centrally controlled, and to make it more difficult for largescale mining firms to gain the upper hand in mining. While eventually unsuccessful in preventing enterprise miners from taking over the lion's share of Litecoin mining, the cryptocurrency has reworked itself into a minable coin and a peer-to-peer payment system.",
+      "features": "It shares similar features with Bitcoin but has a different algorithm. The cryptocurrency's goal is to become a medium for daily transactions.",
+      "transaction": "Litecoin has a faster transaction processing time compared to Bitcoin."
+    },
+    "shib":{
+      "altcoin": "Shiba Inu is an Ethereum-based altcoin that features the Shiba Inu hunting dog as its mascot.",
+      "alternative": "It is widely considered to be an alternative to Dogecoin and is touted as 'the Dogecoin killer' by its supporters, a community known as the SHIBArmy.",
+      "created": "Shiba Inu was created in August 2020 by an individual or group called Ryoshi.",
+      "ranks": "SHIB ranks in the top ten among all meme cryptocurrencies by this measure, right behind Dogecoin."
+    },
+    "bch":{
+      "important": "Bitcoin Cash BCH holds an important place in the history of altcoins because it is one of the earliest and most successful hard forks of the original Bitcoin. In the cryptocurrency world, a fork takes place as the result of debates and arguments between developers and miners. Due to the decentralized nature of digital currencies, wholesale changes to the code underlying the token or coin at hand must be made due to general consensus; the mechanism for this process varies according to the particular cryptocurrency.",
+      "factions": "When different factions can’t agree, sometimes the digital currency is split, with the original chain remaining true to its original code and the new chain beginning life as a new version of the prior coin, complete with changes to its code.",
+      "began": "BCH began its life in August 2017 as a result of one of these splits. The debate that led to the creation of BCH had to do with the issue of scalability; the Bitcoin network has a limit on the size of blocks: 1 megabyte (MB). BCH increases the block size from 1MB to 8MBs, with the idea being that larger blocks can hold more transactions within them, and the transaction speed would therefore increase. It also makes other changes, including the removal of the Segregated Witness protocol that impacts block space."
+    },
+    "atom":{
+      "ecosystem": "Cosmos is an ecosystem of blockchains that can scale and interoperate with each other. Before Cosmos, blockchains were siloed and unable to communicate with each other. They were hard to build and could only handle a small amount of transactions per second. Cosmos solves these problems with a new technical vision.",
+      "cryptocurrency": "Cosmos (ATOM) is a cryptocurrency that powers an ecosystem of blockchains designed to scale and interoperate with each other. The team aims to 'create an Internet of Blockchains, a network of blockchains able to communicate with each other in a decentralized way.' Cosmos is a proof-of-stake chain. ATOM holders can stake their tokens in order to maintain the network and receive more ATOM as a reward."
+    },
+    "xlm":{
+      "powers": "Stellar’s cryptocurrency, the Stellar Lumen (XLM), powers the Stellar payment network. As a cross-border transfer and payment system that connects financial entities, Stellar aims to unite the world’s financial infrastructure, connecting banks, payment systems, and individuals with near-instant and secure transfers.",
+      "computers": "If the Internet connected the world’s computers to enable the free global flow of information, Stellar aims to do the same for money. To accomplish this vision while maintaining neutrality, Stellar is not set up as a bank or a business. Instead it’s a decentralized, open network that is supported by a nonprofit foundation called the Stellar Development Foundation (or SDF, for short)."
+    },
+    "uni":{
+      "decentralized": "Uniswap is a decentralized exchange that enables peer-to-peer market making. Uniswap is also a cryptocurrency whose symbol is (UNI). The Uniswap platform enables users to trade cryptocurrencies without any involvement with a centralized third party.",
+      "hosted": "The Uniswap blockchain is hosted on the Ethereum platform and governed by UNI holders.",
+      "open": "The Uniswap blockchain is open source, meaning that anyone can view and contribute to the blockchain's code.",
+      "governed": "The Uniswap platform is governed by UNI holders in proportion to how much UNI they own."
+    },
+    "etc":{
+      "decentralized": "Ethereum Classic (ETC) is an open-source, decentralized, blockchain-based distributed cryptocurrency platform that runs smart contracts. Ethereum Classic was formed in 2016 as a result of a hack of The DAO, a smart contract operating on the Ethereum blockchain. The original blockchain was split in two, with the majority of users choosing to reverse the hack and return the stolen funds.",
+      "philosophical": "The split revealed philosophical divisions within the Ethereum community. Based on the principle that “Code is Law,” a small number of developers and miners believed that The DAO's investors should suffer the consequences of investing in a flawed project. However, the majority of the Ethereum community decided to roll back the blockchain, effectively creating a bailout for The DAO's investors. Ethereum Classic is the name of the original, smaller blockchain."
+    },
+    "near":{
+      "layer_one": "NEAR Protocol is a layer-one blockchain that was designed as a community-run cloud computing platform and that eliminates some of the limitations that have been bogging competing blockchains, such as low transaction speeds, low throughput and poor interoperability. This provides the ideal environment for DApps and creates a developer and user-friendly platform. For instance, NEAR uses human-readable account names, unlike the cryptographic wallet addresses common to Ethereum. NEAR also introduces unique solutions to scaling problems and has its own consensus mechanism called “Doomslug.”",
+      "community": "NEAR Protocol is being built by the NEAR Collective, its community that is updating the initial code and releasing updates to the ecosystem. Its declared goal is to build a platform that is “secure enough to manage high value assets like money or identity and performant enough to make them useful for everyday people.”",
+      "developers": "Flux, a protocol that allows developers to create markets based on assets, commodities, real-world events, and Mintbase, an NFT minting platform are examples of projects being built on NEAR Protocol."
+    },
+    "aave":{
+      "cryptocurrency": "Aave is a decentralized cryptocurrency platform that allows users to borrow and lend crypto. Aave uses smart contracts to automate the process, with preset rules on how funds are distributed, how collateral is handled, and how fees are assessed.",
+      "overcollateralized": "Aave specializes in overcollateralized loans, meaning that users will need to deposit crypto worth more than the amount that they wish to borrow. This protects lenders from losing money due to loan defaults and allows the Aave protocol to liquidate the collateral if it drops too much in value.",
+      "native": "Aave also offers a native crypto token (AAVE) that can be traded on most exchanges or staked in the Aave platform to earn interest. Staking is how crypto miners earn rewards for validating transactions on a proof-of-stake blockchain like the one that underlies Aave."
+    },
+    "mkr":{
+      "governance": "Maker is an Ethereum-based governance and utility token of the Maker system. Maker aims to unlock the potential of decentralized finance by building an inclusive platform for economic empowerment that gives everyone equal access to the global financial marketplace.",
+      "consists": "Notably, the Maker Platform consists of the following components:",
+      "community": "MakerDAO is an open-source community project on the Ethereum blockchain and a decentralized autonomous organization. The project is administered by people all over the world who own MKR, the project's governance token. MKR holders regulate the Maker Protocol and Dai's financial risks using a scientific governance mechanism that includes executive voting and governance polling (called DSChief). The MKR voting weight is proportional to the number of MKR tokens staked by a voter in the voting contract. In simple words, the more MKR tokens are locked into the contract, the more decision-making power the voter has. MakerDAO as a group is devoted to improving the Bitcoin economy's stability.",
+      "developed": "The Maker Protocol, developed on the Ethereum blockchain, allows users to build their own currency, the Dai stablecoin. MakerDAO regulates the Maker Protocol by deciding on critical parameters (e.g., stability fees, collateral types/rates, etc.) using MKR holders' voting power. The Maker Protocol, one of the largest decentralized applications (DApps) on the Ethereum blockchain, was the first to gain widespread popularity as a decentralized finance (DeFi) application. Additionally, Maker collateral vaults, oracles, and voting are other important components of the Marker Protocol. The Maker Protocol makes use of a two-token system, Dai and MKR.",
+      "decentralized": "The Dai stablecoin is a decentralized and collateral-backed pegged cryptocurrency. A pegged cryptocurrency is one whose exchange rate in relation to a traditional currency has been pre-determined by a national government. The Maker community thinks that a decentralized stablecoin is essential for any business or individual to achieve the benefits of digital currency.",
+      "stakeholders": "MKR is a governance token used by stakeholders to keep the system running and Dai in check. MKR token holders make decisions for the Maker Protocol, which is supported by the greater public community and a variety of other external stakeholders."
+    },
+    "inj":{
+      "blockchain": "Injective is a blockchain designed specifically for the finance industry. It is an open, interoperable layer-one blockchain that aims to power next-generation decentralized finance (DeFi) applications, such as decentralized spot and derivatives exchanges, prediction markets, and lending protocols.",
+      "infrastructure": "Injective aims to provide financial infrastructure primitives that DeFi applications can use, such as a fully decentralized on-chain orderbook that is resistant to MEV (miner extractable value). In addition, all types of financial markets, such as spot, perpetual, futures, and options, are fully on-chain. The decentralized cross-chain bridging infrastructure is compatible with Ethereum, IBC-enabled blockchains, and non-EVM chains such as Solana.",
+      "interoperable": "Injective also seeks to offer a next-generation, highly interoperable smart contract platform based on CosmWasm, with advanced interchain capabilities. It is built using the Cosmos SDK and uses a Tendermint-based Proof-of-Stake consensus mechanism, providing instant transaction finality and fast performance (over 10,000 transactions per second).",
+      "ecosystem": "The Injective ecosystem includes over 100 projects and more than 150,000 community members worldwide. It is backed by investors such as Binance, Pantera Capital, Jump Crypto, and Mark Cuban. The INJ token is the native utility token of Injective, and it can be used for various purposes, including protocol governance, dApp value capture, PoS security, developer incentives, and staking."
+    },
+    "grt":{
+      "indexing": "The Graph (GRT) is a protocol for indexing and accessing blockchain data. The Graph indexes blockchain records from networks like Ethereum in the same way that Google indexes the web. The Graph is a global data layer that runs on top of blockchains and storage networks, acting as a uniting and organizing factor for the decentralization movement. In simple terms, The Graph organizes the data and makes it easy to retrieve it from the blockchain.",
+      "complex": "Indexing a blockchain is a hard task, and many complex smart contracts that store data on blockchain make it difficult for a DApp to answer a simple query. As per the whitepaper, the Graph protocol aims to make it easy to retrieve data from the blockchain by using subgraphs. According to the protocol, a subgraph seeks to specify which Ethereum data the protocol indexes and how it is being stored. Subgraphs, which are open APIs (application programming interfaces), organize this information that anybody may use to query. Subsequently, with just a few keystrokes, this data can be transformed, categorized, and shared across apps for anyone to query. All data is saved and processed in a secure manner on open networks. The Graph protocol aims to query this data quickly, reliably, and securely.",
+      "native": "Deployed on the Ethereum blockchain, GRT is the native token of The Graph and is the platform’s cryptocurrency. GRT is an ERC20-based work token and is primarily utilized for allocating resources in the network. Participants stake and utilize Graph tokens (GRT) to maintain the economic security of the network and the integrity of data queried. Active indexers, curators, and delegators may provide services and earn revenue from the network based on their work and how much GRT they own."
+    },
+    "sand":{
+      "sand_is": "SAND is an Ethereum token that powers The Sandbox, a multiplayer metaverse where players can create, monetize, and participate in blockchain-based gaming experiences. In The Sandbox, game designers can create custom 3D NFTs that can be used across the ecosystem. SAND can be used to buy and sell NFTs and other in-game items, and can also be used to vote on the future of the platform."
+    },
+    "axs":{
+      "gaming": "Axie Infinity is an online gaming platform built on blockchain by Sky Mavis. The company was founded by Aleksander Leonard Larsen and Trung Nguyen in 2018. The game allows players to collect different digital pets called Axies, which can be raised, battled, and traded to other players in the Axie world. The game was originally inspired by the well-known game Pokemon.",
+      "governance": "AXS is the game's native governance token, and holders of AXS are part of Axie's decentralized community and can help shape and govern the platform's development. AXS is ERC-20 tokens that can be traded on the Ethereum network."
+    },
+    "mana":{
+      "reality": "Decentraland (MANA) defines itself as a virtual reality platform powered by the Ethereum blockchain that allows users to create, experience, and monetize content and applications.",
+      "plots": "In this virtual world, users purchase plots of land that they can later navigate, build upon and monetize.",
+      "launched": "Decentraland was launched following a $24 million initial coin offering (ICO) that was conducted in 2017. The virtual world launched its closed beta in 2019 and opened to the public in February 2020. Since then, users have created a wide range of experiences on their parcels of LAND, including interactive games, sprawling 3D scenes and a variety of other interactive experiences.",
+      "two": "Decentraland uses two tokens: MANA and LAND. MANA is an ERC-20 token that must be burned to acquire non-fungible ERC-721 LAND tokens. MANA tokens can also be used to pay for a range of avatars, wearables, names, and more on the Decentraland marketplace."
     }
     
     

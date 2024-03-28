@@ -236,169 +236,102 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.BAND]: <div>
             <p className='mb-3'>
-                Band Protocol is a cross-chain data oracle platform for connecting real-world data and APIs to
-                smart contracts. Blockchain oracles are entities that connect blockchains to external systems,
-                allowing smart contracts to execute depending on real-world inputs and outputs.
+                {t("band.connecting")}
             </p>
 
             <p className='mb-3'>
-                To start off, smart contracts are just like regular contracts; however, instead of being drafted on
-                paper, these contracts run in the form of protocols on the blockchain. Smart contracts excel at
-                immutable storage and verifiable transactions, but their use cases were previously limited due
-                to their access to external data. Most blockchains are unaware of what is going on in the real
-                world and cannot access data that is not native to the chain. While most existing smart contract
-                platforms allow for the trustless execution of arbitrary algorithms, they lack access to real-world
-                data. This constraint prevents such contracts from reaching their full potential. BandChain was created
-                to address this issue by connecting public blockchains to real-world, off-chain data.
+                {t("band.instead")}
             </p>
 
             <p className='mb-2'>
-                There have been multiple attempts at finding solutions. Three major limitations persist:
+                {t("band.attempts")}
             </p>
 
             <ol className='pl-[25px] list-decimal mb-3'>
                 <li className='mb-1'>
-                    Centralization: Contemporary data solutions, such as API (application programming interface) feeds
-                    and some oracle systems, are designed to be centralized. This not only contradicts the concept of
-                    decentralization and distrust, but it also constitutes potential security issue data tampering
-                    and outages for the users.
+                    {t("band.centralization")}
                 </li>
 
                 <li className='mb-1'>
-                    Network Congestion: All major oracle solutions suffer network congestion due to the solution
-                    being on the same blockchain as the application. As a result, if the blockchain network becomes
-                    overburdened with outstanding transactions, the data request transaction would be delayed as well.
+                    {t("band.solutions")}
                 </li>
 
                 <li className='mb-1'>
-                    High Cost: They are pricey. This is due to the costs of researching, developing, and deploying the
-                    solution, as well as the different expenditures connected with operating and sustaining it over
-                    time.
+                    {t("band.pricey")}
                 </li>
             </ol>
 
-            <p className='mb-2'>BandChain Oracle has the following advantages over other oracles:</p>
+            <p className='mb-2'>{t("band.advantages")}</p>
 
             <ul className='pl-[25px] list-disc mb-3'>
                 <li className='mb-1'>
-                    Decentralization: BandChain Oracle is decentralized by implementing maximal redundancy
-                    on two distinct layers of the infrastructure design: BandChain validators
-                    (consensus level) and data source level.
+                    {t("band.decentralization")}
                 </li>
 
                 <li className='mb-1'>
-                    Flexibility:The platform's data source scripts and oracle scripts enable users
-                    to query and compute their preferred data feed with maximum customization and freedom.
+                    {t("band.scripts")}
                 </li>
 
                 <li className='mb-1'>
-                    Cost: Band's oracle enables anyone interested in requesting data to do so
-                    only when necessary and to pay the corresponding fees on a per-request basis.
-                    This is more economical than having to update the prices of an entire collection
-                    of assets when you may just require the most recent price of one.
+                    {t("band.interested")}
                 </li>
             </ul>
 
-            <p>The native token of the platform is BAND, and it is based on the ERC20 token standard.</p>
+            <p>{t("band.based")}</p>
         </div>,
 
         [ETokensConst.BICO]: <div>
             <p className='mb-3'>
-                Biconomy (BICO) is a developer platform that empowers blockchain developers to enable a
-                simplified transaction and onboarding experience for their Web3 project. The plug-n-play
-                solution allows Web 3 interactions to be smooth and seamless between DApps and end-users
-                by removing blockchain complexities.
+                {t("bico.developer")}
             </p>
 
             <p>
-                The native token of the Biconomy platform is BICO, an Ethereum-based token. BICO serves
-                as a work and governance token. Further, the token serves a key role in decentralizing
-                the network by acting as network fees for the Biconomy platform. As the network blockchain
-                works as a verification and settlement layer for supporting the activities of multiple
-                networks, node operators pay a network fee. These executors and validators in the network
-                add information to the blockchain. Consequently, they earn BICO tokens for the work done
-                proportionally. Additionally, the BICO token incentivizes all stakeholders who secure,
-                maintain, and participate in network governance.
+                {t("bico.platform")}
             </p>
         </div>,
 
         [ETokensConst.BLZ]: <div>
             <p className='mb-3'>
-                Bluzelle (BLZ) offers a blockchain platform for the creation of decentralized applications
-                (dApps) focused decentralized and scalable database services. Users of Bluzelle can sell
-                their unused computing resources to become storage providers for other users interested
-                in buying their computing resources. Transactions on the Bluezelle are done with the
-                platforms own cryptocurrency.
+                {t("blz.blockchain")}
             </p>
 
-            <p className='mb-2'>The platform uses the following features to support its vision:</p>
+            <p className='mb-2'>{t("blz.features")}</p>
 
             <ul className='pl-[25px] list-disc mb-3'>
-                <li className='mb-1'>Fast and Efficient Blockchain</li>
-                <li className='mb-1'>Decentralized Storage</li>
-                <li className='mb-1'>Defi in Games</li>
-                <li className='mb-1'>High-Quality Games</li>
+                <li className='mb-1'>{t("blz.fast")}</li>
+                <li className='mb-1'>{t("blz.decentralized")}</li>
+                <li className='mb-1'>{t("blz.defi")}</li>
+                <li className='mb-1'>{t("blz.high")}</li>
             </ul>
 
             <p className='mb-3'>
-                Bluzelle uses a fast and efficient Cosmos-based blockchain. Cosmos is an "internet
-                of blockchains," or a decentralized network of interoperable blockchains that can
-                exchange information and tokens among each other without permission. Blockchain
-                interoperability is the technique by which two or more blockchains communicate with
-                each other. Additionally, Bluzelle uses a decentralized storage layer that allows
-                players to instantly store game NFTs on hundreds of nodes (computers), thus providing
-                a haven. Bluzelle also brings together all the high-performing DeFi solutions of the
-                Cosmos ecosystem to provide lending, staking, and yield opportunities for game assets.
+                {t("blz.efficient")}
             </p>
 
             <p className='mb-3'>
-                With its founders experienced in the games industry, Bluzelle plans
-                to launch its first play-to-earn game called Denomination, a real-time
-                card game where gamers can compete against each other (player vs. player)
-                or against the environment (player vs. environment) and to win rewards.
+                {t("blz.experienced")}
             </p>
 
             <p>
-                BLZ is the native token of the platform and a key component of its GameFi.
-                Players can use BLZ to purchase NFTs and other in-game items and subsequently
-                store them on the network. Also, validators can earn rewards using BLZ tokens.
-                Further, users can pay for Bluzelle network transactions and Bluzelle database
-                services using BLZ tokens. Lastly, users can stake BLZ tokens and earn rewards and
-                participate in network governance.
+                {t("blz.key")}
             </p>
         </div>,
 
         [ETokensConst.BNT]: <div>
             <p className='mb-3'>
-                Bancor is a collection of smart contracts that control the conversion flow
-                between different tokens on the Bancor Network platform. According to the
-                Bancor Network claims, these smart contracts also control access to the network's
-                liquidity pools, which connect different tokens. Users can use the Bancor Network
-                smart contract's convert functionalities to initiate a conversion between any tokens
-                on the network, including tokens on other blockchains.
+                {t("bnt.collection")}
             </p>
 
             <p className='mb-3'>
-                Currently, the Bancor Network is based on the Ethereum blockchain.
-                However, the protocol is interoperable with other blockchains as well.
-                The ability to check and obtain information across many blockchain systems
-                is known as blockchain interoperability.
+                {t("bnt.based")}
             </p>
 
             <p className='mb-3'>
-                The Bancor Network Token (BNT) is at the center of the network,
-                serving as a hub that connects all of the other tokens.
+                {t("bnt.center")}
             </p>
 
             <p>
-                On the Bancor Network, every liquidity pool collects liquidity for a specific
-                set of tokens. Anyone can contribute liquidity to a pool in exchange for conversion
-                fees on trades that pass through it. Pool tokens are then distributed to the contributors
-                in proportion to their assets in the pool. A ConverterBase contract manages each liquidity
-                pool, and the liquidity providers can construct new instances of the ConverterBase contract
-                to generate new liquidity pools. ConverterBase contracts are the contracts that carry the
-                main logic of conversion between different ERC20 smart tokens. Also, to add or remove
-                liquidity from a pool, anyone can use the fund or liquidate functions.
+                {t("bnt.collects")}
             </p>
         </div>,
 
@@ -460,35 +393,24 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.C98]: <div>
             <p className='mb-3'>
-                Coin98 is a DeFi platform to borrow, stake, swap, lend and earn crypto. Coin98 is a one-stop
-                platform wherein users can access the DeFi ecosystem like on-chain governance, decentralized
-                exchanges, lending protocols, blockchain-based games, and cross-chain transfers (across blockchain
-                networks) on over twenty networks; including Binance Smart Chain, Ethereum, Solana, Avalanche, and more.
+                {t("c98.platform")}
             </p>
 
             <p className='mb-2'>
-                C98 is the governance and utility token of Coin98 that operates on Ethereum, Binance Smart
-                Chain (BSC), and Solana. C98 powers the entire Coin98 ecosystem. The use cases of the token
-                are as follows:
+                {t("c98.governance")}
             </p>
 
             <ul className='pl-[25px] list-disc mb-3'>
                 <li className='mb-1'>
-                    Liquidity providers who provide liquidity for the development of Coin98 Exchange by
-                    staking or including assets in liquidity pools are rewarded with C98 tokens in exchange
-                    for liquidity.
+                    {t("c98.providers")}
                 </li>
 
                 <li className='mb-1'>
-                    C98 allows token holders to vote on governance proposals to promote decentralized community
-                    governance for the network. These token holders get to vote on various features or parameters
-                    of the Coin98 exchange and its products thereon.
+                    {t("c98.holders")}
                 </li>
 
                 <li className='mb-1'>
-                    C98 holders are bifurcated based on tiers. Users with more C98 are sorted into
-                    a higher ranked tier. These high-tier token holders gain exclusive access to
-                    premium events and privileges.
+                    {t("c98.bifurcated")}
                 </li>
             </ul>
         </div>,
@@ -527,63 +449,29 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.CTSI]: <div>
             <p className='mb-3'>
-                CTSI is a utility token that powers the Cartesi network, which aims to solve blockchain
-                scalability and high fees. Scalability refers to a cryptocurrency's ability to handle
-                a high number of transactions at once. The platform employs the use of optimistic rollups.
-                Optimistic rollups (ORs) are a sort of layer 2 structure that runs on top of the Ethereum
-                base layer rather than on the top. A layer 2 framework or protocol is one that is developed
-                on top of an existing blockchain system.
+                {t("ctsi.utility")}
             </p>
 
             <p className='mb-3'>
-                CTSI can be used for staking and fees for processing data on the network. Notably, Cartesi
-                supports Linux software components and enables smart contract creation using mainstream
-                programming languages.
+                {t("ctsi.staking")}
             </p>
 
             <p>
-                The native token CTSI is a utility token of Cartesi that is secured cryptographically.
-                CTSI was created to serve a significant part in the operation of the Cartesi ecosystem.
-                The Cartesi token also plays an important role in Cartesi Core's incentive mechanism.
-                CTSI is used to reward users for participating in the network.
+                {t("ctsi.secured")}
             </p>
         </div>,
 
         [ETokensConst.CVC]: <div>
             <p className='mb-3'>
-                The Civic ecosystem simplifies identity verification (IDV) services using
-                blockchain by verifying user identities and detecting fraud in a hassle-free
-                and less complex manner. Civic has used blockchain-based solutions to elevate
-                the quality of services for existing products, namely the Civic Secure Identity
-                Platform (SIP) successfully. Previously, the verification of user background needed
-                the involvement of third-party services as a mandatory step, but with Civic's new
-                blockchain-based approach, the involvement of third-party auditors can be minimal.
-                In fact, the blockchain-based approach ensures zero human errors by eliminating the
-                need to share confidential data over and over again amongst different audit agencies.
-                Civic aims to make it challenging for fraudulent activities to proliferate or seeks
-                to reduce breaches within the ecosystem.
+                {t("cvc.ecosystem")}
             </p>
 
             <p className='mb-3'>
-                To elevate customer experience, the Civic platform has introduced various smart
-                contracts, a utility token named CVC, and various secure software applications
-                within its platform. Moreover, the Civic ecosystem lets two different parties be
-                involved in simplified identity verification processes, namely the "Users" and the
-                "Validators." Validators are institutions that need to verify IDs of the Users
-                (comprising either individuals or associated businesses) . The Validators give
-                approval for the verified User data on the Civic ecosystem. This process simplifies
-                the validation for real User IDs within the blockchain. Other external agencies can
-                simply go ahead and use the already validated data, rather than going through the
-                validation audit process once again. Smart Contracts on the Civic ecosystem are leveraged
-                to properly validate the User IDs, thus leaving no space for repetitive human involvement.
+                {t("cvc.experience")}
             </p>
 
             <p>
-                The CVC token on the Civic ecosystem is used to support transactions related
-                to services offered by the platform. It is an ERC20 standard token facilitating
-                payments for smart contract commands and maintaining the blockchain that backs up
-                the Civic platform. Besides, CVC tokens are coming up with different new use cases
-                to make the platform more efficient.
+                {t("cvc.support")}
             </p>
         </div>,
 
@@ -878,30 +766,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.KNC]: <div>
             <p className='mb-3'>
-                Kyber Network is a hub of liquidity protocols that aggregates liquidity from various sources
-                to provide secure and instant transactions on any decentralized application (DApp). The main goal
-                of Kyber Network is to enable DeFi DApps, decentralized exchanges (DEXs) and other users easy access
-                to liquidity pools that provide the best rates.
+                {t("knc.liquidity")}
             </p>
 
             <p className='mb-3'>
-                All transactions on Kyber are on-chain, which means they can be easily verified using any Ethereum
-                block explorer. Projects can build on top of Kyber to utilize all the services offered by the protocol,
-                such as the instant settlement of tokens, liquidity aggregation, and a customizable business model.
+                {t("knc.transactions")}
             </p>
 
             <p className='mb-3'>
-                Kyber looks to solve the liquidity issue in the decentralized finance (DeFi) industry by allowing
-                developers to build products and services without having to worry about liquidity for different needs.
+                {t("knc.issue")}
             </p>
 
             <p>
-                KNC is the native utility and governance token used to facilitate and pay fees for transactions on
-                the Kyber network. The token is built on Ethereum in accordance with the ERC20 standards, which define
-                the common list of rules for the tokens to function in the Ethereum ecosystem. KNC also utilizes smart
-                contracts. These are just like regular contracts; however, instead of being drafted on paper, these
-                contracts run in the form of protocols on the blockchain. Smart contracts offer the infrastructure in
-                the Kyber network that allows one token to be swapped for another.
+                {t("knc.governance")}
             </p>
         </div>,
 
@@ -921,49 +798,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.LPT]: <div>
             <p className='mb-3'>
-                Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to
-                build
-                video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live
-                video
-                streaming services. It is an alternative to mainstream centralized broadcasting companies. Livepeer aims
-                to make
-                video streaming more cost-friendly and reliable.
+                {t("lpt.decentralized")}
             </p>
 
             <p className='mb-3'>
-                According to the website, the Livepeer platform can reduce costs up to 50 times compared to other
-                platforms.
-                In addition, Livepeer is more scalable and resilient without single points of failure. That means
-                developers have
-                the freedom to scale up or down and manage content creator demand.
+                {t("lpt.website")}
             </p>
 
             <p className='mb-3'>
-                Therefore, Livepeer is a behind-the-scenes solution for app creators to transcode videos. Transcoding
-                means
-                converting videos from one format to another before playback on computers on the network. Users who
-                transcode videos
-                are known as orchestrators. Orchestrators lend their computers’ processing power to the network. Also,
-                the first nodes
-                are called broadcasters. Thus, the broadcasters send video streams for transcoding to orchestrators.
-                Consequently,
-                broadcasters are charged fees denominated in ether (ETH) for the transcoding work. Meanwhile,
-                orchestrators receive
-                rewards for their services.
+                {t("lpt.creators")}
             </p>
 
             <p>
-                The native token of the network is the Livepeer Token (LPT). LPT is used for rewarding, staking,
-                trading, or
-                participating in governance voting. Just like any other cryptocurrency, the demand for LPT is directly
-                proportional
-                to the network's usage. Further, orchestrators receive work in proportion to the amount of LPT they
-                staked. Users who
-                do not want to become orchestrators can stake their LPT tokens toward the transcoders. By doing so, LPT
-                holders get a
-                portion of the transcoders' rewards. They are also called delegators and chosen through voting. Their
-                job is to keep
-                the node running smoothly for transaction validation.
+                {t("lpt.rewarding")}
             </p>
         </div>,
 
@@ -1101,37 +948,21 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.OGN]: <div>
             <p className='mb-3'>
-                Trading under OGN, the Origin Protocol is an Ethereum-based platform that aims to bring
-                non-fungible tokens (NFTs) and decentralized finance (DeFi) to the masses. The platform
-                is open-source and seeks to power decentralized and peer-to-peer marketplaces. As per the
-                whitepaper, Origin Protocol facilitates a global network that allows traders across the world
-                to transact on the open web. In simpler terms, the Origin blockchain is a platform to build a
-                decentralized marketplace.
+                {t("ogn.platform")}
             </p>
 
             <p className='mb-3'>
-                Today, almost $40 billion of value is poured into various DeFi protocols. But interacting with
-                DeFi protocols is complex and cumbersome and requires a sophisticated user. Mainstream consumers
-                like small businesses, retailers, merchants, etc. have very little knowledge of these financial
-                protocols and, therefore, cannot participate in them. To take an edge, the Origin Protocol was
-                built to realize this opportunity. They believe that decentralized finance, especially in the NFT
-                vertical, can unlock billions of dollars and bring crypto to mainstream consumers.
+                {t("ogn.billion")}
             </p>
 
             <p>
-                Origin Token (OGN): This is an Ethereum-based token that powers the Origin platform. OGN is an
-                ERC20 standard token and also serves as the platform’s cryptocurrency. The token is used in the
-                basic transactional activities on the platform. Further, OGN also works as a governance token,
-                and the holders of the token can create and vote on the proposals made for the platform’s growth.
+                {t("ogn.powers")}
             </p>
         </div>,
 
         [ETokensConst.OMG]: <div>
             <p>
-                The OMG Network (formerly OmiseGO) is a value transfer network for Ethereum and any
-                ERC-20 token. It describes itself as the first production-grade layer-2 Ethereum
-                scaling solution and aims to let people move money and a variety of digital values
-                on the blockchain faster, cheaper, and without compromising on security.
+                {t("omg.omg_is")}
             </p>
         </div>,
 
@@ -1146,23 +977,11 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.POWR]: <div>
             <p className='mb-3'>
-                Power Ledger (POWR) is a technology and software company that uses blockchain for trading
-                renewable energy. The company aims to develop software for clients that allows consumers to
-                track, trace, and trade energy (in kilowatts) and helps to invest in renewables. The Power
-                Ledger ecosystem as a platform seeks to take the control out of the hands of central players
-                and put the citizens in charge of a cocreated energy future. The platform provides a transparent
-                governance framework and can be scaled to suit as required. Accordingly, the platform seeks to
-                offer products categorized into three facilities, i.e., flexible trading, energy trading and
-                traceability, and environmental commodities trading.
+                {t("powr.technology")}
             </p>
 
             <p>
-                The Power Ledger deploys a dual-token ecosystem, POWR and Sparkz, for its two blockchain layers.
-                However, POWR tokens allow the application hosts and the participants to access and use the platform
-                and fuel the Power Ledger ecosystem. Since the platform’s core value is sustainability, Power
-                Ledger has chosen a hybrid public and consortium blockchain approach. Thereby, POWR tokens work
-                on the public Ethereum blockchain. Power Ledger’s private, industry-specific consortium blockchain
-                is EcoChain, which is based on a proof-of-stake consensus mechanism.
+                {t("powr.ecosystem")}
             </p>
         </div>,
 
@@ -1177,64 +996,29 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.REQ]: <div>
             <p className='mb-3'>
-                Request (REQ) is the protocol for payment requests. It is an open network where transactions
-                are immutably recorded and requests are processed without the need for a middleman. The aim is
-                to have the network utilize blockchain technology to make the payment process faster, easier, and
-                reliable for everyone. By having all payment requests in one place, companies that provide services
-                such as accounting, invoicing, payment processing, and auditing can connect to the same network and
-                communicate with one another utilizing the same single source of truth. Thus, in simpler terms, Request
-                is a decentralized network that permits anyone to create, fulfill, and share a payment request in a
-                secure way.
+                {t("req.protocol")}
             </p>
 
             <p className='mb-3'>
-                As mentioned on the website, three important features of the Request network include Request
-                Finance, Request Create, and Wooreq. Request Finance offers a platform to manage all crypto
-                transactions in one place. This is a suite of financial tools that makes life easier by providing
-                an application for invoices, expenses, payroll, and accounting. Next, by using Request Create, users
-                can create and exchange payment requests in three easy steps, allowing them to spend less time on
-                payments and more time on running their business. Then there's Wooreq, a Woocommerce plugin that uses
-                the
-                Request network to make it simple to accept cryptocurrency payments.
+                {t("req.important")}
             </p>
 
             <p className='mb-3'>
-                Furthermore, the Request Network can handle more and more transactions per second with every
-                new version. This is because the majority of data is stored on IPFS instead of the blockchain.
-                IPFS, also known as InterPlanetary File System, is a protocol and network. This is designed to
-                produce a peer-to-peer way of storing and sharing hypermedia in the distributed file system that is
-                content-addressable. The data stored on the blockchain is Hash (proof of data), which can’t be modified
-                or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher
-                throughput
-                and lower costs.
+                {t("req.transactions")}
             </p>
 
             <p className='mb-3'>
-                Another important advantage of Request is that it’s built on top of Ethereum, which ensures
-                that data cannot be deleted or changed by any third party or even by users. In addition, data is
-                present on every node, and it can’t just disappear. This makes the data safe from the passage of
-                time as well as tampering.
+                {t("req.advantage")}
             </p>
 
             <p>
-                REQ is the token ticker for the Request token, which is a deflationary ERC20 token. This implies
-                REQ tokens are designed to reduce in supply over time. According to the whitepaper, the REQ token
-                powers the Request Network and is used to create requests, participate in the network, and reward
-                the parties who help build the Request ecosystem. The token is also utilized for making payments on
-                the Request Network, including the network fees. The fee charged is expected to remain between 0.05
-                percent and 0.5 percent, with the amount decreasing as the system grows. Participants are required to
-                pay a network fee in REQ, which will be burned when they use the network, meaning that the tokens are
-                sent to an unusable wallet address to remove them from circulation. Additionally, the REQ token is used
-                for governance purposes by allowing participants to vote on decisions that are crucial for the network’s
-                long-term success.
+                {t("req.deflationary")}
             </p>
         </div>,
 
         [ETokensConst.RLC]: <div>
             <p>
-                RLC is an Ethereum token for the iExec cloud platform in which users can monetize
-                and rent computing power and data. iExec enables developers to power applications
-                on what is described as "a decentralized marketplace for cloud resources".
+                {t("rlc.rlc_is")}
             </p>
         </div>,
 

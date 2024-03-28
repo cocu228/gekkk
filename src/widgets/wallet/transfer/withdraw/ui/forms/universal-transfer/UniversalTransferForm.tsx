@@ -296,7 +296,9 @@ const UniversalTransferForm = () => {
             <span className={styles.PayInfoValueFlexTextCurrency}>
               {currency.$const}
             </span>
-            <span className={styles.PayInfoValueFlexTextCurrency}>EUR</span>
+            <span className={styles.PayInfoValueFlexTextCurrency}>
+              {currency.$const}
+            </span>
             <span className={styles.PayInfoValueFlexTextFee}>
               {currency.$const}
             </span>

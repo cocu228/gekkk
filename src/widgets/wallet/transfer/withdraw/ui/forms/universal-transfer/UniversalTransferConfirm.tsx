@@ -338,7 +338,7 @@ const UniversalTransferConfirm = ({
                                 {$const}
                             </span>
                             <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                EUR
+                                {$const}
                             </span>
                             <span className={styles.ModalPayInfoValueFlexTextFee}>
                                 {$const}

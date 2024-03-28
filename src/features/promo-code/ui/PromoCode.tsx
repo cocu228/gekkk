@@ -59,12 +59,12 @@ const PromoCode = memo(() => {
             ]}
           >
             <Input
+              allowDigits
+              type={"text"}
               suffix={false}
               value={valInput}
               disabled={loading}
               onChange={handlerInput}
-              type={"text"}
-              onlyLetters={true}
             />
           </Form.Item>
 

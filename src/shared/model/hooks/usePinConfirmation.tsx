@@ -104,7 +104,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
         <div>
           <div className="mb-4">
             <Input
-              onlyLetters={true}
+              allowDigits
               type="text"
               onInput={onInput}
               autoComplete="off"

@@ -4,7 +4,6 @@ import { Modal as ModalAnt } from "antd";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
@@ -25,6 +24,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -81,7 +81,8 @@ const UniversalTransferForm = () => {
             <div className="row">
               <div className="col">
                 <Input
-                  onlyLetters={true}
+                  allowDigits
+                  allowSymbols
                   name={"requisite"}
                   value={inputs.requisite}
                   onChange={onInputDefault}
@@ -145,6 +146,8 @@ const UniversalTransferForm = () => {
             <div className="row">
               <div className="col flex items-center">
                 <TextArea
+                  allowDigits
+                  allowSymbols
                   name={"comment"}
                   value={inputs.comment}
                   onChange={onInputDefault}
@@ -243,7 +246,8 @@ const UniversalTransferForm = () => {
             <div className="row flex w-full">
               <div className="col basis-[100%]">
                 <Input
-                  onlyLetters={true}
+                  allowDigits
+                  allowSymbols
                   name={"requisite"}
                   value={inputs.requisite}
                   onChange={onInputDefault}

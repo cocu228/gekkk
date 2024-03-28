@@ -92,7 +92,7 @@ const QuickExchangeConfirm = memo(
           >
             <Input
               type="text"
-              onlyLetters={true}
+              allowDigits
               onInput={onInput}
               placeholder={t("enter_sms_code")}
               onChange={setInp}

@@ -2,7 +2,6 @@ import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
 import { MASK_PHONE } from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
@@ -24,6 +23,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import Form from "@/shared/ui/form/Form";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -85,7 +85,7 @@ const WithdrawFormPhoneNumber = () => {
                   ]}
                 >
                   <Input
-                    onlyLetters={true}
+                    allowDigits
                     name={"phoneNumber"}
                     onChange={onInputDefault}
                     onInput={onPhoneNumberInput}
@@ -112,6 +112,8 @@ const WithdrawFormPhoneNumber = () => {
                   rules={[{ required: true, message: "Comment is required" }]}
                 >
                   <TextArea
+                    allowDigits
+                    allowSymbols
                     value={inputs.comment}
                     name={"comment"}
                     onChange={onInputDefault}

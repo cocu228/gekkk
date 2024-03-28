@@ -3,7 +3,6 @@ import Modal from "@/shared/ui/modal/Modal";
 import {Modal as ModalAnt} from "antd"
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
-import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
@@ -19,6 +18,7 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import {getInitialProps, useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
+import TextArea from '@/shared/ui/input/text-area/TextArea';
 
 const WithdrawFormSepa = () => {
     const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
@@ -87,7 +87,7 @@ const WithdrawFormSepa = () => {
                 <div className="row">
                     <div className="col">
                         <Input value={inputs.accountNumber} onChange={onInput}
-                               name={"accountNumber"}/>
+                               name={"accountNumber"} allowDigits/>
                     </div>
                 </div>
             </div>
@@ -124,9 +124,13 @@ const WithdrawFormSepa = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <TextArea value={inputs.comment}
-                                  name={"comment"}
-                                  onChange={onInput}/>
+                        <TextArea
+                            allowDigits
+                            allowSymbols
+                            value={inputs.comment}
+                            name={"comment"}
+                            onChange={onInput}
+                        />
                     </div>
                 </div>
             </div>
@@ -213,7 +217,7 @@ const WithdrawFormSepa = () => {
                 <div className="row w-full">
                     <div className="col w-full basis-[100%]">
                         <Input value={inputs.accountNumber} onChange={onInput}
-                               name={"accountNumber"}/>
+                               name={"accountNumber"} allowDigits/>
                     </div>
                 </div>
             </div>

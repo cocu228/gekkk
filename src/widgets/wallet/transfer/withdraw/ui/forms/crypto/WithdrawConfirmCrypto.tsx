@@ -309,7 +309,7 @@ const WithdrawConfirmCrypto = memo(
                   rules={[{ required: true, ...codeMessage }]}
                 >
                   <Input
-                    onlyLetters={true}
+                    allowDigits
                     type="text"
                     onInput={onInput}
                     autoComplete="off"
@@ -493,7 +493,7 @@ const WithdrawConfirmCrypto = memo(
                 rules={[{ required: true, ...codeMessage }]}
               >
                 <Input
-                  onlyLetters={true}
+                  allowDigits
                   type="text"
                   onInput={onInput}
                   autoComplete="off"
@@ -726,7 +726,7 @@ const WithdrawConfirmCrypto = memo(
                               rules={[{ required: true, ...codeMessage }]}
                             >
                               <Input
-                                onlyLetters={true}
+                                allowDigits
                                 type="text"
                                 onInput={onInput}
                                 autoComplete="off"

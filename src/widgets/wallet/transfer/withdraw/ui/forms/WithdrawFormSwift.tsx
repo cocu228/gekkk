@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
-import TextArea from "antd/es/input/TextArea";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
@@ -21,6 +20,7 @@ import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../forms/styles.module.scss"
+import TextArea from '@/shared/ui/input/text-area/TextArea';
 
 const WithdrawFormSwift = () => {
 
@@ -91,6 +91,7 @@ const WithdrawFormSwift = () => {
                     <div className="col">
                         <Input value={inputs.accountNumber} onChange={onInput}
                                placeholder={""}
+                               allowDigits
                                name={"accountNumber"}/>
                     </div>
                 </div>
@@ -272,10 +273,14 @@ const WithdrawFormSwift = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <TextArea value={inputs.comment}
-                                  placeholder={""}
-                                  name={"comment"}
-                                  onChange={onInput}/>
+                        <TextArea
+                            allowDigits
+                            allowSymbols
+                            value={inputs.comment}
+                            placeholder={""}
+                            name={"comment"}
+                            onChange={onInput}
+                        />
                     </div>
                 </div>
             </div>

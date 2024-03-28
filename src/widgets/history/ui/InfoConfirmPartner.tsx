@@ -75,7 +75,6 @@ export const InfoConfirmPartner = (props: TypeProps) => {
           <div className="row flex gap-3">
             <div className="col w-3/5">
               <Input
-                onlyLetters={true}
                 ref={applyInputRef}
                 autoComplete="on"
                 value={input}

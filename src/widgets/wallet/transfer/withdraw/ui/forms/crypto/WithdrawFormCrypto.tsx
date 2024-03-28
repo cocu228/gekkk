@@ -31,7 +31,7 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
-import Textarea from "@/shared/ui/textarea/Textarea";
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -93,7 +93,8 @@ const WithdrawFormCrypto = () => {
             <div className="flex flex-col gap-2">
               <span className="text-gray-600 font-medium">{t("address")}</span>
               <Input
-                onlyLetters={true}
+                allowDigits
+                allowSymbols
                 value={inputs.address}
                 onChange={onInput}
                 disabled={!networkTypeSelect}
@@ -150,7 +151,6 @@ const WithdrawFormCrypto = () => {
                 {t("recipient")}
               </span>
               <Input
-                onlyLetters={true}
                 value={inputs.recipient}
                 onChange={onInput}
                 disabled={!networkTypeSelect}
@@ -165,7 +165,9 @@ const WithdrawFormCrypto = () => {
               <span className="text-gray-600 font-medium">
                 {t("desc_optional")}
               </span>
-              <Textarea
+              <TextArea
+                allowDigits
+                allowSymbols
                 name={"description"}
                 value={inputs.description}
                 onChange={onInput}
@@ -250,7 +252,8 @@ const WithdrawFormCrypto = () => {
               <span className={styles.TitleColTextMargin}>{t("address")}:</span>
               <div className="basis-[100%]">
                 <Input
-                  onlyLetters={true}
+                  allowDigits
+                  allowSymbols
                   value={inputs.address}
                   onChange={onInput}
                   disabled={!networkTypeSelect}
@@ -266,7 +269,6 @@ const WithdrawFormCrypto = () => {
                 </span>
                 <div className="basis-[100%]">
                   <Input
-                    onlyLetters={true}
                     value={inputs.recipient}
                     onChange={onInput}
                     disabled={!networkTypeSelect}
@@ -285,7 +287,8 @@ const WithdrawFormCrypto = () => {
             <div className="flex flex-row items-center justify-between gap-2 asdasdasd">
               <span className={styles.TitleColText}>{t("description")}:</span>
               <Input
-                onlyLetters={true}
+                allowDigits
+                allowSymbols
                 name={"description"}
                 value={inputs.description}
                 onChange={onInput}

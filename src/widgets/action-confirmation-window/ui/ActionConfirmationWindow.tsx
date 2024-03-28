@@ -113,7 +113,7 @@ const ActionConfirmationWindow = () => {
 
         <div className="mb-4">
           <Input
-            onlyLetters={true}
+            allowDigits
             type="text"
             value={code}
             maxLength={11}

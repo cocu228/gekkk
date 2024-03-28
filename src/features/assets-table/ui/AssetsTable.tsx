@@ -110,7 +110,6 @@ const AssetsTable = ({
             // onChange={(e) => {
             //   setSearchValue(e.target.value.trim().toLowerCase());
             // }}
-            onlyLetters={true}
             onChange={searchInpChange}
           />
         ) : (
@@ -126,7 +125,6 @@ const AssetsTable = ({
               //   onChange={(e) => {
               //     setSearchValue(e.target.value.trim().toLowerCase());
               //   }}
-              onlyLetters={true}
               onChange={searchInpChange}
             />
           </div>

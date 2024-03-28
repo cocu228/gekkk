@@ -3,7 +3,6 @@ import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import { Modal as ModalAnt } from "antd";
 import Input from "@/shared/ui/input/Input";
-import TextArea from "antd/es/input/TextArea";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
@@ -32,6 +31,7 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 
 const { Option } = Select;
 
@@ -150,7 +150,7 @@ const WithdrawFormCardToCard = () => {
             <div className="row">
               <div className="col">
                 <Input
-                  onlyLetters={true}
+                  allowDigits
                   type={"text"}
                   onInput={onCardNumberInput}
                   onChange={({ target }) => {
@@ -192,12 +192,14 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("comment")}</span>
+                <span className="font-medium">{t("Comment")}</span>
               </div>
             </div>
             <div className="row">
               <div className="col flex items-center">
                 <TextArea
+                  allowDigits
+                  allowSymbols
                   value={inputs.comment}
                   name={"comment"}
                   onChange={onInputDefault}
@@ -371,6 +373,7 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
+                allowDigits
                 type={"text"}
                 onInput={onCardNumberInput}
                 onChange={({ target }) => {
@@ -422,6 +425,8 @@ const WithdrawFormCardToCard = () => {
           <div className="row w-full">
             <div className="col flex items-center">
               <TextArea
+                allowDigits
+                allowSymbols
                 value={inputs.comment}
                 name={"comment"}
                 onChange={onInputDefault}

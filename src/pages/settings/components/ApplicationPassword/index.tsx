@@ -2,7 +2,7 @@ import { Box, TextField } from '@mui/material'
 import Button from "@/shared/ui/button/Button";
 import { AreaWrapper } from '../AreaWrapper'
 import { useTranslation } from 'react-i18next';
-import { Grid, Input, Modal } from 'antd';
+import { Modal } from 'antd';
 import { apiCloseSessions, apiLoginLog, apiResetPassword, apiSessions, apiUserKeys } from '@/shared/(orval)api/auth';
 import { useEffect, useState } from 'react';
 import { timestampToDayYear } from '@/features/chat/model/helpers';
@@ -19,6 +19,7 @@ import { apiGetUserInfo } from '../PersonalInformation/api/get-user-info';
 import { ChangePass, RegisterOptionsToChangePass } from './api/change-password';
 import PasswordInput from './helpers/passwordInput';
 import CheckList from './helpers/checklist';
+import Input from '@/shared/ui/input/Input';
 interface ILimit {
   start:number,
   end:number
@@ -120,18 +121,24 @@ export function AccessManagement(): JSX.Element | null{
       <div className={styles.MainContainer}>
         <AreaWrapper title={t("change_application_password")}>
           <Box display="flex" padding="36px 0" gap="24px" flexDirection="column">
-            <Input 
+            <Input
+              allowDigits
+              allowSymbols
               placeholder={t("enter_new_password")} 
               value={newPass}
               onChange={(e)=>{setNewPass(e.target.value)}}
             />
             <Input 
+              allowDigits
+              allowSymbols
               placeholder={t("confirm_new_password")}
               value={confirmNewPass}
               onChange={(e)=>{setConfirmNewPass(e.target.value)}}
             />
             <CheckList setValid={setValid} value={newPass}/>
-            <Input 
+            <Input
+              allowDigits
+              allowSymbols 
               value={confirmCode}
               onChange={(e)=>{setConfirmCode(e.target.value);
               }}
@@ -220,7 +227,13 @@ export function AccessManagement(): JSX.Element | null{
           secondary
         >
             <div className={styles.KeyAddingContainer}>
-              <Input disabled={!smsSent} placeholder='Type SMS-code' value={smsCode} onChange={(e)=>{setSmsCode(e.target.value)}}/>
+              <Input
+                allowDigits
+                value={smsCode}
+                disabled={!smsSent}
+                placeholder='Type SMS-code'
+                onChange={(e)=>{setSmsCode(e.target.value)}}
+              />
               {smsSent?
                 <>
                   <Button

@@ -63,7 +63,7 @@ export function PersonalInformation() {
                 </>}
                 {xl && 
                 <div className="flex flex-row gap-3 justify-center min-h-[40px] pt-8">
-                    <MobileButton className={style.button} onClick={resetState}>Back</MobileButton>
+                    <MobileButton className={style.button} onClick={resetState}>{t("back")}</MobileButton>
                 </div>}
             </div>
         </MobileWrapper>

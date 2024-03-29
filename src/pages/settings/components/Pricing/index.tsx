@@ -4,47 +4,49 @@ import { AreaWrapper } from '../AreaWrapper'
 import { Item } from './components/Item'
 import { useContext } from 'react'
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider'
+import { useTranslation } from 'react-i18next'
 
 export function Pricing() {
   const {xl} = useContext(BreakpointsContext)
+  const {t} = useTranslation()
   return (
-    <AreaWrapper title="My tariffs">
+    <AreaWrapper title={t("my_tariffs")}>
       <Box paddingTop="36px" gap="16px" display="flex" flexDirection={xl ? 'column' : 'row'} justifyContent="space-between">
         <Box display="flex" gap="36px" flexDirection="column">
           <Item
-            title="Fees and limits on transfers"
+            title={t("fees_and_limits_on_transfers")}
             rows={[
-              { title: 'SEPA payments to another bank (account to account)', value: 'Free of charge up to 5 SEPA payments per month. Starting from the 6th payment - EUR 0,20' },
-              { title: 'Internal Payment (account to account)', value: '0 EUR' },
-              { title: 'Internal Payment (card to card)', value: '0 EUR' },
+              { title: t("sepa_payments"), value: t("free_of_charge") },
+              { title: t("internal_payment_account"), value: '0 EUR' },
+              { title: t("internal_payment_card"), value: '0 EUR' },
             ]}
           />
           <Item
-            title="Service fees"
+            title={t("service_fees")}
             rows={[
-              { title: 'Account maintenance fee', value: '0.00 EUR monthly, 5 free Interbank SEPA payments included (1 IBAN account + 1 card)' },
-              { title: 'Account maintenance fee', value: '2.00 EUR monthly, 5 free Interbank SEPA payments included (1 IBAN account + 1 card + additional cards)' },
-              { title: 'Commission for using a mobile bank per month', value: '0 EUR' },
+              { title: t("account_maintenance"), value: t("account_maintenance_value", {value: "0.00", payments: 5}) },
+              { title: t("account_maintenance"), value: t("account_maintenance_value_additional", {value: "2.00", payments: 5}) },
+              { title: t("commission_for_using_mobile"), value: '0 EUR' },
             ]}
           />
         </Box>
         <Box display="flex" gap="36px" flexDirection="column">
           <Item
-            title="Bonus programs"
+            title={t("bonus_programs")}
             rows={[
-              { title: 'Cashback for card purchases (excluding ATM withdrawals and transfers)', value: '0.1% (min payout is 0,10 EUR per month)' },
-              { title: 'Cashback for purchases on Amazon', value: '1% (max payout is 50 EUR per month)' },
-              { title: 'Cashback for purchases at Play Market', value: '5% (min payout is 0,10 EUR per month)' },
+              { title: t("csh_purchases_card"), value: t("csh_purchases_card_value", {percent: "0.1%", payout: "0,10"}) },
+              { title: t("csh_purchases_amazon"), value: t("csh_purchases_amazon_value", {percent: "1%", payout: "50"}) },
+              { title: t("csh_purchases_playmarket"), value: t("csh_purchases_playmarket_value", {percent: "5%", payout: "0,10"}) },
             ]}
           />
           <Item
-            title="Commissions and limits on card transactions"
+            title={t("comissions_and_limits")}
             rows={[
-              { title: 'Cash withdrawal at ATMs in the EU', value: 'Free of charge up to 200 EUR/month then 1% of the withdrawal amount' },
-              { title: 'Cash withdrawal at ATMs outside the EU', value: '1% of the withdrawal amount, minimum 1.50 EUR' },
-              { title: 'Daily cash withdrawal limit', value: '5 000 EUR' },
-              { title: 'Monthly cash withdrawal limit', value: '10 000 EUR' },
-              { title: 'Dormancy fee* (Effective May 9, 2020)', value: '15 EUR' },
+              { title: t("cash_withdrawal_at_atms_in_the_eu"), value: t("cash_withdrawal_at_atms_in_the_eu_value", {amount: 200, percent: "1%"})},
+              { title: t("cash_withdrawal_at_atms_outside_the_eu"), value: t("cash_withdrawal_at_atms_outside_the_eu_value", {percent: "1%", amount: "1.50"}) },
+              { title: t("daily_cash_withdrawal_limit"), value: '5 000 EUR' },
+              { title: t("monthly_cash_withdrawal_limit"), value: '10 000 EUR' },
+              { title: t("dormancy_fee"), value: '15 EUR' },
             ]}
             description={'*The fee to be taken on a monthly basis from accounts with no transactions for more than 6 calendar months'}
           />

@@ -1199,7 +1199,77 @@
       "transactions": "Furthermore, the Request Network can handle more and more transactions per second with every new version. This is because the majority of data is stored on IPFS instead of the blockchain. IPFS, also known as InterPlanetary File System, is a protocol and network. This is designed to produce a peer-to-peer way of storing and sharing hypermedia in the distributed file system that is content-addressable. The data stored on the blockchain is Hash (proof of data), which can’t be modified or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher throughput and lower costs.",
       "advantage": "Another important advantage of Request is that it’s built on top of Ethereum, which ensures that data cannot be deleted or changed by any third party or even by users. In addition, data is present on every node, and it can’t just disappear. This makes the data safe from the passage of time as well as tampering.",
       "deflationary": "REQ is the token ticker for the Request token, which is a deflationary ERC20 token. This implies REQ tokens are designed to reduce in supply over time. According to the whitepaper, the REQ token powers the Request Network and is used to create requests, participate in the network, and reward the parties who help build the Request ecosystem. The token is also utilized for making payments on the Request Network, including the network fees. The fee charged is expected to remain between 0.05 percent and 0.5 percent, with the amount decreasing as the system grows. Participants are required to pay a network fee in REQ, which will be burned when they use the network, meaning that the tokens are sent to an unusable wallet address to remove them from circulation. Additionally, the REQ token is used for governance purposes by allowing participants to vote on decisions that are crucial for the network’s long-term success."
-    }
+    },
+    "oxt":{
+      "oxt_is": "Orchid (OXT) is an Ethereum token that powers the Orchid network, a peer-to-peer privacy tool that includes a decentralized VPN and other features designed to give users more control over their Internet connection. OXT can be used to pay for bandwidth or staked by bandwidth providers in order to operate a node."
+    },
+    "ren":{
+      "ren_is": "Ren (REN) is an Ethereum token that powers Ren’s open protocol for transferring cryptocurrencies between blockchains. Ren aims to bring popular assets like Bitcoin and Zcash to blockchains including Ethereum, making it possible for these assets to participate in a multi-chain decentralized finance ecosystem."
+    },
+    "mln":{
+      "mln_is": "MLN is an Ethereum token that powers Enzyme (formerly known as Melon Protocol), a protocol that aims to facilitate on-chain asset management for the DeFi ecosystem. MLN allows users to build, share, and explore DeFi investment strategies (called “vaults”) while filtering by historical performance and risk profiles. MLN is used to pay for various functions throughout the vault creation process and investment lifecycle."
+    },
+    "idex":{
+      "hybrid": "IDEX is a hybrid liquidity decentralized exchange (DEX) that combines a high-performance orderbook and matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a specific asset organized by price level. The platform blends the advantages of centralized and decentralized exchanges with the performance and characteristics of a traditional orderbook and the liquidity and security of an AMM. IDEX permits traders to obtain the best practices, prevent failed transactions, while providing liquidity, all with the power of actual limit and stop-loss orders. IDEX operates on the Polygon blockchain, supporting MATIC and ERC-20 assets.",
+      "aspects": "The three important aspects of the platform are high-performance exchange, hybrid liquidity, and smart contracts. The high-performance exchange component is analogous to that on top of centralized exchanges. This design allows IDEX to match centralized exchanges in latency and performance that are unavailable from other DEXs.Further, the IDEX Hybrid Liquidity (IDEX HL) incorporates a traditional orderbook and matching engine with AMM liquidity pools. So, traders are seamlessly matched against the most suitable combination of limit orders and pool liquidity for low-cost execution without any additional efforts. IDEX HL relies on smart contracts to handle security and trade settlement, enforcing the constraints of the AMM pricing curve and enabling users to manage custody of their assets.",
+      "contract": "Next, the IDEX smart contract contains three settlement processes employed in various circumstances depending on the type of liquidity being matched. The IDEX smart contracts bring programmatic guarantees to the platform. So, IDEX utilizes a series of smart contracts to decentralize fund custody and trade settlement by introducing such novel DeFi mechanisms.",
+      "economics": "About the economics of the token, the IDEX token aligns rewards between the exchange and IDEX token stakers who play a vital role in the operations of IDEX. Stakers are rewarded with half (50%) of the trade fees for their participation.",
+      "record": "Stakingnodes keep a real-time record of system data. This reduces the IDEX's operational cost by offloading popular API (application programming interface) operations. Staking nodes are evaluated by their uptime to determine their performance. Uptime is a function of API performance and online sessions.",
+      "placed": "IDEX tokens should be placed as collateral to act as nodes and receive payment for node operations. In the event of serving incorrect data, the respective node address will be blacklisted, and the operator must re-incubate their tokens. IDEX staking allows for “riskless” staking from cold storage as no slashing mechanism is involved."
+    },
+    "srm":{
+      "protocol": "Serum describes itself as a protocol and ecosystem for decentralized exchanges (DEX) that gives decentralized finance, exceptional speed, and cheap transaction costs. The Serum is based on Solana and is fully permissionless. Websites or applications that use Serum's protocol may adjust the experience to their target market's use case and compliance requirements.",
+      "offers": "Serum offers a completely on-chain order book, allowing trading interfaces and other applications to 'plug into' Serum's modular ecosystem. The flexibility to determine the price, size, and direction of their transaction is claimed as a unique feature of this exchange mechanism for users. Serum DEX, built on top of the Asset Agnostic Order book, gives the ecosystem a larger pool of liquidity and a shared resource to support trading functionality. Permissioned marketplaces provide much more freedom and conformity.",
+      "token": "The native token of the ecosystem is SRM. Serum's utility and governance token is also SRM. The users get a fee reduction if they keep SRM in their wallets. SRM is completely integrated with Serum and can take advantage of burn fees."
+    },
+    "mir":{
+      "synthetic": "Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track the price of stocks, futures, exchange-traded funds, and other traditional financial assets and bridges cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is used for governance, CDP closure fees, and liquidity mining.",
+      "access": "This is intended to offer greater access to the US equities market through the minting of synthetic assets. These Mirrored Assets (mAssets) mirror the price behavior of the real-world assets and reflect the exchange prices on-chain. The decentralized representation grants traders price exposure to assets that would otherwise be inaccessible. These mAssets gather their price from decentralized oracles at thirty-second intervals.",
+      "blockchain": "Mirror Protocol works on the Terra blockchain and is available on Ethereum via the Shuttle-bridge. These platforms allow every asset to be represented on the blockchain.",
+      "token": "The native token for Mirror Protocol is the Mirror Token (MIR). This token is used for governance, staking, and rewards, and the token has a total supply of 370 million, which should drop over a period of four years. MIR is inflationary in nature and is expected to have new uses as the token matures."
+    },
+    "btt":{
+      "technology": "BitTorrent is a popular peer-to-peer distributed communication technology that allows huge, in-demand data distribution. The protocol eliminates the need for maintaining a central server.The BitTorrent protocol allows software endpoints (called 'clients') to work together to ensure reliable simultaneous distribution of huge files to several clients, reducing dependency on any weak point (such as a server connection). The protocol strives to maximize the utilization of each client's upload and download bandwidth to balance peer-to-peer content delivery across all clients.",
+      "portion": "How the Protocol Works: Peers can find a file or a portion of a file by making an 'announcement' to a tracker, which is a server that tracks which peers have access to which files, or by searching the DHT, a distributed database of peers. This process organically splits peers into 'swarms' of users, with each swarm sharing a common interest in trading portions of a certain file.",
+      "occurs": "Files are cut into fragments before an exchange occurs. Clients advertise which parts of a file are available to their users; then, users who have the required parts post them, which in turn allows users who require these parts to download them. Cryptographichashes (i.e. info hashes) of the parts/pieces are used to ensure that the parts shared are indeed the ones requested.",
+      "pieces": "The more pieces a peer receives in exchange for pieces provided, the more productive a peer-to-peer contact is perceived to be. Clients with the most productive exchanges are rewarded with additional pieces, while those with the least productive exchanges are disconnected or banned.",
+      "allow": "After completing a download, a user can allow their client to continue uploading parts despite no longer requiring a download; this is known as 'seeding.' Most clients' default behavior is to 'seed' to other downloaders. This behavior is completely selfless and voluntary. There is no financial penalty for customers who close their BitTorrent software once a download is completed.",
+      "directly": "The platform wants app developers to directly reward consumers who provide its underlying resources by allowing consumers to use this 'found value' to transact with publishers and app developers without using traditional currency.The company intends to enhance the BitTorrent protocol and establish a new token, BTT, to implement a distributed infrastructure services economy. End users in the BTT economy should be able to supply infrastructure services in small amounts in exchange for tokens.",
+      "cryptographic": "BTT is a TRON TRC-10 cryptographic token. BTT seeks to act as a general-purpose mechanism for transferring computer resources between BitTorrent clients and a market of service requesters and providers."
+    },
+    "fil":{
+      "introduces": "The Filecoin protocol introduces a decentralized storage network (DSN) based on blockchain. As claimed by the whitepaper, with the DSN scheme, multiple independent storage providers offer data storage and data retrieval to clients on the Filecoin network. In other words, the Filecoin DSN handles storage and retrieval requests via two verifiable markets, i.e., the Storage Market and the Retrieval Market, respectively. The two markets have the same structure but different design.",
+      "clients": "The Storage Market allows clients to pay storage miners to store data. The storage market is a verifiable market through which clients (buyers) place matching orders with storage miners (sellers). Once matched, orders are submitted to the orderbook (sets of orders). That way, the public gets access to all the orders recorded on the Filecoin blockchain. Additionally, both clients and storage miners must pledge and commit to their resources, where storage miners provide constant proof of storage for an order.",
+      "data": "The Retrieval Market allows clients to retrieve data by paying retrieval miners to deliver the data. In the Retrieval Market, clients can request retrieval of a specific piece from an order. Retrieval miners obtain pieces from the Retrieval Market or by storing them from being a storage miner. Participants in the retrieval market follow an off-chain process of exchanging pieces and settling prices. Therefore, Retrieval Miners and clients exchange data without the network knowing about it. Mostly, the retrieval miner splits the data into multiple parts, and the client pays for each part that is retrieved.",
+      "cryptocurrency": "Filecoin, trading under the ticker FIL, is the native cryptocurrency on the Filecoin network."
+    },
+
+    "my_tariffs": "My tariffs",
+    "fees_and_limits_on_transfers": "Fees and limits on transfers",
+    "sepa_payments": "SEPA payments to another bank (account to account)",
+    "free_of_charge": "Free of charge up to 5 SEPA payments per month. Starting from the 6th payment - EUR 0,20",
+    "internal_payment_account": "Internal Payment (account to account)",
+    "internal_payment_card": "Internal Payment (card to card)",
+    "service_fees": "Service fees",
+    "account_maintenance": "Account maintenance fee",
+    "account_maintenance_value": "{{value}} EUR monthly, {{payments}} free Interbank SEPA payments included (1 IBAN account + 1 card)",
+    "account_maintenance_value_additional": "{{value}} EUR monthly, {{payments}} free Interbank SEPA payments included (1 IBAN account + 1 card + additional cards)",
+    "commission_for_using_mobile": "Commission for using a mobile bank per month",
+    "bonus_programs": "Bonus programs",
+    "csh_purchases_card": "Cashback for card purchases (excluding ATM withdrawals and transfers)",
+    "csh_purchases_card_value": "{{percent}} (min payout is {{payout}} EUR per month)",
+    "csh_purchases_amazon": "Cashback for purchases on Amazon",
+    "csh_purchases_amazon_value": "{{percent}} (max payout is {{payout}} EUR per month)",
+    "csh_purchases_playmarket": "Cashback for purchases at Play Market",
+    "csh_purchases_playmarket_value": "{{percent}} (min payout is {{payout}} EUR per month)",
+    "comissions_and_limits": "Commissions and limits on card transactions",
+    "cash_withdrawal_at_atms_in_the_eu": "Cash withdrawal at ATMs in the EU",
+    "cash_withdrawal_at_atms_in_the_eu_value": "Free of charge up to {{amount}} EUR/month then {{percent}} of the withdrawal amount",
+    "cash_withdrawal_at_atms_outside_the_eu": "Cash withdrawal at ATMs outside the EU",
+    "cash_withdrawal_at_atms_outside_the_eu_value": "1% {{percent}} of the withdrawal amount, minimum 1.50 {{amount}} EUR",
+    "daily_cash_withdrawal_limit": "Daily cash withdrawal limit",
+    "monthly_cash_withdrawal_limit": "Monthly cash withdrawal limit",
+    "dormancy_fee": "Dormancy fee* (Effective May 9, 2020)"
     
 
   }

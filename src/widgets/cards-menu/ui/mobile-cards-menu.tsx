@@ -357,7 +357,7 @@ const MobileCardsMenu = ({
               className="w-[115px]"
               onClick={() => setSelectedItem("")}
             >
-              Back
+              {t("back")}
             </MobileButton>
           </div>
         </div>

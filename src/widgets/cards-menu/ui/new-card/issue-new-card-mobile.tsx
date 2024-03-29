@@ -192,7 +192,7 @@ export function IssueNewCardMobile() {
                     {t("proceed")}   
                 </MobileButton>
                 <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
-                    Back   
+                    {t("back")}   
                 </MobileButton>
             </div>
         </Box>

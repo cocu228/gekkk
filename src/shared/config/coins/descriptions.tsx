@@ -337,57 +337,31 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.BTT]: <div>
             <p className='mb-3'>
-                BitTorrent is a popular peer-to-peer distributed communication technology
-                that allows huge, in-demand data distribution. The protocol eliminates the
-                need for maintaining a central server.The BitTorrent protocol allows software
-                endpoints (called "clients") to work together to ensure reliable simultaneous
-                distribution of huge files to several clients, reducing dependency on any weak
-                point (such as a server connection). The protocol strives to maximize the utilization
-                of each client's upload and download bandwidth to balance peer-to-peer content delivery
-                across all clients.
+                {t("btt.technology")}
             </p>
 
             <p className='mb-3'>
-                How the Protocol Works: Peers can find a file or a portion of a file by making an
-                "announcement" to a tracker, which is a server that tracks which peers have access
-                to which files, or by searching the DHT, a distributed database of peers. This process
-                organically splits peers into "swarms" of users, with each swarm sharing a common interest
-                in trading portions of a certain file.
+                {t("btt.portion")}
             </p>
 
             <p className='mb-3'>
-                Files are cut into fragments before an exchange occurs. Clients advertise which parts of a
-                file are available to their users; then, users who have the required parts post them, which
-                in turn allows users who require these parts to download them. Cryptographichashes (i.e. info
-                hashes) of the parts/pieces are used to ensure that the parts shared are indeed the ones requested.
+                {t("btt.occurs")}
             </p>
 
             <p className='mb-3'>
-                The more pieces a peer receives in exchange for pieces provided, the more productive a
-                peer-to-peer contact is perceived to be. Clients with the most productive exchanges are
-                rewarded with additional pieces, while those with the least productive exchanges are disconnected or
-                banned.
+                {t("btt.pieces")}
             </p>
 
             <p className='mb-3'>
-                After completing a download, a user can allow their client to continue uploading parts despite
-                no longer requiring a download; this is known as "seeding." Most clients' default behavior is to
-                "seed" to other downloaders. This behavior is completely selfless and voluntary. There is no
-                financial penalty for customers who close their BitTorrent software once a download is completed.
+                {t("btt.allow")}
             </p>
 
             <p className='mb-3'>
-                The platform wants app developers to directly reward consumers who provide its underlying resources
-                by allowing consumers to use this "found value" to transact with publishers and app developers without
-                using traditional currency.The company intends to enhance the BitTorrent protocol and establish a new
-                token, BTT, to implement a distributed infrastructure services economy. End users in the BTT economy
-                should be able to supply infrastructure services in small amounts in exchange for tokens.
+                {t("btt.directly")}
             </p>
 
             <p>
-                BTT is a TRON TRC-10 cryptographic token. BTT seeks to act as a general-purpose mechanism for
-                transferring computer resources between BitTorrent clients and a market of service requesters
-                and providers.
+                {t("btt.cryptographic")}
             </p>
         </div>,
 
@@ -567,37 +541,18 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.FIL]: <div>
             <p className='mb-3'>
-                The Filecoin protocol introduces a decentralized storage network (DSN) based on blockchain.
-                As claimed by the whitepaper, with the DSN scheme, multiple independent storage providers offer data
-                storage and data retrieval to clients on the Filecoin network. In other words, the Filecoin DSN handles
-                storage and retrieval requests via two verifiable markets, i.e., the Storage Market and the Retrieval
-                Market,
-                respectively. The two markets have the same structure but different design.
+                {t("fil.introduces")}
             </p>
 
             <p className='mb-3'>
-                The Storage Market allows clients to pay storage miners to store data. The storage market is a
-                verifiable market through which clients (buyers) place matching orders with storage miners (sellers).
-                Once matched, orders are submitted to the orderbook (sets of orders). That way, the public gets access
-                to all the orders recorded on the Filecoin blockchain. Additionally, both clients and storage miners
-                must
-                pledge and commit to their resources, where storage miners provide constant proof of storage for an
-                order.
+                {t("fil.clients")}
             </p>
 
             <p className='mb-3'>
-                The Retrieval Market allows clients to retrieve data by paying retrieval miners to deliver the
-                data. In the Retrieval Market, clients can request retrieval of a specific piece from an order.
-                Retrieval
-                miners obtain pieces from the Retrieval Market or by storing them from being a storage miner.
-                Participants
-                in the retrieval market follow an off-chain process of exchanging pieces and settling prices. Therefore,
-                Retrieval Miners and clients exchange data without the network knowing about it. Mostly, the retrieval
-                miner
-                splits the data into multiple parts, and the client pays for each part that is retrieved.
+                {t("fil.data")}
             </p>
 
-            <p>Filecoin, trading under the ticker FIL, is the native cryptocurrency on the Filecoin network.</p>
+            <p>{t("fil.cryptocurrency")}</p>
         </div>,
 
         [ETokensConst.GALA]: <div>
@@ -652,69 +607,27 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.IDEX]: <div>
             <p className='mb-3'>
-                IDEX is a hybrid liquidity decentralized exchange (DEX) that combines a high-performance orderbook and
-                matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a
-                specific
-                asset organized by price level. The platform blends the advantages of centralized and decentralized
-                exchanges
-                with the performance and characteristics of a traditional orderbook and the liquidity and security of an
-                AMM.
-                IDEX permits traders to obtain the best practices, prevent failed transactions, while providing
-                liquidity, all
-                with the power of actual limit and stop-loss orders. IDEX operates on the Polygon blockchain, supporting
-                MATIC
-                and ERC-20 assets.
+                {t("idex.hybrid")}
             </p>
 
             <p className='mb-3'>
-                The three important aspects of the platform are high-performance exchange, hybrid liquidity, and smart
-                contracts. The high-performance exchange component is analogous to that on top of centralized exchanges.
-                This design allows IDEX to match centralized exchanges in latency and performance that are unavailable
-                from
-                other DEXs.Further, the IDEX Hybrid Liquidity (IDEX HL) incorporates a traditional orderbook and
-                matching engine
-                with AMM liquidity pools. So, traders are seamlessly matched against the most suitable combination of
-                limit orders
-                and pool liquidity for low-cost execution without any additional efforts. IDEX HL relies on smart
-                contracts to
-                handle security and trade settlement, enforcing the constraints of the AMM pricing curve and enabling
-                users to
-                manage custody of their assets.
+                {t("idex.aspects")}
             </p>
 
             <p className='mb-3'>
-                Next, the IDEX smart contract contains three settlement processes employed in various circumstances
-                depending
-                on the type of liquidity being matched. The IDEX smart contracts bring programmatic guarantees to the
-                platform.
-                So, IDEX utilizes a series of smart contracts to decentralize fund custody and trade settlement by
-                introducing
-                such novel DeFi mechanisms.
+                {t("idex.contract")}
             </p>
 
             <p className='mb-3'>
-                About the economics of the token, the IDEX token aligns rewards between the exchange and IDEX token
-                stakers
-                who play a vital role in the operations of IDEX. Stakers are rewarded with half (50%) of the trade fees
-                for
-                their participation.
+                {t("idex.economics")}
             </p>
 
             <p className='mb-3'>
-                Stakingnodes keep a real-time record of system data. This reduces the IDEX's operational cost by
-                offloading
-                popular API (application programming interface) operations. Staking nodes are evaluated by their uptime
-                to
-                determine their performance. Uptime is a function of API performance and online sessions.
+                {t("idex.record")}
             </p>
 
             <p>
-                IDEX tokens should be placed as collateral to act as nodes and receive payment for node operations. In
-                the event
-                of serving incorrect data, the respective node address will be blacklisted, and the operator must
-                re-incubate
-                their tokens. IDEX staking allows for “riskless” staking from cold storage as no slashing mechanism is
-                involved.
+                {t("idex.placed")}
             </p>
         </div>,
 
@@ -878,31 +791,19 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.MIR]: <div>
             <p className='mb-3'>
-                Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and
-                trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track
-                the price of stocks, futures, exchange-traded funds, and other traditional financial assets and bridges
-                cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is
-                used
-                for governance, CDP closure fees, and liquidity mining.
+                {t("mir.synthetic")}
             </p>
 
             <p className='mb-3'>
-                This is intended to offer greater access to the US equities market through the minting of synthetic
-                assets. These Mirrored Assets (mAssets) mirror the price behavior of the real-world assets and reflect
-                the exchange prices on-chain. The decentralized representation grants traders price exposure to assets
-                that would otherwise be inaccessible. These mAssets gather their price from decentralized oracles at
-                thirty-second intervals.
+                {t("mir.access")}
             </p>
 
             <p className='mb-3'>
-                Mirror Protocol works on the Terra blockchain and is available on Ethereum via the Shuttle-bridge.
-                These platforms allow every asset to be represented on the blockchain.
+                {t("mir.blockchain")}
             </p>
 
             <p>
-                The native token for Mirror Protocol is the Mirror Token (MIR). This token is used for governance,
-                staking, and rewards, and the token has a total supply of 370 million, which should drop over a period
-                of four years. MIR is inflationary in nature and is expected to have new uses as the token matures.
+                {t("mir.token")}
             </p>
         </div>,
 
@@ -938,11 +839,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.MLN]: <div>
             <p>
-                MLN is an Ethereum token that powers Enzyme (formerly known as Melon Protocol),
-                a protocol that aims to facilitate on-chain asset management for the DeFi ecosystem.
-                MLN allows users to build, share, and explore DeFi investment strategies (called “vaults”)
-                while filtering by historical performance and risk profiles. MLN is used to pay for various
-                functions throughout the vault creation process and investment lifecycle.
+                {t("mln.mln_is")}
             </p>
         </div>,
 
@@ -968,10 +865,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.OXT]: <div>
             <p>
-                Orchid (OXT) is an Ethereum token that powers the Orchid network, a peer-to-peer
-                privacy tool that includes a decentralized VPN and other features designed to give
-                users more control over their Internet connection. OXT can be used to pay for bandwidth
-                or staked by bandwidth providers in order to operate a node.
+                {t("oxt.oxt_is")}
             </p>
         </div>,
 
@@ -987,10 +881,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.REN]: <div>
             <p>
-                Ren (REN) is an Ethereum token that powers Ren’s open protocol for transferring
-                cryptocurrencies between blockchains. Ren aims to bring popular assets like Bitcoin
-                and Zcash to blockchains including Ethereum, making it possible for these assets to
-                participate in a multi-chain decentralized finance ecosystem.
+                {t("ren.ren_is")}
             </p>
         </div>,
 
@@ -1048,25 +939,15 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.SRM]: <div>
             <p className='mb-3'>
-                Serum describes itself as a protocol and ecosystem for decentralized exchanges (DEX)
-                that gives decentralized finance, exceptional speed, and cheap transaction costs. The Serum is
-                based on Solana and is fully permissionless. Websites or applications that use Serum's protocol may
-                adjust the experience to their target market's use case and compliance requirements.
+                {t("srm.protocol")}
             </p>
 
             <p className='mb-3'>
-                Serum offers a completely on-chain order book, allowing trading interfaces and other applications
-                to 'plug into' Serum's modular ecosystem. The flexibility to determine the price, size, and direction
-                of their transaction is claimed as a unique feature of this exchange mechanism for users. Serum DEX,
-                built on top of the Asset Agnostic Order book, gives the ecosystem a larger pool of liquidity and a
-                shared resource to support trading functionality. Permissioned marketplaces provide much more freedom
-                and conformity.
+                {t("srm.offers")}
             </p>
 
             <p>
-                The native token of the ecosystem is SRM. Serum's utility and governance token is also SRM. The
-                users get a fee reduction if they keep SRM in their wallets. SRM is completely integrated with
-                Serum and can take advantage of burn fees.
+                {t("srm.token")}
             </p>
         </div>,
 
@@ -1099,18 +980,11 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
 
         [ETokensConst.WAVES]: <div>
             <p className='mb-3'>
-                Waves (WAVES) is a community-based multipurpose blockchain platform that seeks to
-                support a compilation of decentralized open-source technologies to build scalable,
-                user-friendly apps. Waves aims at creating a comprehensive blockchain ecosystem that
-                provides several features necessary for business adoption.
+                {t("waves.multipurpose")}
             </p>
 
             <p>
-                WAVES is the token utilized in the Waves blockchain. Within the blockchain, block
-                generators seek to obtain block rewards and transaction fees in WAVES. This aims to
-                promote generators to maintain and develop the blockchain network system. The more WAVES
-                the generator holds, they seek to get a chance to add another block in the blockchain.
-                Blocks are data structures within the blockchain database.
+                {t("waves.utilized")}
             </p>
         </div>,
 

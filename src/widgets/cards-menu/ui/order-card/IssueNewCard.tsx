@@ -212,7 +212,7 @@ export function IssueNewCard() {
           {t("proceed")}
         </Button>
         <Button gray onClick={close}>
-          Back
+          {t("back")}
         </Button>
       </Box>
     </div>

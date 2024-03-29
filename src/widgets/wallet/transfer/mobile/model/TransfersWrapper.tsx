@@ -150,7 +150,7 @@ export default function TransfersWrapper({
                           </span>
                           <span className="self-end text-[12px] text-[#1F3446] font-regular">
                             {getRoundingValue(
-                              currency.currency.balance.free_balance,
+                              currency.currency.balance?.free_balance,
                               currency.currency.roundPrec
                             )}{" "}
                             {currency.$const}

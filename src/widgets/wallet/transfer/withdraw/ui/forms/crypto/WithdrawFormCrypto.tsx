@@ -43,11 +43,14 @@ const WithdrawFormCrypto = () => {
   const navigate = useNavigate();
   const { md } = useBreakpoints();
   const currency = useContext(CtxWalletData);
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const { networkTypeSelect, tokenNetworks, setRefresh } =
-    useContext(CtxWalletNetworks);
+  const [loading, setLoading] = useState(false);
   const { inputCurr, setInputCurr } = useInputState();
+  const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
+  const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
+
+  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -69,16 +72,6 @@ const WithdrawFormCrypto = () => {
   const onInput = ({ target }) => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
-
-  const delayRes = useCallback(
-    debounce((amount) => setRefresh(true, amount), 2000),
-    []
-  );
-  const delayDisplay = useCallback(
-    debounce(() => setLoading(false), 2700),
-    []
-  );
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);

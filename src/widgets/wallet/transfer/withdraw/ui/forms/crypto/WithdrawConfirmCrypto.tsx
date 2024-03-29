@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState, memo, useRef } from "react";
+import { useCallback, useContext, useState, memo, useRef, useEffect } from "react";
 import {
   CtxWalletNetworks,
   CtxWalletData,
@@ -10,7 +10,6 @@ import {
   actionResSuccess,
   getRandomInt32,
   isNull,
-  uncoverResponse,
 } from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from "@/shared/ui/form/Form";
@@ -32,7 +31,6 @@ import { CtnTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { CreateWithdrawIn } from "@/shared/(orval)api/gek/model";
 import { formatAsNumber } from "@/shared/lib/formatting-helper";
 import { SignTX } from "./signTX";
-import { $axios } from "@/shared/lib/(orval)axios";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import StatusModalSuccess from "../../modals/StatusModalSuccess";
@@ -64,7 +62,6 @@ const WithdrawConfirmCrypto = memo(
     const [form] = useForm();
     const {
       id,
-      percent_fee = 0,
       withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
@@ -75,13 +72,7 @@ const WithdrawConfirmCrypto = memo(
 
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
-    const [
-      localErrorHunter,
-      ,
-      localErrorInfoBox,
-      localErrorClear,
-      localIndicatorError,
-    ] = useError();
+    const [localErrorHunter,,localErrorInfoBox] = useError();
     const [stageReq, setStageReq] = useState(initStageConfirm);
 
     const [isErr, setErr] = useState<boolean>(false);
@@ -102,6 +93,13 @@ const WithdrawConfirmCrypto = memo(
     const onReSendCode = useCallback(async () => {
       await onConfirm(true);
     }, []);
+
+    // TODO: split confirmation logit into 2 layers
+    useEffect(() => {
+      (async () => {
+        onConfirm();
+      })()
+    }, [])
 
     const { onInput } = useMask(MASK_CODE);
     const onConfirm = async (reSendCode = false) => {
@@ -190,8 +188,8 @@ const WithdrawConfirmCrypto = memo(
       setLoading(false);
     };
 
-    const inputChange = (target: any) => {
-      setInput(target.value);
+    const inputChange = (event: any) => {
+      setInput(event.target.value);
     };
 
     if (md && networkTypeSelect === 150) {

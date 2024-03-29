@@ -191,8 +191,16 @@ const UniversalTransferForm = () => {
     </div>
   ) : (
     <div className="wrapper">
+      <div className="info-box-description mb-4 p-6 text-xs">
+        <div className="row">
+          <span className="font-semibold">{t("fee_free")}* </span>
+          <span>{t("universal_transfer_description")} </span>
+          <span className="font-semibold">{t("phone_number_or_IBAN")}</span>
+        </div>
+      </div>
+
       <Form>
-        <div className="row mb-8 w-full">
+        <div className="row mb-5 w-full">
           <div className="col">
             <InputCurrency.Validator
               value={inputCurr.value.number}
@@ -235,76 +243,51 @@ const UniversalTransferForm = () => {
           </div>
         </div>
         <div className="row mb-5 w-full">
-          <div className="flex flex-row justify-between items-center">
-            <div className="row min-w-[80px] mb-2 mr-5">
-              <div className="col">
-                <span className="text-[#1F3446] text-[12px] font-semibold">
-                  {t("contact")}:
-                </span>
-              </div>
+          <div className="row min-w-[80px] mb-2 mr-5">
+            <span className="text-[#1F3446] text-xs font-semibold">
+              {t("contact")}
+            </span>
+          </div>
+          <div className="row flex w-full">
+            <div className="col basis-[100%]">
+              <Input
+                allowDigits
+                allowSymbols
+                name={"requisite"}
+                value={inputs.requisite}
+                onChange={onInputDefault}
+                placeholder={t("enter_phone_or_IBAN")}
+              />
             </div>
-            <div className="row flex w-full">
-              <div className="col basis-[100%]">
-                <Input
-                  allowDigits
-                  allowSymbols
-                  name={"requisite"}
-                  value={inputs.requisite}
-                  onChange={onInputDefault}
-                  placeholder={t("enter_phone_or_IBAN")}
-                />
-              </div>
+          </div>
+        </div>
+
+        <div className="row mb-5 w-full">
+          <div className="row mb-2">
+            <div className="col">
+              <span className="text-[#1F3446] text-xs font-semibold">
+                {t("comment_optional")}
+              </span>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col flex items-center">
+              <TextArea
+                allowDigits
+                allowSymbols
+                name={"comment"}
+                value={inputs.comment}
+                onChange={onInputDefault}
+                placeholder={t("comment_optional")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
             </div>
           </div>
         </div>
       </Form>
-      <span className="text-[#B9B9B5] text-[10px]">
-        <span className="font-bold">*{t("fee_free")}</span>{" "}
-        {t("transfers_to_users_by_number_or_IBAN")}.
-      </span>
-
-      <div className={styles.PayInfo}>
-        <div className={styles.PayInfoCol}>
-          <div className="row">
-            <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-          </div>
-          <div className="row">
-            <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-          </div>
-          <div className="row">
-            <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-          </div>
-        </div>
-        <div className={styles.PayInfoColValue}>
-          <div className={styles.PayInfoCol}>
-            <div className={styles.PayInfoValueFlex}>
-              <span className={styles.PayInfoValueFlexText}>
-                {inputCurr.value.number}
-              </span>
-            </div>
-            <div className={styles.PayInfoValueFlex}>
-              <span className={styles.PayInfoValueFlexText}>
-                {inputCurr.value.number}
-              </span>
-            </div>
-            <div className={styles.PayInfoValueFlex}>
-              <span className={styles.PayInfoValueFlexTextFee}>-</span>
-            </div>
-          </div>
-
-          <div className={styles.PayInfoCol}>
-            <span className={styles.PayInfoValueFlexTextCurrency}>
-              {currency.$const}
-            </span>
-            <span className={styles.PayInfoValueFlexTextCurrency}>
-              {currency.$const}
-            </span>
-            <span className={styles.PayInfoValueFlexTextFee}>
-              {currency.$const}
-            </span>
-          </div>
-        </div>
-      </div>
+      
       <ModalAnt
         width={450}
         title={
@@ -335,12 +318,10 @@ const UniversalTransferForm = () => {
           {t("transfer")}
         </Button>
       </div>
-      <div className="w-full flex justify-center">
-        <span className="text-[#9D9D9D] text-[10px]">
-          {t("fee_is_prec")}{" "}
-          <span className="font-bold">0 {currency.$const}</span>{" "}
-          {t("per_transaction")}
-        </span>
+
+      <div className="text-[#B9B9B5] text-[10px] my-2">
+        <span className="font-bold">*{t("fee_free")}</span>{" "}
+        {t("transfers_to_users_by_number_or_IBAN")}.
       </div>
     </div>
   );

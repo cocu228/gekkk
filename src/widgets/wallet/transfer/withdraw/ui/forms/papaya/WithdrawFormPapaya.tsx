@@ -162,7 +162,7 @@ const WithdrawFormPapaya = () => {
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full">
-                    Buy EUR
+                    {t("buy")} EUR
                 </Button>
             </div>
         </div>

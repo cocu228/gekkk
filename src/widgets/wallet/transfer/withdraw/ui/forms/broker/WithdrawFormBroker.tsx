@@ -268,7 +268,7 @@ const WithdrawFormBroker = () => {
                     className="w-full"
                     greenTransfer
                 >
-                    Transfer
+                    {t("transfer")}
                 </Button>
             </div>
         </div>

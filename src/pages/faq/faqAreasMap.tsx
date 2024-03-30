@@ -22,7 +22,7 @@ export const faqAreasMap = {
         title="account_opening"
         items={[
           {
-            title: 'Who can open GEKKARD account?',
+            title: "who_can_open_gekkard",
             content: (
               <>
                 <div>
@@ -39,7 +39,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How to open my GEKKARD account?',
+            title: "how_to_open_gekkard",
             content: (
               <>
                 <p>
@@ -56,7 +56,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is the age limit?',
+            title: "what_is_age_limit",
             content: (
               <>
                 <p>
@@ -68,7 +68,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Can I hold more than one currency on my GEKKARD account?',
+            title: "can_i_hold_more_than_one_currency",
             content: (
               <>
                 <p>
@@ -79,7 +79,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How to prove my identity?',
+            title: "how_to_provide_my_identity",
             content: (
               <>
                 <p>
@@ -103,7 +103,7 @@ export const faqAreasMap = {
         title="account"
         items={[
           {
-            title: 'What is a GEKKARD account?',
+            title: "what_is_a_gekkard_account",
             content: (
               <>
                 <p>
@@ -115,7 +115,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Can I hold more than one currency on my GEKKARD account?',
+            title: "can_i_hold_more_than_one_currency",
             content: (
               <>
                 <p>GEKKARD accounts are opened in one currency - EUR.&nbsp;</p>
@@ -123,7 +123,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How to find my IBAN or GEKKARD  account number?',
+            title: "how_to_find_my_iban",
             content: (
               <>
                 <p>
@@ -135,7 +135,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How can I close my account?',
+            title: "how_can_i_choose_my_account",
             content: (
               <>
                 <p>
@@ -151,7 +151,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'My account is negative, what happened?',
+            title: "my_account_is_negative",
             content: (
               <>
                 <p>
@@ -164,7 +164,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Am I able to get an account statement?',
+            title: "am_i_able_to_get_an_account_statement",
             content: (
               <>
                 <p>
@@ -179,7 +179,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'What happens to funds coming in to an old closed GEKKARD account?',
+              "what_happens_to_funds_coming",
             content: (
               <>
                 <p>
@@ -191,7 +191,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'Can I see the new GEKKARD account details before I get my card?',
+              "can_i_see_the_new_gekkard",
             content: (
               <>
                 <p>
@@ -216,7 +216,7 @@ export const faqAreasMap = {
         title= "account_balance"
         items={[
           {
-            title: "Balance hasn't been updated following a bank transfer",
+            title: "balance_hasnt_been_updated",
             content: (
               <>
                 <p>
@@ -227,7 +227,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Am I able to get a bank statement?',
+            title: "am_i_able_to_get_a_bank_statement",
             content: (
               <>
                 <p>
@@ -238,7 +238,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'My account balance is negative, what happened?',
+            title: "my_account_balance_is_negative",
             content: (
               <>
                 <p>
@@ -254,7 +254,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'How can I check GEKKARD transactions and/ or GEKKARD account balance?',
+              "how_can_i_check_gekkard_transactions",
             content: (
               <>
                 <p>
@@ -277,7 +277,7 @@ export const faqAreasMap = {
         title="personal_information"
         items={[
           {
-            title: 'Who is a politically exposed person (PEP)?',
+            title: "who_is_a_politically_exposed_person",
             content: (
               <>
                 <p>
@@ -294,7 +294,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'Who is a person closely related to politically exposed person (PEP)?',
+              "who_is_a_person_closely_related",
             content: (
               <>
                 <p>
@@ -305,7 +305,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Who is a politically exposed person’s (PEP) family member?',
+            title: "who_is_a_politically_exposed_person_family",
             content: (
               <>
                 <ol>
@@ -326,7 +326,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'Who is a person known to be close associates to politically exposed person (PEP)?',
+              "who_is_a_person_known_to_be_close",
             content: (
               <>
                 <ol>
@@ -348,7 +348,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'Why do we request information about PEP and persons closely related to PEP?',
+              "why_do_we_request_information",
             content: (
               <>
                 <p>
@@ -359,7 +359,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What does “personal data” mean?',
+            title: "what_does_personal_data",
             content: (
               <>
                 <p>
@@ -376,7 +376,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is GDPR?',
+            title: "what_is_gdpr",
             content: (
               <>
                 <p>
@@ -392,7 +392,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Why do we process your personal data?',
+            title: "why_do_we_process_your_personal_data",
             content: (
               <>
                 <div>
@@ -427,7 +427,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Is my personal data protected?',
+            title: "is_my_personal_data_protected",
             content: (
               <>
                 <p>
@@ -462,7 +462,7 @@ export const faqAreasMap = {
         title="security"
         items={[
           {
-            title: 'What is card PIN?',
+            title: "what_is_card_pin",
             content: (
               <>
                 <p>
@@ -477,7 +477,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'What should I do if I incorrectly entered the card PIN many times?',
+              "what_should_i_do_if_i_incorrectly",
             content: (
               <>
                 <p>
@@ -490,7 +490,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'I forgot card PIN, what to do? ',
+            title: "i_forgot_card_pin",
             content: (
               <>
                 <p>
@@ -502,7 +502,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is mobile application PIN? ',
+            title: "what_is_mobile_application_pin",
             content: (
               <>
                 <p>
@@ -513,7 +513,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Can I change my application PIN?',
+            title: "can_i_change_my_application_pin",
             content: (
               <>
                 <p>
@@ -525,7 +525,7 @@ export const faqAreasMap = {
           },
           {
             title:
-              'Can I use my mobile application PIN when shopping or withdrawing cash? ',
+              "can_i_use_my_mobile_application",
             content: (
               <>
                 <p>
@@ -537,7 +537,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Do the card PIN and mobile application PIN match?',
+            title: "do_the_card_pin_and_mobile",
             content: (
               <>
                 <p>
@@ -551,7 +551,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is CVC2?',
+            title: "what_is_cvc2",
             content: (
               <>
                 <p>
@@ -563,7 +563,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is CVC2 for?',
+            title: "what_is_cvc2_for",
             content: (
               <>
                 <p>
@@ -574,7 +574,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Are the funds on GEKKARD account safeguarded?',
+            title: "are_the_funds_on_gekkard_account",
             content: (
               <>
                 <p>
@@ -588,7 +588,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'What is 3D Secure?',
+            title: "what_is_3d_secure",
             content: (
               <>
                 <p>
@@ -599,7 +599,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How does 3D Secure work?',
+            title: "how_does_3d_secure_work",
             content: (
               <>
                 <p>
@@ -613,7 +613,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How I can activate 3D secure in my mobile application?',
+            title: "how_can_i_activate_3d_secure",
             content: (
               <>
                 <p>
@@ -624,7 +624,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'Why do I need to verify my identity?',
+            title: "why_do_i_need_to_verify",
             content: (
               <>
                 <p>
@@ -638,7 +638,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'My card has been compromised',
+            title: "my_card_has_been_compromised",
             content: (
               <>
                 <p>
@@ -651,7 +651,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How do I keep my GEKKARD account safe?',
+            title: "how_do_i_keep_my_gekkard",
             content: (
               <>
                 <p>
@@ -665,7 +665,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'How to block my GEKKARD?',
+            title: "how_to_block_my_gekkard",
             content: (
               <>
                 <p>
@@ -681,7 +681,7 @@ export const faqAreasMap = {
             ),
           },
           {
-            title: 'My card has been lost or stolen',
+            title: "my_card_has_been_lost_or_stolen",
             content: (
               <>
                 <p>

@@ -16,10 +16,10 @@ export const faqAreasMap = {
   '': null,
   'account-opening': {
     icon: <CreateIntelligentAnalysisTask />,
-    title: "Account opening",
+    title: "account_opening",
     area: (
       <FAQTemplate
-        title="Account opening"
+        title="account_opening"
         items={[
           {
             title: 'Who can open GEKKARD account?',
@@ -97,10 +97,10 @@ export const faqAreasMap = {
   },
   'account': {
     icon: <Wallet />,
-    title:"Account",
+    title:"account",
     area: (
       <FAQTemplate
-        title="Account"
+        title="account"
         items={[
           {
             title: 'What is a GEKKARD account?',
@@ -210,10 +210,10 @@ export const faqAreasMap = {
   },
   'account-balance': {
     icon: <Balances />,
-    title:"Account Balance",
+    title: "account_balance",
     area: (
       <FAQTemplate
-        title="Account Balance"
+        title= "account_balance"
         items={[
           {
             title: "Balance hasn't been updated following a bank transfer",
@@ -271,10 +271,10 @@ export const faqAreasMap = {
   },
   'personal-information': {
     icon: <Account />,
-    title: "Personal information",
+    title: "personal_information",
     area: (
       <FAQTemplate
-        title="Personal information"
+        title="personal_information"
         items={[
           {
             title: 'Who is a politically exposed person (PEP)?',
@@ -456,10 +456,10 @@ export const faqAreasMap = {
   },
   'security': {
     icon: <Security />,
-    title: "Security",
+    title: "security",
     area: (
       <FAQTemplate
-        title="Security"
+        title="security"
         items={[
           {
             title: 'What is card PIN?',
@@ -700,10 +700,10 @@ export const faqAreasMap = {
   },
   'cards': {
     icon: <CreditCard />,
-    title: "Cards",
+    title: "cards",
     area: (
       <FAQTemplate
-        title="Cards"
+        title="cards"
         items={[
           {
             title: 'What is a GEKKARD?',
@@ -1144,10 +1144,10 @@ export const faqAreasMap = {
   },
   'card-purchases': {
     icon: <PosMachine />,
-    title: "Card purchases",
+    title: "card_purchases",
     area: (
       <FAQTemplate
-        title="Card purchases"
+        title="card_purchases"
         items={[
           {
             title: 'Where do I use a GEKKARD?',
@@ -1272,10 +1272,10 @@ export const faqAreasMap = {
   },
   'atm-transactions': {
     icon: <Atm />,
-    title: "ATM transactions",
+    title: "atm_transactions",
     area: (
       <FAQTemplate
-        title="ATM transactions"
+        title="atm_transactions"
         items={[
           {
             title: 'What is ATM?',
@@ -1299,10 +1299,10 @@ export const faqAreasMap = {
   },
   'money-transfers': {
     icon: <History />,
-    title: "Money transfers",
+    title: "money_transfers",
     area: (
       <FAQTemplate
-        title="Money transfers"
+        title="money_transfers"
         items={[
           {
             title: 'What are SEPA Transfers?',
@@ -1322,10 +1322,10 @@ export const faqAreasMap = {
   },
   'fees': {
     icon: <Euro />,
-    title: "Fees",
+    title: "fees",
     area: (
       <FAQTemplate
-        title="Fees"
+        title="fees"
         items={[
           {
             title: 'How much does a GEKKARD account cost?',
@@ -1343,10 +1343,10 @@ export const faqAreasMap = {
   },
   'other': {
     icon: <Other />,
-    title: "Other",
+    title: "other",
     area: (
       <FAQTemplate
-        title="Other"
+        title="other"
         items={[
           {
             title: 'Where can I see more information?',
@@ -1397,8 +1397,8 @@ export const faqAreasMap = {
   },
   'support-chat': {
     icon: <SupportIcon />,
-    title: "Support chat",
-    area: <FAQTemplate title="Support chat" items={[]} />,
+    title: "support_chat",
+    area: <FAQTemplate title="support_chat" items={[]} />,
   },
 }
 export type AvailableFaqAreas = keyof typeof faqAreasMap

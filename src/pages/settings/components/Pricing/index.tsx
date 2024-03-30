@@ -48,19 +48,19 @@ export function Pricing() {
               { title: t("monthly_cash_withdrawal_limit"), value: '10 000 EUR' },
               { title: t("dormancy_fee"), value: '15 EUR' },
             ]}
-            description={'*The fee to be taken on a monthly basis from accounts with no transactions for more than 6 calendar months'}
+            description={t("the_fee_to_be_taken", {months: 6})}
           />
         </Box>
         <Box display="flex" gap="36px" flexDirection="column">
           <Item
-            title="Additional services"
+            title={t("additional_services")}
             rows={[
-              { title: 'Account closure', value: '0 EUR' },
-              { title: 'Additional card issue', value: '7,00 EUR' },
-              { title: 'Extra fee if name on additional card is different from the main card', value: '5,00 EUR' },
-              { title: 'Reissue of the card at the request of the client', value: '7,00 EUR' },
-              { title: 'Account statement in paper format', value: '5,00 EUR' },
-              { title: 'Card express delivery', value: 'Price depends on the client’s address and is shown in the App before placing order.' },
+              { title: t("account_closure"), value: '0 EUR' },
+              { title: t("additional_card_issue"), value: '7,00 EUR' },
+              { title: t("extra_fee_if_name"), value: '5,00 EUR' },
+              { title: t("reissue_of_the_card"), value: '7,00 EUR' },
+              { title: t("account_statement"), value: '5,00 EUR' },
+              { title: t("card_express"), value: t("price_depends_on_the") },
             ]}
           />
         </Box>

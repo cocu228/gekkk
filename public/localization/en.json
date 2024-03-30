@@ -1269,7 +1269,27 @@
     "cash_withdrawal_at_atms_outside_the_eu_value": "1% {{percent}} of the withdrawal amount, minimum 1.50 {{amount}} EUR",
     "daily_cash_withdrawal_limit": "Daily cash withdrawal limit",
     "monthly_cash_withdrawal_limit": "Monthly cash withdrawal limit",
-    "dormancy_fee": "Dormancy fee* (Effective May 9, 2020)"
+    "dormancy_fee": "Dormancy fee* (Effective May 9, 2020)",
+    "the_fee_to_be_taken": "*The fee to be taken on a monthly basis from accounts with no transactions for more than {{months}} calendar months",
+    "additional_services": "Additional services",
+    "account_closure": "Account closure",
+    "additional_card_issue": "Additional card issue",
+    "extra_fee_if_name": "Extra fee if name on additional card is different from the main card",
+    "reissue_of_the_card": "Reissue of the card at the request of the client",
+    "account_statement": "Account statement in paper format",
+    "card_express": "Card express delivery",
+    "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order.",
+
+    "account_opening": "Account opening",
+    "account_balance": "Account balance",
+    "security": "Security",
+    "cards": "Cards",
+    "card_purchases": "Card purchases",
+    "atm_transactions": "ATM transactions",
+    "money_transfers": "Money transfers",
+    "fees": "Fees",
+    "other": "Other"
+
     
 
   }

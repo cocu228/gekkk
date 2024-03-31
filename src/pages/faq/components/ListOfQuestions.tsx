@@ -40,7 +40,7 @@ export function ListOfQuestions() {
   return (
     <Wrapper ref={wrapperRef} isSelected={Boolean(selectedArea)} isMobile={xxl}>
       {faqAreasMapKeys.map((key) => {
-        const info = faqAreasMap[key]
+        const info = faqAreasMap(t)[key]
         if (!info) {
           return null
         }

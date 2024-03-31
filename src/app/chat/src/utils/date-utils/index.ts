@@ -48,7 +48,12 @@ export function calculateLastSeen(date: Date): string {
  */
 export function calculateTimeAgo(date: Date): string {
 
+    console.log("date")
+    console.log(date)
+
     const diff = calculateDifferences(date)
+
+    console.log(diff)
 
     if (diff.minutesAgo < 1) {
         return 'just now';

@@ -92,7 +92,7 @@ const SidebarMobile = () => {
         };
     });
 
-    return (
+    return  (
             <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
                 <div className={`${styles.Sidebar} flex flex-col justify-between`}>
                     {!md ? null : <UnconfirmedTransactions/>}

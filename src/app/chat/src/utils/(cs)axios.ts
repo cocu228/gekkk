@@ -6,6 +6,7 @@ export const $axios = axios.create({
         indexes: null // by default: false
     },
     responseType: 'json',
+    //@ts-ignore
     baseURL: import.meta.env.VITE_SUPPORT_URL
 });
 

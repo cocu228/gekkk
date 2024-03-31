@@ -3,7 +3,7 @@ import {Client} from '@stomp/stompjs';
 import {ChatMessage} from '../types/Shared';
 import {stompConfig} from '../utils/stomp-config';
 import {StompCreateMessage} from '../types/Shared';
-import {generateUid} from "../utils/shared";
+import {generateUid, getCookieData, setCookieData} from "../utils/shared";
 import {apiInitSessionId} from "../api/init-session-id";
 import {$axios} from "../utils/(cs)axios";
 
@@ -11,7 +11,7 @@ type IParams = {
     // deviceIdHash: string;
     // sessionId: number | null;
     setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>;
-    // setIsWebSocketReady: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsWebSocketReady: (val: boolean) => void;
     // chatConfig: ChatConfig;
     children: any
 }
@@ -21,12 +21,19 @@ const chatConfig = {
     phone: undefined,
 }
 
-const deviceIdHash = generateUid()
+const cookies = getCookieData()
+//@ts-ignore
+let deviceIdHash = cookies["device-id-hash"]
+
+if (!deviceIdHash) {
+    deviceIdHash = generateUid()
+    setCookieData([{key: "device-id-hash", value: deviceIdHash}])
+}
 
 
 const StompSocketProvider = ({
                                  setMessages,
-                                 // setIsWebSocketReady,
+                                 setIsWebSocketReady,
                                  children
                              }: IParams) => {
 
@@ -51,10 +58,15 @@ const StompSocketProvider = ({
                 console.log(response.data)
                 const sessionId = response.data.id
 
+                setCookieData([{
+                    key: "chat-session-id",
+                    value: sessionId.toString()
+                }])
+
                 const onConnect = () => {
 
                     console.log('Connected to WebSocket');
-                    // setIsWebSocketReady(true);
+                    setIsWebSocketReady(true);
 
                     client.subscribe(`/exchange/${sessionId}`, (message) => {
                         const stompMessage: StompCreateMessage = JSON.parse(message.body);
@@ -91,7 +103,7 @@ const StompSocketProvider = ({
 
                 const onDisconnect = () => {
                     console.log('Disconnected from WebSocket');
-                    // setIsWebSocketReady(false);
+                    setIsWebSocketReady(false);
                 };
 
                 client.onConnect = onConnect;

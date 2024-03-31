@@ -1,4 +1,5 @@
 ﻿import {useLayoutEffect} from 'react';
+//@ts-ignore
 import {chat_axios} from '../config/(cs)axios';
 import useDeviceIdHash from "./../model/hooks/useDeviceIdHash";
 

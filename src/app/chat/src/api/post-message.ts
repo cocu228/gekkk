@@ -1,5 +1,5 @@
 ﻿import {v4 as uuidv4} from 'uuid';
-import {makeApiRequest} from "../config/(cs)axios";
+import {makeApiRequest} from "../utils/(cs)axios";
 
 export interface IResSessionId {
   id: number;

@@ -78,7 +78,7 @@ const SidebarDesktop = () => {
         secondaryWallets = Array.from(currencies.values());
     }
 
-    return(
+    return !gkeWallet ? null : (
             <div className={`${styles.Sidebar} flex flex-col justify-between`}>
 
                 <div className="wrapper">

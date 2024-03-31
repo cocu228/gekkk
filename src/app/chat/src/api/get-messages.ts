@@ -1,5 +1,5 @@
-﻿import { MessageFile } from "../model/types";
-import { makeApiRequest } from "../config/(cs)axios";
+﻿import { MessageFile } from "../types/Shared";
+import { makeApiRequest } from "../utils/(cs)axios";
 
 export interface IResMessages {
   id: number,

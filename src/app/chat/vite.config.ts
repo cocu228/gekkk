@@ -17,7 +17,7 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                chat: resolve(__dirname, './src/index.tsx'),
+                chat: resolve(__dirname, './src/main.tsx'),
             },
             output: {
                 entryFileNames: `[name].js`,

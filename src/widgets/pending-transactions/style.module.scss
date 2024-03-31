@@ -1,0 +1,35 @@
+.Container {
+    gap: 12px;
+    display: flex;
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: center;
+    padding-inline: 48px;
+    flex-direction: column;
+}
+
+.CardContainer {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.Card {
+    max-width: 230px;
+}
+
+.MerchantName {
+    font-size: 14px;
+    font-weight: 600;
+    color: #285E69;
+}
+
+.Amount {
+    font-size: 14px;
+    font-weight: 800;
+    color: #285E69;
+}
+
+.Button {
+    font-size: 14px;
+}

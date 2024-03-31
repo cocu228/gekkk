@@ -105,7 +105,7 @@ export function IssueNewCard() {
               });
             }
           }}
-          label={t("City")}
+          label={t("city")}
           placeholder={t("enter_city_name")}
         />
 
@@ -212,7 +212,7 @@ export function IssueNewCard() {
           {t("proceed")}
         </Button>
         <Button gray onClick={close}>
-          Back
+          {t("back")}
         </Button>
       </Box>
     </div>

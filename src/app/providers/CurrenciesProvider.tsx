@@ -75,6 +75,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     useEffect(() => {
         if (state.currencies !== null) (async () => {
+            // TODO: Fix QuickExchange to remove this request
             const ratesEUR = await apiGetRates({
                 to: 'EUR'
             });
@@ -82,8 +83,8 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             const value: Decimal = Array.from(state.currencies.values())
                 .reduce((previousValue, currentValue) => {
                     
-                    if (currentValue.userBalanceEUREqu) {
-                        const value = new Decimal(currentValue.userBalanceEUREqu)
+                    if (currentValue.balance?.user_balance_EUR_equ) {
+                        const value = new Decimal(currentValue.balance.user_balance_EUR_equ)
                         return value.plus(previousValue)
                     }
                     

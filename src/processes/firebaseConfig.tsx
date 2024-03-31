@@ -12,14 +12,14 @@ declare global {
 }
 
 const firebaseConfig = {
-    apiKey: "AIzaSyARFJ1vMt-c6BUOcy4b3JvL1c2v0guJqSQ",
-    authDomain: "gekkardionic.firebaseapp.com",
-    databaseURL: "https://gekkardionic.firebaseio.com",
-    projectId: "gekkardionic",
-    storageBucket: "gekkardionic.appspot.com",
-    messagingSenderId: "559638122615",
-    appId: "1:559638122615:web:9d9042bb5f8fd8e0feb672",
-    measurementId: "G-WM6QN2K1RK"
+    apiKey: "AIzaSyCSi9_z5zxYQ3wJJ0WGz87wIRbYHRDOr8E",
+    authDomain: "blackcationic.firebaseapp.com",
+    databaseURL: "https://blackcationic.firebaseio.com",
+    projectId: "blackcationic",
+    storageBucket: "blackcationic.appspot.com",
+    messagingSenderId: "113434870661",
+    appId: "1:113434870661:web:e5ef22a0e9ab65aa99baec",
+    measurementId: "G-EVQ624H1SH"
 };
 
 const app = initializeApp(firebaseConfig);

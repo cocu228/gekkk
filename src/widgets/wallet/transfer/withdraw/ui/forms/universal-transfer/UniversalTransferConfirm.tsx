@@ -265,7 +265,7 @@ const UniversalTransferConfirm = ({
                                 <div className="row">
                                     <div className="col">
                                         <span className={styles.ModalInfoText}>
-                                            Please, check your transaction information carefully and confirm the operation.
+                                            {t("check_your_information_carefully")}
                                         </span>
                                     </div>
                                 </div>
@@ -338,7 +338,7 @@ const UniversalTransferConfirm = ({
                                 {$const}
                             </span>
                             <span className={styles.ModalPayInfoValueFlexTextCurrency}>
-                                EUR
+                                {$const}
                             </span>
                             <span className={styles.ModalPayInfoValueFlexTextFee}>
                                 {$const}
@@ -380,7 +380,7 @@ const UniversalTransferConfirm = ({
                                         size={"xl"}
                                         whiteGreenTransfer
                                     >
-                                        Cancel
+                                        {t("cancel")}
                                     </Button>
                                 </div>
                             }

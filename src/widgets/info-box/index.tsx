@@ -6,28 +6,29 @@ const hClassName = new HelperClassName(styles)
 
 
 type Props = {
-    message: string | JSX.Element,
-    className?: string,
-    children: React.ReactNode
+    icon?: JSX.Element;
+    className?: string;
+    onClick?: () => void;
+    children: React.ReactNode;
+    message: string | JSX.Element;
 }
 
+const InfoBox = ({
+    icon,
+    onClick,
+    children,
+    message = "",
+    className = ""
+}: Partial<Props>) => {
+    if (!message && !children) return null;
 
-const InfoBox = ({message = "", children, className = ""}: Partial<Props>) => {
-
-    if (!message && !children) return null
-
-    return <div className={hClassName.while(className).do(className).scss("Wrapper text-orange")}>
-        <div className="col shrink-0 flex mr-3 col-auto">
-            <img width={20} height={20} src="/img/icon/AlertWaring.svg"
-                 alt="AlertWaring"/>
+    return <div onClick={onClick} className={hClassName.while(className).do(className).scss("Wrapper")}>
+        <div className="shrink-0 flex col-auto w-[30px] h-[30px]">
+            {icon}
         </div>
-        <div className="col">
-            <p className={hClassName.scss("Text")}>{message}
-            </p>
-        </div>
-        {children}
+        
+        {!message ? children : <p className={hClassName.scss("Text")}>{message}</p>}
     </div>
-
 }
 
-export default InfoBox
+export default InfoBox;

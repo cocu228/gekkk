@@ -10,10 +10,17 @@ type Props = {
     open: boolean;
     width?: number;
     setIsSuccess: Dispatch<SetStateAction<boolean>>,
+    cancelParent?: () => void;
     refresh: () => void;
 }
 
-function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
+function StatusModalSuccess({
+    open,
+    width = 418,
+    refresh,
+    setIsSuccess,
+    cancelParent
+}: Props) {
   const {t} = useTranslation()
 
   return (
@@ -34,10 +41,15 @@ function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
 
                 <div className='text-center w-[80%] flex flex-col items-center gap-[30px]'>
                     <span className='font-bold text-[20px] text-[#3A5E66]'>
-                        Success!
+                        {t("success")}!
                     </span>
                     <span className='text-[12px] text-[#9D9D9D]'>
-                        Your transaction request has been successfully added to the queue. The transaction may take a few minutes to complete. If it’s not, please, contact <NavLink to={"/support"}><span className='text-[#45AD77]'>our support team</span></NavLink>
+                        {t("your_transaction_success")} 
+                        <NavLink to={"/support"}>
+                            <span className='text-[#45AD77]'>
+                                {t("our_support_team")}
+                            </span>
+                        </NavLink>
                     </span>
                 </div>
                 <div className={styles.ButtonContainer + " mt-[30px] px-4"}>
@@ -54,8 +66,9 @@ function StatusModalSuccess({open, width = 418, setIsSuccess, refresh}: Props) {
                     <Button
                         className='w-full'
                         onClick={()=>{
-                            setIsSuccess(false)
-                            refresh()
+                            setIsSuccess(false);
+                            cancelParent();
+                            refresh();
                         }}
                         size='xl'
                         blueTransfer

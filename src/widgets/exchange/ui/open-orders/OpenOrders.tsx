@@ -42,7 +42,7 @@ function OpenOrders({
     const [allOrdVisibly, setAllOrdVisibly] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
-    const [activeTab, setActiveTab] = useState<TabKey>(ordersTabs[0].Key);
+    const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
     const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
     const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
     const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(
@@ -129,13 +129,16 @@ function OpenOrders({
             {!md ? (<>
                 <div className="flex justify-between mb-2">
                     <span className="font-medium lg:text-sm md:text-md">{t("exchange.orders")}</span>
-                    {/* <a className="text-xs text-secondary font-medium" href="">All</a> */}
                 </div>
 
-                <SecondaryTabGroup tabs={getSecondaryTabsAsRecord(ordersTabs)} activeTab={activeTab} setActiveTab={setActiveTab}/>
+                <SecondaryTabGroup
+                    activeTab={activeTab}
+                    setActiveTab={(value) => setActiveTab(value)}
+                    tabs={getSecondaryTabsAsRecord(ordersTabs)}
+                />
             </>) : (
                 <div className='flex gap-x-4 w-full justify-center'>
-                    <span>Closed orders</span>
+                    <span>{t("exchange.closed_orders")}</span>
                     <Switch
                         defaultChecked={activeTab === ordersTabs[0].Key}
                         onChange={(isCheked) => setActiveTab(isCheked
@@ -143,7 +146,7 @@ function OpenOrders({
                             : ordersTabs[1].Key
                         )}
                     />
-                    <span>Active orders</span>
+                    <span>{t("exchange.active_orders")}</span>
                 </div>
             )}
 

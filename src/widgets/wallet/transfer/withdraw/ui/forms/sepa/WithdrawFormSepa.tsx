@@ -1,21 +1,15 @@
-<<<<<<< Updated upstream
-import {useContext, useEffect, useRef, useState} from 'react';
-=======
-import { useContext, useEffect, useState } from "react";
->>>>>>> Stashed changes
+import {useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
-import { Modal as ModalAnt } from "antd";
+import {Modal as ModalAnt} from "antd"
 import Input from "@/shared/ui/input/Input";
-import { useNavigate } from "react-router-dom";
-import TextArea from "antd/es/input/TextArea";
+import {useNavigate} from "react-router-dom";
 import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
-import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
-import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
+import {useInputState} from "@/shared/ui/input-currency/model/useInputState";
 import InputCurrency from "@/shared/ui/input-currency/ui/input-field/InputField";
-<<<<<<< Updated upstream
 import {getWithdrawDesc} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {validateBalance, validateMinimumAmount} from "@/shared/config/validators";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
@@ -24,130 +18,19 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import {getInitialProps, useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
-import { CtxRootData } from '@/processes/RootContext';
-import { IResCommission, apiPaymentSepa } from '@/shared/api';
-import { apiGetUas } from '@/shared/(orval)api';
-import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
-
-
-interface IState {
-    loading: boolean;
-    total: IResCommission;
-    status: 'error' | 'success' | null;
-}
-=======
-import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {
-  validateBalance,
-  validateMinimumAmount,
-} from "@/shared/config/validators";
-import {
-  CtxWalletData,
-  CtxWalletNetworks,
-} from "@/widgets/wallet/transfer/model/context";
-import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import { transferDescriptions } from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
-import { getInitialProps, useTranslation } from "react-i18next";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
->>>>>>> Stashed changes
+import TextArea from '@/shared/ui/input/text-area/TextArea';
 
 const WithdrawFormSepa = () => {
-  const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] =
-    useState(null);
-  const { initialLanguage } = getInitialProps();
+    const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
+    const {initialLanguage} = getInitialProps();
 
-  useEffect(() => {
-    setTransferDescriptionsTranslated(
-      transferDescriptions.map((el) => {
-        return {
-          value: el.value,
-          label: t(`${el.value}`),
-        };
-      })
-    );
-  }, [initialLanguage]);
-
-  const { t } = useTranslation();
-  const currency = useContext(CtxWalletData);
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const navigate = useNavigate();
-  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
-  const { md } = useBreakpoints();
-
-  const [inputs, setInputs] = useState({
-    beneficiaryName: null,
-    accountNumber: null,
-    transferDescription: null,
-    comment: null,
-  });
-
-  const onInput = ({ target }) => {
-    setInputs((prev) => ({ ...prev, [target.name]: target.value }));
-  };
-
-  const { min_withdraw = 0 } =
-    getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
-  const { inputCurr, setInputCurr } = useInputState();
-  const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-
-  return !md ? (
-    <div className="wrapper">
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row mb-2">
-            <div className="col">
-              <span className="font-medium">{t("beneficiary_name")}</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Input
-                value={inputs.beneficiaryName}
-                onChange={onInput}
-                placeholder={""}
-                name={"beneficiaryName"}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row mb-2">
-            <div className="col">
-              <span className="font-medium">{t("IBAN")}</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Input
-                value={inputs.accountNumber}
-                onChange={onInput}
-                name={"accountNumber"}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row mb-2">
-            <div className="col">
-              <span className="font-medium">{t("transfer_desc")}</span>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
-              <Select
-                className="w-full"
-                onChange={(v: unknown) =>
-                  setInputs(() => ({
-                    ...inputs,
-                    transferDescription: v,
-                  }))
+    useEffect(()=>{
+        setTransferDescriptionsTranslated(
+            transferDescriptions.map(el=>{
+            return {
+                    "value" : el.value,
+                    "label" : t(`${el.value}`)
                 }
-<<<<<<< Updated upstream
             })
         )
     },[initialLanguage])
@@ -158,18 +41,7 @@ const WithdrawFormSepa = () => {
     const navigate = useNavigate();
     const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
     const {md} = useBreakpoints()
-    const { setRefresh } = useContext(CtxRootData)
-
-    const [{
-        total,
-        status,
-        loading,
-    }, setState] = useState<IState>({
-        status: null,
-        loading: false,
-        total: undefined,
-    });
-
+    
     const [inputs, setInputs] = useState({
         beneficiaryName: null,
         accountNumber: null,
@@ -183,47 +55,9 @@ const WithdrawFormSepa = () => {
 
     const {
         min_withdraw = 0,
-    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {}
-
-    const {account} = useContext(CtxRootData);
-
-    const {$const} = useContext(CtxWalletData);
-    
-    const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
-    const {getAccountDetails} = storeAccountDetails(state => state);
-    
-    const details = useRef({
-        purpose: inputs.comment,
-        iban: inputs.accountNumber,
-        account: account.account_id,
-        beneficiaryName: inputs.beneficiaryName,
-        transferDetails: transferDescriptions.find(d => d.value === inputs.transferDescription)?.label,
-        amount: {
-            sum: {
-                currency: {
-                    code: $const
-                },
-                value: inputCurr.value.number
-            }
-        }
-    });
-
-    useEffect(() => {
-        (async () => {
-            const {data} = await apiGetUas();
-            const {phone} = await getAccountDetails();
-            
-            apiPaymentSepa(details.current, true, {
-                Authorization: phone,
-                Token: data.result.token
-            }).then(({data}) => (setState(prev => ({
-                ...prev,
-                total: data as IResCommission
-            }))));
-        })();
-    }, [inputCurr.value.number]);
-
+    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+    const {inputCurr, setInputCurr} = useInputState();
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
 
     return !md ? (<div className="wrapper">
         <div className="row mb-8 w-full">
@@ -241,40 +75,48 @@ const WithdrawFormSepa = () => {
                                name={"beneficiaryName"}/>
                     </div>
                 </div>
-=======
-                name={"transferDescription"}
-                options={transferDescriptionsTranslated}
-                placeholder={t("transfer_details.name")}
-                value={inputs.transferDescription}
-              />
->>>>>>> Stashed changes
             </div>
-          </div>
         </div>
-      </div>
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row mb-2">
+        <div className="row mb-8 w-full">
             <div className="col">
-              <span className="font-medium">{t("сomment")}</span>
+                <div className="row mb-2">
+                    <div className="col">
+                        <span className="font-medium">{t("IBAN")}</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Input value={inputs.accountNumber} onChange={onInput}
+                               name={"accountNumber"} allowDigits/>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="col flex items-center">
-              <TextArea
-                value={inputs.comment}
-                name={"comment"}
-                onChange={onInput}
-              />
-            </div>
-          </div>
         </div>
-      </div>
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row">
+        <div className="row mb-8 w-full">
             <div className="col">
-<<<<<<< Updated upstream
+                <div className="row mb-2">
+                    <div className="col">
+                        <span className="font-medium">{t("transfer_desc")}</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <Select className="w-full"
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    transferDescription: v
+                                }))}
+                                name={"transferDescription"}
+                                options={transferDescriptionsTranslated}
+                                placeholder={t("transfer_details.name")}
+                                value={inputs.transferDescription}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className="row mb-8 w-full">
+            <div className="col">
                 <div className="row mb-2">
                     <div className="col">
                         <span className="font-medium">{t("сomment")}</span>
@@ -282,9 +124,13 @@ const WithdrawFormSepa = () => {
                 </div>
                 <div className="row">
                     <div className="col flex items-center">
-                        <TextArea value={inputs.comment}
-                                  name={"comment"}
-                                  onChange={onInput}/>
+                        <TextArea
+                            allowDigits
+                            allowSymbols
+                            value={inputs.comment}
+                            name={"comment"}
+                            onChange={onInput}
+                        />
                     </div>
                 </div>
             </div>
@@ -319,7 +165,7 @@ const WithdrawFormSepa = () => {
             onCancel={handleCancel}
             title={t("transfer_confirmation")}
         >
-            <WithdrawConfirmSepa handleCancel={()=>{handleCancel();setRefresh()}} {...inputs} amount={inputCurr.value.number}/>
+            <WithdrawConfirmSepa handleCancel={handleCancel} {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">
             <div className="col">
@@ -328,73 +174,14 @@ const WithdrawFormSepa = () => {
                     className="w-full"
                     onClick={showModal}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
-=======
-              <InputCurrency.Validator
-                value={inputCurr.value.number}
-                description={getWithdrawDesc(min_withdraw, currency.$const)}
-                onError={setInputCurrValid}
-                validators={[
-                  validateBalance(currency, navigate, t),
-                  validateMinimumAmount(
-                    min_withdraw,
-                    inputCurr.value.number,
-                    currency.$const,
-                    t
-                  ),
-                ]}
-              >
-                <InputCurrency.PercentSelector
-                  currency={currency}
-                  header={
-                    <span className="text-gray-600 font-medium">
-                      {t("amount")}
-                    </span>
-                  }
-                  onSelect={setInputCurr}
->>>>>>> Stashed changes
                 >
-                  <InputCurrency
-                    onChange={setInputCurr}
-                    value={inputCurr.value.string}
-                    currency={currency.$const}
-                  />
-                </InputCurrency.PercentSelector>
-              </InputCurrency.Validator>
+                    {t("withdraw")}
+                </Button>
             </div>
-          </div>
         </div>
-      </div>
-      <Modal
-        width={450}
-        open={isModalOpen}
-        onCancel={handleCancel}
-        title={t("transfer_confirmation")}
-      >
-        <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} />
-      </Modal>
-      <div className="row w-full">
-        <div className="col">
-          <Button
-            size={"xl"}
-            className="w-full"
-            onClick={showModal}
-            disabled={
-              !Object.values(inputs).every((v) => v !== null && v !== "") ||
-              inputCurrValid.value
-            }
-          >
-            {t("withdraw")}
-          </Button>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className="wrapper">
-      <div className="row mb-8 w-full">
-        <div className="col">
-          <div className="row">
+    </div>) : (<div className="wrapper">
+        <div className="row mb-8 w-full">
             <div className="col">
-<<<<<<< Updated upstream
                 <div className="row">
                     <div className="col">
                         <InputCurrency.Validator value={inputCurr.value.number}
@@ -418,44 +205,8 @@ const WithdrawFormSepa = () => {
                         </InputCurrency.Validator>
                     </div>
                 </div>
-=======
-              <InputCurrency.Validator
-                value={inputCurr.value.number}
-                description={getWithdrawDesc(min_withdraw, currency.$const)}
-                onError={setInputCurrValid}
-                validators={[
-                  validateBalance(currency, navigate, t),
-                  validateMinimumAmount(
-                    min_withdraw,
-                    inputCurr.value.number,
-                    currency.$const,
-                    t
-                  ),
-                ]}
-              >
-                <InputCurrency.PercentSelector
-                  currency={currency}
-                  header={
-                    <span className="text-gray-600 font-medium text-[#1F3446] text-[12px] font-bold">
-                      {t("amount")}
-                    </span>
-                  }
-                  onSelect={setInputCurr}
-                >
-                  <InputCurrency.DisplayBalance currency={currency}>
-                    <InputCurrency
-                      onChange={setInputCurr}
-                      value={inputCurr.value.string}
-                      currency={currency.$const}
-                    />
-                  </InputCurrency.DisplayBalance>
-                </InputCurrency.PercentSelector>
-              </InputCurrency.Validator>
->>>>>>> Stashed changes
             </div>
-          </div>
         </div>
-<<<<<<< Updated upstream
         <div className="row mb-8 w-full">
             <div className="flex flex-row justify-between items-center">
                 <div className="row min-w-[80px] mb-2 mr-5">
@@ -466,32 +217,11 @@ const WithdrawFormSepa = () => {
                 <div className="row w-full">
                     <div className="col w-full basis-[100%]">
                         <Input value={inputs.accountNumber} onChange={onInput}
-                               name={"accountNumber"}/>
+                               name={"accountNumber"} allowDigits/>
                     </div>
                 </div>
-=======
-      </div>
-      <div className="row mb-8 w-full">
-        <div className="flex flex-row justify-between items-center">
-          <div className="row min-w-[80px] mb-2 mr-5">
-            <div className="col">
-              <span className="font-medium text-[#1F3446] text-[12px] font-bold">
-                {t("IBAN ???")}:
-              </span>
->>>>>>> Stashed changes
             </div>
-          </div>
-          <div className="row w-full">
-            <div className="col w-full basis-[100%]">
-              <Input
-                value={inputs.accountNumber}
-                onChange={onInput}
-                name={"accountNumber"}
-              />
-            </div>
-          </div>
         </div>
-<<<<<<< Updated upstream
         
         <div className="flex flex-col mb-8 w-full">
             <div className="flex flex-row justify-between items-center">
@@ -508,85 +238,11 @@ const WithdrawFormSepa = () => {
                                name={"beneficiaryName"}/>
                     </div>
                 </div>
-=======
-      </div>
-      <div className="flex flex-col mb-8 w-full">
-        <div className="flex flex-row justify-between items-center">
-          <div className="row min-w-[80px] mb-2 mr-5">
-            <div className="col">
-              <span className="font-medium text-[#1F3446] text-[12px] font-bold">
-                {t("recipient")}:
-              </span>
->>>>>>> Stashed changes
             </div>
-          </div>
-          <div className="row w-full">
-            <div className="col">
-              <Input
-                value={inputs.beneficiaryName}
-                onChange={onInput}
-                placeholder={""}
-                name={"beneficiaryName"}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="ml-5">
-          <span className="text-[10px]">
-            *As required by EU law, you must provide the name of the recipient
-            of the funds
-          </span>
-        </div>
-      </div>
-
-      <div className="row mb-8 w-full">
-        <div className="flex flex-row items-center">
-          <div className="row min-w-[80px] mb-2 mr-5">
-            <div className="col">
-              <span className="font-medium text-[#1F3446] text-[12px] font-bold">
-                {t("description")}:
-              </span>
-            </div>
-          </div>
-          <div className="row w-full">
-            <div className="col">
-              <Select
-                className="w-full"
-                onChange={(v: unknown) =>
-                  setInputs(() => ({
-                    ...inputs,
-                    transferDescription: v,
-                  }))
-                }
-                name={"transferDescription"}
-                options={transferDescriptionsTranslated}
-                placeholder={t("transfer_details.name")}
-                value={inputs.transferDescription}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-            <div className="col flex flex-col w-[max-content] gap-2">
-              <div className="row">
-                <span>{t("you_will_pay")}</span>
-              </div>
-              <div className="row">
-                <span>{t("you_will_get")}</span>
-              </div>
-              <div className="row">
-                <span>{t("fee")}</span>
-              </div>
-            </div>
-            <div className="col flex flex-col w-[max-content] gap-2">
-              <div className="row flex items-end">
-                <span className="w-full text-start">
-                  {inputCurr.value.number} {currency.$const}
+            <div className='ml-5'>
+                <span className='text-[10px]'>
+                *{t("EW_law")}
                 </span>
-<<<<<<< Updated upstream
             </div>
         </div>
         
@@ -599,7 +255,7 @@ const WithdrawFormSepa = () => {
                 </div>
                 <div className="row w-full">
                     <div className="row w-full">
-                        <Select className="w-[65%]"
+                        <Select className="w-full"
                                 onChange={(v: unknown) => setInputs(() => ({
                                     ...inputs,
                                     transferDescription: v
@@ -613,59 +269,6 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
         </div>
-        <div className={styles.PayInfo}>
-            <div className={styles.PayInfoCol}>
-                <div className="row">
-                    <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-                </div>
-                <div className="row">
-                <span className={styles.PayInfoText}>
-                    {t("you_will_get")}:
-                </span>
-                </div>
-                <div className="row">
-                    <span className={styles.PayInfoTextFee}>
-                        {t("fee")}:
-                    </span>
-                </div>
-            </div>
-            <div className={styles.PayInfoColValue}>
-
-                <div className={styles.PayInfoCol}>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
-                    </div>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexText}
-                        >
-                                {total?.total ? total.total : "-" }
-                        </span>
-                    </div>
-                    <div className={styles.PayInfoValueFlex}>
-                        <span
-                            className={styles.PayInfoValueFlexTextFee}
-                        >
-                            {total?.commission ?? "-"}
-                        </span>
-                    </div>
-                </div>
-                
-                <div className={styles.PayInfoCol}>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
-                        {currency.$const}
-                    </span>
-                    <span className={styles.PayInfoValueFlexTextCurrency}>
-                        {currency.$const}
-                    </span>
-                    <span className={styles.PayInfoValueFlexTextFee}>
-                        {currency.$const}
-                    </span>
-                </div>
-            </div>
-            
-        </div>
         <ModalAnt 
             width={450}
             open={isModalOpen}
@@ -673,7 +276,7 @@ const WithdrawFormSepa = () => {
             title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
             footer={null}
         >
-            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} handleCancel={()=>{handleCancel();setRefresh()}}/>
+            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </ModalAnt>
         <div className="flex flex-col w-full">
             <div className={styles.ButtonContainerCenter}>
@@ -687,61 +290,8 @@ const WithdrawFormSepa = () => {
                     {t("withdraw")}
                 </Button>
             </div>
-            <div className='w-full flex justify-center'>
-                <span className='text-[#9D9D9D] text-[10px]'>
-                    {t("fee_is_prec")} <span className='font-bold'>{total?.commission ?? "-"} {currency.$const} </span> {t("per_transaction")}
-                </span>
-            </div>
-=======
-              </div>
-              {/* <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
-                        </div> */}
-            </div>
-          </div>
         </div>
-      </div>
-      <ModalAnt
-        width={450}
-        open={isModalOpen}
-        onCancel={handleCancel}
-        title={t("transfer_confirmation")}
-        footer={null}
-      >
-        <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} />
-      </ModalAnt>
-      <div className="flex flex-col w-full">
-        <div className="col mb-[10px]">
-          <Button
-            size={"xl"}
-            className="w-full"
-            onClick={showModal}
-            disabled={
-              !Object.entries(inputs)
-                .filter((el) => el[0] !== "comment")
-                .every((v) => v[1] !== null && v[1] !== "") ||
-              inputCurrValid.value
-            }
-          >
-            {t("withdraw")}
-          </Button>
->>>>>>> Stashed changes
-        </div>
-        <div className="w-full flex justify-center">
-          <span className="text-[#9D9D9D] text-[10px]">
-            {t("fee_is_prec")}{" "}
-            <span className="font-bold">? {currency.$const} </span>{" "}
-            {t("per_transaction")}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+    </div>)
 };
 
 export default WithdrawFormSepa;

@@ -15,8 +15,6 @@ import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { validateBalance } from "@/shared/config/validators";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
-import TransferTableCodeMobile from "@/widgets/wallet/transfer/components/mobile/table/TransferTableCodeMobile";
-import CreateCodeMobile from "./mobile/CreateCodeMobile";
 import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
@@ -249,7 +247,7 @@ const CreateTransferCode = () => {
                             {currency.$const}
                         </span>
                         <span className={styles.PayInfoValueFlexTextCurrency}>
-                            EUR
+                            {currency.$const}
                         </span>
                         <span className={styles.PayInfoValueFlexTextFee}>
                             {currency.$const}
@@ -273,7 +271,7 @@ const CreateTransferCode = () => {
             </h3>
         </div>
         <div className="row">
-            <TransferTableCodeMobile isOwner/>
+            <TransferTableCode isOwner/>
         </div>
     </div>
 }

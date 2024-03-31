@@ -31,8 +31,7 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
-
-const { TextArea } = InputAntd;
+import TextArea from "@/shared/ui/input/text-area/TextArea";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -44,11 +43,14 @@ const WithdrawFormCrypto = () => {
   const navigate = useNavigate();
   const { md } = useBreakpoints();
   const currency = useContext(CtxWalletData);
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const { networkTypeSelect, tokenNetworks, setRefresh } =
-    useContext(CtxWalletNetworks);
+  const [loading, setLoading] = useState(false);
   const { inputCurr, setInputCurr } = useInputState();
+  const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
+  const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
+
+  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
+  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -71,16 +73,6 @@ const WithdrawFormCrypto = () => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  const delayRes = useCallback(
-    debounce((amount) => setRefresh(true, amount), 2000),
-    []
-  );
-  const delayDisplay = useCallback(
-    debounce(() => setLoading(false), 2700),
-    []
-  );
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     setLoading(true);
     delayRes(inputCurr.value.number);
@@ -94,15 +86,10 @@ const WithdrawFormCrypto = () => {
             <div className="flex flex-col gap-2">
               <span className="text-gray-600 font-medium">{t("address")}</span>
               <Input
+                allowDigits
+                allowSymbols
                 value={inputs.address}
-                onChange={(e) => {
-                  const ru = /[а-яё]+/i.test(e.target.value);
-                  if (ru) {
-                    return null;
-                  } else {
-                    onInput(e);
-                  }
-                }}
+                onChange={onInput}
                 disabled={!networkTypeSelect}
                 placeholder={t("enter_withdrawal_address")}
                 name={"address"}
@@ -158,14 +145,7 @@ const WithdrawFormCrypto = () => {
               </span>
               <Input
                 value={inputs.recipient}
-                onChange={(e) => {
-                  const ru = /[а-яё]+/i.test(e.target.value);
-                  if (ru) {
-                    return null;
-                  } else {
-                    onInput(e);
-                  }
-                }}
+                onChange={onInput}
                 disabled={!networkTypeSelect}
                 name={"recipient"}
                 placeholder={t("enter_recepients_name")}
@@ -179,18 +159,12 @@ const WithdrawFormCrypto = () => {
                 {t("desc_optional")}
               </span>
               <TextArea
+                allowDigits
+                allowSymbols
                 name={"description"}
                 value={inputs.description}
-                onChange={(e) => {
-                  const ru = /[а-яё]+/i.test(e.target.value);
-                  if (ru) {
-                    return null;
-                  } else {
-                    onInput(e);
-                  }
-                }}
+                onChange={onInput}
                 disabled={!networkTypeSelect}
-                rows={2}
               />
             </div>
             <div className="row w-full mt-4">
@@ -271,15 +245,10 @@ const WithdrawFormCrypto = () => {
               <span className={styles.TitleColTextMargin}>{t("address")}:</span>
               <div className="basis-[100%]">
                 <Input
+                  allowDigits
+                  allowSymbols
                   value={inputs.address}
-                  onChange={(e) => {
-                    const ru = /[а-яё]+/i.test(e.target.value);
-                    if (ru) {
-                      return null;
-                    } else {
-                      onInput(e);
-                    }
-                  }}
+                  onChange={onInput}
                   disabled={!networkTypeSelect}
                   placeholder={t("enter_withdrawal_address")}
                   name={"address"}
@@ -294,14 +263,7 @@ const WithdrawFormCrypto = () => {
                 <div className="basis-[100%]">
                   <Input
                     value={inputs.recipient}
-                    onChange={(e) => {
-                      const ru = /[а-яё]+/i.test(e.target.value);
-                      if (ru) {
-                        return null;
-                      } else {
-                        onInput(e);
-                      }
-                    }}
+                    onChange={onInput}
                     disabled={!networkTypeSelect}
                     name={"recipient"}
                     placeholder={t("enter_recepients_name")}
@@ -315,20 +277,15 @@ const WithdrawFormCrypto = () => {
               </span>
             </div>
 
-            <div className="flex flex-row items-center justify-between gap-2">
+            <div className="flex flex-row items-center justify-between gap-2 asdasdasd">
               <span className={styles.TitleColText}>{t("description")}:</span>
               <Input
-                onChange={(e) => {
-                  const ru = /[а-яё]+/i.test(e.target.value);
-                  if (ru) {
-                    return null;
-                  } else {
-                    onInput(e);
-                  }
-                }}
+                allowDigits
+                allowSymbols
+                name={"description"}
                 value={inputs.description}
+                onChange={onInput}
                 disabled={!networkTypeSelect}
-                placeholder={t("enter_description")}
               />
             </div>
 
@@ -352,7 +309,7 @@ const WithdrawFormCrypto = () => {
                 <div className={styles.PayInfoCol}>
                   <div className={styles.PayInfoValueFlex}>
                     <span className={styles.PayInfoValueFlexText}>
-                      {inputCurr.value.number}
+                      {inputCurr.value.number + withdraw_fee}
                     </span>
                   </div>
                   <div className={styles.PayInfoValueFlex}>
@@ -360,9 +317,7 @@ const WithdrawFormCrypto = () => {
                       t("loading") + "..."
                     ) : (
                       <span className={styles.PayInfoValueFlexText}>
-                        {new Decimal(inputCurr.value.number)
-                          .minus(withdraw_fee)
-                          .toString()}
+                        {inputCurr.value.number}
                       </span>
                     )}
                   </div>
@@ -422,7 +377,7 @@ const WithdrawFormCrypto = () => {
                     className="w-full"
                     greenTransfer
                   >
-                    Transfer
+                    {t("withdraw")}
                   </Button>
                 </div>
                 <div className={styles.BottomFeeInfo}>

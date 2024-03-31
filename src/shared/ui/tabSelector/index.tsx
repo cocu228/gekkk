@@ -1,6 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import styles from './style.module.scss'
 import { HistoryTab } from "@/widgets/history/model/types";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     tabNames: HistoryTab[];
@@ -13,13 +14,15 @@ export default function TabSelector(props: Props) {
         props.setTab(tab);
     }
 
+    const {t} = useTranslation()
+
     const checkSelected = (tab: string) => tab !== props.selectedTab ? styles.unSelected : '';  
 
     return (
         <div className={styles.wrapper}>
             {props.tabNames.map((elem)=> (
                 <div onClick={() => tabHandler(elem)} className={`${checkSelected(elem.Title)} ${styles.tab} h-40`}>
-                    {elem.Title}
+                    {t(elem.Title)}
                 </div>
             ))}
         </div>

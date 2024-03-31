@@ -119,7 +119,7 @@ export function IssueNewCardMobile() {
                 />
             </RowItem>
             <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("City")}:`}</Tp>
+                <Tp variant='h'>{`${t("city")}:`}</Tp>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_city_name")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -192,7 +192,7 @@ export function IssueNewCardMobile() {
                     {t("proceed")}   
                 </MobileButton>
                 <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
-                    Back   
+                    {t("back")}   
                 </MobileButton>
             </div>
         </Box>

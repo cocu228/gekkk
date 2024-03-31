@@ -1,19 +1,21 @@
+import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
 import Loader from './ui/loader/Loader';
-import {Fragment, useEffect, useRef, useState} from 'react';
-import {FormInstance, message} from 'antd';
+import { useState, Fragment, useEffect, useRef } from 'react';
+import { FormInstance, message } from 'antd';
 import StompInit from './stomp-init/StompInit';
-import {apiPostFile} from './api/post-file';
-import {ApiResponse} from './config/(cs)axios';
-import {MessageFormValues} from './model/types';
+import { apiPostFile } from './api/post-file';
+import { ApiResponse } from './config/(cs)axios';
+import { MessageFormValues } from './model/types';
 import MessageForm from './message-form/MessageForm';
-import {apiPostMessage} from './api/post-message';
+import { apiPostMessage } from './api/post-message';
 import useSessionId from './model/hooks/useSessionId';
 import useDeviceIdHash from './model/hooks/useDeviceIdHash';
 import useChatMessages from './model/hooks/useChatMessages';
-import {getCookieData} from "@/shared/lib/helpers";
+import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "./model/AxiosChatInterceptor";
 import Message from './message/Message';
+import { useTranslation } from 'react-i18next';
 
 const SupportChatAuthorized = () => {
     const { phone, token, tokenHeaderName } = getCookieData<{
@@ -21,6 +23,8 @@ const SupportChatAuthorized = () => {
         token: string,
         tokenHeaderName: string
     }>()
+
+    const {t} = useTranslation()
 
     const tokenChat = token && tokenHeaderName
         ? (tokenHeaderName === 'token-firebase')
@@ -92,9 +96,9 @@ const SupportChatAuthorized = () => {
 
             <AxiosChatInterceptor chatToken={chatConfig.token}>
                 <div>
-                    {/*<span className='top-6 left-2 relative typography-h1'>*/}
-                    {/*    <PageHead title={`Support chat`} />*/}
-                    {/*</span>*/}
+                    <span className='top-6 left-2 relative typography-h1'>
+                        <PageHead title={t("support_chat")} />
+                    </span>
                     <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
                         <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>
                             {!isWebSocketReady ? <Loader /> : (

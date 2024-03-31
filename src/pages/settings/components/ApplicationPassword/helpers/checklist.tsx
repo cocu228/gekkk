@@ -8,6 +8,7 @@ import {
   LENGTH_REGEX,
   SPECIAL_CHARS_REGEX
 } from "./validationRules";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   value: string | undefined;
@@ -16,13 +17,16 @@ interface Props {
 }
 
 const rules = [
-  { label: "One uppercase", pattern: UPPERCASE_REGEX },
-  { label: "One number", pattern: NUMBER_REGEX },
-  { label: "Min 8 characters", pattern: LENGTH_REGEX },
-  { label: "One special char", pattern: SPECIAL_CHARS_REGEX }
+  { label: "One uppercase", pattern: UPPERCASE_REGEX, t: "one_uppercase" },
+  { label: "One number", pattern: NUMBER_REGEX, t: "one_number" },
+  { label: "Min 8 characters", pattern: LENGTH_REGEX, t: "min_8_characters" },
+  { label: "One special char", pattern: SPECIAL_CHARS_REGEX, t: "one_special_char" }
 ];
 
 const CheckList = (props: Props) => {
+
+  const {t} = useTranslation()
+
   useEffect(()=>{
     if(props.value){
       if(rules.every(el=> props?.value.match(el.pattern))){
@@ -37,7 +41,7 @@ const CheckList = (props: Props) => {
       {rules.map((rule) => {
         const cn =
           props.value && props.value.match(rule.pattern) ? styles.passed : "";
-        return <p className={cn}>{rule.label}</p>;
+        return <p className={cn}>{t(rule.t)}</p>;
       })}
     </div>
   );

@@ -55,7 +55,7 @@ export const ExchangeRoomMenu = ({
             <Dropdown
                 className={'min-w-[214px] flex justify-end bg-transparent'}
                 trigger={<div className='flex gap-2 items-center'>
-                    {!active ? <span className={styles.HeaderTitle}>Rooms</span> : (
+                    {!active ? <span className={styles.HeaderTitle}>{t("exchange.rooms")}</span> : (
                         <div className={styles.RoomsMenuItem}>
                             <span className={`${styles.RoomsMenuItemTokens} text-white`}>
                                 {active.currency1} - {active.currency2}
@@ -76,7 +76,7 @@ export const ExchangeRoomMenu = ({
                         key: 'new-room',
                         label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={roomModal.showModal}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#1F3446]'>New room</span>
+                                <span className='font-semibold text-[#1F3446]'>{t("exchange.new_room")}</span>
 
                                 <IconAddRoom
                                     size={26}
@@ -88,7 +88,7 @@ export const ExchangeRoomMenu = ({
                         key: 'invite-link',
                         label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={roomModal.showModal}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#1F3446]'>Invite link</span>
+                                <span className='font-semibold text-[#1F3446]'>{t("invite_link")}</span>
 
                                 <IconQR
                                     size={26}
@@ -100,7 +100,7 @@ export const ExchangeRoomMenu = ({
                         key: 'close-room',
                         label: <DropdownItem className='w-full border-b-1 border-[#285e69] bg-[#DCDCD9]' onClick={roomCloseModal.showModal}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#8F123A]'>Close current room</span>
+                                <span className='font-semibold text-[#8F123A]'>{t("close_current_room")}</span>
 
                                 <IconClose
                                     size={22}
@@ -112,7 +112,7 @@ export const ExchangeRoomMenu = ({
                         key: 'back',
                         label: <DropdownItem className='w-full bg-[#DCDCD9]' onClick={() => navigate('/exchange')}>
                             <div className='flex justify-between items-center w-full'>
-                                <span className='font-semibold text-[#1F3446]'>Back to exchange</span>
+                                <span className='font-semibold text-[#1F3446]'>{t("back_to_exchange")}</span>
 
                                 <img
                                     src={LogoutMobileIcon}
@@ -151,15 +151,14 @@ export const ExchangeRoomMenu = ({
                 width={450}
                 open={roomCloseModal.isModalOpen}
                 onCancel={roomCloseModal.handleCancel}
-                title='Invite link'
+                title={t("invite_link")}
             >
                 <div className="pt-5 text-sm">
-                    Are you sure you want to {active ?
-                    `close ${active?.currency1} - ${active?.currency2} private
-                        exchange room? All `
-                    : `leave ${active?.currency1} - ${active?.currency2} private
-                        exchange room? Your `}
-                    unclosed orders will be canceled.
+                    {active ?
+                            t("are_you_sure_close", {currency1: active?.currency1, currency2: active?.currency2})
+                        : 
+                            t("are_you_sure_leave", {currency1: active?.currency1, currency2: active?.currency2})
+                    }
                 </div>
                 
                 <div className="mt-16 sm:mt-14">
@@ -175,7 +174,7 @@ export const ExchangeRoomMenu = ({
                                 navigate('/exchange');
                             }).catch(roomCloseModal.handleCancel);
                         }}
-                    >Close private exchange room</Button>
+                    >{t("close_private_exchange_room")}</Button>
                 </div>
             </Modal>
         </div>

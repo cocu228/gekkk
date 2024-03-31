@@ -132,7 +132,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                                     <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
                                 </div>
                                 <div className="col">
-                                    <span>{infoCode.typeTx === 12 ? <span className="text-[green]">on</span> : "off"}</span>
+                                    <span>{infoCode.typeTx === 12 ? <span className="text-[green]">{t("on")}</span> : t("off")}</span>
                                 </div>
                             </div>
                         </div>
@@ -178,12 +178,38 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                     </div>
                 </div>
             </div>}
+            {(md && onBtnApply) && <div className="row">
+                <div className="col">
+                    <div className="row mb-4 w-full flex">
+                        <div className="col w-1/2">
+                            <div className="row flex">
+                                <div className="col">
+                                    <span className="text-gray-400 mr-2">{t("amount")}:</span>
+                                </div>
+                                <div className="col">
+                                    <span className="text-green text-right">{infoCode.amount} {infoCode.currency}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col w-1/2">
+                            <div className="row flex">
+                                <div className="col">
+                                    <span className="text-gray-400 mr-2">{t("confirmation")}:</span>
+                                </div>
+                                <div className="col">
+                                    <span>{infoCode.typeTx === 12 ? "used" : "not used"}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>}
             {onBtnApply && <div className="row">
                 <div className="col">
                     <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
                             size={"xl"}
                             className={"w-full !h-full !font-medium"}>
-                        Confirm
+                        {t("confirm")}
                     </Button>
                 </div>
             </div>}

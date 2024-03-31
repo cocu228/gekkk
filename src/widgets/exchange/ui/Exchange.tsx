@@ -221,7 +221,7 @@ function Exchange() {
                                         value={+from.amount}
                                         onError={setHasValidationError}
                                         description={!from.currency ? null
-                                            : `Minimum order amount is ${currencies.get(from.currency)?.minOrder} ${from.currency}`}
+                                            : t("minimum_order_amount", {amount: currencies.get(from.currency)?.minOrder + " " + from.currency})}
                                         validators={[
                                             validateBalance(currencies.get(from.currency), navigate, t),
                                             validateMinimumAmount(minAmount, +from.amount, from.currency, t)
@@ -325,7 +325,7 @@ function Exchange() {
                                     </svg>
 
                                     <span className='text-fs12 text-[#7B797C]'>
-                                        Please, check your order information carefully and confirm the operation.
+                                        {t("check_your_information_carefully")}
                                     </span>
                                 </div>
 

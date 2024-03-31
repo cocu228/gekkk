@@ -1,60 +1,46 @@
 import styles from "./style.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/button/Button";
 import {pull, pullStart, scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
-import useModal from "@/shared/model/hooks/useModal";
 import {NavLink, useNavigate} from 'react-router-dom';
-import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import {helperFilterList} from "@/widgets/sidebar/model/helpers";
-import { storyToggleSidebar } from "../../model/story";
-import {apiCloseRoom} from "@/shared/(orval)api/gek";
+import {storyToggleSidebar} from "../../model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import {useTranslation} from 'react-i18next';
-import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
-import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
-import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
-
-
-
+import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/shared/lib/number-format-helper";
+import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
+import Loader from "@/shared/ui/loader";
+import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
 const SidebarMobile = () => {
-    const isOpen = storyToggleSidebar(state => state.isOpen)
     const {t} = useTranslation();
-
     const navigate = useNavigate();
-    const roomInfoModal = useModal();
-    const roomCloseModal = useModal();
     const {account} = useContext(CtxRootData);
-    const {sm, md} = useContext(BreakpointsContext);
-    const {currencies, totalAmount} = useContext(CtxCurrencies);
+    const refreshCont = useRef<HTMLDivElement>();
     const {setRefresh} = useContext(CtxRootData);
-    const {offline} = useContext(CtxOfflineMode);
-    const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
-    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
-
-    const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false)
+    const {sm, md} = useContext(BreakpointsContext);
     const [startPoint, setStartPoint] = useState(0);
     const [pullChange, setPullChange] = useState<number>();
-    const refreshCont = useRef<HTMLDivElement>();
+    const isOpen = storyToggleSidebar(state => state.isOpen);
+    const {currencies, totalAmount} = useContext(CtxCurrencies);
+    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
+    const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false);
 
     const {
-        getRoomsList,
-        removeRoom: removeExchangeRoom
+        getRoomsList
     } = storeListExchangeRooms(state => state);
-    const getInvestments = storeInvestments(state => state.getInvestments);
-    const {activeCards, getActiveCards} = storeActiveCards(state => state);
-    const {getAccountDetails} = storeAccountDetails(state => state);
+    const {
+        activeCards,
+        loading: cardsLoading,
+        getActiveCards,
+    } = storeActiveCards(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -64,16 +50,14 @@ const SidebarMobile = () => {
     useEffect(() => {
         if (account) {
             getRoomsList();
-            getInvestments();
             getActiveCards();
-            getAccountDetails();
         }
     }, [account]);
 
-    let eurWallet = null;
-    let eurgWallet = null;
-    let gkeWallet = null;
-    let secondaryWallets = [];
+    let eurWallet: ICtxCurrency = null;
+    let eurgWallet: ICtxCurrency = null;
+    let gkeWallet: ICtxCurrency = null;
+    let secondaryWallets: ICtxCurrency[] = [];
 
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
@@ -108,13 +92,11 @@ const SidebarMobile = () => {
         };
     });
 
-
-
-
-
     return (
             <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
                 <div className={`${styles.Sidebar} flex flex-col justify-between`}>
+                    {!md ? null : <UnconfirmedTransactions/>}
+
                     <div className="wrapper" ref={refreshCont} style={{marginTop: pullChange / 3.118 || ""}}>
                         <div className="p-2 rounded-full w-full flex justify-center">
                             <svg
@@ -139,11 +121,8 @@ const SidebarMobile = () => {
                         </div>
                         <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
                             <div className={styles.CardInfo}>
-                                {offline ? <div className="flex justify-center">
-                                    <img
-                                        src='/img/payment-card/payment-card-background.jpg'
-                                        className='rounded-[10px]'
-                                    />
+                                {cardsLoading ? <div className="mb-[14px]">
+                                    <SkeletonCard/>
                                 </div> : activeCards?.length === 0 ? (
                                     <Carousel>
                                         <div onClick={() => navigate('/card-menu')}>
@@ -161,7 +140,7 @@ const SidebarMobile = () => {
 
 
                             <div className={styles.AssetInfo1}>
-                                <span>{"Fiat"}</span>
+                                <span>{t("fiat")}</span>
                             </div>
 
 
@@ -205,7 +184,7 @@ const SidebarMobile = () => {
 
                         </NavLink>
                         <div className={styles.AssetInfo1}>
-                            <span>{"Crypto Assets"}</span>
+                            <span>{t("crypto_assets.title")}</span>
                         </div>
                         <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
                                 to={!currencies ? "" : "wallet/EURG"}>
@@ -220,18 +199,18 @@ const SidebarMobile = () => {
                                         </div>
                                         <div className="row w-full font-mono">
                                             <span
-                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
+                                                className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? '-'} EURG</span>
                                         </div>
                                         {eurgWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
-                                                {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                        +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                {!eurgWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                        +{toLocaleFiatRounding(eurgWallet.balance.lock_in_balance) ?? '-'}
                                                     </span>}
                                             </div>
                                             <div className=" text-gray-500 font-mono">
-                                                {eurgWallet.userBalanceEUREqu === null ? null :
+                                                {eurgWallet.balance.user_balance_EUR_equ === null ? null :
                                                     <span className={styles.Balance}>
-                                                        ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                        ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
                                                     </span>}
                                             </div>
                                         </div>}
@@ -256,18 +235,18 @@ const SidebarMobile = () => {
                                         <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                         </div>
                                         <div className="row w-full font-mono"><span
-                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                            className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                         </div>
                                         {gkeWallet && <div className={"row w-full flex justify-between pr-5"}>
                                             <div>
-                                                {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                        +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                                {!gkeWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                        +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                                     </span>}
                                             </div>
                                             <div className=" text-gray-500 font-mono">
-                                                {gkeWallet.userBalanceEUREqu === null ? null :
+                                                {gkeWallet.balance.user_balance_EUR_equ === null ? null :
                                                     <span className={styles.Balance}>
-                                                        ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                                        ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
                                                     </span>}
                                             </div>
                                         </div>}
@@ -294,18 +273,18 @@ const SidebarMobile = () => {
                                                     className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span>
                                                 </div>
                                                 <div className="row w-full font-mono"><span
-                                                    className={styles.Sum}>{`${toLocaleCryptoRounding(item.userBalance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                                    className={styles.Sum}>{`${toLocaleCryptoRounding(item.balance.user_balance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                                 </div>
                                                 <div className={"row w-full flex justify-between pr-5"}>
                                                     <div>
-                                                        {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                                        +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                                        {!item.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                                        +{toLocaleCryptoRounding(item.balance.lock_in_balance, item.roundPrec) ?? '-'}
                                                                     </span>}
                                                     </div>
                                                     <div className=" text-gray-500 font-mono">
-                                                        {item.userBalanceEUREqu === null ? null :
+                                                        {item.balance.user_balance_EUR_equ === null ? null :
                                                             <span className={`${md ? styles.Balance : styles.EuroEqv} font-mono`}>
-                                                                        ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
+                                                                        ~ {toLocaleFiatRounding(item.balance.user_balance_EUR_equ)} €
                                                                     </span>}
                                                     </div>
                                                 </div>
@@ -324,48 +303,6 @@ const SidebarMobile = () => {
                                 data-testid="TotalAmount"
                                 >{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
                         </div>
-                        <Modal
-                            width={450}
-                            open={roomInfoModal.isModalOpen}
-                            onCancel={roomInfoModal.handleCancel}
-                            title={t("invite_link")}
-                        >
-                            <InviteLink roomInfo={selectedRoom}/>
-                        </Modal>
-
-                        <Modal
-                            width={450}
-                            open={roomCloseModal.isModalOpen}
-                            onCancel={roomCloseModal.handleCancel}
-                            title='Invite link'
-                        >
-                            <div className="pt-5 text-sm">
-                                Are you sure you want to {selectedRoom ?
-                                `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                                    exchange room? All `
-                                : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                                    exchange room? Your `}
-                                unclosed orders will be canceled.
-                            </div>
-                            <div className="mt-16 sm:mt-14">
-                                <Button
-                                    size="xl"
-                                    className="w-full"
-                                    onClick={() => {
-                                        if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {
-                                            navigate('/exchange');
-                                        }
-
-                                        apiCloseRoom({
-                                            roomId: selectedRoom.timetick
-                                        }).then(() => {
-                                            removeExchangeRoom(selectedRoom.timetick);
-                                            roomCloseModal.handleCancel();
-                                        }).catch(roomCloseModal.handleCancel);
-                                    }}
-                                >Close private exchange room</Button>
-                            </div>
-                        </Modal>
                     </div>
                 </div>
             </div>

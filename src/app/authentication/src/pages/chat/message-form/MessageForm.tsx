@@ -1,39 +1,42 @@
-﻿import { useState, useRef, ChangeEvent } from 'react';
-import styles from './style.module.scss';
-import { MessageFormValues } from '../model/types';
-import { MutableRef } from 'preact/hooks';
+﻿import { useState, useRef, ChangeEvent } from "react";
+import styles from "./style.module.scss";
+import { MessageFormValues } from "../model/types";
+import { MutableRef } from "preact/hooks";
 
 type IParams = {
-  onSubmit: (values: MessageFormValues, form: MutableRef<HTMLFormElement>) => Promise<void>,
-  onFileUpload: (file: File) => Promise<void>,
-}
+  onSubmit: (
+    values: MessageFormValues,
+    form: MutableRef<HTMLFormElement>
+  ) => Promise<void>;
+  onFileUpload: (file: File) => Promise<void>;
+};
 
 const MessageForm = ({ onSubmit, onFileUpload }: IParams) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const form = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit({ message, file:files }, form);
-    setMessage('');
+    onSubmit({ message, file: files }, form);
+    setMessage("");
   };
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.currentTarget.files?.[0];
     if (file) {
       onFileUpload(file);
-      setFiles([...files, file])
+      setFiles([...files, file]);
     }
-  }
+  };
 
   return (
     <form
       ref={form}
       onSubmit={handleSubmit}
       className={styles.InputArea}
-      autoComplete='off'
+      autoComplete="off"
     >
       <div className={styles.MessageInput}>
         <input
@@ -49,27 +52,23 @@ const MessageForm = ({ onSubmit, onFileUpload }: IParams) => {
       <div className={styles.MessageActions}>
         <input
           type="file"
-          accept='.jpeg, .jpg, .png, .pdf, .doc, .docx'
+          accept=".jpeg, .jpg, .png, .pdf, .doc, .docx"
           onChange={handleFileUpload}
           ref={fileInputRef}
-          style={{ display: 'none'}}
+          style={{ display: "none" }}
         />
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
           className={styles.AddButton}
-        >
-        </button>
+        ></button>
 
-        <button
-          type="submit"
-          className={styles.SendButton}
-        >
+        <button type="submit" className={styles.SendButton}>
           Send
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
 export default MessageForm;

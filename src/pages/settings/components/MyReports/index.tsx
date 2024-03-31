@@ -28,7 +28,7 @@ export function MyReports() {
             const token = (await apiGetUas()).data.result.token;
             const {data} = await apiGetStatements({
                 headers: {
-                    // Authorization: phone,
+                    Authorization: phone,
                     Token: token
                 }
             });

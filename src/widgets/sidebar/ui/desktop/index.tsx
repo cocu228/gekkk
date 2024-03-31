@@ -6,7 +6,7 @@ import {scrollToTop} from "@/shared/lib/helpers";
 import {CtxRootData} from "@/processes/RootContext";
 import IconCross from "@/shared/ui/icons/IconCross";
 import useModal from "@/shared/model/hooks/useModal";
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
@@ -17,7 +17,6 @@ import {apiCloseRoom} from "@/shared/(orval)api/gek";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
-import {storeInvestments} from "@/shared/store/investments/investments";
 import {ParentClassForCoin, IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
@@ -29,6 +28,7 @@ import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import {Carousel} from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
+import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
 // import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 // import Loader from "@/shared/ui/loader";
@@ -42,18 +42,17 @@ const SidebarDesktop = () => {
     const {account} = useContext(CtxRootData);
     const {sm, md, xxxl} = useContext(BreakpointsContext);
     const {currencies, totalAmount} = useContext(CtxCurrencies);
-    const {setRefresh} = useContext(CtxRootData);
-    const {offline} = useContext(CtxOfflineMode);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
+    const [params] = useSearchParams()
+    const roomId = params.get('roomId')
 
     const {
         getRoomsList,
         roomsList: privateRooms,
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
-    const getInvestments = storeInvestments(state => state.getInvestments);
-    const {activeCards, getActiveCards} = storeActiveCards(state => state);
+    const {activeCards, loading: cardsLoading, getActiveCards} = storeActiveCards(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
@@ -63,7 +62,6 @@ const SidebarDesktop = () => {
     useEffect(() => {
         if (account) {
             getRoomsList();
-            getInvestments();
             getActiveCards();
         }
     }, [account]);
@@ -104,11 +102,8 @@ const SidebarDesktop = () => {
                     {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
                     <div style={{backgroundColor: "#f7f7f0"}} className="flex justify-center">
                         <div className={styles.CardInfo}>
-                            {offline ? <div className="flex justify-center">
-                                <img
-                                    src='/img/payment-card/payment-card-background2.jpg'
-                                    className='rounded-[10px]'
-                                />
+                            {cardsLoading ? <div className="mb-[14px]">
+                                <SkeletonCard/>
                             </div> : activeCards?.length === 0 ? (
                                 <Carousel>
                                     <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
@@ -186,18 +181,18 @@ const SidebarDesktop = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleCryptoRounding(eurgWallet.userBalance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
                                     </div>
                                     {eurgWallet && <div className={"row w-full flex justify-between "}>
                                         <div>
-                                            {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleCryptoRounding(eurgWallet.lockInBalance, eurgWallet.roundPrec) ?? '-'}
+                                            {!eurgWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                    +{toLocaleCryptoRounding(eurgWallet.balance.lock_in_balance, eurgWallet.roundPrec) ?? '-'}
                                                 </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">
-                                            {eurgWallet.userBalanceEUREqu === null ? null :
+                                            {eurgWallet.balance.user_balance_EUR_equ === null ? null :
                                                 <span className={styles.EuroEqv}>
-                                                    ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                    ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
                                                 </span>}
                                         </div>
 
@@ -222,18 +217,18 @@ const SidebarDesktop = () => {
                                     <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                     </div>
                                     <div className="row w-full font-mono"><span
-                                        className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                        className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                     </div>
                                     {gkeWallet && <div className={"row w-full flex justify-between"}>
                                         <div>
-                                            {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                            {!gkeWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                    +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                                 </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">
-                                            {gkeWallet.userBalanceEUREqu === null ? null :
+                                            {gkeWallet.balance.user_balance_EUR_equ === null ? null :
                                                 <span className={styles.EuroEqv}>
-                                                    ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                                    ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
                                                 </span>}
                                         </div>
                                     </div>}
@@ -262,18 +257,18 @@ const SidebarDesktop = () => {
                                                 className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span>
                                             </div>
                                             <div className="row w-full font-mono"><span
-                                                className={styles.Sum}>{`${toLocaleCryptoRounding(item.userBalance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
+                                                className={styles.Sum}>{`${toLocaleCryptoRounding(item.balance.user_balance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
                                             </div>
                                             <div className="row w-full flex justify-between">
                                                 <div>
-                                                    {!item.lockInBalance ? null : <span className={styles.Income}>
-                                                            +{toLocaleCryptoRounding(item.lockInBalance, item.roundPrec) ?? '-'}
+                                                    {!item.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                                            +{toLocaleCryptoRounding(item.balance.lock_in_balance, item.roundPrec) ?? '-'}
                                                         </span>}
                                                 </div>
                                                 <div className=" text-gray-500 font-mono">
-                                                    {item.userBalanceEUREqu === null ? null :
+                                                    {item.balance.user_balance_EUR_equ === null ? null :
                                                         <span className={styles.EuroEqv}>
-                                                            ~ {toLocaleFiatRounding(item.userBalanceEUREqu)} €
+                                                            ~ {toLocaleFiatRounding(item.balance.user_balance_EUR_equ)} €
                                                         </span>}
                                                 </div>
                                             </div>
@@ -340,7 +335,8 @@ const SidebarDesktop = () => {
                         <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
                             {privateRooms.map((item, i) => (
                                 <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
-                                         key={item.timetick}>
+                                        className={({isActive}) => (isActive && +roomId === item.timetick) ? 'active' : ''}
+                                        key={item.timetick}>
                                     <div className={styles.Item}>
                                         <div className="col flex items-center pl-4 w-[85px]">
                                             <SvgArrow
@@ -473,15 +469,14 @@ const SidebarDesktop = () => {
                     width={450}
                     open={roomCloseModal.isModalOpen}
                     onCancel={roomCloseModal.handleCancel}
-                    title='Invite link'
+                    title={t("invite_link")}
                 >
                     <div className="pt-5 text-sm">
-                        Are you sure you want to {selectedRoom ?
-                        `close ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                            exchange room? All `
-                        : `leave ${selectedRoom?.currency1} - ${selectedRoom?.currency2} private
-                            exchange room? Your `}
-                        unclosed orders will be canceled.
+                        {selectedRoom ?
+                            t("are_you_sure_close", {currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2})
+                        : 
+                            t("are_you_sure_leave", {currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2})
+                        }
                     </div>
                     <div className="mt-16 sm:mt-14">
                         <Button
@@ -499,7 +494,7 @@ const SidebarDesktop = () => {
                                     roomCloseModal.handleCancel();
                                 }).catch(roomCloseModal.handleCancel);
                             }}
-                        >Close private exchange room</Button>
+                        >{t("close_private_exchange_room")}</Button>
                     </div>
                 </Modal>
             </div>

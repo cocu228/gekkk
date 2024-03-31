@@ -173,11 +173,14 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
 }
 
 const Item = ({onClick, message, id, type = "GEKKARD"}: IServiceErrorProvider) => {
-    return <InfoBox className={type !== "GEKKARD" ? "!bg-red-400 !text-red-400" : ""} message={message}>
-        <span onClick={() => onClick(id)} className="absolute right-[14px] m-auto min-h-min cursor-pointer">
-            <img width={20} height={20} src="/img/icon/CloseIcon.svg" alt="close"/>
-        </span>
-    </InfoBox>
+    return <InfoBox
+        onClick={() => onClick(id)}
+        message={message}
+        icon={<div className="flex justify-center w-full">
+            <img width={25} height={25} src="/img/icon/AlertWaring.svg" alt="AlertIcon"/>
+        </div>}
+        className={type !== "GEKKARD" ? "!bg-red-400 !text-red-400" : ""}
+    />
 }
 
 export default ErrorsProvider;

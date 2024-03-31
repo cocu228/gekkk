@@ -6,12 +6,11 @@ import {scrollToTop} from '@/shared/lib/helpers';
 import CardsGrid from "@/shared/ui/cards-grid/CardsGrid";
 import DepositCard from "../cards/deposit-card/DepositCard";
 import SectionTitle from "@/shared/ui/section-title/SectionTitle";
-import {storeInvestments} from '@/shared/store/investments/investments';
 import {formatDate, formatDateTime, getDepositTitle} from '../../model/helpers';
 
 function DepositLayout() {
     const navigate = useNavigate();
-    const investments = null;//storeInvestments(state => state.investments);
+    const investments = null;
 
     return (
         <div className="wrapper">

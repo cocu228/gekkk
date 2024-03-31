@@ -27,30 +27,29 @@ const HeaderMobile = ({ items, actions }) => {
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
             case `wallet`:
-                return t("Wallet");
+                return t("wallet").capitalize();
             case `partnership-program`:
-                return t("partnership_program.title");
+                return t("partnership_program.title").capitalize();
             case `support`:
-                return t("support.title");
+                return t("support.title").capitalize();
             case `faq`:
-                return t("FAQ");
+                return t("faq").capitalize();
             case `crypto-assets`:
-                return t("crypto_assets.title");
+                return t("crypto_assets.title").capitalize();
             case `profile-settings`:
-                return t("profile_settings");
+                return t("profile_settings").capitalize();
             case `transfers`:
-                return t("transfers");
+                return t("transfers").capitalize();
             case `exchange`:
+                return t("exchange.title").capitalize()
             case `private-room`:
-                return t("exchange_button");
+                return t("exchange_button").capitalize();
             case 'card-menu':
-                return 'Card menu'
+                return t("card_menu").capitalize()
             default:
-                return t(`${location.pathname.slice(1)}`)
+                return t(`${location.pathname.slice(1)}`).capitalize()
         }
     }
-
-    const goBack = () => navigate(-1)
     // const isOpen = storyToggleSidebar(state => state.isOpen);
     // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
@@ -99,7 +98,7 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 </HeaderMenu>
                 :
-                <div className="flex items-center w-full" onClick={() => { goBack() }} data-testid="HeaderMenuContainer">
+                <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
                     <div className={styles.GoBackIcon}></div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>

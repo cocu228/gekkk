@@ -1,20 +1,39 @@
-import React from 'react';
-import { Input as InputAntd, InputProps, InputRef } from 'antd';
-import styles from './style.module.scss';
+import React from "react";
+import styles from "./style.module.scss";
+import {validateInput} from "./model/helpers";
+import {Input as InputAntd, InputProps, InputRef} from "antd";
 
 type IParams = InputProps & {
-    wrapperClassName?: string;
-}
+  allowDigits?: boolean;
+  allowSymbols?: boolean;
+  wrapperClassName?: string;
+};
 
-const Input = React.forwardRef((
-    {wrapperClassName, ...props}: IParams,
-    ref: React.ForwardedRef<InputRef>
-) => {
-    return (
-        <div className={`${styles.Input} ${wrapperClassName ? wrapperClassName : ''}`}>
-            <InputAntd ref={ref} {...props}/>
-        </div>
-    );
+const Input = React.forwardRef(({
+  onChange,
+  onKeyDown,
+  allowDigits,
+  allowSymbols,
+  wrapperClassName,
+  ...props
+}: IParams, ref: React.ForwardedRef<InputRef>) => {
+  return (
+    <div
+      className={`${styles.Input} ${
+        wrapperClassName ? wrapperClassName : ""
+      }`}
+    >
+      <InputAntd
+        {...props}
+        ref={ref}
+        onChange={(event) => {
+          if (validateInput(event, allowDigits, allowSymbols)) {
+            onChange(event);
+          }
+        }}
+      />
+    </div>
+  );
 });
 
 export default Input;

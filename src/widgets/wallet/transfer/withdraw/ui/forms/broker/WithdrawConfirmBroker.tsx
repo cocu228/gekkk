@@ -224,7 +224,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                             <div className="row">
                                 <div className="col">
                                     <span className={styles.ModalInfoText}>
-                                        Please, check your transaction information carefully and confirm the operation.
+                                        {t("check_your_information_carefully")}
                                     </span>
                                 </div>
                             </div>
@@ -265,12 +265,12 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     <div className={styles.ModalPayInfoCol}>
                         <div className={styles.ModalPayInfoValueFlex}>
                             <span
-                                className={styles.ModalPayInfoValueFlexText}>{amount}</span>
+                                className={styles.ModalPayInfoValueFlexText}>{amount + withdraw_fee}</span>
                         </div>
                         <div className={styles.ModalPayInfoValueFlex}>
                             <span
                                 className={styles.ModalPayInfoValueFlexText}>
-                                    {new Decimal(amount).minus(withdraw_fee).toString()}
+                                    {amount}
                             </span>
                         </div>
                         <div className={styles.ModalPayInfoValueFlex}>

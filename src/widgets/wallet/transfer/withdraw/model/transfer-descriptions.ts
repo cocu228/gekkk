@@ -19,12 +19,12 @@ export const transferDescriptions = [
 
 
 export const swiftCommission = [
-    {value: 'BENEFICIARY', label: 'BENEFICIARY'},
-    {value: 'SHARED.second_element', label: 'SHARED'},
-    {value: 'SENDER', label: 'SENDER'},
+    {value: 'BENEFICIARY', label: 'BENEFICIARY', t:"beneficiary"},
+    {value: 'SHARED.second_element', label: 'SHARED', t:"shared"},
+    {value: 'SENDER', label: 'SENDER', t:"sender"},
 ]
 export const swiftUrgency = [
-    {value: 'NORMAL', label: 'NORMAL'},
-    {value: 'URGENT', label: 'URGENT'},
-    {value: 'EXPRESS', label: 'EXPRESS'},
+    {value: 'NORMAL', label: 'NORMAL', t:"normal"},
+    {value: 'URGENT', label: 'URGENT', t:"urgent"},
+    {value: 'EXPRESS', label: 'EXPRESS', t:"express"},
 ]

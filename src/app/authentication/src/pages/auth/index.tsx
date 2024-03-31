@@ -149,7 +149,7 @@ const Auth = () => {
 						<p>
 							Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)
 						</p>
-						<p>© Gekkard. v."2.0.65"</p>
+						<p>© Gekkard. v."2.0.66"</p>
 					</footer>
 				</div>
 

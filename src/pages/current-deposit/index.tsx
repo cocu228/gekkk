@@ -18,7 +18,7 @@ function CurrentDeposit() {
     const { id } = useParams();
     const navigate = useNavigate()
     const closingModal = useModal();
-    const investment = null;//storeInvestments(state => state.investments)?.find(i => i.id === +id);
+    const investment = null;
 
     if (!investment) return null;
 

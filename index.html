@@ -55,6 +55,23 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
     <link rel="stylesheet" href="/init_logo.css?v1">
     <title>Gekkard</title>
+    <style>
+        #chat {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            #chat {
+                top: 65px;
+                height: calc(100% - 65px) !important;
+            }
+        }
+
+        #chat.isOpen {
+            display: block;
+        }
+
+    </style>
 </head>
 
 <body>

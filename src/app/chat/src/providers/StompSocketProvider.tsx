@@ -16,12 +16,14 @@ type IParams = {
     children: any
 }
 
-const chatConfig = {
-    token: "UAS anonymous",
-    phone: undefined,
-}
-
 const cookies = getCookieData()
+
+const chatConfig = {
+    //@ts-ignore
+    token: cookies["token"] ? cookies["token"] : "UAS anonymous",
+    //@ts-ignore
+    phone: cookies["phone"],
+}
 //@ts-ignore
 let deviceIdHash = cookies["device-id-hash"]
 
@@ -43,17 +45,13 @@ const StompSocketProvider = ({
         const client = new Client(config);
 
         $axios.interceptors.request.use(config => {
-            config.headers['Authorization'] = "UAS anonymous";
+            config.headers['Authorization'] = chatConfig.token;
             config.headers['X-Device'] = "id=" + deviceIdHash
             return config
         });
 
         (async () => {
-
             const response = await apiInitSessionId();
-
-            console.log("response")
-
             if (response.status === 'success' && response.data) {
                 console.log(response.data)
                 const sessionId = response.data.id

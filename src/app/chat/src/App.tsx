@@ -19,16 +19,22 @@ function App() {
     const [ws, setWS] = useState(false)
 
     const onSendMessage = async (message: string) => {
-        console.log(message)
+
         const cookies = getCookieData()
         //@ts-ignore
         const sessionId = cookies["chat-session-id"]
+
         const response = await apiPostMessage("raw", sessionId, message)
+
+        if (response.status !== "success") {
+            console.log("Error status PostMessage")
+        }
+
     }
 
-    const onAttachClick = () => {
-
-    }
+    // const onAttachClick = () => {
+    //
+    // }
 
     const setIsWebSocketReady = (val: boolean) => {
         setWS(val)
@@ -57,10 +63,12 @@ function App() {
                         role: item.sender.role,
                         sender: item.sender.name,
                         createdAt: item.createdAt,
-                        isRead: !!item.readAt
+                        isRead: !!item.readAt,
+                        id: item.id.toString(),
+                        file: undefined
                     }))
+
                     setMessages(messages)
-                    console.log(messages)
                 }
             }
         })()
@@ -78,7 +86,7 @@ function App() {
                             messages={uiMessages}
                         />
                         <MessageInput onSendMessage={onSendMessage} showSendButton
-                                      onAttachClick={onAttachClick}
+                                      showAttachButton={false}
                                       placeholder="Type message here"/>
                     </MessageContainer>
                 </MainContainer>

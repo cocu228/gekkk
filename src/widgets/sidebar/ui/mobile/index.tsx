@@ -124,7 +124,7 @@ const SidebarMobile = () => {
                         <div className={styles.CardInfo}>
                             {cardsLoading ? <div className="mb-[14px]">
                                 <SkeletonCard />
-                            </div> : activeCards?.length === 0 ? (
+                            </div> : !activeCards ? null : activeCards?.length === 0 ? (
                                 <Carousel>
                                     <div onClick={() => navigate('/card-menu')}>
                                         <NewBankCard />

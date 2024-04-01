@@ -432,6 +432,7 @@ const MobileCardsMenu = ({
       <div className={styles.CarouselBlock}>
         <div className={styles.CarouselBlockMobile}>
           <BankCardsCarousel
+            cardWidth={300}
             cards={cardsStorage.cards}
             refreshKey={cardsStorage.refreshKey}
             onSelect={(card) => {

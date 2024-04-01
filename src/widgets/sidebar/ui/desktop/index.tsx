@@ -102,7 +102,7 @@ const SidebarDesktop = () => {
                     <div className={styles.CardInfo}>
                         {cardsLoading ? <div className="mb-[14px]">
                             <SkeletonCard />
-                        </div> : activeCards?.length === 0 ? (
+                        </div> : !activeCards ? null : activeCards?.length === 0 ? (
                             <Carousel>
                                 <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
                                     <NewBankCard />
@@ -110,7 +110,7 @@ const SidebarDesktop = () => {
                             </Carousel>
                         ) : (
                             <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}>
-                                <BankCardsCarousel cards={activeCards} />
+                                <BankCardsCarousel cardWidth={300} cards={activeCards} />
                             </div>
                         )}
                     </div>

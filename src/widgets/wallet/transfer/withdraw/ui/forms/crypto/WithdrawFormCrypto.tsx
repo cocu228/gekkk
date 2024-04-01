@@ -32,6 +32,8 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
+import IconQR from "@/shared/ui/icons/IconQR";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -41,6 +43,7 @@ export interface IWithdrawFormCryptoState {
 const WithdrawFormCrypto = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const qrCodeModal = useModal();
   const { md } = useBreakpoints();
   const currency = useContext(CtxWalletData);
   const [loading, setLoading] = useState(false);
@@ -93,8 +96,28 @@ const WithdrawFormCrypto = () => {
                 disabled={!networkTypeSelect}
                 placeholder={t("enter_withdrawal_address")}
                 name={"address"}
+                suffix={<div onClick={qrCodeModal.showModal}>
+                  <IconQR size={30} stroke="#1F3446"/>
+                </div>}
               />
             </div>
+
+            <Modal
+              open={qrCodeModal.isModalOpen}
+              onCancel={qrCodeModal.handleCancel}
+            >
+              <QrcodeScanner
+                onSuccess={(value: string) => {
+                  setInputs(prev => ({
+                    ...prev,
+                    address: value
+                  }));
+
+                  qrCodeModal.handleCancel();
+                }}
+              />
+            </Modal>
+
             <div className="flex flex-col gap-2">
               <InputCurrency.Validator
                 value={new Decimal(inputCurr.value.number)
@@ -252,9 +275,29 @@ const WithdrawFormCrypto = () => {
                   disabled={!networkTypeSelect}
                   placeholder={t("enter_withdrawal_address")}
                   name={"address"}
+                  suffix={<div onClick={qrCodeModal.showModal}>
+                    <IconQR size={30} stroke="#1F3446"/>
+                  </div>}
                 />
               </div>
             </div>
+
+            <Modal
+              open={qrCodeModal.isModalOpen}
+              onCancel={qrCodeModal.handleCancel}
+            >
+              <QrcodeScanner
+                onSuccess={(value: string) => {
+                  setInputs(prev => ({
+                    ...prev,
+                    address: value
+                  }));
+
+                  qrCodeModal.handleCancel();
+                }}
+              />
+            </Modal>
+
             <div className="flex flex-col items-center  gap-2">
               <div className="w-full justify-between flex flex-row items-center">
                 <span className={styles.TitleColTextMargin}>

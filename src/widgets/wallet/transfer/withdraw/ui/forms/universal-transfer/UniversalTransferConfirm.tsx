@@ -287,7 +287,7 @@ const UniversalTransferConfirm = ({
                     </div>
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.ModalRowsTitle}>Requisite</span>
+                            <span className={styles.ModalRowsTitle}>{t("recipient")}</span>
                         </div>
                     </div>
                     <div className="row mb-4">
@@ -295,21 +295,20 @@ const UniversalTransferConfirm = ({
                             <span className={styles.ModalRowsValue}>{requisite}</span>
                         </div>
                     </div>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className={styles.ModalRowsTitle}>Recipient's name</span>
+                    {comment && <>
+                        <div className="row mb-2">
+                            <div className="col">
+                                <span className={styles.ModalRowsTitle}>Description</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col">
-                            {stage.recipient ? (
-                                <span className={styles.ModalRowsValue}>{stage.recipient ?? '-'}</span>
-                            ) : (
-                                <Skeleton.Input style={{height: 16}} active/>
-                            )}
+                        <div className="row mb-4">
+                            <div className="col">
+                                <span className={styles.ModalRowsValue}>{comment}</span>
+                            </div>
                         </div>
-                    </div>
+                    </>}
                 </div>
+                
                 <div className={styles.ModalPayInfo}>
                     <div className={styles.ModalPayInfoCol}>
                         <div className="row">
@@ -361,18 +360,6 @@ const UniversalTransferConfirm = ({
                     </div>
                     
                 </div>
-                {comment && <>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className="text-gray-400">{t("comment")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col">
-                            <span>{comment}</span>
-                        </div>
-                    </div>
-                </>}
 
                 <Form form={form} onFinish={(e) => onConfirm()}>
 

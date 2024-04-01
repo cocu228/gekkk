@@ -287,7 +287,7 @@ const UniversalTransferConfirm = ({
                     </div>
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.ModalRowsTitle}>{t("recipient")}</span>
+                            <span className={styles.ModalRowsTitle}>Requisite</span>
                         </div>
                     </div>
                     <div className="row mb-4">
@@ -295,10 +295,24 @@ const UniversalTransferConfirm = ({
                             <span className={styles.ModalRowsValue}>{requisite}</span>
                         </div>
                     </div>
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.ModalRowsTitle}>Recipient's name</span>
+                        </div>
+                    </div>
+                    <div className="row mb-4">
+                        <div className="col">
+                            {stage.recipient ? (
+                                <span className={styles.ModalRowsValue}>{stage.recipient ?? '-'}</span>
+                            ) : (
+                                <Skeleton.Input style={{height: 16}} active/>
+                            )}
+                        </div>
+                    </div>
                     {comment && <>
                         <div className="row mb-2">
                             <div className="col">
-                                <span className={styles.ModalRowsTitle}>Description</span>
+                                <span className={styles.ModalRowsTitle}>{t("description")}</span>
                             </div>
                         </div>
                         <div className="row mb-4">
@@ -308,7 +322,6 @@ const UniversalTransferConfirm = ({
                         </div>
                     </>}
                 </div>
-                
                 <div className={styles.ModalPayInfo}>
                     <div className={styles.ModalPayInfoCol}>
                         <div className="row">

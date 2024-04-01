@@ -58,19 +58,19 @@ const router = createBrowserRouter([
                 path: 'private-room',
                 element: <Exchange/>
             },
-            // {
-            //     path: 'support',
-            //     children: [
-            //         {
-            //             path: '',
-            //             element: <Support/>
-            //         },
-            //         {
-            //             path: 'chat',
-            //             element: <SupportChatAuthorized/>
-            //         },
-            //     ]
-            // },
+            {
+                path: 'support',
+                children: [
+                    {
+                        path: '',
+                        element: <Support/>
+                    },
+                    // {
+                    //     path: 'chat',
+                    //     element: <SupportChatAuthorized/>
+                    // },
+                ]
+            },
             {
                 path: 'crypto-assets',
                 element: <Assets/>

@@ -63,11 +63,13 @@
         @media screen and (max-width: 768px) {
             #chat {
                 top: 65px;
+                width: 100% !important;
                 height: calc(100% - 65px) !important;
             }
         }
 
         #chat.isOpen {
+            z-index: 100;
             display: block;
         }
 

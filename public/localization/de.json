@@ -81,7 +81,13 @@
                 "step_3": "Schritt 3: Erhalten Sie die Bestätigung, dass Sie als Kunde registriert sind*.", 
                 "step_4": "Schritt 4: Zu diesem Zeitpunkt können Sie Ihr GEKKARD-Konto aufladen und Ihre virtuelle GEKKARD verwenden.", 
                 "step_5": "Schritt 5: Nach einigen Tagen erhalten Sie Ihre GEKKARD Mastercard per Post.", 
-                "if_you_meet_our_minimum": "*Wenn Sie unsere Mindestvertrauenskriterien erfüllen."
+                "if_you_meet_our_minimum": "*Wenn Sie unsere Mindestvertrauenskriterien erfüllen.",
+
+                "in_order_to_open_gekkard": "Um ein GEKKARD-Konto zu eröffnen, müssen Sie mindestens 18 Jahre alt sein. Eine zusätzliche Karte kann jedoch ohne Altersbeschränkung ausgestellt werden.", 
+
+                "currently_gekkard_accounts_are_opened": "Derzeit werden GEKKARD-Konten in einer Währung - EUR - eröffnet.", 
+
+                "as_a_financial_institution": "Als Finanzinstitut müssen wir die Verfahren zur 'Kenne deinen Kunden' befolgen. Daher scannen Sie während der Registrierung in der mobilen Anwendung ein Identitätsdokument (Reisepass) und machen ein 'Selfie'."
               },
               "who_can_open_gekkard": "Wer kann ein GEKKARD-Konto eröffnen?",
               "how_to_open_gekkard": "Wie eröffne ich mein GEKKARD-Konto?",
@@ -91,6 +97,16 @@
             },
             "account": {
               "title": "Konto",
+              "answers":{
+                "it_is_account_established": "Es handelt sich um ein Konto, das von uns in Ihrem Namen eröffnet wurde. Das Konto wird zur Abwicklung von Transaktionen von der verknüpften GEKKARD sowie zur Durchführung von Zahlungsvorgängen genutzt.", 
+                "gekkard_accounts_are_opened": "GEKKARD-Konten werden in einer Währung - EUR - eröffnet.", 
+                "you_can_find_your_iban": "Sie können Ihre IBAN in der Kontoauszug von GEKKARD oder in der mobilen Anwendung finden: Geld - Konto aufladen - Konto zum Aufladen.", 
+                "following_your_initiative": "Gemäß Ihrer Initiative wird das GEKKARD-Konto innerhalb von 1 (einem) Monat nach Erhalt Ihres schriftlichen Hinweises gemäß dem von uns festgelegten Verfahren geschlossen.", 
+                "more_detailed": "Detailliertere Informationen zum Konto- und Kartenschluss finden Sie in den", 
+                "general_terms_and_conditions": "Allgemeinen Geschäftsbedingungen", 
+                "the_most_common": "Die häufigsten Gründe für einen negativen Kontostand sind die Verwendung Ihrer Karte, wenn keine Online-Autorisierung angefordert wird, oder weil eine Zahlungsanforderung verzögert wurde.", 
+                "yes_you_can": "Ja, das können Sie! Kontoauszüge sind in der mobilen Anwendung und im Internetbanking verfügbar. Sie können auch den Kontostand und verfügbare Mittel auf dem GEKKARD-Konto überprüfen oder eine Übersicht über die letzten Transaktionen in der mobilen Anwendung und im Internetbanking anzeigen."
+              },
               "what_is_a_gekkard_account": "Was ist ein GEKKARD-Konto?",
               "can_i_hold_more_than_one_currency": "Kann ich mehr als eine Währung auf meinem GEKKARD-Konto halten?",
               "how_to_find_my_iban": "Wie finde ich meine IBAN oder GEKKARD-Kontonummer?",
@@ -102,6 +118,12 @@
             },
             "account_balance": {
               "title": "Kontostand",
+              "answers":{ 
+                "an_incoming_patment": "Eine eingehende Zahlung erhöht den Saldo nicht, bis sie Ihrem GEKKARD-Konto gutgeschrieben wird.", 
+                "the_statement": "Die Abrechnung finden Sie in der mobilen Anwendung im Bereich Verlauf", 
+                "in_rare_cases": "In seltenen Fällen kann der Betrag Ihrer Einkäufe den verfügbaren Saldo auf dem GEKKARD-Konto überschreiten. Dies geschieht, wenn das Geschäft aufgrund seiner Arbeitsweise den verfügbaren Saldo auf Ihrem GEKKARD-Konto nicht überprüft hat. Sie müssen Ihr GEKKARD-Konto aufladen, um diesen negativen Saldo auszugleichen. Danach funktioniert GEKKARD wie gewohnt.", 
+                "you_can_check": "Sie können Ihre Transaktionen und den Kontostand von GEKKARD rund um die Uhr an 365 Tagen im Jahr über die mobile Anwendung oder das Internetbanking überprüfen." 
+              },
               "balance_hasnt_been_updated": "Der Kontostand wurde nach einer Banküberweisung nicht aktualisiert",
               "am_i_able_to_get_a_bank_statement": "Kann ich einen Kontoauszug erhalten?",
               "my_account_balance_is_negative": "Mein Kontostand ist negativ, was ist passiert?",
@@ -109,6 +131,28 @@
             },
             "personal_information": {
               "title": "Persönliche Informationen",
+              "answers": {
+                "natural_persons": "Natürliche Personen, die oder die mit prominenten öffentlichen Funktionen betraut waren oder sind, mit Ausnahme von mittleren oder niedrigeren Beamten. Weitere Informationen finden Sie unter",
+                "general_terms_and_conditions": "Allgemeine Geschäftsbedingungen",
+                "pep_family_member": "PEP-Familienmitglied oder/und Person, die als enge Mitarbeiter von PEP bekannt ist",
+                "the_spouse_of_pep": "Der Ehepartner von PEP oder eine Person, die als gleichwertig mit dem Ehepartner von PEP angesehen wird.",
+                "the_children_of_pep": "Die Kinder von PEP und ihre Ehepartner oder Personen, die als gleichwertig mit einem Ehepartner angesehen werden.",
+                "the_parents_of_pep": "Die Eltern von PEP.",
+                "a_natural_person_known": "Eine natürliche Person, von der bekannt ist, dass sie gemeinsam mit PEP ein wirtschaftliches Eigentum an einer juristischen Person oder jeder anderen Form einer rechtlichen Vereinbarung oder enge Geschäftsbeziehungen hat.",
+                "a_natural_person_who": "Eine natürliche Person, die das alleinige wirtschaftliche Eigentum an einer juristischen Person oder einer anderen Form einer rechtlichen Vereinbarung hat, von der bekannt ist, dass sie zum Nutzen von PEP errichtet wurde.",
+                "to_fulfill": "Zur Erfüllung unserer Verpflichtungen gemäß den Bestimmungen zur Verhinderung der Geldwäsche und der Finanzierung des Terrorismus.",
+                "any_information": "Jegliche Informationen über persönliche oder tatsächliche Umstände einer bestimmten oder identifizierbaren natürlichen Person, wie z.B. Name und Nachname, Geburtsdatum, Geburtsort, Identifikationsdokument (einschließlich Art des Identifikationsdokuments, Ausstellungsdatum, ID-Nummer, ausstellende Behörde), Adresse, Telefonnummer, Mobilnummer, E-Mail-Adresse, IP-Adresse, Online-Kennung, Standortdaten, Bilder und Informationen zu Transaktionen und Konten.",
+                "general_data": "Die Datenschutz-Grundverordnung (DSGVO) 2016/679 ist eine Verordnung des EU-Rechts zum Datenschutz und zum Schutz der Privatsphäre für alle Personen innerhalb der Europäischen Union (EU) und des Europäischen Wirtschaftsraums (EWR). Die DSGVO zielt in erster Linie darauf ab, Bürgern und Einwohnern die Kontrolle über ihre personenbezogenen Daten zu geben und die regulatorische Umgebung für internationale Unternehmen zu vereinfachen, indem die Regulierung innerhalb der EU vereinheitlicht wird.",
+                "we_process": "Wir verarbeiten Ihre personenbezogenen Daten zu folgenden Zwecken:",
+                "the_performance": "die Erfüllung vertraglicher und vorvertraglicher Verpflichtungen",
+                "the_protection": "den Schutz Ihrer und unserer Interessen",
+                "the_ensuring": "die Sicherstellung der Einhaltung der geltenden Gesetze und Vorschriften, denen wir unterliegen",
+                "the_execution": "die Durchführung von Transaktionen über das Zahlungssystem",
+                "other_purposes": "weitere in",
+                "data_protection": "Datenschutzrichtlinie",
+                "we_collect": "Wir erheben, verwenden und verarbeiten Ihre personenbezogenen Daten gemäß",
+                "we_use": "Wir ergreifen angemessene Maßnahmen, um Informationen sicher aufzubewahren und deren Offenlegung für Personen zu verhindern, die nicht beschrieben sind in"
+              },
               "who_is_a_politically_exposed_person": "Wer ist eine politisch exponierte Person (PEP)?",
               "who_is_a_person_closely_related": "Wer ist eine Person, die eng mit einer politisch exponierten Person (PEP) verbunden ist?",
               "who_is_a_politically_exposed_person_family": "Wer ist ein Familienmitglied einer politisch exponierten Person (PEP)?",
@@ -121,6 +165,29 @@
             },
             "security": {
               "title": "Sicherheit",
+              "answers":{
+                "pin_is": "Die persönliche Identifikationsnummer (PIN) ist ein numerischer Code, der aus vier Ziffern besteht. Wir geben Ihnen die Karten-PIN zusammen mit der Plastikkarte GEKKARD aus, um Transaktionen an Geldautomaten und POS-Terminals zu bestätigen.",
+                "do_not": "Teilen Sie diese Informationen mit niemandem.",
+                "or_security": "Aus Sicherheitsgründen wird Ihre Karten-PIN nach 3 falschen Eingabeversuchen blockiert. Kontaktieren Sie unser Support-Team, damit wir Ihnen helfen können. Unser Support-Team gibt auch Anweisungen für weitere Maßnahmen bezüglich Ihrer Karte.",
+                "you_can_view": "Sie können sie selbst in der mobilen Anwendung im Abschnitt Geld anzeigen. Klicken Sie auf das Bild der Karte, auf der Sie die Daten sehen möchten, und dann auf Karteninformationen anzeigen.",
+                "this_is_a_digital": "Dies ist ein digitaler Code, den Sie selbst erfinden werden. Er schützt Ihre mobile Anwendung vor unbefugter Nutzung.",
+                "yes_you_can": "Ja, Sie können ihn selbst in der mobilen Anwendung im Abschnitt Einstellungen ändern.",
+                "no_you_can_not": "Nein, Sie können es nicht. Die PIN der mobilen Anwendung wird nur für die Anwendung verwendet. Verwenden Sie die Karten-PIN, um Bargeld am Geldautomaten abzuheben oder Einkäufe zu tätigen.",
+                "no_they_are_different": "Nein, sie sind unterschiedlich. Sie erfinden die Anwendungs-PIN selbst, sie schützt Ihre mobile Anwendung. Die Karten-PIN wird automatisch vom System generiert, sie wird in der mobilen Anwendung im Abschnitt Geld angezeigt und Sie verwenden sie für Einkäufe und Bargeldabhebungen an Geldautomaten.",
+                "security_feature": "Sicherheitsmerkmal der Karte, bestehend aus 3 Ziffern und befindet sich auf der Rückseite der Karte im Bereich der Unterschrift.",
+                "cvc2_is": "CVC2 sind zusätzliche Sicherheitsmaßnahmen für Online-Einkäufe.",
+                "do_not_share": "Teilen Sie diese Informationen mit niemandem.",
+                "yes_your_funds": "Ja. Ihre Gelder werden auf einem Bankkonto hinterlegt, das von unserem Konto getrennt ist, in einem Kreditinstitut mit Sitz in einer angesehenen Gerichtsbarkeit.",
+                "so_in_the_unlikely": "So werden im unwahrscheinlichen Fall einer Insolvenz die auf Ihr GEKKARD-Konto eingegangenen Gelder vor Ansprüchen unserer Gläubiger geschützt.",
+                "this_is_an": "Dies ist ein zusätzliches Sicherheitsniveau beim Einkaufen mit Ihrer GEKKARD im Internet.",
+                "3d_secure_protects": "3D Secure schützt Sie vor Online-Kartenbetrug. Um die Autorisierung einer Transaktion zu gewährleisten, die mit GEKKARD im Internet getätigt wurde, bei der der Verkäufer eine sichere Authentifizierung gewährleistet (3-D Secure), müssen Sie solche Transaktionen zusätzlich autorisieren, indem Sie sie mit einem Einmalpasswort bestätigen, das von uns abgeleitet wurde.",
+                "it_is_automatically": "Es wird automatisch aktiviert, wenn Sie Ihre Karte in der mobilen Anwendung aktivieren. Es sind keine zusätzlichen Passwörter erforderlich.",
+                "you_need_to": "Sie müssen Ihre Identität überprüfen, um Ihr GEKKARD-Konto zu nutzen. Diese Richtlinie entspricht einer Bankenregulierung, die allgemein als 'Know Your Customer' (KYC) bekannt ist und den Prozess eines Unternehmens zur Überprüfung der Identität seiner Kunden darstellt. Es handelt sich einfach um eine Maßnahme zur Bekämpfung von Korruption und Betrug.",
+                "if_you_believe": "Wenn Sie glauben, dass Ihre Karte ohne Ihre Erlaubnis verwendet wurde, blockieren Sie die Karte sofort in der mobilen Anwendung. Kontaktieren Sie dann unser Support-Team, damit sie Ihnen helfen können.",
+                "never_share": "Teilen Sie Ihr mobiles Anwendungs-Passwort niemals mit jemand anderem. Verwenden Sie eine E-Mail-Adresse, die nur Sie verwenden und zu der nur Sie Zugang haben. Geben Sie niemals Ihre vollständige Kartennummer, Ablaufdatum, Karten-PIN oder CVC2-Nummer an jemanden weiter, da dies Ihre Möglichkeit ist, Online-Zahlungen zu autorisieren.",
+                "you_can_block": "Sie können Ihre GEKKARD jederzeit in der mobilen Anwendung blockieren und entsperren: Gehen Sie zum Abschnitt 'Geld', wählen Sie die benötigte Karte aus und verwenden Sie die Schaltfläche 'Karte sperren' (unten auf dem Bildschirm). Sie sollten Ihre GEKKARD sofort sperren, wenn die Karte verloren gegangen oder gestohlen wurde oder Sie vermuten, dass die Daten der GEKKARD unbefugten Personen bekannt geworden sind. Sie können die GEKKARD später entsperren, wenn sich Ihre Verdachtsmomente nicht bestätigen.",
+                "please_block": "Bitte blockieren Sie GEKKARD sofort in der mobilen Anwendung. Wenn Sie die Karte später finden und sich sicher sind, dass keine unbefugten Personen sie verwendet haben, entsperren Sie die Karte selbst in der mobilen Anwendung. Wenn Sie sicher sind, dass GEKKARD gestohlen oder verloren wurde, wenden Sie sich an unser Support-Team."
+              },
               "what_is_card_pin": "Was ist die Karten-PIN?",
               "what_should_i_do_if_i_incorrectly": "Was sollte ich tun, wenn ich die Karten-PIN mehrmals falsch eingegeben habe?",
               "i_forgot_card_pin": "Ich habe meine Karten-PIN vergessen, was soll ich tun?",
@@ -142,6 +209,60 @@
             },
             "cards": {
               "title": "Karten",
+              "answers":{
+                "it_is_prepaid": "Es handelt sich um eine Prepaid-Debitkarte von MasterCard, die wir Ihnen ausstellen, die in Form einer Plastikkarte oder virtuellen Karte vorliegen kann.",
+                "you_can": "Sie können GEKKARD, ein Fernzugriffstool (Mobile App), beantragen, indem Sie ein Antragsformular ausfüllen.",
+                "step_1": "Schritt 1: Geben Sie in der mobilen Anwendung Ihre persönlichen Daten und Lieferadresse ein.",
+                "step_2": "Schritt 2: Bestätigen Sie Ihre Identität.",
+                "step_3": "Schritt 3: Erhalten Sie die Bestätigung, dass Sie als Kunde registriert sind*.",
+                "step_4": "Schritt 4: Nach erfolgreicher Registrierung in der mobilen Anwendung erhalten Sie automatisch eine virtuelle GEKKARD. Zu diesem Zeitpunkt können Sie Ihr Konto aufladen und Ihre virtuelle GEKKARD nutzen.",
+                "step_5": "Schritt 5: Nach einigen Tagen erhalten Sie Ihre GEKKARD Mastercard per Post.",
+                "if_you_meet_our_minimum": "; *Wenn Sie unsere Mindestvertrauenskriterien erfüllen.",
+                "the_use_of_virtual": "Die Verwendung der virtuellen GEKKARD ist auf Online-Einkäufe beschränkt.",
+                "gekkard_may_be_used": "GEKKARD kann zur Bezahlung von Waren und Dienstleistungen bei teilnehmenden Händlern und online verwendet werden, die Mastercard-Karten akzeptieren.",
+                "virtual_gekkard": "Die virtuelle GEKKARD ist ausschließlich für Online-Einkäufe vorgesehen.",
+                "plastic_gekkard": "Die Plastik-GEKKARD ist für die Verwendung in Geschäften und Einzelhandelsgeschäften vorgesehen, in denen Sie physisch anwesend sind. Sie kann auch für Bargeldabhebungen verwendet werden.",
+                "your_card_expires": "Ihre Karte läuft am letzten Tag des Monats ab, der auf der Vorderseite der Karte gedruckt ist.",
+                "you_can_change": "Sie können Ihre täglichen und monatlichen Limits in der mobilen Anwendung ändern. Gehen Sie einfach zum Abschnitt 'Geld', wählen Sie die benötigte Karte, wählen Sie den Limittyp (täglich, monatlich), ändern Sie dann den Betrag und bestätigen Sie die Änderung Ihres Limits.",
+                "you_can_block": "Sie können Ihre GEKKARD jederzeit in der mobilen Anwendung blockieren und entsperren: Gehen Sie zum Abschnitt 'Geld', wählen Sie die benötigte Karte und verwenden Sie die Schaltfläche 'Karte blockieren' (unten auf dem Bildschirm). Sie sollten Ihre GEKKARD sofort blockieren, wenn die Karte verloren gegangen oder gestohlen wurde oder Sie vermuten, dass die Daten der GEKKARD unbefugten Personen bekannt geworden sind. Sie können die GEKKARD später entsperren, wenn sich Ihre Verdachtsmomente nicht bestätigen.",
+                "you_have_had": "Sie hatten unzureichende Mittel, falsche Kartendaten eingegeben (Ablaufdatum, CVC) oder eine abgelaufene Karte verwendet.",
+                "depending_on_the": "Je nach Zielort dauern Lieferungen:",
+                "up_to_10": "bis zu 10 Arbeitstage für EU-Länder;",
+                "up_to_15": "bis zu 15 Arbeitstage für Nicht-EU-Länder.",
+                "if_you_haven": "Wenn Sie Ihre Karte nach 10 Arbeitstagen nicht erhalten haben, kontaktieren Sie uns über den Chat.",
+                "please_block": "Bitte blockieren Sie GEKKARD sofort in der mobilen Anwendung. Wenn Sie die Karte später finden und sicher sind, dass keine unbefugten Personen sie verwendet haben, entsperren Sie die Karte selbst in der mobilen Anwendung. Wenn Sie sicher sind, dass GEKKARD gestohlen oder verloren wurde, kontaktieren Sie unser Support-Team.",
+                "before_receiving": "Bevor Sie eine Plastik-GEKKARD erhalten, können Sie alle Daten eines GEKKARD-Kontos und einer virtuellen GEKKARD in der mobilen Anwendung einsehen. Die virtuelle Karte und das GEKKARD-Konto sind aktiv und können sofort nach erfolgreicher Registrierung verwendet werden.",
+                "for_security_reasons": "Aus Sicherheitsgründen werden alle Kartenzahlungen blockiert, wenn der Kartencode dreimal falsch eingegeben wird. Kontaktieren Sie unser Support-Team, damit wir Ihnen helfen können.",
+                "yes_gekkard_is": "Ja. GEKKARD ist gültig bis zum letzten auf der Plastikkarte angegebenen Tag (einschließlich).",
+                "information_of_validity": "Informationen zur Gültigkeit der virtuellen GEKKARD finden Sie im Fernzugriffstool (Mobile App).",
+                "we_open_gekkard": "Wir eröffnen ein GEKKARD-Konto im IBAN-Format und verknüpfen standardmäßig Ihre GEKKARD mit diesem Konto. Sie können das GEKKARD-Konto für Zahlungen verwenden.",
+                "it_is_a_non_physical": "Es handelt sich um eine nicht-physische Karte, die mit dem GEKKARD-Konto verknüpft ist. Die virtuelle GEKKARD-Nummer entspricht der Plastik-GEKKARD-Nummer.",
+                "during_registration": "Während der Registrierung in der mobilen Anwendung scannen Sie das Original eines Identitätsdokuments (Pass).",
+                "your_virtual_gekkard_will": "Ihre virtuelle GEKKARD wird sofort nach erfolgreicher Registrierung ausgestellt. Sie können sofort im Internet damit beginnen. Die physische Plastik-GEKKARD wird innerhalb von 24 Stunden hergestellt und per Post an Sie gesendet. Je nach Zielort dauern Lieferungen:",
+                "up_to_10_working": "bis zu 10 Arbeitstage für EU-Länder;",
+                "up_to_15_working": "bis zu 15 Arbeitstage für Nicht-EU-Länder.",
+                "if_you_have_not": "Wenn Sie Ihre Karte nach 10 Tagen nicht erhalten haben, kontaktieren Sie unser Support-Team.",
+                "yes": "Ja.",
+                "depending_on_the_destination": "Je nach Zielort dauern Lieferungen:",
+                "up_to_10_working_days": "bis zu 10 Arbeitstage für EU-Länder; ",
+                "up_to_15_working_days": "bis zu 15 Arbeitstage für Nicht-EU-Länder. ",
+                "if_you_have_not_received": "Wenn Sie Ihre Karte nach 10 Tagen nicht erhalten haben, kontaktieren Sie uns über den Chat.",
+                "to_use_your_plastic": "Um Ihre Plastik-GEKKARD zu verwenden, müssen Sie sie zuerst aktivieren. Dies können Sie nur in der mobilen Anwendung tun. Gehen Sie einfach zu Karte aktivieren und wählen Sie Karte aktivieren starten",
+                "we_do_not_send": "Wir senden Ihnen keinen Kartencode per Post. Informationen zum Kartencode finden Sie in der mobilen Anwendung.",
+                "go_to_show": "Gehe zu Karteninformationen anzeigen",
+                "yes_in_the_mobile": "Ja, in der mobilen Anwendung.",
+                "if_you_believe": "Wenn Sie glauben, dass Ihre GEKKARD ohne Ihre Erlaubnis verwendet wurde, blockieren Sie die Karte sofort in der mobilen Anwendung. Kontaktieren Sie dann unser Support-Team, damit sie Ihnen helfen können.",
+                "the_most_common": "Die häufigsten Gründe für einen negativen Kontostand sind die Verwendung Ihrer Karte an Stellen, an denen keine Online-Autorisierung angefordert wird, oder weil eine Zahlungsaufforderung verzögert wurde.",
+                "or_security": "oder aus Sicherheitsgründen wird Ihre Kartencode nach 3 falschen Eingabeversuchen blockiert. Kontaktieren Sie unser Support-Team, damit wir Ihnen helfen können. Unser Support-Team gibt auch Anweisungen für weitere Maßnahmen bezüglich Ihrer Karte.",
+                "you_can_view": "Sie können dies selbst in der mobilen Anwendung im Bereich Geld anzeigen. Klicken Sie auf das Bild der Karte, auf der Sie die Daten sehen möchten, und dann auf Karteninformationen anzeigen.",
+                "no_you_can_not": "Nein, das können Sie nicht. Der Kartencode der mobilen Anwendung wird nur für die Anwendung verwendet. Verwenden Sie den Kartencode, um Bargeld an einem Geldautomaten abzuheben oder Einkäufe zu tätigen.",
+                "this_is_a_card": "Dies ist eine Karte, die Sie zusätzlich zur Hauptkarte in der mobilen Anwendung bestellen können. Sie hat eine andere Nummer und Ablaufdatum, ist jedoch mit demselben Konto wie die Hauptkarte verknüpft. Sie können eine zusätzliche Karte und eine Hauptkarte gleichzeitig verwenden.",
+                "you_can_order": "Sie können eine zusätzliche Karte für ein Familienmitglied oder sich selbst bestellen.",
+                "this_is_a_card_for": "Dies ist eine Karte, für die kein Kreditlimit festgelegt ist. Daher müssen Sie Ihr Konto vor Zahlungen, Einkäufen oder Bargeldabhebungen zuerst aufladen.",
+                "you_can_easily": "Sie können Ihre Ausgaben leicht kontrollieren, da die Karte kein Kreditlimit hat. Sie können also nur den Betrag ausgeben, der sich auf der Karte befindet.",
+                "can_my_card": "Kann meine Karte aufgeladen werden? Ja, natürlich. Die Karte kann beliebigmal beliebig oft aufgeladen werden.", 
+                "you_can_replenish": "Sie können Ihre Karte per SEPA-Überweisung von einer anderen Bank in Euro, per Überweisung von einer anderen Karte oder per interner Zahlung aufladen." 
+              },
               "what_is_a_gekkard": "Was ist eine GEKKARD?",
               "how_to_apply_for_the_gekkard": "Wie beantrage ich die GEKKARD?",
               "what_is_the_difference": "Was ist der Unterschied zwischen virtueller und physischer GEKKARD?",
@@ -177,6 +298,20 @@
             },
             "card_purchases": {
               "title": "Karteneinkäufe",
+              "answers":{
+                "gekkard_may_be_used": "GEKKARD kann verwendet werden, um Waren und Dienstleistungen bei teilnehmenden Händlern und online zu bezahlen, die Mastercard-Karten akzeptieren.",
+                "virtual_gekkard": "Die virtuelle GEKKARD ist ausschließlich für Online-Einkäufe vorgesehen.",
+                "plastic_gekkard": "Die Plastik-GEKKARD ist für die Verwendung in Geschäften und Einzelhandelsgeschäften vorgesehen, in denen Sie physisch anwesend sind. Es ist auch möglich, sie für Bargeldabhebungen zu verwenden.",
+                "the_use_of_virtual": "Die Verwendung der virtuellen GEKKARD ist auf Online-Einkäufe beschränkt.",
+                "no_gekkard_is": "Nein. GEKKARD ist eine Prepaid-Debitkarte, so dass die Ausgaben auf den Betrag begrenzt sind, den Sie auf die Karte laden.",
+                "the_transaction_will": "Die Transaktion wird abgelehnt, wenn die Mittel nicht ausreichen.",
+                "a_point_of_sale": "Ein Point of Sale (POS)-Terminal ist ein elektronisches Gerät, das zur Abwicklung von Kartenzahlungen an Verkaufsstellen verwendet wird.",
+                "this_is_an": "Dies ist eine zusätzliche Sicherheitsstufe beim Einkaufen mit Ihrer GEKKARD im Internet.",
+                "3d_secure_protects": "3D Secure schützt Sie vor Online-Kartenbetrug. Um die Autorisierung einer Transaktion sicherzustellen, die mit GEKKARD im Internet getätigt wurde und bei der der Verkäufer eine sichere Authentifizierung gewährleistet (3-D Secure), müssen Sie solche Transaktionen zusätzlich autorisieren, indem Sie sie mit einem einmaligen Passwort bestätigen, das von uns abgeleitet wurde.",
+                "some_of_the_most": "Einige der häufigsten Gründe sind, dass Sie nicht genügend Guthaben hatten, falsche Kartendetails eingegeben haben (Ablaufdatum oder CVC2) oder das von Ihnen festgelegte Ausgabenlimit überschritten haben",
+                "in_rare_cases": "In seltenen Fällen kann der Betrag Ihrer Einkäufe den verfügbaren Saldo auf dem GEKKARD-Konto überschreiten. Dies tritt auf, wenn das Geschäft aufgrund seiner Arbeitsweise den verfügbaren Saldo auf Ihrer GEKKARD nicht überprüft hat. Sie müssen Ihr GEKKARD-Konto aufladen, um diesen negativen Saldo auszugleichen. Danach funktioniert die GEKKARD wieder wie gewohnt.",
+                "for_security_reasons": "Aus Sicherheitsgründen werden alle Kartenzahlungen blockiert, wenn der Kartencode dreimal falsch eingegeben wird. Kontaktieren Sie unser Support-Team, damit wir Ihnen helfen können."
+              },
               "where_do_i_use_a_gekkard": "Wo kann ich eine GEKKARD verwenden?",
               "what_is_the_difference": "Was ist der Unterschied zwischen virtueller und physischer GEKKARD?",
               "can_i_make_purchases_on_credit": "Kann ich Käufe auf Kredit tätigen?",
@@ -189,19 +324,37 @@
             },
             "atm_transactions": {
               "title": "Geldautomatentransaktionen",
+              "answers":{
+                "an_automated": "Ein Geldautomat oder Bargeldautomat.",
+                "please_contact": "Bitte kontaktieren Sie unser Support-Center, damit sie Ihnen helfen können."
+              },
               "what_is_atm": "Was ist ein Geldautomat?",
               "my_gekkard_has_been_swallowed": "Meine GEKKARD wurde vom Geldautomaten eingezogen?"
             },
             "money_transfers": {
               "title": "Geldtransfers",
+              "answers":{
+                "sepa_is_the": "SEPA (oder der Einheitliche Euro-Zahlungsverkehrsraum) ist das Format für grenzüberschreitende Euro-Banküberweisungen. SEPA setzt sich aus der Eurozone und Ländern innerhalb der EU zusammen."
+              },
               "what_are_sepa_transfers": "Was sind SEPA-Überweisungen?"
             },
             "fees": {
               "title": "Gebühren",
+              "answers":{
+                "in_accordance": "Gemäß Tarif",
+                "tariff": "Tarif"
+              },
               "how_much_does_a_gekkard_account_cost": "Wie viel kostet ein GEKKARD-Konto?"
             },
             "other": {
               "title": "Sonstiges",
+              "answers":{
+                "please_read": "Bitte lesen Sie:",
+                "general_terms": "Allgemeine Geschäftsbedingungen",
+                "data_protection": "Datenschutzrichtlinie",
+                "secure_usage": "Sichere Nutzung der Karte und der APP",
+                "if_you_believe": "Wenn Sie glauben, dass Ihre GEKKARD ohne Ihre Erlaubnis verwendet wurde, blockieren Sie bitte umgehend die Karte innerhalb der mobilen Anwendung. Kontaktieren Sie dann unser Support-Team, damit sie Ihnen helfen können."
+              },
               "where_can_i_see_more_information": "Wo kann ich weitere Informationen finden?",
               "my_gekkard_has_been_compromised": "Meine GEKKARD wurde kompromittiert?"
             },

@@ -7215,11 +7215,11 @@ workbox-window@^7.0.0, workbox-window@7.0.0:
     "@types/trusted-types" "^2.0.2"
     workbox-core "7.0.0"
 
-"workspaces-api@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\(orval)api":
+"workspaces-api@file:C:\\Gekkard\\gekkard.front\\src\\shared\\(orval)api":
   version "1.0.0"
   resolved "file:src/shared/(orval)api"
 
-"workspaces-library@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\lib":
+"workspaces-library@file:C:\\Gekkard\\gekkard.front\\src\\shared\\lib":
   version "1.0.0"
   resolved "file:src/shared/lib"
 

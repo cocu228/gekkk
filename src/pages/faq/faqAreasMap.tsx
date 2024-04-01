@@ -48,14 +48,14 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    {t("support.faq.account_opening.answers.step_1")} 
-                    <br /> 
+                    {t("support.faq.account_opening.answers.step_1")}
+                    <br />
                     {t("support.faq.account_opening.answers.step_2")}{' '}
-                    <br /> 
+                    <br />
                     {t("support.faq.account_opening.answers.step_3")}
-                    <br /> 
-                    {t("support.faq.account_opening.answers.step_4")} 
-                    <br /> 
+                    <br />
+                    {t("support.faq.account_opening.answers.step_4")}
+                    <br />
                     {t("support.faq.account_opening.answers.step_5")}
                   </p>
                   <p>{t("support.faq.account_opening.answers.if_you_meet_our_minimum")}</p>
@@ -67,9 +67,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    In order to open GEKKARD account you need to be at least 18
-                    years old. But an additional card can be issued without age
-                    limit.
+                    {t("support.faq.account_opening.answers.in_order_to_open_gekkard")}
                   </p>
                 </>
               ),
@@ -79,8 +77,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Currently GEKKARD accounts are opened in one currency -
-                    EUR.&nbsp;
+                    {t("support.faq.account_opening.answers.currently_gekkard_accounts_are_opened")}
                   </p>
                 </>
               ),
@@ -90,10 +87,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    As a financial institution, we must follow the “Know Your
-                    Customer” procedures. Therefore, during registration in mobile
-                    application, you scan an identity document (passport), as well
-                    as make a "selfie".
+                    {t("support.faq.account_opening.answers.as_a_financial_institution")}
                   </p>
                 </>
               ),
@@ -104,7 +98,7 @@ export const faqAreasMap = (t = (str) => null) => {
     },
     'account': {
       icon: <Wallet />,
-      title:"support.faq.account.title",
+      title: "support.faq.account.title",
       area: (
         <FAQTemplate
           title="support.faq.account.title"
@@ -114,9 +108,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    It is account established by us in your name. Account is used
-                    for the processing of transactions from linked GEKKARD, as
-                    well as for execution of payment transactions.
+                    {t("support.faq.account.answers.it_is_account_established")}
                   </p>
                 </>
               ),
@@ -125,7 +117,7 @@ export const faqAreasMap = (t = (str) => null) => {
               title: "support.faq.account.can_i_hold_more_than_one_currency",
               content: (
                 <>
-                  <p>GEKKARD accounts are opened in one currency - EUR.&nbsp;</p>
+                  <p>{t("support.faq.account.answers.gekkard_accounts_are_opened")}</p>
                 </>
               ),
             },
@@ -134,9 +126,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can find your IBAN in GEKKARD account statement or in the
-                    mobile application: money - top up account - account for top
-                    up.
+                    {t("support.faq.account.answers.you_can_find_your_iban")}
                   </p>
                 </>
               ),
@@ -146,12 +136,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Following your initiative, the GEKKARD account shall be closed
-                    within 1 (one) month of receipt of your written notice in
-                    accordance with the procedure set by us. <br /> More detailed
-                    information regarding account and card closure you can find in{' '}
+                    {t("support.faq.account.answers.following_your_initiative")}<br />{t("support.faq.account.answers.more_detailed")}{' '}
                     <a href="terms-and-conditions.html">
-                      General terms and conditions
+                      {t("support.faq.account.answers.general_terms_and_conditions")}
                     </a>
                   </p>
                 </>
@@ -162,10 +149,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    The most common reasons for an account balance going negative
-                    are using your card where online authorization is not
-                    requested, or because a request for payment has been
-                    delayed.&nbsp;
+                    {t("support.faq.account.answers.the_most_common")}
                   </p>
                 </>
               ),
@@ -175,11 +159,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Yes, you can! Account statements are available in mobile
-                    application and Internet bank, as well as you may check the
-                    balance and available funds on GEKKARD account or view a
-                    statement of recent transactions in the mobile application and
-                    Internet bank.
+                    {t("support.faq.account.answers.yes_you_can")}
                   </p>
                 </>
               ),
@@ -190,8 +170,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Any incoming transfers will be returned to the account of
-                    sender.
+                    {t("support.faq.account.answers.any_incoming_transfers")}
                   </p>
                 </>
               ),
@@ -202,11 +181,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Before receiving a plastic GEKKARD, you will be able to see
-                    all of data of a GEKKARD account and a virtual GEKKARD in the
-                    mobile application. Virtual card and GEKKARD account are
-                    active and can be used immediately after successful
-                    registration.
+                    {t("support.faq.account.answers.before_receiving")}
                   </p>
                 </>
               ),
@@ -220,15 +195,14 @@ export const faqAreasMap = (t = (str) => null) => {
       title: "support.faq.account_balance.title",
       area: (
         <FAQTemplate
-          title= "support.faq.account_balance.title"
+          title="support.faq.account_balance.title"
           items={[
             {
               title: "support.faq.account_balance.balance_hasnt_been_updated",
               content: (
                 <>
                   <p>
-                    &nbsp;An incoming payment will not increase the balance until
-                    it is credited to your GEKKARD account.
+                    {t("support.faq.account_balance.answers.an_incoming_patment")}
                   </p>
                 </>
               ),
@@ -238,8 +212,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    The statement could be found in the mobile application at
-                    History section
+                    {t("support.faq.account_balance.answers.the_statement")}
                   </p>
                 </>
               ),
@@ -249,12 +222,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    In rare cases, the amount of your purchases may exceed the
-                    available balance on the GEKKARD account. This happens if the
-                    store due to the peculiarities of its work did not check the
-                    available balance on your GEKKARD. You need to replenish your
-                    GEKKARD account to close this negative balance. After that
-                    GEKKARD will work as usual.
+                    {t("support.faq.account_balance.answers.in_rare_cases")}
                   </p>
                 </>
               ),
@@ -265,9 +233,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can check your transactions and GEKKARD account balance
-                    24/7 - 365 days of the year using themobile application or
-                    Internet bank.
+                    {t("support.faq.account_balance.answers.you_can_check")}
                   </p>
                 </>
               ),
@@ -288,11 +254,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Natural persons who are or have been entrusted with prominent
-                    public functions, other than middle ranking or more junior
-                    officials. For more information, see{' '}
+                    {t("support.faq.personal_information.answers.natural_persons")}{' '}
                     <a href="terms-and-conditions.html">
-                      General terms and conditions
+                      {t("support.faq.personal_information.answers.general_terms_and_conditions")}
                     </a>
                     .
                   </p>
@@ -305,8 +269,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    PEP family member or/ and person known to be close associates
-                    to PEP
+                    {t("support.faq.personal_information.answers.pep_family_member")}
                   </p>
                 </>
               ),
@@ -317,16 +280,12 @@ export const faqAreasMap = (t = (str) => null) => {
                 <>
                   <ol>
                     <li>
-                      {' '}
-                      The spouse of PEP, or a person considered to be equivalent
-                      to a spouse of PEP.{' '}
+                      {' '}{t("support.faq.personal_information.answers.the_spouse_of_pep")}{' '}
                     </li>{' '}
                     <li>
-                      {' '}
-                      The children of PEP and their spouses, or persons considered
-                      to be equivalent to a spouse.{' '}
+                      {' '}{t("support.faq.personal_information.answers.the_children_of_pep")}{' '}
                     </li>{' '}
-                    <li> The parents of PEP. </li>
+                    <li>{t("support.faq.personal_information.answers.the_parents_of_pep")} </li>
                   </ol>
                 </>
               ),
@@ -339,15 +298,14 @@ export const faqAreasMap = (t = (str) => null) => {
                   <ol>
                     <li>
                       {' '}
-                      A natural person known to have joint beneficial ownership of
-                      a body corporate or any other form of legal arrangement, or
-                      any other close business relations, with PEP.{' '}
-                    </li>{' '}
+                      {t("support.faq.personal_information.answers.a_natural_person_known")}
+                      {' '}
+                    </li>
+                    {' '}
                     <li>
                       {' '}
-                      A natural person who has sole beneficial ownership of a body
-                      corporate or any other form of legal arrangement that is
-                      known to have been established for the benefit of PEP.{' '}
+                      {t("support.faq.personal_information.answers.a_natural_person_who")}
+                      {' '}
                     </li>
                   </ol>
                 </>
@@ -359,8 +317,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    To fulfill our obligations under the Prevention of Money
-                    Laundering and Funding of Terrorism Regulations.
+                    {t("support.faq.personal_information.answers.to_fulfill")}
                   </p>
                 </>
               ),
@@ -370,14 +327,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Any information about personal or factual circumstances of a
-                    specific or identifiable natural person, such as e.g. name and
-                    surname, date of birth, place of birth, identification
-                    document (including type of identification document, issue
-                    date, ID number, issuing authority), address, telephone
-                    number, mobile number, e-mail address, IP address, online
-                    identifier, location data, images and information on
-                    transactions and accounts.
+                    {t("support.faq.personal_information.answers.any_information")}
                   </p>
                 </>
               ),
@@ -387,13 +337,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    General Data Protection Regulation (GDPR) 2016/679 is a
-                    regulation in EU law on data protection and privacy for all
-                    individuals within the European Union (EU) and the European
-                    Economic Area (EEA). The GDPR aims primarily to give control
-                    to citizens and residents over their personal data and to
-                    simplify the regulatory environment for international business
-                    by unifying the regulation within the EU.
+                    {t("support.faq.personal_information.answers.general_data")}
                   </p>
                 </>
               ),
@@ -403,29 +347,29 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <div>
-                    We process your personal data for the following purposes:
+                    {t("support.faq.personal_information.answers.we_process")}
                   </div>
                   <ol>
                     <li>
                       {' '}
-                      the performance of contractual and pre-contractual
-                      obligations{' '}
+                      {t("support.faq.personal_information.answers.the_performance")}{' '}
                     </li>{' '}
-                    <li> the protection of your und our interest </li>{' '}
                     <li>
-                      {' '}
-                      the ensuring compliance with applicable laws and regulation
-                      to which we are subject{' '}
+                      {t("support.faq.personal_information.answers.the_protection")} 
                     </li>{' '}
                     <li>
                       {' '}
-                      the execution of transaction through the payment system{' '}
+                      {t("support.faq.personal_information.answers.the_ensuring")}{' '}
                     </li>{' '}
                     <li>
                       {' '}
-                      other purposes specified in{' '}
+                      {t("support.faq.personal_information.answers.the_execution")}{' '}
+                    </li>{' '}
+                    <li>
+                      {' '}
+                      {t("support.faq.personal_information.answers.other_purposes")}{' '}
                       <a href="data-protection-policy.html">
-                        Data protection policy
+                        {t("support.faq.personal_information.answers.data_protection")}
                       </a>
                       .{' '}
                     </li>
@@ -438,19 +382,16 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    We collect, use and processing your personal data in
-                    accordance with{' '}
+                    {t("support.faq.personal_information.answers.we_collect")}{' '}
                     <a href="data-protection-policy.html">
-                      Data protection policy
+                      {t("support.faq.personal_information.answers.data_protection")}
                     </a>
                     .
                   </p>
                   <p>
-                    We use reasonable measures to help keeping information secure,
-                    and to help preventing it from becoming disclosed to persons
-                    who are not described in{' '}
+                    {t("support.faq.personal_information.answers.we_use")}{' '}
                     <a href="data-protection-policy.html">
-                      Data protection policy
+                      {t("support.faq.personal_information.answers.data_protection")}
                     </a>
                     .
                   </p>
@@ -473,11 +414,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Personal Identification Number (PIN) is a numeric code
-                    consisting of four digits. We issue card PIN to you together
-                    with the plastic GEKKARD for confirming transactions in ATMs
-                    and POS terminals. <br /> Do not share this information with
-                    anyone.
+                    {t("support.faq.security.answers.pin_is")}
+                    <br /> 
+                    {t("support.faq.security.answers.do_not")}
                   </p>
                 </>
               ),
@@ -488,10 +427,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    or security reasons, your card PIN is blocked after 3
-                    incorrect entry attempts. Contact our support team so we can
-                    help you. Our support team will also give instructions for
-                    further actions concerning your card.
+                    {t("support.faq.security.answers.or_security")}
                   </p>
                 </>
               ),
@@ -501,9 +437,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can view it yourself on the mobile application at the
-                    Money section. Click on the picture of the card on which you
-                    want to see the data and then on Show card data.
+                    {t("support.faq.security.answers.you_can_view")}
                   </p>
                 </>
               ),
@@ -513,8 +447,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    This is a digital code, you will invent yourself. It will
-                    protects your mobile application from unauthorized use.
+                    {t("support.faq.security.answers.this_is_a_digital")}
                   </p>
                 </>
               ),
@@ -524,8 +457,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Yes, you can change it yourself on the mobile application in
-                    the section Settings.
+                    {t("support.faq.security.answers.yes_you_can")}
                   </p>
                 </>
               ),
@@ -536,9 +468,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    No you can not. The mobile application PIN is used for
-                    application only. Use the card PIN to withdraw cash from an
-                    ATM or when making purchases.
+                    {t("support.faq.security.answers.no_you_can_not")}
                   </p>
                 </>
               ),
@@ -548,11 +478,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    No, they are different. You invent yourself the application
-                    PIN, it protects your mobile application. The card PIN is
-                    automatically generated by the system, it is displayed on the
-                    mobile application in the section Money and you use it for
-                    purchases and cash withdrawals at ATMs.
+                    {t("support.faq.security.answers.no_they_are_different")}
                   </p>
                 </>
               ),
@@ -562,9 +488,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Security feature of the card consisting of 3 digits and is
-                    located on the back of the card within the signature area.
-                    &nbsp;
+                    {t("support.faq.security.answers.security_feature")}
                   </p>
                 </>
               ),
@@ -574,8 +498,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    CVC2 is additional security measures for online purchases.{' '}
-                    <br /> Do not share this information with anyone.
+                    {t("support.faq.security.answers.cvc2_is")}{' '}
+                    <br /> 
+                    {t("support.faq.security.answers.do_not_share")}
                   </p>
                 </>
               ),
@@ -585,11 +510,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Yes. Your funds shall be deposited in a bank account,
-                    separated from our account, in a credit institution domiciled
-                    in a reputable jurisdiction. <br /> So in the unlikely event
-                    of any insolvency, funds that have reached your GEKKARD
-                    account will be protected against claims by our creditors.
+                    {t("support.faq.security.answers.yes_your_funds")}
+                    <br /> 
+                    {t("support.faq.security.answers.so_in_the_unlikely")}
                   </p>
                 </>
               ),
@@ -599,8 +522,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    This is an additional level of security when shopping with
-                    your GEKKARD on the Internet.
+                    {t("support.faq.security.answers.this_is_an")}
                   </p>
                 </>
               ),
@@ -610,11 +532,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    3D Secure protects you from online card fraud.To perform
-                    authorization of a transaction made using GEKKARD on the
-                    Internet where the vendor ensures secure authentication (3-D
-                    secure), you shall make additional authorization by confirming
-                    such transactions with one-time password derived from us.
+                    {t("support.faq.security.answers.3d_secure_protects")}
                   </p>
                 </>
               ),
@@ -624,8 +542,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    It’s automatically activated when you activate your card in
-                    the mobile application. No additional passwords are required.
+                    {t("support.faq.security.answers.it_is_automatically")}  
                   </p>
                 </>
               ),
@@ -635,11 +552,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You need to verify your identity in order to use your GEKKARD
-                    account. This policy is in line with a banking regulation
-                    commonly known as 'Know Your Customer’ (KYC) and is the
-                    process of a business verifying the identity of its clients.
-                    It is simply an anti-corruption and fraud measure.
+                    {t("support.faq.security.answers.you_need_to")}  
                   </p>
                 </>
               ),
@@ -649,10 +562,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    If you believe that your card has been used without your
-                    permission, please block the card immediately &nbsp;within the
-                    mobile application. Then contact our support team so they can
-                    help you.
+                    {t("support.faq.security.answers.if_you_believe")}  
                   </p>
                 </>
               ),
@@ -662,11 +572,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Never share your mobile application passcode with anyone.Use
-                    an email address that only you are using and have access
-                    to.Never give your full card number, expiry date, card PIN or
-                    CVC2 number to anyone, as this is your way to authorise online
-                    payments.
+                    {t("support.faq.security.answers.never_share")}  
                   </p>
                 </>
               ),
@@ -676,13 +582,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can block and unblock your GEKKARD at any time in the
-                    mobile application: go to the "Money" section, select the card
-                    you need and use the "Block card" button (at the bottom of the
-                    screen). You should immediately block your GEKKARD if the card
-                    has been lost or stolen, or you suspect that the data of
-                    GEKKARD has become known to unauthorized persons. You can
-                    later unlock GEKKARD if your suspicions are not confirmed.
+                    {t("support.faq.security.answers.you_can_block")}  
                   </p>
                 </>
               ),
@@ -692,11 +592,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Please block GEKKARD immediately in the mobile application. If
-                    you later find the card and are sure that no unauthorized
-                    persons have used it, then unblock the card yourself in the
-                    mobile application. If you are sure that GEKKARD has been
-                    stolen or lost, contact our support team.
+                    {t("support.faq.security.answers.please_block")}
                   </p>
                 </>
               ),
@@ -717,8 +613,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    It is prepaid debit card of MasterCard issued by us to you,
-                    which may be in the form of a plastic card or virtual card.
+                    {t("support.faq.cards.answers.it_is_prepaid")}
                   </p>
                 </>
               ),
@@ -728,19 +623,21 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <div>
-                    You can apply for GEKKARD a remote access tool (mobile
-                    application) by filling out an application form. <br /> Step
-                    1: Fill in the mobile application your personal details and
-                    shipping address. <br /> Step 2: Prove your identity . <br />{' '}
-                    Step 3: Get confirmation that you are registered as a client*.{' '}
-                    <br /> Step 4: After successful registration in the mobile
-                    application you get a virtual GEKKARD automatically. At this
-                    point you'll be able to top up your account and use your
-                    Virtual GEKKARD. <br /> Step 5: After a few days, you’ll
-                    receive your GEKKARD Mastercard by post. <br />{' '}
+                    {t("support.faq.cards.answers.you_can")} 
+                    <br /> 
+                    {t("support.faq.cards.answers.step_1")} 
+                    <br /> 
+                    {t("support.faq.cards.answers.step_2")} 
+                    <br />{' '}
+                    {t("support.faq.cards.answers.step_3")}{' '}
+                    <br />
+                    {t("support.faq.cards.answers.step_4")}
+                    <br /> 
+                    {t("support.faq.cards.answers.step_5")}
+                    <br />{' '}
                     <div>
                       {' '}
-                      &nbsp; *If you meet our minimum trustworthiness criteria.{' '}
+                      {t("support.faq.cards.answers.if_you_meet_our_minimum")}{' '}
                     </div>
                   </div>
                 </>
@@ -752,7 +649,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    The use of virtual GEKKARD is limited to online purchases.
+                    {t("support.faq.cards.answers.the_use_of_virtual")}
                   </p>
                 </>
               ),
@@ -762,12 +659,11 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    GEKKARD may be used to pay for goods and services at
-                    participating retailers and online that accept Mastercard
-                    cards. <br /> Virtual GEKKARD is designed for online purchases
-                    only. <br /> Plastic GEKKARD is designed for use in shops and
-                    retail locations where you are physically present. It is
-                    possible also to use it for cash withdrawal.
+                    {t("support.faq.cards.answers.gekkard_may_be_used")}
+                    <br /> 
+                    {t("support.faq.cards.answers.virtual_gekkard")}
+                    <br /> 
+                    {t("support.faq.cards.answers.plastic_gekkard")}
                   </p>
                 </>
               ),
@@ -777,8 +673,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Your card expires on the last day of the month, which is
-                    printed on the front of the card.&nbsp;
+                    {t("support.faq.cards.answers.your_card_expires")}
                   </p>
                 </>
               ),
@@ -788,10 +683,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can change your daily and monthly limits in the mobile
-                    application. Just go to the "Money" section, select the card
-                    you need, select the limit type (daily, monthly), thуn change
-                    the amount and confirm your limit change.
+                    {t("support.faq.cards.answers.you_can_change")}
                   </p>
                 </>
               ),
@@ -801,13 +693,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can block and unblock your GEKKARD at any time in the
-                    mobile application: go to the "Money" section, select the card
-                    you need and use the "Block card" button (at the bottom of the
-                    screen). You should immediately block your GEKKARD if the card
-                    has been lost or stolen, or you suspect that the data of
-                    GEKKARD has become known to unauthorized persons. You can
-                    later unlock GEKKARD if your suspicions are not confirmed.
+                    {t("support.faq.cards.answers.you_can_block")}
                   </p>
                 </>
               ),
@@ -817,8 +703,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You've had insufficient funds, input wrong card details
-                    (expiry date, CVC), or used an expired card.
+                    {t("support.faq.cards.answers.you_have_had")}
                   </p>
                 </>
               ),
@@ -827,14 +712,13 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.cards.i_have_not_received_my_card',
               content: (
                 <>
-                  <div>Depending on the destination, deliveries take:</div>
+                  <div>{t("support.faq.cards.answers.depending_on_the")}</div>
                   <ol>
-                    <li> up to 10 working days for EU countries; </li>{' '}
-                    <li> up to 15 working days for non-EU countries. </li>
+                    <li> {t("support.faq.cards.answers.up_to_10")}</li>{' '}
+                    <li> {t("support.faq.cards.answers.up_to_15")}</li>
                   </ol>
                   <p>
-                    If you haven't received your card after 10 working days,
-                    contact us via chat.
+                    {t("support.faq.cards.answers.if_you_haven")}
                   </p>
                 </>
               ),
@@ -844,11 +728,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Please block GEKKARD immediately in the mobile application. If
-                    you later find the card and are sure that no unauthorized
-                    persons have used it, then unblock the card yourself in the
-                    mobile application. If you are sure that GEKKARD has been
-                    stolen or lost, contact our support team.
+                    {t("support.faq.cards.answers.please_block")}
                   </p>
                 </>
               ),
@@ -858,11 +738,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Before receiving a plastic GEKKARD, you will be able to see
-                    all of data of a GEKKARD account and a virtual GEKKARD in the
-                    mobile application. Virtual card and GEKKARD account are
-                    active and can be used immediately after successful
-                    registration.
+                    {t("support.faq.cards.answers.before_receiving")}
                   </p>
                 </>
               ),
@@ -873,9 +749,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    For security reasons all card payments are blocked when the
-                    card PIN is entered incorrectly 3 times. Contact our support
-                    team so we can help you.
+                    {t("support.faq.cards.answers.for_security_reasons")}
                   </p>
                 </>
               ),
@@ -885,10 +759,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Yes. GEKKARD is valid until the last day stated on the plastic
-                    card (inclusive). <br /> Information of validity of virtual
-                    GEKKARD you can find using remote access tool(mobile
-                    application).
+                    {t("support.faq.cards.answers.yes_gekkard_is")}
+                    <br /> 
+                    {t("support.faq.cards.answers.information_of_validity")}
                   </p>
                 </>
               ),
@@ -899,9 +772,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    We open GEKKARD account in IBAN format and, by default, link
-                    your GEKKARD to this account. You can use GEKKARD account to
-                    make payments.
+                    {t("support.faq.cards.answers.we_open_gekkard")}
                   </p>
                 </>
               ),
@@ -911,8 +782,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    It is a non-physical card linked to the GEKKARD account. The
-                    virtual GEKKARD number matches the plastic GEKKARD number.
+                    {t("support.faq.cards.answers.it_is_a_non_physical")}
                   </p>
                 </>
               ),
@@ -923,8 +793,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    During registration in the mobile application, you scan the
-                    original of an identity document (passport).&nbsp;
+                    {t("support.faq.cards.answers.during_registration")}
                   </p>
                 </>
               ),
@@ -934,19 +803,14 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <div>
-                    Your virtual GEKKARD will be issued right after successful
-                    registration. You can start to use it on the Internet
-                    immediately. Physical plastic GEKKARD will be produced in 24
-                    hours and sent to you by mail. Depending on the destination,
-                    deliveries take:
+                    {t("support.faq.cards.answers.your_virtual_gekkard_will")}
                   </div>
                   <ol>
-                    <li> up to 10 working days for EU countries; </li>{' '}
-                    <li> up to 15 working days for non-EU countries. </li>
+                    <li> {t("support.faq.cards.answers.up_to_10_working")} </li>{' '}
+                    <li> {t("support.faq.cards.answers.up_to_15_working")} </li>
                   </ol>
                   <p>
-                    If you haven't received your card after 10 days, contact our
-                    support team.
+                    {t("support.faq.cards.answers.if_you_have_not")}
                   </p>
                 </>
               ),
@@ -956,7 +820,7 @@ export const faqAreasMap = (t = (str) => null) => {
                 'support.faq.cards.will_my_personal_details',
               content: (
                 <>
-                  <p>Yes.</p>
+                  <p>{t("support.faq.cards.answers.yes")}</p>
                 </>
               ),
             },
@@ -964,14 +828,13 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.cards.when_will_my_gekkard_arrive',
               content: (
                 <>
-                  <div>Depending on the destination, deliveries take:</div>
+                  <div>{t("support.faq.cards.answers.depending_on_the_destination")}</div>
                   <ol>
-                    <li> up to 10 working days for EU countries; </li>{' '}
-                    <li> up to 15 working days for non-EU countries. </li>
+                    <li> {t("support.faq.cards.answers.up_to_10_working_days")}</li>{' '}
+                    <li> {t("support.faq.cards.answers.up_to_15_working_days")}</li>
                   </ol>
                   <p>
-                    If you haven't received your card after 10 days, contact us
-                    via chat.
+                    {t("support.faq.cards.answers.if_you_have_not_received")}
                   </p>
                 </>
               ),
@@ -981,9 +844,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    To use your plastic GEKKARD, you’ll need to activate it first.
-                    You can only do this in the mobile application. Just go to
-                    Activate Card and select Start Activation
+                    {t("support.faq.cards.answers.to_use_your_plastic")}
                   </p>
                 </>
               ),
@@ -993,9 +854,9 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    We don’t send you a card PIN via post. Information about card
-                    PIN you can see in the mobile application. <br /> Go to Show
-                    Card Data
+                  {t("support.faq.cards.answers.we_do_not_send")}
+                  <br /> 
+                  {t("support.faq.cards.answers.go_to_show")}
                   </p>
                 </>
               ),
@@ -1004,7 +865,7 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.cards.can_i_change_gekkard_limits',
               content: (
                 <>
-                  <p>Yes, in the mobile application.</p>
+                  <p>{t("support.faq.cards.answers.yes_in_the_mobile")}</p>
                 </>
               ),
             },
@@ -1013,10 +874,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    If you believe that your GEKKARD has been used without your
-                    permission, please block the card immediately &nbsp;within the
-                    mobile application. Then contact our support team so they can
-                    help you.
+                    {t("support.faq.cards.answers.if_you_believe")}
                   </p>
                 </>
               ),
@@ -1026,10 +884,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    The most common reasons for an account balance going negative
-                    are using your card where online authorization is not
-                    requested, or because a request for payment has been
-                    delayed.&nbsp;
+                    {t("support.faq.cards.answers.the_most_common")}
                   </p>
                 </>
               ),
@@ -1040,10 +895,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    or security reasons, your card PIN is blocked after 3
-                    incorrect entry attempts. Contact our support team so we can
-                    help you. Our support team will also give instructions for
-                    further actions concerning your card.
+                    {t("support.faq.cards.answers.or_security")}
                   </p>
                 </>
               ),
@@ -1053,9 +905,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can view it yourself on the mobile application at the
-                    Money section. Click on the picture of the card on which you
-                    want to see the data and then on Show card data.
+                    {t("support.faq.cards.answers.you_can_view")}
                   </p>
                 </>
               ),
@@ -1066,9 +916,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    No you can not. The mobile application PIN is used for
-                    application only. Use the card PIN to withdraw cash from an
-                    ATM or when making purchases.
+                    {t("support.faq.cards.answers.no_you_can_not")}
                   </p>
                 </>
               ),
@@ -1078,11 +926,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    This is a card that you can order &nbsp;on the mobile
-                    application in addition to the main card. It has a different
-                    number and expiration date, but is linked to the same account
-                    as the main card. You can use an additional card and a main
-                    card at the same time.
+                    {t("support.faq.cards.answers.this_is_a_card")}
                   </p>
                 </>
               ),
@@ -1092,8 +936,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can order an additional card for a member of your family
-                    or yourself.
+                    {t("support.faq.cards.answers.you_can_order")}
                   </p>
                 </>
               ),
@@ -1103,9 +946,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    This is a card for which no credit limit is issued. Thus, for
-                    payments, purchases or cash withdrawals, you must first
-                    replenish your card.
+                    {t("support.faq.cards.answers.this_is_a_card_for")}
                   </p>
                 </>
               ),
@@ -1115,9 +956,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can easily control your expenses, because card has no
-                    credit limit. Thus, you can only spend the amount of money
-                    that you have on the card.
+                    {t("support.faq.cards.answers.you_can_easily")}
                   </p>
                 </>
               ),
@@ -1127,8 +966,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Can my card be reloaded? Yes of course. The card can be
-                    reloaded unlimited number of times.
+                    {t("support.faq.cards.answers.can_my_card")}
                   </p>
                 </>
               ),
@@ -1138,9 +976,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    You can replenish a card by SEPA transfer from another bank in
-                    euro currency, by transfer from another your card or by
-                    internal payment.
+                    {t("support.faq.cards.answers.you_can_replenish")}
                   </p>
                 </>
               ),
@@ -1161,12 +997,11 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    GEKKARD may be used to pay for goods and services at
-                    participating retailers and online that accept Mastercard
-                    cards. <br /> Virtual GEKKARD is designed for online purchases
-                    only. <br /> Plastic GEKKARD is designed for use in shops and
-                    retail locations where you are physically present. It is
-                    possible also to use it for cash withdrawal.
+                    {t("support.faq.card_purchases.answers.gekkard_may_be_used")} 
+                    <br /> 
+                    {t("support.faq.card_purchases.answers.virtual_gekkard")} 
+                    <br />
+                    {t("support.faq.card_purchases.answers.plastic_gekkard")}
                   </p>
                 </>
               ),
@@ -1177,7 +1012,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    The use of virtual GEKKARD is limited to online purchases.
+                    {t("support.faq.card_purchases.answers.the_use_of_virtual")}
                   </p>
                 </>
               ),
@@ -1187,12 +1022,12 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    No. GEKKARD is a prepaid debit card, so spending is limited to
-                    the amount that you load on the card.
+                    {t("support.faq.card_purchases.answers.no_gekkard_is")}
+
                   </p>
                   <p>
-                    The transaction will be declined if the funds are
-                    insufficient.
+                    {t("support.faq.card_purchases.answers.the_transaction_will")}
+
                   </p>
                 </>
               ),
@@ -1202,8 +1037,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    A point of sale (POS) terminal is an electronic device used to
-                    process card payments at retail locations.
+                    {t("support.faq.card_purchases.answers.a_point_of_sale")}
                   </p>
                 </>
               ),
@@ -1213,8 +1047,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    This is an additional level of security when shopping with
-                    your GEKKARD on the Internet.
+                    {t("support.faq.card_purchases.answers.this_is_an")}
                   </p>
                 </>
               ),
@@ -1224,11 +1057,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    3D Secure protects you from online card fraud.To perform
-                    authorization of a transaction made using GEKKARD on the
-                    Internet where the vendor ensures secure authentication (3-D
-                    secure), you shall make additional authorization by confirming
-                    such transactions with one-time password derived from us.
+                    {t("support.faq.card_purchases.answers.3d_secure_protects")}
                   </p>
                 </>
               ),
@@ -1238,9 +1067,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    Some of the most common reasons are that you've had
-                    insufficient funds, input wrong card details (expiry date, or
-                    CVC2), exceeded the spending limit set by yourself
+                    {t("support.faq.card_purchases.answers.some_of_the_most")}
                   </p>
                 </>
               ),
@@ -1250,12 +1077,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    In rare cases, the amount of your purchases may exceed the
-                    available balance on the GEKKARD account. This happens if the
-                    store due to the peculiarities of its work did not check the
-                    available balance on your GEKKARD. You need to replenish your
-                    GEKKARD account to close this negative balance. After that
-                    GEKKARD will work as usual.
+                    {t("support.faq.card_purchases.answers.in_rare_cases")}
                   </p>
                 </>
               ),
@@ -1266,9 +1088,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    For security reasons all card payments are blocked when the
-                    card PIN is entered incorrectly 3 times. Contact our support
-                    team so we can help you.
+                    {t("support.faq.card_purchases.answers.for_security_reasons")}
                   </p>
                 </>
               ),
@@ -1288,7 +1108,7 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.atm_transactions.what_is_atm',
               content: (
                 <>
-                  <p>An automated teller machine (ATM) or cash machine.</p>
+                  <p>{t("support.faq.atm_transactions.answers.an_automated")}</p>
                 </>
               ),
             },
@@ -1296,7 +1116,7 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.atm_transactions.my_gekkard_has_been_swallowed',
               content: (
                 <>
-                  <p>Please contact our support center so they can help you.</p>
+                  <p>{t("support.faq.atm_transactions.answers.please_contact")}</p>
                 </>
               ),
             },
@@ -1316,9 +1136,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    SEPA (or the Single Euro Payments Area) is the format for
-                    cross-border Euro bank transfers. SEPA is made up of the
-                    Eurozone &nbsp;and countries within the EU
+                    {t("support.faq.money_transfers.answers.sepa_is_the")}
                   </p>
                 </>
               ),
@@ -1339,7 +1157,10 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    In accordance with Tariff <a href="price.html">Tariff</a>
+                    {t("support.faq.fees.answers.in_accordance")}{" "} 
+                    <a href="price.html">
+                      {t("support.faq.fees.answers.tariff")}
+                    </a>
                   </p>
                 </>
               ),
@@ -1359,26 +1180,26 @@ export const faqAreasMap = (t = (str) => null) => {
               title: 'support.faq.other.where_can_i_see_more_information',
               content: (
                 <>
-                  <div>Please, read:</div>
+                  <div>{t("support.faq.other.answers.please_read")}</div>
                   <ol>
                     <li>
                       {' '}
                       <a href="terms-and-conditions.html">
-                        General terms and conditions
+                        {t("support.faq.other.answers.general_terms")}
                       </a>
                       ,{' '}
                     </li>{' '}
                     <li>
                       {' '}
                       <a href="data-protection-policy.html">
-                        Data protection policy
+                        {t("support.faq.other.answers.data_protection")}
                       </a>
                       ,{' '}
                     </li>{' '}
                     <li>
                       {' '}
                       <a href="fair-usage.html">
-                        Secure usage of the card and the APP
+                        {t("support.faq.other.answers.secure_usage")}
                       </a>{' '}
                     </li>
                   </ol>
@@ -1390,10 +1211,7 @@ export const faqAreasMap = (t = (str) => null) => {
               content: (
                 <>
                   <p>
-                    If you believe that your GEKKARD has been used without your
-                    permission, please block the card immediately &nbsp;within the
-                    mobile application. Then contact our support team so they can
-                    help you.
+                    {t("support.faq.other.answers.if_you_believe")}
                   </p>
                 </>
               ),

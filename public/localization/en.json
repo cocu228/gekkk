@@ -84,7 +84,13 @@
             "step_3": "Step 3: Get confirmation that you are registered as a client*.",
             "step_4": "Step 4: At this point you'll be able to top up your GEKKARD account and use your Virtual GEKKARD.",
             "step_5": "Step 5: After a few days, you’ll receive your GEKKARD Mastercard by post.",
-            "if_you_meet_our_minimum": "*If you meet our minimum trustworthiness criteria."
+            "if_you_meet_our_minimum": "*If you meet our minimum trustworthiness criteria.",
+
+            "in_order_to_open_gekkard": "In order to open GEKKARD account you need to be at least 18 years old. But an additional card can be issued without age limit.",
+
+            "currently_gekkard_accounts_are_opened":"Currently GEKKARD accounts are opened in one currency - EUR.",
+
+            "as_a_financial_institution": "As a financial institution, we must follow the “Know Your Customer” procedures. Therefore, during registration in mobile application, you scan an identity document (passport), as well as make a 'selfie'."
           },
           "who_can_open_gekkard": "Who can open GEKKARD account?",
           "how_to_open_gekkard": "How to open my GEKKARD account?",
@@ -94,6 +100,25 @@
         },
         "account": {
           "title": "Account",
+          "answers": {
+            "it_is_account_established": "It is account established by us in your name. Account is used for the processing of transactions from linked GEKKARD, as well as for execution of payment transactions.",
+
+            "gekkard_accounts_are_opened": "GEKKARD accounts are opened in one currency - EUR.",
+
+            "you_can_find_your_iban": "You can find your IBAN in GEKKARD account statement or in the mobile application: money - top up account - account for topup.",
+
+            "following_your_initiative": "Following your initiative, the GEKKARD account shall be closed within 1 (one) month of receipt of your written notice in accordance with the procedure set by us.",
+            "more_detailed": "More detailed information regarding account and card closure you can find in",
+            "general_terms_and_conditions": "General terms and conditions",
+
+            "the_most_common": "The most common reasons for an account balance going negative are using your card where online authorization is not requested, or because a request for payment has been delayed.",
+
+            "yes_you_can": "Yes, you can! Account statements are available in mobile application and Internet bank, as well as you may check the balance and available funds on GEKKARD account or view a statement of recent transactions in the mobile application and Internet bank.",
+
+            "any_incoming_transfers": "Any incoming transfers will be returned to the account of sender.",
+
+            "before_receiving": "Before receiving a plastic GEKKARD, you will be able to see all of data of a GEKKARD account and a virtual GEKKARD in the mobile application. Virtual card and GEKKARD account are active and can be used immediately after successful registration."
+          },
           "what_is_a_gekkard_account": "What is a GEKKARD account?",
           "can_i_hold_more_than_one_currency": "Can I hold more than one currency on my GEKKARD account?",
           "how_to_find_my_iban": "How to find my IBAN or GEKKARD  account number?",
@@ -107,6 +132,15 @@
     
         "account_balance": {
           "title": "Account balance",
+          "answers":{
+            "an_incoming_patment": "An incoming payment will not increase the balance until it is credited to your GEKKARD account.",
+
+            "the_statement": "The statement could be found in the mobile application at History section",
+
+            "in_rare_cases": "In rare cases, the amount of your purchases may exceed the available balance on the GEKKARD account. This happens if the store due to the peculiarities of its work did not check the available balance on your GEKKARD. You need to replenish your GEKKARD account to close this negative balance. After that GEKKARD will work as usual.",
+
+            "you_can_check": "You can check your transactions and GEKKARD account balance 24/7 - 365 days of the year using themobile application or Internet bank."
+          },
           "balance_hasnt_been_updated": "Balance hasn't been updated following a bank transfer",
           "am_i_able_to_get_a_bank_statement": "Am I able to get a bank statement?",
           "my_account_balance_is_negative": "My account balance is negative, what happened?",
@@ -115,6 +149,36 @@
   
         "personal_information": {
           "title": "Personal Information",
+          "answers": {
+            "natural_persons": "Natural persons who are or have been entrusted with prominent public functions, other than middle ranking or more junior officials. For more information, see",
+            "general_terms_and_conditions": "General terms and conditions",
+
+            "pep_family_member": "PEP family member or/ and person known to be close associates to PEP",
+
+            "the_spouse_of_pep": "The spouse of PEP, or a person considered to be equivalent to a spouse of PEP.",
+            "the_children_of_pep": "The children of PEP and their spouses, or persons considered to be equivalent to a spouse.",
+            "the_parents_of_pep": "The parents of PEP.",
+
+            "a_natural_person_known": "A natural person known to have joint beneficial ownership of a body corporate or any other form of legal arrangement, or any other close business relations, with PEP.",
+            "a_natural_person_who": "A natural person who has sole beneficial ownership of a body corporate or any other form of legal arrangement that is known to have been established for the benefit of PEP.",
+
+            "to_fulfill": "To fulfill our obligations under the Prevention of Money Laundering and Funding of Terrorism Regulations.",
+
+            "any_information": "Any information about personal or factual circumstances of a specific or identifiable natural person, such as e.g. name and surname, date of birth, place of birth, identification document (including type of identification document, issue date, ID number, issuing authority), address, telephone number, mobile number, e-mail address, IP address, online identifier, location data, images and information on transactions and accounts.",
+
+            "general_data": "General Data Protection Regulation (GDPR) 2016/679 is a regulation in EU law on data protection and privacy for all individuals within the European Union (EU) and the European Economic Area (EEA). The GDPR aims primarily to give control to citizens and residents over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU.",
+
+            "we_process": "We process your personal data for the following purposes:",
+            "the_performance": "the performance of contractual and pre-contractual obligations",
+            "the_protection": "the protection of your und our interest",
+            "the_ensuring": "the ensuring compliance with applicable laws and regulation to which we are subject",
+            "the_execution": "the execution of transaction through the payment system",
+            "other_purposes": "other purposes specified in",
+            "data_protection": "Data protection policy",
+
+            "we_collect": "We collect, use and processing your personal data in accordance with",
+            "we_use": "We use reasonable measures to help keeping information secure, and to help preventing it from becoming disclosed to persons who are not described in"
+          },
           "who_is_a_politically_exposed_person": "Who is a politically exposed person (PEP)?",
           "who_is_a_person_closely_related": "Who is a person closely related to politically exposed person (PEP)?",
           "who_is_a_politically_exposed_person_family": "Who is a politically exposed person’s (PEP) family member?",
@@ -130,6 +194,46 @@
     
         "security": {
           "title": "Security",
+          "answers":{
+            "pin_is": "Personal Identification Number (PIN) is a numeric code consisting of four digits. We issue card PIN to you together with the plastic GEKKARD for confirming transactions in ATMs and POS terminals. ",
+            "do_not": "Do not share this information with anyone.",
+
+            "or_security": "or security reasons, your card PIN is blocked after 3 incorrect entry attempts. Contact our support team so we can help you. Our support team will also give instructions for further actions concerning your card.",
+
+            "you_can_view": "You can view it yourself on the mobile application at the Money section. Click on the picture of the card on which you want to see the data and then on Show card data.",
+
+            "this_is_a_digital": "This is a digital code, you will invent yourself. It will protects your mobile application from unauthorized use.",
+
+            "yes_you_can": "Yes, you can change it yourself on the mobile application in the section Settings.",
+            
+            "no_you_can_not": "No you can not. The mobile application PIN is used for application only. Use the card PIN to withdraw cash from an ATM or when making purchases.",
+
+            "no_they_are_different": "No, they are different. You invent yourself the application PIN, it protects your mobile application. The card PIN is automatically generated by the system, it is displayed on the mobile application in the section Money and you use it for purchases and cash withdrawals at ATMs.",
+
+            "security_feature": "Security feature of the card consisting of 3 digits and is located on the back of the card within the signature area. ;",
+
+            "cvc2_is": "CVC2 is additional security measures for online purchases.",
+            "do_not_share": "Do not share this information with anyone.",
+
+            "yes_your_funds": "Yes. Your funds shall be deposited in a bank account, separated from our account, in a credit institution domiciled in a reputable jurisdiction. ",
+            "so_in_the_unlikely": "So in the unlikely event of any insolvency, funds that have reached your GEKKARD account will be protected against claims by our creditors.",
+
+            "this_is_an": "This is an additional level of security when shopping with your GEKKARD on the Internet.",
+
+            "3d_secure_protects": "3D Secure protects you from online card fraud.To perform authorization of a transaction made using GEKKARD on the Internet where the vendor ensures secure authentication (3-D secure), you shall make additional authorization by confirming such transactions with one-time password derived from us.",
+
+            "it_is_automatically": "It’s automatically activated when you activate your card in the mobile application. No additional passwords are required.",
+
+            "you_need_to": "You need to verify your identity in order to use your GEKKARD account. This policy is in line with a banking regulation commonly known as 'Know Your Customer’ (KYC) and is the process of a business verifying the identity of its clients. It is simply an anti-corruption and fraud measure.",
+
+            "if_you_believe": "If you believe that your card has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you.",
+
+            "never_share": "Never share your mobile application passcode with anyone.Use an email address that only you are using and have access to.Never give your full card number, expiry date, card PIN or CVC2 number to anyone, as this is your way to authorise online payments.",
+
+            "you_can_block": "You can block and unblock your GEKKARD at any time in the mobile application: go to the 'Money' section, select the card you need and use the 'Block card' button (at the bottom of the screen). You should immediately block your GEKKARD if the card has been lost or stolen, or you suspect that the data of GEKKARD has become known to unauthorized persons. You can later unlock GEKKARD if your suspicions are not confirmed.",
+
+            "please_block": "Please block GEKKARD immediately in the mobile application. If you later find the card and are sure that no unauthorized persons have used it, then unblock the card yourself in the mobile application. If you are sure that GEKKARD has been stolen or lost, contact our support team."
+          },
           "what_is_card_pin": "What is card PIN?",
           "what_should_i_do_if_i_incorrectly": "What should I do if I incorrectly entered the card PIN many times?",
           "i_forgot_card_pin": "I forgot card PIN, what to do?",
@@ -152,6 +256,92 @@
     
         "cards": {
           "title": "Cards",
+          "answers":{
+            "it_is_prepaid": "It is prepaid debit card of MasterCard issued by us to you, which may be in the form of a plastic card or virtual card.",
+
+            "you_can": "You can apply for GEKKARD a remote access tool (mobile application) by filling out an application form.",
+            "step_1": "Step 1: Fill in the mobile application your personal details and shipping address.",
+            "step_2": "Step 2: Prove your identity .",
+            "step_3": "Step 3: Get confirmation that you are registered as a client*.",
+            "step_4": "Step 4: After successful registration in the mobile application you get a virtual GEKKARD automatically. At this point you'll be able to top up your account and use your Virtual GEKKARD. ",
+            "step_5": "Step 5: After a few days, you’ll receive your GEKKARD Mastercard by post. ",
+            "if_you_meet_our_minimum": "; *If you meet our minimum trustworthiness criteria.",
+
+            "the_use_of_virtual": "The use of virtual GEKKARD is limited to online purchases.",
+
+            "gekkard_may_be_used": "GEKKARD may be used to pay for goods and services at participating retailers and online that accept Mastercard cards. ",
+            "virtual_gekkard": "Virtual GEKKARD is designed for online purchases only. ",
+            "plastic_gekkard": "Plastic GEKKARD is designed for use in shops and retail locations where you are physically present. It is possible also to use it for cash withdrawal.",
+
+            "your_card_expires": "Your card expires on the last day of the month, which is printed on the front of the card.",
+
+            "you_can_change": "You can change your daily and monthly limits in the mobile application. Just go to the 'Money' section, select the card you need, select the limit type (daily, monthly), thуn change the amount and confirm your limit change.",
+
+            "you_can_block": "You can block and unblock your GEKKARD at any time in the mobile application: go to the 'Money' section, select the card you need and use the 'Block card' button (at the bottom of the screen). You should immediately block your GEKKARD if the card has been lost or stolen, or you suspect that the data of GEKKARD has become known to unauthorized persons. You can later unlock GEKKARD if your suspicions are not confirmed.",
+
+            "you_have_had": "You've had insufficient funds, input wrong card details (expiry date, CVC), or used an expired card.",
+
+            "depending_on_the": "Depending on the destination, deliveries take:",
+            "up_to_10": "up to 10 working days for EU countries;",
+            "up_to_15": "up to 15 working days for non-EU countries.",
+            "if_you_haven": "If you haven't received your card after 10 working days, contact us via chat.",
+
+            "please_block": "Please block GEKKARD immediately in the mobile application. If you later find the card and are sure that no unauthorized persons have used it, then unblock the card yourself in the mobile application. If you are sure that GEKKARD has been stolen or lost, contact our support team.",
+
+            "before_receiving": "Before receiving a plastic GEKKARD, you will be able to see all of data of a GEKKARD account and a virtual GEKKARD in the mobile application. Virtual card and GEKKARD account are active and can be used immediately after successful registration.",
+
+            "for_security_reasons": "For security reasons all card payments are blocked when the card PIN is entered incorrectly 3 times. Contact our support team so we can help you.",
+
+            "yes_gekkard_is": "Yes. GEKKARD is valid until the last day stated on the plastic card (inclusive). ",
+            "information_of_validity": "Information of validity of virtual GEKKARD you can find using remote access tool(mobile application).",
+
+            "we_open_gekkard": "We open GEKKARD account in IBAN format and, by default, link your GEKKARD to this account. You can use GEKKARD account to make payments.",
+
+            "it_is_a_non_physical": "It is a non-physical card linked to the GEKKARD account. The virtual GEKKARD number matches the plastic GEKKARD number.",
+
+            "during_registration": "During registration in the mobile application, you scan the original of an identity document (passport).",
+
+            "your_virtual_gekkard_will": "Your virtual GEKKARD will be issued right after successful registration. You can start to use it on the Internet immediately. Physical plastic GEKKARD will be produced in 24 hours and sent to you by mail. Depending on the destination, deliveries take:",
+            "up_to_10_working": "up to 10 working days for EU countries;",
+            "up_to_15_working": "up to 15 working days for non-EU countries.",
+            "if_you_have_not": "If you haven't received your card after 10 days, contact our support team.",
+
+            "yes": "Yes.",
+
+            "depending_on_the_destination": "Depending on the destination, deliveries take:",
+            "up_to_10_working_days": "up to 10 working days for EU countries; ",
+            "up_to_15_working_days": "up to 15 working days for non-EU countries. ",
+            "if_you_have_not_received": "If you haven't received your card after 10 days, contact us via chat.",
+
+            "to_use_your_plastic": "To use your plastic GEKKARD, you’ll need to activate it first. You can only do this in the mobile application. Just go to Activate Card and select Start Activation",
+
+            "we_do_not_send": "We don’t send you a card PIN via post. Information about card PIN you can see in the mobile application.",
+            "go_to_show": "Go to Show Card Data",
+
+            "yes_in_the_mobile": "Yes, in the mobile application.",
+
+            "if_you_believe": "If you believe that your GEKKARD has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you.",
+
+            "the_most_common": "The most common reasons for an account balance going negative are using your card where online authorization is not requested, or because a request for payment has been delayed.",
+
+            "or_security": "or security reasons, your card PIN is blocked after 3 incorrect entry attempts. Contact our support team so we can help you. Our support team will also give instructions for further actions concerning your card.",
+
+            "you_can_view": "You can view it yourself on the mobile application at the Money section. Click on the picture of the card on which you want to see the data and then on Show card data.",
+
+            "no_you_can_not": "No you can not. The mobile application PIN is used for application only. Use the card PIN to withdraw cash from an ATM or when making purchases.",
+
+            "this_is_a_card": "This is a card that you can order ;on the mobile application in addition to the main card. It has a different number and expiration date, but is linked to the same account as the main card. You can use an additional card and a main card at the same time.",
+
+            "you_can_order": "You can order an additional card for a member of your family or yourself.",
+
+            "this_is_a_card_for": "This is a card for which no credit limit is issued. Thus, for payments, purchases or cash withdrawals, you must first replenish your card.",
+
+            "you_can_easily": "You can easily control your expenses, because card has no credit limit. Thus, you can only spend the amount of money that you have on the card.",
+
+            "can_my_card": "Can my card be reloaded? Yes of course. The card can be reloaded unlimited number of times.",
+
+            "you_can_replenish": "You can replenish a card by SEPA transfer from another bank in euro currency, by transfer from another your card or by internal payment."
+          },
           "what_is_a_gekkard": "What is a GEKKARD?",
           "how_to_apply_for_the_gekkard": "How to apply for the GEKKARD?",
           "what_is_the_difference": "What is the difference between virtual and plastic GEKKARD?",
@@ -190,6 +380,29 @@
     
         "card_purchases": {
           "title": "Card purchases",
+          "answers":{
+            "gekkard_may_be_used": "GEKKARD may be used to pay for goods and services at participating retailers and online that accept Mastercard cards.",
+            "virtual_gekkard": "Virtual GEKKARD is designed for online purchases only.",
+            "plastic_gekkard": "Plastic GEKKARD is designed for use in shops and retail locations where you are physically present. It is possible also to use it for cash withdrawal.",
+
+            "the_use_of_virtual": "The use of virtual GEKKARD is limited to online purchases.",
+
+            "no_gekkard_is": "No. GEKKARD is a prepaid debit card, so spending is limited to the amount that you load on the card.",
+            "the_transaction_will": "The transaction will be declined if the funds are insufficient.",
+
+            "a_point_of_sale": "A point of sale (POS) terminal is an electronic device used to process card payments at retail locations.",
+
+            "this_is_an": "This is an additional level of security when shopping with your GEKKARD on the Internet.",
+
+            "3d_secure_protects": "3D Secure protects you from online card fraud.To perform authorization of a transaction made using GEKKARD on the Internet where the vendor ensures secure authentication (3-D secure), you shall make additional authorization by confirming such transactions with one-time password derived from us.",
+
+            "some_of_the_most": "Some of the most common reasons are that you've had insufficient funds, input wrong card details (expiry date, or CVC2), exceeded the spending limit set by yourself",
+
+            "in_rare_cases": "In rare cases, the amount of your purchases may exceed the available balance on the GEKKARD account. This happens if the store due to the peculiarities of its work did not check the available balance on your GEKKARD. You need to replenish your GEKKARD account to close this negative balance. After that GEKKARD will work as usual.",
+
+            "for_security_reasons": "For security reasons all card payments are blocked when the card PIN is entered incorrectly 3 times. Contact our support team so we can help you."
+
+          },
           "where_do_i_use_a_gekkard": "Where do I use a GEKKARD?",
           "what_is_the_difference": "What is the difference between virtual and plastic GEKKARD?",
           "can_i_make_purchases_on_credit": "Сan I make purchases on credit?",
@@ -204,6 +417,11 @@
     
         "atm_transactions": {
           "title": "ATM transactions",
+          "answers":{
+            "an_automated": "An automated teller machine (ATM) or cash machine.",
+
+            "please_contact": "Please contact our support center so they can help you."
+          },
           "what_is_atm": "What is ATM?",
           "my_gekkard_has_been_swallowed": "My GEKKARD has been swallowed by an ATM?"
         },
@@ -211,22 +429,41 @@
     
         "money_transfers": {
           "title": "Money transfers",
+          "answers":{
+            "sepa_is_the": "SEPA (or the Single Euro Payments Area) is the format for cross-border Euro bank transfers. SEPA is made up of the Eurozone ;and countries within the EU" 
+          },
           "what_are_sepa_transfers": "What are SEPA Transfers?"
         },
     
     
         "fees": {
           "title": "Fees",
+          "answers":{
+            "in_accordance": "In accordance with Tariff",
+            "tariff": "Tariff"
+          },
           "how_much_does_a_gekkard_account_cost": "How much does a GEKKARD account cost?"
         },
     
         "other": {
           "title": "Other",
+          "answers":{
+            "please_read": "Please, read:",
+            "general_terms": "General terms and conditions",
+            "data_protection": "Data protection policy",
+            "secure_usage": "Secure usage of the card and the APP",
+
+            "if_you_believe": "If you believe that your GEKKARD has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you."
+
+          },
           "where_can_i_see_more_information": "Where can I see more information?",
           "my_gekkard_has_been_compromised": "My GEKKARD has been compromised?"
         },
         "support_chat": {
-          "title": "Support chat"
+          "title": "Support chat",
+          "answers":{
+
+          }
         }
 
       }

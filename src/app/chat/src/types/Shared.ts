@@ -20,6 +20,7 @@ export interface MessageFormValues {
 }
 
 export type ChatMessage = {
+    messageType: string;
     id: string,
     content: string,
     sender: string,

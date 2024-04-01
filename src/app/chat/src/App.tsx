@@ -12,6 +12,7 @@ import {ChatMessage} from "./types/Shared";
 import {apiPostMessage} from "./api/post-message";
 import {getCookieData} from "./utils/shared";
 import {apiGetMessages} from "./api/get-messages";
+import {apiPostFile} from "./api/post-file";
 
 function App() {
 
@@ -32,13 +33,34 @@ function App() {
 
     }
 
-    // const onAttachClick = () => {
-    //
-    // }
+    const onAttachClick = async () => {
+
+        const cookies = getCookieData()
+        //@ts-ignore
+        const sessionId = cookies["chat-session-id"]
+
+        try {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+
+            fileInput.addEventListener('change', async (event) => {
+                //@ts-ignore
+                const file = event.target.files[0]
+
+                const response = await apiPostFile(file, sessionId)
+
+                console.log('Результат загрузки файла:', response);
+            });
+            fileInput.click();
+        } catch (error) {
+            console.error('Ошибка при загрузке файла:', error);
+        }
+    }
 
     const setIsWebSocketReady = (val: boolean) => {
         setWS(val)
     }
+
 
     const uiMessages = messages.map(item => ({
         text: item.content,
@@ -46,6 +68,16 @@ function App() {
             id: item.role,
             name: item.sender,
         },
+        //@ts-ignore
+        media: (item.messageType === "file" && item.file[0] !== undefined) ? {
+            type: "image",
+            //@ts-ignore
+            url: item.file[0].downloadLink + `/${item.file[0].path}`,
+            //@ts-ignore
+            size: item.file[0].size,
+            //@ts-ignore
+            name: item.file[0].name,
+        } : undefined,
         createdAt: new Date(item.createdAt * 1000),
         seen: item.isRead
     }))
@@ -58,6 +90,7 @@ function App() {
                 const sessionId = cookies["chat-session-id"]
                 const response = await apiGetMessages(sessionId)
                 if (response.status === "success") {
+                    console.log(response)
                     const messages = response.data.map(item => ({
                         content: item.body,
                         role: item.sender.role,
@@ -65,9 +98,10 @@ function App() {
                         createdAt: item.createdAt,
                         isRead: !!item.readAt,
                         id: item.id.toString(),
-                        file: undefined
+                        file: item.files,
+                        messageType: item.messageType
                     }))
-
+                    //@ts-ignore
                     setMessages(messages)
                 }
             }
@@ -86,7 +120,8 @@ function App() {
                             messages={uiMessages}
                         />
                         <MessageInput onSendMessage={onSendMessage} showSendButton
-                                      showAttachButton={false}
+                                      showAttachButton={true}
+                                      onAttachClick={onAttachClick}
                                       placeholder="Type message here"/>
                     </MessageContainer>
                 </MainContainer>

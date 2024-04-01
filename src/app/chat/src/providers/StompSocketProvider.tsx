@@ -53,7 +53,6 @@ const StompSocketProvider = ({
         (async () => {
             const response = await apiInitSessionId();
             if (response.status === 'success' && response.data) {
-                console.log(response.data)
                 const sessionId = response.data.id
 
                 setCookieData([{
@@ -70,7 +69,7 @@ const StompSocketProvider = ({
                         const stompMessage: StompCreateMessage = JSON.parse(message.body);
 
                         if (stompMessage.eventType === 'messageCreate') {
-                            const {msgId, body, sender, createdAt, files} = stompMessage.messages[0];
+                            const {msgId, body, sender, createdAt, messageType, files} = stompMessage.messages[0];
 
                             const newMessage = {
                                 id: msgId,
@@ -78,9 +77,11 @@ const StompSocketProvider = ({
                                 sender: sender.name,
                                 role: sender.role,
                                 createdAt: createdAt,
-                                file: files[0],
+                                file: files,
+                                messageType
                             };
 
+                            //@ts-ignore
                             setMessages((prevMessages) => [...prevMessages, newMessage]);
 
                             // if (sender.role !== 'client') showNotificationWithSound('', {});

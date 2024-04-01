@@ -112,13 +112,14 @@ export default function MessageList({
     const { detectBottom, detectTop } = useDetectScrollPosition(scrollContainerRef)
 
 
+
     useEffect(() => {
         //detecting when the scroll view is first rendered and messages have rendered then you can scroll to the bottom
         if (bottomBufferRef.current && scrollContainerRef.current && !messagesWasEmpty) {
             scrollToBottom()
         }
 
-    }, [messagesWasEmpty, bottomBufferRef.current, scrollContainerRef.current])
+    }, [messagesWasEmpty, bottomBufferRef.current, scrollContainerRef.current, messages])
 
 
     useEffect(() => {
@@ -173,8 +174,6 @@ export default function MessageList({
             }
         }
     }
-
-
 
     return (
         <Container

@@ -156,7 +156,7 @@ const SidebarMobile = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurWallet && toLocaleFiatRounding(eurWallet.balance?.user_balance)) ?? '-'} €</span>
+                                            className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
                                     </div>
 
                                 </div>
@@ -184,19 +184,18 @@ const SidebarMobile = () => {
                                     </div>
                                     <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet?.balance && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? '-'} EURG</span>
                                     </div>
                                     {eurgWallet && <div className={"row w-full flex justify-between pr-5"}>
                                         <div>
-                                            {!eurgWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
-                                                +{toLocaleFiatRounding(eurgWallet.balance.lock_in_balance) ?? '-'}
+                                            {!eurgWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
+                                                +{toLocaleFiatRounding(eurgWallet?.balance.lock_in_balance) ?? '-'}
                                             </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">
-                                            {eurgWallet.balance.user_balance_EUR_equ === null ? null :
-                                                <span className={styles.Balance}>
-                                                    ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
-                                                </span>}
+                                            {!eurgWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.Balance}>
+                                                ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
+                                            </span>}
                                         </div>
                                     </div>}
                                     <div className={styles.ArrowMobileSidebar}>
@@ -220,19 +219,18 @@ const SidebarMobile = () => {
                                     <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                     </div>
                                     <div className="row w-full font-mono"><span
-                                        className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                        className={styles.Sum}>{(gkeWallet?.balance && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                     </div>
                                     {gkeWallet && <div className={"row w-full flex justify-between pr-5"}>
                                         <div>
-                                            {!gkeWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                            {!gkeWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
                                                 +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                             </span>}
                                         </div>
                                         <div className=" text-gray-500 font-mono">
-                                            {gkeWallet.balance.user_balance_EUR_equ === null ? null :
-                                                <span className={styles.Balance}>
-                                                    ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
-                                                </span>}
+                                            {!gkeWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.Balance}>
+                                                ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
+                                            </span>}
                                         </div>
                                     </div>}
                                     <div className={styles.ArrowMobileSidebar}>

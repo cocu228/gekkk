@@ -159,19 +159,18 @@ const SidebarDesktop = () => {
                                 </div>
                                 <div className="row w-full font-mono">
                                     <span
-                                        className={styles.Sum}>{(eurgWallet && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
+                                        className={styles.Sum}>{(eurgWallet?.balance && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
                                 </div>
                                 {eurgWallet && <div className={"row w-full flex justify-between "}>
                                     <div>
-                                        {!eurgWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                        {!eurgWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
                                             +{toLocaleCryptoRounding(eurgWallet.balance.lock_in_balance, eurgWallet.roundPrec) ?? '-'}
                                         </span>}
                                     </div>
                                     <div className=" text-gray-500 font-mono">
-                                        {eurgWallet.balance.user_balance_EUR_equ === null ? null :
-                                            <span className={styles.EuroEqv}>
-                                                ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
-                                            </span>}
+                                        {!eurgWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
+                                            ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
+                                        </span>}
                                     </div>
 
                                 </div>}
@@ -194,19 +193,18 @@ const SidebarDesktop = () => {
                                 <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                                 </div>
                                 <div className="row w-full font-mono"><span
-                                    className={styles.Sum}>{(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                                    className={styles.Sum}>{(gkeWallet?.balance && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
                                 </div>
                                 {gkeWallet && <div className={"row w-full flex justify-between"}>
                                     <div>
-                                        {!gkeWallet.balance.lock_in_balance ? null : <span className={styles.Income}>
+                                        {!gkeWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
                                             +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                         </span>}
                                     </div>
                                     <div className=" text-gray-500 font-mono">
-                                        {gkeWallet.balance.user_balance_EUR_equ === null ? null :
-                                            <span className={styles.EuroEqv}>
-                                                ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
-                                            </span>}
+                                        {!gkeWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
+                                            ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
+                                        </span>}
                                     </div>
                                 </div>}
                             </div>

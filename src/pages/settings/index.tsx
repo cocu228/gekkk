@@ -58,16 +58,16 @@ export function Settings() {
   const {xxl, md, lg, xl } = useBreakpoints();
   const [searchParams, setSearchParams] = useSearchParams();
   const {getAccountDetails} = storeAccountDetails();
-  const selectedArea = useMemo(() => searchParams.get('sestinasSection') || '',[searchParams]) as SettingsSections;
+  const selectedArea = useMemo(() => searchParams.get('sessionsSection') || '',[searchParams]) as SettingsSections;
   const area = areaMap[selectedArea] || null
 
   
   const setSelectedArea = useCallback((selectedArea: SettingsSections) => {
     if (!areaMap[selectedArea]) {``
-      searchParams.delete('sestinasSection')
+      searchParams.delete('sessionsSection')
       setSearchParams(searchParams, {replace: true});
     } else {
-      searchParams.set('sestinasSection', selectedArea);
+      searchParams.set('sessionsSection', selectedArea);
       setSearchParams(searchParams);
     }
   }, [searchParams, setSearchParams]);
@@ -136,7 +136,7 @@ export function Settings() {
           </Box>
           <Box display="flex" flexDirection="column" gap="24px" >
             <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
-              {md ? 'Access management' : t('account_and_app_settings')}
+              {md ? t("access_management") : t('account_and_app_settings')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap={md ? "5px" : "24px"}>
@@ -174,7 +174,7 @@ export function Settings() {
           </Box>
           <Box display="flex" flexDirection="column" gap="24px">
             <Typography noWrap variant="h2" color={!md ? "pale blue" : "#7B797C"} fontWeight={md && '400'} fontSize={md && '18px'} className='typography-b1'>
-              {md ? 'Documents and legal notices' : t('documents')}
+              {md ? t("documents_and_legal_notices") : t('documents')}
             </Typography>
 
             <Box display="flex" flexDirection="column" gap={md ? "5px" : "24px"}>

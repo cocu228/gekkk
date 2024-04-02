@@ -5,6 +5,7 @@ import { faqAreasMap, faqAreasMapKeys } from '../faqAreasMap'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { horizontalScrollTo } from '@/shared/lib/helpers'
+import { useTranslation } from 'react-i18next'
 
 export const Wrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'isMobile',
@@ -22,6 +23,9 @@ export function ListOfQuestions() {
   const {xxl, md} = useBreakpoints();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false)
+  const {t} = useTranslation()
+
+
   useEffect(() => {
     setIsMounted(true);
     if (!selectedArea || !wrapperRef.current) {
@@ -36,7 +40,7 @@ export function ListOfQuestions() {
   return (
     <Wrapper ref={wrapperRef} isSelected={Boolean(selectedArea)} isMobile={xxl}>
       {faqAreasMapKeys.map((key) => {
-        const info = faqAreasMap[key]
+        const info = faqAreasMap(t)[key]
         if (!info) {
           return null
         }
@@ -53,7 +57,7 @@ export function ListOfQuestions() {
             }}
           >
             {icon}
-            <Typography variant="h3" width={"100%"} noWrap textAlign={"left"}>{info.title}</Typography>
+            <Typography variant="h3" width={"100%"} noWrap textAlign={"left"}>{t(info.title)}</Typography>
           </FaqItem>
         )
       })}

@@ -247,7 +247,7 @@ const CreateTransferCode = () => {
                             {currency.$const}
                         </span>
                         <span className={styles.PayInfoValueFlexTextCurrency}>
-                            EUR
+                            {currency.$const}
                         </span>
                         <span className={styles.PayInfoValueFlexTextFee}>
                             {currency.$const}

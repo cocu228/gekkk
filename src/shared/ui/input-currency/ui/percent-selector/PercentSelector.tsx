@@ -27,7 +27,7 @@ const PercentSelector: FC<IParams> = ({
     }, [percent]);
 
     const onBtnClick = (percent: Decimal) => {
-        const value = disabled ? null : percent.div(new Decimal(100)).mul(currency.availableBalance);
+        const value = disabled ? null : percent.div(new Decimal(100)).mul(currency.balance?.free_balance);
 
         const result = new Decimal(!percent.comparedTo(100) ? value :
             value.toFixed(currencies.get(currency.$const).roundPrec)
@@ -44,7 +44,7 @@ const PercentSelector: FC<IParams> = ({
                 {header}
 
                 <div className={`row flex gap-1 text-xs 
-                        ${disabled || !currency || !currency.availableBalance
+                        ${disabled || !currency || !currency.balance?.free_balance
                             ? 'pointer-events-none'
                             : ''
                         }

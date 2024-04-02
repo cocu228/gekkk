@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import Chat from "@/features/chat/ui/chat/Chat";
 import {getCookieData} from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "../../model/AxiosChatInterceptor";
+import { useTranslation } from "react-i18next";
 
 interface ChatModalProps {
 	isOpen: boolean;
@@ -16,6 +17,8 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 		token: string,
 		tokenHeaderName: string
 	}>()
+
+	const {t} = useTranslation()
 	
 	const tokenChat = token && tokenHeaderName
 		? (tokenHeaderName === 'token-firebase')
@@ -34,7 +37,7 @@ const ChatModal = ({ isOpen, onClose }: ChatModalProps) => {
 				<AxiosChatInterceptor chatToken={chatConfig.token}>
 					<Chat chatConfig={chatConfig}/>
 				</AxiosChatInterceptor>
-				<button onClick={onClose}>Close</button>
+				<button onClick={onClose}>{t("close")}</button>
 			</div>, document.getElementById("chat") as Element)
 		: null;
 };

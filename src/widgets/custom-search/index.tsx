@@ -8,7 +8,7 @@ import { dateFormat } from './const';
 import Button from '@/shared/ui/button/Button';
 import { Card, GetHistoryTrasactionOut, TransactTypeEnum } from '@/shared/(orval)api/gek/model';
 import { apiAssets, apiGetHistoryTransactions } from '@/shared/(orval)api/gek';
-import { formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile } from '@/shared/lib/date-helper';
+import { formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile, now } from '@/shared/lib/date-helper';
 import { actionResSuccess, getFlagsFromMask } from '@/shared/lib/helpers';
 import { historyTabs } from '../history/model/helpers';
 import { options } from './const';
@@ -28,22 +28,25 @@ import { useTranslation } from 'react-i18next';
 import { formatCardNumber } from '../dashboard/model/helpers';
 import { useIntersectionObserver } from '../history/hooks/useIntersectionObserver';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import { format, fromUnixTime, getTime, getUnixTime, isToday } from 'date-fns';
 
 
 
 export default function customSearch() {
 
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
-    const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
+    const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat)]);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
     
     const [allAssets, setAllAssets] = useState<ISelectAssets[]>();
-    const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({label: 'GKE Token', value: 'GKE'});
+    const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({label: 'Gekkoin EUR', value: 'EURG'});
     const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
     const [selectedCard, setSelectedCard] = useState<string>();
     const loadActiveCards = storeActiveCards((state) => state.getActiveCards);
     const cards = storeActiveCards((state) => state.activeCards);
     const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
+
+
 
     const {md} = useBreakpoints()
 
@@ -68,6 +71,7 @@ export default function customSearch() {
     const [lazyLoading, setLazyLoading] = useState(false);
     const [selectedTx, setSelectedTx] = useState(translatedOptions[0]);
     const [allTxVisibly, setAllTxVisibly] = useState(false);
+    const [apply, setApply] = useState<boolean>(false) 
 
     const [historyData, setHistoryData] = useState({assets: [selectedAsset.value], types: selectedTx.value, includeFiat: selectedAsset.isFiat});
     
@@ -84,9 +88,9 @@ export default function customSearch() {
     };
 
     const handleReset = () => {
-        setDate([dayjs('2024-01-01', dateFormat), dayjs('2024-01-01', dateFormat)]);
-        setSelectedAsset({label: 'GKE Token', value: 'GKE'});
-        setSelectedTx(options[0]);
+        setDate([dayjs('2022-01-01', dateFormat), dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat)]);
+        setSelectedAsset({label: 'Gekkoin EUR', value: 'EURG'});
+        setSelectedTx(translatedOptions[0]);
     };
 
     const loadAssets = async () => {
@@ -200,7 +204,7 @@ export default function customSearch() {
                         <h4 className={styles.selectText}>{t("type")}:</h4>
                         <Select className={styles.select}
                                 placeholder={t("no_data_avialible")} 
-                                value={selectedTx}
+                                value={selectedTx.label}
                                 onSelect={(_, selectedOption) => {
                                     setSelectedTx(selectedOption);
                                 }}
@@ -227,12 +231,30 @@ export default function customSearch() {
                     </div>}
                 </div>
                 <div className='flex pt-4 gap-5'>
-                    <Button size='sm' onClick={() => applyHandler()}>{t("apply")}</Button>
-                    <Button size='sm' gray={true} className='grey' onClick={handleReset} >{t("clear")}</Button>
+                    <Button 
+                        size='sm' 
+                        onClick={() => {
+                            setApply(true)
+                            applyHandler();
+                        }}
+                    >
+                        {t("apply")}
+                    </Button>
+                    <Button 
+                        size='sm' 
+                        gray={true} 
+                        className='grey' 
+                        onClick={()=>{
+                            setApply(false)
+                            handleReset()
+                        }} 
+                    >
+                        {t("clear")}
+                    </Button>
                 </div>
             </form>
         </div>
-        {allAssets && <History currTab={historyTabs[1]} currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat} date={date}/>}
+        {apply && <History currTab={historyTabs[1]} currenciesFilter={historyData.assets} types={historyData.types} includeFiat={historyData.includeFiat} date={date}/>}
         </>
     );
 }

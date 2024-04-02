@@ -16,8 +16,8 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
 import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 import { maskFullCardNumber } from "@/shared/lib";
-import StatusModalSuccess from "../../modals/StatusModalSuccess";
-import StatusModalError from "../../modals/StatusModalError";
+import StatusModalSuccess from "../../modals/ModalTrxStatusSuccess";
+import StatusModalError from "../../modals/ModalTrxStatusError";
 
 
 interface IState {
@@ -278,7 +278,7 @@ const WithdrawConfirmCardToCard = ({
                                 <div className="row">
                                     <div className="col">
                                         <span className={styles.ModalInfoText}>
-                                            Please, check your transaction information carefully and confirm the operation.
+                                            {t("check_your_information_carefully")}
                                         </span>
                                     </div>
                                 </div>
@@ -413,8 +413,8 @@ const WithdrawConfirmCardToCard = ({
                 </div>
             </Form>
         </div>
-        <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
-        <StatusModalError setIsErr={setErr} open={isErr}/>
+        <StatusModalSuccess/>
+        <StatusModalError/>
     </div>
 }
 

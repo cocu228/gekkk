@@ -6,6 +6,7 @@ import {
   styled,
   Typography,
 } from '@mui/material'
+import { useTranslation } from 'react-i18next';
 
 export const Wrapper = styled(
   Box,
@@ -17,20 +18,23 @@ export const Wrapper = styled(
 }))
 
 export type FAQTemplateProps = {
-  title: React.ReactNode,
-  items: { title: React.ReactNode, content: React.ReactNode } [];
+  title: string,
+  items: { title: string, content: React.ReactNode } [];
 };
 
 export function FAQTemplate({ title, items }: FAQTemplateProps) {
+
+  const {t} = useTranslation()
+
   return (
     <Wrapper>
       <Typography marginBottom="24px" variant="h2" color="brand pale blue">
-        {title}
+        {t(title)}
       </Typography>
       {items.map(({title, content}) => {
         return (
         <Accordion>
-          <AccordionSummary>{title}</AccordionSummary>
+          <AccordionSummary>{t(title)}</AccordionSummary>
           <AccordionDetails>
             {content}
           </AccordionDetails>

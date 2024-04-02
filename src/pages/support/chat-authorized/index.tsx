@@ -15,6 +15,7 @@ import useChatMessages from './model/hooks/useChatMessages';
 import { getCookieData } from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "./model/AxiosChatInterceptor";
 import Message from './message/Message';
+import { useTranslation } from 'react-i18next';
 
 const SupportChatAuthorized = () => {
     const { phone, token, tokenHeaderName } = getCookieData<{
@@ -22,6 +23,8 @@ const SupportChatAuthorized = () => {
         token: string,
         tokenHeaderName: string
     }>()
+
+    const {t} = useTranslation()
 
     const tokenChat = token && tokenHeaderName
         ? (tokenHeaderName === 'token-firebase')
@@ -94,7 +97,7 @@ const SupportChatAuthorized = () => {
             <AxiosChatInterceptor chatToken={chatConfig.token}>
                 <div>
                     <span className='top-6 left-2 relative typography-h1'>
-                        <PageHead title={`Support chat`} />
+                        <PageHead title={t("support_chat")} />
                     </span>
                     <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
                         <div className={`h-[38rem] overflow-scroll`} ref={chatWindowRef}>

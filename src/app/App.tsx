@@ -60,7 +60,7 @@ function App() {
 
             console.log(jsonValue);
 
-            if (!document.hasFocus())
+            //if (!document.hasFocus())
                 displaySystemNotification(jsonValue);
 
         } catch (err) {

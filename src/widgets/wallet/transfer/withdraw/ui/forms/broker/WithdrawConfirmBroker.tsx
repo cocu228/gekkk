@@ -7,31 +7,23 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
-import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
+import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import styles from "../styles.module.scss"
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
-import StatusModalSuccess from "../../modals/StatusModalSuccess";
-import StatusModalError from "../../modals/StatusModalError";
-import useError from "@/shared/model/hooks/useError";
-import { isNull } from "@/shared/lib";
-import { useForm } from "antd/es/form/Form";
+import styles from "../styles.module.scss";
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
+import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
-    const {t} = useTranslation()
-    const {md} = useBreakpoints()
-    const [isErr, setErr] = useState<boolean>(false)
-    const [isSuccess, setSuccess] = useState<boolean>(false)
-    const {setRefresh} = useContext(CtxRootData)
-
-
+    const {t} = useTranslation();
+    const {md} = useBreakpoints();
+    const {setRefresh} = useContext(CtxRootData);
+    const {setContent} = useContext(CtxModalTrxResult);
 
     const {
         networkTypeSelect,
@@ -91,9 +83,9 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                 if(md){                    
                     //@ts-ignore
                     if(response.data.status === "ok"){
-                        setSuccess(true)
-                    }else{
-                        setErr(true)
+                        setRefresh();
+                        handleCancel();
+                        setContent({content: <ModalTrxStatusSuccess/>});
                     }
                 }
                 handleCancel();
@@ -311,8 +303,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     </div>
                 </div>
             </Form>
-            <StatusModalSuccess refresh={setRefresh} setIsSuccess={setSuccess} open={isSuccess}/>
-            <StatusModalError setIsErr={setErr} open={isErr}/>
             {/*{is_operable === false && <>*/}
             {/*    <div className="info-box-danger">*/}
             {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}

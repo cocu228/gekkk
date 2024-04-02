@@ -5,7 +5,7 @@ import Select from "@/shared/ui/select/Select";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
 import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {useTranslation} from "react-i18next";

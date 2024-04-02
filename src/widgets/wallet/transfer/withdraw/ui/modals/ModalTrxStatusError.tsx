@@ -1,30 +1,17 @@
-import { Dispatch, SetStateAction } from 'react'
-import { Modal } from 'antd';
 import Button from '@/shared/ui/button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
+import { useContext } from 'react';
+import { CtxModalTrxResult } from '../../model/context';
 
+type IParams = {}
 
-type Props = {
-    open: boolean;
-    width?: number;
-    setIsErr: Dispatch<SetStateAction<boolean>>
-}
-
-function StatusModalError({open, width = 418, setIsErr}: Props) {
-  const {t} = useTranslation()
+function ModalTrxStatusError({}: IParams) {
+  const {t} = useTranslation();
+  const {handleCancel} = useContext(CtxModalTrxResult);
 
   return (
-    <Modal
-        width={width}
-        open={open}
-        closeIcon={<div></div>}
-        onCancel={()=>{
-            setIsErr(false)
-        }}
-        footer={null}
-    >
         <div className='w-full flex flex-col gap-[30px] items-center'>
             <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1190_22983)">
@@ -43,7 +30,7 @@ function StatusModalError({open, width = 418, setIsErr}: Props) {
                 <span className='text-[12px] text-[#9D9D9D]'>
                     {t("your_transfer_was_not_completed")} 
                     <NavLink to={"/support"}>
-                        <span className='text-[#45AD77]'>
+                        <span className='text-[#45AD77]'>{" "}
                             {t("our_support_team")}
                         </span>
                     </NavLink>
@@ -52,9 +39,7 @@ function StatusModalError({open, width = 418, setIsErr}: Props) {
             <div className={styles.ButtonContainerCenter + " mt-[30px]"}>
                 <Button
                     className='w-full'
-                    onClick={()=>{
-                        setIsErr(false)
-                    }}
+                    onClick={handleCancel}
                     size='xl'
                     blueTransfer
                 >
@@ -62,8 +47,7 @@ function StatusModalError({open, width = 418, setIsErr}: Props) {
                 </Button>
             </div>
         </div>
-    </Modal>
-  )
+    );
 }
 
-export default StatusModalError
+export default ModalTrxStatusError;

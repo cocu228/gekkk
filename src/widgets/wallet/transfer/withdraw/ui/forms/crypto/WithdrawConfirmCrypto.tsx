@@ -1,40 +1,31 @@
-import { useCallback, useContext, useState, memo, useRef, useEffect } from "react";
-import {
-  CtxWalletNetworks,
-  CtxWalletData,
-} from "@/widgets/wallet/transfer/model/context";
+import {useCallback, useContext, useState, memo, useRef, useEffect} from "react";
+import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import Button from "@/shared/ui/button/Button";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
-import {
-  actionResSuccess,
-  getRandomInt32,
-  isNull,
-} from "@/shared/lib/helpers";
+import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
 import Input from "@/shared/ui/input/Input";
 import Form from "@/shared/ui/form/Form";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
-import { codeMessage } from "@/shared/config/message";
+import {codeMessage} from "@/shared/config/message";
 import useMask from "@/shared/model/hooks/useMask";
-import { MASK_CODE } from "@/shared/config/mask";
+import {MASK_CODE} from "@/shared/config/mask";
 import Loader from "@/shared/ui/loader";
-import { CtxRootData } from "@/processes/RootContext";
+import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
-import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
+import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import Timer from "@/shared/model/hooks/useTimer";
 import InfoBox from "@/widgets/info-box";
-import { IWithdrawFormCryptoState } from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
-import { IUseInputState } from "@/shared/ui/input-currency/model/useInputState";
-import { useForm } from "antd/es/form/Form";
-import { CtxModalTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/context";
-import { CtnTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import { CreateWithdrawIn } from "@/shared/(orval)api/gek/model";
-import { formatAsNumber } from "@/shared/lib/formatting-helper";
-import { SignTX } from "./signTX";
-import { useTranslation } from "react-i18next";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import StatusModalSuccess from "../../modals/StatusModalSuccess";
-import StatusModalError from "../../modals/StatusModalError";
+import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
+import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
+import {useForm} from "antd/es/form/Form";
+import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
+import {formatAsNumber} from "@/shared/lib/formatting-helper";
+import {SignTX} from "./signTX";
+import {useTranslation} from "react-i18next";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import styles from "../styles.module.scss";
 
@@ -67,16 +58,13 @@ const WithdrawConfirmCrypto = memo(
 
     const { $const } = useContext(CtxWalletData);
     const { setRefresh } = useContext(CtxRootData);
-    const setContent = useContext(CtxModalTrxInfo);
+    const {setContent} = useContext(CtxModalTrxResult);
     const { md } = useBreakpoints();
 
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const [localErrorHunter,,localErrorInfoBox] = useError();
     const [stageReq, setStageReq] = useState(initStageConfirm);
-
-    const [isErr, setErr] = useState<boolean>(false);
-    const [isSuccess, setSuccess] = useState<boolean>(false);
 
     const fragmentReqParams = useRef<
       Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">
@@ -154,13 +142,9 @@ const WithdrawConfirmCrypto = memo(
             }));
           }
           if (result.confirmationStatusCode === 4) {
-            if (md) {
-              setSuccess(true);
-            } else {
-              handleCancel();
-              setContent(<CtnTrxInfo />);
-              setRefresh();
-            }
+            handleCancel();
+            setContent({content: <ModalTrxStatusSuccess/>});
+            setRefresh();
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -174,11 +158,9 @@ const WithdrawConfirmCrypto = memo(
               // txId: result.txId,
               // fee: result.fee
             }));
-            setErr(true);
           } else if (err.code === 10064) {
             localErrorHunter(err);
             form.resetFields();
-            setErr(true);
           } else {
             localErrorHunter(err);
             form.resetFields();
@@ -370,13 +352,6 @@ const WithdrawConfirmCrypto = memo(
               </div>
             </div>
           </Form>
-          <StatusModalSuccess
-            refresh={setRefresh}
-            setIsSuccess={setSuccess}
-            cancelParent={handleCancel}
-            open={isSuccess}
-          />
-          <StatusModalError setIsErr={setErr} open={isErr} />
           {/*{is_operable === false && <>*/}
           {/*    <div className="info-box-danger">*/}
           {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}
@@ -790,13 +765,6 @@ const WithdrawConfirmCrypto = memo(
                 </div>
               </div>
             </Form>
-            <StatusModalSuccess
-              refresh={setRefresh}
-              cancelParent={handleCancel}
-              setIsSuccess={setSuccess}
-              open={isSuccess}
-            />
-            <StatusModalError setIsErr={setErr} open={isErr} />
             {/*{is_operable === false && <>*/}
             {/*    <div className="info-box-danger">*/}
             {/*        <p>Attention: transactions on this network may be delayed. We recommend that you use a different*/}

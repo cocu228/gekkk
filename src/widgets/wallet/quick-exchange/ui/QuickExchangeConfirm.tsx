@@ -11,7 +11,7 @@ import useError from "@/shared/model/hooks/useError";
 import Timer from "@/shared/model/hooks/useTimer";
 import { IOperationInfo } from "@/widgets/wallet/quick-exchange/model/types";
 import { useForm } from "antd/es/form/Form";
-import { CtxModalTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/context";
+import { CtxModalTrxResult } from "@/widgets/wallet/transfer/withdraw/model/context";
 import { CtnTrxInfo } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useTranslation } from "react-i18next";
 
@@ -23,7 +23,7 @@ const QuickExchangeConfirm = memo(
     currency,
     handleCancel,
   }: IOperationInfo & { handleCancel: () => void }) => {
-    const setContent = useContext(CtxModalTrxInfo);
+    const setContent = useContext(CtxModalTrxResult);
     const [form] = useForm();
     const { onInput } = useMask(MASK_CODE);
     const [input, setInput] = useState("");

@@ -606,7 +606,7 @@
     "network": "Network",
     "IBAN": "Account number / IBAN",
     "transfer_desc": "Transfer description",
-    "сomment": "Сomment",
+    "comment": "Comment",
     "transfer_confirm": "Transfer confirm",
     "desc_optional": "Description (optional)",
     "address": "Address",

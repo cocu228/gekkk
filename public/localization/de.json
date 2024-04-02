@@ -666,7 +666,6 @@
       "no_transactions_warning" : "In dieser Währung wurden keine Transaktionen durchgeführt",
       "attention": "Achtung: Transaktionen in diesem Netzwerk können verzögert sein. Wir empfehlen, für diese Transaktion ein anderes Netzwerk zu verwenden.",
       "transfer_desc": "Transferbeschreibung",
-      "сomment": "Kommentar",
       "cashback_programs":{
         "1_perc_cash":"1% Cashback auf alle Kartenzahlungen",
         "4_perc_cash": "4% pro Jahr auf Ihr EURG-Guthaben",

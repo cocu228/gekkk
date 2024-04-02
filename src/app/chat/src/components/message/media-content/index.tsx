@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import { MediaType } from '../../../types/MessageType'
 import { getBorderCss } from '../borderController'
+// import { useEffect } from 'react'
+// import { makeApiRequest } from '../../../utils/(cs)axios' TODO: получить изображение
+// import { getCookieData } from '../../../utils/shared'
 
 
 interface Props extends MediaType {
@@ -85,6 +88,23 @@ export default function MediaContent({
     single,
     messageType
 }: Props) {
+
+
+    // TODO: получить изображеие
+    // useEffect(()=>{
+    //     const cookies = getCookieData()
+    //     // @ts-ignore
+    //     const sessionId = cookies["chat-session-id"]
+        
+    //     try{
+    //         makeApiRequest("POST", "/api/v1").then(res=>{
+    //             console.log(res);
+                
+    //         })
+    //     }catch{
+
+    //     }
+    // }, [])
 
     return (
         <>

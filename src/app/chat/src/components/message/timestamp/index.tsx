@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import Loading from './loading'
 import styled from 'styled-components'
-import {calculateTimeAgo} from '../../../utils/date-utils'
+import {getMessageTime} from '../../../utils/date-utils'
 
 type Props = {
     loading?: boolean
@@ -83,7 +83,7 @@ export default function Timestamp({
     useEffect(() => {
         function updateDateSent() {
             if (date) {
-                setDateSent(calculateTimeAgo(date))
+                setDateSent(getMessageTime(date))
             }
         }
 

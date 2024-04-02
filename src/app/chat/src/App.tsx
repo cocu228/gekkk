@@ -116,7 +116,7 @@ function App() {
                         <MessageHeader/>
                         <MessageList
                             currentUserId="client"
-                            //@ts-ignore
+                            // @ts-ignore
                             messages={uiMessages}
                         />
                         <MessageInput onSendMessage={onSendMessage} showSendButton

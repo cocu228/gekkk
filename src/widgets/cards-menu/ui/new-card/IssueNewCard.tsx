@@ -84,7 +84,7 @@ export function IssueNewCard() {
                     ...state,
                     city: target.value
                 })}
-                label={t("City")}
+                label={t("city")}
                 placeholder={t("enter_city_name")}
             />
             
@@ -156,7 +156,7 @@ export function IssueNewCard() {
                         setStep('ConfirmationNewCard');
                     }}
             >{t("proceed")}</Button>
-            <Button gray onClick={close}>Back</Button>
+            <Button gray onClick={close}>{t("back")}</Button>
         </Box>
     </div>
 }

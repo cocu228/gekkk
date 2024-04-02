@@ -24,10 +24,11 @@ export const useStyles = makeStyles({ name: 'ListOfQuestions'})(({ palette }) =>
 export function Faq() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedArea = (searchParams.get('faqSection') || '') as AvailableFaqAreas;
-  const currentArea = faqAreasMap[selectedArea]
+  const {t} = useTranslation();
+  const currentArea = faqAreasMap(t)[selectedArea]
 
   const setSelectedArea = useCallback((selectedArea: AvailableFaqAreas) => {
-    if (!faqAreasMap[selectedArea]) {
+    if (!faqAreasMap(t)[selectedArea]) {
       searchParams.delete('faqSection')
       setSearchParams(searchParams, {replace: true});
     } else {
@@ -36,7 +37,6 @@ export function Faq() {
     }
   }, [searchParams, setSearchParams]);
   const { classes } = useStyles();
-  const {t} = useTranslation();
   const {xxl, md} = useBreakpoints();
 
   useEffect(() => {

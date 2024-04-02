@@ -1,15 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import InfoBox from "@/widgets/info-box";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
-import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
-import {CtnTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/entitys";
-import {IconCoin} from "@/shared/ui/icons/icon-coin";
+import {useLocation, useNavigate} from "react-router-dom";
+import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
+import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useTranslation} from "react-i18next";
 import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
-import NetworkProvider from "../../../model/NetworkProvider";
 import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
 

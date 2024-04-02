@@ -11,7 +11,8 @@
     "build-auth": "tsc && vite build",
     "PRD": "tsc && vite build --mode production",
     "STG": "tsc && vite build --mode staging",
-    "DEV": "tsc && vite build --mode development"
+    "DEV": "tsc && vite build --mode development",
+    "DEV-GEKWALLET": "tsc && vite build --mode devgekwallet"
   },
   "dependencies": {
     "axios": "^1.6.7",

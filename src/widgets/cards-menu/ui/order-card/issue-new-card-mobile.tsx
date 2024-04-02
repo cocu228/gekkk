@@ -60,14 +60,14 @@ export function IssueNewCardMobile() {
                 />
             </RowItem>
             <RowItem marginTop={"8px"} height={'40px'}>
-                <Typography fontSize={"14px"} variant='b2 - bold' color="dark blue">{t('Country')}:</Typography>
+                <Typography fontSize={"14px"} variant='b2 - bold' color="dark blue">{t('country')}:</Typography>
                 <Box width={"170px"} height={'40px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                     <SearchSelect
                         isMobile
                         className="w-full"
-                        placeholder='Select country'
+                        placeholder={t("select_country")}
                         value={state.countryCode}
-                        notFoundContent={<span>Country not found</span>}
+                        notFoundContent={<span>{t("country_not_found")}</span>}
                         options={deliveryCountriesList.map(c => ({
                             label: c.name,
                             value: c.code
@@ -82,7 +82,7 @@ export function IssueNewCardMobile() {
             
 
             <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("City")}:`}</Tp>
+                <Tp variant='h'>{`${t("city")}:`}</Tp>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_city_name")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -113,7 +113,7 @@ export function IssueNewCardMobile() {
             </div>
             <div className='flex flex-row  justify-between items-center h-[40px]'>
                 <Tp variant='h'>{`${t("house")}:`}</Tp>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={'Enter house number'} 
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_house_number")} 
                     onChange={({target}) => setState({
                         ...state,
                         houseNumber: target.value
@@ -123,8 +123,8 @@ export function IssueNewCardMobile() {
             </div>
             
             <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("flat")}:`}</Tp>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={'Enter flat number'} 
+                <Tp variant='h'>{`${t("fiat")}:`}</Tp>
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_fiat_number")} 
                     onChange={({target}) => setState({
                         ...state,
                         apartmentNumber: target.value
@@ -135,7 +135,7 @@ export function IssueNewCardMobile() {
             
             <div className='flex flex-row  justify-between items-center h-[40px]'>
                 <Tp variant='h'>{`${t("Recipient")}:`}</Tp>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={'Enter recipient name'} 
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_recipient_name")} 
                     onChange={({target}) => setState({
                         ...state,
                         recipientName: target.value
@@ -155,7 +155,7 @@ export function IssueNewCardMobile() {
                     {t("proceed")}   
                 </MobileButton>
                 <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
-                    Back   
+                    {t("back")}   
                 </MobileButton>
             </div>
         </Box>

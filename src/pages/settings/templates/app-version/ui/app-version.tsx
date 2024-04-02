@@ -6,12 +6,16 @@ import style from '../style/style.module.scss'
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import versions from '@/../versions.json';
 import {VersionCard} from "./version-card";
+import { useTranslation } from "react-i18next";
 
 
 export function AppVersion() {
     const {md} = useBreakpoints();
     
     const appVersion = import.meta.env.VITE_APP_VERSION.split("").map((elem:string) => elem.replace('"', '')).join('');
+
+    const {t} = useTranslation()
+
     console.log(versions);
     
 
@@ -19,11 +23,11 @@ export function AppVersion() {
         <MobileWrapper className="w-full">
             <div className="substrate w-full rounded-lg flex flex-col gap-3">
                 <div className="flex flex-row gap-5">
-                    <Typography variant="h" color="dark-green">Current app version:</Typography>
+                    <Typography variant="h" color="dark-green">{t("current_app_version")}:</Typography>
                     <Typography variant="h" color="light-green">{appVersion}</Typography>
                 </div>
                 <div className="flex flex-row gap-5 pt-10">
-                    <Typography variant="h" color="dark-green">Current API version:</Typography>
+                    <Typography variant="h" color="dark-green">{t("current_api_version")}:</Typography>
                     <Typography variant="h" color="light-green">2.0.3-20231230-1327.5649</Typography>
                 </div>
             </div>

@@ -64,6 +64,7 @@ const ApplyTransferCode = () => {
             <div className="col flex items-center w-3/5">
                 <Input value={input} disabled={loading}
                        wrapperClassName={"w-full"}
+                       allowDigits
                        onChange={({target}) => setInput(target.value)}
                        placeholder={t("enter_top_up_code")} type={"text"}/>
             </div>

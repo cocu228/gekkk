@@ -41,7 +41,7 @@ export function PersonalInformation() {
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}:</Typography>
+                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}</Typography>
                         <Typography variant="h" color="light-green" className="pb-2">{userInfo?.phone}</Typography>
                         <hr/>
                     </div>
@@ -63,7 +63,7 @@ export function PersonalInformation() {
                 </>}
                 {xl && 
                 <div className="flex flex-row gap-3 justify-center min-h-[40px] pt-8">
-                    <MobileButton className={style.button} onClick={resetState}>Back</MobileButton>
+                    <MobileButton className={style.button} onClick={resetState}>{t("back")}</MobileButton>
                 </div>}
             </div>
         </MobileWrapper>

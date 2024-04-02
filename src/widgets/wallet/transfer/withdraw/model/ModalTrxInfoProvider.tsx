@@ -1,43 +1,43 @@
-import React, {memo, useCallback, useState} from "react";
-import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
-import {CtxModalTrxInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import useModal from "@/shared/model/hooks/useModal";
+import React, {memo, useCallback, useState} from "react";
+import {CtxModalTrxResult, ITrxResultModalInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
-
-    const {showModal, isModalOpen, handleCancel} = useModal()
+    const {showModal, isModalOpen, handleCancel} = useModal();
     const [state, setState] = useState({
-        title: null,
+        title: 'Transaction status',
         content: null
-    })
+    });
 
-    const setContent = useCallback((content: JSX.Element, title = "Transaction information") => {
+    const setContent = useCallback((config: ITrxResultModalInfo) => {
         setState({
-            title,
-            content
-        })
-        showModal()
-    }, [])
+            title: config.title,
+            content: config.content
+        });
+        showModal();
+    }, []);
 
     const closeContent = () => {
-        handleCancel()
+        handleCancel();
         setState({
             title: null,
             content: null
-        })
+        });
     }
 
-    return <CtxModalTrxInfo.Provider value={
-        setContent
-    }>
+    return <CtxModalTrxResult.Provider value={{
+        handleCancel: closeContent,
+        setContent: setContent,
+    }}>
         {children}
         <Modal
             width={450}
             open={isModalOpen}
-            onCancel={closeContent}
             title={state.title}
+            onCancel={closeContent}
         >
             {state.content}
         </Modal>
-    </CtxModalTrxInfo.Provider>
-})
+    </CtxModalTrxResult.Provider>
+});

@@ -5,24 +5,25 @@ import {apiGetCards} from '@/shared/(orval)api/gek';
 import {Card as ICardData, CardFilter} from "@/shared/(orval)api/gek/model";
 
 export const CardStatusDescriptions: Record<string, string> = {
-    LOCKED: 'Card locked',
-    ACTIVE: 'Card is active',
-    UNKNOWN: 'Unknown status',
-    PENDING: 'Card is pending',
-    CARD_EXPIRED: 'Card is expired',
-    CLOSED_BY_BANK: 'Card is closed by bank',
-    BLOCKED_BY_BANK: 'Card is blocked by bank',
-    CLOSED_BY_CUSTOMER: 'Card is closed by customer',
-    LOST: 'Lost',
-    PLASTIC_IN_WAY: 'In delivery service',
-    STOLEN: 'Stolen',
-    DEBIT_BLOCKED: 'Debit is blocked',
-    BLOCKED_BY_REGULATOR: 'Card blocked by regulator',
-    BLOCKED_BY_CUSTOMER: 'Card blocked by client'
+    LOCKED: 'card_locked',
+    ACTIVE: 'card_is_active',
+    UNKNOWN: 'unknown_status',
+    PENDING: 'card_is_pending',
+    CARD_EXPIRED: 'card_is_expired',
+    CLOSED_BY_BANK: 'card_is_closed_by_bank',
+    BLOCKED_BY_BANK: 'card_is_blocked_by_bank',
+    CLOSED_BY_CUSTOMER: 'card_is_closed_by_customer',
+    LOST: 'lost',
+    PLASTIC_IN_WAY: 'in_delivery_service',
+    STOLEN: 'stolen',
+    DEBIT_BLOCKED: 'debit_is_blocked',
+    BLOCKED_BY_REGULATOR: 'card_blocked_by_regulator',
+    BLOCKED_BY_CUSTOMER: 'card_blocked_by_client'
 }
 
 export interface IStoreBankCards {
     //refreshKey: string;
+    loading: boolean;
     mainCard: ICardData | null;
     activeCards: ICardData[] | null;
     getActiveCards: () => Promise<void>;
@@ -30,14 +31,21 @@ export interface IStoreBankCards {
 }
 
 export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
-    activeCards: null,
+    loading: false,
     mainCard: null,
+    activeCards: null,
     //refreshKey: null,
     getActiveCards: async () => {
+        set((state) => ({
+            ...state,
+            loading: true,
+        }));
+
         const {data} = await apiGetCards({filter: CardFilter.Active});
         
         set((state) => ({
             ...state,
+            loading: false,
             refreshKey: randomId(),
             activeCards: data.result,
             mainCard: data.result.find(c => c.productType === 'MAIN')

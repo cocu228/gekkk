@@ -55,8 +55,8 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     !loading && applyInputRef.current && applyInputRef.current.focus();
   }, []);
 
-  const inputChage = (target: any) => {
-    setInput(target.value);
+  const inputChage = (event: any) => {
+    setInput(event.target.value);
   };
 
   return (

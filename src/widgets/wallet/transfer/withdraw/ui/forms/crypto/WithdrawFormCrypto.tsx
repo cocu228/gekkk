@@ -256,7 +256,7 @@ const WithdrawFormCrypto = () => {
                     onClick={showModal}
                     disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}
                 >
-                    {t("buy")} EUR
+                    {t("transfer")}
                 </Button>
             </div>
         </div>

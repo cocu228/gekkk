@@ -6,13 +6,14 @@ import {useTranslation} from 'react-i18next';
 import {getCurrencyRounding, toLocaleFiatRounding} from "@/shared/lib/number-format-helper";
 import {apiGetRates} from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
-import {useParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
 
 
 const WalletHeader = () => {
     const {t} = useTranslation();
-    const {currency} = useParams();
+    const [params] = useSearchParams();
+    const currency = params.get('currency');
 
     const {
         name,

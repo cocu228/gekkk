@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {useTranslation} from 'react-i18next';
-import {NavLink, useMatch, useParams} from "react-router-dom";
+import {NavLink, useSearchParams} from "react-router-dom";
 import {getCurrencyRounding, toLocaleFiatRounding} from "@/shared/lib/number-format-helper";
 import ETokensConst from "@/shared/config/coins/constants";
 import {apiGetRates} from "@/shared/(orval)api/gek";
@@ -18,7 +18,9 @@ const WalletHeaderMobile = () => {
         decimalPrec
     } = useContext(CtxWalletData);
 
-    const {currency, tab} = useParams()
+    const [params] = useSearchParams();
+    const currency = params.get('currency');
+    const tab = params.get('tab');
     const isOnAboutPage = tab === "about"
     const isOnProgramsPage = tab === "programs"
     const isOnNoFeeProgramPage = tab === "no_fee_program"

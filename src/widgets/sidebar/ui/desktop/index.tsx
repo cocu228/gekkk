@@ -35,17 +35,17 @@ import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCar
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
-
     const navigate = useNavigate();
     const roomInfoModal = useModal();
     const roomCloseModal = useModal();
+    const [params] = useSearchParams();
+    const roomId = params.get('roomId');
+    const currency = params.get('currency');
     const { account } = useContext(CtxRootData);
     const { sm, md, xxxl } = useContext(BreakpointsContext);
     const { currencies, totalAmount } = useContext(CtxCurrencies);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
-    const [params] = useSearchParams()
-    const roomId = params.get('roomId')
 
     const {
         getRoomsList,
@@ -104,19 +104,20 @@ const SidebarDesktop = () => {
                             <SkeletonCard />
                         </div> : activeCards?.length === 0 ? (
                             <Carousel>
-                                <div onClick={() => navigate('/wallet/EUR/bank_cards?new')}>
+                                <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
                                     <NewBankCard />
                                 </div>
                             </Carousel>
                         ) : (
-                            <div onClick={() => navigate('/wallet/EUR/bank_cards')}>
+                            <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}>
                                 <BankCardsCarousel cards={activeCards} />
                             </div>
                         )}
                     </div>
                 </div>
                 {/* fiat-currency wallet */}
-                <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                <NavLink onClick={NavLinkEvent} to={"wallet?currency=EUR"}
+                    className={({ isActive }) => (isActive && currency === 'EUR') ? 'active' : ''}>
                     <div className={styles.ItemWrapper}>
 
                         <div className={`${styles.ItemEuro}`}>
@@ -146,8 +147,14 @@ const SidebarDesktop = () => {
                 </div>
 
                 {/* EURG wallet */}
-                <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
-                    to={!currencies ? "" : "wallet/EURG"}>
+                <NavLink onClick={NavLinkEvent}
+                    className={({ isActive }) => !currencies
+                        ? "disabled"
+                        : (isActive && currency === 'EURG')
+                            ? 'active'
+                            : ''
+                    }
+                    to={!currencies ? "" : "wallet?currency=EURG"}>
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.Item}`}>
                             <div className="col flex items-center pl-4">
@@ -182,8 +189,14 @@ const SidebarDesktop = () => {
                 </NavLink>
 
                 {/* GKE wallet */}
-                <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
-                    to={!currencies ? "" : "wallet/GKE"}>
+                <NavLink onClick={NavLinkEvent}
+                    className={({ isActive }) => !currencies
+                        ? "disabled"
+                        : (isActive && currency === 'GKE')
+                            ? 'active'
+                            : ''
+                    }
+                    to={!currencies ? "" : "wallet?currency=GKE"}>
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.Item}`}>
                             <div className="col flex items-center pl-4">
@@ -220,7 +233,9 @@ const SidebarDesktop = () => {
                 {!secondaryWallets.length ? null : (
                     <NavCollapse header={t("assets")} id={"assets"}>
                         {helperFilterList(secondaryWallets).map((item, i) =>
-                            <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
+                            <NavLink onClick={NavLinkEvent} to={`wallet?currency=${item.$const}`} key={item.id}
+                                className={({ isActive }) => (isActive && currency === item.$const) ? 'active' : ''}
+                            >
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
                                         <SvgArrow width={14} height={14} className={styles.SvgArrow} />

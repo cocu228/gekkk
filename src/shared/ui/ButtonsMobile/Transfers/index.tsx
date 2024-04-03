@@ -1,10 +1,6 @@
 import { NavLink, useMatch, useParams } from "react-router-dom"
 import styles from "../styles.module.scss"
-import { memo, useContext } from "react"
-import NetworkProvider from "@/widgets/wallet/transfer/model/NetworkProvider"
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext"
-import { mockEUR } from "@/processes/PWA/mock-EUR"
-import { CtxWalletData } from "@/widgets/wallet/transfer/model/context"
+import { memo } from "react"
 import { useTranslation } from "react-i18next"
 
 

@@ -13,7 +13,7 @@ export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets
     wallets.forEach(wallet => {
         currencies.set(wallet.currency, {
             ...currencies.get(wallet.currency),
-            balance: wallet,
+            balance: null
         });
     });
 

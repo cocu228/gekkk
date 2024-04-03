@@ -85,7 +85,7 @@ export const AuthProvider: FC<PropsWithChildren<unknown>> = ({children}) => {
         const pathUrl = window.location.pathname
             + window.location.search.replace('authMethod=UAS', '');
 
-        navigate(!['/', '/?'].includes(pathUrl) ? pathUrl : '/wallet/EUR');
+        navigate(!['/', '/?'].includes(pathUrl) ? pathUrl : '/wallet?currency=EUR');
     };
     
 

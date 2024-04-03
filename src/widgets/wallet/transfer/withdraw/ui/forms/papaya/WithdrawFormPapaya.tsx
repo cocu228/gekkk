@@ -92,7 +92,7 @@ const WithdrawFormPapaya = () => {
                         {account.rights[AccountRights.IsJuridical] ? null :
                             <span> {t("if_you")} <span
                                 className={styles.EURCostInfoTextLink}
-                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                                onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                             >
                                 {t("freeze_GKE_tokens")}   
                             </span> {t("fee_is")} <b>0%</b>.

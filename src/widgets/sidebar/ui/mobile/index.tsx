@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import { pull, pullStart, scrollToTop } from "@/shared/lib/helpers";
+import { getCookieData, pull, pullStart, scrollToTop } from "@/shared/lib/helpers";
 import { CtxRootData } from "@/processes/RootContext";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { helperFilterList } from "@/widgets/sidebar/model/helpers";
@@ -32,6 +32,7 @@ const SidebarMobile = () => {
     const { currencies, totalAmount } = useContext(CtxCurrencies);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
     const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false);
+    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
 
     const {
         getRoomsList
@@ -95,7 +96,7 @@ const SidebarMobile = () => {
     return (
         <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
             <div className={`${styles.Sidebar} flex flex-col justify-between`}>
-                {!md ? null : <UnconfirmedTransactions />}
+                {notificationsEnabled !== 'true' ? null : <UnconfirmedTransactions />}
 
                 <div className="wrapper" ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
                     <div className="p-2 rounded-full w-full flex justify-center">
@@ -136,7 +137,7 @@ const SidebarMobile = () => {
                             )}
                         </div>
                     </div>
-                    <NavLink onClick={NavLinkEvent} to={"wallet/EUR"}>
+                    <NavLink onClick={NavLinkEvent} to={"wallet?currency=EUR"}>
 
 
                         <div className={styles.AssetInfo1}>
@@ -172,7 +173,7 @@ const SidebarMobile = () => {
                         <span>{t("crypto_assets.title")}</span>
                     </div>
                     <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
-                        to={!currencies ? "" : "wallet/EURG"}>
+                        to={!currencies ? "" : "wallet?currency=EURG"}>
                         <div className={styles.ItemWrapper}>
                             <div className={`${styles.Item}`}>
                                 <div className="col flex items-center pl-4">
@@ -209,7 +210,7 @@ const SidebarMobile = () => {
 
                     {/* GKE wallet */}
                     <NavLink className={!currencies ? "disabled" : ""} onClick={NavLinkEvent}
-                        to={!currencies ? "" : "wallet/GKE"}>
+                        to={!currencies ? "" : "wallet?currency=GKE"}>
                         <div className={styles.ItemWrapper}>
                             <div className={`${styles.Item}`}>
                                 <div className="col flex items-center pl-4">
@@ -243,7 +244,7 @@ const SidebarMobile = () => {
 
                     {!secondaryWallets.length ? null : (
                         helperFilterList(secondaryWallets).map((item) =>
-                            <NavLink onClick={NavLinkEvent} to={`wallet/${item.$const}`} key={item.id}>
+                            <NavLink onClick={NavLinkEvent} to={`wallet?currency=${item.$const}`} key={item.id}>
                                 <div className={styles.ItemWrapper}>
                                     <div
                                         className={`${styles.Item + " " + ParentClassForCoin + " " + styles.SecondaryItem}`}>
@@ -293,4 +294,4 @@ const SidebarMobile = () => {
 
 }
 
-export default SidebarMobile
+export default SidebarMobile;

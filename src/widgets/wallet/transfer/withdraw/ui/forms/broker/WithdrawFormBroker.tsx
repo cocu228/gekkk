@@ -61,7 +61,7 @@ const WithdrawFormBroker = () => {
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> {t("if_you")} <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
-                            onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                            onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                         >
                             {t("freeze_GKE_tokens")}   
                         </span> {t("fee_is")} <b>0%</b>.
@@ -185,7 +185,7 @@ const WithdrawFormBroker = () => {
                         {account.rights[AccountRights.IsJuridical] ? null :
                             <span> {t("if_you")} <span
                                 className={styles.EURCostInfoTextLink}
-                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                                onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                             >
                                 {t("freeze_GKE_tokens")}   
                             </span> {t("fee_is")} <b>0%</b>.

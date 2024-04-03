@@ -32,7 +32,6 @@ const Validator: FC<IParams> = (({
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false
-            // onError(!availableNullable)
         } else {
             if (new Decimal(value).isZero() && !availableNullable) {
                 setError(t("null_value"));

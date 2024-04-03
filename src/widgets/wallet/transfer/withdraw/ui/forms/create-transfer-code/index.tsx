@@ -189,17 +189,6 @@ const CreateTransferCode = () => {
                             <span
                                 className="w-full text-start">{inputCurr.value.number} {currency.$const}</span>
                         </div>
-                        {/* <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(inputCurr.value.number).minus(withdraw_fee).toString()} EUR</span>}
-                        </div>
-                        <div className="row flex items-end">
-                            {loading ? "Loading..." : <span
-                                className="w-full text-start">{new Decimal(withdraw_fee).toString()} {currency.$const}</span>}
-                        </div> 
-                        
-                        TODO: Для чего это в переводе другому?
-                        */}
                     </div>
                 </div>
             </div>

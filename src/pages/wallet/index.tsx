@@ -3,7 +3,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui/desktop";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
@@ -32,12 +32,14 @@ import PendingTransactions from "@/widgets/pending-transactions";
 function Wallet() {
     const {t} = useTranslation();
     const navigate = useNavigate();
-    const {currency, tab} = useParams();
+    const [params] = useSearchParams();
+    const tab = params.get("tab");
+    const currency = params.get("currency");
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+    const {xl, md} = useContext(BreakpointsContext);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
     
     let $currency = mockEUR;

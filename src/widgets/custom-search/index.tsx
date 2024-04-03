@@ -6,29 +6,23 @@ import { DatePicker, Space, Select } from 'antd';
 import dayjs from 'dayjs';
 import { dateFormat } from './const';
 import Button from '@/shared/ui/button/Button';
-import { Card, GetHistoryTrasactionOut, TransactTypeEnum } from '@/shared/(orval)api/gek/model';
+import { GetHistoryTrasactionOut } from '@/shared/(orval)api/gek/model';
 import { apiAssets, apiGetHistoryTransactions } from '@/shared/(orval)api/gek';
-import { formatForApi, formatForHistoryMobile, formatForHistoryTimeMobile, now } from '@/shared/lib/date-helper';
+import { formatForApi } from '@/shared/lib/date-helper';
 import { actionResSuccess, getFlagsFromMask } from '@/shared/lib/helpers';
 import { historyTabs } from '../history/model/helpers';
 import { options } from './const';
-import axios from 'axios';
-import { HistoryTab, TabKey } from '../history/model/types';
 import { CtxRootData } from '@/processes/RootContext';
-import TransactionInfo from '../history/ui/TransactionInfo';
-import CurrencySelector from '@/shared/ui/input-currency/ui/currency-selector/CurrencySelector';
-import { ISelectTxTypes, ISelectAssets, ISelectCard } from './types';
+import { ISelectAssets, ISelectCard } from './types';
 import Loader from '@/shared/ui/loader';
 import { maskCurrencyFlags } from '@/shared/config/mask-currency-flags';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
-
-
 import History from '../history/ui/History';
 import { useTranslation } from 'react-i18next';
 import { formatCardNumber } from '../dashboard/model/helpers';
 import { useIntersectionObserver } from '../history/hooks/useIntersectionObserver';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
-import { format, fromUnixTime, getTime, getUnixTime, isToday } from 'date-fns';
+import { format } from 'date-fns';
 
 
 

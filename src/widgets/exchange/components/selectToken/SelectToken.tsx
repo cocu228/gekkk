@@ -65,8 +65,9 @@ export const SelectToken: FC<SelectTokenProps> = ({
               </span>
             )}
           </CurrencySelector>
+          <DownArr className="min-w-[7px] h-[12px]" />
         </div>
-        <DownArr className="min-w-[7px] h-[12px]" />
+
         <div className={s.input_body}>
           <input
             onChange={(event) => {

@@ -53,9 +53,26 @@
   }
 }
 
-.selected_body,
-.input_body {
+.selected_body {
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: space-between;
+
+  button {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
+
+.selected_body > div {
+  width: 100%;
+}
+
+.input_body {
+  width: 80%;
 }
 
 .select_preTitle {
@@ -79,6 +96,11 @@
   img {
     width: 20px;
     height: 20px;
+
+    @media screen and (min-width: 770px) {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 

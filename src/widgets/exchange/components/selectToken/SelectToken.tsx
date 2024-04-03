@@ -34,19 +34,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   isValidator,
   valueChange,
 }) => {
-  const {
-    to,
-    from,
-    price,
-    roomInfo,
-    isLimitOrder,
-    onToValueChange,
-    onCurrenciesSwap,
-    onFromValueChange,
-    onToCurrencyChange,
-    onFromCurrencyChange,
-    onIsLimitOrderChange,
-  } = useContext(CtxExchangeData);
+  const { from } = useContext(CtxExchangeData);
 
   const { currencies } = useContext(CtxCurrencies);
   const { t } = useTranslation();
@@ -63,9 +51,10 @@ export const SelectToken: FC<SelectTokenProps> = ({
           <CurrencySelector
             balanceFilter
             onSelect={onSelect}
-            disabled={false}
+            disabled={roomType !== "default"}
             excludedCurrencies={excludedCurrencies}
             allowedFlags={allowedFlags}
+            className={s.custom_selector}
           >
             {!currency ? (
               <span className={s.select_preTitle}>{t("select_token")}</span>

@@ -1,20 +1,13 @@
 import Loader from '@/shared/ui/loader';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { dealsData } from '@/widgets/wallet/programs/cashback/EUR/model/deals-data';
-import CashbackProgram from '@/widgets/wallet/programs/cashback/EUR/ui';
 import CashbackCard from '@/widgets/wallet/programs/cashback/EUR/ui/CashbackCard';
 import CashbackCardMobile from '@/widgets/wallet/programs/cashback/EUR/ui/CashbackCardMobile';
-import GkeCashbackProgram from '@/widgets/wallet/programs/cashback/GKE/ui';
-import NoFeeProgram from '@/widgets/wallet/programs/no-fee/ui';
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom'
 
 export default function ProgramsDesktop() {
-    const {t} = useTranslation()
-    const {currency, tab} = useParams()
-    const isEUR: boolean = currency === 'EUR';
-    const isEURG: boolean = currency === 'EURG';
-    const isGKE: boolean = currency === 'GKE';
+    const [params] = useSearchParams();
+    const currency = params.get("currency");
 
     const [needMobile, setNeedMobile] = useState<boolean>(false)
     useEffect(() => {

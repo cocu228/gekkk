@@ -80,7 +80,7 @@ const router = createBrowserRouter([
                 element: <HistoryPage/>
             },
             {
-                path: 'wallet/:currency/:tab?',
+                path: 'wallet',
                 element: <Wallet/>
             },
             {

@@ -108,9 +108,8 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
             <Button
               program
               onClick={toNoFeeProgram
-                ? () => navigate('/wallet/GKE/no_fee_program') 
-                // : () => showModal()
-                : () => navigate('/wallet/GKE/cashback_program')
+                ? () => navigate('/wallet?currency=GKE&tab=no_fee_program')
+                : () => navigate('/wallet?currency=GKE&tab=cashback_program')
               } 
               disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
 

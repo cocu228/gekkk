@@ -44,7 +44,7 @@ const TopUp = memo(() => {
                                 if(md){
                                     navigate(`/transfers?currency=EUR&type=154`)
                                 }else{
-                                    navigate("/wallet/EUR/withdraw")
+                                    navigate("/wallet?currency=EUR&tab=withdraw")
                                 }
                                     
                             }}
@@ -64,7 +64,7 @@ const TopUp = memo(() => {
                             if(md){
                                 navigate(`/transfers?currency=EURG&type=150`)
                             }else{
-                                navigate("/wallet/EURG/withdraw")
+                                navigate("/wallet?currency=EURG&tab=withdraw")
                             }
                                 
                         }}

@@ -1,13 +1,11 @@
 import {useContext, useEffect, useState} from "react";
 import styles from "./style.module.scss";
-import {CtxRootData} from "@/processes/RootContext";
 import {IconCoin} from "@/shared/ui/icons/icon-coin";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {useTranslation} from 'react-i18next';
 import {getCurrencyRounding, toLocaleFiatRounding} from "@/shared/lib/number-format-helper";
 import {apiGetRates} from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useParams} from "react-router-dom";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
 

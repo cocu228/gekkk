@@ -9,19 +9,14 @@ interface IParams {
 }
 
 const ProgramsButton = memo(({wallet}:IParams) => {
-    const {t} = useTranslation()
-    const homePage = useMatch("/")
-    const transfersPage = useMatch("/transfers") //not used
-    const exchangePage = useMatch("/exchange")
-    const historyPage = useMatch("/history") //not used   
-    const programsPage = useMatch("/programs")
+    const {t} = useTranslation();
     const navigate = useNavigate();
-    const {currency} = useParams()
-    const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
+    const {currency} = useParams();
+    const programsPage = useMatch("/programs");
 
     return(
         <>
-            <div onClick={()=>{navigate(`/wallet/${currency}/programs`)}} className={styles.BottomMenuMobileButtons +` ${(programsPage || wallet) && styles.BottomMenuButtonsActive}`}>  
+            <div onClick={()=>{navigate(`/wallet?currency=${currency}&tab=programs`)}} className={styles.BottomMenuMobileButtons +` ${(programsPage || wallet) && styles.BottomMenuButtonsActive}`}>  
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" viewBox="0 0 26 24" fill="none">
                     <path d="M20.8424 5.5C20.8424 8.12335 18.7158 10.25 16.0924 10.25C13.4691 10.25 11.3424 8.12335 11.3424 5.5C11.3424 2.87665 13.4691 0.75 16.0924 0.75C18.7158 0.75 20.8424 2.87665 20.8424 5.5Z" stroke={wallet && "#29354C"} stroke-width="1.5"/>
                     <path d="M17.5924 3L14.5924 8" stroke="#29354C" stroke-linecap="round"/>

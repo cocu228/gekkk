@@ -42,7 +42,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                             className="flex-1"
                             onClick={() => {
                                 scrollToTop();
-                                navigate(`/wallet/${currency}/top_up`);
+                                navigate(`/wallet?currency=${currency}&tab=top_up`);
                             }}
                         >{t("top_up")}</Button>
 
@@ -52,7 +52,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                             className="flex-1"
                             onClick={() => {
                                 scrollToTop();
-                                navigate(`/wallet/${currency}/Withdraw`);
+                                navigate(`/wallet?currency=${currency}&tab=Withdraw`);
                             }}
                         >{t("withdraw")}</Button>
                     </div>

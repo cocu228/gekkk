@@ -41,7 +41,7 @@ function Assets() {
                             columnKeys={columns}
                             onSelect={(currency: string) => {
                                 scrollToTop();
-                                navigate(`/wallet/${currency}`)
+                                navigate(`/wallet?currency=${currency}`)
                             }}
                             allowedFlags={[
                                 CurrencyFlags.AccountAvailable,

@@ -114,7 +114,7 @@ const WalletHeaderMobile = () => {
                         {(!isEUR && rates && rates[currency]) && currency + " = " + getCurrencyRounding(rates[currency]) + "€"}
                     </span>
                     {(!isEUR && !isOnAboutPage) &&
-                        <NavLink to={`/wallet/${currency}/about`}>
+                        <NavLink to={`/wallet?currency=${currency}&tab=about`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
                                 <circle cx="7.5" cy="7.5" r="7.5" fill="#D9D9D9" />
                                 <circle cx="3.5" cy="7.5" r="1.5" fill="white" />

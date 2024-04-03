@@ -15,7 +15,6 @@ import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
-import { OrderCard } from '@/widgets/cards-menu/ui/components/order-card';
 import { CardData } from '@/pages/card-menu/components/card-data';
 
 const router = createBrowserRouter([

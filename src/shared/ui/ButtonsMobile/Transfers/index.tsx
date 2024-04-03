@@ -1,4 +1,4 @@
-import { NavLink, useMatch, useParams } from "react-router-dom"
+import { NavLink, useMatch, useSearchParams } from "react-router-dom"
 import styles from "../styles.module.scss"
 import { memo } from "react"
 import { useTranslation } from "react-i18next"
@@ -11,7 +11,8 @@ interface IParams {
 
 const TransfersButton = memo(({wallet}:IParams) => {
 
-    const {currency} = useParams()
+    const [params] = useSearchParams();
+    const currency = params.get('currency');
     const {t} = useTranslation()
     const homePage = useMatch("/")
     const transfersPage = useMatch(`/transfers`)

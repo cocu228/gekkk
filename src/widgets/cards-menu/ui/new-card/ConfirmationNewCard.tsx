@@ -1,5 +1,4 @@
 import {useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
@@ -13,6 +12,11 @@ import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-deliver
 import Loader from "@/shared/ui/loader";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
+import {Format} from '@/shared/(orval)api/gek/model';
+import {apiGetUas} from '@/shared/(orval)api';
+import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
+import {IResResult} from '@/shared/api';
+import useError from '@/shared/model/hooks/useError';
 
 const RowItem = styled(Box, {
     shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
@@ -30,22 +34,70 @@ const RowItem = styled(Box, {
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
-    const [isOpen, setIsOpen] = useState(false);
-    const [deliveryOption, setDeliveryOption] = useState<IDeliveryOption>(null);
+    const {getAccountDetails} = storeAccountDetails();
+    const [loading, setLoading] = useState<boolean>(false);
     const mainCard = storeActiveCards(state => state.mainCard);
+    const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
+    const [deliveryOption, setDeliveryOption] = useState<IDeliveryOption>(null);
     const {
         state,
+        close,
         setStep,
         setState
     } = useNewCardContext();
     
     useEffect(() => {
         (async () => {
-            const {data} = await apiDeliveryOptions();
-            
-            setDeliveryOption(data.find(o => o.countryCode === state.countryCode))
+            if (state.cardType === 'PLASTIC') {
+                const {data} = await apiDeliveryOptions();
+
+                setDeliveryOption(data.find(o => o.countryCode === state.countryCode))
+            }
         })();
     }, []);
+
+    const onConfirm = async () => {
+        setLoading(true);
+        localErrorClear();
+
+        const {data} = await apiGetUas();
+        const {phone} = await getAccountDetails();
+
+        const result = await apiOrderNewCard({
+            format: state.cardType,
+            type: mainCard !== null ? "ADDITIONAL" : "MAIN",
+            accountId: account.account_id,
+            cardHolderName: state.cardholderName,
+            cardHolderPhoneNumber: state.linkedPhone,
+            
+            ...(state.cardType === "PLASTIC" ? {
+                isExpressDelivery: state.isExpressDelivery,
+                deliveryAddress: {
+                    city: state.city,
+                    street: state.street,
+                    postalCode: state.postalCode,
+                    countryCode: state.countryCode,
+                    streetNumber: state.houseNumber,
+                    recipientName: state.recipientName,
+                    apartmentNumber: state.apartmentNumber
+                }
+            } : {})
+        }, {
+            headers: {
+                Authorization: phone,
+                Token: data.result.token
+            }
+        });
+
+        if ((result.data as IResResult).status === 'ok') {
+            setStep('CardHasBeenOrdered');
+        }
+        else {
+            localErrorHunter({code: 0, message: "And error occured when ordering the card"});
+        }
+
+        setLoading(false);
+    }
     
     return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
         <Box display="flex" justifyContent="space-between" width="100%">
@@ -99,7 +151,7 @@ export function ConfirmationNewCard() {
                     `}</Typography>
                 </RowItem>
                 
-                <RowItem hasBorderBottom alignItems={'center'} paddingBottom={'6px'}>
+                <RowItem alignItems={'center'} paddingBottom={'6px'}>
                     <Typography variant='b1 - bold' color="pale blue">{t("delivery_type")}</Typography>
                     
                     <Box width={"200px"} >
@@ -119,13 +171,18 @@ export function ConfirmationNewCard() {
                                 })}/>
                     </Box>
                 </RowItem>
+
+                <RowItem hasBorderBottom>
+                    <Typography variant='b1 - bold' color="pale blue">{t("expected_delivery_time")}</Typography>
+                    <Typography variant='b1 - bold' color="pale blue">{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</Typography> 
+                </RowItem>
             </div>}
         </Box>
         
         <Box display={"flex"} flexDirection={"column"} gap="6px" paddingTop={"24px"}>
             <RowItem>
                 <Typography variant='b1' color="pale blue">{t("card_issuance")}</Typography>
-                <Typography variant='b1' color="pale blue">€ 10</Typography>
+                <Typography variant='b1' color="pale blue">€ 7</Typography>
             </RowItem>
             <RowItem>
                 <Typography variant='b1' color="pale blue">{t("card_delivery")}</Typography>
@@ -133,64 +190,19 @@ export function ConfirmationNewCard() {
             </RowItem>
             <RowItem>
                 <Typography variant='b1 - bold' color="pale blue">{t("total_fees")}</Typography>
-                <Typography variant='b1 - bold' color="pale blue">€ {10 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</Typography>
+                <Typography variant='b1 - bold' color="pale blue">€ {7 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</Typography>
             </RowItem>
         </Box>
-        <RowItem hasBorderBottom>
-            <Typography variant='b1 - bold' color="pale blue">{t("expected_delivery_time")}</Typography>
-            <Typography variant='b1 - bold' color="pale blue">{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</Typography> 
-        </RowItem>
 
-        <Box display={"flex"} gap="24px" paddingTop={"48px"}>
-            <Button onClick={() => {
-                setIsOpen(true);
-            }}>{t("order_card")}</Button>
+        <div className='mt-5'>
+            {localErrorInfoBox}
+        </div>
+
+        <Box display={"flex"} gap="24px" paddingTop={"28px"}>
+            <Button disabled={loading} onClick={onConfirm}>{t("order_card")}</Button>
             <Button gray  onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
         </Box>
-
-        <Modal
-            open={isOpen}
-            title={t('enter_your_online_bank_password_to_confirm_new_card_order')}
-            onCancel={() => {
-                setIsOpen(false)
-            }}
-        >
-            <TextField
-                fullWidth
-                label={t("password")}
-                placeholder={t("enter_password")}
-            />
-            <Box display={"flex"} gap="24px" paddingTop={"43px"}>
-                <Button onClick={() => {
-                    setIsOpen(false);
-                    apiOrderNewCard({
-                        format: state.cardType,
-                        type: mainCard !== null ? "ADDITIONAL" : "MAIN",
-                        accountId: account.account_id,
-                        cardHolderName: state.cardholderName,
-                        cardHolderPhoneNumber: state.linkedPhone,
-                        
-                        ...(state.cardType === "PLASTIC" ? {
-                            isExpressDelivery: state.isExpressDelivery,
-                            deliveryAddress: {
-                                city: state.city,
-                                street: state.street,
-                                postalCode: state.postalCode,
-                                countryCode: state.countryCode,
-                                streetNumber: state.houseNumber,
-                                recipientName: state.recipientName,
-                                apartmentNumber: state.apartmentNumber
-                            }
-                        } : {})
-                    });
-                    setStep('CardHasBeenOrdered');
-                }}>{t("proceed")}</Button>
-                <Button gray onClick={() => {
-                    setIsOpen(false);
-                }}>{t("cancel")}</Button>
-            </Box>
-        </Modal>
     </>
 }

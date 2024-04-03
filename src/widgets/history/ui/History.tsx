@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import Button from "@/shared/ui/button/Button";
 import { DatePicker } from "antd";
 import { Props, TabKey } from "../model/types";
@@ -24,7 +24,7 @@ import {
 } from "@/shared/(orval)api/gek/model";
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useMatch, useParams } from "react-router-dom";
+import { useMatch, useSearchParams } from "react-router-dom";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
@@ -58,7 +58,9 @@ const History = memo(function ({
     dayjs(),
   ]);
   const { md } = useContext(BreakpointsContext);
-  const { currency, tab } = useParams();
+  const [params] = useSearchParams();
+  const tab = params.get('tab');
+  const currency = params.get('currency');
   const walletPage = currency || tab;
   const isHistoryPage = !!useMatch("history");
 

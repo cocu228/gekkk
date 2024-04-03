@@ -1,8 +1,6 @@
 import { Box, Typography } from '@mui/material'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { makeStyles } from 'tss-react/mui'
+import { useCallback, useEffect, useMemo } from 'react'
 
-import Ok from '@/assets/ok.svg?react'
 import Info from '@/assets/info.svg?react';
 import World from '@/assets/world.svg?react';
 import Guard from '@/assets/guard.svg?react';
@@ -11,7 +9,6 @@ import Docs from '@/assets/docs.svg?react';
 import Keys from '@/assets/keys.svg?react';
 import EuroIcon from '@/assets/euro.svg?react'
 import DocumentsDocumentsIcon from '@/assets/documents-documents.svg?react'
-import PinCodeIcon from '@/assets/pin-code.svg?react'
 import ReportIcon from '@/assets/report.svg?react'
 import AccountIcon from '@/assets/account.svg?react'
 import { SettingsButton } from '@/shared/ui/ButtonsMobile/settings-button';
@@ -27,7 +24,7 @@ import { Pricing} from './components/Pricing'
 import { settingsContext } from './settingsContext'
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { AppVersion } from './templates/app-version';
 import { ChangePassword } from './templates/change-password';
 import { UserKeys } from './templates/user-keys/ui/user-keys';

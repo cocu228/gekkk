@@ -165,6 +165,7 @@ export const apiUserKeys = (
  * @summary Список активных сеансов
  */
 export const apiSessions = (
+    
  options?: SecondParameter<typeof getAuthV1SessionsMutator>,) => {
       return getAuthV1SessionsMutator<UserSessionListApiResponse>(
       {url: `/auth/v1/sessions`, method: 'get'

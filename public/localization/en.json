@@ -723,7 +723,7 @@
       "broker_exchange_fee": "Broker exchange Fee 0%",
       "no_opened_orders": "You don't have any open orders",
       "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
-      "select_token": "Select the token",
+      "select_token": "-select token-",
       "only_i_can": "Only I can specify the sale price",
       "purchase_limit": "Purchase limit for one user",
       "it_is_empty": "If it is empty, then the limit is not set",

@@ -1,0 +1,16 @@
+.modal_text {
+  display: flex;
+  align-items: start;
+  gap: 5px;
+  padding-top: 20px;
+  border-top: 1px solid #1f3446;
+
+  svg {
+    min-width: 20px;
+    height: 20px;
+  }
+}
+
+.test {
+  display: none !important;
+}

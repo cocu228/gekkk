@@ -7,13 +7,14 @@ import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxModalTrxResult} from "../../../model/context";
 import {useContext, useEffect, useRef, useState} from "react";
-import {apiPaymentContact, IResCommission} from "@/shared/api";
+import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
+import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
 
 interface IParams {
     amount: number;
@@ -111,10 +112,23 @@ const WithdrawConfirmPhoneNumber = ({
             }).then(() => {
                 handleCancel();
                 setRefresh();
-                setContent({content: <ModalTrxStatusSuccess/>});
+                setContent({
+                    content: (
+                      <ModalTrxStatusSuccess
+                        onReceipt={() => getReceipt((data as IResResult).referenceNumber)}
+                      />
+                    )
+                });
             });
         });
     }
+
+    const getReceipt = async (referenceNumber: string) => {
+        setContent({
+            content: <BankReceipt referenceNumber={referenceNumber}/>,
+            title: 'Transaction receipt'
+        });
+    };
     
     return (
         <div className="-md:px-4">

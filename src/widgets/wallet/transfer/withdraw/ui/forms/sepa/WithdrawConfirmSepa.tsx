@@ -1,7 +1,7 @@
 import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
-import { apiPaymentSepa, IResCommission } from "@/shared/api";
+import { apiPaymentSepa, IResCommission, IResResult } from "@/shared/api";
 import { useContext, useEffect, useRef, useState } from "react";
 import { transferDescriptions } from "../../../model/transfer-descriptions";
 import {
@@ -17,7 +17,7 @@ import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import { CtxModalTrxResult } from "../../../model/context";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import { apiGetBankReceipt } from "@/shared/api/bank/get-bank-receipt";
+import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
 
 interface IState {
   loading: boolean;
@@ -118,11 +118,10 @@ const WithdrawConfirmSepa = ({
           setRefresh();
           setContent({
             content: (
-              <ModalTrxStatusSuccess /*onReceipt={() =>
-                    getReceipt((data as IResResult).referenceNumber)
-                }*/
+              <ModalTrxStatusSuccess
+                onReceipt={() => getReceipt((data as IResResult).referenceNumber)}
               />
-            ),
+            )
           });
         })
         .catch(() => {
@@ -133,15 +132,9 @@ const WithdrawConfirmSepa = ({
   };
 
   const getReceipt = async (referenceNumber: string) => {
-    const { data } = await apiGetUas();
-    const { phone } = await getAccountDetails();
-
-    // TODO: Make receipt modal
-    await apiGetBankReceipt(referenceNumber, {
-      headers: {
-        Authorization: phone,
-        Token: data.result.token,
-      },
+    setContent({
+        content: <BankReceipt referenceNumber={referenceNumber}/>,
+        title: 'Transaction receipt'
     });
   };
 

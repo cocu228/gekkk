@@ -91,11 +91,6 @@
   &:placeholder {
     color: #DCDCD9;
   }
-  &Mobile {
-    height: 30px;
-    width: 100%;
-    
-  }
 
   &Active {
     & :global(.ant-select-selection-search) {

@@ -83,7 +83,7 @@ const HistoryPage = () => {
                 className={`w-6 h-6 `}
                 style={{
                   justifyContent: "center",
-                  display: !!!pullChange && "none",
+                  display: !pullChange && "none",
                   transform: `rotate(${pullChange}deg)`,
                 }}
               >

@@ -1,17 +1,17 @@
 import Modal from "@/shared/ui/modal/Modal";
 import { FC, useEffect, useState } from "react";
 import s from "./styles.module.scss";
-import ReceiptLogo from "@/assets/receiptLogo.svg?react";
 import { useTranslation } from "react-i18next";
 import { apiGetBankReceipt } from "@/shared/api/bank/get-bank-receipt";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+import { formatDateTime } from "../dashboard/model/helpers";
 
 interface BankReceiptProps {
-  referenceNumber: string;
+  // referenceNumber: string;
 }
 
-export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
+export const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber }) => {
   const { t } = useTranslation();
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const [apiAnswer, setApiAnswer] = useState({
@@ -124,18 +124,19 @@ export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
   //   }, [apiAnswer]);
 
   return (
-    <div className={s.receipt_wrap}>
-      <div className={s.receipt_block}>
-        <div className={s.receipt_header}>
-          <span className={s.receipt_title}>Blackcatcard</span>
+    <div className={s.Wrapper}>
+      <div className={s.Block}>
+        <div className={s.Header}>
+          <div className={s.HeaderLogo}>
+            <img src="/img/icon/GekkardLogoReceipt.svg" alt="AlertIcon"/>
+          </div>
+
+          <div className={s.HeaderTitle}>Payment Receipt</div>
+          <div className={s.HeaderId}>{apiAnswer.id}</div>
+          <div className={s.HeaderDate}>{formatDateTime(new Date(apiAnswer.executedAt))}</div>
         </div>
-        <div className={s.receipt_body}>
-          <span className={s.receipt_refNum}>
-            {apiAnswer.id || "does not exist"}
-          </span>
-          <span className={s.receipt_date}>
-            {day}.{month}.{year}
-          </span>
+        <div className={s.Body}>
+
           {/* <div className={s.info_block}>
             <span className={s.info_title}>Sender information</span>
           </div>
@@ -145,29 +146,30 @@ export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
           <div className={s.info_block}>
             <span className={s.info_title}>Bank</span>
           </div> */}
-          <div className={s.payment_information_block}>
-            <span className={s.info_title}>{t("payment_information")}</span>
-            <div className={s.payment_information_block_list}>
-              <div className={s.amountFee_block}>
-                <div className={s.amountFee_block_item}>
-                  <span className={s.payment_information_block_list_item_title}>
+
+          <div>
+            <span className={s.InformationBlockTitle}>{t("payment_information")}</span>
+            <div className={s.InformationBlock}>
+              <div className={s.AmountFeeBlock}>
+                <div className={s.AmountFeeBlockItem}>
+                  <span className={s.InformationBlockItemTitle}>
                     Amount:
                   </span>
                   {apiAnswer.paymentToRepeat.amount !== null && (
                     <span
-                      className={s.payment_information_block_list_item_value}
+                      className={s.InformationBlockItemValue}
                     >
                       {apiAnswer.paymentToRepeat.amount}
                     </span>
                   )}
                 </div>
-                <div className={s.amountFee_block_item}>
-                  <span className={s.payment_information_block_list_item_title}>
+                <div className={s.AmountFeeBlockItem}>
+                  <span className={s.InformationBlockItemTitle}>
                     Fee:
                   </span>
                   {apiAnswer.fee !== null && (
                     <span
-                      className={s.payment_information_block_list_item_value}
+                      className={s.InformationBlockItemValue}
                     >
                       {apiAnswer.fee}
                     </span>
@@ -177,14 +179,14 @@ export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
               {apiAnswer.paymentToRepeat.address &&
                 apiAnswer.paymentToRepeat.city &&
                 apiAnswer.paymentToRepeat.country && (
-                  <div className={s.payment_information_block_list_item}>
+                  <div className={s.InformationBlockItem}>
                     <span
-                      className={s.payment_information_block_list_item_title}
+                      className={s.InformationBlockItemTitle}
                     >
                       Address:
                     </span>
                     <span
-                      className={s.payment_information_block_list_item_value}
+                      className={s.InformationBlockItemValue}
                     >
                       {`${apiAnswer.paymentToRepeat.address} ${apiAnswer.paymentToRepeat.city} ${apiAnswer.paymentToRepeat.country}`}
                     </span>
@@ -195,16 +197,15 @@ export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
 
                 return (
                   <div
-                    className={s.payment_information_block_list_item}
-                    key={ind}
+                    className={s.InformationBlockItem}
                   >
                     <span
-                      className={s.payment_information_block_list_item_title}
+                      className={s.InformationBlockItemTitle}
                     >
                       {key}
                     </span>
                     <span
-                      className={s.payment_information_block_list_item_value}
+                      className={s.InformationBlockItemValue}
                     >
                       {value}
                     </span>
@@ -214,10 +215,11 @@ export const BankReceipt: FC<BankReceiptProps> = ({ referenceNumber }) => {
             </div>
           </div>
         </div>
-        <div className={s.receipt_footer}>
-          <button className={s.receipt_hold_btn}>
+
+        <div className={s.Footer}>
+          <div className={s.Status}>
             <span>Hold</span>
-          </button>
+          </div>
         </div>
       </div>
     </div>

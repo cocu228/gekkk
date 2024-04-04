@@ -1,13 +1,7 @@
-import {FC, PropsWithChildren, useContext} from "react";
-import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import styles from "./style.module.scss"
-// import Footer from "@/widgets/footer";
-import { useMatch } from "react-router-dom";
+import styles from "./style.module.scss";
+import {FC, PropsWithChildren} from "react";
 
 const Main: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null => {
-    const {md, sm} = useContext(BreakpointsContext)
-    const isTransfersPage = !!useMatch("/transfers")
-
     return <>
         <main className={styles.Main}>
             {children}
@@ -16,4 +10,4 @@ const Main: FC<PropsWithChildren<unknown>> = ({children}): JSX.Element | null =>
     </>
 }
 
-export default Main
+export default Main;

@@ -31,8 +31,11 @@ const ChoseNetwork = ({withdraw = false}) => {
                 {Array.isArray(networksForSelector) &&
                 networksForSelector.length === 0 ?
                     <InfoBox
+                        icon={<div className="flex justify-center w-full">
+                            <img width={25} height={25} src="/img/icon/AlertWaring.svg" alt="AlertIcon"/>
+                        </div>}
                         message={<span>
-                {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("to_top_up")})}
+                {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("top_up")})}
                             {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
                                 ? null
                                 : (

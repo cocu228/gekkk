@@ -114,7 +114,7 @@ const CreateTransferCode = () => {
                 <Switch onChange={(e) => setCheckbox(e)}/>
                 <div className='flex items-center'>
                     {t("use_confirmation")}
-                    <div onClick={()=>{setIsHelpClicked(true)}} className="ml-4 inline-block relative align-middle w-[14px] ml-1 cursor-help">
+                    <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                         <img src="/img/icon/UseConfirmation.svg" alt="tooltip"/>
                     </div>
                         <MoadlAnt title={<span className={styles.MainModalTitle}>{t("use_confirmation")}</span>} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>

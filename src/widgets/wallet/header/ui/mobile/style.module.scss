@@ -1,15 +1,5 @@
 @import "@styles/mixins";
 
-
-.HeaderWalletDesktop
-{
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-    padding: 1rem 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 8px;
-    
-}
 .HeaderWalletMobile{
     display: flex;
     width: 320px;
@@ -167,8 +157,8 @@
     color: #29354C;
     font-family: Inter;
     font-size: 14px;
+    font-weight: 700;
     font-style: normal;
-    font-weight: 500;
     line-height: normal;
 }
 .WalletShortName{
@@ -217,6 +207,10 @@
         line-height: normal;
         color: #2BAB72;
 
+        &EUR {
+            font-family: "Azeret Mono";
+            color: var(--Pale-blue, #3A5E66);
+        }
     }
 
     &Outcome{
@@ -226,7 +220,6 @@
         font-weight: 500;
         line-height: normal;
         color: #972235;
-
     }
 
     &Orders{

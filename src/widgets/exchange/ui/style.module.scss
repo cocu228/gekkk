@@ -36,7 +36,6 @@
 
 .SwapButton {
   z-index: 1;
-  background-color: #ffffff;
 
   &:hover {
     cursor: pointer;
@@ -44,8 +43,6 @@
   }
 
   &.Disabled {
-    background-color: var(--color-gray-300);
-
     &:hover {
       pointer-events: none;
       border-color: var(--color-gray-400);
@@ -55,11 +52,21 @@
 
 .Grid {
   display: grid;
-  grid-template-columns: 1.25fr .75fr;
+  grid-template-columns: 1.25fr 0.75fr;
 }
 
 .GridFooter {
   @include max-devices("md") {
     grid-column: span 2;
+  }
+}
+
+.RoomModal {
+  & > div {
+    & > div {
+      & > div {
+        padding-top: 10px;
+      }
+    }
   }
 }

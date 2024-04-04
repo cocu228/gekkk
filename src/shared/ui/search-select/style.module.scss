@@ -1,6 +1,9 @@
 @import "@styles/mixins";
 
 .Select {
+  & :global(.ant-select-arrow) {
+    display: none !important;
+  }
   position: relative;
   &Mobile {
     height: 30px;
@@ -30,6 +33,11 @@
   & :global(.ant-select) {
     font-weight: 500;
     font-size: 0.875rem;
+    height: 100% !important;
+  }
+
+  & :global(.ant-select-selection-placeholder) {
+    color: #b9b9b5 !important;
   }
 
   & :global(.ant-select .ant-select-selector) {
@@ -46,7 +54,7 @@
       height: 3.75rem;
     }
   }
-  
+
   &HasIcon {
     & :global(.ant-select .ant-select-selector .ant-select-selection-item) {
       padding-left: 2.93rem;
@@ -80,7 +88,7 @@
     }
   }
   &:placeholder {
-    color: #DCDCD9;
+    color: #dcdcd9;
   }
   & :global(.ant-select-open .ant-select-arrow) {
     background: var(--color-bgSecondary);
@@ -94,7 +102,10 @@
     padding: 0 2.8rem 0 0.575rem;
   }
   &:placeholder {
-    color: #DCDCD9;
+    color: #dcdcd9;
+  }
+  &Mobile {
+    width: 100%;
   }
 
   &Active {

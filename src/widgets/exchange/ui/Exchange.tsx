@@ -327,7 +327,9 @@ function Exchange() {
                 <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">
                   {t("exchange.get_no_less")}
                 </div>
+
                 <SelectToken
+                  valueChange={onToValueChange}
                   isValidator={false}
                   currency={to.currency}
                   roomType={roomType}
@@ -511,7 +513,6 @@ function Exchange() {
           <History currenciesFilter={historyFilter} types={[2, 15, 16]} />
         </div>
       )}
-
       <Modal
         width={450}
         open={roomInfoModal.isModalOpen}
@@ -521,6 +522,7 @@ function Exchange() {
             ? t("exchange.open_private_exchange_room")
             : t("invite_link")
         }
+        className={styles.RoomModal}
       >
         {roomType === "default" ? (
           <CreateRoom

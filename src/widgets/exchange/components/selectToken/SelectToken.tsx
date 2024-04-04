@@ -57,7 +57,9 @@ export const SelectToken: FC<SelectTokenProps> = ({
             className={s.custom_selector}
           >
             {!currency ? (
-              <span className={s.select_preTitle}>{t("select_token")}</span>
+              <span className={s.select_preTitle}>
+                {t("exchange.select_token")}
+              </span>
             ) : (
               <span className={s.selected_token}>
                 <IconCoin width={34} height={34} code={currency} />

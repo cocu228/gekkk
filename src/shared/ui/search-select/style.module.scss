@@ -40,6 +40,12 @@
     color: #b9b9b5 !important;
   }
 
+  & :global(.ant-select-selection-search) {
+    @media screen and (max-width: 770px) {
+      padding: 0 2.8rem 0 3.15rem !important;
+    }
+  }
+
   & :global(.ant-select .ant-select-selector) {
     display: inline-flex;
     align-items: center;

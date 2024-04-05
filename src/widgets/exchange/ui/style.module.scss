@@ -32,6 +32,12 @@
     height: 27px;
     fill: var(--color-secondary);
   }
+
+  @media screen and (max-width: 770px) {
+    margin-top: 0rem;
+    position: relative;
+    top: 6px;
+  }
 }
 
 .SwapButton {
@@ -46,6 +52,13 @@
     &:hover {
       pointer-events: none;
       border-color: var(--color-gray-400);
+    }
+  }
+
+  @media screen and (max-width: 770px) {
+    svg {
+      width: 17px;
+      height: 17px;
     }
   }
 }

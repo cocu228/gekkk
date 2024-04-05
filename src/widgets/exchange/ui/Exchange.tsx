@@ -377,9 +377,9 @@ function Exchange() {
                   </div>
                 )}
 
-                {/* <div className="mt-10 md:mt-6">
+                <div className="mt-10 md:mt-6">
                   <OperationResult />
-                </div> */}
+                </div>
               </div>
 
               <div className="wrapper">

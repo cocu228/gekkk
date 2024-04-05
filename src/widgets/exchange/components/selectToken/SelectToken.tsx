@@ -57,20 +57,23 @@ export const SelectToken: FC<SelectTokenProps> = ({
             className={s.custom_selector}
           >
             {!currency ? (
-              <span className={s.select_preTitle}>
+              <>
+                <span className={s.select_preTitle}>
                 {t("exchange.select_token")}
               </span>
+              </>
             ) : (
               <span className={s.selected_token}>
                 <IconCoin width={34} height={34} code={currency} />
                 {currency}
               </span>
             )}
+
           </CurrencySelector>
-          <DownArr className="min-w-[7px] h-[12px]" />
         </div>
 
         <div className={s.input_body}>
+        <DownArr className={s.arr} />
           <input
             onChange={(event) => {
               const value: string = event.target.value;

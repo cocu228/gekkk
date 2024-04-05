@@ -89,23 +89,6 @@ export default function MediaContent({
     messageType
 }: Props) {
 
-
-    // TODO: получить изображеие
-    // useEffect(()=>{
-    //     const cookies = getCookieData()
-    //     // @ts-ignore
-    //     const sessionId = cookies["chat-session-id"]
-        
-    //     try{
-    //         makeApiRequest("POST", "/api/v1").then(res=>{
-    //             console.log(res);
-                
-    //         })
-    //     }catch{
-
-    //     }
-    // }, [])
-
     return (
         <>
             {(type === 'image' || type === 'gif') &&

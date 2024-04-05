@@ -275,8 +275,7 @@ export default function MessageList({
                                 if (messages.length === 1) { single = true }
 
                                 
-                                    
-
+                                
                                 if (user.id == (currentUserId && currentUserId.toLowerCase())) {
 
                                     // my message

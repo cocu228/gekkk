@@ -75,7 +75,7 @@ function App() {
         media: (item.messageType === "file" && item.file[0] !== undefined) ? {
             type: "image",
             //@ts-ignore
-            url: item.file[0].downloadLink + `/${item.file[0].path}`,
+            url: item.file[0].downloadLink,
             //@ts-ignore
             size: item.file[0].size,
             //@ts-ignore
@@ -92,6 +92,7 @@ function App() {
                 //@ts-ignore
                 const sessionId = cookies["chat-session-id"]
                 const response = await apiGetMessages(sessionId)
+                
                 if (response.status === "success") {
                     console.log(response)
                     const messages = response.data.map(item => ({
@@ -104,7 +105,7 @@ function App() {
                         file: item.files,
                         messageType: item.messageType
                     }))
-                    //@ts-ignore
+                    //@ts-ignore                    
                     setMessages(messages)
                 }
             }

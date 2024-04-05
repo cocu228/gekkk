@@ -26,7 +26,7 @@ export const makeApiRequest = async <T>(
             data,
             ...customConfig
         });
-
+        
         // Check the HTTP status code for success
         if (response.status >= 200 && response.status < 300) {
             return {status: 'success', data: response.data as NonNullable<T>};

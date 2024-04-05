@@ -22,7 +22,7 @@ function App() {
     const onSendMessage = async (message: string) => {
 
         const cookies = getCookieData()
-        //@ts-ignore
+        // @ts-ignore
         const sessionId = cookies["chat-session-id"]
 
         const response = await apiPostMessage("raw", sessionId, message)
@@ -40,16 +40,19 @@ function App() {
         const sessionId = cookies["chat-session-id"]
 
         try {
-            const fileInput = document.createElement('input');
+            const fileInput: HTMLInputElement  = document.createElement('input');
             fileInput.type = 'file';
 
-            fileInput.addEventListener('change', async (event) => {
-                //@ts-ignore
-                const file = event.target.files[0]
+            fileInput.addEventListener('change', async (event: Event) => {
+                
+                const target = event.target as HTMLInputElement;
+                const file: File | null = target.files ? target.files[0] : null;
 
-                const response = await apiPostFile(file, sessionId)
+                if(file){
+                    const response = await apiPostFile(file, sessionId)
+                    console.log('Результат загрузки файла:', response);
+                }
 
-                console.log('Результат загрузки файла:', response);
             });
             fileInput.click();
         } catch (error) {

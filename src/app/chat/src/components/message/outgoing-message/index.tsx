@@ -58,7 +58,7 @@ export default function MyMessage({
     clusterFirstMessage,
     clusterLastMessage,
     created_at,
-    seen
+    seen,
 }: Omit<Props, "showHeader" | "showAvatar" | "type">) {
 
     const { themeColor } = useContext(MinChatUIContext)
@@ -78,6 +78,7 @@ export default function MyMessage({
     return (
         <Wrapper
             data-testid="outgoing-message"
+            data-date={created_at?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})}
             lastMessage={clusterLastMessage}
             firstMessage={clusterFirstMessage}
             className='fade-animation'

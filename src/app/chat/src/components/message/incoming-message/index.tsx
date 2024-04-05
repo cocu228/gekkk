@@ -113,6 +113,7 @@ export default function IncomingMessage({
     return (
         <Wrapper
             data-testid="incoming-message"
+            data-date={created_at?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})}
             className='fade-animation'
         >
             <DPContainer>

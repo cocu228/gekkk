@@ -7,6 +7,7 @@ import MessageType from '../../types/MessageType'
 import TypingIndicator from '../typing-indicator'
 import MessageListBackground from '../message-list-background'
 import useColorSet from '../../hooks/useColorSet'
+import DatePopup from '../time-window'
 
 export type MessageListProps = {
     themeColor?: string
@@ -21,8 +22,6 @@ export type MessageListProps = {
     customEmptyMessagesComponent?: React.ReactNode
     customLoaderComponent?: React.ReactNode
 }
-
-
 
 const Container = styled.div`
 height: 100%;
@@ -109,8 +108,13 @@ export default function MessageList({
     const bottomBufferRef = useRef<any>()
     const scrollContainerRef = useRef<any>()
 
-    const { detectBottom, detectTop } = useDetectScrollPosition(scrollContainerRef)
+    const [dateOfFirstVisibleMessage, setDateOfFirstVisibleMessage] = useState<string>()
 
+    const [isScrolling, setIsScrolling] = useState<boolean>(false)
+
+    
+
+    const { detectBottom, detectTop } = useDetectScrollPosition(scrollContainerRef)
 
 
     useEffect(() => {
@@ -154,6 +158,17 @@ export default function MessageList({
     }, [showTypingIndicator])
 
 
+    // Фунцкия, принимающая rect сообщения и возвращающая true, если сообщение находтися в области видимости
+    const isMessageVisible = (rect: any) => {
+
+        return(
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        )
+    }
+
     const noMessageTextColor = useColorSet("--no-message-text-color")
 
     const scrollToBottom = async () => {
@@ -180,6 +195,11 @@ export default function MessageList({
             ref={containerRef}
         >
 
+            <DatePopup 
+                isScrolling={isScrolling} 
+                onScroll={setIsScrolling} 
+                date={dateOfFirstVisibleMessage} />
+
             <MessageListBackground
                 roundedCorners={false}
                 mobileView={mobileView} />
@@ -197,7 +217,26 @@ export default function MessageList({
                     <>
 
                         <ScrollContainer
+                            
                             onScroll={() => {
+                                if(scrollContainerRef.current){
+                                    // Находим первое по счёту сообщение, которое находится в видимой области
+                                    const firstVisibleMessage = [...scrollContainerRef.current.children].find(el => {
+                                        const {popupinmessages} = el.dataset
+                                        const rect = el.getBoundingClientRect()
+                                        const isVisible = isMessageVisible(rect)
+                                        return isVisible && !popupinmessages
+                                    })
+                                    // Вытаскиваем дату создания сообщения из атрибутов                                    
+                                    const {date} = firstVisibleMessage.dataset
+                                    
+                                    setDateOfFirstVisibleMessage(date)
+                                }
+                                
+                                if(!isScrolling){
+                                    setIsScrolling(true)
+                                }
+
                                 //detect when scrolled to top
                                 if (detectTop()) {
                                     onScrollToTop && onScrollToTop()
@@ -235,6 +274,8 @@ export default function MessageList({
                                 //if the messages array contains only 1 message then single incoming is true
                                 if (messages.length === 1) { single = true }
 
+                                
+                                    
 
                                 if (user.id == (currentUserId && currentUserId.toLowerCase())) {
 
@@ -251,6 +292,9 @@ export default function MessageList({
                                         loading={messageLoading}
                                         clusterFirstMessage={firstClusterMessage}
                                         clusterLastMessage={lastClusterMessage}
+                                        messages={messages}
+                                        index={index}
+                                        firstDate={dateOfFirstVisibleMessage}
                                     />
 
                                 } else {
@@ -268,8 +312,12 @@ export default function MessageList({
                                         last={single ? false : last}
                                         single={single}
                                         text={text}
+                                        messages={messages}
+                                        index={index}
+                                        firstDate={dateOfFirstVisibleMessage}
                                     />
                                 }
+                                
                             })}
 
                             {showTypingIndicator && (

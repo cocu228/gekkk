@@ -1,7 +1,8 @@
 import User from '../../types/UserType';
 import OutgoingMessage from './outgoing-message'
 import IncomingMessage from './incoming-message'
-import { MediaType } from '../../types/MessageType';
+import MessageType, { MediaType } from '../../types/MessageType';
+import DatePopupInMessages from '../time-window/timeWindowInMessages';
 
 
 export type Props = {
@@ -20,6 +21,9 @@ export type Props = {
     single?: boolean
     clusterFirstMessage?: boolean
     clusterLastMessage?: boolean
+    messages?: MessageType[] | undefined
+    index?: number
+    firstDate?: string
 
 };
 
@@ -37,35 +41,41 @@ export default function Message({
     last,
     single,
     clusterFirstMessage,
-    clusterLastMessage
+    clusterLastMessage,
+    messages = [],
+    index = 0,
+    firstDate
 }: Props) {
 
     return (
-        type === "outgoing" ?
-            <OutgoingMessage
-                loading={loading}
-                text={text}
-                created_at={created_at}
-                seen={seen}
-                media={media}
-                last={last}
-                single={single}
-                clusterFirstMessage={clusterFirstMessage}
-                clusterLastMessage={clusterLastMessage}
-            />
+        <>
+            <DatePopupInMessages messages={messages} index={index} date={firstDate}/>
+            {type === "outgoing" ?
+                <OutgoingMessage
+                    loading={loading}
+                    text={text}
+                    created_at={created_at}
+                    seen={seen}
+                    media={media}
+                    last={last}
+                    single={single}
+                    clusterFirstMessage={clusterFirstMessage}
+                    clusterLastMessage={clusterLastMessage}
+                />
 
-            :
+                :
 
-            <IncomingMessage
-                showAvatar={showAvatar}
-                text={text}
-                created_at={created_at}
-                media={media}
-                user={user}
-                showHeader={showHeader}
-                last={last}
-                single={single}
-            />
+                <IncomingMessage
+                    showAvatar={showAvatar}
+                    text={text}
+                    created_at={created_at}
+                    media={media}
+                    user={user}
+                    showHeader={showHeader}
+                    last={last}
+                    single={single}
+            />}
+        </>
 
     )
 }

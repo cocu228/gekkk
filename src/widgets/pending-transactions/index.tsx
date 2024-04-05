@@ -15,34 +15,16 @@ import {storeAccountDetails} from "@/shared/store/account-details/accountDetails
 import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get-pending-transactions.ts";
 import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
+import Loader from '@/shared/ui/loader';
 
 export const PendingTransactions = () => {
-    // TODO: Test transactions
     const {t} = useTranslation();
     const {refreshKey, account} = useContext(CtxRootData);
+    const [loading, setLoading] = useState<boolean>(false);
     const {showModal, isModalOpen, handleCancel} = useModal();
     const [state, setState] = useState<IPendingTransaction[]>([]);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const [selectedTx, setSelectedTx] = useState<IPendingTransaction>(null);
-
-    /*
-    {
-        authenticationMethod: "BIO",
-        cardApplication: "Gekkard",
-        cardExpDate: "00/00",
-        convertedAmount: 12,
-        pan: "000000_0000",
-        nameOnCard: "Ralf Williams",
-        originalCurrency: 'EUR',
-        originalAmount: 35.69,
-        merchant: {
-            id: "Wolt",
-            name: "WOLT Delivery",
-            countryCode: "EU",
-            url: ''
-        }
-    }
-    */
 
     useEffect(() => {
         (async () => {
@@ -60,11 +42,14 @@ export const PendingTransactions = () => {
                 }
             });
 
-            actionResSuccess(response).success(() => setState(response.data));
+            if (response.data) {
+                setState(response.data);
+            }
         })();
     }, [refreshKey, account]);
 
     const onContinue = async (isConfirm: boolean) => {
+        setLoading(true);
         const {phone} = await getAccountDetails();
         const {data} = await apiGetUas();
 
@@ -82,7 +67,8 @@ export const PendingTransactions = () => {
 
         const token = generateJWT(jwtPayload, appPass);
 
-        await apiSetPendingTxStatus({
+        // TODO: Test confirmations
+        const response = await apiSetPendingTxStatus({
             body: {token},
             headers: {
                 Authorization: phone,
@@ -91,78 +77,78 @@ export const PendingTransactions = () => {
             }
         });
 
+        // @ts-ignore
+        if (!response.data.errors) {
+            setState(() => [
+                ...state.filter(tx => tx.reference !== selectedTx.reference)
+            ]);
+            setSelectedTx(null);
+            handleCancel();
+        }
 
+        setLoading(false);
     }
 
     return state.length > 0 && <div>
         <InfoBox
             message={t("pending_transactions")}
-            onClick={showModal}
             icon={<IconGkeOrange height={30} width={30}/>}
+            onClick={() => {
+                setSelectedTx(state[0]);
+                showModal();
+            }}
         />
 
-        {selectedTx && <Modal
+        <Modal
             width={450}
             padding={false}
             open={isModalOpen}
             onCancel={handleCancel}
             title={t('please_verify_transaction')}
         >
-            <div className={styles.CardContainer}>
-                <BankCard
-                    className={styles.Card}
-                    cardNumber={formatCardNumber(selectedTx.pan)}
-                    expiresAt={selectedTx.cardExpDate}
-                    holderName={selectedTx.nameOnCard}
-                />
-            </div>
+            {loading && <Loader/>}
 
-            <div className={styles.Container}>
-                <div>
-                    You have pending transaction with your card ending by {selectedTx.pan.slice(-4)}
+            {selectedTx && <div className={loading ? 'collapse' : ''}>
+                <div className={styles.CardContainer}>
+                    <BankCard
+                        className={styles.Card}
+                        cardNumber={formatCardNumber(selectedTx.pan)}
+                        expiresAt={selectedTx.cardExpDate}
+                        holderName={selectedTx.nameOnCard}
+                    />
                 </div>
 
-                <div className={styles.MerchantName}>
-                    {selectedTx.merchant.name}
+                <div className={styles.Container}>
+                    <div>
+                        You have pending transaction with your card ending by {selectedTx.pan.slice(-4)}
+                    </div>
+
+                    <div className={styles.MerchantName}>
+                        {selectedTx.merchant.name}
+                    </div>
+
+                    <div className={styles.Amount}>
+                        {selectedTx.originalAmount} {selectedTx.originalCurrency}
+                    </div>
+
+                    <div>{t('click_confirm_to_verify')}</div>
+
+                    <div className="flex flex-1 justify-between">
+                        <Button
+                            onClick={() => onContinue(true)}
+                            className={styles.Button}
+                        >Confirm</Button>
+
+                        <Button
+                            red
+                            onClick={() => onContinue(false)}
+                            className={styles.Button}
+                        >Decline</Button>
+                    </div>
                 </div>
-
-                <div className={styles.Amount}>
-                    {selectedTx.originalAmount} {selectedTx.originalCurrency}
-                </div>
-
-                <div>{t('click_confirm_to_verify')}</div>
-
-                <div className="flex flex-1 justify-between">
-                    <Button
-                        onClick={() => onContinue(true)}
-                        className={styles.Button}
-                    >Confirm</Button>
-
-                    <Button
-                        red
-                        onClick={() => onContinue(false)}
-                        className={styles.Button}
-                    >Decline</Button>
-                </div>
-            </div>
-        </Modal>}
+            </div>}
+        </Modal>
     </div>
 }
 
 export default PendingTransactions;
-
-/*
-async postPaymentVerification(info, status, isBIO?) {
-  headers = (this.fbUAS.checkIfUAS(this.user.username) || localStorage.getItem('isResended')) ?
-    headers.set('token', user.token) :
-    headers.set('token-firebase', user.token);
-  
-  const token = this.encriptService.generateJWTToken({
-    initiator: user.username,
-    reference: info.reference,
-    authenticationMethod: isBIO ? 'BIO' : 'PIN',
-    status,
-  });
-  return this.http.post(`${environment.api}/acs3/transaction/status`, {token}, {headers}).toPromise();
-}
-*/

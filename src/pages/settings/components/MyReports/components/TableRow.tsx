@@ -2,6 +2,8 @@ import Download from '@/assets/download.svg?react';
 import {Box, IconButton, Typography} from '@mui/material';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
+import { apiGetUas } from '@/shared/(orval)api';
+import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
 
 export function TableRow({
     statement
@@ -9,6 +11,7 @@ export function TableRow({
     statement: StatementsByIBAN
 }) {
     const {sm} = useBreakpoints();
+    const {getAccountDetails} = storeAccountDetails();
     const {
         to,
         from,
@@ -37,8 +40,16 @@ export function TableRow({
             </Typography>
         )}
 
-        <IconButton onClick={() => {
-            apiDownloadStatements(downloadLink)
+        <IconButton onClick={async () => {
+            const {data} = await apiGetUas();
+            const {phone} = await getAccountDetails();
+
+            apiDownloadStatements(downloadLink, {
+                headers: {
+                    Authorization: phone,
+                    Token: data.result.token
+                }
+            })
         }} sx={{
             flex: '0 0 auto',
             color: 'pale blue',

@@ -77,6 +77,8 @@ export const PendingTransactions = () => {
             }
         });
 
+        console.log("3ds info:");
+        console.log(response);
         // @ts-ignore
         if (!response.data.errors) {
             setState(() => [

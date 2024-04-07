@@ -232,6 +232,7 @@ function Exchange() {
                                                     value={from.amount}
                                                     currency={from.currency}
                                                     onChange={onFromValueChange}
+                                                    className={styles.InputCurrencyText}
                                                 />
                                             </InputCurrency.DisplayBalance>
                                         </InputCurrency.Validator>
@@ -260,6 +261,7 @@ function Exchange() {
                                         currency={to.currency}
                                         disabled={!isLimitOrder}
                                         onChange={onToValueChange}
+                                        className={styles.InputCurrencyText}
                                     />
                                 </InputCurrency.CurrencySelector>
 

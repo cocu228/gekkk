@@ -33,7 +33,7 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
             className={`${inputCurrencyValid ? "!border-red-800" : "border-gray-400"} ${className}`}
             disabled={disabled || !currency}
             value={value}
-            placeholder={t("exchange.enter_amount")}
+            placeholder={!currency ? '' : t("exchange.enter_amount")}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 const value: string = event.target.value
                 onChange(value)

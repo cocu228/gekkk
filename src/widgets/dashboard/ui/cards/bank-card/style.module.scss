@@ -38,6 +38,7 @@
 
 .CardNumber {
   width: 100%;
+  display: grid;
   font-size: 13px;
   font-weight: 600;
   word-spacing: 7px;
@@ -54,6 +55,7 @@
 
 .CardData {
   width: 100%;
+  display: grid;
   font-size: 10px;
   padding-left: 9%;  
   font-weight: 600;

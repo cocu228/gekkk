@@ -28,6 +28,7 @@ import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/programs/ui";
 import {getCookieData, pull, pullStart} from "@/shared/lib";
 import PendingTransactions from "@/widgets/pending-transactions";
+import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 
 function Wallet() {
     const {t} = useTranslation();
@@ -182,7 +183,10 @@ function Wallet() {
                             <WalletButtons crypto={isCryptoWallet}>
                                 <TopUpButton currency={currency} wallet/>
                                 <TransfersButton currency={currency} wallet/>
-                                <ExchangeButton wallet/>
+                                {!isEUR
+                                    ? <ExchangeButton wallet/>
+                                    : <CardsMenuButton/>
+                                }
                                 {!isCryptoWallet && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }

@@ -110,7 +110,7 @@ const SidebarDesktop = () => {
                             </Carousel>
                         ) : (
                             <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}>
-                                <BankCardsCarousel cardWidth={300} cards={activeCards} />
+                                <BankCardsCarousel cards={activeCards} />
                             </div>
                         )}
                     </div>

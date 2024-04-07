@@ -4,9 +4,6 @@ import { NavLink, useMatch } from 'react-router-dom';
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { CtxCurrencies } from "@/processes/CurrenciesContext";
-import { useTranslation } from 'react-i18next';
-
 import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 import FundsButton from "@/shared/ui/ButtonsMobile/Funds";
 import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
@@ -15,59 +12,41 @@ import HistoryButton from "@/shared/ui/ButtonsMobile/History";
 
 
 export function BottomMenu(){
-    const { t } = useTranslation();
-    
-    const { sm, md } = useContext(BreakpointsContext);
-    const { totalAmount } = useContext(CtxCurrencies);
-    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>()
-
-    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
-
-
+    const homePage = useMatch("/");
+    const {sm, md} = useContext(BreakpointsContext);
+    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>();
+    const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
-    }, [sm, md])
-    const homePage = useMatch("/")
-    const transfersPage = useMatch("/transfers") //not used
-    const exchangePage = useMatch("/exchange")
-    const historyPage = useMatch("/history") //not used   
-    // const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
-
+    }, [sm, md]);
+    
     useEffect(()=>{
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            setNeedBottomPadding(true)
-        }else{
-            setNeedBottomPadding(false)
-        }
-    },[])
+        setNeedBottomPadding(window.matchMedia('(display-mode: standalone)').matches);
+    }, []);
 
-    return(
-        <>
-            {//isOnMainPages &&
-                <>
-                    {
-                    !!homePage &&
-                        <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
-                            <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                                <div className={styles.NewAsset}>
-                                    <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
-                                </div>
-                            </NavLink>
-                        </div>
-                    }
-                    <div className={styles.BottomMobile}>
-                            <div className={styles.BottomMenuMobile  + " " + (needBottomPadding && styles.AddBottomMenuPadding)}>
-                                <FundsButton/>
-                                <TransfersButton/>
-                                <ExchangeButton/>
-                                <HistoryButton/>
-                            </div>
-                    
+    return <>
+        {!!homePage && (
+            <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
+                <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
+                    <div className={styles.NewAsset}>
+                        <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
                     </div>
-                </>    
-            }
-        </>
-    )
+                </NavLink>
+            </div>
+        )}
+
+        <div className={styles.BottomMobile}>
+            <div className={
+                styles.BottomMenuMobile + " "
+                + (needBottomPadding && styles.AddBottomMenuPadding)}
+            >
+                <FundsButton/>
+                <TransfersButton/>
+                <ExchangeButton/>
+                <HistoryButton/>
+            </div>
+        </div>
+    </>
 }

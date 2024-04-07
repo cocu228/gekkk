@@ -12,8 +12,8 @@ import {
 
 interface IParams {
   cards: ICardData[];
+  cardSize?: 'md' | 'lg';
   cardClassName?: string;
-  cardWidth?: number;
   wrapperClassName?: string;
   refreshKey?: string | null;
   onSelect?: (card: ICardData) => void;
@@ -21,9 +21,9 @@ interface IParams {
 
 const BankCardsCarousel = ({
   cards,
+  cardSize,
   refreshKey,
   cardClassName,
-  cardWidth,
   onSelect = () => {},
 }: IParams) => {
   const carouselRef = useRef<CarouselRef>();
@@ -55,11 +55,11 @@ const BankCardsCarousel = ({
           {cards.map((card) => (
             <div className={`${cardClassName} mb-6`}>
               <BankCard
+                size={cardSize}
                 status={card.cardStatus}
                 cardNumber={formatCardNumber(card.displayPan)}
                 expiresAt={formatMonthYear(new Date(card.expiryDate))}
                 holderName={card.cardholder}
-                cardWidth={cardWidth}
               />
             </div>
           ))}

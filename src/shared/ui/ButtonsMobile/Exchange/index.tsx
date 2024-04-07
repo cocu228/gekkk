@@ -10,20 +10,17 @@ interface IParams {
 }
 
 const ExchangeButton = memo(({wallet}:IParams) => {
-    const {t} = useTranslation()
-    const homePage = useMatch("/")
-    const transfersPage = useMatch("/transfers") //not used
-    const exchangePage = useMatch("/exchange")
-    const privateRoom = useMatch("/private-room")
-    const historyPage = useMatch("/history") //not used   
+    const {t} = useTranslation();
+    const exchangePage = useMatch("/exchange");
+    const privateRoom = useMatch("/private-room");
     const {currencies} = useContext(CtxCurrencies);
-    const isOnMainPages = !!homePage || !!transfersPage || !!exchangePage || !!historyPage
-    let $constant
+
+    let $constant;
+
     if(wallet && currencies){
         const {$const} = useContext(CtxWalletData);
-        $constant = currencies.get($const)
+        $constant = currencies.get($const);
     }
-
 
     return(
         <>

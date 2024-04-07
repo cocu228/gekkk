@@ -47,7 +47,8 @@ export function MyReports() {
         })();
     }, []);
 
-    return statements === null ? (
+    return <div className='w-full max-w-[750px]'>
+        {statements === null ? (
             <AreaWrapper title={t("my_reports")}>
                 <Typography>
                     <Loader className='relative'/>
@@ -63,6 +64,6 @@ export function MyReports() {
             <AreaWrapper title={t("my_reports")}>
                 <Table statements={statements} />
             </AreaWrapper>
-        )
-    )
+        ))}
+    </div>
 }

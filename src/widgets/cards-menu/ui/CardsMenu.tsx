@@ -290,7 +290,6 @@ const CardsMenu = ({
         <div className={styles.CarouselBlock}>
           <div className={styles.CarouselBlockMobile}>
             <BankCardsCarousel
-              cardWidth={220}
               cards={cardsStorage.cards}
               refreshKey={cardsStorage.refreshKey}
               onSelect={(card) => {
@@ -613,7 +612,6 @@ const CardsMenu = ({
       <div className={styles.CarouselBlock}>
         <div className={styles.CarouselBlockContainer}>
           <BankCardsCarousel
-            cardWidth={220}
             cards={cardsStorage.cards}
             refreshKey={cardsStorage.refreshKey}
             onSelect={(card) => {

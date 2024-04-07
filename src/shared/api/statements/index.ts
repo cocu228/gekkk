@@ -1,5 +1,5 @@
-import {$axios, $AxiosResponse } from "@/shared/lib/(orval)axios";
-import { AxiosRequestConfig } from "axios";
+import {AxiosRequestConfig} from "axios";
+import {$axios} from "@/shared/lib/(orval)axios";
 
 export type StatementsByIBAN = {
     reportName: string
@@ -24,5 +24,6 @@ export const apiGetStatements = (options?: AxiosRequestConfig) =>
 export const apiDownloadStatements = (reference: string, options?: AxiosRequestConfig) =>
     $axios.get<any>(`/api/v1/statements/file/${reference}`, {
         ...options,
+        responseType: 'blob',
         baseURL: import.meta.env.VITE_BANK_API_URL
     });

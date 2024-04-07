@@ -14,9 +14,6 @@ export function Table({
         statements[account?.number] ?? []
     ), [account, statements]);
 
-    console.log("reports")
-    console.log(reports)
-
     return <Box
         gap="24px"
         display="flex"

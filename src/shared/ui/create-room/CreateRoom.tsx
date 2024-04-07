@@ -51,7 +51,7 @@ function CreateRoom({
       <div className={loading ? "!collapse" : ""}>
         <ModalInfoText>{t("exchange.private_room_allows")}</ModalInfoText>
 
-        <div className="mt-4">
+        <div className="mt-4 mb-10">
           <label
             className="inline-flex mb-1 text-sm font-medium"
             htmlFor="sell-token"

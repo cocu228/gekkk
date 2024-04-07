@@ -19,7 +19,7 @@ const Header = () => {
     const {md} = useContext(BreakpointsContext);
     const {account, setAccount} = useContext(CtxRootData);
     const accounts = storeAccounts(state => state.accounts);
-    const defaultMenuItems = useMemo(() => getDefaultItems(t), [i18n.language]);
+    const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
     
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [

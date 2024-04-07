@@ -2,8 +2,8 @@ import Download from '@/assets/download.svg?react';
 import {Box, IconButton, Typography} from '@mui/material';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
-import { apiGetUas } from '@/shared/(orval)api';
-import { storeAccountDetails } from '@/shared/store/account-details/accountDetails';
+import {apiGetUas} from '@/shared/(orval)api';
+import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
 
 export function TableRow({
     statement
@@ -44,12 +44,28 @@ export function TableRow({
             const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
 
-            apiDownloadStatements(downloadLink, {
+            const response = await apiDownloadStatements(downloadLink, {
                 headers: {
                     Authorization: phone,
                     Token: data.result.token
                 }
-            })
+            });
+
+            const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+            const url = window.URL.createObjectURL(pdfBlob);
+
+            const tempLink = document.createElement("a");
+            tempLink.href = url;
+            tempLink.setAttribute(
+              "download",
+              `${reportName}.pdf`
+            );
+            
+            document.body.appendChild(tempLink);
+            tempLink.click();
+
+            document.body.removeChild(tempLink);
+            window.URL.revokeObjectURL(url);
         }} sx={{
             flex: '0 0 auto',
             color: 'pale blue',

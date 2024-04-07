@@ -1,81 +1,69 @@
-.BankCard {
-  max-width: 1013px;
-  //min-width: 100px;
-  user-select: none;
-  //min-height: 100px;
-  max-height: 639px;
+.BankCard {  
+  width: 100%;
+  max-width: 1000px;
+  user-select: none;    
+  padding-bottom: 5%;
   border-radius: 10px;
-  transition: all 0.2s;
+  transition: all .2s;
+  aspect-ratio: 1.5852895;
+  background-size: auto 100%;
   background-color: #c8c8c8;
   background-repeat: no-repeat;
-  background-size: auto 100%;
-  aspect-ratio: 1.5852895;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  
+  // background: url(/img/payment-card/payment-card-background.jpg);
+  background: url(/img/payment-card/payment-card-background2.jpg);
+  background-size: contain;
 
   &:hover {
-    //background: url(/img/payment-card/payment-card-background.jpg);
-    box-shadow: 0 10px 27px 0px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 10px 27px 0px rgba(0,0,0,0.16)
   }
 }
-.CardNumber {
+
+.DataWrapper {
   width: 100%;
-  margin-left: 17px;
-  margin-bottom: 9px;
-
-  @media screen and (max-width: 770px) {
-    margin-bottom: 7%;
-  }
-
-  &Text {
-    font-size: 13px;
-    font-weight: 600;
-    word-spacing: 7px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: linear-gradient(
-      to bottom,
-      #c8c8c8 0%,
-      #c8c8c8 14.28%,
-      #ffffffe0 28.56%,
-      #ffffffe0 42.84%,
-      #c8c8c8 57.12%,
-      #c8c8c8 71.4%,
-      #ffffffe0 85.68%,
-      #ffffffe0 100%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-  }
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 0.4fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px; 
 }
-.CardData {
-  width: 100%;
-  font-size: 10px;
-  //font-size: 1.4vw;
-  font-weight: 600;
-  word-spacing: 4px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: linear-gradient(
-    to bottom,
-    #c8c8c8 0%,
-    #c8c8c8 14.28%,
-    #ffffffe0 28.56%,
-    #ffffffe0 42.84%,
-    #c8c8c8 57.12%,
-    #c8c8c8 71.4%,
-    #ffffffe0 85.68%,
-    #ffffffe0 100%
-  );
+
+.Text {
+  background: linear-gradient(to bottom, #909090 0%, #909090 14.28%, #fffffff0 28.56%, #fffffff0 42.84%, #909090 57.12%, #909090 71.4%, #fffffff0 85.68%, #fffffff0 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-left: 17px;
 }
-.CardHolderName {
-  margin-bottom: 6%;
+
+.CardNumber {
+  width: 100%;
+  font-size: 13px;
+  font-weight: 600;
+  word-spacing: 7px;
+  align-content: end;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+
+  &Lg {
+    width: 100%;
+    font-size: 18px;
+  }
+}
+
+.CardData {
+  width: 100%;
+  font-size: 10px;
+  padding-left: 9%;  
+  font-weight: 600;
+  word-spacing: 4px;
+  align-content: end;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  &Lg {
+    font-size: 14px;
+    padding-left: 8%;  
+}
 }

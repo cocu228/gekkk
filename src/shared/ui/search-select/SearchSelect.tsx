@@ -28,7 +28,7 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children
                 showSearch
                 className={`${(prefixIcon) ? styles.SelectSearchActive : ''} ${styles.SelectSearch}`}
                 popupClassName={styles.SelectPopup}
-                style={{width: '100%', height: '30px'}}
+                style={{width: '100%'}}
                 optionLabelProp="label"
                 onChange={handleChange}
                 suffixIcon={<IconDoubleArrows />}

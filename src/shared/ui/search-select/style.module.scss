@@ -15,6 +15,11 @@
     height: 2.5rem;
     margin-top: -1.25rem;
 
+    svg {
+      height: 40px;
+      width: 40px;
+    }
+
     @include max-devices("sm") {
       width: 2.12rem;
       height: 2.12rem;
@@ -142,7 +147,6 @@
 .OptionIcon {
   display: inline-flex;
   width: 1.8rem;
-  height: 1.8rem;
   flex: 0 0 1.8rem;
 
   img {

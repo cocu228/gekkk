@@ -51,21 +51,7 @@ export function TableRow({
                 }
             });
 
-            const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-            const url = window.URL.createObjectURL(pdfBlob);
-
-            const tempLink = document.createElement("a");
-            tempLink.href = url;
-            tempLink.setAttribute(
-              "download",
-              `${reportName}.pdf`
-            );
-            
-            document.body.appendChild(tempLink);
-            tempLink.click();
-
-            document.body.removeChild(tempLink);
-            window.URL.revokeObjectURL(url);
+            window.open(URL.createObjectURL(response.data));
         }} sx={{
             flex: '0 0 auto',
             color: 'pale blue',

@@ -40,6 +40,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
+import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -231,8 +232,9 @@ function Exchange() {
           <div className="py-5 px-10 lg:px-5 md:px-4">
             <div className={`gap-x-14 xl:gap-x-2 ${styles.Grid}`}>
               <div className="h-full flex flex-col">
-                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">
+                <div className="font-medium flex flex-col gap-[5px] -sm:flex-row -sm:items-center items-start justify-between w-full text-md lg:text-sm md:text-xs mb-2 select-none">
                   {t("exchange.you_pay")}
+                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isValidator={true}

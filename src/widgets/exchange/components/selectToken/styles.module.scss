@@ -65,8 +65,16 @@
     opacity: 0;
     top: -15px;
 
+    @media screen and (max-width: 770px) {
+      top: -19px;
+    }
+
     @media screen and (max-width: 430px) {
-      top: -5px;
+      top: -20px;
+    }
+
+    @media screen and (max-width: 390px) {
+      top: -14px;
     }
   }
 }

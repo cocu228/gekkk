@@ -20,6 +20,7 @@ interface SelectTokenProps {
   excludedCurrencies: any;
   allowedFlags: any;
   onSelect: any;
+  value: any;
   currency: any;
   valueChange?: any;
   isValidator?: boolean;
@@ -30,6 +31,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   excludedCurrencies,
   allowedFlags,
   onSelect,
+  value,
   currency,
   isValidator,
   valueChange,
@@ -43,6 +45,13 @@ export const SelectToken: FC<SelectTokenProps> = ({
   const minAmount = currencies.get(from.currency)
     ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
     : 0;
+
+    const valueHandler = (e:any) => {
+      const value: string = e.target.value;
+      valueChange(value)
+    }
+
+  console.log(value, currency)
 
   return (
     <>
@@ -75,9 +84,11 @@ export const SelectToken: FC<SelectTokenProps> = ({
         <div className={s.input_body}>
         <DownArr className={s.arr} />
           <input
-            onChange={(event) => {
-              const value: string = event.target.value;
-              valueChange(value);
+            value={value}
+            disabled={!currency}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+              const valueNew: string = event.target.value
+              valueChange(valueNew)
             }}
             className={s.input}
             type="number"

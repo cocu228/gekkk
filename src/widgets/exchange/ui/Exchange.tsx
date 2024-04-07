@@ -239,6 +239,7 @@ function Exchange() {
                   valueChange={onFromValueChange}
                   currency={from.currency}
                   roomType={roomType}
+                  value={from.amount}
                   onSelect={onFromCurrencyChange}
                   excludedCurrencies={[to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
@@ -329,6 +330,7 @@ function Exchange() {
                 </div>
 
                 <SelectToken
+                  value={to.amount}
                   valueChange={onToValueChange}
                   isValidator={false}
                   currency={to.currency}

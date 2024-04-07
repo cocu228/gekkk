@@ -39,8 +39,8 @@ const PercentSelector: FC<IParams> = ({
     }
 
     return <CtxInputCurrencyOptions.Provider value={percent}>
-        <div className="wrapper w-full">
-            <div className="row flex justify-between mb-2 md:mb-1 items-center">
+        <div className="wrapper">
+            <div className="row flex justify-between items-center">
                 {header}
 
                 <div className={`row flex gap-1 text-xs 

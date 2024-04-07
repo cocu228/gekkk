@@ -14,6 +14,7 @@ import {
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
 import Decimal from "decimal.js";
+import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 
 interface SelectTokenProps {
   roomType: string;

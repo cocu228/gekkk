@@ -198,7 +198,7 @@ const WithdrawFormCrypto = () => {
             </div>
             <div className="row">
               <span className={styles.PayInfoTextFee}>
-                {t("fee")}:
+                {t( "fee")}:
               </span>
             </div>
           </div>
@@ -224,7 +224,7 @@ const WithdrawFormCrypto = () => {
                 {currency.$const}
               </span>
               <span className={styles.PayInfoValueFlexTextCurrency}>
-                EUR
+              {currency.$const}
               </span>
               <span className={styles.PayInfoValueFlexTextFee}>
                 {currency.$const}

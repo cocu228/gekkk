@@ -3,7 +3,6 @@ import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {apiGetUas} from "@/shared/(orval)api";
-import {actionResSuccess} from "@/shared/lib";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
@@ -84,7 +83,7 @@ export const PendingTransactions = () => {
         // @ts-ignore
         if (!response.data.errors) {
             setState(() => [
-                ...state.filter(tx => tx.reference !== selectedTx.reference)
+                ...state.filter(tx => tx.reference !== selectedTx.reference),
             ]);
             setSelectedTx(null);
             handleCancel();
@@ -115,6 +114,7 @@ export const PendingTransactions = () => {
             {selectedTx && <div className={loading ? 'collapse' : ''}>
                 <div className={styles.CardContainer}>
                     <BankCard
+                        size='lg'
                         className={styles.Card}
                         cardNumber={formatCardNumber(selectedTx.pan)}
                         expiresAt={selectedTx.cardExpDate}

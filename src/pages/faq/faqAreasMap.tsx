@@ -9,9 +9,7 @@ import Atm from '@/assets/atm.svg?react'
 import History from '@/assets/history.svg?react'
 import Euro from '@/assets/euro.svg?react'
 import Other from '@/assets/other.svg?react'
-import SupportIcon from '@/assets/support-icon.svg?react'
 import { FAQTemplate } from './components/FAQTemplate'
-import { TFunction } from 'i18next'
 
 
 
@@ -19,83 +17,6 @@ export const faqAreasMap = (t = (str) => null) => {
 
 
   return {
-    '': null,
-    'account-opening': {
-      icon: <CreateIntelligentAnalysisTask />,
-      title: "support.faq.account_opening.title",
-      area: (
-        <FAQTemplate
-          title="support.faq.account_opening.title"
-          items={[
-            {
-              title: "support.faq.account_opening.who_can_open_gekkard",
-              content: (
-                <>
-                  <div>
-                    {t("support.faq.account_opening.answers.you_can_open_an_gekkard")}
-                  </div>
-                  <ol>
-                    <li> {t("support.faq.account_opening.answers.are_at_least")} </li>{' '}
-                    <li> {t("support.faq.account_opening.answers.own_a_compatible")} </li>{' '}
-                    <li> {t("support.faq.account_opening.answers.hold_a_supported")} </li>{' '}
-                    <li> {t("support.faq.account_opening.answers.dont_already")} </li>
-                  </ol>
-                </>
-              ),
-            },
-            {
-              title: "support.faq.account_opening.how_to_open_gekkard",
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.account_opening.answers.step_1")}
-                    <br />
-                    {t("support.faq.account_opening.answers.step_2")}{' '}
-                    <br />
-                    {t("support.faq.account_opening.answers.step_3")}
-                    <br />
-                    {t("support.faq.account_opening.answers.step_4")}
-                    <br />
-                    {t("support.faq.account_opening.answers.step_5")}
-                  </p>
-                  <p>{t("support.faq.account_opening.answers.if_you_meet_our_minimum")}</p>
-                </>
-              ),
-            },
-            {
-              title: "support.faq.account_opening.what_is_age_limit",
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.account_opening.answers.in_order_to_open_gekkard")}
-                  </p>
-                </>
-              ),
-            },
-            {
-              title: "support.faq.account_opening.can_i_hold_more_than_one_currency",
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.account_opening.answers.currently_gekkard_accounts_are_opened")}
-                  </p>
-                </>
-              ),
-            },
-            {
-              title: "support.faq.account_opening.how_to_provide_my_identity",
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.account_opening.answers.as_a_financial_institution")}
-                  </p>
-                </>
-              ),
-            },
-          ]}
-        />
-      ),
-    },
     'account': {
       icon: <Wallet />,
       title: "support.faq.account.title",
@@ -190,6 +111,89 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
+    'account-opening': {
+      icon: <CreateIntelligentAnalysisTask />,
+      title: "support.faq.account_opening.title",
+      area: (
+        <FAQTemplate
+          title="support.faq.account_opening.title"
+          items={[
+            {
+              title: "support.faq.account_opening.who_can_open_gekkard",
+              content: (
+                <>
+                  <div>
+                    {t("support.faq.account_opening.answers.you_can_open_an_gekkard")}
+                  </div>
+                  <ol>
+                    <li> {t("support.faq.account_opening.answers.are_at_least")} </li>{' '}
+                    <li> {t("support.faq.account_opening.answers.own_a_compatible")} </li>{' '}
+                    <li> {t("support.faq.account_opening.answers.hold_a_supported")} </li>{' '}
+                    <li> {t("support.faq.account_opening.answers.dont_already")} </li>
+                  </ol>
+                </>
+              ),
+            },
+            {
+              title: "support.faq.account_opening.how_to_open_gekkard",
+              content: (
+                <>
+                  <ol>
+                    <li>
+                      {t("support.faq.account_opening.answers.step_1")}
+                    </li>
+                    <li>
+                      {t("support.faq.account_opening.answers.step_2")}{' '}
+                    </li>
+                    <li>
+                      {t("support.faq.account_opening.answers.step_3")}
+                    </li>
+                    <li>
+                      {t("support.faq.account_opening.answers.step_4")}
+                    </li>
+                    <li>
+                      {t("support.faq.account_opening.answers.step_5")}
+                    </li>
+                  </ol>
+                  <p>{t("support.faq.account_opening.answers.if_you_meet_our_minimum")}</p>
+                </>
+              ),
+            },
+            {
+              title: "support.faq.account_opening.what_is_age_limit",
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.account_opening.answers.in_order_to_open_gekkard")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: "support.faq.account_opening.can_i_hold_more_than_one_currency",
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.account_opening.answers.currently_gekkard_accounts_are_opened")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: "support.faq.account_opening.how_to_provide_my_identity",
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.account_opening.answers.as_a_financial_institution")}
+                  </p>
+                </>
+              ),
+            },
+          ]}
+        />
+      ),
+    },
+    
     'account-balance': {
       icon: <Balances />,
       title: "support.faq.account_balance.title",
@@ -601,43 +605,43 @@ export const faqAreasMap = (t = (str) => null) => {
         />
       ),
     },
-    'cards': {
+    'card': {
       icon: <CreditCard />,
-      title: "support.faq.cards.title",
+      title: "support.faq.card.title",
       area: (
         <FAQTemplate
-          title="support.faq.cards.title"
+          title="support.faq.card.title"
           items={[
             {
-              title: 'support.faq.cards.what_is_a_gekkard',
+              title: 'support.faq.card.what_is_a_gekkard',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.it_is_prepaid")}
+                    {t("support.faq.card.answers.it_is_prepaid")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_to_apply_for_the_gekkard',
+              title: 'support.faq.card.how_to_apply_for_the_gekkard',
               content: (
                 <>
                   <div>
-                    {t("support.faq.cards.answers.you_can")} 
+                    {t("support.faq.card.answers.you_can")} 
                     <br /> 
-                    {t("support.faq.cards.answers.step_1")} 
+                    {t("support.faq.card.answers.step_1")} 
                     <br /> 
-                    {t("support.faq.cards.answers.step_2")} 
+                    {t("support.faq.card.answers.step_2")} 
                     <br />{' '}
-                    {t("support.faq.cards.answers.step_3")}{' '}
+                    {t("support.faq.card.answers.step_3")}{' '}
                     <br />
-                    {t("support.faq.cards.answers.step_4")}
+                    {t("support.faq.card.answers.step_4")}
                     <br /> 
-                    {t("support.faq.cards.answers.step_5")}
+                    {t("support.faq.card.answers.step_5")}
                     <br />{' '}
                     <div>
                       {' '}
-                      {t("support.faq.cards.answers.if_you_meet_our_minimum")}{' '}
+                      {t("support.faq.card.answers.if_you_meet_our_minimum")}{' '}
                     </div>
                   </div>
                 </>
@@ -645,338 +649,338 @@ export const faqAreasMap = (t = (str) => null) => {
             },
             {
               title:
-                'support.faq.cards.what_is_the_difference',
+                'support.faq.card.what_is_the_difference',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.the_use_of_virtual")}
+                    {t("support.faq.card.answers.the_use_of_virtual")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.where_do_i_use_a_gekkard',
+              title: 'support.faq.card.where_do_i_use_a_gekkard',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.gekkard_may_be_used")}
+                    {t("support.faq.card.answers.gekkard_may_be_used")}
                     <br /> 
-                    {t("support.faq.cards.answers.virtual_gekkard")}
+                    {t("support.faq.card.answers.virtual_gekkard")}
                     <br /> 
-                    {t("support.faq.cards.answers.plastic_gekkard")}
+                    {t("support.faq.card.answers.plastic_gekkard")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.when_does_my_card_expire',
+              title: 'support.faq.card.when_does_my_card_expire',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.your_card_expires")}
+                    {t("support.faq.card.answers.your_card_expires")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_to_change_gekkard_limits',
+              title: 'support.faq.card.how_to_change_gekkard_limits',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_can_change")}
+                    {t("support.faq.card.answers.you_can_change")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_to_block_my_gekkard',
+              title: 'support.faq.card.how_to_block_my_gekkard',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_can_block")}
+                    {t("support.faq.card.answers.you_can_block")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.why_has_my_top_up',
+              title: 'support.faq.card.why_has_my_top_up',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_have_had")}
+                    {t("support.faq.card.answers.you_have_had")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.i_have_not_received_my_card',
+              title: 'support.faq.card.i_have_not_received_my_card',
               content: (
                 <>
-                  <div>{t("support.faq.cards.answers.depending_on_the")}</div>
+                  <div>{t("support.faq.card.answers.depending_on_the")}</div>
                   <ol>
-                    <li> {t("support.faq.cards.answers.up_to_10")}</li>{' '}
-                    <li> {t("support.faq.cards.answers.up_to_15")}</li>
+                    <li> {t("support.faq.card.answers.up_to_10")}</li>{' '}
+                    <li> {t("support.faq.card.answers.up_to_15")}</li>
                   </ol>
                   <p>
-                    {t("support.faq.cards.answers.if_you_haven")}
+                    {t("support.faq.card.answers.if_you_haven")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.my_card_has_been_lost_or_stolen',
+              title: 'support.faq.card.my_card_has_been_lost_or_stolen',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.please_block")}
+                    {t("support.faq.card.answers.please_block")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.can_i_see_the_new_account',
+              title: 'support.faq.card.can_i_see_the_new_account',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.before_receiving")}
+                    {t("support.faq.card.answers.before_receiving")}
                   </p>
                 </>
               ),
             },
             {
               title:
-                'support.faq.cards.what_should_i_do_if_i_incorrectly',
+                'support.faq.card.what_should_i_do_if_i_incorrectly',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.for_security_reasons")}
+                    {t("support.faq.card.answers.for_security_reasons")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.does_the_gekkard_have_an_expiry_date',
+              title: 'support.faq.card.does_the_gekkard_have_an_expiry_date',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.yes_gekkard_is")}
+                    {t("support.faq.card.answers.yes_gekkard_is")}
                     <br /> 
-                    {t("support.faq.cards.answers.information_of_validity")}
+                    {t("support.faq.card.answers.information_of_validity")}
                   </p>
                 </>
               ),
             },
             {
               title:
-                'support.faq.cards.is_it_possible_to_link_gekkard',
+                'support.faq.card.is_it_possible_to_link_gekkard',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.we_open_gekkard")}
+                    {t("support.faq.card.answers.we_open_gekkard")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.what_is_a_virtual_gekkard',
+              title: 'support.faq.card.what_is_a_virtual_gekkard',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.it_is_a_non_physical")}
+                    {t("support.faq.card.answers.it_is_a_non_physical")}
                   </p>
                 </>
               ),
             },
             {
               title:
-                'support.faq.cards.what_documents_or_information',
+                'support.faq.card.what_documents_or_information',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.during_registration")}
+                    {t("support.faq.card.answers.during_registration")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.when_will_my_card_be_delivered',
+              title: 'support.faq.card.when_will_my_card_be_delivered',
               content: (
                 <>
                   <div>
-                    {t("support.faq.cards.answers.your_virtual_gekkard_will")}
+                    {t("support.faq.card.answers.your_virtual_gekkard_will")}
                   </div>
                   <ol>
-                    <li> {t("support.faq.cards.answers.up_to_10_working")} </li>{' '}
-                    <li> {t("support.faq.cards.answers.up_to_15_working")} </li>
+                    <li> {t("support.faq.card.answers.up_to_10_working")} </li>{' '}
+                    <li> {t("support.faq.card.answers.up_to_15_working")} </li>
                   </ol>
                   <p>
-                    {t("support.faq.cards.answers.if_you_have_not")}
+                    {t("support.faq.card.answers.if_you_have_not")}
                   </p>
                 </>
               ),
             },
             {
               title:
-                'support.faq.cards.will_my_personal_details',
+                'support.faq.card.will_my_personal_details',
               content: (
                 <>
-                  <p>{t("support.faq.cards.answers.yes")}</p>
+                  <p>{t("support.faq.card.answers.yes")}</p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.when_will_my_gekkard_arrive',
+              title: 'support.faq.card.when_will_my_gekkard_arrive',
               content: (
                 <>
-                  <div>{t("support.faq.cards.answers.depending_on_the_destination")}</div>
+                  <div>{t("support.faq.card.answers.depending_on_the_destination")}</div>
                   <ol>
-                    <li> {t("support.faq.cards.answers.up_to_10_working_days")}</li>{' '}
-                    <li> {t("support.faq.cards.answers.up_to_15_working_days")}</li>
+                    <li> {t("support.faq.card.answers.up_to_10_working_days")}</li>{' '}
+                    <li> {t("support.faq.card.answers.up_to_15_working_days")}</li>
                   </ol>
                   <p>
-                    {t("support.faq.cards.answers.if_you_have_not_received")}
+                    {t("support.faq.card.answers.if_you_have_not_received")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_to_activate_my_plastic',
+              title: 'support.faq.card.how_to_activate_my_plastic',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.to_use_your_plastic")}
+                    {t("support.faq.card.answers.to_use_your_plastic")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_to_set_my_card_pin',
+              title: 'support.faq.card.how_to_set_my_card_pin',
               content: (
                 <>
                   <p>
-                  {t("support.faq.cards.answers.we_do_not_send")}
+                  {t("support.faq.card.answers.we_do_not_send")}
                   <br /> 
-                  {t("support.faq.cards.answers.go_to_show")}
+                  {t("support.faq.card.answers.go_to_show")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.can_i_change_gekkard_limits',
+              title: 'support.faq.card.can_i_change_gekkard_limits',
               content: (
                 <>
-                  <p>{t("support.faq.cards.answers.yes_in_the_mobile")}</p>
+                  <p>{t("support.faq.card.answers.yes_in_the_mobile")}</p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.my_gekkard_has_been_compromised',
+              title: 'support.faq.card.my_gekkard_has_been_compromised',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.if_you_believe")}
+                    {t("support.faq.card.answers.if_you_believe")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.my_gekkard_account_is_negative',
+              title: 'support.faq.card.my_gekkard_account_is_negative',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.the_most_common")}
-                  </p>
-                </>
-              ),
-            },
-            {
-              title:
-                'support.faq.cards.what_should_i_do_if_i_incorrectly',
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.cards.answers.or_security")}
-                  </p>
-                </>
-              ),
-            },
-            {
-              title: 'support.faq.cards.i_forgot_card_pin',
-              content: (
-                <>
-                  <p>
-                    {t("support.faq.cards.answers.you_can_view")}
+                    {t("support.faq.card.answers.the_most_common")}
                   </p>
                 </>
               ),
             },
             {
               title:
-                'support.faq.cards.can_i_use_my_mobile_application',
+                'support.faq.card.what_should_i_do_if_i_incorrectly',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.no_you_can_not")}
+                    {t("support.faq.card.answers.or_security")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.what_is_an_additional_card',
+              title: 'support.faq.card.i_forgot_card_pin',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.this_is_a_card")}
+                    {t("support.faq.card.answers.you_can_view")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.for_whom_can_i_order_an_additional_card',
+              title:
+                'support.faq.card.can_i_use_my_mobile_application',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_can_order")}
+                    {t("support.faq.card.answers.no_you_can_not")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.what_is_a_prepaid_debit_card',
+              title: 'support.faq.card.what_is_an_additional_card',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.this_is_a_card_for")}
+                    {t("support.faq.card.answers.this_is_a_card")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.what_are_the_advantages',
+              title: 'support.faq.card.for_whom_can_i_order_an_additional_card',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_can_easily")}
+                    {t("support.faq.card.answers.you_can_order")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.can_my_card_be_reloaded',
+              title: 'support.faq.card.what_is_a_prepaid_debit_card',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.can_my_card")}
+                    {t("support.faq.card.answers.this_is_a_card_for")}
                   </p>
                 </>
               ),
             },
             {
-              title: 'support.faq.cards.how_can_i_replenish_my_card',
+              title: 'support.faq.card.what_are_the_advantages',
               content: (
                 <>
                   <p>
-                    {t("support.faq.cards.answers.you_can_replenish")}
+                    {t("support.faq.card.answers.you_can_easily")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: 'support.faq.card.can_my_card_be_reloaded',
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.card.answers.can_my_card")}
+                  </p>
+                </>
+              ),
+            },
+            {
+              title: 'support.faq.card.how_can_i_replenish_my_card',
+              content: (
+                <>
+                  <p>
+                    {t("support.faq.card.answers.you_can_replenish")}
                   </p>
                 </>
               ),
@@ -1219,11 +1223,6 @@ export const faqAreasMap = (t = (str) => null) => {
           ]}
         />
       ),
-    },
-    'support-chat': {
-      icon: <SupportIcon />,
-      title: "support.faq.support_chat.title",
-      area: <FAQTemplate title="support.faq.support_chat.title" items={[]} />,
     },
   }
 }

@@ -208,8 +208,8 @@
           "how_to_block_my_gekkard": "Wie blockiere ich mein GEKKARD-Konto?",
           "my_card_has_been_lost_or_stolen": "Meine Karte wurde verloren oder gestohlen"
         },
-        "cards": {
-          "title": "Karten",
+        "card": {
+          "title": "Karte",
           "answers": {
             "it_is_prepaid": "Es handelt sich um eine Prepaid-Debitkarte von MasterCard, die wir Ihnen ausstellen, die in Form einer Plastikkarte oder virtuellen Karte vorliegen kann.",
             "you_can": "Sie können GEKKARD, ein Fernzugriffstool (Mobile App), beantragen, indem Sie ein Antragsformular ausfüllen.",

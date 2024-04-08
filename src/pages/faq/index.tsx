@@ -1,31 +1,15 @@
-import { Box, Typography } from '@mui/material'
 import { useCallback, useEffect } from 'react'
-
-import { ListOfQuestions } from './components/ListOfQuestions'
+import styles from "./styles.module.scss"
 import { faqContext } from './faqContext'
-import { AvailableFaqAreas, faqAreasMap } from './faqAreasMap'
-import { makeStyles } from 'tss-react/mui'
+import { AvailableFaqAreas, faqAreasMap, faqAreasMapKeys } from './faqAreasMap'
 import { useTranslation } from 'react-i18next'
-import { useBreakpoints } from '@/app/providers/BreakpointsProvider'
 import { useSearchParams } from 'react-router-dom'
 
-export const useStyles = makeStyles({ name: 'ListOfQuestions'})(({ palette }) => ({
-  root: {
-    ['& ol']: {
-      margin: '8px 0',
-      listStyleType: 'decimal',
-      "& li": {
-        marginBottom: '8px',
-      }
-    },
-  },
-}))
 
 export function Faq() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedArea = (searchParams.get('faqSection') || '') as AvailableFaqAreas;
   const {t} = useTranslation();
-  const currentArea = faqAreasMap(t)[selectedArea]
 
   const setSelectedArea = useCallback((selectedArea: AvailableFaqAreas) => {
     if (!faqAreasMap(t)[selectedArea]) {
@@ -36,31 +20,56 @@ export function Faq() {
       setSearchParams(searchParams);
     }
   }, [searchParams, setSearchParams]);
-  const { classes } = useStyles();
-  const {xxl, md} = useBreakpoints();
+
+  const areas = faqAreasMap(t)
+
+  const scrollHandler = (elementId: string) => {
+    const element = document.getElementById(elementId)
+    element.scrollIntoView({ block: "center", behavior: "smooth" })
+  }
 
   useEffect(() => {
-    setSelectedArea(selectedArea);
+    if(selectedArea){
+      scrollHandler(selectedArea)
+    }
   }, [])
 
   return (
     <faqContext.Provider value={{ setSelectedArea, selectedArea }}>
-      <Typography padding="16px 30px 0 30px" variant="h1">
-        {t('frequently_asked_questions')}
-      </Typography>
-      <Box
-        padding={md ? '30px' : "0 60px 60px 30px"}
-        paddingTop="36px"
-        display="flex"
-        flexDirection={xxl && currentArea ? "column" : 'row'}
-        gap="30px"
-        width="100%"
-        height="100%"
-        overflow="auto"
-      >
-        <ListOfQuestions  />
-        {currentArea ? <Box className={classes.root}>{currentArea.area}</Box> : null}
-      </Box>
+      <div className={styles.Wrapper}>
+        <span className={styles.Title}>
+          {t('frequently_asked_questions')}
+        </span>
+        <div>
+          <ul className={styles.List}>
+            {faqAreasMapKeys.map(key=>{
+
+              return (
+                <li 
+                  className={styles.Key}
+                  onClick={()=>{
+                    scrollHandler(key)
+                    setSelectedArea(key)
+                  }}
+                >
+                  {t(areas[key]?.title)}
+                </li>
+              )
+            })}
+          </ul>
+          <div className={styles.OpenedList}>
+            {faqAreasMapKeys.map(key=>{
+              
+              return <>
+                <span id={key} className={styles.ValueTitle}>{t(areas[key]?.title)}</span>
+                <div>
+                  {areas[key].area}
+                </div>
+              </>
+            })}
+          </div>
+        </div>
+      </div>
     </faqContext.Provider>
   )
 }

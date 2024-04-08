@@ -251,8 +251,8 @@
           "my_card_has_been_lost_or_stolen": "My card has been lost or stolen"
         },
 
-        "cards": {
-          "title": "Cards",
+        "card": {
+          "title": "Card",
           "answers": {
             "it_is_prepaid": "It is prepaid debit card of MasterCard issued by us to you, which may be in the form of a plastic card or virtual card.",
 

@@ -61,7 +61,8 @@ const SystemNotifications = ({children}: IParams) => {
             console.log(jsonValue);
 
             //if (!document.hasFocus())
-                displaySystemNotification(jsonValue);
+            displaySystemNotification(jsonValue);
+            setRefresh();
 
         } catch (err) {
             console.error(err);

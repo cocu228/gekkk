@@ -1,6 +1,6 @@
 {
   "packageId": "com.gekkard.twa",
-  "host": "dev.gekkard.com",
+  "host": "web.gekkard.com",
   "name": "Gekkard",
   "launcherName": "Gekkard",
   "display": "standalone",

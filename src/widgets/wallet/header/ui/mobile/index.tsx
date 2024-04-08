@@ -8,6 +8,7 @@ import {getCurrencyRounding, toLocaleFiatRounding} from "@/shared/lib/number-for
 import ETokensConst from "@/shared/config/coins/constants";
 import {apiGetRates} from "@/shared/(orval)api/gek";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
+import { CtxRootData } from "@/processes/RootContext";
 
 
 const WalletHeaderMobile = () => {
@@ -20,6 +21,7 @@ const WalletHeaderMobile = () => {
 
     const [params] = useSearchParams();
     const currency = params.get('currency');
+    const {account} = useContext(CtxRootData);
     const tab = params.get('tab');
     const isOnAboutPage = tab === "about"
     const isOnProgramsPage = tab === "programs"
@@ -41,7 +43,7 @@ const WalletHeaderMobile = () => {
 
             setRates(rates);
         })();
-    }, [currency]);
+    }, [account]);
     if (isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage) {
         return <></>
     }

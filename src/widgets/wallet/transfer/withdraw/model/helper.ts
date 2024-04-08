@@ -46,18 +46,6 @@ export const getFinalFee = (curFee: number, perFee: number): TGetFinalFee => {
 
 }
 
-export const getWithdrawEUR = (curFee: number, course: number) => {
-
-    if (course !== undefined && !new Decimal(course).isZero()) {
-        const decimalVal = new Decimal(course)
-        const toFixed = decimalVal.times(curFee).toFixed(2)
-
-        return new Decimal(toFixed).isZero() ? null : toFixed
-
-    } else return null
-}
-
-
 // export const signHeadersGeneration = async (token: string | null = null): Promise<Partial<SignHeaders>> => {
 //
 //     const header: Pick<SignHeaders, "X-Confirmation-Type"> = {

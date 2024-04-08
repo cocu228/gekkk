@@ -8,12 +8,14 @@ import {apiGetRates} from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
 import {useSearchParams} from "react-router-dom";
 import {toLocaleCryptoRounding} from "@/shared/lib/number-format-helper";
+import { CtxRootData } from "@/processes/RootContext";
 
 
 const WalletHeader = () => {
     const {t} = useTranslation();
     const [params] = useSearchParams();
     const currency = params.get('currency');
+    const {account} = useContext(CtxRootData);
 
     const {
         name,
@@ -40,7 +42,7 @@ const WalletHeader = () => {
 
             setRates(rates);
         })();
-    }, [currency]);
+    }, [account]);
 
     return (
         <>

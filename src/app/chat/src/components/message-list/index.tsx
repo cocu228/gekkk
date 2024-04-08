@@ -293,7 +293,6 @@ export default function MessageList({
                                         clusterLastMessage={lastClusterMessage}
                                         messages={messages}
                                         index={index}
-                                        firstDate={dateOfFirstVisibleMessage}
                                     />
 
                                 } else {
@@ -313,7 +312,6 @@ export default function MessageList({
                                         text={text}
                                         messages={messages}
                                         index={index}
-                                        firstDate={dateOfFirstVisibleMessage}
                                     />
                                 }
                                 

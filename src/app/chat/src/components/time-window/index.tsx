@@ -22,7 +22,8 @@ const DateText = styled.div`
 position: absolute;
 z-index:100;
 margin-top: 15px;
-width: 100px;
+min-width: 100px;
+padding: 3px;
 font-size: 20px;
 color: #ffffff;
 display: flex;

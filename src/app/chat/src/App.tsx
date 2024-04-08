@@ -10,7 +10,7 @@ import StompSocketProvider from "./providers/StompSocketProvider";
 import {useEffect, useState} from "react";
 import {ChatMessage} from "./types/Shared";
 import {apiPostMessage} from "./api/post-message";
-import {getCookieData} from "./utils/shared";
+import {getCookieData, isMediaFile} from "./utils/shared";
 import {apiGetMessages} from "./api/get-messages";
 import {apiPostFile} from "./api/post-file";
 
@@ -71,16 +71,24 @@ function App() {
             id: item.role,
             name: item.sender,
         },
-        //@ts-ignore
-        media: (item.messageType === "file" && item.file[0] !== undefined) ? {
+        
+        media: (item.messageType === "file" && item.file && (item.file.length > 0) && item.file[0].picture && isMediaFile(item.file[0].path)) ? {
             type: "image",
-            //@ts-ignore
             url: item.file[0].downloadLink,
-            //@ts-ignore
             size: item.file[0].size,
-            //@ts-ignore
+            name: item.file[0].name,
+        } : (item.messageType === "file" && item.file && (item.file.length > 0) && !item.file[0]?.picture && isMediaFile(item.file[0].path)) ? {
+            type: "video",
+            url: item.file[0].downloadLink,
+            size: item.file[0].size,
+            name: item.file[0].name,
+        } : (item.messageType === "file" && item.file && (item.file.length > 0) && !item.file[0]?.picture && !isMediaFile(item.file[0].path)) ? {
+            type: "file",
+            url: item.file[0].downloadLink,
+            size: item.file[0].size,
             name: item.file[0].name,
         } : undefined,
+
         createdAt: new Date(item.createdAt * 1000),
         seen: item.isRead
     }))
@@ -105,7 +113,7 @@ function App() {
                         file: item.files,
                         messageType: item.messageType
                     }))
-                    //@ts-ignore                    
+                               
                     setMessages(messages)
                 }
             }

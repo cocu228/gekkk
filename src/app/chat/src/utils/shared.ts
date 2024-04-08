@@ -48,3 +48,13 @@ export const setCookieData = (cookieData: { key: string; value: string; expirati
 export function clearCookie(name: string) {
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 }
+
+
+// функция которая проверяет расширение файла и возвращает true, если файл является медиафайлом
+export function isMediaFile(fileName: string): boolean {
+    const mediaExtensions = ['mp3', 'mp4', "gif", 'avi', 'mkv', 'jpeg', 'png'];
+    
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+    
+    return mediaExtensions.includes(fileExtension || '');
+}

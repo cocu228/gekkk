@@ -27,7 +27,7 @@ export type ChatMessage = {
     role: string,
     createdAt: number,
     isRead?: boolean,
-    file?: MessageFile,
+    file?: MessageFile[],
 }
 
 export type StompChatUpdate = {

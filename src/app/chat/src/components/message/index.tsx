@@ -23,8 +23,6 @@ export type Props = {
     clusterLastMessage?: boolean
     messages?: MessageType[] | undefined
     index?: number
-    firstDate?: string
-
 };
 
 
@@ -44,12 +42,11 @@ export default function Message({
     clusterLastMessage,
     messages = [],
     index = 0,
-    firstDate
 }: Props) {
 
     return (
         <>
-            <DatePopupInMessages messages={messages} index={index} date={firstDate}/>
+            <DatePopupInMessages messages={messages} index={index} date={created_at?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})}/>
             {type === "outgoing" ?
                 <OutgoingMessage
                     loading={loading}

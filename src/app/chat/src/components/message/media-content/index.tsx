@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import { MediaType } from '../../../types/MessageType'
 import { getBorderCss } from '../borderController'
-// import { useEffect } from 'react'
-// import { makeApiRequest } from '../../../utils/(cs)axios' TODO: получить изображение
-// import { getCookieData } from '../../../utils/shared'
+import { useEffect, useState } from 'react'
+import { makeApiRequest } from '../../../utils/(cs)axios'
+import loadingSvg from "../../../../dist/assets/logo-loading-B-iPVwEw.svg"
+
 
 
 interface Props extends MediaType {
@@ -16,9 +17,12 @@ const ImageContainer = styled.div`
     width: 99%;
     padding: 1px;
     position: relative;
-user-select: none;
-
-    `
+    user-select: none;
+`
+const LoadingContainer = styled.div`
+    min-width: 50px;
+    min-height: 30px;
+`
 
 const Image = styled.img<{
     borderCss: string,
@@ -88,8 +92,20 @@ export default function MediaContent({
     single,
     messageType
 }: Props) {
+    
+    const [fetching, setFetching] = useState<boolean>(true)
+    const [content, setContent] = useState()
 
-    return (
+    useEffect(()=>{
+        setFetching(true)
+        makeApiRequest("GET", url, undefined, {responseType: "blob"}).then((res)=>{            
+            // @ts-ignore
+            setContent(URL.createObjectURL(res.data))
+            setFetching(false)
+        })        
+    }, [])
+
+    return fetching ? <LoadingContainer> <img src={loadingSvg} alt="loading" /> </LoadingContainer> : (
         <>
             {(type === 'image' || type === 'gif') &&
                 <ImageContainer>
@@ -99,8 +115,8 @@ export default function MediaContent({
                             last,
                             single
                         }))()}
-                        src={url}
-                        alt={url} />
+                        src={content}
+                        alt={content} />
                 </ImageContainer>
             }
 
@@ -125,11 +141,13 @@ export default function MediaContent({
                     <div style={{ width: "100%", display: 'flex' }}>
                         <FileContainer
                             target='_blank'
-                            href={url}>{DownloadIcon}&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ textDecoration: "underline" }}>{url}{size && <SizeText>({size})</SizeText>}</span></FileContainer>
+                            href={content}>{DownloadIcon}&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ textDecoration: "underline" }}>{content}{size && <SizeText>({size})</SizeText>}</span></FileContainer>
                     </div>
                 </div>
 
             }
         </>
     )
+    
+
 }

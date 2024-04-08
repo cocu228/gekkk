@@ -57,7 +57,6 @@ const WithdrawConfirmCrypto = memo(
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
 
     const { $const } = useContext(CtxWalletData);
-    const { setRefresh } = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
     const { md } = useBreakpoints();
 
@@ -144,7 +143,6 @@ const WithdrawConfirmCrypto = memo(
           if (result.confirmationStatusCode === 4) {
             handleCancel();
             setContent({content: <ModalTrxStatusSuccess/>});
-            setRefresh();
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -327,7 +325,6 @@ const WithdrawConfirmCrypto = memo(
                     </Button>
                     <Button
                       onClick={() => {
-                        setRefresh();
                         handleCancel();
                       }}
                       whiteGreenTransfer

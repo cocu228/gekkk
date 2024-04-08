@@ -22,7 +22,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const [loading, setLoading] = useState<boolean>(false);
     const {t} = useTranslation();
     const {md} = useBreakpoints();
-    const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
 
     const {
@@ -82,7 +81,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                 if(md){                    
                     //@ts-ignore
                     if(response.data.status === "ok"){
-                        setRefresh();
                         handleCancel();
                         setContent({content: <ModalTrxStatusSuccess/>});
                     }

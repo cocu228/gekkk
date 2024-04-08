@@ -35,7 +35,6 @@ const WithdrawConfirmSepa = ({
   const { t } = useTranslation();
   const { account } = useContext(CtxRootData);
   const { $const } = useContext(CtxWalletData);
-  const { setRefresh } = useContext(CtxRootData);
   const { setContent } = useContext(CtxModalTrxResult);
   const [uasToken, setUasToken] = useState<string>(null);
   const { getAccountDetails } = storeAccountDetails((state) => state);
@@ -117,7 +116,6 @@ const WithdrawConfirmSepa = ({
       })
         .then(({ data }) => {
           handleCancel();
-          setRefresh();
           setContent({
             content: (
               <ModalTrxStatusSuccess
@@ -288,7 +286,6 @@ const WithdrawConfirmSepa = ({
                 whiteGreenTransfer
                 className={styles.ButtonTwo}
                 onClick={() => {
-                  setRefresh();
                   handleCancel();
                 }}
               >

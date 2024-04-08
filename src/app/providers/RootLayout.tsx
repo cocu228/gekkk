@@ -14,6 +14,7 @@ import {BottomMenu} from '@/widgets/bottom-mobile/ui/BottomMenu';
 import {BreakpointsContext} from './BreakpointsProvider';
 // import {useAuth} from "@/app/providers/AuthRouter";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
+import SystemNotifications from './SystemNotifications';
 
 export default memo(function () {
     // const {logout} = useAuth();
@@ -84,7 +85,7 @@ export default memo(function () {
             setRefresh: setRefresh,
             refreshKey
         }}>
-            {(<>
+            {(<SystemNotifications>
                 <CurrenciesProvider>
                     {isNewLayout ? <>
                         <Outlet/>
@@ -121,7 +122,7 @@ export default memo(function () {
                         {md && <BottomMenu/>}
                     </>}
                 </CurrenciesProvider>
-            </>)
+            </SystemNotifications>)
             }
         </CtxRootData.Provider>
     )

@@ -30,7 +30,6 @@ const WithdrawFormBroker = () => {
     const currency = useContext(CtxWalletData);
     const [loading, setLoading] = useState(false);
     const {inputCurr, setInputCurr} = useInputState();
-    const {setRefresh: setReload} = useContext(CtxRootData);
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
@@ -246,13 +245,12 @@ const WithdrawFormBroker = () => {
             open={isModalOpen}
             onCancel={()=>{
                 handleCancel()
-                setReload()
             }}
             title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
             footer={null}
         >
             <WithdrawConfirmBroker
-                handleCancel={()=>{handleCancel();setReload()}}
+                handleCancel={()=>{handleCancel()}}
                 amount={inputCurr.value.number}
             />
         </ModalAnt>

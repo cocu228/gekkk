@@ -18,6 +18,7 @@ import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/numbe
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import Loader from "@/shared/ui/loader";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
+import ReactPullToRefresh from "react-pull-to-refresh";
 
 const SidebarMobile = () => {
     const { t } = useTranslation();
@@ -67,34 +68,39 @@ const SidebarMobile = () => {
         secondaryWallets = Array.from(currencies.values());
     }
 
-    const initLoading = () => {
-        refreshCont.current?.classList.add(styles.Loading);
-        setRefresh()
-        setIsRefreshingFunds(true)
-        setTimeout(() => {
-            setIsRefreshingFunds(false)
-        }, 3000);
-    };
+    // const initLoading = () => {
+    //     refreshCont.current?.classList.add(styles.Loading);
+    //     setRefresh()
+    //     setIsRefreshingFunds(true)
+    //     setTimeout(() => {
+    //         setIsRefreshingFunds(false)
+    //     }, 3000);
+    // };
 
-    function endPull() {
-        setStartPoint(0);
-        setPullChange(0);
-        if (pullChange > 220) initLoading();
+    // function endPull() {
+    //     setStartPoint(0);
+    //     setPullChange(0);
+    //     if (pullChange > 220) initLoading();
+    // }
+
+    // useEffect(() => {
+    //     window.addEventListener("touchstart", (e) => { pullStart(e, setStartPoint) });
+    //     window.addEventListener("touchmove", (e) => { pull(e, setPullChange, startPoint) });
+    //     window.addEventListener("touchend", endPull);
+    //     return () => {
+    //         window.removeEventListener("touchstart", (e) => { pullStart(e, setStartPoint) });
+    //         window.removeEventListener("touchmove", (e) => { pull(e, setPullChange, startPoint) });
+    //         window.removeEventListener("touchend", endPull);
+    //     };
+    // });'
+    
+    const  handleRefresh = async () => {
+        console.log('RELOADING')
     }
 
-    useEffect(() => {
-        window.addEventListener("touchstart", (e) => { pullStart(e, setStartPoint) });
-        window.addEventListener("touchmove", (e) => { pull(e, setPullChange, startPoint) });
-        window.addEventListener("touchend", endPull);
-        return () => {
-            window.removeEventListener("touchstart", (e) => { pullStart(e, setStartPoint) });
-            window.removeEventListener("touchmove", (e) => { pull(e, setPullChange, startPoint) });
-            window.removeEventListener("touchend", endPull);
-        };
-    });
-
     return (
-        <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
+        <ReactPullToRefresh onRefresh={handleRefresh} className="reshresh_wrap" style={{ textAlign: 'center' }} >
+            <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
             <div className={`${styles.Sidebar} flex flex-col justify-between`}>
                 {notificationsEnabled !== 'true' ? null : <UnconfirmedTransactions />}
 
@@ -290,6 +296,7 @@ const SidebarMobile = () => {
                 </div>
             </div>
         </div>
+        </ReactPullToRefresh>
     )
 
 }

@@ -47,6 +47,7 @@
     "react-i18next": "^13.3.1",
     "react-international-phone": "^4.0.4",
     "react-phone-input-2": "2.15.1",
+    "react-pull-to-refresh": "^2.0.1",
     "react-qr-code": "2.0.11",
     "react-router-dom": "6.8.2",
     "sha256-uint8array": "^0.10.7",

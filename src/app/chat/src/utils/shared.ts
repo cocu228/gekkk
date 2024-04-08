@@ -52,7 +52,7 @@ export function clearCookie(name: string) {
 
 // функция которая проверяет расширение файла и возвращает true, если файл является медиафайлом
 export function isMediaFile(fileName: string): boolean {
-    const mediaExtensions = ['mp3', 'mp4', "gif", 'avi', 'mkv', 'jpeg', 'jpg', "HEIC", "mov", 'png'];
+    const mediaExtensions = ['mp3', 'mp4', "gif", 'avi', 'mkv', 'jpeg', 'jpg', "heic", "mov", 'png'];
     
     const fileExtension = fileName.split('.').pop()?.toLowerCase();
     

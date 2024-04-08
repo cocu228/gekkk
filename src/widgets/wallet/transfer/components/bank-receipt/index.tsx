@@ -1,7 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
-import { apiGetUas } from "@/shared/(orval)api";
 import { apiGetBankReceipt, IReceiptData } from "@/shared/api/bank/get-bank-receipt";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { getMethodTitle, getStatusTitle } from "./model/helpers";
@@ -12,9 +11,10 @@ import { CtxModalTrxResult } from "../../withdraw/model/context";
 
 interface BankReceiptProps {
   referenceNumber: string;
+  uasToken: string;
 }
 
-const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber }) => {
+const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [state, setState] = useState<IReceiptData>(null);
@@ -23,15 +23,14 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber }) => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await apiGetUas();
       const { phone } = await getAccountDetails();
 
       const result = await apiGetBankReceipt(
-        "PPY153a7ed3-24d0-400d-9653-9bc9df0f283",
+        referenceNumber,
         {
           headers: {
             Authorization: phone,
-            Token: data.result.token,
+            Token: uasToken,
           },
       });
 

@@ -20,6 +20,7 @@ import Loader from '@/shared/ui/loader';
 export const PendingTransactions = () => {
     const {t} = useTranslation();
     const {refreshKey, account} = useContext(CtxRootData);
+    const [uasToken, setUasToken] = useState<string>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, isModalOpen, handleCancel} = useModal();
     const [state, setState] = useState<IPendingTransaction[]>([]);
@@ -34,6 +35,8 @@ export const PendingTransactions = () => {
             if (!(phone || data?.result?.token)) {
                 return;
             }
+
+            setUasToken(data.result.token);
 
             const response = await apiPendingTransactions({
                 headers: {
@@ -51,7 +54,6 @@ export const PendingTransactions = () => {
     const onContinue = async (isConfirm: boolean) => {
         setLoading(true);
         const {phone} = await getAccountDetails();
-        const {data} = await apiGetUas();
 
         const {
             appUuid,
@@ -73,7 +75,7 @@ export const PendingTransactions = () => {
             headers: {
                 Authorization: phone,
                 'X-App-uuid': appUuid,
-                Token: data.result.token
+                Token: uasToken
             }
         });
 

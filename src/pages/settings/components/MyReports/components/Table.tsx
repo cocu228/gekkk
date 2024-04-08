@@ -5,9 +5,11 @@ import {CtxRootData} from '@/processes/RootContext';
 import {StatementsByIBAN} from '@/shared/api/statements';
 
 export function Table({
-    statements
+    uasToken,
+    statements,
 }: {
-    statements: {[key: string]: StatementsByIBAN[]}
+    uasToken: string;
+    statements: {[key: string]: StatementsByIBAN[]};
 }) {
     const {account} = useContext(CtxRootData);
     const reports = useMemo(() => (
@@ -21,7 +23,7 @@ export function Table({
         flexDirection="column"
     >
         {reports.map(item => {
-            return <TableRow statement={item} />
+            return <TableRow statement={item} uasToken={uasToken}/>
         })}
     </Box>
 }

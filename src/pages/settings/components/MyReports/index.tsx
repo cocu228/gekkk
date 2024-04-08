@@ -17,15 +17,18 @@ export function MyReports() {
         localIndicatorError
     ] = useError();
     const {t} = useTranslation();
+    const [uasToken, setUasToken] = useState<string>(null);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const [statements, setStatements] = useState<{[key: string]: StatementsByIBAN[]}>(null);
 
     useEffect(() => {
         (async () => {
             localErrorClear();
+            
+            const token = (await apiGetUas()).data.result.token;
+            setUasToken(token);
 
             const {phone} = await getAccountDetails();
-            const token = (await apiGetUas()).data.result.token;
             const {data} = await apiGetStatements({
                 headers: {
                     Authorization: phone,
@@ -62,7 +65,7 @@ export function MyReports() {
             </AreaWrapper>
         ) : (
             <AreaWrapper title={t("my_reports")}>
-                <Table statements={statements} />
+                <Table statements={statements} uasToken={uasToken}/>
             </AreaWrapper>
         ))}
     </div>

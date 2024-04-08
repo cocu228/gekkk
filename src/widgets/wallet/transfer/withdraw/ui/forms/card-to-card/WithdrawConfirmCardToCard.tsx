@@ -45,6 +45,7 @@ const WithdrawConfirmCardToCard = ({
     const {md} = useBreakpoints()
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const [uasToken, setUasToken] = useState<string>(null);
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -76,12 +77,11 @@ const WithdrawConfirmCardToCard = ({
             loading: true
         }));
         
-        const {data} = await apiGetUas();
         const {phone} = await getAccountDetails();
         
         await apiPaymentContact(details.current, false, {
             Authorization: phone,
-            Token: data.result.token
+            Token: uasToken
         }).then(async (response) => {
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
@@ -91,7 +91,7 @@ const WithdrawConfirmCardToCard = ({
             await apiPaymentContact(details.current, false, {
                 ...headers,
                 Authorization: phone,
-                Token: data.result.token
+                Token: uasToken
             }).then((res)=>{
                 if(md){                    
                     //@ts-ignore
@@ -119,6 +119,8 @@ const WithdrawConfirmCardToCard = ({
             const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
             
+            setUasToken(data.result.token);
+
             apiPaymentContact(details.current, true, {
                 Authorization: phone,
                 Token: data.result.token
@@ -128,11 +130,6 @@ const WithdrawConfirmCardToCard = ({
             })));
         })();
     }, []);
-
-    useEffect(()=>{
-        console.log(cards?.filter(c => c.cardStatus === "ACTIVE")[0]);
-        
-    })
     
     return !md ? <div>
         {loading && <Loader className='justify-center'/>}

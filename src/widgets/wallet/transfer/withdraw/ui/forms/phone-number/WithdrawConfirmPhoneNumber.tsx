@@ -46,6 +46,7 @@ const WithdrawConfirmPhoneNumber = ({
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
+    const [uasToken, setUasToken] = useState<string>(null);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
@@ -70,6 +71,8 @@ const WithdrawConfirmPhoneNumber = ({
         (async () => {
             const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
+
+            setUasToken(data.result.token);
             
             apiPaymentContact(details.current, true, {
                 Authorization: phone,
@@ -93,12 +96,11 @@ const WithdrawConfirmPhoneNumber = ({
             loading: true
         }));
         
-        const {data} = await apiGetUas();
         const {phone} = await getAccountDetails();
         
         await apiPaymentContact(details.current, false, {
             Authorization: phone,
-            Token: data.result.token
+            Token: uasToken
         }).then(async (response) => {
             // @ts-ignore
             const confToken = response.data.errors[0].properties.confirmationToken;
@@ -108,8 +110,8 @@ const WithdrawConfirmPhoneNumber = ({
             await apiPaymentContact(details.current, false, {
                 ...headers,
                 Authorization: phone,
-                Token: data.result.token
-            }).then(() => {
+                Token: uasToken
+            }).then(({data}) => {
                 handleCancel();
                 setRefresh();
                 setContent({
@@ -125,7 +127,7 @@ const WithdrawConfirmPhoneNumber = ({
 
     const getReceipt = async (referenceNumber: string) => {
         setContent({
-            content: <BankReceipt referenceNumber={referenceNumber}/>,
+            content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
             title: 'Transaction receipt'
         });
     };

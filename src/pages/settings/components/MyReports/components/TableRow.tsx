@@ -2,13 +2,14 @@ import Download from '@/assets/download.svg?react';
 import {Box, IconButton, Typography} from '@mui/material';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
-import {apiGetUas} from '@/shared/(orval)api';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
 
 export function TableRow({
-    statement
+    uasToken,
+    statement,
 }: {
-    statement: StatementsByIBAN
+    uasToken: string;
+    statement: StatementsByIBAN;
 }) {
     const {sm} = useBreakpoints();
     const {getAccountDetails} = storeAccountDetails();
@@ -41,13 +42,12 @@ export function TableRow({
         )}
 
         <IconButton onClick={async () => {
-            const {data} = await apiGetUas();
             const {phone} = await getAccountDetails();
 
             const response = await apiDownloadStatements(downloadLink, {
                 headers: {
                     Authorization: phone,
-                    Token: data.result.token
+                    Token: uasToken
                 }
             });
 

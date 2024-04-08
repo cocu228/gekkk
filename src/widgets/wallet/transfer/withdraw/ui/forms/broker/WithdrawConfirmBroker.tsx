@@ -70,7 +70,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             Token: data.result.token
         }).then(async (response) => {
             // @ts-ignore
-            
             const confToken = response.data.errors[0].properties.confirmationToken;
             
             const headers = await signHeadersGeneration(phone, confToken);

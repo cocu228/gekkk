@@ -37,6 +37,7 @@ const WithdrawConfirmSepa = ({
   const { $const } = useContext(CtxWalletData);
   const { setRefresh } = useContext(CtxRootData);
   const { setContent } = useContext(CtxModalTrxResult);
+  const [uasToken, setUasToken] = useState<string>(null);
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const { networkTypeSelect, networksForSelector } =
     useContext(CtxWalletNetworks);
@@ -72,6 +73,8 @@ const WithdrawConfirmSepa = ({
       const { data } = await apiGetUas();
       const { phone } = await getAccountDetails();
 
+      setUasToken(data.result.token);
+
       apiPaymentSepa(details.current, true, {
         Authorization: phone,
         Token: data.result.token,
@@ -96,12 +99,11 @@ const WithdrawConfirmSepa = ({
       loading: true,
     }));
 
-    const { data } = await apiGetUas();
     const { phone } = await getAccountDetails();
 
     await apiPaymentSepa(details.current, false, {
       Authorization: phone,
-      Token: data.result.token,
+      Token: uasToken,
     }).then(async (response) => {
       // @ts-ignore
       const confToken = response.data.errors[0].properties.confirmationToken;
@@ -111,7 +113,7 @@ const WithdrawConfirmSepa = ({
       await apiPaymentSepa(details.current, false, {
         ...headers,
         Authorization: phone,
-        Token: data.result.token,
+        Token: uasToken,
       })
         .then(({ data }) => {
           handleCancel();
@@ -133,7 +135,7 @@ const WithdrawConfirmSepa = ({
 
   const getReceipt = async (referenceNumber: string) => {
     setContent({
-        content: <BankReceipt referenceNumber={referenceNumber}/>,
+        content: <BankReceipt referenceNumber={referenceNumber} uasToken={uasToken}/>,
         title: 'Transaction receipt'
     });
   };

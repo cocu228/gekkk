@@ -3,7 +3,7 @@ import { MediaType } from '../../../types/MessageType'
 import { getBorderCss } from '../borderController'
 import { useEffect, useState } from 'react'
 import { makeApiRequest } from '../../../utils/(cs)axios'
-import loadingSvg from "../../../../dist/assets/logo-loading-B-iPVwEw.svg"
+import loadingSvg from "../../../../dist/assets/logo-loading.svg"
 
 
 

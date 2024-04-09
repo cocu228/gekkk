@@ -79,14 +79,39 @@
   }
 }
 
+.currency_styles {
+  @media screen and (max-width: 460px) {
+    min-width: 95px;
+  }
+
+  @media screen and (max-width: 360px) {
+    min-width: 75px;
+  }
+
+  button {
+    @media screen and (max-width: 770px) {
+      top: -7px;
+    }
+  }
+}
+
+.ico {
+  width: 34px;
+  height: 34px;
+
+  @media screen and (max-width: 360px) {
+    width: 25px;
+    height: 25px;
+  }
+}
+
 .selected_body > div {
   width: 100%;
-  
+
   & > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
   }
 }
 

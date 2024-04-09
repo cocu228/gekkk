@@ -30,9 +30,6 @@ import { Carousel } from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
-// import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
-// import Loader from "@/shared/ui/loader";
-
 const SidebarDesktop = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();

@@ -1,10 +1,8 @@
-// import { Typography } from "@mui/material";
-import { Typography } from "../../typography/typography";
-import { t } from "i18next";
+import { ReactNode } from "react";
 import { FrameItem } from "../../FrameItem";
-import { ReactNode, useContext } from "react";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Arrow from '@/assets/arrow.svg?react';
+import { Typography } from "../../typography/typography";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 interface Props {
     onClick?: () => void;

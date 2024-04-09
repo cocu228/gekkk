@@ -179,13 +179,15 @@ function Wallet() {
 	                <>
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
-                                <TopUpButton currency={currency} wallet/>
-                                <TransfersButton currency={currency} wallet/>
+                                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
+                                <TransfersButton to={`/transfers?currency=${currency}`}/>
+                                
                                 {!isEUR
-                                    ? <ExchangeButton wallet/>
-                                    : <CardsMenuButton/>
+                                    ? <ExchangeButton to={`/exchange?from=${currency}`}/>
+                                    : <CardsMenuButton to={"/card-menu"}/>
                                 }
-                                {(isEUR || isEURG || isGKE) && <ProgramsButton wallet/>}
+
+                                {(isEUR || isEURG || isGKE) && <ProgramsButton to={`/wallet?currency=${currency}&tab=programs`}/>}
                             </WalletButtons>
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&

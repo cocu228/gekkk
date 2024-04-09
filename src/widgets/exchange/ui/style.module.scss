@@ -11,18 +11,6 @@
   }
 }
 
-// TODO: remove on exchange update
-.InputCurrencyText {
-  & :global(.ant-input-suffix) {
-    margin-right: 12px;
-    
-    span {
-      margin-right: 8px;
-      font-size: 14px !important;
-    }
-  }
-}
-
 .FieldsSpacer {
   margin-top: 0.5rem;
   margin-bottom: -0.5rem;

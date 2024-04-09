@@ -1,26 +1,16 @@
-.WalletButtons{
-    height: 50px;
+.WalletButtons {
     width: 100%;
-    background: #F7F7F0; 
+    height: 50px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 100%;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    justify-items: center;
-    align-items: center;
     overflow: hidden;
-}
-.CryptoWalletButtons{
-    height: 50px;
-    width: 100%;
+    align-items: center;
     background: #F7F7F0; 
-    display: grid;
+    justify-items: center;
+    grid-column-gap: 10px;
+    grid-template-rows: 100%;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 100%;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    justify-items: center;
-    align-items: center;
-    overflow: hidden;
+}
+
+.MainWallet {
+    grid-template-columns: repeat(4, 1fr);
 }

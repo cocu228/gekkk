@@ -17,7 +17,7 @@ interface IParams {
 }
 
 const Validator: FC<IParams> = (({
-    value,
+    value = 0,
     availableNullable = false,
     children,
     className,
@@ -33,12 +33,13 @@ const Validator: FC<IParams> = (({
         if (firstEffect.current) {
             firstEffect.current = false
         } else {
-            if (new Decimal(value).isZero() && !availableNullable) {
+
+            if (new Decimal(value ?? 0).isZero() && !availableNullable) {
                 setError(t("null_value"));
                 onError(true);
             } else {
                 const isValid = validators.every(validate => {
-                    const result = validate(value);
+                    const result = validate(value ?? 0);
                     if (!result.validated) {
                         setError(result.errorMessage);
                         onError(true);

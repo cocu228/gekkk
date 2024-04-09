@@ -16,8 +16,8 @@ function PriceField({ disabled }: { disabled?: boolean }) {
 
   const { amount, isSwapped } = price;
 
-  const priceChange = (target: any) => {
-    onPriceAmountChange(formatAsNumberAndDot(target.value));
+  const priceChange = (event: any) => {
+    onPriceAmountChange(formatAsNumberAndDot(event.target.value));
   };
 
   return (

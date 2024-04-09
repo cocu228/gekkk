@@ -46,8 +46,6 @@ function CreateRoom({
   return (
     <>
       <div className={loading ? "!collapse" : ""}>
-        <ModalInfoText>{t("exchange.private_room_allows")}</ModalInfoText>
-
         <div className={s.modal_text}>
           <WarningIcon />
           {t("exchange.private_room_allows")}

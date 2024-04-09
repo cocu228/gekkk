@@ -50,9 +50,7 @@ function Wallet() {
         $currency = currencies.get(currency);
     }
 
-    const isCryptoWallet = !(currency === "EUR" || currency === "EURG" || currency === "GKE")
 
-    // const $const = currencies.get(currency)
     const isOnAboutPage = tab === "about";
     const isOnProgramsPage = tab === "programs";
     const isOnNoFeeProgramPage = tab === "no_fee_program";
@@ -180,14 +178,14 @@ function Wallet() {
 				:
 	                <>
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
-                            <WalletButtons crypto={isCryptoWallet}>
+                            <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
                                 <TopUpButton currency={currency} wallet/>
                                 <TransfersButton currency={currency} wallet/>
                                 {!isEUR
                                     ? <ExchangeButton wallet/>
                                     : <CardsMenuButton/>
                                 }
-                                {!isCryptoWallet && <ProgramsButton wallet/>}
+                                {(isEUR || isEURG || isGKE) && <ProgramsButton wallet/>}
                             </WalletButtons>
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&

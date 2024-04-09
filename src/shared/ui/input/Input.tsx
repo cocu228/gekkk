@@ -13,7 +13,6 @@ const Input = React.forwardRef(
   (
     {
       onChange,
-      onKeyDown,
       allowDigits,
       allowSymbols,
       wrapperClassName,

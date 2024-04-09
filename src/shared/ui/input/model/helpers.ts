@@ -1,5 +1,5 @@
 const digitsPattern = /[\d|\.]/;
-const allowedSymbolsPattern = /[\@\!\#\$\%\^\&\*\(\)\_\+\-\=\"\,\.\/]/;
+const allowedSymbolsPattern = /[\@\!\#\$\%\^\&\*\(\)\_\+\-\=\"\,\/]/;
 const latinAlphabetPattern = /[^a-zA-Z|\s|\d\@\!\#\$\%\^\&\*\(\)\_\+\-\=\"\,\.\/]+/;
 
 export const validateInput = (
@@ -9,7 +9,7 @@ export const validateInput = (
 ): boolean => {
     const inpValue = event.target.value;
 
-    if (digitsPattern.test(inpValue) && !allowDigits)
+    if (!allowDigits && digitsPattern.test(inpValue))
         return false;
 
     if (!allowSymbols && allowedSymbolsPattern.test(inpValue))

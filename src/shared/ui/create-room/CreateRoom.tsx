@@ -22,31 +22,26 @@ interface IState {
 }
 
 interface IParams {
-  to?: IExchangeField;
-  from?: IExchangeField;
-  onRoomCreation?: (roomInfo: RoomInfo) => void;
-  onToCurrencyChange?: (value: string) => void;
-  onFromCurrencyChange?: (value: string) => void;
+  to: IExchangeField;
+  from: IExchangeField;
+  onCurrenciesSwap: () => void;
+  onRoomCreation: (roomInfo: RoomInfo) => void;
+  onToCurrencyChange: (value: string) => void;
+  onFromCurrencyChange: (value: string) => void;
 }
 
 function CreateRoom({
   to,
   from,
   onRoomCreation,
+  onCurrenciesSwap,
   onToCurrencyChange,
   onFromCurrencyChange,
 }: IParams) {
+  const [isIco, setIsIco] = useState(false);
+  const [purchaseLimit, setPurchaseLimit] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [localErrorHunter, , localErrorInfoBox] = UseError();
-
-  const [purchaseLimit, setPurchaseLimit] = useState(0);
-  const [isIco, setIsIco] = useState(false);
-
-  const purchaseLimitChange = (target: any) => {
-    setPurchaseLimit(+target.value);
-  };
-
-  console.log(isIco);
 
   return (
     <>
@@ -73,9 +68,13 @@ function CreateRoom({
             allowedFlags={[CurrencyFlags.ExchangeAvailable]}
           />
         </div>
-        <div className="w-[25px] h-[25px] m-[10px_auto_0_auto]">
-          <IconSwap />
+        
+        <div className="flex w-full justify-center mt-2 -mb-5">
+          <div onClick={onCurrenciesSwap} className="cursor-pointer">
+            <IconSwap size="25px"/>
+          </div>
         </div>
+
         <div className="mt-2">
           <label
             className="inline-flex mb-1 text-sm font-medium"
@@ -92,7 +91,21 @@ function CreateRoom({
             allowedFlags={[CurrencyFlags.ExchangeAvailable]}
           />
         </div>
-        <div className="flex items-center gap-3 justify-center mt-[15px]">
+
+        <div className="mt-6">
+          <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">
+            {t("exchange.purchase_limit")}
+          </label>
+          <Input
+            allowDigits
+            placeholder={t("exchange.it_is_empty")}
+            onChange={(event) => {
+              setPurchaseLimit(+event.target.value)
+            }}
+          />
+        </div>
+
+        <div className="flex items-center gap-3 justify-center mt-4">
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${

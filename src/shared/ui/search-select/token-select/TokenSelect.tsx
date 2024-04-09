@@ -10,9 +10,9 @@ import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 const { Option } = Select;
 
 interface IParams {
+  className?: string;
   allowedFlags?: Array<CurrencyFlags>;
   disabledCurrencies?: Array<string>;
-  className?: any;
 }
 
 function TokenSelect({
@@ -37,7 +37,7 @@ function TokenSelect({
 
   return (
     <SearchSelect
-      className={`${styles.select} ${className && className}`}
+      className={`${styles.Select} ${className && className}`}
       {...props}
       prefixIcon={currency && <IconCoin code={currency.$const} />}
     >

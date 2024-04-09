@@ -160,10 +160,6 @@ function Exchange() {
     }
   };
 
-  const minAmount = currencies.get(from.currency)
-    ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
-    : 0;
-
   const createOrder = async () => {
     localErrorClear();
     setLoading(true);
@@ -237,12 +233,12 @@ function Exchange() {
                   <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
-                  isValidator={true}
-                  valueChange={onFromValueChange}
-                  currency={from.currency}
+                  hasValidator={true}
                   roomType={roomType}
-                  value={from.amount}
+                  currency={from.currency}
+                  value={from.amount ?? ''}
                   onSelect={onFromCurrencyChange}
+                  onChange={onFromValueChange}
                   excludedCurrencies={[to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
@@ -332,13 +328,13 @@ function Exchange() {
                 </div>
 
                 <SelectToken
-                  value={to.amount}
-                  valueChange={onToValueChange}
-                  isValidator={false}
-                  currency={to.currency}
                   roomType={roomType}
+                  hasValidator={false}
+                  currency={to.currency}
+                  value={to.amount ?? ''}
+                  onChange={onToValueChange}
                   onSelect={onToCurrencyChange}
-                  excludedCurrencies={[to.currency]}
+                  excludedCurrencies={[from.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 {/* <InputCurrency.CurrencySelector
@@ -532,6 +528,7 @@ function Exchange() {
           <CreateRoom
             to={to}
             from={from}
+            onCurrenciesSwap={onCurrenciesSwap}
             onToCurrencyChange={onToCurrencyChange}
             onFromCurrencyChange={onFromCurrencyChange}
             onRoomCreation={(roomInfo) => {

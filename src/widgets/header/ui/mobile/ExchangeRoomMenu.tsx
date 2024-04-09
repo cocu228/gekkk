@@ -151,8 +151,8 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
       />
 
       <Modal
-        className={styles.RoomModal}
         width={450}
+        className={styles.RoomModal}
         open={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
         title={
@@ -165,15 +165,20 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
           <CreateRoom
             to={to}
             from={from}
+            onCurrenciesSwap={() => {
+              const fromCurr = from.currency;
+              const toCurr = to.currency;
+
+              setTo({ ...to, currency: fromCurr });
+              setFrom({ ...from, currency: toCurr });
+            }}
             onRoomCreation={(roomInfo) => {
               addExchangeRoom(roomInfo);
               roomModal.handleCancel();
               navigate(`/private-room?roomId=${roomInfo.timetick}`);
             }}
             onToCurrencyChange={(value) => setTo({ ...to, currency: value })}
-            onFromCurrencyChange={(value) =>
-              setFrom({ ...from, currency: value })
-            }
+            onFromCurrencyChange={(value) => setFrom({ ...from, currency: value })}
           />
         )}
       </Modal>

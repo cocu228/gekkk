@@ -59,8 +59,6 @@ function OpenOrders({ refreshKey }: IParams) {
     })();
   }, [activeTab, account, roomInfo?.timetick, refreshKey]);
 
-  console.log("ACTIVE TAB", activeTab);
-
   const currencyPrecision = (value: number, currency: string) =>
     Number(value.toFixed(currencies.get(currency)?.ordersPrec));
 

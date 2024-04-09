@@ -1,9 +1,8 @@
 import s from "./styles.module.scss";
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import Input from "@/shared/ui/input/Input";
 import DownArr from "@/assets/downArr.svg?react";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
@@ -14,17 +13,17 @@ import {
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
 import Decimal from "decimal.js";
-import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
+import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 
 interface SelectTokenProps {
   roomType: string;
-  excludedCurrencies: any;
-  allowedFlags: any;
-  onSelect: any;
-  value: any;
-  currency: any;
-  valueChange?: any;
-  isValidator?: boolean;
+  excludedCurrencies: string[];
+  allowedFlags: CurrencyFlags[];
+  value: string;
+  currency: string;
+  hasValidator?: boolean;
+  onChange?: (value: string) => void;
+  onSelect: (value: string) => void;
 }
 
 export const SelectToken: FC<SelectTokenProps> = ({
@@ -34,25 +33,17 @@ export const SelectToken: FC<SelectTokenProps> = ({
   onSelect,
   value,
   currency,
-  isValidator,
-  valueChange,
+  hasValidator: isValidator,
+  onChange,
 }) => {
-  const { from } = useContext(CtxExchangeData);
-
-  const { currencies } = useContext(CtxCurrencies);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { from } = useContext(CtxExchangeData);
+  const { currencies } = useContext(CtxCurrencies);
 
   const minAmount = currencies.get(from.currency)
     ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
     : 0;
-
-    const valueHandler = (e:any) => {
-      const value: string = e.target.value;
-      valueChange(value)
-    }
-
-  console.log(value, currency)
 
   return (
     <>
@@ -89,7 +80,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
             disabled={!currency}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
               const valueNew: string = event.target.value
-              valueChange(valueNew)
+              onChange(valueNew)
             }}
             className={s.input}
             type="number"

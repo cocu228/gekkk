@@ -230,13 +230,16 @@ function Exchange() {
               <div className="h-full flex flex-col">
                 <div className="font-medium flex flex-col gap-[5px] -sm:flex-row -sm:items-center items-start justify-between w-full text-md lg:text-sm md:text-xs mb-2 select-none">
                   {t("exchange.you_pay")}
-                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
+                  <PercentSelector
+                    onSelect={onFromValueChange}
+                    currency={currencies.get(from.currency)}
+                  />
                 </div>
                 <SelectToken
                   hasValidator={true}
                   roomType={roomType}
                   currency={from.currency}
-                  value={from.amount ?? ''}
+                  value={from.amount ?? ""}
                   onSelect={onFromCurrencyChange}
                   onChange={onFromValueChange}
                   excludedCurrencies={[to.currency]}
@@ -331,7 +334,7 @@ function Exchange() {
                   roomType={roomType}
                   hasValidator={false}
                   currency={to.currency}
-                  value={to.amount ?? ''}
+                  value={to.amount ?? ""}
                   onChange={onToValueChange}
                   onSelect={onToCurrencyChange}
                   excludedCurrencies={[from.currency]}

@@ -48,7 +48,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   return (
     <>
       <div className={s.select_wrap}>
-        <div className={s.selected_body}>
+        <div className={`${s.selected_body} ${currency && s.currency_styles}`}>
           <CurrencySelector
             balanceFilter
             onSelect={onSelect}
@@ -60,27 +60,26 @@ export const SelectToken: FC<SelectTokenProps> = ({
             {!currency ? (
               <>
                 <span className={s.select_preTitle}>
-                {t("exchange.select_token")}
-              </span>
+                  {t("exchange.select_token")}
+                </span>
               </>
             ) : (
               <span className={s.selected_token}>
-                <IconCoin width={34} height={34} code={currency} />
+                <IconCoin className={s.ico} code={currency} />
                 {currency}
               </span>
             )}
-
           </CurrencySelector>
         </div>
 
         <div className={s.input_body}>
-        <DownArr className={s.arr} />
+          <DownArr className={s.arr} />
           <input
             value={value}
             disabled={!currency}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-              const valueNew: string = event.target.value
-              onChange(valueNew)
+              const valueNew: string = event.target.value;
+              onChange(valueNew);
             }}
             className={s.input}
             type="number"

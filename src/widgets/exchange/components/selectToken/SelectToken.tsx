@@ -81,7 +81,6 @@ export const SelectToken: FC<SelectTokenProps> = ({
               onChange(valueNew);
             }}
             className={styles.Input}
-            type="number"
             placeholder="-enter amount-"
           />
         </div>

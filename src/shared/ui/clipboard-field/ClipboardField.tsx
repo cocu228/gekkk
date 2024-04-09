@@ -31,7 +31,7 @@ function ClipboardField({value}: Props) {
     }
 
     return (
-        <div className={`flex bg-white items-center md:rounded-lg md:w-[90%] ${styles.CopyForm}`}>
+        <div className={`flex bg-white items-center md:rounded-lg ${styles.CopyForm}`}>
             <input className={styles.Input} type="text" value={isCopied ? 'Copied!' : value} readOnly />
             <button className={styles.Btn} onClick={handleCopyClick}>
                 <IconCopy/>

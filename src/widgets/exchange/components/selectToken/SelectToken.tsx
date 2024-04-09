@@ -21,20 +21,20 @@ interface SelectTokenProps {
   allowedFlags: CurrencyFlags[];
   value: string;
   currency: string;
-  hasValidator?: boolean;
   onChange?: (value: string) => void;
   onSelect: (value: string) => void;
+  onError?: (value: boolean) => void;
 }
 
 export const SelectToken: FC<SelectTokenProps> = ({
-  roomType,
-  excludedCurrencies,
-  allowedFlags,
-  onSelect,
   value,
   currency,
-  hasValidator: isValidator,
+  roomType,
+  allowedFlags,
+  excludedCurrencies,
   onChange,
+  onSelect,
+  onError = null,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -87,8 +87,9 @@ export const SelectToken: FC<SelectTokenProps> = ({
           />
         </div>
       </div>
-      {isValidator && (
+      {onError !== null && (
         <InputCurrency.Validator
+          onError={onError}
           className="text-sm"
           value={+from.amount}
           description={

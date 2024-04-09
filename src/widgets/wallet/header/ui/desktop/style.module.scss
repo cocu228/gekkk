@@ -1,5 +1,5 @@
 @import "@styles/mixins";
-
+@import '../style.module.scss';
 
 .HeaderWalletDesktop{
     display: flex;
@@ -10,6 +10,7 @@
     border-radius: 8px;
     background: linear-gradient(270deg, rgba(255, 255, 255, 0.05) 0%, #FFF 101.23%);
 }
+
 .IconCoin{
     display: flex;
     flex-direction: column;
@@ -20,6 +21,7 @@
     align-self: stretch;
     margin: 0px 10px;
 }
+
 .IconInfo{
     margin-right: 10px;
     display: flex;
@@ -27,6 +29,7 @@
     justify-content: center;
     align-self: center;
 }
+
 .IconBalance{
     display: flex;
     width: 306px;
@@ -34,6 +37,7 @@
     align-items: flex-start;
     margin: 0px 15px;
 }
+
 .IconRate{
     margin-left: 5px;
     display: flex;
@@ -42,6 +46,7 @@
     align-self: center;
     text-wrap: nowrap;
 }
+
 .RateText{
     color: #9D9D9D;
     font-family: Inter;
@@ -50,6 +55,7 @@
     font-weight: 400;
     line-height: normal;
 }
+
 .RatePercentText{
     color: #1F3446;
     font-family: Inter;
@@ -59,174 +65,3 @@
     line-height: normal;
 }
 
-
-
-
-.IsEqualEuro{
-    align-self: center;
-    color: #9D9D9D;
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-wrap: nowrap;
-    word-break: keep-all;
-    white-space: nowrap;
-}
-
-.WalletInfoMain{
-    display: flex;
-    min-width: 100px;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-.LockOrders{
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-items: center;
-}
-.WalletInfoMainRight{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 3px;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-.WalletInfoMainRightTextFree{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: var(--Pale-blue, #3A5E66);
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-.WalletInfoMainRightTextIncome{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #2BAB72;
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletInfoMainRightTextOutcome{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #972235;
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletInfoMainText{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    // border-bottom: 1px dashed #DADADA;
-    color: #9D9D9D;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px; /* 166.667% */
-    
-    &Free{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin-left: 1px;
-        color: var(--Pale-blue, #3A5E66);
-    }
-
-    &Income{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #2BAB72;
-
-        &EUR {
-            font-family: "Azeret Mono";
-            color: var(--Pale-blue, #3A5E66);
-        }
-    }
-
-    &Outcome{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #972235;
-    }
-
-    &Orders{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #285E69;
-    }
-}
-
-.WalletNameContainer{
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    text-wrap: nowrap;
-}
-.WalletName{
-    color: #29354C;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletShortName{
-    display: flex;
-    align-items: flex-start;
-    flex: 1 0 0;
-    color: #1F3446;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.DashedLine{
-    width:100%;
-    border-top: 1px dashed #DADADA;
-    margin-bottom:"3px"
-}

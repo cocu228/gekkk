@@ -15,7 +15,7 @@
       "data_protection_policy": "Data protection policy",
       "legal_agreements": "Legal agreements",
       "crypto_exchange_service": "Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)",
-      "invalid_password": "Only numbers allowed and min length 6 symbol",
+      "invalid_password": "Check that the password is 8+ characters, contains at least one of each: number, upper case character, special character.",
       "invalid_phone": "Please enter your full number"
     },
     "next": "Next",
@@ -88,7 +88,7 @@
 
             "in_order_to_open_gekkard": "In order to open GEKKARD account you need to be at least 18 years old. But an additional card can be issued without age limit.",
 
-            "currently_gekkard_accounts_are_opened": "Currently GEKKARD accounts are opened in one currency - EUR.",
+            "currently_gekkard_accounts_are_opened": "Currently GEKKARD accounts are opened in one currency — EUR.",
 
             "as_a_financial_institution": "As a financial institution, we must follow the “Know Your Customer” procedures. Therefore, during registration in mobile application, you scan an identity document (passport), as well as make a 'selfie'."
           },
@@ -699,7 +699,7 @@
       "title": "Crypto exchange",
       "rooms": "Rooms",
       "new_room": "New room",
-      "describe": "Cryptocurrency exchange - fast and easily",
+      "describe": "Cryptocurrency exchange — fast and easy",
       "create_private_exchange_room": "Create private exchange room",
       "private_exchange_room": "private exchange room",
       "owner_private_room": "You are owner of this private room. A Gekkard user will be able to join your room using this",
@@ -721,7 +721,7 @@
       "leave_the_room": "Leave the room",
       "open_private_exchange_room": "Open private exchange room",
       "broker_exchange_fee": "Broker exchange Fee 0%",
-      "no_opened_orders": "You don't have any opened orders",
+      "no_opened_orders": "You don't have any open orders",
       "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
       "select_token": "Select the token",
       "only_i_can": "Only I can specify the sale price",

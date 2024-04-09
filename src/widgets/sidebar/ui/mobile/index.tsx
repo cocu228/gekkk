@@ -19,6 +19,7 @@ import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import Loader from "@/shared/ui/loader";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import ReactPullToRefresh from "react-pull-to-refresh";
+import PullToRefresh from "react-simple-pull-to-refresh";
 
 const SidebarMobile = () => {
     const { t } = useTranslation();
@@ -95,11 +96,16 @@ const SidebarMobile = () => {
     // });'
     
     const  handleRefresh = async () => {
-        console.log('RELOADING')
+        // window.location.reload()
+        await setRefresh()
+    }
+
+    const handleFetchMore = async () => {
+
     }
 
     return (
-        <ReactPullToRefresh onRefresh={handleRefresh} className="reshresh_wrap" style={{ textAlign: 'center' }} >
+        <PullToRefresh onRefresh={handleRefresh} pullingContent={null} canFetchMore={true} onFetchMore={handleFetchMore} >
             <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
             <div className={`${styles.Sidebar} flex flex-col justify-between`}>
                 {notificationsEnabled !== 'true' ? null : <UnconfirmedTransactions />}
@@ -296,7 +302,7 @@ const SidebarMobile = () => {
                 </div>
             </div>
         </div>
-        </ReactPullToRefresh>
+        </PullToRefresh>
     )
 
 }

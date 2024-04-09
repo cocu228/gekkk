@@ -4,7 +4,6 @@
   margin-left: var(--content-pad-left);
   margin-right: var(--content-pad-right);
 
-
   @include max-devices(xl) {
     margin-left: var(--content-pad-left-xl);
     margin-right: var(--content-pad-right-xl);
@@ -18,114 +17,6 @@
 
 ////////
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
-.reshresh_wrap {
-  width: 100%;
-  background: #f7f7f0;
-  padding-bottom: 20px;
-}
-
-.ptr-element {
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  color: #aaa;
-  z-index: 10;
-  text-align: center;
-  height: 50px;
-  transition: all;
-}
-
-.ptr-element .genericon {
-  opacity: 0.6;
-  font-size: 34px;
-  width: auto;
-  height: auto;
-  transition: all 0.25s ease;
-  transform: rotate(90deg);
-  margin-top: 5px;
-}
-.ptr-refresh .ptr-element .genericon {
-  transform: rotate(270deg);
-}
-.ptr-loading .ptr-element .genericon,
-.ptr-reset .ptr-element .genericon {
-  display: none;
-}
-
-.loading {
-  display: inline-block;
-  text-align: center;
-  opacity: 0.4;
-  margin: 5px 0 0 5px;
-  display: none;
-}
-.ptr-loading .loading {
-  display: block;
-}
-
-.loading span {
-  display: inline-block;
-  vertical-align: middle;
-  width: 10px;
-  height: 10px;
-  margin-right: 3px;
-  transform: scale(0.3);
-  border-radius: 50%;
-  animation: ptr-loading 0.4s infinite alternate;
-}
-
-.loading-ptr-1 {
-  animation-delay: 0 !important;
-}
-
-.loading-ptr-2 {
-  animation-delay: 0.2s !important;
-}
-
-.loading-ptr-3 {
-  animation-delay: 0.4s !important;
-}
-
-@keyframes ptr-loading {
-  0% {
-    transform: translateY(0) scale(0.3);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scale(1);
-    background-color: #333;
-    opacity: 1;
-  }
-}
-
-.ptr-loading .refresh-view,
-.ptr-reset .refresh-view,
-.ptr-loading .ptr-element,
-.ptr-reset .ptr-element {
-  transition: all 0.25s ease;
-}
-
-.ptr-reset .refresh-view {
-  background-color: rgb(247, 247, 240);
-  transform: translate3d(0, 0, 0);
-}
-
-.ptr-loading .refresh-view {
-  transform: translate3d(0, 30px, 0);
-}
-
 /* react-pull-to-refresh CSS */
 
 #root h3 {
@@ -135,7 +26,6 @@ body {
 body:not(.ptr-loading) .ptr-element {
   transform: translate3d(0, -50px, 0);
 }
-
 
 //////
 
@@ -168,9 +58,7 @@ body:not(.ptr-loading) .ptr-element {
   cursor: e-resize;
 }
 
-
 .info-box-warning {
-
   padding: 1rem 0.625rem;
   color: var(--color-orange);
   border: 1px solid var(--color-orange);
@@ -185,19 +73,16 @@ body:not(.ptr-loading) .ptr-element {
   strong {
     font-weight: 600;
   }
-
 }
 
-
 .info-box-danger {
-
   padding: 14px 25px 14px 38px;
   color: var(--color-red-800);
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  border: 1px solid #EB545433;
-  background-color: #EB54541A;
+  border: 1px solid #eb545433;
+  background-color: #eb54541a;
   border-radius: 4px;
   background-image: url("/img/icon/Alert.svg");
   background-position: 10px center;
@@ -212,14 +97,12 @@ body:not(.ptr-loading) .ptr-element {
   strong {
     font-weight: 600;
   }
-
 }
-
 
 .info-box-note {
   padding: 16px 54px 14px 78px;
   color: var(--color-gray-400);
-  background-color: #FAFBFD;
+  background-color: #fafbfd;
   background-image: url("/img/icon/Alert.svg");
   background-position: 24px center;
   background-repeat: no-repeat;
@@ -238,14 +121,13 @@ body:not(.ptr-loading) .ptr-element {
   strong {
     font-weight: 600;
   }
-
 }
 
 .info-box-description {
-  background-color: #E2FFEE;
+  background-color: #e2ffee;
   font-size: 14px;
   height: min-content;
-  color: #285E69;
+  color: #285e69;
   border-radius: 8px;
   padding: 18px 16px;
 
@@ -253,10 +135,9 @@ body:not(.ptr-loading) .ptr-element {
     margin-bottom: 16px;
   }
 }
-.info-box-in-wallet{
-  color: #3A5E66;
+.info-box-in-wallet {
+  color: #3a5e66;
 }
-
 
 //.ellipsis:not(.ellipsis-lg):hover::after {
 //  content: none;
@@ -272,7 +153,9 @@ body:not(.ptr-loading) .ptr-element {
 .ellipsis {
   position: relative;
 
-  & > p, span, a {
+  & > p,
+  span,
+  a {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
@@ -310,5 +193,4 @@ body:not(.ptr-loading) .ptr-element {
       }
     }
   }
-
 }

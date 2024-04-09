@@ -22,38 +22,38 @@ const HistoryPage = () => {
   const [pullChange, setPullChange] = useState<number>();
   const refreshCont = useRef<HTMLDivElement>();
 
-  const initLoading = () => {
-    setRefresh();
-    setIsRefreshingFunds(true);
-    setTimeout(() => {
-      setIsRefreshingFunds(false);
-    }, 3000);
-  };
+  // const initLoading = () => {
+  //   setRefresh();
+  //   setIsRefreshingFunds(true);
+  //   setTimeout(() => {
+  //     setIsRefreshingFunds(false);
+  //   }, 3000);
+  // };
 
-  function endPull() {
-    setStartPoint(0);
-    setPullChange(0);
-    if (pullChange > 220) initLoading();
-  }
+  // function endPull() {
+  //   setStartPoint(0);
+  //   setPullChange(0);
+  //   if (pullChange > 220) initLoading();
+  // }
 
-  useEffect(() => {
-    window.addEventListener("touchstart", (e) => {
-      pullStart(e, setStartPoint);
-    });
-    window.addEventListener("touchmove", (e) => {
-      pull(e, setPullChange, startPoint);
-    });
-    window.addEventListener("touchend", endPull);
-    return () => {
-      window.removeEventListener("touchstart", (e) => {
-        pullStart(e, setStartPoint);
-      });
-      window.removeEventListener("touchmove", (e) => {
-        pull(e, setPullChange, startPoint);
-      });
-      window.removeEventListener("touchend", endPull);
-    };
-  });
+  // useEffect(() => {
+  //   window.addEventListener("touchstart", (e) => {
+  //     pullStart(e, setStartPoint);
+  //   });
+  //   window.addEventListener("touchmove", (e) => {
+  //     pull(e, setPullChange, startPoint);
+  //   });
+  //   window.addEventListener("touchend", endPull);
+  //   return () => {
+  //     window.removeEventListener("touchstart", (e) => {
+  //       pullStart(e, setStartPoint);
+  //     });
+  //     window.removeEventListener("touchmove", (e) => {
+  //       pull(e, setPullChange, startPoint);
+  //     });
+  //     window.removeEventListener("touchend", endPull);
+  //   };
+  // });
 
   return (
     <>
@@ -73,7 +73,7 @@ const HistoryPage = () => {
             ref={refreshCont}
             style={{ marginTop: pullChange / 3.118 || "" }}
           >
-            <div className="p-2 rounded-full w-full flex justify-center">
+            {/* <div className="p-2 rounded-full w-full flex justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -93,7 +93,7 @@ const HistoryPage = () => {
                   d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
                 />
               </svg>
-            </div>
+            </div> */}
             {!md && (
               <h2 className=" font-bold p-3 text-xl">
                 {t("last_transactions")}

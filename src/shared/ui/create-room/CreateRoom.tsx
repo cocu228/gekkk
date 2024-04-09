@@ -50,7 +50,7 @@ function CreateRoom({
           <WarningIcon />
           {t("exchange.private_room_allows")}
         </div>
-        <div className="mt-4 mb-10">
+        <div className="mt-4">
           <label
             className="inline-flex mb-1 text-sm font-medium"
             htmlFor="sell-token"

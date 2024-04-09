@@ -1,4 +1,4 @@
-.select_wrap {
+.SelectWrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,7 +7,7 @@
   height: 50px;
 }
 
-.input {
+.Input {
   text-align: end;
   border: none !important;
   width: 100%;
@@ -52,7 +52,7 @@
   }
 }
 
-.selected_body {
+.SelectedBody {
   width: 70%;
   display: flex;
   align-items: center;
@@ -79,7 +79,7 @@
   }
 }
 
-.currency_styles {
+.CurrencyStyles {
   @media screen and (max-width: 460px) {
     min-width: 95px;
   }
@@ -95,7 +95,7 @@
   }
 }
 
-.ico {
+.Ico {
   width: 34px;
   height: 34px;
 
@@ -105,7 +105,7 @@
   }
 }
 
-.selected_body > div {
+.SelectedBody > div {
   width: 100%;
 
   & > div {
@@ -115,19 +115,19 @@
   }
 }
 
-.selected_body,
-.input_body {
+.SelectedBody,
+.InputBody {
   padding: 5px 10px;
 }
 
-.input_body {
+.InputBody {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.select_preTitle {
+.SelectPreTitle {
   font-size: 10px;
   font-family: Inter;
   color: #b9b9b5;
@@ -137,7 +137,7 @@
   }
 }
 
-.selected_token {
+.SelectedToken {
   display: flex;
   gap: 5px;
   align-items: center;
@@ -165,16 +165,13 @@
   }
 }
 
-.custom_selector {
-}
-
-.selected_body {
+.SelectedBody {
   @media screen and (max-width: 400px) {
     // width: 200px;
   }
 }
 
-.arr {
+.Arr {
   min-width: 7px;
   height: 12px;
   width: 7px;

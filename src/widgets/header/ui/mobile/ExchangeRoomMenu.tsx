@@ -152,7 +152,8 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
 
       <Modal
         width={450}
-        className={styles.RoomModal}
+        padding={false}
+        //className={styles.RoomModal}
         open={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
         title={

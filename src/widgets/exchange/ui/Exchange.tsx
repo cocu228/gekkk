@@ -435,14 +435,14 @@ function Exchange() {
         rightColumn={
           !md && (
             <div className="w-full rounded-lg py-5 px-10 lg:px-5 md:px-4 ">
-              <History currenciesFilter={historyFilter} types={[2, 15, 16]} />
+              <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
         }
       />
       {md && (
-        <div className="w-full rounded-lg py-5 px-10 lg:px-5 md:px-4 ">
-          <History currenciesFilter={historyFilter} types={[2, 15, 16]} />
+        <div className="w-full rounded-lg">
+          <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal

@@ -13,6 +13,7 @@ import {apiPostMessage} from "./api/post-message";
 import {getCookieData, isMediaFile} from "./utils/shared";
 import {apiGetMessages} from "./api/get-messages";
 import {apiPostFile} from "./api/post-file";
+import AuthProvider from "./providers/AuthProvider";
 
 function App() {
 
@@ -121,25 +122,27 @@ function App() {
     }, [ws])
 
     return (
-        <StompSocketProvider setIsWebSocketReady={setIsWebSocketReady} setMessages={setMessages}>
-            <ChatThemeProvider theme="#72BF44">
-                <MainContainer style={{height: '100%'}}>
-                    <MessageContainer>
-                        <MessageHeader/>
-                        <MessageList
-                            currentUserId="client"
-                            // @ts-ignore
-                            messages={uiMessages}
-                        />
-                        <MessageInput onSendMessage={onSendMessage} showSendButton
-                                      showAttachButton={true}
-                                      onAttachClick={onAttachClick}
-                                      placeholder="Type message here"/>
-                    </MessageContainer>
-                </MainContainer>
-            </ChatThemeProvider>
-        </StompSocketProvider>
+        <AuthProvider>
+            <StompSocketProvider setIsWebSocketReady={setIsWebSocketReady} setMessages={setMessages}>
+                <ChatThemeProvider theme="#72BF44">
+                    <MainContainer style={{height: '100%'}}>
+                        <MessageContainer>
+                            <MessageHeader/>
+                            <MessageList
+                                currentUserId="client"
+                                // @ts-ignore
+                                messages={uiMessages}
+                            />
+                            <MessageInput onSendMessage={onSendMessage} showSendButton
+                                          showAttachButton={true}
+                                          onAttachClick={onAttachClick}
+                                          placeholder="Type message here"/>
+                        </MessageContainer>
+                    </MainContainer>
+                </ChatThemeProvider>
+            </StompSocketProvider>
+        </AuthProvider>
     )
 }
 
-export default App
+export default App;

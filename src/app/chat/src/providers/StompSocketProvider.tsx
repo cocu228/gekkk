@@ -1,4 +1,4 @@
-﻿import {useEffect} from 'react';
+﻿import {useContext, useEffect} from 'react';
 import {Client} from '@stomp/stompjs';
 import {ChatMessage} from '../types/Shared';
 import {stompConfig} from '../utils/stomp-config';
@@ -6,6 +6,7 @@ import {StompCreateMessage} from '../types/Shared';
 import {generateUid, getCookieData, setCookieData} from "../utils/shared";
 import {apiInitSessionId} from "../api/init-session-id";
 import {$axios} from "../utils/(cs)axios";
+import AuthContext from '../contexts/AuthContext';
 
 type IParams = {
     // deviceIdHash: string;
@@ -18,12 +19,6 @@ type IParams = {
 
 const cookies = getCookieData()
 
-const chatConfig = {
-    //@ts-ignore
-    token: cookies["token"] ? cookies["token"] : "UAS anonymous",
-    //@ts-ignore
-    phone: cookies["phone"],
-}
 //@ts-ignore
 let deviceIdHash = cookies["device-id-hash"]
 
@@ -34,12 +29,20 @@ if (!deviceIdHash) {
 
 
 const StompSocketProvider = ({
-                                 setMessages,
-                                 setIsWebSocketReady,
-                                 children
-                             }: IParams) => {
+    setMessages,
+    setIsWebSocketReady,
+    children
+}: IParams) => {
+    const authData = useContext(AuthContext);
 
     useEffect(() => {
+        if (!authData?.uasToken) return () => {};
+
+        // Config
+        const chatConfig = {
+            token: authData.uasToken,
+            phone: authData?.phone,
+        }
 
         const config = stompConfig(deviceIdHash, chatConfig);
         const client = new Client(config);
@@ -117,8 +120,7 @@ const StompSocketProvider = ({
         return () => {
             client.deactivate();
         };
-
-    }, []);
+    }, [authData]);
 
     return children;
 };

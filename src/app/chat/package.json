@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/styled-components": "^5.1.28",
     "preact": "^10.20.1",
+    "sweetalert2": "^11.10.5",
     "styled-components": "^5.3.11",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat"

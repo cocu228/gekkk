@@ -3,7 +3,7 @@ import { MediaType } from '../../../types/MessageType'
 import { getBorderCss } from '../borderController'
 import { useEffect, useState } from 'react'
 import { makeApiRequest } from '../../../utils/(cs)axios'
-import loadingSvg from "../../../../dist/assets/logo-loading.svg"
+// import loadingSvg from "../../../../dist/assets/logo-loading.svg"
 
 
 
@@ -105,7 +105,9 @@ export default function MediaContent({
         })        
     }, [])
 
-    return fetching ? <LoadingContainer> <img src={loadingSvg} alt="loading" /> </LoadingContainer> : (
+    return fetching ? <LoadingContainer>
+        {/* <img src={loadingSvg} alt="loading" /> */}
+    </LoadingContainer> : (
         <>
             {(type === 'image' || type === 'gif') &&
                 <ImageContainer>

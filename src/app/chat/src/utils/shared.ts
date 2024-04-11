@@ -49,6 +49,16 @@ export function clearCookie(name: string) {
     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 }
 
+// Фунцкия, принимающая rect сообщения и возвращающая true, если сообщение находтися в области видимости
+export const isMessageVisible = (rect: any) => {
+
+    return(
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    )
+}
 
 // функция которая проверяет расширение файла и возвращает true, если файл является медиафайлом
 export function isMediaFile(fileName: string): boolean {

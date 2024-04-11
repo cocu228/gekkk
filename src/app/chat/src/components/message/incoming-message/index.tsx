@@ -91,7 +91,7 @@ export default function IncomingMessage({
     single,
     created_at,
 }: Omit<Props, "type" | "clusterFirstMessage" | "clusterLastMessage" | "seen">) {
-
+    
     const { themeColor } = useContext(MinChatUIContext)
 
     const [avatar, setAvatar] = React.useState<string>(placeholderProfilePNG)

@@ -43,5 +43,5 @@ export interface IResMessages {
   ]
 }
 
-export const apiGetMessages = (sessionId: number) =>
-  makeApiRequest<IResMessages[]>('GET', `/api/v1/messages?sessionId=${sessionId}&limit=50&offset=0&sort=id`);
+export const apiGetMessages = (sessionId: number, offset: number = 0) =>
+  makeApiRequest<IResMessages[]>('GET', `/api/v1/messages?sessionId=${sessionId}&limit=50&offset=${offset}`);

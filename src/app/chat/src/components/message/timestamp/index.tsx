@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import Loading from './loading'
 import styled from 'styled-components'
 import {getMessageTime} from '../../../utils/date-utils'
@@ -78,27 +77,11 @@ export default function Timestamp({
                                       checkmarkColor
                                   }: Props) {
 
-    const [dateSent, setDateSent] = useState<string | undefined>()
-
-    useEffect(() => {
-        function updateDateSent() {
-            if (date) {
-                setDateSent(getMessageTime(date))
-            }
-        }
-
-        updateDateSent()
-
-        const intervalId = setInterval(() => updateDateSent(), 60_000)
-
-        return () => clearInterval(intervalId);
-
-    }, [])
-
+    
     return (
         <Container>
 
-            <Content color={color}>{dateSent}</Content>
+            <Content color={color}>{date && getMessageTime(date)}</Content>
 
             {loading ?
                 <LoadingContainer> <Loading color={loaderColor}/> </LoadingContainer>

@@ -19,7 +19,10 @@ function App() {
 
     const [messages, setMessages] = useState<ChatMessage[]>([])
     const [ws, setWS] = useState(false)
+    const [offset, setOffset] = useState<number>(0)
+    const [lazyLoading, setLazyLoading] = useState<boolean>(false)
 
+    
     const onSendMessage = async (message: string) => {
 
         const cookies = getCookieData()
@@ -96,11 +99,11 @@ function App() {
 
     useEffect(() => {
         (async () => {
-            if (ws) {
+            if (ws && messages.length % 50 === 0) {
                 const cookies = getCookieData()
                 //@ts-ignore
                 const sessionId = cookies["chat-session-id"]
-                const response = await apiGetMessages(sessionId)
+                const response = await apiGetMessages(sessionId, offset)
                 
                 if (response.status === "success") {
                     console.log(response)
@@ -114,12 +117,30 @@ function App() {
                         file: item.files,
                         messageType: item.messageType
                     }))
-                               
-                    setMessages(messages)
+                    
+                    if(messages.length !== 0){                        
+                        setMessages(n => [...n, ...messages].sort((a, b) =>+a.id - +b.id))
+                    }
+                    
                 }
+                
             }
         })()
-    }, [ws])
+    }, [ws, offset])
+
+    // @ts-ignore
+    useEffect(()=>{
+        if(lazyLoading){
+            const timer = setTimeout(()=>{
+                setLazyLoading(false)
+                setOffset(offset + 50)
+            }, 1000)
+            return ()=>{
+                clearTimeout(timer)
+            }
+        }
+    }, [lazyLoading])
+
 
     return (
         <AuthProvider>
@@ -134,14 +155,15 @@ function App() {
                                 messages={uiMessages}
                             />
                             <MessageInput onSendMessage={onSendMessage} showSendButton
-                                          showAttachButton={true}
-                                          onAttachClick={onAttachClick}
-                                          placeholder="Type message here"/>
+                                        showAttachButton={true}
+                                        onAttachClick={onAttachClick}
+                                        placeholder="Type message here"/>
                         </MessageContainer>
                     </MainContainer>
                 </ChatThemeProvider>
             </StompSocketProvider>
         </AuthProvider>
+
     )
 }
 

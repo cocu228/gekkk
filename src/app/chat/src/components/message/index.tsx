@@ -4,7 +4,6 @@ import IncomingMessage from './incoming-message'
 import MessageType, { MediaType } from '../../types/MessageType';
 import DatePopupInMessages from '../time-window/timeWindowInMessages';
 
-
 export type Props = {
     created_at?: Date
     seen?: boolean
@@ -44,6 +43,7 @@ export default function Message({
     index = 0,
 }: Props) {
 
+    
     return (
         <>
             <DatePopupInMessages messages={messages} index={index} date={created_at?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})}/>

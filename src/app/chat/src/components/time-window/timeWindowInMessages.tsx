@@ -50,25 +50,29 @@ function DatePopupInMessages({messages, index, date}: IProps) {
         }
     
     }
-    return <Container data-popupInMessages={true}>
+    return(
     
-        {!doesPrevDateTimeExist ? (
-            <DateContainer>
-                <DateText>
-                    {formatedDate(date)}
-                </DateText>
-            </DateContainer>
-        ) : (
-            (messages[index]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) !== (messages[index - 1]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) && (
+        !doesPrevDateTimeExist ? (
+            <Container data-popupInMessages={true}>
                 <DateContainer>
                     <DateText>
                         {formatedDate(date)}
                     </DateText>
                 </DateContainer>
+            </Container>
+        ) : (
+            (messages[index]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) !== (messages[index - 1]?.createdAt?.toLocaleDateString(undefined, {day:"numeric", month:"short", year:"numeric"})) && (
+                <Container data-popupInMessages={true}>
+                    <DateContainer>
+                        <DateText>
+                            {formatedDate(date)}
+                        </DateText>
+                    </DateContainer>
+                </Container>
             )
-        )}
-
-    </Container>
+        )
+    )
+    
 };
 
 export default DatePopupInMessages;

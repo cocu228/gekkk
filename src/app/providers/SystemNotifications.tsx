@@ -11,6 +11,8 @@ const SystemNotifications = ({children}: IParams) => {
     const {setRefresh} = useContext(CtxRootData);
 
     function displaySystemNotification(notify) {
+        navigator.serviceWorker.register('./sw.js');
+        
         if (Notification?.permission === "granted") {
             let img = "https://web.gekkard.com/img/favicon/icon.svg";
             let text = "You have a new crypto transactions. ";

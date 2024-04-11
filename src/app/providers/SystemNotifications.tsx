@@ -74,29 +74,29 @@ const SystemNotifications = ({children}: IParams) => {
     }, []);
 
     return <div>
-        <button onClick={() => {
-            displaySystemNotification({
-                mess_type: 2,
-                obj: {
-                    currency: 'TEST',
-                    amount: 10
-                }
-            });
-
-            alert('registering sw')
-
-            navigator.serviceWorker.register('./sw.js');
-
-            alert('success')
-
-            Notification.requestPermission(function(result) {
-              if (result === 'granted') {
-                navigator.serviceWorker.ready.then(function(registration) {
-                  registration.showNotification('Notification with ServiceWorker');
+        <div className="w-full grid grid-rows-3 gap-2">
+            <button onClick={() => {
+                displaySystemNotification({
+                    mess_type: 2,
+                    obj: {
+                        currency: 'TEST',
+                        amount: 10
+                    }
                 });
-              }
-            });
-        }}>Test notification</button>
+            }}>Test notification</button>
+            <button onClick={() => {
+                navigator.serviceWorker.register('./sw.js');
+            }}>Register sw</button>
+            <button onClick={() => {
+                Notification.requestPermission(function(result) {
+                if (result === 'granted') {
+                    navigator.serviceWorker.ready.then(function(registration) {
+                    registration.showNotification('Notification with ServiceWorker');
+                    });
+                }
+                });
+            }}>Test sw notification</button>
+        </div>
 
         {children}
     </div>;

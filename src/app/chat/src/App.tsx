@@ -153,6 +153,8 @@ function App() {
                                 currentUserId="client"
                                 // @ts-ignore
                                 messages={uiMessages}
+                                lazyLoading={lazyLoading}
+                                setLazyLoading={setLazyLoading}
                             />
                             <MessageInput onSendMessage={onSendMessage} showSendButton
                                         showAttachButton={true}

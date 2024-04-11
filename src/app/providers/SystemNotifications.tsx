@@ -73,7 +73,20 @@ const SystemNotifications = ({children}: IParams) => {
         connectES();
     }, []);
 
-    return children;
+    return <div>
+        <button onClick={() => {
+            displaySystemNotification({
+                mess_type: 2,
+                obj: {
+                    currency: 'TEST',
+                    amount: 10
+                }
+            });
+
+        }}>Test notification</button>
+
+        {children}
+    </div>;
 }
 
 export default SystemNotifications;

@@ -31,17 +31,19 @@ const SystemNotifications = ({children}: IParams) => {
                     console.log(`Do not support type ${JSON.stringify(notify)}.`);
                     return;
             }
+            
+            // Notification.requestPermission(function(result) {
+            //     if (result === 'granted') {
+            //         navigator.serviceWorker.ready.then(function(registration) {
+            //             registration.showNotification('ServiceWorker: new transaction', {
+            //                 body: text, icon: img, tag: "gekkardTx"
+            //             });
+            //         });
+            //     }
+            // });
+
             activeNotify = new Notification(title, { body: text, icon: img, tag: "gekkardTx" });
 
-            Notification.requestPermission(function(result) {
-                if (result === 'granted') {
-                    navigator.serviceWorker.ready.then(function(registration) {
-                        registration.showNotification('ServiceWorker: new transaction', {
-                            body: text, icon: img, tag: "gekkardTx"
-                        });
-                    });
-                }
-            });
             // activeNotify.onclick = function () {
             //     window.open("https://web.gekkard.com/wallet?currency=");
             // };
@@ -84,7 +86,7 @@ const SystemNotifications = ({children}: IParams) => {
     }, []);
 
     return <div>
-        <div className="w-full grid grid-rows-3 gap-2">
+        {/* <div className="w-full grid grid-rows-3 gap-2">
             <button onClick={() => {
                 displaySystemNotification({
                     mess_type: 2,
@@ -106,7 +108,7 @@ const SystemNotifications = ({children}: IParams) => {
                     }
                 });
             }}>Test sw notification</button>
-        </div>
+        </div> */}
 
         {children}
     </div>;

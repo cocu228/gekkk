@@ -1665,6 +1665,8 @@
     "reissue_of_the_card": "Reissue of the card at the request of the client",
     "account_statement": "Account statement in paper format",
     "card_express": "Card express delivery",
-    "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order."
+    "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order.",
+    "please_enter_sender_name": "Please enter sender name",
+    "enter_sender_name": "Enter sender name"
   }
 }

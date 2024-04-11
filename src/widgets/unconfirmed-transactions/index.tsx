@@ -45,7 +45,7 @@ export const UnconfirmedTransactions = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t("transaction_info")}
+            title={<span className="font-[600] text-[12px] text-[#29354C]">{t("please_enter_sender_name")}</span>}
         >
             <InfoContent handleCancel={handleCancel} {...state[0]}/>
         </Modal>

@@ -17,13 +17,16 @@ export function SettingsButton(props: Props ) {
     
     return (
         <FrameItem
-        onClick={props.onClick}
-        isSelected={props.isSelected}
-        justifyContent={'space-between'}
+          onClick={props.onClick}
+          isSelected={props.isSelected}
       >
-        <div className='flex gap-7 items-center'>
+        <div className='flex gap-7 items-center w-full'>
           {props.icon}
-          <Typography variant="h" color={props.isSelected ? "white" : "dark-green"} className="font-normal ">{props.text}</Typography>
+          <h4
+            className={`
+              font-medium ${props.isSelected ? 'text-[#fff]' : "text-[#1F3446]"} font-[Inter] text-[14px]
+            `}
+          >{props.text}</h4>
         </div>
         {md && <Arrow />}
       </FrameItem>

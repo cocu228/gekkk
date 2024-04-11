@@ -32,6 +32,16 @@ const SystemNotifications = ({children}: IParams) => {
                     return;
             }
             activeNotify = new Notification(title, { body: text, icon: img, tag: "gekkardTx" });
+
+            Notification.requestPermission(function(result) {
+                if (result === 'granted') {
+                    navigator.serviceWorker.ready.then(function(registration) {
+                        registration.showNotification('ServiceWorker: new transaction', {
+                            body: text, icon: img, tag: "gekkardTx"
+                        });
+                    });
+                }
+            });
             // activeNotify.onclick = function () {
             //     window.open("https://web.gekkard.com/wallet?currency=");
             // };
@@ -89,11 +99,11 @@ const SystemNotifications = ({children}: IParams) => {
             }}>Register sw</button>
             <button onClick={() => {
                 Notification.requestPermission(function(result) {
-                if (result === 'granted') {
-                    navigator.serviceWorker.ready.then(function(registration) {
-                    registration.showNotification('Notification with ServiceWorker');
-                    });
-                }
+                    if (result === 'granted') {
+                        navigator.serviceWorker.ready.then(function(registration) {
+                        registration.showNotification('Notification with ServiceWorker');
+                        });
+                    }
                 });
             }}>Test sw notification</button>
         </div>

@@ -142,7 +142,7 @@ const NoFeeProgram = () => {
                         ]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                       header={<span className='text-gray-600'>{t("amount")}</span>}
+                                                       header={<span className='text-gray-600'>{t("amount")}:</span>}
                                                        currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency

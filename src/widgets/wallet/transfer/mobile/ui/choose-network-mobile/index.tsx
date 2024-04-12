@@ -43,13 +43,13 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
     },[])
     
     return( 
-        <>
+        <div className="w-full relative h-[32px] flex flex-row">
             <div 
                 onClick={()=>{
                     setNetwork(null)
                     navigate(`/transfers?currency=${currency}`)
                 }} 
-                className="row w-full relative cursor-pointer h-[32px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-[5px] border-solid border-[#E0E0E0]"
+                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-tl-[5px] rounded-bl-[5px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#E0E0E0]"
             >
                 <Select
                     open={open}
@@ -68,13 +68,13 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     notFoundContent={null}
                     suffixIcon={null}
                 />
-                <div className='absolute right-0 h-full w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-                    <svg width="12" height="7" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 6.82721L14.4826 0.263604C14.8297 -0.087868 15.3925 -0.087868 15.7397 0.263604C16.0868 0.615076 16.0868 1.18492 15.7397 1.5364L8.62854 8.7364C8.28141 9.08787 7.71859 9.08787 7.37146 8.7364L0.260349 1.5364C-0.0867844 1.18492 -0.0867844 0.615076 0.260349 0.263604C0.607482 -0.087868 1.1703 -0.087868 1.51743 0.263604L8 6.82721Z" fill="#FFFFFF"/>
-                    </svg>
-                </div>
             </div>
-        </>
+            <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
+                </svg>
+            </div>
+        </div>
     )
 }
 

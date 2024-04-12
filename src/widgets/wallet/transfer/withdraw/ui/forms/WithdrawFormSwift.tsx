@@ -294,7 +294,7 @@ const WithdrawFormSwift = () => {
                                                      validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
                             <InputCurrency.PercentSelector
                                 currency={currency}
-                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
+                                header={<span className='text-gray-600 font-medium'>{t("amount")}:</span>}
                                 onSelect={setInputCurr}
                             >
                             <InputCurrency

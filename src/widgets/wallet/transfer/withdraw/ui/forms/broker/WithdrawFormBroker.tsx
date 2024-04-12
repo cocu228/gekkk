@@ -79,7 +79,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
+                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}:</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -156,7 +156,7 @@ const WithdrawFormBroker = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className={styles.TitleColText}>{t("amount")}</span>}
+                        header={<span className={styles.TitleColText}>{t("amount")}:</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())

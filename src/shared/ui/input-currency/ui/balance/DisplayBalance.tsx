@@ -15,7 +15,7 @@ const DisplayBalance: FC<IParams> = (({ children, className, currency }: IParams
         <div className={className}>
             {children}
             <div>{!currency ? null :
-                <span className={styles.FieldInfoText + " md:text-[#9D9D9D]"}>{t("exchange.balance")}{
+                <span className={styles.FieldInfoText + " md:text-[#B9B9B5]"}>{t("exchange.balance")}{
                     currency.balance?.free_balance ?? 0
                 } {currency.$const}</span>
             }</div>

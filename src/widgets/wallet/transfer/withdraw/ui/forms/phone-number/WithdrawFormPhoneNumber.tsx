@@ -82,7 +82,7 @@ const WithdrawFormPhoneNumber = () => {
               currency={currency}
               header={
                 <span className={styles.TitleColText}>
-                  {t("amount")}
+                  {t("amount")}:
                 </span>
               }
               onSelect={setInputCurr}

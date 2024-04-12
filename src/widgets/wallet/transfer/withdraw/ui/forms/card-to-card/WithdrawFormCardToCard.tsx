@@ -232,7 +232,7 @@ const WithdrawFormCardToCard = () => {
                 currency={currency}
                 header={
                   <span className="text-gray-600 font-medium">
-                    {t("amount")}
+                    {t("amount")}:
                   </span>
                 }
                 onSelect={setInputCurr}
@@ -298,7 +298,7 @@ const WithdrawFormCardToCard = () => {
               currency={currency}
               header={
                 <span className="text-[#1F3446] text-[12px] font-semibold">
-                  {t("amount")}
+                  {t("amount")}:
                 </span>
               }
               onSelect={setInputCurr}

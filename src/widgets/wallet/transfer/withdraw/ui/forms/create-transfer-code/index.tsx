@@ -90,7 +90,7 @@ const CreateTransferCode = () => {
                         validators={[validateBalance(currency, navigate, t)]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
+                                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}:</span>}
                                                         currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
@@ -105,9 +105,11 @@ const CreateTransferCode = () => {
             </div>
         </div>
         <div className="row mb-4">
-            <span className="text-[10px] text-[#B9B9B5]">
-                *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
-            </span>
+            {!(!!inputCurr.value.number) &&
+                <span className="text-[10px] text-[#B9B9B5] md:text-[#F8A73E]">
+                    *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
+                </span>
+            }
         </div>
         <div className="row mb-16 md:mb-2">
             {md ? <div className="flex flex-row gap-4">

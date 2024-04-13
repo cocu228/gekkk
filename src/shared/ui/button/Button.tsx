@@ -15,6 +15,7 @@ interface Props {
     darkBlue: boolean;
     whiteGreenTransfer:boolean;
     greenTransfer:boolean;
+    decline:boolean;
     blueTransfer:boolean;
     redTransferCode:boolean;
     greenTransferCode:boolean;
@@ -40,6 +41,7 @@ const Button = memo<Partial<Props>>(
          text = false,
          whiteGreenTransfer = false,
          greenTransfer = false,
+         decline = false,
          blueTransfer = false,
          redTransferCode = false,
          greenTransferCode = false,
@@ -54,6 +56,7 @@ const Button = memo<Partial<Props>>(
                 .while(darkBlue).do("darkBlue")
                 .while(whiteGreenTransfer).do("whiteGreenTransfer")
                 .while(greenTransfer).do("GreenTransfer")
+                .while(decline).do("Decline")
                 .while(blueTransfer).do("blueTransfer")
                 .while(redTransferCode).do("RedTransferCode")
                 .while(greenTransferCode).do("GreenTransferCode")

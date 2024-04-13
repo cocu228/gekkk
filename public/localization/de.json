@@ -1394,7 +1394,9 @@
 
     "frequently_asked_questions": "Häufig gestellte Fragen",
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
-    "enter_sender_name": "Absendername eingeben"
+    "enter_sender_name": "Absendername eingeben",
+    "decline": "Stornieren"
+
 
   }
 }

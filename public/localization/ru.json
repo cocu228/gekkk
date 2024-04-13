@@ -1419,7 +1419,9 @@
 
     "frequently_asked_questions": "Часто задаваемые вопросы",
     "please_enter_sender_name": "Пожалуйста, введите имя отправителя",
-    "enter_sender_name": "Введите имя отправителя"
+    "enter_sender_name": "Введите имя отправителя",
+    "decline": "Отменить"
+
 
 
   }

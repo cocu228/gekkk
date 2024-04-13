@@ -1,3 +1,5 @@
+@import "../../app/styles/mixins.scss";
+
 .Container {
     gap: 12px;
     display: flex;
@@ -23,7 +25,7 @@
 .MerchantName {
     font-size: 14px;
     font-weight: 600;
-    color: #285E69;
+    color: #29354C;
 }
 
 .Amount {
@@ -34,4 +36,35 @@
 
 .Button {
     font-size: 14px;
+}
+
+.CardEnding{
+    color: #29354C;
+    font-size: 10px;
+}
+
+.TitleContainer{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+}
+
+.Title{
+    font-weight: 600; 
+    color: #1F3446;
+
+
+    @include max-devices(md) { 
+        font-size: 12px;
+    }
+}
+
+.ModalLine{
+    margin-top: 1rem; 
+    margin-bottom: 1.5rem; 
+    border-width: 0; 
+    height: 1px; 
+    border-color: #DCDCD9;
 }

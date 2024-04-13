@@ -107,8 +107,24 @@ export const PendingTransactions = () => {
             padding={false}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t('please_verify_transaction')}
+            closable={false}
+            title={
+                <div className={styles.TitleContainer}>
+                    <span className={styles.Title}>
+                        {t('please_verify_transaction')}
+                    </span>
+
+                    <svg onClick={handleCancel} className='cursor-pointer' width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 6.5L13.5 13.5" stroke="#7B797C" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6.5 13.5L13.5 6.50001" stroke="#7B797C" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="10" cy="10" r="9" stroke="#7B797C" stroke-width="2"/>
+                    </svg>
+
+                </div>
+            }
         >
+            <hr className={styles.ModalLine} />
+
             {loading && <Loader/>}
 
             {selectedTx && <div className={loading ? 'collapse' : ''}>
@@ -123,7 +139,7 @@ export const PendingTransactions = () => {
                 </div>
 
                 <div className={styles.Container}>
-                    <div>
+                    <div className={styles.CardEnding}>
                         You have pending transaction with your card ending by {selectedTx.pan.slice(-4)}
                     </div>
 
@@ -139,15 +155,23 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
+                            greenTransfer
                             onClick={() => onContinue(true)}
                             className={styles.Button}
-                        >Confirm</Button>
+                            size='xl'
+                        >
+                            {t("confirm")}
+                        </Button>
 
                         <Button
                             red
                             onClick={() => onContinue(false)}
                             className={styles.Button}
-                        >Decline</Button>
+                            size='xl'
+                            decline
+                        >
+                            {t("decline")}
+                        </Button>
                     </div>
                 </div>
             </div>}

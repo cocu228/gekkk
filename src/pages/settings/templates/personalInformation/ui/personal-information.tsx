@@ -1,7 +1,7 @@
 import {MobileWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
 import {Typography} from "@/shared/ui/typography/typography"
 import {MobileButton} from "@/shared/ui/mobile-button/mobile-button";
-import style from '../style/style.module.scss'
+import s from '../../../styles.module.scss'
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {useContext, useEffect, useState} from "react";
@@ -33,37 +33,41 @@ export function PersonalInformation() {
     
     return (
         <MobileWrapper className="w-full">
-            <div className="substrate w-full rounded-lg flex flex-col gap-3">
+            <div 
+                className={s.perInfoBody}
+            >
                 {!userInfo ? <Loader className="relative"/> : <>
-                    <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("name")}:</Typography>
-                        <Typography variant="h" color="light-green" className="pb-2">{userInfo?.name}</Typography>
+                    <div 
+                        className={s.perItem}
+                    >
+                        <h4 className={s.perItemTitle}>{t("name")}:</h4>
+                        <h4 className={s.perItemSubtitle}>{userInfo?.name}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("phone_number")}</Typography>
-                        <Typography variant="h" color="light-green" className="pb-2">{userInfo?.phone}</Typography>
+                        <h4 className={s.perItemTitle}>{t("phone_number")}</h4>
+                        <h4 className={s.perItemSubtitle}>{userInfo?.phone}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("email")}:</Typography>
-                        <Typography variant="h" color="light-green" className="pb-2">{userInfo?.email}</Typography>
+                        <h4 className={s.perItemTitle}>{t("email")}:</h4>
+                        <h4 className={s.perItemSubtitle}>{userInfo?.email}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("citizenship")}:</Typography>
-                        <Typography variant="h" color="light-green" className="pb-2">{userInfo?.citizenship}</Typography>
+                        <h4 className={s.perItemTitle}>{t("citizenship")}:</h4>
+                        <h4 className={s.perItemSubtitle}>{userInfo?.citizenship}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <Typography variant="h" color="dark-green" className={"typography-b2 pb-2"}>{t("residence_address")}:</Typography>
-                        <Typography variant="h" color="light-green" className="pb-2">{userInfo?.address}</Typography>
+                        <h4 className={s.perItemTitle}>{t("residence_address")}:</h4>
+                        <h4 className={s.perItemSubtitle}>{userInfo?.address}</h4>
                         <hr/>
                     </div>
                 </>}
                 {xl && 
-                <div className="flex flex-row gap-3 justify-center min-h-[40px] pt-8">
-                    <MobileButton className={style.button} onClick={resetState}>{t("back")}</MobileButton>
+                <div className={s.downBtnWrap}>
+                    <MobileButton onClick={resetState}>{t("back")}</MobileButton>
                 </div>}
             </div>
         </MobileWrapper>

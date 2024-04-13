@@ -16,7 +16,7 @@ export function LoginAndSignHistory() {
     console.log(loginLogList);
     
     return (
-        <div className='flex flex-col gap-4 w-full items-center'>
+        <div className={styles.historyWrap}>
         {loginLogList.map((login,index) =>
            <>
             {index === 0 || getDate(login.utc_time) !== getDate(loginLogList[index - 1].utc_time) ? (
@@ -24,10 +24,10 @@ export function LoginAndSignHistory() {
                     {getDate(login.utc_time)}
                 </div>
             ): null}
-            <div className={'substrate substrate w-full rounded-lg flex flex-col'}>
-                <Typography variant='h' color='light-green'>{getTimeAndTimeZone(getUnixTime(parseISO(login?.utc_time)))}</Typography>
-                <Typography variant='h' color='light-green'>{login.device_info}</Typography>
-                <Typography variant='h' color='light-green'>{t("ip")}: {login?.ip}</Typography>
+            <div className={styles.historyItem}>
+                <h4 className={styles.historyItemTitle}>{getTimeAndTimeZone(getUnixTime(parseISO(login?.utc_time)))}</h4>
+                <h4 className={styles.historyItemTitle}>{login.device_info}</h4>
+                <h4 className={styles.historyItemTitle}>{t("ip")}: {login?.ip}</h4>
             </div>
            </>)
         }

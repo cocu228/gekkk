@@ -2,7 +2,7 @@ import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
 import { Typography } from "@/shared/ui/typography/typography";
 import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
-import style from "../style/style.module.scss";
+import s from "../styles.module.scss";
 import {
   RegisterOptionsToChangePass,
   ChangePass,
@@ -38,9 +38,9 @@ export function ChangePassword() {
 
   return (
     <MobileWrapper className="w-full">
-      <div className="substrate w-full rounded-lg flex flex-col gap-3">
-        <div className="flex flex-row justify-between items-center">
-          <Typography variant="h">{t("new_password")}:</Typography>
+      <div className={s.passwordWrap}>
+        <div className={s.passwordLine}>
+          <h4 className={s.inputTitle}>{t("new_password")}:</h4>
           {/* <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -58,8 +58,8 @@ export function ChangePassword() {
             placeholder={t("enter_new_password")}
           />
         </div>
-        <div className="flex flex-row justify-between items-center">
-          <Typography variant="h">{t("confirm_password")}:</Typography>
+        <div className={s.passwordLine}>
+          <h4 className={s.inputTitle}>{t("confirm_password")}:</h4>
           {/* <MobileInput
             wrapperClassName="w-1/2"
             className="min-h-[40px]"
@@ -82,8 +82,8 @@ export function ChangePassword() {
         <div className="flex justify-end">
           <CheckList setValid={setValid} value={newPass} />
         </div>
-        <div className="flex flex-row justify-between items-center">
-          <Typography variant="h">{t("confirmation_code")}:</Typography>
+        <div className={s.passwordLine}>
+          <h4 className={s.inputTitle}>{t("confirmation_code")}:</h4>
           {/* <MobileInput
             value={confirmCode}
             onChange={(e) => {
@@ -104,7 +104,6 @@ export function ChangePassword() {
             placeholder={t("enter_confirm_code")}
           />
         </div>
-
         <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
           <MobileButton
             varitant={

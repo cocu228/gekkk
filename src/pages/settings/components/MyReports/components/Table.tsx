@@ -1,4 +1,3 @@
-import {Box} from '@mui/material'
 import {TableRow} from './TableRow'
 import {useContext, useMemo} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
@@ -16,14 +15,9 @@ export function Table({
         statements[account?.number] ?? []
     ), [account, statements]);
 
-    return <Box
-        gap="24px"
-        display="flex"
-        paddingTop="36px"
-        flexDirection="column"
-    >
+    return <div className="flex flex-col pt-[36px] gap-[24px]">
         {reports.map(item => {
             return <TableRow statement={item} uasToken={uasToken}/>
         })}
-    </Box>
+    </div>
 }

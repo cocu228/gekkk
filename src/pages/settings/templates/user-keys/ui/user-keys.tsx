@@ -56,8 +56,8 @@ export function UserKeys() {
 
     return (
         <MobileWrapper className="w-[90%]">
-            <div className="substrate w-full rounded-lg flex flex-row justify-between items-center">
-                <Typography variant={"h"}>{t("add_new_gekkey")}:</Typography>
+            <div className={style.addGekkeyBlock}>
+                <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}:</h4>
                 <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -67,7 +67,7 @@ export function UserKeys() {
                     disabled={!smsSent}
                 />
             </div>
-            <div className="flex flex-row mt-10 min-h-[45px] gap-2">
+            <div className={style.btnsBlock}>
                 <MobileButton  
                   varitant="light" 
                   className="w-48"
@@ -89,16 +89,15 @@ export function UserKeys() {
                 </MobileButton>
             </div>
 
-            <div className="flex flex-col w-full items-center">
-
-                {keysList.map((key,index) => <div className='substrate w-full rounded-lg flex flex-row items-center justify-between mt-6 max-h-[500px] gap-3'>
+            <div className={style.keysWrap}>
+                {keysList.map((key,index) => <div className={style.keysItem}>
                 <div className="w-4/5 overflow-hidden">
                 {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
-                    <Typography variant="p" color="light-green">{formatDate(getUnixTime(parseISO(key?.utc_create)))}</Typography>
-                    <Typography variant="p" color="light-green">{t("type")}: {key.key_type}</Typography>
-                    <Typography variant="h" color="light-green">{t("public_key")}: {key?.public_key}</Typography>
+                    <p className={style.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
+                    <p className={style.keyItemDate}>{t("type")}: {key.key_type}</p>
+                    <h4 className={style.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
                 </div>
-                <div className="w-1/5 min-h-[45px] flex items-center justify-center">
+                <div className={style.keyBtnWrap}>
                     <MobileButton
                       className={`w-full ${style.button}`}
                       onClick={()=>{

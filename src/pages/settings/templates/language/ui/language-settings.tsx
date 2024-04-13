@@ -3,7 +3,7 @@ import GB from '@/assets/GB.svg?react';
 import RU from '@/assets/RU.svg?react';
 import DE from '@/assets/DE.svg?react';
 import { Typography } from "@/shared/ui/typography/typography";
-
+import s from '../styles.module.scss'
 
 export function LanguageSettings() {
     const {i18n} = useTranslation();
@@ -11,32 +11,32 @@ export function LanguageSettings() {
 
 
     return(
-        <div className="flex w-full flex-col items-center gap-4">
+        <div className={s.languageWrap}>
             <div 
-                className="substrate substrate w-full rounded-lg flex flex-row gap-4 h-[80px] items-center"
+                className={s.languageItem}
                 onClick={() => i18n.changeLanguage('en')}
             >
                 <GB className="w-10"/>
-                <Typography variant="h" className="typography-b3">English</Typography>
+                <h4 className={s.languageTitle}>English</h4>
             </div>
             <div 
-                className="substrate substrate w-full rounded-lg flex flex-row gap-4 h-[80px] items-center"
+                className={s.languageItem}
                 onClick={() => i18n.changeLanguage('ru')}
             >
                 <RU className="w-10"/>
                 <div>
-                    <Typography variant="h" className="typography-b3-bold">Русский</Typography>
-                    <Typography variant="h" className="typography-b3">Russian</Typography>
+                    <h4 className={s.languageSubTitle}>Русский</h4>
+                    <h4 className={s.languageTitle}>English</h4>
                 </div>
             </div>
             <div 
-                className="substrate substrate w-full rounded-lg flex flex-row gap-4 h-[80px] items-center"
+                className={s.languageItem}
                 onClick={() => i18n.changeLanguage('de')}
             >
                 <DE className="w-10"/>
                 <div>
-                    <Typography variant="h" className="typography-b3-bold">Deutsch</Typography>
-                    <Typography variant="h" className="typography-b3">German</Typography>
+                    <h4 className={s.languageSubTitle}>Deutsch</h4>
+                    <h4 className={s.languageTitle}>German</h4>
                 </div>
             </div>
         </div>

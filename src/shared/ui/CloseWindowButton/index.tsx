@@ -2,10 +2,10 @@ import { IconButton, IconButtonProps } from '@mui/material'
 
 import CloseWindow from '@/assets/close-window.svg?react'
 
-export function CloseWindowButton(props: IconButtonProps) {
+export function CloseWindowButton(props) {
   return (
-    <IconButton {...props} sx={{ color: "pale blue"}}>
+    <div onClick={props.onClick} className='text-[#285E69ff]' >
       <CloseWindow />
-    </IconButton>
+    </div>
   )
 }

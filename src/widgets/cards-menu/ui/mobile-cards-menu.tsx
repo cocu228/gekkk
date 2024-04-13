@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import {
   MouseEvent,
   MouseEventHandler,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -46,6 +47,7 @@ import MobileModal from "@/shared/ui/modal/MobileModal";
 import { Typography } from "@/shared/ui/typography/typography";
 import { Outlet } from "react-router-dom";
 import { useCardStore } from "../model/currentCardStore";
+import { CtxRootData } from "@/processes/RootContext";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -70,6 +72,9 @@ const MobileCardsMenu = ({
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
   const [accountDetails, setAccountDetails] = useState<ClientDetails>(null);
+
+  const {account} = useContext(CtxRootData)
+
   const { inputCurr: limitAmount, setInputCurr: setLimitAmount } =
     useInputState();
   const [cardsStorage, setCardsStorage] = useState<{
@@ -96,7 +101,7 @@ const MobileCardsMenu = ({
         console.log(err);
       }
     })();
-  }, []);
+  }, [account]);
 
   const updateCard = (card: ICardData) => {
     setCardsStorage({

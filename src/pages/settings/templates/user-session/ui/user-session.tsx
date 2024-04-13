@@ -27,7 +27,7 @@ export function UserSession() {
     return (
         <>
         
-                <div className='flex flex-col gap-4 w-full items-center'>
+                <div className={styles.sessionWrap}>
                     {sessions.map((session,index) =>
                     <>
                         {index === 0 || getDate(session.utc_create) !== getDate(sessions[index - 1].utc_create) ? (
@@ -37,10 +37,10 @@ export function UserSession() {
                         ): null}
                         <div className='substrate substrate w-full rounded-lg flex flex-row justify-between items-center'>
                             <div className={'flex flex-col'}>
-                                <Typography variant='h' color='light-green'>{getTime(getUnixTime(parseISO(session?.utc_create)))}</Typography>
-                                <Typography variant='h' color='light-green'>{t("login_type")}: {session.login_type}</Typography>
-                                <Typography variant='h' color='light-green' className='overflow-hidden'>{session.user_agent}</Typography>
-                                <Typography variant='h' color='light-green'>{t("ip")}: {session.ip}</Typography>
+                                <h4 className={styles.sessionItemTitle}>{getTime(getUnixTime(parseISO(session?.utc_create)))}</h4>
+                                <h4 className={styles.sessionItemTitle}>{t("login_type")}: {session.login_type}</h4>
+                                <h4 className={styles.sessionItemTitle}>{session.user_agent}</h4>
+                                <h4 className={styles.sessionItemTitle}>{t("ip")}: {session.ip}</h4>
                             </div>
                             <MobileButton 
                                 varitant={isCurrent(index) ? 'disabeled' : 'alarm'}  

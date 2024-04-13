@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo } from "react";
-
+import s from './styles.module.scss'
 import Info from "@/assets/info.svg?react";
 import World from "@/assets/world.svg?react";
 import Guard from "@/assets/guard.svg?react";
@@ -83,28 +83,34 @@ export function Settings() {
     <settingsContext.Provider
       value={{ closeArea: useCallback(() => setSelectedArea(""), []) }}
     >
-      {!md && (
-        <h1 className="select-none text-lg mb-[36px] p-[16px_30px_0_30px] xxl:p-0 font-[Archivo] font-bold">
+      {!md && ( 
+        <h1 
+          className={s.title}
+        >
           {t("my_settings")}
         </h1>
       )}
       <div
-        className={`flex ${
-          selectedArea ? "flex-row" : "flex-column"
-        } gap-[15px] h-full ${
-          xxl && selectedArea ? "overflow-visible" : "overflow-auto"
-        } ${xxl ? "p-0" : "p-[0_60px_60px_30px]"}`}
+        className={`
+          ${s.itemsWrap} ${xxl! && s.itemsWrapPadding} ${xxl && selectedArea && s.itemsWrapOverflow}
+        `}
+        style={{flexDirection: selectedArea ? 'row' : 'column'}}
       >
         {(!xl || !area) && (
-          <div className="w-full flex flex-col gap-[30px] mb-[19px]">
-            <Box display="flex" flexDirection="column" gap="24px">
-              <h2 className={`
-                ${!md ? "text-[#285E69ff]" : "text-[#7B797C]"} font-medium ${md && "font-normal"}
-                text-[14px]
-              `}>
+          <div 
+          className={s.boxWrap}
+          >
+            <div 
+              className={s.box}
+            >
+              <h2 
+                className={`${s.itemTitle} ${!md && s.itemTitleColor} ${md && s.itemTitleWeight}`}
+              >
                 {t("general_information")}
               </h2>
-              <div className={`flex flex-col ${md ? 'gap-[5px]' : "gap-[24px]"}`} >
+              <div 
+                className={`${s.itemsList} ${md && s.itemsListGap}`}
+              >
                 <SettingsButton
                   icon={<AccountIcon />}
                   text={t("personal_information")}
@@ -130,15 +136,16 @@ export function Settings() {
                   isSelected={selectedArea === "language"}
                 />
               </div>
-            </Box>
-            <div className="flex flex-col gap-[24px]" >
-              <h2 className={`
-                ${!md ? "text-[#285E69ff]" : "text-[#7B797C]"} font-medium ${md && "font-normal"}
-                ${md && '!text-[18px]'} text-[14px]
-              `}>
+            </div>
+            <div className={s.box} >
+              <h2 
+                  className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+              >
                 {md ? t("access_management") : t("account_and_app_settings")}
               </h2>
-              <div className={`flex flex-col ${md ? "gap-[5px]" : "gap-[24px]"}`} >
+              <div 
+                  className={`${s.btnsWrap} ${md && s.btnsWrapGap}`}
+              >
                 <SettingsButton
                     icon={<Guard />}
                     text={t("change_password")}
@@ -179,14 +186,13 @@ export function Settings() {
                 /> */}
               </div>
             </div>
-            <div className="flex flex-col gap-[24px]" >
-              <h2 className={`
-                ${!md ? "text-[#285E69ff]" : "text-[#7B797C]"} font-medium ${md && "font-normal"}
-                ${md && '!text-[18px]'} text-[14px]
-              `}>
+            <div className={s.box} >
+              <h2 
+                className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+              >
                 {md ? t("documents_and_legal_notices") : t("documents")}
               </h2>
-              <div className={`flex flex-col ${md ? "gap-[5px]" : "gap-[24px]"}`} >
+              <div className={`${s.itemsList} ${md && s.itemsListGap}`} >
                 <SettingsButton
                   icon={<EuroIcon />}
                   text={t("pricing")}

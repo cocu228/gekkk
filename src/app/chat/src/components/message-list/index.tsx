@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useRef, useState } from 'react'
+import React, { SetStateAction, useContext, useEffect, useRef, useState } from 'react'
 import Message from '../message'
 import styled from 'styled-components'
 import Loading from '../loading'
@@ -10,7 +10,9 @@ import useColorSet from '../../hooks/useColorSet'
 import DatePopup from '../time-window'
 import { isMessageVisible } from '../../utils/shared'
 import { Dispatch } from 'preact/hooks'
-import loader from "../../../dist/assets/logo-loading.svg"
+import { CtxAuthInfo } from '../../contexts/AuthContext'
+import LoaderIco from '../../assets/logo-loading.svg'
+import Loader from '../loader'
 
 export type MessageListProps = {
     themeColor?: string
@@ -91,7 +93,6 @@ const NoMessagesTextContainer = styled.div<{
     align-items: center;
     height: 100%;
     user-select: none;
-
 `
 
 const LoadingContainer = styled.div`
@@ -127,6 +128,10 @@ export default function MessageList({
 
     const bottomBufferRef = useRef<any>()
     const scrollContainerRef = useRef<any>()
+    const {
+        config: authConfig,
+        loading: authLoading
+    } = useContext(CtxAuthInfo)
 
     const [dateOfFirstVisibleMessage, setDateOfFirstVisibleMessage] = useState<string>()
 
@@ -225,8 +230,9 @@ export default function MessageList({
                 <ImageContainer>
                     <Image
                         height={30}
-                        src={loader}
-                        alt={loader} />
+                        src={LoaderIco}
+                        alt={LoaderIco}
+                    />
                 </ImageContainer>
             }
 
@@ -276,16 +282,21 @@ export default function MessageList({
                             }}
                             ref={scrollContainerRef}>
 
-                            {(messages && messages.length <= 0) &&
-                                (customEmptyMessagesComponent ?
-                                    customEmptyMessagesComponent
-                                    :
-                                    <NoMessagesTextContainer
-                                        color={noMessageTextColor}>
-                                        <p>No messages yet...</p>
-                                    </NoMessagesTextContainer>)
+                            {authLoading
+                                ? <Loader/>
+                                : (messages && messages.length <= 0)
+                                && (customEmptyMessagesComponent
+                                    ? customEmptyMessagesComponent
+                                    : (
+                                        <NoMessagesTextContainer
+                                            color={noMessageTextColor}>
+                                            {!authConfig?.token
+                                                ? <p>Click here to load messages</p>
+                                                : <p>No messages yet...</p>}
+                                        </NoMessagesTextContainer>
+                                    )
+                                )
                             }
-
                             
                             {messages && scrollContainerRef.current && bottomBufferRef.current && messages.map(({ user, text, media, loading: messageLoading, seen, createdAt }, index) => {
                                 //determining the type of message to render

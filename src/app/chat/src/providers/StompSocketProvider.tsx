@@ -6,7 +6,7 @@ import {StompCreateMessage} from '../types/Shared';
 import {generateUid, getCookieData, setCookieData} from "../utils/shared";
 import {apiInitSessionId} from "../api/init-session-id";
 import {$axios} from "../utils/(cs)axios";
-import AuthContext from '../contexts/AuthContext';
+import {CtxAuthInfo} from '../contexts/AuthContext';
 
 type IParams = {
     // deviceIdHash: string;
@@ -33,15 +33,15 @@ const StompSocketProvider = ({
     setIsWebSocketReady,
     children
 }: IParams) => {
-    const authData = useContext(AuthContext);
+    const {config: authConfig} = useContext(CtxAuthInfo);
 
     useEffect(() => {
-        if (!authData?.uasToken) return () => {};
+        if (!authConfig?.token) return () => {};
 
         // Config
         const chatConfig = {
-            token: authData.uasToken,
-            phone: authData?.phone,
+            token: authConfig.token,
+            phone: authConfig?.phone,
         }
 
         const config = stompConfig(deviceIdHash, chatConfig);
@@ -120,7 +120,7 @@ const StompSocketProvider = ({
         return () => {
             client.deactivate();
         };
-    }, [authData]);
+    }, [authConfig]);
 
     return children;
 };

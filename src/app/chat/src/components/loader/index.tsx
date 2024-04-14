@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from '../../../dist/assets/logo-loading.svg';
+import Logo from '../../assets/logo-loading.svg';
 
 
 

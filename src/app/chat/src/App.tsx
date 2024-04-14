@@ -16,15 +16,12 @@ import {apiPostFile} from "./api/post-file";
 import AuthProvider from "./providers/AuthProvider";
 
 function App() {
-
-    const [messages, setMessages] = useState<ChatMessage[]>([])
-    const [ws, setWS] = useState(false)
-    const [offset, setOffset] = useState<number>(0)
-    const [lazyLoading, setLazyLoading] = useState<boolean>(false)
-
+    const [ws, setWS] = useState(false);
+    const [offset, setOffset] = useState<number>(0);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [lazyLoading, setLazyLoading] = useState<boolean>(false);
     
     const onSendMessage = async (message: string) => {
-
         const cookies = getCookieData()
         // @ts-ignore
         const sessionId = cookies["chat-session-id"]
@@ -34,14 +31,12 @@ function App() {
         if (response.status !== "success") {
             console.log("Error status PostMessage")
         }
-
     }
 
     const onAttachClick = async () => {
-
-        const cookies = getCookieData()
+        const cookies = getCookieData();
         //@ts-ignore
-        const sessionId = cookies["chat-session-id"]
+        const sessionId = cookies["chat-session-id"];
 
         try {
             const fileInput: HTMLInputElement  = document.createElement('input');
@@ -54,20 +49,20 @@ function App() {
 
                 if(file){
                     const response = await apiPostFile(file, sessionId)
-                    console.log('Результат загрузки файла:', response);
+                    console.log('Download result:', response);
                 }
 
             });
+
             fileInput.click();
         } catch (error) {
-            console.error('Ошибка при загрузке файла:', error);
+            console.error('Error occured when loading file:', error);
         }
     }
 
     const setIsWebSocketReady = (val: boolean) => {
         setWS(val)
     }
-
 
     const uiMessages = messages.map(item => ({
         text: item.content,
@@ -95,7 +90,7 @@ function App() {
 
         createdAt: new Date(item.createdAt * 1000),
         seen: item.isRead
-    }))
+    }));
 
     useEffect(() => {
         (async () => {
@@ -121,12 +116,11 @@ function App() {
                     if(messages.length !== 0){                        
                         setMessages(n => [...n, ...messages].sort((a, b) =>+a.id - +b.id))
                     }
-                    
                 }
                 
             }
-        })()
-    }, [ws, offset])
+        })();
+    }, [ws, offset]);
 
     // @ts-ignore
     useEffect(()=>{
@@ -139,8 +133,7 @@ function App() {
                 clearTimeout(timer)
             }
         }
-    }, [lazyLoading])
-
+    }, [lazyLoading]);
 
     return (
         <AuthProvider>
@@ -165,7 +158,6 @@ function App() {
                 </ChatThemeProvider>
             </StompSocketProvider>
         </AuthProvider>
-
     )
 }
 

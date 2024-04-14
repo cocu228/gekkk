@@ -30,7 +30,7 @@ export default function MainContainer({
 const backgroundColor = useColorSet("--container-background-color")
 
     return (
-        <Container
+        <Container id='chat-main-container' tabIndex={-1}
             backgroundColor={backgroundColor}
             style={style}>
             {children}

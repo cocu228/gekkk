@@ -1,8 +1,14 @@
 import { createContext } from "react";
 
 export interface ICtxAuth {
-    uasToken: string;
+    token: string;
     phone?: string;
 }
 
-export default createContext<ICtxAuth | null>(null);
+export const CtxAuthInfo = createContext<{
+    loading: boolean;
+    config: ICtxAuth | null;
+}>({
+    loading: false,
+    config: null
+});

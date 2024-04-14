@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import useTypingListener from '../../hooks/useTypingListener'
 import useColorSet from '../../hooks/useColorSet'
 import MinChatUIContext from '../../contexts/ChatThemeContext'
+import { CtxAuthInfo } from '../../contexts/AuthContext'
 
 export type Props = {
     onSendMessage?: (text: string) => void
@@ -133,7 +134,9 @@ const ArrowContainer = styled.div<{ showCursor: boolean, disabled: boolean }>`
     padding-top: 8px;
     padding-bottom: 8px;
 
-
+    ${({ disabled }) => disabled ? `
+    pointer-events: none;
+    ` : ''}
 `
 
 const AttachmentContainer = styled.div<{ disabled: boolean }>`
@@ -152,6 +155,7 @@ const AttachmentContainer = styled.div<{ disabled: boolean }>`
     opacity: 1;
     ` : `
     opacity: 0.6;
+    pointer-events: none;
     `}
 
 `
@@ -200,6 +204,10 @@ export default function MessageInput({
 
     const [text, setText] = useState("")
     const inputRef = useRef<any>(null);
+    const {
+        config: authConfig,
+        loading: authLoading
+    } = useContext(CtxAuthInfo);
 
     const { setTyping, ...inputProps } = useTypingListener({ onStartTyping, onEndTyping })
 
@@ -237,7 +245,7 @@ export default function MessageInput({
 
                 {showAttachButton ? (
                     <AttachmentContainer
-                        disabled={disabled}
+                        disabled={disabled || authLoading || !authConfig?.token}
                         onClick={onAttachClick}
                     >
 
@@ -275,7 +283,7 @@ export default function MessageInput({
                             ref={inputRef}
                             data-testid='message-input'
                             onInput={(event: any) => setText(event.target.innerText)}
-                            contentEditable={!disabled}
+                            contentEditable={!(disabled)}
                             suppressContentEditableWarning={true}
                             onKeyDown={(event: any) => {
                                 if (event.key === 'Enter') {
@@ -302,7 +310,7 @@ export default function MessageInput({
                 {showSendButton ? (
 
                     <ArrowContainer
-                        disabled={disabled}
+                        disabled={disabled || authLoading || !authConfig?.token}
                         showCursor={text.trim().length > 0}
                         onClick={handleSubmit}
                     >

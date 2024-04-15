@@ -15,8 +15,7 @@ import { BreakpointsContext } from "./BreakpointsProvider";
 // import {useAuth} from "@/app/providers/AuthRouter";
 import { apiGetInfo } from "@/shared/(orval)api/gek";
 import SystemNotifications from "./SystemNotifications";
-import ReactPullToRefresh from "react-pull-to-refresh";
-import "@/app/styles/pullRefresh.scss";
+import ReactPullToRefresh from "react-simple-pull-to-refresh";
 
 export default memo(function () {
   // const {logout} = useAuth();
@@ -82,8 +81,8 @@ export default memo(function () {
   //   const { setRefresh } = useContext(CtxRootData);
 
   const handleRefresh = async () => {
-    // window.location.reload()
-    await setRefresh();
+    setRefresh();
+    await new Promise(resolve => setTimeout(resolve, 1000));
   };
 
   return (
@@ -107,28 +106,19 @@ export default memo(function () {
                 <Header />
                 {md ? (
                   <ReactPullToRefresh
+                    pullDownThreshold={50}
+                    maxPullDownDistance={75}
                     onRefresh={handleRefresh}
-                    className="reshresh_wrap"
-                    loading={
-                      <div className="loading">
-                        <div className="ico">
-                          <svg
-                            width={20}
-                            height={20}
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="#000"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                            ></path>
-                          </svg>
-                        </div>
-                      </div>
+                    refreshingContent={
+                        <svg width={20} height={20} fill="none" stroke="#29354C"
+                          viewBox="0 0 24 24" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                          />
+                        </svg>
                     }
                   >
                     <Main>

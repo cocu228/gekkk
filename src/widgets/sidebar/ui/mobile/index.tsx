@@ -24,10 +24,7 @@ import {
   toLocaleFiatRounding,
 } from "@/shared/lib/number-format-helper";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
-import Loader from "@/shared/ui/loader";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
-import ReactPullToRefresh from "react-pull-to-refresh";
-import PullToRefresh from "react-simple-pull-to-refresh";
 
 const SidebarMobile = () => {
   const { t } = useTranslation();

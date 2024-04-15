@@ -15,19 +15,41 @@
   }
 }
 
-////////
+.ptr {
+  height: 100vh !important;
 
-/* react-pull-to-refresh CSS */
+  &__pull-down--pull-more {
+    text-align: center;
+  }
 
-#root h3 {
-  margin: 0.4rem;
+  &--pull-down-treshold-breached {
+    .ptr__pull-down {
+      display: flex;
+      height: 50px;
+      visibility: visible;
+      align-items: center;
+
+      &--loading {
+        display: flex !important;
+        justify-content: center;
+        transform-origin: center;
+        animation: icoLoad 1s infinite linear;
+      }
+    }
+  }
+
+  @keyframes icoLoad {
+    0% {
+      transform: rotate(0);
+      transform-origin: center;
+    }
+  
+    100% {
+      transform-origin: center;
+      transform: rotate(360deg);
+    }
+  }
 }
-
-body:not(.ptr-loading) .ptr-element {
-  height: 0px;
-}
-
-//////
 
 .arrow-down-xs {
   background-image: url("/img/icon/DropdownTriangleIcon.svg");

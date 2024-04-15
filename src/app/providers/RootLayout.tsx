@@ -106,6 +106,7 @@ export default memo(function () {
                 <Header />
                 {md ? (
                   <ReactPullToRefresh
+                    canFetchMore
                     pullDownThreshold={50}
                     maxPullDownDistance={75}
                     onRefresh={handleRefresh}

@@ -4,7 +4,6 @@
   margin-left: var(--content-pad-left);
   margin-right: var(--content-pad-right);
 
-
   @include max-devices(xl) {
     margin-left: var(--content-pad-left-xl);
     margin-right: var(--content-pad-right-xl);
@@ -15,6 +14,20 @@
     margin-right: var(--content-pad-horizontal-md);
   }
 }
+
+////////
+
+/* react-pull-to-refresh CSS */
+
+#root h3 {
+  margin: 0.4rem;
+}
+
+body:not(.ptr-loading) .ptr-element {
+  height: 0px;
+}
+
+//////
 
 .arrow-down-xs {
   background-image: url("/img/icon/DropdownTriangleIcon.svg");
@@ -45,9 +58,7 @@
   cursor: e-resize;
 }
 
-
 .info-box-warning {
-
   padding: 1rem 0.625rem;
   color: var(--color-orange);
   border: 1px solid var(--color-orange);
@@ -62,19 +73,16 @@
   strong {
     font-weight: 600;
   }
-
 }
 
-
 .info-box-danger {
-
   padding: 14px 25px 14px 38px;
   color: var(--color-red-800);
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  border: 1px solid #EB545433;
-  background-color: #EB54541A;
+  border: 1px solid #eb545433;
+  background-color: #eb54541a;
   border-radius: 4px;
   background-image: url("/img/icon/Alert.svg");
   background-position: 10px center;
@@ -89,14 +97,12 @@
   strong {
     font-weight: 600;
   }
-
 }
-
 
 .info-box-note {
   padding: 16px 54px 14px 78px;
   color: var(--color-gray-400);
-  background-color: #FAFBFD;
+  background-color: #fafbfd;
   background-image: url("/img/icon/Alert.svg");
   background-position: 24px center;
   background-repeat: no-repeat;
@@ -115,14 +121,13 @@
   strong {
     font-weight: 600;
   }
-
 }
 
 .info-box-description {
-  background-color: #E2FFEE;
+  background-color: #e2ffee;
   font-size: 14px;
   height: min-content;
-  color: #285E69;
+  color: #285e69;
   border-radius: 8px;
   padding: 18px 16px;
 
@@ -130,10 +135,9 @@
     margin-bottom: 16px;
   }
 }
-.info-box-in-wallet{
-  color: #3A5E66;
+.info-box-in-wallet {
+  color: #3a5e66;
 }
-
 
 //.ellipsis:not(.ellipsis-lg):hover::after {
 //  content: none;
@@ -149,7 +153,9 @@
 .ellipsis {
   position: relative;
 
-  & > p, span, a {
+  & > p,
+  span,
+  a {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
@@ -187,5 +193,4 @@
       }
     }
   }
-
 }

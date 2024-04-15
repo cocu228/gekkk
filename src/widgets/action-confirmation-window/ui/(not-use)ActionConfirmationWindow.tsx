@@ -147,6 +147,7 @@ const ActionConfirmationWindow = () => {
     <Modal
       open={isModalOpen}
       title={t("confirm_action")}
+      padding
       onCancel={() => {
         handleCancel();
         localErrorClear();

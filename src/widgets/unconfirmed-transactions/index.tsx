@@ -9,6 +9,7 @@ import {useContext, useEffect, useState} from "react";
 import IconGkeOrange from "@/shared/ui/icons/IconGkeOrange";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();
@@ -45,7 +46,8 @@ export const UnconfirmedTransactions = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={<span className="font-[600] text-[12px] text-[#29354C]">{t("please_enter_sender_name")}</span>}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("please_enter_sender_name")}/>}
         >
             <InfoContent handleCancel={handleCancel} {...state[0]}/>
         </Modal>

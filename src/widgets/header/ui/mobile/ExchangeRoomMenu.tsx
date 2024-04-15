@@ -152,7 +152,6 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
 
       <Modal
         width={450}
-        padding={false}
         //className={styles.RoomModal}
         open={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
@@ -189,6 +188,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         open={roomCloseModal.isModalOpen}
         onCancel={roomCloseModal.handleCancel}
         title={t("invite_link")}
+        padding
       >
         <div className="pt-5 text-sm">
           {active

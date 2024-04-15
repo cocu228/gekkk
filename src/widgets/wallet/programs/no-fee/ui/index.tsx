@@ -181,6 +181,7 @@ const NoFeeProgram = () => {
                 title={t("confirm_locking")}
                 open={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
+                padding
             >
                 <div className="mb-2">
                     <NoFeeProperties

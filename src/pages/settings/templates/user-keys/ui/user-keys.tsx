@@ -126,6 +126,7 @@ export function UserKeys() {
               open={isModalOpen}
               title={keyToRemove?t('remove_key'):t("close_session")}
               width={400}
+              padding
               footer={
                 <div className='w-full flex justify-center gap-2'>
                   {keyToRemove ? <><MobileButton

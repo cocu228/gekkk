@@ -42,7 +42,11 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
         <Button onClick={showModal} size={"sm"} gray
                 className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
         <Modal
-            title={t("deleting_transfer_code")} open={isModalOpen} onCancel={handleCancel}>
+            title={t("deleting_transfer_code")} 
+            open={isModalOpen} 
+            onCancel={handleCancel}
+            padding
+        >
             {loading ? <Loader/> : <div>
                 <div className="row bg-gray-300 -mx-14 px-14 py-4 mb-6">
                     <p>{t("code_will_be_deleted")}</p>

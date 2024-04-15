@@ -31,6 +31,7 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import IconQR from "@/shared/ui/icons/IconQR";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -141,6 +142,7 @@ const WithdrawFormCrypto = () => {
         <Modal
           open={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
+          padding
         >
           <QrcodeScanner
             onSuccess={(value: string) => {
@@ -235,10 +237,12 @@ const WithdrawFormCrypto = () => {
 
         <Modal
           width={450}
-          title={t("transfer_confirmation")}
+          closable={false}
+          title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
           destroyOnClose
           onCancel={handleCancel}
           open={isModalOpen}
+          padding
         >
           <WithdrawConfirmCrypto
             {...inputs}

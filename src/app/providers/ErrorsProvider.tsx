@@ -146,6 +146,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             closable={false}
             open={isModalOpen}
             title='Account generation'
+            padding
         >
             {isAccountOpened ? (<div>
                 <div className='relative mb-10'>

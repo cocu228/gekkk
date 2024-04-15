@@ -18,6 +18,7 @@ import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/c
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 const WithdrawFormPapaya = () => {
     const {t} = useTranslation();
@@ -152,7 +153,9 @@ const WithdrawFormPapaya = () => {
                 width={450}
                 open={isModalOpen}
                 onCancel={handleCancel}
-                title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+                padding
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             >
                 <WithdrawConfirmCrypto
                     description={""}

@@ -21,6 +21,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../forms/styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormSwift = () => {
 
@@ -305,9 +306,14 @@ const WithdrawFormSwift = () => {
                         </InputCurrency.Validator>
                     </div>
         </div>
-        <Modal width={450} title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
-               onCancel={handleCancel}
-               open={isModalOpen}>
+        <Modal 
+            padding 
+            width={450} 
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+            onCancel={handleCancel}
+            open={isModalOpen}
+        >
             <WithdrawConfirmSepa handleCancel={handleCancel} {...inputs} amount={inputCurr.value.number}/>
         </Modal>
         <div className="row w-full">

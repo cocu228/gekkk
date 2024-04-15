@@ -441,6 +441,7 @@ const SidebarDesktop = () => {
                 open={roomInfoModal.isModalOpen}
                 onCancel={roomInfoModal.handleCancel}
                 title={t("invite_link")}
+                padding
             >
                 <InviteLink roomInfo={selectedRoom} />
             </Modal>
@@ -450,6 +451,7 @@ const SidebarDesktop = () => {
                 open={roomCloseModal.isModalOpen}
                 onCancel={roomCloseModal.handleCancel}
                 title={t("invite_link")}
+                padding
             >
                 <div className="pt-5 text-sm">
                     {selectedRoom ?

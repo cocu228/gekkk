@@ -79,6 +79,7 @@ export function UserSession() {
                 open={isModalOpen}
                 title={t("close_session")}
                 width={400}
+                padding
                 footer={
                     <div className='w-full flex justify-center gap-2'>
                     <> 

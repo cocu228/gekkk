@@ -144,6 +144,7 @@ export function ConfirmationNewCard() {
         <Modal
             open={isOpen}
             title={t('enter_your_online_bank_password_to_confirm_new_card_order')}
+            padding
             onCancel={() => {
                 setIsOpen(false)
             }}

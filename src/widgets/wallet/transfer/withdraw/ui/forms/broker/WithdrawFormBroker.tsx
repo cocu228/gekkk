@@ -20,7 +20,7 @@ import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
 // import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -130,7 +130,9 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t("withdraw_confirmation")}>
+            title={t("withdraw_confirmation")}
+            padding
+        >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
@@ -246,7 +248,8 @@ const WithdrawFormBroker = () => {
             onCancel={()=>{
                 handleCancel()
             }}
-            title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             footer={null}
         >
             <WithdrawConfirmBroker

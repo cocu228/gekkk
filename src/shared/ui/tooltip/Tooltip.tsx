@@ -35,6 +35,7 @@ const Tooltip = ({children, text}: TooltipParams) => {
                     title="Increased rate program"
                     open={tooltipModal.isModalOpen}
                     onCancel={tooltipModal.handleCancel}
+                    padding
                 >
                     <div className='mb-10'>
                         {text}

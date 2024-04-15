@@ -4,7 +4,7 @@ import Modal from "@/shared/ui/modal/Modal";
 const ClosingConditionsModal = ({ open, onCancel, ...props }: ModalProps) => {
 
     return (
-        <Modal open={open} onCancel={onCancel} {...props}>
+        <Modal padding open={open} onCancel={onCancel} {...props}>
             <p className="mb-5 font-medium">Opened deposit can be closed before its closing date by the Client according to the following conditions:</p>
 
             <div className="mb-10 md:pl-7">

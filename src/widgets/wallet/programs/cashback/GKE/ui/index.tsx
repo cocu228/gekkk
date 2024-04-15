@@ -164,6 +164,7 @@ const GkeCashbackProgram = () => {
                 title={t("confirm_locking")}
                 open={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
+                padding
             >
                 <CashbackProperties
                     locked={investment?.amount ?? 0}

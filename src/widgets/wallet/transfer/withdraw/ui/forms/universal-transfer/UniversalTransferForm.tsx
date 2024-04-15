@@ -22,6 +22,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -155,14 +156,11 @@ const UniversalTransferForm = () => {
       <Modal
         width={450}
         destroyOnClose
-        padding={false}
         open={isModalOpen}
         onCancel={handleCancel}
-        title={
-          <span className={styles.MainModalTitle}>
-            {t("confirm_transaction")}
-          </span>
-        }
+        closable={false}
+        title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+
       >
         <UniversalTransferConfirm
           {...inputs}

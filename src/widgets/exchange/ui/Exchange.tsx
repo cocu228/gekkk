@@ -348,7 +348,6 @@ function Exchange() {
 
             <Modal
               width={400}
-              padding={false}
               title="Confirm the order"
               open={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
@@ -449,6 +448,7 @@ function Exchange() {
         width={450}
         open={roomInfoModal.isModalOpen}
         onCancel={roomInfoModal.handleCancel}
+        padding
         title={
           roomType == "default"
             ? t("exchange.open_private_exchange_room")
@@ -480,6 +480,7 @@ function Exchange() {
           roomType === "creator" ? t("exchange.close") : t("exchange.leave")
         } ${t("exchange.private_exchange_room")}`}
         open={cancelRoomModal.isModalOpen}
+        padding
         onCancel={cancelRoomModal.handleCancel}
       >
         <div className="text-sm">

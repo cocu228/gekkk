@@ -315,6 +315,7 @@ function OpenOrders({ refreshKey }: IParams) {
         title={t("exchange.cancel_order")}
         open={cancelOrderModal.isModalOpen}
         onCancel={cancelOrderModal.handleCancel}
+        padding
       >
         <div className="text-sm mb-4"> {t("exchange.cancel_this_order")}</div>
         <div className="font-medium mb-2">

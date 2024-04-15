@@ -20,6 +20,7 @@ import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss"
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -68,7 +69,7 @@ const CreateTransferCode = () => {
         
         <div className="row mb-5">
             <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <Modal onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
+            <Modal padding onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
                 <CreateCode/>
             </Modal>
         </div>
@@ -252,7 +253,17 @@ const CreateTransferCode = () => {
                 onCreateCode()
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={<span className={styles.MainModalTitle}>{t("your_transfer_code")}</span>} open={isModalOpen}>
+            <MoadlAnt 
+                footer={null} 
+                onCancel={()=>{
+                    
+                    handleCancel();
+                    setNewCode("")
+                }} 
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                open={isModalOpen}
+            >
                 <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </MoadlAnt>
         </div>

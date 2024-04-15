@@ -15,6 +15,7 @@ import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get
 import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import Loader from '@/shared/ui/loader';
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -104,24 +105,10 @@ export const PendingTransactions = () => {
 
         <Modal
             width={450}
-            padding={false}
             open={isModalOpen}
             onCancel={handleCancel}
             closable={false}
-            title={
-                <div className={styles.TitleContainer}>
-                    <span className={styles.Title}>
-                        {t('please_verify_transaction')}
-                    </span>
-
-                    <svg onClick={handleCancel} className='cursor-pointer' width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.5 6.5L13.5 13.5" stroke="#7B797C" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M6.5 13.5L13.5 6.50001" stroke="#7B797C" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="10" cy="10" r="9" stroke="#7B797C" stroke-width="2"/>
-                    </svg>
-
-                </div>
-            }
+            title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
         >
             <hr className={styles.ModalLine} />
 

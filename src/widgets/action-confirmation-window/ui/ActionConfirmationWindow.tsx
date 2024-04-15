@@ -95,6 +95,7 @@ const ActionConfirmationWindow = () => {
     <Modal
       open={isModalOpen}
       title={t("identity_verification")}
+      padding
       onCancel={() => {
         handleCancel();
         localErrorClear();

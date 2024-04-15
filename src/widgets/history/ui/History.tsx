@@ -280,8 +280,12 @@ const History = memo(function ({
             </div>
           )}
         </div>
-        <Modal width={450} title={<span className="font-[600] text-[12px] text-[#29354C]">{t("please_enter_sender_name")}</span>} onCancel={handleCancel}
-            open={isModalOpen}>
+        <Modal
+          width={450}
+          title={t("transaction_info")}
+          onCancel={handleCancel}
+          open={isModalOpen}
+        >
             <InfoContent handleCancel={handleCancel} {...selectedItem} />
         </Modal>
       </>
@@ -353,9 +357,13 @@ const History = memo(function ({
           )}
         </div>
       </div>
-      <Modal width={450} title={<span className="font-[600] text-[12px] text-[#29354C]">{t("please_enter_sender_name")}</span>} onCancel={handleCancel}
-          open={isModalOpen}>
-          <InfoContent handleCancel={handleCancel} {...selectedItem} />
+      <Modal
+        width={450}
+        title={t("transaction_info")}
+        onCancel={handleCancel}
+        open={isModalOpen}
+      >
+        <InfoContent handleCancel={handleCancel} {...selectedItem} />
       </Modal>
     </>
   );

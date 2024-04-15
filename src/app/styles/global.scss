@@ -24,7 +24,7 @@
 }
 
 body:not(.ptr-loading) .ptr-element {
-  transform: translate3d(0, -50px, 0);
+  height: 0px;
 }
 
 //////

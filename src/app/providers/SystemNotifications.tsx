@@ -1,5 +1,5 @@
 import { CtxRootData } from "@/processes/RootContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface IParams {
     children?: JSX.Element;
@@ -9,6 +9,7 @@ const SystemNotifications = ({children}: IParams) => {
     let esLink = null;
     let activeNotify = null;
     const {setRefresh} = useContext(CtxRootData);
+    const [counter, setCounter] = useState<number>(0);
 
     function displaySystemNotification(notify) {        
         if (Notification?.permission === "granted") {
@@ -63,6 +64,8 @@ const SystemNotifications = ({children}: IParams) => {
         Notification.requestPermission();
     }
     function handleReceivedMessage(message) {
+        setCounter(prev => prev + 1);
+
         if (typeof message !== "string") {
             console.log(message);
             return;
@@ -86,29 +89,7 @@ const SystemNotifications = ({children}: IParams) => {
     }, []);
 
     return <div>
-        {/* <div className="w-full grid grid-rows-3 gap-2">
-            <button onClick={() => {
-                displaySystemNotification({
-                    mess_type: 2,
-                    obj: {
-                        currency: 'TEST',
-                        amount: 10
-                    }
-                });
-            }}>Test notification</button>
-            <button onClick={() => {
-                navigator.serviceWorker.register('./sw.js');
-            }}>Register sw</button>
-            <button onClick={() => {
-                Notification.requestPermission(function(result) {
-                    if (result === 'granted') {
-                        navigator.serviceWorker.ready.then(function(registration) {
-                        registration.showNotification('Notification with ServiceWorker');
-                        });
-                    }
-                });
-            }}>Test sw notification</button>
-        </div> */}
+        <div className="w-full flex justify-center">Undated: {counter}</div>
 
         {children}
     </div>;

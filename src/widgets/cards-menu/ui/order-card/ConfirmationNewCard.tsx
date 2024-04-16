@@ -4,7 +4,6 @@ import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
-import {Box, Typography, styled, TextField} from '@mui/material';
 import Select from "@/shared/ui/select/Select";
 import {getAddressPartOrEmpty} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
@@ -12,19 +11,7 @@ import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-deliver
 import Loader from "@/shared/ui/loader";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiPersonalize} from "@/shared/(orval)api";
-
-const RowItem = styled(Box, {
-    shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
-})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(({
-    theme,
-    hasBorderTop,
-    hasBorderBottom
-}) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
-    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined
-}));
+import s from '../new-card/styles.module.scss'
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
@@ -46,56 +33,52 @@ export function ConfirmationNewCard() {
     }, []);
     
     return !deliveryOption ? <Loader className={'relative mt-10'}/> : <>
-        <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
+        <div className={s.confHeader}>
+            <h3 className={s.confHeaderTitle}>Issue new card</h3>
             <CloseWindowButton onClick={close}/>
-        </Box>
-        
-        <Box display={"flex"} flexDirection={"column"} gap="24px" paddingTop={"48px"}>
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("account_owner")}</Typography>
-                <Typography variant='b1' color="pale blue">{account.name}</Typography>
-            </RowItem>
-
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("account_number")}</Typography>
-                <Typography variant='b1' color="pale blue">{account.number}</Typography>
-            </RowItem>
-
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("card_design")}</Typography>
-                <Typography variant='b1' color="pale blue">Standard</Typography>
-            </RowItem>
-            
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("cardholder").toLowerCase().capitalize()}</Typography>
-                <Typography variant='b1' color="pale blue">{state.card.cardholder}</Typography>
-            </RowItem>
-            
+        </div>
+        <div className={s.confInfoList}>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("account_owner")}</span>
+                <span className={s.confRowItemSubtitle}>{account.name}</span>
+            </div>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("account_number")}</span>
+                <span className={s.confRowItemSubtitle}>{account.number}</span>
+            </div>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("card_design")}</span>
+                <span className={s.confRowItemSubtitle}>Standard</span>
+            </div>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("cardholder").toLowerCase().capitalize()}</span>
+                <span className={s.confRowItemSubtitle}>{state.card.cardholder}</span>
+            </div>
             {!state.recipientName ? null : (
-                <RowItem>
-                    <Typography variant='b1 - bold' color="pale blue">{t("recipient")}</Typography>
-                    <Typography variant='b1' color="pale blue">{state.recipientName}</Typography>
-                </RowItem>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("recipient")}</span>
+                <span className={s.confRowItemSubtitle}>{state.recipientName}</span>
+            </div>
             )}
-            
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("delivery_address")}</Typography>
-                <Typography variant='b1' maxWidth={'350px'} textAlign={'right'} color="pale blue">{`
-                       ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
-                       ${getAddressPartOrEmpty(state.postalCode)}
-                       ${getAddressPartOrEmpty(state.city)}
-                       ${getAddressPartOrEmpty(state.street)}
-                       ${getAddressPartOrEmpty(state.houseNumber)}
-                       ${state.apartmentNumber ?? ''}
-                   `}</Typography>
-            </RowItem>
-            
-            <RowItem hasBorderBottom alignItems={'center'} paddingBottom={'6px'}>
-                <Typography variant='b1 - bold' color="pale blue">{t("delivery_type")}</Typography>
-                
-                <Box width={"200px"} >
-                    <Select className="w-full mt-2"
+
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("delivery_address")}</span>
+                <span className={s.confRowItemSubtitle}>
+                    {`
+                        ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
+                        ${getAddressPartOrEmpty(state.postalCode)}
+                        ${getAddressPartOrEmpty(state.city)}
+                        ${getAddressPartOrEmpty(state.street)}
+                        ${getAddressPartOrEmpty(state.houseNumber)}
+                        ${state.apartmentNumber ?? ''}
+                    `}
+                </span>
+            </div>
+
+            <div className={s.confRowItem}>
+                    <span className={s.confRowItemTitle}>{t("delivery_type")}</span>
+                    <div className='w-[200px]'>
+                        <Select className="w-full mt-2"
                             placeholder='Select type...'
                             value={state.isExpressDelivery ? 'express' : 'standard'}
                             options={[{
@@ -109,37 +92,38 @@ export function ConfirmationNewCard() {
                                 ...state,
                                 isExpressDelivery: e === 'express'
                             })}/>
-                </Box>
-            </RowItem>
-        </Box>
-        
-        <Box display={"flex"} flexDirection={"column"} gap="6px" paddingTop={"24px"}>
-            <RowItem>
-                <Typography variant='b1' color="pale blue">{t("card_issuance")}</Typography>
-                <Typography variant='b1' color="pale blue">€ 10</Typography>
-            </RowItem>
-            <RowItem>
-                <Typography variant='b1' color="pale blue">{t("card_delivery")}</Typography>
-                <Typography variant='b1' color="pale blue">€ {state.isExpressDelivery ? deliveryOption.cost : 0}</Typography>
-            </RowItem>
-            <RowItem>
-                <Typography variant='b1 - bold' color="pale blue">{t("total_fees")}</Typography>
-                <Typography variant='b1 - bold' color="pale blue">€ {10 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</Typography>
-            </RowItem>
-        </Box>
-        <RowItem hasBorderBottom>
-            <Typography variant='b1 - bold' color="pale blue">{t("expected_delivery_time")}</Typography>
-            <Typography variant='b1 - bold' color="pale blue">{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</Typography> 
-        </RowItem>
+                </div>
+            </div>
+        </div>
 
-        <Box display={"flex"} gap="24px" paddingTop={"48px"}>
+        <div className={s.confFeesList}>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_issuance")}</span>
+                <span className={s.confRowItemSubtitle}>€ 10</span>
+            </div>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_delivery")}</span>
+                <span className={s.confRowItemSubtitle}>€ {state.isExpressDelivery ? deliveryOption.cost : 0}</span>
+            </div>
+            <div className={s.confRowItem}>
+                <span className={s.confRowItemTitle}>{t("total_fees")}</span>
+                <span className={s.confRowItemTitle}>€ {10 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</span>
+            </div>
+        </div>
+        
+        <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+            <span className={s.confRowItemTitle}>{t("expected_delivery_time")}</span>
+            <span className={s.confRowItemTitle}>{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</span>
+        </div>
+
+        <div className={s.confFooterBtns}>
             <Button onClick={() => {
                 setIsOpen(true);
             }}>{t("order_card")}</Button>
             <Button gray  onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
-        </Box>
+        </div>
 
         <Modal
             open={isOpen}
@@ -148,12 +132,12 @@ export function ConfirmationNewCard() {
                 setIsOpen(false)
             }}
         >
-            <TextField
+            {/* <TextField
                 fullWidth
                 label={t("password")}
                 placeholder={t("enter_password")}
-            />
-            <Box display={"flex"} gap="24px" paddingTop={"43px"}>
+            /> */}
+            <div className='flex gap-[25px] pt-[43px]'>
                 <Button onClick={() => {
                     setIsOpen(false);
                     // Order virtual card
@@ -197,7 +181,7 @@ export function ConfirmationNewCard() {
                 <Button gray onClick={() => {
                     setIsOpen(false);
                 }}>{t("cancel")}</Button>
-            </Box>
+            </div>
         </Modal>
     </>
 }

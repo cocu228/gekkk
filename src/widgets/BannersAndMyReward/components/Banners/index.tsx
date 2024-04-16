@@ -1,4 +1,3 @@
-import { Box, IconButton, Typography, styled } from '@mui/material'
 import s from '../../styles.module.scss'
 import { BannerWrapper } from './BannerWrapper'
 
@@ -18,7 +17,7 @@ export function Banners() {
         </p>
       </BannerWrapper>
 
-      <Box display="flex" gap="24px">
+      <div className='gap-[24px] flex'>
         <BannerWrapper color="brand dark blue" bgcolor="#FFC7D4">
         <div className={s.goToBlock}>
           {'>'}
@@ -38,7 +37,7 @@ export function Banners() {
           eiusmod tempor
         </p>
         </BannerWrapper>
-      </Box>
+      </div>
     </div>
   )
 }

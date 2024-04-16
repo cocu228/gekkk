@@ -1,7 +1,7 @@
-import { IconButton, Tooltip } from '@mui/material'
 import copy from 'copy-to-clipboard'
 import CopyIcon from '@/assets/copy.svg?react'
 import { useEffect, useRef, useState } from 'react'
+import s from './styles.module.scss'
 
 export type CopyToClipboardProps = {
   value: string
@@ -20,16 +20,17 @@ export function CopyToClipboard({ value }: CopyToClipboardProps) {
     }
   }, [isOpen])
   return (
-    <Tooltip placement="top" title="Copied" open={isOpen}>
-      <IconButton
-        color="inherit"
+    <div className={s.tooltipWrap}>
+      <div className={`${s.tooltip} ${isOpen && s.tooltipActive}`}>
+        Copied
+      </div>
+      <CopyIcon
+        className='cursor-pointer'
         onClick={() => {
           copy(value)
           setIsOpen(true)
         }}
-      >
-        <CopyIcon />
-      </IconButton>
-    </Tooltip>
+      />
+    </div>
   )
 }

@@ -1,6 +1,5 @@
-import { Typography } from '@mui/material'
+import s from './styles.module.scss'
 
-import { useStyles } from './styles'
 
 interface currencyImagePropsType {
   currency: string
@@ -8,10 +7,12 @@ interface currencyImagePropsType {
 }
 
 export const CurrencyImage = ({ currency, active }: currencyImagePropsType) => {
-  const { classes } = useStyles(active)
+
   return (
-    <Typography variant="h3" color="#FFFFFF" className={classes.currencyImage}>
-      {currency}
-    </Typography>
+    <>
+      <h3 className={`${s.currencyImage} ${active && s.currencyImageActive}`}>
+        {currency}
+      </h3>
+    </>
   )
 }

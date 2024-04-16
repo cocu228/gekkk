@@ -1,4 +1,3 @@
-import { Box, TextField } from '@mui/material'
 import Button from "@/shared/ui/button/Button";
 import { AreaWrapper } from '../AreaWrapper'
 import { useTranslation } from 'react-i18next';

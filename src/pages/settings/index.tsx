@@ -1,4 +1,3 @@
-import { Box, Typography } from "@mui/material";
 import { useCallback, useEffect, useMemo } from "react";
 import s from './styles.module.scss'
 import Info from "@/assets/info.svg?react";

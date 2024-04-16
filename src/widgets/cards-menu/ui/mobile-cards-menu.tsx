@@ -310,7 +310,7 @@ const MobileCardsMenu = ({
   if (selectedItem == "how-it-works") {
     return (
       <div className="flex items-center justify-center">
-        <div className="substrate w-full rounded-xl">
+        <div className={styles.HowItWorksWrap}>
           <p className={`typography-b1 ${styles.howText}`}>
             The function of setting / disabling limits allows you to create
             limits yourself, which regulate your expenses on your card. Limits
@@ -357,7 +357,7 @@ const MobileCardsMenu = ({
             returns to the OFF position. Next to the switch "Disable Limits
             Temporarily”, the timeout counter is displayed.
           </p>
-          <div className="mt-5 h-[50px] flex items-center justify-center">
+          <div className={styles.HowItWorksBtnWrap}>
             <MobileButton
               className="w-[115px]"
               onClick={() => setSelectedItem("")}
@@ -372,7 +372,9 @@ const MobileCardsMenu = ({
 
   if (selectedItem === "showData") {
     return (
-      <div className="mt-10 flex flex-column justify-center w-full">
+      <div
+        className={styles.ShowDataWrap}
+      >
         <div className="substrate flex rounded-lg w-full">
           {!cardInfo ? (
             <Loader className="relative my-10" />
@@ -386,7 +388,7 @@ const MobileCardsMenu = ({
               </div>
 
               <div
-                className={`flex items-center justify-center mt-4 ${styles.infoContainer} min-h-[40px]`}
+                className={`${styles.InfoContainerFirst} ${styles.infoContainer}`}
               >
                 <span className="typography-b1">
                   **** **
@@ -398,7 +400,7 @@ const MobileCardsMenu = ({
               </div>
               <div className="flex flex-row gap-4 mt-2">
                 <div
-                  className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}
+                  className={`${styles.InfoContainerSecond} ${styles.infoContainer}`}
                 >
                   <span className="typography-b1">
                     <span className={styles.infoPlaceholder}>CV/CVV</span>
@@ -406,7 +408,7 @@ const MobileCardsMenu = ({
                   </span>
                 </div>
                 <div
-                  className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}
+                  className={`${styles.InfoContainerSecond} ${styles.infoContainer}`}
                 >
                   <span className="typography-b1">
                     <span className={styles.infoPlaceholder}>PIN</span>
@@ -415,7 +417,7 @@ const MobileCardsMenu = ({
                 </div>
               </div>
 
-              <div className="mt-3 flex flex-row justify-end min-h-[40px]">
+              <div className={styles.InfoBtnWrap}>
                 <MobileButton
                   onClick={() => {
                     setSelectedItem("f");
@@ -433,7 +435,7 @@ const MobileCardsMenu = ({
   }
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className={styles.CarouselWrap}>
       <div className={styles.CarouselBlock}>
         <div className={styles.CarouselBlockMobile}>
           <BankCardsCarousel
@@ -523,7 +525,7 @@ const MobileCardsMenu = ({
             How it works?
           </a>
 
-          <div className="flex flex-row min-h-[43px] justify-between w-full mb-10">
+          <div className={styles.FooterBtnsWrap}>
             <MenuButton
               onClick={onClick}
               dataItem={
@@ -542,7 +544,7 @@ const MobileCardsMenu = ({
             <MenuButton
               onClick={() => setIsNewCardOpened(true)}
               varitant="light"
-              className="w-[135px] flex flex-row gap-1 items-center justify-center"
+              className={styles.FooterLightBtn}
             >
               <div>{t("order_new_card")}</div>
             </MenuButton>
@@ -560,7 +562,7 @@ const MobileCardsMenu = ({
                 {selectedItem === "blockCard" && (
                   <div>
                     <div className={`row mb-5`}>
-                      <div className="col flex flex-col items-center gap-3">
+                      <div className={styles.WarningWrap}>
                         <Warning />
                         <h1 className={styles.blocker}>Block card</h1>
                         <p className={styles.ghost}>
@@ -642,7 +644,7 @@ const MobileCardsMenu = ({
 
                 <Form onFinish={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
-                    <div className="flex flex-row min-h-[43px] justify-between">
+                    <div className={styles.FormBody}>
                       <MobileButton
                         className={`w-[120px] ${styles.lightButton}`}
                       >

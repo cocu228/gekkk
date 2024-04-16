@@ -1,0 +1,18 @@
+.btn {
+    padding: 9px 24px;
+    border-radius: 80px;
+    cursor: pointer;
+    color: #676767ff;
+    background: #e7e7e7ff;
+    border: none;
+    box-shadow: 0px 0px 4px 0px rgba(247, 247, 240, 0.50) inset, 5px 3px 10px 0px rgba(255, 255, 255, 0.05) inset;
+    font-family: Archivo;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.375;
+
+    &Selected {
+        color: #FFFFFF;
+        background: #2BAB72ff;
+    }
+}

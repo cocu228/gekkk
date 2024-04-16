@@ -40,6 +40,32 @@
   border-radius: 10px;
   padding: 5px;
 }
+
+.InfoContainerFirst {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  min-height: 40px;
+}
+
+.InfoContainerSecond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  flex: 1;
+  min-height: 40px;
+}
+
+.InfoBtnWrap {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  min-height: 40px;
+}
+
 .infoData {
   color: #285E69;
 }
@@ -67,4 +93,252 @@
   :focus { 
       outline: none;
   }
+}
+
+.issueCardTitle {
+  margin: 0;
+  font-family: Archivo;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0em;
+  font-size: 16px;
+}
+
+.issueCardTitleBlock {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.issueCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.issueRowItem {
+  padding-top: 8px;
+  display: flex;
+  padding-bottom: 6px;
+  align-items: center;
+  justify-content: space-between;
+  
+
+  &BorderBottom {
+    border-bottom: 1px solid #e0e0e0ff;
+  }
+}
+
+.rowItemBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rowItemTitle {
+  margin: 0;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #29354Cff;
+}
+
+.rowItemSubtitle {
+  margin: 0;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: 16px;
+  color: #29354Cff;
+}
+
+.input_block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_title {
+  font-family: Inter;
+  color: #29354Cff;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.input {
+  height: 36px;
+  box-sizing: border-box;
+  background: inherit;
+  border-bottom: 1px solid #e0e0e0;
+  outline: none;
+  color: currentColor;
+  font-weight: 300;
+
+  &::placeholder {
+    font-weight: 300;
+    color: #95a5a6;
+  }
+}
+
+.issueFooter {
+  display: flex;
+  gap: 24px;
+  padding-top: 48px;
+}
+
+.mobIssueCardWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.mobRowItem {
+  display: flex;
+  padding-top: 8px;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+}
+
+.mobIssueTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mobDeliveryTitle {
+  margin: 0;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #29354Cff;
+}
+
+.mobDeliverySubtitle {
+  margin: 0;
+  font-family: Inter;
+  font-weight: 400;
+  line-height: 1.5;
+  font-weight: 300;
+  font-size: 12px;
+  color: #29354Cff;
+}
+
+.mobRowItemTitle {
+  margin: 0;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #29354Cff;
+}
+
+.mobSelectWrap {
+  width: 170px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobIssueFooter {
+  height: 55px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+
+
+.HowItWorksWrap {
+  padding: 12px;
+  margin: 0 -15px;
+  box-shadow: none;
+  width: 100%;
+  border-radius: 0.75rem;
+  background-color: #fff;
+}
+
+.HowItWorksBtnWrap {
+  margin-top: 1.25rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ShowDataWrap {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.CarouselWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.FooterBtnsWrap {
+  display: flex;
+  flex-direction: row;
+  min-height: 43px;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.FooterLightBtn {
+  width: 135px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.WarningWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.FormBody {
+  display: flex;
+  flex-direction: row;
+  min-height: 43px;
+  justify-content: space-between;
+}
+
+.newCardMobileBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 20px;
+  padding-top: 12px;
+}
+
+.newCardSearchBlock {
+  display: flex;
+  width: 170px;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
 }

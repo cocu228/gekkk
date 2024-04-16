@@ -1,4 +1,3 @@
-import { Box, Typography, styled } from '@mui/material'
 import Button from '@/shared/ui/button/Button';
 import s from '../../styles.module.scss'
 

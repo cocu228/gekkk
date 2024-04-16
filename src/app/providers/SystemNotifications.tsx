@@ -40,6 +40,8 @@ const SystemNotifications = ({children}: IParams) => {
                         body: text,
                         tag: "gekkardTx"
                     });
+
+                    console.log('notification displayed')
                 });
         }
     }
@@ -82,6 +84,8 @@ const SystemNotifications = ({children}: IParams) => {
     useEffect(() => {
         if (notificationsEnabled === 'true') {
             navigator.serviceWorker.register('./sw.js');
+            
+            console.log('registered sw')
         }
 
         connectES();

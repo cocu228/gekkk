@@ -229,6 +229,8 @@ export const logout = async () => {
     const sw = await navigator.serviceWorker.getRegistration('./sw.js');
     await sw?.unregister();
 
+    console.log('unregistered sw')
+
     clearCookie("accountId");
     clearCookie("bankToken");
     clearCookie("phoneNumber");

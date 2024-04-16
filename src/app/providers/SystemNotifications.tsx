@@ -35,7 +35,7 @@ const SystemNotifications = ({children}: IParams) => {
             
             navigator.serviceWorker.getRegistration('./sw.js')
                 .then((registration) => {
-                    registration.showNotification(title, {
+                    registration?.showNotification(title, {
                         icon: img,
                         body: text,
                         tag: "gekkardTx"

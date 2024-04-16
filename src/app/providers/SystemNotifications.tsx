@@ -1,5 +1,6 @@
+import { getCookieData } from "@/shared/lib";
+import { useContext, useEffect } from "react";
 import { CtxRootData } from "@/processes/RootContext";
-import { useContext, useEffect, useState } from "react";
 
 interface IParams {
     children?: JSX.Element;
@@ -7,11 +8,11 @@ interface IParams {
 
 const SystemNotifications = ({children}: IParams) => {
     let esLink = null;
-    let activeNotify = null;
     const {setRefresh} = useContext(CtxRootData);
+    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
 
-    function displaySystemNotification(notify) {        
-        if (Notification?.permission === "granted") {
+    function displaySystemNotification(notify) {
+        if (Notification?.permission === "granted" && notificationsEnabled === 'true') {
             let img = "https://web.gekkard.com/img/favicon/icon.svg";
             let text = "You have a new crypto transactions. ";
             let title = "Incoming crypto funds";
@@ -32,36 +33,34 @@ const SystemNotifications = ({children}: IParams) => {
                     return;
             }
             
-            // Notification.requestPermission(function(result) {
-            //     if (result === 'granted') {
-            //         navigator.serviceWorker.ready.then(function(registration) {
-            //             registration.showNotification('ServiceWorker: new transaction', {
-            //                 body: text, icon: img, tag: "gekkardTx"
-            //             });
-            //         });
-            //     }
-            // });
-
-            activeNotify = new Notification(title, { body: text, icon: img, tag: "gekkardTx" });
-
-            // activeNotify.onclick = function () {
-            //     window.open("https://web.gekkard.com/wallet?currency=");
-            // };
+            navigator.serviceWorker.getRegistration('./sw.js')
+                .then((registration) => {
+                    registration.showNotification(title, {
+                        icon: img,
+                        body: text,
+                        tag: "gekkardTx"
+                    });
+                });
         }
     }
+    
     function connectES() {
         esLink = new EventSource(import.meta.env.VITE_API_URL + "notify/v1/Subscribe", { withCredentials: true });
+        
         esLink.onmessage = ev => handleReceivedMessage(ev.data);
         esLink.onerror = ev => {
             console.error(ev);
         };
     }
-    function closeES() {
-        esLink?.close();
-    }
-    function requestPerm() {
-        Notification.requestPermission();
-    }
+    
+    // function closeES() {
+    //     esLink?.close();
+    // }
+    
+    // function requestPerm() {
+    //     Notification.requestPermission();
+    // }
+
     function handleReceivedMessage(message) {
         setRefresh();
 
@@ -81,6 +80,10 @@ const SystemNotifications = ({children}: IParams) => {
     }
 
     useEffect(() => {
+        if (notificationsEnabled === 'true') {
+            navigator.serviceWorker.register('./sw.js');
+        }
+
         connectES();
     }, []);
 

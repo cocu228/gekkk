@@ -49,7 +49,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     setNetwork(null)
                     navigate(`/transfers?currency=${currency}`)
                 }} 
-                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-tl-[5px] rounded-bl-[5px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#E0E0E0]"
+                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-tl-[5px] rounded-bl-[5px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#DCDCD9]"
             >
                 <Select
                     open={open}

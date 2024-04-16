@@ -32,7 +32,7 @@ function SelectCurrency({currency, setCurr}: IProps) {
   return (
     <div className='w-full relative h-[32px] flex flex-row'>
         <div 
-            className="row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#E0E0E0]"
+            className="row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#DCDCD9]"
             onClick={()=>{
                 setCurr(null)
                 navigate("/transfers")

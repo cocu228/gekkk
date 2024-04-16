@@ -10,6 +10,7 @@ const SystemNotifications = ({children}: IParams) => {
     let activeNotify = null;
     const {setRefresh} = useContext(CtxRootData);
     const [counter, setCounter] = useState<number>(0);
+    const [message, setMessage] = useState<string>('');
 
     function displaySystemNotification(notify) {        
         if (Notification?.permission === "granted") {
@@ -66,6 +67,10 @@ const SystemNotifications = ({children}: IParams) => {
     function handleReceivedMessage(message) {
         setCounter(prev => prev + 1);
 
+        setMessage(`${typeof message}`)
+
+        navigator.serviceWorker.register('./sw.js');
+
         if (typeof message !== "string") {
             console.log(message);
             return;
@@ -90,6 +95,7 @@ const SystemNotifications = ({children}: IParams) => {
 
     return <div>
         <div className="w-full flex justify-center">Undated: {counter}</div>
+        <div className="w-full flex justify-center">Message: {message}</div>
 
         {children}
     </div>;

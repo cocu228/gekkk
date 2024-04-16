@@ -3,14 +3,15 @@ import {TFunction} from "i18next";
 import {EnableNotifications, GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
-import SettingsMobileIcon from "@public/img/icon/SettingsMobileIcon.svg"
-import InvestMobileIcon from "@public/img/icon/InvestMobileIcon.svg"
-import SupportMobileIcon from "@public/img/icon/SupportMobileIcon.svg"
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
-import ActivatePromoMobileIcon from "@public/img/icon/ActivatePromoMobileIcon.svg"
-import CardMenuIcon from "@public/img/icon/CardMenuIcon.svg"
-import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
-import NotificationIcon from "@public/img/icon/NotificationIcon.svg"
+
+import { IconSettings } from "@/shared/ui/icons/IconSettings";
+import { IconCard } from "@/shared/ui/icons/IconCard";
+import { IconInvest } from "@/shared/ui/icons/IconInvest";
+import { IconChat } from "@/shared/ui/icons/IconChat";
+import { IconNotification } from "@/shared/ui/icons/IconNotification";
+import { IconPromo } from "@/shared/ui/icons/IconPromo";
+import { IconLogout } from "@/shared/ui/icons/IconLogout";
 
 /**
 * @param t translation function
@@ -24,7 +25,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value:"settings"
             },
-            icon: <img src={SettingsMobileIcon}/>
+            icon: <IconSettings />
         },
         {
             item: t("card_managment"),
@@ -33,7 +34,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
             },
-            icon: <img src={CardMenuIcon}/>
+            icon: <IconCard />
         },
         {
             item: <GekkoinInvestPlatform/>,
@@ -42,7 +43,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<img src={InvestMobileIcon}/>
+            icon:<IconInvest />
         },
         {
             item: t('header_menu.support'),
@@ -51,7 +52,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "support",
             },
-            icon:<img src={SupportMobileIcon}/>
+            icon:<IconChat />
         },
         {
             item: <EnableNotifications/>,
@@ -60,11 +61,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <img
-                src={NotificationIcon}
-                width={22}
-                height={22}
-            />
+            icon: <IconNotification />
         },
         {
             item: t('header_menu.partnership'),
@@ -82,7 +79,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<img src={ActivatePromoMobileIcon}/>
+            icon:<IconPromo />
         },
         {
             item: t(''),
@@ -108,7 +105,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "logout",
                 value: null,
             },
-            icon:<img src={LogoutMobileIcon}/>,
+            icon:<IconLogout />,
             style: {
                 borderTop: "1px solid var(--color-gray-400)"
             }

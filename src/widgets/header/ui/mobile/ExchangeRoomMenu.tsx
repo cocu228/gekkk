@@ -18,7 +18,7 @@ import IconQR from "@/shared/ui/icons/IconQR";
 import IconAddRoom from "@/shared/ui/icons/IconAddRoom";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
-import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg";
+import { IconLogout } from "@/shared/ui/icons/IconLogout";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();
@@ -141,7 +141,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                           {t("back_to_exchange")}
                         </span>
 
-                        <img src={LogoutMobileIcon} height={22} width={22} />
+                        <IconLogout />
                       </div>
                     </DropdownItem>
                   ),

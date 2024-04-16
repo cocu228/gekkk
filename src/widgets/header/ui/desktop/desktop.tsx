@@ -1,7 +1,6 @@
 import {useContext} from "react";
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
-// import {useAuth} from "@/app/providers/(no-usages)AuthRouter";
 import {CtxRootData} from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
@@ -9,6 +8,8 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import {getInitialProps, useTranslation} from "react-i18next";
+import { IconLogout } from "@/shared/ui/icons/IconLogout";
+import { IconAccount } from "@/shared/ui/icons/IconAccount";
 
 const HeaderDesktop = ({items, actions}) => {
 
@@ -85,12 +86,7 @@ const HeaderDesktop = ({items, actions}) => {
                     <div className="flex items-center justify-center" data-testid="HeaderMenuContainer">
                         {/* <div className="wrapper flex justify-end"> */}
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
-                            <img width={24}
-                                 height={24}
-                                 alt="UserIcon"
-                                 src="/img/icon/UserIconMobile.svg"
-                                 className={styles.AccountIcon}
-                            />}
+                            <IconAccount color="#fff" />}
                         {account?.number &&
                             <div className="wrapper flex flex-col justify-center  self-stretch">
                                 <span className={styles.Name}>{account?.name}</span>
@@ -120,7 +116,7 @@ const HeaderDesktop = ({items, actions}) => {
                 <button onClick={logout}>
                     <div className={styles.HeaderItemsContainer}>
                         <div className="ml-5" data-testid="Logout">
-                            <img width={22} height={22} src="/img/icon/LogoutIcon.svg" alt="UserIcon"/>
+                            <IconLogout color='#fff' />
                         </div>
                         <span className={styles.HeaderMenuTitles}>{t("logout")}</span>
                     </div>

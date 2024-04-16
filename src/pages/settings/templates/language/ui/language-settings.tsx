@@ -8,8 +8,6 @@ import { Typography } from "@/shared/ui/typography/typography";
 export function LanguageSettings() {
     const {i18n} = useTranslation();
 
-
-
     return(
         <div className="flex w-full flex-col items-center gap-4">
             <div 

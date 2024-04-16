@@ -14,27 +14,26 @@ export const LocalizationMenu = () => {
 
     const menu = [{
         key: 'en',
-        label: (<DropdownItem onClick={() => onChange("en")} icon={<img width={25}
-                                                                        height={25}
-                                                                        src="/img/en.svg"
-                                                                        alt="en"/>}>EN</DropdownItem>)
+        label: (<DropdownItem onClick={() => onChange("en")} icon={<svg className="!w-[24px] !h-[24px]">
+            <use href='/img/gek_flags_lib.svg#en'></use>
+        </svg>}>EN</DropdownItem>)
     }, {
         key: 'de',
-        label: (<DropdownItem onClick={() => onChange("de")} icon={<img width={25}
-                                                                        height={25}
-                                                                        src="/img/de.svg"
-                                                                        alt="de"/>}>DE</DropdownItem>)
+        label: (<DropdownItem onClick={() => onChange("de")} icon={<svg className="!w-[24px] !h-[24px]">
+            <use href='/img/gek_flags_lib.svg#de'></use>
+        </svg>}>DE</DropdownItem>)
     }, {
         key: 'ru',
-        label: (<DropdownItem onClick={() => onChange("ru")} icon={<img width={25}
-                                                                        height={25}
-                                                                        src="/img/ru.svg"
-                                                                        alt="ru"/>}>RU</DropdownItem>)
+        label: (<DropdownItem onClick={() => onChange("ru")} icon={<svg className="!w-[24px] !h-[24px]">
+            <use href='/img/gek_flags_lib.svg#ru'></use>
+        </svg>}>RU</DropdownItem>)
     }];
 
     return <>
         <Dropdown items={menu}
-                  trigger={<img width={25} height={25} src={`/img/${state}.svg`} alt={state}/>}>
+                  trigger={<svg className="w-[24px] h-[24px]" >
+                    <use href={`/img/gek_flags_lib.svg#${state}`}></use>
+                </svg>}>
         </Dropdown>
     </>
 }

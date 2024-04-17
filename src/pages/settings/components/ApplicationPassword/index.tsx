@@ -14,7 +14,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import { apiRemoveKey } from '@/shared/(orval)api/auth';
 import Loader from '@/shared/ui/loader';
 import { RegisterOption, RegisterKey } from './api/register-key';
-import { apiGetUserInfo } from "../../templates/personalInformation/api/get-user-info";
+import { apiGetUserInfo } from "../../components/personalInformation/api/get-user-info";
 import { ChangePass, RegisterOptionsToChangePass } from './api/change-password';
 import CheckList from './helpers/checklist';
 import Input from '@/shared/ui/input/Input';

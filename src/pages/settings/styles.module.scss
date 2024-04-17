@@ -20,7 +20,7 @@
         padding: 0 60px 60px 30px;
 
         @media screen and (max-width: 768px) {
-            padding: 0 30px 60px 30px;
+            padding: 0 0 15px 0
         }
     }
 
@@ -35,6 +35,12 @@
     flex-direction: column;
     gap: 30px;
     margin-bottom: 19px;
+
+    &Min {
+        @media screen and (min-width:1200px) {
+            max-width: 230px;
+        }
+    }
 }
 
 .box {

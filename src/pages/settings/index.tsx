@@ -21,18 +21,18 @@ import { useSearchParams } from "react-router-dom";
 
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 
-import { PersonalInformation } from "./templates/personalInformation";
+import { PersonalInformation } from "./components/personalInformation";
 import { Pricing } from "./components/Pricing";
 import { AccessManagement } from "./components/ApplicationPassword";
 import { IdentificationStatus } from "./components/IdentificationStatus";
 import { LegalNotices } from "./components/LegalNotices";
 import { MyReports } from "./components/MyReports";
-import { AppVersion } from "./templates/app-version";
-import { ChangePassword } from "./templates/change-password";
-import { UserKeys } from "./templates/user-keys/ui/user-keys";
-import { LoginAndSignHistory } from "./templates/history";
-import { UserSession } from "./templates/user-session";
-import { LanguageSettings } from "./templates/language";
+import { AppVersion } from "./components/app-version";
+import { ChangePassword } from "./components/change-password";
+import { UserKeys } from "./components/user-keys/ui/user-keys";
+import { LoginAndSignHistory } from "./components/history";
+import { UserSession } from "./components/user-session";
+import { LanguageSettings } from "./components/language";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -99,7 +99,7 @@ export function Settings() {
       >
         {(!xl || !area) && (
           <div 
-          className={s.boxWrap}
+          className={`${s.boxWrap} ${selectedArea && s.boxWrapMin}`}
           >
             <div 
               className={s.box}

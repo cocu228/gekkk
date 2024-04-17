@@ -1,9 +1,10 @@
 import Decimal from "decimal.js";
-import AppRouter from "@/app/providers/AppRouter";
+//@ts-ignore
+import AppRouter from "@VAR/app/providers/{{MODE}}AppRouter.tsx";
 import BreakpointsProvider from "@/app/providers/BreakpointsProvider";
 
 function App() {
-    Decimal.set({ toExpNeg: -18 });
+    Decimal.set({toExpNeg: -18});
 
     return (
         <BreakpointsProvider>

@@ -5,9 +5,9 @@ import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import {nodePolyfills} from 'vite-plugin-node-polyfills'
 
-export default defineConfig(({mode}) => {    
+export default defineConfig(({mode}) => {
 
     process.env = {
         ...process.env, ...loadEnv(mode, process.cwd()),
@@ -20,7 +20,12 @@ export default defineConfig(({mode}) => {
                 {find: '@', replacement: path.resolve(__dirname, 'src')},
                 {find: '@public', replacement: path.resolve(__dirname, 'public')},
                 {find: '@styles', replacement: path.resolve(__dirname, 'src/app/styles')},
-                {find: /\{\{MODE\}\}/, replacement: mode},
+                {
+                    find: "@VAR", replacement: path.resolve(__dirname, 'src'),
+                    customResolver(url) {
+                        return url.replace(/\{\{MODE\}\}/, mode === "GKO" ? "GKO" : "")
+                    }
+                },
             ],
         },
         build: {
@@ -83,14 +88,14 @@ export default defineConfig(({mode}) => {
             //         enabled: true
             //     }
             // })
-            nodePolyfills({ 
+            nodePolyfills({
                 globals: {
-                  Buffer: true, // can also be 'build', 'dev', or false
-                  global: true,
-                  process: true,
-                }                
-              }),
+                    Buffer: true, // can also be 'build', 'dev', or false
+                    global: true,
+                    process: true,
+                }
+            }),
         ],
-        
+
     }
 })

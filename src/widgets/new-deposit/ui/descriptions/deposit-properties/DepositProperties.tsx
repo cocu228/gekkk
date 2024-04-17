@@ -22,6 +22,9 @@ const DepositProperties = ({className}: IParams) => {
     } = useContext(CtxNewDeposit);
 
     const {currencies} = useContext(CtxCurrencies);
+
+    if (!currencies) return null
+
 	const currency = currencies.get(tokenCurrency);
 
     if (!amount || (type === DepositType.STRUCTED && step < 5))

@@ -11,6 +11,8 @@ interface IParams {
 
 const TokenButton = ({ onClick, tokenCurrency }: IParams) => {
 	const {currencies} = useContext(CtxCurrencies);
+	if (!currencies) return null
+
 	const currency = currencies.get(tokenCurrency);
 
 	return (

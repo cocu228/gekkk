@@ -1,5 +1,8 @@
 import Decimal from "decimal.js";
 import { apiLogout } from "../(orval)api";
+import {getGkePercent} from "@/shared/config/deposits/helpers";
+
+import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 
 export function randomId(value = 12): string {
     let text = "";
@@ -303,3 +306,32 @@ export function maskFullCardNumber(cardNumber: string): string {
     
     return cardNumberWithSpaces.trim();
   }
+
+export function getFixedDepositTitle(isGke: boolean) {
+    return `Fixed rate (${isGke ? '1,6' : '0,8'}% per month)`;
+}
+
+import {InvestmentsTypeEnum} from "@/shared/(orval)api/gek/model";
+
+
+export function getStructedDepositTitle(depType: InvestmentsTypeEnum, isGke: boolean) {
+    const {name, percentageTypes} = StructedDepositStrategies.find(s => {
+        const typeId = isGke ? depType - 100 : depType;
+
+        return Math.trunc(s.id / 10) === Math.trunc(typeId / 10);
+    }) ?? {name: 'undefined', percentageTypes: []};
+
+    const percentageType = percentageTypes[depType % 10];
+
+    const {
+        risePercent,
+        dropPercent
+    } = getGkePercent(percentageType, isGke);
+
+    return `${name} strategy (${risePercent}/${dropPercent})`;
+}
+
+export const getCurrencyRounding = (value: number) =>
+    value >= 1000 ? Math.round(value) :
+        value >= 1 ? value.toFixed(2) :
+            value.toFixed(Math.floor(-Math.log10(value)) + 1);

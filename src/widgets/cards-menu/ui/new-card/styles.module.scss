@@ -185,12 +185,28 @@
     gap: 24px;
 }
 
-.orderText {
+.OrderText {
     color: #1F3446;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 20px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 14px;
+    }
+}
+
+.OrderTitle {
+    color: #1F3446;
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 25px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 17px;
+    }
 }
 
 .orderWrap {

@@ -34,7 +34,7 @@ export function CardHasBeenOrdered() {
 
     return <>
         <div className={s.orderWrap}>
-            <p className={s.orderText}>{t("card_has_been_ordered")}</p>
+            <p className={s.OrderTitle}>{t("card_has_been_ordered")}</p>
 
             <Success />
 
@@ -42,7 +42,7 @@ export function CardHasBeenOrdered() {
                navigate('/'); 
             }}>{t("back_to_main_page")}</Button>
 
-            <p className={s.orderText}>
+            <p className={s.OrderText}>
                 {t("you_will_be_automatically_redirected_to_the_main_page_in")} <span className={s.timeSpan}>00:{secondsToShow}</span>
             </p>
         </div>

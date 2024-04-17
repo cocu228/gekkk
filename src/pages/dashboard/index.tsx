@@ -14,7 +14,6 @@ import {randomId} from "@/shared/lib/helpers";
 import {useTranslation} from "react-i18next";
 import PageHead from "@/shared/ui/page-head/PageHead";
 import { BannersAndMyReward } from '@/widgets/BannersAndMyReward';
-import { Box } from '@mui/material';
 import VersionsLayout from "@/widgets/dashboard/ui/layouts/VersionsLayout";
 
 

@@ -12,3 +12,25 @@
     word-break: keep-all;
     cursor: pointer;
 }
+
+
+////set_btn
+
+
+.itemBody {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    width: 100%;
+}
+
+.itemTitle {
+    font-size: 14px;
+    font-family: Inter;
+    font-weight: 500;
+    color: #1F3446;
+
+    &Selected {
+        color: #fff;
+    }
+}

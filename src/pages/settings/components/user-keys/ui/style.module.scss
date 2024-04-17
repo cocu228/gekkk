@@ -1,0 +1,70 @@
+.button {
+    height: 45px;
+}
+
+.addGekkeyBlock {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 40px;
+}
+
+.addGekkeyTitle {
+    color: #1F3446;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+
+}
+
+.btnsBlock {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.5rem;
+    min-height: 45px;
+    gap: 0.5rem;
+}
+
+.keysWrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 5px;
+}
+
+.keysItem {
+    max-height: 500px;
+    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5rem;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 40px;
+    margin-top: 1.5rem;
+}
+
+.keyItemDate {
+    color: #3A5E66;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.keyBtnWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 45px;
+    width: 20%;
+}

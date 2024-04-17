@@ -1,0 +1,20 @@
+.btn {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: 10px;
+    background: #e7e7e7ff;
+    color: #285E69ff;
+    border: 2px solid;
+    border-color: transparent;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+
+    &Selected {
+        background: #e2ffeeff;
+        border-color: #3aa535ff;
+    }
+}

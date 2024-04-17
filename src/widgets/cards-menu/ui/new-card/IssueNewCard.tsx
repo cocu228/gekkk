@@ -1,4 +1,3 @@
-import { Box, Typography, TextField, styled } from '@mui/material';
 import { useNewCardContext } from './newCardContext';
 import Button from '@/shared/ui/button/Button';
 import {useEffect, useState} from "react";
@@ -9,21 +8,7 @@ import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import Select from '@/shared/ui/select/Select';
-
-const RowItem = styled(Box, {
-    shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
-})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(({
-    theme,
-    hasBorderTop,
-    hasBorderBottom
-}) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
-    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined,
-    paddingBottom: '6px',
-    alignItems: 'center',
-}));
+import s from './styles.module.scss'
 
 export function IssueNewCard() {
     const {t} = useTranslation();
@@ -41,15 +26,14 @@ export function IssueNewCard() {
     }, [state]);
     
     return <div>
-        <Box display="flex" justifyContent="space-between" width="100%">
-            <Typography fontSize={"16px"} variant="h3">Issue new card</Typography>
+        <div className={s.issueHeader}>
+            <h3 className={s.issueTitle}>Issue new card</h3>
             <CloseWindowButton onClick={close}/>
-        </Box>
-        
-        <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"}>
-            <RowItem hasBorderBottom /*hasBorderTop paddingTop={"12px"}*/>
-                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('card_type')}</Typography>
-                <Box width={"150px"} >
+        </div>
+        <div className={s.issueBody}>
+            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                <span className={s.rowItemTitle}>{t('card_type')}</span>
+                <div className='w-[150px]'>
                     <Select className="w-full mt-2"
                             placeholder='Select type...'
                             value={state.cardType.toLowerCase()}
@@ -65,38 +49,50 @@ export function IssueNewCard() {
 	                            cardType: e.toUpperCase()
                             })}
                     />
-                </Box>
-            </RowItem>
-
-            <TextField label={'Cardholer name'} placeholder={t("enter_cardholder_name")} 
-                onChange={({target}) => setState({
-                    ...state,
-                    cardholderName: target.value
-                })}
-                value={state.cardholderName}
-            />
-        
-            <TextField label={t("linked_phone_number")} placeholder={t("enter_phone_number")} 
-                onChange={({target}) => setState({
-                    ...state,
-                    linkedPhone: target.value
-                })}
-                value={state.linkedPhone}
-            />
-
-            {state.cardType !== 'PLASTIC' ? null : (<Box>
-                <RowItem hasBorderBottom paddingTop={"8px"} alignItems={'flex-end'}>
-                    <Box display={'flex'} flexDirection={"column"} gap="6px">
-                        <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>
-                        <Typography fontSize={"16px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>
-                    </Box>
+                </div>
+            </div>
+            
+            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                <div className={s.inputWrap}>
+                    <span className={s.inputTitle}>Cardholer name</span>
+                    <input 
+                    onChange={({target}) => setState({
+                        ...state,
+                        cardholderName: target.value
+                    })}
+                    value={state.cardholderName}
+                        placeholder={t("enter_cardholder_name")} 
+                        className={s.issue_inp}
+                    />
+                </div>
+            </div>       
+            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                <div className={s.inputWrap}>
+                    <span className={s.inputTitle}>{t("linked_phone_number")}</span>
+                    <input
+                        className={s.issue_inp}
+                        onChange={({target}) => setState({
+                            ...state,
+                            linkedPhone: target.value
+                        })}
+                        placeholder={t("enter_phone_number")} 
+                        value={state.linkedPhone}
+                    />
+                </div>
+            </div>
+            {state.cardType !== 'PLASTIC' ? null : (<div className='flex flex-col gap-[12px]'>
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.issueTextGroup}>
+                        <span className={s.issueTextGroupTitle}>{t('delivery_address')}</span>
+                        <span className={s.issueTextGroupSubtitle}>{t('same_as_the_residence_address')}</span>
+                    </div>
                     <Switch
                         checked={state.isResidenceAddress}
                         onChange={switchResidenceAddress}
                     />
-                </RowItem>
-                <Typography fontSize={"16px"} variant='b2 - bold' color="dark blue">{t('Country')}</Typography>
-                <Box width={"250px"} marginBottom={'12px'}>
+                </div>
+                <span className={s.issueTextGroupTitle}>{t('Country')}</span>
+                <div className='w-[250px] mb-[12px]'>
                     <SearchSelect
                         className="w-full mt-2"
                         placeholder='Select country...'
@@ -111,83 +107,98 @@ export function IssueNewCard() {
                             countryCode: code
                         })}
                     />
-                </Box>
+                </div>
                     
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    value={state.city}
-                    onChange={({target}) => setState({
-                        ...state,
-                        city: target.value
-                    })}
-                    label={t("city")}
-                    placeholder={t("enter_city_name")}
-                />
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("city")}</span>
+                        <input 
+                            value={state.city}
+                            onChange={({target}) => setState({
+                                ...state,
+                                city: target.value
+                            })}
+                            placeholder={t("enter_city_name")}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
 
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    label={t("post_code")}
-                    value={state.postalCode}
-                    placeholder={t("enter_post_code")}
-                    onChange={({target}) => setState({
-                        ...state,
-                        postalCode: target.value
-                    })}
-                />
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("post_code")}</span>
+                        <input 
+                            value={state.postalCode}
+                            placeholder={t("enter_post_code")}
+                            onChange={({target}) => setState({
+                                ...state,
+                                postalCode: target.value
+                            })}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("street")}</span>
+                        <input 
+                            value={state.street}
+                            placeholder={t("enter_street_name")}
+                            onChange={({target}) => setState({
+                                ...state,
+                                street: target.value
+                            })}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("house")}</span>
+                        <input 
+                            value={state.houseNumber}
+                            placeholder={t("enter_house_name_or_number_if_available")}
+                            onChange={({target}) => setState({
+                                ...state,
+                                houseNumber: target.value
+                            })}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
 
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    label={t("street")}
-                    value={state.street}
-                    placeholder={t("enter_street_name")}
-                    onChange={({target}) => setState({
-                        ...state,
-                        street: target.value
-                    })}
-                />
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("flat")}</span>
+                        <input 
+                            value={state.apartmentNumber}
+                            placeholder={t("enter_flat_name_or_number_if_available")}
+                            onChange={({target}) => setState({
+                                ...state,
+                                apartmentNumber: target.value
+                            })}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
 
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    value={state.houseNumber}
-                    label={t("house")}
-                    placeholder={t("enter_house_name_or_number_if_available")}
-                    onChange={({target}) => setState({
-                        ...state,
-                        houseNumber: target.value
-                    })}
-                />
-
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    value={state.apartmentNumber}
-                    label={t("flat")}
-                    placeholder={t("enter_flat_name_or_number_if_available")}
-                    onChange={({target}) => setState({
-                        ...state,
-                        apartmentNumber: target.value
-                    })}
-                />
-
-                <TextField
-                    fullWidth
-                    margin={'normal'}
-                    value={state.recipientName}
-                    onChange={({target}) => setState({
-                        ...state,
-                        recipientName: target.value
-                    })}
-                    label={t("Recipient")}
-                    placeholder={t("enter_recipient_name_if_necessary")}
-                />
-            </Box>)}
-        </Box>
-        
-        <Box display={"flex"} gap="24px" paddingTop={"48px"}>
+                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
+                    <div className={s.inputWrap}>
+                        <span className={s.inputTitle}>{t("Recipient")}</span>
+                        <input 
+                            value={state.recipientName}
+                            placeholder={t("enter_recipient_name_if_necessary")}
+                            onChange={({target}) => setState({
+                                ...state,
+                                recipientName: target.value
+                            })}
+                            className={s.issue_inp}
+                        />
+                    </div>
+                </div>
+            </div>)}
+        </div>
+        <div className={s.issueFooter}>
             <Button className='w-full'
                     disabled={!isValid}
                     onClick={() => {
@@ -195,6 +206,6 @@ export function IssueNewCard() {
                     }}
             >{t("proceed")}</Button>
             <Button gray onClick={close}>{t("back")}</Button>
-        </Box>
+        </div>
     </div>
 }

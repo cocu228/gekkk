@@ -12,22 +12,24 @@ import ReportIcon from "@/assets/report.svg?react";
 import AccountIcon from "@/assets/account.svg?react";
 import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
 
-import { PersonalInformation } from "./templates/personalInformation";
-
-import { AccessManagement } from "./components/ApplicationPassword";
-import { IdentificationStatus } from "./components/IdentificationStatus";
-import { LegalNotices } from "./components/LegalNotices";
-import { MyReports } from "./components/MyReports";
 // import { PersonalInformation } from './components/PersonalInformation'
-import { Pricing } from "./components/Pricing";
+
 import { settingsContext } from "./settingsContext";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
+
+import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
+
+import { PersonalInformation } from "./templates/personalInformation";
+import { Pricing } from "./components/Pricing";
+import { AccessManagement } from "./components/ApplicationPassword";
+import { IdentificationStatus } from "./components/IdentificationStatus";
+import { LegalNotices } from "./components/LegalNotices";
+import { MyReports } from "./components/MyReports";
 import { AppVersion } from "./templates/app-version";
 import { ChangePassword } from "./templates/change-password";
 import { UserKeys } from "./templates/user-keys/ui/user-keys";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { LoginAndSignHistory } from "./templates/history";
 import { UserSession } from "./templates/user-session";
 import { LanguageSettings } from "./templates/language";

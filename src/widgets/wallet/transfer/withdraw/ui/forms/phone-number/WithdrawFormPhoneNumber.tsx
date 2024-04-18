@@ -23,6 +23,7 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -82,7 +83,7 @@ const WithdrawFormPhoneNumber = () => {
               currency={currency}
               header={
                 <span className={styles.TitleColText}>
-                  {t("amount")}
+                  {t("amount")}:
                 </span>
               }
               onSelect={setInputCurr}
@@ -151,14 +152,10 @@ const WithdrawFormPhoneNumber = () => {
       <Modal
         width={450}
         destroyOnClose
-        padding={false}
         open={isModalOpen}
         onCancel={handleCancel}
-        title={
-          <span className={styles.MainModalTitle}>
-            {t("confirm_transaction")}
-          </span>
-        }
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
       >
         <WithdrawConfirmPhoneNumber
           {...inputs}

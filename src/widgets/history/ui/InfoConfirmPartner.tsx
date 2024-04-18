@@ -67,28 +67,32 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         <div className="col">
           <div className="row mb-2">
             <div className="col w-auto">
-              <span className="text-gray-500 font-medium">
+              <span className="font-bold text-[10px] text-[#285E69]">
                 {t("sender_name")}
               </span>
             </div>
           </div>
-          <div className="row flex gap-3">
-            <div className="col w-3/5">
+          <div className="row w-full flex justify-center h-[43px] mb-5">
+            <div className="col flex items-center border-[2px] rounded-[8px] border-[#2BAB72] border-solid w-3/5">
               <Input
+                placeholder={t("enter_sender_name")}
+                bordered={false}
                 ref={applyInputRef}
                 autoComplete="on"
                 value={input}
                 onChange={inputChage}
+                className="text-[10px] font-[400]"
               />
             </div>
-            <div className="col w-2/5">
+            <div className="flex justify-center w-[40%]">
               <Button
+                greenTransfer
                 onClick={() => setPartnerInfo(input)}
                 disabled={input === "" || containsNonLatinCharacters(input)}
                 size={"xl"}
                 className="w-full"
               >
-                {t("apply")}
+                <span className="font-bold">{t("apply")}</span>
               </Button>
             </div>
           </div>
@@ -99,7 +103,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         <div className="col">
           <div className="row mb-4 flex flex-wrap gap-2">
             <div className="col w-auto">
-              <span className="text-gray-500 font-medium">
+              <span className="font-bold text-[10px] text-[#285E69]">
                 {t("sender_name")}
               </span>
             </div>
@@ -114,7 +118,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
                 size={"xl"}
                 className="w-full !font-medium"
               >
-                {t("confirm")}
+                <span className="font-bold">{t("confirm")}</span>
               </Button>
             </div>
           </div>

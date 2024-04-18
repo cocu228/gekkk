@@ -28,6 +28,7 @@ const OpenDepositModal = ({ open, onCancel, onConfirm, ...props }: IParams) => {
             {...props}
             open={open}
             onCancel={onCancel}
+            padding
         >
             <p className="font-bold text-xl">Your deposit parameters</p>
 

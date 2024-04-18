@@ -33,7 +33,6 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         {children}
         <Modal
             width={450}
-            padding={false}
             open={isModalOpen}
             title={state.title}
             onCancel={closeContent}

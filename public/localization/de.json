@@ -1392,6 +1392,11 @@
     "card_express": "Expresslieferung der Karte",
     "price_depends_on_the": "Der Preis hängt von der Adresse des Kunden ab und wird in der App vor der Bestellung angezeigt.",
 
-    "frequently_asked_questions": "Häufig gestellte Fragen"
+    "frequently_asked_questions": "Häufig gestellte Fragen",
+    "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
+    "enter_sender_name": "Absendername eingeben",
+    "decline": "Stornieren"
+
+
   }
 }

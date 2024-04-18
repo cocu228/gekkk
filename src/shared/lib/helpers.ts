@@ -225,6 +225,12 @@ export function clearCookie(name: string) {
 }
 export const logout = async () => {
     await apiLogout();
+    
+    const sw = await navigator.serviceWorker.getRegistration('./sw.js');
+    await sw?.unregister();
+
+    console.log('unregistered sw')
+
     clearCookie("accountId");
     clearCookie("bankToken");
     clearCookie("phoneNumber");

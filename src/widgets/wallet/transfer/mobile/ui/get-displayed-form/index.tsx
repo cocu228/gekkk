@@ -50,8 +50,8 @@ function GetDisplayedForm({curr}: Props) {
                 return <WithdrawFormPapaya/>;
             case 151:
                 return <WithdrawFormSepa/>;
-            case 152:
-                return <WithdrawFormSwift/>;
+            // case 152:
+            //     return <WithdrawFormSwift/>; TODO: Swift форма
             case 153:
                 return <WithdrawFormCardToCard/>;
             case 154:

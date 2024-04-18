@@ -80,6 +80,7 @@ export function OrderCard({
         switchResidenceAddress,
         close: () => setIsNewCardOpened(false)
     }}>
+        
         {state.step === 'IssueNewCard' && isMobile ? <IssueNewCardMobile/> : state.step === 'IssueNewCard' ?  <IssueNewCard /> : null}
         {state.step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}
         {state.step === 'CardHasBeenOrdered' ? <CardHasBeenOrdered /> : null}

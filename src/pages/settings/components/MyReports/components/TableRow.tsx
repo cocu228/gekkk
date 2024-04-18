@@ -1,8 +1,8 @@
 import Download from '@/assets/download.svg?react';
-import {Box, IconButton, Typography} from '@mui/material';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
+import s from '../../../styles.module.scss'
 
 export function TableRow({
     uasToken,
@@ -20,28 +20,15 @@ export function TableRow({
         downloadLink
     } = statement;
 
-    return <Box
-        gap="30px"
-        display="grid"
-        gridTemplateColumns={!sm ? 'auto auto 0.25fr' : 'auto 0.25fr'}
-    >
-        <Typography flex="0 0 auto" variant="b2" color="dark grey">
+    return <div className={`${!sm && s.reportTbRowCols} ${s.reportTbRow}`}>
+        <span className={s.reportRowTitle}>
             {from} - {to}
-        </Typography>
+        </span>
 
         {!sm && (
-            <Typography
-                display="flex"
-                width="100%"
-                variant="b1"
-                justifyContent='center'
-                color="pale blue"
-            >
-                {reportName}
-            </Typography>
+            <span className={s.reportRowSubTitle}>{reportName}</span>
         )}
-
-        <IconButton onClick={async () => {
+        <div onClick={async () => {
             const {phone} = await getAccountDetails();
 
             const response = await apiDownloadStatements(downloadLink, {
@@ -52,12 +39,8 @@ export function TableRow({
             });
 
             window.open(URL.createObjectURL(response.data));
-        }} sx={{
-            flex: '0 0 auto',
-            color: 'pale blue',
-            justifyContent: 'end'
-        }}>
+        }} className={s.reportDownloadWrap}>
             <Download />
-        </IconButton>
-    </Box>
+        </div>
+    </div>
 }

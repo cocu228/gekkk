@@ -236,85 +236,15 @@ function Exchange() {
                   />
                 </div>
                 <SelectToken
-                  hasValidator={true}
                   roomType={roomType}
                   currency={from.currency}
                   value={from.amount ?? ""}
                   onSelect={onFromCurrencyChange}
+                  onError={setHasValidationError}
                   onChange={onFromValueChange}
                   excludedCurrencies={[to.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
-                {/* <InputCurrency.Validator
-                  className="text-sm"
-                  value={+from.amount}
-                  onError={setHasValidationError}
-                  description={
-                    !from.currency
-                      ? null
-                      : t("minimum_order_amount", {
-                          amount:
-                            currencies.get(from.currency)?.minOrder +
-                            " " +
-                            from.currency,
-                        })
-                  }
-                  validators={[
-                    validateBalance(currencies.get(from.currency), navigate, t),
-                    validateMinimumAmount(
-                      minAmount,
-                      +from.amount,
-                      from.currency,
-                      t
-                    ),
-                  ]}
-                ></InputCurrency.Validator>
-                <InputCurrency.CurrencySelector
-                  balanceFilter
-                  onSelect={onFromCurrencyChange}
-                  disabled={roomType !== "default"}
-                  excludedCurrencies={[to.currency]}
-                  allowedFlags={[CurrencyFlags.ExchangeAvailable]}
-                >
-                  <InputCurrency.Validator
-                    className="text-sm"
-                    value={+from.amount}
-                    onError={setHasValidationError}
-                    description={
-                      !from.currency
-                        ? null
-                        : t("minimum_order_amount", {
-                            amount:
-                              currencies.get(from.currency)?.minOrder +
-                              " " +
-                              from.currency,
-                          })
-                    }
-                    validators={[
-                      validateBalance(
-                        currencies.get(from.currency),
-                        navigate,
-                        t
-                      ),
-                      validateMinimumAmount(
-                        minAmount,
-                        +from.amount,
-                        from.currency,
-                        t
-                      ),
-                    ]}
-                  >
-                    <InputCurrency.DisplayBalance
-                      currency={currencies.get(from.currency)}
-                    >
-                      <InputCurrency
-                        value={from.amount}
-                        currency={from.currency}
-                        onChange={onFromValueChange}
-                      />
-                    </InputCurrency.DisplayBalance>
-                  </InputCurrency.Validator>
-                </InputCurrency.CurrencySelector> */}
                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
@@ -332,7 +262,6 @@ function Exchange() {
 
                 <SelectToken
                   roomType={roomType}
-                  hasValidator={false}
                   currency={to.currency}
                   value={to.amount ?? ""}
                   onChange={onToValueChange}
@@ -419,7 +348,6 @@ function Exchange() {
 
             <Modal
               width={400}
-              padding={false}
               title="Confirm the order"
               open={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
@@ -506,20 +434,21 @@ function Exchange() {
         rightColumn={
           !md && (
             <div className="w-full rounded-lg py-5 px-10 lg:px-5 md:px-4 ">
-              <History currenciesFilter={historyFilter} types={[2, 15, 16]} />
+              <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
         }
       />
       {md && (
-        <div className="w-full rounded-lg py-5 px-10 lg:px-5 md:px-4 ">
-          <History currenciesFilter={historyFilter} types={[2, 15, 16]} />
+        <div className="w-full rounded-lg">
+          <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal
         width={450}
         open={roomInfoModal.isModalOpen}
         onCancel={roomInfoModal.handleCancel}
+        padding
         title={
           roomType == "default"
             ? t("exchange.open_private_exchange_room")
@@ -551,6 +480,7 @@ function Exchange() {
           roomType === "creator" ? t("exchange.close") : t("exchange.leave")
         } ${t("exchange.private_exchange_room")}`}
         open={cancelRoomModal.isModalOpen}
+        padding
         onCancel={cancelRoomModal.handleCancel}
       >
         <div className="text-sm">

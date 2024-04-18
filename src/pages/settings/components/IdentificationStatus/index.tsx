@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material'
 
+import s from '../../styles.module.scss'
 import { AreaWrapper } from '../AreaWrapper'
 import { useTranslation } from 'react-i18next';
 
@@ -8,14 +8,16 @@ export function IdentificationStatus() {
 
   return (
     <AreaWrapper title="Identification status">
-      <Box paddingTop="36px" display="flex" flexDirection="column" gap="24px">
-        <Typography variant='b2' color="dark blue">
+      <div className={s.identBody} >
+        <span 
+          className={s.identTitle}
+        >
           {t('REGISTERED')}
-        </Typography>
-        <Typography paddingTop="24px" variant='b2' color="dark blue">
+        </span>
+        <span className={s.identTitle} >
           {t('identification_status_message')}
-        </Typography>
-      </Box>
+        </span>
+      </div>
     </AreaWrapper>
   )
 }

@@ -17,6 +17,7 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -66,7 +67,7 @@ const WithdrawFormSepa = () => {
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     onSelect={setInputCurr}
-                                    header={<span className={styles.TitleColText}>{t("amount")}</span>}
+                                    header={<span className={styles.TitleColText}>{t("amount")}:</span>}
                                 >
                                 <InputCurrency
                                     onChange={setInputCurr}
@@ -83,7 +84,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("beneficiary_name")}</span>
+                            <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -96,7 +97,9 @@ const WithdrawFormSepa = () => {
                     </div>
                                                     
                     <div className='text-gray-400'>
-                        <span className='text-[10px]'>*{t("EW_law")}</span>
+                        <span className='md:text-[#F8A73E] text-[10px]'>
+                            {!inputs.beneficiaryName && "*" + t("EW_law")}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -104,7 +107,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("IBAN")}</span>
+                            <span className={styles.TitleColText}>{t("IBAN")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -120,7 +123,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("transfer_desc")}</span>
+                            <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -143,7 +146,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-2">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("comment")}</span>
+                            <span className={styles.TitleColText}>{t("comment")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -164,14 +167,10 @@ const WithdrawFormSepa = () => {
             <Modal
                 width={450}
                 destroyOnClose
-                padding={false}
                 open={isModalOpen}
                 onCancel={handleCancel}
-                title={
-                  <span className={styles.MainModalTitle}>
-                    {t("confirm_transaction")}
-                  </span>
-                }
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             >
                 <WithdrawConfirmSepa
                     {...inputs}

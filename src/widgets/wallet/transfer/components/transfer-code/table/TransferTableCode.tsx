@@ -184,7 +184,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
         <span onClick={showModal}
               className="text-gra-600 font-bold break-all cursor-pointer">{code}</span>
 
-        <Modal title={"Your transfer code"} open={isModalOpen}
+        <Modal padding title={"Your transfer code"} open={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
         </Modal>
@@ -238,7 +238,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
             <Button size={"sm"} gray onClick={() => onBtnConfirm(code)}
                     className={"!py-3 !h-[fit-content]"}>{t("confirm")}</Button>}
 
-        <Modal title={"The code confirmed"} open={isModalOpen}
+        <Modal padding title={"The code confirmed"} open={isModalOpen}
                onCancel={handleCancel}>
             {localErrorInfoBox ? localErrorInfoBox : <>
                 <div className="row mb-8 mt-2">

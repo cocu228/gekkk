@@ -3,16 +3,16 @@ import styles from "./style.module.scss";
 
 
 interface IParams {
-    children: React.ReactNode,
-    crypto?: boolean,
+    isMainWallet?: boolean;
+    children: React.ReactNode;
 }
 
-const WalletButtons = memo(({children, crypto}: IParams) => {
+const WalletButtons = memo(({children, isMainWallet}: IParams) => {
     return(
-        <div className={crypto?styles.CryptoWalletButtons:styles.WalletButtons}> 
+        <div className={`${styles.WalletButtons} ${isMainWallet ? styles.MainWallet : ''}`}> 
             {children}
         </div>
     )
 })
 
-export default WalletButtons
+export default WalletButtons;

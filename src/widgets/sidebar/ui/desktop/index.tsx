@@ -30,9 +30,6 @@ import { Carousel } from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 
-// import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
-// import Loader from "@/shared/ui/loader";
-
 const SidebarDesktop = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -444,6 +441,7 @@ const SidebarDesktop = () => {
                 open={roomInfoModal.isModalOpen}
                 onCancel={roomInfoModal.handleCancel}
                 title={t("invite_link")}
+                padding
             >
                 <InviteLink roomInfo={selectedRoom} />
             </Modal>
@@ -453,6 +451,7 @@ const SidebarDesktop = () => {
                 open={roomCloseModal.isModalOpen}
                 onCancel={roomCloseModal.handleCancel}
                 title={t("invite_link")}
+                padding
             >
                 <div className="pt-5 text-sm">
                     {selectedRoom ?

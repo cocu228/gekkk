@@ -31,6 +31,7 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import IconQR from "@/shared/ui/icons/IconQR";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -107,7 +108,7 @@ const WithdrawFormCrypto = () => {
           >
             <InputCurrency.PercentSelector
               currency={currency}
-              header={<span className={styles.TitleColText}>{t("amount")}</span>}
+              header={<span className={styles.TitleColText}>{t("amount")}:</span>}
               onSelect={setInputCurr}
             >
               <InputCurrency.DisplayBalance currency={currency}>
@@ -123,7 +124,7 @@ const WithdrawFormCrypto = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className={styles.TitleColText}>{t("address")}</span>
+          <span className={styles.TitleColText}>{t("address")}:</span>
           <Input
             allowDigits
             allowSymbols
@@ -141,6 +142,7 @@ const WithdrawFormCrypto = () => {
         <Modal
           open={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
+          padding
         >
           <QrcodeScanner
             onSuccess={(value: string) => {
@@ -156,7 +158,7 @@ const WithdrawFormCrypto = () => {
 
         <div className="flex flex-col gap-2">
           <span className={styles.TitleColText}>
-            {t("recipient")}
+            {t("recipient")}:
           </span>
           <Input
             value={inputs.recipient}
@@ -166,14 +168,14 @@ const WithdrawFormCrypto = () => {
             placeholder={t("enter_recepients_name")}
           />
 
-          <span className="text-gray-400 text-[12px] md:text-[10px]">
-            {t("EW_law")}
+          <span className="text-gray-400 md:text-[#F8A73E] text-[12px] md:text-[10px]">
+            {!inputs.recipient && t("EW_law")}
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
           <span className={styles.TitleColText}>
-            {t("desc_optional")}
+            {t("desc_optional")}:
           </span>
           <TextArea
             allowDigits
@@ -235,10 +237,12 @@ const WithdrawFormCrypto = () => {
 
         <Modal
           width={450}
-          title={t("transfer_confirmation")}
+          closable={false}
+          title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
           destroyOnClose
           onCancel={handleCancel}
           open={isModalOpen}
+          padding
         >
           <WithdrawConfirmCrypto
             {...inputs}

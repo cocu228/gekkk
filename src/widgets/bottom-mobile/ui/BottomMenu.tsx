@@ -1,6 +1,6 @@
-import styles from "../../../widgets/sidebar/ui/desktop/style.module.scss"
+import styles from "./style.module.scss";
 import { scrollToTop } from "@/shared/lib/helpers";
-import { NavLink, useMatch } from 'react-router-dom';
+import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
@@ -12,9 +12,18 @@ import HistoryButton from "@/shared/ui/ButtonsMobile/History";
 
 
 export function BottomMenu(){
-    const homePage = useMatch("/");
+    const [params] = useSearchParams();
+    const currency = params.get('currency');
+    
+    const isHomePage = !!useMatch("/");
+    const isHistoryPage = !!useMatch("/history");
+    const isExchangePage = !!useMatch("/exchange");
+    const isPrivateRoom = !!useMatch("/private-room");
+    const isOnTransferPage = !!useMatch(`/transfers`);
+    const isOnTransferPageCurr = !!useMatch(`/transfers/${currency}`);
+    
     const {sm, md} = useContext(BreakpointsContext);
-    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>();
+    const [needBottomPadding, setNeedBottomPadding] = useState<boolean>(false);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
     const NavLinkEvent = useCallback(() => {
@@ -27,7 +36,7 @@ export function BottomMenu(){
     }, []);
 
     return <>
-        {!!homePage && (
+        {isHomePage && (
             <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
                 <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                     <div className={styles.NewAsset}>
@@ -42,10 +51,33 @@ export function BottomMenu(){
                 styles.BottomMenuMobile + " "
                 + (needBottomPadding && styles.AddBottomMenuPadding)}
             >
-                <FundsButton/>
-                <TransfersButton/>
-                <ExchangeButton/>
-                <HistoryButton/>
+                <FundsButton
+                    to="/"
+                    className={styles.BottomMenuMobileButtons + " "
+                        + (isHomePage && styles.BottomMenuMobileButtonsActive)
+                    }
+                />
+
+                <TransfersButton
+                    to="/transfers"
+                    className={styles.BottomMenuMobileButtons + " "
+                        + ((isOnTransferPage || isOnTransferPageCurr) && styles.BottomMenuMobileButtonsActive)
+                    }
+                />
+
+                <ExchangeButton
+                    to="/exchange"
+                    className={styles.BottomMenuMobileButtons + " "
+                        + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
+                    }
+                />
+
+                <HistoryButton
+                    to="history"
+                    className={styles.BottomMenuMobileButtons + " "
+                        + (isHistoryPage && styles.BottomMenuMobileButtonsActive)
+                    }
+                />
             </div>
         </div>
     </>

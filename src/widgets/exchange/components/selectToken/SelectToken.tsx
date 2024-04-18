@@ -1,4 +1,4 @@
-import s from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import { FC, useContext } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
@@ -21,20 +21,20 @@ interface SelectTokenProps {
   allowedFlags: CurrencyFlags[];
   value: string;
   currency: string;
-  hasValidator?: boolean;
   onChange?: (value: string) => void;
   onSelect: (value: string) => void;
+  onError?: (value: boolean) => void;
 }
 
 export const SelectToken: FC<SelectTokenProps> = ({
-  roomType,
-  excludedCurrencies,
-  allowedFlags,
-  onSelect,
   value,
   currency,
-  hasValidator: isValidator,
+  roomType,
+  allowedFlags,
+  excludedCurrencies,
   onChange,
+  onSelect,
+  onError = null,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -47,33 +47,32 @@ export const SelectToken: FC<SelectTokenProps> = ({
 
   return (
     <>
-      <div className={s.select_wrap}>
-        <div className={`${s.selected_body} ${currency && s.currency_styles}`}>
+      <div className={styles.SelectWrap}>
+        <div className={`${styles.SelectedBody} ${currency && styles.CurrencyStyles}`}>
           <CurrencySelector
             balanceFilter
             onSelect={onSelect}
             disabled={roomType !== "default"}
             excludedCurrencies={excludedCurrencies}
             allowedFlags={allowedFlags}
-            className={s.custom_selector}
           >
             {!currency ? (
               <>
-                <span className={s.select_preTitle}>
+                <span className={styles.SelectPreTitle}>
                   {t("exchange.select_token")}
                 </span>
               </>
             ) : (
-              <span className={s.selected_token}>
-                <IconCoin className={s.ico} code={currency} />
+              <span className={styles.SelectedToken}>
+                <IconCoin className={styles.Ico} code={currency} />
                 {currency}
               </span>
             )}
           </CurrencySelector>
         </div>
 
-        <div className={s.input_body}>
-          <DownArr className={s.arr} />
+        <div className={styles.InputBody}>
+          <DownArr className={styles.Arr} />
           <input
             value={value}
             disabled={!currency}
@@ -81,14 +80,14 @@ export const SelectToken: FC<SelectTokenProps> = ({
               const valueNew: string = event.target.value;
               onChange(valueNew);
             }}
-            className={s.input}
-            type="number"
+            className={styles.Input}
             placeholder="-enter amount-"
           />
         </div>
       </div>
-      {isValidator && (
+      {onError !== null && (
         <InputCurrency.Validator
+          onError={onError}
           className="text-sm"
           value={+from.amount}
           description={

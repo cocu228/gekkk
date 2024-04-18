@@ -20,6 +20,7 @@ import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss"
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -68,7 +69,7 @@ const CreateTransferCode = () => {
         
         <div className="row mb-5">
             <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <Modal onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
+            <Modal padding onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
                 <CreateCode/>
             </Modal>
         </div>
@@ -90,7 +91,7 @@ const CreateTransferCode = () => {
                         validators={[validateBalance(currency, navigate, t)]}
                     >
                         <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
+                                                        header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}:</span>}
                                                         currency={currency}>
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
@@ -105,9 +106,11 @@ const CreateTransferCode = () => {
             </div>
         </div>
         <div className="row mb-4">
-            <span className="text-[10px] text-[#B9B9B5]">
-                *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
-            </span>
+            {!(!!inputCurr.value.number) &&
+                <span className="text-[10px] text-[#B9B9B5] md:text-[#F8A73E]">
+                    *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
+                </span>
+            }
         </div>
         <div className="row mb-16 md:mb-2">
             {md ? <div className="flex flex-row gap-4">
@@ -250,7 +253,17 @@ const CreateTransferCode = () => {
                 onCreateCode()
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <MoadlAnt footer={null} onCancel={()=>{handleCancel();setNewCode("")}} title={<span className={styles.MainModalTitle}>{t("your_transfer_code")}</span>} open={isModalOpen}>
+            <MoadlAnt 
+                footer={null} 
+                onCancel={()=>{
+                    
+                    handleCancel();
+                    setNewCode("")
+                }} 
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                open={isModalOpen}
+            >
                 <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </MoadlAnt>
         </div>

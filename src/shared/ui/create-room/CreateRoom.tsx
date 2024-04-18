@@ -3,23 +3,15 @@ import { useState } from "react";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
-import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import UseError from "@/shared/model/hooks/useError";
 import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import ModalInfoText from "@/shared/ui/modal/modal-info-text/ModalInfoText";
 import TokenSelect from "@/shared/ui/search-select/token-select/TokenSelect";
 import IconSwap from "@/shared/ui/icons/IconSwap";
-import s from "./styles.module.scss";
+import styles from "./styles.module.scss";
 import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
-import { Switch } from "antd";
-import { is } from "date-fns/locale";
-interface IState {
-  isIco: boolean;
-  purchaseLimit: number;
-}
 
 interface IParams {
   to: IExchangeField;
@@ -46,11 +38,11 @@ function CreateRoom({
   return (
     <>
       <div className={loading ? "!collapse" : ""}>
-        <div className={s.modal_text}>
+        <div className={styles.ModalText}>
           <WarningIcon />
           {t("exchange.private_room_allows")}
         </div>
-        <div className="mt-4 mb-10">
+        <div className="mt-4">
           <label
             className="inline-flex mb-1 text-sm font-medium"
             htmlFor="sell-token"

@@ -6,29 +6,29 @@
   background: #29354c;
 }
 
-.RoomModal {
-  margin: 40px 20px;
-  width: calc(100% - 40px) !important;
-  // top: 50% !important;
-  height: fit-content;
-  // transform: translateY(-50%);
-  padding-bottom: 20px;
+// .RoomModal {
+//   margin: 40px 20px;
+//   width: calc(100% - 40px) !important;
+//   // top: 50% !important;
+//   height: fit-content;
+//   // transform: translateY(-50%);
+//   padding-bottom: 20px;
 
-  & > div {
-    border-radius: 20px !important;
+//   & > div {
+//     border-radius: 20px !important;
 
-    & > div {
-      & > div {
-        padding-top: 10px;
-      }
-    }
-  }
+//     & > div {
+//       & > div {
+//         padding-top: 10px;
+//       }
+//     }
+//   }
 
-  @media screen and (max-height: 700px) {
-    top: 0 !important;
-    transform: translateY(0);
-  }
-}
+//   @media screen and (max-height: 700px) {
+//     top: 0 !important;
+//     transform: translateY(0);
+//   }
+// }
 
 .Name {
   color: white;

@@ -22,6 +22,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const UniversalTransferForm = () => {
   const { t } = useTranslation();
@@ -90,7 +91,7 @@ const UniversalTransferForm = () => {
               currency={currency}
               header={
                 <span className={styles.TitleColText}>
-                  {t("amount")}
+                  {t("amount")}:
                 </span>
               }
               onSelect={setInputCurr}
@@ -110,7 +111,7 @@ const UniversalTransferForm = () => {
       <div className="row mb-5 w-full">
         <div className="row mb-2">
           <span className={styles.TitleColText}>
-            IBAN, phone number, crypto wallet
+            IBAN, phone number, crypto wallet:
           </span>
         </div>
         <div className="row flex w-full">
@@ -131,7 +132,7 @@ const UniversalTransferForm = () => {
         <div className="row mb-2">
           <div className="col">
             <span className={styles.TitleColText}>
-              {t("comment_optional")}
+              {t("comment_optional")}:
             </span>
           </div>
         </div>
@@ -155,14 +156,11 @@ const UniversalTransferForm = () => {
       <Modal
         width={450}
         destroyOnClose
-        padding={false}
         open={isModalOpen}
         onCancel={handleCancel}
-        title={
-          <span className={styles.MainModalTitle}>
-            {t("confirm_transaction")}
-          </span>
-        }
+        closable={false}
+        title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+
       >
         <UniversalTransferConfirm
           {...inputs}
@@ -184,8 +182,8 @@ const UniversalTransferForm = () => {
       </div>
 
       <div className="text-[#B9B9B5] text-[12px] md:text-[10px] my-2 flex justify-center">
-        <div>
-          <span className="font-bold">*{t("fee_free")}</span>{" "}
+        <div className="md:text-[#F8A73E]">
+          <span className="font-semibold">*{t("fee_free")}</span>{" "}
           {t("transfers_to_users_by_number_or_IBAN")}.
         </div>
       </div>

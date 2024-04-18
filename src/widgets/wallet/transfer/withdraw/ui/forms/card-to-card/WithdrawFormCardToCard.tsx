@@ -32,6 +32,7 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const { Option } = Select;
 
@@ -232,7 +233,7 @@ const WithdrawFormCardToCard = () => {
                 currency={currency}
                 header={
                   <span className="text-gray-600 font-medium">
-                    {t("amount")}
+                    {t("amount")}:
                   </span>
                 }
                 onSelect={setInputCurr}
@@ -249,9 +250,11 @@ const WithdrawFormCardToCard = () => {
 
         <Modal
           width={450}
-          title={t("transfer_confirmation")}
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
           onCancel={handleCancel}
           open={isModalOpen}
+          padding
         >
           <WithdrawConfirmCardToCard
             {...inputs}
@@ -298,7 +301,7 @@ const WithdrawFormCardToCard = () => {
               currency={currency}
               header={
                 <span className="text-[#1F3446] text-[12px] font-semibold">
-                  {t("amount")}
+                  {t("amount")}:
                 </span>
               }
               onSelect={setInputCurr}

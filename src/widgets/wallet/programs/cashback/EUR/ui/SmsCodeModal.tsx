@@ -112,7 +112,7 @@ const SmsCodeModal = ({
   };
 
   return (
-    <Modal onCancel={handleCancel} open={isModalOpen} padding={false}>
+    <Modal onCancel={handleCancel} open={isModalOpen}>
       {!isCodeApplied ? (
         <>
           <h4

@@ -20,7 +20,7 @@ import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
 // import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -79,7 +79,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
+                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}:</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -130,7 +130,9 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t("withdraw_confirmation")}>
+            title={t("withdraw_confirmation")}
+            padding
+        >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
@@ -156,7 +158,7 @@ const WithdrawFormBroker = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className={styles.TitleColText}>{t("amount")}</span>}
+                        header={<span className={styles.TitleColText}>{t("amount")}:</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -246,7 +248,8 @@ const WithdrawFormBroker = () => {
             onCancel={()=>{
                 handleCancel()
             }}
-            title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             footer={null}
         >
             <WithdrawConfirmBroker

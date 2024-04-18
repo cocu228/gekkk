@@ -399,6 +399,7 @@ const CardsMenu = ({
               title={t("confirm_action")}
               open={confirmationModal.isModalOpen}
               onCancel={confirmationModal.handleCancel}
+              padding
             >
               {loading ? (
                 <Loader />
@@ -519,6 +520,7 @@ const CardsMenu = ({
             <Modal
               title={t("card_info")}
               open={cardInfoModal.isModalOpen}
+              padding
               onCancel={() => {
                 cardInfoModal.handleCancel();
                 setCardInfo(null);

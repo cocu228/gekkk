@@ -75,7 +75,7 @@ const ApplyTransferCode = () => {
                     {t("apply")}
                 </Button>
 
-                <Modal title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
+                <Modal padding title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
                            onCancel={handleCancel} open={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?

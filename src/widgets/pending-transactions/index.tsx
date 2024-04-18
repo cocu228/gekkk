@@ -15,6 +15,7 @@ import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get
 import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import Loader from '@/shared/ui/loader';
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -104,11 +105,13 @@ export const PendingTransactions = () => {
 
         <Modal
             width={450}
-            padding={false}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t('please_verify_transaction')}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
         >
+            <hr className={styles.ModalLine} />
+
             {loading && <Loader/>}
 
             {selectedTx && <div className={loading ? 'collapse' : ''}>
@@ -123,7 +126,7 @@ export const PendingTransactions = () => {
                 </div>
 
                 <div className={styles.Container}>
-                    <div>
+                    <div className={styles.CardEnding}>
                         You have pending transaction with your card ending by {selectedTx.pan.slice(-4)}
                     </div>
 
@@ -139,15 +142,23 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
+                            greenTransfer
                             onClick={() => onContinue(true)}
                             className={styles.Button}
-                        >Confirm</Button>
+                            size='xl'
+                        >
+                            {t("confirm")}
+                        </Button>
 
                         <Button
                             red
                             onClick={() => onContinue(false)}
                             className={styles.Button}
-                        >Decline</Button>
+                            size='xl'
+                            decline
+                        >
+                            {t("decline")}
+                        </Button>
                     </div>
                 </div>
             </div>}

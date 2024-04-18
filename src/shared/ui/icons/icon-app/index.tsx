@@ -10,6 +10,6 @@ interface IProps {
 export const IconApp:FC<IProps> = ({code,size,color}) => {
 
     return (
-        <svg width={size} stroke={color} height={size}><use href={`/img/gek_icons_lib2.svg#${code}`}></use></svg>
+        <svg width={size} stroke={color} height={size}><use href={`/img/gek_icons_lib2.svg#t13`}></use></svg>
     )
 }

@@ -312,50 +312,23 @@ const MobileCardsMenu = ({
       <div className="flex items-center justify-center">
         <div className={styles.HowItWorksWrap}>
           <p className={`typography-b1 ${styles.howText}`}>
-            The function of setting / disabling limits allows you to create
-            limits yourself, which regulate your expenses on your card. Limits
-            apply to the following card transactions:
+            {t("the_function_of_setting_disabling_limits_allows")}
             <br />
-            -Cash withdrawal from the card
+            -{t("cash_withdrawal_from_the_card")}
             <br />
-            -Payment of purchases on the card
+            -{t("payment_of_purchases_on_the_card")}
             <br />
-            Day limit
+            {t("day_limit")}
             <br />
-            It is possible to indicate the maximum amount of transactions within
-            one day. For example, if you specify a daily limit of 1000 EUR, you
-            will not be able to carry out transactions (cash withdrawals and
-            purchases) of more than 1000 EUR in one day. In «Available» field
-            you can see the amount available for use before reaching the limit.
-            If some amount is held when making a cash withdrawal or purchase,
-            then the Available value is also reduced by this amount. If the
-            daily limit is reached, you will not be able to pay for the purchase
-            or withdraw cash from the card.
+            {t("it_is_possible_to_indicate_the_maximum_amount_of_transactions")}
             <br />
-            Month Limit
+            {t("month_limit")}
             <br />
-            Here it is possible to indicate the amount of expenses within one
-            month from the moment the limit is set, for example, 10 000 EUR. In
-            the case of such a setting, it will not be possible to carry out
-            transactions (cash withdrawals and purchases) by more than 10,000
-            EUR per month. If specified Daily Limit is more than specified
-            Monthly limit, the value of the Monthly Limit is automatically
-            increased to the value of the Daily Limit. In «Available» field you
-            can see the amount available for use before reaching the limit. If
-            some amount is held when making a cash withdrawal or purchase, then
-            the Available value is also reduced by this amount. If the Monthly
-            limit is reached, you will not be able to pay for the purchase or
-            withdraw cash from the card.
+            {t("here_it_is_possible_to_indicate_the_amount_of_expenses")}
             <br />
-            Temporarily disable limits
+            {t("temporarily_disable_limits")}
             <br />
-            To temporarily deactivate Daily and Monthly limits you should turn
-            the "Disable Limits Temporarily” switch to the ON position. You can
-            only deactivate limits until the first cash withdrawal or purchase
-            transaction, or until 3 minutes have passed since the deactivation.
-            After that the "Disable Limits Temporarily” switch automatically
-            returns to the OFF position. Next to the switch "Disable Limits
-            Temporarily”, the timeout counter is displayed.
+            {t("to_temporarily_deactivate_daily_and_monthly_limits")}
           </p>
           <div className={styles.HowItWorksBtnWrap}>
             <MobileButton
@@ -522,7 +495,7 @@ const MobileCardsMenu = ({
               setSelectedItem("how-it-works");
             }}
           >
-            How it works?
+            {t("how_it_works")}
           </a>
 
           <div className={styles.FooterBtnsWrap}>

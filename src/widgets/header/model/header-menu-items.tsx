@@ -27,7 +27,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             icon: <img src={SettingsMobileIcon}/>
         },
         {
-            item: t("card_managment"),
+            item: t("card_management"),
             id:"cardManagment",
             action:{
                 type: "link",

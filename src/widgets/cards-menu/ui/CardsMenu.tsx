@@ -368,7 +368,7 @@ const CardsMenu = ({
             )} */}
 
             <a className={`${styles.link} typography-b1`} href="#">
-              How it works?
+              {t("how_it_works")}
             </a>
 
             <div className="flex flex-row min-h-[43px] justify-between w-full mb-10">

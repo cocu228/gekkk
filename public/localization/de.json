@@ -1395,7 +1395,19 @@
     "frequently_asked_questions": "Häufig gestellte Fragen",
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
-    "decline": "Stornieren"
+    "decline": "Stornieren",
+    "card_management": "Kartenverwaltung",
+    "how_it_works": "Wie funktioniert es?",
+    "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
+    "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",
+    "payment_of_purchases_on_the_card": "Zahlung von Einkäufen mit der Karte",
+    "it_is_possible_to_indicate_the_maximum_amount_of_transactions": "Es ist möglich, den maximalen Betrag der Transaktionen pro Tag anzugeben. Wenn Sie z.B. ein Tageslimit von 1000 EUR festlegen, können Sie an einem Tag keine Transaktionen (Bargeldabhebungen und Einkäufe) über 1000 EUR durchführen. Im Feld „Verfügbar“ können Sie den Betrag sehen, der vor Erreichen des Limits verfügbar ist. Wenn bei einer Bargeldabhebung oder einem Kauf ein Betrag einbehalten wird, wird der verfügbare Wert auch um diesen Betrag reduziert. Wenn das Tageslimit erreicht ist, können Sie den Kauf nicht bezahlen oder Bargeld von der Karte abheben.",
+    "here_it_is_possible_to_indicate_the_amount_of_expenses": "Hier können Sie den Betrag der Ausgaben innerhalb eines Monats ab dem Zeitpunkt der Festlegung des Limits angeben, z.B. 10.000 EUR. Bei einer solchen Festlegung ist es nicht möglich, Transaktionen (Bargeldabhebungen und Einkäufe) über 10.000 EUR pro Monat durchzuführen. Wenn das festgelegte Tageslimit höher ist als das festgelegte Monatslimit, wird der Wert des Monatslimits automatisch auf den Wert des Tageslimits erhöht. Im Feld „Verfügbar“ können Sie den Betrag sehen, der vor Erreichen des Limits verfügbar ist. Wenn bei einer Bargeldabhebung oder einem Kauf ein Betrag einbehalten wird, wird der verfügbare Wert auch um diesen Betrag reduziert. Wenn das Monatslimit erreicht ist, können Sie den Kauf nicht bezahlen oder Bargeld von der Karte abheben.",
+    "temporarily_disable_limits": "Limits vorübergehend deaktivieren",
+    "to_temporarily_deactivate_daily_and_monthly_limits": "Um die täglichen und monatlichen Limits vorübergehend zu deaktivieren, müssen Sie den Schalter „Limits vorübergehend deaktivieren“ auf die Position EIN stellen. Sie können die Limits nur deaktivieren, bis die erste Bargeldabhebung oder Kauftransaktion erfolgt oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Timeout-Zähler angezeigt.",
+    "day_limit": "Tageslimit", 
+    "month_limit": "Monatslimit"
+
 
 
   }

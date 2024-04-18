@@ -176,11 +176,16 @@
   outline: none;
   color: currentColor;
   font-weight: 300;
+  width: 100%;
 
   &::placeholder {
     font-weight: 300;
     color: #95a5a6;
   }
+
+  &:focus {
+    outline: none;
+}
 }
 
 .issueFooter {

@@ -5,13 +5,9 @@ import {THeaderMenuList} from "@/widgets/header/model/types";
 
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 
-import { IconSettings } from "@/shared/ui/icons/IconSettings";
-import { IconCard } from "@/shared/ui/icons/IconCard";
-import { IconInvest } from "@/shared/ui/icons/IconInvest";
-import { IconChat } from "@/shared/ui/icons/IconChat";
-import { IconNotification } from "@/shared/ui/icons/IconNotification";
 import { IconPromo } from "@/shared/ui/icons/IconPromo";
 import { IconLogout } from "@/shared/ui/icons/IconLogout";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 /**
 * @param t translation function
@@ -25,7 +21,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value:"settings"
             },
-            icon: <IconSettings />
+            icon: <IconApp size={18} code="t13" />
         },
         {
             item: t("card_managment"),
@@ -34,7 +30,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
             },
-            icon: <IconCard />
+            icon: <IconApp size={18} code="t22" />
         },
         {
             item: <GekkoinInvestPlatform/>,
@@ -43,7 +39,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<IconInvest />
+            icon: <IconApp size={18} code="t21" />
         },
         {
             item: t('header_menu.support'),
@@ -52,7 +48,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "support",
             },
-            icon:<IconChat />
+            icon:<IconApp size={18} code="t25" />
         },
         {
             item: <EnableNotifications/>,
@@ -61,7 +57,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconNotification />
+            icon: <IconApp size={20} code="t23" />
         },
         {
             item: t('header_menu.partnership'),
@@ -79,7 +75,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<IconPromo />
+            icon: <IconApp size={20} code="t18" />
         },
         {
             item: t(''),
@@ -105,7 +101,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "logout",
                 value: null,
             },
-            icon:<IconLogout />,
+            icon: <IconApp size={20} code="t20" color='#fff' />,
             style: {
                 borderTop: "1px solid var(--color-gray-400)"
             }

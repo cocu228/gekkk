@@ -21,8 +21,6 @@ const Header = () => {
     const accounts = storeAccounts(state => state.accounts);
     const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
-
-    console.log('ITEMS', items)
     
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},

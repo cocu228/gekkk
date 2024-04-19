@@ -105,7 +105,7 @@ export function Settings() {
               className={s.box}
             >
               <h2 
-                className={`${s.itemTitle} ${!md && s.itemTitleColor} ${md && s.itemTitleWeight}`}
+                className={`${s.itemTitle} ${s.mobTitle} ${!md && s.itemTitleColor} ${md && s.itemTitleWeight}`}
               >
                 {t("general_information")}
               </h2>

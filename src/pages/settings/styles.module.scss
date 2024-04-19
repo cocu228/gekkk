@@ -12,6 +12,12 @@
     }
 }
 
+.mobTitle {
+    @media screen and (max-width: 768px) {
+        font-size: 18px !important;
+    }
+}
+
 
 .itemsWrap {
     display: flex;

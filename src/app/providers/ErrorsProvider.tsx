@@ -13,6 +13,7 @@ import {FC, PropsWithChildren, useEffect, useLayoutEffect, useState} from "react
 import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-context";
 import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-provider-types";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
@@ -178,7 +179,7 @@ const Item = ({onClick, message, id, type = "GEKKARD"}: IServiceErrorProvider) =
         onClick={() => onClick(id)}
         message={message}
         icon={<div className="flex justify-center w-full">
-            <img width={25} height={25} src="/img/icon/AlertWaring.svg" alt="AlertIcon"/>
+            <IconApp color="#F8A73E" code="" size={25} className="mt-[2px]" />
         </div>}
         className={type !== "GEKKARD" ? "!bg-red-400 !text-red-400" : ""}
     />

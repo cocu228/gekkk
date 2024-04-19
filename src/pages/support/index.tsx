@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
 import { NavLink } from 'react-router-dom';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 
 const Support = () => {
@@ -35,16 +36,9 @@ const Support = () => {
                         </NavLink>
                         <div className={styles.Email}>
                             <div className={styles.Icon}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-                                    <circle cx="21.0811" cy="21" r="19" stroke="#29354C" strokeWidth="3" />
-                                    <rect x="12.5811" y="17.5" width="18" height="12" rx="2" stroke="#29354C" strokeWidth="2" />
-                                    <line x1="13.1358" y1="20.6679" x2="22.1358" y2="26.6679" stroke="#29354C" strokeWidth="2" />
-                                    <line x1="21.0264" y1="26.6679" x2="30.0264" y2="20.6679" stroke="#29354C" strokeWidth="2" />
-                                    <rect x="16.0811" y="11" width="11" height="11" rx="1.5" fill="white" stroke="#29354C" />
-                                    <line x1="18.5811" y1="13" x2="24.5811" y2="13" stroke="#29354C" />
-                                    <line x1="18.5811" y1="16" x2="24.5811" y2="16" stroke="#29354C" />
-                                    <line x1="18.5811" y1="19" x2="24.5811" y2="19" stroke="#29354C" />
-                                </svg>
+                                <div className={styles.IconWrap}>
+                                    <IconApp code='t29' color='#29354C' size={20} />
+                                </div>
                             </div>
                             <div className={styles.Main}>
                                 <div className={styles.MainTitle}>{t("EMAIL")}</div>
@@ -59,10 +53,9 @@ const Support = () => {
                         <NavLink to={"/support/chat"}>
                             <div className={styles.ChatUs}>
                                 <div className={styles.Icon}>
-                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.0811 2C33.1267 2 42.0811 10.9544 42.0811 22.0001C42.0811 33.0457 33.1267 42 22.0811 42C11.0354 42 2.08105 33.0457 2.08105 22.0001C2.08105 10.9544 11.0354 2 22.0811 2Z" fill="white" stroke="#29354C" stroke-width="3.5" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13 13C11.8954 13 11 13.8954 11 15V27C11 28.1046 11.8954 29 13 29H15V30.5284C15 32.1551 16.8387 33.1014 18.1625 32.1559L20.8719 30.2206C21.546 29.7391 21.7021 28.8023 21.2206 28.1281C20.7391 27.454 19.8023 27.2979 19.1281 27.7794L18 28.5852V28C18 26.8954 17.1046 26 16 26H14V16H30V20C30 20.8284 30.6716 21.5 31.5 21.5C32.3284 21.5 33 20.8284 33 20V15C33 13.8954 32.1046 13 31 13H13ZM24 23C22.8954 23 22 23.8954 22 25V29.9681C22 31.0727 22.8954 31.9681 24 31.9681H25.7483L27.7796 33.7278C29.1749 34.9364 31.3072 33.7706 31.0737 31.9668C32.1441 31.928 33 31.048 33 29.9681V25C33 23.8954 32.1046 23 31 23H24ZM25 28.9681V26H30V28.9681H29.8968C29.113 28.9681 28.4481 29.4145 28.1184 30.0522L27.4307 29.4564C27.0671 29.1415 26.6022 28.9681 26.1212 28.9681H25Z" fill="#29354C" />
-                                    </svg>
+                                    <div className={styles.IconWrap}>
+                                        <IconApp code='t25' color='#29354C' size={20} />
+                                    </div>
 
                                 </div>
                                 <div className={styles.Main}>

@@ -25,6 +25,7 @@ import {
 } from "@/shared/lib/number-format-helper";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const SidebarMobile = () => {
   const { t } = useTranslation();
@@ -177,11 +178,7 @@ const SidebarMobile = () => {
                   </div>
                 </div>
                 <div className={styles.ArrowMobileSidebar}>
-                  <img
-                    src="/img/icon/ArrowMobileSidebar.svg"
-                    width={7}
-                    alt=""
-                  />
+                  <IconApp code="t08" size={11} color="#285E69" />
                 </div>
               </div>
             </div>
@@ -239,11 +236,7 @@ const SidebarMobile = () => {
                     </div>
                   )}
                   <div className={styles.ArrowMobileSidebar}>
-                    <img
-                      src="/img/icon/ArrowMobileSidebar.svg"
-                      width={7}
-                      alt=""
-                    />
+                    <IconApp code="t08" size={11} color="#285E69" />
                   </div>
                 </div>
               </div>
@@ -303,11 +296,7 @@ const SidebarMobile = () => {
                     </div>
                   )}
                   <div className={styles.ArrowMobileSidebar}>
-                    <img
-                      src="/img/icon/ArrowMobileSidebar.svg"
-                      width={7}
-                      alt=""
-                    />
+                    <IconApp code="t08" size={11} color="#285E69" />
                   </div>
                 </div>
               </div>
@@ -333,7 +322,6 @@ const SidebarMobile = () => {
                       }`}
                     >
                       <div className="col flex items-center pl-4 w-[85px]">
-                        {/* <SvgArrow width={14} height={14} className={styles.SvgArrow} /> */}
                         <IconCoin code={item.$const} />
                       </div>
                       <div
@@ -388,11 +376,7 @@ const SidebarMobile = () => {
                           </div>
                         </div>
                         <div className={styles.ArrowMobileSidebar}>
-                          <img
-                            src="/img/icon/ArrowMobileSidebar.svg"
-                            width={7}
-                            alt=""
-                          />
+                          <IconApp code="t08" size={11} color="#285E69" />
                         </div>
                       </div>
                     </div>

@@ -95,7 +95,9 @@ const HeaderDesktop = ({items, actions}) => {
                             </div>
                         }
 
-                        <button className={`${styles.ArrowBtn}`}></button>
+                        <button className={`${styles.ArrowBtn}`}>
+                            <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
+                        </button>
                         {/* </div> */}
                     </div>
                 </HeaderMenu>

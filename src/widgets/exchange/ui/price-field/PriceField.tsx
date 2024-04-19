@@ -5,6 +5,7 @@ import { CtxExchangeData } from "../../model/context";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { formatAsNumberAndDot } from "@/shared/lib/formatting-helper";
 import { useTranslation } from "react-i18next";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 function PriceField({ disabled }: { disabled?: boolean }) {
   const { to, from, price, onPriceAmountChange, onPriceCurrenciesSwap } =
@@ -42,13 +43,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
                   ? `${from.currency} ${t("per")} 1 ${to.currency}`
                   : `${to.currency} ${t("per")} 1 ${from.currency}`}
               </span>
-
-              <img
-                width={md ? 20 : 24}
-                height={md ? 20 : 24}
-                src="/img/icon/ExchangeOrange.svg"
-                alt="ExchangeIcon"
-              />
+              <IconApp code="t60" color="#F8A73E" size={md ? 12 : 17} className="rotate-[90deg] ml-[3px] mr-[1px]" />
             </button>
           </div>
         )

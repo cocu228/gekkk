@@ -13,6 +13,16 @@
     align-items: flex-start;
 }
 
+.IconWrap {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 3.5px solid #29354C;
+}
+
 .Assets{
     display: flex;
     width: 297.838px;

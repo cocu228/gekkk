@@ -48,6 +48,7 @@ import { Typography } from "@/shared/ui/typography/typography";
 import { Outlet } from "react-router-dom";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -354,7 +355,7 @@ const MobileCardsMenu = ({
           ) : (
             <div className="font-medium text-[16px]">
               <div className="flex flex-row gap-2">
-                <Warn className="w-10" />
+                <IconApp color="#8F123A" size={22} code="t27" />
                 <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">
                   {t("be_careful")}
                 </h3>
@@ -444,7 +445,7 @@ const MobileCardsMenu = ({
               onClick={onClick}
               dataItem="orderPlastic"
               leftPrimary={t("order_plastic_card")}
-              rightPrimary={<Arrow />}
+              rightPrimary={<IconApp code="t08" color="#888a92" size={12} />}
             />
           )}
 
@@ -507,7 +508,7 @@ const MobileCardsMenu = ({
               varitant="alarm"
               className="w-[135px] flex flex-row gap-1 items-center justify-center"
             >
-              <Lock />{" "}
+              <IconApp code="t54" size={10} color="#fff" />
               <div>
                 {card.cardStatus === "ACTIVE"
                   ? t("block_card")

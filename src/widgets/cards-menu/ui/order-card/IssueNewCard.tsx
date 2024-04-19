@@ -142,7 +142,7 @@ export function IssueNewCard() {
           <span className={s.input_title}>{t("flat")}</span>
           <input
             value={state.apartmentNumber}
-            placeholder={t("enter_fiat_name_or_number_if_available")}
+            placeholder={t("enter_flat_name_or_number_if_available")}
             onChange={({ target }) => {
               const ru = /[а-яё]+/i.test(target.value);
               if (ru) {

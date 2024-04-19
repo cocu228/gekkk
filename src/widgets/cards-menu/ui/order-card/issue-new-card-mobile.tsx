@@ -104,7 +104,7 @@ export function IssueNewCardMobile() {
             
             <div className={s.mobRowItem}>
             <span className={s.mobRowItemTitle}>{t('flat')}:</span>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_fiat_number")} 
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_flat_number")} 
                     onChange={({target}) => setState({
                         ...state,
                         apartmentNumber: target.value

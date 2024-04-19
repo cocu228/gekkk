@@ -172,7 +172,7 @@ export function IssueNewCard() {
                         <span className={s.inputTitle}>{t("flat")}</span>
                         <input 
                             value={state.apartmentNumber}
-                            placeholder={t("enter_fiat_name_or_number_if_available")}
+                            placeholder={t("enter_flat_name_or_number_if_available")}
                             onChange={({target}) => setState({
                                 ...state,
                                 apartmentNumber: target.value

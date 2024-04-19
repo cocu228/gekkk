@@ -27,7 +27,7 @@ export function IssueNewCard() {
     
     return <div>
         <div className={s.issueHeader}>
-            <h3 className={s.issueTitle}>Issue new card</h3>
+            <h3 className={s.issueTitle}>{t("issue_new_card")}</h3>
             <CloseWindowButton onClick={close}/>
         </div>
         <div className={s.issueBody}>
@@ -36,7 +36,7 @@ export function IssueNewCard() {
                 <div className='w-[150px]'>
                     <Select className="w-full mt-2"
                             placeholder='Select type...'
-                            value={state.cardType.toLowerCase()}
+                            value={t(state.cardType.toLowerCase())}
                             options={[{
                                 label: 'Virtual',
                                 value: 'virtual',
@@ -54,7 +54,7 @@ export function IssueNewCard() {
             
             <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
                 <div className={s.inputWrap}>
-                    <span className={s.inputTitle}>Cardholer name</span>
+                    <span className={s.inputTitle}>{t("cardholder_name")}</span>
                     <input 
                     onChange={({target}) => setState({
                         ...state,
@@ -75,7 +75,7 @@ export function IssueNewCard() {
                             ...state,
                             linkedPhone: target.value
                         })}
-                        placeholder={t("enter_phone_number")} 
+                        placeholder={t("auth.enter_phone_number")} 
                         value={state.linkedPhone}
                     />
                 </div>
@@ -91,13 +91,13 @@ export function IssueNewCard() {
                         onChange={switchResidenceAddress}
                     />
                 </div>
-                <span className={s.issueTextGroupTitle}>{t('Country')}</span>
+                <span className={s.issueTextGroupTitle}>{t('country')}</span>
                 <div className='w-[250px] mb-[12px]'>
                     <SearchSelect
                         className="w-full mt-2"
-                        placeholder='Select country...'
+                        placeholder={t("select_country")+"..."}
                         value={state.countryCode}
-                        notFoundContent={<span>Country not found</span>}
+                        notFoundContent={<span>{t("country_not_found")}</span>}
                         options={deliveryCountriesList.map(c => ({
                             label: c.name,
                             value: c.code
@@ -184,7 +184,7 @@ export function IssueNewCard() {
 
                 <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
                     <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("Recipient")}</span>
+                        <span className={s.inputTitle}>{t("recipient")}</span>
                         <input 
                             value={state.recipientName}
                             placeholder={t("enter_recipient_name_if_necessary")}

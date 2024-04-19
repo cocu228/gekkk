@@ -183,7 +183,7 @@ const UniversalTransferConfirm = ({
                     </div>
                     <div className="row mb-2 md:mb-1">
                         <div className="col">
-                            <span className={styles.ModalRowsTitle}>Recipient's name</span>
+                            <span className={styles.ModalRowsTitle}>{t("recipient_name")}</span>
                         </div>
                     </div>
                     <div className="row mb-4 md:mb-2">
@@ -194,7 +194,7 @@ const UniversalTransferConfirm = ({
                     {comment && <>
                         <div className="row mb-2 md:mb-1">
                             <div className="col">
-                                <span className={styles.ModalRowsTitle}>Description</span>
+                                <span className={styles.ModalRowsTitle}>{t("description")}</span>
                             </div>
                         </div>
                         <div className="row mb-4 md:mb-2">
@@ -214,7 +214,7 @@ const UniversalTransferConfirm = ({
                                 greenTransfer
                                 className={styles.ButtonTwo}
                             >
-                                Confirm
+                                {t("confirm")}
                             </Button>
 
                             <Button

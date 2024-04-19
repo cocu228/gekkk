@@ -1668,6 +1668,11 @@
     "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order.",
     "please_enter_sender_name": "Please enter sender name",
     "enter_sender_name": "Enter sender name",
-    "decline": "Decline"
+    "decline": "Decline",
+    "virtual": "Virtual",
+    "plastic": "Plastic",
+    "enter_beneficiary_name": "Enter beneficiary name",
+    "enter_account_number_or_IBAN": "Enter account number / IBAN",
+    "crypto_wallet": "Crypto wallet"
   }
 }

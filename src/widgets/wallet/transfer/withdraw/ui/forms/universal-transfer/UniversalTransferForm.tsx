@@ -111,7 +111,7 @@ const UniversalTransferForm = () => {
       <div className="row mb-5 w-full">
         <div className="row mb-2">
           <span className={styles.TitleColText}>
-            IBAN, phone number, crypto wallet:
+            IBAN, {t("phone_number")}, {t("crypto_wallet")}:
           </span>
         </div>
         <div className="row flex w-full">

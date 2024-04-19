@@ -172,7 +172,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Description */}
           {!state?.description ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Description</span>
+              <span className={styles.InformationBlockItemTitle}>{t("description")}</span>
               <span className={styles.InformationBlockItemValue}>{state.description}</span>
             </div>
           )}

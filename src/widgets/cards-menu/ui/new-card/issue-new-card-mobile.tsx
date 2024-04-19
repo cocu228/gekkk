@@ -48,7 +48,7 @@ export function IssueNewCardMobile() {
                     <SearchSelect className="w-full mt-2 max-h-[50px]"
                             isMobile
                             placeholder='Select type...'
-                            value={state.cardType.toLowerCase()}
+                            value={t(state.cardType.toLowerCase())}
                             options={[{
                                 label: 'Virtual',
                                 value: 'virtual',
@@ -66,7 +66,7 @@ export function IssueNewCardMobile() {
 
             <div className='flex flex-row  justify-between items-center h-[40px]'>
                 <span className={s.mobRowItemTitle}>{`Cardholed name:`}</span>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={"cardholder name"} 
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("cardholder name")} 
                     onChange={({target}) => setState({
                         ...state,
                         cardholderName: target.value
@@ -154,7 +154,7 @@ export function IssueNewCardMobile() {
                 </div>
 
                 <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('Recipient')}:</span>
+                    <span className={s.mobRowItemTitle}>{t('recipient')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_recipient_name")} 
                         onChange={({target}) => setState({
                             ...state,

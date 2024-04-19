@@ -114,7 +114,7 @@ export function IssueNewCardMobile() {
             </div>
             
             <div className={s.mobRowItem}>
-                <span className={s.mobRowItemTitle}>{t('Recipient')}:</span>
+                <span className={s.mobRowItemTitle}>{t('recipient')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_recipient_name")} 
                     onChange={({target}) => setState({
                         ...state,

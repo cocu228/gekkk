@@ -1406,7 +1406,23 @@
     "temporarily_disable_limits": "Limits vorübergehend deaktivieren",
     "to_temporarily_deactivate_daily_and_monthly_limits": "Um die täglichen und monatlichen Limits vorübergehend zu deaktivieren, müssen Sie den Schalter „Limits vorübergehend deaktivieren“ auf die Position EIN stellen. Sie können die Limits nur deaktivieren, bis die erste Bargeldabhebung oder Kauftransaktion erfolgt oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Timeout-Zähler angezeigt.",
     "day_limit": "Tageslimit", 
-    "month_limit": "Monatslimit"
+    "month_limit": "Monatslimit",
+    "card_type": "Kartentyp",
+    "linked_phone_number": "Verknüpfte Telefonnummer",
+    "enter_cardholder_name": "Geben Sie den Namen des Karteninhabers ein",
+    "virtual": "Virtuell", 
+    "plastic": "Plastik",
+    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar", 
+    "flat": "Wohnung", 
+    "enter_flat_name_or_number_if_available": "Geben Sie den Namen oder die Nummer der Wohnung ein, falls verfügbar",
+    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein", 
+    "enter_account_number_or_IBAN": "Geben Sie die Kontonummer / IBAN ein",
+    "recipient_name": "Name des Empfängers",
+    "transfer": "Überweisung",
+    "universal_transfer_description": "Überweisungen an Gekkard-Benutzer durch",
+    "phone_number_or_IBAN": "Telefonnummer oder IBAN",
+    "crypto_wallet": "Kryptowallet"
+
 
 
 

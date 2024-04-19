@@ -66,7 +66,7 @@ const Support = () => {
 
                                 </div>
                                 <div className={styles.Main}>
-                                    <div className={styles.MainTitle}>{t("Chat")}</div>
+                                    <div className={styles.MainTitle}>{t("chat")}</div>
                                     <div className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
                                 </div>
                                 <div className={styles.Arrow}>

@@ -22,7 +22,7 @@ const VersionCard = ({version: ver}: IParams) => {
 	
 	return (
 		<div className='substrate mt-5'>
-			<SectionTitle>{t('Version')} {version} ({formatForCustomer(date)})</SectionTitle>
+			<SectionTitle>{t('version')} {version} ({formatForCustomer(date)})</SectionTitle>
 			
 			<span className='whitespace-pre-wrap'>
 				{description}

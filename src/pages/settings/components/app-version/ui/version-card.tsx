@@ -15,7 +15,7 @@ export const VersionCard = ({date, version, description}: IVersion) => {
 	
 	return (
 		<div className={s.versionCard}>
-			<h4 className={s.versionCardTitle}>{t('Version')} {version} ({formatForCustomer(date)})</h4>
+			<h4 className={s.versionCardTitle}>{t('version')} {version} ({formatForCustomer(date)})</h4>
 			<h4 className={s.versionCardText}>{description}</h4>
 		</div>
 	)

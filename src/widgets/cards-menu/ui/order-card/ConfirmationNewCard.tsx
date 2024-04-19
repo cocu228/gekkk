@@ -34,7 +34,7 @@ export function ConfirmationNewCard() {
     
     return !deliveryOption ? <Loader className={'relative mt-10'}/> : <>
         <div className={s.confHeader}>
-            <h3 className={s.confHeaderTitle}>Issue new card</h3>
+            <h3 className={s.confHeaderTitle}>{t("issue_new_card")}</h3>
             <CloseWindowButton onClick={close}/>
         </div>
         <div className={s.confInfoList}>

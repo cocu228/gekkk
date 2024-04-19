@@ -24,7 +24,7 @@ export function IssueNewCard() {
     <div>
       <div className={s.issueCardTitleBlock} >
         <h3 className={s.issueCardTitle}>
-          Issue new card
+          {t("issue_new_card")}
         </h3>
         <CloseWindowButton onClick={close} />
       </div>
@@ -45,14 +45,14 @@ export function IssueNewCard() {
         </div>
         <div className={`${s.issueRowItem} ${s.issueRowItemBorderBottom}`}>
           <span className={s.rowItemTitle}>
-            {t("Country")}
+            {t("country")}
           </span>
           <div className="w-[250px]">
           <SearchSelect
               className="w-full mt-2"
-              placeholder="Select country..."
+              placeholder={t("select_country")+"..."}
               value={state.countryCode}
-              notFoundContent={<span>Country not found</span>}
+              notFoundContent={<span>{t("country_not_found")}</span>}
               options={deliveryCountriesList.map((c) => ({
                 label: c.name,
                 value: c.code,
@@ -158,7 +158,7 @@ export function IssueNewCard() {
           />
         </div>
         <div className={s.input_block}>
-          <span className={s.input_title}>{t("Recipient")}</span>
+          <span className={s.input_title}>{t("recipient")}</span>
           <input
             placeholder={t("enter_recipient_name_if_necessary")}
             value={state.recipientName}

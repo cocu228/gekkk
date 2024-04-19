@@ -263,7 +263,7 @@ const WithdrawConfirmCrypto = memo(
             <>
               <div className="row mb-2">
                 <div className="col">
-                  <span className="text-gray-400">Description</span>
+                  <span className="text-gray-400">{t("description")}</span>
                 </div>
               </div>
               <div className="row mb-4">
@@ -403,7 +403,7 @@ const WithdrawConfirmCrypto = memo(
         </div>
         <div className="row mb-2">
           <div className="col">
-            <span className="text-gray-400">Recipient's name</span>
+            <span className="text-gray-400">{t("recipient_name")}</span>
           </div>
         </div>
         <div className="row mb-4">
@@ -439,7 +439,7 @@ const WithdrawConfirmCrypto = memo(
           <>
             <div className="row mb-2">
               <div className="col">
-                <span className="text-gray-400">Description</span>
+                <span className="text-gray-400">{t("description")}</span>
               </div>
             </div>
             <div className="row mb-4">
@@ -607,7 +607,7 @@ const WithdrawConfirmCrypto = memo(
                 <>
                   <div className="row mb-2">
                     <div className="col">
-                      <span className={styles.ModalRowsTitle}>Description</span>
+                      <span className={styles.ModalRowsTitle}>{t("description")}</span>
                     </div>
                   </div>
                   <div className="row mb-4">

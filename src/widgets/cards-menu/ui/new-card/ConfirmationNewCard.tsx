@@ -88,7 +88,7 @@ export function ConfirmationNewCard() {
     
     return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
         <div className={s.confHeader}>
-            <h3 className={s.confHeaderTitle}>Issue new card</h3>
+            <h3 className={s.confHeaderTitle}>{t("issue_new_card")}</h3>
             <CloseWindowButton onClick={close}/>
         </div>
         <div className={s.confInfoList}>
@@ -106,7 +106,7 @@ export function ConfirmationNewCard() {
             </div>
             <div className={s.confRowItem}>
                 <span className={s.confRowItemTitle}>{t("card_type")}</span>
-                <span className={s.confRowItemSubtitle}>{state.cardType.toLowerCase().capitalize()}</span>
+                <span className={s.confRowItemSubtitle}>{t(state.cardType.toLowerCase()).capitalize()}</span>
             </div>
             <div className={s.confRowItem}>
                 <span className={s.confRowItemTitle}>{t("cardholder").toLowerCase().capitalize()}</span>

@@ -193,7 +193,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("Comment")}</span>
+                <span className="font-medium">{t("comment")}</span>
               </div>
             </div>
             <div className="row">

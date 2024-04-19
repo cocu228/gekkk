@@ -165,7 +165,7 @@ export function AccessManagement(): JSX.Element | null{
                 }
               }}
             >
-              {t('Save')}
+              {t('save')}
             </Button>
           </div>
         </AreaWrapper>

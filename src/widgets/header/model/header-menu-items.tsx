@@ -21,7 +21,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value:"settings"
             },
-            icon: <IconApp size={18} code="t13" />
+            icon: <IconApp size={18} color="#285E69" code="t13" />
         },
         {
             item: t("card_managment"),
@@ -30,7 +30,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
             },
-            icon: <IconApp size={18} code="t22" />
+            icon: <IconApp size={18} color="#285E69" code="t22" />
         },
         {
             item: <GekkoinInvestPlatform/>,
@@ -39,7 +39,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp size={18} code="t21" />
+            icon: <IconApp color="#285E69" size={18} code="t21" />
         },
         {
             item: t('header_menu.support'),
@@ -48,7 +48,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "support",
             },
-            icon:<IconApp size={18} code="t25" />
+            icon:<IconApp color="#285E69" size={18} code="t25" />
         },
         {
             item: <EnableNotifications/>,
@@ -57,7 +57,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp size={20} code="t23" />
+            icon: <IconApp color="#285E69" size={20} code="t23" />
         },
         {
             item: t('header_menu.partnership'),
@@ -75,7 +75,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp size={20} code="t18" />
+            icon: <IconApp color="#285E69" size={20} code="t18" />
         },
         {
             item: t(''),
@@ -90,8 +90,6 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 justifyContent:"center",
                 width:"100%",
                 alignSelf:"center"
-
-
             }
         },
         {
@@ -101,7 +99,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "logout",
                 value: null,
             },
-            icon: <IconApp size={20} code="t20" color='#fff' />,
+            icon: <IconApp size={20} code="t20" color="#285E69" />,
             style: {
                 borderTop: "1px solid var(--color-gray-400)"
             }

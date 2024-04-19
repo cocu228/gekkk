@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next';
 import Dropdown from "@/shared/ui/dropdown/Dropdown";
 import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
 import { IconFlag } from "@/shared/ui/icons/icon-flag";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 export const LocalizationMenu = () => {
     const [state, setState] = useState("en")
@@ -26,9 +27,7 @@ export const LocalizationMenu = () => {
 
     return <>
         <Dropdown items={menu}
-                  trigger={<svg className="w-[24px] h-[24px]" >
-                    <use href={`/img/gek_flags_lib.svg#${state}`}></use>
-                </svg>}>
+                  trigger={<IconFlag code={state} size={24} />}>
         </Dropdown>
     </>
 }

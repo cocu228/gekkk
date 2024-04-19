@@ -261,7 +261,7 @@ const WithdrawConfirmPhoneNumber = ({
                         <div className={styles.ButtonContainer + " px-4"}>
                             <Button 
                                 size={"xl"}
-                                greenTransfer
+                                variant='greenTransfer'
                                 onClick={onConfirm}
                                 disabled={!totalCommission}
                                 className={styles.ButtonTwo}
@@ -269,7 +269,7 @@ const WithdrawConfirmPhoneNumber = ({
 
                             <Button
                                 size={"xl"}
-                                whiteGreenTransfer
+                                variant='whiteGreenTransfer'
                                 className={styles.ButtonTwo}
                                 onClick={()=>{
                                     handleCancel();

@@ -197,7 +197,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
         <div className={styles.ButtonContainer}>
           <Button
             size='xl'
-            blueTransfer
+            variant="blueTransfer"
             className='w-full'
             onClick={handleCancel}
           >

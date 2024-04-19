@@ -188,7 +188,7 @@ export function IssueNewCard() {
         >
           {t("proceed")}
         </Button>
-        <Button gray onClick={close}>
+        <Button variant='gray' onClick={close}>
           {t("back")}
         </Button>
       </div>

@@ -41,7 +41,7 @@ function ModalTrxStatusError({}: IParams) {
                     className='w-full'
                     onClick={handleCancel}
                     size='xl'
-                    blueTransfer
+                    variant="blueTransfer"
                 >
                     {t("close")}
                 </Button>

@@ -236,7 +236,7 @@ export default function customSearch() {
                     </Button>
                     <Button 
                         size='sm' 
-                        gray={true} 
+                        variant='gray'
                         className='grey' 
                         onClick={()=>{
                             setApply(false)

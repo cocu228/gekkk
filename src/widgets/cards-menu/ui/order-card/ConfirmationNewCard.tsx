@@ -120,7 +120,7 @@ export function ConfirmationNewCard() {
             <Button onClick={() => {
                 setIsOpen(true);
             }}>{t("order_card")}</Button>
-            <Button gray  onClick={() => {
+            <Button variant='gray'  onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
         </div>
@@ -179,7 +179,7 @@ export function ConfirmationNewCard() {
                     
                     setStep('CardHasBeenOrdered');
                 }}>{t("proceed")}</Button>
-                <Button gray onClick={() => {
+                <Button variant='gray' onClick={() => {
                     setIsOpen(false);
                 }}>{t("cancel")}</Button>
             </div>

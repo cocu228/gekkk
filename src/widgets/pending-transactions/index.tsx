@@ -142,7 +142,7 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
-                            greenTransfer
+                            variant='greenTransfer'
                             onClick={() => onContinue(true)}
                             className={styles.Button}
                             size='xl'
@@ -151,11 +151,10 @@ export const PendingTransactions = () => {
                         </Button>
 
                         <Button
-                            red
+                            variant='decline'
                             onClick={() => onContinue(false)}
                             className={styles.Button}
                             size='xl'
-                            decline
                         >
                             {t("decline")}
                         </Button>

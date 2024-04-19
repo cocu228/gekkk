@@ -146,7 +146,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         size="xl"
                         className="w-full mt-4"
                         onClick={onClose}
-                        blueTransfer
+                        variant="blueTransfer"
                     >
                         {t("close")}
                     </Button>

@@ -180,7 +180,7 @@ export function AccessManagement(): JSX.Element | null{
               <div className={styles.Button}>
                 <Button
                   className={styles.removeBtn}
-                  program={index===0}
+                  variant={index===0 ? 'program' : undefined}
                   onClick={()=>{
                     showModal()
                     setKeyToRemove(key)

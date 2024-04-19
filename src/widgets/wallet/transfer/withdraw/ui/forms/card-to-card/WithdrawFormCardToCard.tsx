@@ -508,7 +508,7 @@ const WithdrawFormCardToCard = () => {
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>
           <Button
-            greenTransfer
+            variant='greenTransfer'
             size={"xl"}
             className="w-full"
             onClick={showModal}

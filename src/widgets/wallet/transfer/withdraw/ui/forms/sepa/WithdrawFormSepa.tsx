@@ -182,7 +182,7 @@ const WithdrawFormSepa = () => {
             <div className={styles.ButtonContainerCenter}>
                 <Button
                     size={"xl"}
-                    greenTransfer
+                    variant='greenTransfer'
                     onClick={showModal}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}

@@ -7,20 +7,9 @@ const hClassName = new HelperClassName(styles)
 interface Props {
     htmlType: "button" | "submit" | "reset";
     disabled: boolean;
-    text: boolean;
+    variant: "gray" | "darkBlue" | "whiteGreenTransfer" | "text" | "greenTransfer" | "blueTransfer" | "decline" | "program" | undefined;
     custom: boolean;
-    program: boolean;
-    gray: boolean;
-    red: boolean;
-    darkBlue: boolean;
-    whiteGreenTransfer:boolean;
-    greenTransfer:boolean;
-    decline:boolean;
-    blueTransfer:boolean;
-    redTransferCode:boolean;
-    greenTransferCode:boolean;
     size: "xs" | "sm" | "md" | "lg" | "xl" | undefined;
-    tabIndex: number;
     onClick: React.MouseEventHandler;
     onSubmit: React.FormEventHandler;
     children: React.ReactNode;
@@ -33,34 +22,22 @@ const Button = memo<Partial<Props>>(
          htmlType = "button",
          className,
          size,
-         program = false,
-         gray = false,
-         red = false,
-         darkBlue = false,
+         variant,
          custom = false,
-         text = false,
-         whiteGreenTransfer = false,
-         greenTransfer = false,
-         decline = false,
-         blueTransfer = false,
-         redTransferCode = false,
-         greenTransferCode = false,
          ...props
      }): JSX.Element | null => {
+
         return (
             <button data-size={size} className={hClassName
                 .while(!!className).do(className)
-                .while(gray).do("Gray")
-                .while(red).do("Red")
-                .while(text).do("Text")
-                .while(darkBlue).do("darkBlue")
-                .while(whiteGreenTransfer).do("whiteGreenTransfer")
-                .while(greenTransfer).do("GreenTransfer")
-                .while(decline).do("Decline")
-                .while(blueTransfer).do("blueTransfer")
-                .while(redTransferCode).do("RedTransferCode")
-                .while(greenTransferCode).do("GreenTransferCode")
-                .while(program).do("Program")
+                .while(variant==='gray').do("Gray")
+                .while(variant==='text').do("Text")
+                .while(variant==='decline').do("Decline")
+                .while(variant==='darkBlue').do("darkBlue")
+                .while(variant==='whiteGreenTransfer').do("whiteGreenTransfer")
+                .while(variant==='greenTransfer').do("GreenTransfer")
+                .while(variant==='blueTransfer').do("blueTransfer")
+                .while(variant==='program').do("Program")
                 .scss(custom ? "" : "Button")}
                     type={htmlType}
                     {...props}

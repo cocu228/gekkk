@@ -69,7 +69,7 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
         </div>
         <div className={styles.CashbackCardButton}>
           {(toNoFeeProgram || toCashbackProgram) && <Button
-            program
+            variant='program'
             onClick={toNoFeeProgram
               ? () => navigate('/wallet?currency=GKE&tab=no_fee_program') 
               : () => navigate('/wallet?currency=GKE&tab=cashback_program')

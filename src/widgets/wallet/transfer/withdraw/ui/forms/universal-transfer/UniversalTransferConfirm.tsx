@@ -211,7 +211,7 @@ const UniversalTransferConfirm = ({
                             <Button htmlType={"submit"}
                                 size={"xl"}
                                 onClick={onConfirm}
-                                greenTransfer
+                                variant='greenTransfer'
                                 className={styles.ButtonTwo}
                             >
                                 Confirm
@@ -221,7 +221,7 @@ const UniversalTransferConfirm = ({
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
                                 size={"xl"}
-                                whiteGreenTransfer
+                                variant='whiteGreenTransfer'
                             >
                                 {t("cancel")}
                             </Button>

@@ -37,7 +37,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
 
                     <div className="flex gap-[16px] mt-[16px]">
                         <Button
-                            gray
+                            variant="gray"
                             size="sm"
                             className="flex-1"
                             onClick={() => {
@@ -47,7 +47,7 @@ function CryptoAssetCard({title, balance, currency, price}: Props) {
                         >{t("top_up")}</Button>
 
                         <Button
-                            gray
+                            variant="gray"
                             size="sm"
                             className="flex-1"
                             onClick={() => {

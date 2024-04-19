@@ -158,7 +158,7 @@ const SmsCodeModal = ({
                 /> */}
               </Form.Item>
               <div className="flex gap-4 mt-4">
-                <Button gray className="basis-2/4" onClick={handleCancel}>
+                <Button variant='gray' className="basis-2/4" onClick={handleCancel}>
                   {t("cancel")}
                 </Button>
 

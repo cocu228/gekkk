@@ -1,7 +1,7 @@
 import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
 import Loader from '../chat-authorized/ui/loader/Loader';
-import {Fragment, useContext, useEffect, useRef, useState} from 'react';
+import {useState, Fragment, useEffect, useRef, useContext} from 'react';
 import {FormInstance, message} from 'antd';
 import StompInit from '../chat-authorized/stomp-init/StompInit';
 import {apiPostFile} from '../chat-authorized/api/post-file';
@@ -15,10 +15,11 @@ import useChatMessages from '../chat-authorized/model/hooks/useChatMessages';
 import {getCookieData} from "@/shared/lib/helpers";
 import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
 import Message from '../chat-authorized/message/Message';
+import NewHeader from '@/widgets/new-header/ui/NewHeader';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 
 const SupportChatUnauthorized = () => {
-    const { phone, token, tokenHeaderName } = getCookieData<{
+    const {phone, token, tokenHeaderName} = getCookieData<{
         phone: string,
         token: string,
         tokenHeaderName: string
@@ -38,7 +39,7 @@ const SupportChatUnauthorized = () => {
     const [deviceIdHash] = useDeviceIdHash();
     const {md} = useContext(BreakpointsContext);
     const sessionId = useSessionId(deviceIdHash);
-    const { messages, setMessages } = useChatMessages(sessionId);
+    const {messages, setMessages} = useChatMessages(sessionId);
     const [isWebSocketReady, setIsWebSocketReady] = useState(false);
     const chatWindowRef = useRef(null);
 
@@ -55,7 +56,8 @@ const SupportChatUnauthorized = () => {
 
 
     const handleSendMessage = async (values: MessageFormValues, form: FormInstance<any>) => {
-        if (!values.message || !sessionId) {
+        // if (!values.message || !sessionId) {
+        if (!values.message) {
             message.error('Type your message before submit')
             return
         }
@@ -67,7 +69,7 @@ const SupportChatUnauthorized = () => {
     };
 
     const handleSendFile = async (options: any) => {
-        const { file, onSuccess, onError } = options;
+        const {file, onSuccess, onError} = options;
 
         if (!sessionId) return
 
@@ -87,8 +89,8 @@ const SupportChatUnauthorized = () => {
         <div
             style={{backgroundColor: "var(--new-brand-white)"}}
         >
-            {/*<NewHeader />*/}
-            <div className={`${styles.SupportChatComponent} ${md? "px-[5%]" : "px-[16.25rem] py-20"}  pb-6`}>
+            <NewHeader/>
+            <div className={`${styles.SupportChatComponent} ${md ? "px-[5%]" : "px-[16.25rem] py-20"}  pb-6`}>
                 <StompInit
                     chatConfig={chatConfig}
                     deviceIdHash={deviceIdHash}
@@ -100,22 +102,23 @@ const SupportChatUnauthorized = () => {
                 <AxiosChatInterceptor chatToken={chatConfig.token}>
                     <div>
                         <span className='top-6 left-2 relative typography-h1'>
-                            <PageHead title={`Support chat`} />
+                            <PageHead title={`Support chat`}/>
                         </span>
-                        <div className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
+                        <div
+                            className={`${styles.ChatWrapper} rounded-sm max-w-full px-10 py-2.6 pt-2 flex flex-col justify-between pb-2`}>
 
                             <div className={`${!md && "h-[38rem]"} overflow-scroll`} ref={chatWindowRef}>
-                                {!isWebSocketReady ? <Loader /> : (
+                                {!isWebSocketReady ? <Loader/> : (
                                     <div>
                                         {messages?.map((message, i, arr) => (
                                             <Fragment key={message.id}>
-                                                <Message key={message.id} message={message} />
+                                                <Message key={message.id} message={message}/>
                                             </Fragment>
                                         ))}
                                     </div>
                                 )}
                             </div>
-                            <MessageForm onSubmit={handleSendMessage} onFileUpload={handleSendFile} />
+                            <MessageForm onSubmit={handleSendMessage} onFileUpload={handleSendFile}/>
                         </div>
                     </div>
                 </AxiosChatInterceptor>

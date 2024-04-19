@@ -64,10 +64,10 @@ const router = createBrowserRouter([
                         path: '',
                         element: <Support/>
                     },
-                    // {
-                    //     path: 'chat',
-                    //     element: <SupportChatAuthorized/>
-                    // },
+                    {
+                        path: 'chat',
+                        element: <SupportChatAuthorized/>
+                    },
                 ]
             },
             {
@@ -109,10 +109,10 @@ const router = createBrowserRouter([
             }
         ],
     },
-    // {
-    //     path: 'chat',
-    //     element: <SupportChatUnauthorized/> 
-    // },
+    {
+        path: 'chat',
+        element: <SupportChatUnauthorized/> 
+    },
     {
         path: "*",
         element: <PageProblems/>

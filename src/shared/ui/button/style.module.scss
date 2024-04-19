@@ -12,8 +12,6 @@
   padding: 8px 15px;
   transition: all ease-out 0.2s;
 
-
-
   &:focus {
     outline: none;
   }
@@ -61,6 +59,7 @@
       border-color: #2BAB72;
     }
   }
+
   &.Program{
     border-radius: 19.5px;
     background: white;
@@ -69,6 +68,7 @@
     font-weight: 600;
     font-size: 15px;
   }
+
   &.Text {
     padding: 0 4px;
     font-size: 16px;
@@ -78,11 +78,13 @@
     border: none;
     box-shadow: none;
   }
-  &.darkBlue {
+
+  &.DarkBlue {
     color: var(--color-gray-400);
     background: none;
     border: 1px solid var(--color-gray-400);
     box-shadow: none;
+
     &:hover{
       color: #ffffff;
       background: #285E69;
@@ -90,7 +92,7 @@
     }
   }
 
-  &.whiteGreenTransfer{
+  &.WhiteGreenTransfer{
     color:#2BAB72;
     background: #F7F7F0;
     border: 2px solid #2BAB72;
@@ -128,6 +130,7 @@
       font-weight: bold;
     }
   }
+
   &.GreenTransfer{
     color:#FFFFFF;
     background: #45AD77;
@@ -165,7 +168,8 @@
       font-weight: bold;
     }
   }
-  &.blueTransfer{
+
+  &.BlueTransfer{
     color:#ffffff;
     background: #285E69;
     box-shadow: none;
@@ -239,5 +243,4 @@
       font-weight: bold;
     }
   }
-
 }

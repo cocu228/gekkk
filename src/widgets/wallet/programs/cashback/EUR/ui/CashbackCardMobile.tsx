@@ -1,14 +1,10 @@
-import { ActiveBonusProgram } from '@/shared/api/bank/deals';
-import useModal from '@/shared/model/hooks/useModal';
-import Button from '@/shared/ui/button/Button';
-import Checkbox from '@/shared/ui/checkbox/Checkbox';
-import Modal from '@/shared/ui/modal/Modal';
 import { memo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import SmsCodeModal from './SmsCodeModal';
 import styles from './style.module.scss';
-import SvgComponent from '@/shared/ui/icons/IconSchema';
+import Button from '@/shared/ui/button/Button';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import useModal from '@/shared/model/hooks/useModal';
+import { ActiveBonusProgram } from '@/shared/api/bank/deals';
 
 interface Props {
   cashbackId: ActiveBonusProgram,
@@ -22,16 +18,13 @@ interface Props {
 }
 
 const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, className, modalColor, iconPath, conditions, isActive }) => {
+  const {t} = useTranslation();
   const navigate = useNavigate();
-  const {t} = useTranslation()
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  // const { isModalOpen: isSmsModalOpen, showModal: showSmsModal, handleCancel: handleSmsCancel } = useModal();
-
+  const {showModal} = useModal();
   const [isChecked, setChecked] = useState(false);
 
-  const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
   const toCashbackProgram = cashbackId === ActiveBonusProgram.CASHBACK1;
-
+  const toNoFeeProgram = cashbackId === ActiveBonusProgram.CASHBACK_FIAT;
 
   return (
     <div className='flex flex-col relative pb-20 justify-center'>
@@ -88,21 +81,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
                 ))}
               </ul>
             </div>
-           
-            <div className='mx-[30px]'>
-            
-              
-            
-            </div>
           </div>
-      {/* {isSmsModalOpen &&
-        <SmsCodeModal
-          cashbackId={cashbackId}
-          isModalOpen={isSmsModalOpen}
-          handleCancel={handleSmsCancel}
-          action={!isActive ? 'start' : 'stop'}
-        />
-      } */}
       <div className={styles.CashbackCardButton + " " + styles.CashbackCardButtonMobile}>
           {(toNoFeeProgram || toCashbackProgram) && 
             <Button

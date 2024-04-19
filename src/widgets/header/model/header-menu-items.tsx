@@ -5,8 +5,6 @@ import {THeaderMenuList} from "@/widgets/header/model/types";
 
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 
-import { IconPromo } from "@/shared/ui/icons/IconPromo";
-import { IconLogout } from "@/shared/ui/icons/IconLogout";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 /**
@@ -24,7 +22,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             icon: <IconApp size={18} color="#285E69" code="t13" />
         },
         {
-            item: t("card_managment"),
+            item: t("card_management"),
             id:"cardManagment",
             action:{
                 type: "link",

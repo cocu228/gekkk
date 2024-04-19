@@ -6,6 +6,7 @@ import styles from "./style.module.scss";
 import {
   MouseEvent,
   MouseEventHandler,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -46,6 +47,7 @@ import MobileModal from "@/shared/ui/modal/MobileModal";
 import { Typography } from "@/shared/ui/typography/typography";
 import { Outlet } from "react-router-dom";
 import { useCardStore } from "../model/currentCardStore";
+import { CtxRootData } from "@/processes/RootContext";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -70,6 +72,9 @@ const MobileCardsMenu = ({
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const [isOrderOpened, setIsOrderOpened] = useState<boolean>(false);
   const [accountDetails, setAccountDetails] = useState<ClientDetails>(null);
+
+  const {account} = useContext(CtxRootData)
+
   const { inputCurr: limitAmount, setInputCurr: setLimitAmount } =
     useInputState();
   const [cardsStorage, setCardsStorage] = useState<{
@@ -96,7 +101,7 @@ const MobileCardsMenu = ({
         console.log(err);
       }
     })();
-  }, []);
+  }, [account]);
 
   const updateCard = (card: ICardData) => {
     setCardsStorage({
@@ -305,54 +310,27 @@ const MobileCardsMenu = ({
   if (selectedItem == "how-it-works") {
     return (
       <div className="flex items-center justify-center">
-        <div className="substrate w-full rounded-xl">
+        <div className={styles.HowItWorksWrap}>
           <p className={`typography-b1 ${styles.howText}`}>
-            The function of setting / disabling limits allows you to create
-            limits yourself, which regulate your expenses on your card. Limits
-            apply to the following card transactions:
+            {t("the_function_of_setting_disabling_limits_allows")}
             <br />
-            -Cash withdrawal from the card
+            -{t("cash_withdrawal_from_the_card")}
             <br />
-            -Payment of purchases on the card
+            -{t("payment_of_purchases_on_the_card")}
             <br />
-            Day limit
+            {t("day_limit")}
             <br />
-            It is possible to indicate the maximum amount of transactions within
-            one day. For example, if you specify a daily limit of 1000 EUR, you
-            will not be able to carry out transactions (cash withdrawals and
-            purchases) of more than 1000 EUR in one day. In «Available» field
-            you can see the amount available for use before reaching the limit.
-            If some amount is held when making a cash withdrawal or purchase,
-            then the Available value is also reduced by this amount. If the
-            daily limit is reached, you will not be able to pay for the purchase
-            or withdraw cash from the card.
+            {t("it_is_possible_to_indicate_the_maximum_amount_of_transactions")}
             <br />
-            Month Limit
+            {t("month_limit")}
             <br />
-            Here it is possible to indicate the amount of expenses within one
-            month from the moment the limit is set, for example, 10 000 EUR. In
-            the case of such a setting, it will not be possible to carry out
-            transactions (cash withdrawals and purchases) by more than 10,000
-            EUR per month. If specified Daily Limit is more than specified
-            Monthly limit, the value of the Monthly Limit is automatically
-            increased to the value of the Daily Limit. In «Available» field you
-            can see the amount available for use before reaching the limit. If
-            some amount is held when making a cash withdrawal or purchase, then
-            the Available value is also reduced by this amount. If the Monthly
-            limit is reached, you will not be able to pay for the purchase or
-            withdraw cash from the card.
+            {t("here_it_is_possible_to_indicate_the_amount_of_expenses")}
             <br />
-            Temporarily disable limits
+            {t("temporarily_disable_limits")}
             <br />
-            To temporarily deactivate Daily and Monthly limits you should turn
-            the "Disable Limits Temporarily” switch to the ON position. You can
-            only deactivate limits until the first cash withdrawal or purchase
-            transaction, or until 3 minutes have passed since the deactivation.
-            After that the "Disable Limits Temporarily” switch automatically
-            returns to the OFF position. Next to the switch "Disable Limits
-            Temporarily”, the timeout counter is displayed.
+            {t("to_temporarily_deactivate_daily_and_monthly_limits")}
           </p>
-          <div className="mt-5 h-[50px] flex items-center justify-center">
+          <div className={styles.HowItWorksBtnWrap}>
             <MobileButton
               className="w-[115px]"
               onClick={() => setSelectedItem("")}
@@ -367,7 +345,9 @@ const MobileCardsMenu = ({
 
   if (selectedItem === "showData") {
     return (
-      <div className="mt-10 flex flex-column justify-center w-full">
+      <div
+        className={styles.ShowDataWrap}
+      >
         <div className="substrate flex rounded-lg w-full">
           {!cardInfo ? (
             <Loader className="relative my-10" />
@@ -381,7 +361,7 @@ const MobileCardsMenu = ({
               </div>
 
               <div
-                className={`flex items-center justify-center mt-4 ${styles.infoContainer} min-h-[40px]`}
+                className={`${styles.InfoContainerFirst} ${styles.infoContainer}`}
               >
                 <span className="typography-b1">
                   **** **
@@ -393,7 +373,7 @@ const MobileCardsMenu = ({
               </div>
               <div className="flex flex-row gap-4 mt-2">
                 <div
-                  className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}
+                  className={`${styles.InfoContainerSecond} ${styles.infoContainer}`}
                 >
                   <span className="typography-b1">
                     <span className={styles.infoPlaceholder}>CV/CVV</span>
@@ -401,7 +381,7 @@ const MobileCardsMenu = ({
                   </span>
                 </div>
                 <div
-                  className={`flex items-center justify-center px-2 ${styles.infoContainer} flex-1 min-h-[40px]`}
+                  className={`${styles.InfoContainerSecond} ${styles.infoContainer}`}
                 >
                   <span className="typography-b1">
                     <span className={styles.infoPlaceholder}>PIN</span>
@@ -410,7 +390,7 @@ const MobileCardsMenu = ({
                 </div>
               </div>
 
-              <div className="mt-3 flex flex-row justify-end min-h-[40px]">
+              <div className={styles.InfoBtnWrap}>
                 <MobileButton
                   onClick={() => {
                     setSelectedItem("f");
@@ -428,7 +408,7 @@ const MobileCardsMenu = ({
   }
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className={styles.CarouselWrap}>
       <div className={styles.CarouselBlock}>
         <div className={styles.CarouselBlockMobile}>
           <BankCardsCarousel
@@ -515,10 +495,10 @@ const MobileCardsMenu = ({
               setSelectedItem("how-it-works");
             }}
           >
-            How it works?
+            {t("how_it_works")}
           </a>
 
-          <div className="flex flex-row min-h-[43px] justify-between w-full mb-10">
+          <div className={styles.FooterBtnsWrap}>
             <MenuButton
               onClick={onClick}
               dataItem={
@@ -537,7 +517,7 @@ const MobileCardsMenu = ({
             <MenuButton
               onClick={() => setIsNewCardOpened(true)}
               varitant="light"
-              className="w-[135px] flex flex-row gap-1 items-center justify-center"
+              className={styles.FooterLightBtn}
             >
               <div>{t("order_new_card")}</div>
             </MenuButton>
@@ -556,7 +536,7 @@ const MobileCardsMenu = ({
                 {selectedItem === "blockCard" && (
                   <div>
                     <div className={`row mb-5`}>
-                      <div className="col flex flex-col items-center gap-3">
+                      <div className={styles.WarningWrap}>
                         <Warning />
                         <h1 className={styles.blocker}>Block card</h1>
                         <p className={styles.ghost}>
@@ -638,7 +618,7 @@ const MobileCardsMenu = ({
 
                 <Form onFinish={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
-                    <div className="flex flex-row min-h-[43px] justify-between">
+                    <div className={styles.FormBody}>
                       <MobileButton
                         className={`w-[120px] ${styles.lightButton}`}
                       >

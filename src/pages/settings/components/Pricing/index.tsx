@@ -1,18 +1,18 @@
-import { Box, Typography } from '@mui/material'
-
 import { AreaWrapper } from '../AreaWrapper'
 import { Item } from './components/Item'
 import { useContext } from 'react'
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider'
 import { useTranslation } from 'react-i18next'
 
+import s from './styles.module.scss'
+
 export function Pricing() {
   const {xl} = useContext(BreakpointsContext)
   const {t} = useTranslation()
   return (
     <AreaWrapper title={t("my_tariffs")}>
-      <Box paddingTop="36px" gap="16px" display="flex" flexDirection={xl ? 'column' : 'row'} justifyContent="space-between">
-        <Box display="flex" gap="36px" flexDirection="column">
+      <div className={`${s.tableWrap} ${xl && s.tableWrapXl}`}>
+        <div className={s.tableRow}>
           <Item
             title={t("fees_and_limits_on_transfers")}
             rows={[
@@ -29,8 +29,8 @@ export function Pricing() {
               { title: t("commission_for_using_mobile"), value: '0 EUR' },
             ]}
           />
-        </Box>
-        <Box display="flex" gap="36px" flexDirection="column">
+        </div>
+        <div className={s.tableRow}>
           <Item
             title={t("bonus_programs")}
             rows={[
@@ -50,8 +50,8 @@ export function Pricing() {
             ]}
             description={t("the_fee_to_be_taken", {months: 6})}
           />
-        </Box>
-        <Box display="flex" gap="36px" flexDirection="column">
+        </div>
+        <div className={s.tableRow}>
           <Item
             title={t("additional_services")}
             rows={[
@@ -63,8 +63,8 @@ export function Pricing() {
               { title: t("card_express"), value: t("price_depends_on_the") },
             ]}
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
     </AreaWrapper>
   )
 }

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { randomId } from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import { CtxExchangeData } from "../model/context";
-import IconSwap from "@/shared/ui/icons/IconSwap";
 import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";
 import Dropdown from "@/shared/ui/dropdown/Dropdown";
@@ -41,6 +40,7 @@ import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -252,7 +252,7 @@ function Exchange() {
                       !(from.currency && to.currency) ? styles.Disabled : ""
                     }`}
                   >
-                    <IconSwap />
+                    <IconApp code='t36' size={27} color="#B9B9B5" />
                   </div>
                 </div>
 

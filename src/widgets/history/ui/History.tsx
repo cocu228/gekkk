@@ -184,16 +184,16 @@ const History = memo(function ({
       </div>
     );
   }
-  // if (loading) {
-  //   return (
-  //     <div
-  //       id="MainContainerHistoryMobile"
-  //       className={"h-[100px] relative"}
-  //     >
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div
+        id="MainContainerHistoryMobile"
+        className={"h-[100px] relative"}
+      >
+        <Loader />
+      </div>
+    );
+  }
   if (!md) {
     return (
       <>

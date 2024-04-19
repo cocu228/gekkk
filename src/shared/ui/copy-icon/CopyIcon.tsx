@@ -1,3 +1,5 @@
+import { IconApp } from "../icons/icon-app";
+
 const CopyIcon = ({value}) => {
 
     const onClick = () => {
@@ -5,10 +7,12 @@ const CopyIcon = ({value}) => {
     }
 
     return <>
-        <img className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100'
-                         src={`/img/icon/Copy.svg`}
-                         alt='copy'
-                         onClick={onClick}
+        <IconApp
+            onClick={onClick}
+            code="t31" 
+            color="#636e72" 
+            className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100' 
+            size={17} 
         />
     </>
 }

@@ -1,0 +1,35 @@
+.languageWrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.languageItem {
+    border-radius: 0.5rem;
+    gap: 1rem;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 40px;
+}
+
+.languageTitle {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.languageSubTitle {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #1F3446;
+}

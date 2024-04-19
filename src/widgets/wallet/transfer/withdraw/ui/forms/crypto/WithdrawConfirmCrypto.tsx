@@ -26,8 +26,8 @@ import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import styles from "../styles.module.scss";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
   status: null,
@@ -183,7 +183,7 @@ const WithdrawConfirmCrypto = memo(
                 <div className={`wrapper ${styles.ModalInfo}`}>
                   <div className={styles.ModalInfoIcon}>
                     <div className="col">
-                      <WarningIcon />
+                      <IconApp color="#8F123A" size={20} code="t27" />
                     </div>
                   </div>
                   <div className="row">
@@ -530,7 +530,7 @@ const WithdrawConfirmCrypto = memo(
                   <div className={`wrapper ${styles.ModalInfo}`}>
                     <div className={styles.ModalInfoIcon}>
                       <div className="col">
-                        <WarningIcon />
+                        <IconApp color="#8F123A" size={20} code="t27" />
                       </div>
                     </div>
                     <div className="row">

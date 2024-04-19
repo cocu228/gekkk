@@ -1,5 +1,6 @@
+import { getCookieData } from "@/shared/lib";
+import { useContext, useEffect } from "react";
 import { CtxRootData } from "@/processes/RootContext";
-import { useContext, useEffect, useState } from "react";
 
 interface IParams {
     children?: JSX.Element;
@@ -7,12 +8,11 @@ interface IParams {
 
 const SystemNotifications = ({children}: IParams) => {
     let esLink = null;
-    let activeNotify = null;
     const {setRefresh} = useContext(CtxRootData);
-    const [counter, setCounter] = useState<number>(0);
+    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
 
-    function displaySystemNotification(notify) {        
-        if (Notification?.permission === "granted") {
+    function displaySystemNotification(notify) {
+        if (Notification?.permission === "granted" && notificationsEnabled === 'true') {
             let img = "https://web.gekkard.com/img/favicon/icon.svg";
             let text = "You have a new crypto transactions. ";
             let title = "Incoming crypto funds";
@@ -33,38 +33,38 @@ const SystemNotifications = ({children}: IParams) => {
                     return;
             }
             
-            // Notification.requestPermission(function(result) {
-            //     if (result === 'granted') {
-            //         navigator.serviceWorker.ready.then(function(registration) {
-            //             registration.showNotification('ServiceWorker: new transaction', {
-            //                 body: text, icon: img, tag: "gekkardTx"
-            //             });
-            //         });
-            //     }
-            // });
+            navigator.serviceWorker.getRegistration('./sw.js')
+                .then((registration) => {
+                    registration?.showNotification(title, {
+                        icon: img,
+                        body: text,
+                        tag: "gekkardTx"
+                    });
 
-            activeNotify = new Notification(title, { body: text, icon: img, tag: "gekkardTx" });
-
-            // activeNotify.onclick = function () {
-            //     window.open("https://web.gekkard.com/wallet?currency=");
-            // };
+                    console.log('notification displayed')
+                });
         }
     }
+    
     function connectES() {
         esLink = new EventSource(import.meta.env.VITE_API_URL + "notify/v1/Subscribe", { withCredentials: true });
+        
         esLink.onmessage = ev => handleReceivedMessage(ev.data);
         esLink.onerror = ev => {
             console.error(ev);
         };
     }
-    function closeES() {
-        esLink?.close();
-    }
-    function requestPerm() {
-        Notification.requestPermission();
-    }
+    
+    // function closeES() {
+    //     esLink?.close();
+    // }
+    
+    // function requestPerm() {
+    //     Notification.requestPermission();
+    // }
+
     function handleReceivedMessage(message) {
-        setCounter(prev => prev + 1);
+        setRefresh();
 
         if (typeof message !== "string") {
             console.log(message);
@@ -75,22 +75,23 @@ const SystemNotifications = ({children}: IParams) => {
 
             console.log(jsonValue);
 
-            //if (!document.hasFocus())
             displaySystemNotification(jsonValue);
-            setRefresh();
-
         } catch (err) {
             console.error(err);
         }
     }
 
     useEffect(() => {
+        if (notificationsEnabled === 'true') {
+            navigator.serviceWorker.register('./sw.js');
+            
+            console.log('registered sw')
+        }
+
         connectES();
     }, []);
 
     return <div>
-        <div className="w-full flex justify-center">Undated: {counter}</div>
-
         {children}
     </div>;
 }

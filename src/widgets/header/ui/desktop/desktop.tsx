@@ -8,7 +8,6 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import {getInitialProps, useTranslation} from "react-i18next";
-import { IconLogout } from "@/shared/ui/icons/IconLogout";
 import { IconAccount } from "@/shared/ui/icons/IconAccount";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
@@ -115,7 +114,7 @@ const HeaderDesktop = ({items, actions}) => {
                 <button onClick={logout}>
                     <div className={styles.HeaderItemsContainer}>
                         <div className="ml-5" data-testid="Logout">
-                            <IconLogout color='#fff' />
+                            <IconApp color='#fff' code="t20" size={22} />
                         </div>
                         <span className={styles.HeaderMenuTitles}>{t("logout")}</span>
                     </div>

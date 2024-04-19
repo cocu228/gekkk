@@ -1180,7 +1180,7 @@
     "card_blocked_by_client": "Card blocked by client",
     "select_country": "Select country",
     "enter_house_number": "Enter house number",
-    "enter_fiat_number": "Enter fiat number",
+    "enter_flat_number": "Enter flat number",
     "enter_recipient_name": "Enter recipient name",
     "country_not_found": "Country not found",
     "btc": {

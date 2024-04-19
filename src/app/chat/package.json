@@ -1,0 +1,35 @@
+{
+  "name": "chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "local": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "local-auth": "vite",
+    "build-auth": "tsc && vite build",
+    "PRD": "tsc && vite build --mode production",
+    "STG": "tsc && vite build --mode staging",
+    "DEV": "tsc && vite build --mode development"
+  },
+  "alias": {
+    "react": "preact-compat",
+    "react-dom": "preact-compat"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.28",
+    "preact": "^10.20.1",
+    "sweetalert2": "^11.10.5",
+    "styled-components": "^5.3.11",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "2.1.4",
+    "@preact/preset-vite": "^2.7.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-css-injected-by-js": "^3.3.1"
+  }
+}

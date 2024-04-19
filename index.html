@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <link rel="preload" href="/init_logo.css?v1" as="style">    
+    <link rel="preload" href="/init_logo.css?v1" as="style">
     <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico"/>
     <link rel="icon" type="image/x-icon" sizes="64x64" href="/img/favicon/favicon-64x64.ico"/>
     <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/favicon-192x192.png">
@@ -55,6 +55,24 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover, user-scalable=no"/>
     <link rel="stylesheet" href="/init_logo.css?v1">
     <title>Gekkard</title>
+    <style>
+        #chat {
+            display: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            #chat {
+                top: 65px;
+                width: 100% !important;
+                height: calc(100% - 65px) !important;
+            }
+        }
+
+        #chat.isOpen {
+            z-index: 100;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -122,7 +140,9 @@
 
     </div>
 </div>
-<div id="chat"></div>
+<div style="width: 400px; height: 600px; position: fixed; bottom: 0; right: 0" id="chat">
+
+</div>
 <script async type="module" src="/src/app/init.ts"></script>
 
 </body>

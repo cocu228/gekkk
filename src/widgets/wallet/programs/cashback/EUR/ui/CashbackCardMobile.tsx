@@ -82,17 +82,19 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
               </ul>
             </div>
           </div>
-      <div className={styles.CashbackCardButton + " " + styles.CashbackCardButtonMobile}>
+      <div className={styles.CashbackCardButtonContainer + " " + styles.CashbackCardButtonContainerMobile}>
           {(toNoFeeProgram || toCashbackProgram) && 
             <Button
-              variant='program'
+              custom
+              className={`${styles.CashbackCardButton} ${!(toNoFeeProgram || toCashbackProgram)
+                ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none'
+                : ''}
+              `}
+              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
               onClick={toNoFeeProgram
                 ? () => navigate('/wallet?currency=GKE&tab=no_fee_program')
                 : () => navigate('/wallet?currency=GKE&tab=cashback_program')
               } 
-              disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
-
-              className={`whitespace-nowrap ${!(toNoFeeProgram || toCashbackProgram) ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
             >
               <div className='flex flex-row'>
                 <div className='flex items-center mr-2 ml-2'>

@@ -66,12 +66,15 @@ const CashbackCard = memo<Props>(({
             </span> 
         </div>
 
-        <div className={styles.CashbackCardButton}>
+        <div className={styles.CashbackCardButtonContainer}>
           {(toNoFeeProgram || toCashbackProgram) && (
             <Button
-              variant='program'
+              custom
+              className={`${styles.CashbackCardButton} ${!(toNoFeeProgram || toCashbackProgram)
+                ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none'
+                : ''}
+              `}
               disabled={!isChecked && !isActive && !(toNoFeeProgram || toCashbackProgram)}
-              className={`whitespace-nowrap ${!(toNoFeeProgram || toCashbackProgram) ? 'cursor-auto hover:!shadow-none active:!shadow-none active:!bg-none' : ''}`}
               onClick={toNoFeeProgram
                 ? () => navigate('/wallet?currency=GKE&tab=no_fee_program') 
                 : () => navigate('/wallet?currency=GKE&tab=cashback_program')

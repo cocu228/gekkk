@@ -929,7 +929,7 @@
     "enter_city_name": "Введите название города",
     "enter_street_name": "Введите название улицы",
     "enter_house_number": "Введите номер дома",
-    "enter_fiat_number": "Введите номер Fiat",
+    "enter_flat_number": "Введите номер квартиры",
     "enter_recipient_name": "Введите имя получателя",
     "country_not_found": "Страна не найдена",
     "btc": {

@@ -911,7 +911,7 @@
     "enter_city_name": "Stadtname eingeben",
     "enter_street_name": "Straßenname eingeben",
     "enter_house_number": "Hausnummer eingeben",
-    "enter_fiat_number": "Fiat-Nummer eingeben",
+    "enter_flat_number": "Geben Sie die Wohnungsnummer ein",
     "enter_recipient_name": "Empfängernamen eingeben",
     "country_not_found": "Land nicht gefunden",
     "btc": {

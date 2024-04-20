@@ -318,7 +318,7 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
       <div className="row mb-8 w-full">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col">
           <div className="row min-w-[80px] mb-2 mr-5">
             <div className="col w-full">
               <span className="w-full text-[#1F3446] text-[12px] font-semibold">
@@ -326,46 +326,49 @@ const WithdrawFormCardToCard = () => {
               </span>
             </div>
           </div>
-          <div className="flex justify-end w-full">
-            <div className="col w-full">
-              <SearchSelect
-                className="row"
-                value={inputs.selectedCard}
-                notFoundContent={
-                  <div className="my-3">{t("no_active_cards")}</div>
-                }
-                placeholder={
-                  <span className="font-normal text-gray-400">
-                    {t("choose_source_card")}
-                  </span>
-                }
-                prefixIcon={
-                  inputs.selectedCard ? <IconCoin code={"EUR"} /> : null
-                }
-                onChange={(val: string) => {
-                  setInputs(() => ({
-                    ...inputs,
-                    selectedCard: val,
-                  }));
-                }}
-              >
-                {cards
-                  ?.filter((c) => c.cardStatus === "ACTIVE")
-                  .map((c) => (
-                    <Option
-                      value={c.cardId}
-                      label={formatCardNumber(c.displayPan)}
-                    >
-                      <div>{formatCardNumber(c.displayPan)}</div>
-                    </Option>
-                  ))}
-              </SearchSelect>
+          <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#DCDCD9]">
+              <div className="basis-full">
+                <SearchSelect
+                  value={inputs.selectedCard}
+                  notFoundContent={
+                    <div className="my-3">{t("no_active_cards")}</div>
+                  }
+                  placeholder={
+                    <span className="font-normal text-gray-400">
+                      {t("choose_source_card")}
+                    </span>
+                  }
+                  onChange={(val: string) => {
+                    setInputs(() => ({
+                      ...inputs,
+                      selectedCard: val,
+                    }));
+                  }}
+                >
+                  {cards
+                    ?.filter((c) => c.cardStatus === "ACTIVE")
+                    .map((c) => (
+                      <Option
+                        value={c.cardId}
+                        label={formatCardNumber(c.displayPan)}
+                      >
+                        <div>{formatCardNumber(c.displayPan)}</div>
+                      </Option>
+                    ))}
+                </SearchSelect>
+              </div>
+            </div>
+            <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
+                </svg>
             </div>
           </div>
         </div>
       </div>
       <div className="row mb-8 w-full">
-        <div className="flex justify-between flex-row items-center">
+        <div className="flex flex-col">
           <div className="row min-w-[80px] mb-2 mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">
@@ -391,7 +394,7 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
       <div className="row mb-8 w-full">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col">
           <div className="row min-w-[80px] mb-2 mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">
@@ -417,7 +420,7 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
       <div className="row mb-8 w-full">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-col">
           <div className="row min-w-[80px] mb-2 mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">

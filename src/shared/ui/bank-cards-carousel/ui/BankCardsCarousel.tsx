@@ -53,7 +53,7 @@ const BankCardsCarousel = ({
           afterChange={(i) => onSelect(cards[i])}
         >
           {cards.map((card) => (
-            <div className={`${cardClassName} mb-6`}>
+            <div key={card.cardId} className={`${cardClassName} mb-6`}>
               <BankCard
                 size={cardSize}
                 status={card.cardStatus}

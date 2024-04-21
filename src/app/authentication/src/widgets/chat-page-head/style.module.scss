@@ -16,7 +16,7 @@
   align-items: center; 
   @include max-devices(lg){
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
 }
 .Title{

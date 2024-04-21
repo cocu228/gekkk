@@ -36,10 +36,10 @@ const Support = () => {
                         <div className={styles.Email}>
                             <div className={styles.Icon}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42" fill="none">
-                                    <circle cx="21.0811" cy="21" r="19" stroke="#29354C" strokeWidth="3" />
-                                    <rect x="12.5811" y="17.5" width="18" height="12" rx="2" stroke="#29354C" strokeWidth="2" />
-                                    <line x1="13.1358" y1="20.6679" x2="22.1358" y2="26.6679" stroke="#29354C" strokeWidth="2" />
-                                    <line x1="21.0264" y1="26.6679" x2="30.0264" y2="20.6679" stroke="#29354C" strokeWidth="2" />
+                                    <circle cx="21.0811" cy="21" r="19" stroke="#29354C" stroke-width="3" />
+                                    <rect x="12.5811" y="17.5" width="18" height="12" rx="2" stroke="#29354C" stroke-width="2" />
+                                    <line x1="13.1358" y1="20.6679" x2="22.1358" y2="26.6679" stroke="#29354C" stroke-width="2" />
+                                    <line x1="21.0264" y1="26.6679" x2="30.0264" y2="20.6679" stroke="#29354C" stroke-width="2" />
                                     <rect x="16.0811" y="11" width="11" height="11" rx="1.5" fill="white" stroke="#29354C" />
                                     <line x1="18.5811" y1="13" x2="24.5811" y2="13" stroke="#29354C" />
                                     <line x1="18.5811" y1="16" x2="24.5811" y2="16" stroke="#29354C" />

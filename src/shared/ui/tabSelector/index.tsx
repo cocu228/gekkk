@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useId, useState } from "react";
 import styles from './style.module.scss'
 import { HistoryTab } from "@/widgets/history/model/types";
 import { useTranslation } from "react-i18next";
@@ -20,8 +20,8 @@ export default function TabSelector(props: Props) {
 
     return (
         <div className={styles.wrapper}>
-            {props.tabNames.map((elem)=> (
-                <div onClick={() => tabHandler(elem)} className={`${checkSelected(elem.Title)} ${styles.tab} h-40`}>
+            {props.tabNames.map((elem, index)=> (
+                <div key={index} onClick={() => tabHandler(elem)} className={`${checkSelected(elem.Title)} ${styles.tab} h-40`}>
                     {t(elem.Title)}
                 </div>
             ))}

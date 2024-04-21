@@ -23,7 +23,7 @@ export default class DropdownMenuFunctions {
 
 
     onClick = ({target}) => {
-        if (!this.ref.current.contains(target)) {
+        if (!this.ref.current?.contains(target)) {
             this.toggleOpen(false)
             this.removeEventListener()
         }

@@ -231,6 +231,7 @@ export default function customSearch() {
                             setApply(true)
                             applyHandler();
                         }}
+                        disabled={!date.every(el=>!!el)}
                     >
                         {t("apply")}
                     </Button>

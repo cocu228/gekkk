@@ -74,8 +74,6 @@ function GetDisplayedForm({curr}: Props) {
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))
     },[initialLanguage, networkTypeSelect])
-
-    console.log(networkTypeSelect);
     
 
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))

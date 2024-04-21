@@ -76,8 +76,6 @@ const History = memo(function ({
       (async () => {
         setLazyLoading(true);
 
-        console.log(lastValue?.next_key);
-
         const { data } = await apiGetHistoryTransactions({
           currencies: currenciesFilter,
           tx_types: types,
@@ -241,6 +239,7 @@ const History = memo(function ({
                     setItem={setSelectedItem}
                     showModal={showModal}
                     item={item}
+                    key={item.id_transaction}
                   />
                 </>
               );
@@ -303,7 +302,7 @@ const History = memo(function ({
             const doesPrevDateTimeExist =
               listHistory[index - 1]?.datetime !== undefined;
             return (
-              <div ref={ref}>
+              <div key={item.id_transaction} ref={ref}>
                 {!doesPrevDateTimeExist ? (
                   <div className={styles.DataMobile} key={index}>
                     {formatForHistoryMobile(item.datetime)}
@@ -320,6 +319,7 @@ const History = memo(function ({
                   setItem={setSelectedItem}
                   showModal={showModal}
                   item={item}
+                  key={item.id_transaction}
                 />
               </div>
             );

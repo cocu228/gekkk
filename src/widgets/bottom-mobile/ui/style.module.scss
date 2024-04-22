@@ -48,7 +48,7 @@
     @include max-devices(md) {
       background-color: transparent;
       position: fixed;
-      bottom: 70px;
+      bottom: calc(env(safe-area-inset-bottom) + 70px);
       z-index: 40;
       left: 50%;
       transform:translateX(-50%)

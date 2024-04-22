@@ -46,7 +46,7 @@ function SelectCurrency({currency, setCurr}: IProps) {
                         <div className='flex w-full h-full justify-start items-center'>
                             <div className='flex justify-start items-center w-full'>
                                 <div className='min-w-[50px] flex justify-start'>
-                                    <IconCoin height={20} className='max-h-[36px]' code={currency}/>
+                                    <IconCoin height={20} className={`max-h-[36px]`} code={currency}/>
                                 </div>
                                 <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
                             </div>
@@ -58,8 +58,8 @@ function SelectCurrency({currency, setCurr}: IProps) {
                 suffixIcon={null}
             />
         </div>
-        <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className={`rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]`}>
+            <svg className={`${currency && "rotate-180"}`} width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
             </svg>
         </div>

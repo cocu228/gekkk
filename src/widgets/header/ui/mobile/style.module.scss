@@ -4,6 +4,9 @@
   display: flex;
   justify-content: space-between;
   background: #29354c;
+  top: 0px;
+  position: sticky;
+  z-index: 60;
 }
 
 // .RoomModal {

@@ -53,8 +53,9 @@ export const SelectToken: FC<SelectTokenProps> = ({
 
   return (
     <>
-      <div className={styles.SelectWrap}>
+      <div className={styles.SelectWrap} style={{paddingBottom: balance && '5px'}} >
         <div className={`${styles.SelectedBody} ${currency && styles.CurrencyStyles}`}>
+          {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
           <CurrencySelector
             balanceFilter
             onSelect={onSelect}
@@ -74,7 +75,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
                   <IconCoin className={styles.Ico} code={currency} />
                   {currency}
                 </div>
-                {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
+               
               </span>
             )}
           </CurrencySelector>

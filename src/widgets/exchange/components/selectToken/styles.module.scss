@@ -5,6 +5,11 @@
   border: 1px solid #dcdcd9;
   border-radius: 6px;
   height: 70px;
+
+  @media screen and (max-width: 768px) {
+    height: 50px;
+
+  }
 }
 
 .Input {
@@ -49,9 +54,11 @@
 .BalanceTitle {
   color: #b4c0cd;
   font-size: 10px;
+  text-wrap: nowrap;
 }
 
 .SelectedBody {
+  position: relative;
   width: 70%;
   display: flex;
   align-items: center;
@@ -78,6 +85,12 @@
   }
 }
 
+.BalanceTitle {
+  position: absolute;
+  bottom: -7px;
+  font-size: 9px;
+}
+
 .CurrencyStyles {
   @media screen and (max-width: 460px) {
     min-width: 95px;
@@ -98,7 +111,7 @@
   width: 34px;
   height: 34px;
 
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 768px) {
     width: 25px;
     height: 25px;
   }

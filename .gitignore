@@ -13,6 +13,9 @@ dist-ssr
 dev-dist
 *.local
 .env.local
+
+!src/app/chat/dist/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

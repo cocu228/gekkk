@@ -59,10 +59,12 @@
       "accounts": "Accounts",
       "dashboard": "Dashboard",
       "promo_code": "Promo-code",
+      "deposit_types": "Deposit types",
       "partnership": "Partnership program",
       "enter_promo_code": "Enter Promo Code",
       "enable_notifications": "Enable notifications",
-      "gekkoin_invest_platform": "Gekkoin invest platform"
+      "gekkoin_invest_platform": "Gekkoin invest platform",
+      "gekkard_personal_account": "Gekkard personal account"
     },
     "support": {
       "title": "Support",

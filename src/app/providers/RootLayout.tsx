@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
 //@ts-ignore
-import Sidebar from "@VAR/widgets/{{MODE}}sidebar/ui/index.tsx";
+import Sidebar from "@VAR/widgets/{{mode-}}sidebar/ui/index.tsx";
 import { $axios } from "@/shared/lib/(orval)axios";
 import { useLocation, useMatch } from "react-router-dom";
 import { memo, useContext, useEffect, useState } from "react";
@@ -47,6 +47,7 @@ export default memo(function () {
       }
     })();
   }, []);
+
 
   useEffect(() => {
     if (accounts && !account) {

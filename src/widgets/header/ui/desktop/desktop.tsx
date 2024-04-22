@@ -28,30 +28,6 @@ const HeaderDesktop = ({items, actions}) => {
         }
     }
 
-    let acc = {
-        "name": "Ralf Williams",
-        "phone": "79111111111",
-        "rights": {
-            "none": true,
-            "withdrawBlock": false,
-            "topUpBlock": false,
-            "exchangeBlock": false,
-            "innerTransferBlock": false,
-            "investBlock": false,
-            "logInBlock": false,
-            "allTokensNetworks": false,
-            "isJuridical": false,
-            "gkeBonusBlock": false,
-            "blockAll": false,
-            "juridicalBlock": false,
-            "deleted": false
-        },
-        "number": "MT07PAPY36836000002676370005866",
-        "current": true,
-        "account_id": "PPY6963",
-        "date_update": "2023-12-25T14:12:49.8033333"
-    }
-
 
     return <>
         <header className={styles.Header}>

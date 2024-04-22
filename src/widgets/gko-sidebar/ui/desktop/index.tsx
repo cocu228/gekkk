@@ -6,12 +6,12 @@ import {useTranslation} from 'react-i18next';
 import {useCallback, useContext, useRef} from "react";
 import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import {ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
-import {storyToggleSidebar} from "@/widgets/GKOsidebar/model/story";
+import {storyToggleSidebar} from "@/widgets/gko-sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import NavCollapse from "@/widgets/GKOsidebar/ui/nav-collapse/NavCollapse";
+import NavCollapse from "@/widgets/gko-sidebar/ui/nav-collapse/NavCollapse";
 import {storeInvestments} from "@/shared/store/investments/investments";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
-import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/GKOsidebar/model/helpers";
+import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/gko-sidebar/model/helpers";
 import {getFixedDepositTitle, getStructedDepositTitle, scrollToTop} from "@/shared/lib/helpers";
 
 const SidebarDesktop = () => {

@@ -9,7 +9,7 @@ import {ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {storeInvestments} from "@/shared/store/investments/investments";
-import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/GKOsidebar/model/helpers";
+import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/gko-sidebar/model/helpers";
 import {getFixedDepositTitle, getStructedDepositTitle, scrollToTop} from "@/shared/lib/helpers";
 
 // todo: mobile sidebar

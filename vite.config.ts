@@ -9,6 +9,8 @@ import {nodePolyfills} from 'vite-plugin-node-polyfills'
 
 export default defineConfig(({mode}) => {
 
+    const type  = (mode === "GKO-DEV" || mode === "GKO-DEV") ? "GKO" : ""
+
     process.env = {
         ...process.env, ...loadEnv(mode, process.cwd()),
         VITE_APP_VERSION: JSON.stringify(require('./package.json').version)
@@ -24,6 +26,8 @@ export default defineConfig(({mode}) => {
                     find: "@VAR", replacement: path.resolve(__dirname, 'src'),
                     customResolver(url) {
                         return url.replace(/\{\{MODE\}\}/, mode === "GKO" ? "GKO" : "")
+                            .replace(/\{\{mode-\}\}/, mode === "GKO" ? "gko-" : "")
+                            .replace(/\{\{MODE-\}\}/, mode === "GKO" ? "GKO-" : "")
                     }
                 },
             ],

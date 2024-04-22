@@ -1,21 +1,21 @@
-import {useContext, useEffect} from "react";
+import {useContext, useLayoutEffect} from "react";
 import SidebarMobile from "./mobile";
 import SidebarDesktop from "./desktop";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {storeInvestments} from "@/shared/store/investments/investments";
 
 const Sidebar = () => {
+
     const {md} = useContext(BreakpointsContext);
 
     const {
         investments,
-        totalAmount,
         getInvestments
     } = storeInvestments(state => state);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         (async () => {
-            await getInvestments()
+           setTimeout(async () => await getInvestments(), 2000 )
         })()
     }, [])
 

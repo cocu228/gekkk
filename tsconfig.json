@@ -37,6 +37,7 @@
   "exclude": [
     "node_modules",
     "src/app/authentication",
+    "src/app/chat",
     "src/**/(no-usages)*.ts(x)",
     "src/**/(no-usages)*"
   ],

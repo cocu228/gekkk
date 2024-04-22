@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.65",
+  "version": "2.0.67",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",

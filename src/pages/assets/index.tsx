@@ -15,12 +15,13 @@ import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
 import {useTranslation} from 'react-i18next';
 
+
 function Assets() {
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const {xl, md, lg} = useContext(BreakpointsContext);
     const navigate = useNavigate();
-    
+
     let columns = [
         AssetTableKeys.NAME,
         ...(!lg ? [AssetTableKeys.CURRENCY] : []),

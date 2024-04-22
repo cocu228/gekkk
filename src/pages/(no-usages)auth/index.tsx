@@ -5,7 +5,7 @@ import FormLoginAccount from "@/widgets/(no-usages)auth/ui/form-authorization";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import LoginBackground from '@/assets/login-background.svg?react';
 
-import {NewHeader} from "@/widgets/new-header/ui/NewHeader";
+import {NewHeader} from "@/widgets/(no-usages)new-header/ui/NewHeader";
 import ForgotPassword from "@/widgets/(no-usages)auth/ui/forgot-password";
 import AuthFooter from "@/widgets/(no-usages)auth/ui/auth-footer";
 import CookiePolicyApplies from "@/widgets/(no-usages)auth/ui/cookie-policy-applies";

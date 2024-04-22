@@ -1,5 +1,5 @@
 import styles from "./styles.module.scss";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
@@ -20,6 +20,7 @@ interface SelectTokenProps {
   excludedCurrencies: string[];
   allowedFlags: CurrencyFlags[];
   value: string;
+  isBalance: boolean;
   currency: string;
   onChange?: (value: string) => void;
   onSelect: (value: string) => void;
@@ -34,6 +35,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   excludedCurrencies,
   onChange,
   onSelect,
+  isBalance = false,
   onError = null,
 }) => {
   const { t } = useTranslation();
@@ -44,6 +46,10 @@ export const SelectToken: FC<SelectTokenProps> = ({
   const minAmount = currencies.get(from.currency)
     ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
     : 0;
+
+    const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
+
+  console.log(balance)
 
   return (
     <>
@@ -64,8 +70,11 @@ export const SelectToken: FC<SelectTokenProps> = ({
               </>
             ) : (
               <span className={styles.SelectedToken}>
-                <IconCoin className={styles.Ico} code={currency} />
-                {currency}
+                <div className="flex items-center gap-[5px]">
+                  <IconCoin className={styles.Ico} code={currency} />
+                  {currency}
+                </div>
+                {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
               </span>
             )}
           </CurrencySelector>

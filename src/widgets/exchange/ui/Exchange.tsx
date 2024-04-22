@@ -236,6 +236,7 @@ function Exchange() {
                   />
                 </div>
                 <SelectToken
+                  isBalance={true}
                   roomType={roomType}
                   currency={from.currency}
                   value={from.amount ?? ""}
@@ -261,6 +262,7 @@ function Exchange() {
                 </div>
 
                 <SelectToken
+                  isBalance={false}
                   roomType={roomType}
                   currency={to.currency}
                   value={to.amount ?? ""}
@@ -308,10 +310,6 @@ function Exchange() {
                     </Checkbox>
                   </div>
                 )}
-
-                <div className="mt-10 md:mt-6">
-                  <OperationResult />
-                </div>
               </div>
 
               <div className="wrapper">

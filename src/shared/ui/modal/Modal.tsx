@@ -8,7 +8,7 @@ const Modal = ({
                    destroyOnClose = true,
                    children,
                    className,
-                   padding = true,
+                   padding = false,
                    width = "454px",
                    ...props
                }: TModal) => {

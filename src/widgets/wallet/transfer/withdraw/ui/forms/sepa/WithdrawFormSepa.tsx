@@ -1,6 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
-import {Modal as ModalAnt} from "antd"
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import Select from "@/shared/ui/select/Select";
@@ -16,13 +15,28 @@ import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/transfer-descriptions";
 import {getInitialProps, useTranslation} from "react-i18next";
-import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormSepa = () => {
-    const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
+    const {t} = useTranslation();
+    const navigate = useNavigate();
+    const currency = useContext(CtxWalletData);
     const {initialLanguage} = getInitialProps();
+    const {inputCurr, setInputCurr} = useInputState();
+    const {isModalOpen, showModal, handleCancel} = useModal();
+    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
+    const {min_withdraw = 0} = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
+    const [transferDescriptionsTranslated, setTransferDescriptionsTranslated] = useState(null);
+
+    const [inputs, setInputs] = useState({
+        beneficiaryName: null,
+        accountNumber: null,
+        transferDescription: null,
+        comment: null
+    });
 
     useEffect(()=>{
         setTransferDescriptionsTranslated(
@@ -32,266 +46,152 @@ const WithdrawFormSepa = () => {
                     "label" : t(`${el.value}`)
                 }
             })
-        )
-    },[initialLanguage])
-
-    const {t} = useTranslation();
-    const currency = useContext(CtxWalletData);
-    const {isModalOpen, showModal, handleCancel} = useModal();
-    const navigate = useNavigate();
-    const {networkTypeSelect, tokenNetworks} = useContext(CtxWalletNetworks);
-    const {md} = useBreakpoints()
-    
-    const [inputs, setInputs] = useState({
-        beneficiaryName: null,
-        accountNumber: null,
-        transferDescription: null,
-        comment: null
-    })
+        );
+    },[initialLanguage]);
     
     const onInput = ({target}) => {
-        setInputs(prev => ({...prev, [target.name]: target.value}))
+        setInputs(prev => ({...prev, [target.name]: target.value}));
     }
 
-    const {
-        min_withdraw = 0,
-    } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-    const {inputCurr, setInputCurr} = useInputState();
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState();
+    return (
+        <div className="wrapper">
+            <div className="row mb-5 w-full">
+                <div className="col">
+                    <div className="row">
+                        <div className="col">
+                            <InputCurrency.Validator value={inputCurr.value.number}
+                                                     description={getWithdrawDesc(min_withdraw, currency.$const)}
+                                                     onError={setInputCurrValid}
+                                                     validators={[validateBalance(currency, navigate, t),
+                                                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
+                                <InputCurrency.PercentSelector
+                                    currency={currency}
+                                    onSelect={setInputCurr}
+                                    header={<span className={styles.TitleColText}>{t("amount")}:</span>}
+                                >
+                                <InputCurrency
+                                    onChange={setInputCurr}
+                                    value={inputCurr.value.string}
+                                    currency={currency.$const}/>
+                                </InputCurrency.PercentSelector>
+                            </InputCurrency.Validator>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    return !md ? (<div className="wrapper">
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="font-medium">{t("beneficiary_name")}</span>
+            <div className="row mb-5 w-full">
+                <div className="col">
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <Input value={inputs.beneficiaryName}
-                               onChange={onInput}
-                               placeholder={""}
-                               name={"beneficiaryName"}/>
+                    <div className="row">
+                        <div className="col">
+                            <Input value={inputs.beneficiaryName}
+                                   onChange={onInput}
+                                   placeholder={t("enter_beneficiary_name")}
+                                   name={"beneficiaryName"}/>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="font-medium">{t("IBAN")}</span>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <Input value={inputs.accountNumber} onChange={onInput}
-                               name={"accountNumber"} allowDigits/>
+                                                    
+                    <div className='text-gray-400'>
+                        <span className='md:text-[#F8A73E] text-[10px]'>
+                            {!inputs.beneficiaryName && "*" + t("EW_law")}
+                        </span>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="font-medium">{t("transfer_desc")}</span>
+            <div className="row mb-5 w-full">
+                <div className="col">
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.TitleColText}>{t("IBAN")}:</span>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <Select className="w-full"
-                                onChange={(v: unknown) => setInputs(() => ({
-                                    ...inputs,
-                                    transferDescription: v
-                                }))}
-                                name={"transferDescription"}
-                                options={transferDescriptionsTranslated}
-                                placeholder={t("transfer_details.name")}
-                                value={inputs.transferDescription}
-                        />
+                    <div className="row">
+                        <div className="col">
+                            <Input value={inputs.accountNumber} onChange={onInput}
+                                   name={"accountNumber"} allowDigits
+                                   placeholder={t("enter_account_number_or_IBAN")}/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="font-medium">{t("сomment")}</span>
+            <div className="row mb-5 w-full">
+                <div className="col">
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col flex items-center">
-                        <TextArea
-                            allowDigits
-                            allowSymbols
-                            value={inputs.comment}
-                            name={"comment"}
-                            onChange={onInput}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row">
-                    <div className="col">
-                        <InputCurrency.Validator value={inputCurr.value.number}
-                                                 description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                 onError={setInputCurrValid}
-                                                 validators={[validateBalance(currency, navigate, t),
-                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
-                            <InputCurrency.PercentSelector
-                                currency={currency}
-                                header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
-                                onSelect={setInputCurr}
-                            >
-                            <InputCurrency
-                                onChange={setInputCurr}
-                                value={inputCurr.value.string}
-                                currency={currency.$const}/>
-                            </InputCurrency.PercentSelector>
-                        </InputCurrency.Validator>
+                    <div className="row">
+                        <div className="col">
+                            <Select className="w-full"
+                                    onChange={(v: unknown) => setInputs(() => ({
+                                        ...inputs,
+                                        transferDescription: v
+                                    }))}
+                                    name={"transferDescription"}
+                                    options={transferDescriptionsTranslated}
+                                    placeholder={t("transfer_details.name")}
+                                    value={inputs.transferDescription}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <Modal 
-            width={450}
-            open={isModalOpen}
-            onCancel={handleCancel}
-            title={t("transfer_confirmation")}
-        >
-            <WithdrawConfirmSepa handleCancel={handleCancel} {...inputs} amount={inputCurr.value.number}/>
-        </Modal>
-        <div className="row w-full">
-            <div className="col">
-                <Button
-                    size={"xl"}
-                    className="w-full"
-                    onClick={showModal}
-                    disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
-                >
-                    {t("withdraw")}
-                </Button>
-            </div>
-        </div>
-    </div>) : (<div className="wrapper">
-        <div className="row mb-8 w-full">
-            <div className="col">
-                <div className="row">
-                    <div className="col">
-                        <InputCurrency.Validator value={inputCurr.value.number}
-                                                 description={getWithdrawDesc(min_withdraw, currency.$const)}
-                                                 onError={setInputCurrValid}
-                                                 validators={[validateBalance(currency, navigate, t),
-                                                     validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t)]}>
-                            <InputCurrency.PercentSelector
-                                currency={currency}
-                                header={<span className='text-[#1F3446] text-[12px] font-semibold'>{t("amount")}</span>}
-                                onSelect={setInputCurr}
-                            >
-                                <InputCurrency.DisplayBalance currency={currency}>
-                                    <InputCurrency
-                                        onChange={setInputCurr}
-                                        value={inputCurr.value.string}
-                                        currency={currency.$const}
-                                    />
-                                </InputCurrency.DisplayBalance>
-                            </InputCurrency.PercentSelector>
-                        </InputCurrency.Validator>
+            <div className="row mb-5 w-full">
+                <div className="col">
+                    <div className="row mb-2">
+                        <div className="col">
+                            <span className={styles.TitleColText}>{t("comment")}:</span>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col flex items-center">
+                            <TextArea
+                                allowDigits
+                                allowSymbols
+                                value={inputs.comment}
+                                name={"comment"}
+                                placeholder={t("comment")}
+                                onChange={onInput}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="row mb-8 w-full">
-            <div className="flex flex-row justify-between items-center">
-                <div className="row min-w-[80px] mb-2 mr-5">
-                    <div className="col">
-                        <span className="text-[#1F3446] text-[12px] font-semibold">IBAN:</span>
-                    </div>
-                </div>
-                <div className="row w-full">
-                    <div className="col w-full basis-[100%]">
-                        <Input value={inputs.accountNumber} onChange={onInput}
-                               name={"accountNumber"} allowDigits/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div className="flex flex-col mb-8 w-full">
-            <div className="flex flex-row justify-between items-center">
-                <div className="row min-w-[80px] mb-2 mr-5">
-                    <div className="col">
-                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("recipient")}:</span>
-                    </div>
-                </div>
-                <div className="row w-full">
-                    <div className="col">
-                        <Input value={inputs.beneficiaryName}
-                               onChange={onInput}
-                               placeholder={""}
-                               name={"beneficiaryName"}/>
-                    </div>
-                </div>
-            </div>
-            <div className='ml-5'>
-                <span className='text-[10px]'>
-                *{t("EW_law")}
-                </span>
-            </div>
-        </div>
-        
-        <div className="row mb-8 w-full">
-            <div className="flex flex-row items-center">
-                <div className="row min-w-[80px] mb-2 mr-5">
-                    <div className="col">
-                        <span className="text-[#1F3446] text-[12px] font-semibold">{t("description")}:</span>
-                    </div>
-                </div>
-                <div className="row w-full">
-                    <div className="row w-full">
-                        <Select className="w-full"
-                                onChange={(v: unknown) => setInputs(() => ({
-                                    ...inputs,
-                                    transferDescription: v
-                                }))}
-                                name={"transferDescription"}
-                                options={transferDescriptionsTranslated}
-                                placeholder={t("transfer_details.name")}
-                                value={inputs.transferDescription}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ModalAnt 
-            width={450}
-            open={isModalOpen}
-            onCancel={handleCancel}
-            title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
-            footer={null}
-        >
-            <WithdrawConfirmSepa {...inputs} amount={inputCurr.value.number} handleCancel={handleCancel}/>
-        </ModalAnt>
-        <div className="flex flex-col w-full">
+            
+            <Modal
+                width={450}
+                destroyOnClose
+                open={isModalOpen}
+                onCancel={handleCancel}
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+            >
+                <WithdrawConfirmSepa
+                    {...inputs}
+                    handleCancel={handleCancel}
+                    amount={inputCurr.value.number}
+                />
+            </Modal>
+
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    greenTransfer
                     size={"xl"}
-                    className={"w-full"}
+                    greenTransfer
                     onClick={showModal}
-                    disabled={!Object.entries(inputs).filter(el=>el[0] !== "comment").every(v => v[1] !== null && v[1] !== '') || inputCurrValid.value}
+                    className={styles.Button}
+                    disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}
                 >
-                    {t("withdraw")}
+                    <span className={styles.ButtonLabel}>{t("transfer")}</span>
                 </Button>
             </div>
         </div>
-    </div>)
-};
+    );
+}
 
 export default WithdrawFormSepa;

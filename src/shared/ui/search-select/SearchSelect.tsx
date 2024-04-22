@@ -9,7 +9,7 @@ interface IParams {
 }
 
 const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children, ...props}) => {
-    const [value, setValue] = useState<string>(props.value);
+    const [, setValue] = useState<string>(props.value);
     
     const handleChange = (val, option) => {
         setValue(val);
@@ -26,9 +26,9 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children
             <Select
                 {...props}
                 showSearch
-                className={`${(prefixIcon) ? styles.SelectSearchActive : ''} ${isMobile ? styles.SelectSearchMobile :styles.SelectSearch}`}
+                className={`${(prefixIcon) ? styles.SelectSearchActive : ''} ${styles.SelectSearch}`}
                 popupClassName={styles.SelectPopup}
-                style={{width: '100%', height: '30px'}}
+                style={{width: '100%'}}
                 optionLabelProp="label"
                 onChange={handleChange}
                 suffixIcon={<IconDoubleArrows />}

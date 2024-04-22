@@ -3,7 +3,7 @@ import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
 import WalletHeader from "@/widgets/wallet/header/ui/desktop";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {AccountRights} from "@/shared/config/account-rights";
 import TopUp from "@/widgets/wallet/transfer/top-up/ui/TopUp";
@@ -28,16 +28,19 @@ import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/programs/ui";
 import {getCookieData, pull, pullStart} from "@/shared/lib";
 import PendingTransactions from "@/widgets/pending-transactions";
+import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 
 function Wallet() {
     const {t} = useTranslation();
     const navigate = useNavigate();
-    const {currency, tab} = useParams();
+    const [params] = useSearchParams();
+    const tab = params.get("tab");
+    const currency = params.get("currency");
     const {account} = useContext(CtxRootData);
     const {currencies} = useContext(CtxCurrencies);
+    const {xl, md} = useContext(BreakpointsContext);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    const {xxxl, xxl, xl, lg, md} = useContext(BreakpointsContext);
     const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
     
     let $currency = mockEUR;
@@ -47,9 +50,7 @@ function Wallet() {
         $currency = currencies.get(currency);
     }
 
-    const isCryptoWallet = !(currency === "EUR" || currency === "EURG" || currency === "GKE")
 
-    // const $const = currencies.get(currency)
     const isOnAboutPage = tab === "about";
     const isOnProgramsPage = tab === "programs";
     const isOnNoFeeProgramPage = tab === "no_fee_program";
@@ -64,66 +65,9 @@ function Wallet() {
     const currencyForHistory = useMemo(() => [currency], [currency]);
     const fullWidthOrHalf = useMemo(() => (xl ? 1 : 2), [xl]);
 
-    const [isRefreshingFunds, setIsRefreshingFunds] = useState<boolean>(false)
-    const [startPoint, setStartPoint] = useState(0);
-    const [pullChange, setPullChange] = useState<number>();
-    const refreshCont = useRef<HTMLDivElement>();
-    const {setRefresh} = useContext(CtxRootData);
-
-
-    const initLoading = () => {
-        setRefresh()
-        setIsRefreshingFunds(true)
-        setTimeout(() => {
-            setIsRefreshingFunds(false)
-        }, 3000);
-    };
-
-    function endPull() {
-        setStartPoint(0);
-        setPullChange(0);
-        if (pullChange > 220) initLoading();  
-    }
-
-    useEffect(() => {  
-        if(md){
-            window.addEventListener("touchstart", (e)=>{pullStart(e, setStartPoint)});
-            window.addEventListener("touchmove", (e)=>{pull(e, setPullChange, startPoint)});
-            window.addEventListener("touchend", endPull);
-            return () => {
-                window.removeEventListener("touchstart", (e)=>{pullStart(e, setStartPoint)});
-                window.removeEventListener("touchmove", (e)=>{pull(e, setPullChange, startPoint)});
-                window.removeEventListener("touchend", endPull);
-            };
-        }      
-    });
-
-
     return (
-        <div ref={refreshCont} style={{marginTop: (pullChange / 3.118) || "0px"}} className="flex flex-col h-full w-full">
+        <div className="flex flex-col h-full w-full">
             {isEUR && notificationsEnabled === 'true' && <PendingTransactions/>}
-
-            <div className="rounded-full w-full flex justify-center ">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className={`w-6 h-6 ` + (isRefreshingFunds && "animate-spin")}
-                    style={{
-                        justifyContent: "center",
-                        display: (!(!!pullChange || isRefreshingFunds) && "none"),
-                        transform: `rotate(${pullChange}deg)`
-                    }}
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                    />
-                </svg>
-            </div>
             {/*@ts-ignore*/}
             
             <CtxWalletData.Provider value={$currency}>
@@ -177,11 +121,16 @@ function Wallet() {
 				:
 	                <>
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
-                            <WalletButtons crypto={isCryptoWallet}>
-                                <TopUpButton currency={currency} wallet/>
-                                <TransfersButton currency={currency} wallet/>
-                                <ExchangeButton wallet/>
-                                {!isCryptoWallet && <ProgramsButton wallet/>}
+                            <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
+                                <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
+                                <TransfersButton to={`/transfers?currency=${currency}`}/>
+                                
+                                {!isEUR
+                                    ? <ExchangeButton to={`/exchange?from=${currency}`}/>
+                                    : <CardsMenuButton to={"/card-menu"}/>
+                                }
+
+                                {(isEUR || isEURG || isGKE) && <ProgramsButton to={`/wallet?currency=${currency}&tab=programs`}/>}
                             </WalletButtons>
                         }
                         {!(/*isQuickExchange ||*/ isCardsMenu || isOnAboutPage || isOnProgramsPage || isOnNoFeeProgramPage || isOnCashbackProgramPage || isOnTopUpPage) &&

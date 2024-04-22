@@ -1,0 +1,328 @@
+.title {
+    user-select: none;
+    margin: 5px 0 36px 29px;
+    padding: 0;
+    font-family: Archivo;
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+
+    @media screen and (max-width: 1400px) {
+        margin: 5px 0 36px 0;
+    }
+}
+
+.mobTitle {
+    @media screen and (max-width: 768px) {
+        font-size: 18px !important;
+    }
+}
+
+
+.itemsWrap {
+    display: flex;
+    gap: 15px;
+    height: 100%;
+    padding: 0 60px 60px 30px;
+    overflow: auto;
+
+    &Padding {
+        padding: 0;
+
+        @media screen and (max-width: 768px) {
+            padding: 0 0 15px 0
+        }
+    }
+
+    &Overflow {
+        overflow: visible;
+    }
+}
+
+.boxWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 19px;
+
+    &Min {
+        @media screen and (min-width:1200px) {
+            max-width: 230px;
+        }
+    }
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.itemTitle {
+    font-weight: 500;
+    font-size: 14px;
+    color: #7B797C;
+
+
+    &Color {
+        color: #285E69ff
+    }
+
+    &Weight {
+        font-weight: 400;
+    }
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &Gap {
+        gap: 5px;
+    }
+}
+
+.accessTitle {
+    font-size: 14px; 
+    font-weight: 500;
+    color: #7B797C;
+
+    &Color {
+        color: #285E69ff;
+    }
+
+    &Weight {
+        font-weight: 400;
+    }
+
+    &Size {
+        font-size: 18px !important
+    }
+}
+
+
+.areaWrapper {
+    box-shadow: 3px 2px 8px 0px #A8A8A84A, 13px 8px 15px 0px #A8A8A842, 28px 17px 20px 0px #A8A8A826, 50px 30px 23px 0px #A8A8A80A, 79px 47px 26px 0px #A8A8A803;
+    background: #fff;
+    padding: 24px 27px;
+    border: 2px solid #EEEEEEA6;
+    border-radius: 8px;
+}
+
+.areaWrapperBody {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.areaWrapperTitle {
+    font-size: 20px;
+    font-weight: 700; 
+    font-family: Archivo;
+    color: #285E69ff;
+
+    &Color {
+        color: #29354Cff;
+    }
+}
+
+.identBody {
+    padding-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.identTitle {
+    font-size: 12px;
+    color: #29354Cff;
+    font-weight: 400;
+    font-family: Inter;
+}
+
+
+.perInfoBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: 0.5rem;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 10px 20px #dee2e7;
+
+    @media screen and (max-width: 768px) {
+        padding: 12px;
+        box-shadow: none;
+    }
+}
+
+.perItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 30px;
+}
+
+.perItemTitle {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
+    color: #1F3446;
+    padding-bottom: 0.5rem;
+
+}
+
+.perItemSubtitle {
+    color: #3A5E66;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Inter;
+    line-height: 20px;
+}
+
+.reportsWrap {
+    width: 100%;
+    max-width: 750px;
+}
+
+.reportsWarnText {
+    font-family: "Helvetica", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.00938em;
+}
+
+.reportTbRow {
+    gap: 30px;
+    display: grid;
+    grid-template-columns: auto 0.25fr;
+
+    &Cols {
+        grid-template-columns: auto auto 0.25fr;
+    }
+}
+
+.reportRowTitle {
+    color: #676767ff;
+    line-height: 1.5;
+    font-family: Inter;
+    font-size: 12px;
+}
+
+.reportRowSubTitle {
+    color: #285E69ff;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.reportDownloadWrap {
+    display: flex;
+    color: #285E69ff;
+    justify-content: end;
+}
+
+.noticeWrap {
+    display: flex;
+    padding-top: 36px;
+    gap: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.noticeLink {
+    color: #285E69ff;
+    padding: 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: Inter;
+    letter-spacing: 0.02857em;
+}
+
+
+.appVersionBlock {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.versionGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+}
+
+.versionTitle {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #1F3446;
+}
+
+.versionValue {
+    color: #3A5E66;
+    font-family: Inter;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.versionCard {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 40px;
+    width: 100%;
+    margin-top: 1.25rem;
+
+    &Title {
+        color: #b4c0cd;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+    }
+
+    &Text {
+        color: #3A5E66;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        white-space: pre-wrap;
+    }
+}
+
+.btnsWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &Gap {
+        gap: 5px;
+    }
+}
+
+
+.downBtnWrap {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    justify-content: center;
+    min-height: 40px;
+    padding-top: 2rem;
+}

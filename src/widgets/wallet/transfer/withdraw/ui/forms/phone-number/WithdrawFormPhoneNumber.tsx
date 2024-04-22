@@ -1,3 +1,4 @@
+import styles from "../styles.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
@@ -21,9 +22,8 @@ import {
   CtxWalletNetworks,
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
-import Form from "@/shared/ui/form/Form";
-import FormItem from "@/shared/ui/form/form-item/FormItem";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormPhoneNumber = () => {
   const { t } = useTranslation();
@@ -63,73 +63,7 @@ const WithdrawFormPhoneNumber = () => {
 
   return (
     <div className="wrapper">
-      <Form>
-        <div className="row mb-5 w-full">
-          <div className="col">
-            <div className="row mb-2">
-              <div className="col">
-                <span className="font-medium text-[16px]">
-                  {t("phone_number")}
-                </span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <FormItem
-                  preserve
-                  name="phone"
-                  label="Phone number"
-                  rules={[
-                    { required: true, message: "Phone number is required" },
-                    { min: 7, message: "Minimum number length is 7 digits" },
-                  ]}
-                >
-                  <Input
-                    allowDigits
-                    allowSymbols
-                    name={"phoneNumber"}
-                    onChange={onInputDefault}
-                    onInput={onPhoneNumberInput}
-                  />
-                </FormItem>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row mb-8 w-full">
-          <div className="col">
-            <div className="row mb-2">
-              <div className="col">
-                <span className="font-medium text-[16px]">{t("comment")}</span>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col flex items-center">
-                <FormItem
-                  preserve
-                  name="comment"
-                  className="w-full"
-                  label={t("comment")}
-                  rules={[{ required: true, message: "Comment is required" }]}
-                >
-                  <TextArea
-                    allowDigits
-                    allowSymbols
-                    value={inputs.comment}
-                    name={"comment"}
-                    onChange={onInputDefault}
-                    placeholder={""}
-                    style={{
-                      minHeight: 100,
-                    }}
-                  />
-                </FormItem>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Form>
-      <div className="row mb-8 w-full">
+      <div className="row mb-5 w-full">
         <div className="col">
           <InputCurrency.Validator
             value={inputCurr.value.number}
@@ -148,7 +82,9 @@ const WithdrawFormPhoneNumber = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className="text-gray-600 font-medium">{t("amount")}</span>
+                <span className={styles.TitleColText}>
+                  {t("amount")}:
+                </span>
               }
               onSelect={setInputCurr}
             >
@@ -162,11 +98,64 @@ const WithdrawFormPhoneNumber = () => {
         </div>
       </div>
 
+      <div className="row mb-5 w-full">
+        <div className="col">
+          <div className="row mb-2">
+            <div className="col">
+              <span className={styles.TitleColText}>
+                {t("phone_number")}
+              </span>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <Input
+                allowDigits
+                allowSymbols
+                name={"phoneNumber"}
+                placeholder={t("auth.enter_phone_number")}
+                onChange={onInputDefault}
+                onInput={onPhoneNumberInput}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mb-5 w-full">
+        <div className="col">
+          <div className="row mb-2">
+            <div className="col">
+              <span className={styles.TitleColText}>
+                {t("description")}
+              </span>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col flex items-center">
+              <TextArea
+                allowDigits
+                allowSymbols
+                value={inputs.comment}
+                name={"comment"}
+                onChange={onInputDefault}
+                placeholder={t("enter_description")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <Modal
         width={450}
-        title={t("transfer_confirmation")}
-        onCancel={handleCancel}
+        destroyOnClose
         open={isModalOpen}
+        onCancel={handleCancel}
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
       >
         <WithdrawConfirmPhoneNumber
           {...inputs}
@@ -175,17 +164,16 @@ const WithdrawFormPhoneNumber = () => {
         />
       </Modal>
 
-      <div className="row w-full">
-        <div className="col">
-          <Button
-            size={"xl"}
-            className="w-full"
-            onClick={showModal}
-            disabled={!isValid || inputCurrValid.value}
-          >
-            {t("withdraw_title")}
-          </Button>
-        </div>
+      <div className={styles.ButtonContainerCenter}>
+        <Button
+          size={"xl"}
+          greenTransfer
+          onClick={showModal}
+          className={styles.Button}
+          disabled={!isValid || inputCurrValid.value}
+        >
+          <span className={styles.ButtonLabel}>{t("transfer")}</span>
+        </Button>
       </div>
     </div>
   );

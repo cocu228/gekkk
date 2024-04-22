@@ -1,20 +1,15 @@
 import dayjs from "dayjs";
-import { memo, useContext, useEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import Button from "@/shared/ui/button/Button";
 import { DatePicker } from "antd";
 import { Props, TabKey } from "../model/types";
 import { historyTabs } from "../model/helpers";
-import {
-  formatForApi,
-  formatForHistoryMobile,
-} from "@/shared/lib/date-helper";
+import { formatForApi, formatForHistoryMobile } from "@/shared/lib/date-helper";
 import { startOfMonth } from "date-fns";
 import styles from "./style.module.scss";
 import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
 import { CtxRootData } from "@/processes/RootContext";
-import {
-  actionResSuccess,
-} from "@/shared/lib/helpers";
+import { actionResSuccess } from "@/shared/lib/helpers";
 import Loader from "@/shared/ui/loader";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
@@ -24,7 +19,7 @@ import {
 } from "@/shared/(orval)api/gek/model";
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useMatch, useParams } from "react-router-dom";
+import { useMatch, useSearchParams } from "react-router-dom";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
@@ -41,11 +36,13 @@ const History = memo(function ({
 }: Partial<Props>) {
   const { t } = useTranslation();
 
-  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({})
+  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});
 
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { refreshKey } = useContext(CtxRootData);
-  const [activeTab, setActiveTab] = useState<string>(currTab ? currTab.Key : historyTabs[0].Key);
+  const [activeTab, setActiveTab] = useState<string>(
+    currTab ? currTab.Key : historyTabs[0].Key
+  );
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
   const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(
     listHistory[listHistory.length - 1]
@@ -58,7 +55,9 @@ const History = memo(function ({
     dayjs(),
   ]);
   const { md } = useContext(BreakpointsContext);
-  const { currency, tab } = useParams();
+  const [params] = useSearchParams();
+  const tab = params.get("tab");
+  const currency = params.get("currency");
   const walletPage = currency || tab;
   const isHistoryPage = !!useMatch("history");
 
@@ -66,15 +65,16 @@ const History = memo(function ({
     threshold: 0.9,
   });
 
-
-
   useEffect(() => {
-    if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0")) {
-
+    if (
+      md &&
+      isIntersecting &&
+      !allTxVisibly &&
+      !(listHistory?.length < 10) &&
+      lastValue?.next_key !== "::0"
+    ) {
       (async () => {
         setLazyLoading(true);
-
-        console.log(lastValue?.next_key);
 
         const { data } = await apiGetHistoryTransactions({
           currencies: currenciesFilter,
@@ -162,7 +162,7 @@ const History = memo(function ({
         if (activeTab !== TabKey.CUSTOM) {
           await requestHistory(cancelTokenSource.token);
         } else {
-          await requestHistory()
+          await requestHistory();
         }
       } catch (err: unknown) {
         console.log(err);
@@ -227,15 +227,20 @@ const History = memo(function ({
                     </div>
                   ) : (
                     formatForHistoryMobile(listHistory[index].datetime) !==
-                    formatForHistoryMobile(
-                      listHistory[index - 1].datetime
-                    ) && (
+                      formatForHistoryMobile(
+                        listHistory[index - 1].datetime
+                      ) && (
                       <div className={styles.DataMobile}>
                         {formatForHistoryMobile(item.datetime)}
                       </div>
                     )
                   )}
-                  <TransactionInfo setItem={setSelectedItem} showModal={showModal} item={item}/>
+                  <TransactionInfo
+                    setItem={setSelectedItem}
+                    showModal={showModal}
+                    item={item}
+                    key={item.id_transaction}
+                  />
                 </>
               );
             })
@@ -274,8 +279,12 @@ const History = memo(function ({
             </div>
           )}
         </div>
-        <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
-            open={isModalOpen}>
+        <Modal
+          width={450}
+          title={t("transaction_info")}
+          onCancel={handleCancel}
+          open={isModalOpen}
+        >
             <InfoContent handleCancel={handleCancel} {...selectedItem} />
         </Modal>
       </>
@@ -293,20 +302,25 @@ const History = memo(function ({
             const doesPrevDateTimeExist =
               listHistory[index - 1]?.datetime !== undefined;
             return (
-              <div ref={ref}>
+              <div key={item.id_transaction} ref={ref}>
                 {!doesPrevDateTimeExist ? (
                   <div className={styles.DataMobile} key={index}>
                     {formatForHistoryMobile(item.datetime)}
                   </div>
                 ) : (
                   formatForHistoryMobile(listHistory[index].datetime) !==
-                  formatForHistoryMobile(listHistory[index - 1].datetime) && (
+                    formatForHistoryMobile(listHistory[index - 1].datetime) && (
                     <div className={styles.DataMobile}>
                       {formatForHistoryMobile(item.datetime)}
                     </div>
                   )
-                )}                
-                  <TransactionInfo setItem={setSelectedItem} showModal={showModal} item={item}/>
+                )}
+                <TransactionInfo
+                  setItem={setSelectedItem}
+                  showModal={showModal}
+                  item={item}
+                  key={item.id_transaction}
+                />
               </div>
             );
           })}
@@ -343,9 +357,13 @@ const History = memo(function ({
           )}
         </div>
       </div>
-      <Modal width={450} title={t("transaction_info")} onCancel={handleCancel}
-          open={isModalOpen}>
-          <InfoContent handleCancel={handleCancel} {...selectedItem} />
+      <Modal
+        width={450}
+        title={t("transaction_info")}
+        onCancel={handleCancel}
+        open={isModalOpen}
+      >
+        <InfoContent handleCancel={handleCancel} {...selectedItem} />
       </Modal>
     </>
   );

@@ -101,7 +101,7 @@ export default function TransfersWrapper({
                 <span className="ml-5 min-w-[80px] text-[12px] text-[#1F3446] font-bold text-start">
                   {returnTitle(child?.props["data-tag"])}
                 </span>
-                <div className="flex w-[236px] justify-center items-center">
+                <div className="flex w-full overflow-hidden mr-5 justify-center items-center">
                   {child}
                 </div>
               </div>
@@ -112,10 +112,10 @@ export default function TransfersWrapper({
               )}
               {!curr && (
                 <div className="min-h-[200px]  gap-5 w-full">
-                  <div className="bg-[white] border-[1px] border-solid border-[#DCDCD9] w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
+                  <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                     <img src={searchIcon} />
                     <Input
-                      className={`w-full border-[none]`}
+                      className={`w-full text-[10px] border-[none]`}
                       wrapperClassName={"w-full"}
                       style={{ height: "10px", border: "none" }}
                       type="text"
@@ -140,12 +140,19 @@ export default function TransfersWrapper({
                       >
                         <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
                           <IconCoin height={40} code={currency.$const} />
-                          <span className="text-[12px] text-[#1F3446] font-bold">
-                            {currency.$const}
+                          <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
+                            {currency.$const === "EUR" ? currency.$const : <div className="flex h-full flex-col justify-around">
+                              <span>
+                                {currency.$const}
+                              </span>
+                              <span className="font-[400] whitespace-nowrap text-[#676767]">
+                                {currency.currency.name}
+                              </span>
+                            </div>}
                           </span>
                         </div>
                         <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                          <span className="self-start text-[12px] text-[#7B797C] font-regular">
+                          <span className="self-start ml-[15%] text-[12px] text-[#7B797C] font-regular">
                             {t("free_balance")}:
                           </span>
                           <span className="self-end text-[12px] text-[#1F3446] font-regular">

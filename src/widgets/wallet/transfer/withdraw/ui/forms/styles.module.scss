@@ -1,3 +1,5 @@
+@import "@styles/mixins";
+
 .Title{
     margin-bottom: 2rem;
 
@@ -5,9 +7,14 @@
         padding-bottom: 15px;
 
         &Text{
-            font-weight: 700; 
             color: #1F3446;
-            font-size: 12px;
+            font-weight: 500;
+            font-size: 16px;
+            
+            @include max-devices("md") {
+                font-weight: 700;
+                font-size: 12px;
+            }
 
             &Margin{
                 font-weight: 700; 
@@ -21,18 +28,25 @@
 
 .EURCost{
     display: flex; 
-    padding: 0.5rem; 
+    padding: 1rem;
     margin-bottom: 1rem; 
     flex-direction: column; 
     gap: 0.25rem; 
     border-radius: 0.5rem; 
-    border-top-right-radius: 0; 
     background: #DADADA;
 
+    @include max-devices("md") {
+        padding: .5rem;
+    }
+
     &Value{
-        font-weight: 700; 
+        font-size: 20px;
+        font-weight: 700;
         color: #3A5E66;
-        color: 14px;   
+
+        @include max-devices("md") {
+            font-size: 14px;
+        }
     }
 
     &Info{
@@ -41,7 +55,11 @@
         color: #3A5E66;
     
         &Text{
-            font-size: 10px;
+            font-size: 12px;
+
+            @include max-devices("md") {
+                font-size: 10px;
+            }
 
             &Uppercase{
                 text-transform: uppercase;
@@ -61,21 +79,30 @@
 
 .PayInfo{
     display: flex; 
-    margin-bottom: 1rem; 
-    margin-left: 1rem; 
+    margin-bottom: 1rem;
     margin-top: 1.5rem; 
-    gap: 1rem; 
-    justify-content: space-between; 
-    font-size: 12px;
+    gap: 10rem;
+    font-size: 14px;
     line-height: 1.25rem; 
-    font-weight: 500; 
-    width: 70%;
+    font-weight: 500;
+
+    @include max-devices("md") {
+        gap: 1rem;
+        font-size: 12px;
+        margin-top: 1rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        justify-content: space-between; 
+    }
 
     &Col{
         display: flex; 
         flex-direction: column; 
         width: max-content;
 
+        @include max-devices("md") {
+            gap: .25rem;
+        }
 
         &Value{
             display: flex; 
@@ -104,7 +131,6 @@
             color: #1F3446;
             text-align: end;
             text-wrap: nowrap;
-            overflow: scroll;
             max-width: 20vw;
 
 
@@ -113,7 +139,6 @@
                 text-align: start;
                 text-wrap: nowrap;
 
-                overflow: scroll;
                 max-width: 20vw;
             }
         }
@@ -141,11 +166,23 @@
         margin-bottom: 10px;
     }
 }
+
 .Button{
     width: 100%; 
     margin-bottom: 10px;
+
     &Two{
-        width: 120px;
+        width: 130px;
+    }
+
+    &Label {
+        font-weight: 500;
+        font-size: 16px;
+        
+        @include max-devices("md") {
+            font-weight: 600;
+            font-size: 12px;
+        }
     }
 }
 
@@ -165,15 +202,19 @@
 }
 
 .MainModalTitle{
-    font-size: 12px;
+    font-size: 18px;
     color: #1F3446;
     font-weight: 600;
+
+    @include max-devices("md") {
+        font-size: 16px;
+    }
 }
 
 .ModalLine{
     border: 0px;
     height: 1px;
-    background: #3A5E66;
+    background: #DCDCD9;
 }
 
 .ModalInfo{
@@ -186,9 +227,13 @@
     }
 
     &Text{
-        font-size: 10px;
+        font-size: 14px;
         color: #7B797C;
         font-weight: 400;
+
+        @include max-devices("md") {
+            font-size: 12px;
+        }
     }
 }
 
@@ -199,6 +244,11 @@
 
     &Title{
         color: #9D9D9D;
+        font-size: 14px;
+
+        @include max-devices("md") {
+            font-size: 12px;
+        }
     }
 
     &Value{
@@ -209,20 +259,30 @@
         overflow: hidden;
         text-wrap: nowrap;
         text-overflow: ellipsis;
+        font-size: 14px;
+
+        @include max-devices("md") {
+            font-size: 12px;
+        }
     }
 }
 
 .ModalPayInfo{
-    display: flex; 
-    margin-bottom: 1rem; 
-    margin-left: 1rem; 
-    margin-top: 1.5rem; 
+    display: flex;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    margin-top: 1.5rem;
     gap: 1rem; 
     justify-content: space-between; 
     font-size: 0.875rem;
     line-height: 1.25rem; 
     font-weight: 500; 
-    width: 70%;
+    
+    @include max-devices("md") {
+        margin-left: 3rem;
+        margin-right: 3rem;
+        margin-top: 1rem;
+    }
 
     &Col{
         display: flex; 
@@ -230,7 +290,10 @@
         gap: 0.5rem; 
         width: max-content;
 
-
+        @include max-devices("md") {
+            gap: .2rem;
+        }
+        
         &Value{
             display: flex; 
             flex-direction: row; 
@@ -265,7 +328,6 @@
             font-weight: 600; 
             color: #1F3446;
             text-align: end;
-            overflow: scroll;
             max-width: 20vw;
             text-wrap: nowrap;
             word-break: keep-all;
@@ -279,7 +341,6 @@
                 text-wrap: nowrap;
                 word-break: keep-all;
                 white-space: nowrap;
-                overflow: scroll;
                 max-width: 20vw;
             }
         }

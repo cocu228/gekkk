@@ -1,12 +1,8 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/index.scss'
 import {ConfigProvider} from 'antd'
-// import "./index"
 import "../processes/i18n.config";
-
-import ThemeCustomization from '@/materialUI'
 
 declare global {
     interface String {
@@ -35,7 +31,7 @@ Object.defineProperty(String.prototype, 'capitalize', {
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
-    <ThemeCustomization>
+    // <ThemeCustomization>
         <ConfigProvider theme={{
             token: {
                 fontFamily: 'inherit'
@@ -43,6 +39,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }}>
             <App/>
         </ConfigProvider>
-    </ThemeCustomization>
+    // </ThemeCustomization>
     // </React.StrictMode>
 )

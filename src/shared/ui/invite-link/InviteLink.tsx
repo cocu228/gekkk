@@ -1,8 +1,9 @@
 import ReactQRCode from 'react-qr-code';
+import styles from './styles.module.scss';
 import {useTranslation} from 'react-i18next';
 import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
-import ModalInfoText from '@/shared/ui/modal/modal-info-text/ModalInfoText';
+import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 
 interface IParams {
     roomInfo: RoomInfo;
@@ -23,9 +24,10 @@ function InviteLink({roomInfo = null}: IParams) {
 
     return (
         <div className="wrapper">
-            <ModalInfoText>
-                {t("exchange.any_gekkard_user")}
-            </ModalInfoText>
+            <div className={styles.ModalText}>
+              <WarningIcon />
+              {t("exchange.any_gekkard_user")}
+            </div>
             <div className='flex justify-center my-6 sm:mt-11 '>
                 <div className="w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
                     <div style={{height: "auto", margin: "0 auto", maxWidth: "120px", width: "100%"}}>

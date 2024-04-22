@@ -86,7 +86,7 @@ export const PromoCodeModal = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.promo_code")}
         </button>
-        <Modal onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
+        <Modal padding onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
             <PromoCode/>
         </Modal>
     </>

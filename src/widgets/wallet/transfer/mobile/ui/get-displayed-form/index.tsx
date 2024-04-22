@@ -50,8 +50,8 @@ function GetDisplayedForm({curr}: Props) {
                 return <WithdrawFormPapaya/>;
             case 151:
                 return <WithdrawFormSepa/>;
-            case 152:
-                return <WithdrawFormSwift/>;
+            // case 152:
+            //     return <WithdrawFormSwift/>; TODO: Swift форма
             case 153:
                 return <WithdrawFormCardToCard/>;
             case 154:
@@ -74,8 +74,6 @@ function GetDisplayedForm({curr}: Props) {
     useEffect(()=>{
         setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))
     },[initialLanguage, networkTypeSelect])
-
-    console.log(networkTypeSelect);
     
 
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))

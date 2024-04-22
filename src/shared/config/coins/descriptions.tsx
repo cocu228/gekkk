@@ -1176,7 +1176,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                             {t("if_you")} <a
                             className='underline hover:text-blue-400 hover:cursor-pointer font-semibold'
                             onClick={() => {
-                                navigate('/wallet/GKE/no_fee_program');
+                                navigate('/wallet?currency=GKE&tab=no_fee_program');
                                 scrollToTop();
                             }}
                         >
@@ -1289,7 +1289,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </li>
                 <li className='mb-3'>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
-                        navigate('/wallet/GKE/cashback_program');
+                        navigate('/wallet?currency=GKE&tab=cashback_program');
                         scrollToTop();
                     }}>
                         {t("cashback_of")}
@@ -1297,7 +1297,7 @@ export function getTokenDescriptions(navigate: NavigateFunction, account: IWalle
                 </li>
                 <li>
                     <a className='font-bold underline hover:cursor-pointer' onClick={() => {
-                        navigate('/wallet/GKE/no_fee_program');
+                        navigate('/wallet?currency=GKE&tab=no_fee_program');
                         scrollToTop();
                     }}>
                         {t("crypto-fiat_exchange")}

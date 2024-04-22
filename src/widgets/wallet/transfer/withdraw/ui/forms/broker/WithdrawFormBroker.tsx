@@ -20,7 +20,7 @@ import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
 // import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -30,7 +30,6 @@ const WithdrawFormBroker = () => {
     const currency = useContext(CtxWalletData);
     const [loading, setLoading] = useState(false);
     const {inputCurr, setInputCurr} = useInputState();
-    const {setRefresh: setReload} = useContext(CtxRootData);
     const {isModalOpen, showModal, handleCancel} = UseModal();
     const {inputCurrValid, setInputCurrValid} = useInputValidateState();
     const {networkTypeSelect, tokenNetworks, setRefresh} = useContext(CtxWalletNetworks);
@@ -61,7 +60,7 @@ const WithdrawFormBroker = () => {
                     {account.rights[AccountRights.IsJuridical] ? null :
                         <span className="font-normal"> {t("if_you")} <span
                             className='text-blue-400 hover:cursor-pointer hover:underline'
-                            onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                            onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                         >
                             {t("freeze_GKE_tokens")}   
                         </span> {t("fee_is")} <b>0%</b>.
@@ -80,7 +79,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}</span>}
+                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}:</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
@@ -131,7 +130,9 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t("withdraw_confirmation")}>
+            title={t("withdraw_confirmation")}
+            padding
+        >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
@@ -157,7 +158,7 @@ const WithdrawFormBroker = () => {
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector
                         currency={currency}
-                        header={<span className={styles.TitleColText}>{t("amount")}</span>}
+                        header={<span className={styles.TitleColText}>{t("amount")}:</span>}
                         onSelect={val => {
                             const amount = new Decimal(val);
                             setInputCurr(amount.mul(100).floor().div(100).toString())
@@ -185,7 +186,7 @@ const WithdrawFormBroker = () => {
                         {account.rights[AccountRights.IsJuridical] ? null :
                             <span> {t("if_you")} <span
                                 className={styles.EURCostInfoTextLink}
-                                onClick={() => navigate('/wallet/GKE/no_fee_program')}
+                                onClick={() => navigate('/wallet?currency=GKE&tab=no_fee_program')}
                             >
                                 {t("freeze_GKE_tokens")}   
                             </span> {t("fee_is")} <b>0%</b>.
@@ -246,13 +247,13 @@ const WithdrawFormBroker = () => {
             open={isModalOpen}
             onCancel={()=>{
                 handleCancel()
-                setReload()
             }}
-            title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             footer={null}
         >
             <WithdrawConfirmBroker
-                handleCancel={()=>{handleCancel();setReload()}}
+                handleCancel={()=>{handleCancel()}}
                 amount={inputCurr.value.number}
             />
         </ModalAnt>

@@ -22,7 +22,7 @@ const useError = (): TypeUseError => {
 
     const localErrorSpan: TypeUseError[1] = errorMessage
 
-    const localErrorInfoBox: TypeUseError[2] = errorMessage && <div className="info-box-danger w-full">
+    const localErrorInfoBox: TypeUseError[2] = errorMessage && <div className="info-box-danger w-full text-[14px] md:text-[12px]">
         <span>{errorMessage}</span>
     </div>
 

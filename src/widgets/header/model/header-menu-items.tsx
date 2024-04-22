@@ -8,13 +8,14 @@ import InvestMobileIcon from "@public/img/icon/InvestMobileIcon.svg"
 import SupportMobileIcon from "@public/img/icon/SupportMobileIcon.svg"
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 import ActivatePromoMobileIcon from "@public/img/icon/ActivatePromoMobileIcon.svg"
+import CardMenuIcon from "@public/img/icon/CardMenuIcon.svg"
 import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
 import NotificationIcon from "@public/img/icon/NotificationIcon.svg"
 
 /**
 * @param t translation function
 */
-export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
+export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuList => {
     return [
         {
             item: t("settings"),
@@ -24,6 +25,15 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
                 value:"settings"
             },
             icon: <img src={SettingsMobileIcon}/>
+        },
+        {
+            item: t("card_management"),
+            id:"cardManagment",
+            action:{
+                type: "link",
+                value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
+            },
+            icon: <img src={CardMenuIcon}/>
         },
         {
             item: <GekkoinInvestPlatform/>,

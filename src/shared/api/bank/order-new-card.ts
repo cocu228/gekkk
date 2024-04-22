@@ -1,5 +1,6 @@
 ﻿import {IResErrors, IResResult} from "@/shared/api";
 import {$axios} from "@/shared/lib/(orval)axios";
+import {AxiosRequestConfig} from "axios";
 
 export interface INewCard {
     accountId: string;
@@ -20,12 +21,15 @@ export interface INewCard {
     }
 }
 
-export const apiOrderNewCard = (card: INewCard) =>
+export const apiOrderNewCard = (card: INewCard, config?: AxiosRequestConfig) =>
     $axios.post<
         IResErrors
         | IResResult
     >(`/api/v1/cards`, card, {
+        ...config,
+	    baseURL: import.meta.env.VITE_BANK_API_URL,
         headers: {
-            "X-Confirmation-Type": "PIN"
+            ...config.headers,
+            "X-Confirmation-Type": "PIN",
         }
     });

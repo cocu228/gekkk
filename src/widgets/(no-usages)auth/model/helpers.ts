@@ -4,7 +4,7 @@ import {actionSuccessConstructor} from "@/shared/lib/helpers";
 import {differenceInSeconds} from "date-fns";
 
 export const helperApiRequestCode = function (response) {
-    return actionSuccessConstructor(!!response.data?.success)
+    return actionSuccessConstructor.call(response, !!response.data?.success)
 }
 export const helperApiSignIn = function (response) {
     return actionSuccessConstructor(!!response.data.token)

@@ -5,14 +5,13 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useLocation, useMatch, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 
 const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
     const {t} = useTranslation();
-    const {currency} = useParams();
     const [params] = useSearchParams();
     const roomId = params.get('roomId');
     const homePage = useMatch("/")

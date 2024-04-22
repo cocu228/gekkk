@@ -14,7 +14,7 @@ const ChooseTokenModal = ({ open, onSelect, onCancel, ...props }: IParams) => {
     const {t} = useTranslation()
 
     return (
-        <Modal width={450} title={t("select_a_token")} open={open} onCancel={onCancel} {...props}>
+        <Modal padding width={450} title={t("select_a_token")} open={open} onCancel={onCancel} {...props}>
             <AssetsTable
                 className='-mx-4 -mt-8'
                 onSelect={onSelect}

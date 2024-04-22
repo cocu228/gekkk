@@ -1,4 +1,3 @@
-import { Box, Typography, TextField, styled } from '@mui/material';
 import { useNewCardContext } from './newCardContext';
 import Button from '@/shared/ui/button/Button';
 import { Typography as Tp } from '@/shared/ui/typography/typography';
@@ -11,21 +10,7 @@ import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
-
-const RowItem = styled(Box, {
-    shouldForwardProp: (prop) => prop !== 'hasBorderTop' && prop !== 'hasBorderBottom',
-})<{ hasBorderTop?: boolean, hasBorderBottom?: boolean }>(({
-    theme,
-    hasBorderTop,
-    hasBorderBottom
-}) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
-    borderBottom: hasBorderBottom ? `1px solid ${theme.palette.strokes}` : undefined,
-    paddingBottom: '6px',
-    alignItems: 'center',
-}));
+import s from '../style.module.scss'
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -43,25 +28,20 @@ export function IssueNewCardMobile() {
     }, [state]);
     
     return <div className='w-full'>
-        <Box display={"flex"} flexDirection={'column'} gap="12px" paddingTop={"12px"} sx={{
-            'backgroundColor': '#ffffff',
-            'width': '100%',
-            borderRadius: '10px',
-            padding: '10px 20px'
-        }}>
-            <RowItem  paddingTop={"8px"} alignItems={'flex-end'} height={'50px'}>
-                <Box display={'flex'} flexDirection={"column"} gap="1px">
-                    <Typography fontSize={"14px"} variant='b2 - bold' color="dark blue">{t('delivery_address')}</Typography>
-                    <Typography fontWeight={'300'} fontSize={"12px"} variant='b2' color="dark blue">{t('same_as_the_residence_address')}</Typography>
-                </Box>
+        <div className={s.mobIssueCardWrap}>
+            <div className={s.mobRowItem} style={{height: '50px'}} >
+                <div className={s.mobIssueTitleGroup}>
+                    <span className={s.mobDeliveryTitle}>{t('delivery_address')}</span>
+                    <span className={s.mobDeliverySubtitle}>{t('same_as_the_residence_address')}</span>
+                </div>
                 <Switch
                     checked={state.isResidenceAddress}
                     onChange={switchResidenceAddress}
                 />
-            </RowItem>
-            <RowItem marginTop={"8px"} height={'40px'}>
-                <Typography fontSize={"14px"} variant='b2 - bold' color="dark blue">{t('country')}:</Typography>
-                <Box width={"170px"} height={'40px'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+            </div>
+            <div className={s.mobRowItem}>
+                <span className={s.mobRowItemTitle}>{t('country')}:</span>
+                <div className={s.mobSelectWrap}>
                     <SearchSelect
                         isMobile
                         className="w-full"
@@ -77,12 +57,11 @@ export function IssueNewCardMobile() {
                             countryCode: code
                         })}
                     />
-                </Box>
-            </RowItem>
-            
+                </div>
+            </div>
 
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("city")}:`}</Tp>
+            <div className={s.mobRowItem}>
+            <span className={s.mobRowItemTitle}>{t('city')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_city_name")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -91,8 +70,9 @@ export function IssueNewCardMobile() {
                     value={state.city}
                 />
             </div>
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("post_code")}:`}</Tp>
+            
+            <div className={s.mobRowItem}>
+            <span className={s.mobRowItemTitle}>{t('post_code')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_post_code")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -101,8 +81,8 @@ export function IssueNewCardMobile() {
                     value={state.postalCode}
                 />
             </div>
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("street")}:`}</Tp>
+            <div className={s.mobRowItem}>
+            <span className={s.mobRowItemTitle}>{t('street')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_street_name")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -111,8 +91,8 @@ export function IssueNewCardMobile() {
                     value={state.street}
                 />
             </div>
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("house")}:`}</Tp>
+            <div className={s.mobRowItem}>
+            <span className={s.mobRowItemTitle}>{t('house')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_house_number")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -122,9 +102,9 @@ export function IssueNewCardMobile() {
                 />
             </div>
             
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("fiat")}:`}</Tp>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_fiat_number")} 
+            <div className={s.mobRowItem}>
+            <span className={s.mobRowItemTitle}>{t('flat')}:</span>
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_flat_number")} 
                     onChange={({target}) => setState({
                         ...state,
                         apartmentNumber: target.value
@@ -133,8 +113,8 @@ export function IssueNewCardMobile() {
                 />
             </div>
             
-            <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <Tp variant='h'>{`${t("Recipient")}:`}</Tp>
+            <div className={s.mobRowItem}>
+                <span className={s.mobRowItemTitle}>{t('recipient')}:</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_recipient_name")} 
                     onChange={({target}) => setState({
                         ...state,
@@ -144,7 +124,7 @@ export function IssueNewCardMobile() {
                 />
             </div>
             
-            <div className='h-[55px] flex flex-row w-full justify-center gap-2 pt-3'>
+            <div className={s.mobIssueFooter}>
                 <MobileButton 
                     varitant={'light'} 
                     className='w-[140px]'
@@ -158,6 +138,6 @@ export function IssueNewCardMobile() {
                     {t("back")}   
                 </MobileButton>
             </div>
-        </Box>
+        </div>
     </div>
 }

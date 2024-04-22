@@ -1,16 +1,14 @@
 import React, {memo, useContext, useEffect, useState} from 'react';
 import {CtxRootData} from '@/processes/RootContext';
 import {CtxCurrencies, ICtxCurrency} from '@/processes/CurrenciesContext';
-import {apiGetBalance, apiGetRates} from '@/shared/(orval)api/gek';
+import {apiGetBalance} from '@/shared/(orval)api/gek';
 import {actionResSuccess, isNull, randomId, uncoverResponse} from '@/shared/lib/helpers';
 import {initEmptyCurrenciesCollection, walletsGeneration} from "@/shared/lib/helpers-currencies-provider";
 import Decimal from 'decimal.js';
-import ETokensConst from "@/shared/config/coins/constants";
 import {storeAssets} from "@/shared/store/assets";
 
 interface IState {
     currencies: Map<string, ICtxCurrency> | null,
-    ratesEUR: Record<ETokensConst, number>,
     totalAmount: {
         refreshKey: string;
         EUR: Decimal | null;
@@ -23,7 +21,6 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     const [state, setState] = useState<IState>({
         currencies: null,
-        ratesEUR: null,
         totalAmount: {
             EUR: null,
             refreshKey: ""
@@ -75,10 +72,6 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     useEffect(() => {
         if (state.currencies !== null) (async () => {
-            // TODO: Fix QuickExchange to remove this request
-            const ratesEUR = await apiGetRates({
-                to: 'EUR'
-            });
             
             const value: Decimal = Array.from(state.currencies.values())
                 .reduce((previousValue, currentValue) => {
@@ -93,7 +86,6 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
             
             setState(prev => ({
                 ...prev,
-                ratesEUR: uncoverResponse(ratesEUR),
                 totalAmount: {
                     ...prev.totalAmount,
                     EUR: value
@@ -104,8 +96,7 @@ export default memo(function ({ children }: { children: React.ReactNode }): JSX.
     
     return <CtxCurrencies.Provider value={{
         currencies: state.currencies,
-        totalAmount: state.totalAmount.EUR,
-        ratesEUR: state.ratesEUR
+        totalAmount: state.totalAmount.EUR
     }}>
         {children}
     </CtxCurrencies.Provider>

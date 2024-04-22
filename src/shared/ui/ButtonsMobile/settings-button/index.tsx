@@ -1,10 +1,9 @@
-// import { Typography } from "@mui/material";
-import { Typography } from "../../typography/typography";
-import { t } from "i18next";
+import { ReactNode } from "react";
 import { FrameItem } from "../../FrameItem";
-import { ReactNode, useContext } from "react";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import Arrow from '@/assets/arrow.svg?react';
+import { Typography } from "../../typography/typography";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import s from '../styles.module.scss'
 
 interface Props {
     onClick?: () => void;
@@ -19,13 +18,14 @@ export function SettingsButton(props: Props ) {
     
     return (
         <FrameItem
-        onClick={props.onClick}
-        isSelected={props.isSelected}
-        justifyContent={'space-between'}
+          onClick={props.onClick}
+          isSelected={props.isSelected}
       >
-        <div className='flex gap-7 items-center'>
+        <div className={s.itemBody}>
           {props.icon}
-          <Typography variant="h" color={props.isSelected ? "white" : "dark-green"} className="font-normal ">{props.text}</Typography>
+          <h4
+            className={`${s.itemTitle} ${props.isSelected && s.itemTitleSelected}`}
+          >{props.text}</h4>
         </div>
         {md && <Arrow />}
       </FrameItem>

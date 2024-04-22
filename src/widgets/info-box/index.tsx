@@ -15,20 +15,27 @@ type Props = {
 
 const InfoBox = ({
     icon,
-    onClick,
     children,
     message = "",
-    className = ""
+    className = "",
+    onClick = null,
 }: Partial<Props>) => {
     if (!message && !children) return null;
 
-    return <div onClick={onClick} className={hClassName.while(className).do(className).scss("Wrapper")}>
-        <div className="shrink-0 flex col-auto w-[30px] h-[30px]">
-            {icon}
+    return (
+        <div onClick={onClick ?? (() => {})}
+            className={hClassName
+                .while(className).do(className)
+                .while(onClick === null).do('cursor-default')
+                .scss("Wrapper")}
+        >
+                <div className="shrink-0 flex col-auto w-[30px] h-[30px]">
+                    {icon}
+                </div>
+
+                {!message ? children : <p className={hClassName.scss("Text")}>{message}</p>}
         </div>
-        
-        {!message ? children : <p className={hClassName.scss("Text")}>{message}</p>}
-    </div>
+    )
 }
 
 export default InfoBox;

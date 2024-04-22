@@ -1,28 +1,17 @@
 @import "@styles/mixins";
+@import '../style.module.scss';
 
-
-.HeaderWalletDesktop
-{
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-    padding: 1rem 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 8px;
-    
-}
 .HeaderWalletMobile{
-    display: flex;
     width: 320px;
-    padding: 15px 12px 10px 12px;
+    display: grid;
     margin: 0.5rem 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-    border-radius: 8px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     align-self: center;
+    background: #FFF;
+    border-radius: 8px;
+    aspect-ratio: 1.7486338;
+    grid-template-rows: min-content 1fr auto;
+    padding: 15px 12px 10px 12px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .WalletInfo{
@@ -33,7 +22,6 @@
     align-items: center;
     gap: 10px;
     align-self: stretch;
-    
 }
 
 .EurGekkoinPrice{
@@ -43,219 +31,14 @@
     align-items: center;
     align-self: stretch;
 }
-.IsEqualEuro{
-    color: var(--Pale-green, #2BAB72);
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
+
 .WalletInfoHeader{
     display: flex;
-    width: 296px;
-    height: 41.29px;
+    width: 300px;
     align-items: flex-start;
 }
-.WalletInfoMain{
-    display: flex;
-    align-items: flex-start;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-.WalletInfoMainLeft{
-    display: flex;
-    padding-left: 80px;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 3px;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-.WalletInfoMainLeftText{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    gap: 6px;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #9D9D9D;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px; /* 166.667% */
-}
-.WalletInfoMainRight{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 3px;
-    flex: 1 0 0;
-    align-self: stretch;
-}
-.WalletInfoMainRightTextFree{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: var(--Pale-blue, #285E69);
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-.WalletInfoMainRightTextIncome{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #2BAB72;
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletInfoMainRightTextOutcome{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #972235;
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletInfoMainRightTextOrders{
-    display: flex;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    border-bottom: 1px dotted #DADADA;
-    color: #285E69;
-    text-align: right;
-    font-family: "Azeret Mono";
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
+
 .WalletInfoHeaderIconAndName{
     display: flex;
     align-items: flex-start;
-
-}
-.WalletNameContainer{
-    display: flex;
-    padding-left: 10px;
-    align-items: flex-start;
-    gap: 10px;
-}
-.WalletName{
-    color: #29354C;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-.WalletShortName{
-    display: flex;
-    align-items: flex-start;
-    flex: 1 0 0;
-    color: #29354C;
-    text-align: right;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    justify-content: flex-end;
-}
-.WalletInfoMainText{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 15px;
-    align-items: center;
-    align-self: stretch;
-    // border-bottom: 1px dashed #DADADA;
-    color: #9D9D9D;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px; /* 166.667% */
-    
-    &Free{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin-left: 1px;
-        color: var(--Pale-blue, #3A5E66);
-    }
-
-    &Income{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #2BAB72;
-
-    }
-
-    &Outcome{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #972235;
-
-    }
-
-    &Orders{
-        font-family: "Azeret Mono";
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        color: #285E69;
-    }
-}
-.DashedLine{
-    width:100%;
-    border-top: 1px dashed #DADADA;
-    margin-bottom:"3px"
-}
-.WalletInfoMain{
-    display: flex;
-    min-width: 100px;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-    flex: 1 0 0;
-    align-self: stretch;
-    padding-left: 80px;
-}
-.LockOrders{
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-    align-items: center;
 }

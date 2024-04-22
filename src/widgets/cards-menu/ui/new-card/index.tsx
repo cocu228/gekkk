@@ -6,7 +6,6 @@ import {INewCardState, IStep, newCardContext} from './newCardContext';
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {ClientDetails} from "@/shared/(orval)api/gek/model";
-import { IssueNewCardMobile } from "./issue-new-card-mobile";
 
 export function NewCard({
     accountDetails,
@@ -82,7 +81,7 @@ export function NewCard({
         switchResidenceAddress,
         close: () => setIsNewCardOpened(false)
     }}>
-        {state.step === 'IssueNewCard' && isMobile ? <IssueNewCardMobile/> : state.step === 'IssueNewCard' ? <IssueNewCard /> : null}
+        {state.step === 'IssueNewCard' /*&& isMobile ? <IssueNewCardMobile/> :*/ ? <IssueNewCard /> : null}
         {state.step === 'ConfirmationNewCard' ? <ConfirmationNewCard /> : null}
         {state.step === 'CardHasBeenOrdered' ? <CardHasBeenOrdered /> : null}
     </newCardContext.Provider>;

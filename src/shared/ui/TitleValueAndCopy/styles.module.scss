@@ -1,0 +1,26 @@
+.copyWrap {
+    color: #285E69ff;
+    display: flex;
+    gap: 6px;
+    flex-direction: column;
+}
+
+.copyTitle {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4285714285714286;
+}
+
+.tooltipBlock {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.tooltipValue {
+    font-size: 14px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 1.4285714285714286;
+}

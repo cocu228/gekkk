@@ -30,49 +30,40 @@ function SelectCurrency({currency, setCurr}: IProps) {
     
 
   return (
-    <>
-        <ConfigProvider
-            theme={{
-                components: {
-                Select: {
-                    
-                },
-                },
+    <div className='w-full relative h-[32px] flex flex-row'>
+        <div 
+            className="row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#DCDCD9]"
+            onClick={()=>{
+                setCurr(null)
+                navigate("/transfers")
             }}
-        >    
-            <div 
-                className="row w-full font-medium"
-                onClick={()=>{
-                    setCurr(null)
-                    navigate("/transfers")
-                }}
-            >
-                <Select 
-                    className='w-full'
-                    placeholder={
-                        currency?
-                            <div className='flex w-full h-full justify-start items-center'>
-                                <div className='flex justify-start items-center w-full'>
-                                    <div className='min-w-[50px] flex justify-start'>
-                                        <IconCoin height={20} className='max-h-[36px]' code={currency}/>
-                                    </div>
-                                    <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
+        >
+            <Select 
+                className='w-full'
+                bordered={false}
+                placeholder={
+                    currency?
+                        <div className='flex w-full h-full justify-start items-center'>
+                            <div className='flex justify-start items-center w-full'>
+                                <div className='min-w-[50px] flex justify-start'>
+                                    <IconCoin height={20} className={`max-h-[36px]`} code={currency}/>
                                 </div>
+                                <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
                             </div>
-                        :
-                            <span className='text-[12px] text-[#3A5E66]'>{t("choose_currency")}</span>
-                    }
-                    notFoundContent={null}
-                    suffixIcon={<div className='w-[20px] h-full'>
-                        <svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 6.82721L14.4826 0.263604C14.8297 -0.087868 15.3925 -0.087868 15.7397 0.263604C16.0868 0.615076 16.0868 1.18492 15.7397 1.5364L8.62854 8.7364C8.28141 9.08787 7.71859 9.08787 7.37146 8.7364L0.260349 1.5364C-0.0867844 1.18492 -0.0867844 0.615076 0.260349 0.263604C0.607482 -0.087868 1.1703 -0.087868 1.51743 0.263604L8 6.82721Z" fill="#B4C0CD"/>
-                        </svg>
-                    </div>}
-                />
-            </div>
-        </ConfigProvider>
-
-    </>
+                        </div>
+                    :
+                        <span className='inline-flex justify-center w-full text-[10px] text-[#B9B9B5]'>{t("choose_currency")}</span>
+                }
+                notFoundContent={null}
+                suffixIcon={null}
+            />
+        </div>
+        <div className={`rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]`}>
+            <svg className={`${currency && "rotate-180"}`} width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
+            </svg>
+        </div>
+    </div>
   )
 }
 

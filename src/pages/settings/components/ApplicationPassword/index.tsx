@@ -1,4 +1,3 @@
-import { Box, TextField } from '@mui/material'
 import Button from "@/shared/ui/button/Button";
 import { AreaWrapper } from '../AreaWrapper'
 import { useTranslation } from 'react-i18next';
@@ -15,9 +14,8 @@ import useModal from "@/shared/model/hooks/useModal";
 import { apiRemoveKey } from '@/shared/(orval)api/auth';
 import Loader from '@/shared/ui/loader';
 import { RegisterOption, RegisterKey } from './api/register-key';
-import { apiGetUserInfo } from '../PersonalInformation/api/get-user-info';
+import { apiGetUserInfo } from "../../components/personalInformation/api/get-user-info";
 import { ChangePass, RegisterOptionsToChangePass } from './api/change-password';
-import PasswordInput from './helpers/passwordInput';
 import CheckList from './helpers/checklist';
 import Input from '@/shared/ui/input/Input';
 interface ILimit {
@@ -120,7 +118,7 @@ export function AccessManagement(): JSX.Element | null{
     <>
       <div className={styles.MainContainer}>
         <AreaWrapper title={t("change_application_password")}>
-          <Box display="flex" padding="36px 0" gap="24px" flexDirection="column">
+          <div className={styles.inputsWrap}>
             <Input
               allowDigits
               allowSymbols
@@ -145,8 +143,8 @@ export function AccessManagement(): JSX.Element | null{
               disabled={!changeCodeSent} 
               placeholder={t("enter_confirm_code")} 
             />
-          </Box>
-          <div className='w-full flex flex-row justify-between'>
+          </div>
+          <div className={styles.btnsList}>
             <Button
               disabled={!valid || !(newPass === confirmNewPass)}
               onClick={()=>{
@@ -167,7 +165,7 @@ export function AccessManagement(): JSX.Element | null{
                 }
               }}
             >
-              {t('Save')}
+              {t('save')}
             </Button>
           </div>
         </AreaWrapper>
@@ -181,7 +179,7 @@ export function AccessManagement(): JSX.Element | null{
               </div>
               <div className={styles.Button}>
                 <Button
-                  className='absolute right-0 mr-5 justify-center'
+                  className={styles.removeBtn}
                   program={index===0}
                   onClick={()=>{
                     showModal()
@@ -276,7 +274,7 @@ export function AccessManagement(): JSX.Element | null{
                 </div>
                 <div className={styles.Button}>
                   <Button
-                    className='absolute right-0 mr-5 justify-center'
+                    className={styles.removeBtn}
                     onClick={()=>{
                       showModal()
                       setSessionToRemove(session)
@@ -374,7 +372,7 @@ export function AccessManagement(): JSX.Element | null{
               title={keyToRemove?t('remove_key'):t("close_session")}
               width={400}
               footer={
-                <div className='w-full flex justify-center gap-2'>
+                <div className={styles.modalFooter}>
                   {keyToRemove ? <><Button
                     onClick={()=>{
                       onRemoveKey(keyToRemove.id)

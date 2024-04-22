@@ -7,6 +7,7 @@ import PercentSelector from '../percent-selector/PercentSelector';
 import CurrencySelector from '../currency-selector/CurrencySelector';
 import {CtxInputCurrencyOptions, CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 import { useTranslation } from 'react-i18next';
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 interface IParams {
     currency?: string;
@@ -26,14 +27,15 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
 
     const inputCurrencyValid = useContext(CtxInputCurrencyValid);
     const {t} = useTranslation();
+    const {md} = useBreakpoints()
 
     return <div className={wrapperClassName}>
         <InputAntd
             {...props}
-            className={`${inputCurrencyValid ? "!border-red-800" : "border-gray-400"} ${className}`}
+            className={`${inputCurrencyValid ? "!border-red-800" : md ? "border-[#DCDCD9] md:rounded-[8px]" : "border-gray-400"} ${className} md:text-[#DCDCD9]`}
             disabled={disabled || !currency}
             value={value}
-            placeholder={t("exchange.enter_amount")}
+            placeholder={!currency ? '' : t("exchange.enter_amount")}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 const value: string = event.target.value
                 onChange(value)

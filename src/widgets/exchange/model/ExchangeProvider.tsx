@@ -1,9 +1,7 @@
-import {useNavigate} from "react-router-dom";
 import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {CtxExchangeData, ICtxExchangeData} from "./context";
-import React, {ReactNode, useContext, useEffect, useState} from "react";
-import {storeListExchangeRooms} from "@/shared/store/exchange-rooms/exchangeRooms";
+import {ReactNode, useContext, useEffect, useState} from "react";
 import Decimal from "decimal.js";
 import {formatAsNumberAndDot} from "@/shared/lib/formatting-helper";
 
@@ -15,10 +13,7 @@ interface IProps {
 }
 
 const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) => {
-    const navigate = useNavigate();
     const {currencies} = useContext(CtxCurrencies);
-    const addExchangeRoom = storeListExchangeRooms(state => state.addRoom);
-    const removeExchangeRoom = storeListExchangeRooms(state => state.removeRoom);
 
     const initialState: ICtxExchangeData = {
         roomInfo: roomInfo,
@@ -51,7 +46,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             ? new Decimal(from).div(to)
             : new Decimal(to).div(from);
 
-        return !result.isFinite() || result.isNaN() ? null :
+        return !result.isFinite() || result.isNaN() || result.isZero() ? null :
             result.toFixed(currencies.get(isSwapped ? state.from.currency : state.to.currency)?.roundPrec);
     }
 
@@ -62,7 +57,7 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             ? new Decimal(from).div(price)
             : new Decimal(price).mul(from);
 
-        return !result.isFinite() || result.isNaN() ? null :
+        return !result.isFinite() || result.isNaN()|| result.isZero() ? null :
             result.toFixed(currencies.get(state.to.currency)?.roundPrec);
     }
 
@@ -71,7 +66,8 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             ...prev,
             from: {
                 ...prev.from,
-                currency: value
+                amount: null,
+                currency: value,
             },
             price: {
                 ...prev.price,
@@ -85,7 +81,8 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
             ...prev,
             to: {
                 ...prev.to,
-                currency: value
+                amount: null,
+                currency: value,
             },
             price: {
                 ...prev.price,
@@ -95,7 +92,6 @@ const ExchangeProvider = ({ children, from, to, roomInfo, ...props }: IProps) =>
     }
 
     const handleFromAmountChange = (value: string) => {
-        
         setState(prev => ({
             ...prev,
             from: {

@@ -1,0 +1,16 @@
+.frameItem {
+    padding: 24px 27px; 
+    border-radius: 8px;
+    border: 2px solid #EEEEEEA6;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    cursor: pointer;
+    color: #285E69ff;
+    background: #fff;
+
+    &Selected {
+        background: #29354C;
+        color: #fff;
+    }
+}

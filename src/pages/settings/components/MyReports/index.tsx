@@ -1,6 +1,5 @@
 import Loader from '@/shared/ui/loader';
 import {Table} from './components/Table';
-import {Typography} from '@mui/material';
 import {useEffect, useState} from 'react';
 import {AreaWrapper} from '../AreaWrapper';
 import {useTranslation} from 'react-i18next';
@@ -8,6 +7,7 @@ import {apiGetUas} from '@/shared/(orval)api';
 import useError from '@/shared/model/hooks/useError';
 import {StatementsByIBAN, apiGetStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
+import s from '../../styles.module.scss'
 
 export function MyReports() {
     const [
@@ -17,15 +17,18 @@ export function MyReports() {
         localIndicatorError
     ] = useError();
     const {t} = useTranslation();
+    const [uasToken, setUasToken] = useState<string>(null);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const [statements, setStatements] = useState<{[key: string]: StatementsByIBAN[]}>(null);
 
     useEffect(() => {
         (async () => {
             localErrorClear();
+            
+            const token = (await apiGetUas()).data.result.token;
+            setUasToken(token);
 
             const {phone} = await getAccountDetails();
-            const token = (await apiGetUas()).data.result.token;
             const {data} = await apiGetStatements({
                 headers: {
                     Authorization: phone,
@@ -47,22 +50,23 @@ export function MyReports() {
         })();
     }, []);
 
-    return statements === null ? (
+    return <div className={s.reportsWrap}>
+        {statements === null ? (
             <AreaWrapper title={t("my_reports")}>
-                <Typography>
+                <p className={s.reportsWarnText}>
                     <Loader className='relative'/>
-                </Typography>
+                </p>
             </AreaWrapper>
         ) : (localIndicatorError ? (
             <AreaWrapper title={t("my_reports")}>
-                <Typography>
+                <p className={s.reportsWarnText}>
                     {localErrorInfoBox}
-                </Typography>
+                </p>
             </AreaWrapper>
         ) : (
             <AreaWrapper title={t("my_reports")}>
-                <Table statements={statements} />
+                <Table statements={statements} uasToken={uasToken}/>
             </AreaWrapper>
-        )
-    )
+        ))}  
+    </div>
 }

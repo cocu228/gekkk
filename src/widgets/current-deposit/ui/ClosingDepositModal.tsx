@@ -33,7 +33,7 @@ const ClosingDepositModal = ({
     const {t} = useTranslation()
 
     return (
-        <Modal open={open} onCancel={onCancel} {...props}>
+        <Modal padding open={open} onCancel={onCancel} {...props}>
             <p className="font-bold text-xl mb-6 md:text-lg md:mb-5">Closing your deposit</p>
             <div className="mb-4">
                 <p className="font-medium text-gray-500 mb-1">Deposit:</p>

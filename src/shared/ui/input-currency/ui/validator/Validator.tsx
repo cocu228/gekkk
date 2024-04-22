@@ -17,7 +17,7 @@ interface IParams {
 }
 
 const Validator: FC<IParams> = (({
-    value,
+    value = 0,
     availableNullable = false,
     children,
     className,
@@ -32,14 +32,14 @@ const Validator: FC<IParams> = (({
     useEffect(() => {
         if (firstEffect.current) {
             firstEffect.current = false
-            // onError(!availableNullable)
         } else {
-            if (new Decimal(value).isZero() && !availableNullable) {
+
+            if (new Decimal(value ?? 0).isZero() && !availableNullable) {
                 setError(t("null_value"));
                 onError(true);
             } else {
                 const isValid = validators.every(validate => {
-                    const result = validate(value);
+                    const result = validate(value ?? 0);
                     if (!result.validated) {
                         setError(result.errorMessage);
                         onError(true);
@@ -61,7 +61,7 @@ const Validator: FC<IParams> = (({
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>
-                {isNull(error) ? <span className='mt-0.5 text-green text-fs12 md:text-[#B9B9B5] md:text-[10px]'>{description}</span> :
+                {isNull(error) ? <span className='mt-0.5 text-green md:text-[#F8A73E] text-fs12'>{description}</span> :
                     <div className="flex mt-0.5 gap-1 items-center">
                         <div className="mt-[1px]">
                             <IconError/>

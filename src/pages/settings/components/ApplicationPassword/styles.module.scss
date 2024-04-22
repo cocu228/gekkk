@@ -51,3 +51,31 @@
     padding: 10px 0px;
     gap: 15px;
 }
+
+.inputsWrap {
+    display: flex;
+    padding: 36px 0;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.btnsList {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.removeBtn {
+    position: absolute;
+    right: 0;
+    margin-right: 1.25rem;
+    justify-content: center;
+}
+
+.modalFooter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}

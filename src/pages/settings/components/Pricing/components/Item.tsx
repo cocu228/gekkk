@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import s from '../styles.module.scss'
 
 export interface ItemProps {
   title: React.ReactNode
@@ -10,27 +10,19 @@ export interface ItemProps {
 }
 export function Item({ title, rows, description }: ItemProps) {
   return (
-    <Box display="flex" flexDirection="column">
-      <Typography marginBottom="30px" variant="b1 - bold">
-        {title}
-      </Typography>
+    <div className={s.TableItem}>
+      <span className={s.TableItemTitle}>{title}</span>
       {rows.map((item, index) => {
         const { title, value } = item
         return (
-          <Typography
-            key={index}
-            marginBottom="16px"
-            display="flex"
-            justifyContent="space-between"
-            variant="b2"
-            gap="16px"
-          >
+          <span className={s.TableItemTextWrap} key={index} >
             <span>{title}</span>
-            <Box component={'span'} textAlign={'right'}>{value}</Box>
-          </Typography>
+            <span className={s.TableItemValue}>{value}</span>
+          </span>
+
         )
       })}
-      {description ? <Typography variant='b2' color="pale blue">{description}</Typography> : null}
-    </Box>
+      {description ? <span className={s.DescriptionText}>{description}</span> : null}
+    </div>
   )
 }

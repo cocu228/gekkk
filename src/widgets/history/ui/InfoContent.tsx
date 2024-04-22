@@ -51,96 +51,102 @@ const InfoContent = (props: TypeProps) => {
       ) : loading ? (
         <Loader />
       ) : (
-        <>
-          <div className="mb-8">
-            <div className="row mb-4 flex flex-wrap gap-2">
+        <div className="px-[5%]">
+          <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#DCDCD9]" />
+
+          <div className="">
+            <div className="row mb-2 flex flex-col">
               <div className="col">
-                <span className="text-gray-500 font-medium">{t("date")}:</span>
+                <span className="font-bold text-[10px] text-[#285E69]">{t("date")}:</span>
               </div>
               <div className="col font-medium">
-                <span className="text-gray-600">
+                <span className="font-normal text-xs text-[#29354C]">
                   {formatForCustomer(props.datetime)}
                 </span>
               </div>
             </div>
-            <div className="row mb-4 flex flex-nowrap gap-2 items-center">
-              <div className="col w-auto">
-                <span className="text-gray-500 leading-4 font-medium">
-                  {t("transaction_id")}:
-                </span>
-              </div>
-              <div className="col w-auto font-medium flex items-center">
-                <span className="leading-4 font-medium">
-                  {asteriskText(props.id_transaction)}
-                </span>
-              </div>
-              <div className="col flex items-center">
-                <CopyIcon value={props.id_transaction} />
+            <div className="row mb-2 flex flex-nowrap items-center">
+              <div className="flex flex-col">
+                <div className="col w-auto">
+                  <span className="font-bold text-[10px] text-[#285E69]">
+                    {t("transaction_id")}:
+                  </span>
+                </div>
+                <div 
+                  className="col w-auto font-medium flex items-center cursor-pointer"
+                  onClick={()=>{
+                    navigator.clipboard.writeText(props.id_transaction)
+                  }}    
+                >
+                  <span className="font-normal text-xs text-[#29354C]">
+                    {asteriskText(props.id_transaction)}
+                  </span>
+                </div>
               </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2 items-center">
+            <div className="row mb-2 flex flex-col flex-wrap">
               <div className="col w-auto">
-                <span className="text-gray-500 font-medium">
+                <span className="font-bold text-[10px] text-[#285E69]">
                   {t("transaction_type")}:
                 </span>
               </div>
               <div className="col w-auto font-medium">
-                <span>{props.tx_type_text}</span>
+                <span className="font-normal text-xs text-[#29354C]">{props.tx_type_text}</span>
               </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2 items-center">
+            <div className="row mb-2 flex flex-col flex-wrap ">
               <div className="col w-auto">
-                <span className="text-gray-500 font-medium">
+                <span className="font-bold text-[10px] text-[#285E69]">
                   {t("currency")}:
                 </span>
               </div>
               <div className="col w-auto font-medium">
-                <span>{props.currency}</span>
+                <span className="font-normal text-xs text-[#29354C]">{props.currency}</span>
               </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2 items-center">
+            <div className="row mb-2 flex flex-wrap flex-col">
               <div className="col w-auto">
-                <span className="text-gray-500 font-medium">
+                <span className="font-bold text-[10px] text-[#285E69]">
                   {t("amount")}:
                 </span>
               </div>
               <div className="col w-auto">
-                <span className="break-all font-medium">
+                <span className="font-normal text-xs text-[#29354C]">
                   {props.amount} {props.currency}
                 </span>
               </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2 items-center">
+            <div className="row mb-2 flex flex-wrap flex-col">
               <div className="col w-auto">
-                <span className="text-gray-500 font-medium">{t("fee")}:</span>
+                <span className="font-bold text-[10px] text-[#285E69]">{t("fee")}:</span>
               </div>
               <div className="col w-auto">
-                <span className="break-all font-medium">
+                <span className="font-normal text-xs text-[#29354C]">
                   {new Decimal(props.fee).toString()} {props.currency}
                 </span>
               </div>
             </div>
-            <div className="row mb-4 flex flex-wrap gap-2 items-center">
+            <div className="row mb-2 flex flex-wrap flex-col">
               <div className="col w-auto">
-                <span className="text-gray-500 font-medium">
+                <span className="font-bold text-[10px] text-[#285E69]">
                   {t("status")}:
                 </span>
               </div>
               <div className="col w-auto flex items-center">
-                <span className="whitespace-nowrap font-medium">
+                <span className="font-normal text-xs text-[#29354C]">
                   {props.status_text}
                 </span>
               </div>
             </div>
             {props.tag && (
-              <div className="row mb-4 flex flex-wrap gap-2 items-center">
+              <div className="row mb-2 flex flex-wrap flex-col">
                 <div className="col w-auto">
-                  <span className="text-gray-500 font-medium">
+                  <span className="font-bold text-[10px] text-[#285E69]">
                     {t("description")}:
                   </span>
                 </div>
                 <div className="col w-auto flex items-center">
-                  <span className="whitespace-nowrap font-medium">
+                  <span className="font-normal text-xs text-[#29354C]">
                     {props.tag}
                   </span>
                 </div>
@@ -149,9 +155,9 @@ const InfoContent = (props: TypeProps) => {
             {isNeedConfirm ||
             state?.txType === AdrTxTypeEnum[6] ||
             state?.txType === AdrTxTypeEnum[8] ? null : (
-              <div className="row mb-4 flex flex-wrap gap-2 items-center">
+              <div className="row mb-2 flex flex-wrap items-center">
                 <div className="col w-auto">
-                  <span className="text-gray-500 font-medium">
+                  <span className="font-bold text-[10px] text-[#285E69]">
                     {t("sender_name")}:
                   </span>
                 </div>
@@ -170,46 +176,56 @@ const InfoContent = (props: TypeProps) => {
                 state.txType === AdrTxTypeEnum[8] ? null : (
                   <div>
                     {state.addressFrom && (
-                      <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                        <div className="col">
-                          <span className="text-gray-500 font-medium">
-                            {t("address_from")}
-                          </span>
-                        </div>
-                        <div className="col flex items-center">
-                          <span className="break-all font-medium">
-                            {asteriskText(state.addressFrom)}
-                          </span>
-                        </div>
-                        <div className="col flex items-center">
-                          <CopyIcon value={state.addressFrom} />
+                      <div className="row mb-2 flex flex-wrap ">
+                        <div className="flex flex-col">
+                          <div className="col">
+                            <span className="font-bold text-[10px] text-[#285E69]">
+                              {t("address_from")}
+                            </span>
+                          </div>
+                          <div 
+                            className="col flex items-center cursor-pointer"
+                            onClick={()=>{
+                              navigator.clipboard.writeText(state.addressFrom)
+                            }}  
+                          >
+                            <span className="font-normal text-xs text-[#29354C]">
+                              {asteriskText(state.addressFrom)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     )}
                     {state.addressTo && (
-                      <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                        <div className="col w-auto">
-                          <span className="text-gray-500 font-medium whitespace-nowrap">
-                            {t("address_to")}
-                          </span>
-                        </div>
-                        <div className="col w-auto flex items-center">
-                          <span className="break-all font-medium">
-                            {asteriskText(state.addressTo)}
-                          </span>
-                          <CopyIcon value={state.addressTo} />
+                      <div className="row mb-2 flex flex-wrap items-center">
+                        <div className="flex flex-col">
+                          <div className="col w-auto">
+                            <span className="font-bold text-[10px] text-[#285E69]">
+                              {t("address_to")}
+                            </span>
+                          </div>
+                          <div 
+                            className="col w-auto flex items-center cursor-pointer"
+                            onClick={()=>{
+                              navigator.clipboard.writeText(state.addressTo)
+                            }}
+                          >
+                            <span className="font-normal text-xs text-[#29354C]">
+                              {asteriskText(state.addressTo)}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     )}
                     {state.tokenNetwork && (
-                      <div className="row mb-4 flex flex-wrap gap-2 items-center">
+                      <div className="row mb-2 flex flex-wrap flex-col">
                         <div className="col w-auto">
-                          <span className="text-gray-500 font-medium">
+                          <span className="font-bold text-[10px] text-[#285E69]">
                             {t("token_network")}
                           </span>
                         </div>
                         <div className="col w-auto">
-                          <span className="break-all font-medium">
+                          <span className="font-normal text-xs text-[#29354C]">
                             {state.tokenNetwork}
                           </span>
                         </div>
@@ -218,25 +234,29 @@ const InfoContent = (props: TypeProps) => {
                   </div>
                 )}
                 {state.txHash && state.explorerBaseAddress && (
-                  <div className="row mb-4 flex flex-wrap gap-2 items-center">
-                    <div className="col w-auto">
-                      <span className="text-gray-500 font-medium">
-                        {t("transaction")}
-                      </span>
-                    </div>
-                    <div className="col w-auto flex items-center">
-                      <a
-                        target={"_blank"}
-                        href={state.explorerBaseAddress + state.txHash}
-                        className="break-all font-medium underline"
+                  <div className="row mb-2 flex flex-wrap items-center">
+                    <div className="flex flex-col">
+                      <div className="col w-auto">
+                        <span className="font-bold text-[10px] text-[#285E69]">
+                          {t("transaction")}
+                        </span>
+                      </div>
+                      <div 
+                        className="col w-auto flex items-center cursor-pointer"
                       >
-                        {asteriskText(state.txHash)}
-                      </a>
-                      <CopyIcon value={state.txHash} />
+                        <a
+                          target={"_blank"}
+                          href={state.explorerBaseAddress + state.txHash}
+                          className="font-normal text-xs text-[#29354C] underline"
+                        >
+                          {asteriskText(state.txHash)}
+                        </a>
+                      </div>
                     </div>
+                    <CopyIcon value={state.txHash} />
                   </div>
                 )}
-                {/*{state.state_text && <div className="row mb-4 flex flex-wrap gap-2">*/}
+                {/*{state.state_text && <div className="row mb-4 flex flex-wrap ">*/}
                 {/*    <div className="col">*/}
                 {/*        <span className="text-gray-500 font-normal">Status blockchain:</span>*/}
                 {/*    </div>*/}
@@ -248,7 +268,7 @@ const InfoContent = (props: TypeProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
-        </>
+        </div>
       )}
     </>
   );

@@ -1,4 +1,3 @@
-import { Box, Typography, TextField, styled } from "@mui/material";
 import { useNewCardContext } from "./newCardContext";
 import Button from "@/shared/ui/button/Button";
 import { useEffect, useState } from "react";
@@ -8,24 +7,8 @@ import { deliveryCountriesList } from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { Switch } from "antd";
-
+import s from '../style.module.scss'
 export const latinPattern = /^[a-zA-Z\s]*$/;
-
-const RowItem = styled(Box, {
-  shouldForwardProp: (prop) =>
-    prop !== "hasBorderTop" && prop !== "hasBorderBottom",
-})<{ hasBorderTop?: boolean; hasBorderBottom?: boolean }>(
-  ({ theme, hasBorderTop, hasBorderBottom }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    borderTop: hasBorderTop ? `1px solid ${theme.palette.strokes}` : undefined,
-    borderBottom: hasBorderBottom
-      ? `1px solid ${theme.palette.strokes}`
-      : undefined,
-    paddingBottom: "6px",
-    alignItems: "center",
-  })
-);
 
 export function IssueNewCard() {
   const { t } = useTranslation();
@@ -39,43 +22,37 @@ export function IssueNewCard() {
 
   return (
     <div>
-      <Box display="flex" justifyContent="space-between" width="100%">
-        <Typography fontSize={"16px"} variant="h3">
-          Issue new card
-        </Typography>
+      <div className={s.issueCardTitleBlock} >
+        <h3 className={s.issueCardTitle}>
+          {t("issue_new_card")}
+        </h3>
         <CloseWindowButton onClick={close} />
-      </Box>
-
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        gap="12px"
-        paddingTop={"12px"}
-      >
-        <RowItem hasBorderBottom paddingTop={"8px"} alignItems={"flex-end"}>
-          <Box display={"flex"} flexDirection={"column"} gap="6px">
-            <Typography fontSize={"16px"} variant="b2 - bold" color="dark blue">
+      </div>
+      <div className={s.issueCardBody} >
+        <div className={`${s.issueRowItem} ${s.issueRowItemBorderBottom}`}>
+          <div className={s.rowItemBody}>
+            <span className={s.rowItemTitle}>
               {t("delivery_address")}
-            </Typography>
-            <Typography fontSize={"16px"} variant="b2" color="dark blue">
+            </span>
+            <span className={s.rowItemSubtitle}>
               {t("same_as_the_residence_address")}
-            </Typography>
-          </Box>
+            </span>
+          </div>
           <Switch
             checked={state.isResidenceAddress}
             onChange={switchResidenceAddress}
           />
-        </RowItem>
-        <RowItem hasBorderBottom marginTop={"8px"}>
-          <Typography fontSize={"16px"} variant="b2 - bold" color="dark blue">
-            {t("Country")}
-          </Typography>
-          <Box width={"250px"}>
-            <SearchSelect
+        </div>
+        <div className={`${s.issueRowItem} ${s.issueRowItemBorderBottom}`}>
+          <span className={s.rowItemTitle}>
+            {t("country")}
+          </span>
+          <div className="w-[250px]">
+          <SearchSelect
               className="w-full mt-2"
-              placeholder="Select country..."
+              placeholder={t("select_country")+"..."}
               value={state.countryCode}
-              notFoundContent={<span>Country not found</span>}
+              notFoundContent={<span>{t("country_not_found")}</span>}
               options={deliveryCountriesList.map((c) => ({
                 label: c.name,
                 value: c.code,
@@ -86,47 +63,46 @@ export function IssueNewCard() {
                   countryCode: code,
                 })
               }
-            />
-          </Box>
-        </RowItem>
-        <TextField
-          fullWidth
-          margin={"normal"}
-          value={state.city}
-          onChange={({ target }) => {
-            const inputValue = target.value;
+            />  
+          </div>
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>City</span>
+          <input
+            value={state.city}
+            onChange={({ target }) => {
+              const inputValue = target.value;
 
-            if (!latinPattern.test(inputValue)) {
-              return null;
-            } else {
+              if (!latinPattern.test(inputValue)) {
+                return null;
+              } else {
+                setState({
+                  ...state,
+                  city: target.value,
+                });
+              }
+            }}
+            className={s.input}
+            placeholder={t("enter_city_name")}
+          />
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>{t("post_code")}</span>
+          <input
+            value={state.postalCode}
+            placeholder={t("enter_post_code")}
+            onChange={({ target }) =>
               setState({
                 ...state,
-                city: target.value,
-              });
+                postalCode: target.value,
+              })
             }
-          }}
-          label={t("city")}
-          placeholder={t("enter_city_name")}
-        />
-
-        <TextField
-          fullWidth
-          margin={"normal"}
-          label={t("post_code")}
-          value={state.postalCode}
-          placeholder={t("enter_post_code")}
-          onChange={({ target }) =>
-            setState({
-              ...state,
-              postalCode: target.value,
-            })
-          }
-        />
-
-        <TextField
-          fullWidth
-          margin={"normal"}
-          label={t("street")}
+            className={s.input}
+          />
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>{t("street")}</span>
+          <input
           value={state.street}
           placeholder={t("enter_street_name")}
           onChange={({ target }) => {
@@ -140,68 +116,69 @@ export function IssueNewCard() {
               });
             }
           }}
-        />
+            className={s.input}
+          />
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>{t("house")}</span>
+          <input
+            value={state.houseNumber}
+            placeholder={t("enter_house_name_or_number_if_available")}
+            onChange={({ target }) => {
+              const ru = /[а-яё]+/i.test(target.value);
+              if (ru) {
+                return null;
+              } else {
+                setState({
+                  ...state,
+                  houseNumber: target.value,
+                });
+              }
+            }}
+            className={s.input}
+          />
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>{t("flat")}</span>
+          <input
+            value={state.apartmentNumber}
+            placeholder={t("enter_flat_name_or_number_if_available")}
+            onChange={({ target }) => {
+              const ru = /[а-яё]+/i.test(target.value);
+              if (ru) {
+                return null;
+              } else {
+                setState({
+                  ...state,
+                  apartmentNumber: target.value,
+                });
+              }
+            }}
+            className={s.input}
+          />
+        </div>
+        <div className={s.input_block}>
+          <span className={s.input_title}>{t("recipient")}</span>
+          <input
+            placeholder={t("enter_recipient_name_if_necessary")}
+            value={state.recipientName}
+            onChange={({ target }) => {
+              const inputValue = target.value;
 
-        <TextField
-          fullWidth
-          margin={"normal"}
-          value={state.houseNumber}
-          label={t("house")}
-          placeholder={t("enter_house_name_or_number_if_available")}
-          onChange={({ target }) => {
-            const ru = /[а-яё]+/i.test(target.value);
-            if (ru) {
-              return null;
-            } else {
-              setState({
-                ...state,
-                houseNumber: target.value,
-              });
-            }
-          }}
-        />
-
-        <TextField
-          fullWidth
-          margin={"normal"}
-          value={state.apartmentNumber}
-          label={t("flat")}
-          placeholder={t("enter_flat_name_or_number_if_available")}
-          onChange={({ target }) => {
-            const ru = /[а-яё]+/i.test(target.value);
-            if (ru) {
-              return null;
-            } else {
-              setState({
-                ...state,
-                apartmentNumber: target.value,
-              });
-            }
-          }}
-        />
-
-        <TextField
-          fullWidth
-          margin={"normal"}
-          value={state.recipientName}
-          onChange={({ target }) => {
-            const inputValue = target.value;
-
-            if (!latinPattern.test(inputValue)) {
-              return null;
-            } else {
-              setState({
-                ...state,
-                recipientName: target.value,
-              });
-            }
-          }}
-          label={t("Recipient")}
-          placeholder={t("enter_recipient_name_if_necessary")}
-        />
-      </Box>
-
-      <Box display={"flex"} gap="24px" paddingTop={"48px"}>
+              if (!latinPattern.test(inputValue)) {
+                return null;
+              } else {
+                setState({
+                  ...state,
+                  recipientName: target.value,
+                });
+              }
+            }}
+            className={s.input}
+          />
+        </div>
+      </div>
+      <div className={s.issueFooter} >
         <Button
           className="w-full"
           disabled={!isValid}
@@ -214,7 +191,7 @@ export function IssueNewCard() {
         <Button gray onClick={close}>
           {t("back")}
         </Button>
-      </Box>
+      </div>
     </div>
   );
 }

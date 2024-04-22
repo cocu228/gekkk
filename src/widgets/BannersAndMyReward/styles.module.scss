@@ -1,0 +1,87 @@
+.rewardsWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 440px;
+    flex: 0 0 auto;
+}
+
+.bannersWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+}
+
+.bannerItem {
+    width: 100%;
+    padding: 12px;
+    align-items: flex-start;
+    display: inline-flex;
+    border-radius: 8px;
+}
+
+.bannerText {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+}
+
+.goToBlock {
+    min-width: 24px;
+    height: 24px;
+    border: 2px solid #29354C;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rewardBlock {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 27px;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 6px;
+    gap: 32px;
+}
+
+.rewardTitle {
+    margin: 0;
+    font-size: 20px;
+    font-family: Archivo;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0em;
+    color: #285E69ff;
+}
+
+.rewardSubtitle {
+    margin: 0;
+    font-family: Inter;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 0.8333333333333334;
+    color: #3aa535ff;
+}
+
+.conditionsTitle {
+    margin: 0;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4285714285714286;
+    color: #285E69ff;
+}
+
+.conditionsItemTitle {
+    margin: 0;
+    font-size: 14px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 1.4285714285714286;
+    color: #285E69ff;
+}

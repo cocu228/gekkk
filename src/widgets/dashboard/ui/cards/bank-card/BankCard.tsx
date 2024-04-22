@@ -8,11 +8,18 @@ interface CardData {
     holderName: string;
     className?: string;
     status?: string;
+    size?: 'md' | 'lg';
 }
 
-const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: CardData) => {
-
-    const {t} = useTranslation()
+const BankCard = ({
+    cardNumber,
+    status,
+    expiresAt,
+    holderName,
+    className,
+    size = 'md',
+}: CardData) => {
+    const {t} = useTranslation();
 
     return (
         <div className={`flex justify-center ${className}`}>
@@ -24,14 +31,15 @@ const BankCard = ({ cardNumber, status, expiresAt, holderName, className }: Card
                 </div>
             )}
             <div className={styles.BankCard}>
-                <img
-                    src='/img/payment-card/payment-card-background2.jpg'
-                    className='rounded-[10px]'
-                />
-                <div className='absolute w-full max-w-[220px]'>
-                    <div className={styles.CardNumber}>{cardNumber}</div>
-                    <div className={styles.CardData}>{expiresAt}</div>
-                    <div className={styles.CardData +' '+ styles.CardHolderName}>{holderName}</div>
+                <div className={styles.DataWrapper}>
+                    <div className={`${styles.CardNumber} ${size !== 'lg' ? '' : styles.CardNumberLg}`}>
+                        <span className={styles.Text}>{cardNumber}</span>
+                    </div>
+
+                    <div className={`${styles.CardData} ${size !== 'lg' ? '' : styles.CardDataLg}`}>
+                        <div className={styles.Text}>{expiresAt}</div>
+                        <div className={styles.Text}>{holderName}</div>
+                    </div>
                 </div>
             </div>
         </div>

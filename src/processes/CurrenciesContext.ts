@@ -38,13 +38,11 @@ export class ICtxCurrency {
 }
 
 export interface ICtxCurrencies {
-    ratesEUR: unknown;
     currencies: Map<string, ICtxCurrency>;
     totalAmount: Decimal | null;
 }
 
 export const CtxCurrencies = React.createContext<ICtxCurrencies>({
-    ratesEUR: null,
     currencies: null,
     totalAmount: null
 });

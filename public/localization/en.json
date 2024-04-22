@@ -15,7 +15,7 @@
       "data_protection_policy": "Data protection policy",
       "legal_agreements": "Legal agreements",
       "crypto_exchange_service": "Crypto exchange service is powered by AtlantEX OU (licensed partner for crypto wallet and exchange)",
-      "invalid_password": "Only numbers allowed and min length 6 symbol",
+      "invalid_password": "Check that the password is 8+ characters, contains at least one of each: number, upper case character, special character.",
       "invalid_phone": "Please enter your full number"
     },
     "next": "Next",
@@ -24,6 +24,7 @@
     "sms_code_sent": "SMS with one-time code was sent to",
     "one-time code": "One-time code",
     "phone_code": "Phone code",
+    "payment_information": "Payment Information",
     "back_to_login_page": "← Back to login page",
     "can_use_code": "You can use the code for: {{amount}} seconds",
     "resend_one-time_code": "Resend one-time code again",
@@ -67,9 +68,8 @@
       "title": "Support",
       "subtitle": "If you have any questions or difficulties, please let us know in any of the following way:",
       "response_time": "Response time up to 24 hours",
-      
-      "faq":{
 
+      "faq": {
         "account_opening": {
           "title": "Account opening",
           "answers": {
@@ -84,7 +84,13 @@
             "step_3": "Step 3: Get confirmation that you are registered as a client*.",
             "step_4": "Step 4: At this point you'll be able to top up your GEKKARD account and use your Virtual GEKKARD.",
             "step_5": "Step 5: After a few days, you’ll receive your GEKKARD Mastercard by post.",
-            "if_you_meet_our_minimum": "*If you meet our minimum trustworthiness criteria."
+            "if_you_meet_our_minimum": "*If you meet our minimum trustworthiness criteria.",
+
+            "in_order_to_open_gekkard": "In order to open GEKKARD account you need to be at least 18 years old. But an additional card can be issued without age limit.",
+
+            "currently_gekkard_accounts_are_opened": "Currently GEKKARD accounts are opened in one currency — EUR.",
+
+            "as_a_financial_institution": "As a financial institution, we must follow the “Know Your Customer” procedures. Therefore, during registration in mobile application, you scan an identity document (passport), as well as make a 'selfie'."
           },
           "who_can_open_gekkard": "Who can open GEKKARD account?",
           "how_to_open_gekkard": "How to open my GEKKARD account?",
@@ -94,6 +100,25 @@
         },
         "account": {
           "title": "Account",
+          "answers": {
+            "it_is_account_established": "It is account established by us in your name. Account is used for the processing of transactions from linked GEKKARD, as well as for execution of payment transactions.",
+
+            "gekkard_accounts_are_opened": "GEKKARD accounts are opened in one currency - EUR.",
+
+            "you_can_find_your_iban": "You can find your IBAN in GEKKARD account statement or in the mobile application: money - top up account - account for topup.",
+
+            "following_your_initiative": "Following your initiative, the GEKKARD account shall be closed within 1 (one) month of receipt of your written notice in accordance with the procedure set by us.",
+            "more_detailed": "More detailed information regarding account and card closure you can find in",
+            "general_terms_and_conditions": "General terms and conditions",
+
+            "the_most_common": "The most common reasons for an account balance going negative are using your card where online authorization is not requested, or because a request for payment has been delayed.",
+
+            "yes_you_can": "Yes, you can! Account statements are available in mobile application and Internet bank, as well as you may check the balance and available funds on GEKKARD account or view a statement of recent transactions in the mobile application and Internet bank.",
+
+            "any_incoming_transfers": "Any incoming transfers will be returned to the account of sender.",
+
+            "before_receiving": "Before receiving a plastic GEKKARD, you will be able to see all of data of a GEKKARD account and a virtual GEKKARD in the mobile application. Virtual card and GEKKARD account are active and can be used immediately after successful registration."
+          },
           "what_is_a_gekkard_account": "What is a GEKKARD account?",
           "can_i_hold_more_than_one_currency": "Can I hold more than one currency on my GEKKARD account?",
           "how_to_find_my_iban": "How to find my IBAN or GEKKARD  account number?",
@@ -103,18 +128,56 @@
           "what_happens_to_funds_coming": "What happens to funds coming in to an old closed GEKKARD account?",
           "can_i_see_the_new_gekkard": "Can I see the new GEKKARD account details before I get my card?"
         },
-    
-    
+
         "account_balance": {
           "title": "Account balance",
+          "answers": {
+            "an_incoming_patment": "An incoming payment will not increase the balance until it is credited to your GEKKARD account.",
+
+            "the_statement": "The statement could be found in the mobile application at History section",
+
+            "in_rare_cases": "In rare cases, the amount of your purchases may exceed the available balance on the GEKKARD account. This happens if the store due to the peculiarities of its work did not check the available balance on your GEKKARD. You need to replenish your GEKKARD account to close this negative balance. After that GEKKARD will work as usual.",
+
+            "you_can_check": "You can check your transactions and GEKKARD account balance 24/7 - 365 days of the year using themobile application or Internet bank."
+          },
           "balance_hasnt_been_updated": "Balance hasn't been updated following a bank transfer",
           "am_i_able_to_get_a_bank_statement": "Am I able to get a bank statement?",
           "my_account_balance_is_negative": "My account balance is negative, what happened?",
           "how_can_i_check_gekkard_transactions": "How can I check GEKKARD transactions and/ or GEKKARD account balance?"
         },
-  
+
         "personal_information": {
           "title": "Personal Information",
+          "answers": {
+            "natural_persons": "Natural persons who are or have been entrusted with prominent public functions, other than middle ranking or more junior officials. For more information, see",
+            "general_terms_and_conditions": "General terms and conditions",
+
+            "pep_family_member": "PEP family member or/ and person known to be close associates to PEP",
+
+            "the_spouse_of_pep": "The spouse of PEP, or a person considered to be equivalent to a spouse of PEP.",
+            "the_children_of_pep": "The children of PEP and their spouses, or persons considered to be equivalent to a spouse.",
+            "the_parents_of_pep": "The parents of PEP.",
+
+            "a_natural_person_known": "A natural person known to have joint beneficial ownership of a body corporate or any other form of legal arrangement, or any other close business relations, with PEP.",
+            "a_natural_person_who": "A natural person who has sole beneficial ownership of a body corporate or any other form of legal arrangement that is known to have been established for the benefit of PEP.",
+
+            "to_fulfill": "To fulfill our obligations under the Prevention of Money Laundering and Funding of Terrorism Regulations.",
+
+            "any_information": "Any information about personal or factual circumstances of a specific or identifiable natural person, such as e.g. name and surname, date of birth, place of birth, identification document (including type of identification document, issue date, ID number, issuing authority), address, telephone number, mobile number, e-mail address, IP address, online identifier, location data, images and information on transactions and accounts.",
+
+            "general_data": "General Data Protection Regulation (GDPR) 2016/679 is a regulation in EU law on data protection and privacy for all individuals within the European Union (EU) and the European Economic Area (EEA). The GDPR aims primarily to give control to citizens and residents over their personal data and to simplify the regulatory environment for international business by unifying the regulation within the EU.",
+
+            "we_process": "We process your personal data for the following purposes:",
+            "the_performance": "the performance of contractual and pre-contractual obligations",
+            "the_protection": "the protection of your und our interest",
+            "the_ensuring": "the ensuring compliance with applicable laws and regulation to which we are subject",
+            "the_execution": "the execution of transaction through the payment system",
+            "other_purposes": "other purposes specified in",
+            "data_protection": "Data protection policy",
+
+            "we_collect": "We collect, use and processing your personal data in accordance with",
+            "we_use": "We use reasonable measures to help keeping information secure, and to help preventing it from becoming disclosed to persons who are not described in"
+          },
           "who_is_a_politically_exposed_person": "Who is a politically exposed person (PEP)?",
           "who_is_a_person_closely_related": "Who is a person closely related to politically exposed person (PEP)?",
           "who_is_a_politically_exposed_person_family": "Who is a politically exposed person’s (PEP) family member?",
@@ -125,11 +188,49 @@
           "why_do_we_process_your_personal_data": "Why do we process your personal data?",
           "is_my_personal_data_protected": "Is my personal data protected?"
         },
-  
-    
-    
+
         "security": {
           "title": "Security",
+          "answers": {
+            "pin_is": "Personal Identification Number (PIN) is a numeric code consisting of four digits. We issue card PIN to you together with the plastic GEKKARD for confirming transactions in ATMs and POS terminals. ",
+            "do_not": "Do not share this information with anyone.",
+
+            "or_security": "or security reasons, your card PIN is blocked after 3 incorrect entry attempts. Contact our support team so we can help you. Our support team will also give instructions for further actions concerning your card.",
+
+            "you_can_view": "You can view it yourself on the mobile application at the Money section. Click on the picture of the card on which you want to see the data and then on Show card data.",
+
+            "this_is_a_digital": "This is a digital code, you will invent yourself. It will protects your mobile application from unauthorized use.",
+
+            "yes_you_can": "Yes, you can change it yourself on the mobile application in the section Settings.",
+
+            "no_you_can_not": "No you can not. The mobile application PIN is used for application only. Use the card PIN to withdraw cash from an ATM or when making purchases.",
+
+            "no_they_are_different": "No, they are different. You invent yourself the application PIN, it protects your mobile application. The card PIN is automatically generated by the system, it is displayed on the mobile application in the section Money and you use it for purchases and cash withdrawals at ATMs.",
+
+            "security_feature": "Security feature of the card consisting of 3 digits and is located on the back of the card within the signature area. ;",
+
+            "cvc2_is": "CVC2 is additional security measures for online purchases.",
+            "do_not_share": "Do not share this information with anyone.",
+
+            "yes_your_funds": "Yes. Your funds shall be deposited in a bank account, separated from our account, in a credit institution domiciled in a reputable jurisdiction. ",
+            "so_in_the_unlikely": "So in the unlikely event of any insolvency, funds that have reached your GEKKARD account will be protected against claims by our creditors.",
+
+            "this_is_an": "This is an additional level of security when shopping with your GEKKARD on the Internet.",
+
+            "3d_secure_protects": "3D Secure protects you from online card fraud.To perform authorization of a transaction made using GEKKARD on the Internet where the vendor ensures secure authentication (3-D secure), you shall make additional authorization by confirming such transactions with one-time password derived from us.",
+
+            "it_is_automatically": "It’s automatically activated when you activate your card in the mobile application. No additional passwords are required.",
+
+            "you_need_to": "You need to verify your identity in order to use your GEKKARD account. This policy is in line with a banking regulation commonly known as 'Know Your Customer’ (KYC) and is the process of a business verifying the identity of its clients. It is simply an anti-corruption and fraud measure.",
+
+            "if_you_believe": "If you believe that your card has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you.",
+
+            "never_share": "Never share your mobile application passcode with anyone.Use an email address that only you are using and have access to.Never give your full card number, expiry date, card PIN or CVC2 number to anyone, as this is your way to authorise online payments.",
+
+            "you_can_block": "You can block and unblock your GEKKARD at any time in the mobile application: go to the 'Money' section, select the card you need and use the 'Block card' button (at the bottom of the screen). You should immediately block your GEKKARD if the card has been lost or stolen, or you suspect that the data of GEKKARD has become known to unauthorized persons. You can later unlock GEKKARD if your suspicions are not confirmed.",
+
+            "please_block": "Please block GEKKARD immediately in the mobile application. If you later find the card and are sure that no unauthorized persons have used it, then unblock the card yourself in the mobile application. If you are sure that GEKKARD has been stolen or lost, contact our support team."
+          },
           "what_is_card_pin": "What is card PIN?",
           "what_should_i_do_if_i_incorrectly": "What should I do if I incorrectly entered the card PIN many times?",
           "i_forgot_card_pin": "I forgot card PIN, what to do?",
@@ -149,9 +250,95 @@
           "how_to_block_my_gekkard": "How to block my GEKKARD?",
           "my_card_has_been_lost_or_stolen": "My card has been lost or stolen"
         },
-    
-        "cards": {
-          "title": "Cards",
+
+        "card": {
+          "title": "Card",
+          "answers": {
+            "it_is_prepaid": "It is prepaid debit card of MasterCard issued by us to you, which may be in the form of a plastic card or virtual card.",
+
+            "you_can": "You can apply for GEKKARD a remote access tool (mobile application) by filling out an application form.",
+            "step_1": "Step 1: Fill in the mobile application your personal details and shipping address.",
+            "step_2": "Step 2: Prove your identity .",
+            "step_3": "Step 3: Get confirmation that you are registered as a client*.",
+            "step_4": "Step 4: After successful registration in the mobile application you get a virtual GEKKARD automatically. At this point you'll be able to top up your account and use your Virtual GEKKARD. ",
+            "step_5": "Step 5: After a few days, you’ll receive your GEKKARD Mastercard by post. ",
+            "if_you_meet_our_minimum": "; *If you meet our minimum trustworthiness criteria.",
+
+            "the_use_of_virtual": "The use of virtual GEKKARD is limited to online purchases.",
+
+            "gekkard_may_be_used": "GEKKARD may be used to pay for goods and services at participating retailers and online that accept Mastercard cards. ",
+            "virtual_gekkard": "Virtual GEKKARD is designed for online purchases only. ",
+            "plastic_gekkard": "Plastic GEKKARD is designed for use in shops and retail locations where you are physically present. It is possible also to use it for cash withdrawal.",
+
+            "your_card_expires": "Your card expires on the last day of the month, which is printed on the front of the card.",
+
+            "you_can_change": "You can change your daily and monthly limits in the mobile application. Just go to the 'Money' section, select the card you need, select the limit type (daily, monthly), thуn change the amount and confirm your limit change.",
+
+            "you_can_block": "You can block and unblock your GEKKARD at any time in the mobile application: go to the 'Money' section, select the card you need and use the 'Block card' button (at the bottom of the screen). You should immediately block your GEKKARD if the card has been lost or stolen, or you suspect that the data of GEKKARD has become known to unauthorized persons. You can later unlock GEKKARD if your suspicions are not confirmed.",
+
+            "you_have_had": "You've had insufficient funds, input wrong card details (expiry date, CVC), or used an expired card.",
+
+            "depending_on_the": "Depending on the destination, deliveries take:",
+            "up_to_10": "up to 10 working days for EU countries;",
+            "up_to_15": "up to 15 working days for non-EU countries.",
+            "if_you_haven": "If you haven't received your card after 10 working days, contact us via chat.",
+
+            "please_block": "Please block GEKKARD immediately in the mobile application. If you later find the card and are sure that no unauthorized persons have used it, then unblock the card yourself in the mobile application. If you are sure that GEKKARD has been stolen or lost, contact our support team.",
+
+            "before_receiving": "Before receiving a plastic GEKKARD, you will be able to see all of data of a GEKKARD account and a virtual GEKKARD in the mobile application. Virtual card and GEKKARD account are active and can be used immediately after successful registration.",
+
+            "for_security_reasons": "For security reasons all card payments are blocked when the card PIN is entered incorrectly 3 times. Contact our support team so we can help you.",
+
+            "yes_gekkard_is": "Yes. GEKKARD is valid until the last day stated on the plastic card (inclusive). ",
+            "information_of_validity": "Information of validity of virtual GEKKARD you can find using remote access tool(mobile application).",
+
+            "we_open_gekkard": "We open GEKKARD account in IBAN format and, by default, link your GEKKARD to this account. You can use GEKKARD account to make payments.",
+
+            "it_is_a_non_physical": "It is a non-physical card linked to the GEKKARD account. The virtual GEKKARD number matches the plastic GEKKARD number.",
+
+            "during_registration": "During registration in the mobile application, you scan the original of an identity document (passport).",
+
+            "your_virtual_gekkard_will": "Your virtual GEKKARD will be issued right after successful registration. You can start to use it on the Internet immediately. Physical plastic GEKKARD will be produced in 24 hours and sent to you by mail. Depending on the destination, deliveries take:",
+            "up_to_10_working": "up to 10 working days for EU countries;",
+            "up_to_15_working": "up to 15 working days for non-EU countries.",
+            "if_you_have_not": "If you haven't received your card after 10 days, contact our support team.",
+
+            "yes": "Yes.",
+
+            "depending_on_the_destination": "Depending on the destination, deliveries take:",
+            "up_to_10_working_days": "up to 10 working days for EU countries; ",
+            "up_to_15_working_days": "up to 15 working days for non-EU countries. ",
+            "if_you_have_not_received": "If you haven't received your card after 10 days, contact us via chat.",
+
+            "to_use_your_plastic": "To use your plastic GEKKARD, you’ll need to activate it first. You can only do this in the mobile application. Just go to Activate Card and select Start Activation",
+
+            "we_do_not_send": "We don’t send you a card PIN via post. Information about card PIN you can see in the mobile application.",
+            "go_to_show": "Go to Show Card Data",
+
+            "yes_in_the_mobile": "Yes, in the mobile application.",
+
+            "if_you_believe": "If you believe that your GEKKARD has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you.",
+
+            "the_most_common": "The most common reasons for an account balance going negative are using your card where online authorization is not requested, or because a request for payment has been delayed.",
+
+            "or_security": "or security reasons, your card PIN is blocked after 3 incorrect entry attempts. Contact our support team so we can help you. Our support team will also give instructions for further actions concerning your card.",
+
+            "you_can_view": "You can view it yourself on the mobile application at the Money section. Click on the picture of the card on which you want to see the data and then on Show card data.",
+
+            "no_you_can_not": "No you can not. The mobile application PIN is used for application only. Use the card PIN to withdraw cash from an ATM or when making purchases.",
+
+            "this_is_a_card": "This is a card that you can order ;on the mobile application in addition to the main card. It has a different number and expiration date, but is linked to the same account as the main card. You can use an additional card and a main card at the same time.",
+
+            "you_can_order": "You can order an additional card for a member of your family or yourself.",
+
+            "this_is_a_card_for": "This is a card for which no credit limit is issued. Thus, for payments, purchases or cash withdrawals, you must first replenish your card.",
+
+            "you_can_easily": "You can easily control your expenses, because card has no credit limit. Thus, you can only spend the amount of money that you have on the card.",
+
+            "can_my_card": "Can my card be reloaded? Yes of course. The card can be reloaded unlimited number of times.",
+
+            "you_can_replenish": "You can replenish a card by SEPA transfer from another bank in euro currency, by transfer from another your card or by internal payment."
+          },
           "what_is_a_gekkard": "What is a GEKKARD?",
           "how_to_apply_for_the_gekkard": "How to apply for the GEKKARD?",
           "what_is_the_difference": "What is the difference between virtual and plastic GEKKARD?",
@@ -185,11 +372,31 @@
           "can_my_card_be_reloaded": "Can my card be reloaded?",
           "how_can_i_replenish_my_card": "How can I replenish my card?"
         },
-    
-    
-    
+
         "card_purchases": {
           "title": "Card purchases",
+          "answers": {
+            "gekkard_may_be_used": "GEKKARD may be used to pay for goods and services at participating retailers and online that accept Mastercard cards.",
+            "virtual_gekkard": "Virtual GEKKARD is designed for online purchases only.",
+            "plastic_gekkard": "Plastic GEKKARD is designed for use in shops and retail locations where you are physically present. It is possible also to use it for cash withdrawal.",
+
+            "the_use_of_virtual": "The use of virtual GEKKARD is limited to online purchases.",
+
+            "no_gekkard_is": "No. GEKKARD is a prepaid debit card, so spending is limited to the amount that you load on the card.",
+            "the_transaction_will": "The transaction will be declined if the funds are insufficient.",
+
+            "a_point_of_sale": "A point of sale (POS) terminal is an electronic device used to process card payments at retail locations.",
+
+            "this_is_an": "This is an additional level of security when shopping with your GEKKARD on the Internet.",
+
+            "3d_secure_protects": "3D Secure protects you from online card fraud.To perform authorization of a transaction made using GEKKARD on the Internet where the vendor ensures secure authentication (3-D secure), you shall make additional authorization by confirming such transactions with one-time password derived from us.",
+
+            "some_of_the_most": "Some of the most common reasons are that you've had insufficient funds, input wrong card details (expiry date, or CVC2), exceeded the spending limit set by yourself",
+
+            "in_rare_cases": "In rare cases, the amount of your purchases may exceed the available balance on the GEKKARD account. This happens if the store due to the peculiarities of its work did not check the available balance on your GEKKARD. You need to replenish your GEKKARD account to close this negative balance. After that GEKKARD will work as usual.",
+
+            "for_security_reasons": "For security reasons all card payments are blocked when the card PIN is entered incorrectly 3 times. Contact our support team so we can help you."
+          },
           "where_do_i_use_a_gekkard": "Where do I use a GEKKARD?",
           "what_is_the_difference": "What is the difference between virtual and plastic GEKKARD?",
           "can_i_make_purchases_on_credit": "Сan I make purchases on credit?",
@@ -200,40 +407,53 @@
           "my_account_is_negative": "My account is negative, what happened?",
           "what_should_i_do_if_i_incorrectly": "What should I do if I incorrectly entered the card PIN many times?"
         },
-        
-    
+
         "atm_transactions": {
           "title": "ATM transactions",
+          "answers": {
+            "an_automated": "An automated teller machine (ATM) or cash machine.",
+
+            "please_contact": "Please contact our support center so they can help you."
+          },
           "what_is_atm": "What is ATM?",
           "my_gekkard_has_been_swallowed": "My GEKKARD has been swallowed by an ATM?"
         },
-    
-    
+
         "money_transfers": {
           "title": "Money transfers",
+          "answers": {
+            "sepa_is_the": "SEPA (or the Single Euro Payments Area) is the format for cross-border Euro bank transfers. SEPA is made up of the Eurozone ;and countries within the EU"
+          },
           "what_are_sepa_transfers": "What are SEPA Transfers?"
         },
-    
-    
+
         "fees": {
           "title": "Fees",
+          "answers": {
+            "in_accordance": "In accordance with Tariff",
+            "tariff": "Tariff"
+          },
           "how_much_does_a_gekkard_account_cost": "How much does a GEKKARD account cost?"
         },
-    
+
         "other": {
           "title": "Other",
+          "answers": {
+            "please_read": "Please, read:",
+            "general_terms": "General terms and conditions",
+            "data_protection": "Data protection policy",
+            "secure_usage": "Secure usage of the card and the APP",
+
+            "if_you_believe": "If you believe that your GEKKARD has been used without your permission, please block the card immediately ;within the mobile application. Then contact our support team so they can help you."
+          },
           "where_can_i_see_more_information": "Where can I see more information?",
           "my_gekkard_has_been_compromised": "My GEKKARD has been compromised?"
         },
         "support_chat": {
-          "title": "Support chat"
+          "title": "Support chat",
+          "answers": {}
         }
-
       }
-      
-
-
-  
     },
     "partnership_program": {
       "title": "Partnership program",
@@ -369,7 +589,7 @@
     "network": "Network",
     "IBAN": "Account number / IBAN",
     "transfer_desc": "Transfer description",
-    "сomment": "Сomment",
+    "comment": "Comment",
     "transfer_confirm": "Transfer confirm",
     "desc_optional": "Description (optional)",
     "address": "Address",
@@ -477,9 +697,9 @@
       "you_pay": "You pay",
       "get_no_less": "Get no less",
       "title": "Crypto exchange",
-      "rooms":"Rooms",
+      "rooms": "Rooms",
       "new_room": "New room",
-      "describe": "Cryptocurrency exchange - fast and easily",
+      "describe": "Cryptocurrency exchange — fast and easy",
       "create_private_exchange_room": "Create private exchange room",
       "private_exchange_room": "private exchange room",
       "owner_private_room": "You are owner of this private room. A Gekkard user will be able to join your room using this",
@@ -501,9 +721,9 @@
       "leave_the_room": "Leave the room",
       "open_private_exchange_room": "Open private exchange room",
       "broker_exchange_fee": "Broker exchange Fee 0%",
-      "no_opened_orders": "You don't have any opened orders",
+      "no_opened_orders": "You don't have any open orders",
       "private_room_allows": "A private room allows you to exchange assets only with those members whom you invite through a speciallink. Trades in the private room will not be shared.",
-      "select_token": "Select the token",
+      "select_token": "-select token-",
       "only_i_can": "Only I can specify the sale price",
       "purchase_limit": "Purchase limit for one user",
       "it_is_empty": "If it is empty, then the limit is not set",
@@ -747,24 +967,24 @@
     "balance": "Balance",
     "programs": "Programs",
     "free": "Free",
-    "income":"Income",
+    "income": "Income",
     "outcome": "Outcome",
     "orders": "Orders",
-    "last_transactions":"last transactions",
-    "custom_period":"custom period",
-    "access_management":"Access management",
-    "type":"Type",
-    "public_key":"Public key",
-    "user_keys_list":"User kyes",
-    "remove":"Remove",
-    "remove_key":"Remove key",
-    "remove_key_warning":"You're about to remove the access key. This action can lead to the loss of access on certain devices and cannot be reverted. Are you sure that you want to remove the access key?",
+    "last_transactions": "last transactions",
+    "custom_period": "custom period",
+    "access_management": "Access management",
+    "type": "Type",
+    "public_key": "Public key",
+    "user_keys_list": "User kyes",
+    "remove": "Remove",
+    "remove_key": "Remove key",
+    "remove_key_warning": "You're about to remove the access key. This action can lead to the loss of access on certain devices and cannot be reverted. Are you sure that you want to remove the access key?",
     "show_more": "Show more",
     "hide": "Hide",
     "card": "Card",
-    "no_transactions_warning" : "There have been no transactions in this currency",
-    "cashback_programs":{
-      "1_perc_cash":"1% cashback on all card purchases",
+    "no_transactions_warning": "There have been no transactions in this currency",
+    "cashback_programs": {
+      "1_perc_cash": "1% cashback on all card purchases",
       "4_perc_cash": "4% per annum on your balance EURG",
       "5_perc_cash": "5% per annum on your balance GKE",
       "cash_without_commision": "Crypto-fiat exchange without commission",
@@ -787,7 +1007,7 @@
     },
     "cards_menu": "Cards menu",
     "cashback": "cashback",
-    "transfer_details":{
+    "transfer_details": {
       "name": "Transfer description",
       "first_element": "Other",
       "second_element": "Top up my account",
@@ -815,7 +1035,7 @@
     "transfers": "Transfers",
     "free_balance": "Free balance",
     "exchange_button": "Exchange",
-    "top_up_EUR_via_crypto":"You can top up your EUR wallet via cryptocurrency on the EURG withdrawal form ",
+    "top_up_EUR_via_crypto": "You can top up your EUR wallet via cryptocurrency on the EURG withdrawal form ",
     "link": "link",
 
     "beneficiary_bank": "Beneficiary bank",
@@ -960,42 +1180,42 @@
     "card_blocked_by_client": "Card blocked by client",
     "select_country": "Select country",
     "enter_house_number": "Enter house number",
-    "enter_fiat_number": "Enter fiat number",
+    "enter_flat_number": "Enter flat number",
     "enter_recipient_name": "Enter recipient name",
     "country_not_found": "Country not found",
-    "btc":{
-      "first_cryptocurrency": "The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on the Internet through the digital ledger known as the blockchain.", 
-			"bitcoin_value_factors": "The value of bitcoin is formed by several factors:", 
-			"ideology": "The ideology of cryptocurrency creation is independence from the state.", 
-			"demand_increasing": "The demand for bitcoin is increasing and the number of released coins is gradually decreasing.", 
-			"emission_limit": "Bitcoin emission is limited to 21,000,000 coins. No more can be created.", 
-			"mining_requirements": "Mining of coins requires labor, computing resources, and electricity." 
+    "btc": {
+      "first_cryptocurrency": "The world’s first cryptocurrency, Bitcoin (BTC), is stored and exchanged securely on the Internet through the digital ledger known as the blockchain.",
+      "bitcoin_value_factors": "The value of bitcoin is formed by several factors:",
+      "ideology": "The ideology of cryptocurrency creation is independence from the state.",
+      "demand_increasing": "The demand for bitcoin is increasing and the number of released coins is gradually decreasing.",
+      "emission_limit": "Bitcoin emission is limited to 21,000,000 coins. No more can be created.",
+      "mining_requirements": "Mining of coins requires labor, computing resources, and electricity."
     },
-    "dai":{
+    "dai": {
       "the_dai_stablecoin": "The Dai stablecoin uses a basket of crypto assets as collateral at a ratio of 150% to the value of its tokens. It is pegged to the U.S. dollar.",
       "dai_is_held": "Dai is held in cryptocurrency wallets or within platforms, and is supported on Ethereum and other popular blockchains.",
       "dai_is_easy": "Dai is easy to generate, access, and use. Users generate Dai by depositing collateral assets into Maker Vaults within the Maker Protocol. This is how Dai is entered into circulation and how users gain access to liquidity. Others obtain Dai by buying it from brokers or exchanges, or simply by receiving it as a means of payment.",
       "once_generated": "Once generated, bought, or received, Dai can be used in the same manner as any other cryptocurrency: it can be sent to others, used as payments for goods and services, and even held as savings through a feature of the Maker Protocol called the Dai Savings Rate (DSR).",
       "every_dai": "Every Dai in circulation is directly backed by excess collateral, meaning that the value of the collateral is higher than the value of the Dai debt, and all Dai transactions are publicly viewable on the Ethereum blockchain."
     },
-    "eth":{
+    "eth": {
       "etherum_is_both": "Ethereum (ETH) is both a cryptocurrency and a decentralized computing platform. Developers can use the platform to create decentralized applications and issue new crypto assets known as Ethereum tokens.",
       "ethereum_is_similar": "Ethereum is similar to Bitcoin and other coins. But Ether is much more than just a blockchain-platform, which performs a direct function of currency services. It's a complex system of smart contracts, the idea of which is to combine completely different areas and improve processes, optimize routine operations.",
       "smart_contracts_are": "Smart contracts are algorithms in the network that track if-then type operations. They oversee the compliance of all parties with the terms of the transaction (performing actions, transferring money, etc.).",
       "smart_contracts_eliminate": "Smart contracts eliminate the need for an intermediary, which increases speed, increases safety, and reduces the costs of transaction processing."
     },
-    "bnb":{
+    "bnb": {
       "binance_coin_is": "Binance Coin is the cryptocurrency issued by the Binance exchange and trades with the BNB symbol.",
       "bnb_was_initially": "BNB was initially based on the Ethereum network but is now the native currency of Binance's own blockchain, the Binance chain.",
       "every_quarter": "Every quarter, Binance uses one-fifth of its profits to repurchase and permanently destroy, or 'burn,' Binance coins held in its treasury.",
       "binance_was_created": "Binance was created as a utility token for discounted trading fees in 2017, but its uses have expanded to numerous applications, including payments for transaction fees (on the Binance Chain), travel bookings, entertainment, online services, and financial services."
     },
-    "trx":{
+    "trx": {
       "tron_is_a": "Tron is a blockchain-based decentralized digital platform with its own cryptocurrency, called Tronix or TRX. Founded in 2017 by a Singapore non-profit organization, the Tron Foundation, Tron aims to host a global entertainment system for the cost-effective sharing of digital content.",
       "initially_marketed": "Initially marketed primarily in Asia, Tron had now gone global. The platform had more than 50 million accounts.",
       "founded_by": "Founded by Justin Sun, now its CEO, Tron has offices in Singapore and San Francisco. Born in 1990, Sun also is the CEO of BitTorrent, the file-sharing program."
     },
-    "xmr":{
+    "xmr": {
       "monero_is_a": "Monero (XMR) is a private, secure, and untraceable cryptocurrency. With Monero, you are in complete control of your funds and privacy, no one else can see anyone else’s balances or transactions.",
       "the_main_features": "The main features of the coin:",
       "anonymity": "Anonymity.",
@@ -1005,98 +1225,98 @@
       "decentralization": "Decentralization.",
       "monero_is_not": "Monero is not controlled by anyone, there are no controlling bodies or centralized servers in this system. The coin is managed by the community of the network."
     },
-    "usdc":{
+    "usdc": {
       "usdc_is": "USD Coin (USDC) is a stablecoin redeemable on a 1:1 basis for US dollars, backed by dollar denominated assets held in segregated accounts with US regulated financial institutions. The launch of USDC was powered by a collaboration between Coinbase and Circle through the co-founding of the CENTRE Consortium. Coinbase customers with US dollar accounts may exchange 1 USDC for US$1.00 (and vice versa) on Coinbase in jurisdictions where USDC support is available. The graph above reflects USDC’s current and historical redemption value of US$1.00, which may not match the price of USDC on other exchanges. Note: Coinbase only supports USDC running on Ethereum (ERC-20)."
     },
-    "xrp":{
+    "xrp": {
       "xrp_is": "Ripple is a digital payment platform that uses blockchain technology and a native cryptocurrency to facilitate faster and cheaper global transactions. XRP is the native token for the Ripple ledger and is used to enhance currency conversion and international financial transfers.",
       "payment_platform": "The Ripple payment platform enables fast and cheap cross-border transactions."
     },
-    "sol":{
+    "sol": {
       "sol_is_a_blockchain": "Solana is a blockchain platform designed to host decentralized, scalable applications.",
       "sol_can_process": "Solana can process many more transactions per second and charges much lower transaction fees than rival blockchains like Ethereum.",
       "native_currency": "Solana's native cryptocurrency, which has the ticker SOL, has a market capitalization of over $66 billion, making it the fifth-largest cryptocurrency.",
       "proof_of_stake": "Solana is a proof-of-stake (PoS) blockchain and also uses a new technology called Proof of History (PoH)."
     },
-    "ada":{
+    "ada": {
       "third_generation": "Cardano is a third-generation, decentralized proof-of-stake (PoS) blockchain platform designed to be a more efficient alternative to proof-of-work (PoW) networks. Scalability, interoperability, and sustainability on PoW networks are limited by the infrastructure burden of growing costs, energy use, and slow transaction times.",
       "co_founder": "Charles Hoskinson, the co-founder of the proof-of-work (PoW) blockchain Ethereum, understood the implications of these challenges to blockchain networks, and began developing Cardano and its primary cryptocurrency, ada, in 2015, launching the platform and the ADA token in 2017.",
       "blockchain_platform": "Cardano is a blockchain platform that aims to be a decentralized application (DApp) development platform with a multi-asset ledger and verifiable smart contracts. Cardano is being built in five stages: foundation, decentralization, smart contracts, scaling, and governance. Cardano runs on the proof-of-stake Ouroboros consensus protocol and developments are informed by scholarly academic research. The primary cryptocurrency of Cardano is called 'ada'. Cardano oversight is decentralized and shared by The Cardano Foundation, IOHK, and EMURGO."
     },
-    "doge":{
+    "doge": {
       "open_source": "Dogecoin is an open-source cryptocurrency started in 2013 by Jackson Palmer and Billy Markus.",
       "initially_started": "Dogecoin initially started as a joke based on a popular meme featuring a Shiba Inu (a Japanese breed of dog).",
       "based_on": "It is based on Litecoin and uses the same proof-of-work technology.",
       "loyal_community": "Dogecoin has a loyal community of supporters who trade it and use it as a tipping currency for social media content."
     },
-    "matic":{
+    "matic": {
       "polygon_is_a": "Polygon is a cryptocurrency, with the symbol MATIC, and also a technology platform that enables blockchain networks to connect and scale.",
       "the_polygon_platform": "The Polygon platform operates using the Ethereum blockchain, and connects Ethereum-based projects. Using the Polygon platform can increase the flexibility, scalability, and sovereignty of a blockchain project while still affording the security, interoperability, and structural benefits of the Ethereum blockchain.",
       "matic_is_an": "MATIC is an ERC-20 token, meaning that it's compatible with other Ethereum-based digital currencies. MATIC is used to govern and secure the Polygon network and to pay network transaction fees.",
       "polygon_uses_a": "Polygon uses a modified proof-of-stake consensus mechanism to efficiently operate the platform."
     },
-    "link_token":{
+    "link_token": {
       "cryptocurrency": "Chainlink (LINK) is a cryptocurrency and technology platform that enables non-blockchain enterprises to securely connect with blockchain platforms. Chainlink is middleware that connects blockchain-based smart contracts with external data, such as baseball scores or stock prices.",
       "tokens_called": "Chainlink tokens—called LINK—serve as currency to pay Chainlink network operators for retrieving and preparing off-chain data and performing computations.",
       "decentralized": "Chainlink is known as a decentralized oracle network or blockchain abstraction layer. Chainlink uses blockchain technology to securely enable computations on and off blockchain, supporting what it calls hybrid smart contracts.",
       "chainlink": "Enterprises that use Chainlink can access any of the major blockchain networks, including Ethereum, Solana, and Terra. The Chainlink blockchain is hosted on the Ethereum platform, which uses the proof of work operating protocol.",
       "open_source": "Chainlink is an open-source blockchain project, meaning that anyone can view the project's code and contribute."
     },
-    "dot":{
+    "dot": {
       "cryptocurrency": "Polkadot (DOT) is a unique PoS cryptocurrency aimed at delivering interoperability among other blockchains. Its protocol is designed to connect permissioned and permissionless blockchains as well as oracles to allow systems to work together under one roof. Polkadot’s core component is its relay chain, which allows the interoperability of varying networks. It also allows for parachains, or parallel blockchains with their own native tokens for specific-use cases.",
       "differs": "Where Polkadot differs from Ethereum is that rather than creating just dApps on Polkadot, developers can create their own blockchain while also using the security that Polkadot’s chain already has. With Ethereum, developers can create new blockchains but need to create their own security measures, which can leave new and smaller projects open to attack because the larger a blockchain, the more security it has. This concept in Polkadot is known as shared security.",
       "another": "Polkadot was created by Gavin Wood, another member of the core founders of the Ethereum project who had differing opinions about the project’s future."
     },
-    "avax":{
+    "avax": {
       "cryptocurrency": "Avalanche (AVAX) is a cryptocurrency and blockchain platform that rivals Ethereum. AVAX is the native token of the Avalanche blockchain, which—like Ethereum—uses smart contracts to support a variety of blockchain projects.",
       "provide": "The Avalanche blockchain can provide near-instant transaction finality. AVAX is used to pay transaction processing fees and secure the Avalanche network, and acts as a basic unit of account among blockchains in the Avalanche network. Transaction fees and the rate of AVAX coin creation are determined using a governance model.",
       "competitor": "Avalanche is a competitor to Ethereum that prioritizes scalability and transaction processing speed."
     },
-    "ltc":{
+    "ltc": {
       "cryptocurrency": "Litecoin (LTC) is a cryptocurrency created from a fork in the Bitcoin blockchain in 2011. It was initially designed to address the developer's concerns that Bitcoin was becoming too centrally controlled, and to make it more difficult for largescale mining firms to gain the upper hand in mining. While eventually unsuccessful in preventing enterprise miners from taking over the lion's share of Litecoin mining, the cryptocurrency has reworked itself into a minable coin and a peer-to-peer payment system.",
       "features": "It shares similar features with Bitcoin but has a different algorithm. The cryptocurrency's goal is to become a medium for daily transactions.",
       "transaction": "Litecoin has a faster transaction processing time compared to Bitcoin."
     },
-    "shib":{
+    "shib": {
       "altcoin": "Shiba Inu is an Ethereum-based altcoin that features the Shiba Inu hunting dog as its mascot.",
       "alternative": "It is widely considered to be an alternative to Dogecoin and is touted as 'the Dogecoin killer' by its supporters, a community known as the SHIBArmy.",
       "created": "Shiba Inu was created in August 2020 by an individual or group called Ryoshi.",
       "ranks": "SHIB ranks in the top ten among all meme cryptocurrencies by this measure, right behind Dogecoin."
     },
-    "bch":{
+    "bch": {
       "important": "Bitcoin Cash BCH holds an important place in the history of altcoins because it is one of the earliest and most successful hard forks of the original Bitcoin. In the cryptocurrency world, a fork takes place as the result of debates and arguments between developers and miners. Due to the decentralized nature of digital currencies, wholesale changes to the code underlying the token or coin at hand must be made due to general consensus; the mechanism for this process varies according to the particular cryptocurrency.",
       "factions": "When different factions can’t agree, sometimes the digital currency is split, with the original chain remaining true to its original code and the new chain beginning life as a new version of the prior coin, complete with changes to its code.",
       "began": "BCH began its life in August 2017 as a result of one of these splits. The debate that led to the creation of BCH had to do with the issue of scalability; the Bitcoin network has a limit on the size of blocks: 1 megabyte (MB). BCH increases the block size from 1MB to 8MBs, with the idea being that larger blocks can hold more transactions within them, and the transaction speed would therefore increase. It also makes other changes, including the removal of the Segregated Witness protocol that impacts block space."
     },
-    "atom":{
+    "atom": {
       "ecosystem": "Cosmos is an ecosystem of blockchains that can scale and interoperate with each other. Before Cosmos, blockchains were siloed and unable to communicate with each other. They were hard to build and could only handle a small amount of transactions per second. Cosmos solves these problems with a new technical vision.",
       "cryptocurrency": "Cosmos (ATOM) is a cryptocurrency that powers an ecosystem of blockchains designed to scale and interoperate with each other. The team aims to 'create an Internet of Blockchains, a network of blockchains able to communicate with each other in a decentralized way.' Cosmos is a proof-of-stake chain. ATOM holders can stake their tokens in order to maintain the network and receive more ATOM as a reward."
     },
-    "xlm":{
+    "xlm": {
       "powers": "Stellar’s cryptocurrency, the Stellar Lumen (XLM), powers the Stellar payment network. As a cross-border transfer and payment system that connects financial entities, Stellar aims to unite the world’s financial infrastructure, connecting banks, payment systems, and individuals with near-instant and secure transfers.",
       "computers": "If the Internet connected the world’s computers to enable the free global flow of information, Stellar aims to do the same for money. To accomplish this vision while maintaining neutrality, Stellar is not set up as a bank or a business. Instead it’s a decentralized, open network that is supported by a nonprofit foundation called the Stellar Development Foundation (or SDF, for short)."
     },
-    "uni":{
+    "uni": {
       "decentralized": "Uniswap is a decentralized exchange that enables peer-to-peer market making. Uniswap is also a cryptocurrency whose symbol is (UNI). The Uniswap platform enables users to trade cryptocurrencies without any involvement with a centralized third party.",
       "hosted": "The Uniswap blockchain is hosted on the Ethereum platform and governed by UNI holders.",
       "open": "The Uniswap blockchain is open source, meaning that anyone can view and contribute to the blockchain's code.",
       "governed": "The Uniswap platform is governed by UNI holders in proportion to how much UNI they own."
     },
-    "etc":{
+    "etc": {
       "decentralized": "Ethereum Classic (ETC) is an open-source, decentralized, blockchain-based distributed cryptocurrency platform that runs smart contracts. Ethereum Classic was formed in 2016 as a result of a hack of The DAO, a smart contract operating on the Ethereum blockchain. The original blockchain was split in two, with the majority of users choosing to reverse the hack and return the stolen funds.",
       "philosophical": "The split revealed philosophical divisions within the Ethereum community. Based on the principle that “Code is Law,” a small number of developers and miners believed that The DAO's investors should suffer the consequences of investing in a flawed project. However, the majority of the Ethereum community decided to roll back the blockchain, effectively creating a bailout for The DAO's investors. Ethereum Classic is the name of the original, smaller blockchain."
     },
-    "near":{
+    "near": {
       "layer_one": "NEAR Protocol is a layer-one blockchain that was designed as a community-run cloud computing platform and that eliminates some of the limitations that have been bogging competing blockchains, such as low transaction speeds, low throughput and poor interoperability. This provides the ideal environment for DApps and creates a developer and user-friendly platform. For instance, NEAR uses human-readable account names, unlike the cryptographic wallet addresses common to Ethereum. NEAR also introduces unique solutions to scaling problems and has its own consensus mechanism called “Doomslug.”",
       "community": "NEAR Protocol is being built by the NEAR Collective, its community that is updating the initial code and releasing updates to the ecosystem. Its declared goal is to build a platform that is “secure enough to manage high value assets like money or identity and performant enough to make them useful for everyday people.”",
       "developers": "Flux, a protocol that allows developers to create markets based on assets, commodities, real-world events, and Mintbase, an NFT minting platform are examples of projects being built on NEAR Protocol."
     },
-    "aave":{
+    "aave": {
       "cryptocurrency": "Aave is a decentralized cryptocurrency platform that allows users to borrow and lend crypto. Aave uses smart contracts to automate the process, with preset rules on how funds are distributed, how collateral is handled, and how fees are assessed.",
       "overcollateralized": "Aave specializes in overcollateralized loans, meaning that users will need to deposit crypto worth more than the amount that they wish to borrow. This protects lenders from losing money due to loan defaults and allows the Aave protocol to liquidate the collateral if it drops too much in value.",
       "native": "Aave also offers a native crypto token (AAVE) that can be traded on most exchanges or staked in the Aave platform to earn interest. Staking is how crypto miners earn rewards for validating transactions on a proof-of-stake blockchain like the one that underlies Aave."
     },
-    "mkr":{
+    "mkr": {
       "governance": "Maker is an Ethereum-based governance and utility token of the Maker system. Maker aims to unlock the potential of decentralized finance by building an inclusive platform for economic empowerment that gives everyone equal access to the global financial marketplace.",
       "consists": "Notably, the Maker Platform consists of the following components:",
       "community": "MakerDAO is an open-source community project on the Ethereum blockchain and a decentralized autonomous organization. The project is administered by people all over the world who own MKR, the project's governance token. MKR holders regulate the Maker Protocol and Dai's financial risks using a scientific governance mechanism that includes executive voting and governance polling (called DSChief). The MKR voting weight is proportional to the number of MKR tokens staked by a voter in the voting contract. In simple words, the more MKR tokens are locked into the contract, the more decision-making power the voter has. MakerDAO as a group is devoted to improving the Bitcoin economy's stability.",
@@ -1104,73 +1324,73 @@
       "decentralized": "The Dai stablecoin is a decentralized and collateral-backed pegged cryptocurrency. A pegged cryptocurrency is one whose exchange rate in relation to a traditional currency has been pre-determined by a national government. The Maker community thinks that a decentralized stablecoin is essential for any business or individual to achieve the benefits of digital currency.",
       "stakeholders": "MKR is a governance token used by stakeholders to keep the system running and Dai in check. MKR token holders make decisions for the Maker Protocol, which is supported by the greater public community and a variety of other external stakeholders."
     },
-    "inj":{
+    "inj": {
       "blockchain": "Injective is a blockchain designed specifically for the finance industry. It is an open, interoperable layer-one blockchain that aims to power next-generation decentralized finance (DeFi) applications, such as decentralized spot and derivatives exchanges, prediction markets, and lending protocols.",
       "infrastructure": "Injective aims to provide financial infrastructure primitives that DeFi applications can use, such as a fully decentralized on-chain orderbook that is resistant to MEV (miner extractable value). In addition, all types of financial markets, such as spot, perpetual, futures, and options, are fully on-chain. The decentralized cross-chain bridging infrastructure is compatible with Ethereum, IBC-enabled blockchains, and non-EVM chains such as Solana.",
       "interoperable": "Injective also seeks to offer a next-generation, highly interoperable smart contract platform based on CosmWasm, with advanced interchain capabilities. It is built using the Cosmos SDK and uses a Tendermint-based Proof-of-Stake consensus mechanism, providing instant transaction finality and fast performance (over 10,000 transactions per second).",
       "ecosystem": "The Injective ecosystem includes over 100 projects and more than 150,000 community members worldwide. It is backed by investors such as Binance, Pantera Capital, Jump Crypto, and Mark Cuban. The INJ token is the native utility token of Injective, and it can be used for various purposes, including protocol governance, dApp value capture, PoS security, developer incentives, and staking."
     },
-    "grt":{
+    "grt": {
       "indexing": "The Graph (GRT) is a protocol for indexing and accessing blockchain data. The Graph indexes blockchain records from networks like Ethereum in the same way that Google indexes the web. The Graph is a global data layer that runs on top of blockchains and storage networks, acting as a uniting and organizing factor for the decentralization movement. In simple terms, The Graph organizes the data and makes it easy to retrieve it from the blockchain.",
       "complex": "Indexing a blockchain is a hard task, and many complex smart contracts that store data on blockchain make it difficult for a DApp to answer a simple query. As per the whitepaper, the Graph protocol aims to make it easy to retrieve data from the blockchain by using subgraphs. According to the protocol, a subgraph seeks to specify which Ethereum data the protocol indexes and how it is being stored. Subgraphs, which are open APIs (application programming interfaces), organize this information that anybody may use to query. Subsequently, with just a few keystrokes, this data can be transformed, categorized, and shared across apps for anyone to query. All data is saved and processed in a secure manner on open networks. The Graph protocol aims to query this data quickly, reliably, and securely.",
       "native": "Deployed on the Ethereum blockchain, GRT is the native token of The Graph and is the platform’s cryptocurrency. GRT is an ERC20-based work token and is primarily utilized for allocating resources in the network. Participants stake and utilize Graph tokens (GRT) to maintain the economic security of the network and the integrity of data queried. Active indexers, curators, and delegators may provide services and earn revenue from the network based on their work and how much GRT they own."
     },
-    "sand":{
+    "sand": {
       "sand_is": "SAND is an Ethereum token that powers The Sandbox, a multiplayer metaverse where players can create, monetize, and participate in blockchain-based gaming experiences. In The Sandbox, game designers can create custom 3D NFTs that can be used across the ecosystem. SAND can be used to buy and sell NFTs and other in-game items, and can also be used to vote on the future of the platform."
     },
-    "axs":{
+    "axs": {
       "gaming": "Axie Infinity is an online gaming platform built on blockchain by Sky Mavis. The company was founded by Aleksander Leonard Larsen and Trung Nguyen in 2018. The game allows players to collect different digital pets called Axies, which can be raised, battled, and traded to other players in the Axie world. The game was originally inspired by the well-known game Pokemon.",
       "governance": "AXS is the game's native governance token, and holders of AXS are part of Axie's decentralized community and can help shape and govern the platform's development. AXS is ERC-20 tokens that can be traded on the Ethereum network."
     },
-    "mana":{
+    "mana": {
       "reality": "Decentraland (MANA) defines itself as a virtual reality platform powered by the Ethereum blockchain that allows users to create, experience, and monetize content and applications.",
       "plots": "In this virtual world, users purchase plots of land that they can later navigate, build upon and monetize.",
       "launched": "Decentraland was launched following a $24 million initial coin offering (ICO) that was conducted in 2017. The virtual world launched its closed beta in 2019 and opened to the public in February 2020. Since then, users have created a wide range of experiences on their parcels of LAND, including interactive games, sprawling 3D scenes and a variety of other interactive experiences.",
       "two": "Decentraland uses two tokens: MANA and LAND. MANA is an ERC-20 token that must be burned to acquire non-fungible ERC-721 LAND tokens. MANA tokens can also be used to pay for a range of avatars, wearables, names, and more on the Decentraland marketplace."
     },
-    "eos":{
+    "eos": {
       "leveraging": "An open-source blockchain leveraging smart contracts, EOS is used to deploy and run decentralized applications (dApps) for real-world use. EOS can support thousands of dApps without experiencing slow confirmation times or high fees, and it aims to be fast, flexible, reliable and forward-driven. EOS hopes to enable developers, entrepreneurs, and institutions to build and innovate with confidence.",
       "features": "The EOS blockchain offers features that set it apart from competing blockchains. Firstly, the blockchain is highly configurable, and developers can develop dApps using simple languages such as C++. Secondly, the blockchain supports fast transactions, with settlement speeds of under 0.5 seconds. Lastly, the blockchain maintains data integrity and security through verification standards and end-to-end authentication.",
       "infrastructure": "The EOS core infrastructure has a flexible architecture and keeps much of the blockchain functionality at the smart contract layer, enabling the EOS Network to remain agile and allowing block producers (BPs) to reach consensus on adopting new enhancements to the platform, often without requiring a difficult-to-coordinate hard fork of the network.",
       "native": "EOS is the native token of the EOS blockchain. The token is used for purchasing or renting access to network bandwidth and storage capacity on EOS, participating in DPoS network consensus and on-chain governance, and an account for value on native EOS-based applications."
     },
-    "snx":{
+    "snx": {
       "software": "Synthetix (SNX) is software built on the Ethereumblockchain. Synthetix utilizes a decentralized finance (DeFi) protocol that enables it to provide services without needing any intermediary. This implies that Synthetix users do not have to trust any specific institution or person to manage their crypto asset. The primary purpose of Synthetix is to be used for the creation of synthetic assets, also known as “synths”—a combination of assets having the same value as another asset. The synths may track and provide a return on another asset without requiring anyone to hold that asset. In simpler words, Synthetix cryptocurrency provides exposure to a wide variety of crypto as well as non-crypto assets in a decentralized and permissionless manner. It enables users to participate in the DeFi ecosystem despite not holding the assets.",
       "whitepaper": "Further, as mentioned in the whitepaper, synths provide access to even those assets that are usually not accessible for an average trader, such as gold and silver. For doing so, synths use smart-contract-based price discovery protocols, known as oracles, that permit users to hold and exchange the underlying assets. Smart contracts are just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols on the blockchain. They are used to automate a workflow and trigger the forthcoming actions when the conditions are met. In this way, Synthetix aims to allow users to efficiently trade synth assets without facing liquidity issues. Unlike traditional finance, Synthetix does not require any KYC or creating an account, yet anyone can get exposure to stocks, bonds, real estate, and other assets.",
       "native": "SNX is the native token of Synthetix, which is necessary to create synthetic assets (synths). Once the SNX tokens are locked up, new synths can be created.",
       "placed": "Since synths are issued on Ethereum, they can also be placed into other DeFi platforms. After that, the assets can be used to provide liquidity and earn yield. Thus, in order to start trading synths, traders can exchange their ETH against synths and start trading immediately. Alternatively, one can also obtain SNX tokens on any platform, create synths, and begin trading them."
     },
-    "gala":{
+    "gala": {
       "secured": "The GALA token is the Gala Games ecosystem's digital utility token. The token is cryptographically secured and native to the Gala Games ecosystem. GALA can be transferred peer-to-peer between users, and they have complete control over how to use it. Thus, the GALA token fuels the Gala Games ecosystem.",
       "participants": "The participants in the Gala Games ecosystem use GALA as a non-refundable utility token and a medium of exchange. Introducing GALA aims to provide a suitable and secure mode of payment and settlement between participants who interact within the Gala Games ecosystem, for instance, to pay for digital goods or in-game items. Such items on the Ethereum blockchain can be accessed with a variety of open-source and cryptographically secure wallets and storage mechanisms. The GALA website wallet and the GALA app are open-source, keyphrase-secured crypto wallets. Once you have created the wallet, nobody else other than the account owner has access to the funds and items stored within that wallet.",
       "desires": "The decentralized Gala Games ecosystem desires to make the doors wide open for users and give players back the control they deserve. Through decentralization, players, in addition to owning their in-games items, have a say in how the Gala Games road map develops. Players and node owners will be enlisted, through distributed voting mechanisms, to help decide on the games to be added or funded by the decentralized Gala Games ecosystem.",
       "backbone": "Founder’s nodes are Gala Games ecosystem's backbone. Everyone operating a founder’s node is contributing to the growth of the decentralized gaming network. By running a founder’s node, players can work to get real ownership of their assets and content. A consensus vote is a voting opportunity presented to all founder’s node operators in the node network. Often these votes are about which games come to the Gala Games platform."
     },
-    "crv":{
+    "crv": {
       "widely": "The Curve is one of the most widely used DeFi (decentralized finance) platforms that utilizes an automated market maker (AMM) to manage liquidity. AMM is a protocol that uses liquidity pools and allows digital assets to be traded automatically. Liquidity pool is one of the core technologies present in the DeFi ecosystem. These pools form an essential part of various protocols, including AMM, blockchain gaming, borrow-lend protocols, and more. The Curve platform provides an efficient way to exchange tokens by maintaining low slippage rates. Consequently, the platform acts as a decentralized exchange by connecting users to trade with the finest rates.",
       "about": "The unique feature about CRV is that it is a utility token of the Curve.fi protocol for exchanging stablecoins and other ERC-20 tokens. Unlike other exchanges that match buyers and sellers, Curve.fi provides an exchange platform that works on different behavior and leverages liquidity pools. Thus, Curve creates liquidity pools based on smart contracts that function as an automated market maker, rather than relying on order books (electronic documentation of a currency’s buy and sell activities). Besides, CRV token holders have the right to suggest and vote on the changes to the platform."
     },
-    "ape":{
+    "ape": {
       "governance": "ApeCoin is an ERC-20 governance and utility token used within the APE Ecosystem to empower and incentivize a decentralized community building at the forefront of web3.",
       "framework": "ApeCoin holders govern themselves via the decentralized governance framework controlling the ApeCoin DAO, and vote on how the ApeCoin DAO Ecosystem Fund should be used. The APE Foundation administers proposals agreed upon by ApeCoin holders.",
       "allowing": "ApeCoin is the APE Ecosystem’s governance token, allowing token holders to participate in ApeCoin DAO and giving its participants a shared and open currency that can be used without centralized intermediaries. 62% of all ApeCoin was allocated to the Ecosystem Fund, which will support community-driven initiatives as voted on by ApeCoin DAO members.",
       "access": "ApeCoin also gives access to certain parts of the Ecosystem that are otherwise unavailable, like exclusive games and services. For third-party developers, ApeCoin is a tool to participate in the ecosystem by incorporating ApeCoin into services, games, and other projects.",
       "gifted": "The APE Foundation was gifted a 1 of 1 NFT by Yuga Labs, the creators of Bored Ape Yacht Club. Yuga Labs has conveyed all rights and privileges to this NFT and its underlying artwork to the APE Foundation. The ApeCoin DAO members can decide how this intellectual property is used."
     },
-    "zec":{
+    "zec": {
       "decentralized": "Zcash (ZEC) is a privacy-protecting, decentralized cryptocurrency. According to the website, Zcash was created as a fork of the Bitcoin codebaseto enable privacy. The Zcash protocol uses zk-SNARKs, zero-knowledge cryptography that ensures the transaction verification doesn’t reveal sensitive information of the transaction. Every transaction gets tracked and managed on a public blockchain, but these public transactions do not reveal user identities. Zcash aims to offer its users the right to privacy while enjoying the benefits of a permissionless digital currency.",
       "anonymity": "Zcash facilitates optional anonymity by offering two types of addresses: transparent address (T-addresses) and private addresses (Z-addresses). Transactions between T-addresses are publicly viewable on the Zcash blockchain. However, Z-addresses are shielded addresses and therefore are not visible. Transactions between shielded addresses do not reveal the transaction address, the amount transferred, or any other sensitive information. T-addresses and Z-addresses are interoperable, and funds can be transferred between the two.",
       "native": "ZEC is the native token of the Zcash platform. The token can be mined using the Equihash proof-of-work algorithm. Proof of work is a transaction verification mechanism that uses hardware’s processing power to produce a new block on the chain. The ZEC token gets used by Z-addresses and T-addresses for transactions. Moreover, the ZEC token is the platform’s cryptocurrency and can be bought on many exchanges like Coinbase.",
       "succinct": "Shielded transactions of Z-addresses use the zero-knowledge succinct non-interactive argument of knowledge (zk-SNARK) cryptography protocol. There are two parties in the zero-knowledge proof: the prover and the verifier. The protocol states that the prover can prove to the verifier that they possess specific knowledge without actually disclosing what the knowledge is. Therefore, the protocol uses a secret key to confirm the possession of information. For each shielded transaction, the sender uses their key to generate proof that their inputs are valid. Miners check the shielded transaction by verifying the key. This way, Zcash requires more work up front, but it simplifies verifying."
     },
-    "comp":{
+    "comp": {
       "govern": "Compound (COMP) is an Ethereum-based token that allows the community to govern the Compound protocol. The protocol consists of a series of decentralized interest rate markets that enable users to supply and borrow Ethereum tokens at variable interest rates.",
       "begin": "To begin with, the primary users of the platform consist of:",
       "lend": "Lenders: Lenders are users (could be anybody) who want to lend a cryptocurrency on the Compound platform. The lenders can do so by sending their tokens to an Ethereum address managed by Compound in order to generate interest.",
       "share": "Borrowers: Borrowers are users (could be anybody) who share cryptocurrency collateral on the Compound platform. They are permitted to borrow cryptocurrencies supported by Compound at a percentage of the posted value.",
       "interact": "As per the whitepaper, asset suppliers (and borrowers) interact directly with the protocol, earning and paying a floating interest rate without needing to negotiate terms like maturity, interest rate, or collateral with a peer or counterparty."
     },
-    "oneinch":{
+    "oneinch": {
       "unites": "The 1inch Network unites decentralized protocols whose synergy enables the most lucrative, fastest and protected operations in the DeFi space.",
       "exchange": "1INCH itself is a decentralized exchange (DEX) aggregator, and the company behind it has developed products for its users so they can trade across multiple DEXs on various networks.",
       "app": "1inch has a decentralized app (dApp) that can be used as a tool to find information, such as the best exchange rates for cryptocurrencies. Users can choose from ten networks, including Ethereum, Optimism, or Fantom, and connect their digital wallets, such as WalletConnect, Venly, or Coinbase Wallet. Once their wallet is connected, users can swap tokens.",
@@ -1183,7 +1403,7 @@
       "governance": "Governance",
       "autonomous": "1inch is governed by a decentralized autonomous organization (DAO). Users can vote for key protocol parameters as long as they hold 1INCH, the token of 1inch. The token serves as both a governance and utility token and is available for purchase on Ethereum and BNB Chain."
     },
-    "dash":{
+    "dash": {
       "cryptocurrency": "Dash (DASH) is a payments-focused peer-to-peer cryptocurrency. Forked out of Bitcoin source code, Dash is an open-source platform that claims itself to be user-friendly, fast, and inexpensive. As per the whitepaper, the Dash project is focused on making financial transactions through cryptocurrency instant and easy to use. Made from the abbreviation of “Digital Cash,” Dash aims to move payments anywhere to anyone for less than a cent.",
       "mainstream": "Today, major problems in making cryptocurrency get to mainstream adoption are low transaction speeds and high fees. It can take almost 10 minutes for a transaction to be completed. Also, the fee of crypto transactions can sometimes cost more than the transaction itself. To solve these problems, Dash was built to provide users with instantly confirmed transactions for a minuscule fee.",
       "broader": "Made on the vision to reach a broader market, Dash is one of the early projects to modify Bitcoin’s code to give it advantages and abilities to make it a preferred medium of exchange. Some of the advantages of Dash are:",
@@ -1193,7 +1413,7 @@
       "native": "Coming to the token, DASH is the native token of the platform. DASH is the token used for financial transactions on the platform. The token is easy to purchase and receive. DASH can be used to pay for coffee, purchase a plane ticket, pay phone bills, pay family and friends, and purchase groceries, electronics, and more. In simpler words, the token is intended to be used for daily transactions between peers.",
       "supply": "Further, the token has a limited supply and is deflationary in nature, i.e., the tokens are burned to an unrecoverable wallet and are put out of the total supply. This deflationary nature makes the DASH token increase in value over time."
     },
-    "agld":{
+    "agld": {
       "randomized": "Adventure Gold (AGLD) is the native ERC-20 token of the Loot non-fungible token (NFT) project. Loot is a text-based, randomized adventure gear generated and stored on-chain, created by social media network Vine co-founder Dom Hofmann. The project intentionally has no front-end interface, images, statistics or functionality. Instead, it is based on a set of 8,000 text-based NFTs open to how the community wants to interpret it. The NFTs contain texts of gears ranging from the “Holy Greaves of Giants” to the “Grim Shout.” As of Sept. 8, 2021, the floor price of Loot on OpenSea is 8.56 ETH. Numerous derivative projects are being built around Loot and can be found here.",
       "launched": "Adventure Gold was launched on Sept. 2, 2021, and allowed each owner of a Loot NFT to claim 10,000 tokens for free. With the price of AGLD skyrocketing in the initial days of trading, this airdrop was worth as much as $70,000 per NFT. AGLD founder Will Papper claimed he wanted to set a standard for projects building on Loot by providing a currency for the decentralized gaming universe.",
       "founders": "Who Are the Founders of Adventure Gold?",
@@ -1207,20 +1427,20 @@
       "provide": "Adventure Gold is an ERC-20 token on Ethereum. The token does not provide a security audit, but it is governed by a multisig consisting of its founder and several other still-anonymous wallets.",
       "applications": "Ethereum is one of the most popular blockchains and the go-to solution for many decentralized applications and open source projects like Loot and Adventure Gold. ERC-20 is the token standard followed by almost all tokens on the Ethereum blockchain."
     },
-    "ankr":{
+    "ankr": {
       "developer": "Ankr is a developer of blockchain protocols created to enhance the efficiency of international public ledgers. Ankr's platform utilizes blockchain technology for the distribution of cloud computing and offers a decentralized computing framework and a platform for business applications.",
       "computing": "The distributed computing platform aims to use idle computing resources found in data centers and edge devices. Ankr enables a sharing economy model, allowing enterprises and consumers to monetize spare computing capacities right from their devices and on-premise servers, including private and public clouds.",
       "token": "Token",
       "utility": "ANKR Token is the native utility token required for transactions and payments for Ankr’s services, including platform governance. It possesses capabilities as a BEP-2, ERC-20, and BEP-20 token. Ankr is available on the Avalanche, Polygon, and Fantom networks. The token's major function is allowing institutional or independent node providers to earn from their nodes' excess capacity via a pay-as-you-go model."
     },
-    "ant":{
+    "ant": {
       "aragon_is": "Aragon (ANT) is a decentralized platform built on the Ethereum network that offers a modularized way to create and manage dApps, cryptoprotocols, and decentralized autonomous organizations (DAO). The ANT ERC-20 token will enable its holders to govern the Aragon Network."
     },
-    "arpa":{
+    "arpa": {
       "separate": "Founded in April 2018, the goal of ARPA is to separate data utility from ownership and enable data renting. ARPA’s MPC protocol creates ways for multiple entities to collaboratively analyze data and extract data synergies while keeping each party’s data input private and secure.",
       "blockchains": "Developers can build privacy-preserving dApps on blockchains compatible with ARPA. Some immediate use cases include credit anti-fraud, secure data wallet, precision marketing, joint AI model training, and key management systems. For example, banks using the ARPA network can share their credit blacklist with each other for risk management purposes without exposing their customer data or privacy."
     },
-    "bal":{
+    "bal": {
       "portfolio": "Balancer Protocol is an automated portfolio manager and liquidity provider that transforms the concept of an index fund so that instead of paying fees to portfolio managers to rebalance a portfolio, users can collect fees from traders who rebalance their portfolio by taking advantage of arbitrage opportunities.",
       "network": "The platform runs on the Ethereum network and seeks to incentivize a distributed network of computers to operate an exchange where users can buy and sell any cryptocurrency. It is an emerging decentralized finance (DeFi) protocol that utilizes a combination of cryptocurrency assets to provide this service, enabling trading without a financial intermediary like an exchange.",
       "allocations": "With Balancer, users can adjust allocations to suit their particular needs, effectively allowing them to add liquidity without being exposed to the price of Ethereum (ETH). Additionally, users can earn interest from the fees generated on the Balance Exchange. Even though the highest returns in lending are usually sourced in high demand for a specific asset, users of the platform can see a considerable return on an asset that is typically in low demand as a result of arbitrage opportunities or a desire to mitigate slippage.",
@@ -1228,20 +1448,20 @@
       "mission": "According to the company, its mission is to become the primary source of decentralized finance liquidity by providing the most flexible and powerful platform for asset management and decentralized exchange.",
       "governance": "Balancer has introduced a native governance token, BAL, that is used by users to vote on protocol upgrades, including supported collateral, fees, and incentives."
     },
-    "yfi":{
+    "yfi": {
       "yfi_is": "Yearn.finance (YFI) is an Ethereum token that governs the Yearn.finance platform. The platform is a yield optimizer that moves funds around the decentralized finance (“defi”) ecosystem in an effort to generate a high return."
     },
-    "lrc":{
+    "lrc": {
       "describes": "Loopring (LRC) is an Ethereum token that describes itself as “an open-source, audited, and non-custodial exchange protocol.” The protocol aims to allow anyone to build non-custodial, decentralized exchanges on top of it by leveraging zero-knowledge proofs (ZKPs), a popular means of enhancing privacy in cryptocurrency. ZKPs ensure that assets are always in the control of users.",
       "trading": "The majority of crypto trading takes place on centralized cryptocurrency exchanges, which are online platforms run by private corporations that hold users’ funds and match trading orders. However, as indicated in the whitepaper, these platforms come with a variety of risks. The three main risks of centralized exchanges include lack of security, lack of transparency, and lack of liquidity. As a result, a new type of exchange called decentralized exchange has evolved to address these issues. These exchanges are different from centralized exchanges because users keep control of their private keys by trading directly on the underlying blockchain. However, decentralized exchanges are not completely free from flaws. Performance and structural constraints continue to be a problem.",
       "purpose": "Hence, Loopring’s stated purpose is to create a hybrid platform that combines prominent features of both centralized and decentralized exchanges. The protocol aims to maintain the benefits of decentralized exchanges while lowering or eliminating their inefficiencies through hybrid solutions. Loopring intends to improve order execution efficiency and DEX liquidity by managing the orders in a centralized manner but settling the trade on blockchain.",
       "seeks": "Another prominent feature that Loopring seeks to offer is the low transaction cost. Loopring aims to execute the majority of operations, such as trade and transfer settlement, off the Ethereum blockchain. This considerably reduces the gas usage and overall transaction cost to a fraction of what it would be on-chain."
     },
-    "enj":{
+    "enj": {
       "community": "Enjin (ENJ) is an online gaming community creation platform built on Ethereum blockchain. Enjin aims to make the gaming experience easy for developers and players by providing crypto-backed value and tools like software development kits (SDKs), game plugins, wallets, virtual item management apps, along with a payment gateway platform. Using the Enjin platform, gamers and content creators can easily manage, distribute, and trade their virtual goods (NFTs).",
       "platform": "ENJ is the native token of the Enjin platform. When a new NFT is minted on the network, a chosen amount of ENJ is minted into the token through a smart contract. The locked funds give the newly built goods real-world value, as each item can be at any point melted back into the underlying ENJ backing. Owners of various virtual goods on Enjin can convert their NFTs into ENJ at their original exchange rate (when the NFTs were minted). Since Enjin is built on the Ethereum platform, ENJ is an ERC-20 token—which means ENJ can be traded with other tokens on Ethereum blockchain and with real-world value."
     },
-    "mask":{
+    "mask": {
       "gateway": "Mask Network is a gateway that allows users to access the world of decentralized web or Web 3.0 through the Mask Network extension. Mask Network, rather than developing a new platform, bridges Web 2.0 and Web 3.0, allowing people to access Web 3.0 within existing mainstream platforms. Web 2.0, in simple words, is what the general public believes to be the 'internet.'' Web 3.0 is about reclaiming decentralized control of user data and building a censorship-resistant, open internet driven by new technology like the blockchain.",
       "aiming": "The problem that Mask Network is aiming to solve is the present internet is dominated by technology firms, which influence how users interact with the online world, including what they publish, what they see, and whom they contact. Since today's Web 2.0 platforms can make content vanish if it does not adhere to companies’ rules, users typically do not have complete ownership of the content they upload.Besides this, the platform believes that many issues have surfaced on social media. Users can rarely make cross-border payments, have no storage space for long-term files, and have no genuinely secure encryption. The social media platforms benefit from users' data and labor, and users have little leverage to stop them.",
       "solve": "Mask Network seeks to solve the above-mentioned persisting issues with the Mask Network extension. As mentioned on the website, users can install the Mask Network extension, log in with their Mask IDs, and connect their wallets. This way, users can use familiar Web 2.0 sites with Web 3.0 integrations. The Mask Network extension supports blockchains like Ethereum, Binance Smart Chain (BSC), Polygon, etc. Mask Network is also compliant with various social media sites like Twitter and Facebook. Users can do various things with the Mask Network extension:",
@@ -1253,10 +1473,10 @@
       "store": "Users can store their files on a decentralized network.",
       "governance": "The native utility token of Mask Network is MASK. MASK is also a governance token for MaskDAO, the Mask ecosystem's governing decentralized autonomous organization (DAO). Each MASK token represents one vote in DAO-related activities. Apart from this, Mask Network seeks to launch the Mask Grant Program to provide financial assistance to initiatives that can contribute to or integrate into the Mask Network crypto ecosystem."
     },
-    "storj":{
+    "storj": {
       "storj_is": "Storj (STORJ) is an Ethereum token that powers a decentralized cloud storage network for developers called Storj DCS (Decentralized Cloud Storage). After a customer uploads a file to Storj DCS, pieces of each file are distributed to a global network of independent nodes. When someone requests the file, it is then recompiled securely and made available for download. This means that anyone can store files on Storj DCS without having to trust a centralized data center. Developers can purchase cloud storage services with STORJ. Network participants earn STORJ in return for providing unused hard drive space and bandwidth to the network."
     },
-    "ens":{
+    "ens": {
       "system": "Ethereum Name Service is a decentralized and extensible naming system based on the Ethereum blockchain. ENS is deployed to convert human-readable names like “alice.eth” to a machine-readable identifier format such as Ethereum addresses, content hashes, metadata, and other cryptocurrency addresses. In addition, ENS supports the reverse resolution, which makes it possible to associate metadata such as interface descriptions or canonical names with Ethereum addresses.",
       "registrar": "By following the rules set by these registrar contracts, anyone can get ownership of a domain for their use. Notably, the domain owner may be an external account (a user) or a smart contract. But a registrar is a smart contract that owns a domain and issues subdomains to users following some set of rules as determined in the contract. The .eth registrar migrated and became an ERC721-compliant non-fungible token (NFT) contract, which means .eth registrations can be transferred similar to those of other NFTs.",
       "resolvers": "Moving to the next component, resolvers are actually involved in the process of translating names into addresses. Any contract that executes the relevant standards can act as a resolver in ENS.",
@@ -1270,25 +1490,25 @@
       "essentially": "The protocol essentially aims for decentralized governance. In other words, every blockchain connected to the nexus holds its governance. The nexus refers to a multi-channel blockchain comprising light clients of respective blockchains. The platform’s tokens are integrated into the nexus chain, and the various interconnected blockchains can use the tokens for transferring value. In addition, the nexus takes forward the discussions with an equal level of representation on behalf of every independent blockchain.",
       "supports": "ICX is the native token of the platform that supports, verifies, and executes a negotiated agreement between consenting parties within the ecosystem. The token can be used to pay the transaction fee, and other tokens can be converted into ICX via decentralized exchange (DEX). Further, the issuance and storage of tokens are done in a public wallet called the public treasury."
     },
-    "waves":{
+    "waves": {
       "multipurpose": "Waves (WAVES) is a community-based multipurpose blockchain platform that seeks to support a compilation of decentralized open-source technologies to build scalable, user-friendly apps. Waves aims at creating a comprehensive blockchain ecosystem that provides several features necessary for business adoption.",
       "utilized": "WAVES is the token utilized in the Waves blockchain. Within the blockchain, block generators seek to obtain block rewards and transaction fees in WAVES. This aims to promote generators to maintain and develop the blockchain network system. The more WAVES the generator holds, they seek to get a chance to add another block in the blockchain. Blocks are data structures within the blockchain database."
     },
-    "sushi":{
+    "sushi": {
       "sushi_is": "SushiSwap (SUSHI) is a decentralized exchange (or DEX) built on the Ethereum network. Originally forked from Uniswap, SushiSwap leverages smart contracts in order to provide liquidity pools that allow users to directly trade crypto assets — with no intermediary. Users can also become liquidity pool providers, supplying an equal value pair of two cryptocurrencies in order to receive rewards whenever anyone utilizes that pool. It is a decentralized finance (or DeFi) protocol."
     },
-    "ksm":{
+    "ksm": {
       "scalable": "Kusama is a scalable network of blockchains meant for experimentation. Kusama is the identical copy of the Polkadot blockchain and provides a pre-production environment for Polkadot. The platform allows developers to experiment and test new decentralized applications (DApps) before releasing them on the network in real time. The blockchains available on Kusama’s network are called Parachains that bring several breakthroughs compared to the legacy networks.",
       "developers": "While other networks only allow developers to build using smart contracts, Kusama seeks to give them complete control over the underlying blockchain. This flexibility aims to provide freedom to the developers to optimize for better use cases and hence better and secure DApps and services for all. Smart contracts are just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols on the blockchain. Moreover, Kusama also serves as a Canary Network for Polkadot. Official Polkadot upgrades are tested on Kusama before they are launched. Hence, the primary use case of Kusama is to facilitate testing.",
       "native": "KSM is the native token of the platform. KSM has many use cases on the platform like token holders can validate the network, nominate other validators, and use governance rights to vote on the major decisions of the platform, all using KSM."
     },
-    "lpt":{
+    "lpt": {
       "decentralized": "Livepeer is an open and decentralized video platform. The framework of Livepeer enables developers to build video streaming applications effectively. In brief, Livepeer is an Ethereum-based protocol offering live video streaming services. It is an alternative to mainstream centralized broadcasting companies. Livepeer aims to make video streaming more cost-friendly and reliable.",
       "website": "According to the website, the Livepeer platform can reduce costs up to 50 times compared to other platforms. In addition, Livepeer is more scalable and resilient without single points of failure. That means developers have the freedom to scale up or down and manage content creator demand.",
       "creators": "Therefore, Livepeer is a behind-the-scenes solution for app creators to transcode videos. Transcoding means converting videos from one format to another before playback on computers on the network. Users who transcode videos are known as orchestrators. Orchestrators lend their computers’ processing power to the network. Also, the first nodes are called broadcasters. Thus, the broadcasters send video streams for transcoding to orchestrators. Consequently, broadcasters are charged fees denominated in ether (ETH) for the transcoding work. Meanwhile, orchestrators receive rewards for their services.",
       "rewarding": "The native token of the network is the Livepeer Token (LPT). LPT is used for rewarding, staking, trading, or participating in governance voting. Just like any other cryptocurrency, the demand for LPT is directly proportional to the network's usage. Further, orchestrators receive work in proportion to the amount of LPT they staked. Users who do not want to become orchestrators can stake their LPT tokens toward the transcoders. By doing so, LPT holders get a portion of the transcoders' rewards. They are also called delegators and chosen through voting. Their job is to keep the node running smoothly for transaction validation."
     },
-    "band":{
+    "band": {
       "connecting": "Band Protocol is a cross-chain data oracle platform for connecting real-world data and APIs to smart contracts. Blockchain oracles are entities that connect blockchains to external systems, allowing smart contracts to execute depending on real-world inputs and outputs.",
       "instead": "To start off, smart contracts are just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols on the blockchain. Smart contracts excel at immutable storage and verifiable transactions, but their use cases were previously limited due to their access to external data. Most blockchains are unaware of what is going on in the real world and cannot access data that is not native to the chain. While most existing smart contract platforms allow for the trustless execution of arbitrary algorithms, they lack access to real-world data. This constraint prevents such contracts from reaching their full potential. BandChain was created to address this issue by connecting public blockchains to real-world, off-chain data.",
       "attempts": "There have been multiple attempts at finding solutions. Three major limitations persist:",
@@ -1301,47 +1521,47 @@
       "interested": "Cost: Band's oracle enables anyone interested in requesting data to do so only when necessary and to pay the corresponding fees on a per-request basis. This is more economical than having to update the prices of an entire collection of assets when you may just require the most recent price of one.",
       "based": "The native token of the platform is BAND, and it is based on the ERC20 token standard."
     },
-    "bico":{
+    "bico": {
       "developer": "Biconomy (BICO) is a developer platform that empowers blockchain developers to enable a simplified transaction and onboarding experience for their Web3 project. The plug-n-play solution allows Web 3 interactions to be smooth and seamless between DApps and end-users by removing blockchain complexities.",
       "platform": "The native token of the Biconomy platform is BICO, an Ethereum-based token. BICO serves as a work and governance token. Further, the token serves a key role in decentralizing the network by acting as network fees for the Biconomy platform. As the network blockchain works as a verification and settlement layer for supporting the activities of multiple networks, node operators pay a network fee. These executors and validators in the network add information to the blockchain. Consequently, they earn BICO tokens for the work done proportionally. Additionally, the BICO token incentivizes all stakeholders who secure, maintain, and participate in network governance."
     },
-    "powr":{
+    "powr": {
       "technology": "Power Ledger (POWR) is a technology and software company that uses blockchain for trading renewable energy. The company aims to develop software for clients that allows consumers to track, trace, and trade energy (in kilowatts) and helps to invest in renewables. The Power Ledger ecosystem as a platform seeks to take the control out of the hands of central players and put the citizens in charge of a cocreated energy future. The platform provides a transparent governance framework and can be scaled to suit as required. Accordingly, the platform seeks to offer products categorized into three facilities, i.e., flexible trading, energy trading and traceability, and environmental commodities trading.",
       "ecosystem": "The Power Ledger deploys a dual-token ecosystem, POWR and Sparkz, for its two blockchain layers. However, POWR tokens allow the application hosts and the participants to access and use the platform and fuel the Power Ledger ecosystem. Since the platform’s core value is sustainability, Power Ledger has chosen a hybrid public and consortium blockchain approach. Thereby, POWR tokens work on the public Ethereum blockchain. Power Ledger’s private, industry-specific consortium blockchain is EcoChain, which is based on a proof-of-stake consensus mechanism."
     },
-    "knc":{
+    "knc": {
       "liquidity": "Kyber Network is a hub of liquidity protocols that aggregates liquidity from various sources to provide secure and instant transactions on any decentralized application (DApp). The main goal of Kyber Network is to enable DeFi DApps, decentralized exchanges (DEXs) and other users easy access to liquidity pools that provide the best rates.",
       "transactions": "All transactions on Kyber are on-chain, which means they can be easily verified using any Ethereum block explorer. Projects can build on top of Kyber to utilize all the services offered by the protocol, such as the instant settlement of tokens, liquidity aggregation, and a customizable business model.",
       "issue": "Kyber looks to solve the liquidity issue in the decentralized finance (DeFi) industry by allowing developers to build products and services without having to worry about liquidity for different needs.",
       "governance": "KNC is the native utility and governance token used to facilitate and pay fees for transactions on the Kyber network. The token is built on Ethereum in accordance with the ERC20 standards, which define the common list of rules for the tokens to function in the Ethereum ecosystem. KNC also utilizes smart contracts. These are just like regular contracts; however, instead of being drafted on paper, these contracts run in the form of protocols on the blockchain. Smart contracts offer the infrastructure in the Kyber network that allows one token to be swapped for another."
     },
-    "ctsi":{
+    "ctsi": {
       "utility": "CTSI is a utility token that powers the Cartesi network, which aims to solve blockchain scalability and high fees. Scalability refers to a cryptocurrency's ability to handle a high number of transactions at once. The platform employs the use of optimistic rollups. Optimistic rollups (ORs) are a sort of layer 2 structure that runs on top of the Ethereum base layer rather than on the top. A layer 2 framework or protocol is one that is developed on top of an existing blockchain system.",
       "staking": "CTSI can be used for staking and fees for processing data on the network. Notably, Cartesi supports Linux software components and enables smart contract creation using mainstream programming languages.",
       "secured": "The native token CTSI is a utility token of Cartesi that is secured cryptographically. CTSI was created to serve a significant part in the operation of the Cartesi ecosystem. The Cartesi token also plays an important role in Cartesi Core's incentive mechanism. CTSI is used to reward users for participating in the network."
     },
-    "cvc":{
+    "cvc": {
       "ecosystem": "The Civic ecosystem simplifies identity verification (IDV) services using blockchain by verifying user identities and detecting fraud in a hassle-free and less complex manner. Civic has used blockchain-based solutions to elevate the quality of services for existing products, namely the Civic Secure Identity Platform (SIP) successfully. Previously, the verification of user background needed the involvement of third-party services as a mandatory step, but with Civic's new blockchain-based approach, the involvement of third-party auditors can be minimal. In fact, the blockchain-based approach ensures zero human errors by eliminating the need to share confidential data over and over again amongst different audit agencies. Civic aims to make it challenging for fraudulent activities to proliferate or seeks to reduce breaches within the ecosystem.",
       "experience": "To elevate customer experience, the Civic platform has introduced various smart contracts, a utility token named CVC, and various secure software applications within its platform. Moreover, the Civic ecosystem lets two different parties be involved in simplified identity verification processes, namely the 'Users' and the 'Validators.' Validators are institutions that need to verify IDs of the Users (comprising either individuals or associated businesses) . The Validators give approval for the verified User data on the Civic ecosystem. This process simplifies the validation for real User IDs within the blockchain. Other external agencies can simply go ahead and use the already validated data, rather than going through the validation audit process once again. Smart Contracts on the Civic ecosystem are leveraged to properly validate the User IDs, thus leaving no space for repetitive human involvement.",
       "support": "The CVC token on the Civic ecosystem is used to support transactions related to services offered by the platform. It is an ERC20 standard token facilitating payments for smart contract commands and maintaining the blockchain that backs up the Civic platform. Besides, CVC tokens are coming up with different new use cases to make the platform more efficient."
     },
-    "c98":{
+    "c98": {
       "platform": "Coin98 is a DeFi platform to borrow, stake, swap, lend and earn crypto. Coin98 is a one-stop platform wherein users can access the DeFi ecosystem like on-chain governance, decentralized exchanges, lending protocols, blockchain-based games, and cross-chain transfers (across blockchain networks) on over twenty networks; including Binance Smart Chain, Ethereum, Solana, Avalanche, and more.",
       "governance": "C98 is the governance and utility token of Coin98 that operates on Ethereum, Binance Smart Chain (BSC), and Solana. C98 powers the entire Coin98 ecosystem. The use cases of the token are as follows:",
       "providers": "Liquidity providers who provide liquidity for the development of Coin98 Exchange by staking or including assets in liquidity pools are rewarded with C98 tokens in exchange for liquidity.",
       "holders": "C98 allows token holders to vote on governance proposals to promote decentralized community governance for the network. These token holders get to vote on various features or parameters of the Coin98 exchange and its products thereon.",
       "bifurcated": "C98 holders are bifurcated based on tiers. Users with more C98 are sorted into a higher ranked tier. These high-tier token holders gain exclusive access to premium events and privileges."
     },
-    "bnt":{
+    "bnt": {
       "collection": "Bancor is a collection of smart contracts that control the conversion flow between different tokens on the Bancor Network platform. According to the Bancor Network claims, these smart contracts also control access to the network's liquidity pools, which connect different tokens. Users can use the Bancor Network smart contract's convert functionalities to initiate a conversion between any tokens on the network, including tokens on other blockchains.",
       "based": "Currently, the Bancor Network is based on the Ethereum blockchain. However, the protocol is interoperable with other blockchains as well. The ability to check and obtain information across many blockchain systems is known as blockchain interoperability.",
       "center": "The Bancor Network Token (BNT) is at the center of the network, serving as a hub that connects all of the other tokens.",
       "collects": "On the Bancor Network, every liquidity pool collects liquidity for a specific set of tokens. Anyone can contribute liquidity to a pool in exchange for conversion fees on trades that pass through it. Pool tokens are then distributed to the contributors in proportion to their assets in the pool. A ConverterBase contract manages each liquidity pool, and the liquidity providers can construct new instances of the ConverterBase contract to generate new liquidity pools. ConverterBase contracts are the contracts that carry the main logic of conversion between different ERC20 smart tokens. Also, to add or remove liquidity from a pool, anyone can use the fund or liquidate functions."
     },
-    "omg":{
+    "omg": {
       "omg_is": "The OMG Network (formerly OmiseGO) is a value transfer network for Ethereum and any ERC-20 token. It describes itself as the first production-grade layer-2 Ethereum scaling solution and aims to let people move money and a variety of digital values on the blockchain faster, cheaper, and without compromising on security."
     },
-    "blz":{
+    "blz": {
       "blockchain": "Bluzelle (BLZ) offers a blockchain platform for the creation of decentralized applications (dApps) focused decentralized and scalable database services. Users of Bluzelle can sell their unused computing resources to become storage providers for other users interested in buying their computing resources. Transactions on the Bluezelle are done with the platforms own cryptocurrency.",
       "features": "The platform uses the following features to support its vision:",
       "fast": "Fast and Efficient Blockchain",
@@ -1352,31 +1572,31 @@
       "experienced": "With its founders experienced in the games industry, Bluzelle plans to launch its first play-to-earn game called Denomination, a real-time card game where gamers can compete against each other (player vs. player) or against the environment (player vs. environment) and to win rewards.",
       "key": "BLZ is the native token of the platform and a key component of its GameFi. Players can use BLZ to purchase NFTs and other in-game items and subsequently store them on the network. Also, validators can earn rewards using BLZ tokens. Further, users can pay for Bluzelle network transactions and Bluzelle database services using BLZ tokens. Lastly, users can stake BLZ tokens and earn rewards and participate in network governance."
     },
-    "ogn":{
+    "ogn": {
       "platform": "Trading under OGN, the Origin Protocol is an Ethereum-based platform that aims to bring non-fungible tokens (NFTs) and decentralized finance (DeFi) to the masses. The platform is open-source and seeks to power decentralized and peer-to-peer marketplaces. As per the whitepaper, Origin Protocol facilitates a global network that allows traders across the world to transact on the open web. In simpler terms, the Origin blockchain is a platform to build a decentralized marketplace.",
       "billion": "Today, almost $40 billion of value is poured into various DeFi protocols. But interacting with DeFi protocols is complex and cumbersome and requires a sophisticated user. Mainstream consumers like small businesses, retailers, merchants, etc. have very little knowledge of these financial protocols and, therefore, cannot participate in them. To take an edge, the Origin Protocol was built to realize this opportunity. They believe that decentralized finance, especially in the NFT vertical, can unlock billions of dollars and bring crypto to mainstream consumers.",
       "powers": "Origin Token (OGN): This is an Ethereum-based token that powers the Origin platform. OGN is an ERC20 standard token and also serves as the platform’s cryptocurrency. The token is used in the basic transactional activities on the platform. Further, OGN also works as a governance token, and the holders of the token can create and vote on the proposals made for the platform’s growth."
     },
-    "rlc":{
+    "rlc": {
       "rlc_is": "RLC is an Ethereum token for the iExec cloud platform in which users can monetize and rent computing power and data. iExec enables developers to power applications on what is described as 'a decentralized marketplace for cloud resources'."
     },
-    "req":{
+    "req": {
       "protocol": "Request (REQ) is the protocol for payment requests. It is an open network where transactions are immutably recorded and requests are processed without the need for a middleman. The aim is to have the network utilize blockchain technology to make the payment process faster, easier, and reliable for everyone. By having all payment requests in one place, companies that provide services such as accounting, invoicing, payment processing, and auditing can connect to the same network and communicate with one another utilizing the same single source of truth. Thus, in simpler terms, Request is a decentralized network that permits anyone to create, fulfill, and share a payment request in a secure way.",
       "important": "As mentioned on the website, three important features of the Request network include Request Finance, Request Create, and Wooreq. Request Finance offers a platform to manage all crypto transactions in one place. This is a suite of financial tools that makes life easier by providing an application for invoices, expenses, payroll, and accounting. Next, by using Request Create, users can create and exchange payment requests in three easy steps, allowing them to spend less time on payments and more time on running their business. Then there's Wooreq, a Woocommerce plugin that uses the Request network to make it simple to accept cryptocurrency payments.",
       "transactions": "Furthermore, the Request Network can handle more and more transactions per second with every new version. This is because the majority of data is stored on IPFS instead of the blockchain. IPFS, also known as InterPlanetary File System, is a protocol and network. This is designed to produce a peer-to-peer way of storing and sharing hypermedia in the distributed file system that is content-addressable. The data stored on the blockchain is Hash (proof of data), which can’t be modified or manipulated. Transactions are processed and added to IPFS in large batches, enabling higher throughput and lower costs.",
       "advantage": "Another important advantage of Request is that it’s built on top of Ethereum, which ensures that data cannot be deleted or changed by any third party or even by users. In addition, data is present on every node, and it can’t just disappear. This makes the data safe from the passage of time as well as tampering.",
       "deflationary": "REQ is the token ticker for the Request token, which is a deflationary ERC20 token. This implies REQ tokens are designed to reduce in supply over time. According to the whitepaper, the REQ token powers the Request Network and is used to create requests, participate in the network, and reward the parties who help build the Request ecosystem. The token is also utilized for making payments on the Request Network, including the network fees. The fee charged is expected to remain between 0.05 percent and 0.5 percent, with the amount decreasing as the system grows. Participants are required to pay a network fee in REQ, which will be burned when they use the network, meaning that the tokens are sent to an unusable wallet address to remove them from circulation. Additionally, the REQ token is used for governance purposes by allowing participants to vote on decisions that are crucial for the network’s long-term success."
     },
-    "oxt":{
+    "oxt": {
       "oxt_is": "Orchid (OXT) is an Ethereum token that powers the Orchid network, a peer-to-peer privacy tool that includes a decentralized VPN and other features designed to give users more control over their Internet connection. OXT can be used to pay for bandwidth or staked by bandwidth providers in order to operate a node."
     },
-    "ren":{
+    "ren": {
       "ren_is": "Ren (REN) is an Ethereum token that powers Ren’s open protocol for transferring cryptocurrencies between blockchains. Ren aims to bring popular assets like Bitcoin and Zcash to blockchains including Ethereum, making it possible for these assets to participate in a multi-chain decentralized finance ecosystem."
     },
-    "mln":{
+    "mln": {
       "mln_is": "MLN is an Ethereum token that powers Enzyme (formerly known as Melon Protocol), a protocol that aims to facilitate on-chain asset management for the DeFi ecosystem. MLN allows users to build, share, and explore DeFi investment strategies (called “vaults”) while filtering by historical performance and risk profiles. MLN is used to pay for various functions throughout the vault creation process and investment lifecycle."
     },
-    "idex":{
+    "idex": {
       "hybrid": "IDEX is a hybrid liquidity decentralized exchange (DEX) that combines a high-performance orderbook and matching engine with an automated market maker (AMM). Orderbook refers to a list of orders for a specific asset organized by price level. The platform blends the advantages of centralized and decentralized exchanges with the performance and characteristics of a traditional orderbook and the liquidity and security of an AMM. IDEX permits traders to obtain the best practices, prevent failed transactions, while providing liquidity, all with the power of actual limit and stop-loss orders. IDEX operates on the Polygon blockchain, supporting MATIC and ERC-20 assets.",
       "aspects": "The three important aspects of the platform are high-performance exchange, hybrid liquidity, and smart contracts. The high-performance exchange component is analogous to that on top of centralized exchanges. This design allows IDEX to match centralized exchanges in latency and performance that are unavailable from other DEXs.Further, the IDEX Hybrid Liquidity (IDEX HL) incorporates a traditional orderbook and matching engine with AMM liquidity pools. So, traders are seamlessly matched against the most suitable combination of limit orders and pool liquidity for low-cost execution without any additional efforts. IDEX HL relies on smart contracts to handle security and trade settlement, enforcing the constraints of the AMM pricing curve and enabling users to manage custody of their assets.",
       "contract": "Next, the IDEX smart contract contains three settlement processes employed in various circumstances depending on the type of liquidity being matched. The IDEX smart contracts bring programmatic guarantees to the platform. So, IDEX utilizes a series of smart contracts to decentralize fund custody and trade settlement by introducing such novel DeFi mechanisms.",
@@ -1384,18 +1604,18 @@
       "record": "Stakingnodes keep a real-time record of system data. This reduces the IDEX's operational cost by offloading popular API (application programming interface) operations. Staking nodes are evaluated by their uptime to determine their performance. Uptime is a function of API performance and online sessions.",
       "placed": "IDEX tokens should be placed as collateral to act as nodes and receive payment for node operations. In the event of serving incorrect data, the respective node address will be blacklisted, and the operator must re-incubate their tokens. IDEX staking allows for “riskless” staking from cold storage as no slashing mechanism is involved."
     },
-    "srm":{
+    "srm": {
       "protocol": "Serum describes itself as a protocol and ecosystem for decentralized exchanges (DEX) that gives decentralized finance, exceptional speed, and cheap transaction costs. The Serum is based on Solana and is fully permissionless. Websites or applications that use Serum's protocol may adjust the experience to their target market's use case and compliance requirements.",
       "offers": "Serum offers a completely on-chain order book, allowing trading interfaces and other applications to 'plug into' Serum's modular ecosystem. The flexibility to determine the price, size, and direction of their transaction is claimed as a unique feature of this exchange mechanism for users. Serum DEX, built on top of the Asset Agnostic Order book, gives the ecosystem a larger pool of liquidity and a shared resource to support trading functionality. Permissioned marketplaces provide much more freedom and conformity.",
       "token": "The native token of the ecosystem is SRM. Serum's utility and governance token is also SRM. The users get a fee reduction if they keep SRM in their wallets. SRM is completely integrated with Serum and can take advantage of burn fees."
     },
-    "mir":{
+    "mir": {
       "synthetic": "Mirror Protocol is a synthetic assets protocol built by Terraform Labs. It allows users to issue and trade synthetics assets that track the price of real-world assets. This allows Mirror Protocol to track the price of stocks, futures, exchange-traded funds, and other traditional financial assets and bridges cryptocurrency markets with traditional markets. MIR is the governance token of Mirror Protocol and is used for governance, CDP closure fees, and liquidity mining.",
       "access": "This is intended to offer greater access to the US equities market through the minting of synthetic assets. These Mirrored Assets (mAssets) mirror the price behavior of the real-world assets and reflect the exchange prices on-chain. The decentralized representation grants traders price exposure to assets that would otherwise be inaccessible. These mAssets gather their price from decentralized oracles at thirty-second intervals.",
       "blockchain": "Mirror Protocol works on the Terra blockchain and is available on Ethereum via the Shuttle-bridge. These platforms allow every asset to be represented on the blockchain.",
       "token": "The native token for Mirror Protocol is the Mirror Token (MIR). This token is used for governance, staking, and rewards, and the token has a total supply of 370 million, which should drop over a period of four years. MIR is inflationary in nature and is expected to have new uses as the token matures."
     },
-    "btt":{
+    "btt": {
       "technology": "BitTorrent is a popular peer-to-peer distributed communication technology that allows huge, in-demand data distribution. The protocol eliminates the need for maintaining a central server.The BitTorrent protocol allows software endpoints (called 'clients') to work together to ensure reliable simultaneous distribution of huge files to several clients, reducing dependency on any weak point (such as a server connection). The protocol strives to maximize the utilization of each client's upload and download bandwidth to balance peer-to-peer content delivery across all clients.",
       "portion": "How the Protocol Works: Peers can find a file or a portion of a file by making an 'announcement' to a tracker, which is a server that tracks which peers have access to which files, or by searching the DHT, a distributed database of peers. This process organically splits peers into 'swarms' of users, with each swarm sharing a common interest in trading portions of a certain file.",
       "occurs": "Files are cut into fragments before an exchange occurs. Clients advertise which parts of a file are available to their users; then, users who have the required parts post them, which in turn allows users who require these parts to download them. Cryptographichashes (i.e. info hashes) of the parts/pieces are used to ensure that the parts shared are indeed the ones requested.",
@@ -1404,7 +1624,7 @@
       "directly": "The platform wants app developers to directly reward consumers who provide its underlying resources by allowing consumers to use this 'found value' to transact with publishers and app developers without using traditional currency.The company intends to enhance the BitTorrent protocol and establish a new token, BTT, to implement a distributed infrastructure services economy. End users in the BTT economy should be able to supply infrastructure services in small amounts in exchange for tokens.",
       "cryptographic": "BTT is a TRON TRC-10 cryptographic token. BTT seeks to act as a general-purpose mechanism for transferring computer resources between BitTorrent clients and a market of service requesters and providers."
     },
-    "fil":{
+    "fil": {
       "introduces": "The Filecoin protocol introduces a decentralized storage network (DSN) based on blockchain. As claimed by the whitepaper, with the DSN scheme, multiple independent storage providers offer data storage and data retrieval to clients on the Filecoin network. In other words, the Filecoin DSN handles storage and retrieval requests via two verifiable markets, i.e., the Storage Market and the Retrieval Market, respectively. The two markets have the same structure but different design.",
       "clients": "The Storage Market allows clients to pay storage miners to store data. The storage market is a verifiable market through which clients (buyers) place matching orders with storage miners (sellers). Once matched, orders are submitted to the orderbook (sets of orders). That way, the public gets access to all the orders recorded on the Filecoin blockchain. Additionally, both clients and storage miners must pledge and commit to their resources, where storage miners provide constant proof of storage for an order.",
       "data": "The Retrieval Market allows clients to retrieve data by paying retrieval miners to deliver the data. In the Retrieval Market, clients can request retrieval of a specific piece from an order. Retrieval miners obtain pieces from the Retrieval Market or by storing them from being a storage miner. Participants in the retrieval market follow an off-chain process of exchanging pieces and settling prices. Therefore, Retrieval Miners and clients exchange data without the network knowing about it. Mostly, the retrieval miner splits the data into multiple parts, and the client pays for each part that is retrieved.",
@@ -1445,10 +1665,14 @@
     "reissue_of_the_card": "Reissue of the card at the request of the client",
     "account_statement": "Account statement in paper format",
     "card_express": "Card express delivery",
-    "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order."
-
-   
-    
-
+    "price_depends_on_the": "Price depends on the client’s address and is shown in the App before placing order.",
+    "please_enter_sender_name": "Please enter sender name",
+    "enter_sender_name": "Enter sender name",
+    "decline": "Decline",
+    "virtual": "Virtual",
+    "plastic": "Plastic",
+    "enter_beneficiary_name": "Enter beneficiary name",
+    "enter_account_number_or_IBAN": "Enter account number / IBAN",
+    "crypto_wallet": "Crypto wallet"
   }
 }

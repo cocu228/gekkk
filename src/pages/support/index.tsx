@@ -56,7 +56,7 @@ const Support = () => {
                                 </svg>
                             </div>
                         </div>
-                        <NavLink to={"/support/chat"}>
+                        {/* <NavLink to={"/support/chat"}>
                             <div className={styles.ChatUs}>
                                 <div className={styles.Icon}>
                                     <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,14 +75,8 @@ const Support = () => {
                                     </svg>
                                 </div>
                             </div>
-                        </NavLink>
-                        <div className="w-25 flex">
-                            <img src="/img/icon/Telegram.svg" alt="mail" />
-                            <a className="ml-2 text-gray-400 font-semibold whitespace-nowrap"
-                                href="https://t.me/gek_support"> Telegram (crypto wallet)</a>
-                        </div>
+                        </NavLink> */}
 
-                        
                         <div  onClick={() => {
                             document.getElementById("chat").classList.toggle("isOpen")
                         }}  className={styles.ChatUs}>
@@ -112,6 +106,11 @@ const Support = () => {
                             </div>
                         </div>
 
+                        <div className="w-25 flex">
+                            <img src="/img/icon/Telegram.svg" alt="mail" />
+                            <a className="ml-2 text-gray-400 font-semibold whitespace-nowrap"
+                                href="https://t.me/gek_support"> Telegram (crypto wallet)</a>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.Control}>
@@ -156,6 +155,35 @@ const Support = () => {
                 marginBottom: "40px",
                 minHeight: "640px"
             }} className="substrate flex flex-col w-full">
+                <div  onClick={() => {
+                    document.getElementById("chat").classList.toggle("isOpen")
+                }}  className={styles.ChatUs}>
+                    <div className={styles.Icon}>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M22.0811 2C33.1267 2 42.0811 10.9544 42.0811 22.0001C42.0811 33.0457 33.1267 42 22.0811 42C11.0354 42 2.08105 33.0457 2.08105 22.0001C2.08105 10.9544 11.0354 2 22.0811 2Z"
+                                  fill="white" stroke="#29354C" stroke-width="3.5"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M13 13C11.8954 13 11 13.8954 11 15V27C11 28.1046 11.8954 29 13 29H15V30.5284C15 32.1551 16.8387 33.1014 18.1625 32.1559L20.8719 30.2206C21.546 29.7391 21.7021 28.8023 21.2206 28.1281C20.7391 27.454 19.8023 27.2979 19.1281 27.7794L18 28.5852V28C18 26.8954 17.1046 26 16 26H14V16H30V20C30 20.8284 30.6716 21.5 31.5 21.5C32.3284 21.5 33 20.8284 33 20V15C33 13.8954 32.1046 13 31 13H13ZM24 23C22.8954 23 22 23.8954 22 25V29.9681C22 31.0727 22.8954 31.9681 24 31.9681H25.7483L27.7796 33.7278C29.1749 34.9364 31.3072 33.7706 31.0737 31.9668C32.1441 31.928 33 31.048 33 29.9681V25C33 23.8954 32.1046 23 31 23H24ZM25 28.9681V26H30V28.9681H29.8968C29.113 28.9681 28.4481 29.4145 28.1184 30.0522L27.4307 29.4564C27.0671 29.1415 26.6022 28.9681 26.1212 28.9681H25Z"
+                                  fill="#29354C"/>
+                        </svg>
+                    </div>
+                    <div className={styles.Main}>
+                        <div className={styles.MainTitle}>{t("Chat")}</div>
+                        <div
+                            className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
+                    </div>
+                    <div className={styles.Arrow}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12"
+                             fill="none">
+                            <path fillRule="evenodd" clipRule="evenodd"
+                                  d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z"
+                                  fill="#9D9D9D"/>
+                        </svg>
+                    </div>
+                </div>
+                
                 <div className="row flex flex-wrap gap-8">
                     <div className="col w-25 flex flex-col">
                         <div className="row mb-3 flex flex-wrap gap-2">

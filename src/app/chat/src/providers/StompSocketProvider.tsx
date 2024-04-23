@@ -47,6 +47,8 @@ const StompSocketProvider = ({
         const config = stompConfig(deviceIdHash, chatConfig);
         const client = new Client(config);
 
+        console.log(`chat token: ${chatConfig.token}`)
+
         $axios.interceptors.request.use(config => {
             config.headers['Authorization'] = chatConfig.token;
             config.headers['X-Device'] = "id=" + deviceIdHash

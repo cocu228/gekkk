@@ -16,8 +16,8 @@
 }
 
 .ptr {
-  height: 100vh !important;
-  
+  height: calc(100vh - 55px) !important; // 55px - размер header
+
   &__pull-down--pull-more {
     text-align: center;
   }

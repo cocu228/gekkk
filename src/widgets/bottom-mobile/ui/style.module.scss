@@ -32,7 +32,8 @@
     top: auto;
     width: 100%;
     z-index: 41;
-    overflow: auto;
+    // overflow: auto;
+    overscroll-behavior-y: none;
 }
 
 .AddBottomMenuPadding{

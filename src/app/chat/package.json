@@ -9,9 +9,9 @@
     "preview": "vite preview",
     "local-auth": "vite",
     "build-auth": "tsc && vite build",
-    "PRD": "tsc && vite build --mode production",
-    "STG": "tsc && vite build --mode staging",
-    "DEV": "tsc && vite build --mode development"
+    "PRD-GEKKARD": "tsc && vite build --mode prdgekkard",
+    "STG-GEKKARD": "tsc && vite build --mode stggekkard",
+    "DEV-GEKKARD": "tsc && vite build --mode devgekkard"
   },
   "alias": {
     "react": "preact-compat",

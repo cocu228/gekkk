@@ -17,7 +17,12 @@
 
 .ptr {
   height: calc(100vh - 55px) !important; // 55px - размер header
-
+  overscroll-behavior-y: none;
+  overflow: scroll !important;
+  &__children{
+    overflow: scroll !important;
+    overscroll-behavior-y: none;
+  }
   &__pull-down--pull-more {
     text-align: center;
   }

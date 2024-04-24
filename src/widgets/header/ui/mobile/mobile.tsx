@@ -19,7 +19,7 @@ const HeaderMobile = ({ items, actions }) => {
     const transfersPage = useMatch("/transfers") //not used
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
-    const historyPage = useMatch("/history") //not used
+    const historyPage = useMatch("/history")
     const isOnMainPages = !!homePage || !!historyPage
     const navigate = useNavigate()
     const location = useLocation()
@@ -102,14 +102,13 @@ const HeaderMobile = ({ items, actions }) => {
                 :
                 <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
                     <div className={styles.GoBackIcon}>
-                        <IconApp size={12} color="#fff" className="rotate-[180deg] m-[0_20px]" code="t08" />
                     </div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>
             }
 
             {!(exchangePage || privateRoomPage) ? null : (
-                <div className="flex items-center justify-end w-full gap-2 pr-2" data-testid="ExchangeRoomMenu">
+                <div className="flex items-center justify-end w-[20%] gap-2 pr-2" data-testid="ExchangeRoomMenu">
                     <ExchangeRoomMenu roomId={roomId}/>
                 </div>
             )}

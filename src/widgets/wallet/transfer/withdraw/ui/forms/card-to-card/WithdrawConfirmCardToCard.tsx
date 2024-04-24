@@ -172,7 +172,7 @@ const WithdrawConfirmCardToCard = ({
             </div>
             <div className="row mb-4">
                 <div className="col">
-                    <span>{formatCardNumber(cards.find(c => c.cardId === selectedCard).displayPan)}</span>
+                    <span>{formatCardNumber(cards?.find(c => c.cardId === selectedCard).displayPan)}</span>
                 </div>
             </div>
             <div className="row mb-2">

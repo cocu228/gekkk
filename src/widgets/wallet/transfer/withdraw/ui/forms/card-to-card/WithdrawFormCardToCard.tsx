@@ -84,7 +84,7 @@ const WithdrawFormCardToCard = () => {
   useEffect(() => {
     setInputs(() => ({
       ...inputs,
-      selectedCard: cards.find((c) =>
+      selectedCard: cards?.find((c) =>
         ["ACTIVE", "PLASTIC_IN_WAY"].includes(c.cardStatus)
       )
         ? cards[0].cardId

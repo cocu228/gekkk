@@ -1,5 +1,7 @@
 import Decimal from "decimal.js";
 import { apiLogout } from "../(orval)api";
+import { useLocation } from "react-router-dom";
+import React from "react";
 
 export function randomId(value = 12): string {
     let text = "";
@@ -303,3 +305,9 @@ export function maskFullCardNumber(cardNumber: string): string {
     
     return cardNumberWithSpaces.trim();
   }
+
+export function useQuery() {
+    const { search } = useLocation();
+  
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+}

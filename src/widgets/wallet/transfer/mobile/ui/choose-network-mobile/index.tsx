@@ -1,38 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {useTranslation} from "react-i18next";
-import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
+import { useQuery } from "@/shared/lib";
 
 const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const query = useQuery()
     const currency = query.get("currency")
-    const {currencies} = useContext(CtxCurrencies);
     const [open, setOpen] = useState<boolean>(false)
 
-    const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
-    
-    const noteVisible = !withdraw
-        && !(Array.isArray(networksForSelector) && networksForSelector.length === 0)
-        && currency !== "EURG"
-        && (isCryptoNetwork(networkTypeSelect));
-        
-    const networkList = networksForSelector ? networksForSelector.map(el => {
-        return {
-            value:el.value,
-            label:<div className='w-full items-center flex justify-center color-[#3A5E66]'>
-                {el.label}
-            </div> 
-        }
-    }) : [{
-        value:0,
-        label:"none"
-    }]
+    const {networksForSelector} = useContext(CtxWalletNetworks);
 
     useEffect(()=>{
         if(!query.get("type")){
@@ -80,8 +61,3 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
 
 export default ChooseNetworkMobile;
 
-function useQuery() {
-    const { search } = useLocation();
-  
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  }

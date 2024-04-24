@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { isCryptoNetwork } from '../../../model/helpers';
 import WithdrawFormCrypto from '../../../withdraw/ui/forms/crypto/WithdrawFormCrypto';
 import WithdrawFormPapaya from '../../../withdraw/ui/forms/papaya/WithdrawFormPapaya';
 import WithdrawFormSepa from '../../../withdraw/ui/forms/sepa/WithdrawFormSepa';
-import WithdrawFormSwift from '../../../withdraw/ui/forms/WithdrawFormSwift';
 import WithdrawFormCardToCard from '../../../withdraw/ui/forms/card-to-card/WithdrawFormCardToCard';
 import WithdrawFormBroker from '../../../withdraw/ui/forms/broker/WithdrawFormBroker';
 import WithdrawFormPhoneNumber from '../../../withdraw/ui/forms/phone-number/WithdrawFormPhoneNumber';
@@ -13,23 +12,20 @@ import { CtxWalletNetworks } from '../../../model/context';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
 import { getInitialProps, useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 
 type Props = {
-    curr:ICtxCurrency
+    curr:ICtxCurrency;
+    network: number
 }
 
-function GetDisplayedForm({curr}: Props) {
+function GetDisplayedForm({curr, network}: Props) {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
-    const query = useQuery()
 
 
     const {networkTypeSelect, setNetworkType} = useContext(CtxWalletNetworks);
-
+    
     const [loading, setLoading] = useState<boolean>(true)
-    useEffect(()=>{
-    }, [networkTypeSelect])
     useEffect(()=>{
 
         setLoading(true)
@@ -72,7 +68,7 @@ function GetDisplayedForm({curr}: Props) {
 
 
     useEffect(()=>{
-        setDisplayedForm(getDisplayForm(query.get("type") ? +query.get("type") : networkTypeSelect))
+        setDisplayedForm(getDisplayForm(network ? network : networkTypeSelect))
     },[initialLanguage, networkTypeSelect])
     
 
@@ -90,8 +86,3 @@ function GetDisplayedForm({curr}: Props) {
 
 export default GetDisplayedForm
 
-function useQuery() {
-    const { search } = useLocation();
-  
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  }

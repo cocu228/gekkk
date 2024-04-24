@@ -126,7 +126,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                             </div>
                         
                         </div>
-                        <div className="col w-1/2">
+                        <div className="col mt-3 w-1/2">
                             <div className="row flex">
                                 <div className="col">
                                     <span className="text-gray-400 mr-2">{t("confirmation")}:</span>

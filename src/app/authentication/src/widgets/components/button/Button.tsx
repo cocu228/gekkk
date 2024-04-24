@@ -1,5 +1,6 @@
 ﻿import styles from './style.module.css';
 import {HTMLAttributes} from 'preact/compat';
+import {JSX} from "preact";
 
 interface IParams {
 	text?: boolean;

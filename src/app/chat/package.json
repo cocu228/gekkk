@@ -19,17 +19,21 @@
   },
   "dependencies": {
     "@types/styled-components": "^5.1.28",
-    "preact": "^10.20.1",
     "crypto-js": "^4.2.0",
-    "uuid": "^9.0.1",
-    "sweetalert2": "^11.10.5",
-    "styled-components": "^5.3.11",
+    "preact": "^10.20.1",
     "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat"
+    "react-dom": "npm:@preact/compat",
+    "styled-components": "^5.3.11",
+    "sweetalert2": "^11.10.5",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "2.1.4",
     "@preact/preset-vite": "^2.7.0",
+    "@stomp/stompjs": "^7.0.0",
+    "@types/crypto-js": "^4.2.2",
+    "@types/uuid": "^9.0.8",
+    "axios": "^1.6.8",
+    "babel-plugin-styled-components": "2.1.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-css-injected-by-js": "^3.3.1"

@@ -11,6 +11,7 @@ export const $axios = axios.create({
 });
 
 
+// @ts-ignore
 export const makeApiRequest = async <T>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     url: string,

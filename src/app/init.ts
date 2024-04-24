@@ -2,7 +2,6 @@ import MyWorker from './worker.ts?worker';
 import url from "./index.js?worker&url";
 import {getCookieData} from '@/shared/lib';
 const {accountId} = getCookieData<{ accountId?: string }>()
-
 global.VITE_APP_TYPE = import.meta.env.VITE_APP_TYPE
 document.body.setAttribute("data-app", import.meta.env.VITE_APP_TYPE)
 

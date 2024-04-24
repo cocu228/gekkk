@@ -10,14 +10,13 @@ import {nodePolyfills} from 'vite-plugin-node-polyfills'
 export default defineConfig(({mode}) => {
 
     process.env = {
-        ...process.env, ...loadEnv(mode, process.cwd()),
+        ...process.env,
+        ...loadEnv(mode, process.cwd()),
         VITE_APP_VERSION: JSON.stringify(require('./package.json').version),
-        VITE_APP_TYPE: process.env.APP_TYPE
+        VITE_APP_TYPE: process.env.APP_TYPE,
     };
 
     const isGekkoin = process.env.APP_TYPE === "GEKKOIN";
-
-    console.log(isGekkoin)
 
     return {
         // base: '',

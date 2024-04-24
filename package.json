@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.68",
+  "version": "2.0.75",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",
@@ -9,15 +9,14 @@
   ],
   "scripts": {
     "orval": "orval",
-    "local": "APP_TYPE=GEKKARD vite",
-    "gko-local": "APP_TYPE=GEKKOIN vite",
-    "PRD": "APP_TYPE=GEKKARD node increment-version && tsc && vite build --mode production",
-    "GKO-PRD": "APP_TYPE=GEKKOIN node increment-version && tsc && vite build --mode production",
-    "STG": "APP_TYPE=GEKKARD node increment-version && tsc && vite build --mode staging",
-    "GKO-STG": "APP_TYPE=GEKKOIN node increment-version && tsc && vite build --mode staging",
-    "DEV": "APP_TYPE=GEKKARD node increment-version && tsc && vite build --mode development",
-    "GKO-DEV": "APP_TYPE=GEKKOIN node increment-version && tsc && vite build --mode development",
-    "DEV-GEKWALLET": "node increment-version && tsc && vite build --mode devgekwallet"
+    "local": "APP_TYPE=GEKKARD vite --mode development",
+    "gko-local": "APP_TYPE=GEKKOIN vite --mode development",
+    "PRD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode production",
+    "GKO-PRD": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode production",
+    "STG": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode staging",
+    "GKO-STG": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode staging",
+    "DEV": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode development",
+    "GKO-DEV": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode development"
   },
   "npm": " > 8",
   "node": " > 16",
@@ -73,7 +72,7 @@
     "sass": "1.58.3",
     "tailwindcss": "3.2.7",
     "typescript": "4.9.5",
-    "vite": "^4.5.2",
+    "vite": "^5.2.10",
     "vite-plugin-node-polyfills": "^0.21.0",
     "vite-plugin-pwa": "^0.17.4"
   }

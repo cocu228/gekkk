@@ -1,7 +1,8 @@
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
-import { IconCoin } from '@/shared/ui/icons/icon-coin';
 import { Select } from 'antd'
 import { Dispatch, SetStateAction, useContext } from 'react'
+import { IconApp } from '@/shared/ui/icons/icon-app';
+import { IconCoin } from '@/shared/ui/icons/icon-coin';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,10 +51,8 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
                 suffixIcon={null}
             />
         </div>
-        <div className={`rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]`}>
-            <svg className={`${currency && "rotate-180"}`} width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
-            </svg>
+        <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+            <IconApp code='t08' color='#fff' size={12} className={`${currency && "rotate-180"}`} />
         </div>
     </div>
   )

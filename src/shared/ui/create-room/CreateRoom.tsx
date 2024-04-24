@@ -9,9 +9,8 @@ import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import TokenSelect from "@/shared/ui/search-select/token-select/TokenSelect";
-import IconSwap from "@/shared/ui/icons/IconSwap";
 import styles from "./styles.module.scss";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
+import { IconApp } from "../icons/icon-app";
 
 interface IParams {
   to: IExchangeField;
@@ -39,7 +38,7 @@ function CreateRoom({
     <>
       <div className={loading ? "!collapse" : ""}>
         <div className={styles.ModalText}>
-          <WarningIcon />
+          <IconApp color="#8F123A" size={20} code="t27" />
           {t("exchange.private_room_allows")}
         </div>
         <div className="mt-4">
@@ -61,7 +60,7 @@ function CreateRoom({
         
         <div className="flex w-full justify-center mt-2 -mb-5">
           <div onClick={onCurrenciesSwap} className="cursor-pointer">
-            <IconSwap size="25px"/>
+            <IconApp code='t36' size={25} color="#B9B9B5" />
           </div>
         </div>
 

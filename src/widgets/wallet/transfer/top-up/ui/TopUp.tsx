@@ -91,7 +91,6 @@ const TopUp = memo(() => {
         {loading ? <Loader/> : <>
             <ChoseNetwork/>
             {displayedForm}
-
             {is_operable === false && <div className="row mb-4 mt-4">
                 <div className="col">
                     <div className="info-box-danger">

@@ -4,6 +4,7 @@ import styles from "./style.module.scss";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { toLocaleCryptoRounding } from "@/shared/lib/number-format-helper";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 type TypeProps = {
@@ -32,9 +33,7 @@ const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
                 {item.status_text}
             </div>
             <div className={styles.HTypeImg2}>
-                <svg width="7" height="13" viewBox="0 0 7 13" fill="#9D9D9D" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 1.75934L1.3125 0.387909L7 6.38791L1.3125 12.3879L0 11.0165L4.375 6.38791L0 1.75934Z" />
-                </svg>
+                <IconApp code='t08' color="#9D9D9D" size={12} />
             </div>
             <div className={styles.HTag}>{item.tag}</div>
             <div className={styles.HAmount}>

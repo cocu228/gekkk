@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
 import { useQuery } from "@/shared/lib";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) => {
     const {t} = useTranslation();
@@ -50,14 +51,11 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     suffixIcon={null}
                 />
             </div>
-            <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-                <svg className={`${network && "rotate-180"}`} width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
-                </svg>
+            <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+                <IconApp code='t08' color='#fff' size={12} className={`${network && "rotate-180"}`} />
             </div>
         </div>
     )
 }
 
 export default ChooseNetworkMobile;
-

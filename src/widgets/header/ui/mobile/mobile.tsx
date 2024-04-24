@@ -8,6 +8,7 @@ import { getFormattedIBAN } from "@/shared/lib/helpers";
 import { useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
@@ -92,13 +93,17 @@ const HeaderMobile = ({ items, actions }) => {
                             </div>
                         }
 
-                        <button className={`${styles.ArrowBtn}`}></button>
+                        <button className={`${styles.ArrowBtn}`}>
+                            <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
+                        </button>
                         {/* </div> */}
                     </div>
                 </HeaderMenu>
                 :
                 <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
-                    <div className={styles.GoBackIcon}></div>
+                    <div className={styles.GoBackIcon}>
+                        <IconApp size={12} color="#fff" className="rotate-[180deg] m-[0_20px]" code="t08" />
+                    </div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>
             }

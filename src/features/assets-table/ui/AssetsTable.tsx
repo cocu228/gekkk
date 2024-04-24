@@ -14,8 +14,8 @@ import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { evenOrOdd, getRoundingValue, scrollToTop } from "@/shared/lib/helpers";
 import { useTranslation } from "react-i18next";
-import searchIcon from "../../../../public/img/icon/search-normal.svg";
 import { getCurrencyRounding } from "@/shared/lib/number-format-helper";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IParams {
   modal?: boolean;
@@ -114,7 +114,7 @@ const AssetsTable = ({
           />
         ) : (
           <div className={styles.SearchInput}>
-            <img src={searchIcon} />
+            <IconApp size={20} code="t12" color="#000" />
             <Input
               className={`${styles.searchInputInner}`}
               wrapperClassName={"w-full"}

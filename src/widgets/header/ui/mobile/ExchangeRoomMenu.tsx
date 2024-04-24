@@ -14,11 +14,10 @@ import Button from "@/shared/ui/button/Button";
 import { apiCloseRoom } from "@/shared/(orval)api";
 import useModal from "@/shared/model/hooks/useModal";
 import IconClose from "@/shared/ui/icons/IconClose";
-import IconQR from "@/shared/ui/icons/IconQR";
 import IconAddRoom from "@/shared/ui/icons/IconAddRoom";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
-import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();
@@ -106,8 +105,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                         <span className="font-semibold text-[#1F3446]">
                           {t("invite_link")}
                         </span>
-
-                        <IconQR size={26} stroke="#285E69" />
+                        <IconApp size={22} color="#285E69" code='t34' />
                       </div>
                     </DropdownItem>
                   ),
@@ -141,7 +139,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                           {t("back_to_exchange")}
                         </span>
 
-                        <img src={LogoutMobileIcon} height={22} width={22} />
+                        <IconApp code='t20' size={22} color="#285E69" />
                       </div>
                     </DropdownItem>
                   ),

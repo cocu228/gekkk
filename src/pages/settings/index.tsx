@@ -33,6 +33,7 @@ import { UserKeys } from "./components/user-keys/ui/user-keys";
 import { LoginAndSignHistory } from "./components/history";
 import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -113,7 +114,7 @@ export function Settings() {
                 className={`${s.itemsList} ${md && s.itemsListGap}`}
               >
                 <SettingsButton
-                  icon={<AccountIcon />}
+                  icon={<IconApp code="t55" size={23} color="#285E69" />}
                   text={t("personal_information")}
                   onClick={() => {
                     setSelectedArea("personal-information");
@@ -121,7 +122,7 @@ export function Settings() {
                   isSelected={selectedArea === "personal-information"}
                 />
                 <SettingsButton
-                  icon={<Info />}
+                  icon={<IconApp code="t53" size={23} color="#285E69" />}
                   text={t("app_version")}
                   onClick={() => {
                     setSelectedArea("app-version");
@@ -129,7 +130,7 @@ export function Settings() {
                   isSelected={selectedArea === "app-version"}
                 />
                 <SettingsButton
-                  icon={<World />}
+                  icon={<IconApp code="t52" size={23} color="#285E69" />}
                   text={t("language")}
                   onClick={() => {
                     setSelectedArea("language");
@@ -148,7 +149,7 @@ export function Settings() {
                   className={`${s.btnsWrap} ${md && s.btnsWrapGap}`}
               >
                 <SettingsButton
-                    icon={<Guard />}
+                    icon={<IconApp code="t54" size={23} color="#285E69" />}
                     text={t("change_password")}
                     onClick={() => {
                       setSelectedArea("change-password");
@@ -156,7 +157,7 @@ export function Settings() {
                     isSelected={selectedArea === "change-password"}
                   />
                   <SettingsButton
-                    icon={<Keys />}
+                    icon={<IconApp code="t46" size={23} color="#285E69" />}
                     text={t("user_keys")}
                     onClick={() => {
                       setSelectedArea("user-keys");
@@ -164,7 +165,7 @@ export function Settings() {
                     isSelected={selectedArea === "user-keys"}
                   />
                   <SettingsButton
-                    icon={<Docs />}
+                    icon={<IconApp code="t45" size={23} color="#285E69" />}
                     text={t("login_and_sign_history")}
                     onClick={() => {
                       setSelectedArea("history");
@@ -172,7 +173,7 @@ export function Settings() {
                     isSelected={selectedArea === "history"}
                   />
                   <SettingsButton
-                    icon={<Chain />}
+                    icon={<IconApp code="t43" size={23} color="#285E69" />}
                     text={t("user_sessions")}
                     onClick={() => {
                       setSelectedArea("user-sessions");
@@ -195,7 +196,7 @@ export function Settings() {
               </h2>
               <div className={`${s.itemsList} ${md && s.itemsListGap}`} >
                 <SettingsButton
-                  icon={<EuroIcon />}
+                  icon={<IconApp code="t61" size={23} color="#285E69" />}
                   text={t("pricing")}
                   onClick={() => {
                     setSelectedArea("pricing");
@@ -204,12 +205,12 @@ export function Settings() {
                 />
                 <a href="https://gekkard.com/terms-and-conditions.html">
                   <SettingsButton
-                    icon={<DocumentsDocumentsIcon />}
+                    icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("terms_and_conditions")}
                   />
                 </a>
                 <SettingsButton
-                  icon={<ReportIcon />}
+                  icon={<IconApp code="t09" size={23} color="#285E69" />}
                   text={t("my_reports")}
                   onClick={() => {
                     setSelectedArea("my-reports");
@@ -218,7 +219,7 @@ export function Settings() {
                 />
                 <a href="https://gekkard.com/data-protection-policy.html">
                   <SettingsButton
-                    icon={<DocumentsDocumentsIcon />}
+                    icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("data_protection")}
                   />
                 </a>

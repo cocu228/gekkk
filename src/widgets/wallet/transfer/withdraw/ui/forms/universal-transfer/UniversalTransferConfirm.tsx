@@ -11,8 +11,8 @@ import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss"
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
     txId: null,
@@ -132,10 +132,7 @@ const UniversalTransferConfirm = ({
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon
-                                            width={22}
-                                            height={22}
-                                        />
+                                        <IconApp color="#8F123A" size={22} code="t27" />
                                     </div>
                                 </div>
                                 <div className="row">

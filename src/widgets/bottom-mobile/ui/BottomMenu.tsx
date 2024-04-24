@@ -56,6 +56,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + (isHomePage && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isHomePage}
                 />
 
                 <TransfersButton
@@ -63,6 +64,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + ((isOnTransferPage || isOnTransferPageCurr) && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isOnTransferPage}
                 />
 
                 <ExchangeButton
@@ -70,6 +72,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isExchangePage}
                 />
 
                 <HistoryButton
@@ -77,6 +80,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + (isHistoryPage && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isHistoryPage}
                 />
             </div>
         </div>

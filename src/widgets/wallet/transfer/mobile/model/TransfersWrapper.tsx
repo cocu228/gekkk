@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import { CtxWalletNetworks } from "../../model/context";
-import searchIcon from "../../../../../../public/img/icon/search-normal.svg";
 import Input from "@/shared/ui/input/Input";
 import { useTranslation } from "react-i18next";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
@@ -15,6 +14,7 @@ import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { getRoundingValue } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
 import { useNavigate } from "react-router-dom";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 type IProps = {
   children: JSX.Element[] | [JSX.Element];
@@ -120,7 +120,7 @@ export default function TransfersWrapper({
               {!curr && (
                 <div className="min-h-[200px]  gap-5 w-full">
                   <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
-                    <img src={searchIcon} />
+                    <IconApp size={20} code="t12" color="#000" />
                     <Input
                       className={`w-full text-[10px] border-[none]`}
                       wrapperClassName={"w-full"}

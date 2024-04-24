@@ -30,8 +30,8 @@ import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
-import IconQR from "@/shared/ui/icons/IconQR";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 export interface IWithdrawFormCryptoState {
   address: null | string;
@@ -134,7 +134,7 @@ const WithdrawFormCrypto = () => {
             placeholder={t("enter_withdrawal_address")}
             name={"address"}
             suffix={<div onClick={qrCodeModal.showModal}>
-              <IconQR size={30} stroke="#1F3446" />
+              <IconApp size={25} color="#1F3446" code='t34' />
             </div>}
           />
         </div>

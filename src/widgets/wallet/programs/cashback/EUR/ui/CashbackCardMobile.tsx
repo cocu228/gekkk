@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './style.module.scss';
 import SvgComponent from '@/shared/ui/icons/IconSchema';
 import { useTranslation } from 'react-i18next';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface Props {
   cashbackId: ActiveBonusProgram,
@@ -117,9 +118,7 @@ const CashbackCardMobile = memo<Props>(({ cashbackId, name, accrualPeriod, class
             >
               <div className='flex flex-row'>
                 <div className='flex items-center mr-2 ml-2'>
-                  <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.920044 0.347656L5.91641 5.34402L0.920044 10.3404" stroke="#3A5E66"/>
-                  </svg>
+                  <IconApp color='#3A5E66' size={10} code='t08' />
                 </div>
                 {(toNoFeeProgram || toCashbackProgram) && t("cashback_programs.go_to_the_program")}
               </div>

@@ -3,14 +3,9 @@ import {TFunction} from "i18next";
 import {EnableNotifications, GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
-import SettingsMobileIcon from "@public/img/icon/SettingsMobileIcon.svg"
-import InvestMobileIcon from "@public/img/icon/InvestMobileIcon.svg"
-import SupportMobileIcon from "@public/img/icon/SupportMobileIcon.svg"
 import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
-import ActivatePromoMobileIcon from "@public/img/icon/ActivatePromoMobileIcon.svg"
-import CardMenuIcon from "@public/img/icon/CardMenuIcon.svg"
-import LogoutMobileIcon from "@public/img/icon/LogoutMobileIcon.svg"
-import NotificationIcon from "@public/img/icon/NotificationIcon.svg"
+
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 /**
 * @param t translation function
@@ -24,7 +19,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value:"settings"
             },
-            icon: <img src={SettingsMobileIcon}/>
+            icon: <IconApp size={18} color="#285E69" code="t13" />
         },
         {
             item: t("card_management"),
@@ -33,7 +28,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
             },
-            icon: <img src={CardMenuIcon}/>
+            icon: <IconApp size={18} color="#285E69" code="t22" />
         },
         {
             item: <GekkoinInvestPlatform/>,
@@ -42,7 +37,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<img src={InvestMobileIcon}/>
+            icon: <IconApp color="#285E69" size={18} code="t21" />
         },
         {
             item: t('header_menu.support'),
@@ -51,7 +46,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "support",
             },
-            icon:<img src={SupportMobileIcon}/>
+            icon:<IconApp color="#285E69" size={18} code="t25" />
         },
         {
             item: <EnableNotifications/>,
@@ -60,11 +55,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <img
-                src={NotificationIcon}
-                width={22}
-                height={22}
-            />
+            icon: <IconApp color="#285E69" size={20} code="t23" />
         },
         {
             item: t('header_menu.partnership'),
@@ -82,7 +73,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon:<img src={ActivatePromoMobileIcon}/>
+            icon: <IconApp color="#285E69" size={20} code="t18" />
         },
         {
             item: t(''),
@@ -97,8 +88,6 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 justifyContent:"center",
                 width:"100%",
                 alignSelf:"center"
-
-
             }
         },
         {
@@ -108,7 +97,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "logout",
                 value: null,
             },
-            icon:<img src={LogoutMobileIcon}/>,
+            icon: <IconApp size={20} code="t20" color="#285E69" />,
             style: {
                 borderTop: "1px solid var(--color-gray-400)"
             }

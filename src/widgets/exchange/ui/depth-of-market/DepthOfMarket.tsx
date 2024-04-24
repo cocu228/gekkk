@@ -10,6 +10,7 @@ import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthP
 import {apiGetRates, apiGetTradeInfo} from "@/shared/(orval)api/gek";
 import {GetTradeInfoOut} from "@/shared/(orval)api/gek/model";
 import { t } from 'i18next';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
     roomKey: string;
@@ -184,13 +185,7 @@ function DepthOfMarket({
                                 ? `${currencyTo}/${currencyFrom}`
                                 : `${currencyFrom}/${currencyTo}`
                             })
-                            <img
-                                width={22}
-                                className={`${styles.Icon} cursor-pointer`}
-                                src={`/img/icon/ExchangeOrange.svg`}
-                                alt="ExchangeIcon"
-                                onClick={onPriceCurrenciesSwap}
-                            />
+                            <IconApp code="t60" color="#F8A73E" size={14} className="rotate-[90deg] ml-[3px] mr-[1px]" />
                         </span>
                         <span>({currencyFrom})</span>
                     </div>

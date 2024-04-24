@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import {useTranslation} from 'react-i18next';
 import {RoomInfo} from "@/shared/(orval)api/gek/model";
 import ClipboardField from '@/shared/ui/clipboard-field/ClipboardField';
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
+import { IconApp } from '../icons/icon-app';
 
 interface IParams {
     roomInfo: RoomInfo;
@@ -25,7 +25,7 @@ function InviteLink({roomInfo = null}: IParams) {
     return (
         <div className="wrapper">
             <div className={styles.ModalText}>
-              <WarningIcon />
+                <IconApp color="#8F123A" size={20} code="t27" />
               {t("exchange.any_gekkard_user")}
             </div>
             <div className='flex justify-center my-6 sm:mt-11 '>

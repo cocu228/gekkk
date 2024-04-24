@@ -1,6 +1,6 @@
 ﻿import {useLayoutEffect} from 'react';
 import {chat_axios} from '../config/(cs)axios';
-import useDeviceIdHash from "./../../chat-authorized/model/hooks/useDeviceIdHash";
+import useDeviceIdHash from "./../../(no-usages)chat-authorized/model/hooks/useDeviceIdHash";
 
 interface IParams {
     chatToken: string;

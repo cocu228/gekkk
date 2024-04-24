@@ -1,20 +1,20 @@
 import PageHead from '@/shared/ui/page-head/PageHead';
 import styles from './style.module.scss';
-import Loader from '../chat-authorized/ui/loader/Loader';
+import Loader from '../(no-usages)chat-authorized/ui/loader/Loader';
 import {Fragment, useContext, useEffect, useRef, useState} from 'react';
 import {FormInstance, message} from 'antd';
-import StompInit from '../chat-authorized/stomp-init/StompInit';
-import {apiPostFile} from '../chat-authorized/api/post-file';
-import {ApiResponse} from '../chat-authorized/config/(cs)axios';
-import {MessageFormValues} from '../chat-authorized/model/types';
-import MessageForm from '../chat-authorized/message-form/MessageForm';
-import {apiPostMessage} from '../chat-authorized/api/post-message';
-import useSessionId from '../chat-authorized/model/hooks/useSessionId';
-import useDeviceIdHash from '../chat-authorized/model/hooks/useDeviceIdHash';
-import useChatMessages from '../chat-authorized/model/hooks/useChatMessages';
+import StompInit from '../(no-usages)chat-authorized/stomp-init/StompInit';
+import {apiPostFile} from '../(no-usages)chat-authorized/api/post-file';
+import {ApiResponse} from '../(no-usages)chat-authorized/config/(cs)axios';
+import {MessageFormValues} from '../(no-usages)chat-authorized/model/types';
+import MessageForm from '../(no-usages)chat-authorized/message-form/MessageForm';
+import {apiPostMessage} from '../(no-usages)chat-authorized/api/post-message';
+import useSessionId from '../(no-usages)chat-authorized/model/hooks/useSessionId';
+import useDeviceIdHash from '../(no-usages)chat-authorized/model/hooks/useDeviceIdHash';
+import useChatMessages from '../(no-usages)chat-authorized/model/hooks/useChatMessages';
 import {getCookieData} from "@/shared/lib/helpers";
-import AxiosChatInterceptor from "../chat-authorized/model/AxiosChatInterceptor";
-import Message from '../chat-authorized/message/Message';
+import AxiosChatInterceptor from "../(no-usages)chat-authorized/model/AxiosChatInterceptor";
+import Message from '../(no-usages)chat-authorized/message/Message';
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
 
 const SupportChatUnauthorized = () => {

@@ -56,11 +56,11 @@ const WalletHeader = () => {
                     </span>
                 </div>
                 <div className={styles.IconInfo}>
-                    <div className={styles.WalletShortName}>
+                    <div data-testid="wallet_short_name" className={styles.WalletShortName}>
                         {$const}
                     </div>
                     <div className={styles.WalletNameContainer}>
-                        <span className={styles.WalletName}>
+                        <span data-testid="wallet_name" className={styles.WalletName}>
                             {name} {t("wallet")}
                         </span>
                     </div>

@@ -52,7 +52,7 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
             />
         </div>
         <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-            <IconApp code='t08' color='#fff' size={12} className={`${currency && "rotate-180"}`} />
+            <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
         </div>
     </div>
   )

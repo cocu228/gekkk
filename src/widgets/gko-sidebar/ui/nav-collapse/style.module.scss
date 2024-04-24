@@ -1,0 +1,33 @@
+.Header {
+  display: flex;
+  cursor: pointer;
+  width: 100%;
+  justify-content: flex-end;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:hover {
+    span {
+      color: #285E69
+    }
+  }
+
+  &:global(.active) {
+    svg.Arrow {
+      transform: rotate(-180deg);
+    }
+
+    & + .List {
+      opacity: 1;
+      overflow: visible;
+      max-height: 7000px;
+    }
+  }
+}
+
+
+.List {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-in-out, opacity 0.2s ease-in-out 0.2s;
+}

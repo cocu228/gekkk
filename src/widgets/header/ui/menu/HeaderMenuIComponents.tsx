@@ -210,3 +210,51 @@ export const GekkoinInvestPlatform = ({active = false}) => {
         </Modal>
     </>
 }
+
+export const GekkardPersonalAccount = ({active = false}) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const {showModal, handleCancel, isModalOpen} = useModal();
+
+    const onClick = async () => {
+        setLoading(true)
+
+        const {phone, token, tokenHeaderName} = getCookieData<{
+            phone: string,
+            token: string,
+            tokenHeaderName: string
+        }>()
+
+        const response = await $axios.post('/pub/v1/auth', {
+            authorization: phone,
+            token: token,
+            tokenHeaderName: tokenHeaderName
+        })
+        const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
+        actionResSuccess(response).success(() => {
+            window.open(`${gekkardUrl ?? 'https://dev.gekkard.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
+        })
+        setLoading(false);
+    }
+
+    return <>
+        <button className="w-full text-left" onClick={showModal}>
+            {t("header_menu.gekkard_personal_account")}
+        </button>
+        <Modal onCancel={handleCancel} open={isModalOpen}>
+            <>
+                <div className="row mb-10">
+                    <div className="col">
+                        <p className="font-bold text-sm leading-6 text-center">{t("directed_to_gekkard")}</p>
+                    </div>
+                </div>
+                <div className="row relative">
+                    <div className="col">
+                        {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
+                            <Button onClick={onClick}
+                                    className="w-full">{t("confirm")}</Button>}
+                    </div>
+                </div>
+            </>
+        </Modal>
+    </>
+}

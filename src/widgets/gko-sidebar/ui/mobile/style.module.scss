@@ -1,0 +1,439 @@
+@import "@styles/mixins";
+
+.Sidebar {
+  flex-basis: var(--sidebar-width);
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: initial;
+  background-color: white;
+  box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
+  overscroll-behavior-y: contain;
+  position: absolute;
+  width: 100%;
+
+  background-color: #ffffff;
+  z-index: 40;
+  transition: left ease-out 0.4s;
+
+  @include max-devices(md) {
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+    padding-bottom: 100px;
+    background-color: #f7f7f0;
+  }
+
+  @include max-devices(xxxl) {
+    max-width: var(--sidebar-width-xxxl);
+    flex-basis: var(--sidebar-width-xxxl);
+  }
+
+  @include max-devices(xxl) {
+    max-width: var(--sidebar-width-xxl);
+    flex-basis: var(--sidebar-width-xxl);
+  }
+}
+
+.TotalVal {
+  background-color: #285E69;
+  position: relative;
+  border-radius: 0 5px 5px 0;
+}
+
+.CardInfo {
+  padding: 5px 20px;
+  width: 265px;
+}
+
+.AssetInfo1 {
+  background-color: #f7f7f0;
+  text-align: right;
+  padding: 10px 10px 5px 0;
+  font-size: 12px;
+  font-weight: 400;
+  @include max-devices(md) {
+    color: #778F93;
+    font-family: Archivo;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+    padding-left: 5%;
+  }
+}
+
+.AssetInfo2 {
+  background-color: #f7f7f0;
+  padding: 5px 8px 5px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  border: var(--strokes-2, rgba(238, 238, 238, 0.65));
+  border-width: 1px;
+  border-style: solid;
+  @include max-devices(md) {
+    height: 71px;
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    align-items: center;
+    color: #285E69;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-items: end;
+    border: none;
+    justify-content: center;
+  }
+}
+
+.AssetInfo3 {
+  background-color: #f7f7f0;
+  display: block;
+  text-align: right;
+  @include max-devices(md) {
+    background-color: transparent;
+    position: fixed;
+    bottom: 75px;
+    z-index: 40;
+    left: 50%;
+    transform:translateX(-50%)
+  }
+
+}
+
+.AssetInfo4 {
+  display: inline-block;
+  padding: 7px 20px;
+  background-color: #e7e7e7;
+  color: #676767;
+  border-radius: 8px;
+  margin: 0px 8px 10px 0px;
+  font-size: 12px;
+
+  @include max-devices(md) {
+    border-radius: 50%;
+  }
+
+
+  &:hover {
+    background-color: #285E69;
+    color: #f7f7f0;
+    font-weight: 600;
+  }
+
+  :active {
+    color: white;
+    background-color: #29354C;
+  }
+}
+
+.AssetInfo5 {
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 43px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  background-color: rgb(247, 247, 240, 0.9);
+}
+
+.CloseRoomSvg {
+  path {
+    fill: var(--color-red-800);
+  }
+}
+
+.RoomName {
+  color: var(--color-gray-600);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.Name {
+  color: var(--color-gray-600);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  transition: .2s;
+  @include max-devices(md) {
+    color: #285E69;
+    font-family: Archivo;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 20px;
+  }
+}
+
+.Sum {
+  color: #285E69;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  @include max-devices(md) {
+    color: var(--Pale-blue, #285E69);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+  }
+}
+
+.Balance {
+  color: #929798;
+  text-align: right;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px; /* 166.667% */
+}
+
+.Income {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 300;
+  color: #2BAB72;
+}
+
+.EuroEqv {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-gray-500);
+  margin-right: 8px;
+}
+
+.SvgArrow {
+  margin-right: 6px;
+
+  path {
+    transition: .2s;
+    fill: var(--color-gray-400);
+  }
+}
+
+:global(a.active) {
+
+  .SvgArrow {
+    path {
+      fill: var(--color-gray-600);
+    }
+  }
+
+  & > .Item,
+  .ItemExchange,
+  .ItemEuro {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
+    .RoomName {
+      font-weight: 600;
+    }
+
+    .Sum {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .Icon {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
+    }
+
+    .Name,
+    .NavName {
+      color: var(--color-gray-600);
+      font-weight: 600;
+    }
+
+    &:after {
+      position: absolute;
+      height: 100%;
+      width: 4px;
+      content: "";
+      background-color: #285E69;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+
+.Item,
+.ItemExchange,
+.ItemEuro {
+
+  @include max-devices(md) {
+    max-width: 90%;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+
+  height: 85px;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  cursor: pointer;
+  pointer-events: all;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: .2s;
+
+  .Icon {
+    pointer-events: none;
+    filter: saturate(10%) invert(0%);
+    opacity: 0.3;
+    transition: .2s;
+  }
+
+  .NavName {
+    transition: .2s;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+
+    .RoomName {
+      font-weight: 600;
+    }
+
+    .Name,
+    .NavName {
+      color: var(--color-gray-600);
+      font-weight: 600;
+    }
+
+    .SvgArrow {
+      path {
+        fill: var(--color-gray-600);
+      }
+    }
+
+    .Icon {
+      opacity: 1;
+      pointer-events: none;
+      filter: saturate(100%) invert(0%);
+    }
+  }
+}
+
+
+:global(a.disabled) {
+  .Item,
+  .ItemExchange,
+  .ItemEuro {
+    pointer-events: none;
+  }
+}
+
+.ItemExchange {
+  height: 60px;
+  grid-template-columns: 1fr auto;
+}
+
+.ItemEuro {
+  height: 70px;
+
+}
+
+.ItemWrapper {
+  @include max-devices(md) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(247, 247, 240);
+  }
+
+}
+
+.ArrowMobileSidebar {
+  position: absolute;
+  display: flex;
+  height: 100%;
+  right: 0px;
+  padding-right: 4%;
+  align-self: center;
+}
+
+.BottomMobile {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  z-index: 41;
+  overflow: auto;
+}
+
+.BottomMenuMobile {
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid rgba(58, 94, 102, 0.50);
+  background: #F7F7F0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 100%;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-items: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.NewAsset {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #285E69;
+}
+
+.NewAssetIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.BottomMenuMobileButtons {
+  display: flex;
+  height: 100%;
+  padding: 7px 10px 3px 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
+  color: #9D9D9D;
+  text-align: center;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 166.667% */
+  transition: ease-in-out .2s;
+}
+
+.BottomMenuMobileButtonsIcons {
+  transition: ease-in-out .2s;
+}
+
+.BottomMenuButtonsActive {
+  color: #285E69;
+}
+
+.SecondaryItem {
+  background: #EDEDED;
+}

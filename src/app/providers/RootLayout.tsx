@@ -1,7 +1,8 @@
 import { Outlet } from "react-router";
 import Header from "@/widgets/header/ui";
 import Main from "@/app/layouts/main/Main";
-import Sidebar from "@/widgets/sidebar/ui/";
+//@ts-ignore
+import Sidebar from "@VAR/widgets/{{mode-}}sidebar/ui/index.tsx";
 import { $axios } from "@/shared/lib/(orval)axios";
 import { useLocation, useMatch } from "react-router-dom";
 import { memo, useContext, useEffect, useState } from "react";
@@ -40,7 +41,6 @@ export default memo(function () {
     (async () => {
       try {
         const { data } = await apiGetInfo({ refresh: false });
-
         setAccounts(data.result);
       } catch (AxiosError) {
         // logout();
@@ -48,7 +48,10 @@ export default memo(function () {
     })();
   }, []);
 
+
   useEffect(() => {
+    console.log("ROOT")
+    console.log(global.VITE_APP_TYPE)
     if (accounts && !account) {
       const cookieData = getCookieData<{ accountId?: string }>();
       const activeAccount = accounts.find((a) => a.current) ?? accounts[0];

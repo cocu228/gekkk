@@ -9,7 +9,8 @@ import {TOnActionParams} from "@/widgets/header/model/types";
 import {storeAccounts} from "@/shared/store/accounts/accounts";
 import {useContext, useEffect, useMemo, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
-import {getDefaultItems} from "@/widgets/header/model/header-menu-items";
+//@ts-ignore
+import {getDefaultItems} from "@VAR/widgets/header/model/{{mode-}}header-menu-items.tsx";
 import {ItemAccount, ItemOrganization} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 const Header = () => {
@@ -21,7 +22,10 @@ const Header = () => {
     const accounts = storeAccounts(state => state.accounts);
     const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
-    
+
+
+    console.log(import.meta.env.MODE)
+
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
         {type: "logout", action: () => logout()},
         {type: "link", action: (value) => navigate(value.toString())},
@@ -38,7 +42,7 @@ const Header = () => {
         if (!account?.rights) return;
 
         let newItems = [...defaultMenuItems]
-        
+
         accounts
             .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
             .forEach(acc => {

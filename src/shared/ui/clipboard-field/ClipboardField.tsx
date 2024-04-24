@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import styles from './style.module.scss';
-import IconCopy from '@/shared/ui/icons/IconCopy';
 import { IconApp } from '../icons/icon-app';
 
 interface Props {

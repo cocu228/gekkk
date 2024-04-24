@@ -5,7 +5,7 @@ interface IProps {
     code: string,
     className?: string,
     onClick?: () => void;
-    size: number,
+    size: number | string,
     color?: string
 }
 

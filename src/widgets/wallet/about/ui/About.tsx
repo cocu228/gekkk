@@ -4,6 +4,7 @@ import Button from '@/shared/ui/button/Button';
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from 'react-i18next';
+import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 
 interface IParams {
     description: string | JSX.Element;

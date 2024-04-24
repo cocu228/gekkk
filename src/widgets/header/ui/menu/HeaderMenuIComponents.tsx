@@ -14,6 +14,7 @@ import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
 import {Switch} from "antd";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -28,7 +29,7 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
         return(
             <div className={styles.AccountItem}>
                 <div className={styles.Icon}>
-                    <img src={AccountMobileIcon}/>
+                    <IconApp code="t24" color="#285E69" size={37} />
                 </div>
                 <div className={styles.AccountInfo}>
                     <span className={styles.AccountName}>{name}</span>

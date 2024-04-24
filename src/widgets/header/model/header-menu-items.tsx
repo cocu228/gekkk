@@ -64,7 +64,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "partnership-program",
             },
-            icon:<img src={PartnershipMobileIcon}/>
+            icon: <IconApp color="#285E69" size={17} code="t17" />
         },
         {
             item: <PromoCodeModal/>,

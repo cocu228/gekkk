@@ -3,7 +3,6 @@ import { FC, useContext, useEffect, useState } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import DownArr from "@/assets/downArr.svg?react";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Decimal from "decimal.js";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface SelectTokenProps {
   roomType: string;
@@ -49,8 +49,6 @@ export const SelectToken: FC<SelectTokenProps> = ({
 
     const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
 
-  console.log(balance)
-
   return (
     <>
       <div className={styles.SelectWrap} style={{paddingBottom: balance && '5px'}} >
@@ -82,7 +80,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
         </div>
 
         <div className={styles.InputBody}>
-          <DownArr className={styles.Arr} />
+          <IconApp code="t08" size={8} color="#3A5E66" className="rotate-[90deg]" />
           <input
             value={value}
             disabled={!currency}

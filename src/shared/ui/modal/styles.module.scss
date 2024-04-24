@@ -38,3 +38,13 @@
 .underline {
   border-top: 1px solid gray;
 }
+
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2.2px solid #7B797C;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}

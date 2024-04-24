@@ -17,7 +17,6 @@ import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { apiCreateOrder } from "@/shared/(orval)api/gek";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
 import RoomProperties from "./room-properties/RoomProperties";
-import IconPrivateRoom from "@/shared/ui/icons/IconPrivateRoom";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import PriceField from "@/widgets/exchange/ui/price-field/PriceField";
 import OpenOrders from "@/widgets/exchange/ui/open-orders/OpenOrders";
@@ -112,7 +111,7 @@ function Exchange() {
                 label: (
                   <DropdownItem
                     onClick={roomInfoModal.showModal}
-                    icon={<IconPrivateRoom />}
+                    icon={<IconApp color="red" code="t33" size={20} />}
                   >
                     {t("exchange.create_private_exchange_room")}
                   </DropdownItem>
@@ -285,7 +284,6 @@ function Exchange() {
                     onChange={onToValueChange}
                   />
                 </InputCurrency.CurrencySelector> */}
-
                 <div className="mt-3 md:mt-2 ">
                   <div className="font-medium text-md lg:text-sm md:text-xs">
                     {t("price")}

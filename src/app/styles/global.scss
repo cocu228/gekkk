@@ -103,6 +103,9 @@
 }
 
 .info-box-danger {
+  align-items: center;
+  display: flex;
+  gap: 10px;
   padding: 14px 25px 14px 38px;
   color: var(--color-red-800);
   font-weight: 500;
@@ -111,10 +114,6 @@
   border: 1px solid #eb545433;
   background-color: #eb54541a;
   border-radius: 4px;
-  background-image: url("/img/icon/Alert.svg");
-  background-position: 10px center;
-  background-size: 21px;
-  background-repeat: no-repeat;
 
   @include max-devices("md") {
     padding: 0.375rem 0.625rem 0.375rem 2.5rem;

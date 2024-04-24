@@ -62,15 +62,6 @@
           filter: brightness(0) invert(1);
 }
 
-.GoBackIcon {
-  background-image: url("/img/icon/GoBackButtonMobile.svg");
-  width: 6px;
-  height: 12px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin: 0px 5%;
-}
-
 .HeaderTitle {
   -webkit-user-select: none;
      -moz-user-select: none;

@@ -3,7 +3,6 @@ import React, {FC, useState} from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
-import IconDoubleArrows from "@/shared/ui/icons/IconDoubleArrows";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
 import { useTranslation } from 'react-i18next';
 
@@ -47,9 +46,6 @@ const CurrencySelector: FC<IParams> = ({
                 disabled={disabled}
                 className={`${styles.FieldSelectBtn} ${className} ${disabled ? 'hidden' : ''}`}
                 onClick={handleOpenTokenSelect}>
-                <div className="mr-3">
-                    <IconDoubleArrows/>
-                </div>
             </button>
         </div>
 

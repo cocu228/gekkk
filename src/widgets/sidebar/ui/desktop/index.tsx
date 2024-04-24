@@ -4,13 +4,10 @@ import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { CtxRootData } from "@/processes/RootContext";
-import IconCross from "@/shared/ui/icons/IconCross";
 import useModal from "@/shared/model/hooks/useModal";
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
 import UpdateAmounts from "../../../../features/update-amounts";
-import IconParticipant from '@/shared/ui/icons/IconParticipant';
 import { helperFilterList } from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { apiCloseRoom } from "@/shared/(orval)api/gek";
@@ -29,6 +26,7 @@ import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
 import { Carousel } from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -235,7 +233,7 @@ const SidebarDesktop = () => {
                             >
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
-                                        <SvgArrow width={14} height={14} className={styles.SvgArrow} />
+                                        <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
                                         <IconCoin className={styles.Icon} code={item.$const} />
                                     </div>
                                     <div className="col flex items-center justify-center flex-col pl-6">
@@ -302,13 +300,7 @@ const SidebarDesktop = () => {
                         <div className="absolute right-4 self-center">
                             {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
                                             alt="ExchangeIcon" /> */}
-                            <svg className={styles.Icon} width="34" height="32" viewBox="0 0 42 40" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12.7642 17.2405V12.2925H30.5781C32.4647 12.2925 34.102 13.3806 34.9206 14.9752C35.5355 14.0862 35.897 13.0017 35.897 11.8309C35.897 8.81559 33.501 6.37121 30.5452 6.37121H12.7643V1.4036C12.7643 0.672213 11.9558 0.2449 11.3702 0.666686L0.374295 8.58511C-0.124765 8.9445 -0.124765 9.69954 0.374295 10.0589L11.3702 17.9774C11.9559 18.3991 12.7642 17.9718 12.7642 17.2405ZM41.6257 29.941L30.6298 22.0226C30.0442 21.6008 29.2358 22.0281 29.2358 22.7595V27.7076H11.422C9.5353 27.7076 7.89798 26.6194 7.07945 25.0249C6.46447 25.9139 6.10305 26.9984 6.10305 28.1691C6.10305 31.1845 8.49908 33.6288 11.4548 33.6288H29.2358V38.5964C29.2358 39.3278 30.0442 39.7551 30.6298 39.3333L41.6257 31.4149C42.1248 31.0554 42.1248 30.3004 41.6257 29.941Z"
-                                    fill="#285E69" />
-                            </svg>
-
+                            <IconApp code="t68" className={styles.Icon} color="#285E69" size={34} />
                         </div>
                     </div>
                 </NavLink>
@@ -322,11 +314,7 @@ const SidebarDesktop = () => {
                                 key={item.timetick}>
                                 <div className={styles.Item}>
                                     <div className="col flex items-center pl-4 w-[85px]">
-                                        <SvgArrow
-                                            width={14}
-                                            height={14}
-                                            className={styles.SvgArrow}
-                                        />
+                                        <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
                                         <img
                                             width={50}
                                             height={50}
@@ -345,14 +333,14 @@ const SidebarDesktop = () => {
                                             </div>
 
                                             <div
-                                                className="mr-3 hover:cursor-pointer fill-[#fa94a9] hover:fill-red-500"
+                                                className="mr-3 hover:cursor-pointer group"
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     setSelectedRoom(item);
                                                     roomCloseModal.showModal();
                                                 }}
                                             >
-                                                <IconCross fill="inherit" size={16} />
+                                                <IconApp color="#fa94a9" code="t69" size={16} className="text-[12px] group-hover:stroke-red-500" />
                                             </div>
                                         </div>
 
@@ -377,14 +365,14 @@ const SidebarDesktop = () => {
                                             </span>
 
                                                 <div
-                                                    className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400"
+                                                    className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400 group"
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         setSelectedRoom(item);
                                                         roomInfoModal.showModal();
                                                     }}
                                                 >
-                                                    <IconParticipant fill="inherit" />
+                                                     <IconApp color="gray-500" code="t63" size={16} className="text-[12px] group-hover:stroke-blue-400" />
                                                 </div>
                                             </div>
                                         )}

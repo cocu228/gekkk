@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import PageHead from '@/shared/ui/page-head/PageHead';
 import { useTranslation } from 'react-i18next';
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
 import { NavLink } from 'react-router-dom';
 import { IconApp } from '@/shared/ui/icons/icon-app';
-
 
 const Support = () => {
     const { t } = useTranslation();
@@ -28,9 +27,7 @@ const Support = () => {
                                     <div className={styles.MainDescription}>{t("to_find_answers_to_common_questions_open_the_faq")}</div>
                                 </div>
                                 <div className={styles.Arrow}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
-                                        <path fillRule="evenodd" clipRule="evenodd" d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z" fill="#9D9D9D" />
-                                    </svg>
+                                    <IconApp code='t08' size={12} color='#9D9D9D' />
                                 </div>
                             </div>
                         </NavLink>
@@ -45,44 +42,16 @@ const Support = () => {
                                 <div className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
                             </div>
                             <div className={styles.Arrow}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z" fill="#9D9D9D" />
-                                </svg>
+                                <IconApp code='t08' size={12} color='#9D9D9D' />
                             </div>
                         </div>
-                        {/* <NavLink to={"/support/chat"}>
-                            <div className={styles.ChatUs}>
-                                <div className={styles.Icon}>
-                                    <div className={styles.IconWrap}>
-                                        <IconApp code='t25' color='#29354C' size={20} />
-                                    </div>
-
-                                </div>
-                                <div className={styles.Main}>
-                                    <div className={styles.MainTitle}>{t("chat")}</div>
-                                    <div className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
-                                </div>
-                                <div className={styles.Arrow}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
-                                        <path fillRule="evenodd" clipRule="evenodd" d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z" fill="#9D9D9D" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </NavLink> */}
-
                         <div  onClick={() => {
                             document.getElementById("chat").classList.toggle("isOpen")
                         }}  className={styles.ChatUs}>
                             <div className={styles.Icon}>
-                                <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                          d="M22.0811 2C33.1267 2 42.0811 10.9544 42.0811 22.0001C42.0811 33.0457 33.1267 42 22.0811 42C11.0354 42 2.08105 33.0457 2.08105 22.0001C2.08105 10.9544 11.0354 2 22.0811 2Z"
-                                          fill="white" stroke="#29354C" stroke-width="3.5"/>
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                          d="M13 13C11.8954 13 11 13.8954 11 15V27C11 28.1046 11.8954 29 13 29H15V30.5284C15 32.1551 16.8387 33.1014 18.1625 32.1559L20.8719 30.2206C21.546 29.7391 21.7021 28.8023 21.2206 28.1281C20.7391 27.454 19.8023 27.2979 19.1281 27.7794L18 28.5852V28C18 26.8954 17.1046 26 16 26H14V16H30V20C30 20.8284 30.6716 21.5 31.5 21.5C32.3284 21.5 33 20.8284 33 20V15C33 13.8954 32.1046 13 31 13H13ZM24 23C22.8954 23 22 23.8954 22 25V29.9681C22 31.0727 22.8954 31.9681 24 31.9681H25.7483L27.7796 33.7278C29.1749 34.9364 31.3072 33.7706 31.0737 31.9668C32.1441 31.928 33 31.048 33 29.9681V25C33 23.8954 32.1046 23 31 23H24ZM25 28.9681V26H30V28.9681H29.8968C29.113 28.9681 28.4481 29.4145 28.1184 30.0522L27.4307 29.4564C27.0671 29.1415 26.6022 28.9681 26.1212 28.9681H25Z"
-                                          fill="#29354C"/>
-                                </svg>
+                                <div className={styles.IconWrap}>
+                                    <IconApp code='t25' color='#29354C' size={20} />
+                                </div>
                             </div>
                             <div className={styles.Main}>
                                 <div className={styles.MainTitle}>{t("Chat")}</div>
@@ -90,17 +59,12 @@ const Support = () => {
                                     className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
                             </div>
                             <div className={styles.Arrow}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12"
-                                     fill="none">
-                                    <path fillRule="evenodd" clipRule="evenodd"
-                                          d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z"
-                                          fill="#9D9D9D"/>
-                                </svg>
+                                <IconApp code='t08' size={12} color='#9D9D9D' />
                             </div>
                         </div>
 
                         <div className="w-25 flex">
-                            <img src="/img/icon/Telegram.svg" alt="mail" />
+                            <IconApp code='t51' size={22} color='#00b894' />
                             <a className="ml-2 text-gray-400 font-semibold whitespace-nowrap"
                                 href="https://t.me/gek_support"> Telegram (crypto wallet)</a>
                         </div>
@@ -110,28 +74,10 @@ const Support = () => {
                     <div className={styles.ControlTitle}>{t("quality_control")}</div>
                     <div className={styles.ControlMain}>
                         <div className={styles.ControlMainLike}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
-                                <g filter="url(#filter0_d_558_19277)">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M17.5 0C10.0442 0 4 6.04416 4 13.5C4 20.9558 10.0442 27 17.5 27C24.9558 27 31 20.9558 31 13.5C31 6.04416 24.9558 0 17.5 0ZM26.1094 18.3733C25.6155 19.427 24.5568 20.1 23.3931 20.1H19.15H14.65C12.9932 20.1 11.65 18.7569 11.65 17.1L11.65 11.9178C11.65 11.1968 11.9097 10.4999 12.3815 9.95472L17.2154 4.36895C17.8959 3.58253 19.05 3.4136 19.9274 3.97194C20.9059 4.59462 21.1932 5.89325 20.5688 6.87063L20.4776 7.01335C19.5138 8.52198 20.5973 10.5 22.3875 10.5H25.0806C27.2776 10.5 28.7295 12.7839 27.7969 14.7733L26.1094 18.3733ZM10.6 18C10.6 18.9941 9.79409 19.8 8.79998 19.8C7.80586 19.8 6.99998 18.9941 6.99998 18L6.99998 12C6.99998 11.0059 7.80586 10.2 8.79998 10.2C9.79409 10.2 10.6 11.0059 10.6 12L10.6 18Z" fill="#2BAB72" />
-                                </g>
-                                <defs>
-                                    <filter id="filter0_d_558_19277" x="0" y="0" width="35" height="35" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                        <feOffset dy="4" />
-                                        <feGaussianBlur stdDeviation="2" />
-                                        <feComposite in2="hardAlpha" operator="out" />
-                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_558_19277" />
-                                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_558_19277" result="shape" />
-                                    </filter>
-                                </defs>
-                            </svg>
+                            <IconApp code='t49' size={30} color='#2BAB72' />
                         </div>
                         <div className={styles.ControlMainDislike}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-                                <path fillRule="evenodd" clipRule="evenodd" d="M13.5 27C20.9558 27 27 20.9558 27 13.5C27 6.04416 20.9558 0 13.5 0C6.04416 0 0 6.04416 0 13.5C0 20.9558 6.04416 27 13.5 27ZM4.89056 8.6267C5.38448 7.573 6.44322 6.9 7.60694 6.9H11.85H16.35C18.0068 6.9 19.35 8.24315 19.35 9.9V15.0822C19.35 15.8032 19.0903 16.5001 18.6185 17.0453L13.7846 22.6311C13.1041 23.4175 11.95 23.5864 11.0726 23.0281C10.0941 22.4054 9.80675 21.1067 10.4312 20.1294L10.5224 19.9867C11.4862 18.478 10.4027 16.5 8.61245 16.5H5.91944C3.72236 16.5 2.27054 14.2161 3.20306 12.2267L4.89056 8.6267ZM20.4 9C20.4 8.00589 21.2059 7.2 22.2 7.2C23.1941 7.2 24 8.00589 24 9V15C24 15.9941 23.1941 16.8 22.2 16.8C21.2059 16.8 20.4 15.9941 20.4 15V9Z" fill="#E7E7E7" />
-                            </svg>
+                            <IconApp code='t08' size={12} color='#9D9D9D' />
                         </div>
                     </div>
                     <div className={styles.ControlFooter}>{t("thank_you_for_rating")}</div>
@@ -151,16 +97,8 @@ const Support = () => {
                 <div  onClick={() => {
                     document.getElementById("chat").classList.toggle("isOpen")
                 }}  className={styles.ChatUs}>
-                    <div className={styles.Icon}>
-                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M22.0811 2C33.1267 2 42.0811 10.9544 42.0811 22.0001C42.0811 33.0457 33.1267 42 22.0811 42C11.0354 42 2.08105 33.0457 2.08105 22.0001C2.08105 10.9544 11.0354 2 22.0811 2Z"
-                                  fill="white" stroke="#29354C" stroke-width="3.5"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M13 13C11.8954 13 11 13.8954 11 15V27C11 28.1046 11.8954 29 13 29H15V30.5284C15 32.1551 16.8387 33.1014 18.1625 32.1559L20.8719 30.2206C21.546 29.7391 21.7021 28.8023 21.2206 28.1281C20.7391 27.454 19.8023 27.2979 19.1281 27.7794L18 28.5852V28C18 26.8954 17.1046 26 16 26H14V16H30V20C30 20.8284 30.6716 21.5 31.5 21.5C32.3284 21.5 33 20.8284 33 20V15C33 13.8954 32.1046 13 31 13H13ZM24 23C22.8954 23 22 23.8954 22 25V29.9681C22 31.0727 22.8954 31.9681 24 31.9681H25.7483L27.7796 33.7278C29.1749 34.9364 31.3072 33.7706 31.0737 31.9668C32.1441 31.928 33 31.048 33 29.9681V25C33 23.8954 32.1046 23 31 23H24ZM25 28.9681V26H30V28.9681H29.8968C29.113 28.9681 28.4481 29.4145 28.1184 30.0522L27.4307 29.4564C27.0671 29.1415 26.6022 28.9681 26.1212 28.9681H25Z"
-                                  fill="#29354C"/>
-                        </svg>
+                    <div className={styles.IconWrap}>
+                        <IconApp code='t25' size={25} color='#29354C' />
                     </div>
                     <div className={styles.Main}>
                         <div className={styles.MainTitle}>{t("Chat")}</div>
@@ -168,19 +106,14 @@ const Support = () => {
                             className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
                     </div>
                     <div className={styles.Arrow}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12"
-                             fill="none">
-                            <path fillRule="evenodd" clipRule="evenodd"
-                                  d="M0.418945 1.37143L1.73145 0L7.41895 6L1.73145 12L0.418945 10.6286L4.79395 6L0.418945 1.37143Z"
-                                  fill="#9D9D9D"/>
-                        </svg>
+                        <IconApp code='t08' size={12} color='#9D9D9D' />
                     </div>
                 </div>
                 
                 <div className="row flex flex-wrap gap-8">
                     <div className="col w-25 flex flex-col">
                         <div className="row mb-3 flex flex-wrap gap-2">
-                            <img src="/img/icon/Email.svg" alt="mail" />
+                            <IconApp code='t29' size={22} color='#00b894' />
                             <p className="text-gray-400 font-semibold">Email</p>
                         </div>
                         <div className="row">
@@ -190,7 +123,7 @@ const Support = () => {
                     </div>
                     <div className="col w-25 flex flex-col">
                         <div className="row mb-3 gap-2 flex flex-wrap">
-                            <img src="/img/icon/Telegram.svg" alt="mail" />
+                            <IconApp code='t51' size={22} color='#00b894' />
                             <p className="text-gray-400 font-semibold">Telegram (crypto wallet)</p>
                         </div>
                         <div className="row">

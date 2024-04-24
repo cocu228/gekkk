@@ -8,8 +8,9 @@ import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import {getInitialProps, useTranslation} from "react-i18next";
-import { IconAccount } from "@/shared/ui/icons/IconAccount";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import IconStatus from "@/shared/ui/icons/IconStatus";
+import IconDropdownArrow from "@/shared/ui/icons/IconDropdownArrow";
 
 const HeaderDesktop = ({items, actions}) => {
 
@@ -76,7 +77,6 @@ const HeaderDesktop = ({items, actions}) => {
                             </clipPath>
                         </defs>
                     </svg>
-
                 </a>
             </div>
             <div className={styles.CommandsMenu}>

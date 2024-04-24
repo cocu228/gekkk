@@ -32,6 +32,7 @@ export default defineConfig(({mode}) => {
                         return url
                             .replace(/\{\{MODE\}\}/, isGekkoin ? "GKO" : "")
                             .replace(/\{\{mode-\}\}/, isGekkoin ? "gko-" : "")
+                            .replace(/\{\{mode\}\}/, isGekkoin ? "gko" : "")
                             .replace(/\{\{MODE-\}\}/, isGekkoin ? "GKO-" : "")
                     }
                 },

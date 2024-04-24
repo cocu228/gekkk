@@ -49,7 +49,7 @@ const SidebarDesktop = () => {
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.ItemInactive}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/tokens/EurgIcon.svg`}
+                                <img width={50} height={50} src={`/img/icon/EurgIcon.svg`}
                                      alt="EURG"/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
@@ -83,7 +83,7 @@ const SidebarDesktop = () => {
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.ItemInactive}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/tokens/GkeIcon.svg`}
+                                <img width={50} height={50} src={`/img/icon/EurgIcon.svg`}
                                      alt="GKE"/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">

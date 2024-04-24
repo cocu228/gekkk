@@ -9,12 +9,16 @@ import {nodePolyfills} from 'vite-plugin-node-polyfills'
 
 export default defineConfig(({mode}) => {
 
-    const type  = (mode === "GKO-DEV" || mode === "GKO-DEV") ? "GKO" : ""
-
     process.env = {
         ...process.env, ...loadEnv(mode, process.cwd()),
-        VITE_APP_VERSION: JSON.stringify(require('./package.json').version)
+        VITE_APP_VERSION: JSON.stringify(require('./package.json').version),
+        VITE_APP_TYPE: process.env.APP_TYPE
     };
+
+    const isGekkoin = process.env.APP_TYPE === "GEKKOIN";
+
+    console.log(isGekkoin)
+
     return {
         // base: '',
         resolve: {
@@ -25,9 +29,10 @@ export default defineConfig(({mode}) => {
                 {
                     find: "@VAR", replacement: path.resolve(__dirname, 'src'),
                     customResolver(url) {
-                        return url.replace(/\{\{MODE\}\}/, mode === "GKO" ? "GKO" : "")
-                            .replace(/\{\{mode-\}\}/, mode === "GKO" ? "gko-" : "")
-                            .replace(/\{\{MODE-\}\}/, mode === "GKO" ? "GKO-" : "")
+                        return url
+                            .replace(/\{\{MODE\}\}/, isGekkoin ? "GKO" : "")
+                            .replace(/\{\{mode-\}\}/, isGekkoin ? "gko-" : "")
+                            .replace(/\{\{MODE-\}\}/, isGekkoin ? "GKO-" : "")
                     }
                 },
             ],

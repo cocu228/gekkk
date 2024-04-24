@@ -14,7 +14,7 @@ import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 //import { CtxOfflineMode } from "@/processes/errors-provider-context";
-import { ParentClassForCoin, IconCoin } from "@/shared/ui/icons/icon-coin";
+import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
@@ -27,6 +27,7 @@ import { Carousel } from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { TokenBar } from "../TokenBar";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -228,38 +229,7 @@ const SidebarDesktop = () => {
                 {!secondaryWallets.length ? null : (
                     <NavCollapse header={t("assets")} id={"assets"}>
                         {helperFilterList(secondaryWallets).map((item, i) =>
-                            <NavLink onClick={NavLinkEvent} to={`wallet?currency=${item.$const}`} key={item.id}
-                                className={({ isActive }) => (isActive && currency === item.$const) ? 'active' : ''}
-                            >
-                                <div className={`${styles.Item + " " + ParentClassForCoin}`}>
-                                    <div className="col flex items-center pl-4 w-[85px]">
-                                        <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
-                                        <IconCoin className={styles.Icon} code={item.$const} />
-                                    </div>
-                                    <div className="col flex items-center justify-center flex-col pl-6">
-                                        <div className="row w-full mb-1"><span
-                                            className={`${styles.Name} text-gray-400 text-xs`}>{item.name}</span>
-                                        </div>
-                                        <div className="row w-full font-mono"><span
-                                            className={styles.Sum}>{`${toLocaleCryptoRounding(item.balance.user_balance, item.roundPrec)} ${item.$const == 'BTC' ? '₿' : item.$const}`}</span>
-                                        </div>
-                                        <div className="row w-full flex justify-between">
-                                            <div>
-                                                {!item.balance.lock_in_balance ? null : <span className={styles.Income}>
-                                                    +{toLocaleCryptoRounding(item.balance.lock_in_balance, item.roundPrec) ?? '-'}
-                                                </span>}
-                                            </div>
-                                            <div className=" text-gray-500 font-mono">
-                                                {item.balance.user_balance_EUR_equ === null ? null :
-                                                    <span className={styles.EuroEqv}>
-                                                        ~ {toLocaleFiatRounding(item.balance.user_balance_EUR_equ)} €
-                                                    </span>}
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </NavLink>)}
+                            <TokenBar key={item.id} currency={currency} NavLinkEvent={NavLinkEvent} item={item}/>)}
                     </NavCollapse>
                 )}
 

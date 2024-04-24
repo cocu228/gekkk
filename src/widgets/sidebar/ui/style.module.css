@@ -1,0 +1,130 @@
+.CurLink
+{
+    display: flex;
+    justify-content: center;
+}
+.CurBox {
+    display: flex;
+    border-radius: 8px;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px 0px;
+    overflow: hidden;
+    user-select: none;
+    font-size: small;
+    cursor: pointer;
+    width: 100%;
+    max-width: 500px;
+
+    /* width: 140px; */
+    div {
+        overflow: hidden;
+    }
+
+    span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &:hover {
+        font-weight: bold;
+        box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+    }
+
+    &:hover .ArrowMobile {
+        fill: var(--gek-dark-grey);
+    }
+
+    &:hover .ActiveChoice {
+        background-color: var(--gek-mid-grey);
+    }
+    &:hover .CurIcon {
+        filter: saturate(100%) invert(0%);
+    }
+}
+
+.ArrowMobile {
+    margin-right: 8px;
+    fill: var(--gek-light-grey);
+}
+
+.CurBox2 {
+    margin: 4px 0px;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: stretch;
+}
+
+.CurBox3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ActiveChoice {
+    align-self: stretch;
+    background-color: white;
+    width: 4px;
+}
+
+.CurIcon {
+    margin: 8px 16px 8px 12px;
+    transition: .2s;
+
+    @media (min-width:700px) {
+        filter: saturate(0%) invert(0%);
+    }
+}
+
+.EuroEqv {
+
+    flex-grow: 1;
+    text-align: right;
+    font-family: monospace;
+    color: var(--gek-dark-grey);
+
+    &::after {
+        content: ' €';
+    }
+
+    &::before {
+        content: '~';
+    }
+}
+
+.Income {
+    color: var(--gek-green);
+}
+
+.CurName {
+    color: var(--gek-additional);
+}
+
+.Sum {
+    color: var(--gek-additional);
+    font-size: 0.85rem;
+    font-weight: bold;
+
+}
+
+:global(a.active) {
+    .ActiveChoice {
+        background-color: var(--gek-additional);
+    }
+
+    .ArrowMobile {
+        fill: var(--gek-green);
+    }
+
+    .CurName {
+        font-weight: bold;
+    }
+
+    .CurIcon {
+        filter: saturate(100%) invert(0%);
+    }
+}

@@ -26,6 +26,7 @@ import {
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { TokenBar } from "../TokenBar";
 
 const SidebarMobile = () => {
   const { t } = useTranslation();
@@ -106,36 +107,10 @@ const SidebarMobile = () => {
       <div className={`${styles.Sidebar} flex flex-col justify-between`}>
         {notificationsEnabled !== "true" ? null : <UnconfirmedTransactions />}
 
-        <div
-          className="wrapper"
-          ref={refreshCont}
-          style={{ marginTop: pullChange / 3.118 || "" }}
-        >
-          {/* <div className="p-2 rounded-full w-full flex justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width={1.5}
-              stroke="currentColor"
-              className={`w-6 h-6 ` + (isRefreshingFunds && "animate-spin")}
-              style={{
-                justifyContent: "center",
-                display: !(!!pullChange || isRefreshingFunds) && "none",
-                transform: `rotate(${pullChange}deg)`,
-              }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-              />
-            </svg>
-          </div> */}
-          <div
-            style={{ backgroundColor: "#f7f7f0" }}
-            className="flex justify-center"
-          >
+        <div className="flex flex-col justify-center"
+          ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
+          <div style={{ backgroundColor: "#f7f7f0" }}
+            className="flex justify-center">
             <div className={styles.CardInfo}>
               {cardsLoading ? (
                 <div className="mb-[14px]">
@@ -305,84 +280,9 @@ const SidebarMobile = () => {
 
           {!secondaryWallets.length
             ? null
-            : helperFilterList(secondaryWallets).map((item) => (
-                <NavLink
-                  onClick={NavLinkEvent}
-                  to={`wallet?currency=${item.$const}`}
-                  key={item.id}
-                >
-                  <div className={styles.ItemWrapper}>
-                    <div
-                      className={`${
-                        styles.Item +
-                        " " +
-                        ParentClassForCoin +
-                        " " +
-                        styles.SecondaryItem
-                      }`}
-                    >
-                      <div className="col flex items-center pl-4 w-[85px]">
-                        <IconCoin code={item.$const} />
-                      </div>
-                      <div
-                        className={
-                          "col flex items-center justify-center flex-col"
-                        }
-                      >
-                        <div className="row w-full mb-1">
-                          <span
-                            className={`${styles.Name} text-gray-400 text-xs`}
-                          >
-                            {item.name}
-                          </span>
-                        </div>
-                        <div className="row w-full font-mono">
-                          <span
-                            className={styles.Sum}
-                          >{`${toLocaleCryptoRounding(
-                            item.balance.user_balance,
-                            item.roundPrec
-                          )} ${
-                            item.$const == "BTC" ? "₿" : item.$const
-                          }`}</span>
-                        </div>
-                        <div className={"row w-full flex justify-between pr-5"}>
-                          <div>
-                            {!item.balance.lock_in_balance ? null : (
-                              <span className={styles.Income}>
-                                +
-                                {toLocaleCryptoRounding(
-                                  item.balance.lock_in_balance,
-                                  item.roundPrec
-                                ) ?? "-"}
-                              </span>
-                            )}
-                          </div>
-                          <div className=" text-gray-500 font-mono">
-                            {item.balance.user_balance_EUR_equ ===
-                            null ? null : (
-                              <span
-                                className={`${
-                                  md ? styles.Balance : styles.EuroEqv
-                                } font-mono`}
-                              >
-                                ~{" "}
-                                {toLocaleFiatRounding(
-                                  item.balance.user_balance_EUR_equ
-                                )}{" "}
-                                €
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className={styles.ArrowMobileSidebar}>
-                          <IconApp code="t08" size={11} color="#285E69" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </NavLink>
-              ))}
+            : helperFilterList(secondaryWallets).map((item) =>
+              <TokenBar key={item.id} currency="" NavLinkEvent={NavLinkEvent} item={item} />
+            )}
           <div className={styles.AssetInfo5}>
             <span>{t("total_balance").capitalize()}</span>
             <span>

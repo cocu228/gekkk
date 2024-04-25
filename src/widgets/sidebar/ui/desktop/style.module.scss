@@ -5,26 +5,27 @@
   flex-grow: 0;
   flex-shrink: 0;
   height: initial;
-  background-color: white;
-  box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.06);
   overscroll-behavior-y: contain;
+  display: flex;
+  flex-direction: column;
 
-  @include max-devices(md) {
-    max-width: 100% !important;
-    flex-basis: 100% !important;
-    padding-bottom: 100px;
-    background-color: #f7f7f0;
-  }
+  // @include max-devices(md) {
+  //   max-width: 100% !important;
+  //   flex-basis: 100% !important;
+  //   padding-bottom: 100px;
+  //   background-color: #f7f7f0;
+  // }
 
-  @include max-devices(xxxl) {
-    max-width: var(--sidebar-width-xxxl);
-    flex-basis: var(--sidebar-width-xxxl);
-  }
+  // @include max-devices(xxxl) {
+  //   max-width: var(--sidebar-width-xxxl);
+  //   flex-basis: var(--sidebar-width-xxxl);
+  // }
 
-  @include max-devices(xxl) {
-    max-width: var(--sidebar-width-xxl);
-    flex-basis: var(--sidebar-width-xxl);
-  }
+  // @include max-devices(xxl) {
+  //   max-width: var(--sidebar-width-xxl);
+  //   flex-basis: var(--sidebar-width-xxl);
+  // }
 }
 
 .TotalVal {
@@ -34,8 +35,9 @@
 }
 
 .CardInfo {
-  padding: 5px 20px;
-  width: 265px;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .AssetInfo1 {
@@ -310,6 +312,8 @@
     margin-bottom: 8px;
   }
 
+  background-color: white;
+  border-radius: 10px;
 
   height: 85px;
   position: relative;

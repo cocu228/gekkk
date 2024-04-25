@@ -102,14 +102,13 @@ const SidebarMobile = () => {
   //     };
   // });'
 
-  return (
-    <div id="sidebar" className={`${styles.Sidebar} ${isOpen ? "active" : ""}`}>
-      <div className={`${styles.Sidebar} flex flex-col justify-between`}>
+  return (    
+      <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
         {notificationsEnabled !== "true" ? null : <UnconfirmedTransactions />}
 
-        <div className="flex flex-col justify-center"
-          ref={refreshCont} style={{ marginTop: pullChange / 3.118 || "" }}>
-          <div style={{ backgroundColor: "#f7f7f0" }}
+        <div className="flex flex-col"
+          ref={refreshCont} >
+          <div
             className="flex justify-center">
             <div className={styles.CardInfo}>
               {cardsLoading ? (
@@ -294,8 +293,7 @@ const SidebarMobile = () => {
             </span>
           </div>
         </div>
-      </div>
-    </div>
+      </div> 
   );
 };
 

@@ -75,30 +75,11 @@ const SidebarDesktop = () => {
     }
 
     return (
-        <div className={`${styles.Sidebar} flex flex-col justify-between`}>
-
-            <div className="wrapper">
-                {/* Account total balance
-                        <div className={styles.TotalVal}>
-                            <div className="right-0 absolute mr-4 mt-3"><UpdateAmounts /></div>
-                            <div className={`wrapper flex-col ml-4 pt-4 pb-4 flex ${styles.Wrapper}`}>
-                                <div className="row mb-2 flex justify-center">
-                                    <span className="text-white font-semibold mr-3">{t("asset_valuation")}</span>
-                                </div>
-                                <div style={{ color: "#e2ffee" }} className="TotalSum text-right">
-                                    <span className="text-lg font-bold mr-5">
-                                        ~ <span data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €
-                                    </span>
-                                </div>
-                            </div>
-                        </div>*/}
-                {/* Wrapper */}
-                {/* <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" /> */}
-                <div style={{ backgroundColor: "#f7f7f0" }} className="flex justify-center">
-                    <div className={styles.CardInfo}>
-                        {cardsLoading ? <div className="mb-[14px]">
-                            <SkeletonCard />
-                        </div> : !activeCards ? null : activeCards?.length === 0 ? (
+        <div className={styles.Sidebar}>
+            <div className={styles.CardInfo}>
+                {cardsLoading ? <SkeletonCard />
+                    : !activeCards ? ""
+                        : activeCards?.length === 0 ? (
                             <Carousel>
                                 <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
                                     <NewBankCard />
@@ -109,143 +90,141 @@ const SidebarDesktop = () => {
                                 <BankCardsCarousel cards={activeCards} />
                             </div>
                         )}
+            </div>
+
+            {/* fiat-currency wallet */}
+            <NavLink onClick={NavLinkEvent} to={"wallet?currency=EUR"}
+                className={({ isActive }) => (isActive && currency === 'EUR') ? 'active' : ''}>
+                <div className={styles.ItemWrapper}>
+
+                    <div className={`${styles.ItemEuro}`}>
+                        <div className="col flex items-center pl-4">
+                            <IconCoin code="EUR" />
+                        </div>
+                        <div className="col flex items-center flex-col pl-5 pt-2 relative">
+                            <div className="row w-full">
+                                <span className={styles.Name}>Euro</span>
+                            </div>
+                            <div className="row w-full font-mono">
+                                <span
+                                    className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
+                            </div>
+                            <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
+                        </div>
+                        <div className={styles.ArrowMobileSidebar}>
+                        </div>
                     </div>
                 </div>
-                {/* fiat-currency wallet */}
-                <NavLink onClick={NavLinkEvent} to={"wallet?currency=EUR"}
-                    className={({ isActive }) => (isActive && currency === 'EUR') ? 'active' : ''}>
-                    <div className={styles.ItemWrapper}>
+            </NavLink>
 
-                        <div className={`${styles.ItemEuro}`}>
-                            <div className="col flex items-center pl-4">
-                                <IconCoin code="EUR" />
+            {/* Crypto wallets wrapper */}
+
+            <div className={styles.AssetInfo1}>
+                <span>{t("crypto_assets.title").toLowerCase()}</span>
+            </div>
+
+            {/* EURG wallet */}
+            <NavLink onClick={NavLinkEvent}
+                className={({ isActive }) => !currencies
+                    ? "disabled"
+                    : (isActive && currency === 'EURG')
+                        ? 'active'
+                        : ''
+                }
+                to={!currencies ? "" : "wallet?currency=EURG"}>
+                <div className={styles.ItemWrapper}>
+                    <div className={`${styles.Item}`}>
+                        <div className="col flex items-center pl-4">
+                            <IconCoin code="EURG" />
+                        </div>
+                        <div className="col flex items-center justify-center flex-col pl-5">
+                            <div className="row text-gray-400 w-full mb-1">
+                                <span className={styles.Name}>Gekkoin euro token</span>
                             </div>
-                            <div className="col flex items-center flex-col pl-5 pt-2 relative">
-                                <div className="row w-full">
-                                    <span className={styles.Name}>Euro</span>
+                            <div className="row w-full font-mono">
+                                <span
+                                    className={styles.Sum}>{(eurgWallet?.balance && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
+                            </div>
+                            {eurgWallet && <div className={"row w-full flex justify-between "}>
+                                <div>
+                                    {!eurgWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
+                                        +{toLocaleCryptoRounding(eurgWallet.balance.lock_in_balance, eurgWallet.roundPrec) ?? '-'}
+                                    </span>}
                                 </div>
-                                <div className="row w-full font-mono">
-                                    <span
-                                        className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
+                                <div className=" text-gray-500 font-mono">
+                                    {!eurgWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
+                                        ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
+                                    </span>}
                                 </div>
-                                <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
-                            </div>
-                            <div className={styles.ArrowMobileSidebar}>
-                            </div>
+
+                            </div>}
+
                         </div>
                     </div>
-                </NavLink>
-
-                {/* Crypto wallets wrapper */}
-
-                <div className={styles.AssetInfo1}>
-                    <span>{t("crypto_assets.title").toLowerCase()}</span>
                 </div>
 
-                {/* EURG wallet */}
-                <NavLink onClick={NavLinkEvent}
-                    className={({ isActive }) => !currencies
-                        ? "disabled"
-                        : (isActive && currency === 'EURG')
-                            ? 'active'
-                            : ''
-                    }
-                    to={!currencies ? "" : "wallet?currency=EURG"}>
-                    <div className={styles.ItemWrapper}>
-                        <div className={`${styles.Item}`}>
-                            <div className="col flex items-center pl-4">
-                                <IconCoin code="EURG" />
-                            </div>
-                            <div className="col flex items-center justify-center flex-col pl-5">
-                                <div className="row text-gray-400 w-full mb-1">
-                                    <span className={styles.Name}>Gekkoin euro token</span>
-                                </div>
-                                <div className="row w-full font-mono">
-                                    <span
-                                        className={styles.Sum}>{(eurgWallet?.balance && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
-                                </div>
-                                {eurgWallet && <div className={"row w-full flex justify-between "}>
-                                    <div>
-                                        {!eurgWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
-                                            +{toLocaleCryptoRounding(eurgWallet.balance.lock_in_balance, eurgWallet.roundPrec) ?? '-'}
-                                        </span>}
-                                    </div>
-                                    <div className=" text-gray-500 font-mono">
-                                        {!eurgWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
-                                            ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
-                                        </span>}
-                                    </div>
+            </NavLink>
 
-                                </div>}
-
+            {/* GKE wallet */}
+            <NavLink onClick={NavLinkEvent}
+                className={({ isActive }) => !currencies
+                    ? "disabled"
+                    : (isActive && currency === 'GKE')
+                        ? 'active'
+                        : ''
+                }
+                to={!currencies ? "" : "wallet?currency=GKE"}>
+                <div className={styles.ItemWrapper}>
+                    <div className={`${styles.Item}`}>
+                        <div className="col flex items-center pl-4">
+                            <IconCoin code="GKE" />
+                        </div>
+                        <div className="col flex items-center justify-center flex-col pl-5">
+                            <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
                             </div>
+                            <div className="row w-full font-mono"><span
+                                className={styles.Sum}>{(gkeWallet?.balance && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
+                            </div>
+                            {gkeWallet && <div className={"row w-full flex justify-between"}>
+                                <div>
+                                    {!gkeWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
+                                        +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
+                                    </span>}
+                                </div>
+                                <div className=" text-gray-500 font-mono">
+                                    {!gkeWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
+                                        ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
+                                    </span>}
+                                </div>
+                            </div>}
                         </div>
                     </div>
 
-                </NavLink>
-
-                {/* GKE wallet */}
-                <NavLink onClick={NavLinkEvent}
-                    className={({ isActive }) => !currencies
-                        ? "disabled"
-                        : (isActive && currency === 'GKE')
-                            ? 'active'
-                            : ''
-                    }
-                    to={!currencies ? "" : "wallet?currency=GKE"}>
-                    <div className={styles.ItemWrapper}>
-                        <div className={`${styles.Item}`}>
-                            <div className="col flex items-center pl-4">
-                                <IconCoin code="GKE" />
-                            </div>
-                            <div className="col flex items-center justify-center flex-col pl-5">
-                                <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
-                                </div>
-                                <div className="row w-full font-mono"><span
-                                    className={styles.Sum}>{(gkeWallet?.balance && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
-                                </div>
-                                {gkeWallet && <div className={"row w-full flex justify-between"}>
-                                    <div>
-                                        {!gkeWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
-                                            +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
-                                        </span>}
-                                    </div>
-                                    <div className=" text-gray-500 font-mono">
-                                        {!gkeWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
-                                            ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
-                                        </span>}
-                                    </div>
-                                </div>}
-                            </div>
-                        </div>
-
-                    </div>
-                </NavLink>
-
-                {/* Secondary options wrapper */}
-                <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-
-                {/* User assets collapse */}
-                {!secondaryWallets.length ? null : (
-                    <NavCollapse header={t("assets")} id={"assets"}>
-                        {helperFilterList(secondaryWallets).map((item, i) =>
-                            <TokenBar key={item.id} currency={currency} NavLinkEvent={NavLinkEvent} item={item}/>)}
-                    </NavCollapse>
-                )}
-
-                <div className={styles.AssetInfo2 + " text-gray-500 font-mono"}>
-                    <span>{t("total_balance")}</span>
-                    <span>~ <span
-                        data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
                 </div>
-                {/* Assets link */}
+            </NavLink>
 
-                <div className={`${!currencies ? "disabled" : ""} ${styles.AssetInfo3}`}>
-                    <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
-                        <div className={styles.AssetInfo4}>
-                            {t("new_asset")}
-                        </div>
-                        {/* <div className={`${styles.Item}`}>
+            {/* Secondary options wrapper */}
+            <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
+
+            {/* User assets collapse */}
+            {!secondaryWallets.length ? null : (
+                helperFilterList(secondaryWallets).map((item, i) =>
+                    <TokenBar key={item.id} currency={currency} NavLinkEvent={NavLinkEvent} item={item} />)
+            )}
+
+            <div className={styles.AssetInfo2 + " text-gray-500 font-mono"}>
+                <span>{t("total_balance")}</span>
+                <span>~ <span
+                    data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
+            </div>
+            {/* Assets link */}
+
+            <div className={`${!currencies ? "disabled" : ""} ${styles.AssetInfo3}`}>
+                <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
+                    <div className={styles.AssetInfo4}>
+                        {t("new_asset")}
+                    </div>
+                    {/* <div className={`${styles.Item}`}>
                                 <div className="col flex items-center pl-4">
                                     <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
                                         alt="Invest" />
@@ -255,144 +234,144 @@ const SidebarDesktop = () => {
                                         className={styles.NavName}>{t("crypto_assets.title")}</span></div>
                                 </div>
                             </div> */}
-                    </NavLink>
-                </div>
-
-                {/* Exchange page link */}
-
-                <NavLink className={!currencies ? "disabled" : ""}
-                    onClick={NavLinkEvent}
-                    to={!currencies ? "" : "exchange"}>
-                    <div className={styles.ItemExchange}>
-                        <div className="absolute self-center place-self-center"><span
-                            className={styles.NavName}>{t("exchange.title")}</span>
-                        </div>
-                        <div className="absolute right-4 self-center">
-                            {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
-                                            alt="ExchangeIcon" /> */}
-                            <IconApp code="t68" className={styles.Icon} color="#285E69" size={34} />
-                        </div>
-                    </div>
                 </NavLink>
+            </div>
 
-                {/* Private exchange rooms collapse */}
-                {!(privateRooms && privateRooms.length) ? null :
-                    <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
-                        {privateRooms.map((item, i) => (
-                            <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
-                                className={({ isActive }) => (isActive && +roomId === item.timetick) ? 'active' : ''}
-                                key={item.timetick}>
-                                <div className={styles.Item}>
-                                    <div className="col flex items-center pl-4 w-[85px]">
-                                        <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
-                                        <img
-                                            width={50}
-                                            height={50}
-                                            className={styles.Icon}
-                                            src={`/img/icon/PrivateExchangeShield.svg`}
-                                            alt="ExchangeIcon"
-                                        />
+            {/* Exchange page link */}
+
+            <NavLink className={!currencies ? "disabled" : ""}
+                onClick={NavLinkEvent}
+                to={!currencies ? "" : "exchange"}>
+                <div className={styles.ItemExchange}>
+                    <div className="absolute self-center place-self-center"><span
+                        className={styles.NavName}>{t("exchange.title")}</span>
+                    </div>
+                    <div className="absolute right-4 self-center">
+                        {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
+                                            alt="ExchangeIcon" /> */}
+                        <IconApp code="t68" className={styles.Icon} color="#285E69" size={34} />
+                    </div>
+                </div>
+            </NavLink>
+
+            {/* Private exchange rooms collapse */}
+            {!(privateRooms && privateRooms.length) ? null :
+                <NavCollapse header={t("private_exchange_rooms")} id={"exchange"}>
+                    {privateRooms.map((item, i) => (
+                        <NavLink onClick={NavLinkEvent} to={`private-room?roomId=${item.timetick}`}
+                            className={({ isActive }) => (isActive && +roomId === item.timetick) ? 'active' : ''}
+                            key={item.timetick}>
+                            <div className={styles.Item}>
+                                <div className="col flex items-center pl-4 w-[85px]">
+                                    <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
+                                    <img
+                                        width={50}
+                                        height={50}
+                                        className={styles.Icon}
+                                        src={`/img/icon/PrivateExchangeShield.svg`}
+                                        alt="ExchangeIcon"
+                                    />
+                                </div>
+                                <div className="col flex items-center justify-center flex-col pl-6">
+                                    <div className="flex w-full row mb-1 justify-between">
+                                        <div className={styles.RoomName}>
+                                            {!xxxl
+                                                ? `${item.currency1} - ${item.currency2}`
+                                                : `${item.currency1} - ${item.currency2}`
+                                            }
+                                        </div>
+
+                                        <div
+                                            className="mr-3 hover:cursor-pointer group"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedRoom(item);
+                                                roomCloseModal.showModal();
+                                            }}
+                                        >
+                                            <IconApp color="#fa94a9" code="t69" size={16} className="text-[12px] group-hover:stroke-red-500" />
+                                        </div>
                                     </div>
-                                    <div className="col flex items-center justify-center flex-col pl-6">
-                                        <div className="flex w-full row mb-1 justify-between">
-                                            <div className={styles.RoomName}>
-                                                {!xxxl
-                                                    ? `${item.currency1} - ${item.currency2}`
-                                                    : `${item.currency1} - ${item.currency2}`
-                                                }
-                                            </div>
+
+                                    <div className="flex row w-full mb-1 justify-between"><span
+                                        className={`text-gray-500 text-xs`}>
+                                        {!xxxl ? t("number_of_participants") : t("participants")}
+                                    </span>
+                                        <span
+                                            className='mr-[17px] text-gray-500 text-xs font-semibold'>{item.count}</span>
+                                    </div>
+
+                                    {!item.room_code ? null : (
+                                        <div className="flex row w-full justify-between"><span
+                                            className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setSelectedRoom(item);
+                                                roomInfoModal.showModal();
+                                            }}
+                                        >
+                                            {t("invite_link")}
+                                        </span>
 
                                             <div
-                                                className="mr-3 hover:cursor-pointer group"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setSelectedRoom(item);
-                                                    roomCloseModal.showModal();
-                                                }}
-                                            >
-                                                <IconApp color="#fa94a9" code="t69" size={16} className="text-[12px] group-hover:stroke-red-500" />
-                                            </div>
-                                        </div>
-
-                                        <div className="flex row w-full mb-1 justify-between"><span
-                                            className={`text-gray-500 text-xs`}>
-                                            {!xxxl ? t("number_of_participants") : t("participants")}
-                                        </span>
-                                            <span
-                                                className='mr-[17px] text-gray-500 text-xs font-semibold'>{item.count}</span>
-                                        </div>
-
-                                        {!item.room_code ? null : (
-                                            <div className="flex row w-full justify-between"><span
-                                                className={`underline text-gray-500 text-xs hover:text-blue-300`}
+                                                className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400 group"
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     setSelectedRoom(item);
                                                     roomInfoModal.showModal();
                                                 }}
                                             >
-                                                {t("invite_link")}
-                                            </span>
-
-                                                <div
-                                                    className="mr-3 hover:cursor-pointer fill-gray-500 hover:fill-blue-400 group"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        setSelectedRoom(item);
-                                                        roomInfoModal.showModal();
-                                                    }}
-                                                >
-                                                     <IconApp color="gray-500" code="t63" size={16} className="text-[12px] group-hover:stroke-blue-400" />
-                                                </div>
+                                                <IconApp color="gray-500" code="t63" size={16} className="text-[12px] group-hover:stroke-blue-400" />
                                             </div>
-                                        )}
-                                    </div>
+                                        </div>
+                                    )}
                                 </div>
-                            </NavLink>
-                        ))}
-                    </NavCollapse>
-                }
+                            </div>
+                        </NavLink>
+                    ))}
+                </NavCollapse>
+            }
 
-                {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
-                {/*    <div className={`${styles.Item}`}>*/}
-                {/*        <div className="col flex items-center pl-4">*/}
-                {/*            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}*/}
-                {/*                 alt="NewDepositIcon"/>*/}
-                {/*        </div>*/}
-                {/*        <div className="col flex items-center justify-center flex-col pl-6">*/}
-                {/*            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</NavLink>*/}
-                {/*{!(investments && investments.length) ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>*/}
-                {/*    {investments.map((item, i) =>*/}
-                {/*        <NavLink onClick={NavLinkEvent} to={`/deposit/${item.id}`} key={item.id}>*/}
-                {/*            <div className={`${styles.Item + " " + ParentClassForCoin}`}>*/}
-                {/*                <div className="col flex items-center pl-4 w-[85px]">*/}
-                {/*                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>*/}
-                {/*                    <img alt={"DepositIcon.svg"} className={styles.Icon}*/}
-                {/*                         src={"/img/icon/DepositIcon.svg"}/>*/}
-                {/*                </div>*/}
-                {/*                <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">*/}
-                {/*                    <div className="row w-full mb-1"><span*/}
-                {/*                        className={`${styles.Name} text-gray-400 text-xs`}>*/}
-                {/*                            {item.dep_type === 1 ? 'Fixed rate' : 'Structured'} deposit, until {formatDate(new Date(item.date_end))}*/}
-                {/*                        </span>*/}
-                {/*                    </div>*/}
-                {/*                    <div className="row w-full"><span*/}
-                {/*                        className={styles.Sum}>{item.amount} €</span>*/}
-                {/*                    </div>*/}
-                {/*                    <div className="row w-full ellipsis ellipsis-c-none">*/}
-                {/*                        <span className="text-gray-400 text-xs">{getDepositTitle(item.dep_type)}</span>*/}
-                {/*                    </div>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
-                {/*        </NavLink>)}*/}
-                {/*</NavCollapse>}*/}
+            {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
+            {/*    <div className={`${styles.Item}`}>*/}
+            {/*        <div className="col flex items-center pl-4">*/}
+            {/*            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}*/}
+            {/*                 alt="NewDepositIcon"/>*/}
+            {/*        </div>*/}
+            {/*        <div className="col flex items-center justify-center flex-col pl-6">*/}
+            {/*            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</NavLink>*/}
+            {/*{!(investments && investments.length) ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>*/}
+            {/*    {investments.map((item, i) =>*/}
+            {/*        <NavLink onClick={NavLinkEvent} to={`/deposit/${item.id}`} key={item.id}>*/}
+            {/*            <div className={`${styles.Item + " " + ParentClassForCoin}`}>*/}
+            {/*                <div className="col flex items-center pl-4 w-[85px]">*/}
+            {/*                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>*/}
+            {/*                    <img alt={"DepositIcon.svg"} className={styles.Icon}*/}
+            {/*                         src={"/img/icon/DepositIcon.svg"}/>*/}
+            {/*                </div>*/}
+            {/*                <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">*/}
+            {/*                    <div className="row w-full mb-1"><span*/}
+            {/*                        className={`${styles.Name} text-gray-400 text-xs`}>*/}
+            {/*                            {item.dep_type === 1 ? 'Fixed rate' : 'Structured'} deposit, until {formatDate(new Date(item.date_end))}*/}
+            {/*                        </span>*/}
+            {/*                    </div>*/}
+            {/*                    <div className="row w-full"><span*/}
+            {/*                        className={styles.Sum}>{item.amount} €</span>*/}
+            {/*                    </div>*/}
+            {/*                    <div className="row w-full ellipsis ellipsis-c-none">*/}
+            {/*                        <span className="text-gray-400 text-xs">{getDepositTitle(item.dep_type)}</span>*/}
+            {/*                    </div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </NavLink>)}*/}
+            {/*</NavCollapse>}*/}
 
-            </div>
-            <Footer textAlight={"text-left"} />
+
+
 
             <Modal
                 width={450}

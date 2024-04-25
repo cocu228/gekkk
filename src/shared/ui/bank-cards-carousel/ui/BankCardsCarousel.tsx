@@ -4,7 +4,6 @@ import { CarouselRef } from "antd/lib/carousel";
 import { useEffect, useRef, useState } from "react";
 import { Card as ICardData } from "@/shared/(orval)api/gek/model";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
-import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import {
   formatCardNumber,
   formatMonthYear,
@@ -13,8 +12,6 @@ import {
 interface IParams {
   cards: ICardData[];
   cardSize?: 'md' | 'lg';
-  cardClassName?: string;
-  wrapperClassName?: string;
   refreshKey?: string | null;
   onSelect?: (card: ICardData) => void;
 }
@@ -23,8 +20,7 @@ const BankCardsCarousel = ({
   cards,
   cardSize,
   refreshKey,
-  cardClassName,
-  onSelect = () => {},
+  onSelect = () => { },
 }: IParams) => {
   const carouselRef = useRef<CarouselRef>();
   const [selectedCard, setSelectedCard] = useState<ICardData>(null);
@@ -40,32 +36,19 @@ const BankCardsCarousel = ({
     }
   }, [cards, refreshKey]);
 
-  return (
-    <div className="max-h-[600px] max-w-[1000px]">
-      {!cards ? null: (
-        <Carousel
-          draggable
-          ref={(ref) => {
-            if (!carouselRef.current) {
-              carouselRef.current = ref;
-            }
-          }}
-          afterChange={(i) => onSelect(cards[i])}
-        >
-          {cards.map((card) => (
-            <div key={card.cardId} className={`${cardClassName} mb-6`}>
-              <BankCard
-                size={cardSize}
-                status={card.cardStatus}
-                cardNumber={formatCardNumber(card.displayPan)}
-                expiresAt={formatMonthYear(new Date(card.expiryDate))}
-                holderName={card.cardholder}
-              />
-            </div>
-          ))}
-        </Carousel>
-      )}
-    </div>
+  return (    
+      <Carousel className="pb-6" draggable ref={(ref) => { if (!carouselRef.current) { carouselRef.current = ref; } }}
+        afterChange={(i) => onSelect(cards[i])}>
+        { cards?.map((card) => (
+          <BankCard key={card.cardId}
+            size={cardSize}
+            status={card.cardStatus}
+            cardNumber={formatCardNumber(card.displayPan)}
+            expiresAt={formatMonthYear(new Date(card.expiryDate))}
+            holderName={card.cardholder}
+          />
+        ))}
+      </Carousel>    
   );
 };
 

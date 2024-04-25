@@ -113,14 +113,6 @@ export const actionResSuccess = function (response) {
     }
 }
 
-export function asteriskText(text) {
-    if (text.length > 6) {
-        return text.slice(0, 10) + '***' + text.slice(-3);
-    } else {
-        return text;
-    }
-}
-
 export function getFlagsFromMask(mask: number, options: Record<string, number>) {
     const flags: Record<string, boolean> = {};
 

@@ -7,7 +7,7 @@ import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
-import { actionResSuccess, asteriskText, isNull } from "@/shared/lib/helpers";
+import { actionResSuccess, isNull } from "@/shared/lib/helpers";
 import {
   AdrTxTypeEnum,
   GetHistoryTrasactionOut,
@@ -79,7 +79,7 @@ const InfoContent = (props: TypeProps) => {
                   }}    
                 >
                   <span className="font-normal text-xs text-[#29354C]">
-                    {asteriskText(props.id_transaction)}
+                    {props.id_transaction}
                   </span>
                 </div>
               </div>
@@ -190,7 +190,7 @@ const InfoContent = (props: TypeProps) => {
                             }}  
                           >
                             <span className="font-normal text-xs text-[#29354C]">
-                              {asteriskText(state.addressFrom)}
+                              {state.addressFrom}
                             </span>
                           </div>
                         </div>
@@ -211,7 +211,7 @@ const InfoContent = (props: TypeProps) => {
                             }}
                           >
                             <span className="font-normal text-xs text-[#29354C]">
-                              {asteriskText(state.addressTo)}
+                              {state.addressTo}
                             </span>
                           </div>
                         </div>
@@ -249,7 +249,7 @@ const InfoContent = (props: TypeProps) => {
                           href={state.explorerBaseAddress + state.txHash}
                           className="font-normal text-xs text-[#29354C] underline"
                         >
-                          {asteriskText(state.txHash)}
+                          {state.txHash}
                         </a>
                       </div>
                     </div>

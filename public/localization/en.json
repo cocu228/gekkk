@@ -833,7 +833,7 @@
     "FAQ": "FAQ",
     "chat": "Chat",
     "email": "Email",
-    "to_find_answers_to_common_questions_open_the_faq": "To find answers to common questions, open the FAQ",
+    "answers_to_common_questions": "Answers to common questions",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "To get advice from our bank's support service, open the chat",
     "tap_here_to_contact_our_support_via_email": "Tap here to contact our support via Email",
     "camera": "Camera",
@@ -1673,6 +1673,11 @@
     "plastic": "Plastic",
     "enter_beneficiary_name": "Enter beneficiary name",
     "enter_account_number_or_IBAN": "Enter account number / IBAN",
-    "crypto_wallet": "Crypto wallet"
+    "crypto_wallet": "Crypto wallet",
+    "write_email_to_support": "Write email to support service",
+    "how_can_we_help": "How can we help?",
+    "contact_crypto": "Contact crypto support",
+    "chat_us": "Chat us",
+    "response_time_up_to": "Response time up to {{hours}} hours"
   }
 }

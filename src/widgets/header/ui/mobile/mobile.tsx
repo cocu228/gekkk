@@ -102,6 +102,7 @@ const HeaderMobile = ({ items, actions }) => {
                 :
                 <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
                     <div className={styles.GoBackIcon}>
+                        <IconApp code="t08" size={12} color="#fff" className="rotate-180" />
                     </div>
                     <span className={styles.HeaderTitle}>{headerTitle()}</span>
                 </div>

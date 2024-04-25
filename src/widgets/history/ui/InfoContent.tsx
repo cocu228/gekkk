@@ -78,7 +78,7 @@ const InfoContent = (props: TypeProps) => {
                     navigator.clipboard.writeText(props.id_transaction)
                   }}    
                 >
-                  <span className="font-normal text-xs text-[#29354C]">
+                  <span className="font-normal text-xs text-[#29354C] overflow-hidden overflow-ellipsis max-w-[250px]">
                     {props.id_transaction}
                   </span>
                 </div>
@@ -155,14 +155,14 @@ const InfoContent = (props: TypeProps) => {
             {isNeedConfirm ||
             state?.txType === AdrTxTypeEnum[6] ||
             state?.txType === AdrTxTypeEnum[8] ? null : (
-              <div className="row mb-2 flex flex-wrap items-center">
+              <div className="row mb-2 flex flex-wrap flex-col">
                 <div className="col w-auto">
                   <span className="font-bold text-[10px] text-[#285E69]">
                     {t("sender_name")}:
                   </span>
                 </div>
-                <div className="col w-auto">
-                  <span className="break-all font-medium">
+                <div className="col w-auto flex items-center">
+                  <span className="font-normal text-xs text-[#29354C]">
                     {props.partner_info}
                   </span>
                 </div>
@@ -189,7 +189,7 @@ const InfoContent = (props: TypeProps) => {
                               navigator.clipboard.writeText(state.addressFrom)
                             }}  
                           >
-                            <span className="font-normal text-xs text-[#29354C]">
+                            <span className="font-normal text-xs text-[#29354C] overflow-hidden overflow-ellipsis max-w-[250px]">
                               {state.addressFrom}
                             </span>
                           </div>
@@ -210,7 +210,7 @@ const InfoContent = (props: TypeProps) => {
                               navigator.clipboard.writeText(state.addressTo)
                             }}
                           >
-                            <span className="font-normal text-xs text-[#29354C]">
+                            <span className="font-normal text-xs text-[#29354C] overflow-hidden overflow-ellipsis max-w-[250px]">
                               {state.addressTo}
                             </span>
                           </div>
@@ -247,7 +247,7 @@ const InfoContent = (props: TypeProps) => {
                         <a
                           target={"_blank"}
                           href={state.explorerBaseAddress + state.txHash}
-                          className="font-normal text-xs text-[#29354C] underline"
+                          className="font-normal text-xs text-[#29354C] underline overflow-hidden overflow-ellipsis max-w-[250px] whitespace-nowrap"
                         >
                           {state.txHash}
                         </a>

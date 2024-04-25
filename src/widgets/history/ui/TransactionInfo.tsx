@@ -33,7 +33,7 @@ const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
                 {item.status_text}
             </div>
             <div className={styles.HTypeImg2}>
-                <IconApp code='t08' color="#9D9D9D" size={12} />
+                <IconApp code='t08' color="#29354C" size={12} />
             </div>
             <div className={styles.HTag}>{item.tag}</div>
             <div className={styles.HAmount}>

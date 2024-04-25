@@ -5,10 +5,11 @@ import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import { AccountRights } from "@/shared/config/account-rights";
 import { getFormattedIBAN } from "@/shared/lib/helpers";
-import { useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useMatch, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExchangeRoomMenu } from "./ExchangeRoomMenu";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 
 const HeaderMobile = ({ items, actions }) => {
     const {account} = useContext(CtxRootData);
@@ -23,6 +24,9 @@ const HeaderMobile = ({ items, actions }) => {
     const isOnMainPages = !!homePage || !!historyPage
     const navigate = useNavigate()
     const location = useLocation()
+    const {md} = useContext(BreakpointsContext);
+
+    const tab = params.get("tab");
 
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
@@ -67,7 +71,7 @@ const HeaderMobile = ({ items, actions }) => {
 
             {/* <div className="wrapper flex flex-row flex-nowrap"> */}
 
-            {isOnMainPages ?
+            {isOnMainPages && location.pathname.split('/')[1] !== 'history' ?
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {/* <div className="wrapper flex justify-end"> */}
@@ -96,15 +100,19 @@ const HeaderMobile = ({ items, actions }) => {
                         <button className={`${styles.ArrowBtn}`}>
                             <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
                         </button>
-                        {/* </div> */}
                     </div>
                 </HeaderMenu>
-                :
-                <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
-                    <div className={styles.GoBackIcon}>
+                : tab === 'custom' ? (
+                    <div className="flex items-center w-full" onClick={() => { navigate('/history') }} data-testid="HeaderMenuContainer">
+                        <div className={styles.GoBackIcon}></div>
+                        <span className={styles.HeaderTitle}>Custom search</span>
                     </div>
-                    <span className={styles.HeaderTitle}>{headerTitle()}</span>
-                </div>
+                ) : (
+                    <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
+                        <div className={styles.GoBackIcon}></div>
+                        <span className={styles.HeaderTitle}>{headerTitle()}</span>
+                    </div>
+                )
             }
 
             {!(exchangePage || privateRoomPage) ? null : (
@@ -112,6 +120,20 @@ const HeaderMobile = ({ items, actions }) => {
                     <ExchangeRoomMenu roomId={roomId}/>
                 </div>
             )}
+
+            {
+                historyPage && md && tab !== 'custom' && (
+                    <div className="h-full items-center flex pr-[1.25rem]">
+                        <NavLink to='/history?tab=custom' >
+                            <IconApp 
+                                code="t30"
+                                color="#fff"
+                                size={15}
+                            />
+                        </NavLink>
+                    </div>
+                )
+            }
 
             {/* <div className="wrapper w-[32px] ml-2 flex pr-4">
                     <LocalizationMenu/>

@@ -15,6 +15,7 @@ import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
 import {Switch} from "antd";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -87,8 +88,8 @@ export const PromoCodeModal = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.promo_code")}
         </button>
-        <Modal padding onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
-            <PromoCode/>
+        <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("header_menu.activate_promo_code")}/>} onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
+            <PromoCode handleCancel={handleCancel}/>
         </Modal>
     </>
 }

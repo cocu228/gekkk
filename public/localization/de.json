@@ -58,6 +58,7 @@
       "promo_code": "Promo-Code",
       "partnership": "Partnerschaftsprogramm",
       "enter_promo_code": "Promo-Code eingeben",
+      "activate_promo_code": "Aktiviere Promo-Code",
       "gekkard_invest_platform": "Gekkard Investitionsplattform",
       "enable_notifications": "Benachrichtigungen aktivieren",
       "gekkoin_invest_platform": "Gekkoin Investitionsplattform"
@@ -1426,7 +1427,9 @@
     "how_can_we_help":  "Wie können wir helfen?", 
     "contact_crypto": "Kontaktieren Sie den Kryptowährungs-Support",
     "chat_us": "Schreibe uns",
-    "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden"
+    "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden",
+    "this_code_can_be_used": "Dieser Code kann nur einmal verwendet werden"
+
 
     
 

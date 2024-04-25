@@ -8,8 +8,14 @@ import useValidation from "@/shared/model/hooks/useValidation";
 import { validateStatus } from "@/features/promo-code/model";
 import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
 import { useTranslation } from "react-i18next";
+import buttonStyles from "@/widgets/wallet/transfer/withdraw/ui/forms/styles.module.scss"
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
-const PromoCode = memo(() => {
+interface IProps{
+  handleCancel: () => void
+}
+
+const PromoCode = memo(({handleCancel}: IProps) => {
   const { t } = useTranslation();
   const [valInput, setValInput] = useState("");
   const { promoCodeValidator } = useValidation();
@@ -24,6 +30,12 @@ const PromoCode = memo(() => {
       setIsCodeApplied(null);
     }
   };
+
+  const onClick = () => {
+    navigator.clipboard.readText().then(text =>{
+      setValInput(text)
+    })
+  }
 
   const onSubmit = async () => {
     setLoading(true);
@@ -40,16 +52,29 @@ const PromoCode = memo(() => {
 
   return (
     <>
-      <div className="py-10 px-8 md:px-0 md:pb-0">
+      <hr className="border-[0px] h-[1px] bg-[#3A5E66]" />
+      <div className="px-8 px-3 md:pb-0">
         <Form onFinish={onSubmit}>
-          <h2 className="text-[var(--color-gray-600)] font-bold text-lg mb-10">
-            {t("header_menu.enter_promo_code")}
-          </h2>
+          
+        <div className={`wrapper my-6 ${buttonStyles.ModalInfo}`}>
+            <div className={buttonStyles.ModalInfoIcon}>
+                <div className="col">
+                    <IconApp code="t27" size={15} color="#8F123A"/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <span className={buttonStyles.ModalInfoText}>
+                        {t("this_code_can_be_used")}
+                    </span>
+                </div>
+            </div>
+        </div>
 
           <Form.Item
             hasFeedback
             preserve
-            className="mb-2"
+            className="mb-7"
             name={"promo-code"}
             help={message}
             validateStatus={validateStatus(isCodeApplied)}
@@ -58,28 +83,48 @@ const PromoCode = memo(() => {
               promoCodeValidator,
             ]}
           >
-            <Input
-              allowDigits
-              type={"text"}
-              suffix={false}
-              value={valInput}
-              disabled={loading}
-              onChange={handlerInput}
-            />
+            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[#B9B9B5]">
+              <Input
+                allowDigits
+                bordered={false}
+                type={"text"}
+                wrapperClassName="w-full"
+                className="text-[10px] text-[#B9B9B5]"
+                placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
+                suffix={false}
+                value={valInput}
+                disabled={loading}
+                onChange={handlerInput}
+              />
+
+              <IconApp onClick={onClick} code="t28" className="mr-2 cursor-pointer" color="#285E69" size={18}/>
+            </div>
+
           </Form.Item>
 
-          <Button
-            htmlType={"submit"}
-            className={"w-full mt-10"}
-            disabled={
-              valInput === "" ||
-              loading ||
-              isCodeApplied ||
-              containsNonLatinCharacters(valInput)
-            }
-          >
-            {t("apply")}
-          </Button>
+          <div className={buttonStyles.ButtonContainer}>
+            <Button
+              htmlType={"submit"}
+              greenTransfer
+              className={buttonStyles.ButtonTwo}
+              disabled={
+                valInput === "" ||
+                loading ||
+                isCodeApplied ||
+                containsNonLatinCharacters(valInput)
+              }
+            >
+              {t("confirm")}
+            </Button>
+            <Button
+              whiteGreenTransfer
+              size={"xl"}
+              className={buttonStyles.ButtonTwo}
+              onClick={handleCancel}
+            >
+              {t("cancel")}
+            </Button>
+          </div>
         </Form>
       </div>
     </>

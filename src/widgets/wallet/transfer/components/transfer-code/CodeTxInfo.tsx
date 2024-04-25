@@ -45,7 +45,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
             {!md ? <div className="row mb-8">
                 <div className="col">
                     <div className={`info-box-note ${!md && "-mx-14"} w-auto`}>
-                        <span>This code can be used only once</span>
+                        <span>{t("this_code_can_be_used")}</span>
                     </div>
                 </div>
             </div> : <div className={`wrapper my-4 ml-4 ${styles.ModalInfo}`}>
@@ -57,7 +57,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                 <div className="row">
                     <div className="col">
                         <span className={styles.ModalInfoText}>
-                            This code can be used only once
+                            {t("this_code_can_be_used")}
                         </span>
                     </div>
                 </div>

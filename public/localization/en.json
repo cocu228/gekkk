@@ -61,6 +61,7 @@
       "promo_code": "Promo-code",
       "partnership": "Partnership program",
       "enter_promo_code": "Enter Promo Code",
+      "activate_promo_code": "Activate promo code",
       "enable_notifications": "Enable notifications",
       "gekkoin_invest_platform": "Gekkoin invest platform"
     },
@@ -1678,6 +1679,7 @@
     "how_can_we_help": "How can we help?",
     "contact_crypto": "Contact crypto support",
     "chat_us": "Chat us",
-    "response_time_up_to": "Response time up to {{hours}} hours"
+    "response_time_up_to": "Response time up to {{hours}} hours",
+    "this_code_can_be_used": "This code can be used only once"
   }
 }

@@ -5,7 +5,7 @@ import Deposit from "@/pages/new-deposit";
 import AppInit from "@/app/providers/AppInit";
 import PageProblems from '@/pages/page-problems/PageProblems';
 import Support from "@/pages/support";
-import SupportChatUnauthorized from "@/pages/support/chat-unauthorized";
+// import SupportChatUnauthorized from "@/pages/support/chat-unauthorized";
 import ProfileSettings from "@/pages/profile-settings";
 // import SupportChatAuthorized from "@/pages/support/chat-authorized";
 
@@ -46,10 +46,10 @@ const router = createBrowserRouter([
             },
         ],
     },
-    {
-        path: 'chat',
-        element: <SupportChatUnauthorized/>
-    },
+    // {
+    //     path: 'chat',
+    //     element: <SupportChatUnauthorized/>
+    // },
     {
         path: "*",
         element: <PageProblems/>

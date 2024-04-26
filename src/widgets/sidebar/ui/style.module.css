@@ -29,8 +29,8 @@
     }
 
     &:hover {
-        font-weight: bold;
-        box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
+        /* font-weight: bold; */
+        box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16);
     }
 
     &:hover .ArrowMobile {
@@ -107,7 +107,7 @@
 .Sum {
     color: var(--gek-additional);
     font-size: 0.85rem;
-    font-weight: bold;
+    /* font-weight: bold; */
 
 }
 
@@ -117,11 +117,14 @@
     }
 
     .ArrowMobile {
-        fill: var(--gek-green);
+        fill: var(--gek-additional);
     }
 
-    .CurName {
+    /* .CurName {
         font-weight: bold;
+    } */
+    .Sum {      
+        font-weight: bold;    
     }
 
     .CurIcon {

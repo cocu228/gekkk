@@ -1,11 +1,11 @@
-import {Skeleton} from "antd";
-import Card from "@/shared/ui/card/Card";
+import Loader from '@/shared/ui/loader';
+import styles from './style.module.css';
 
 const SkeletonCard = () => {
     return (
-        <Card>
-            <Skeleton active/>
-        </Card>
+        <div className={styles.CardSkeleton}>
+            <Loader />
+        </div>
     );
 }
 

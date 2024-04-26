@@ -16,9 +16,6 @@ const HistoryPage = () => {
   const { md } = useContext(BreakpointsContext);
   const { t } = useTranslation();
 
-  const [pullChange, setPullChange] = useState<number>();
-  const refreshCont = useRef<HTMLDivElement>();
-
   const [params] = useSearchParams();
   const tab = params.get("tab");
 
@@ -28,8 +25,6 @@ const HistoryPage = () => {
         {curTab.Title === "last_transactions" ? (
           <div
             className="wrapper"
-            ref={refreshCont}
-            style={{ marginTop: pullChange / 3.118 || "" }}
           >
             {!md && (
               <h2 className=" font-bold p-3 text-xl">

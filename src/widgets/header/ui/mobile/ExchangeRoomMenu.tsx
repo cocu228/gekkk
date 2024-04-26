@@ -48,7 +48,10 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         trigger={
           <div className="flex gap-2 items-center">
             {!active ? (
-              <span className={styles.HeaderTitle}>{t("exchange.rooms")}</span>
+             <>
+               <span className={styles.HeaderTitle}>{t("exchange.rooms")}</span>
+               <IconApp className="rotate-[-270deg]" size={13} code="t08" color="#fff" />
+             </>
             ) : (
               <div className={styles.RoomsMenuItem}>
                 <span className={`${styles.RoomsMenuItemTokens} text-white`}>

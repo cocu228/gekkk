@@ -174,3 +174,54 @@
   width: 75px;
   border-bottom: var(--gek-additional) 1px solid;
 }
+
+/// info modal 
+
+
+.ModalWrap {
+  padding: 0 5%;
+}
+
+.BorderLine {
+  color: #3A5E66;
+  height: 1px;
+  border-width: 0;
+  margin-bottom: 10px;
+  background: #DCDCD9;
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.InfoItemTitle {
+  color: #285E69;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+  color: #29354C;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1rem;
+}
+
+.InfoItemAddress, .InfoItemHash {
+  display: block;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.InfoItemHash {
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.CopyBlock {
+  display: flex;
+  align-items: center;
+}

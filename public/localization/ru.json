@@ -61,6 +61,7 @@
       "support": "Техническая поддержка",
       "partnership": "Партнёрская программа",
       "enter_promo_code": "Введите промокод",
+      "activate_promo_code": "Активировать промокод",
       "gekkoin_invest_platform": "Инвестиционная платформа Gekkoin",
       "enable_notifications": "Включить уведомления"
     },
@@ -432,7 +433,7 @@
     "history": "История",
     "withdraw": "Вывод",
 
-    "to_find_answers_to_common_questions_open_the_faq": "Чтобы найти ответы на часто задаваемые вопросы, откройте раздел Часто задаваемые вопросы (FAQ)",
+    "answers_to_common_questions": "Ответы на часто задаваемые вопросы",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Чтобы получить консультацию от службы поддержки нашего банка, откройте чат",
     "funds_transfer": "Переводы",
     "create_transfer": "Создать перевод",
@@ -1446,8 +1447,15 @@
     "transfer": "Перевод",
     "universal_transfer_description": "переводы пользователям Gekkard по",
     "phone_number_or_IBAN": "номер телефона или IBAN",
-    "crypto_wallet": "Криптокошелек"
+    "crypto_wallet": "Криптокошелек",
+    "write_email_to_support": "Написать письмо в службу поддержки",
+    "how_can_we_help":  "Как мы можем помочь?", 
+    "contact_crypto": "Связаться с поддержкой криптовалют",
+    "chat_us": "Напишите нам",
+    "response_time_up_to": "Время ответа до {{hours}} часов",
+    "this_code_can_be_used": "Этот код можно использовать только один раз"
 
+    
 
 
 

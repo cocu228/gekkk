@@ -55,6 +55,11 @@
   color: #b4c0cd;
   font-size: 10px;
   text-wrap: nowrap;
+
+  @media screen and (min-width: 768px) {
+    font-size: 13px !important;
+    bottom: -12px !important;
+  }
 }
 
 .SelectedBody {

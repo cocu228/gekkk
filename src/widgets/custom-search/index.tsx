@@ -23,6 +23,7 @@ import { formatCardNumber } from '../dashboard/model/helpers';
 import { useIntersectionObserver } from '../history/hooks/useIntersectionObserver';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import { format } from 'date-fns';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 
 
@@ -127,13 +128,6 @@ export default function customSearch() {
         applyHandler();
     }, [refreshKey, activeTab]);
 
-    // useEffect(() => {
-    //     console.log(selectedAsset);
-    //     console.log(asse);
-        
-    // },[selectedAsset])
-
-
     useEffect(() => {
         if (md && isIntersecting && !allTxVisibly && !(listHistory?.length < 10) && (lastValue?.next_key !== "::0") ) {
     
@@ -163,9 +157,6 @@ export default function customSearch() {
       useEffect(() => {
         setLastValue(listHistory[listHistory.length - 1]);
       }, [listHistory]);
-
-
-
     
     if (loading) {
         return(
@@ -179,21 +170,24 @@ export default function customSearch() {
         <>
         <div className={styles.wrapper}>
             <form className={styles.filters}>
-                <h4 className='text-base pt-4'>{t("enter_period")}</h4>
+                <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
                 <div>
-                    <Space direction="vertical" className='flex flex-row gap-1 font-extrabold pt-4'>
+                    <Space direction="vertical" className='flex flex-row gap-1 font-extrabold pt-2'>
                         <DatePicker  
                             onChange={handleStartDateChange}
                             value={date[0]}
+                            suffixIcon={<IconApp code='t39' size={20} color='#29354C' />}
+                            className={styles.Inp}
                         />
                         <div className='mb-0'>_</div>
                         <DatePicker  
                             onChange={handleFinishDateChange}
                             value={date[1]}
+                            suffixIcon={<IconApp code='t39' size={20} color='#29354C' />}
                         />
                     </Space>
                 </div>
-                <div className='flex flex-col text-lg pt-4 gap-2 w-full'>
+                <div className={styles.SelectWrap}>
                     <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
                         <h4 className={styles.selectText}>{t("type")}:</h4>
                         <Select className={styles.select}
@@ -202,6 +196,9 @@ export default function customSearch() {
                                 onSelect={(_, selectedOption) => {
                                     setSelectedTx(selectedOption);
                                 }}
+                                suffixIcon={<div className={styles.SelectIconBlock}>
+                                    <IconApp color='#fff' code='t08' size={12} />
+                                </div>}
                                 options={translatedOptions}
                                 listHeight={500}/>
                     </div>
@@ -212,6 +209,9 @@ export default function customSearch() {
                                 value={selectedAsset}
                                 onSelect={(_,opt) => setSelectedAsset(opt)}
                                 options={allAssets}
+                                suffixIcon={<div className={styles.SelectIconBlock}>
+                                    <IconApp color='#fff' code='t08' size={12} />
+                                </div>}
                                 listHeight={500}/>
                     </div>
                     {selectedAsset.isFiat && <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
@@ -224,8 +224,9 @@ export default function customSearch() {
                                 listHeight={500}/>
                     </div>}
                 </div>
-                <div className='flex pt-4 gap-5'>
-                    <Button 
+                <div className={styles.BottomBtnsWrap}>
+                    <Button
+                        className={styles.BottomBtn}
                         size='sm' 
                         onClick={() => {
                             setApply(true)
@@ -235,10 +236,10 @@ export default function customSearch() {
                     >
                         {t("apply")}
                     </Button>
-                    <Button 
+                    <Button
+                        className={`${styles.BottomBtn} grey`}
                         size='sm' 
                         gray={true} 
-                        className='grey' 
                         onClick={()=>{
                             setApply(false)
                             handleReset()

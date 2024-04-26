@@ -1,8 +1,8 @@
-.CurLink
-{
+.CurLink {
     display: flex;
     justify-content: center;
 }
+
 .CurBox {
     display: flex;
     border-radius: 8px;
@@ -16,8 +16,8 @@
     cursor: pointer;
     width: 100%;
     max-width: 500px;
+    color: var(--gek-dark-blue);
 
-    /* width: 140px; */
     div {
         overflow: hidden;
     }
@@ -34,12 +34,13 @@
     }
 
     &:hover .ArrowMobile {
-        fill: var(--gek-dark-grey);
+        fill: var(--gek-green);
     }
 
     &:hover .ActiveChoice {
         background-color: var(--gek-mid-grey);
     }
+
     &:hover .CurIcon {
         filter: saturate(100%) invert(0%);
     }
@@ -47,7 +48,7 @@
 
 .ArrowMobile {
     margin-right: 8px;
-    fill: var(--gek-light-grey);
+    fill: var(--gek-additional);
 }
 
 .CurBox2 {
@@ -85,7 +86,8 @@
     flex-grow: 1;
     text-align: right;
     font-family: monospace;
-    color: var(--gek-dark-grey);
+    font-size: 0.75rem;
+    color: var(--gek-mid-grey);
 
     &::after {
         content: ' €';
@@ -101,13 +103,12 @@
 }
 
 .CurName {
-    color: var(--gek-additional);
+    color: var(--gek-mid-grey);
 }
 
 .Sum {
-    color: var(--gek-additional);
     font-size: 0.85rem;
-    /* font-weight: bold; */
+    font-weight: bold;
 
 }
 
@@ -117,14 +118,17 @@
     }
 
     .ArrowMobile {
-        fill: var(--gek-additional);
+        fill: var(--gek-dark-blue);
     }
 
-    /* .CurName {
-        font-weight: bold;
-    } */
-    .Sum {      
-        font-weight: bold;    
+    .CurName {
+        /* font-weight: bold; */
+        color: var(--gek-additional);
+    }
+
+    .Sum {
+        /* font-weight: bold;   */
+        color: var(--gek-dark-blue);
     }
 
     .CurIcon {

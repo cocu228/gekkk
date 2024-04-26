@@ -55,7 +55,7 @@ const WalletHeaderMobile = () => {
                 <div className={styles.WalletInfoHeader}>
                     <div className={styles.WalletInfoHeaderIconAndName}>
                         <div className="grid auto-cols-max">
-                            <IconCoin width={49} code={currency} />
+                            <IconCoin width={49} code={currency} />                            
                         </div>
                         <div className={styles.WalletNameContainer}>
                             <span className={styles.WalletName}>

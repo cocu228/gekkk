@@ -4,13 +4,13 @@ import { toLocaleFiatRounding } from '@/shared/lib/number-format-helper';
 import BankCardsCarousel from '@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel';
 import NewBankCard from '@/widgets/dashboard/ui/cards/bank-card/NewBankCard';
 import SkeletonCard from '@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard';
-import { Carousel } from 'antd';
 import { t } from 'i18next';
 import { helperFilterList } from '../model/helpers';
 import TokenBar from './TokenBar';
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Carousel from '@/shared/ui/carousel';
 
 type Props = {
     NavLinkEvent: () => void,
@@ -48,9 +48,10 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                                 </div>
                             </Carousel>
                         ) : (
-                            <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}>
-                                <BankCardsCarousel cards={activeCards} />
-                            </div>
+                            <BankCardsCarousel
+                                cards={activeCards}
+                                onItemClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}
+                            />
                         )}
             </div>
             <span className={styles.CurTypeTxt}>{t("fiat")}</span>

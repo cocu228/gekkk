@@ -1,4 +1,3 @@
-import Footer from "@/widgets/footer";
 import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
@@ -7,27 +6,17 @@ import { CtxRootData } from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import { NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import UpdateAmounts from "../../../../features/update-amounts";
-import { helperFilterList } from "@/widgets/sidebar/model/helpers";
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
-//import { CtxOfflineMode } from "@/processes/errors-provider-context";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useTranslation } from 'react-i18next';
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
-import BankCardsCarousel from "@/shared/ui/bank-cards-carousel/ui/BankCardsCarousel";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
-import NewBankCard from "@/widgets/dashboard/ui/cards/bank-card/NewBankCard";
-import { Carousel } from "antd";
-import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
-import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import TokenBar from "../TokenBar";
 import BalanceBar from "../BalanceBar";
 
 const SidebarDesktop = () => {
@@ -37,10 +26,9 @@ const SidebarDesktop = () => {
     const roomCloseModal = useModal();
     const [params] = useSearchParams();
     const roomId = params.get('roomId');
-    const currency = params.get('currency');
     const { account } = useContext(CtxRootData);
+    const { currencies } = useContext(CtxCurrencies);
     const { sm, md, xxxl } = useContext(BreakpointsContext);
-    const { currencies, totalAmount } = useContext(CtxCurrencies);
     const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle))
 
@@ -49,7 +37,7 @@ const SidebarDesktop = () => {
         roomsList: privateRooms,
         removeRoom: removeExchangeRoom
     } = storeListExchangeRooms(state => state);
-    const { activeCards, loading: cardsLoading, getActiveCards } = storeActiveCards(state => state);
+    const { getActiveCards } = storeActiveCards(state => state);
 
     const NavLinkEvent = useCallback(() => {
         scrollToTop();

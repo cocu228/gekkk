@@ -3,7 +3,7 @@ import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import styles from "./style.module.scss";
-import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import { useTranslation } from "react-i18next";
@@ -36,8 +36,6 @@ import Warning from "@/assets/warning.svg?react";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
-import { Typography } from "@/shared/ui/typography/typography";
-import { Outlet } from "react-router-dom";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -288,16 +286,14 @@ const CardsMenu = ({
     return (
       <div className="flex flex-col items-center gap-2">
         <div className={styles.CarouselBlock}>
-          <div className={styles.CarouselBlockMobile}>
-            <BankCardsCarousel
-              cards={cardsStorage.cards}
-              refreshKey={cardsStorage.refreshKey}
-              onSelect={(card) => {
-                setCard(card);
-                setSwitchChecked(card?.options?.limits?.disable);
-              }}
-            />
-          </div>
+          <BankCardsCarousel
+            cards={cardsStorage.cards}
+            refreshKey={cardsStorage.refreshKey}
+            onSelect={(card) => {
+              setCard(card);
+              setSwitchChecked(card?.options?.limits?.disable);
+            }}
+          />
         </div>
         {!card ? (
           <Loader className={"relative my-20"} />
@@ -612,16 +608,14 @@ const CardsMenu = ({
       </div>
 
       <div className={styles.CarouselBlock}>
-        <div className={styles.CarouselBlockContainer}>
-          <BankCardsCarousel
-            cards={cardsStorage.cards}
-            refreshKey={cardsStorage.refreshKey}
-            onSelect={(card) => {
-              setCard(card);
-              setSwitchChecked(card?.options?.limits?.disable);
-            }}
-          />
-        </div>
+        <BankCardsCarousel
+          cards={cardsStorage.cards}
+          refreshKey={cardsStorage.refreshKey}
+          onSelect={(card) => {
+            setCard(card);
+            setSwitchChecked(card?.options?.limits?.disable);
+          }}
+        />
       </div>
 
       {!card ? (

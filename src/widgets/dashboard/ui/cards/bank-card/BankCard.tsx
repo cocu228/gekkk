@@ -3,24 +3,22 @@ import styles from './style.module.css';
 import { CardStatusDescriptions } from "@/shared/store/active-cards/activeCards";
 
 interface CardData {
+    status?: string;
     expiresAt: string;
     cardNumber: string;
     holderName: string;
-    status?: string;
-    size?: 'md' | 'lg';
 }
 
 const BankCard = ({
-    cardNumber,
     status,
     expiresAt,
-    holderName,
-    size = 'md',
+    cardNumber,
+    holderName
 }: CardData) => {
     const { t } = useTranslation();
 
     return (
-        <div className={`${styles.BankCard} ${size !== 'lg' ? '' : styles.Lg}`}>
+        <div className={styles.BankCard}>
             <div className={styles.CardStatus}>
                 {status && status !== 'ACTIVE' && t(CardStatusDescriptions[status])}
             </div>
@@ -29,7 +27,8 @@ const BankCard = ({
                 {expiresAt}<br/>
                 {holderName}
             </div>
-        </div>)
+        </div>
+    );
 }
 
 export default BankCard;

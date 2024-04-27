@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { FrameItem } from "../../FrameItem";
-import Arrow from '@/assets/arrow.svg?react';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from '../styles.module.scss'
+import { IconApp } from "../../icons/icon-app";
 
 interface Props {
     onClick?: () => void;
@@ -26,7 +26,7 @@ export function SettingsButton(props: Props ) {
             className={`${styles.itemTitle} ${props.isSelected && styles.itemTitleSelected}`}
           >{props.text}</h4>
         </div>
-        {md && <Arrow />}
+        {md && <IconApp size={12} code="t08" color="#B9B9B5" />}
       </FrameItem>
     );
 }

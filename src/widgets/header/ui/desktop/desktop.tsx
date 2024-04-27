@@ -9,8 +9,6 @@ import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
 import {getInitialProps, useTranslation} from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import IconStatus from "@/shared/ui/icons/IconStatus";
-import IconDropdownArrow from "@/shared/ui/icons/IconDropdownArrow";
 
 const HeaderDesktop = ({items, actions}) => {
 

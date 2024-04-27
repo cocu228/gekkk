@@ -219,6 +219,9 @@ export default function customSearch() {
                         <Select className={styles.select}
                                 placeholder={t("select_card")} 
                                 value={selectedCard}
+                                suffixIcon={<div className={styles.SelectIconBlock}>
+                                    <IconApp color='#fff' code='t08' size={12} />
+                                </div>}
                                 onSelect={(_, opt) => setSelectedCard(opt.value)}
                                 options={cardsOptions}
                                 listHeight={500}/>

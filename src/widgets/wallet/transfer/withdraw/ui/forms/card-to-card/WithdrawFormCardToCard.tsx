@@ -33,6 +33,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const { Option } = Select;
 
@@ -360,9 +361,7 @@ const WithdrawFormCardToCard = () => {
               </div>
             </div>
             <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
-                </svg>
+              <IconApp code="t08" color="#fff" size={12} className="rotate-[90deg]" />
             </div>
           </div>
         </div>

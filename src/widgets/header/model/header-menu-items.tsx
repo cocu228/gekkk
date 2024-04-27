@@ -3,7 +3,6 @@ import {TFunction} from "i18next";
 import {EnableNotifications, GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
-import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 
 import { IconApp } from "@/shared/ui/icons/icon-app";
 

@@ -1,15 +1,12 @@
 import CreateIntelligentAnalysisTask from '@/assets/create-intelligent-analysis-task.svg?react'
-import Wallet from '@/assets/wallet.svg?react'
 import Balances from '@/assets/balances.svg?react'
 import Account from '@/assets/account.svg?react'
 import Security from '@/assets/security.svg?react'
-import CreditCard from '@/assets/credit-card.svg?react'
 import PosMachine from '@/assets/pos-machine.svg?react'
 import Atm from '@/assets/atm.svg?react'
-import History from '@/assets/history.svg?react'
-import Euro from '@/assets/euro.svg?react'
 import Other from '@/assets/other.svg?react'
 import { FAQTemplate } from './components/FAQTemplate'
+import { IconApp } from '@/shared/ui/icons/icon-app'
 
 
 
@@ -18,7 +15,7 @@ export const faqAreasMap = (t = (str) => null) => {
 
   return {
     'account': {
-      icon: <Wallet />,
+      icon: <IconApp size={35} code="t07" color="currentColor" />,
       title: "support.faq.account.title",
       area: (
         <FAQTemplate
@@ -606,7 +603,7 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'card': {
-      icon: <CreditCard />,
+      icon: <IconApp size={35} code="t22" color="currentColor" />,
       title: "support.faq.card.title",
       area: (
         <FAQTemplate
@@ -1129,7 +1126,7 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'money-transfers': {
-      icon: <History />,
+      icon: <IconApp size={36} code="t51" color="currentColor" />,
       title: "support.faq.money_transfers.title",
       area: (
         <FAQTemplate
@@ -1150,7 +1147,7 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'fees': {
-      icon: <Euro />,
+      icon: <IconApp size={25} code="t61" color="currentColor" />,
       title: "support.faq.fees.title",
       area: (
         <FAQTemplate

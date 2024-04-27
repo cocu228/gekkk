@@ -1,15 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
 import styles from './styles.module.scss'
-import Info from "@/assets/info.svg?react";
-import World from "@/assets/world.svg?react";
-import Guard from "@/assets/guard.svg?react";
-import Chain from "@/assets/chain.svg?react";
-import Docs from "@/assets/docs.svg?react";
-import Keys from "@/assets/keys.svg?react";
-import EuroIcon from "@/assets/euro.svg?react";
-import DocumentsDocumentsIcon from "@/assets/documents-documents.svg?react";
-import ReportIcon from "@/assets/report.svg?react";
-import AccountIcon from "@/assets/account.svg?react";
 import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
 
 // import { PersonalInformation } from './components/PersonalInformation'

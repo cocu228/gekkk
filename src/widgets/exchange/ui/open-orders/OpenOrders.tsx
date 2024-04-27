@@ -25,6 +25,7 @@ import {
 } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const { RangePicker } = DatePicker;
 
@@ -297,13 +298,7 @@ function OpenOrders({ refreshKey }: IParams) {
                   className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
                   {t("exchange.see_more")}{" "}
-                  <img
-                    className="ml-2"
-                    width={10}
-                    height={8}
-                    src="/img/icon/ArrowPlainDown.svg"
-                    alt="ArrowPlainDown"
-                  />
+                  <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
                 </span>
               )}
             </div>

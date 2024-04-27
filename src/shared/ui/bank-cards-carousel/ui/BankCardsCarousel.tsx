@@ -33,8 +33,7 @@ const BankCardsCarousel = ({
     }, [cards, refreshKey]);
 
     return (
-        <Carousel
-            className="pb-6"
+        <Carousel            
             onSelect={(i: number) => onSelect(cards[i])}
             ref={(ref) => {
                 if (!carouselRef.current) {

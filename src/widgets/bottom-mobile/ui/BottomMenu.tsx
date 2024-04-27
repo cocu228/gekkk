@@ -4,7 +4,6 @@ import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 import FundsButton from "@/shared/ui/ButtonsMobile/Funds";
 import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";

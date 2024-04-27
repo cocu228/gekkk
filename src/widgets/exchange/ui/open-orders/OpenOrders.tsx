@@ -147,24 +147,25 @@ function OpenOrders({ refreshKey }: IParams) {
       ) : (
         <div className="flex gap-x-4 w-full justify-center">
           <span
-            className={`text-[12px] font-semibold text-${
-              activeTab === "Opened" ? "[#B9B9B5]" : "[#29354C]s"
+            className={`text-[12px] content-around font-semibold text-${
+              activeTab === "Opened" ? "[#29354C]" : "[#B9B9B5]"
             }`}
           >
-            {t("exchange.closed_orders")}
+            {t("exchange.active_orders")}
           </span>
           <Switch
+            className="rotate-180"
             defaultChecked={activeTab === ordersTabs[0].Key}
             onChange={(isCheked) =>
               setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
             }
           />
           <span
-            className={`text-[12px] font-semibold text-${
-              activeTab === "Opened" ? "[#29354C]" : "[#B9B9B5]"
+            className={`text-[12px] content-around font-semibold text-${
+              activeTab === "Opened" ? "[#B9B9B5]" : "[#29354C]s"
             }`}
           >
-            {t("exchange.active_orders")}
+            {t("exchange.closed_orders")}
           </span>
         </div>
       )}

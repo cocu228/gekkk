@@ -179,7 +179,7 @@ const Item = ({onClick, message, id, type = "GEKKARD"}: IServiceErrorProvider) =
         onClick={() => onClick(id)}
         message={message}
         icon={<div className="flex justify-center w-full">
-            <IconApp color="#F8A73E" code="" size={25} className="mt-[2px]" />
+            <IconApp color="var(--gek-orange)" code="t62" size={25} className="mt-[2px]" />
         </div>}
         className={type !== "GEKKARD" ? "!bg-red-400 !text-red-400" : ""}
     />

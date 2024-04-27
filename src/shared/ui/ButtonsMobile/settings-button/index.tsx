@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { FrameItem } from "../../FrameItem";
 import Arrow from '@/assets/arrow.svg?react';
-import { Typography } from "../../typography/typography";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import s from '../styles.module.scss'
 

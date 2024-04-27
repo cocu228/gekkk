@@ -11,6 +11,7 @@ import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Carousel from '@/shared/ui/carousel';
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 type Props = {
     NavLinkEvent: () => void,
@@ -19,8 +20,9 @@ type Props = {
 const BalanceBar = ({ NavLinkEvent }: Props) => {
 
     const navigate = useNavigate();
+    const {md} = useBreakpoints();
     const { currencies, totalAmount } = useContext(CtxCurrencies);
-    const { activeCards, loading: cardsLoading, getActiveCards } = storeActiveCards(state => state);
+    const { activeCards, loading: cardsLoading } = storeActiveCards(state => state);
     const [params] = useSearchParams();
     const currency = params.get('currency');
 
@@ -50,7 +52,10 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                         ) : (
                             <BankCardsCarousel
                                 cards={activeCards}
-                                onItemClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}
+                                onItemClick={() => navigate(md
+                                    ? 'card-menu'
+                                    : '/wallet?currency=EUR&tab=bank_cards'
+                                )}
                             />
                         )}
             </div>

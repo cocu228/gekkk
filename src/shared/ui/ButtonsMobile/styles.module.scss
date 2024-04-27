@@ -4,8 +4,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    color: #29354C;
-    stroke: #29354C;
+    color: var(--gek-dark-blue);
+    stroke: var(--gek-dark-blue);
     font-size: 12px;
     font-weight: 800;
     text-wrap: nowrap;
@@ -28,7 +28,7 @@
     font-size: 14px;
     font-family: Inter;
     font-weight: 500;
-    color: #1F3446;
+    color: var(--gek-dark-blue);
 
     &Selected {
         color: #fff;

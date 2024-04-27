@@ -29,7 +29,7 @@ export function getDepositTitle(depType: number) {
         return 'Fixed rate (0,8% per month)';
 
     const { name, percentageTypes } = StructedDepositStrategies.find(s =>
-        Math.trunc(styles.id / 10) === Math.trunc(depType / 10)
+        Math.trunc(s.id / 10) === Math.trunc(depType / 10)
     );
 
     const { risePercentage, dropPercentage } = percentageTypes[depType % 10];

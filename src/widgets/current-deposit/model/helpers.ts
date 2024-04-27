@@ -21,7 +21,7 @@ export interface IDepositStrategyData {
 }
 
 export function getDepositStrategyData(depType: number): IDepositStrategyData{
-    const strategy = StructedDepositStrategies.find(s => Math.trunc(styles.id / 10) === Math.trunc(depType / 10));
+    const strategy = StructedDepositStrategies.find(s => Math.trunc(s.id / 10) === Math.trunc(depType / 10));
 
     return {
         strategy: strategy,

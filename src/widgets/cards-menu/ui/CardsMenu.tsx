@@ -30,12 +30,10 @@ import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import Arrow from "@/assets/arrow.svg?react";
-import Lock from "@/assets/lock.svg?react";
-import Warning from "@/assets/warning.svg?react";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -314,7 +312,7 @@ const CardsMenu = ({
                 onClick={onClick}
                 dataItem="orderPlastic"
                 leftPrimary={t("order_plastic_card")}
-                rightPrimary={<Arrow />}
+                rightPrimary={<IconApp size={12} code="t08" color="#B9B9B5" />}
               />
             )}
 
@@ -376,7 +374,7 @@ const CardsMenu = ({
                 varitant="alarm"
                 className="w-[135px] flex flex-row gap-1 items-center justify-center"
               >
-                <Lock />{" "}
+                <IconApp size={9} code="t37" color="#fff" />{" "}
                 <div>
                   {card.cardStatus === "ACTIVE"
                     ? t("block_card")
@@ -405,7 +403,7 @@ const CardsMenu = ({
                     <div>
                       <div className={`row mb-5`}>
                         <div className="col flex flex-col items-center gap-3">
-                          <Warning />
+                          <IconApp size={108} code="t56" color="#8F123A" />
                           <h1 className={styles.blocker}>Block card</h1>
                           <p className={styles.ghost}>
                             Are you sure you want to

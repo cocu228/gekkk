@@ -34,7 +34,6 @@ import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import Warning from "@/assets/warning.svg?react";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
@@ -527,7 +526,7 @@ const MobileCardsMenu = ({
                   <div>
                     <div className={`row mb-5`}>
                       <div className={styles.WarningWrap}>
-                        <Warning />
+                        <IconApp size={108} code="t56" color="#8F123A" />
                         <h1 className={styles.blocker}>Block card</h1>
                         <p className={styles.ghost}>
                           Are you sure you want to

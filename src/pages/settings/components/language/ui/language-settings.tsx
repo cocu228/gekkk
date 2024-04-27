@@ -1,8 +1,4 @@
 import { useTranslation } from "react-i18next";
-import GB from '@/assets/GB.svg?react';
-import RU from '@/assets/RU.svg?react';
-import DE from '@/assets/DE.svg?react';
-import { Typography } from "@/shared/ui/typography/typography";
 import styles from '../styles.module.scss'
 import { IconFlag } from "@/shared/ui/icons/icon-flag";
 

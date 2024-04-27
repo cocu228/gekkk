@@ -52,10 +52,7 @@ const CashbackCard = memo<Props>(({ cashbackId, name, accrualPeriod, className, 
           {isActive 
             ? (
               <div className="flex items-center">
-                <img
-                  className="w-7 h-7 mr-2"
-                  src='/img/cashback/active-cashback.svg'
-                />
+                <IconApp code="t57" color="#77A45C" size={28} className="mr-2" />   
                 <span>{t("cashback_programs.already_use")}</span>
               </div>
             ) 

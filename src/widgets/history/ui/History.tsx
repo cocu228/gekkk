@@ -24,6 +24,7 @@ import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const { RangePicker } = DatePicker;
 
@@ -266,13 +267,7 @@ const History = memo(function ({
                     className="text-gray-400 cursor-pointer inline-flex items-center"
                   >
                     {t("see_more")}
-                    <img
-                      className="ml-2"
-                      width={10}
-                      height={8}
-                      src="/img/icon/ArrowPlainDown.svg"
-                      alt="ArrowPlainDown"
-                    />
+                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-r" color="#B4C0CD" />
                   </span>
                 )}
               </div>
@@ -343,13 +338,7 @@ const History = memo(function ({
                     className="text-gray-400 cursor-pointer inline-flex items-center"
                   >
                     {t("see_more")}
-                    <img
-                      className="ml-2"
-                      width={10}
-                      height={8}
-                      src="/img/icon/ArrowPlainDown.svg"
-                      alt="ArrowPlainDown"
-                    />
+                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
                   </span>
                 )}
               </div>

@@ -61,16 +61,6 @@ const SidebarDesktop = () => {
                     <div className={styles.AssetInfo4}>
                         {t("new_asset")}
                     </div>
-                    {/* <div className={`${styles.Item}`}>
-                                <div className="col flex items-center pl-4">
-                                    <img width={50} height={50} className={styles.Icon} src={`/img/icon/Invest.svg`}
-                                        alt="Invest" />
-                                </div>
-                                <div className="col flex items-center justify-center flex-col pl-5">
-                                    <div className="row w-full mb-1 font-medium"><span
-                                        className={styles.NavName}>{t("crypto_assets.title")}</span></div>
-                                </div>
-                            </div> */}
                 </NavLink>
             </div>
 
@@ -84,8 +74,6 @@ const SidebarDesktop = () => {
                         className={styles.NavName}>{t("exchange.title")}</span>
                     </div>
                     <div className="absolute right-4 self-center">
-                        {/* <img width={50} height={50} className={styles.Icon} src={`/img/icon/ExchangeIcon.svg`}
-                                            alt="ExchangeIcon" /> */}
                         <IconApp code="t68" className={styles.Icon} color="#285E69" size={34} />
                     </div>
                 </div>
@@ -101,13 +89,9 @@ const SidebarDesktop = () => {
                             <div className={styles.Item}>
                                 <div className="col flex items-center pl-4 w-[85px]">
                                     <IconApp color="#DEE2E7" code="t66" size={14} className={styles.SvgArrow} />
-                                    <img
-                                        width={50}
-                                        height={50}
-                                        className={styles.Icon}
-                                        src={`/img/icon/PrivateExchangeShield.svg`}
-                                        alt="ExchangeIcon"
-                                    />
+                                    <div className="w-[50px] h-[50px] bg-[rgb(0,174,239)] rounded-[50%] flex items-center justify-center">
+                                        <IconApp size={30} code="t33" color="#fff" />
+                                    </div>
                                 </div>
                                 <div className="col flex items-center justify-center flex-col pl-6">
                                     <div className="flex w-full row mb-1 justify-between">
@@ -168,47 +152,6 @@ const SidebarDesktop = () => {
                     ))}
                 </NavCollapse>
             }
-
-            {/*<NavLink onClick={NavLinkEvent} to={"new-deposit"}>*/}
-            {/*    <div className={`${styles.Item}`}>*/}
-            {/*        <div className="col flex items-center pl-4">*/}
-            {/*            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}*/}
-            {/*                 alt="NewDepositIcon"/>*/}
-            {/*        </div>*/}
-            {/*        <div className="col flex items-center justify-center flex-col pl-6">*/}
-            {/*            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</NavLink>*/}
-            {/*{!(investments && investments.length) ? null : <NavCollapse header={"Current deposit"} id={"deposit"}>*/}
-            {/*    {investments.map((item, i) =>*/}
-            {/*        <NavLink onClick={NavLinkEvent} to={`/deposit/${item.id}`} key={item.id}>*/}
-            {/*            <div className={`${styles.Item + " " + ParentClassForCoin}`}>*/}
-            {/*                <div className="col flex items-center pl-4 w-[85px]">*/}
-            {/*                    <SvgArrow width={14} height={14} className={styles.SvgArrow}/>*/}
-            {/*                    <img alt={"DepositIcon.svg"} className={styles.Icon}*/}
-            {/*                         src={"/img/icon/DepositIcon.svg"}/>*/}
-            {/*                </div>*/}
-            {/*                <div className="col w-[calc(100%-85px)] flex items-center justify-center flex-col pl-6 pr-2">*/}
-            {/*                    <div className="row w-full mb-1"><span*/}
-            {/*                        className={`${styles.Name} text-gray-400 text-xs`}>*/}
-            {/*                            {item.dep_type === 1 ? 'Fixed rate' : 'Structured'} deposit, until {formatDate(new Date(item.date_end))}*/}
-            {/*                        </span>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="row w-full"><span*/}
-            {/*                        className={styles.Sum}>{item.amount} €</span>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="row w-full ellipsis ellipsis-c-none">*/}
-            {/*                        <span className="text-gray-400 text-xs">{getDepositTitle(item.dep_type)}</span>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </NavLink>)}*/}
-            {/*</NavCollapse>}*/}
-
-
-
 
             <Modal
                 width={450}

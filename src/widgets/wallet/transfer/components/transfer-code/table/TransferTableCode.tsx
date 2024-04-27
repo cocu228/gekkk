@@ -18,7 +18,6 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
@@ -77,7 +76,6 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 <CodeModalInfo code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
-                                {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
                                 <CopyIcon value={it.code}/>
                             </div>
                         </div>
@@ -140,9 +138,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 <CodeModalInfo inputCurr={it.amount} code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
-                                {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
                                 <CopyIcon value={it.code}/>
-                                {/* <CopyIconGreen value={it.code}/> TODO: Не корректный экспорт с макета */}
                             </div>
                         </div>
                         <div className="row">

@@ -1,7 +1,7 @@
 import copy from 'copy-to-clipboard'
-import CopyIcon from '@/assets/copy.svg?react'
 import { useEffect, useRef, useState } from 'react'
 import styles from './styles.module.scss'
+import { IconApp } from '../icons/icon-app'
 
 export type CopyToClipboardProps = {
   value: string
@@ -24,13 +24,11 @@ export function CopyToClipboard({ value }: CopyToClipboardProps) {
       <div className={`${styles.tooltip} ${isOpen && styles.tooltipActive}`}>
         Copied
       </div>
-      <CopyIcon
-        className='cursor-pointer'
+      <IconApp className='cursor-pointer'
         onClick={() => {
           copy(value)
           setIsOpen(true)
-        }}
-      />
+        }} size={15} code="t31" color="currentColor" />
     </div>
   )
 }

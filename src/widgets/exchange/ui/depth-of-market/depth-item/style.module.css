@@ -13,7 +13,7 @@
     color: var(--color-green);
   }
 
-  &Percent {
+  .ItemPercent {
     position: absolute;
     right: 0;
     top: 0;
@@ -21,16 +21,24 @@
     transition: .5s;
   }
 
-  &.red &Percent {
+  &.red .ItemPercent {
     background: rgba(var(--red) / 0.1);
   }
 
-  &.green &Percent {
+  &.green .ItemPercent {
     background: rgba(var(--green) / 0.1);
   }
 
-  &Text {
-    position: relative;
-    z-index: 1;
+  .ItemText {
+    /* position: relative;
+    z-index: 1; */
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+
+    @media(max-width: 768px)
+    {
+      font-size: 0.75rem;
+    }
   }
 }

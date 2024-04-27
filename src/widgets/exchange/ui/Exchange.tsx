@@ -224,15 +224,12 @@ function Exchange() {
 
       <SplitGrid
         leftColumn={
-          <div className="py-5 px-10 lg:px-5 md:px-4">
-            <div className={`gap-x-14 xl:gap-x-2 ${styles.Grid}`}>
+          <div>
+            <div className={`gap-x-14 xl:gap-x-2 py-5 px-10 lg:px-5 md:px-4 bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col">
-                <div className="font-medium flex flex-col gap-[5px] -sm:flex-row -sm:items-center items-start justify-between w-full text-md lg:text-sm md:text-xs mb-2 select-none">
+                <div className="font-medium flex gap-[5px] items-center justify-between w-full md:text-xs mb-1 select-none">
                   {t("exchange.you_pay")}
-                  <PercentSelector
-                    onSelect={onFromValueChange}
-                    currency={currencies.get(from.currency)}
-                  />
+                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isBalance={true}
@@ -248,9 +245,8 @@ function Exchange() {
                 <div className={`flex justify-center ${styles.FieldsSpacer}`}>
                   <div
                     onClick={onCurrenciesSwap}
-                    className={`${styles.SwapButton} ${
-                      !(from.currency && to.currency) ? styles.Disabled : ""
-                    }`}
+                    className={`${styles.SwapButton} ${!(from.currency && to.currency) ? styles.Disabled : ""
+                      }`}
                   >
                     <IconApp code='t36' size={27} color="#B9B9B5" />
                   </div>
@@ -310,14 +306,12 @@ function Exchange() {
                 )}
               </div>
 
-              <div className="wrapper">
-                <DepthOfMarket
-                  currencyFrom={from.currency}
-                  currencyTo={to.currency}
-                  roomKey={roomInfo?.timetick.toString() ?? null}
-                  isSwapped={price.isSwapped}
-                />
-              </div>
+              <DepthOfMarket
+                currencyFrom={from.currency}
+                currencyTo={to.currency}
+                roomKey={roomInfo?.timetick.toString() ?? null}
+                isSwapped={price.isSwapped}
+              />
 
               <div className={`mt-7 ${styles.GridFooter}`}>
                 <Button
@@ -461,9 +455,8 @@ function Exchange() {
 
       <Modal
         width={450}
-        title={`${
-          roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-        } ${t("exchange.private_exchange_room")}`}
+        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+          } ${t("exchange.private_exchange_room")}`}
         open={cancelRoomModal.isModalOpen}
         padding
         onCancel={cancelRoomModal.handleCancel}
@@ -488,9 +481,8 @@ function Exchange() {
         <div className="mt-4">{localErrorInfoBox}</div>
 
         <div className="mt-8 sm:mt-4">
-          <Button size="xl" className="w-full" onClick={closeRoom}>{`${
-            roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-          } ${t("exchange.private_exchange_room")}`}</Button>
+          <Button size="xl" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+            } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
       </Modal>
     </div>

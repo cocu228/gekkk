@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 interface ShowBarItemProps {
   isSelected: boolean
@@ -8,7 +8,7 @@ interface ShowBarItemProps {
 
 export const ShowBarItem:FC<ShowBarItemProps> = ({isSelected, children}) => {
   return (
-    <button className={`${s.btn} ${isSelected && s.btnSelected}`}>
+    <button className={`${styles.btn} ${isSelected && styles.btnSelected}`}>
       {children}
     </button>
   )

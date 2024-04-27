@@ -7,7 +7,7 @@ import { deliveryCountriesList } from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import { CloseWindowButton } from "@/shared/ui/CloseWindowButton";
 import { Switch } from "antd";
-import s from '../style.module.scss'
+import styles from '../style.module.scss'
 export const latinPattern = /^[a-zA-Z\s]*$/;
 
 export function IssueNewCard() {
@@ -22,19 +22,19 @@ export function IssueNewCard() {
 
   return (
     <div>
-      <div className={s.issueCardTitleBlock} >
-        <h3 className={s.issueCardTitle}>
+      <div className={styles.issueCardTitleBlock} >
+        <h3 className={styles.issueCardTitle}>
           {t("issue_new_card")}
         </h3>
         <CloseWindowButton onClick={close} />
       </div>
-      <div className={s.issueCardBody} >
-        <div className={`${s.issueRowItem} ${s.issueRowItemBorderBottom}`}>
-          <div className={s.rowItemBody}>
-            <span className={s.rowItemTitle}>
+      <div className={styles.issueCardBody} >
+        <div className={`${styles.issueRowItem} ${styles.issueRowItemBorderBottom}`}>
+          <div className={styles.rowItemBody}>
+            <span className={styles.rowItemTitle}>
               {t("delivery_address")}
             </span>
-            <span className={s.rowItemSubtitle}>
+            <span className={styles.rowItemSubtitle}>
               {t("same_as_the_residence_address")}
             </span>
           </div>
@@ -43,8 +43,8 @@ export function IssueNewCard() {
             onChange={switchResidenceAddress}
           />
         </div>
-        <div className={`${s.issueRowItem} ${s.issueRowItemBorderBottom}`}>
-          <span className={s.rowItemTitle}>
+        <div className={`${styles.issueRowItem} ${styles.issueRowItemBorderBottom}`}>
+          <span className={styles.rowItemTitle}>
             {t("country")}
           </span>
           <div className="w-[250px]">
@@ -66,8 +66,8 @@ export function IssueNewCard() {
             />  
           </div>
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>City</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>City</span>
           <input
             value={state.city}
             onChange={({ target }) => {
@@ -82,12 +82,12 @@ export function IssueNewCard() {
                 });
               }
             }}
-            className={s.input}
+            className={styles.input}
             placeholder={t("enter_city_name")}
           />
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>{t("post_code")}</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>{t("post_code")}</span>
           <input
             value={state.postalCode}
             placeholder={t("enter_post_code")}
@@ -97,11 +97,11 @@ export function IssueNewCard() {
                 postalCode: target.value,
               })
             }
-            className={s.input}
+            className={styles.input}
           />
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>{t("street")}</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>{t("street")}</span>
           <input
           value={state.street}
           placeholder={t("enter_street_name")}
@@ -116,11 +116,11 @@ export function IssueNewCard() {
               });
             }
           }}
-            className={s.input}
+            className={styles.input}
           />
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>{t("house")}</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>{t("house")}</span>
           <input
             value={state.houseNumber}
             placeholder={t("enter_house_name_or_number_if_available")}
@@ -135,11 +135,11 @@ export function IssueNewCard() {
                 });
               }
             }}
-            className={s.input}
+            className={styles.input}
           />
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>{t("flat")}</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>{t("flat")}</span>
           <input
             value={state.apartmentNumber}
             placeholder={t("enter_flat_name_or_number_if_available")}
@@ -154,11 +154,11 @@ export function IssueNewCard() {
                 });
               }
             }}
-            className={s.input}
+            className={styles.input}
           />
         </div>
-        <div className={s.input_block}>
-          <span className={s.input_title}>{t("recipient")}</span>
+        <div className={styles.input_block}>
+          <span className={styles.input_title}>{t("recipient")}</span>
           <input
             placeholder={t("enter_recipient_name_if_necessary")}
             value={state.recipientName}
@@ -174,11 +174,11 @@ export function IssueNewCard() {
                 });
               }
             }}
-            className={s.input}
+            className={styles.input}
           />
         </div>
       </div>
-      <div className={s.issueFooter} >
+      <div className={styles.issueFooter} >
         <Button
           className="w-full"
           disabled={!isValid}

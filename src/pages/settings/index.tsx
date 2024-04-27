@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 import Info from "@/assets/info.svg?react";
 import World from "@/assets/world.svg?react";
 import Guard from "@/assets/guard.svg?react";
@@ -87,31 +87,31 @@ export function Settings() {
     >
       {!md && ( 
         <h1 
-          className={s.title}
+          className={styles.title}
         >
           {t("my_settings")}
         </h1>
       )}
       <div
         className={`
-          ${s.itemsWrap} ${xxl! && s.itemsWrapPadding} ${xxl && selectedArea && s.itemsWrapOverflow}
+          ${styles.itemsWrap} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
         `}
         style={{flexDirection: selectedArea ? 'row' : 'column'}}
       >
         {(!xl || !area) && (
           <div 
-          className={`${s.boxWrap} ${selectedArea && s.boxWrapMin}`}
+          className={`${styles.boxWrap} ${selectedArea && styles.boxWrapMin}`}
           >
             <div 
-              className={s.box}
+              className={styles.box}
             >
               <h2 
-                className={`${s.itemTitle} ${s.mobTitle} ${!md && s.itemTitleColor} ${md && s.itemTitleWeight}`}
+                className={`${styles.itemTitle} ${styles.mobTitle} ${!md && styles.itemTitleColor} ${md && styles.itemTitleWeight}`}
               >
                 {t("general_information")}
               </h2>
               <div 
-                className={`${s.itemsList} ${md && s.itemsListGap}`}
+                className={`${styles.itemsList} ${md && styles.itemsListGap}`}
               >
                 <SettingsButton
                   icon={<IconApp code="t55" size={23} color="#285E69" />}
@@ -139,14 +139,14 @@ export function Settings() {
                 />
               </div>
             </div>
-            <div className={s.box} >
+            <div className={styles.box} >
               <h2 
-                  className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+                  className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
               >
                 {md ? t("access_management") : t("account_and_app_settings")}
               </h2>
               <div 
-                  className={`${s.btnsWrap} ${md && s.btnsWrapGap}`}
+                  className={`${styles.btnsWrap} ${md && styles.btnsWrapGap}`}
               >
                 <SettingsButton
                     icon={<IconApp code="t54" size={23} color="#285E69" />}
@@ -188,13 +188,13 @@ export function Settings() {
                 /> */}
               </div>
             </div>
-            <div className={s.box} >
+            <div className={styles.box} >
               <h2 
-                className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+                className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
               >
                 {md ? t("documents_and_legal_notices") : t("documents")}
               </h2>
-              <div className={`${s.itemsList} ${md && s.itemsListGap}`} >
+              <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
                 <SettingsButton
                   icon={<IconApp code="t61" size={23} color="#285E69" />}
                   text={t("pricing")}

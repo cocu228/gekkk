@@ -2,7 +2,7 @@ import Download from '@/assets/download.svg?react';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
-import s from '../../../styles.module.scss'
+import styles from '../../../styles.module.scss'
 
 export function TableRow({
     uasToken,
@@ -20,13 +20,13 @@ export function TableRow({
         downloadLink
     } = statement;
 
-    return <div className={`${!sm && s.reportTbRowCols} ${s.reportTbRow}`}>
-        <span className={s.reportRowTitle}>
+    return <div className={`${!sm && styles.reportTbRowCols} ${styles.reportTbRow}`}>
+        <span className={styles.reportRowTitle}>
             {from} - {to}
         </span>
 
         {!sm && (
-            <span className={s.reportRowSubTitle}>{reportName}</span>
+            <span className={styles.reportRowSubTitle}>{reportName}</span>
         )}
         <div onClick={async () => {
             const {phone} = await getAccountDetails();
@@ -39,7 +39,7 @@ export function TableRow({
             });
 
             window.open(URL.createObjectURL(response.data));
-        }} className={s.reportDownloadWrap}>
+        }} className={styles.reportDownloadWrap}>
             <Download />
         </div>
     </div>

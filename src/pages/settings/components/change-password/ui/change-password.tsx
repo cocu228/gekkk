@@ -2,7 +2,7 @@ import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper";
 import { Typography } from "@/shared/ui/typography/typography";
 import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
-import s from "../styles.module.scss";
+import styles from "../styles.module.scss";
 import {
   RegisterOptionsToChangePass,
   ChangePass,
@@ -38,9 +38,9 @@ export function ChangePassword() {
 
   return (
     <MobileWrapper className="w-full">
-      <div className={s.passwordWrap}>
-        <div className={s.passwordLine}>
-          <h4 className={s.inputTitle}>{t("new_password")}:</h4>
+      <div className={styles.passwordWrap}>
+        <div className={styles.passwordLine}>
+          <h4 className={styles.inputTitle}>{t("new_password")}:</h4>
           {/* <MobileInput 
                     wrapperClassName="w-1/2"
                     className="min-h-[40px]"
@@ -58,8 +58,8 @@ export function ChangePassword() {
             placeholder={t("enter_new_password")}
           />
         </div>
-        <div className={s.passwordLine}>
-          <h4 className={s.inputTitle}>{t("confirm_password")}:</h4>
+        <div className={styles.passwordLine}>
+          <h4 className={styles.inputTitle}>{t("confirm_password")}:</h4>
           {/* <MobileInput
             wrapperClassName="w-1/2"
             className="min-h-[40px]"
@@ -82,8 +82,8 @@ export function ChangePassword() {
         <div className="flex justify-end">
           <CheckList setValid={setValid} value={newPass} />
         </div>
-        <div className={s.passwordLine}>
-          <h4 className={s.inputTitle}>{t("confirmation_code")}:</h4>
+        <div className={styles.passwordLine}>
+          <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
           {/* <MobileInput
             value={confirmCode}
             onChange={(e) => {

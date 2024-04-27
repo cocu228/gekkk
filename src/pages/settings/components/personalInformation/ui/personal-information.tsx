@@ -1,7 +1,7 @@
 import {MobileWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
 import {Typography} from "@/shared/ui/typography/typography"
 import {MobileButton} from "@/shared/ui/mobile-button/mobile-button";
-import s from '../../../styles.module.scss'
+import styles from '../../../styles.module.scss'
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {useContext, useEffect, useState} from "react";
@@ -34,39 +34,39 @@ export function PersonalInformation() {
     return (
         <MobileWrapper className="w-full">
             <div 
-                className={s.perInfoBody}
+                className={styles.perInfoBody}
             >
                 {!userInfo ? <Loader className="relative"/> : <>
                     <div 
-                        className={s.perItem}
+                        className={styles.perItem}
                     >
-                        <h4 className={s.perItemTitle}>{t("name")}:</h4>
-                        <h4 className={s.perItemSubtitle}>{userInfo?.name}</h4>
+                        <h4 className={styles.perItemTitle}>{t("name")}:</h4>
+                        <h4 className={styles.perItemSubtitle}>{userInfo?.name}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <h4 className={s.perItemTitle}>{t("phone_number")}</h4>
-                        <h4 className={s.perItemSubtitle}>{userInfo?.phone}</h4>
+                        <h4 className={styles.perItemTitle}>{t("phone_number")}</h4>
+                        <h4 className={styles.perItemSubtitle}>{userInfo?.phone}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <h4 className={s.perItemTitle}>{t("email")}:</h4>
-                        <h4 className={s.perItemSubtitle}>{userInfo?.email}</h4>
+                        <h4 className={styles.perItemTitle}>{t("email")}:</h4>
+                        <h4 className={styles.perItemSubtitle}>{userInfo?.email}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <h4 className={s.perItemTitle}>{t("citizenship")}:</h4>
-                        <h4 className={s.perItemSubtitle}>{userInfo?.citizenship}</h4>
+                        <h4 className={styles.perItemTitle}>{t("citizenship")}:</h4>
+                        <h4 className={styles.perItemSubtitle}>{userInfo?.citizenship}</h4>
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <h4 className={s.perItemTitle}>{t("residence_address")}:</h4>
-                        <h4 className={s.perItemSubtitle}>{userInfo?.address}</h4>
+                        <h4 className={styles.perItemTitle}>{t("residence_address")}:</h4>
+                        <h4 className={styles.perItemSubtitle}>{userInfo?.address}</h4>
                         <hr/>
                     </div>
                 </>}
                 {xl && 
-                <div className={s.downBtnWrap}>
+                <div className={styles.downBtnWrap}>
                     <MobileButton onClick={resetState}>{t("back")}</MobileButton>
                 </div>}
             </div>

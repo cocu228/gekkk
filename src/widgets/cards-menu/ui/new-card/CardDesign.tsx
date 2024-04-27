@@ -1,4 +1,4 @@
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 export type CardDesignProps = {
     isSelected: boolean
@@ -9,17 +9,17 @@ export type CardDesignProps = {
 
 export function CardDesign({title, description, image, isSelected}: CardDesignProps) {
     return (
-        <button className={`${s.cardDesignWrap} ${isSelected && s.cardDesignWrapBg} ${isSelected && s.cardDesignWrapBorder}`}>
-            <div className={s.cardDesignBody}>
-                <div className={s.cardDesignTextGroup}>
-                    <span className={s.cardDesignTitle}>{title}</span>
-                    <span className={s.cardDesignSubtitle}>{description}</span>
+        <button className={`${styles.cardDesignWrap} ${isSelected && styles.cardDesignWrapBg} ${isSelected && styles.cardDesignWrapBorder}`}>
+            <div className={styles.cardDesignBody}>
+                <div className={styles.cardDesignTextGroup}>
+                    <span className={styles.cardDesignTitle}>{title}</span>
+                    <span className={styles.cardDesignSubtitle}>{description}</span>
                 </div>
                 <div className='flex-[0_0_116px]'>
                     {image}
                 </div>
             </div>
-            <div className={`${s.tickbox} ${isSelected && s.tickboxSelected}`}></div>
+            <div className={`${styles.tickbox} ${isSelected && styles.tickboxSelected}`}></div>
         </button>
     )
 }

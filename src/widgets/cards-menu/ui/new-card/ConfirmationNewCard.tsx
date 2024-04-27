@@ -16,7 +16,7 @@ import {apiGetUas} from '@/shared/(orval)api';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
 import {IResResult} from '@/shared/api';
 import useError from '@/shared/model/hooks/useError';
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
@@ -87,43 +87,43 @@ export function ConfirmationNewCard() {
     }
     
     return (state.cardType === 'PLASTIC' && !deliveryOption) ? <Loader className={'relative mt-10'}/> : <>
-        <div className={s.confHeader}>
-            <h3 className={s.confHeaderTitle}>{t("issue_new_card")}</h3>
+        <div className={styles.confHeader}>
+            <h3 className={styles.confHeaderTitle}>{t("issue_new_card")}</h3>
             <CloseWindowButton onClick={close}/>
         </div>
-        <div className={s.confInfoList}>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("account_owner")}</span>
-                <span className={s.confRowItemSubtitle}>{account.name}</span>
+        <div className={styles.confInfoList}>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("account_owner")}</span>
+                <span className={styles.confRowItemSubtitle}>{account.name}</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("account_number")}</span>
-                <span className={s.confRowItemSubtitle}>{account.number}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("account_number")}</span>
+                <span className={styles.confRowItemSubtitle}>{account.number}</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("card_design")}</span>
-                <span className={s.confRowItemSubtitle}>Standard</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("card_design")}</span>
+                <span className={styles.confRowItemSubtitle}>Standard</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("card_type")}</span>
-                <span className={s.confRowItemSubtitle}>{t(state.cardType.toLowerCase()).capitalize()}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("card_type")}</span>
+                <span className={styles.confRowItemSubtitle}>{t(state.cardType.toLowerCase()).capitalize()}</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("cardholder").toLowerCase().capitalize()}</span>
-                <span className={s.confRowItemSubtitle}>{state.cardholderName}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("cardholder").toLowerCase().capitalize()}</span>
+                <span className={styles.confRowItemSubtitle}>{state.cardholderName}</span>
             </div>
             
             {!state.recipientName ? null : (
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("recipient")}</span>
-                <span className={s.confRowItemSubtitle}>{state.recipientName}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("recipient")}</span>
+                <span className={styles.confRowItemSubtitle}>{state.recipientName}</span>
             </div>
             )}
             
             {state.cardType !== 'PLASTIC' ? null : <div>
-                <div className={s.confRowItem}>
-                    <span className={s.confRowItemTitle}>{t("delivery_address")}</span>
-                    <span className={s.confRowItemSubtitle}>
+                <div className={styles.confRowItem}>
+                    <span className={styles.confRowItemTitle}>{t("delivery_address")}</span>
+                    <span className={styles.confRowItemSubtitle}>
                     {`
                         ${getAddressPartOrEmpty(deliveryCountriesList.find(c => c.code === state.countryCode).name)}
                         ${getAddressPartOrEmpty(state.postalCode)}
@@ -134,8 +134,8 @@ export function ConfirmationNewCard() {
                     `}
                     </span>
                 </div>
-                <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("delivery_type")}</span>
+                <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("delivery_type")}</span>
                     <div className='w-[200px]'>
                         <Select className="w-full mt-2"
                                 placeholder='Select type...'
@@ -153,24 +153,24 @@ export function ConfirmationNewCard() {
                                 })}/>
                     </div>
                 </div>
-                <div className={`${s.confRowItem} ${s.confRowItemBorder}`}>
-                    <span className={s.confRowItemTitle}>{t("expected_delivery_time")}</span>
-                    <span className={s.confRowItemTitle}>{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</span>
+                <div className={`${styles.confRowItem} ${styles.confRowItemBorder}`}>
+                    <span className={styles.confRowItemTitle}>{t("expected_delivery_time")}</span>
+                    <span className={styles.confRowItemTitle}>{state.isExpressDelivery ? deliveryOption.deliveryDays : 10} days</span>
                 </div>
             </div>}
         </div>
-        <div className={s.confFeesList}>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_issuance")}</span>
-                <span className={s.confRowItemSubtitle}>€ 7</span>
+        <div className={styles.confFeesList}>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_issuance")}</span>
+                <span className={styles.confRowItemSubtitle}>€ 7</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_delivery")}</span>
-                <span className={s.confRowItemSubtitle}>€ {state.isExpressDelivery ? deliveryOption.cost : 0}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle} style={{fontWeight: '500'}} >{t("card_delivery")}</span>
+                <span className={styles.confRowItemSubtitle}>€ {state.isExpressDelivery ? deliveryOption.cost : 0}</span>
             </div>
-            <div className={s.confRowItem}>
-                <span className={s.confRowItemTitle}>{t("total_fees")}</span>
-                <span className={s.confRowItemTitle}>€ {7 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</span>
+            <div className={styles.confRowItem}>
+                <span className={styles.confRowItemTitle}>{t("total_fees")}</span>
+                <span className={styles.confRowItemTitle}>€ {7 + (state.isExpressDelivery ? deliveryOption.cost : 0)}</span>
             </div>
         </div>
 
@@ -178,7 +178,7 @@ export function ConfirmationNewCard() {
             {localErrorInfoBox}
         </div>
 
-        <div className={s.confFooterBtns}>
+        <div className={styles.confFooterBtns}>
             <Button disabled={loading} onClick={onConfirm}>{t("order_card")}</Button>
             <Button gray  onClick={() => {
                 setStep('IssueNewCard');

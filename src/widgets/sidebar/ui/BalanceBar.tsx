@@ -70,7 +70,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
             <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={gkeWallet} />
 
             {/* Secondary options wrapper */}
-            <div className="h-[6px]" />
+            {/* <div className="h-[6px]" /> */}
 
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (

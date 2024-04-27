@@ -52,30 +52,30 @@ export default function Transfers({}: Props) {
   return currencies ? (
     <div className='mb-20'>
         {!curr || !$currency ?
-            <TransfersWrapper 
-                loading={loading} 
-                setLoading={setLoading} 
-                network={network} 
+        <TransfersWrapper 
+            loading={loading} 
+            setLoading={setLoading} 
+            network={network} 
+            setNetwork={setNetwork} 
+            curr={curr} 
+            setCurr={setCurr}
+        >
+            <SelectCurrency 
+                setCurrency={setCurrency} 
                 setNetwork={setNetwork} 
-                curr={curr} 
+                data-tag={"select_currency"} 
+                currency={curr} 
                 setCurr={setCurr}
-            >
-                <SelectCurrency 
-                    setCurrency={setCurrency} 
+            />
+            {curr && 
+                <ChoseNetworkMobile 
+                    loading={loading} 
                     setNetwork={setNetwork} 
-                    data-tag={"select_currency"} 
-                    currency={curr} 
-                    setCurr={setCurr}
+                    network={network} 
+                    data-tag={"choose_network"}
                 />
-                {curr && 
-                    <ChoseNetworkMobile 
-                        loading={loading} 
-                        setNetwork={setNetwork} 
-                        network={network} 
-                        data-tag={"choose_network"}
-                    />
-                }
-            </TransfersWrapper>
+            }
+        </TransfersWrapper>
         :
             <CtxWalletData.Provider value={$currency}>
                 <NetworkProvider data-tag={"withdraw"} data-name={t("withdraw")}>

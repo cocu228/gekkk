@@ -1,5 +1,5 @@
 import styles from './style.module.scss';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { CtxWalletNetworks } from '../wallet/transfer/model/context';
 import type { DatePickerProps } from 'antd';
 import { DatePicker, Space, Select } from 'antd';
@@ -9,7 +9,7 @@ import Button from '@/shared/ui/button/Button';
 import { GetHistoryTrasactionOut } from '@/shared/(orval)api/gek/model';
 import { apiAssets, apiGetHistoryTransactions } from '@/shared/(orval)api/gek';
 import { formatForApi } from '@/shared/lib/date-helper';
-import { actionResSuccess, getFlagsFromMask } from '@/shared/lib/helpers';
+import { actionResSuccess, getFlagsFromMask, getRoundingValue, useQuery } from '@/shared/lib/helpers';
 import { historyTabs } from '../history/model/helpers';
 import { options } from './const';
 import { CtxRootData } from '@/processes/RootContext';
@@ -24,11 +24,18 @@ import { useIntersectionObserver } from '../history/hooks/useIntersectionObserve
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import { format } from 'date-fns';
 import { IconApp } from '@/shared/ui/icons/icon-app';
-
-
+import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
+import { IconCoin } from '@/shared/ui/icons/icon-coin';
+import Input from "@/shared/ui/input/Input";
 
 export default function customSearch() {
-
+    const [currencyListVisibility, setCurrencyListVisibility] = useState(false)    
+    const [curr, setCurr] = useState<string>()
+    const inputRef = useRef(null);
+    const [searchValue, setSearchValue] = useState<string>("");
+    const {currencies} = useContext(CtxCurrencies);
+    const [network, setNetwork] = useState<number>()
+    const [$currency, setCurrency] = useState<ICtxCurrency>()
     const {setNetworkType, networksForSelector, networkTypeSelect} = useContext(CtxWalletNetworks);
     const [date, setDate] = useState<[dayjs.Dayjs,dayjs.Dayjs]>([dayjs('2022-01-01', dateFormat), dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat)]);
     const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
@@ -40,7 +47,6 @@ export default function customSearch() {
     const loadActiveCards = storeActiveCards((state) => state.getActiveCards);
     const cards = storeActiveCards((state) => state.activeCards);
     const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
-
 
 
     const {md} = useBreakpoints()
@@ -166,6 +172,30 @@ export default function customSearch() {
         )
     }
 
+    function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
+        return (
+          (currency.$const?.toLowerCase().includes(searchValue) ||
+            currency.name?.toLowerCase().includes(searchValue)) &&
+          currency.balance?.free_balance
+        );
+    }
+
+    const currenciesList = currencies && !![...currencies].find(el=> el[0]=== "EUR")[1].balance ?
+        [...currencies]
+          .sort((x, y) => {
+            return x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0;
+          })
+          ?.map((el) => {
+            return {
+              $const: el[0],
+              currency: el[1],
+            };
+          }) : []
+
+    const setValueSearch = (e: any) => {
+      setSearchValue(e.target.value.trim().toLowerCase());
+    };          
+
     return (
         <>
         <div className={styles.wrapper}>
@@ -188,19 +218,18 @@ export default function customSearch() {
                     </Space>
                 </div>
                 <div className={styles.SelectWrap}>
-                    <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
-                        <h4 className={styles.selectText}>{t("type")}:</h4>
-                        <Select className={styles.select}
-                                placeholder={t("no_data_avialible")} 
-                                value={selectedTx.label}
-                                onSelect={(_, selectedOption) => {
-                                    setSelectedTx(selectedOption);
-                                }}
-                                suffixIcon={<div className={styles.SelectIconBlock}>
-                                    <IconApp color='#fff' code='t08' size={12} />
-                                </div>}
-                                options={translatedOptions}
-                                listHeight={500}/>
+                      <div className={styles.SelectBlock} onClick={() => setCurrencyListVisibility(!currencyListVisibility)} >
+                        <span className={styles.SelectTitle}>Currency:</span>
+                        <div className={styles.SelectActive}>
+                          <div className={styles.SelectPickedValue}>
+                            <span className={styles.NonePickedTitle}>-select-</span>
+                          </div>
+                          <div className={styles.SelectIconBlock}>
+                            <IconApp color='#fff' code='t08' size={12} />
+                          </div>
+                        </div>
+                      </div>
+                    <div>
                     </div>
                     <div className={`flex flex-row items-center justify-between gap-3 ${styles.selector}`}>
                         <h4 className={styles.selectText} >{t("currency")}:</h4>
@@ -221,9 +250,70 @@ export default function customSearch() {
                                 value={selectedCard}
                                 onSelect={(_, opt) => setSelectedCard(opt.value)}
                                 options={cardsOptions}
+                                suffixIcon={<div className={styles.SelectIconBlock}>
+                                    <IconApp color='#fff' code='t08' size={12} />
+                                </div>}
                                 listHeight={500}/>
                     </div>}
                 </div>
+                {
+                  currencyListVisibility && (
+                    <div className='w-full mt-[15px]'>
+                      <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
+                        <IconApp size={20} code="t12" color="#000" />
+                        <Input
+                          className={`w-full text-[10px] border-[none]`}
+                          wrapperClassName={"w-full"}
+                          style={{ height: "10px", border: "none" }}
+                          type="text"
+                          ref={inputRef}
+                          data-testid="SearchName"
+                          placeholder={t("crypto_assets.search_currency")}
+                          onChange={setValueSearch}
+                        />
+                      </div>
+                      {currenciesList.length > 0 ? currenciesList ?.filter((curr) =>
+                      searchTokenFilter(curr.currency, searchValue)
+                    )
+                      ?.map((currency, index) => (
+                        <div
+                          className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
+                          onClick={() => {
+                            setCurr(currency.$const); 
+                          }}
+                        >
+                          <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
+                            <IconCoin height={40} code={currency.$const} />
+                            <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
+                              {currency.$const === "EUR" ? currency.$const : <div className="flex h-full flex-col justify-around">
+                                <span>
+                                  {currency.$const}
+                                </span>
+                                <span className="font-[400] whitespace-nowrap text-[#676767]">
+                                  {currency.currency.name}
+                                </span>
+                              </div>}
+                            </span>
+                          </div>
+                          <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
+                            <span className="self-start ml-[15%] text-[12px] text-[#7B797C] font-regular">
+                              {t("free_balance")}:
+                            </span>
+                            <span className="self-end text-[12px] text-[#1F3446] font-regular">
+                            {getRoundingValue(
+                              currency.currency.balance?.free_balance,
+                              currency.currency.roundPrec
+                            )}{" "}
+                            {currency.$const}
+                            </span>
+                          </div>
+                        </div>
+                      )) : <div className="min-h-[200px] flex justify-center w-full relative">
+                        <Loader />
+                      </div>}
+                    </div>
+                  )
+                }
                 <div className={styles.BottomBtnsWrap}>
                     <Button
                         className={styles.BottomBtn}

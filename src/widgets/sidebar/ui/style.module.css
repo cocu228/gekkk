@@ -1,3 +1,24 @@
+.CardInfo {
+    padding: 10px 20px 0px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.CurTypeTxt,
+.TotalBal {
+    font-size: small;
+    text-transform: lowercase;
+    padding: 5px 20px 0px 10px;
+    color: var(--gek-mid-grey);
+    font-family: monospace;
+
+}
+
+.TotalBal {
+    display: flex;
+    justify-content: space-between;
+}
+
 .CurLink {
     display: flex;
     justify-content: center;
@@ -69,7 +90,7 @@
 .ActiveChoice {
     align-self: stretch;
     background-color: white;
-    width: 4px;
+    width: 5px;
 }
 
 .CurIcon {
@@ -81,21 +102,27 @@
     }
 }
 
-.EuroEqv {
+.IconLoader {
+    margin: 0px 4px;
+    position: relative;
+}
 
-    flex-grow: 1;
-    text-align: right;
-    font-family: monospace;
-    font-size: 0.75rem;
-    color: var(--gek-mid-grey);
-
-    &::after {
+.EuroEqv,.TotalBalSum{
+  &::after {
         content: ' €';
     }
 
     &::before {
         content: '~';
-    }
+    }   
+}
+
+.EuroEqv {
+    flex-grow: 1;
+    text-align: right;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--gek-mid-grey);   
 }
 
 .Income {

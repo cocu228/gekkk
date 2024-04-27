@@ -27,7 +27,8 @@ import { Carousel } from "antd";
 import { toLocaleCryptoRounding, toLocaleFiatRounding } from "@/shared/lib/number-format-helper";
 import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { TokenBar } from "../TokenBar";
+import TokenBar from "../TokenBar";
+import BalanceBar from "../BalanceBar";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -62,161 +63,9 @@ const SidebarDesktop = () => {
         }
     }, [account]);
 
-    let eurWallet: ICtxCurrency = null;
-    let eurgWallet: ICtxCurrency = null;
-    let gkeWallet: ICtxCurrency = null;
-    let secondaryWallets: ICtxCurrency[] = [];
-
-    if (currencies !== null) {
-        eurWallet = currencies.get("EUR");
-        eurgWallet = currencies.get("EURG");
-        gkeWallet = currencies.get("GKE");
-        secondaryWallets = Array.from(currencies.values());
-    }
-
     return (
         <div className={styles.Sidebar}>
-            <div className={styles.CardInfo}>
-                {cardsLoading ? <SkeletonCard />
-                    : !activeCards ? ""
-                        : activeCards?.length === 0 ? (
-                            <Carousel>
-                                <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
-                                    <NewBankCard />
-                                </div>
-                            </Carousel>
-                        ) : (
-                            <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards')}>
-                                <BankCardsCarousel cards={activeCards} />
-                            </div>
-                        )}
-            </div>
-
-            {/* fiat-currency wallet */}
-            <NavLink onClick={NavLinkEvent} to={"wallet?currency=EUR"}
-                className={({ isActive }) => (isActive && currency === 'EUR') ? 'active' : ''}>
-                <div className={styles.ItemWrapper}>
-
-                    <div className={`${styles.ItemEuro}`}>
-                        <div className="col flex items-center pl-4">
-                            <IconCoin code="EUR" />
-                        </div>
-                        <div className="col flex items-center flex-col pl-5 pt-2 relative">
-                            <div className="row w-full">
-                                <span className={styles.Name}>Euro</span>
-                            </div>
-                            <div className="row w-full font-mono">
-                                <span
-                                    className={styles.Sum}>{(eurWallet?.balance && toLocaleFiatRounding(eurWallet.balance.user_balance)) ?? '-'} €</span>
-                            </div>
-                            <div className="right-0 absolute mr-4 "><UpdateAmounts /></div>
-                        </div>
-                        <div className={styles.ArrowMobileSidebar}>
-                        </div>
-                    </div>
-                </div>
-            </NavLink>
-
-            {/* Crypto wallets wrapper */}
-
-            <div className={styles.AssetInfo1}>
-                <span>{t("crypto_assets.title").toLowerCase()}</span>
-            </div>
-
-            {/* EURG wallet */}
-            <NavLink onClick={NavLinkEvent}
-                className={({ isActive }) => !currencies
-                    ? "disabled"
-                    : (isActive && currency === 'EURG')
-                        ? 'active'
-                        : ''
-                }
-                to={!currencies ? "" : "wallet?currency=EURG"}>
-                <div className={styles.ItemWrapper}>
-                    <div className={`${styles.Item}`}>
-                        <div className="col flex items-center pl-4">
-                            <IconCoin code="EURG" />
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-5">
-                            <div className="row text-gray-400 w-full mb-1">
-                                <span className={styles.Name}>Gekkoin euro token</span>
-                            </div>
-                            <div className="row w-full font-mono">
-                                <span
-                                    className={styles.Sum}>{(eurgWallet?.balance && toLocaleCryptoRounding(eurgWallet.balance.user_balance, eurgWallet.roundPrec)) ?? '-'} EURG</span>
-                            </div>
-                            {eurgWallet && <div className={"row w-full flex justify-between "}>
-                                <div>
-                                    {!eurgWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
-                                        +{toLocaleCryptoRounding(eurgWallet.balance.lock_in_balance, eurgWallet.roundPrec) ?? '-'}
-                                    </span>}
-                                </div>
-                                <div className=" text-gray-500 font-mono">
-                                    {!eurgWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
-                                        ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
-                                    </span>}
-                                </div>
-
-                            </div>}
-
-                        </div>
-                    </div>
-                </div>
-
-            </NavLink>
-
-            {/* GKE wallet */}
-            <NavLink onClick={NavLinkEvent}
-                className={({ isActive }) => !currencies
-                    ? "disabled"
-                    : (isActive && currency === 'GKE')
-                        ? 'active'
-                        : ''
-                }
-                to={!currencies ? "" : "wallet?currency=GKE"}>
-                <div className={styles.ItemWrapper}>
-                    <div className={`${styles.Item}`}>
-                        <div className="col flex items-center pl-4">
-                            <IconCoin code="GKE" />
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-5">
-                            <div className="row text-gray-400 w-full mb-1"><span className={styles.Name}>Gekkoin invest token</span>
-                            </div>
-                            <div className="row w-full font-mono"><span
-                                className={styles.Sum}>{(gkeWallet?.balance && toLocaleCryptoRounding(gkeWallet.balance.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE</span>
-                            </div>
-                            {gkeWallet && <div className={"row w-full flex justify-between"}>
-                                <div>
-                                    {!gkeWallet.balance?.lock_in_balance ? null : <span className={styles.Income}>
-                                        +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
-                                    </span>}
-                                </div>
-                                <div className=" text-gray-500 font-mono">
-                                    {!gkeWallet.balance?.user_balance_EUR_equ ? null : <span className={styles.EuroEqv}>
-                                        ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
-                                    </span>}
-                                </div>
-                            </div>}
-                        </div>
-                    </div>
-
-                </div>
-            </NavLink>
-
-            {/* Secondary options wrapper */}
-            <div style={{ backgroundColor: "#f7f7f0" }} className="h-[8px] w-full" />
-
-            {/* User assets collapse */}
-            {!secondaryWallets.length ? null : (
-                helperFilterList(secondaryWallets).map((item, i) =>
-                    <TokenBar key={item.id} currency={currency} NavLinkEvent={NavLinkEvent} item={item} />)
-            )}
-
-            <div className={styles.AssetInfo2 + " text-gray-500 font-mono"}>
-                <span>{t("total_balance")}</span>
-                <span>~ <span
-                    data-testid="TotalAmount">{toLocaleFiatRounding(totalAmount?.toNumber()) ?? '-'}</span> €</span>
-            </div>
+            <BalanceBar NavLinkEvent={NavLinkEvent} />
             {/* Assets link */}
 
             <div className={`${!currencies ? "disabled" : ""} ${styles.AssetInfo3}`}>

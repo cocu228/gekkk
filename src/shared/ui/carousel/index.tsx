@@ -1,4 +1,4 @@
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { IconApp } from "../icons/icon-app";
 import { ReactNode, Ref, useEffect, useState } from "react";
 

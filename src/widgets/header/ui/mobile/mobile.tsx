@@ -64,7 +64,7 @@ const HeaderMobile = ({ items, actions }) => {
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :
-                           <IconApp color="#fff" code='t10' size={24} />
+                            <IconApp code="t10" size={24} color="white"/>
                         }
                         {account?.number &&
                             <div className="wrapper flex flex-col justify-center  self-stretch">
@@ -88,7 +88,7 @@ const HeaderMobile = ({ items, actions }) => {
                     </div>
                 ) : (
                     <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
-                        <IconApp className="rotate-[180deg] m-[0_5vw]" size={13} code="t08" color="#fff" />
+                        <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
                         <span className={styles.HeaderTitle}>{headerTitle()}</span>
                     </div>
                 )

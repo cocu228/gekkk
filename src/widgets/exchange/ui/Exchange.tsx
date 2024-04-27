@@ -350,11 +350,13 @@ function Exchange() {
             >
               <div className="px-5">
                 <div className="flex items-center gap-2 mb-4">
-                  <IconApp size={24} code="t27" color="#8F123A" />
+                  
+                  <IconApp color="#8F123A" size={24} code="t27" />
 
                   <span className="text-fs12 text-[#7B797C]">
                     {t("check_your_information_carefully")}
                   </span>
+
                 </div>
 
                 <div className="text-[#7B797C] text-fs12 mb-4">

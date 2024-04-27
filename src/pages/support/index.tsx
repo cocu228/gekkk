@@ -89,12 +89,8 @@ const Support = () => {
                 <div className={styles.Control}>
                     <div className={styles.ControlTitle}>{t("quality_control")}</div>
                     <div className={styles.ControlMain}>
-                        <div className={styles.ControlMainLike}>
-                            <IconApp code='t49' className='hover:fill-[#2BAB72]' size={30} color='#9D9D9D' />
-                        </div>
-                        <div className={styles.ControlMainDislike}>
-                            <IconApp code='t49' className='rotate-180 hover:fill-[red]' size={30} color='#9D9D9D' />
-                        </div>
+                        <IconApp code='t49' className={styles.ControlMainLike} size={30} color='#9D9D9D' />
+                        <IconApp code='t49' className={styles.ControlMainDislike} size={30} color='#9D9D9D' />
                     </div>
                     <div className={styles.ControlFooter}>{t("thank_you_for_rating")}!</div>
                 </div>

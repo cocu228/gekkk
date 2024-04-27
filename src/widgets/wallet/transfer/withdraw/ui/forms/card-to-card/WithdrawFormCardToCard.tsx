@@ -34,12 +34,16 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { Card } from "@/shared/(orval)api/gek/model";
 
 const { Option } = Select;
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
+  
   const cards = storeActiveCards((state) => state.activeCards);
+
+  
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
@@ -92,6 +96,7 @@ const WithdrawFormCardToCard = () => {
         : null,
     }));
   }, [cards]);
+  
 
   return !md ? (
     !cards ? (
@@ -361,7 +366,7 @@ const WithdrawFormCardToCard = () => {
               </div>
             </div>
             <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-              <IconApp code="t08" color="#fff" size={12} className="rotate-[90deg]" />
+                <IconApp code='t08' color='#fff' size={12} className={"rotate-90"}/>
             </div>
           </div>
         </div>

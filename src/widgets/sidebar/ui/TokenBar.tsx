@@ -12,11 +12,10 @@ interface TokenBarParams {
     item: ICtxCurrency
 }
 
-export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item || !item.balance ?
+export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item ?
     <div className={styles.CurBox}>
         <div className={styles.ActiveChoice} />
         <Loader className={styles.IconLoader} />
-        {/* <IconCoin className={styles.CurIcon} code="GKE" height={50} /> */}
         <div className={styles.CurBox2}>
             <span className={styles.CurName}>...</span>
             <span className={styles.Sum}>-</span>
@@ -30,13 +29,13 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item
             <IconCoin className={styles.CurIcon} code={item.$const} height={50} />
             <div className={styles.CurBox2}>
                 <span className={styles.CurName}>{item.name}</span>
-                <span className={styles.Sum}>{`${toLocaleCryptoRounding(item.balance.user_balance, item.roundPrec)}  ${item.$const == "EUR" ? "€" : item.$const}`}</span>
+                <span className={styles.Sum}>{!item.balance ? "-" : `${toLocaleCryptoRounding(item.balance?.user_balance, item.roundPrec)}  ${item.$const == "EUR" ? "€" : item.$const}`}</span>
                 <div className={styles.CurBox3}>
-                    {!item.balance.lock_in_balance ? "" :
+                    {!item.balance?.lock_in_balance ? "" :
                         <span className={styles.Income}>
-                            +{toLocaleCryptoRounding(item.balance.lock_in_balance, item.roundPrec) ?? '-'}
+                            +{toLocaleCryptoRounding(item.balance?.lock_in_balance, item.roundPrec) ?? '-'}
                         </span>}
-                    {item.balance.user_balance_EUR_equ === null || item.$const === "EUR" ? "" :
+                    {item.balance?.user_balance_EUR_equ === null || item.$const === "EUR" ? "" :
                         <span className={styles.EuroEqv}>
                             {toLocaleFiatRounding(item.balance.user_balance_EUR_equ)}
                         </span>}

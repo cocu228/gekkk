@@ -6,12 +6,11 @@
 
 .CurTypeTxt,
 .TotalBal {
-    font-size: small;
+    font-size: 0.75rem;
+    font-weight: 400;
     text-transform: lowercase;
     padding: 5px 20px 0px 10px;
     color: var(--gek-mid-grey);
-    font-family: monospace;
-
 }
 
 .TotalBal {
@@ -107,22 +106,24 @@
     position: relative;
 }
 
-.EuroEqv,.TotalBalSum{
-  &::after {
+.EuroEqv,
+.TotalBalSum {
+    text-align: right;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: var(--gek-mid-grey);
+
+    &::after {
         content: ' €';
     }
 
     &::before {
         content: '~';
-    }   
+    }
 }
 
 .EuroEqv {
     flex-grow: 1;
-    text-align: right;
-    font-family: monospace;
-    font-size: 0.75rem;
-    color: var(--gek-mid-grey);   
 }
 
 .Income {
@@ -136,7 +137,6 @@
 .Sum {
     font-size: 0.85rem;
     font-weight: bold;
-
 }
 
 :global(a.active) {
@@ -161,4 +161,8 @@
     .CurIcon {
         filter: saturate(100%) invert(0%);
     }
+    /* .CurBox
+    {
+        border: 1px var(--gek-mid-grey) solid;
+    } */
 }

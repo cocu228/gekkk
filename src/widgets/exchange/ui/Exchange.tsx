@@ -205,7 +205,7 @@ function Exchange() {
   return !roomsList ? (
     <Loader className="relative" />
   ) : (
-    <div className="wrapper md:-mt-5">
+    <div className=" ">
       {md ? null : (
         <PageHead
           title={getHeadTitle()}
@@ -225,9 +225,9 @@ function Exchange() {
       <SplitGrid
         leftColumn={
           <div>
-            <div className={`gap-x-14 xl:gap-x-2 py-5 px-10 lg:px-5 md:px-4 bg-white ${styles.Grid}`}>
-              <div className="h-full flex flex-col">
-                <div className="font-medium flex gap-[5px] items-center justify-between w-full md:text-xs mb-1 select-none">
+            <div className={`gap-x-5 py-5 px-5 bg-white ${styles.Grid}`}>
+              <div className="h-full flex flex-col ">
+                <div className="font-medium flex gap-[5px] items-center justify-between w-full text-xs mb-1 select-none">
                   {t("exchange.you_pay")}
                   <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
@@ -252,7 +252,7 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-medium text-md lg:text-sm md:text-xs mb-2 select-none">
+                <div className="font-medium text-xs mb-2 mt-3 select-none">
                   {t("exchange.get_no_less")}
                 </div>
 
@@ -281,7 +281,7 @@ function Exchange() {
                   />
                 </InputCurrency.CurrencySelector> */}
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-medium text-md lg:text-sm md:text-xs">
+                  <div className="font-medium mt-4 text-xs">
                     {t("price")}
                   </div>
                   <PriceField disabled={!isLimitOrder} />
@@ -412,7 +412,7 @@ function Exchange() {
         }
         rightColumn={
           !md && (
-            <div className="w-full rounded-lg py-5 px-10 lg:px-5 md:px-4 ">
+            <div className="w-full rounded-lg py-4 ">
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )

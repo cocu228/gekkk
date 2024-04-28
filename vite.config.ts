@@ -11,7 +11,7 @@ export default defineConfig(({mode}) => {
 
     process.env = {
         ...process.env,
-        ...loadEnv(mode, process.cwd()),
+        ...loadEnv(mode, process.cwd() + "/env"),
         VITE_APP_VERSION: JSON.stringify(require('./package.json').version),
         VITE_APP_TYPE: process.env.APP_TYPE,
     };

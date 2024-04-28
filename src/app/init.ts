@@ -1,7 +1,9 @@
 import MyWorker from './worker.ts?worker';
 import url from "./index.js?worker&url";
 import {getCookieData} from '@/shared/lib';
+
 const {accountId} = getCookieData<{ accountId?: string }>()
+
 global.VITE_APP_TYPE = import.meta.env.VITE_APP_TYPE
 document.body.setAttribute("data-app", import.meta.env.VITE_APP_TYPE)
 
@@ -11,8 +13,8 @@ if (accountId) {
     import('@/app/chat/dist/chat.js')
 
 } else {
-
-    import('@/app/authentication/dist/authentication.js')
+    //@ts-ignore
+    import('@VAR/app/authentication/{{mode-}}dist/authentication.js')
     import('@/app/chat/dist/chat.js')
 
     const worker = new MyWorker();

@@ -27,7 +27,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
       className={styles.Field}
       onChange={priceChange}
       type="text"
-      placeholder="-enter price-"
+      placeholder={`-${t("exchange.enter_price").toLowerCase()}-`}
       disabled={!(from.currency && to.currency) || disabled}
       value={!amount ? "" : amount}
       prefix={

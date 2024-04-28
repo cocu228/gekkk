@@ -89,7 +89,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
               onChange(valueNew);
             }}
             className={styles.Input}
-            placeholder="-enter amount-"
+            placeholder={`-${t("exchange.enter_amount").toLowerCase()}-`}
           />
         </div>
       </div>

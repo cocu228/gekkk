@@ -618,7 +618,8 @@
       "order_id": "Auftrags-ID:",
       "info_final_exchange": "Der endgültige Wechselkurs kann vom angezeigten Wert abweichen.",
       "testing_value": "Testwert",
-      "without_comission": "ohne Provision"
+      "without_comission": "ohne Provision",
+      "enter_price": "Preis eingeben"
     },
     "you_will_pay": "Sie werden bezahlen",
     "you_will_get": "Sie werden erhalten",

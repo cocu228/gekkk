@@ -637,7 +637,8 @@
       "orders": "Заказы",
       "info_final_exchange": "Окончательный обменный курс может отличаться от показанного значения.",
       "testing_value": "Тестовое значение",
-      "without_comission": "без комиссии"
+      "without_comission": "без комиссии",
+      "enter_price": "Введите цену"
     },
     "you_will_pay": "Вы заплатите",
     "you_will_get": "Вы получите",

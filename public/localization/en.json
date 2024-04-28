@@ -750,7 +750,8 @@
       "testing_value": "Testing value",
       "without_comission": "without comission",
       "closed_orders": "Closed orders",
-      "active_orders": "Active orders"
+      "active_orders": "Active orders",
+      "enter_price": "Enter price"
     },
     "you_will_pay": "You will pay",
     "you_will_get": "You will get",

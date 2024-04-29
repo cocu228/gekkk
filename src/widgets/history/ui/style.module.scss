@@ -54,17 +54,17 @@
 
 .MainContainerMobile {
   display: flex;
-  padding: 10px 5px;
+  padding: 0px 0px 10px 0px;
   flex-direction: column;
   align-self: center;
-  max-width: 400px;
   margin: auto;
 }
 
 .DataMobile {
-  padding-top: 10px;
-  color: var(--gek-dark-grey);
-  font-size: smaller;
+  color: #7B797C;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 5px 0 4px 10px;
 }
 
 .HistoryTxRow {
@@ -117,10 +117,15 @@
   text-align: right;
 }
 .HState{
-  color: var(--gek-mid-grey);
+  font-size: 10px;
+  color: #29354C;
+  text-transform: lowercase;
+  // color: var(--gek-mid-grey);
 }
 
 .HStateOrg {
+  font-size: 10px;
+  text-transform: lowercase;
   color: var(--gek-orange);
 }
 
@@ -135,12 +140,10 @@
 }
 
 .HAmount {
+  font-size: 12px;
   padding: 2px 2px 2px 0px;
   grid-row: 2;
   text-align: right;
-  //font-size: medium;
-  // font-family: monospace;
-  //font-weight: 500;
   white-space: nowrap;
 }
 
@@ -169,4 +172,55 @@
   height: 2px;
   width: 75px;
   border-bottom: var(--gek-additional) 1px solid;
+}
+
+/// info modal 
+
+
+.ModalWrap {
+  padding: 0 5%;
+}
+
+.BorderLine {
+  color: #3A5E66;
+  height: 1px;
+  border-width: 0;
+  margin-bottom: 10px;
+  background: #DCDCD9;
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.InfoItemTitle {
+  color: #285E69;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+  color: #29354C;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1rem;
+}
+
+.InfoItemAddress, .InfoItemHash {
+  display: block;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.InfoItemHash {
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.CopyBlock {
+  display: flex;
+  align-items: center;
 }

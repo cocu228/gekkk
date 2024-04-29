@@ -116,9 +116,7 @@ export const PendingTransactions = () => {
 
             {selectedTx && <div className={loading ? 'collapse' : ''}>
                 <div className={styles.CardContainer}>
-                    <BankCard
-                        size='lg'
-                        className={styles.Card}
+                    <BankCard                        
                         cardNumber={formatCardNumber(selectedTx.pan)}
                         expiresAt={selectedTx.cardExpDate}
                         holderName={selectedTx.nameOnCard}

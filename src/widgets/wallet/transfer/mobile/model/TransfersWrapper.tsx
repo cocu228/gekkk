@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import { CtxWalletNetworks } from "../../model/context";
-import searchIcon from "../../../../../../public/img/icon/search-normal.svg";
 import Input from "@/shared/ui/input/Input";
 import { useTranslation } from "react-i18next";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
@@ -15,6 +14,7 @@ import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { getRoundingValue } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
 import { useNavigate } from "react-router-dom";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 type IProps = {
   children: JSX.Element[] | [JSX.Element];
@@ -35,26 +35,27 @@ export default function TransfersWrapper({
   loading,
   setLoading,
 }: IProps) {
-  const { networkTypeSelect, networksForSelector, setNetworkType } =
+  const { networkTypeSelect, networksForSelector, setNetworkType, loading: networkLoading } =
     useContext(CtxWalletNetworks);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState<string>("");
   const { currencies } = useContext(CtxCurrencies);
-  const currenciesList = currencies
-    ? [...currencies]
-        ?.map((el) => {
-          return {
-            $const: el[0],
-            currency: el[1],
-          };
-        })
-        .sort((x, y) => {
-          return x.$const == "EUR" ? -1 : y.$const == "EUR" ? 1 : 0;
-        })
-    : [];
 
+
+  const currenciesList = currencies && !![...currencies].find(el=> el[0]=== "EUR")[1].balance ?
+        [...currencies]
+          .sort((x, y) => {
+            return x[0] == "EUR" ? -1 : y[0] == "EUR" ? 1 : 0;
+          })
+          ?.map((el) => {
+            return {
+              $const: el[0],
+              currency: el[1],
+            };
+          }) : []
+  
   function returnTitle(tag) {
     if (tag === "select_currency") {
       return `${t("currency")}:`;
@@ -72,7 +73,8 @@ export default function TransfersWrapper({
       tag === "choose_network" &&
       !network &&
       !!networksForSelector?.length &&
-      !loading
+      !loading &&
+      !networkLoading
     ) {
       return t("select_transfer_type");
     } else if (tag === "choose_network" && network) {
@@ -90,6 +92,11 @@ export default function TransfersWrapper({
   const setValueSearch = (e: any) => {
     setSearchValue(e.target.value.trim().toLowerCase());
   };
+
+  useEffect(()=>{
+    setNetworkType(network)
+
+  }, [networkTypeSelect])
 
   return (
     <>
@@ -113,7 +120,7 @@ export default function TransfersWrapper({
               {!curr && (
                 <div className="min-h-[200px]  gap-5 w-full">
                   <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
-                    <img src={searchIcon} />
+                    <IconApp size={20} code="t12" color="#000" />
                     <Input
                       className={`w-full text-[10px] border-[none]`}
                       wrapperClassName={"w-full"}
@@ -125,11 +132,11 @@ export default function TransfersWrapper({
                       onChange={setValueSearch}
                     />
                   </div>
-                  {currenciesList
-                    .filter((curr) =>
+                  {currenciesList.length > 0 ? currenciesList
+                    ?.filter((curr) =>
                       searchTokenFilter(curr.currency, searchValue)
                     )
-                    .map((currency, index) => (
+                    ?.map((currency, index) => (
                       <div
                         className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                         onClick={() => {
@@ -164,7 +171,9 @@ export default function TransfersWrapper({
                           </span>
                         </div>
                       </div>
-                    ))}
+                    )) : <div className="min-h-[200px] flex justify-center w-full relative">
+                      <Loader />
+                    </div>}
                 </div>
               )}
               {!!(
@@ -172,7 +181,8 @@ export default function TransfersWrapper({
                 child?.props["data-tag"] === "choose_network" &&
                 curr &&
                 networksForSelector?.length &&
-                !loading
+                !loading &&
+                !networkLoading
               ) ? (
                 <div className="min-h-[200px] gap-5 w-full">
                   {networksForSelector?.map((network) => (
@@ -192,7 +202,7 @@ export default function TransfersWrapper({
                     </div>
                   ))}
                 </div>
-              ) : loading &&
+              ) : (loading || networkLoading) &&
                 !network &&
                 child?.props["data-tag"] === "choose_network" ? (
                 <div className="min-h-[200px] flex justify-center w-full relative">

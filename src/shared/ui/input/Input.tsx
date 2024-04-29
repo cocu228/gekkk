@@ -21,7 +21,7 @@ const Input = React.forwardRef(
     ref: React.ForwardedRef<InputRef>
   ) => {
     return (
-      <div
+      <div 
         className={`${styles.Input} ${
           wrapperClassName ? wrapperClassName : ""
         }`}

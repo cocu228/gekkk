@@ -16,7 +16,7 @@
     padding-left: var(--content-pad-horizontal-md);
     padding-right: var(--content-pad-horizontal-md);
     padding-top: var(--content-pad-top-md);
-    padding-bottom: 70px;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 90px);
   }
 
   @include max-devices(xxl) {

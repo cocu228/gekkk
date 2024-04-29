@@ -26,8 +26,8 @@ import {SignTX} from "./signTX";
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import styles from "../styles.module.scss";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
   status: null,
@@ -183,7 +183,7 @@ const WithdrawConfirmCrypto = memo(
                 <div className={`wrapper ${styles.ModalInfo}`}>
                   <div className={styles.ModalInfoIcon}>
                     <div className="col">
-                      <WarningIcon />
+                      <IconApp color="#8F123A" size={20} code="t27" />
                     </div>
                   </div>
                   <div className="row">
@@ -263,7 +263,7 @@ const WithdrawConfirmCrypto = memo(
             <>
               <div className="row mb-2">
                 <div className="col">
-                  <span className="text-gray-400">Description</span>
+                  <span className="text-gray-400">{t("description")}</span>
                 </div>
               </div>
               <div className="row mb-4">
@@ -403,7 +403,7 @@ const WithdrawConfirmCrypto = memo(
         </div>
         <div className="row mb-2">
           <div className="col">
-            <span className="text-gray-400">Recipient's name</span>
+            <span className="text-gray-400">{t("recipient_name")}</span>
           </div>
         </div>
         <div className="row mb-4">
@@ -439,7 +439,7 @@ const WithdrawConfirmCrypto = memo(
           <>
             <div className="row mb-2">
               <div className="col">
-                <span className="text-gray-400">Description</span>
+                <span className="text-gray-400">{t("description")}</span>
               </div>
             </div>
             <div className="row mb-4">
@@ -530,7 +530,7 @@ const WithdrawConfirmCrypto = memo(
                   <div className={`wrapper ${styles.ModalInfo}`}>
                     <div className={styles.ModalInfoIcon}>
                       <div className="col">
-                        <WarningIcon />
+                        <IconApp color="#8F123A" size={20} code="t27" />
                       </div>
                     </div>
                     <div className="row">
@@ -607,7 +607,7 @@ const WithdrawConfirmCrypto = memo(
                 <>
                   <div className="row mb-2">
                     <div className="col">
-                      <span className={styles.ModalRowsTitle}>Description</span>
+                      <span className={styles.ModalRowsTitle}>{t("description")}</span>
                     </div>
                   </div>
                   <div className="row mb-4">

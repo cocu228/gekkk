@@ -11,8 +11,8 @@ import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss"
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const initStageConfirm = {
     txId: null,
@@ -132,10 +132,7 @@ const UniversalTransferConfirm = ({
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon
-                                            width={22}
-                                            height={22}
-                                        />
+                                        <IconApp color="#8F123A" size={22} code="t27" />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -183,7 +180,7 @@ const UniversalTransferConfirm = ({
                     </div>
                     <div className="row mb-2 md:mb-1">
                         <div className="col">
-                            <span className={styles.ModalRowsTitle}>Recipient's name</span>
+                            <span className={styles.ModalRowsTitle}>{t("recipient_name")}</span>
                         </div>
                     </div>
                     <div className="row mb-4 md:mb-2">
@@ -194,7 +191,7 @@ const UniversalTransferConfirm = ({
                     {comment && <>
                         <div className="row mb-2 md:mb-1">
                             <div className="col">
-                                <span className={styles.ModalRowsTitle}>Description</span>
+                                <span className={styles.ModalRowsTitle}>{t("description")}</span>
                             </div>
                         </div>
                         <div className="row mb-4 md:mb-2">
@@ -214,7 +211,7 @@ const UniversalTransferConfirm = ({
                                 variant='greenTransfer'
                                 className={styles.ButtonTwo}
                             >
-                                Confirm
+                                {t("confirm")}
                             </Button>
 
                             <Button

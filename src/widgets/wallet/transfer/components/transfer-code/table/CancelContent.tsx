@@ -11,9 +11,9 @@ import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import style from './style.module.scss'
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
@@ -158,7 +158,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon/>
+                                        <IconApp size={15} code="t27" color="#8F123A" />
                                     </div>
                                 </div>
                                 <div className="row">

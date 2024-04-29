@@ -1,10 +1,10 @@
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import IconArrow from "@/shared/ui/icons/IconArrow";
 import {useContext, useEffect, useState} from "react";
 import {RateState} from "@/widgets/exchange/model/types";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import {getCurrencyRounding} from "@/shared/lib/number-format-helper";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IParams {
     amount: number;
@@ -44,7 +44,7 @@ const DepthPrice = ({loading, amount}: IParams) => {
                 <Loader className='relative h-[25px] w-[25px]' />
             ) : <div className="flex items-center w-full justify-center">
                 {displayAmount ? (
-                    <>~{getCurrencyRounding(displayAmount)} <IconArrow/></>
+                    <>~{getCurrencyRounding(displayAmount)} <IconApp code="t59" size={20} className="rotate-[180deg]" color="rgb(var(--green))" /></>
                 ) : (
                     <>-</>
                 )}

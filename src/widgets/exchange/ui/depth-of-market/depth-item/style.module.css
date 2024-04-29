@@ -1,0 +1,44 @@
+.Item {
+  position: relative;
+
+  &:not(:first-child) {
+    margin-top: 5px;
+  }
+
+  &.red {
+    color: var(--color-red);
+  }
+
+  &.green {
+    color: var(--color-green);
+  }
+
+  .ItemPercent {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: .5s;
+  }
+
+  &.red .ItemPercent {
+    background: rgba(var(--red) / 0.1);
+  }
+
+  &.green .ItemPercent {
+    background: rgba(var(--green) / 0.1);
+  }
+
+  .ItemText {
+    /* position: relative;
+    z-index: 1; */
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+
+    @media(max-width: 768px)
+    {
+      font-size: 0.75rem;
+    }
+  }
+}

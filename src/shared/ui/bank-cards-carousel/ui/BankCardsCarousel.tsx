@@ -1,72 +1,59 @@
-import { Carousel } from "antd";
+import Carousel from "@/shared/ui/carousel";
 import { sortCards } from "../model/helpers";
-import { CarouselRef } from "antd/lib/carousel";
 import { useEffect, useRef, useState } from "react";
 import { Card as ICardData } from "@/shared/(orval)api/gek/model";
 import BankCard from "@/widgets/dashboard/ui/cards/bank-card/BankCard";
-import SkeletonCard from "@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard";
-import {
-  formatCardNumber,
-  formatMonthYear,
-} from "@/widgets/dashboard/model/helpers";
+import { formatCardNumber, formatMonthYear } from "@/widgets/dashboard/model/helpers";
 
 interface IParams {
-  cards: ICardData[];
-  cardSize?: 'md' | 'lg';
-  cardClassName?: string;
-  wrapperClassName?: string;
-  refreshKey?: string | null;
-  onSelect?: (card: ICardData) => void;
+    cards: ICardData[];
+    onItemClick?: () => void;
+    refreshKey?: string | null;
+    onSelect?: (card: ICardData) => void;
 }
 
 const BankCardsCarousel = ({
-  cards,
-  cardSize,
-  refreshKey,
-  cardClassName,
-  onSelect = () => {},
+    cards,
+    refreshKey,
+    onSelect = () => {},
+    onItemClick = () => {}
 }: IParams) => {
-  const carouselRef = useRef<CarouselRef>();
-  const [selectedCard, setSelectedCard] = useState<ICardData>(null);
+    const carouselRef = useRef<HTMLDivElement>();
+    const [selectedCard, setSelectedCard] = useState<ICardData>(null);
 
-  useEffect(() => {
-    if (cards) {
-      const sortedCards = sortCards(cards);
+    useEffect(() => {
+        if (cards) {
+            const sortedCards = sortCards(cards);
 
-      if (!selectedCard) {
-        setSelectedCard(cards[0]);
-        onSelect(sortedCards[0]);
-      }
-    }
-  }, [cards, refreshKey]);
-
-  return (
-    <div className="max-h-[600px] max-w-[1000px]">
-      {!cards ? null: (
-        <Carousel
-          draggable
-          ref={(ref) => {
-            if (!carouselRef.current) {
-              carouselRef.current = ref;
+            if (!selectedCard) {
+                setSelectedCard(cards[0]);
+                onSelect(sortedCards[0]);
             }
-          }}
-          afterChange={(i) => onSelect(cards[i])}
+        }
+    }, [cards, refreshKey]);
+
+    return (
+        <Carousel            
+            onSelect={(i: number) => onSelect(cards[i])}
+            ref={(ref) => {
+                if (!carouselRef.current) {
+                    carouselRef.current = ref;
+                }
+            }}
         >
-          {cards.map((card) => (
-            <div className={`${cardClassName} mb-6`}>
-              <BankCard
-                size={cardSize}
-                status={card.cardStatus}
-                cardNumber={formatCardNumber(card.displayPan)}
-                expiresAt={formatMonthYear(new Date(card.expiryDate))}
-                holderName={card.cardholder}
-              />
-            </div>
-          ))}
+            {cards?.map((card) => (
+                <div onClick={onItemClick}>
+                    <BankCard
+                        key={card.cardId}
+                        status={card.cardStatus}
+                        holderName={card.cardholder}
+                        cardNumber={formatCardNumber(card.displayPan)}
+                        expiresAt={formatMonthYear(new Date(card.expiryDate))}
+                    />
+                </div>
+            ))}
         </Carousel>
-      )}
-    </div>
-  );
+    );
 };
 
 export default BankCardsCarousel;

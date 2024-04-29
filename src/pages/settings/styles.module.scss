@@ -12,6 +12,12 @@
     }
 }
 
+.mobTitle {
+    @media screen and (max-width: 768px) {
+        font-size: 18px !important;
+    }
+}
+
 
 .itemsWrap {
     display: flex;
@@ -229,7 +235,7 @@
     padding-top: 36px;
     gap: 24px;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .noticeLink {

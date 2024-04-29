@@ -58,6 +58,7 @@
       "promo_code": "Promo-Code",
       "partnership": "Partnerschaftsprogramm",
       "enter_promo_code": "Promo-Code eingeben",
+      "activate_promo_code": "Aktiviere Promo-Code",
       "gekkard_invest_platform": "Gekkard Investitionsplattform",
       "enable_notifications": "Benachrichtigungen aktivieren",
       "gekkoin_invest_platform": "Gekkoin Investitionsplattform"
@@ -399,6 +400,12 @@
       "buy": "Kaufen",
       "search_currency": "Währung suchen"
     },
+    "gekkard_pro":{
+      "title": "Gekkard PRO",
+      "join_gekkard_pro": "Gekkard PRO beitreten",
+      "i_accept": "Ich akzeptiere",
+      "text": "Durch die Fortsetzung bestätigen Sie, dass Sie die Allgemeinen Geschäftsbedingungen akzeptieren und sich damit einverstanden erklären, mit dem Unternehmen als freier Mitarbeiter auf den in dem entsprechenden Dokument festgelegten Bedingungen zusammenzuarbeiten."
+    },
     "confirm": "Bestätigen",
     "apply": "Anwenden",
     "done": "Fertig",
@@ -617,7 +624,8 @@
       "order_id": "Auftrags-ID:",
       "info_final_exchange": "Der endgültige Wechselkurs kann vom angezeigten Wert abweichen.",
       "testing_value": "Testwert",
-      "without_comission": "ohne Provision"
+      "without_comission": "ohne Provision",
+      "enter_price": "Preis eingeben"
     },
     "you_will_pay": "Sie werden bezahlen",
     "you_will_get": "Sie werden erhalten",
@@ -638,7 +646,7 @@
     "quality_control": "Qualitätskontrolle",
     "thank_you_for_rating": "Vielen Dank für Ihre Bewertung",
     "balance": "Bilanz",
-    "to_find_answers_to_common_questions_open_the_faq": "Um Antworten auf häufig gestellte Fragen zu finden, öffnen Sie die FAQ.",
+    "answers_to_common_questions": "Antworten auf häufig gestellte Fragen",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Um Rat von unserem Bank-Support-Service zu erhalten, öffnen Sie den Chat.",
     "programs": "Programme",
     "select_network": "Wählen Sie die Aufladeart aus",
@@ -1406,7 +1414,33 @@
     "temporarily_disable_limits": "Limits vorübergehend deaktivieren",
     "to_temporarily_deactivate_daily_and_monthly_limits": "Um die täglichen und monatlichen Limits vorübergehend zu deaktivieren, müssen Sie den Schalter „Limits vorübergehend deaktivieren“ auf die Position EIN stellen. Sie können die Limits nur deaktivieren, bis die erste Bargeldabhebung oder Kauftransaktion erfolgt oder bis 3 Minuten seit der Deaktivierung vergangen sind. Danach kehrt der Schalter „Limits vorübergehend deaktivieren“ automatisch in die Position AUS zurück. Neben dem Schalter „Limits vorübergehend deaktivieren“ wird der Timeout-Zähler angezeigt.",
     "day_limit": "Tageslimit", 
-    "month_limit": "Monatslimit"
+    "month_limit": "Monatslimit",
+    "card_type": "Kartentyp",
+    "linked_phone_number": "Verknüpfte Telefonnummer",
+    "enter_cardholder_name": "Geben Sie den Namen des Karteninhabers ein",
+    "virtual": "Virtuell", 
+    "plastic": "Plastik",
+    "enter_house_name_or_number_if_available": "Geben Sie den Hausnamen oder die Hausnummer ein, falls verfügbar", 
+    "flat": "Wohnung", 
+    "enter_flat_name_or_number_if_available": "Geben Sie den Namen oder die Nummer der Wohnung ein, falls verfügbar",
+    "enter_beneficiary_name": "Geben Sie den Namen des Begünstigten ein", 
+    "enter_account_number_or_IBAN": "Geben Sie die Kontonummer / IBAN ein",
+    "recipient_name": "Name des Empfängers",
+    "transfer": "Überweisung",
+    "universal_transfer_description": "Überweisungen an Gekkard-Benutzer durch",
+    "phone_number_or_IBAN": "Telefonnummer oder IBAN",
+    "crypto_wallet": "Kryptowallet",
+    "write_email_to_support": "E-Mail an den Support schreiben",
+    "how_can_we_help":  "Wie können wir helfen?", 
+    "contact_crypto": "Kontaktieren Sie den Kryptowährungs-Support",
+    "chat_us": "Schreibe uns",
+    "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden",
+    "this_code_can_be_used": "Dieser Code kann nur einmal verwendet werden",
+    "get_gekkard_pro": "Holen Sie sich Gekkard PRO"
+
+
+    
+
 
 
 

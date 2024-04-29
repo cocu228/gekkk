@@ -9,12 +9,12 @@ import {CtxModalTrxResult} from "../../../model/context";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
 import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IParams {
     amount: number;
@@ -142,10 +142,7 @@ const WithdrawConfirmPhoneNumber = ({
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon
-                                            width={22}
-                                            height={22}
-                                        />
+                                        <IconApp color="#8F123A" size={22} code="t27" />
                                     </div>
                                 </div>
                                 <div className="row">

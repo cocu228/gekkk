@@ -2,17 +2,15 @@
 @import "@styles/variables";
 
 .Item {
-  font-size: 0.75rem;
-
-  @include max-devices("md") {
-    margin: 0 var(--content-margin-horizontal-negative-md);
-    padding: 0 var(--content-pad-horizontal-md);
-    font-size: 0.625rem;
-  }
-
-  &:nth-child(even) {
-    background: var(--color-bgSecondary);
-  }
+  font-size: 0.65rem;
+  background-color: white;
+  margin: 5px 0px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  &:hover
+  {
+    border: 1px var(--gek-light-grey) solid;
+  } 
 
   &Info {
     display: inline-block;

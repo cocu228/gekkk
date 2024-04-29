@@ -14,8 +14,8 @@ import { signHeadersGeneration } from "@/widgets/action-confirmation-window/mode
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
@@ -207,7 +207,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                         <div className={`wrapper ${styles.ModalInfo}`}>
                             <div className={styles.ModalInfoIcon}>
                                 <div className="col">
-                                    <WarningIcon/>
+                                    <IconApp color="#8F123A" size={20} code="t27" />
                                 </div>
                             </div>
                             <div className="row">

@@ -7,10 +7,12 @@ const {accountId} = getCookieData<{ accountId?: string }>()
 if (accountId) {
 
     import('./index')
+    import('@/app/chat/dist/chat.js')
 
 } else {
 
     import('@/app/authentication/dist/authentication.js')
+    import('@/app/chat/dist/chat.js')
 
     const worker = new MyWorker();
 

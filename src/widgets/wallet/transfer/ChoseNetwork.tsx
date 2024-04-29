@@ -50,7 +50,7 @@ const ChoseNetwork = ({withdraw = false}) => {
                     Array.isArray(networksForSelector) && networksForSelector.length === 1 ?
                     <h3 className="mt-4 font-bold">{networksForSelector[0].label}</h3> :
                         Array.isArray(networksForSelector) &&
-                        <Select className="w-full mt-2"
+                        <Select data-testid="network_selector" className="w-full mt-2"
                                 placeholder={"Networks not found"} value={networkTypeSelect}
                                 onSelect={setNetworkType}
                                 options={networksForSelector}

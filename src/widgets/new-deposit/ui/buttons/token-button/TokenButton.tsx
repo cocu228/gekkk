@@ -1,6 +1,5 @@
 import styles from './styles.module.scss';
 import { IconCoin } from '@/shared/ui/icons/icon-coin';
-import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
 import { useContext } from 'react';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
@@ -28,8 +27,6 @@ const TokenButton = ({ onClick, tokenCurrency }: IParams) => {
 					<p className="font-medium text-sm">{currency.name} ({currency.$const})</p>
 				</div>
 			)}
-
-			<IconDoubleArrows />
 		</button>
 	);
 };

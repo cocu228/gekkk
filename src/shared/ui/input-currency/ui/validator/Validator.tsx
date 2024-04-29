@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useRef, useState} from "react";
 import {IValidatorCreator} from "@/shared/config/validators";
-import IconError from "@/shared/ui/icons/IconError";
 import {CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 import Decimal from "decimal.js";
 import {isNull} from "@/shared/lib/helpers";
 import { useTranslation } from 'react-i18next';
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IParams {
     value: number;
@@ -64,7 +64,7 @@ const Validator: FC<IParams> = (({
                 {isNull(error) ? <span className='mt-0.5 text-green md:text-[#F8A73E] text-fs12'>{description}</span> :
                     <div className="flex mt-0.5 gap-1 items-center">
                         <div className="mt-[1px]">
-                            <IconError/>
+                            <IconApp color="#EB5454" code="t56" size={13} />
                         </div>
                         <span className='text-red-800 text-fs12'>{error}</span>
                     </div>}

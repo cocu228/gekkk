@@ -24,8 +24,7 @@ export const UnconfirmedTransactions = () => {
                 end: null,
                 start: null,
                 next_key: null,
-                tx_types: [3],
-                limit: 10
+                tx_types: [3]
             });
 
             actionResSuccess(response).success(() => {

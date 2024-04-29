@@ -14,13 +14,15 @@ import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
 import {useTranslation} from 'react-i18next';
+import { IconApp } from '@/shared/ui/icons/icon-app';
+
 
 function Assets() {
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const {xl, md, lg} = useContext(BreakpointsContext);
     const navigate = useNavigate();
-    
+
     let columns = [
         AssetTableKeys.NAME,
         ...(!lg ? [AssetTableKeys.CURRENCY] : []),
@@ -54,7 +56,7 @@ function Assets() {
                         className={`substrate h-full max-w-[400px] -ml-4 z-0 col-span-2 text-gray-600 ${!md ? "max-h-[1280px] -xxl:pl-16 -xxl:pr-20 -xxxl:pl-16 -xxxl:pr-24 overflow-auto" : ""}`}>
                         <div className="row mb-5 flex justify-center">
                             <div className="col">
-                                <img width={46} height={46} src="/img/icon/InvestTokenRight.svg" alt="InvestTokenRight"/>
+                                <IconApp size={46} code="t07" color="#2ECD81" />
                             </div>
                         </div>
                         <div className="row mb-1 flex justify-center">
@@ -70,7 +72,7 @@ function Assets() {
                         </div>
                         <div className="row mb-5">
                             <div className="col">
-                                <img width={210} height={64} src="/img/icon/InvestTokensLine.svg" alt="InvestTokensLine"/>
+                                <IconApp size={64} code="t07" color="#2ECD81" />
                             </div>
                         </div>
                         <div className="row mb-5">

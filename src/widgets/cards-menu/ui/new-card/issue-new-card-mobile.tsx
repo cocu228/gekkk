@@ -13,7 +13,7 @@ import {Switch} from "antd";
 import { Typography as Tp } from '@/shared/ui/typography/typography';
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
-import s from '../style.module.scss';
+import styles from '../style.module.scss';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -33,22 +33,22 @@ export function IssueNewCardMobile() {
     
     return <div>
         <div className='flex flex-col items-center justify-center w-full py-5'>
-            <span className={`flex typography-b1 ${s.selectDesign} pb-4`}>Select card design: </span>
-            <div className={`${s.BankCard} `}>
+            <span className={`flex typography-b1 ${styles.selectDesign} pb-4`}>Select card design: </span>
+            <div className={`${styles.BankCard} `}>
                     <img
                         src='/img/payment-card/payment-card-background2.jpg'
                         className='rounded-[10px]'
                     />
                 </div>
         </div>
-        <div className={s.newCardMobileBlock}>
-            <div className={s.issueRowItem}>
-                <span className={s.mobRowItemTitle}>{t('card_type')}:</span>
-                <div className={s.newCardSearchBlock}>
+        <div className={styles.newCardMobileBlock}>
+            <div className={styles.issueRowItem}>
+                <span className={styles.mobRowItemTitle}>{t('card_type')}:</span>
+                <div className={styles.newCardSearchBlock}>
                     <SearchSelect className="w-full mt-2 max-h-[50px]"
                             isMobile
                             placeholder='Select type...'
-                            value={state.cardType.toLowerCase()}
+                            value={t(state.cardType.toLowerCase())}
                             options={[{
                                 label: 'Virtual',
                                 value: 'virtual',
@@ -65,8 +65,8 @@ export function IssueNewCardMobile() {
             </div>
 
             <div className='flex flex-row  justify-between items-center h-[40px]'>
-                <span className={s.mobRowItemTitle}>{`Cardholed name:`}</span>
-                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={"cardholder name"} 
+                <span className={styles.mobRowItemTitle}>{`Cardholed name:`}</span>
+                <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("cardholder name")} 
                     onChange={({target}) => setState({
                         ...state,
                         cardholderName: target.value
@@ -75,8 +75,8 @@ export function IssueNewCardMobile() {
                 />
             </div>
 
-            <div className={s.mobRowItem}>
-                <span className={s.mobRowItemTitle}>{`${t("linked_phone_number")}:`}</span>
+            <div className={styles.mobRowItem}>
+                <span className={styles.mobRowItemTitle}>{`${t("linked_phone_number")}:`}</span>
                 <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={"enter phone number"} 
                     onChange={({target}) => setState({
                         ...state,
@@ -88,10 +88,10 @@ export function IssueNewCardMobile() {
             
             {state.cardType !== 'PLASTIC' ? null : (
             <div className='gap-[8px] flex flex-col'>
-                <div className={s.mobRowItem} style={{height: '50px'}} >
-                    <div className={s.mobIssueTitleGroup}>
-                    <span className={s.mobDeliveryTitle}>{t('delivery_address')}</span>
-                    <span className={s.mobDeliverySubtitle}>{t('same_as_the_residence_address')}</span>
+                <div className={styles.mobRowItem} style={{height: '50px'}} >
+                    <div className={styles.mobIssueTitleGroup}>
+                    <span className={styles.mobDeliveryTitle}>{t('delivery_address')}</span>
+                    <span className={styles.mobDeliverySubtitle}>{t('same_as_the_residence_address')}</span>
                     </div>
                     <Switch
                     checked={state.isResidenceAddress}
@@ -99,8 +99,8 @@ export function IssueNewCardMobile() {
                     />
                 </div>
 
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('city')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('city')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_city_name")} 
                         onChange={({target}) => setState({
                             ...state,
@@ -110,8 +110,8 @@ export function IssueNewCardMobile() {
                     />
                 </div>
 
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('post_code')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('post_code')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_post_code")} 
                         onChange={({target}) => setState({
                             ...state,
@@ -121,8 +121,8 @@ export function IssueNewCardMobile() {
                     />
                 </div>
 
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('street')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('street')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_street_name")} 
                         onChange={({target}) => setState({
                             ...state,
@@ -132,8 +132,8 @@ export function IssueNewCardMobile() {
                     />
                 </div>
 
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('house')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('house')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_house_number")} 
                         onChange={({target}) => setState({
                             ...state,
@@ -142,8 +142,8 @@ export function IssueNewCardMobile() {
                         value={state.houseNumber}
                     />
                 </div>
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('flat')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('flat')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_flat_number")} 
                         onChange={({target}) => setState({
                             ...state,
@@ -153,8 +153,8 @@ export function IssueNewCardMobile() {
                     />
                 </div>
 
-                <div className={s.mobRowItem}>
-                    <span className={s.mobRowItemTitle}>{t('Recipient')}:</span>
+                <div className={styles.mobRowItem}>
+                    <span className={styles.mobRowItemTitle}>{t('recipient')}:</span>
                     <MobileInput className='w-[170px]' wrapperClassName='w-[170px]' placeholder={t("enter_recipient_name")} 
                         onChange={({target}) => setState({
                             ...state,

@@ -7,7 +7,7 @@ import {apiGetUas} from '@/shared/(orval)api';
 import useError from '@/shared/model/hooks/useError';
 import {StatementsByIBAN, apiGetStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
-import s from '../../styles.module.scss'
+import styles from '../../styles.module.scss'
 
 export function MyReports() {
     const [
@@ -50,16 +50,16 @@ export function MyReports() {
         })();
     }, []);
 
-    return <div className={s.reportsWrap}>
+    return <div className={styles.reportsWrap}>
         {statements === null ? (
             <AreaWrapper title={t("my_reports")}>
-                <p className={s.reportsWarnText}>
+                <p className={styles.reportsWarnText}>
                     <Loader className='relative'/>
                 </p>
             </AreaWrapper>
         ) : (localIndicatorError ? (
             <AreaWrapper title={t("my_reports")}>
-                <p className={s.reportsWarnText}>
+                <p className={styles.reportsWarnText}>
                     {localErrorInfoBox}
                 </p>
             </AreaWrapper>

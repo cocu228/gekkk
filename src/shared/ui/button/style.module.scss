@@ -29,8 +29,8 @@
 
   &:disabled {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    color: #9D9D9D;
-    background: #E7E7E7;
+    color: white;
+    background: var(--gek-light-grey);
   }
 
   &[data-size="xl"] {

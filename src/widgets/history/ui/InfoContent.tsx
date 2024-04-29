@@ -7,13 +7,14 @@ import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
-import { actionResSuccess, asteriskText, isNull } from "@/shared/lib/helpers";
+import { actionResSuccess, isNull } from "@/shared/lib/helpers";
 import {
   AdrTxTypeEnum,
   GetHistoryTrasactionOut,
 } from "@/shared/(orval)api/gek/model";
 import { AddressTxOut } from "@/shared/(orval)api/gek/model";
 import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
+import style from './style.module.scss' 
 
 type TypeProps = GetHistoryTrasactionOut & {
   handleCancel: () => void;
@@ -51,102 +52,101 @@ const InfoContent = (props: TypeProps) => {
       ) : loading ? (
         <Loader />
       ) : (
-        <div className="px-[5%]">
-          <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#DCDCD9]" />
-
+        <div className={style.ModalWrap}>
+          <hr className={style.BorderLine}/>
           <div className="">
-            <div className="row mb-2 flex flex-col">
-              <div className="col">
-                <span className="font-bold text-[10px] text-[#285E69]">{t("date")}:</span>
+            <div className={style.InfoItem}>
+              <div>
+                <span className={style.InfoItemTitle}>{t("date")}:</span>
               </div>
-              <div className="col font-medium">
-                <span className="font-normal text-xs text-[#29354C]">
+              <div>
+                <span className={style.InfoItemValue}>
                   {formatForCustomer(props.datetime)}
                 </span>
               </div>
             </div>
-            <div className="row mb-2 flex flex-nowrap items-center">
-              <div className="flex flex-col">
+            <div>
+              <div className={style.InfoItem}>
                 <div className="col w-auto">
-                  <span className="font-bold text-[10px] text-[#285E69]">
+                  <span className={style.InfoItemTitle}>
                     {t("transaction_id")}:
                   </span>
                 </div>
                 <div 
-                  className="col w-auto font-medium flex items-center cursor-pointer"
+                  className={`${style.InfoItemValue} cursor-pointer`}
                   onClick={()=>{
                     navigator.clipboard.writeText(props.id_transaction)
                   }}    
                 >
-                  <span className="font-normal text-xs text-[#29354C]">
-                    {asteriskText(props.id_transaction)}
+                  <span className={style.InfoItemAddress}>
+                    {props.id_transaction}
                   </span>
                 </div>
               </div>
             </div>
-            <div className="row mb-2 flex flex-col flex-wrap">
+            <div className={style.InfoItem}>
               <div className="col w-auto">
-                <span className="font-bold text-[10px] text-[#285E69]">
+                <span className={style.InfoItemTitle}>
                   {t("transaction_type")}:
                 </span>
               </div>
-              <div className="col w-auto font-medium">
-                <span className="font-normal text-xs text-[#29354C]">{props.tx_type_text}</span>
+              <div>
+                <span className={style.InfoItemValue}>{props.tx_type_text}</span>
               </div>
             </div>
-            <div className="row mb-2 flex flex-col flex-wrap ">
+            <div className={style.InfoItem}>
               <div className="col w-auto">
-                <span className="font-bold text-[10px] text-[#285E69]">
+                <span className={style.InfoItemTitle}>
                   {t("currency")}:
                 </span>
               </div>
-              <div className="col w-auto font-medium">
-                <span className="font-normal text-xs text-[#29354C]">{props.currency}</span>
+              <div>
+                <span className={style.InfoItemValue}>{props.currency}</span>
               </div>
             </div>
-            <div className="row mb-2 flex flex-wrap flex-col">
-              <div className="col w-auto">
-                <span className="font-bold text-[10px] text-[#285E69]">
+            <div className={style.InfoItem}>
+              <div>
+                <span className={style.InfoItemTitle}>
                   {t("amount")}:
                 </span>
               </div>
-              <div className="col w-auto">
-                <span className="font-normal text-xs text-[#29354C]">
+              <div>
+                <span className={style.InfoItemValue}>
                   {props.amount} {props.currency}
                 </span>
               </div>
             </div>
-            <div className="row mb-2 flex flex-wrap flex-col">
-              <div className="col w-auto">
-                <span className="font-bold text-[10px] text-[#285E69]">{t("fee")}:</span>
+            <div className={style.InfoItem}>
+              <div>
+                <span className={style.InfoItemTitle}>{t("fee")}:</span>
               </div>
-              <div className="col w-auto">
-                <span className="font-normal text-xs text-[#29354C]">
+              <div>
+                <span className={style.InfoItemValue}>
                   {new Decimal(props.fee).toString()} {props.currency}
                 </span>
               </div>
             </div>
-            <div className="row mb-2 flex flex-wrap flex-col">
-              <div className="col w-auto">
-                <span className="font-bold text-[10px] text-[#285E69]">
+            <div className={style.InfoItem}>
+              <div>
+                <span className={style.InfoItemTitle}>
                   {t("status")}:
                 </span>
               </div>
-              <div className="col w-auto flex items-center">
-                <span className="font-normal text-xs text-[#29354C]">
+              <div>
+                <span className={style.InfoItemValue}>
                   {props.status_text}
                 </span>
               </div>
             </div>
             {props.tag && (
-              <div className="row mb-2 flex flex-wrap flex-col">
-                <div className="col w-auto">
-                  <span className="font-bold text-[10px] text-[#285E69]">
+              <div className={style.InfoItem}>
+                <div>
+                  <span className={style.InfoItemTitle}>
                     {t("description")}:
                   </span>
                 </div>
-                <div className="col w-auto flex items-center">
-                  <span className="font-normal text-xs text-[#29354C]">
+                <div>
+                  <span className={style.InfoItemValue}>
                     {props.tag}
                   </span>
                 </div>
@@ -155,14 +155,14 @@ const InfoContent = (props: TypeProps) => {
             {isNeedConfirm ||
             state?.txType === AdrTxTypeEnum[6] ||
             state?.txType === AdrTxTypeEnum[8] ? null : (
-              <div className="row mb-2 flex flex-wrap items-center">
-                <div className="col w-auto">
-                  <span className="font-bold text-[10px] text-[#285E69]">
+              <div className={style.InfoItem}>
+                <div>
+                  <span className={style.InfoItemTitle}>
                     {t("sender_name")}:
                   </span>
                 </div>
-                <div className="col w-auto">
-                  <span className="break-all font-medium">
+                <div>
+                  <span className={style.InfoItemValue}>
                     {props.partner_info}
                   </span>
                 </div>
@@ -176,56 +176,56 @@ const InfoContent = (props: TypeProps) => {
                 state.txType === AdrTxTypeEnum[8] ? null : (
                   <div>
                     {state.addressFrom && (
-                      <div className="row mb-2 flex flex-wrap ">
+                      <div className={style.InfoItem}>
                         <div className="flex flex-col">
-                          <div className="col">
-                            <span className="font-bold text-[10px] text-[#285E69]">
+                          <div>
+                            <span className={style.InfoItemTitle}>
                               {t("address_from")}
                             </span>
                           </div>
                           <div 
-                            className="col flex items-center cursor-pointer"
+                            className="cursor-pointer"
                             onClick={()=>{
                               navigator.clipboard.writeText(state.addressFrom)
                             }}  
                           >
-                            <span className="font-normal text-xs text-[#29354C]">
-                              {asteriskText(state.addressFrom)}
+                            <span className={style.InfoItemAddress}>
+                              {state.addressFrom}
                             </span>
                           </div>
                         </div>
                       </div>
                     )}
                     {state.addressTo && (
-                      <div className="row mb-2 flex flex-wrap items-center">
-                        <div className="flex flex-col">
-                          <div className="col w-auto">
-                            <span className="font-bold text-[10px] text-[#285E69]">
+                      <div>
+                        <div className={style.InfoItem}>
+                          <div>
+                            <span className={style.InfoItemTitle}>
                               {t("address_to")}
                             </span>
                           </div>
                           <div 
-                            className="col w-auto flex items-center cursor-pointer"
+                            className="cursor-pointer"
                             onClick={()=>{
                               navigator.clipboard.writeText(state.addressTo)
                             }}
                           >
-                            <span className="font-normal text-xs text-[#29354C]">
-                              {asteriskText(state.addressTo)}
+                            <span className={style.InfoItemValue}>
+                              {state.addressTo}
                             </span>
                           </div>
                         </div>
                       </div>
                     )}
                     {state.tokenNetwork && (
-                      <div className="row mb-2 flex flex-wrap flex-col">
-                        <div className="col w-auto">
-                          <span className="font-bold text-[10px] text-[#285E69]">
+                      <div className={style.InfoItem}>
+                        <div>
+                          <span className={style.InfoItemTitle}>
                             {t("token_network")}
                           </span>
                         </div>
-                        <div className="col w-auto">
-                          <span className="font-normal text-xs text-[#29354C]">
+                        <div>
+                          <span className={style.InfoItemValue}>
                             {state.tokenNetwork}
                           </span>
                         </div>
@@ -234,36 +234,28 @@ const InfoContent = (props: TypeProps) => {
                   </div>
                 )}
                 {state.txHash && state.explorerBaseAddress && (
-                  <div className="row mb-2 flex flex-wrap items-center">
-                    <div className="flex flex-col">
-                      <div className="col w-auto">
-                        <span className="font-bold text-[10px] text-[#285E69]">
+                  <div className={style.CopyBlock}>
+                    <div className={style.InfoItem}>
+                      <div>
+                        <span className={style.InfoItemTitle}>
                           {t("transaction")}
                         </span>
                       </div>
                       <div 
-                        className="col w-auto flex items-center cursor-pointer"
+                        className="cursor-pointer"
                       >
                         <a
                           target={"_blank"}
                           href={state.explorerBaseAddress + state.txHash}
-                          className="font-normal text-xs text-[#29354C] underline"
+                          className={style.InfoItemHash}
                         >
-                          {asteriskText(state.txHash)}
+                          {state.txHash}
                         </a>
                       </div>
                     </div>
                     <CopyIcon value={state.txHash} />
                   </div>
                 )}
-                {/*{state.state_text && <div className="row mb-4 flex flex-wrap ">*/}
-                {/*    <div className="col">*/}
-                {/*        <span className="text-gray-500 font-normal">Status blockchain:</span>*/}
-                {/*    </div>*/}
-                {/*    <div className="col flex items-center">*/}
-                {/*        <span className="break-all font-normal">{state.state_text}</span>*/}
-                {/*    </div>*/}
-                {/*</div>}*/}
               </div>
             </>
           )}

@@ -123,10 +123,10 @@ function Wallet() {
                         {!(isOnProgramsPage ||isOnNoFeeProgramPage || isOnCashbackProgramPage) && 
                             <WalletButtons isMainWallet={isEUR || isEURG || isGKE}>
                                 <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
-                                <TransfersButton to={`/transfers?currency=${currency}`}/>
+                                <TransfersButton isActive to={`/transfers?currency=${currency}`}/>
                                 
                                 {!isEUR
-                                    ? <ExchangeButton to={`/exchange?from=${currency}`}/>
+                                    ? <ExchangeButton isActive to={`/exchange?from=${currency}`}/>
                                     : <CardsMenuButton to={"/card-menu"}/>
                                 }
 

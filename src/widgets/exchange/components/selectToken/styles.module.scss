@@ -4,7 +4,12 @@
   justify-content: space-between;
   border: 1px solid #dcdcd9;
   border-radius: 6px;
-  height: 50px;
+  height: 70px;
+
+  @media screen and (max-width: 768px) {
+    height: 50px;
+
+  }
 }
 
 .Input {
@@ -46,7 +51,19 @@
   }
 }
 
+.BalanceTitle {
+  color: #b4c0cd;
+  font-size: 10px;
+  text-wrap: nowrap;
+
+  @media screen and (min-width: 768px) {
+    font-size: 13px !important;
+    bottom: -12px !important;
+  }
+}
+
 .SelectedBody {
+  position: relative;
   width: 70%;
   display: flex;
   align-items: center;
@@ -73,6 +90,12 @@
   }
 }
 
+.BalanceTitle {
+  position: absolute;
+  bottom: -7px;
+  font-size: 9px;
+}
+
 .CurrencyStyles {
   @media screen and (max-width: 460px) {
     min-width: 95px;
@@ -93,7 +116,7 @@
   width: 34px;
   height: 34px;
 
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 768px) {
     width: 25px;
     height: 25px;
   }
@@ -122,7 +145,7 @@
 }
 
 .SelectPreTitle {
-  font-size: 10px;
+  font-size: 9px;
   font-family: Inter;
   color: #b9b9b5;
 
@@ -133,8 +156,9 @@
 
 .SelectedToken {
   display: flex;
+  flex-direction: column;
+  align-items: start;
   gap: 5px;
-  align-items: center;
   color: #285e69;
   font-size: 14px;
   font-weight: 600;

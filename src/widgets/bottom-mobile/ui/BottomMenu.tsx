@@ -4,11 +4,11 @@ import { NavLink, useMatch, useSearchParams } from 'react-router-dom';
 import { storyToggleSidebar } from "@/widgets/sidebar/model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import NewAssetMobileIcon from "@public/img/icon/NewAssetMobileIcon.svg"
 import FundsButton from "@/shared/ui/ButtonsMobile/Funds";
 import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import HistoryButton from "@/shared/ui/ButtonsMobile/History";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 export function BottomMenu(){
@@ -40,7 +40,7 @@ export function BottomMenu(){
             <div className={styles.AssetInfo3 + " " + (needBottomPadding && styles.AddBottomAssetButtonMargin)}>
                 <NavLink onClick={NavLinkEvent} to={"crypto-assets"}>
                     <div className={styles.NewAsset}>
-                        <img src={NewAssetMobileIcon} className={styles.NewAssetIcon} alt="" />
+                        <IconApp color="#fff" code="t67" size={20} />
                     </div>
                 </NavLink>
             </div>
@@ -56,6 +56,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + (isHomePage && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isHomePage}
                 />
 
                 <TransfersButton
@@ -63,6 +64,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + ((isOnTransferPage || isOnTransferPageCurr) && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isOnTransferPage}
                 />
 
                 <ExchangeButton
@@ -70,6 +72,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isExchangePage}
                 />
 
                 <HistoryButton
@@ -77,6 +80,7 @@ export function BottomMenu(){
                     className={styles.BottomMenuMobileButtons + " "
                         + (isHistoryPage && styles.BottomMenuMobileButtonsActive)
                     }
+                    isActive={isHistoryPage}
                 />
             </div>
         </div>

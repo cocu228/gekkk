@@ -1,15 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-import s from './styles.module.scss'
-import Info from "@/assets/info.svg?react";
-import World from "@/assets/world.svg?react";
-import Guard from "@/assets/guard.svg?react";
-import Chain from "@/assets/chain.svg?react";
-import Docs from "@/assets/docs.svg?react";
-import Keys from "@/assets/keys.svg?react";
-import EuroIcon from "@/assets/euro.svg?react";
-import DocumentsDocumentsIcon from "@/assets/documents-documents.svg?react";
-import ReportIcon from "@/assets/report.svg?react";
-import AccountIcon from "@/assets/account.svg?react";
+import styles from './styles.module.scss'
 import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
 import { settingsContext } from "./settingsContext";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
@@ -27,6 +17,7 @@ import { UserKeys } from "./components/user-keys/ui/user-keys";
 import { LoginAndSignHistory } from "./components/history";
 import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -79,34 +70,34 @@ export function Settings() {
     >
       {!md && ( 
         <h1 
-          className={s.title}
+          className={styles.title}
         >
           {t("my_settings")}
         </h1>
       )}
       <div
         className={`
-          ${s.itemsWrap} ${xxl! && s.itemsWrapPadding} ${xxl && selectedArea && s.itemsWrapOverflow}
+          ${styles.itemsWrap} ${xxl! && styles.itemsWrapPadding} ${xxl && selectedArea && styles.itemsWrapOverflow}
         `}
         style={{flexDirection: selectedArea ? 'row' : 'column'}}
       >
         {(!xl || !area) && (
           <div 
-          className={`${s.boxWrap} ${selectedArea && s.boxWrapMin}`}
+          className={`${styles.boxWrap} ${selectedArea && styles.boxWrapMin}`}
           >
             <div 
-              className={s.box}
+              className={styles.box}
             >
               <h2 
-                className={`${s.itemTitle} ${!md && s.itemTitleColor} ${md && s.itemTitleWeight}`}
+                className={`${styles.itemTitle} ${styles.mobTitle} ${!md && styles.itemTitleColor} ${md && styles.itemTitleWeight}`}
               >
                 {t("general_information")}
               </h2>
               <div 
-                className={`${s.itemsList} ${md && s.itemsListGap}`}
+                className={`${styles.itemsList} ${md && styles.itemsListGap}`}
               >
                 <SettingsButton
-                  icon={<AccountIcon />}
+                  icon={<IconApp code="t55" size={23} color="#285E69" />}
                   text={t("personal_information")}
                   onClick={() => {
                     setSelectedArea("personal-information");
@@ -114,7 +105,7 @@ export function Settings() {
                   isSelected={selectedArea === "personal-information"}
                 />
                 <SettingsButton
-                  icon={<Info />}
+                  icon={<IconApp code="t53" size={23} color="#285E69" />}
                   text={t("app_version")}
                   onClick={() => {
                     setSelectedArea("app-version");
@@ -122,7 +113,7 @@ export function Settings() {
                   isSelected={selectedArea === "app-version"}
                 />
                 <SettingsButton
-                  icon={<World />}
+                  icon={<IconApp code="t52" size={23} color="#285E69" />}
                   text={t("language")}
                   onClick={() => {
                     setSelectedArea("language");
@@ -131,17 +122,17 @@ export function Settings() {
                 />
               </div>
             </div>
-            <div className={s.box} >
+            <div className={styles.box} >
               <h2 
-                  className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+                  className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
               >
                 {md ? t("access_management") : t("account_and_app_settings")}
               </h2>
               <div 
-                  className={`${s.btnsWrap} ${md && s.btnsWrapGap}`}
+                  className={`${styles.btnsWrap} ${md && styles.btnsWrapGap}`}
               >
                 <SettingsButton
-                    icon={<Guard />}
+                    icon={<IconApp code="t54" size={23} color="#285E69" />}
                     text={t("change_password")}
                     onClick={() => {
                       setSelectedArea("change-password");
@@ -149,7 +140,7 @@ export function Settings() {
                     isSelected={selectedArea === "change-password"}
                   />
                   <SettingsButton
-                    icon={<Keys />}
+                    icon={<IconApp code="t46" size={23} color="#285E69" />}
                     text={t("user_keys")}
                     onClick={() => {
                       setSelectedArea("user-keys");
@@ -157,7 +148,7 @@ export function Settings() {
                     isSelected={selectedArea === "user-keys"}
                   />
                   <SettingsButton
-                    icon={<Docs />}
+                    icon={<IconApp code="t45" size={23} color="#285E69" />}
                     text={t("login_and_sign_history")}
                     onClick={() => {
                       setSelectedArea("history");
@@ -165,7 +156,7 @@ export function Settings() {
                     isSelected={selectedArea === "history"}
                   />
                   <SettingsButton
-                    icon={<Chain />}
+                    icon={<IconApp code="t43" size={23} color="#285E69" />}
                     text={t("user_sessions")}
                     onClick={() => {
                       setSelectedArea("user-sessions");
@@ -174,15 +165,15 @@ export function Settings() {
                   />
               </div>
             </div>
-            <div className={s.box} >
+            <div className={styles.box} >
               <h2 
-                className={`${s.accessTitle} ${!md && s.accessTitleColor} ${md && s.accessTitleWeight} ${md && s.accessTitleSize}`}
+                className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
               >
                 {md ? t("documents_and_legal_notices") : t("documents")}
               </h2>
-              <div className={`${s.itemsList} ${md && s.itemsListGap}`} >
+              <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
                 <SettingsButton
-                  icon={<EuroIcon />}
+                  icon={<IconApp code="t61" size={23} color="#285E69" />}
                   text={t("pricing")}
                   onClick={() => {
                     setSelectedArea("pricing");
@@ -191,12 +182,12 @@ export function Settings() {
                 />
                 <a href="https://gekkard.com/terms-and-conditions.html">
                   <SettingsButton
-                    icon={<DocumentsDocumentsIcon />}
+                    icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("terms_and_conditions")}
                   />
                 </a>
                 <SettingsButton
-                  icon={<ReportIcon />}
+                  icon={<IconApp code="t09" size={23} color="#285E69" />}
                   text={t("my_reports")}
                   onClick={() => {
                     setSelectedArea("my-reports");
@@ -205,7 +196,7 @@ export function Settings() {
                 />
                 <a href="https://gekkard.com/data-protection-policy.html">
                   <SettingsButton
-                    icon={<DocumentsDocumentsIcon />}
+                    icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("data_protection")}
                   />
                 </a>

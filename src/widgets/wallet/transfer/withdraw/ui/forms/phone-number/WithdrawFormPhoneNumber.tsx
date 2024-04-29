@@ -113,7 +113,7 @@ const WithdrawFormPhoneNumber = () => {
                 allowDigits
                 allowSymbols
                 name={"phoneNumber"}
-                placeholder={t("enter_phone_number")}
+                placeholder={t("auth.enter_phone_number")}
                 onChange={onInputDefault}
                 onInput={onPhoneNumberInput}
               />

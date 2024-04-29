@@ -25,6 +25,7 @@ import {
 } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const { RangePicker } = DatePicker;
 
@@ -69,15 +70,15 @@ function OpenOrders({ refreshKey }: IParams) {
     const response =
       activeTab === TabKey.OPENED
         ? await apiGetOrders({
-            ord_states: [1],
-            room_key: roomInfo?.timetick ?? null,
-          })
+          ord_states: [1],
+          room_key: roomInfo?.timetick ?? null,
+        })
         : await apiGetOrders({
-            room_key: roomInfo?.timetick,
-            end: customDate[1].format("YYYY-MM-DD"),
-            start: customDate[0].format("YYYY-MM-DD"),
-            ord_states: [127, 198, 199, 200, 210, 211],
-          });
+          room_key: roomInfo?.timetick,
+          end: customDate[1].format("YYYY-MM-DD"),
+          start: customDate[0].format("YYYY-MM-DD"),
+          ord_states: [127, 198, 199, 200, 210, 211],
+        });
 
     actionResSuccess(response).success(() => {
       const { result } = response.data;
@@ -94,17 +95,17 @@ function OpenOrders({ refreshKey }: IParams) {
     const { data } =
       activeTab === TabKey.OPENED
         ? await apiGetOrders({
-            ord_states: [1],
-            from_order_id: lastValue.id,
-            room_key: roomInfo?.timetick ?? null,
-          })
+          ord_states: [1],
+          from_order_id: lastValue.id,
+          room_key: roomInfo?.timetick ?? null,
+        })
         : await apiGetOrders({
-            from_order_id: lastValue.id,
-            room_key: roomInfo?.timetick,
-            end: customDate[1].format("YYYY-MM-DD"),
-            start: customDate[0].format("YYYY-MM-DD"),
-            ord_states: [127, 198, 199, 200, 210, 211],
-          });
+          from_order_id: lastValue.id,
+          room_key: roomInfo?.timetick,
+          end: customDate[1].format("YYYY-MM-DD"),
+          start: customDate[0].format("YYYY-MM-DD"),
+          ord_states: [127, 198, 199, 200, 210, 211],
+        });
 
     if (data.result.length < 10) setAllOrdVisibly(true);
 
@@ -130,47 +131,30 @@ function OpenOrders({ refreshKey }: IParams) {
 
   return (
     <>
-      {!md ? (
-        <>
-          <div className="flex justify-between mb-2">
-            <span className="font-medium lg:text-sm md:text-md">
-              {t("exchange.orders")}
-            </span>
-          </div>
-
-          <SecondaryTabGroup
-            activeTab={activeTab}
-            setActiveTab={(value) => setActiveTab(value)}
-            tabs={getSecondaryTabsAsRecord(ordersTabs)}
-          />
-        </>
-      ) : (
-        <div className="flex gap-x-4 w-full justify-center">
-          <span
-            className={`text-[12px] font-semibold text-${
-              activeTab === "Opened" ? "[#B9B9B5]" : "[#29354C]s"
+      <div className="flex gap-x-4 w-full justify-center">
+        <span
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[#29354C]" : "[#B9B9B5]"
             }`}
-          >
-            {t("exchange.closed_orders")}
-          </span>
-          <Switch
-            defaultChecked={activeTab === ordersTabs[0].Key}
-            onChange={(isCheked) =>
-              setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
-            }
-          />
-          <span
-            className={`text-[12px] font-semibold text-${
-              activeTab === "Opened" ? "[#29354C]" : "[#B9B9B5]"
+        >
+          {t("exchange.active_orders")}
+        </span>
+        <Switch
+          className="rotate-180"
+          defaultChecked={activeTab === ordersTabs[0].Key}
+          onChange={(isCheked) =>
+            setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
+          }
+        />
+        <span
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[#B9B9B5]" : "[#29354C]s"
             }`}
-          >
-            {t("exchange.active_orders")}
-          </span>
-        </div>
-      )}
+        >
+          {t("exchange.closed_orders")}
+        </span>
+      </div>
 
       {activeTab === TabKey.CLOSED && (
-        <div className="mt-2 mb-4">
+        <div className="mt-2 mb-4 px-3">
           {t("enter_period")}
 
           <div className="flex grow-0 max-w-[400px]">
@@ -203,87 +187,83 @@ function OpenOrders({ refreshKey }: IParams) {
         {isLoading
           ? null
           : ordersList.map((ord: GetOrderListOut) => (
-              <div
-                key={ord.id}
-                className={`py-2.5 rounded-md md:rounded-none ${styles.Item} ${
-                  activeTab === TabKey.OPENED ? "" : "grayscale"
-                }`}
-              >
-                <div className="flex justify-between">
-                  <div className="flex gap-2">
-                    <div className="bg-opacity-10 rounded-md">
-                      <strong>
-                        {currencyPrecision(ord.volume_source, ord.from)}
-                      </strong>{" "}
-                      {ord.from} &rarr;{" "}
-                      <strong>
-                        {ord.type_order === "Market" && "~"}
-                        {currencyPrecision(ord.volume_dest, ord.to)}
-                      </strong>{" "}
-                      {ord.to}
-                    </div>
+            <div key={ord.id}
+              className={`${styles.Item} ${activeTab === TabKey.OPENED ? "" : "grayscale"}`}>
+              <div className="flex justify-between">
+                <div className="flex gap-2">
+                  <div className="bg-opacity-10 rounded-md">
+                    <strong>
+                      {currencyPrecision(ord.volume_source, ord.from)}
+                    </strong>{" "}
+                    {ord.from} &rarr;{" "}
+                    <strong>
+                      {ord.type_order === "Market" && "~"}
+                      {currencyPrecision(ord.volume_dest, ord.to)}
+                    </strong>{" "}
+                    {ord.to}
+                  </div>
 
-                    <span className="text-gray-400">
-                      {ord.state}{" "}
-                      {ord.state !== OrderState.FAILED ? null : (
-                        <Tooltip
-                          text={
-                            <div>
-                              {t(
-                                "exchange.error_occurred_while_executing_order"
-                              )}
+                  <span className="text-gray-400">
+                    {ord.state}{" "}
+                    {ord.state !== OrderState.FAILED ? null : (
+                      <Tooltip
+                        text={
+                          <div>
+                            {t(
+                              "exchange.error_occurred_while_executing_order"
+                            )}
 
-                              <span className="flex items-center">
-                                {t("exchange.order_id")} {ord.id}
-                                <CopyIcon value={ord.id} />
-                              </span>
-                            </div>
-                          }
-                        >
-                          <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help">
-                            <img src="/img/icon/HelpIcon.svg" alt="tooltip" />
+                            <span className="flex items-center">
+                              {t("exchange.order_id")} {ord.id}
+                              <CopyIcon value={ord.id} />
+                            </span>
                           </div>
-                        </Tooltip>
-                      )}
-                    </span>
-                  </div>
-                  <div className="text-secondary">
-                    {format(new Date(ord.time_created), "dd/MM/yyyy HH:mm")}
-                  </div>
+                        }
+                      >
+                        <div className="inline-block relative align-middle w-[14px] pb-1 ml-1 cursor-help">
+                          <img src="/img/icon/HelpIcon.svg" alt="tooltip" />
+                        </div>
+                      </Tooltip>
+                    )}
+                  </span>
                 </div>
-                <div className="flex justify-between gap-0.5 mt-1.5">
-                  <div className="flex gap-2.5 items-center">
-                    <div className="text-secondary">{t("price")}: </div>
-                    <div>
-                      <span>
-                        1 {ord.from} ~{" "}
-                        {currencyPrecision(
-                          ord.volume_dest / ord.volume_source,
-                          ord.to
-                        )}{" "}
-                        {ord.to}
-                      </span>
-                      &nbsp;
-                      {ord.type_order === "Market" && (
-                        <span>(sale at current market rate)</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {ord.state !== OrderState.OPENED ? null : (
-                    <button
-                      className={styles.CancelOrderBtn}
-                      onClick={() => {
-                        setSelectedOrder(ord);
-                        cancelOrderModal.showModal();
-                      }}
-                    >
-                      {t("cancel")}
-                    </button>
-                  )}
+                <div className="text-secondary">
+                  {format(new Date(ord.time_created), "dd/MM/yyyy HH:mm")}
                 </div>
               </div>
-            ))}
+              <div className="flex justify-between gap-0.5 mt-1.5">
+                <div className="flex gap-2.5 items-center">
+                  <div className="text-secondary">{t("price")}: </div>
+                  <div>
+                    <span>
+                      1 {ord.from} ~{" "}
+                      {currencyPrecision(
+                        ord.volume_dest / ord.volume_source,
+                        ord.to
+                      )}{" "}
+                      {ord.to}
+                    </span>
+                    &nbsp;
+                    {ord.type_order === "Market" && (
+                      <span>(sale at current market rate)</span>
+                    )}
+                  </div>
+                </div>
+
+                {ord.state !== OrderState.OPENED ? null : (
+                  <button
+                    className={styles.CancelOrderBtn}
+                    onClick={() => {
+                      setSelectedOrder(ord);
+                      cancelOrderModal.showModal();
+                    }}
+                  >
+                    {t("cancel")}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
 
         {!isLoading && ordersList.length >= 10 && !allOrdVisibly && (
           <div className="row mt-3">
@@ -296,13 +276,7 @@ function OpenOrders({ refreshKey }: IParams) {
                   className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
                   {t("exchange.see_more")}{" "}
-                  <img
-                    className="ml-2"
-                    width={10}
-                    height={8}
-                    src="/img/icon/ArrowPlainDown.svg"
-                    alt="ArrowPlainDown"
-                  />
+                  <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
                 </span>
               )}
             </div>

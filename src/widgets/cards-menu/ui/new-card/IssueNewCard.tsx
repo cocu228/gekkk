@@ -8,7 +8,7 @@ import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import Select from '@/shared/ui/select/Select';
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 export function IssueNewCard() {
     const {t} = useTranslation();
@@ -26,17 +26,17 @@ export function IssueNewCard() {
     }, [state]);
     
     return <div>
-        <div className={s.issueHeader}>
-            <h3 className={s.issueTitle}>Issue new card</h3>
+        <div className={styles.issueHeader}>
+            <h3 className={styles.issueTitle}>{t("issue_new_card")}</h3>
             <CloseWindowButton onClick={close}/>
         </div>
-        <div className={s.issueBody}>
-            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                <span className={s.rowItemTitle}>{t('card_type')}</span>
+        <div className={styles.issueBody}>
+            <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                <span className={styles.rowItemTitle}>{t('card_type')}</span>
                 <div className='w-[150px]'>
                     <Select className="w-full mt-2"
                             placeholder='Select type...'
-                            value={state.cardType.toLowerCase()}
+                            value={t(state.cardType.toLowerCase())}
                             options={[{
                                 label: 'Virtual',
                                 value: 'virtual',
@@ -52,9 +52,9 @@ export function IssueNewCard() {
                 </div>
             </div>
             
-            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                <div className={s.inputWrap}>
-                    <span className={s.inputTitle}>Cardholer name</span>
+            <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                <div className={styles.inputWrap}>
+                    <span className={styles.inputTitle}>{t("cardholder_name")}</span>
                     <input 
                     onChange={({target}) => setState({
                         ...state,
@@ -62,42 +62,42 @@ export function IssueNewCard() {
                     })}
                     value={state.cardholderName}
                         placeholder={t("enter_cardholder_name")} 
-                        className={s.issue_inp}
+                        className={styles.issue_inp}
                     />
                 </div>
             </div>       
-            <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                <div className={s.inputWrap}>
-                    <span className={s.inputTitle}>{t("linked_phone_number")}</span>
+            <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                <div className={styles.inputWrap}>
+                    <span className={styles.inputTitle}>{t("linked_phone_number")}</span>
                     <input
-                        className={s.issue_inp}
+                        className={styles.issue_inp}
                         onChange={({target}) => setState({
                             ...state,
                             linkedPhone: target.value
                         })}
-                        placeholder={t("enter_phone_number")} 
+                        placeholder={t("auth.enter_phone_number")} 
                         value={state.linkedPhone}
                     />
                 </div>
             </div>
             {state.cardType !== 'PLASTIC' ? null : (<div className='flex flex-col gap-[12px]'>
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.issueTextGroup}>
-                        <span className={s.issueTextGroupTitle}>{t('delivery_address')}</span>
-                        <span className={s.issueTextGroupSubtitle}>{t('same_as_the_residence_address')}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.issueTextGroup}>
+                        <span className={styles.issueTextGroupTitle}>{t('delivery_address')}</span>
+                        <span className={styles.issueTextGroupSubtitle}>{t('same_as_the_residence_address')}</span>
                     </div>
                     <Switch
                         checked={state.isResidenceAddress}
                         onChange={switchResidenceAddress}
                     />
                 </div>
-                <span className={s.issueTextGroupTitle}>{t('Country')}</span>
+                <span className={styles.issueTextGroupTitle}>{t('country')}</span>
                 <div className='w-[250px] mb-[12px]'>
                     <SearchSelect
                         className="w-full mt-2"
-                        placeholder='Select country...'
+                        placeholder={t("select_country")+"..."}
                         value={state.countryCode}
-                        notFoundContent={<span>Country not found</span>}
+                        notFoundContent={<span>{t("country_not_found")}</span>}
                         options={deliveryCountriesList.map(c => ({
                             label: c.name,
                             value: c.code
@@ -109,9 +109,9 @@ export function IssueNewCard() {
                     />
                 </div>
                     
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("city")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("city")}</span>
                         <input 
                             value={state.city}
                             onChange={({target}) => setState({
@@ -119,14 +119,14 @@ export function IssueNewCard() {
                                 city: target.value
                             })}
                             placeholder={t("enter_city_name")}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
 
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("post_code")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("post_code")}</span>
                         <input 
                             value={state.postalCode}
                             placeholder={t("enter_post_code")}
@@ -134,13 +134,13 @@ export function IssueNewCard() {
                                 ...state,
                                 postalCode: target.value
                             })}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("street")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("street")}</span>
                         <input 
                             value={state.street}
                             placeholder={t("enter_street_name")}
@@ -148,13 +148,13 @@ export function IssueNewCard() {
                                 ...state,
                                 street: target.value
                             })}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("house")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("house")}</span>
                         <input 
                             value={state.houseNumber}
                             placeholder={t("enter_house_name_or_number_if_available")}
@@ -162,14 +162,14 @@ export function IssueNewCard() {
                                 ...state,
                                 houseNumber: target.value
                             })}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
 
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("flat")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("flat")}</span>
                         <input 
                             value={state.apartmentNumber}
                             placeholder={t("enter_flat_name_or_number_if_available")}
@@ -177,14 +177,14 @@ export function IssueNewCard() {
                                 ...state,
                                 apartmentNumber: target.value
                             })}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
 
-                <div className={`${s.issueRowItem} ${s.issueRowItemBorder}`}>
-                    <div className={s.inputWrap}>
-                        <span className={s.inputTitle}>{t("Recipient")}</span>
+                <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
+                    <div className={styles.inputWrap}>
+                        <span className={styles.inputTitle}>{t("recipient")}</span>
                         <input 
                             value={state.recipientName}
                             placeholder={t("enter_recipient_name_if_necessary")}
@@ -192,13 +192,13 @@ export function IssueNewCard() {
                                 ...state,
                                 recipientName: target.value
                             })}
-                            className={s.issue_inp}
+                            className={styles.issue_inp}
                         />
                     </div>
                 </div>
             </div>)}
         </div>
-        <div className={s.issueFooter}>
+        <div className={styles.issueFooter}>
             <Button className='w-full'
                     disabled={!isValid}
                     onClick={() => {

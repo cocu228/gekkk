@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.65",
+  "version": "2.0.67",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",
@@ -70,7 +70,7 @@
     "sass": "1.58.3",
     "tailwindcss": "3.2.7",
     "typescript": "4.9.5",
-    "vite": "^4.5.2",
+    "vite": "5.1.7",
     "vite-plugin-node-polyfills": "^0.21.0",
     "vite-plugin-pwa": "^0.17.4"
   }

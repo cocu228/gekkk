@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import styles from './style.module.scss';
-import IconCopy from '@/shared/ui/icons/IconCopy';
+import { IconApp } from '../icons/icon-app';
 
 interface Props {
     value: string
@@ -32,9 +32,9 @@ function ClipboardField({value}: Props) {
 
     return (
         <div className={`flex bg-white items-center md:rounded-lg ${styles.CopyForm}`}>
-            <input className={styles.Input} type="text" value={isCopied ? 'Copied!' : value} readOnly />
+            <input data-testid="crypto_tech_address" className={styles.Input} type="text" value={isCopied ? 'Copied!' : value} readOnly />
             <button className={styles.Btn} onClick={handleCopyClick}>
-                <IconCopy/>
+                <IconApp  color='#000' size={22} code='t31' />
             </button>
         </div>
     );

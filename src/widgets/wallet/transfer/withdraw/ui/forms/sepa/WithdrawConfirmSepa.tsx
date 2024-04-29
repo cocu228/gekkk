@@ -13,11 +13,11 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react";
 import { CtxModalTrxResult } from "../../../model/context";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IState {
   loading: boolean;
@@ -150,7 +150,7 @@ const WithdrawConfirmSepa = ({
               <div className={`wrapper ${styles.ModalInfo}`}>
                 <div className={styles.ModalInfoIcon}>
                   <div className="col">
-                    <WarningIcon width={22} height={22} />
+                    <IconApp color="#8F123A" size={22} code="t27" />
                   </div>
                 </div>
                 <div className="row">

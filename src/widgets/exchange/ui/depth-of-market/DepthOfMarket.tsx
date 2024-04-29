@@ -1,15 +1,16 @@
 import Decimal from 'decimal.js';
 import styles from './style.module.scss';
-import {CtxExchangeData} from '../../model/context';
-import {useContext, useEffect, useState} from 'react';
-import {uncoverResponse} from '@/shared/lib/helpers';
-import {getCurrencyRounding} from '@/shared/lib/number-format-helper';
-import {CtxCurrencies} from "@/processes/CurrenciesContext";
+import { CtxExchangeData } from '../../model/context';
+import { useContext, useEffect, useState } from 'react';
+import { uncoverResponse } from '@/shared/lib/helpers';
+import { getCurrencyRounding } from '@/shared/lib/number-format-helper';
+import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import DepthItem from '@/widgets/exchange/ui/depth-of-market/depth-item/DepthItem';
 import DepthPrice from "@/widgets/exchange/ui/depth-of-market/depth-price/DepthPrice";
-import {apiGetRates, apiGetTradeInfo} from "@/shared/(orval)api/gek";
-import {GetTradeInfoOut} from "@/shared/(orval)api/gek/model";
+import { apiGetRates, apiGetTradeInfo } from "@/shared/(orval)api/gek";
+import { GetTradeInfoOut } from "@/shared/(orval)api/gek/model";
 import { t } from 'i18next';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
     roomKey: string;
@@ -38,8 +39,8 @@ function DepthOfMarket({
         tradeInfo: null
     }
 
-    const {currencies} = useContext(CtxCurrencies);
-    const {onPriceCurrenciesSwap} = useContext(CtxExchangeData);
+    const { currencies } = useContext(CtxCurrencies);
+    const { onPriceCurrenciesSwap } = useContext(CtxExchangeData);
     const [{
         rate,
         price,
@@ -51,15 +52,15 @@ function DepthOfMarket({
         if (!roomKey && currencyTo && currencyFrom) {
             updateRate();
         }
-        
+
         if (tradeInfo) {
             const asks = tradeInfo.asks[0];
             const bids = tradeInfo.bids[0];
 
             if (asks && bids) {
                 const price = (isSwapped
-                        ? asks[0] / asks[1] + bids[0] / bids[1]
-                        : asks[2] + bids[2]) / 2;
+                    ? asks[0] / asks[1] + bids[0] / bids[1]
+                    : asks[2] + bids[2]) / 2;
 
                 let newPrice: number = +price.toFixed(
                     currencies.get(isSwapped ? currencyFrom : currencyTo)?.ordersPrec
@@ -114,23 +115,23 @@ function DepthOfMarket({
             })();
         }
     }
-    
+
     function updateTradeInfo() {
         updateRate();
-        
+
         apiGetTradeInfo({
             room_key: Number(roomKey),
             currency_to: currencyTo,
             currency_from: currencyFrom
         })
-            .then(({data}) => setState(prev => ({
-                    ...prev,
-                    tradeInfo: data.result
-                })))
+            .then(({ data }) => setState(prev => ({
+                ...prev,
+                tradeInfo: data.result
+            })))
             .finally(() => setState(prev => ({
-                    ...prev,
-                    loading: false
-                }))
+                ...prev,
+                loading: false
+            }))
             );
     }
 
@@ -183,15 +184,9 @@ function DepthOfMarket({
                             ({isSwapped
                                 ? `${currencyTo}/${currencyFrom}`
                                 : `${currencyFrom}/${currencyTo}`
-                            })
-                            <img
-                                width={22}
-                                className={`${styles.Icon} cursor-pointer`}
-                                src={`/img/icon/ExchangeOrange.svg`}
-                                alt="ExchangeIcon"
-                                onClick={onPriceCurrenciesSwap}
-                            />
+                            })                           
                         </span>
+                        <IconApp code="t60" color="#F8A73E" size={14} className="rotate-[90deg] " />
                         <span>({currencyFrom})</span>
                     </div>
                 )}

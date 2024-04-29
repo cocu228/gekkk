@@ -1,9 +1,8 @@
 import styles from "./styles.module.scss";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import CurrencySelector from "@/shared/ui/input-currency/ui/currency-selector/CurrencySelector";
 import { CtxExchangeData } from "@/widgets/exchange/model/context";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
-import DownArr from "@/assets/downArr.svg?react";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useTranslation } from "react-i18next";
@@ -14,12 +13,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import Decimal from "decimal.js";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface SelectTokenProps {
   roomType: string;
   excludedCurrencies: string[];
   allowedFlags: CurrencyFlags[];
   value: string;
+  isBalance: boolean;
   currency: string;
   onChange?: (value: string) => void;
   onSelect: (value: string) => void;
@@ -34,6 +35,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
   excludedCurrencies,
   onChange,
   onSelect,
+  isBalance = false,
   onError = null,
 }) => {
   const { t } = useTranslation();
@@ -45,10 +47,13 @@ export const SelectToken: FC<SelectTokenProps> = ({
     ? new Decimal(currencies.get(from.currency)?.minOrder).toNumber()
     : 0;
 
+    const balance = currency && isBalance && currencies.get(currency).balance?.free_balance.toFixed(2)
+
   return (
     <>
-      <div className={styles.SelectWrap}>
+      <div className={styles.SelectWrap} style={{paddingBottom: balance && '5px'}} >
         <div className={`${styles.SelectedBody} ${currency && styles.CurrencyStyles}`}>
+          {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
           <CurrencySelector
             balanceFilter
             onSelect={onSelect}
@@ -64,15 +69,18 @@ export const SelectToken: FC<SelectTokenProps> = ({
               </>
             ) : (
               <span className={styles.SelectedToken}>
-                <IconCoin className={styles.Ico} code={currency} />
-                {currency}
+                <div className="flex items-center gap-[5px]">
+                  <IconCoin className={styles.Ico} code={currency} />
+                  {currency}
+                </div>
+               
               </span>
             )}
           </CurrencySelector>
         </div>
 
         <div className={styles.InputBody}>
-          <DownArr className={styles.Arr} />
+          <IconApp code="t08" size={8} color="#3A5E66" className="rotate-[90deg]" />
           <input
             value={value}
             disabled={!currency}
@@ -81,7 +89,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
               onChange(valueNew);
             }}
             className={styles.Input}
-            placeholder="-enter amount-"
+            placeholder={`-${t("exchange.enter_amount").toLowerCase()}-`}
           />
         </div>
       </div>

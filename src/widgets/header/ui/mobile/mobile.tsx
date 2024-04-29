@@ -50,8 +50,10 @@ const HeaderMobile = ({ items, actions }) => {
                 return t("exchange_button").capitalize();
             case 'card-menu':
                 return t("card_menu").capitalize()
+            case 'gekkard-pro':
+                return t("gekkard_pro.title").capitalize()
             default:
-                return t(`${location.pathname.slice(1)}`).capitalize()
+                return t(`${location.pathname.slice(1).replace("-", "_")}`).capitalize()
         }
     }
     // const isOpen = storyToggleSidebar(state => state.isOpen);

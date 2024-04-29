@@ -332,6 +332,7 @@
   color: #1F3446;
   font-size: 12px;
   font-weight: 600;
+  min-width: 62px;
 }
 
 .SelectActive {
@@ -345,12 +346,36 @@
   border: 1px solid #DCDCD9;
 }
 
-.SelectPickedValue {
-
+.SelectCurrencyActive {
+  justify-content: start;
+  padding: 0 20px;
 }
 
 .NonePickedTitle {
   font-size: 10px;
   font-weight: 400;
   color: #B9B9B5;
+}
+
+.SelectActiveToken {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #3A5E66;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.CurrencyListTitle {
+  color: #1F3446;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 15px 15px;
+  display: block;
+  align-self: start;
+}
+
+.TypeList {
+  margin-top: 15px;
+  width: 100%;
 }

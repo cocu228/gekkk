@@ -21,7 +21,7 @@ const HeaderMobile = ({ items, actions }) => {
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
     const historyPage = useMatch("/history")
-    const isOnMainPages = !!homePage || !!historyPage
+    const isOnMainPages = !!homePage
     const navigate = useNavigate()
     const location = useLocation()
     const {md} = useContext(BreakpointsContext);
@@ -71,7 +71,7 @@ const HeaderMobile = ({ items, actions }) => {
 
             {/* <div className="wrapper flex flex-row flex-nowrap"> */}
 
-            {isOnMainPages && location.pathname.split('/')[1] !== 'history' ?
+            {isOnMainPages ?
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :

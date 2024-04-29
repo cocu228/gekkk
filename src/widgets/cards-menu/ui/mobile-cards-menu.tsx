@@ -346,7 +346,9 @@ const MobileCardsMenu = ({
           ) : (
             <div className="font-medium text-[16px]">
               <div className="flex flex-row gap-2">
-                <IconApp color="#8F123A" size={22} code="t27" />
+                <div>
+                  <IconApp color="#8F123A" size={15} code="t27"/>
+                </div>
                 <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">
                   {t("be_careful")}
                 </h3>

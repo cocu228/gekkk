@@ -37,7 +37,7 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item
                         </span>}
                     {item.balance?.user_balance_EUR_equ === null || item.$const === "EUR" ? "" :
                         <span className={styles.EuroEqv}>
-                            {toLocaleFiatRounding(item.balance.user_balance_EUR_equ)}
+                            {toLocaleFiatRounding(item.balance?.user_balance_EUR_equ)}
                         </span>}
                 </div>
             </div>

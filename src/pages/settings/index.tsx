@@ -1,19 +1,13 @@
 import { useCallback, useEffect, useMemo } from "react";
 import styles from './styles.module.scss'
 import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
-
-// import { PersonalInformation } from './components/PersonalInformation'
-
 import { settingsContext } from "./settingsContext";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-
 import { PersonalInformation } from "./components/personalInformation";
 import { Pricing } from "./components/Pricing";
-import { AccessManagement } from "./components/ApplicationPassword";
 import { IdentificationStatus } from "./components/IdentificationStatus";
 import { LegalNotices } from "./components/LegalNotices";
 import { MyReports } from "./components/MyReports";
@@ -29,15 +23,14 @@ const areaMap = {
   "identification-status": <IdentificationStatus />,
   "personal-information": <PersonalInformation />,
   "my-reports": <MyReports />,
-  "access-management": <AccessManagement />,
-  pricing: <Pricing />,
+  "pricing": <Pricing />,
   "legal-notices": <LegalNotices />,
   "app-version": <AppVersion />,
   "change-password": <ChangePassword />,
   "user-keys": <UserKeys />,
-  history: <LoginAndSignHistory />,
+  "history": <LoginAndSignHistory />,
   "user-sessions": <UserSession />,
-  language: <LanguageSettings />,
+  "language": <LanguageSettings />,
 };
 
 type SettingsSections = keyof typeof areaMap | "";
@@ -170,12 +163,6 @@ export function Settings() {
                     }}
                     isSelected={selectedArea === "user-sessions"}
                   />
-                    {/* <SettingsButton 
-                  icon={<PinCodeIcon/>} 
-                  text={t('access_management')}  
-                  onClick={() => {setSelectedArea('access-management')}} 
-                  isSelected={selectedArea === 'access-management'}
-                /> */}
               </div>
             </div>
             <div className={styles.box} >

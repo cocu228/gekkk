@@ -180,7 +180,7 @@ export function ConfirmationNewCard() {
 
         <div className={styles.confFooterBtns}>
             <Button disabled={loading} onClick={onConfirm}>{t("order_card")}</Button>
-            <Button gray  onClick={() => {
+            <Button variant='gray'  onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
         </div>

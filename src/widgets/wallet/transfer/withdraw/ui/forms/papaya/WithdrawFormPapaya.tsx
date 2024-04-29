@@ -170,7 +170,7 @@ const WithdrawFormPapaya = () => {
                 <div className={styles.ButtonContainerCenter}>
                     <Button
                         size={"xl"}
-                        greenTransfer
+                        variant='greenTransfer'
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}

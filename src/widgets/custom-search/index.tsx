@@ -242,7 +242,7 @@ export default function customSearch() {
                     <Button
                         className={`${styles.BottomBtn} grey`}
                         size='sm' 
-                        gray={true} 
+                        variant='gray' 
                         onClick={()=>{
                             setApply(false)
                             handleReset()

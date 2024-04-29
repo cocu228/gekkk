@@ -306,7 +306,7 @@ function OpenOrders({ refreshKey }: IParams) {
           </Button>
 
           <Button
-            gray
+            variant='gray'
             className="w-full"
             onClick={cancelOrderModal.handleCancel}
           >

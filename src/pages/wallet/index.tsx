@@ -1,4 +1,4 @@
-import {useContext, useEffect, useMemo, useRef, useState} from "react";
+import {useContext, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -25,8 +25,8 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
-import Programs from "@/widgets/programs/ui";
-import {getCookieData, pull, pullStart} from "@/shared/lib";
+import Programs from "@/widgets/wallet/programs/cashback/EUR/ui";
+import {getCookieData} from "@/shared/lib";
 import PendingTransactions from "@/widgets/pending-transactions";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 

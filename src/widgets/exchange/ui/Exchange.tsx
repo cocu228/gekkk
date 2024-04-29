@@ -397,7 +397,7 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      gray
+                      variant='gray'
                       disabled={loading}
                       className="w-full"
                       onClick={confirmModal.handleCancel}

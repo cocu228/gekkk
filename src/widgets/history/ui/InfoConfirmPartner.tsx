@@ -86,7 +86,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
             </div>
             <div className="flex justify-center w-[40%]">
               <Button
-                greenTransfer
+                variant='greenTransfer'
                 onClick={() => setPartnerInfo(input)}
                 disabled={input === "" || containsNonLatinCharacters(input)}
                 size={"xl"}

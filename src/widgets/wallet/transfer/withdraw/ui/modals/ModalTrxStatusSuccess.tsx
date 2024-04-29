@@ -43,7 +43,7 @@ function ModalTrxStatusSuccess({
                 <Button
                     size='xl'
                     className='w-full'
-                    whiteGreenTransfer
+                    variant='whiteGreenTransfer'
                     onClick={onReceipt}
                 >
                     <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt")}
@@ -52,7 +52,7 @@ function ModalTrxStatusSuccess({
 
             <Button
                 size='xl'
-                blueTransfer
+                variant="blueTransfer"
                 className='w-full'
                 onClick={handleCancel}
             >

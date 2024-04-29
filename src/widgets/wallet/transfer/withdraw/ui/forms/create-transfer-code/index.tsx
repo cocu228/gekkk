@@ -131,7 +131,7 @@ const CreateTransferCode = () => {
                             </div>
                             <div className={styles.ButtonContainerCenter}>
                                 <Button
-                                    blueTransfer
+                                    variant="blueTransfer"
                                     size="xl"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
@@ -157,7 +157,7 @@ const CreateTransferCode = () => {
                             </div>
                             <div className="w-full">
                                 <Button
-                                    blueTransfer
+                                    variant="blueTransfer"
                                     size="xl"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
@@ -250,7 +250,7 @@ const CreateTransferCode = () => {
                 
             </div>}     
         <div className={styles.ButtonContainerCenter}>
-            <Button greenTransfer disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+            <Button variant='greenTransfer' disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
                 onCreateCode()
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>

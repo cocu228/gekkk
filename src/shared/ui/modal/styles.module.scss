@@ -20,19 +20,6 @@
       padding: 1rem !important;
     }
   }
-
-  & > div:nth-child(2) {
-    & > button {
-      width: 26px;
-      height: 26px;
-      background-image: url('/img/gek_icons_lib2.svg?v3#t47');
-      background-position: center;
-
-      span {
-        display: none;
-      }
-    }
-  }
 }
 
 .underline {
@@ -43,7 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2.2px solid #7B797C;
   width: 20px;
   height: 20px;
   border-radius: 50%;

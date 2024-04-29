@@ -254,7 +254,10 @@ const History = memo(function ({
             <div className="row mt-3">
               <div className="col flex justify-center relative">
                 {lazyLoading ? (
-                  <Loader className={" w-[24px] h-[24px] top-[4px]"} />
+                  <div className="h-[30px]">
+
+                    <Loader className={" w-[24px] h-[24px] top-[4px]"} />
+                  </div>
                 ) : (
                   <span
                     onClick={() => {

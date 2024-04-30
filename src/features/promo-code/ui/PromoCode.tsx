@@ -105,7 +105,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
           <div className={buttonStyles.ButtonContainer}>
             <Button
               htmlType={"submit"}
-              greenTransfer
+              variant="greenTransfer"
               className={buttonStyles.ButtonTwo}
               disabled={
                 valInput === "" ||
@@ -117,7 +117,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               {t("confirm")}
             </Button>
             <Button
-              whiteGreenTransfer
+              variant={"whiteGreenTransfer"}
               size={"xl"}
               className={buttonStyles.ButtonTwo}
               onClick={handleCancel}

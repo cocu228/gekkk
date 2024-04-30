@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 interface Props {
     price?: Decimal,
@@ -14,7 +14,7 @@ function DepthItem({price, amount, color = 'red', percent}: Props) {
             {percent.greaterThan(0) && (
                 <span className={styles.ItemPercent} style={{width: `${percent}%`}}/>
             )}
-            <div className={`flex justify-between p-1 text-md lg:text-sm md:text-xs ${styles.ItemText}`}>
+            <div className={styles.ItemText}>
                 <span>{price?.greaterThan(0) ? +price.toString() : '-'}</span>
                 <span>{amount || '-'}</span>
             </div>

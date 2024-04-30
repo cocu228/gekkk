@@ -18,7 +18,6 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
@@ -77,7 +76,6 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 <CodeModalInfo code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
-                                {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
                                 <CopyIcon value={it.code}/>
                             </div>
                         </div>
@@ -140,9 +138,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                                 <CodeModalInfo inputCurr={it.amount} code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
-                                {/*<img width={14} height={14} src="/img/icon/Copy.svg" alt="Copy"/>*/}
                                 <CopyIcon value={it.code}/>
-                                {/* <CopyIconGreen value={it.code}/> TODO: Не корректный экспорт с макета */}
                             </div>
                         </div>
                         <div className="row">
@@ -235,7 +231,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     return !md ? <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button size={"sm"} gray onClick={() => onBtnConfirm(code)}
+            <Button size={"sm"} variant='gray' onClick={() => onBtnConfirm(code)}
                     className={"!py-3 !h-[fit-content]"}>{t("confirm")}</Button>}
 
         <Modal padding title={"The code confirmed"} open={isModalOpen}
@@ -262,7 +258,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         </Modal>
     </> : <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button greenTransferCode size={"sm"} onClick={showModal}
+            <Button variant='greenTransfer' size={"sm"} onClick={showModal}
                     className={"!py-3 w-full !h-[fit-content]"}><span className="text-[12px]">{t("confirm")}</span></Button>}
 
         <ModalAnt footer={null} title={<span className={stylesForms.MainModalTitle}>{t("confirm_code")}</span>} open={isModalOpen}
@@ -303,10 +299,10 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={stylesForms.ButtonContainer}>
-                    <Button greenTransfer className={stylesForms.ButtonTwo} size="xl" onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                    <Button variant='greenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={()=>{onBtnConfirm(code); handleCancel()}}>
                         {t("confirm")}
                     </Button>
-                    <Button whiteGreenTransfer className={stylesForms.ButtonTwo} size="xl" onClick={handleCancel}>
+                    <Button variant='whiteGreenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

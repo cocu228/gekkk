@@ -11,7 +11,6 @@ import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, setCookieData, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
 import {Switch} from "antd";
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -63,7 +62,7 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
 
     
     return <div className="flex items-center justify-end relative">
-        {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
+        {active && <IconApp code="t47" className="absolute m-auto left-[-18px]" size={70} color="#00AEEF    " /> }
         <div className="wrapper mr-2">
             <SvgSchema active={active} className={hClassName.scss("SvgSchema")} width={32} height={22}/>
         </div>

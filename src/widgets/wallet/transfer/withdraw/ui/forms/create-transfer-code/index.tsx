@@ -21,6 +21,7 @@ import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss"
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -118,19 +119,19 @@ const CreateTransferCode = () => {
                 <div className='flex items-center'>
                     {t("use_confirmation")}
                     <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
-                        <img src="/img/icon/UseConfirmation.svg" alt="tooltip"/>
+                        <IconApp code="t27" color="#2BAB72" size={14} />
                     </div>
                         <MoadlAnt title={<span className={styles.MainModalTitle}>{t("use_confirmation")}</span>} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
                             <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
                             <div className="flex flex-row mt-4 items-center">
-                                <img className="mr-2" src="/img/icon/UseConfirmation.svg" alt="tooltip"/>
+                                <IconApp code="t27" className="mr-2" color="#2BAB72" size={14} />
                                 <div className="flex items-center">
                                     <span>{t("when_using_confirmation_mobile")}</span>
                                 </div>
                             </div>
                             <div className={styles.ButtonContainerCenter}>
                                 <Button
-                                    blueTransfer
+                                    variant="blueTransfer"
                                     size="xl"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
@@ -156,7 +157,7 @@ const CreateTransferCode = () => {
                             </div>
                             <div className="w-full">
                                 <Button
-                                    blueTransfer
+                                    variant="blueTransfer"
                                     size="xl"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
@@ -249,7 +250,7 @@ const CreateTransferCode = () => {
                 
             </div>}     
         <div className={styles.ButtonContainerCenter}>
-            <Button greenTransfer disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+            <Button variant='greenTransfer' disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
                 onCreateCode()
                 showModal()
             }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>

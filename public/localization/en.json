@@ -492,6 +492,12 @@
       "buy": "Buy",
       "search_currency": "Search currency"
     },
+    "gekkard_pro":{
+      "title": "Gekkard PRO",
+      "join_gekkard_pro": "Join Gekkard PRO",
+      "i_accept": "I accept",
+      "text": "By continuing, you confirm that you accept the terms and conditions and agree to engage with the Company as an independent contractor on the terms and conditions set forth in the applicable document."
+    },
     "confirm": "Confirm",
     "close": "Close",
     "apply": "Apply",
@@ -750,7 +756,8 @@
       "testing_value": "Testing value",
       "without_comission": "without comission",
       "closed_orders": "Closed orders",
-      "active_orders": "Active orders"
+      "active_orders": "Active orders",
+      "enter_price": "Enter price"
     },
     "you_will_pay": "You will pay",
     "you_will_get": "You will get",
@@ -1101,7 +1108,7 @@
     "select_card": "Select card",
     "select_currency": "Select currency",
     "no_data_avialible": "No data avialible",
-    "clear": "Clear",
+    "clear": "Clean",
     "investments": "Investments",
     "rewards": "Rewards",
     "are_you_sure_close": "Are you sure you want to close {{currency1}} - {{currency2}} private exchange room? All unclosed orders will be canceled",
@@ -1680,6 +1687,7 @@
     "contact_crypto": "Contact crypto support",
     "chat_us": "Chat us",
     "response_time_up_to": "Response time up to {{hours}} hours",
-    "this_code_can_be_used": "This code can be used only once"
+    "this_code_can_be_used": "This code can be used only once",
+    "get_gekkard_pro": "Get Gekkard PRO"
   }
 }

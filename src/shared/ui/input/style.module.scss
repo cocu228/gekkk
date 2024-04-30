@@ -5,9 +5,10 @@
 
   :global(.ant-input) {
     padding: 1.25rem;
-    border-radius: 0.25rem;
-    border-color: var(--color-secondary);
-    font-weight: 500;
+    border-radius: 8px;
+    border-color: var(--gek-light-grey);  
+    font-weight: bold;  
+    color: var(--gek-dark-blue);    
 
     @include max-devices('sm') {
       padding: 1rem 1.25rem;
@@ -15,11 +16,13 @@
 
     &::placeholder {
       font-weight: normal;
-      color: var(--color-gray-450);
-    }
+      color: var(--gek-mid-grey);
+      font-size: 0.70rem;
+      padding-right: 5px;
+    }   
 
     &:focus {
-      border-color: var(--color-accent);
+      border-color: var(--gek-light-grey);
     }
 
     &:disabled {

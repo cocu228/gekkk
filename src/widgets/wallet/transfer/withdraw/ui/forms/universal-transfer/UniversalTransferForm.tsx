@@ -175,7 +175,7 @@ const UniversalTransferForm = () => {
           className={styles.Button}
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}
-          greenTransfer
+          variant='greenTransfer'
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>

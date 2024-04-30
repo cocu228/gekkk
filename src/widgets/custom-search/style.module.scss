@@ -238,6 +238,8 @@
   color: #1F3446;
   font-size: 12px;
   font-weight: 600;
+
+  
 }
 
 .Inp {
@@ -270,6 +272,24 @@
   gap: 0.5rem;
   width: 100%;
 
+  :global(.ant-select-focused) {
+    border: none !important;
+    border-style: none !important;
+    box-shadow: none !important;
+  }
+
+  :global(.ant-select) {
+    :global(.ant-select-selector) {
+      border: 1px solid #d9d9d9 !important;
+      box-shadow: none !important;
+      :global(.ant-select-selection-placeholder) {
+        color: #3A5E66 !important;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+
   :global(.ant-select) {
 
     :global(.ant-select-selector) {
@@ -286,7 +306,7 @@
       right: 0;
       border-radius: 0 6px 6px 0;
       height: 31px !important;
-      top: 6px !important;
+      top: 6.5px !important;
     }
   }
 }
@@ -378,4 +398,12 @@
 .TypeList {
   margin-top: 15px;
   width: 100%;
+}
+
+* {
+  :global(.ant-select-dropdown) {
+    :global(.ant-select-item) {
+      background: #fff !important;
+    }
+  }
 }

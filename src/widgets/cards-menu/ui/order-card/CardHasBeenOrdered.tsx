@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {useNewCardContext} from "@/widgets/cards-menu/ui/new-card/newCardContext";
-import s from "../new-card/styles.module.scss"
+import styles from "../new-card/styles.module.scss"
 
 export function CardHasBeenOrdered() {
     const navigate = useNavigate();
@@ -33,17 +33,17 @@ export function CardHasBeenOrdered() {
     const {t} = useTranslation();
 
     return <>
-        <div className={s.orderWrap}>
-            <p className={s.orderText}>{t("card_has_been_ordered")}</p>
+        <div className={styles.orderWrap}>
+            <p className={styles.orderText}>{t("card_has_been_ordered")}</p>
 
             <Success />
 
-            <Button gray onClick={() => {
+            <Button variant='gray' onClick={() => {
                navigate('/'); 
             }}>{t("back_to_main_page")}</Button>
 
-            <p className={s.orderText}>
-                {t("you_will_be_automatically_redirected_to_the_main_page_in")} <span className={s.timeSpan}>00:{secondsToShow}</span>
+            <p className={styles.orderText}>
+                {t("you_will_be_automatically_redirected_to_the_main_page_in")} <span className={styles.timeSpan}>00:{secondsToShow}</span>
             </p>
         </div>
     </>

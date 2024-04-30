@@ -1,85 +1,61 @@
-import {useContext, useEffect, useState} from 'react';
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-import CashbackCard from './CashbackCard';
-import CashbackCardMobile from './CashbackCardMobile';
+import { useContext } from 'react';
 import Loader from '@/shared/ui/loader';
+import CashbackCard from './CashbackCard';
 import { dealsData } from '../model/deals-data';
-// import { dealsSelector } from '@/shared/store/deals/selectors';
+import { useSearchParams } from 'react-router-dom';
+import CashbackCardMobile from './CashbackCardMobile';
+import { BreakpointsContext } from '@/app/providers/BreakpointsProvider';
 
-interface IParams{
-    currency:string,
-}
-
-const CashbackProgram = ({currency}:IParams) => {
-    // const getDeals = storeDeals(state => state.getDeals);
-    // const dealsDataSelector = dealsSelector();
-
-    // useEffect(() => {
-    //     (async () => {
-    //         await getDeals();
-    //     })()
-    // }, [])
-
-    const [needMobile, setNeedMobile] = useState<boolean>(false)
-    useEffect(() => {
-        if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-            setNeedMobile(true)
-        }else{
-            setNeedMobile(false)
-        }
-        
-        function handleResize() {
-            if(window.innerWidth < 970 || window.innerWidth > 1200 ){
-                setNeedMobile(true)
-            }else{
-                setNeedMobile(false)
-            }
-        }
-        
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-      }, []);
+function Programs() {
+    const [params] = useSearchParams();
+    const currency = params.get("currency");
+    const {sm, md, lg, xl, xxl} = useContext(BreakpointsContext);
 
     return (
-        <>
-            <div className='grid grid-cols-1 justify-center rlative'>
-                {dealsData[currency].length 
-                    ? dealsData[currency].map(cashback => {
-                        const { id, name, accrualPeriod, className, mobileModalColor, iconPath, conditions, isActive } = cashback;
+        <div className='grid grid-cols-1 justify-center rlative'>
+            {dealsData[currency].length 
+                ? dealsData[currency].map(cashback => {
+                    const {
+                        id,
+                        name,
+                        isActive,
+                        iconPath,
+                        className,
+                        conditions,
+                        accrualPeriod,
+                        mobileModalColor
+                    } = cashback;
 
-                        return !needMobile
-                        ? (
-                            <CashbackCard
-                                key={id}
-                                cashbackId={id}
-                                name={name}
-                                accrualPeriod={accrualPeriod}
-                                className={className}
-                                iconPath={iconPath}
-                                conditions={conditions}
-                                isActive={isActive}
-                            />
-                        )
-                        : (
-                            <CashbackCardMobile
-                                key={id}
-                                cashbackId={id}
-                                name={name}
-                                accrualPeriod={accrualPeriod}
-                                className={className}
-                                modalColor={mobileModalColor}
-                                iconPath={iconPath}
-                                conditions={conditions}
-                                isActive={isActive}
-
-                            />
-                        )
-                    })
-                    : <Loader />
-                }
-            </div>
-        </>
+                    return !(sm || (!md && lg) || (!xl && xxl))
+                    ? (
+                        <CashbackCard
+                            key={id}
+                            name={name}
+                            cashbackId={id}
+                            isActive={isActive}
+                            iconPath={iconPath}
+                            className={className}
+                            conditions={conditions}
+                            accrualPeriod={accrualPeriod}
+                        />
+                    ) : (
+                        <CashbackCardMobile
+                            key={id}
+                            name={name}
+                            cashbackId={id}
+                            isActive={isActive}
+                            iconPath={iconPath}
+                            className={className}
+                            conditions={conditions}
+                            accrualPeriod={accrualPeriod}
+                            modalColor={mobileModalColor}
+                        />
+                    )
+                })
+                : <Loader />
+            }
+        </div>
     );
-};
+}
 
-export default CashbackProgram;
+export default Programs;

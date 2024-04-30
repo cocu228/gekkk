@@ -54,18 +54,17 @@
 
 .MainContainerMobile {
   display: flex;
-  padding: 10px 5px;
+  padding: 0px 0px 10px 0px;
   flex-direction: column;
   align-self: center;
   margin: auto;
 }
 
 .DataMobile {
-  padding-top: 10px;
   color: #7B797C;
   font-size: 12px;
   font-weight: 600;
-  margin: 0 0 10px 10px;
+  margin: 5px 0 4px 10px;
 }
 
 .HistoryTxRow {

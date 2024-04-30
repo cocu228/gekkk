@@ -5,14 +5,11 @@ import Form from "@/shared/ui/form/Form";
 import styles from "./style.module.scss";
 import {
   MouseEvent,
-  MouseEventHandler,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import Modal from "@/shared/ui/modal/Modal";
-import MenuItem from "./menu-item/MenuItem";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
@@ -37,15 +34,9 @@ import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import Arrow from "@/assets/arrow.svg?react";
-import Lock from "@/assets/lock.svg?react";
-import Warning from "@/assets/warning.svg?react";
-import Warn from "@/assets/warnn.svg?react";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
-import { Typography } from "@/shared/ui/typography/typography";
-import { Outlet } from "react-router-dom";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -355,7 +346,9 @@ const MobileCardsMenu = ({
           ) : (
             <div className="font-medium text-[16px]">
               <div className="flex flex-row gap-2">
-                <IconApp color="#8F123A" size={22} code="t27" />
+                <div>
+                  <IconApp color="#8F123A" size={15} code="t27"/>
+                </div>
                 <h3 className="typogrhaphy-b1 text-[12px]" color="dark-green">
                   {t("be_careful")}
                 </h3>
@@ -411,18 +404,15 @@ const MobileCardsMenu = ({
   return (
     <div className={styles.CarouselWrap}>
       <div className={styles.CarouselBlock}>
-        <div className={styles.CarouselBlockMobile}>
-          <BankCardsCarousel
-            cardSize='lg'
-            cards={cardsStorage.cards}
-            refreshKey={cardsStorage.refreshKey}
-            onSelect={(card) => {
-              setCurrentCard(card);
-              setCard(card);
-              setSwitchChecked(card?.options?.limits?.disable);
-            }}
-          />
-        </div>
+        <BankCardsCarousel
+          cards={cardsStorage.cards}
+          refreshKey={cardsStorage.refreshKey}
+          onSelect={(card) => {
+            setCurrentCard(card);
+            setCard(card);
+            setSwitchChecked(card?.options?.limits?.disable);
+          }}
+        />
       </div>
 
       {!card ? (
@@ -538,7 +528,7 @@ const MobileCardsMenu = ({
                   <div>
                     <div className={`row mb-5`}>
                       <div className={styles.WarningWrap}>
-                        <Warning />
+                        <IconApp size={108} code="t56" color="#8F123A" />
                         <h1 className={styles.blocker}>Block card</h1>
                         <p className={styles.ghost}>
                           Are you sure you want to

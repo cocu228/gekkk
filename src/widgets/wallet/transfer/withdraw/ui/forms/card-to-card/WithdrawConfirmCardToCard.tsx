@@ -14,10 +14,10 @@ import { signHeadersGeneration } from "@/widgets/action-confirmation-window/mode
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 import { maskFullCardNumber } from "@/shared/lib";
 import StatusModalSuccess from "../../modals/ModalTrxStatusSuccess";
 import StatusModalError from "../../modals/ModalTrxStatusError";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 interface IState {
@@ -269,7 +269,7 @@ const WithdrawConfirmCardToCard = ({
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon/>
+                                        <IconApp size={15} code="t27" color="#8F123A" />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -399,12 +399,12 @@ const WithdrawConfirmCardToCard = ({
                                 htmlType={"submit"}
                                 className={styles.ButtonTwo}
                                 disabled={!totalCommission}
-                                greenTransfer
+                                variant='greenTransfer'
                         >{t("confirm")}</Button>
                         <Button size={"xl"}
                                 onClick={handleCancel}
                                 className={styles.ButtonTwo}
-                                whiteGreenTransfer
+                                variant='whiteGreenTransfer'
                         >{t("cancel")}</Button>
                     </div>
                 </div>

@@ -148,24 +148,24 @@
 .ControlMain{
     display: flex;
     padding: 10px 0px;
-    justify-content: center;
+    width: 150px;
+    justify-content: space-around;
     align-items: center;
     border-radius: 8px;
     background: linear-gradient(0deg, #FFF 0%, #FFF 100%), #FFF;    
 }
 .ControlMainLike{
-    display: flex;
-    width: 75px;
-    height: 27px;
-    justify-content: center;
-    align-items: center; 
+    &:hover{
+        cursor: pointer;
+        fill:#2BAB72;
+    }
 }
 .ControlMainDislike{
-    display: flex;
-    width: 75px;
-    height: 27px;
-    justify-content: center;
-    align-items: center; 
+    transform:rotate(180deg);
+    &:hover{
+        cursor: pointer;
+        fill: red;
+    } 
 }
 .ControlFooter{
     align-self: stretch;

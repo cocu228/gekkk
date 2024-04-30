@@ -400,6 +400,12 @@
       "buy": "Kaufen",
       "search_currency": "Währung suchen"
     },
+    "gekkard_pro":{
+      "title": "Gekkard PRO",
+      "join_gekkard_pro": "Gekkard PRO beitreten",
+      "i_accept": "Ich akzeptiere",
+      "text": "Durch die Fortsetzung bestätigen Sie, dass Sie die Allgemeinen Geschäftsbedingungen akzeptieren und sich damit einverstanden erklären, mit dem Unternehmen als freier Mitarbeiter auf den in dem entsprechenden Dokument festgelegten Bedingungen zusammenzuarbeiten."
+    },
     "confirm": "Bestätigen",
     "apply": "Anwenden",
     "done": "Fertig",
@@ -618,7 +624,8 @@
       "order_id": "Auftrags-ID:",
       "info_final_exchange": "Der endgültige Wechselkurs kann vom angezeigten Wert abweichen.",
       "testing_value": "Testwert",
-      "without_comission": "ohne Provision"
+      "without_comission": "ohne Provision",
+      "enter_price": "Preis eingeben"
     },
     "you_will_pay": "Sie werden bezahlen",
     "you_will_get": "Sie werden erhalten",
@@ -1428,7 +1435,8 @@
     "contact_crypto": "Kontaktieren Sie den Kryptowährungs-Support",
     "chat_us": "Schreibe uns",
     "response_time_up_to": "Antwortzeit bis zu {{hours}} Stunden",
-    "this_code_can_be_used": "Dieser Code kann nur einmal verwendet werden"
+    "this_code_can_be_used": "Dieser Code kann nur einmal verwendet werden",
+    "get_gekkard_pro": "Holen Sie sich Gekkard PRO"
 
 
     

@@ -68,7 +68,7 @@ const TopUpFormQR = () => {
         </div> */}
     </> : <>
         <div className="row mt-8 px-4 mb-8 w-full">
-            <Button tabIndex={0} onClick={onCreateAddress} htmlType="submit"
+            <Button onClick={onCreateAddress} htmlType="submit"
                     className="w-full disabled:opacity-5 !text-white">
                 Generate address
             </Button>

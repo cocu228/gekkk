@@ -18,6 +18,7 @@ import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
 import {uncoverArray} from "@/shared/lib";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const GkeCashbackProgram = () => {
     const {t} = useTranslation();
@@ -57,12 +58,7 @@ const GkeCashbackProgram = () => {
 
                         <div className="row mb-3">
                             <div className="col flex">
-                                <img
-                                    className="mr-2"
-                                    width={20} height={12}
-                                    alt="RightWitheArrowIcon"
-                                    src="/img/icon/RightWitheArrowIcon.svg"
-                                />
+                            <IconApp code="t59" size={20} className="rotate-[-90deg]" color="#fff" />
 
                                 <p className="text-sm">
                                     {t("up_amount_not_exceeding_similar", {currency: currency.$const})}
@@ -72,13 +68,7 @@ const GkeCashbackProgram = () => {
 
                         <div className="row">
                             <div className="col flex">
-                                <img
-                                    className="mr-2"
-                                    width={20} height={12}
-                                    alt="RightWitheArrowIcon"
-                                    src="/img/icon/RightWitheArrowIcon.svg"
-                                />
-
+                                <IconApp code="t59" size={20} className="rotate-[-90deg]" color="#fff" />
                                 <p className="text-sm">
                                     {t("cashback_is_credited_once_a_month")}
                                 </p>

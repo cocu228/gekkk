@@ -1,8 +1,28 @@
-.CurLink
-{
+.CardInfo {
+    padding: 10px 20px 0px 20px;
     display: flex;
     justify-content: center;
 }
+
+.CurTypeTxt,
+.TotalBal {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: lowercase;
+    padding: 6px 20px 0px 10px;
+    color: var(--gek-mid-grey);
+}
+
+.TotalBal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.CurLink {
+    display: flex;
+    justify-content: center;
+}
+
 .CurBox {
     display: flex;
     border-radius: 8px;
@@ -16,8 +36,8 @@
     cursor: pointer;
     width: 100%;
     max-width: 500px;
+    color: var(--gek-dark-blue);
 
-    /* width: 140px; */
     div {
         overflow: hidden;
     }
@@ -34,12 +54,13 @@
     }
 
     &:hover .ArrowMobile {
-        fill: var(--gek-dark-grey);
+        fill: var(--gek-green);
     }
 
     &:hover .ActiveChoice {
         background-color: var(--gek-mid-grey);
     }
+
     &:hover .CurIcon {
         filter: saturate(100%) invert(0%);
     }
@@ -47,7 +68,7 @@
 
 .ArrowMobile {
     margin-right: 8px;
-    fill: var(--gek-light-grey);
+    fill: var(--gek-additional);
 }
 
 .CurBox2 {
@@ -68,7 +89,7 @@
 .ActiveChoice {
     align-self: stretch;
     background-color: white;
-    width: 4px;
+    width: 5px;
 }
 
 .CurIcon {
@@ -80,12 +101,17 @@
     }
 }
 
-.EuroEqv {
+.IconLoader {
+    margin: 0px 4px;
+    position: relative;
+}
 
-    flex-grow: 1;
+.EuroEqv,
+.TotalBalSum {
     text-align: right;
     font-family: monospace;
-    color: var(--gek-dark-grey);
+    font-size: 0.75rem;
+    color: var(--gek-mid-grey);
 
     &::after {
         content: ' €';
@@ -96,19 +122,21 @@
     }
 }
 
+.EuroEqv {
+    flex-grow: 1;
+}
+
 .Income {
     color: var(--gek-green);
 }
 
 .CurName {
-    color: var(--gek-additional);
+    color: var(--gek-mid-grey);
 }
 
 .Sum {
-    color: var(--gek-additional);
     font-size: 0.85rem;
-    /* font-weight: bold; */
-
+    font-weight: bold;
 }
 
 :global(a.active) {
@@ -117,17 +145,24 @@
     }
 
     .ArrowMobile {
-        fill: var(--gek-additional);
+        fill: var(--gek-dark-blue);
     }
 
-    /* .CurName {
-        font-weight: bold;
-    } */
-    .Sum {      
-        font-weight: bold;    
+    .CurName {
+        /* font-weight: bold; */
+        color: var(--gek-additional);
+    }
+
+    .Sum {
+        /* font-weight: bold;   */
+        color: var(--gek-dark-blue);
     }
 
     .CurIcon {
         filter: saturate(100%) invert(0%);
     }
+    /* .CurBox
+    {
+        border: 1px var(--gek-mid-grey) solid;
+    } */
 }

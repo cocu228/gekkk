@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import s from '../../../styles.module.scss'
+import styles from '../../../styles.module.scss'
 
 interface IVersion {
 	date: string;
@@ -14,9 +14,9 @@ export const VersionCard = ({date, version, description}: IVersion) => {
 
 	
 	return (
-		<div className={s.versionCard}>
-			<h4 className={s.versionCardTitle}>{t('version')} {version} ({formatForCustomer(date)})</h4>
-			<h4 className={s.versionCardText}>{description}</h4>
+		<div className={styles.versionCard}>
+			<h4 className={styles.versionCardTitle}>{t('version')} {version} ({formatForCustomer(date)})</h4>
+			<h4 className={styles.versionCardText}>{description}</h4>
 		</div>
 	)
 }

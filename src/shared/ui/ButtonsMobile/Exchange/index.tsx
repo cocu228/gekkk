@@ -17,7 +17,8 @@ const ExchangeButton = memo(({to, className, isActive}:IParams) => {
         <>
             <NavLink to={to}>
                 <div className={`${styles.MobileButton} ${className}`}>
-                    <IconApp size={22} code="t01" color={isActive ? "#000" : "#9D9D9D"} />
+                    <IconApp size={22} code="t01"
+                        color={`var(${isActive ? '--gek-dark-blue' : '--gek-mid-grey'})`}/>
                     <span>{t("exchange_button")}</span>
                 </div>
             </NavLink>

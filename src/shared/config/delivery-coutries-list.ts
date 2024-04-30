@@ -957,7 +957,7 @@ export const deliveryCountriesList: ICountryData[] = [
     "code": "VG"
   },
   {
-    "name": "Virgin Islands, U.S.",
+    "name": "Virgin Islands, U.styles.",
     "code": "VI"
   },
   {

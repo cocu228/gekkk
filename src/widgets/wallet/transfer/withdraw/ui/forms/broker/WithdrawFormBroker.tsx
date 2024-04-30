@@ -267,7 +267,7 @@ const WithdrawFormBroker = () => {
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full"
-                    greenTransfer
+                    variant='greenTransfer'
                 >
                     {t("transfer")}
                 </Button>

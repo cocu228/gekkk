@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import s from '../../styles.module.scss'
+import styles from '../../styles.module.scss'
 import { CloseWindowButton } from '@/shared/ui/CloseWindowButton'
 
 import { useSettingsContext } from '../../settingsContext'
@@ -12,11 +12,11 @@ export function AreaWrapper({ children, title, secondary }: AreaWrapperProps) {
 
   return (
   <div
-      className={s.areaWrapper}
+      className={styles.areaWrapper}
     >
-      <div className={s.areaWrapperBody} >
+      <div className={styles.areaWrapperBody} >
         <h3 
-          className={`${s.areaWrapperTitle} ${xxl && s.areaWrapperTitleColor}`}
+          className={`${styles.areaWrapperTitle} ${xxl && styles.areaWrapperTitleColor}`}
           >
           {title}
         </h3>

@@ -12,7 +12,7 @@ import { CtxWalletData } from "../../model/context";
 import Decimal from "decimal.js";
 import { useTranslation } from "react-i18next";
 import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr=null, onClose=null}) => {
@@ -51,7 +51,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
             </div> : <div className={`wrapper my-4 ml-4 ${styles.ModalInfo}`}>
                 <div className={styles.ModalInfoIcon}>
                     <div className="col">
-                        <WarningIcon/>
+                        <IconApp size={15} code="t27" color="#8F123A" />
                     </div>
                 </div>
                 <div className="row">
@@ -146,7 +146,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                         size="xl"
                         className="w-full mt-4"
                         onClick={onClose}
-                        blueTransfer
+                        variant="blueTransfer"
                     >
                         {t("close")}
                     </Button>

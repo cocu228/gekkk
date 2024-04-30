@@ -16,6 +16,7 @@ import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts'
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import Loader from '@/shared/ui/loader';
 import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -96,7 +97,7 @@ export const PendingTransactions = () => {
     return state.length > 0 && <div>
         <InfoBox
             message={t("pending_transactions")}
-            icon={<IconGkeOrange height={30} width={30}/>}
+            icon={<IconApp code='t40' color={"var(--gek-orange)"} size={30}/>}
             onClick={() => {
                 setSelectedTx(state[0]);
                 showModal();

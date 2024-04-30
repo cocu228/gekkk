@@ -45,7 +45,7 @@ const InfoContent = (props: TypeProps) => {
   }, [props.id_transaction]);
 
   return (
-    <>
+    <div className="min-h-[400px]">
       {" "}
       {localErrorInfoBox ? (
         localErrorInfoBox
@@ -262,7 +262,7 @@ const InfoContent = (props: TypeProps) => {
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

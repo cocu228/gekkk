@@ -46,28 +46,36 @@ function Carousel({
     }
 
     return !items ? null : (
-        <div ref={ref} className={`${className} ${styles.Container}`}>
-            {items.length <= 1 ? null : (
-                <button onClick={handlePrev} className={styles.NavButton}>
-                    <IconApp
-                        size={20}
-                        code="t08"
-                        color="var(--gek-light-grey)"
-                        className={styles.BackIcon}
-                    />
-                </button>
-            )}
+        <div>
+            <div ref={ref} className={`${className} ${styles.Container}`}>
+                {items.length <= 1 ? null : (
+                    <button onClick={handlePrev} className={styles.NavButton}>
+                        <IconApp
+                            size={20}
+                            code="t08"
+                            color="var(--gek-light-grey)"
+                            className={styles.BackIcon}
+                        />
+                    </button>
+                )}
 
-            {items[current]}
-            
+                {items[current]}
+                
+                {items.length <= 1 ? null : (
+                    <button onClick={handleNext} className={styles.NavButton}>
+                        <IconApp
+                            size={20}
+                            code="t08"
+                            color="var(--gek-light-grey)"
+                        />
+                    </button>
+                )}
+            </div>
+
             {items.length <= 1 ? null : (
-                <button onClick={handleNext} className={styles.NavButton}>
-                    <IconApp
-                        size={20}
-                        code="t08"
-                        color="var(--gek-light-grey)"
-                    />
-                </button>
+                <div className={styles.Text}>
+                    {current + 1}/{items.length}
+                </div>
             )}
         </div>
     );

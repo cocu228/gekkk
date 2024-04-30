@@ -19,7 +19,7 @@ import {
 } from "@/shared/(orval)api/gek/model";
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useMatch, useSearchParams } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
@@ -41,7 +41,7 @@ const History = memo(function ({
 
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { refreshKey } = useContext(CtxRootData);
-  const [activeTab, setActiveTab] = useState<string>(
+  const [activeTab] = useState<string>(
     currTab ? currTab.Key : historyTabs[0].Key
   );
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
@@ -56,10 +56,6 @@ const History = memo(function ({
     dayjs(),
   ]);
   const { md } = useContext(BreakpointsContext);
-  const [params] = useSearchParams();
-  const tab = params.get("tab");
-  const currency = params.get("currency");
-  const walletPage = currency || tab;
   const isHistoryPage = !!useMatch("history");
 
   const { isIntersecting, ref } = useIntersectionObserver({

@@ -24,7 +24,6 @@ interface InputRef {
 
 export const InfoConfirmPartner = (props: TypeProps) => {
   const { t } = useTranslation();
-  const { setRefresh } = useContext(CtxRootData);
   const [loading, setLoading] = useState(false);
   const [localErrorHunter, , localErrorInfoBox] = useError();
 
@@ -40,10 +39,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     });
 
     actionResSuccess(response)
-      .success(() => {
-        props.handleCancel();
-        setRefresh();
-      })
+      .success(props.handleCancel)
       .reject(localErrorHunter);
 
     setLoading(false);

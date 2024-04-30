@@ -21,7 +21,7 @@ const HeaderMobile = ({ items, actions }) => {
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
     const historyPage = useMatch("/history")
-    const isOnMainPages = !!homePage || !!historyPage
+    const isOnMainPages = !!homePage
     const navigate = useNavigate()
     const location = useLocation()
     const {md} = useContext(BreakpointsContext);
@@ -62,7 +62,7 @@ const HeaderMobile = ({ items, actions }) => {
     return <>
         <header className={styles.Header}>
 
-            {isOnMainPages && location.pathname.split('/')[1] !== 'history' ?
+            {isOnMainPages ?
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :
@@ -104,13 +104,15 @@ const HeaderMobile = ({ items, actions }) => {
 
             {
                 historyPage && md && tab !== 'custom' && (
-                    <div className="h-full items-center flex pr-[1.25rem]">
-                        <NavLink to='/history?tab=custom' >
-                            <IconApp 
-                                code="t30"
-                                color="#fff"
-                                size={15}
-                            />
+                    <div className="h-full items-center flex">
+                        <NavLink to='/history?tab=custom'>
+                            <div className="flex justify-center w-[54px]">
+                                <IconApp 
+                                    code="t30"
+                                    color="#fff"
+                                    size={15}
+                                />
+                            </div>
                         </NavLink>
                     </div>
                 )

@@ -16,9 +16,7 @@ interface IProps {
 function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
     const {t} = useTranslation()
     const {currencies} = useContext(CtxCurrencies);
-    const navigate = useNavigate()
-    
-    
+    const navigate = useNavigate()    
 
   return (
     <div className='w-full relative h-[32px] flex flex-row'>

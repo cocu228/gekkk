@@ -5,6 +5,8 @@
     flex-direction: column;
     align-items: center;
     .filters {
+        width: 100%;
+        max-width: 387px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -252,6 +254,8 @@
   width: 22px;
   height: 100%;
   border-radius: 0 6px 6px 0;
+  position: absolute;
+  right: 0;
 }
 
 .filter {
@@ -331,6 +335,69 @@
   padding-top: 1rem;
   justify-content: center;
   box-sizing: border-box;
+}
+
+.SelectBlock {
+  background-color: #fff;
+  padding: 10px 10px 10px 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 8px;
+}
+
+.SelectTitle {
+  color: #1F3446;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 62px;
+}
+
+.SelectActive {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #DCDCD9;
+}
+
+.SelectCurrencyActive {
+  justify-content: start;
+  padding: 0 20px;
+}
+
+.NonePickedTitle {
+  font-size: 10px;
+  font-weight: 400;
+  color: #B9B9B5;
+}
+
+.SelectActiveToken {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #3A5E66;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.CurrencyListTitle {
+  color: #1F3446;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 15px 15px;
+  display: block;
+  align-self: start;
+}
+
+.TypeList {
+  margin-top: 15px;
+  width: 100%;
 }
 
 * {

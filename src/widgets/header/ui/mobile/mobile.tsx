@@ -116,13 +116,15 @@ const HeaderMobile = ({ items, actions }) => {
 
             {
                 historyPage && md && tab !== 'custom' && (
-                    <div className="h-full items-center flex pr-[1.25rem]">
-                        <NavLink to='/history?tab=custom' >
-                            <IconApp 
-                                code="t30"
-                                color="#fff"
-                                size={15}
-                            />
+                    <div className="h-full items-center flex">
+                        <NavLink to='/history?tab=custom'>
+                            <div className="flex justify-center w-[54px]">
+                                <IconApp 
+                                    code="t30"
+                                    color="#fff"
+                                    size={15}
+                                />
+                            </div>
                         </NavLink>
                     </div>
                 )

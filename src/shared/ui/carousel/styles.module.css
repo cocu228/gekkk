@@ -11,20 +11,20 @@
     padding: 0.5rem;
     font-size: 1.25rem;
     line-height: 1.75rem;
-}
 
-.NavButton:hover {
-    svg {
-        fill: var(--gek-mid-grey);
-        stroke: var(--gek-mid-grey);
+    &:active {
+        svg {
+            fill: var(--gek-dark-grey);
+            stroke: var(--gek-dark-grey);
+        }
     }
-}
 
-.NavButton:active {
-    svg {
-        fill: var(--gek-dark-grey);
-        stroke: var(--gek-dark-grey);
-    }
+    &:hover {
+        svg {
+            fill: var(--gek-mid-grey);
+            stroke: var(--gek-mid-grey);
+        }
+    }    
 }
 
 .BackIcon {

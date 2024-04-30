@@ -11,6 +11,18 @@ export const initEmptyCurrenciesCollection = (assets: CurrencysOut[]): Map<strin
 
 export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets: GetBalanceOut[]): Map<string, ICtxCurrency> => {
     wallets.forEach(wallet => {
+
+        if (wallet.currency === 'EUR') {
+            currencies.set(wallet.currency, {
+                ...currencies.get(wallet.currency),
+                balance: {
+                    ...wallet,
+                    user_balance: null,
+                }
+            });
+            return;
+        }
+
         currencies.set(wallet.currency, {
             ...currencies.get(wallet.currency),
             balance: wallet

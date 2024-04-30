@@ -29,7 +29,7 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item
             <IconCoin className={styles.CurIcon} code={item.$const} height={50} />
             <div className={styles.CurBox2}>
                 <span className={styles.CurName}>{item.name}</span>
-                <span className={styles.Sum}>{!item.balance ? "-" : `${toLocaleCryptoRounding(item.balance?.user_balance, item.roundPrec)}  ${item.$const == "EUR" ? "€" : item.$const}`}</span>
+                <span className={styles.Sum}>{!item.balance ? "-" : `${toLocaleCryptoRounding(item.balance?.user_balance, item.roundPrec) ?? '-'}  ${item.$const == "EUR" ? "€" : item.$const}`}</span>
                 <div className={styles.CurBox3}>
                     {!item.balance?.lock_in_balance ? "" :
                         <span className={styles.Income}>
@@ -37,7 +37,7 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item
                         </span>}
                     {item.balance?.user_balance_EUR_equ === null || item.$const === "EUR" ? "" :
                         <span className={styles.EuroEqv}>
-                            {toLocaleFiatRounding(item.balance?.user_balance_EUR_equ)}
+                            {toLocaleFiatRounding(item.balance?.user_balance_EUR_equ) ?? '-'}
                         </span>}
                 </div>
             </div>

@@ -7,6 +7,7 @@ type IParams = InputProps & {
   allowDigits?: boolean;
   allowSymbols?: boolean;
   wrapperClassName?: string;
+  tranfers?:boolean
 };
 
 const Input = React.forwardRef(
@@ -16,6 +17,7 @@ const Input = React.forwardRef(
       allowDigits,
       allowSymbols,
       wrapperClassName,
+      tranfers = false,
       ...props
     }: IParams,
     ref: React.ForwardedRef<InputRef>
@@ -24,7 +26,7 @@ const Input = React.forwardRef(
       <div 
         className={`${styles.Input} ${
           wrapperClassName ? wrapperClassName : ""
-        }`}
+        } ${tranfers && styles.TransfersInput}`}
       >
         <InputAntd
           {...props}

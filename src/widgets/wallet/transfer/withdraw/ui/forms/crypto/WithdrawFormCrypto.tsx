@@ -113,6 +113,7 @@ const WithdrawFormCrypto = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
+                  transfers={md}
                   name={"amount"}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -126,6 +127,8 @@ const WithdrawFormCrypto = () => {
         <div className="flex flex-col gap-2">
           <span className={styles.TitleColText}>{t("address")}:</span>
           <Input
+            tranfers={md}
+            bordered={!md}
             allowDigits
             allowSymbols
             value={inputs.address}
@@ -161,6 +164,8 @@ const WithdrawFormCrypto = () => {
             {t("recipient")}:
           </span>
           <Input
+            tranfers={md}
+            bordered={!md}
             value={inputs.recipient}
             onChange={onInput}
             disabled={!networkTypeSelect}
@@ -177,7 +182,9 @@ const WithdrawFormCrypto = () => {
           <span className={styles.TitleColText}>
             {t("desc_optional")}:
           </span>
-          <TextArea
+          <Input
+            tranfers={md}
+            bordered={!md}
             allowDigits
             allowSymbols
             placeholder={t('enter_description')}

@@ -7,17 +7,24 @@
     padding: 1.25rem;
     border-radius: 8px;
     border-color: var(--gek-light-grey);  
-    font-weight: bold;  
+    font-weight: 400;  
     color: var(--gek-dark-blue);    
 
     @include max-devices('sm') {
       padding: 1rem 1.25rem;
     }
+    
+    @include max-devices(md) {
+      font-size: 12px;
+    }
 
     &::placeholder {
       font-weight: normal;
+      @include max-devices(md) {
+        color: #DCDCD9;
+      }
       color: var(--gek-mid-grey);
-      font-size: 0.70rem;
+      font-size: 12px;
       padding-right: 5px;
     }   
 
@@ -29,4 +36,24 @@
       background-color: var(--color-gray-300) !important;
     }
   }
+}
+
+.TransfersInput{
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  border: 1px solid #DCDCD9;
+  border-radius: 5px;
+  width: 100%;
+  :global(.ant-input) {
+    padding-left: 15px !important;
+    font-size: 12px !important;
+    color: #285E69;
+  }
+
+  :global(.ant-input-affix-wrapper){
+    padding-left: 0px; 
+  }
+
 }

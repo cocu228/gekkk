@@ -8,6 +8,7 @@ import CurrencySelector from '../currency-selector/CurrencySelector';
 import {CtxInputCurrencyOptions, CtxInputCurrencyValid} from "@/shared/ui/input-currency/model/context";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import styles from "../style.module.scss"
 
 interface IParams {
     currency?: string;
@@ -16,6 +17,7 @@ interface IParams {
     wrapperClassName?: string;
     className?: string;
     onChange: (value: string) => void;
+    transfers?: boolean
 }
 
 const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
@@ -23,7 +25,7 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
     DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
-} = ({currency, value, wrapperClassName, disabled = false, className, onChange, ...props}: IParams) => {
+} = ({currency, value, wrapperClassName, disabled = false, className, onChange, transfers, ...props}: IParams) => {
 
     const inputCurrencyValid = useContext(CtxInputCurrencyValid);
     const {t} = useTranslation();
@@ -32,7 +34,7 @@ const InputField: FC<IParams & Omit<InputProps, "onChange">> & {
     return <div className={wrapperClassName}>
         <InputAntd
             {...props}
-            className={`${inputCurrencyValid ? "!border-red-800" : md ? "border-[#DCDCD9] md:rounded-[8px]" : "border-gray-400"} ${className} md:text-[#DCDCD9]`}
+            className={`${inputCurrencyValid ? "!border-red-800" : md ? "border-[#DCDCD9] md:rounded-[8px]" : "border-gray-400"} ${className} ${transfers && styles.InputTransfers} md:text-[#DCDCD9]`}
             disabled={disabled || !currency}
             value={value}
             placeholder={!currency ? '' : t("exchange.enter_amount")}

@@ -5,9 +5,10 @@ import {Select, SelectProps} from 'antd';
 interface IParams {
     prefixIcon?: JSX.Element;
     isMobile?: boolean;
+    transfers?: boolean
 }
 
-const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children, ...props}) => {
+const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children, transfers, ...props}) => {
     const [, setValue] = useState<string>(props.value);
     
     const handleChange = (val, option) => {
@@ -17,7 +18,7 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children
     };
     
     return (
-        <div className={`${isMobile ? styles.SelectMobile :styles.Select}  ${prefixIcon ? styles.SelectHasIcon : ''}`}>
+        <div className={`${isMobile ? styles.SelectMobile :styles.Select} ${transfers && styles.TransfersSelect} ${prefixIcon ? styles.SelectHasIcon : ''}`}>
             {prefixIcon && <div className={styles.SelectIcon}>
                 {prefixIcon}
             </div>}

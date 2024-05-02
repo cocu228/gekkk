@@ -1,4 +1,5 @@
 import {defineConfig, loadEnv} from 'vite';
+import { createHtmlPlugin } from 'vite-plugin-html';
 // import {VitePWA} from 'vite-plugin-pwa'
 // import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react';
@@ -72,6 +73,14 @@ export default defineConfig(({mode}) => {
         },
         plugins: [react(),
             // splitVendorChunkPlugin(),
+            createHtmlPlugin({
+                minify: true,
+                inject: {
+                    data: {
+                        title: isGekkoin ? "Gekkoin" : "Gekkard",
+                    },
+                },
+            }),
             svgr(),
             // VitePWA({
             //     registerType: 'autoUpdate',

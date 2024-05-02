@@ -63,10 +63,8 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
       ) : partnerInfo === null ? (
         <div className="col">
           <div className="row mb-2">
-            <div className="col w-auto">
-              <span className="font-bold text-[14px] text-[#285E69]">
-                {t("sender_name")}
-              </span>
+            <div>
+              <span className={style.InfoItemTitle}>{t("sender_name")}</span>
             </div>
           </div>
           <div className="row w-full flex justify-center h-[43px] mb-5">

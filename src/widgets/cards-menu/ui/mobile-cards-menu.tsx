@@ -340,11 +340,11 @@ const MobileCardsMenu = ({
       <div
         className={styles.ShowDataWrap}
       >
-        <div className="substrate flex rounded-lg w-full">
+        <div className="substrate flex rounded-lg w-full select-text">
           {!cardInfo ? (
             <Loader className="relative my-10" />
           ) : (
-            <div className="font-medium text-[16px]">
+            <div className="font-medium text-[16px] select-text">
               <div className="flex flex-row gap-2">
                 <div>
                   <IconApp color="#8F123A" size={15} code="t27"/>
@@ -647,7 +647,7 @@ const MobileCardsMenu = ({
             {!cardInfo ? (
               <Loader className="relative my-10" />
             ) : (
-              <div className="font-medium text-[16px]">
+              <div className="font-medium text-[16px] select-text">
                 <div className="row mb-2">
                   <div className="col">
                     <span>

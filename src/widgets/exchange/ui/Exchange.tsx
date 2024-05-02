@@ -209,7 +209,7 @@ function Exchange() {
       {md ? null : (
         <PageHead
           title={getHeadTitle()}
-          subtitle={getHeadSubtitle()}
+          subtitle={<span className="select-text">{getHeadSubtitle()}</span>}
           rightContent={
             roomType !== "creator" ? null : (
               <ParticipantsNumber

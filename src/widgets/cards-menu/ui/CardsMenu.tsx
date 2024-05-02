@@ -523,7 +523,7 @@ const CardsMenu = ({
               {!cardInfo ? (
                 <Loader className="relative my-10" />
               ) : (
-                <div className="font-medium text-[16px]">
+                <div className="font-medium text-[16px] select-text">
                   <div className="row mb-2">
                     <div className="col">
                       <span>
@@ -806,7 +806,7 @@ const CardsMenu = ({
             {!cardInfo ? (
               <Loader className="relative my-10" />
             ) : (
-              <div className="font-medium text-[16px]">
+              <div className="font-medium text-[16px] select-text">
                 <div className="row mb-2">
                   <div className="col">
                     <span>

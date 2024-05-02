@@ -225,6 +225,10 @@
   line-height: 1rem;
 }
 
+.InfoItemValue, .InfoItemAddress {
+  user-select: text;
+}
+
 .InfoItemAddress, .InfoItemHash {
   display: block;
   max-width: 250px;

@@ -178,9 +178,14 @@ export const GekkoinInvestPlatform = () => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.gekkoin_invest_platform")}
         </button>
-        <Modal onCancel={handleCancel} open={isModalOpen}>
+        <Modal
+            closable={false}
+            open={isModalOpen}
+            onCancel={handleCancel}
+            title={<ModalTitle handleCancel={handleCancel} title={t("gekkoin_redirect")}/>}
+        >
             <>
-                <div className="row mb-10">
+                <div className="row mt-4 mb-6">
                     <div className="col">
                         <p className="font-bold text-sm leading-6 text-center">{t("directed_to_gekkoin")}</p>
                     </div>
@@ -188,8 +193,11 @@ export const GekkoinInvestPlatform = () => {
                 <div className="row relative">
                     <div className="col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button onClick={onClick}
-                                    className="w-full">{t("confirm")}</Button>}
+                            <Button
+                                size="sm"
+                                onClick={onClick}
+                                className="w-full"
+                            >{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

@@ -51,8 +51,6 @@ export default memo(function () {
 
 
   useEffect(() => {
-    console.log("ROOT")
-    console.log(global.VITE_APP_TYPE)
     if (accounts && !account) {
       const cookieData = getCookieData<{ accountId?: string }>();
       const activeAccount = accounts.find((a) => a.current) ?? accounts[0];

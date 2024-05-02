@@ -44,6 +44,7 @@ const WithdrawConfirmPhoneNumber = ({
     const {t} = useTranslation();
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
+    const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
     const [uasToken, setUasToken] = useState<string>(null);
     const {getAccountDetails} = storeAccountDetails(state => state);
@@ -112,6 +113,7 @@ const WithdrawConfirmPhoneNumber = ({
                 Token: uasToken
             }).then(({data}) => {
                 handleCancel();
+                setRefresh();
                 setContent({
                     content: (
                       <ModalTrxStatusSuccess

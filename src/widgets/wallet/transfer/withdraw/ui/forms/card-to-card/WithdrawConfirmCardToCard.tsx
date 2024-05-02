@@ -97,6 +97,7 @@ const WithdrawConfirmCardToCard = ({
                     //@ts-ignore
                     if(res.data.status === "ok"){
                         setSuccess(true)
+                        setRefresh();
                         handleCancel()
                     }else{
                         setErr(true)

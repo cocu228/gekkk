@@ -314,6 +314,7 @@ const WithdrawFormCardToCard = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
+                  transfers
                   onChange={setInputCurr}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -333,9 +334,10 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#DCDCD9]">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[#DCDCD9]">
               <div className="basis-full">
                 <SearchSelect
+                  transfers
                   value={inputs.selectedCard}
                   notFoundContent={
                     <div className="my-3">{t("no_active_cards")}</div>
@@ -383,6 +385,8 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
+                tranfers
+                bordered={false}
                 allowDigits
                 type={"text"}
                 onInput={onCardNumberInput}
@@ -409,6 +413,8 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
+                tranfers
+                bordered={false}
                 value={inputs.cardholderName}
                 onChange={({ target }) => {
                   setInputs(() => ({
@@ -434,7 +440,9 @@ const WithdrawFormCardToCard = () => {
           </div>
           <div className="row w-full">
             <div className="col flex items-center">
-              <TextArea
+              <Input
+                tranfers={md}
+                bordered={!md}
                 allowDigits
                 allowSymbols
                 value={inputs.comment}

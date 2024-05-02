@@ -68,6 +68,7 @@ const WithdrawFormPapaya = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
+                                    transfers={md}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}

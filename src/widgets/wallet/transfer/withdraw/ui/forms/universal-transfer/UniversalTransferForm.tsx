@@ -23,8 +23,10 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 const UniversalTransferForm = () => {
+  const {md} = useBreakpoints()
   const { t } = useTranslation();
   const navigate = useNavigate();
   const currency = useContext(CtxWalletData);
@@ -98,6 +100,7 @@ const UniversalTransferForm = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
+                  transfers={md}
                   onChange={setInputCurr}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -117,6 +120,8 @@ const UniversalTransferForm = () => {
         <div className="row flex w-full">
           <div className="col basis-[100%]">
             <Input
+              tranfers={md}
+              bordered={!md}
               allowDigits
               allowSymbols
               name={"requisite"}
@@ -136,9 +141,11 @@ const UniversalTransferForm = () => {
             </span>
           </div>
         </div>
-        <div className="row">
-          <div className="col flex items-center">
-            <TextArea
+        <div className="row w-full">
+          <div className="col w-full">
+            <Input
+              tranfers={md}
+              bordered={!md}
               allowDigits
               allowSymbols
               name={"comment"}

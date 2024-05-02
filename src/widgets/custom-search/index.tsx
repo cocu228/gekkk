@@ -372,6 +372,7 @@ export default function customSearch() {
                     <div
                       className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                       onClick={() => {
+                        setApply(false);
                         setCurr(currency.$const);
                         setFiat(currency.currency.flags.fiatCurrency)
                         setCurrencyListVisibility(false);
@@ -421,6 +422,7 @@ export default function customSearch() {
                   <div
                   className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                   onClick={() => {
+                    setApply(false);
                     setType(item)
                     setTypeListVisibility(false)  
                   }}
@@ -443,6 +445,7 @@ export default function customSearch() {
                   <div
                   className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                   onClick={() => {
+                    setApply(false);
                     setSelectedCard(item)
                     setCardListVisibility(false)  
                   }}

@@ -1,4 +1,4 @@
-.languageWrap {
+.LanguageWrap {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -6,30 +6,29 @@
     gap: 1rem;
 }
 
-.languageItem {
+.LanguageItem {
     border-radius: 0.5rem;
     gap: 1rem;
     align-items: center;
     flex-direction: row;
     display: flex;
     width: 100%;
-    height: 80px;
+    height: 60px;
+    padding: 0px 12px;
     background-color: #ffffff;
     box-shadow: 0 10px 20px var(--color-gray-200);
-    padding: 40px;
 }
 
-.languageTitle {
-    font-family: Inter;
+.LanguageTitle {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 24px;
+    color: var(--gek-dark-blue);
 }
 
-.languageSubTitle {
-    font-family: Inter;
+.LanguageSubTitle {
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    color: #1F3446;
+    color: var(--gek-dark-blue);
 }

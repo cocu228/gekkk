@@ -70,8 +70,15 @@ const CreateTransferCode = () => {
         
         <div className="row mb-5">
             <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <Modal padding onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
-                <CreateCode/>
+            <Modal
+                padding
+                onCancel={handleCancel}
+                title={t("create_transfer_code")}
+                open={isModalOpen}
+            >
+                <CreateCode
+                    onClose={handleCancel}
+                />
             </Modal>
         </div>
         <div className="row mb-2">

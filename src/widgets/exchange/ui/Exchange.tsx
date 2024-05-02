@@ -332,7 +332,7 @@ function Exchange() {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 md:mx-4">
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
@@ -412,7 +412,7 @@ function Exchange() {
         }
         rightColumn={
           !md && (
-            <div className="w-full rounded-lg py-4 ">
+            <div className="w-full rounded-lg py-4">
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
@@ -420,7 +420,7 @@ function Exchange() {
       />
       {md && (
         <div className="w-full rounded-lg">
-          <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal

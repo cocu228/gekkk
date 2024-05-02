@@ -6,9 +6,11 @@ import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
+import { useMatch } from "react-router-dom";
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     const {md} = useBreakpoints();
+    const isExchange = !!useMatch('/exchange');
     const {currencies} = useContext(CtxCurrencies);
 
     const isActive = currencies && [...currencies].some(it => {
@@ -26,7 +28,7 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
                 </>}
 
                 {md ? null : <ActionConfirmationWindow/>}
-                <div className={styles.Content}>
+                <div className={`${styles.Content} ${!(isExchange && md) ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
             </ModalTrxInfoProvider>

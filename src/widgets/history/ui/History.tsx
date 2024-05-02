@@ -34,6 +34,7 @@ const History = memo(function ({
   includeFiat,
   date,
   currTab,
+  className,
 }: Partial<Props>) {
   const { t } = useTranslation();
 
@@ -287,7 +288,7 @@ const History = memo(function ({
 
   return (
     <>
-      <div id={"History"} className="wrapper">
+      <div id={"History"} className={`wrapper ${className}`}>
         <div
           id="MainContainerHistoryMobile"
           className={styles.MainContainerMobile}

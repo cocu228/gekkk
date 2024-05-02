@@ -92,6 +92,11 @@ const History = memo(function ({
     }
   }, [isIntersecting]);
 
+  const onUpdateTxInfo = (txId: string, senderName: string) => {
+    const tx = listHistory.find(t => t.id_transaction === txId);
+    tx.partner_info = senderName;
+  }
+
   const requestHistory = async (cancelToken = null) => {
     setLoading(true);
     setAllTxVisibly(false);
@@ -124,14 +129,10 @@ const History = memo(function ({
 
   const requestMoreHistory = async ({
     currencies,
-    txTypes,
-    hist,
-    isFiat,
+    txTypes
   }: {
     currencies: string[];
     txTypes: TransactTypeEnum[];
-    hist: GetHistoryTrasactionOut[];
-    isFiat?: boolean;
   }) => {
     setLazyLoading(true);
 
@@ -261,7 +262,6 @@ const History = memo(function ({
                       requestMoreHistory({
                         currencies: currenciesFilter,
                         txTypes: types,
-                        hist: listHistory,
                       });
                     }}
                     className="text-gray-400 cursor-pointer inline-flex items-center"
@@ -280,7 +280,11 @@ const History = memo(function ({
           onCancel={handleCancel}
           open={isModalOpen}
         >
-            <InfoContent handleCancel={handleCancel} {...selectedItem} />
+            <InfoContent
+              {...selectedItem}
+              handleCancel={handleCancel}
+              onUpdateTxInfo={onUpdateTxInfo}
+            />
         </Modal>
       </>
     );
@@ -332,7 +336,6 @@ const History = memo(function ({
                       requestMoreHistory({
                         currencies: currenciesFilter,
                         txTypes: types,
-                        hist: listHistory,
                       });
                     }}
                     className="text-gray-400 cursor-pointer inline-flex items-center"
@@ -352,7 +355,11 @@ const History = memo(function ({
         onCancel={handleCancel}
         open={isModalOpen}
       >
-        <InfoContent handleCancel={handleCancel} {...selectedItem} />
+        <InfoContent
+          {...selectedItem}
+          handleCancel={handleCancel}
+          onUpdateTxInfo={onUpdateTxInfo}
+        />
       </Modal>
     </>
   );

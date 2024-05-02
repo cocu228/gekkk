@@ -1,3 +1,4 @@
+import style from './style.module.scss' 
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import { useTranslation } from "react-i18next";
@@ -11,6 +12,7 @@ import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
 
 type TypeProps = GetHistoryTrasactionOut & {
+  onUpdateTxInfo: any;
   handleCancel: () => void;
 };
 
@@ -39,7 +41,10 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     });
 
     actionResSuccess(response)
-      .success(props.handleCancel)
+      .success(() => {
+        props.onUpdateTxInfo(props.id_transaction, input);
+        props.handleCancel();
+      })
       .reject(localErrorHunter);
 
     setLoading(false);
@@ -97,16 +102,17 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         localErrorInfoBox
       ) : (
         <div className="col">
-          <div className="row mb-4 flex flex-wrap gap-2">
-            <div className="col w-auto">
-              <span className="font-bold text-[10px] text-[#285E69]">
-                {t("sender_name")}
+          <div className={style.InfoItem}>
+            <div>
+              <span className={style.InfoItemTitle}>{t("sender_name")}</span>
+            </div>
+            <div>
+              <span className={style.InfoItemValue}>
+                {input}
               </span>
             </div>
-            <div className="col w-auto">
-              <span className="break-all font-medium">{input}</span>
-            </div>
           </div>
+          
           <div className="row flex gap-3">
             <div className="col w-full">
               <Button

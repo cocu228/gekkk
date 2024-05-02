@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
 import Loader from "@/shared/ui/loader";
 import { useTranslation } from "react-i18next";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { formatForCustomer } from "@/shared/lib/date-helper";
@@ -17,6 +17,7 @@ import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
 import style from './style.module.scss' 
 
 type TypeProps = GetHistoryTrasactionOut & {
+  onUpdateTxInfo: any;
   handleCancel: () => void;
 };
 

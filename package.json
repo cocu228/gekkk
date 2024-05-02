@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.80",
+  "version": "2.0.83",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",
@@ -17,7 +17,7 @@
     "STG-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
     "DEV-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode dev.gekkard",
     "DEV-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
-	"DEV-GEKWALLET": "node increment-version && tsc && APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
+    "DEV-GEKWALLET": "node increment-version && tsc && APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
   },
   "npm": " > 8",
   "node": " > 16",

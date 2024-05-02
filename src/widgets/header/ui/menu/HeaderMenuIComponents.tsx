@@ -22,21 +22,19 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
     number: string;
     name: string;
 }>) => {
-    const {md} = useContext(BreakpointsContext);
-
-
     if (!number) return null;
-        return(
-            <div className={styles.AccountItem}>
-                <div className={styles.Icon}>
-                    <IconApp code="t24" color="#285E69" size={37} />
-                </div>
-                <div className={styles.AccountInfo}>
-                    <span className={styles.AccountName}>{name}</span>
-                    <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
-                </div>
+    
+    return(
+        <div className={styles.AccountItem}>
+            <div className={styles.Icon}>
+                <IconApp code="t24" color="#285E69" size={37} />
             </div>
-        )
+            <div className={styles.AccountInfo}>
+                <span className={styles.AccountName}>{name}</span>
+                <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
+            </div>
+        </div>
+    )
 }
 
 export const ItemOrganization = ({active = false, name, number}: Partial<{
@@ -151,7 +149,7 @@ export const EnableNotifications = () => {
     </>
 }
 
-export const GekkoinInvestPlatform = ({active = false}) => {
+export const GekkoinInvestPlatform = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, handleCancel, isModalOpen} = useModal();
 

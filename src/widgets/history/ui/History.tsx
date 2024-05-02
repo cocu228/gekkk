@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { memo, useContext, useEffect, useState } from "react";
 import Button from "@/shared/ui/button/Button";
 import { DatePicker } from "antd";
-import { Props, TabKey } from "../model/types";
+import { HistoryProps, TabKey } from "../model/types";
 import { historyTabs } from "../model/helpers";
 import { formatForApi, formatForHistoryMobile } from "@/shared/lib/date-helper";
 import { startOfMonth } from "date-fns";
@@ -35,7 +35,7 @@ const History = memo(function ({
   date,
   currTab,
   className,
-}: Partial<Props>) {
+}: Partial<HistoryProps>) {
   const { t } = useTranslation();
 
   const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});

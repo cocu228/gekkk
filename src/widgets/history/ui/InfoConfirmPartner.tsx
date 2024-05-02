@@ -1,20 +1,14 @@
 import style from './style.module.scss' 
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
+import { TxInfoProps } from '../model/types';
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { CtxRootData } from "@/processes/RootContext";
+import { useEffect, useRef, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import { apiUpdateTxPartnerInfo } from "@/shared/(orval)api/gek";
-import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
-
-type TypeProps = GetHistoryTrasactionOut & {
-  onUpdateTxInfo: any;
-  handleCancel: () => void;
-};
 
 interface InputRef {
   focus: () => void;
@@ -24,7 +18,7 @@ interface InputRef {
   setSelectionRange: () => void;
 }
 
-export const InfoConfirmPartner = (props: TypeProps) => {
+export const InfoConfirmPartner = (props: TxInfoProps) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [localErrorHunter, , localErrorInfoBox] = useError();
@@ -42,7 +36,9 @@ export const InfoConfirmPartner = (props: TypeProps) => {
 
     actionResSuccess(response)
       .success(() => {
-        props.onUpdateTxInfo(props.id_transaction, input);
+        if (!!props.onUpdateTxInfo) {
+          props.onUpdateTxInfo(props.id_transaction, input);
+        }
         props.handleCancel();
       })
       .reject(localErrorHunter);

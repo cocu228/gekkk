@@ -9,11 +9,11 @@
     "preview": "vite preview",
     "local-auth": "vite",
     "build-auth": "tsc && vite build",
-    "PRD": "tsc && vite build --mode production",
-    "STG": "tsc && vite build --mode staging",
-    "DEV": "tsc && vite build --mode development",
-    "DEV-GEKWALLET": "tsc && vite build --mode devgekwallet",
-    "DEV-GEKKOIN": "tsc && vite build --mode devgekkoin"
+    "PRD-GEKKARD": "tsc && vite build --mode prd.gekkard",
+    "STG-GEKKARD": "tsc && vite build --mode stg.gekkard",
+    "DEV-GEKKARD": "tsc && vite build --mode dev.gekkard",
+    "DEV-GEKWALLET": "tsc && vite build --mode dev.gekwallet",
+    "DEV-GEKKOIN": "tsc && vite build --mode dev.gekkoin"
   },
   "dependencies": {
     "axios": "^1.6.7",

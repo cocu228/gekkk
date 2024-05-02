@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "orval": "orval",
-    "local": "APP_TYPE=GEKKARD vite --mode development",
-    "gko-local": "APP_TYPE=GEKKOIN vite --mode development",
+    "local": "APP_TYPE=GEKKARD vite --mode dev.gekkard",
+    "gko-local": "APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
     "PRD-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode prd.gekkard",
     "PRD-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
     "STG-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode stg.gekkard",

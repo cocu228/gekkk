@@ -4,8 +4,8 @@ import {useTranslation} from 'react-i18next';
 import {storyToggleSidebar} from "../../model/story";
 import {useCallback, useContext, useRef} from "react";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
-import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
-import {ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
+import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon.svg";
+import {IconCoin, ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/sidebar/ui/nav-collapse/NavCollapse";
 import {storeInvestments} from "@/shared/store/investments/investments";
@@ -18,27 +18,27 @@ const SidebarMobile = () => {
     const {currencies} = useContext(CtxCurrencies);
     const {sm, md} = useContext(BreakpointsContext);
     const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
-    
+
     const {
         investments,
         totalAmount,
     } = storeInvestments(state => state);
 
     if (!investments) return null
-    
+
     const NavLinkEvent = useCallback(() => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md]);
-    
+
     let eurgWallet = null;
     let gkeWallet = null;
-    
+
     if (currencies !== null) {
         eurgWallet = currencies.get("EURG");
         gkeWallet = currencies.get("GKE");
     }
-    
+
     return (
         <div className={`${styles.Sidebar} flex flex-col justify-between`}>
             <div className="wrapper">
@@ -47,8 +47,7 @@ const SidebarMobile = () => {
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.Item}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/tokens/EurgIcon.svg`}
-                                     alt="EURG"/>
+                                <IconCoin width={50} height={50} code={`EURG`}/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
                                 <div className="row text-gray-400 w-full mb-1">
@@ -75,14 +74,13 @@ const SidebarMobile = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 {/* GKE wallet */}
                 <div>
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.Item}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/tokens/GkeIcon.svg`}
-                                     alt="GKE"/>
+                                <IconCoin width={50} height={50} code={`GKE`}/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
                                 <div className="row text-gray-400 w-full mb-1">
@@ -110,23 +108,28 @@ const SidebarMobile = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 {/* Secondary options wrapper */}
                 <div style={{backgroundColor: "#f7f7f0"}} className="h-[8px] w-full"/>
-                
-                <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
+                <div className={styles.ItemWrapper}>
                     <div className={`${styles.Item}`}>
-                        <div className="col flex items-center pl-4">
-                            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}
-                                 alt="NewDepositIcon"/>
-                        </div>
-                        <div className="col flex items-center justify-center flex-col pl-6">
-                            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>
-                            </div>
+                        <div className="col flex items-center">
+                            <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
+                                <div className={`${styles.Item}`}>
+                                    <div className="col flex items-center pl-4">
+                                        <img width={50} height={50} src={`/img/icon/DepositGradientIcon.svg`}
+                                             alt="NewDepositIcon"/>
+                                    </div>
+                                    <div className="col flex items-center justify-center flex-col pl-6">
+                                        <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </NavLink>
                         </div>
                     </div>
-                </NavLink>
-                
+                </div>
+
                 {/* User assets collapse */}
                 {!investments.length ? null : (
                     <NavCollapse header={"Current deposits"} id={"deposits"}>
@@ -144,13 +147,14 @@ const SidebarMobile = () => {
                                             {[1, 101].includes(item.dep_type) ? 'Fixed rate' : 'Structured'} deposit
                                         </span>
                                         </div>
-                                        
+
                                         <div className="row w-full">
                                             <span className={styles.Sum}>{item.amount} €</span>
                                         </div>
-                                        
+
                                         <div className="row w-full ellipsis ellipsis-c-none">
-                                        <span className="text-gray-400 text-xs">{(item.dep_type === 1 || item.dep_type === 101)
+                                        <span
+                                            className="text-gray-400 text-xs">{(item.dep_type === 1 || item.dep_type === 101)
                                             ? getFixedDepositTitle(item.isGke)
                                             : getStructedDepositTitle(item.dep_type, item.isGke)}</span>
                                         </div>
@@ -160,7 +164,7 @@ const SidebarMobile = () => {
                         )}
                     </NavCollapse>
                 )}
-                
+
                 <div className={styles.AssetInfo2 + " text-gray-500 font-mono"}>
                     <span>{t("portfolio_size")}</span>
                     <span>~ <span

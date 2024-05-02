@@ -4,8 +4,8 @@ import styles from "./style.module.scss";
 import {NavLink} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {useCallback, useContext, useRef} from "react";
-import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon";
-import {ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
+import SvgArrow from "@/shared/ui/icons/DepositAngleArrowIcon.svg";
+import {IconCoin, ParentClassForCoin} from "@/shared/ui/icons/icon-coin";
 import {storyToggleSidebar} from "@/widgets/gko-sidebar/model/story";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import NavCollapse from "@/widgets/gko-sidebar/ui/nav-collapse/NavCollapse";
@@ -49,7 +49,7 @@ const SidebarDesktop = () => {
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.ItemInactive}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/icon/EurgIcon.svg`}
+                                <IconCoin width={50} height={50} code={`EURG`}
                                      alt="EURG"/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
@@ -83,8 +83,8 @@ const SidebarDesktop = () => {
                     <div className={styles.ItemWrapper}>
                         <div className={`${styles.ItemInactive}`}>
                             <div className="col flex items-center pl-4">
-                                <img width={50} height={50} src={`/img/icon/EurgIcon.svg`}
-                                     alt="GKE"/>
+                                <IconCoin width={50} height={50} code={`GKE`}
+                                          alt="GKE"/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
                                 <div className="row text-gray-400 w-full mb-1">
@@ -119,8 +119,8 @@ const SidebarDesktop = () => {
                 <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
                     <div className={`${styles.Item}`}>
                         <div className="col flex items-center pl-4">
-                            <img width={50} height={50} src={`/img/icon/NewDepositIcon.svg`}
-                                 alt="NewDepositIcon"/>
+                            <img width={50} height={50} src={`/img/icon/DepositGradientIcon.svg`}
+                                 alt="DepositGradientIcon"/>
                         </div>
                         <div className="col flex items-center justify-center flex-col pl-6">
                             <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>

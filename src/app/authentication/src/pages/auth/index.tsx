@@ -31,8 +31,10 @@ const Auth = () => {
         const runCMA = async () => {
             // Availability of `window.PublicKeyCredential` means WebAuthn is usable.
             if (window.PublicKeyCredential &&
+                //@ts-ignore
                 PublicKeyCredential.isConditionalMediationAvailable) {
                 // Check if conditional mediation is available.
+                //@ts-ignore
                 const isCMA = await PublicKeyCredential.isConditionalMediationAvailable();
                 console.log(isCMA);
                 //if (isCMA) {

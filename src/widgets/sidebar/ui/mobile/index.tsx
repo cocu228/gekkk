@@ -1,8 +1,5 @@
 import styles from "./style.module.scss";
-import {
-  getCookieData,
-  scrollToTop,
-} from "@/shared/lib/helpers";
+import { scrollToTop } from "@/shared/lib/helpers";
 import { CtxRootData } from "@/processes/RootContext";
 import { storyToggleSidebar } from "../../model/story";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -12,19 +9,16 @@ import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import BalanceBar from "../BalanceBar";
+import PendingTransactions from "@/widgets/pending-transactions";
 
 const SidebarMobile = () => {
   const { account } = useContext(CtxRootData);
   const refreshCont = useRef<HTMLDivElement>();
   const { sm, md } = useContext(BreakpointsContext);
   const { currencies } = useContext(CtxCurrencies);
-  const toggleSidebar = useRef(storyToggleSidebar((state) => state.toggle));
-  const { notificationsEnabled } = getCookieData<{
-    notificationsEnabled: string;
-  }>();
-
+  const { getActiveCards } = storeActiveCards((state) => state);
   const { getRoomsList } = storeListExchangeRooms((state) => state);
-  const {getActiveCards} = storeActiveCards((state) => state);
+  const toggleSidebar = useRef(storyToggleSidebar((state) => state.toggle));
 
   const NavLinkEvent = useCallback(() => {
     scrollToTop();
@@ -52,7 +46,10 @@ const SidebarMobile = () => {
 
   return (
     <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
-      {notificationsEnabled !== "true" ? null : <UnconfirmedTransactions />}
+      {Notification.permission !== 'granted' ? null : <>
+        <UnconfirmedTransactions/>
+        <PendingTransactions/>
+      </>}
 
       <div className="flex flex-col" ref={refreshCont} >
         <BalanceBar NavLinkEvent={NavLinkEvent} />

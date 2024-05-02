@@ -96,45 +96,32 @@ export const PromoCodeModal = ({active = false}) => {
 export const EnableNotifications = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, handleCancel, isModalOpen} = useModal();
-    const {notificationsEnabled} =
-        getCookieData<{notificationsEnabled: string}>();
-    const [state, setState] = useState<boolean>(notificationsEnabled === 'true');
+
+    const onClick = () => {
+        showModal();
+        setLoading(true);
+
+        Notification.requestPermission().then((result) => {
+            if (result === "granted") {
+                window.location.reload();                
+            }
+            else if (result === "denied") {
+                setLoading(false);
+            }
+            else {
+                handleCancel();
+                setLoading(false);
+            }
+        });
+    }
 
     return <>
-        <div
-            onClick={() => {
-                showModal();
-                setLoading(true);
-
-                Notification.requestPermission().then((result) => {
-                    if (result === "granted") {
-                        setState(!state);
-                        setCookieData([{
-                            key: 'notificationsEnabled',
-                            value: `${!state}`,
-                            expiration: 365 * 24 * 60 * 60 // One year in seconds
-                        }]);
-
-                        window.location.reload();                
-                    }
-                    else if (result === "denied") {
-                        setLoading(false);
-                    }
-                    else {
-                        handleCancel();
-                        setLoading(false);
-                    }
-                });
-            }}
-            className="w-full flex items-center justify-between"
-        >
-            <div>{t("header_menu.enable_notifications")}</div>
-            <div className="pointer-events-none">
-                <Switch checked={state}/>
-            </div>
-        </div>
+        <button onClick={onClick} className="w-full text-left">
+            {t("header_menu.enable_notifications")}
+        </button>
 
         <Modal
+            padding
             closable={false}
             open={isModalOpen}
             onCancel={handleCancel}

@@ -17,6 +17,7 @@ import { apiGetInfo } from "@/shared/(orval)api/gek";
 import SystemNotifications from "./SystemNotifications";
 import ReactPullToRefresh from "react-simple-pull-to-refresh";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 
 export default memo(function () {
   // const {logout} = useAuth();
@@ -116,8 +117,10 @@ export default memo(function () {
                     }
                   >
                     <Main>
-                      {md ? (
-                        isHomePage ? (
+                      {md ? <>
+                        <ActionConfirmationWindow/>
+
+                        {isHomePage ? (
                           <>
                             <Sidebar />
                           </>
@@ -127,8 +130,8 @@ export default memo(function () {
                               <Outlet />
                             </Content>
                           </>
-                        )
-                      ) : (
+                        )}
+                      </> : (
                         <>
                           <Sidebar />
 

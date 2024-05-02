@@ -9,10 +9,9 @@ interface IParams {
 const SystemNotifications = ({children}: IParams) => {
     let esLink = null;
     const {setRefresh} = useContext(CtxRootData);
-    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
 
     function displaySystemNotification(notify) {
-        if (Notification?.permission === "granted" && notificationsEnabled === 'true') {
+        if (Notification.permission === "granted") {
             let img = "https://web.gekkard.com/img/favicon/icon.svg";
             let text = "You have a new crypto transactions. ";
             let title = "Incoming crypto funds";
@@ -55,14 +54,6 @@ const SystemNotifications = ({children}: IParams) => {
         };
     }
     
-    // function closeES() {
-    //     esLink?.close();
-    // }
-    
-    // function requestPerm() {
-    //     Notification.requestPermission();
-    // }
-
     function handleReceivedMessage(message) {
         setRefresh();
 
@@ -82,7 +73,7 @@ const SystemNotifications = ({children}: IParams) => {
     }
 
     useEffect(() => {
-        if (notificationsEnabled === 'true') {
+        if (Notification.permission === 'granted') {
             navigator.serviceWorker.register('./sw.js');
             
             console.log('registered sw')

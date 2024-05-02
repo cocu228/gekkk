@@ -267,7 +267,10 @@ export default function customSearch() {
           <div className={styles.SelectWrap}>
             <div
               className={styles.SelectBlock}
-              onClick={() => setCurrencyListVisibility(!currencyListVisibility)}
+              onClick={() => {
+                setCurrencyListVisibility(!currencyListVisibility)
+                setApply(false);
+              }}
             >
               <span className={styles.SelectTitle}>Currency:</span>
               <div
@@ -296,7 +299,10 @@ export default function customSearch() {
             </div>
             <div
               className={styles.SelectBlock}
-              onClick={() => setTypeListVisibility(!typeListVisibility)}
+              onClick={() => {
+                setTypeListVisibility(!typeListVisibility)
+                setApply(false);
+              }}
             >
               <span className={styles.SelectTitle}>Type:</span>
               <div
@@ -322,7 +328,10 @@ export default function customSearch() {
               fiat && (
                 <div
               className={styles.SelectBlock}
-              onClick={() => setCardListVisibility(!cardListVisibility)}
+              onClick={() => {
+                setCardListVisibility(!cardListVisibility)
+                setApply(false);
+              }}                       
             >
               <span className={styles.SelectTitle}>Card:</span>
               <div
@@ -372,7 +381,6 @@ export default function customSearch() {
                     <div
                       className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                       onClick={() => {
-                        setApply(false);
                         setCurr(currency.$const);
                         setFiat(currency.currency.flags.fiatCurrency)
                         setCurrencyListVisibility(false);
@@ -422,7 +430,6 @@ export default function customSearch() {
                   <div
                   className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                   onClick={() => {
-                    setApply(false);
                     setType(item)
                     setTypeListVisibility(false)  
                   }}
@@ -445,7 +452,6 @@ export default function customSearch() {
                   <div
                   className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
                   onClick={() => {
-                    setApply(false);
                     setSelectedCard(item)
                     setCardListVisibility(false)  
                   }}

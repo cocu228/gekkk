@@ -130,9 +130,9 @@ const UniversalTransferConfirm = ({
                     <div className="col">
                         <div className="p-4">
                             <div className={`wrapper ${styles.ModalInfo}`}>
-                                <div className={styles.ModalInfoIcon}>
+                                <div className={styles.ModalInfoIcon + " self-start"}>
                                     <div className="col">
-                                        <IconApp color="#8F123A" size={22} code="t27" />
+                                        <IconApp color="#8F123A" size={15} code="t27" />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -208,7 +208,7 @@ const UniversalTransferConfirm = ({
                             <Button htmlType={"submit"}
                                 size={"xl"}
                                 onClick={onConfirm}
-                                greenTransfer
+                                variant='greenTransfer'
                                 className={styles.ButtonTwo}
                             >
                                 {t("confirm")}
@@ -218,7 +218,7 @@ const UniversalTransferConfirm = ({
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
                                 size={"xl"}
-                                whiteGreenTransfer
+                                variant='whiteGreenTransfer'
                             >
                                 {t("cancel")}
                             </Button>

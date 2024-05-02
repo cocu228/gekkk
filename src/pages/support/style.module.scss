@@ -14,8 +14,9 @@
 }
 
 .IconWrap {
-    width: 42px;
-    height: 42px;
+
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +36,7 @@
     display: flex;
     padding: 10px 0px;
     flex-direction: row;
-    min-height: 80px;
+    min-height: 60px;
     justify-content: space-between;
     flex: 1 0 0;
     align-items: center;
@@ -43,6 +44,7 @@
     border-radius: 8px;
     border: 1px solid #FFF;
     background: #FFF;
+    width: 100%;
     cursor: pointer;
 }
 .Icon{
@@ -66,11 +68,11 @@
     align-items: flex-end;
     flex: 1 0 0;
     align-self: stretch;
-    color: #29354C;
+    color: #1F3446;
     font-family: Archivo;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: normal;
 }
 .MainDescription{
@@ -97,7 +99,7 @@
 }
 .Email{
     display: flex;
-    min-height: 80px;
+    min-height: 60px;
     padding: 10px 0px;
     flex-direction: row;
     justify-content: space-between;
@@ -116,7 +118,7 @@
     align-items: center;
     flex: 1 0 0;
     padding: 10px 0px;
-    min-height: 80px;
+    min-height: 60px;
     max-height: 80px;
     align-self: stretch;
     border-radius: 8px;
@@ -139,32 +141,31 @@
     color: #29354C;
     text-align: center;
     font-family: Inter;
-    font-size: 12px;
+    font-size: 10px;
     font-style: normal;
-    font-weight: 400;
-    line-height: 10px; /* 83.333% */
+    font-weight: 600;
 }
 .ControlMain{
     display: flex;
     padding: 10px 0px;
-    justify-content: center;
+    width: 150px;
+    justify-content: space-around;
     align-items: center;
     border-radius: 8px;
     background: linear-gradient(0deg, #FFF 0%, #FFF 100%), #FFF;    
 }
 .ControlMainLike{
-    display: flex;
-    width: 75px;
-    height: 27px;
-    justify-content: center;
-    align-items: center; 
+    &:hover{
+        cursor: pointer;
+        fill:#2BAB72;
+    }
 }
 .ControlMainDislike{
-    display: flex;
-    width: 75px;
-    height: 27px;
-    justify-content: center;
-    align-items: center; 
+    transform:rotate(180deg);
+    &:hover{
+        cursor: pointer;
+        fill: red;
+    } 
 }
 .ControlFooter{
     align-self: stretch;
@@ -175,4 +176,8 @@
     font-style: normal;
     font-weight: 400;
     line-height: 10px; /* 125% */
+}
+.ResponseTime{
+    font-size: 10px;
+    color: #B9B9B5;
 }

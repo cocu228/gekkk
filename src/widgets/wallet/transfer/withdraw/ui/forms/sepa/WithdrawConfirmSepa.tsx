@@ -273,7 +273,7 @@ const WithdrawConfirmSepa = ({
             <div className={styles.ButtonContainer + " px-4"}>
               <Button
                 size={"xl"}
-                greenTransfer
+                variant='greenTransfer'
                 disabled={!total}
                 onClick={onConfirm}
                 className={styles.ButtonTwo}
@@ -283,7 +283,7 @@ const WithdrawConfirmSepa = ({
 
               <Button
                 size={"xl"}
-                whiteGreenTransfer
+                variant='whiteGreenTransfer'
                 className={styles.ButtonTwo}
                 onClick={() => {
                   handleCancel();

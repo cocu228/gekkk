@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 import { FrameItem } from "../../FrameItem";
-import Arrow from '@/assets/arrow.svg?react';
-import { Typography } from "../../typography/typography";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import s from '../styles.module.scss'
+import styles from '../styles.module.scss'
+import { IconApp } from "../../icons/icon-app";
 
 interface Props {
     onClick?: () => void;
@@ -21,13 +20,13 @@ export function SettingsButton(props: Props ) {
           onClick={props.onClick}
           isSelected={props.isSelected}
       >
-        <div className={s.itemBody}>
+        <div className={styles.itemBody}>
           {props.icon}
           <h4
-            className={`${s.itemTitle} ${props.isSelected && s.itemTitleSelected}`}
+            className={`${styles.itemTitle} ${props.isSelected && styles.itemTitleSelected}`}
           >{props.text}</h4>
         </div>
-        {md && <Arrow />}
+        {md && <IconApp size={12} code="t08" color="#B9B9B5" />}
       </FrameItem>
     );
 }

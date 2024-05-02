@@ -19,11 +19,12 @@ import {
 } from "@/shared/(orval)api/gek/model";
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useMatch, useSearchParams } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const { RangePicker } = DatePicker;
 
@@ -40,7 +41,7 @@ const History = memo(function ({
 
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { refreshKey } = useContext(CtxRootData);
-  const [activeTab, setActiveTab] = useState<string>(
+  const [activeTab] = useState<string>(
     currTab ? currTab.Key : historyTabs[0].Key
   );
   const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
@@ -55,10 +56,6 @@ const History = memo(function ({
     dayjs(),
   ]);
   const { md } = useContext(BreakpointsContext);
-  const [params] = useSearchParams();
-  const tab = params.get("tab");
-  const currency = params.get("currency");
-  const walletPage = currency || tab;
   const isHistoryPage = !!useMatch("history");
 
   const { isIntersecting, ref } = useIntersectionObserver({
@@ -253,7 +250,10 @@ const History = memo(function ({
             <div className="row mt-3">
               <div className="col flex justify-center relative">
                 {lazyLoading ? (
-                  <Loader className={" w-[24px] h-[24px] top-[4px]"} />
+                  <div className="h-[30px]">
+
+                    <Loader className={" w-[24px] h-[24px] top-[4px]"} />
+                  </div>
                 ) : (
                   <span
                     onClick={() => {
@@ -266,13 +266,7 @@ const History = memo(function ({
                     className="text-gray-400 cursor-pointer inline-flex items-center"
                   >
                     {t("see_more")}
-                    <img
-                      className="ml-2"
-                      width={10}
-                      height={8}
-                      src="/img/icon/ArrowPlainDown.svg"
-                      alt="ArrowPlainDown"
-                    />
+                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-r" color="#B4C0CD" />
                   </span>
                 )}
               </div>
@@ -343,13 +337,7 @@ const History = memo(function ({
                     className="text-gray-400 cursor-pointer inline-flex items-center"
                   >
                     {t("see_more")}
-                    <img
-                      className="ml-2"
-                      width={10}
-                      height={8}
-                      src="/img/icon/ArrowPlainDown.svg"
-                      alt="ArrowPlainDown"
-                    />
+                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
                   </span>
                 )}
               </div>

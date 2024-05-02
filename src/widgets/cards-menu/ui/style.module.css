@@ -7,17 +7,6 @@
           justify-content: center;
 }
 
-.CarouselBlockContainer {
-  min-width: 220px;
-  max-width: 220px;
-}
-
-.CarouselBlockMobile {
-  min-width: 300px;
-  max-width: 300px;
-  padding-bottom: 20px;
-}
-
 .link {
   color: #285E69;
   text-decoration: underline;

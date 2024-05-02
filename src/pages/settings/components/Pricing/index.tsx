@@ -4,15 +4,15 @@ import { useContext } from 'react'
 import { BreakpointsContext } from '@/app/providers/BreakpointsProvider'
 import { useTranslation } from 'react-i18next'
 
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 export function Pricing() {
   const {xl} = useContext(BreakpointsContext)
   const {t} = useTranslation()
   return (
     <AreaWrapper title={t("my_tariffs")}>
-      <div className={`${s.tableWrap} ${xl && s.tableWrapXl}`}>
-        <div className={s.tableRow}>
+      <div className={`${styles.tableWrap} ${xl && styles.tableWrapXl}`}>
+        <div className={styles.tableRow}>
           <Item
             title={t("fees_and_limits_on_transfers")}
             rows={[
@@ -30,7 +30,7 @@ export function Pricing() {
             ]}
           />
         </div>
-        <div className={s.tableRow}>
+        <div className={styles.tableRow}>
           <Item
             title={t("bonus_programs")}
             rows={[
@@ -51,7 +51,7 @@ export function Pricing() {
             description={t("the_fee_to_be_taken", {months: 6})}
           />
         </div>
-        <div className={s.tableRow}>
+        <div className={styles.tableRow}>
           <Item
             title={t("additional_services")}
             rows={[

@@ -1,4 +1,4 @@
-import CloseWindow from '@/assets/close-window.svg?react'
+
 import { FC } from 'react'
 import { IconApp } from '../icons/icon-app'
 

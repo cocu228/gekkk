@@ -1,4 +1,4 @@
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 export type TitleContentAndBottomBorderProps = React.PropsWithChildren<{
   title: React.ReactNode
@@ -8,9 +8,9 @@ export function TitleContentAndBottomBorder({
   title,
 }: TitleContentAndBottomBorderProps) {
   return (
-    <div className={s.box}>
-      <span className={s.boxTitle}>{title}</span>
-      <div className={s.childrenWrap}>
+    <div className={styles.box}>
+      <span className={styles.boxTitle}>{title}</span>
+      <div className={styles.childrenWrap}>
         {children}
       </div>
     </div>

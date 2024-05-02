@@ -1,3 +1,5 @@
+@import "../../../../../../app/styles/mixins.scss";
+
 .Table {
   display: grid;
 }
@@ -15,6 +17,41 @@
   grid-template-columns: repeat(12, minmax(20px, 1fr));
 }
 
+.redBtn {
+  color:#ffffff;
+  background: #8F123A;
+  box-shadow: none;
+  max-height: 20px;
+  max-width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);    
+    // font-weight: 600; task 701
+  }
+
+  &:active {
+    background: #670e2b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+  }
+
+  &:disabled {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    color: #9D9D9D;
+    background: #E7E7E7;
+  }
+
+  @include max-devices(md){
+    font-weight: 600;
+  }   
+}
 
 .TableBody {
   display: inherit;

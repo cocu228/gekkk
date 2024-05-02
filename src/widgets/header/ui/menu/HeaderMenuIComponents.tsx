@@ -11,9 +11,10 @@ import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, setCookieData, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import AccountMobileIcon from "@public/img/icon/AccountMobileIcon.svg"
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
 import {Switch} from "antd";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const hClassName = new HelperClassName(styles)
 export const ItemAccount = ({active = false, number, name}: Partial<{
@@ -28,7 +29,7 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
         return(
             <div className={styles.AccountItem}>
                 <div className={styles.Icon}>
-                    <img src={AccountMobileIcon}/>
+                    <IconApp code="t24" color="#285E69" size={37} />
                 </div>
                 <div className={styles.AccountInfo}>
                     <span className={styles.AccountName}>{name}</span>
@@ -61,7 +62,7 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
 
     
     return <div className="flex items-center justify-end relative">
-        {active && <img className="absolute m-auto left-[-18px]" src="/img/check-true-accent.svg" alt="check"/>}
+        {active && <IconApp code="t47" className="absolute m-auto left-[-18px]" size={70} color="#00AEEF    " /> }
         <div className="wrapper mr-2">
             <SvgSchema active={active} className={hClassName.scss("SvgSchema")} width={32} height={22}/>
         </div>
@@ -86,8 +87,8 @@ export const PromoCodeModal = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.promo_code")}
         </button>
-        <Modal padding onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
-            <PromoCode/>
+        <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("header_menu.activate_promo_code")}/>} onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
+            <PromoCode handleCancel={handleCancel}/>
         </Modal>
     </>
 }
@@ -95,45 +96,32 @@ export const PromoCodeModal = ({active = false}) => {
 export const EnableNotifications = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, handleCancel, isModalOpen} = useModal();
-    const {notificationsEnabled} =
-        getCookieData<{notificationsEnabled: string}>();
-    const [state, setState] = useState<boolean>(notificationsEnabled === 'true');
+
+    const onClick = () => {
+        showModal();
+        setLoading(true);
+
+        Notification.requestPermission().then((result) => {
+            if (result === "granted") {
+                window.location.reload();                
+            }
+            else if (result === "denied") {
+                setLoading(false);
+            }
+            else {
+                handleCancel();
+                setLoading(false);
+            }
+        });
+    }
 
     return <>
-        <div
-            onClick={() => {
-                showModal();
-                setLoading(true);
-
-                Notification.requestPermission().then((result) => {
-                    if (result === "granted") {
-                        setState(!state);
-                        setCookieData([{
-                            key: 'notificationsEnabled',
-                            value: `${!state}`,
-                            expiration: 365 * 24 * 60 * 60 // One year in seconds
-                        }]);
-
-                        window.location.reload();                
-                    }
-                    else if (result === "denied") {
-                        setLoading(false);
-                    }
-                    else {
-                        handleCancel();
-                        setLoading(false);
-                    }
-                });
-            }}
-            className="w-full flex items-center justify-between"
-        >
-            <div>{t("header_menu.enable_notifications")}</div>
-            <div className="pointer-events-none">
-                <Switch checked={state}/>
-            </div>
-        </div>
+        <button onClick={onClick} className="w-full text-left">
+            {t("header_menu.enable_notifications")}
+        </button>
 
         <Modal
+            padding
             closable={false}
             open={isModalOpen}
             onCancel={handleCancel}

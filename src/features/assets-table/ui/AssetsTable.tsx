@@ -255,7 +255,7 @@ const AssetsTable = ({
                         <Button
                           size={"sm"}
                           className="w-[60px]"
-                          darkBlue
+                          variant='darkBlue'
                           onClick={(e) => {
                             scrollToTop();
                             e.stopPropagation();

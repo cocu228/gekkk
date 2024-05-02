@@ -45,7 +45,7 @@ function DepositCard({
                     )}
                 </div>
                 <div className="flex gap-[16px] mt-[16px]">
-                    <Button className="flex-1" gray size="sm" onClick={onOpenDeposit}>
+                    <Button className="flex-1" variant='gray' size="sm" onClick={onOpenDeposit}>
                         {!price ? 'Open deposit' : 'More details'}
                     </Button>
                     <div className="flex items-center flex-1 justify-center">

@@ -2,7 +2,7 @@ import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
 import { Typography } from "@/shared/ui/typography/typography"
 import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
 import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
-import s from '../../../styles.module.scss'
+import styles from '../../../styles.module.scss'
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import versions from '@/../versions.json';
 import {VersionCard} from "./version-card";
@@ -21,14 +21,14 @@ export function AppVersion() {
 
     return (
         <MobileWrapper className="w-full">
-            <div className={s.appVersionBlock}>
-                <div className={s.versionGroup}>
-                    <h4 className={s.versionTitle}>{t("current_app_version")}:</h4>
-                    <h4 className={s.versionValue}>{appVersion}</h4>
+            <div className={styles.appVersionBlock}>
+                <div className={styles.versionGroup}>
+                    <h4 className={styles.versionTitle}>{t("current_app_version")}:</h4>
+                    <h4 className={styles.versionValue}>{appVersion}</h4>
                 </div>
-                <div className={s.versionGroup} style={{paddingTop: '2.5rem'}}>
-                    <h4 className={s.versionTitle}>{t("current_api_version")}:</h4>
-                    <h4 className={s.versionValue}>2.0.3-20231230-1327.5649</h4>
+                <div className={styles.versionGroup} style={{paddingTop: '2.5rem'}}>
+                    <h4 className={styles.versionTitle}>{t("current_api_version")}:</h4>
+                    <h4 className={styles.versionValue}>2.0.3-20231230-1327.5649</h4>
                 </div>
             </div>
             <div className="flex flex-col">

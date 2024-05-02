@@ -16,6 +16,7 @@ import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
 import { CardData } from '@/pages/card-menu/components/card-data';
+import { GekkardPro } from '@/pages/gekkard-pro';
 
 const router = createBrowserRouter([
     {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
             {
                 path: 'card-data',
                 element: <CardData/>,
+            },
+            {
+                path: 'gekkard-pro',
+                element: <GekkardPro/>,
             }
         ],
     },

@@ -62,6 +62,7 @@
       "deposit_types": "Deposit types",
       "partnership": "Partnership program",
       "enter_promo_code": "Enter Promo Code",
+      "activate_promo_code": "Activate promo code",
       "enable_notifications": "Enable notifications",
       "gekkoin_invest_platform": "Gekkoin invest platform",
       "gekkard_personal_account": "Gekkard personal account"
@@ -493,6 +494,12 @@
       "buy": "Buy",
       "search_currency": "Search currency"
     },
+    "gekkard_pro":{
+      "title": "Gekkard PRO",
+      "join_gekkard_pro": "Join Gekkard PRO",
+      "i_accept": "I accept",
+      "text": "By continuing, you confirm that you accept the terms and conditions and agree to engage with the Company as an independent contractor on the terms and conditions set forth in the applicable document."
+    },
     "confirm": "Confirm",
     "close": "Close",
     "apply": "Apply",
@@ -751,7 +758,8 @@
       "testing_value": "Testing value",
       "without_comission": "without comission",
       "closed_orders": "Closed orders",
-      "active_orders": "Active orders"
+      "active_orders": "Active orders",
+      "enter_price": "Enter price"
     },
     "you_will_pay": "You will pay",
     "you_will_get": "You will get",
@@ -835,7 +843,7 @@
     "FAQ": "FAQ",
     "chat": "Chat",
     "email": "Email",
-    "to_find_answers_to_common_questions_open_the_faq": "To find answers to common questions, open the FAQ",
+    "answers_to_common_questions": "Answers to common questions",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "To get advice from our bank's support service, open the chat",
     "tap_here_to_contact_our_support_via_email": "Tap here to contact our support via Email",
     "camera": "Camera",
@@ -1049,6 +1057,7 @@
     "card_number_title": "Card number",
     "to_confirm_enter_sms_code": "To confirm the operation, you should enter SMS code",
     "pending_transactions": "You have pending transaction with your card. Please confirm or decline.",
+    "pending_transactions_disabled": "Notifications for incoming card transactions are disabled. To enable send SMS code.",
     "please_verify_transaction": "Please verify transaction",
     "click_confirm_to_verify": "Click Confirm to verify payment",
     "identity_verification": "Identity verification",
@@ -1102,7 +1111,7 @@
     "select_card": "Select card",
     "select_currency": "Select currency",
     "no_data_avialible": "No data avialible",
-    "clear": "Clear",
+    "clear": "Clean",
     "investments": "Investments",
     "rewards": "Rewards",
     "are_you_sure_close": "Are you sure you want to close {{currency1}} - {{currency2}} private exchange room? All unclosed orders will be canceled",
@@ -1675,6 +1684,13 @@
     "plastic": "Plastic",
     "enter_beneficiary_name": "Enter beneficiary name",
     "enter_account_number_or_IBAN": "Enter account number / IBAN",
-    "crypto_wallet": "Crypto wallet"
+    "crypto_wallet": "Crypto wallet",
+    "write_email_to_support": "Write email to support service",
+    "how_can_we_help": "How can we help?",
+    "contact_crypto": "Contact crypto support",
+    "chat_us": "Chat us",
+    "response_time_up_to": "Response time up to {{hours}} hours",
+    "this_code_can_be_used": "This code can be used only once",
+    "get_gekkard_pro": "Get Gekkard PRO"
   }
 }

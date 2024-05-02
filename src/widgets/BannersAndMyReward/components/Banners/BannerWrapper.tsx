@@ -1,4 +1,4 @@
-import s from '../../styles.module.scss'
+import styles from '../../styles.module.scss'
 import { FC, ReactNode } from 'react'
 
 interface BannerWrapperProps {
@@ -10,7 +10,7 @@ interface BannerWrapperProps {
 
 export const BannerWrapper:FC<BannerWrapperProps> = ({children, color, className, bgcolor}) => {
   return (
-    <div style={{background: bgcolor}} className={`${s.bannerItem} ${className}`}>
+    <div style={{background: bgcolor}} className={`${styles.bannerItem} ${className}`}>
       {children}
     </div>
   )

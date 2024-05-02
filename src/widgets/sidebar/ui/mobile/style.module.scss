@@ -1,36 +1,14 @@
 @import "@styles/mixins";
 
-.Sidebar {
-  flex-basis: var(--sidebar-width);
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: initial;
-  background-color: white;
-  box-shadow: 0 1px 81px rgba(0, 0, 0, 0.06);
-  overscroll-behavior-y: contain;
-  position: absolute;
+.Sidebar {  
+  overscroll-behavior-y: contain;  
   width: 100%;
-
-  background-color: #ffffff;
-  z-index: 40;
+  background-color: #f7f7f0;
   transition: left ease-out 0.4s;
-
-  @include max-devices(md) {
-    max-width: 100% !important;
-    flex-basis: 100% !important;
-    padding-bottom: 120px;
-    background-color: #f7f7f0;
-  }
-
-  @include max-devices(xxxl) {
-    max-width: var(--sidebar-width-xxxl);
-    flex-basis: var(--sidebar-width-xxxl);
-  }
-
-  @include max-devices(xxl) {
-    max-width: var(--sidebar-width-xxl);
-    flex-basis: var(--sidebar-width-xxl);
-  }
+  padding-bottom: 120px;
+  max-width: 100%;
+  margin: 0px 10px;
+  color: var(--gek-additional);
 }
 
 .TotalVal {
@@ -40,26 +18,14 @@
 }
 
 .CardInfo {
-  padding: 5px 20px;
-  width: 265px;
+  display: flex;
+  padding-top: 10px;
+  justify-content: center;
 }
 
-.AssetInfo1 {
-  background-color: #f7f7f0;
-  text-align: right;
-  padding: 10px 10px 5px 0;
+.AssetInfo1 {    
+  padding: 0px 10px 5px 10px;
   font-size: 12px;
-  font-weight: 400;
-  @include max-devices(md) {
-    color: #778F93;
-    font-family: Archivo;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: left;
-    padding-left: 5%;
-  }
 }
 
 .AssetInfo2 {
@@ -72,6 +38,7 @@
   border: var(--strokes-2, rgba(238, 238, 238, 0.65));
   border-width: 1px;
   border-style: solid;
+
   @include max-devices(md) {
     height: 71px;
     width: 100%;
@@ -94,13 +61,14 @@
   background-color: #f7f7f0;
   display: block;
   text-align: right;
+
   @include max-devices(md) {
     background-color: transparent;
     position: fixed;
     bottom: 75px;
     z-index: 40;
     left: 50%;
-    transform:translateX(-50%)
+    transform: translateX(-50%)
   }
 
 }
@@ -132,13 +100,11 @@
 }
 
 .AssetInfo5 {
-  padding-left: 5%;
-  padding-right: 5%;
-  height: 43px;
+  padding: 10px 10px 5px 10px;
+  
   width: 100%;
   display: flex;
   font-size: 12px;
-  margin-top: 5px;
   flex-direction: row;
   justify-content: space-between;
   background-color: rgb(247, 247, 240, 0.9);
@@ -164,6 +130,7 @@
   font-size: 14px;
   line-height: 24px;
   transition: .2s;
+
   @include max-devices(md) {
     color: #285E69;
     font-family: Archivo;
@@ -179,6 +146,7 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
+
   @include max-devices(md) {
     color: var(--Pale-blue, #285E69);
     font-family: Inter;
@@ -196,7 +164,8 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 300;
-  line-height: 20px; /* 166.667% */
+  line-height: 20px;
+  /* 166.667% */
 }
 
 .Income {
@@ -230,7 +199,7 @@
     }
   }
 
-  & > .Item,
+  &>.Item,
   .ItemExchange,
   .ItemEuro {
     box-shadow: 0 10px 27px 0 rgba(0, 0, 0, 0.16);
@@ -272,13 +241,12 @@
 .Item,
 .ItemExchange,
 .ItemEuro {
-
-  @include max-devices(md) {
-    max-width: 90%;
+  max-width: 500px;
+   
     background-color: white;
     border-radius: 8px;
     margin-bottom: 8px;
-  }
+ 
 
 
   height: 85px;
@@ -331,6 +299,7 @@
 
 
 :global(a.disabled) {
+
   .Item,
   .ItemExchange,
   .ItemEuro {

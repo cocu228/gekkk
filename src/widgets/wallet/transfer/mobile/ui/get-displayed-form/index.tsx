@@ -12,6 +12,7 @@ import { CtxWalletNetworks } from '../../../model/context';
 import Loader from '@/shared/ui/loader';
 import { ICtxCurrency } from '@/processes/CurrenciesContext';
 import { getInitialProps, useTranslation } from 'react-i18next';
+import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 
 type Props = {
     curr:ICtxCurrency;
@@ -65,6 +66,18 @@ function GetDisplayedForm({curr, network}: Props) {
         }
     }
 
+    const [cardsLoaded, setCardsLoaded] = useState<boolean>(false)
+    const getCards = storeActiveCards((state) => state.getActiveCards);
+
+
+    useEffect(()=>{
+
+        (async () => {
+            await getCards();
+            setCardsLoaded(true)
+        })();
+        
+    }, [])
 
 
     useEffect(()=>{
@@ -75,7 +88,7 @@ function GetDisplayedForm({curr, network}: Props) {
     const [displayedForm, setDisplayedForm] = useState(getDisplayForm(networkTypeSelect))
     
     return (
-        loading?
+        loading || !cardsLoaded ?
         <div className='w-full h-[200px] relative mb-5'>
                     <Loader/>
                 </div>

@@ -68,6 +68,7 @@ const WithdrawFormPapaya = () => {
                         >
                             <InputCurrency.DisplayBalance currency={currency}>
                                 <InputCurrency
+                                    transfers={md}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}
                                     onChange={setInputCurr}
@@ -170,7 +171,7 @@ const WithdrawFormPapaya = () => {
                 <div className={styles.ButtonContainerCenter}>
                     <Button
                         size={"xl"}
-                        greenTransfer
+                        variant='greenTransfer'
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}

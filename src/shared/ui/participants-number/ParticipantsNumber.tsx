@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import styles from './style.module.scss';
 import {isActiveClass} from "@/shared/lib/helpers";
-import IconParticipant from '@/shared/ui/icons/IconParticipant';
 import { useTranslation } from 'react-i18next';
+import { IconApp } from '../icons/icon-app';
 
 interface Props {
     quantity: number,
@@ -39,12 +39,7 @@ function ParticipantsNumber({quantity, onLeave, onIconClick}: Props) {
                     <span className="font-medium text-3xl leading-7 sm:text-xl">
                         {quantity}
                     </span>
-
-                    <IconParticipant
-                        height={24}
-                        width={24}
-                        fill='inherit'
-                    />
+                    <IconApp color="inherit" code="t63" size={22} />
                 </div>
             </div>
             <button className="font-medium text-secondary hover:text-blue-400" onClick={onLeave}>{t("exchange.leave_the_room")}</button>

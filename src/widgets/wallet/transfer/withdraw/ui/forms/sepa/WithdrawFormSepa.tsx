@@ -18,9 +18,11 @@ import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
+    const {md} = useBreakpoints()
     const navigate = useNavigate();
     const currency = useContext(CtxWalletData);
     const {initialLanguage} = getInitialProps();
@@ -70,6 +72,7 @@ const WithdrawFormSepa = () => {
                                     header={<span className={styles.TitleColText}>{t("amount")}:</span>}
                                 >
                                 <InputCurrency
+                                    transfers={md}
                                     onChange={setInputCurr}
                                     value={inputCurr.value.string}
                                     currency={currency.$const}/>
@@ -89,10 +92,14 @@ const WithdrawFormSepa = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Input value={inputs.beneficiaryName}
-                                   onChange={onInput}
-                                   placeholder={t("enter_beneficiary_name")}
-                                   name={"beneficiaryName"}/>
+                            <Input
+                                tranfers={md}
+                                bordered={!md}
+                                value={inputs.beneficiaryName}
+                                onChange={onInput}
+                                placeholder={t("enter_beneficiary_name")}
+                                name={"beneficiaryName"}
+                            />
                         </div>
                     </div>
                                                     
@@ -112,9 +119,14 @@ const WithdrawFormSepa = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Input value={inputs.accountNumber} onChange={onInput}
-                                   name={"accountNumber"} allowDigits
-                                   placeholder={t("enter_account_number_or_IBAN")}/>
+                            <Input 
+                                tranfers={md}
+                                bordered={!md}
+                                value={inputs.accountNumber} 
+                                onChange={onInput}
+                                name={"accountNumber"} allowDigits
+                                placeholder={t("enter_account_number_or_IBAN")}
+                            />
                         </div>
                     </div>
                 </div>
@@ -143,15 +155,17 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
             <div className="row mb-5 w-full">
-                <div className="col">
+                <div className="col w-full">
                     <div className="row mb-2">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("comment")}:</span>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col flex items-center">
-                            <TextArea
+                    <div className="row w-full">
+                        <div className="col w-full flex items-center">
+                            <Input
+                                tranfers={md}
+                                bordered={!md}
                                 allowDigits
                                 allowSymbols
                                 value={inputs.comment}
@@ -182,7 +196,7 @@ const WithdrawFormSepa = () => {
             <div className={styles.ButtonContainerCenter}>
                 <Button
                     size={"xl"}
-                    greenTransfer
+                    variant='greenTransfer'
                     onClick={showModal}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}

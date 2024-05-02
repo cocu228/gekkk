@@ -146,3 +146,20 @@
     background: var(--color-bgSecondary);
   }
 }
+
+.InputTransfers{
+
+  :global(.ant-input){
+    
+    font-size: 14px !important;
+    color: #285E69;    
+    font-weight: bold;
+
+    &::placeholder {
+      font-weight: normal;
+      color: #DCDCD9;
+      font-size: 12px;
+    } 
+
+  }
+}

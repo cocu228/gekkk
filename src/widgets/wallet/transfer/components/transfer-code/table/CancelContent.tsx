@@ -11,8 +11,9 @@ import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
-import WarningIcon from "@/assets/MobileModalWarningIcon.svg?react"
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
+import style from './style.module.scss'
+import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
@@ -39,7 +40,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     }
 
     return !md ? <>
-        <Button onClick={showModal} size={"sm"} gray
+        <Button onClick={showModal} size={"sm"} variant='gray'
                 className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
         <Modal
             title={t("deleting_transfer_code")} 
@@ -102,8 +103,8 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                 </div>
             </div>}
         </Modal></> : <>
-        <Button redTransferCode onClick={showModal} size={"sm"}
-                className={"!py-3 w-full !h-[fit-content]"}><span className='text-[12px]'>{t("cancel")}</span></Button>
+        <Button onClick={showModal} size={"sm"}
+                className={`!py-3 w-full !h-[fit-content] ${style.redBtn}`}><span className='text-[12px]'>{t("cancel")}</span></Button>
         <ModalAnt
             title={<span className={styles.MainModalTitle}>{t("cancel_code")}</span>} footer={null} open={isModalOpen} onCancel={handleCancel}>
             {!md ? (loading ? <Loader/> : <div>
@@ -146,7 +147,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                 <div className="flex flex-row gap-5">
                     <Button className="w-full" size="xl" onClick={onBtnCancel}>{t("confirm")}
                     </Button>
-                    <Button darkBlue className="w-full" size="xl" onClick={handleCancel}>{t("cancel")}
+                    <Button variant='darkBlue' className="w-full" size="xl" onClick={handleCancel}>{t("cancel")}
                     </Button>
                 </div>
             </div>) : <div>
@@ -157,7 +158,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
-                                        <WarningIcon/>
+                                        <IconApp size={15} code="t27" color="#8F123A" />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -204,10 +205,10 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={styles.ButtonContainer}>
-                    <Button greenTransfer className={styles.ButtonTwo} size="xl" onClick={onBtnCancel}>
+                    <Button variant='greenTransfer' className={styles.ButtonTwo} size="xl" onClick={onBtnCancel}>
                         {t("confirm")}
                     </Button>
-                    <Button whiteGreenTransfer className={styles.ButtonTwo} size="xl" onClick={handleCancel}>
+                    <Button variant='whiteGreenTransfer' className={styles.ButtonTwo} size="xl" onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

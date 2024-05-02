@@ -62,6 +62,7 @@
       "partnership": "Партнёрская программа",
       "enter_promo_code": "Введите промокод",
       "deposit_types": "Типы депозитов",
+      "activate_promo_code": "Активировать промокод",
       "gekkoin_invest_platform": "Инвестиционная платформа Gekkoin",
       "gekkard_personal_account": "Персональный аккаунт Gekkard",
       "enable_notifications": "Включить уведомления"
@@ -408,6 +409,13 @@
       "buy": "Купить",
       "search_currency": "Найти валюту"
     },
+    "gekkard_pro":{
+      "title": "Gekkard PRO",
+      "join_gekkard_pro": "Присоединиться к Gekkard PRO",
+      "i_accept": "Я согласен с",
+      "text": "Продолжая, вы подтверждаете, что вы принимаете условия и положения и соглашаетесь работать с Компанией в качестве независимого подрядчика на условиях, установленных в соответствующем документе."
+
+    },
     "confirm": "Подтвердить",
     "apply": "Применить",
     "done": "Готово",
@@ -434,7 +442,7 @@
     "history": "История",
     "withdraw": "Вывод",
 
-    "to_find_answers_to_common_questions_open_the_faq": "Чтобы найти ответы на часто задаваемые вопросы, откройте раздел Часто задаваемые вопросы (FAQ)",
+    "answers_to_common_questions": "Ответы на часто задаваемые вопросы",
     "to_get_advice_from_our_bank_s_support_service_open_the_chat": "Чтобы получить консультацию от службы поддержки нашего банка, откройте чат",
     "funds_transfer": "Переводы",
     "create_transfer": "Создать перевод",
@@ -638,7 +646,8 @@
       "orders": "Заказы",
       "info_final_exchange": "Окончательный обменный курс может отличаться от показанного значения.",
       "testing_value": "Тестовое значение",
-      "without_comission": "без комиссии"
+      "without_comission": "без комиссии",
+      "enter_price": "Введите цену"
     },
     "you_will_pay": "Вы заплатите",
     "you_will_get": "Вы получите",
@@ -1448,7 +1457,15 @@
     "transfer": "Перевод",
     "universal_transfer_description": "переводы пользователям Gekkard по",
     "phone_number_or_IBAN": "номер телефона или IBAN",
-    "crypto_wallet": "Криптокошелек"
+    "crypto_wallet": "Криптокошелек",
+    "write_email_to_support": "Написать письмо в службу поддержки",
+    "how_can_we_help":  "Как мы можем помочь?",
+    "contact_crypto": "Связаться с поддержкой криптовалют",
+    "chat_us": "Напишите нам",
+    "response_time_up_to": "Время ответа до {{hours}} часов",
+    "this_code_can_be_used": "Этот код можно использовать только один раз",
+    "get_gekkard_pro": "Получите Gekkard PRO"
+
 
 
 

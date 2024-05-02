@@ -1,17 +1,12 @@
 ﻿.CarouselBlock {
   display: flex;
-  justify-content: center;
-  
-  &Container {
-    min-width: 220px;
-    max-width: 220px;
-  }
-}
+  justify-content: center;  
+  margin-bottom: 15px;
 
-.CarouselBlockMobile {
-  min-width: 300px;
-  max-width: 300px;
-  padding-bottom: 20px;
+  &Container {
+    min-width: 225px;
+    max-width: 225px;
+  }
 }
 
 .link {

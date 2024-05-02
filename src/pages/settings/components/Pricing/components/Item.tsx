@@ -1,4 +1,4 @@
-import s from '../styles.module.scss'
+import styles from '../styles.module.scss'
 
 export interface ItemProps {
   title: React.ReactNode
@@ -10,19 +10,19 @@ export interface ItemProps {
 }
 export function Item({ title, rows, description }: ItemProps) {
   return (
-    <div className={s.TableItem}>
-      <span className={s.TableItemTitle}>{title}</span>
+    <div className={styles.TableItem}>
+      <span className={styles.TableItemTitle}>{title}</span>
       {rows.map((item, index) => {
         const { title, value } = item
         return (
-          <span className={s.TableItemTextWrap} key={index} >
+          <span className={styles.TableItemTextWrap} key={index} >
             <span>{title}</span>
-            <span className={s.TableItemValue}>{value}</span>
+            <span className={styles.TableItemValue}>{value}</span>
           </span>
 
         )
       })}
-      {description ? <span className={s.DescriptionText}>{description}</span> : null}
+      {description ? <span className={styles.DescriptionText}>{description}</span> : null}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import s from './styles.module.scss'
+import styles from './styles.module.scss'
 
 interface FrameItemProps {
   children: ReactNode
@@ -11,7 +11,7 @@ export const FrameItem:FC<FrameItemProps> = ({children, onClick, isSelected}) =>
 
   return (
     <div onClick={onClick} 
-        className={`${s.frameItem} ${isSelected && s.frameItemSelected}`}
+        className={`${styles.frameItem} ${isSelected && styles.frameItemSelected}`}
     >
       {children}
     </div>

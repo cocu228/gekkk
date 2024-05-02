@@ -33,12 +33,17 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { Card } from "@/shared/(orval)api/gek/model";
 
 const { Option } = Select;
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
+  
   const cards = storeActiveCards((state) => state.activeCards);
+
+  
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { onInput: onCardNumberInput } = useMask(MASK_BANK_CARD_NUMBER);
   const navigate = useNavigate();
@@ -91,6 +96,7 @@ const WithdrawFormCardToCard = () => {
         : null,
     }));
   }, [cards]);
+  
 
   return !md ? (
     !cards ? (
@@ -308,6 +314,7 @@ const WithdrawFormCardToCard = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
+                  transfers
                   onChange={setInputCurr}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -327,9 +334,10 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-tl-[5px] rounded-bl-[5px] border-solid border-[#DCDCD9]">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[#DCDCD9]">
               <div className="basis-full">
                 <SearchSelect
+                  transfers
                   value={inputs.selectedCard}
                   notFoundContent={
                     <div className="my-3">{t("no_active_cards")}</div>
@@ -360,9 +368,7 @@ const WithdrawFormCardToCard = () => {
               </div>
             </div>
             <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
-                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6286 0.5L12 1.8125L6 7.5L0 1.8125L1.37143 0.5L6 4.875L10.6286 0.5Z" fill="white"/>
-                </svg>
+                <IconApp code='t08' color='#fff' size={12} className={"rotate-90"}/>
             </div>
           </div>
         </div>
@@ -379,6 +385,8 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
+                tranfers
+                bordered={false}
                 allowDigits
                 type={"text"}
                 onInput={onCardNumberInput}
@@ -405,6 +413,8 @@ const WithdrawFormCardToCard = () => {
           <div className="row basis-[100%]">
             <div className="col">
               <Input
+                tranfers
+                bordered={false}
                 value={inputs.cardholderName}
                 onChange={({ target }) => {
                   setInputs(() => ({
@@ -430,7 +440,9 @@ const WithdrawFormCardToCard = () => {
           </div>
           <div className="row w-full">
             <div className="col flex items-center">
-              <TextArea
+              <Input
+                tranfers={md}
+                bordered={!md}
                 allowDigits
                 allowSymbols
                 value={inputs.comment}
@@ -511,7 +523,7 @@ const WithdrawFormCardToCard = () => {
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>
           <Button
-            greenTransfer
+            variant='greenTransfer'
             size={"xl"}
             className="w-full"
             onClick={showModal}

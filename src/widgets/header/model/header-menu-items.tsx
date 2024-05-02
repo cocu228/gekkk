@@ -3,7 +3,6 @@ import {TFunction} from "i18next";
 import {EnableNotifications, GekkoinInvestPlatform, PromoCodeModal} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 import {THeaderMenuList} from "@/widgets/header/model/types";
 
-import PartnershipMobileIcon from "@public/img/icon/PartnershipMobileIcon.svg"
 
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
@@ -48,7 +47,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             },
             icon:<IconApp color="#285E69" size={18} code="t25" />
         },
-        {
+        (Notification.permission === 'granted' ? null : {
             item: <EnableNotifications/>,
             id: 'enableNotifications',
             action: {
@@ -56,7 +55,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 value: null,
             },
             icon: <IconApp color="#285E69" size={20} code="t23" />
-        },
+        }),
         {
             item: t('header_menu.partnership'),
             id: 'partnership',
@@ -64,7 +63,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "partnership-program",
             },
-            icon:<img src={PartnershipMobileIcon}/>
+            icon: <IconApp color="#285E69" size={17} code="t17" />
         },
         {
             item: <PromoCodeModal/>,
@@ -80,9 +79,9 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             id: 'GetGekkardPRO',
             action: {
                 type: "link",
-                value: null,
+                value: "gekkard-pro",
             },
-            icon:<button className="flex text-sm font-normal border bg-[#29354C] text-[#F7F7F0] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[#29354C]">Get Gekkard PRO</button>,
+            icon:<button className="flex text-sm font-normal border bg-[#29354C] text-[#F7F7F0] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[#29354C]">{t("get_gekkard_pro")}</button>,
             style:{
                 display:'flex',
                 justifyContent:"center",

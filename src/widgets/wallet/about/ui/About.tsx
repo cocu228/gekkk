@@ -4,6 +4,7 @@ import Button from '@/shared/ui/button/Button';
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from 'react-i18next';
+import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 
 interface IParams {
     description: string | JSX.Element;
@@ -45,11 +46,11 @@ const About = ({description}: IParams) => {
 
             {isEUR ? null : (
                 <div className={`grid gap-5 grid-cols-2 mt-10 ${!md ? "max-w-[320px]" : ""}`}>
-                    <Button darkBlue size="sm" onClick={() => navigate(`/exchange?to=${$const}`)}>
+                    <Button variant="darkBlue" size="sm" onClick={() => navigate(`/exchange?to=${$const}`)}>
                         {t("buy")}
                     </Button>
 
-                    <Button onClick={() => navigate(`/exchange?from=${$const}`)} className="relative" darkBlue size="sm">
+                    <Button onClick={() => navigate(`/exchange?from=${$const}`)} className="relative" variant="darkBlue" size="sm">
                         {t("sell")}
                     </Button>
                 </div>

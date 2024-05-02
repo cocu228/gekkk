@@ -59,14 +59,6 @@ const UniversalTransferForm = () => {
 
   return (
     <div className="wrapper">
-      <div className="info-box-description mb-4 p-6 md:text-xs">
-        <div className="row">
-          <span className="font-semibold">{t("fee_free")}* </span>
-          <span>{t("universal_transfer_description")} </span>
-          <span className="font-semibold">{t("phone_number_or_IBAN")}</span>
-        </div>
-      </div>
-
       <div className="row mb-5 w-full">
         <div className="col">
           <InputCurrency.Validator

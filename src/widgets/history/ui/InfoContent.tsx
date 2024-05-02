@@ -57,7 +57,7 @@ const InfoContent = (props: TypeProps) => {
           <div className="">
             <div className={style.InfoItem}>
               <div>
-                <span className={style.InfoItemTitle}>{t("date")}:</span>
+                <span className={style.InfoItemTitle}>{t("date")}</span>
               </div>
               <div>
                 <span className={style.InfoItemValue}>
@@ -69,7 +69,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div className="col w-auto">
                   <span className={style.InfoItemTitle}>
-                    {t("transaction_id")}:
+                    {t("transaction_id")}
                   </span>
                 </div>
                 <div 
@@ -87,7 +87,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
-                  {t("transaction_type")}:
+                  {t("transaction_type")}
                 </span>
               </div>
               <div>
@@ -97,7 +97,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
-                  {t("currency")}:
+                  {t("currency")}
                 </span>
               </div>
               <div>
@@ -107,7 +107,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div>
                 <span className={style.InfoItemTitle}>
-                  {t("amount")}:
+                  {t("amount")}
                 </span>
               </div>
               <div>
@@ -118,7 +118,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className={style.InfoItem}>
               <div>
-                <span className={style.InfoItemTitle}>{t("fee")}:</span>
+                <span className={style.InfoItemTitle}>{t("fee")}</span>
               </div>
               <div>
                 <span className={style.InfoItemValue}>
@@ -129,7 +129,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div>
                 <span className={style.InfoItemTitle}>
-                  {t("status")}:
+                  {t("status")}
                 </span>
               </div>
               <div>
@@ -142,7 +142,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div>
                   <span className={style.InfoItemTitle}>
-                    {t("description")}:
+                    {t("description")}
                   </span>
                 </div>
                 <div>
@@ -158,7 +158,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div>
                   <span className={style.InfoItemTitle}>
-                    {t("sender_name")}:
+                    {t("sender_name")}
                   </span>
                 </div>
                 <div>

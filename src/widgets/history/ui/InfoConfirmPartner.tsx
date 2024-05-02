@@ -63,7 +63,7 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         <div className="col">
           <div className="row mb-2">
             <div className="col w-auto">
-              <span className="font-bold text-[10px] text-[#285E69]">
+              <span className="font-bold text-[14px] text-[#285E69]">
                 {t("sender_name")}
               </span>
             </div>

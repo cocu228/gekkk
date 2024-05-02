@@ -57,9 +57,8 @@ export default function customSearch() {
     dayjs("2022-01-01", dateFormat),
     dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
   ]);
-  const [activeTab, setActiveTab] = useState<string>(historyTabs[0].Key);
+  const [activeTab] = useState<string>(historyTabs[0].Key);
 
-  const [allAssets, setAllAssets] = useState<ISelectAssets[]>();
   const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({
     label: "Gekkoin EUR",
     value: "EURG",
@@ -77,7 +76,7 @@ export default function customSearch() {
     listHistory[listHistory.length - 1]
   );
 
-  const { isIntersecting, ref } = useIntersectionObserver({
+  const { isIntersecting } = useIntersectionObserver({
     threshold: 0.9,
   });
 
@@ -90,9 +89,6 @@ export default function customSearch() {
     };
   });
 
-  const [loading, setLoading] = useState(false);
-  const [lazyLoading, setLazyLoading] = useState(false);
-  const [selectedTx, setSelectedTx] = useState(translatedOptions[0]);
   const [allTxVisibly, setAllTxVisibly] = useState(false);
   const [apply, setApply] = useState<boolean>(false);
   const [type, setType] = useState<typeT>(translatedOptions[0]);
@@ -107,15 +103,13 @@ export default function customSearch() {
   const { refreshKey } = useContext(CtxRootData);
 
   const handleStartDateChange: DatePickerProps["onChange"] = (
-    newDate,
-    dateString
+    newDate
   ) => {
     setDate([newDate, date[1]]);
   };
 
   const handleFinishDateChange: DatePickerProps["onChange"] = (
-    newDate,
-    dateString
+    newDate
   ) => {
     setDate([date[0], newDate]);
   };
@@ -143,8 +137,6 @@ export default function customSearch() {
         ).fiatCurrency;
         return { value: elem?.code, label: elem?.name, isFiat };
       });
-      console.log(formatedResult);
-      setAllAssets(formatedResult);
     });
   };
 
@@ -158,10 +150,8 @@ export default function customSearch() {
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
       await loadAssets();
       await loadActiveCards();
-      setLoading(false);
     })();
   }, []);
 
@@ -188,9 +178,6 @@ export default function customSearch() {
       lastValue?.next_key !== "::0"
     ) {
       (async () => {
-        setLazyLoading(true);
-
-        console.log(lastValue?.next_key);
 
         const { data } = await apiGetHistoryTransactions({
           currencies: historyData.assets,
@@ -205,7 +192,6 @@ export default function customSearch() {
         if (data.result.length < 10) setAllTxVisibly(true);
 
         setListHistory((prevState) => [...prevState, ...data.result]);
-        setLazyLoading(false);
       })();
     }
   }, [isIntersecting]);
@@ -293,7 +279,7 @@ export default function customSearch() {
                   )}
                 </div>
                 <div className={styles.SelectIconBlock}>
-                  <IconApp color="#fff" code="t08" size={12} />
+                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
                 </div>
               </div>
             </div>
@@ -320,7 +306,7 @@ export default function customSearch() {
                   )}
                 </div>
                 <div className={styles.SelectIconBlock}>
-                  <IconApp color="#fff" code="t08" size={12} />
+                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
                 </div>
               </div>
             </div>
@@ -349,7 +335,7 @@ export default function customSearch() {
                   )}
                 </div>
                 <div className={styles.SelectIconBlock}>
-                  <IconApp color="#fff" code="t08" size={12} />
+                  <IconApp className="rotate-90" color="#fff" code="t08" size={12} />
                 </div>
               </div>
             </div>

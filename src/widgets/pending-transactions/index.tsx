@@ -32,32 +32,34 @@ export const PendingTransactions = () => {
 
     useEffect(() => {
         (async () => {
-            const {phone} = await getAccountDetails();
-            const {data} = uasToken
-                ? {data: {result: {token: uasToken}}}
-                : await apiGetUas(null, {
-                    headers: {'silent': true}
-                });
-
-            if (!(phone && data?.result?.token)) {
-                setUasRequired(true);
-                return;
-            }
-
-            setUasToken(data.result.token);
-
-            const response = await apiPendingTransactions({
-                headers: {
-                    Authorization: phone,
-                    Token: data.result.token
+            if (!uasRequired) {
+                const {phone} = await getAccountDetails();
+                const {data} = uasToken
+                    ? {data: {result: {token: uasToken}}}
+                    : await apiGetUas(null, {
+                        headers: {'silent': true}
+                    });
+                
+                if (!(phone && data?.result?.token)) {
+                    setUasRequired(true);
+                    return;
                 }
-            });
-
-            if (response.data) {
-                setState(response.data);
+            
+                setUasToken(data.result.token);
+            
+                const response = await apiPendingTransactions({
+                    headers: {
+                        Authorization: phone,
+                        Token: data.result.token
+                    }
+                });
+            
+                if (response.data) {
+                    setState(response.data);
+                }
             }
         })();
-    }, [refreshKey, account, uasToken]);
+    }, [refreshKey, account, uasRequired]);
 
     const onInfoBox = async () => {
         if (!uasRequired) {

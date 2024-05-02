@@ -1055,6 +1055,7 @@
     "card_number_title": "Card number",
     "to_confirm_enter_sms_code": "To confirm the operation, you should enter SMS code",
     "pending_transactions": "You have pending transaction with your card. Please confirm or decline.",
+    "pending_transactions_disabled": "Notifications for incoming card transactions are disabled. To enable send SMS code.",
     "please_verify_transaction": "Please verify transaction",
     "click_confirm_to_verify": "Click Confirm to verify payment",
     "identity_verification": "Identity verification",

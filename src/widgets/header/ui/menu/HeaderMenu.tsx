@@ -52,7 +52,7 @@ const HeaderMenu = ({
               />
             </div>
             {items.map((item, i) => {
-              if (!md && item.id === "logout") return null;
+              if (!item || (!md && item.id === "logout")) return null;
 
               return (
                 <button

@@ -144,7 +144,7 @@ export class HunterErrorsApi {
     
     isTokenReceive() {
         // @ts-ignore
-        return !!this.response?.data?.result?.sessid;
+        return !this.response.config.headers.has('silent') && !!this.response?.data?.result?.sessid;
     }
 
     // isConfirmationToken() {

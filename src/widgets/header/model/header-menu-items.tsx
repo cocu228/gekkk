@@ -47,7 +47,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             },
             icon:<IconApp color="#285E69" size={18} code="t25" />
         },
-        {
+        (Notification.permission === 'granted' ? null : {
             item: <EnableNotifications/>,
             id: 'enableNotifications',
             action: {
@@ -55,7 +55,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 value: null,
             },
             icon: <IconApp color="#285E69" size={20} code="t23" />
-        },
+        }),
         {
             item: t('header_menu.partnership'),
             id: 'partnership',

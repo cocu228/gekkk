@@ -166,6 +166,7 @@ const WithdrawFormBroker = () => {
                     >
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency
+                                transfers
                                 value={inputCurr.value.string}
                                 currency={currency.$const}
                                 onChange={setInputCurr}

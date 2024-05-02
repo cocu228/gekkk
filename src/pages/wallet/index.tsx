@@ -26,8 +26,6 @@ import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import ProgramsButton from "@/shared/ui/ButtonsMobile/Programs";
 import WalletHeaderMobile from "@/widgets/wallet/header/ui/mobile";
 import Programs from "@/widgets/wallet/programs/cashback/EUR/ui";
-import {getCookieData} from "@/shared/lib";
-import PendingTransactions from "@/widgets/pending-transactions";
 import CardsMenuButton from "@/shared/ui/ButtonsMobile/CardsMenu";
 
 function Wallet() {
@@ -41,7 +39,6 @@ function Wallet() {
     const {xl, md} = useContext(BreakpointsContext);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    const {notificationsEnabled} = getCookieData<{notificationsEnabled: string}>();
     
     let $currency = mockEUR;
 
@@ -67,11 +64,10 @@ function Wallet() {
 
     return (
         <div className="flex flex-col h-full w-full">
-            {isEUR && notificationsEnabled === 'true' && <PendingTransactions/>}
             {/*@ts-ignore*/}
             
             <CtxWalletData.Provider value={$currency}>
-                {md?<WalletHeaderMobile/>:<WalletHeader/>}
+                {md ? <WalletHeaderMobile/> : <WalletHeader/>}
                 {!md ?
                     <TabsGroupPrimary initValue={tab ? tab : "top_up"} callInitValue={{account, tab: tab}}>
                         <div className="grid" style={{gridTemplateColumns: `repeat(${fullWidthOrHalf}, minmax(0, 1fr))`}}>

@@ -11,6 +11,7 @@ import { useMatch } from "react-router-dom";
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     const {md} = useBreakpoints();
     const isExchange = !!useMatch('/exchange');
+    const isPrivateRoom = !!useMatch('/private-room');
     const {currencies} = useContext(CtxCurrencies);
 
     const isActive = currencies && [...currencies].some(it => {
@@ -28,7 +29,8 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
                 </>}
 
                 {md ? null : <ActionConfirmationWindow/>}
-                <div className={`${styles.Content} ${!(isExchange && md) ? styles.ContentPadding : ''}`}>
+                <div className={`${styles.Content} ${!((isExchange || isPrivateRoom) && md)
+                        ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
             </ModalTrxInfoProvider>

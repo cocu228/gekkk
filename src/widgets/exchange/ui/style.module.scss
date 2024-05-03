@@ -11,6 +11,23 @@
   }
 }
 
+.FromBlockWrap {
+  font-weight: 500;
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+  user-select: none;
+
+  @media screen and (max-width: 430px) {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
 .FieldsSpacer {
   margin-top: 0.5rem;
   margin-bottom: -0.5rem;
@@ -52,7 +69,12 @@
 
 .Grid {
   display: grid;
+  padding: 1.25rem;
   grid-template-columns: 1.25fr 0.75fr;
+
+  @media screen and (max-width: 360px) {
+    padding: 1.25rem 0.75rem;
+  }
 }
 
 .GridFooter {

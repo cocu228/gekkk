@@ -20,6 +20,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
     @include max-devices(md){
         user-zoom: fixed;

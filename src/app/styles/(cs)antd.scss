@@ -133,8 +133,11 @@
 //}
 
 .ant-select-item-option {
-  height: 60px !important;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    height: 60px !important;  
+  }
 }
 
 .ant-form {

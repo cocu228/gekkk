@@ -186,7 +186,7 @@ const AssetsTable = ({
                       md && !!columnKeys.find((c) => c === AssetTableKeys.PRICE)
                     )
                       ? null
-                      : "1fr 0.58fr 0.5fr"
+                      : "1fr 0.58fr 0.6fr"
                   }
                 >
                   {columnKeys.map((key: string) => (

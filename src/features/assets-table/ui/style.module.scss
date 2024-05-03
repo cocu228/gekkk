@@ -64,6 +64,9 @@
   
   .InnerName {
     color: #B9B9B5;
+    max-width: 50px;
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
 }

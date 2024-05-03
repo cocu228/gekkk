@@ -1,15 +1,12 @@
 @import "@styles/mixins";
 
 .Select {
+  position: relative;
+  
   & :global(.ant-select-arrow) {
     display: none !important;
   }
-  position: relative;
-  &Mobile {
-    height: 30px;
-    width: 100%;
-    font-size: 12px;
-  }
+
   &Icon {
     position: absolute;
     left: 1rem;
@@ -23,7 +20,7 @@
       width: 40px;
     }
 
-    @include max-devices("sm") {
+    @include max-devices("md") {
       width: 2.12rem;
       height: 2.12rem;
       margin-top: -1.06rem;
@@ -55,7 +52,7 @@
     box-shadow: none !important;
     background: none;
 
-    @include max-devices("sm") {
+    @include max-devices("md") {
       height: 3.75rem;
     }
   }
@@ -64,7 +61,7 @@
     & :global(.ant-select .ant-select-selector .ant-select-selection-item) {
       padding-left: 2.93rem;
 
-      @include max-devices("sm") {
+      @include max-devices("md") {
         padding-left: 2.55rem;
       }
     }

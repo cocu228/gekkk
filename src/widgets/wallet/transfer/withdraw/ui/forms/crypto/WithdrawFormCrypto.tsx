@@ -182,17 +182,30 @@ const WithdrawFormCrypto = () => {
           <span className={styles.TitleColText}>
             {t("desc_optional")}:
           </span>
-          <Input
-            tranfers={md}
-            bordered={!md}
-            allowDigits
-            allowSymbols
-            placeholder={t('enter_description')}
-            name={"description"}
-            value={inputs.description}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-          />
+          {md ?
+            <Input
+              tranfers={md}
+              bordered={!md}
+              allowDigits
+              allowSymbols
+              placeholder={t('enter_description')}
+              name={"description"}
+              value={inputs.description}
+              onChange={onInput}
+              disabled={!networkTypeSelect}
+            />
+          :
+            <TextArea
+              allowDigits
+              allowSymbols
+              placeholder={t('enter_description')}
+              name={"description"}
+              value={inputs.description}
+              onChange={onInput}
+              disabled={!networkTypeSelect}
+            />
+
+          }
         </div>
 
         <div className={styles.PayInfo}>

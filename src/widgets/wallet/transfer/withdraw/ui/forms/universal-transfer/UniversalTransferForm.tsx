@@ -135,19 +135,33 @@ const UniversalTransferForm = () => {
         </div>
         <div className="row w-full">
           <div className="col w-full">
-            <Input
-              tranfers={md}
-              bordered={!md}
-              allowDigits
-              allowSymbols
-              name={"comment"}
-              value={inputs.comment}
-              onChange={onInputDefault}
-              placeholder={t("comment_optional")}
-              style={{
-                minHeight: 100,
-              }}
-            />
+            {md?
+              <Input
+                tranfers={md}
+                bordered={!md}
+                allowDigits
+                allowSymbols
+                name={"comment"}
+                value={inputs.comment}
+                onChange={onInputDefault}
+                placeholder={t("comment_optional")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
+            :
+              <TextArea
+                allowDigits
+                allowSymbols
+                name={"comment"}
+                value={inputs.comment}
+                onChange={onInputDefault}
+                placeholder={t("comment_optional")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
+            }
           </div>
         </div>
       </div>

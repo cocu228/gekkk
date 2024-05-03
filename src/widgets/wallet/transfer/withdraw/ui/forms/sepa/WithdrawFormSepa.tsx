@@ -163,16 +163,27 @@ const WithdrawFormSepa = () => {
                     </div>
                     <div className="row w-full">
                         <div className="col w-full flex items-center">
-                            <Input
-                                tranfers={md}
-                                bordered={!md}
-                                allowDigits
-                                allowSymbols
-                                value={inputs.comment}
-                                name={"comment"}
-                                placeholder={t("comment")}
-                                onChange={onInput}
-                            />
+                            {md?
+                                <Input
+                                    tranfers={md}
+                                    bordered={!md}
+                                    allowDigits
+                                    allowSymbols
+                                    value={inputs.comment}
+                                    name={"comment"}
+                                    placeholder={t("comment")}
+                                    onChange={onInput}
+                                />
+                            :
+                                <TextArea
+                                    allowDigits
+                                    allowSymbols
+                                    value={inputs.comment}
+                                    name={"comment"}
+                                    placeholder={t("comment")}
+                                    onChange={onInput}
+                                />
+                            }
                         </div>
                     </div>
                 </div>

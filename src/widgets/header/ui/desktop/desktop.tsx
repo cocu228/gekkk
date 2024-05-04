@@ -7,7 +7,7 @@ import {getFormattedIBAN, logout} from "@/shared/lib/helpers";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
 import {AccountRights} from "@/shared/config/account-rights";
 import {LocalizationMenu} from "@/widgets/header/ui/LocalizationMenu";
-import {getInitialProps, useTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const HeaderDesktop = ({items, actions}) => {
@@ -15,18 +15,6 @@ const HeaderDesktop = ({items, actions}) => {
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
     const {t} = useTranslation()
-    const {initialLanguage} = getInitialProps();
-
-    const languageName = () => {
-        switch (initialLanguage) {
-            case "en":
-                return "English"
-            case "de":
-                return "Deutsch"
-            case "ru":
-                return "Русский"
-        }
-    }
 
     let acc = {
         "name": "Ralf Williams",
@@ -51,7 +39,6 @@ const HeaderDesktop = ({items, actions}) => {
         "account_id": "PPY6963",
         "date_update": "2023-12-25T14:12:49.8033333"
     }
-
 
     return <>
         <header className={styles.Header}>
@@ -100,7 +87,7 @@ const HeaderDesktop = ({items, actions}) => {
                     </div>
                 </HeaderMenu>
                 <div className={styles.HeaderItemsContainer}>
-                    <LocalizationMenu/><span className={styles.HeaderMenuTitles}>{languageName()}</span>
+                    <LocalizationMenu/><span className={styles.HeaderMenuTitles}>{t("language_name")}</span>
                 </div>
                 {/* <Box display={"flex"} alignItems={"center"} paddingLeft={"60px"} gap="16px">
 

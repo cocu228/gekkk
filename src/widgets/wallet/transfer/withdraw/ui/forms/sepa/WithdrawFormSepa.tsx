@@ -85,7 +85,7 @@ const WithdrawFormSepa = () => {
 
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
                         </div>
@@ -112,7 +112,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("IBAN")}:</span>
                         </div>
@@ -133,7 +133,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
                         </div>
@@ -156,7 +156,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col w-full">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("comment")}:</span>
                         </div>

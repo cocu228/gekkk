@@ -104,7 +104,7 @@ const UniversalTransferForm = () => {
       </div>
 
       <div className="row mb-5 w-full">
-        <div className="row mb-2">
+        <div className="row mb-[3px]">
           <span className={styles.TitleColText}>
             IBAN, {t("phone_number")}, {t("crypto_wallet")}:
           </span>
@@ -126,7 +126,7 @@ const UniversalTransferForm = () => {
       </div>
 
       <div className="row mb-5 w-full">
-        <div className="row mb-2">
+        <div className="row mb-[3px]">
           <div className="col">
             <span className={styles.TitleColText}>
               {t("comment_optional")}:

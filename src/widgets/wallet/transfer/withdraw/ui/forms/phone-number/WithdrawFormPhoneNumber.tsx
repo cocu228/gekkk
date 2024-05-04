@@ -103,7 +103,7 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className="row mb-5 w-full">
         <div className="col">
-          <div className="row mb-2">
+          <div className="row mb-[3px]">
             <div className="col">
               <span className={styles.TitleColText}>
                 {t("phone_number")}:
@@ -129,10 +129,10 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className="row mb-5 w-full">
         <div className="col">
-          <div className="row mb-2">
+          <div className="row mb-[3px]">
             <div className="col">
               <span className={styles.TitleColText}>
-                {t("description")}
+                {t("description")}:
               </span>
             </div>
           </div>

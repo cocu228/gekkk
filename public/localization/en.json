@@ -1690,6 +1690,8 @@
     "chat_us": "Chat us",
     "response_time_up_to": "Response time up to {{hours}} hours",
     "this_code_can_be_used": "This code can be used only once",
-    "get_gekkard_pro": "Get Gekkard PRO"
+    "get_gekkard_pro": "Get Gekkard PRO",
+    "language_name": "English"
+
   }
 }

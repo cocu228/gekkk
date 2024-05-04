@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useTranslation} from 'react-i18next';
+import {useEffect, useState} from "react";
+import {getInitialProps, useTranslation} from 'react-i18next';
 import Dropdown from "@/shared/ui/dropdown/Dropdown";
 import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
 import { IconFlag } from "@/shared/ui/icons/icon-flag";
@@ -8,11 +8,16 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 export const LocalizationMenu = () => {
     const [state, setState] = useState("en")
     const {i18n} = useTranslation();
+    const {initialLanguage} = getInitialProps();
 
     const onChange = (str) => {
         setState(str)
         i18n.changeLanguage(str)
     }
+
+    useEffect(()=>{
+        setState(initialLanguage)
+    }, [initialLanguage])
 
     const menu = [{
         key: 'en',

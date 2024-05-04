@@ -36,7 +36,9 @@ export const PendingTransactions = () => {
                 const {phone} = await getAccountDetails();
                 const {data} = uasToken
                     ? {data: {result: {token: uasToken}}}
-                    : await apiGetUas(null, {
+                    : await apiGetUas({
+                        newtoken: false
+                    }, {
                         headers: {'silent': true}
                     });
                 

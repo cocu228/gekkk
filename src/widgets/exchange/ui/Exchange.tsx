@@ -233,6 +233,7 @@ function Exchange() {
                 </div>
                 <SelectToken
                   isBalance={true}
+                  balanceFilter
                   roomType={roomType}
                   currency={from.currency}
                   value={from.amount ?? ""}

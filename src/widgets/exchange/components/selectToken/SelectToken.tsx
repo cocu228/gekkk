@@ -19,6 +19,7 @@ interface SelectTokenProps {
   roomType: string;
   excludedCurrencies: string[];
   allowedFlags: CurrencyFlags[];
+  balanceFilter?: boolean;
   value: string;
   isBalance: boolean;
   currency: string;
@@ -35,8 +36,9 @@ export const SelectToken: FC<SelectTokenProps> = ({
   excludedCurrencies,
   onChange,
   onSelect,
-  isBalance = false,
   onError = null,
+  isBalance = false,
+  balanceFilter = false,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -55,8 +57,8 @@ export const SelectToken: FC<SelectTokenProps> = ({
         <div className={`${styles.SelectedBody} ${currency && styles.CurrencyStyles}`}>
           {isBalance && currency && <span className={styles.BalanceTitle}>Balance: {balance || 0}</span>}
           <CurrencySelector
-            balanceFilter
             onSelect={onSelect}
+            balanceFilter={balanceFilter}
             disabled={roomType !== "default"}
             excludedCurrencies={excludedCurrencies}
             allowedFlags={allowedFlags}

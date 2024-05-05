@@ -1,7 +1,10 @@
 ﻿import {useState, useEffect} from 'react';
 
 export function useSoundNotification(soundPath: string) {
-  const [notificationPermission, setNotificationPermission] = useState(Notification?.permission);
+  const [notificationPermission, setNotificationPermission] = useState('Notification' in window
+    ? Notification?.permission
+    : "denied"
+  );
   const notificationSound = new Audio(soundPath);
 
   useEffect(() => {

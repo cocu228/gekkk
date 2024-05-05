@@ -11,7 +11,7 @@ const SystemNotifications = ({children}: IParams) => {
     const {setRefresh} = useContext(CtxRootData);
 
     function displaySystemNotification(notify) {
-        if (Notification?.permission === "granted") {
+        if ('Notification' in window && Notification?.permission === "granted") {
             let img = "https://web.gekkard.com/img/favicon/icon.svg";
             let text = "You have a new crypto transactions. ";
             let title = "Incoming crypto funds";
@@ -73,7 +73,7 @@ const SystemNotifications = ({children}: IParams) => {
     }
 
     useEffect(() => {
-        if (Notification?.permission === 'granted') {
+        if ('Notification' in window && Notification?.permission === 'granted') {
             navigator.serviceWorker.register('./sw.js');
             
             console.log('registered sw')

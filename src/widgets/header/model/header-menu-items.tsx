@@ -47,7 +47,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             },
             icon:<IconApp color="#285E69" size={18} code="t25" />
         },
-        (Notification?.permission === 'granted' ? null : {
+        ('Notification' in window && Notification?.permission === 'granted' ? null : {
             item: <EnableNotifications/>,
             id: 'enableNotifications',
             action: {

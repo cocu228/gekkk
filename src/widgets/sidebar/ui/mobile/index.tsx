@@ -46,7 +46,7 @@ const SidebarMobile = () => {
 
   return (
     <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
-      {Notification.permission !== 'granted' ? null : <>
+      {Notification?.permission !== 'granted' ? null : <>
         <UnconfirmedTransactions/>
         <PendingTransactions/>
       </>}

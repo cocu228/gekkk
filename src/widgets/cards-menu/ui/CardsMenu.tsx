@@ -94,7 +94,6 @@ const CardsMenu = ({
     });
     setCard(card);
   };
-  console.log(selectedItem);
 
   const onClick = (event: MouseEvent<HTMLDivElement, any>) => {
     const item = event.currentTarget.getAttribute("data-item");

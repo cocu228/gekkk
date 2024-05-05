@@ -23,7 +23,7 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     return (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
             <ModalTrxInfoProvider>
-                {(('Notification' in window && Notification?.permission !== 'granted') || md) ? null : <>
+                {md ? null : <>
                     {isActive && <UnconfirmedTransactions/>}
                     <PendingTransactions/>
                 </>}

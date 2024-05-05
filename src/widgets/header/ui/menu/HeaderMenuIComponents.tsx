@@ -99,7 +99,7 @@ export const EnableNotifications = () => {
         showModal();
         setLoading(true);
 
-        Notification.requestPermission().then((result) => {
+        Notification?.requestPermission().then((result) => {
             if (result === "granted") {
                 window.location.reload();                
             }

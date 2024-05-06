@@ -40,6 +40,7 @@ import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -339,7 +340,8 @@ function Exchange() {
 
             <Modal
               width={400}
-              title="Confirm the order"
+              closable={false}
+              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_the_order")}/>}
               open={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
             >
@@ -348,15 +350,15 @@ function Exchange() {
                   
                   <IconApp color="#8F123A" size={24} code="t27" />
 
-                  <span className="text-fs12 text-[#7B797C]">
+                  <span className="text-fs12 text-[color:var(--gek-dark-grey)]">
                     {t("check_your_information_carefully")}
                   </span>
 
                 </div>
 
-                <div className="text-[#7B797C] text-fs12 mb-4">
+                <div className="text-[color:var(--gek-dark-grey)] text-fs12 mb-4">
                   Order type:{" "}
-                  <span className="font-semibold text-[#285E69]">
+                  <span className="font-semibold text-[color:var(--gek-additional)]">
                     {isLimitOrder ? "Limit" : "Market"}
                   </span>
                 </div>
@@ -429,11 +431,13 @@ function Exchange() {
         open={roomInfoModal.isModalOpen}
         onCancel={roomInfoModal.handleCancel}
         padding
-        title={
+        closable={false}
+        title={<ModalTitle handleCancel={roomInfoModal.handleCancel} title={
           roomType == "default"
             ? t("exchange.open_private_exchange_room")
             : t("invite_link")
-        }
+        }/>}
+        
         className={styles.RoomModal}
       >
         {roomType === "default" ? (
@@ -456,8 +460,10 @@ function Exchange() {
 
       <Modal
         width={450}
-        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-          } ${t("exchange.private_exchange_room")}`}
+        closable={false}
+        title={<ModalTitle handleCancel={cancelRoomModal.handleCancel} title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+      } ${t("exchange.private_exchange_room")}`}/>}
+        
         open={cancelRoomModal.isModalOpen}
         padding
         onCancel={cancelRoomModal.handleCancel}

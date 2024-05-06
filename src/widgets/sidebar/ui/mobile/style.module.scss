@@ -3,7 +3,7 @@
 .Sidebar {  
   overscroll-behavior-y: contain;  
   width: 100%;
-  background-color: #f7f7f0;
+  background-color: var(--gek-background);
   transition: left ease-out 0.4s;
   padding-bottom: 120px;
   max-width: 100%;
@@ -12,7 +12,7 @@
 }
 
 .TotalVal {
-  background-color: #285E69;
+  background-color: var(--gek-additional);
   position: relative;
   border-radius: 0 5px 5px 0;
 }
@@ -29,7 +29,7 @@
 }
 
 .AssetInfo2 {
-  background-color: #f7f7f0;
+  background-color: var(--gek-background);
   padding: 5px 8px 5px 10px;
   font-size: 12px;
   font-weight: 400;
@@ -45,7 +45,7 @@
     padding: 0;
     background-color: transparent;
     align-items: center;
-    color: #285E69;
+    color: var(--gek-additional);
     font-family: Inter;
     font-size: 12px;
     font-style: normal;
@@ -58,7 +58,7 @@
 }
 
 .AssetInfo3 {
-  background-color: #f7f7f0;
+  background-color: var(--gek-background);
   display: block;
   text-align: right;
 
@@ -88,14 +88,14 @@
 
 
   &:hover {
-    background-color: #285E69;
-    color: #f7f7f0;
+    background-color: var(--gek-additional);
+    color: var(--gek-background);
     font-weight: 600;
   }
 
   :active {
     color: white;
-    background-color: #29354C;
+    background-color: var(--gek-dark-blue);
   }
 }
 
@@ -132,7 +132,7 @@
   transition: .2s;
 
   @include max-devices(md) {
-    color: #285E69;
+    color: var(--gek-additional);
     font-family: Archivo;
     font-size: 14px;
     font-style: normal;
@@ -142,13 +142,13 @@
 }
 
 .Sum {
-  color: #285E69;
+  color: var(--gek-additional);
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
 
   @include max-devices(md) {
-    color: var(--Pale-blue, #285E69);
+    color: var(--Pale-blue, var(--gek-additional));
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -172,7 +172,7 @@
   font-size: 12px;
   line-height: 20px;
   font-weight: 300;
-  color: #2BAB72;
+  color: var(--gek-green);
 }
 
 .EuroEqv {
@@ -230,7 +230,7 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285E69;
+      background-color: var(--gek-additional);
       left: 0;
       top: 0;
     }

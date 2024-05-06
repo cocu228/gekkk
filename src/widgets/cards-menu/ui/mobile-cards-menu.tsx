@@ -40,6 +40,7 @@ import MobileModal from "@/shared/ui/modal/MobileModal";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -636,7 +637,8 @@ const MobileCardsMenu = ({
           </MobileModal>
 
           <Modal
-            title={t("card_info")}
+            closable={false}
+            title={<ModalTitle handleCancel={cardInfoModal.handleCancel} title={t("card_info")}/>}
             open={cardInfoModal.isModalOpen}
             padding
             onCancel={() => {

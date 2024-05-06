@@ -47,7 +47,6 @@ const InfoContent = (props: TxInfoProps) => {
         <Loader />
       ) : (
         <div className={style.ModalWrap}>
-          <hr className={style.BorderLine}/>
           <div className="">
             <div className={style.InfoItem}>
               <div>

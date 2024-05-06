@@ -3,7 +3,7 @@
   padding: 10px 0px;
   display: flex;
   justify-content: space-between;
-  background: #29354c;
+  background: var(--gek-dark-blue);
   top: 0px;
   position: sticky;
   z-index: 60;
@@ -44,7 +44,7 @@
   margin-right: 10px;
 }
 .Number {
-  color: #b9b9b5;
+  color: var(--gek-mid-grey);
   font-family: Inter;
   font-size: 12px;
   font-style: normal;
@@ -77,7 +77,7 @@
   border-radius: 50%;
   width: 22px;
   height: 22px;
-  border: 2.3px solid #8F123A;
+  border: 2.3px solid var(--gek-red);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,13 +114,13 @@
   }
 
   &Number {
-    color: #29354c;
+    color: var(--gek-dark-blue);
     font-size: 12px;
   }
 
   &Icon {
-    color: #285e69;
+    color: var(--gek-additional);
     font-weight: 600;
-    fill: #285e69;
+    fill: var(--gek-additional);
   }
 }

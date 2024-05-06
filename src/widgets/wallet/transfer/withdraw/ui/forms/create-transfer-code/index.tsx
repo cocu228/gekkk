@@ -76,7 +76,8 @@ const CreateTransferCode = () => {
             <Modal
                 padding
                 onCancel={handleCancel}
-                title={t("create_transfer_code")}
+                closable={false}
+                title={<ModalTitle handleCancel={handleCancel} title={t("create_transfer_code")}/>}
                 open={isModalOpen}
             >
                 <CreateCode
@@ -119,7 +120,7 @@ const CreateTransferCode = () => {
         </div>
         <div className="row mb-4">
             {!(!!inputCurr.value.number) &&
-                <span className="text-[10px] text-[#B9B9B5] md:text-[#F8A73E]">
+                <span className="text-[10px] text-[color:var(--gek-mid-grey)] text-[color:var(--gek-orange)]">
                     *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
                 </span>
             }
@@ -128,14 +129,15 @@ const CreateTransferCode = () => {
             {md ? <div className="flex flex-row gap-4">
                 <Switch onChange={(e) => setCheckbox(e)}/>
                 <div className='flex items-center'>
-                    {t("use_confirmation")}
+                    <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
                     <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                         <IconApp code="t27" color="#2BAB72" size={14} />
                     </div>
-                        <MoadlAnt title={<span className={styles.MainModalTitle}>{t("use_confirmation")}</span>} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
-                            <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
-                            <div className="flex flex-row mt-4 items-center">
-                                <IconApp code="t27" className="mr-2" color="#2BAB72" size={14} />
+                        <MoadlAnt title={<ModalTitle handleCancel={()=>{setIsHelpClicked(false)}} title={t("use_confirmation")}/>} closable={false} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
+                            <div className="flex flex-row mt-4 items-start">
+                                <div>
+                                    <IconApp code="t27" className="mr-2" color="#2BAB72" size={14} />
+                                </div>
                                 <div className="flex items-center">
                                     <span>{t("when_using_confirmation_mobile")}</span>
                                 </div>
@@ -278,11 +280,6 @@ const CreateTransferCode = () => {
             >
                 <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </MoadlAnt>
-        </div>
-        <div className="row mb-2">
-            <h3 className="text-lg font-bold">
-                {t("unredeemed_codes_info")}
-            </h3>
         </div>
         <div className="row">
             <TransferTableCode isOwner/>

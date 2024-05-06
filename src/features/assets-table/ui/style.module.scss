@@ -63,7 +63,7 @@
   height: 60px;
   
   .InnerName {
-    color: #B9B9B5;
+    color: var(--gek-mid-grey);
     max-width: 50px;
     text-wrap: nowrap;
     overflow: hidden;

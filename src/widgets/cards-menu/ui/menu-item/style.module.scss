@@ -60,13 +60,13 @@
 
 .progressbar {
   height: 5px;
-  background-color: #DCDCD9;
+  background-color: var(--gek-light-grey);
   width: 100%;
   border-radius: 10px;
 }
 
 .curProgress {
-  background-color: #285E69;
+  background-color: var(--gek-additional);
   height: 5px;
   border-radius: 10px;
   width: 0px;

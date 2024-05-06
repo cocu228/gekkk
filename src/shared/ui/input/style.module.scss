@@ -21,7 +21,7 @@
     &::placeholder {
       font-weight: normal;
       @include max-devices(md) {
-        color: #DCDCD9;
+        color: var(--gek-light-grey);
         font-size: 12px !important;
       }
       color: var(--gek-mid-grey);
@@ -44,14 +44,14 @@
   position: relative;
   overflow: hidden;
   align-items: center;
-  border: 1px solid #DCDCD9;
+  border: 1px solid var(--gek-light-grey);
   border-radius: 5px;
   width: 100%;
   :global(.ant-input) {
     @include max-devices(md) {
       padding-left: 15px !important;
       font-size: 12px !important;
-      color: #285E69;
+      color: var(--gek-additional);
     }
   }
 

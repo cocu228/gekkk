@@ -10,9 +10,9 @@ const CopyIcon = ({value}) => {
         <IconApp
             onClick={onClick}
             code="t31" 
-            color="#636e72" 
+            color="#2BAB72" 
             className='opacity-50 mx-2 hover:cursor-pointer hover:opacity-100' 
-            size={17} 
+            size={15} 
         />
     </>
 }

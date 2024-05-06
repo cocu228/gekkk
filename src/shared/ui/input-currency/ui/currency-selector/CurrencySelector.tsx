@@ -5,6 +5,7 @@ import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
 import { useTranslation } from 'react-i18next';
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 interface IParams {
     disabled?: boolean;
@@ -51,8 +52,9 @@ const CurrencySelector: FC<IParams> = ({
 
         <Modal 
             className='max-h-[450px]' 
-            width={450} 
-            title={t("select_a_token")} 
+            width={450}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCloseTokenSelect} title={t("select_a_token")}/>} 
             open={tokenSelectOpen} 
             onCancel={handleCloseTokenSelect}
             padding

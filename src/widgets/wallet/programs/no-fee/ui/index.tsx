@@ -15,6 +15,7 @@ import {useTranslation} from 'react-i18next';
 import {CtxRootData} from "@/processes/RootContext";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { uncoverArray } from "@/shared/lib";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const NoFeeProgram = () => {
     const {t} = useTranslation();
@@ -178,7 +179,8 @@ const NoFeeProgram = () => {
             
             <Modal
                 width={400}
-                title={t("confirm_locking")}
+                closable={false}
+                title={<ModalTitle handleCancel={lockConfirmModal.handleCancel} title={t("confirm_locking")}/>}
                 open={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
                 padding

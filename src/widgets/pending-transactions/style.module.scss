@@ -25,13 +25,13 @@
 .MerchantName {
     font-size: 14px;
     font-weight: 600;
-    color: #29354C;
+    color: var(--gek-dark-blue);
 }
 
 .Amount {
     font-size: 14px;
     font-weight: 800;
-    color: #285E69;
+    color: var(--gek-additional);
 }
 
 .Button {
@@ -39,7 +39,7 @@
 }
 
 .CardEnding{
-    color: #29354C;
+    color: var(--gek-dark-blue);
     font-size: 10px;
 }
 
@@ -66,5 +66,5 @@
     margin-bottom: 1.5rem; 
     border-width: 0; 
     height: 1px; 
-    border-color: #DCDCD9;
+    border-color: var(--gek-light-grey);
 }

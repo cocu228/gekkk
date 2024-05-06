@@ -13,6 +13,7 @@ import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { formatDate } from '../../user-keys/model/date-formater';
 import { useTranslation } from 'react-i18next';
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 
 export function UserSession() {
@@ -77,7 +78,7 @@ export function UserSession() {
                 <Modal
                 closable={false}
                 open={isModalOpen}
-                title={t("close_session")}
+                title={<ModalTitle handleCancel={handleCancel} title={t("close_session")}/>}
                 width={400}
                 footer={
                     <div className='w-full flex justify-center gap-2'>

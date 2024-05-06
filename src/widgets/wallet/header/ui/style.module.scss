@@ -20,7 +20,7 @@
     white-space: nowrap;
     
     @include max-devices(md) {
-        color: var(--Pale-green, #2BAB72);
+        color: var(--Pale-green, var(--gek-green));
         font-weight: 500;
     }
 }
@@ -75,7 +75,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        color: #2BAB72;
+        color: var(--gek-green);
 
         &EUR {
             font-family: "Azeret Mono";
@@ -98,7 +98,7 @@
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        color: #285E69;
+        color: var(--gek-additional);
     }
 }
 
@@ -125,7 +125,7 @@
     line-height: normal;
 
     @include max-devices(md) {
-        color: #29354C;
+        color: var(--gek-dark-blue);
         text-align: right;
         font-size: 14px;
         font-weight: 500;
@@ -134,7 +134,7 @@
 }
 
 .WalletName{
-    color: #29354C;
+    color: var(--gek-dark-blue);
     font-family: Inter;
     font-size: 14px;
     font-style: normal;

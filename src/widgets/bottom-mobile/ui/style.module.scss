@@ -20,8 +20,8 @@
         transition: ease-in-out .2s;
     
         &Active {
-            color: #29354C;
-            stroke: #29354C;
+            color: var(--gek-dark-blue);
+            stroke: var(--gek-dark-blue);
         }
     }
 }
@@ -41,7 +41,7 @@
 }
 
 .AssetInfo3 {
-    background-color: #f7f7f0;
+    background-color: var(--gek-background);
     display: block;
     text-align: right;
 
@@ -63,7 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #285E69;
+    background-color: var(--gek-additional);
 
     &Icon {
         width: 18px;

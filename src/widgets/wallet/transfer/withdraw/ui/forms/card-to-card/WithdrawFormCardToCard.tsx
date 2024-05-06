@@ -334,7 +334,7 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[#DCDCD9]">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]">
               <div className="basis-full">
                 <SearchSelect
                   transfers
@@ -503,10 +503,9 @@ const WithdrawFormCardToCard = () => {
 
       <ModalAnt
         width={450}
+        closable={false}
         title={
-          <span className={styles.MainModalTitle}>
-            {t("confirm_transaction")}
-          </span>
+          <ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>
         }
         onCancel={handleCancel}
         open={isModalOpen}

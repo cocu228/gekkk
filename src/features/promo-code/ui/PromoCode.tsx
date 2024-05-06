@@ -52,7 +52,6 @@ const PromoCode = memo(({handleCancel}: IProps) => {
 
   return (
     <>
-      <hr className="border-[0px] h-[1px] bg-[#3A5E66]" />
       <div className="px-8 px-3 md:pb-0">
         <Form onFinish={onSubmit}>
           
@@ -83,13 +82,13 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               promoCodeValidator,
             ]}
           >
-            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[#B9B9B5]">
+            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[color:var(--gek-mid-grey)]">
               <Input
                 allowDigits
                 bordered={false}
                 type={"text"}
                 wrapperClassName="w-full"
-                className="text-[10px] text-[#B9B9B5]"
+                className="text-[10px] text-[color:var(--gek-mid-grey)]"
                 placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
                 suffix={false}
                 value={valInput}

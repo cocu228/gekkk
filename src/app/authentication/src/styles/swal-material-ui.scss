@@ -1,10 +1,9 @@
 @use 'sass:math';
-
 @import 'sweetalert2/src/variables';
 
 // Theme variables
 $material-ui-blue: #285E69;
-$material-ui-disabled: #B9B9B5;
+$material-ui-disabled: var(--gek-mid-grey);
 $material-ui-white: #fff;
 $material-ui-slider-track-height: 2px;
 $material-ui-slider-thumb-size: 16px;

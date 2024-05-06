@@ -17,7 +17,7 @@
   padding: 20px;
   background: #fff;
   box-sizing: border-box;
-  border: 1px solid #DCDCD9;
+  border: 1px solid var(--gek-light-grey);
 
   @include max-devices('md'){
     width: 100%;
@@ -46,7 +46,7 @@
   &Title {
     font-size: 12px;
     font-weight: 600;
-    color: #285E69;
+    color: var(--gek-additional);
 
     @include max-devices('md'){
       font-size: 10px;
@@ -90,7 +90,7 @@
     }
 
     &Title {
-      color: #285E69;
+      color: var(--gek-additional);
       font-weight: 700;
       margin-bottom: 2px;
       text-transform: uppercase;

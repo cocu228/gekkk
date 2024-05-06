@@ -16,6 +16,7 @@ import { signHeadersGeneration } from "@/widgets/action-confirmation-window/mode
 import { useTranslation } from "react-i18next";
 import { setCookieData } from "@/shared/lib";
 import { apiRequestCode, apiSignIn } from "@/shared/api";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 interface IState {
   code: string;
@@ -146,7 +147,8 @@ const ActionConfirmationWindow = () => {
   return (
     <Modal
       open={isModalOpen}
-      title={t("confirm_action")}
+      closable={false}
+      title={<ModalTitle handleCancel={handleCancel} title={t("confirm_action")}/>}
       padding
       onCancel={() => {
         handleCancel();

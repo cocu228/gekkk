@@ -131,7 +131,6 @@ export const PendingTransactions = () => {
             closable={false}
             title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
         >
-            <hr className={styles.ModalLine} />
 
             {loading && <Loader className='mb-5'/>}
 

@@ -388,7 +388,7 @@ export default function customSearch() {
                         </span>
                       </div>
                       <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                        <span className="self-start ml-[15%] text-[12px] text-[#7B797C] font-regular">
+                        <span className="self-start ml-[15%] text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
                           {t("free_balance")}:
                         </span>
                         <span className="self-end text-[12px] text-[#1F3446] font-regular">
@@ -414,7 +414,7 @@ export default function customSearch() {
               {
                 translatedOptions.map((item, ind) => (
                   <div
-                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[#29354C] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
+                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[color:var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
                   onClick={() => {
                     setType(item)
                     setTypeListVisibility(false)  

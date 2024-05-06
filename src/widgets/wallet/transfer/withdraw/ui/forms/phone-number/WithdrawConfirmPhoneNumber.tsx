@@ -134,7 +134,6 @@ const WithdrawConfirmPhoneNumber = ({
     
     return (
         <div className="-md:px-4">
-            <hr className={styles.ModalLine}/>
             {loading && <Loader className='justify-center'/>}
 
             <div className={loading ? 'collapse' : ''}>

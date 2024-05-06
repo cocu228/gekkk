@@ -5,7 +5,7 @@
   font-weight: 500;
   font-size: 14px;
   text-align: center;
-  color: #F7F7F0;
+  color: var(--gek-background);
   cursor: pointer;
   //border-bottom: 3px solid transparent;
   padding: 5px 16px;
@@ -16,10 +16,10 @@
   margin: 4px;
   border: transparent solid 1px;
   // border-width: 1px;
-  // border-color: #285E69;
+  // border-color: var(--gek-additional);
 
   &:hover {
-    border: #F7F7F0 solid 1px;
+    border: var(--gek-background) solid 1px;
     color: white;
   }
 
@@ -29,7 +29,7 @@
 
   &:global(.active) {
     // border-color: var(--color-blue-400);
-    background-color: #F7F7F0;
+    background-color: var(--gek-background);
     font-weight: 700;
     color: black;
   }
@@ -66,7 +66,7 @@
   display: flex;
   justify-content: center;
 
-  background-color: #285E69;
+  background-color: var(--gek-additional);
   border-radius: 8px;
   margin: 0px 5px;
   margin-bottom: 1rem;

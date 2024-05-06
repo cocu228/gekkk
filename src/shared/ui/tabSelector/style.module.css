@@ -11,7 +11,7 @@
       justify-content: space-around;
   font-size: 17px;
   font-weight: 500;
-  border-bottom: 1px solid #29354c;
+  border-bottom: 1px solid var(--gek-dark-blue);
   padding-bottom: 20px;
 }
 

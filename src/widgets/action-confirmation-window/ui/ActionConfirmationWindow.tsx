@@ -12,6 +12,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import { useContext, useEffect, useState } from "react";
 import { CtxNeedConfirm } from "@/processes/errors-provider-context";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 interface IState {
   code: string;
@@ -94,7 +95,8 @@ const ActionConfirmationWindow = () => {
   return (
     <Modal
       open={isModalOpen}
-      title={t("identity_verification")}
+      closable={false}
+      title={<ModalTitle handleCancel={handleCancel} title={t("identity_verification")}/>}
       padding
       onCancel={() => {
         handleCancel();

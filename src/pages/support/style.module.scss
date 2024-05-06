@@ -21,7 +21,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 3.5px solid #29354C;
+    border: 3.5px solid var(--gek-dark-blue);
 }
 
 .Assets{
@@ -133,12 +133,12 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: var(--Brand-white, #F7F7F0);
+    background: var(--Brand-white, var(--gek-background));
     margin: 15px 0px
 }
 .ControlTitle{
     align-self: stretch;
-    color: #29354C;
+    color: var(--gek-dark-blue);
     text-align: center;
     font-family: Inter;
     font-size: 10px;
@@ -157,7 +157,7 @@
 .ControlMainLike{
     &:hover{
         cursor: pointer;
-        fill:#2BAB72;
+        fill:var(--gek-green);
     }
 }
 .ControlMainDislike{
@@ -169,7 +169,7 @@
 }
 .ControlFooter{
     align-self: stretch;
-    color: #285E69;
+    color: var(--gek-additional);
     text-align: center;
     font-family: Inter;
     font-size: 8px;
@@ -179,5 +179,5 @@
 }
 .ResponseTime{
     font-size: 10px;
-    color: #B9B9B5;
+    color: var(--gek-mid-grey);
 }

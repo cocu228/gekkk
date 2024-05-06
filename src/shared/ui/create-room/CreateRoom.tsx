@@ -98,13 +98,13 @@ function CreateRoom({
           <div
             onClick={() => setIsIco(!isIco)}
             className={`w-[40px] cursor-pointer h-[19px] rounded-[40px] transition-all duration-300 ${
-              isIco ? "bg-[#b4c0cd]" : "bg-[#2BAB72]"
+              isIco ? "bg-[#b4c0cd]" : "bg-[color:var(--gek-green)]"
             } relative p-[4px] `}
           >
             <div
               className={`w-[15px] h-[15px] transition-all duration-300 rounded-[50%] absolute  top-[2.2px] 
                 ${isIco ? "left-[2px]" : "left-[calc(100%_-_17.5px)]"}
-                ${isIco ? "bg-[#fff]" : "bg-[#285E69]"}
+                ${isIco ? "bg-[#fff]" : "bg-[color:var(--gek-additional)]"}
               `}
             ></div>
           </div>

@@ -14,7 +14,7 @@
   //   max-width: 100% !important;
   //   flex-basis: 100% !important;
   //   padding-bottom: 100px;
-  //   background-color: #f7f7f0;
+  //   background-color: var(--gek-background);
   // }
 
   // @include max-devices(xxxl) {
@@ -29,14 +29,14 @@
 }
 
 .TotalVal {
-  background-color: #285E69;
+  background-color: var(--gek-additional);
   position: relative;
   border-radius: 0 5px 5px 0;
 }
 
 
 .AssetInfo3 {
-  background-color: #f7f7f0;
+  background-color: var(--gek-background);
   display: block;
   text-align: right;
   @include max-devices(md) {
@@ -68,14 +68,14 @@
 
 
   &:hover {
-    background-color: #285E69;
-    color: #f7f7f0;
+    background-color: var(--gek-additional);
+    color: var(--gek-background);
     font-weight: 600;
   }
 
   :active {
     color: white;
-    background-color: #29354C;
+    background-color: var(--gek-dark-blue);
   }
 }
 
@@ -111,7 +111,7 @@
   line-height: 24px;
   transition: .2s;
   @include max-devices(md) {
-    color: #285E69;
+    color: var(--gek-additional);
     font-family: Archivo;
     font-size: 14px;
     font-style: normal;
@@ -121,12 +121,12 @@
 }
 
 .Sum {
-  color: #285E69;
+  color: var(--gek-additional);
   font-size: 16px;
   line-height: 20px;
   font-weight: 600;
   @include max-devices(md) {
-    color: var(--Pale-blue, #285E69);
+    color: var(--Pale-blue, var(--gek-additional));
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -149,7 +149,7 @@
   font-size: 12px;
   line-height: 20px;
   font-weight: 300;
-  color: #2BAB72;
+  color: var(--gek-green);
 }
 
 .EuroEqv {
@@ -199,7 +199,7 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285E69;
+      background-color: var(--gek-additional);
       left: 0;
       top: 0;
     }
@@ -242,7 +242,7 @@
       height: 100%;
       width: 4px;
       content: "";
-      background-color: #285E69;
+      background-color: var(--gek-additional);
       left: 0;
       top: 0;
     }

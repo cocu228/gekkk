@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #dcdcd9;
+  border: 1px solid var(--gek-light-grey);
   border-radius: 6px;
   height: 70px;
 
@@ -20,11 +20,11 @@
   font-family: Inter;
   outline: none !important;
   font-size: 14px;
-  color: #29354c;
+  color: var(--gek-dark-blue);
   font-weight: 700;
 
   &::placeholder {
-    color: #b9b9b5;
+    color: var(--gek-mid-grey);
     font-size: 10px;
     font-weight: 400;
 
@@ -156,7 +156,7 @@
 .SelectPreTitle {
   font-size: 9px;
   font-family: Inter;
-  color: #b9b9b5;
+  color: var(--gek-mid-grey);
   text-wrap: nowrap;
 
   @media screen and (min-width: 770px) {
@@ -169,7 +169,7 @@
   flex-direction: column;
   align-items: start;
   gap: 5px;
-  color: #285e69;
+  color: var(--gek-additional);
   font-size: 14px;
   font-weight: 600;
 

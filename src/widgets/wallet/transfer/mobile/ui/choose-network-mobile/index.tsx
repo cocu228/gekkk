@@ -31,7 +31,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     setNetwork(null)
                     navigate(`/transfers?currency=${currency}`)
                 }} 
-                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-l-[8px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#DCDCD9]"
+                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-l-[8px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[color:var(--gek-light-grey)]"
             >
                 <Select
                     open={open}
@@ -39,9 +39,9 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     onDropdownVisibleChange={(visible) => setOpen(visible)}
                     className="w-full"
                     placeholder={<div onClick={()=>{setNetwork(null)}} className="flex w-full text-[12px] text-[#3A5E66] h-full justify-start items-center">
-                        {(!networksForSelector?.length && !loading) ? <span className="inline-flex justify-center w-full text-[10px] text-[#B9B9B5]">
+                        {(!networksForSelector?.length && !loading) ? <span className="inline-flex justify-center w-full text-[10px] text-[color:var(--gek-mid-grey)]">
                             {t("networks_not_found")}
-                        </span> : loading ? <div className="flex items-center justify-center w-full relative"><Loader className="w-[24px] h-[24px]"/></div> : !network ? <span className="inline-flex justify-center w-full text-[10px] text-[#B9B9B5]">{t("choose_network_type")}</span> : <span className="text-[12px] text-[#3A5E66]">
+                        </span> : loading ? <div className="flex items-center justify-center w-full relative"><Loader className="w-[24px] h-[24px]"/></div> : !network ? <span className="inline-flex justify-center w-full text-[10px] text-[color:var(--gek-mid-grey)]">{t("choose_network_type")}</span> : <span className="text-[12px] text-[#3A5E66]">
                             {[...networksForSelector].filter(el => el.value === network)[0]?.label}
                         </span>}
                         

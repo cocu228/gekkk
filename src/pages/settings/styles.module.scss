@@ -62,7 +62,7 @@
 .itemTitle {
     font-weight: 500;
     font-size: 14px;
-    color: #7B797C;
+    color: var(--gek-dark-grey);
 
 
     &Color {
@@ -87,7 +87,7 @@
 .accessTitle {
     font-size: 14px; 
     font-weight: 500;
-    color: #7B797C;
+    color: var(--gek-dark-grey);
 
     &Color {
         color: #285E69ff;

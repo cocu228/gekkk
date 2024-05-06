@@ -43,7 +43,7 @@
   //padding-right: var(--content-pad-right);
   margin-bottom: 4px;
   height: 65px;
-  background-color: #29354C;
+  background-color: var(--gek-dark-blue);
   display: flex;
 
   @include max-devices(xl) {

@@ -130,7 +130,8 @@ const WithdrawFormBroker = () => {
             width={450}
             open={isModalOpen}
             onCancel={handleCancel}
-            title={t("withdraw_confirmation")}
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("withdraw_confirmation")}/>}
             padding
         >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>

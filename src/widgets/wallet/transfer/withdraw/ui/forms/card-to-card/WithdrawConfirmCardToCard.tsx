@@ -263,7 +263,6 @@ const WithdrawConfirmCardToCard = ({
         {loading && <Loader className='justify-center'/>}
         
         <div className={loading ? 'collapse' : ''}>
-                <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">
@@ -411,8 +410,6 @@ const WithdrawConfirmCardToCard = ({
                 </div>
             </Form>
         </div>
-        <StatusModalSuccess/>
-        <StatusModalError/>
     </div>
 }
 

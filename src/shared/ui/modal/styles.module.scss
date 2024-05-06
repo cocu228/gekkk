@@ -11,7 +11,14 @@
     top: initial !important;
     position: absolute !important;
     bottom: 0 !important;
-
+    &Line{
+      margin-top: 1rem; 
+      margin-bottom: 1.5rem; 
+      border-width: 0; 
+      height: 1px; 
+      border-color: var(--gek-light-grey);
+      border-color: var(--gek-light-grey);
+    }
     & > div:nth-child(2) {
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;

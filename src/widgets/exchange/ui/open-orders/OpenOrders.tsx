@@ -26,6 +26,7 @@ import {
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const { RangePicker } = DatePicker;
 
@@ -133,7 +134,7 @@ function OpenOrders({ refreshKey }: IParams) {
     <>
       <div className="flex gap-x-4 w-full justify-center">
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[#29354C]" : "[#B9B9B5]"
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-dark-blue)]" : "[color:var(--gek-mid-grey)]"
             }`}
         >
           {t("exchange.active_orders")}
@@ -146,7 +147,7 @@ function OpenOrders({ refreshKey }: IParams) {
           }
         />
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[#B9B9B5]" : "[#29354C]s"
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-mid-grey)]" : "[color:var(--gek-dark-blue)]"
             }`}
         >
           {t("exchange.closed_orders")}
@@ -286,7 +287,8 @@ function OpenOrders({ refreshKey }: IParams) {
 
       <Modal
         width={450}
-        title={t("exchange.cancel_order")}
+        closable={false}
+        title={<ModalTitle handleCancel={cancelOrderModal.handleCancel} title={t("exchange.cancel_order")}/>}
         open={cancelOrderModal.isModalOpen}
         onCancel={cancelOrderModal.handleCancel}
         padding

@@ -14,6 +14,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();
@@ -78,7 +79,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "new-room",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[#DCDCD9]"
+                      className="w-full bg-[color:var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -96,7 +97,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "invite-link",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[#DCDCD9]"
+                      className="w-full bg-[color:var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -112,11 +113,11 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "close-room",
                   label: (
                     <DropdownItem
-                      className="w-full border-b-1 border-[#285e69] bg-[#DCDCD9]"
+                      className="w-full border-b-1 border-[color:var(--gek-additional)] bg-[color:var(--gek-light-grey)]"
                       onClick={roomCloseModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[#8F123A]">
+                        <span className="font-semibold text-[color:var(--gek-red)]">
                           {t("close_current_room")}
                         </span>
                         <div className={styles.CloseWrap}>
@@ -130,7 +131,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "back",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[#DCDCD9]"
+                      className="w-full bg-[color:var(--gek-light-grey)]"
                       onClick={() => navigate("/exchange")}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -152,9 +153,11 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         //className={styles.RoomModal}
         open={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
-        title={
+        closable={false}
+        title={<ModalTitle handleCancel={roomModal.handleCancel} title={
           active ? t("invite_link") : t("exchange.open_private_exchange_room")
-        }
+        }/>}
+
       >
         {active ? (
           <InviteLink roomInfo={active} />
@@ -184,7 +187,8 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         width={450}
         open={roomCloseModal.isModalOpen}
         onCancel={roomCloseModal.handleCancel}
-        title={t("invite_link")}
+        closable={false}
+        title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
         padding
       >
         <div className="pt-5 text-sm">
@@ -234,7 +238,7 @@ const RoomItem = ({
 
   return (
     <DropdownItem
-      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[#DCDCD9]" : ""}`}
+      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[color:var(--gek-light-grey)]" : ""}`}
       icon={
         <div className={styles.RoomsMenuItemIcon}>
           <IconApp color="red" code="t33" size={20} />

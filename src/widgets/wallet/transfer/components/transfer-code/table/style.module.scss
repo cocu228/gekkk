@@ -15,11 +15,15 @@
   padding: 14px 20px 12px;
   align-items: center;
   grid-template-columns: repeat(12, minmax(20px, 1fr));
+  @include max-devices(md){
+    font-size: 12px;
+    background-color: var(--gek-light-grey);
+  }
 }
 
 .redBtn {
   color:#ffffff;
-  background: #8F123A;
+  background: var(--gek-red) !important;
   box-shadow: none;
   max-height: 20px;
   max-width: 120px;

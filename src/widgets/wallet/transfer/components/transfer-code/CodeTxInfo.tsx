@@ -40,7 +40,6 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
 
     return <>
         {codeTxInfoErrorInfoBox ? codeTxInfoErrorInfoBox : loading ? <Loader/> : <>
-            {md && <hr className={styles.ModalLine}/>}
 
             {!md ? <div className="row mb-8">
                 <div className="col">

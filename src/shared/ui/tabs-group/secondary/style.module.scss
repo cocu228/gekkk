@@ -4,19 +4,19 @@
     //border-radius: 8px;
     font-size: 14px;
     font-weight: 400;
-    border: 1px solid #285E69;    
-    background-color: #285E69;    
-    color: #F7F7F0;
+    border: 1px solid var(--gek-additional);    
+    background-color: var(--gek-additional);    
+    color: var(--gek-background);
     transition: .2s;
     &:global(.active) {
-        background-color: #F7F7F0;
+        background-color: var(--gek-background);
         border-radius: 8px;
         font-weight: 600;
         color: black;
     }
 }
 .TabGroup{
-    background-color: #285E69;
+    background-color: var(--gek-additional);
     display: inline-flex;
     flex-wrap: wrap;
     border-radius: 8px;

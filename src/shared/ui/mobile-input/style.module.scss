@@ -10,7 +10,7 @@
     border-radius: 2px;
     background-color: inherit !important;
     &::placeholder {
-        color: #DCDCD9;
+        color: var(--gek-light-grey);
     }
     &:focus {
         outline: none;

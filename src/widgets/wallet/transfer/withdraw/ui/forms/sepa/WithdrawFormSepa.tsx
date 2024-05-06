@@ -104,7 +104,7 @@ const WithdrawFormSepa = () => {
                     </div>
                                                     
                     <div className='text-gray-400'>
-                        <span className='md:text-[#F8A73E] text-[10px]'>
+                        <span className='text-[color:var(--gek-orange)] text-[10px]'>
                             {!inputs.beneficiaryName && "*" + t("EW_law")}
                         </span>
                     </div>

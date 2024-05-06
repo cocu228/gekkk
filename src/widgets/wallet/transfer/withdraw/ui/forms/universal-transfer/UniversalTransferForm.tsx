@@ -194,8 +194,8 @@ const UniversalTransferForm = () => {
         </Button>
       </div>
 
-      <div className="text-[#B9B9B5] text-[12px] md:text-[10px] my-2 flex justify-center">
-        <div className="md:text-[#F8A73E]">
+      <div className="text-[color:var(--gek-mid-grey)] text-[12px] md:text-[10px] my-2 flex justify-center">
+        <div className="text-[color:var(--gek-orange)]">
           <span className="font-semibold">*{t("fee_free")}</span>{" "}
           {t("transfers_to_users_by_number_or_IBAN")}.
         </div>

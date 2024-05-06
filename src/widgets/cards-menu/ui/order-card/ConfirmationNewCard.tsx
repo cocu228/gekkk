@@ -12,6 +12,7 @@ import Loader from "@/shared/ui/loader";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiPersonalize} from "@/shared/(orval)api";
 import styles from '../new-card/styles.module.scss'
+import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
@@ -127,7 +128,8 @@ export function ConfirmationNewCard() {
 
         <Modal
             open={isOpen}
-            title={t('enter_your_online_bank_password_to_confirm_new_card_order')}
+            closable={false}
+            title={<ModalTitle handleCancel={()=>{setIsOpen(false)}} title={t("enter_your_online_bank_password_to_confirm_new_card_order")}/>}
             padding
             onCancel={() => {
                 setIsOpen(false)

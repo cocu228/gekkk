@@ -25,6 +25,7 @@ import InfoContent from "./InfoContent";
 import useModal from "@/shared/model/hooks/useModal";
 import Modal from "@/shared/ui/modal/Modal";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const { RangePicker } = DatePicker;
 
@@ -276,7 +277,8 @@ const History = memo(function ({
         </div>
         <Modal
           width={450}
-          title={t("transaction_info")}
+          closable={false}
+          title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
           onCancel={handleCancel}
           open={isModalOpen}
         >
@@ -351,7 +353,8 @@ const History = memo(function ({
       </div>
       <Modal
         width={450}
-        title={t("transaction_info")}
+        closable={false}
+        title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
         onCancel={handleCancel}
         open={isModalOpen}
       >

@@ -66,7 +66,7 @@ const Validator: FC<IParams> = (({
                         <div className="mt-[1px]">
                             <IconApp color="#EB5454" code="t56" size={13} />
                         </div>
-                        <span className='text-red-800 md:text-[#8F123A] text-fs12'>{error}</span>
+                        <span className='text-[color:var(--gek-red)] text-fs12'>{error}</span>
                     </div>}
             </div>
             </CtxInputCurrencyValid.Provider>

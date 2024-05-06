@@ -3,10 +3,10 @@
 
 .Button[type="button"], .Button[type="submit"] {
   height: auto;
-  color: #f7f7f0;
+  color: var(--gek-background);
   font-weight: 400;
   outline: none;
-  background: #2BAB72;
+  background: var(--gek-green);
   border: none;
   border-radius: 8px;
   padding: 8px 15px;
@@ -22,7 +22,7 @@
   }
 
   &:active {
-    background: #29354C;
+    background: var(--gek-dark-blue);
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
   }
@@ -55,8 +55,8 @@
 
     &:hover {
       color: #ffffff;
-      background: #2BAB72;
-      border-color: #2BAB72;
+      background: var(--gek-green);
+      border-color: var(--gek-green);
     }
   }
 
@@ -87,15 +87,15 @@
 
     &:hover{
       color: #ffffff;
-      background: #285E69;
-      border-color: #285E69;
+      background: var(--gek-additional);
+      border-color: var(--gek-additional);
     }
   }
 
   &.WhiteGreenTransfer{
-    color:#2BAB72;
-    background: #F7F7F0;
-    border: 2px solid #2BAB72;
+    color:var(--gek-green);
+    background: var(--gek-background);
+    border: 2px solid var(--gek-green);
     box-shadow: none;
     max-height: 43px;
     max-width: 120px;
@@ -116,7 +116,7 @@
   
     &:active {
       background: #d8d8d2;
-      color:#2BAB72;
+      color:var(--gek-green);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
     }
 
@@ -153,7 +153,7 @@
     }
   
     &:active {
-      background: #29354C;
+      background: var(--gek-dark-blue);
       color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
     }
@@ -171,7 +171,7 @@
 
   &.BlueTransfer{
     color:#ffffff;
-    background: #285E69;
+    background: var(--gek-additional);
     box-shadow: none;
     max-height: 43px;
     max-width: 120px;
@@ -206,9 +206,9 @@
   }
 
   &.Decline{
-    color:#8F123A;
-    background: #F7F7F0;
-    border: 2px solid #8F123A;
+    color:var(--gek-red);
+    background: var(--gek-background);
+    border: 2px solid var(--gek-red);
     box-shadow: none;
     max-height: 43px;
     max-width: 120px;

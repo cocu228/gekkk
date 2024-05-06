@@ -178,7 +178,6 @@ const WithdrawConfirmCrypto = memo(
       // Papaya modal
       return (
         <>
-          <hr className={styles.ModalLine} />
           <div className="row mb-5">
             <div className="col">
               <div className="p-4">
@@ -523,7 +522,6 @@ const WithdrawConfirmCrypto = memo(
       </>
     ) : (
       <>
-        <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]" />
         <div className="flex justify-center">
           <div className="flex flex-col items-start self-center w-[90%]">
             <div className="row mb-5">

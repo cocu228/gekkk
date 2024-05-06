@@ -202,7 +202,6 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             </Form>
         </div>
     </div> : <>
-            <hr className={styles.ModalLine}/>
             <div className="row mb-5">
                 <div className="col">
                     <div className="p-4">

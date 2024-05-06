@@ -3,7 +3,7 @@
 .button {
     border-radius: 10px;
     font-family: 'Archivo', sans-serif;
-    background-color: #285E69;
+    background-color: var(--gek-additional);
     min-width: 60px;
     min-height: 30px;
     color: white;
@@ -17,14 +17,14 @@
 }
 
 .disabeled {
-    background-color: #B9B9B5;
+    background-color: var(--gek-mid-grey);
 }
 .warn {
-    background-color: #F8A73E;
+    background-color: var(--gek-orange);
 }
 .alarm {
-    background-color: #8F123A;
+    background-color: var(--gek-red);
 }
 .light {
-    background-color: #2BAB72;
+    background-color: var(--gek-green);
 }

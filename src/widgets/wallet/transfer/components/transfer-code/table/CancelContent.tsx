@@ -14,6 +14,7 @@ import styles from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import style from './style.module.scss'
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
@@ -43,7 +44,8 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
         <Button onClick={showModal} size={"sm"} variant='gray'
                 className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
         <Modal
-            title={t("deleting_transfer_code")} 
+            closable={false}
+            title={<ModalTitle handleCancel={handleCancel} title={t("deleting_transfer_code")}/>}
             open={isModalOpen} 
             onCancel={handleCancel}
             padding
@@ -106,7 +108,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
         <Button onClick={showModal} size={"sm"}
                 className={`!py-3 w-full !h-[fit-content] ${style.redBtn}`}><span className='text-[12px]'>{t("cancel")}</span></Button>
         <ModalAnt
-            title={<span className={styles.MainModalTitle}>{t("cancel_code")}</span>} footer={null} open={isModalOpen} onCancel={handleCancel}>
+            title={<ModalTitle handleCancel={handleCancel} title={t("cancel_code")}/>} closable={false} footer={null} open={isModalOpen} onCancel={handleCancel}>
             {!md ? (loading ? <Loader/> : <div>
                 <div className="row w-full px-5 py-4 mb-6">
                     <p className="text-[12px]">{t("code_will_be_deleted")}</p>
@@ -151,12 +153,11 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                     </Button>
                 </div>
             </div>) : <div>
-                <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
                 <div className="row mb-5">
                     <div className="col">
                         <div className="p-4">
-                            <div className={`wrapper ${styles.ModalInfo}`}>
-                                <div className={styles.ModalInfoIcon}>
+                            <div className={`wrapper items-start ${styles.ModalInfo}`}>
+                                <div className="mr-2">
                                     <div className="col">
                                         <IconApp size={15} code="t27" color="#8F123A" />
                                     </div>

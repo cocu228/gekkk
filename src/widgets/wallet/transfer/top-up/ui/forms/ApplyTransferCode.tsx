@@ -14,6 +14,7 @@ import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const ApplyTransferCode = () => {
     const {t} = useTranslation();
@@ -75,7 +76,7 @@ const ApplyTransferCode = () => {
                     {t("apply")}
                 </Button>
 
-                <Modal padding title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
+                <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}/>}
                            onCancel={handleCancel} open={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?

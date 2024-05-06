@@ -34,6 +34,7 @@ import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
 import MobileModal from "@/shared/ui/modal/MobileModal";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -388,8 +389,9 @@ const CardsMenu = ({
               </MenuButton>
             </div>
 
-            <MobileModal
-              title={t("confirm_action")}
+            <Modal
+              title={<ModalTitle handleCancel={confirmationModal.handleCancel} title={t("confirm_action")}/>}
+              closable={false}
               open={confirmationModal.isModalOpen}
               onCancel={confirmationModal.handleCancel}
               padding
@@ -508,12 +510,13 @@ const CardsMenu = ({
                   </Form>
                 </div>
               )}
-            </MobileModal>
+            </Modal>
 
             <Modal
-              title={t("card_info")}
+              title={<ModalTitle handleCancel={cardInfoModal.handleCancel} title={t("card_info")}/>}
               open={cardInfoModal.isModalOpen}
               padding
+              closable={false}
               onCancel={() => {
                 cardInfoModal.handleCancel();
                 setCardInfo(null);
@@ -694,7 +697,8 @@ const CardsMenu = ({
           )}
 
           <Modal
-            title={t("confirm_action")}
+            closable={false}
+            title={<ModalTitle handleCancel={confirmationModal.handleCancel} title={t("confirm_action")}/>}
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
           >
@@ -795,7 +799,8 @@ const CardsMenu = ({
           </Modal>
 
           <Modal
-            title={t("card_info")}
+            title={<ModalTitle handleCancel={cardInfoModal.handleCancel} title={t("card_info")}/>}
+            closable={false}
             open={cardInfoModal.isModalOpen}
             onCancel={() => {
               cardInfoModal.handleCancel();

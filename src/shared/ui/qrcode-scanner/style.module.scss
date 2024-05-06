@@ -41,13 +41,13 @@
 
     :global(#html5-qrcode-button-camera-permission), 
     :global(#html5-qrcode-button-camera-start) {
-        background: #2BAB72;
+        background: var(--gek-green);
         border: none;
         color:#FFFFFF;
         box-shadow: none;
         
         &:active {
-          background: #29354C;
+          background: var(--gek-dark-blue);
           color: white;
         }
     }
@@ -60,19 +60,19 @@
         
         &:hover {
           color: #ffffff;
-          background: #2BAB72;
-          border-color: #2BAB72;
+          background: var(--gek-green);
+          border-color: var(--gek-green);
         }
     
         &:active {
-          background: #29354C;
+          background: var(--gek-dark-blue);
           color: white;
         }
     }
 
     :global(#html5-qrcode-button-camera-stop) {
         color: white;
-        background: #8F123A;
+        background: var(--gek-red);
         box-shadow: none;
         border: 1px solid var(--color-gray-400);
         
@@ -81,7 +81,7 @@
         }
     
         &:active {
-          background: #29354C;
+          background: var(--gek-dark-blue);
           color: white;
         }
     }

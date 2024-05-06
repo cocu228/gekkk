@@ -153,12 +153,12 @@
     :global(.ant-input){
       
       font-size: 14px !important;
-      color: #285E69;    
+      color: var(--gek-additional);    
       font-weight: bold;
   
       &::placeholder {
         font-weight: normal;
-        color: #DCDCD9;
+        color: var(--gek-light-grey);
         font-size: 12px;
       } 
     }

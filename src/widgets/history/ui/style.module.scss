@@ -61,7 +61,7 @@
 }
 
 .DataMobile {
-  color: #7B797C;
+  color: var(--gek-dark-grey);
   font-size: 12px;
   font-weight: 600;
   margin: 5px 0 4px 10px;
@@ -203,7 +203,7 @@
   height: 1px;
   border-width: 0;
   margin-bottom: 10px;
-  background: #DCDCD9;
+  background: var(--gek-light-grey);
 }
 
 .InfoItem {
@@ -213,13 +213,13 @@
 }
 
 .InfoItemTitle {
-  color: #285E69;
+  color: var(--gek-additional);
   font-weight: 700;
   font-size: 14px;
 }
 
 .InfoItemValue, .InfoItemAddress, .InfoItemHash{
-  color: #29354C;
+  color: var(--gek-dark-blue);
   font-weight: 400;
   font-size: 13px;
   line-height: 1rem;

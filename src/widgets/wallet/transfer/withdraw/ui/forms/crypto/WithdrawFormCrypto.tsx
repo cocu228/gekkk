@@ -173,7 +173,7 @@ const WithdrawFormCrypto = () => {
             placeholder={t("enter_recepients_name")}
           />
 
-          <span className="text-gray-400 md:text-[#F8A73E] text-[12px] md:text-[10px]">
+          <span className="text-gray-400 text-[color:var(--gek-orange)] text-[12px] md:text-[10px]">
             {!inputs.recipient && t("EW_law")}
           </span>
         </div>
@@ -262,7 +262,6 @@ const WithdrawFormCrypto = () => {
           destroyOnClose
           onCancel={handleCancel}
           open={isModalOpen}
-          padding
         >
           <WithdrawConfirmCrypto
             {...inputs}

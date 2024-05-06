@@ -18,6 +18,7 @@ import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import BalanceBar from "../BalanceBar";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const SidebarDesktop = () => {
     const { t } = useTranslation();
@@ -157,7 +158,8 @@ const SidebarDesktop = () => {
                 width={450}
                 open={roomInfoModal.isModalOpen}
                 onCancel={roomInfoModal.handleCancel}
-                title={t("invite_link")}
+                closable={false}
+                title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
                 padding
             >
                 <InviteLink roomInfo={selectedRoom} />
@@ -167,7 +169,8 @@ const SidebarDesktop = () => {
                 width={450}
                 open={roomCloseModal.isModalOpen}
                 onCancel={roomCloseModal.handleCancel}
-                title={t("invite_link")}
+                closable={false}
+                title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
                 padding
             >
                 <div className="pt-5 text-sm">

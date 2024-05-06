@@ -1,7 +1,7 @@
 import React from "react";
 import {TFunction} from "i18next";
 import {THeaderMenuList} from "@/widgets/header/model/types";
-import {GekkardPersonalAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
+// import {GekkardPersonalAccount} from "@/widgets/header/ui/menu/HeaderMenuIComponents";
 
 // export class HeaderMenuItems {
 //
@@ -44,14 +44,14 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
                 value: "/deposit-types",
             }
         },
-        {
-            item: <GekkardPersonalAccount/>,
-            id: 'investPlatform',
-            action: {
-                type: null,
-                value: null,
-            },
-        },
+        // {
+        //     item: <GekkardPersonalAccount/>,
+        //     id: 'investPlatform',
+        //     action: {
+        //         type: null,
+        //         value: null,
+        //     },
+        // },
         {
             item: t('header_menu.support'),
             id: 'support',

@@ -124,7 +124,7 @@ const WithdrawFormCrypto = () => {
           </InputCurrency.Validator>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-[3px]">
           <span className={styles.TitleColText}>{t("address")}:</span>
           <Input
             tranfers={md}
@@ -159,7 +159,7 @@ const WithdrawFormCrypto = () => {
           />
         </Modal>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-[3px]">
           <span className={styles.TitleColText}>
             {t("recipient")}:
           </span>
@@ -178,21 +178,34 @@ const WithdrawFormCrypto = () => {
           </span>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-[3px]">
           <span className={styles.TitleColText}>
             {t("desc_optional")}:
           </span>
-          <Input
-            tranfers={md}
-            bordered={!md}
-            allowDigits
-            allowSymbols
-            placeholder={t('enter_description')}
-            name={"description"}
-            value={inputs.description}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-          />
+          {md ?
+            <Input
+              tranfers={md}
+              bordered={!md}
+              allowDigits
+              allowSymbols
+              placeholder={t('enter_description')}
+              name={"description"}
+              value={inputs.description}
+              onChange={onInput}
+              disabled={!networkTypeSelect}
+            />
+          :
+            <TextArea
+              allowDigits
+              allowSymbols
+              placeholder={t('enter_description')}
+              name={"description"}
+              value={inputs.description}
+              onChange={onInput}
+              disabled={!networkTypeSelect}
+            />
+
+          }
         </div>
 
         <div className={styles.PayInfo}>

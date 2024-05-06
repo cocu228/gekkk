@@ -59,6 +59,7 @@ const WithdrawConfirmCrypto = memo(
     const { $const } = useContext(CtxWalletData);
     const {setContent} = useContext(CtxModalTrxResult);
     const { md } = useBreakpoints();
+    const {setRefresh} = useContext(CtxRootData);
 
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -142,6 +143,7 @@ const WithdrawConfirmCrypto = memo(
           }
           if (result.confirmationStatusCode === 4) {
             handleCancel();
+            setRefresh();
             setContent({content: <ModalTrxStatusSuccess/>});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });

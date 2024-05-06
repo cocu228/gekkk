@@ -31,7 +31,7 @@ export default ({ navLinkEvent, curActive = "", item }: TokenBarParams) => !item
                 <span className={styles.CurName}>{item.name}</span>
                 <span className={styles.Sum}>{!item.balance ? "-" : `${toLocaleCryptoRounding(item.balance?.user_balance, item.roundPrec) ?? '-'}  ${item.$const == "EUR" ? "€" : item.$const}`}</span>
                 <div className={styles.CurBox3}>
-                    {!item.balance?.lock_in_balance ? "" :
+                    {!item.balance?.lock_in_balance || item.$const === "EUR" ? "" :
                         <span className={styles.Income}>
                             +{toLocaleCryptoRounding(item.balance?.lock_in_balance, item.roundPrec) ?? '-'}
                         </span>}

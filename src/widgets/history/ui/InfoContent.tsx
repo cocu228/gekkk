@@ -2,25 +2,19 @@ import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
 import Loader from "@/shared/ui/loader";
 import { useTranslation } from "react-i18next";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
 import { actionResSuccess, isNull } from "@/shared/lib/helpers";
-import {
-  AdrTxTypeEnum,
-  GetHistoryTrasactionOut,
-} from "@/shared/(orval)api/gek/model";
+import {AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import { AddressTxOut } from "@/shared/(orval)api/gek/model";
 import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
-import style from './style.module.scss' 
+import style from './style.module.scss';
+import { TxInfoProps } from "../model/types";
 
-type TypeProps = GetHistoryTrasactionOut & {
-  handleCancel: () => void;
-};
-
-const InfoContent = (props: TypeProps) => {
+const InfoContent = (props: TxInfoProps) => {
   const { t } = useTranslation();
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
@@ -57,7 +51,7 @@ const InfoContent = (props: TypeProps) => {
           <div className="">
             <div className={style.InfoItem}>
               <div>
-                <span className={style.InfoItemTitle}>{t("date")}:</span>
+                <span className={style.InfoItemTitle}>{t("date")}</span>
               </div>
               <div>
                 <span className={style.InfoItemValue}>
@@ -69,7 +63,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div className="col w-auto">
                   <span className={style.InfoItemTitle}>
-                    {t("transaction_id")}:
+                    {t("transaction_id")}
                   </span>
                 </div>
                 <div 
@@ -87,7 +81,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
-                  {t("transaction_type")}:
+                  {t("transaction_type")}
                 </span>
               </div>
               <div>
@@ -97,7 +91,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div className="col w-auto">
                 <span className={style.InfoItemTitle}>
-                  {t("currency")}:
+                  {t("currency")}
                 </span>
               </div>
               <div>
@@ -107,7 +101,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div>
                 <span className={style.InfoItemTitle}>
-                  {t("amount")}:
+                  {t("amount")}
                 </span>
               </div>
               <div>
@@ -118,7 +112,7 @@ const InfoContent = (props: TypeProps) => {
             </div>
             <div className={style.InfoItem}>
               <div>
-                <span className={style.InfoItemTitle}>{t("fee")}:</span>
+                <span className={style.InfoItemTitle}>{t("fee")}</span>
               </div>
               <div>
                 <span className={style.InfoItemValue}>
@@ -129,7 +123,7 @@ const InfoContent = (props: TypeProps) => {
             <div className={style.InfoItem}>
               <div>
                 <span className={style.InfoItemTitle}>
-                  {t("status")}:
+                  {t("status")}
                 </span>
               </div>
               <div>
@@ -142,7 +136,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div>
                   <span className={style.InfoItemTitle}>
-                    {t("description")}:
+                    {t("description")}
                   </span>
                 </div>
                 <div>
@@ -158,7 +152,7 @@ const InfoContent = (props: TypeProps) => {
               <div className={style.InfoItem}>
                 <div>
                   <span className={style.InfoItemTitle}>
-                    {t("sender_name")}:
+                    {t("sender_name")}
                   </span>
                 </div>
                 <div>

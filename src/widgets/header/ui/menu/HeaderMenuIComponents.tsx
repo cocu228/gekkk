@@ -22,21 +22,19 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
     number: string;
     name: string;
 }>) => {
-    const {md} = useContext(BreakpointsContext);
-
-
     if (!number) return null;
-        return(
-            <div className={styles.AccountItem}>
-                <div className={styles.Icon}>
-                    <IconApp code="t24" color="#285E69" size={37} />
-                </div>
-                <div className={styles.AccountInfo}>
-                    <span className={styles.AccountName}>{name}</span>
-                    <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
-                </div>
+    
+    return(
+        <div className={styles.AccountItem}>
+            <div className={styles.Icon}>
+                <IconApp code="t24" color="#285E69" size={37} />
             </div>
-        )
+            <div className={styles.AccountInfo}>
+                <span className={styles.AccountName}>{name}</span>
+                <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
+            </div>
+        </div>
+    )
 }
 
 export const ItemOrganization = ({active = false, name, number}: Partial<{
@@ -101,7 +99,7 @@ export const EnableNotifications = () => {
         showModal();
         setLoading(true);
 
-        Notification.requestPermission().then((result) => {
+        Notification?.requestPermission().then((result) => {
             if (result === "granted") {
                 window.location.reload();                
             }
@@ -151,7 +149,7 @@ export const EnableNotifications = () => {
     </>
 }
 
-export const GekkoinInvestPlatform = ({active = false}) => {
+export const GekkoinInvestPlatform = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, handleCancel, isModalOpen} = useModal();
 
@@ -180,9 +178,14 @@ export const GekkoinInvestPlatform = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.gekkoin_invest_platform")}
         </button>
-        <Modal onCancel={handleCancel} open={isModalOpen}>
+        <Modal
+            closable={false}
+            open={isModalOpen}
+            onCancel={handleCancel}
+            title={<ModalTitle handleCancel={handleCancel} title={t("gekkoin_redirect")}/>}
+        >
             <>
-                <div className="row mb-10">
+                <div className="row mt-4 mb-6">
                     <div className="col">
                         <p className="font-bold text-sm leading-6 text-center">{t("directed_to_gekkoin")}</p>
                     </div>
@@ -190,56 +193,11 @@ export const GekkoinInvestPlatform = ({active = false}) => {
                 <div className="row relative">
                     <div className="col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button onClick={onClick}
-                                    className="w-full">{t("confirm")}</Button>}
-                    </div>
-                </div>
-            </>
-        </Modal>
-    </>
-}
-
-export const GekkardPersonalAccount = ({active = false}) => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const {showModal, handleCancel, isModalOpen} = useModal();
-
-    const onClick = async () => {
-        setLoading(true)
-
-        const {phone, token, tokenHeaderName} = getCookieData<{
-            phone: string,
-            token: string,
-            tokenHeaderName: string
-        }>()
-
-        const response = await $axios.post('/pub/v1/auth', {
-            authorization: phone,
-            token: token,
-            tokenHeaderName: tokenHeaderName
-        })
-        const gekkardUrl = import.meta.env[`VITE_GEKKARD_URL_${import.meta.env.MODE}`];
-        actionResSuccess(response).success(() => {
-            window.open(`${gekkardUrl ?? 'https://dev.gekkard.com'}?sessionId=${uncoverResponse(response)}`, "_blank")
-        })
-        setLoading(false);
-    }
-
-    return <>
-        <button className="w-full text-left" onClick={showModal}>
-            {t("header_menu.gekkard_personal_account")}
-        </button>
-        <Modal onCancel={handleCancel} open={isModalOpen}>
-            <>
-                <div className="row mb-10">
-                    <div className="col">
-                        <p className="font-bold text-sm leading-6 text-center">{t("directed_to_gekkard")}</p>
-                    </div>
-                </div>
-                <div className="row relative">
-                    <div className="col">
-                        {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button onClick={onClick}
-                                    className="w-full">{t("confirm")}</Button>}
+                            <Button
+                                size="sm"
+                                onClick={onClick}
+                                className="w-full"
+                            >{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

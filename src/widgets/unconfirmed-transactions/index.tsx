@@ -24,6 +24,7 @@ export const UnconfirmedTransactions = () => {
         (async () => {
             const response = await apiGetHistoryTransactions({
                 currencies: null,
+                awaitsInfoOnly: true,
                 end: null,
                 start: null,
                 next_key: null,

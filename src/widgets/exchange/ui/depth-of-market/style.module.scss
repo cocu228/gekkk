@@ -13,6 +13,10 @@
   @include max-devices(md) {
     min-width: 140px;
   }
+
+  @media screen and (max-width: 340px) and (min-width: 320px) {
+    min-width: 130px;
+  }
 }
 
 .Head {

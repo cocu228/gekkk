@@ -45,7 +45,7 @@ export function PersonalInformation() {
                         <hr/>
                     </div>
                     <div className="w-full flex flex-col min-h-[30px]">
-                        <h4 className={styles.perItemTitle}>{t("phone_number")}</h4>
+                        <h4 className={styles.perItemTitle}>{t("phone_number")}:</h4>
                         <h4 className={styles.perItemSubtitle}>{userInfo?.phone}</h4>
                         <hr/>
                     </div>

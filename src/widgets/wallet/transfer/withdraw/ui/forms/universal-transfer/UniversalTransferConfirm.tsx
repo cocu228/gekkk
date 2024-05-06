@@ -29,6 +29,7 @@ const UniversalTransferConfirm = ({
 }) => {
     const {t} = useTranslation();
     const {$const} = useContext(CtxWalletData);
+    const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
     const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(true);
@@ -107,6 +108,7 @@ const UniversalTransferConfirm = ({
                 }
                 if (result.confirmationStatusCode === 4) {
                     handleCancel();
+                    setRefresh();
                     setContent({
                         title: 'Successfull transaction',
                         content: <ModalTrxStatusSuccess/>

@@ -432,7 +432,7 @@
     "number_of_participants": "Количество участников",
     "problem_with_form": "Возникла проблема при загрузке формы. Пожалуйста, повторите попытку позже.",
     "code_is_required": "Требуется код!",
-    "phone_number": "Номер телефона:",
+    "phone_number": "Номер телефона",
     "transfer_to_card": "Перевод на карту",
     "bank_transfer": "Банковский перевод",
     "no_fee_program": "Программа без комиссии",
@@ -1464,6 +1464,12 @@
     "chat_us": "Напишите нам",
     "response_time_up_to": "Время ответа до {{hours}} часов",
     "this_code_can_be_used": "Этот код можно использовать только один раз",
-    "get_gekkard_pro": "Получите Gekkard PRO"
+    "get_gekkard_pro": "Получите Gekkard PRO",
+    "language_name": "Русский",
+    "pending_transactions_disabled": "Уведомления о входящих транзакциях по карте отключены. Чтобы включить, отправьте SMS-код."
+
+
+
+
   }
 }

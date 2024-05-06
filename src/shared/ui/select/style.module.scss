@@ -3,7 +3,7 @@
     border-color: #285E69;
   }
   
-  :global(.ant-select-focused:where(.css-dev-only-do-not-override-1jiluyh).ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector) {
+  :global(.ant-select:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector) {
     border-color: #285E69;
   }
   
@@ -11,10 +11,15 @@
     height: 58px;
     max-width: 100%;
     width: 100%;
-    font-size: medium;
+    font-size: 14px;
     align-items: center;
     color: var(--color-gray-600);
     border-color: var(--color-secondary);
+
+    @media screen and (max-width: 768px) {
+      height: 30px;
+      font-size: 12px;
+    }
   }
 
   :global(.ant-select-open) {

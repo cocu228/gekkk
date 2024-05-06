@@ -37,7 +37,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `support`:
                 return t("support.title").capitalize();
             case `faq`:
-                return t("faq").capitalize();
+                return t("faq").toUpperCase();
             case `crypto-assets`:
                 return t("crypto_assets.title").capitalize();
             case `profile-settings`:

@@ -85,7 +85,7 @@ const WithdrawFormSepa = () => {
 
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
                         </div>
@@ -112,7 +112,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("IBAN")}:</span>
                         </div>
@@ -133,7 +133,7 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
                         </div>
@@ -156,23 +156,34 @@ const WithdrawFormSepa = () => {
             </div>
             <div className="row mb-5 w-full">
                 <div className="col w-full">
-                    <div className="row mb-2">
+                    <div className="row mb-[3px]">
                         <div className="col">
                             <span className={styles.TitleColText}>{t("comment")}:</span>
                         </div>
                     </div>
                     <div className="row w-full">
                         <div className="col w-full flex items-center">
-                            <Input
-                                tranfers={md}
-                                bordered={!md}
-                                allowDigits
-                                allowSymbols
-                                value={inputs.comment}
-                                name={"comment"}
-                                placeholder={t("comment")}
-                                onChange={onInput}
-                            />
+                            {md?
+                                <Input
+                                    tranfers={md}
+                                    bordered={!md}
+                                    allowDigits
+                                    allowSymbols
+                                    value={inputs.comment}
+                                    name={"comment"}
+                                    placeholder={t("comment")}
+                                    onChange={onInput}
+                                />
+                            :
+                                <TextArea
+                                    allowDigits
+                                    allowSymbols
+                                    value={inputs.comment}
+                                    name={"comment"}
+                                    placeholder={t("comment")}
+                                    onChange={onInput}
+                                />
+                            }
                         </div>
                     </div>
                 </div>

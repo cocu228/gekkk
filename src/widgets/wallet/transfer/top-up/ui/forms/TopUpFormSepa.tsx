@@ -19,7 +19,7 @@ const TopUpFormSepa = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col flex items-center">
+                    <div className="col flex items-center select-text">
                         <span>{account.number}</span>
                         <CopyIcon value={account.number}/>
                     </div>
@@ -52,7 +52,7 @@ const TopUpFormSepa = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col flex items-center">
+                    <div className="col flex items-center select-text">
                         <span>{account.name}</span>
                         <CopyIcon value={account.name}/>
                     </div>
@@ -67,7 +67,7 @@ const TopUpFormSepa = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col flex items-center">
+                    <div className="col flex items-center select-text">
                         <span>Papaya Ltd</span>
                         <CopyIcon value={'Papaya Ltd'}/>
                     </div>
@@ -82,7 +82,7 @@ const TopUpFormSepa = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col flex items-center">
+                    <div className="col flex items-center select-text">
                         <span>PAPYMTMTXXX</span>
                         <CopyIcon value={'PAPYMTMTXXX'}/>
                     </div>

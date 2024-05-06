@@ -62,7 +62,7 @@ const AssetsTable = ({
   const { t } = useTranslation();
 
   const assetsFilter = (asset: ICtxCurrency) => {
-    if (balanceFilter && asset.balance?.free_balance <= 0) {
+    if (balanceFilter && (!asset.balance || asset.balance?.free_balance <= 0)) {
       return false;
     }
 
@@ -107,9 +107,6 @@ const AssetsTable = ({
             ref={inputRef}
             data-testid="SearchName"
             placeholder={t("crypto_assets.search_name")}
-            // onChange={(e) => {
-            //   setSearchValue(e.target.value.trim().toLowerCase());
-            // }}
             onChange={searchInpChange}
           />
         ) : (
@@ -122,16 +119,12 @@ const AssetsTable = ({
               ref={inputRef}
               data-testid="SearchName"
               placeholder={t("crypto_assets.search_name")}
-              //   onChange={(e) => {
-              //     setSearchValue(e.target.value.trim().toLowerCase());
-              //   }}
               onChange={searchInpChange}
             />
           </div>
         )}
       </div>
 
-      {/* <div style={{maxHeight: modal ? 550 : 1080}} className='mb-10'> */}
       <div className="mb-10">
         <GTable>
           <GTable.Head>
@@ -186,7 +179,7 @@ const AssetsTable = ({
                       md && !!columnKeys.find((c) => c === AssetTableKeys.PRICE)
                     )
                       ? null
-                      : "1fr 0.58fr 0.5fr"
+                      : "1fr 0.58fr 0.6fr"
                   }
                 >
                   {columnKeys.map((key: string) => (

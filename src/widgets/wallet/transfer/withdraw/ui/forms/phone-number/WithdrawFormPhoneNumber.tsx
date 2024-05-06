@@ -103,10 +103,10 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className="row mb-5 w-full">
         <div className="col">
-          <div className="row mb-2">
+          <div className="row mb-[3px]">
             <div className="col">
               <span className={styles.TitleColText}>
-                {t("phone_number")}
+                {t("phone_number")}:
               </span>
             </div>
           </div>
@@ -129,28 +129,42 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className="row mb-5 w-full">
         <div className="col">
-          <div className="row mb-2">
+          <div className="row mb-[3px]">
             <div className="col">
               <span className={styles.TitleColText}>
-                {t("description")}
+                {t("description")}:
               </span>
             </div>
           </div>
           <div className="row">
             <div className="col flex items-center">
-              <Input
-                tranfers
-                bordered={false}
-                allowDigits
-                allowSymbols
-                value={inputs.comment}
-                name={"comment"}
-                onChange={onInputDefault}
-                placeholder={t("enter_description")}
-                style={{
-                  minHeight: 100,
-                }}
-              />
+              {md?
+                <Input
+                  tranfers
+                  bordered={false}
+                  allowDigits
+                  allowSymbols
+                  value={inputs.comment}
+                  name={"comment"}
+                  onChange={onInputDefault}
+                  placeholder={t("enter_description")}
+                  style={{
+                    minHeight: 100,
+                  }}
+                />
+              :
+                <TextArea
+                  allowDigits
+                  allowSymbols
+                  value={inputs.comment}
+                  name={"comment"}
+                  onChange={onInputDefault}
+                  placeholder={t("enter_description")}
+                  style={{
+                    minHeight: 100,
+                  }}
+                />
+              }
             </div>
           </div>
         </div>

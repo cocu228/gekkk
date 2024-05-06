@@ -59,14 +59,6 @@ const UniversalTransferForm = () => {
 
   return (
     <div className="wrapper">
-      <div className="info-box-description mb-4 p-6 md:text-xs">
-        <div className="row">
-          <span className="font-semibold">{t("fee_free")}* </span>
-          <span>{t("universal_transfer_description")} </span>
-          <span className="font-semibold">{t("phone_number_or_IBAN")}</span>
-        </div>
-      </div>
-
       <div className="row mb-5 w-full">
         <div className="col">
           <InputCurrency.Validator
@@ -112,7 +104,7 @@ const UniversalTransferForm = () => {
       </div>
 
       <div className="row mb-5 w-full">
-        <div className="row mb-2">
+        <div className="row mb-[3px]">
           <span className={styles.TitleColText}>
             IBAN, {t("phone_number")}, {t("crypto_wallet")}:
           </span>
@@ -134,7 +126,7 @@ const UniversalTransferForm = () => {
       </div>
 
       <div className="row mb-5 w-full">
-        <div className="row mb-2">
+        <div className="row mb-[3px]">
           <div className="col">
             <span className={styles.TitleColText}>
               {t("comment_optional")}:
@@ -143,19 +135,33 @@ const UniversalTransferForm = () => {
         </div>
         <div className="row w-full">
           <div className="col w-full">
-            <Input
-              tranfers={md}
-              bordered={!md}
-              allowDigits
-              allowSymbols
-              name={"comment"}
-              value={inputs.comment}
-              onChange={onInputDefault}
-              placeholder={t("comment_optional")}
-              style={{
-                minHeight: 100,
-              }}
-            />
+            {md?
+              <Input
+                tranfers={md}
+                bordered={!md}
+                allowDigits
+                allowSymbols
+                name={"comment"}
+                value={inputs.comment}
+                onChange={onInputDefault}
+                placeholder={t("comment_optional")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
+            :
+              <TextArea
+                allowDigits
+                allowSymbols
+                name={"comment"}
+                value={inputs.comment}
+                onChange={onInputDefault}
+                placeholder={t("comment_optional")}
+                style={{
+                  minHeight: 100,
+                }}
+              />
+            }
           </div>
         </div>
       </div>

@@ -22,6 +22,7 @@ import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss"
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxRootData } from "@/processes/RootContext";
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -37,6 +38,7 @@ const CreateTransferCode = () => {
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [newCode, setNewCode] = useState("");
+    const {setRefresh} = useContext(CtxRootData);
 
     const getListTxCode = storeListTxCode(state => state.getListTxCode);
     const [localErrorHunter, , localErrorInfoBox] = useError();
@@ -56,6 +58,7 @@ const CreateTransferCode = () => {
         
         actionResSuccess(response).success(async () => {
             setNewCode(response.data.result.code)
+            setRefresh();
             await getListTxCode()
             setLoading(false)
         }).reject((error) => {
@@ -70,8 +73,15 @@ const CreateTransferCode = () => {
         
         <div className="row mb-5">
             <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
-            <Modal padding onCancel={handleCancel} title={t("create_transfer_code")} open={isModalOpen}>
-                <CreateCode/>
+            <Modal
+                padding
+                onCancel={handleCancel}
+                title={t("create_transfer_code")}
+                open={isModalOpen}
+            >
+                <CreateCode
+                    onClose={handleCancel}
+                />
             </Modal>
         </div>
         <div className="row mb-2">

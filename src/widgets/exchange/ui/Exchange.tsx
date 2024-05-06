@@ -209,7 +209,7 @@ function Exchange() {
       {md ? null : (
         <PageHead
           title={getHeadTitle()}
-          subtitle={getHeadSubtitle()}
+          subtitle={<span className="select-text">{getHeadSubtitle()}</span>}
           rightContent={
             roomType !== "creator" ? null : (
               <ParticipantsNumber
@@ -225,14 +225,15 @@ function Exchange() {
       <SplitGrid
         leftColumn={
           <div>
-            <div className={`gap-x-5 py-5 px-5 bg-white ${styles.Grid}`}>
+            <div className={`gap-x-5 bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col ">
-                <div className="font-medium flex gap-[5px] items-center justify-between w-full text-xs mb-1 select-none">
+                <div className={styles.FromBlockWrap}>
                   {t("exchange.you_pay")}
                   <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isBalance={true}
+                  balanceFilter
                   roomType={roomType}
                   currency={from.currency}
                   value={from.amount ?? ""}
@@ -332,7 +333,7 @@ function Exchange() {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 md:mx-4">
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
@@ -412,7 +413,7 @@ function Exchange() {
         }
         rightColumn={
           !md && (
-            <div className="w-full rounded-lg py-4 ">
+            <div className="w-full rounded-lg py-4">
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
@@ -420,7 +421,7 @@ function Exchange() {
       />
       {md && (
         <div className="w-full rounded-lg">
-          <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
       <Modal

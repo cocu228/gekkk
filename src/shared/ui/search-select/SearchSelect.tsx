@@ -18,7 +18,7 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children
     };
     
     return (
-        <div className={`${isMobile ? styles.SelectMobile :styles.Select} ${transfers && styles.TransfersSelect} ${prefixIcon ? styles.SelectHasIcon : ''}`}>
+        <div className={`${styles.Select} ${transfers && styles.TransfersSelect} ${prefixIcon ? styles.SelectHasIcon : ''}`}>
             {prefixIcon && <div className={styles.SelectIcon}>
                 {prefixIcon}
             </div>}

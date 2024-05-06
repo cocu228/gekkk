@@ -24,8 +24,8 @@ const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
             }} 
             className={styles.HistoryTxRow}
         >
-            <svg className={styles.HTypeImg}><use href={"/img/gek_icons_lib1.svg?v3#type" + item.tx_type} /></svg>
-            <div className={styles.HType}>
+            <svg className={(item.tx_type === 3 && item.partner_info === "" ? styles.HTypeImgOrg : styles.HTypeImg)}><use href={"/img/gek_icons_lib1.svg?v3#type" + item.tx_type} /></svg>
+            <div className={(item.tx_type === 3 && item.partner_info === "" ? styles.HTypeOrg : styles.HType)}>
                 {formatForHistoryTimeMobile(item.datetime)}{" "}
                 {item.tx_type_text}
             </div>
@@ -33,7 +33,7 @@ const TransactionInfo = ({ item, showModal, setItem, }: TypeProps) => {
                 {item.status_text}
             </div>
             <div className={styles.HTypeImg2}>
-                <IconApp code='t08' color="#29354C" size={12} />
+                <IconApp code='t08' color="#285E69" size={12} />
             </div>
             <div className={styles.HTag}>{item.tag}</div>
             <div className={styles.HAmount}>

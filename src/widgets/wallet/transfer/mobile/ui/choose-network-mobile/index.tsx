@@ -31,7 +31,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     setNetwork(null)
                     navigate(`/transfers?currency=${currency}`)
                 }} 
-                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-tl-[5px] rounded-bl-[5px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#DCDCD9]"
+                className="row w-full relative cursor-pointer h-[32px] border-r-[0px] rounded-l-[8px] items-center overflow-hidden flex flex-row font-medium border-[1px] border-solid border-[#DCDCD9]"
             >
                 <Select
                     open={open}
@@ -51,7 +51,7 @@ const ChooseNetworkMobile = ({withdraw = false, network, setNetwork, loading}) =
                     suffixIcon={null}
                 />
             </div>
-            <div className='rounded-r-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
+            <div className='rounded-r-[8px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
                 <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
             </div>
         </div>

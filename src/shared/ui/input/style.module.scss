@@ -22,9 +22,10 @@
       font-weight: normal;
       @include max-devices(md) {
         color: #DCDCD9;
+        font-size: 12px !important;
       }
       color: var(--gek-mid-grey);
-      font-size: 12px;
+      font-size: 0,7rem;
       padding-right: 5px;
     }   
 
@@ -47,13 +48,17 @@
   border-radius: 5px;
   width: 100%;
   :global(.ant-input) {
-    padding-left: 15px !important;
-    font-size: 12px !important;
-    color: #285E69;
+    @include max-devices(md) {
+      padding-left: 15px !important;
+      font-size: 12px !important;
+      color: #285E69;
+    }
   }
 
   :global(.ant-input-affix-wrapper){
-    padding-left: 0px; 
+    @include max-devices(md) {
+      padding-left: 0px; 
+    }
   }
 
 }

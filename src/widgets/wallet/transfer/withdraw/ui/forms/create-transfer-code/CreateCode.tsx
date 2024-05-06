@@ -16,6 +16,7 @@ import {IUseInputState, useInputState} from "@/shared/ui/input-currency/model/us
 import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import { CtxRootData } from "@/processes/RootContext";
 
 const text = "When using confirmation, your funds will be debited from the account as soon as the user applies the code, however, funds will be credited to the recipient only if you confirm transfer. If confirmation does not occur, it will be possible to return the funds only through contacting the Support of both the sender and the recipient of the funds."
 
@@ -34,6 +35,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
     const [checkbox, setCheckbox] = useState(false);
     const currency = useContext(CtxWalletData)
     const {t} = useTranslation();
+    const {setRefresh} = useContext(CtxRootData);
 
     const {md} = useBreakpoints()
     
@@ -59,6 +61,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
             setNewCode(response.data.result.code)
             await getListTxCode()
             setLoading(false)
+            setRefresh();
         }).reject((error) => {
             localErrorHunter(error)
             setLoading(false)

@@ -86,14 +86,23 @@
   margin-bottom: 5px;
 }
 
-.HTypeImg {
+.HTypeImg,
+.HTypeImgOrg {
   width: 30px;
   height: 30px;
-  fill: var(--gek-additional);
-  stroke: var(--gek-additional);
   grid-row: 1 / span 2;
   align-self: center;
   padding-top: 1px;
+}
+
+.HTypeImg {
+  fill: var(--gek-additional);
+  stroke: var(--gek-additional);
+}
+
+.HTypeImgOrg {
+  fill: var(--gek-orange);
+  stroke: var(--gek-orange);
 }
 
 .HTypeImg2 {
@@ -102,7 +111,8 @@
   margin-left: 8px;
 }
 
-.HType {
+.HType,
+.HTypeOrg {
   padding: 4px 0px 2px 2px;
   grid-row: 1;
   position: relative;
@@ -112,20 +122,19 @@
 
 .HState,
 .HStateOrg {
+  font-size: 10px;
   padding: 2px 2px 2px 0px;
   grid-row: 1;
   text-align: right;
-}
-.HState{
-  font-size: 10px;
-  color: #29354C;
   text-transform: lowercase;
+}
+
+.HState{
+  color: var(--gek-dark-blue);
   // color: var(--gek-mid-grey);
 }
 
 .HStateOrg {
-  font-size: 10px;
-  text-transform: lowercase;
   color: var(--gek-orange);
 }
 
@@ -163,7 +172,8 @@
   }
 }
 
-.HType:after {
+.HType:after,
+.HTypeOrg:after {
   content: "";
   //background: var(--gek-additional);
   position: absolute;
@@ -171,7 +181,14 @@
   left: 0;
   height: 2px;
   width: 75px;
+}
+
+.HType:after {
   border-bottom: var(--gek-additional) 1px solid;
+}
+
+.HTypeOrg:after {
+  border-bottom: var(--gek-orange) 1px solid;
 }
 
 /// info modal 
@@ -206,6 +223,10 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 1rem;
+}
+
+.InfoItemValue, .InfoItemAddress {
+  user-select: text;
 }
 
 .InfoItemAddress, .InfoItemHash {

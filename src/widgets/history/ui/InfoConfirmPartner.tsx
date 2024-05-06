@@ -1,18 +1,14 @@
+import style from './style.module.scss' 
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
+import { TxInfoProps } from '../model/types';
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { CtxRootData } from "@/processes/RootContext";
+import { useEffect, useRef, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import { apiUpdateTxPartnerInfo } from "@/shared/(orval)api/gek";
-import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
-
-type TypeProps = GetHistoryTrasactionOut & {
-  handleCancel: () => void;
-};
 
 interface InputRef {
   focus: () => void;
@@ -22,7 +18,7 @@ interface InputRef {
   setSelectionRange: () => void;
 }
 
-export const InfoConfirmPartner = (props: TypeProps) => {
+export const InfoConfirmPartner = (props: TxInfoProps) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [localErrorHunter, , localErrorInfoBox] = useError();
@@ -39,7 +35,12 @@ export const InfoConfirmPartner = (props: TypeProps) => {
     });
 
     actionResSuccess(response)
-      .success(props.handleCancel)
+      .success(() => {
+        if (!!props.onUpdateTxInfo) {
+          props.onUpdateTxInfo(props.id_transaction, input);
+        }
+        props.handleCancel();
+      })
       .reject(localErrorHunter);
 
     setLoading(false);
@@ -62,10 +63,8 @@ export const InfoConfirmPartner = (props: TypeProps) => {
       ) : partnerInfo === null ? (
         <div className="col">
           <div className="row mb-2">
-            <div className="col w-auto">
-              <span className="font-bold text-[10px] text-[#285E69]">
-                {t("sender_name")}
-              </span>
+            <div>
+              <span className={style.InfoItemTitle}>{t("sender_name")}</span>
             </div>
           </div>
           <div className="row w-full flex justify-center h-[43px] mb-5">
@@ -97,16 +96,17 @@ export const InfoConfirmPartner = (props: TypeProps) => {
         localErrorInfoBox
       ) : (
         <div className="col">
-          <div className="row mb-4 flex flex-wrap gap-2">
-            <div className="col w-auto">
-              <span className="font-bold text-[10px] text-[#285E69]">
-                {t("sender_name")}
+          <div className={style.InfoItem}>
+            <div>
+              <span className={style.InfoItemTitle}>{t("sender_name")}</span>
+            </div>
+            <div>
+              <span className={style.InfoItemValue}>
+                {input}
               </span>
             </div>
-            <div className="col w-auto">
-              <span className="break-all font-medium">{input}</span>
-            </div>
           </div>
+          
           <div className="row flex gap-3">
             <div className="col w-full">
               <Button

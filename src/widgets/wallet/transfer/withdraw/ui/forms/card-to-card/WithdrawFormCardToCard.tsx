@@ -326,7 +326,7 @@ const WithdrawFormCardToCard = () => {
       </div>
       <div className="row mb-8 w-full">
         <div className="flex flex-col">
-          <div className="row min-w-[80px] mb-2 mr-5">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col w-full">
               <span className="w-full text-[#1F3446] text-[12px] font-semibold">
                 {t("from_card")}:
@@ -375,7 +375,7 @@ const WithdrawFormCardToCard = () => {
       </div>
       <div className="row mb-8 w-full">
         <div className="flex flex-col">
-          <div className="row min-w-[80px] mb-2 mr-5">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">
                 {t("to_card")}:
@@ -403,7 +403,7 @@ const WithdrawFormCardToCard = () => {
       </div>
       <div className="row mb-8 w-full">
         <div className="flex flex-col">
-          <div className="row min-w-[80px] mb-2 mr-5">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">
                 {t("cardholder")}:
@@ -431,7 +431,7 @@ const WithdrawFormCardToCard = () => {
       </div>
       <div className="row mb-8 w-full">
         <div className="flex flex-col">
-          <div className="row min-w-[80px] mb-2 mr-5">
+          <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
               <span className="text-[#1F3446] text-[12px] font-semibold">
                 {t("description")}:

@@ -1,4 +1,4 @@
-import {TransactTypeEnum} from "@/shared/(orval)api/gek/model";
+import {GetHistoryTrasactionOut, TransactTypeEnum} from "@/shared/(orval)api/gek/model";
 import dayjs from "dayjs";
 
 export enum TabKey {
@@ -16,7 +16,7 @@ export type HistoryTab = {
     EndDate?: string;
 }
 
-export interface Props {
+export interface HistoryProps {
     title: string,
     className: string,
     currenciesFilter: string[],
@@ -24,4 +24,9 @@ export interface Props {
     includeFiat: boolean,
     date:[dayjs.Dayjs,dayjs.Dayjs],
     currTab?: HistoryTab,
+}
+
+export type TxInfoProps = GetHistoryTrasactionOut & {
+    handleCancel: () => void;
+    onUpdateTxInfo?: (txId: string, senderName: string) => void;
 }

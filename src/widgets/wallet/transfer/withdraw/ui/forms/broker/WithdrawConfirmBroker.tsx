@@ -39,6 +39,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     ) ?? {}
 
     const {account} = useContext(CtxRootData);
+    const {setRefresh} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
@@ -82,6 +83,7 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     //@ts-ignore
                     if(response.data.status === "ok"){
                         handleCancel();
+                        setRefresh();
                         setContent({content: <ModalTrxStatusSuccess/>});
                     }
                 }

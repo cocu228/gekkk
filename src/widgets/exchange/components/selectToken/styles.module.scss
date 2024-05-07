@@ -7,7 +7,7 @@
   height: 70px;
 
   @media screen and (max-width: 768px) {
-    height: 50px;
+    height: 53px;
   }
 }
 
@@ -63,6 +63,14 @@
     font-size: 13px !important;
     bottom: -12px !important;
   }
+
+  @media screen and (max-width: 768px) {
+    bottom: -13.5px !important;
+  }
+
+  @media screen and (max-width: 390px) {
+    bottom: -12px !important;
+  }
 }
 
 .SelectedBody {
@@ -91,6 +99,7 @@
       top: -19px;
     }
   }
+  
 }
 
 .BalanceTitle {
@@ -140,9 +149,12 @@
 .InputBody {
   padding: 5px 10px;
 
+  @media screen and (max-width: 768px) {
+    padding: 0 10px;
+  }
 
   @media screen and (max-width: 390px) {
-    padding: 5px;
+    padding: 0 5px;
   }
 }
 

@@ -268,20 +268,6 @@ function Exchange() {
                   excludedCurrencies={[from.currency]}
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
-                {/* <InputCurrency.CurrencySelector
-                  className="mt-0"
-                  onSelect={onToCurrencyChange}
-                  disabled={roomType !== "default"}
-                  excludedCurrencies={[from.currency]}
-                  allowedFlags={[CurrencyFlags.ExchangeAvailable]}
-                >
-                  <InputCurrency
-                    value={to.amount}
-                    currency={to.currency}
-                    disabled={!isLimitOrder}
-                    onChange={onToValueChange}
-                  />
-                </InputCurrency.CurrencySelector> */}
                 <div className="mt-3 md:mt-2 ">
                   <div className="font-medium mt-4 text-xs">
                     {t("price")}

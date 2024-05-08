@@ -64,6 +64,8 @@ const History = memo(function ({
     threshold: 0.9,
   });
 
+  const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+
   useEffect(() => {
     if (
       md &&
@@ -80,7 +82,7 @@ const History = memo(function ({
           tx_types: types,
           next_key: lastValue.next_key,
           limit: 10,
-          include_fiat: includeFiat,
+          include_fiat: gekkardMode ? includeFiat : false,
           end: date ? formatForApi(date[1].toDate()).toString() : null,
           start: date ? formatForApi(date[0].toDate()).toString() : null,
         });
@@ -115,7 +117,7 @@ const History = memo(function ({
         currencies: currenciesFilter,
         end: date ? formatForApi(date[1].toDate()).toString() : null,
         start: date ? formatForApi(date[0].toDate()).toString() : null,
-        include_fiat: includeFiat,
+        include_fiat: gekkardMode ? includeFiat : false,
       },
       { cancelToken }
     );
@@ -142,7 +144,7 @@ const History = memo(function ({
       tx_types: txTypes,
       next_key: lastValue.next_key,
       limit: 10,
-      include_fiat: includeFiat,
+      include_fiat: gekkardMode ? includeFiat : false,
     });
 
     if (data.result.length < 10) setAllTxVisibly(true);

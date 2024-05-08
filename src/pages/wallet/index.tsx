@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {useContext, useEffect, useMemo, useState} from "react";
 import History from "@/widgets/history/ui/History";
 import About from "@/widgets/wallet/about/ui/About";
 import {CtxRootData} from "@/processes/RootContext";
@@ -39,14 +39,22 @@ function Wallet() {
     const {xl, md} = useContext(BreakpointsContext);
     const descriptions = getTokenDescriptions(navigate, account);
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
-    
+
+    const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+
     let $currency = mockEUR;
 
     if (currencies) {
         //@ts-ignore
-        $currency = currencies.get(currency);
+        $currency = currencies.get(currency) ? currencies.get(currency) : mockEUR;
     }
 
+    useEffect(()=>{
+        if(currencies && !currencies.get(currency) || (!gekkardMode && currency === "EUR")){
+            
+            navigate("404")
+        }
+    }, [currencies])
 
     const isOnAboutPage = tab === "about";
     const isOnProgramsPage = tab === "programs";

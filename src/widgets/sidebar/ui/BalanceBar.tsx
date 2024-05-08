@@ -29,12 +29,21 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
     let eurWallet: ICtxCurrency = null;
     let eurgWallet: ICtxCurrency = null;
     let gkeWallet: ICtxCurrency = null;
+    let btcWallet: ICtxCurrency = null
+    let usdtWallet: ICtxCurrency = null
+    let ethWallet: ICtxCurrency = null
     let secondaryWallets: ICtxCurrency[] = [];
 
+    const gekwalletMode = global.VITE_APP_TYPE.toLowerCase().includes("gekwallet");
+    const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+    
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
         eurgWallet = currencies.get("EURG");
         gkeWallet = currencies.get("GKE");
+        btcWallet = currencies.get("BTC");
+        usdtWallet = currencies.get("USDT");
+        ethWallet = currencies.get("ETH");
         secondaryWallets = Array.from(currencies.values());
     }
 
@@ -59,15 +68,31 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                             />
                         )}
             </div>
-            <span className={styles.CurTypeTxt}>{t("fiat")}</span>
-            {/* fiat wallets */}
-            <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurWallet} />
-            {/* Crypto wallets wrapper */}
-            <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
-            {/* EURG wallet */}
-            <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
-            {/* GKE wallet */}
-            <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={gkeWallet} />
+            
+            {gekkardMode && 
+                <> 
+                    <span className={styles.CurTypeTxt}>{t("fiat")}</span>
+                    {/* fiat wallets */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurWallet} />
+                    {/* Crypto wallets wrapper */}
+                    <span className={styles.CurTypeTxt}>{t("crypto_assets.title")}</span>
+                    {/* EURG wallet */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={eurgWallet} />
+                    {/* GKE wallet */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={gkeWallet} />
+                </>
+            }
+            
+            {gekwalletMode && 
+                <>
+                    {/* BTC wallet */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={btcWallet} />
+                    {/* USDT wallet */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={usdtWallet} />
+                    {/* ETH wallet */}
+                    <TokenBar curActive={currency} navLinkEvent={NavLinkEvent} item={ethWallet} />
+                </>
+            }
 
             {/* Secondary options wrapper */}
             {/* <div className="h-[6px]" /> */}

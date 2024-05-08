@@ -1,16 +1,15 @@
-import { useContext } from "react";
-import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
+import {useContext} from "react";
+import {CtxNewDeposit} from "@/widgets/new-deposit/model/context";
 
 const RiskDescription = () => {
-    const { structedStrategy, step } = useContext(CtxNewDeposit);
+    const {
+        step,
+        structuredStrategy
+    } = useContext(CtxNewDeposit);
 
-    if (step < 1) return;
-
-    return (
+    return step < 1 ? null : (
         <div className="col px-7 mt-[50px] xl:hidden xxl:p-5">
-            <div className="wrapper">
-                {structedStrategy?.descriptionLong}
-            </div>
+            <div className="wrapper">{structuredStrategy?.descriptionLong}</div>
         </div>
     )
 }

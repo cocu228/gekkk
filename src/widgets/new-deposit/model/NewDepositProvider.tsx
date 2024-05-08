@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
 import {apiGetRates} from "@/shared/(orval)api/gek";
+import {useEffect, useState} from "react";
 import {CtxNewDeposit, ICtxNewDeposit} from "./context";
 import {DepositType, PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 
@@ -8,13 +8,14 @@ interface IProps {
 }
 
 const NewDepositProvider = ({ children, ...props }: IProps) => {
-    const initialState: ICtxNewDeposit = {
+        const initialState: ICtxNewDeposit = {
         step: 0,
         rate: null,
         amount: 1000,
+        isGkeDeposit: false,
         tokenCurrency: null,
         minAmount: 1000,
-        structedStrategy: null,
+        structuredStrategy: null,
         term_in_days: null,
         percentageType: null,
         type: DepositType.FIXED
@@ -26,10 +27,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         if (!state.tokenCurrency) return;
 
         (async () => {
-            const {data} = await apiGetRates({
-                to: 'EUR'
-            });
-            
+            const {data} = await apiGetRates({to: 'EUR'});
             setState(prev => ({
                 ...prev,
                 rate: data.result[state.tokenCurrency]
@@ -60,7 +58,7 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
     const handleRiskLevelChange = (value: StructedDepositStrategy) => {
         setState(prev => ({
             ...prev,
-            structedStrategy: value,
+            structuredStrategy: value,
             percentageType: prev.step < 2 ? null : value.percentageTypes[0]
         }));
     }
@@ -86,6 +84,13 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         }));
     }
 
+    const handleIsGkeChange = () => {
+        setState(prev => ({
+            ...prev,
+            isGkeDeposit: !prev.isGkeDeposit
+        }));
+    }
+
     const handleNextStep = () => {
         const {
             amount,
@@ -93,11 +98,11 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
             term_in_days,
             tokenCurrency,
             percentageType,
-            structedStrategy
+            structuredStrategy
         } = state
 
         const step = (+amount >= minAmount ? 1 : 0)
-            + (structedStrategy !== null ? 1 : 0)
+            + (structuredStrategy !== null ? 1 : 0)
             + (percentageType !== null ? 1 : 0)
             + (term_in_days !== null ? 1 : 0)
             + (tokenCurrency !== null ? 1 : 0);
@@ -115,8 +120,9 @@ const NewDepositProvider = ({ children, ...props }: IProps) => {
         onTokenChange: handleTokenChange,
         onAmountChange: handleAmountChange,
         onDepositTypeChange: handleTypeChange,
+        onIsGkeDepositChange: handleIsGkeChange,
         onRiskLevelChange: handleRiskLevelChange,
-        onPersentageTypeChange: handlePercentageTypeChange
+        onPercentageTypeChange: handlePercentageTypeChange
     })}>
         {children}
     </CtxNewDeposit.Provider>

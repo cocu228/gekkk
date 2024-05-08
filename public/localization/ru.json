@@ -1466,7 +1466,9 @@
     "this_code_can_be_used": "Этот код можно использовать только один раз",
     "get_gekkard_pro": "Получите Gekkard PRO",
     "language_name": "Русский",
-    "pending_transactions_disabled": "Уведомления о входящих транзакциях по карте отключены. Чтобы включить, отправьте SMS-код."
+    "pending_transactions_disabled": "Уведомления о входящих транзакциях по карте отключены. Чтобы включить, отправьте SMS-код.",
+    "select_top_up_type": "Выберите тип пополнения"
+
 
 
 

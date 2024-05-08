@@ -1438,7 +1438,9 @@
     "this_code_can_be_used": "Dieser Code kann nur einmal verwendet werden",
     "get_gekkard_pro": "Holen Sie sich Gekkard PRO",
     "language_name": "Deutsch",
-    "pending_transactions_disabled": "Benachrichtigungen für eingehende Kartentransaktionen sind deaktiviert. Zum Aktivieren senden Sie einen SMS-Code."
+    "pending_transactions_disabled": "Benachrichtigungen für eingehende Kartentransaktionen sind deaktiviert. Zum Aktivieren senden Sie einen SMS-Code.",
+    "select_top_up_type": "Wählen Sie den Aufladungstyp aus"
+
 
 
     

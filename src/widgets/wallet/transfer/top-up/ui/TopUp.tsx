@@ -7,28 +7,39 @@ import TopUpFormSepa from "@/widgets/wallet/transfer/top-up/ui/forms/TopUpFormSe
 import {
     getChosenNetwork, isCryptoNetwork,
 } from "@/widgets/wallet/transfer/model/helpers";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {CtxOfflineMode} from "@/processes/errors-provider-context";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
 import ApplyTransferCode from "./forms/ApplyTransferCode";
 import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import styles from "./style.module.scss"
 
 const TopUp = memo(() => {
     const {t} = useTranslation()
     const {initialLanguage} = getInitialProps()
     const {md} = useBreakpoints()
+    const [params] = useSearchParams();
+    const currency = params.get("currency");
+    const type = params.get("type");
     const navigate = useNavigate();
     const {offline} = useContext(CtxOfflineMode);
-    const {loading = true, networkTypeSelect, tokenNetworks, setNetworkType} = useContext(CtxWalletNetworks);
+    const {loading = true, networkTypeSelect, tokenNetworks, networksForSelector, setNetworkType} = useContext(CtxWalletNetworks);
     const {
         is_operable = null,
         network_type: networkType
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
     
-    if (offline) return <div>You are offline, please check your internet connection.</div>
+    const [network, setNetwork] = useState<number>(type ? +type : null)
+
+    useEffect(()=>{
+        md && setNetworkType(network)
     
+    }, [networkTypeSelect])
+
+    if (offline) return <div>You are offline, please check your internet connection.</div>
+
     const getDisplayForm = (networkType: number): JSX.Element => {
         if (isCryptoNetwork(networkType)) {
             return <TopUpFormQR/>;
@@ -87,19 +98,49 @@ const TopUp = memo(() => {
     },[initialLanguage, networkTypeSelect])
 
 
-    return (<div className="wrapper">
-        {loading ? <Loader/> : <>
-            <ChoseNetwork/>
-            {displayedForm}
+    return (<div className="min-h-[100px] relative flex justify-center">
+        {loading ? <Loader/> : <div className='md:w-full'>
+            <div className={styles.Container}>
+                <ChoseNetwork network={network} setNetwork={setNetwork}/>
+            </div>
+            
+            {md ? 
+                network && displayedForm
+            :
+                displayedForm
+            }
+
+            {md && <div className="mt-5">
+                {!network && networksForSelector.length > 0 && <span className={styles.TextSelectTitle}>
+                    {t("select_top_up_type")}
+                </span>}
+                {!network && networksForSelector?.map((network) => (
+                    <div
+                        className={styles.NetworkContainer}
+                        onClick={() => {
+                        setNetworkType(network.value);
+                        setNetwork(network.value);
+                        navigate(
+                            `/wallet?currency=${currency}&tab=top_up&type=${network.value}`
+                        );
+                        }}
+                    >
+                        <span className="text-[12px] text-[#1F3446] font-bold">
+                            {network.label}
+                        </span>
+                    </div>
+                ))}
+            </div>}
+
             {is_operable === false && <div className="row mb-4 mt-4">
                 <div className="col">
                     <div className="info-box-danger">
-                        
                         <p>{t("attention")}</p>
                     </div>
                 </div>
             </div>}
-        </>}
+            
+        </div>}
     </div>);
 });
 

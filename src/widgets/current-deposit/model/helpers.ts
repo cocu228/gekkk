@@ -1,7 +1,7 @@
+import Decimal from "decimal.js";
+import {GetDepositOut} from "@/shared/api/model";
 import {PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
-import Decimal from "decimal.js";
-import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 
 export interface InvestData {
     isClosed?: boolean;
@@ -11,7 +11,7 @@ export interface InvestData {
 export function getInvestmentData(investment: GetDepositOut): InvestData {
     return {
         isClosed: new Date() > new Date(investment.date_end),
-        isFixed: investment.dep_type === 1
+        isFixed: [1, 101].includes(investment.dep_type)
     }
 }
 
@@ -20,9 +20,11 @@ export interface IDepositStrategyData {
     percentageType?: PercentageType;
 }
 
-export function getDepositStrategyData(depType: number): IDepositStrategyData{
+export function getDepositStrategyData(depType: number): IDepositStrategyData {
+    depType = depType > 100 ? depType - 100 : depType;
+    
     const strategy = StructedDepositStrategies.find(s => Math.trunc(s.id / 10) === Math.trunc(depType / 10));
-
+    
     return {
         strategy: strategy,
         percentageType: strategy?.percentageTypes[depType % 10],
@@ -42,17 +44,25 @@ export function getDepositCurrentProfit(
     annualProfit: number,
     amount: Decimal,
     diffPercent: Decimal,
-    strategyInfo: IDepositStrategyData
+    strategyInfo: IDepositStrategyData,
+    isGke: boolean
 ): number {
     const {
         strategy,
         percentageType
     } = strategyInfo
 
-    const {
+    let {
         risePercentage,
         dropPercentage
     } = percentageType
+
+    if (isGke) {
+        risePercentage = risePercentage * 2;
+        dropPercentage = dropPercentage > 0
+            ? dropPercentage * 2
+            : dropPercentage / 2;
+    }
 
     const rateGrowthProfit = amount.mul(diffPercent).mul(risePercentage).div(10000);
 

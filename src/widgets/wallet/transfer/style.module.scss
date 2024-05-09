@@ -54,10 +54,14 @@
     width: 100%;
     padding: 0px;
     height: 32px;
+    cursor: pointer;
 }
 .SelectActive{
     overflow: hidden;
     text-wrap: nowrap;
+}
+.SelectActiveToken{
+    font-size: 10px;
 }
 
 

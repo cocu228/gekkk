@@ -1439,7 +1439,8 @@
     "get_gekkard_pro": "Holen Sie sich Gekkard PRO",
     "language_name": "Deutsch",
     "pending_transactions_disabled": "Benachrichtigungen für eingehende Kartentransaktionen sind deaktiviert. Zum Aktivieren senden Sie einen SMS-Code.",
-    "select_top_up_type": "Wählen Sie den Aufladungstyp aus"
+    "select_top_up_type": "Wählen Sie den Aufladungstyp aus",
+    "generate_address": "Adresse generieren"
 
 
 

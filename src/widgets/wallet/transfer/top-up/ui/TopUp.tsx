@@ -15,6 +15,7 @@ import { t } from 'i18next';
 import { getInitialProps, useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "./style.module.scss"
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 const TopUp = memo(() => {
     const {t} = useTranslation()
@@ -48,9 +49,12 @@ const TopUp = memo(() => {
         switch (networkType) {
             case 150:
                 return <div>
-                    <b>
-                        {t("top_up_EURG")} <span
-                            className="text-blue-400 cursor-pointer"
+                    <b className='md:text-[12px] md:text-[var(--gek-additional)] md:font-normal'>
+                        <span className=''>
+                            {t("top_up_EURG") + " "}
+                        </span> 
+                        <span
+                            className="text-blue-400 md:text-[var(--gek-green)] md:underline md:font-bold cursor-pointer"
                             onClick={() => {
                                 if(md){
                                     navigate(`/transfers?currency=EUR&type=154`)
@@ -68,18 +72,20 @@ const TopUp = memo(() => {
                 return <TopUpFormSepa/>;
             case 154:
                 return <div>
-                    <b>
-                        {t("top_up_EUR_via_crypto")} <a
-                        className="text-blue-400"
-                        onClick={() => {
-                            if(md){
-                                navigate(`/transfers?currency=EURG&type=150`)
-                            }else{
-                                navigate("/wallet?currency=EURG&tab=withdraw")
-                            }
-                                
-                        }}
-                        href="javascript:void(0)">{t("link")}</a>
+                    <b className='md:text-[12px] md:text-[var(--gek-additional)] md:font-normal'>
+                        {t("top_up_EUR_via_crypto")} 
+                        <a
+                            className="text-blue-400 md:text-[var(--gek-green)] md:underline md:font-bold"
+                            onClick={() => {
+                                if(md){
+                                    navigate(`/transfers?currency=EURG&type=150`)
+                                }else{
+                                    navigate("/wallet?currency=EURG&tab=withdraw")
+                                }
+                                    
+                            }}
+                            href="javascript:void(0)">{t("link")}
+                        </a>
                     </b>
                 </div>;
             case 231:
@@ -102,13 +108,22 @@ const TopUp = memo(() => {
         {loading ? <Loader/> : <div className='md:w-full'>
             <div className={styles.Container}>
                 <ChoseNetwork network={network} setNetwork={setNetwork}/>
+                {(md && network && displayedForm) && 
+                    <div className='mt-[20px] mb-[10px]'>
+                        {is_operable === false && <div className="row my-[15px]">
+                            <div className="flex flex-row text-[var(--gek-red)] text-[10px]">
+                                <div className='flex items-start px-[15px]'>
+                                    <IconApp code='t27' size={15} color='var(--gek-red)'/>
+                                </div>
+                                <p>{t("attention")}</p>
+                            </div>
+                        </div>}
+                        {displayedForm}
+                    </div>
+                }
             </div>
             
-            {md ? 
-                network && displayedForm
-            :
-                displayedForm
-            }
+            {!md && displayedForm}
 
             {md && <div className="mt-5">
                 {!network && networksForSelector.length > 0 && <span className={styles.TextSelectTitle}>
@@ -118,11 +133,11 @@ const TopUp = memo(() => {
                     <div
                         className={styles.NetworkContainer}
                         onClick={() => {
-                        setNetworkType(network.value);
-                        setNetwork(network.value);
-                        navigate(
-                            `/wallet?currency=${currency}&tab=top_up&type=${network.value}`
-                        );
+                            setNetworkType(network.value);
+                            setNetwork(network.value);
+                            navigate(
+                                `/wallet?currency=${currency}&tab=top_up&type=${network.value}`
+                            );
                         }}
                     >
                         <span className="text-[12px] text-[#1F3446] font-bold">
@@ -132,7 +147,7 @@ const TopUp = memo(() => {
                 ))}
             </div>}
 
-            {is_operable === false && <div className="row mb-4 mt-4">
+            {!md && is_operable === false && <div className="row mb-4 mt-4">
                 <div className="col">
                     <div className="info-box-danger">
                         <p>{t("attention")}</p>

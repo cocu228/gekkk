@@ -1694,7 +1694,8 @@
     "this_code_can_be_used": "This code can be used only once",
     "get_gekkard_pro": "Get Gekkard PRO",
     "language_name": "English",
-    "select_top_up_type": "Select Top Up type"
+    "select_top_up_type": "Select Top Up type",
+    "generate_address": "Generate address"
 
   }
 }

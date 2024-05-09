@@ -112,7 +112,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                         >
                                             <div className={styles.SelectPickedValue}>
                                                 {!network ? (
-                                                    <span className={styles.NonePickedTitle}>-select-</span>
+                                                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                                                 ) : (
                                                     <span className={styles.SelectActiveToken}>
                                                         {[...networksForSelector].filter(el => el.value === network)[0]?.label}

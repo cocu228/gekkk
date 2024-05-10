@@ -184,7 +184,7 @@ const WithdrawFormBroker = () => {
                 </div>
 
                 <div className={styles.EURCostInfo}>
-                    <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("exchange_fee")} <b className={styles.EURCostInfoTextUppercase}>{percent_fee}%</b>
+                    <span className={styles.EURCostInfoText}><b className={styles.EURCostInfoTextUppercase}>*{t("note")}</b>:  {t("exchange_fee")} <b className={styles.EURCostInfoTextUppercase}>1,5%</b>
                         {account.rights[AccountRights.IsJuridical] ? null :
                             <span> {t("if_you")} <span
                                 className={styles.EURCostInfoTextLink}
@@ -218,11 +218,11 @@ const WithdrawFormBroker = () => {
                 <div className={styles.PayInfoCol}>
                     <div className={styles.PayInfoValueFlex}>
                         <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>
                     </div>
                     <div className={styles.PayInfoValueFlex}>
                         {loading ? t("loading")+"..." : <span
-                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>}
+                            className={styles.PayInfoValueFlexText}>{inputCurr.value.number - withdraw_fee}</span>}
                     </div>
                     <div className={styles.PayInfoValueFlex}>
                         {loading ? t("loading")+"..." : <span

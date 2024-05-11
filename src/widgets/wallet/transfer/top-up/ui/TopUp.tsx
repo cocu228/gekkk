@@ -34,11 +34,6 @@ const TopUp = memo(() => {
     
     const [network, setNetwork] = useState<number>(type ? +type : null)
 
-    useEffect(()=>{
-        md && setNetworkType(network)
-    
-    }, [networkTypeSelect])
-
     if (offline) return <div>You are offline, please check your internet connection.</div>
 
     const getDisplayForm = (networkType: number): JSX.Element => {
@@ -49,12 +44,12 @@ const TopUp = memo(() => {
         switch (networkType) {
             case 150:
                 return <div>
-                    <b className='md:text-[12px] md:text-[var(--gek-additional)] md:font-normal'>
+                    <b className={styles.ToTransfersContainer}>
                         <span className=''>
                             {t("top_up_EURG") + " "}
                         </span> 
                         <span
-                            className="text-blue-400 md:text-[var(--gek-green)] md:underline md:font-bold cursor-pointer"
+                            className={styles.ToTransfersLink}
                             onClick={() => {
                                 if(md){
                                     navigate(`/transfers?currency=EUR&type=154`)
@@ -72,19 +67,20 @@ const TopUp = memo(() => {
                 return <TopUpFormSepa/>;
             case 154:
                 return <div>
-                    <b className='md:text-[12px] md:text-[var(--gek-additional)] md:font-normal'>
+                    <b className={styles.ToTransfersContainer}>
                         {t("top_up_EUR_via_crypto")} 
                         <a
-                            className="text-blue-400 md:text-[var(--gek-green)] md:underline md:font-bold"
+                            className={styles.ToTransfersLink}
                             onClick={() => {
                                 if(md){
                                     navigate(`/transfers?currency=EURG&type=150`)
                                 }else{
                                     navigate("/wallet?currency=EURG&tab=withdraw")
-                                }
-                                    
+                                }     
                             }}
-                            href="javascript:void(0)">{t("link")}
+                            href="javascript:void(0)"
+                        >
+                            {t("link")}
                         </a>
                     </b>
                 </div>;
@@ -92,7 +88,7 @@ const TopUp = memo(() => {
                 return <ApplyTransferCode/>;
             
             default:
-                return <div>
+                return <div className={styles.NoActions}>
                         {t("no_actions_for_network")}
                 </div>;
         }
@@ -104,15 +100,22 @@ const TopUp = memo(() => {
     },[initialLanguage, networkTypeSelect])
 
 
-    return (<div className="min-h-[100px] relative flex justify-center">
-        {loading ? <Loader/> : <div className='md:w-full'>
-            <div className={styles.Container}>
+    useEffect(()=>{
+        md && setNetworkType(network)
+    
+    }, [networkTypeSelect])
+
+    return (<div className={styles.TopUpMainContainer}>
+        {loading ? <Loader/> : <div className='w-full'>
+            <div className={styles.TopUpContainer}>
+
                 <ChoseNetwork network={network} setNetwork={setNetwork}/>
+
                 {(md && network && displayedForm) && 
-                    <div className='mt-[20px] mb-[10px]'>
-                        {is_operable === false && <div className="row my-[15px]">
-                            <div className="flex flex-row text-[var(--gek-red)] text-[10px]">
-                                <div className='flex items-start px-[15px]'>
+                    <div className={styles.TopUpMobileForm}>
+                        {is_operable === false && <div className={styles.TopUpAttentionMobile}>
+                            <div className={styles.TopUpAttentionMobileContainer}>
+                                <div className={styles.TopUpAttentionMobileContainerIcon}>
                                     <IconApp code='t27' size={15} color='var(--gek-red)'/>
                                 </div>
                                 <p>{t("attention")}</p>
@@ -121,6 +124,7 @@ const TopUp = memo(() => {
                         {displayedForm}
                     </div>
                 }
+
             </div>
             
             {!md && displayedForm}
@@ -131,7 +135,7 @@ const TopUp = memo(() => {
                 </span>}
                 {!network && networksForSelector?.map((network) => (
                     <div
-                        className={styles.NetworkContainer}
+                        className={styles.TopUpNetworkContainer}
                         onClick={() => {
                             setNetworkType(network.value);
                             setNetwork(network.value);
@@ -140,7 +144,7 @@ const TopUp = memo(() => {
                             );
                         }}
                     >
-                        <span className="text-[12px] text-[#1F3446] font-bold">
+                        <span className={styles.TopUpNetworkContainerTitle}>
                             {network.label}
                         </span>
                     </div>

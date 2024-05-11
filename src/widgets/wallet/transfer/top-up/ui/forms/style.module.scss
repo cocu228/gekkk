@@ -1,0 +1,323 @@
+@import "@styles/mixins.scss";
+
+.QR{
+    &Container{
+        display: flex; 
+        padding-bottom: 2.5rem; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        text-align: right; 
+
+
+        @include max-devices (md) { 
+            padding: 0; 
+            color: var(--gek-additional);
+        }
+    }
+
+    &SendText{
+        margin-bottom: 1.75rem; 
+        font-weight: 500; 
+        text-align: center; 
+
+
+        @include max-devices (md) { 
+            font-size: 12px;
+        }
+
+    }
+
+    &Wrapper{
+        padding: 1rem; 
+        border-radius: 0.375rem; 
+        border-style: solid; 
+        width: max-content;
+        border-color: #A5B7C5;
+        border-width: 1px;
+
+        &Second{
+            height: auto; 
+            margin: 0 auto; 
+            max-width: 120; 
+            width: 100%
+        }
+
+        &Third{
+            height: auto;
+            max-width: 120px; 
+            min-width: 100%; 
+            width: 100%
+        }
+    }
+
+    &FieldDesktop{
+        margin-top: 2rem; 
+        width: 100%;         
+    }
+    &FieldMobile{
+        width: 100%; 
+        margin-top: 20px;
+        height: 41px;
+
+
+        @include max-devices (md) { 
+            margin-bottom: 10px;
+        }
+
+        &Wrapper{
+            @include max-devices (md) { 
+                border-style: solid; 
+                color: var(--gek-dark-blue);
+                border-color: var(--gek-light-grey);
+                border-width: 1px;
+                border-radius: 5px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+              
+            &Second{
+                display: flex; 
+                font-weight: 700; 
+                user-select: text; 
+                color: var(--gek-dark-blue);
+
+
+                @include max-devices (md) { 
+                    font-size: 12px;
+                }
+
+            }
+        }
+
+        &Value{
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            text-align: start;
+
+            @include max-devices (md) { 
+                width: 100%;
+            }
+
+
+        }
+
+
+    }
+}
+
+.GenerateQR{
+    padding-left: 1rem;
+    padding-right: 1rem; 
+    margin-top: 2rem; 
+    margin-bottom: 2rem; 
+    width: 100%; 
+
+
+    @include max-devices (md) { 
+        margin-bottom: 0; 
+    }
+
+    &Attention{
+        display: none; 
+        margin-bottom: 30px;
+
+
+        @include max-devices (md) {
+            display: flex; 
+        }
+
+        &Icon{
+            display: flex; 
+            padding-left: 0.5rem;
+            padding-right: 0.5rem; 
+            align-items: flex-start; 
+
+        }
+
+        &Text{
+            font-weight: 700; 
+            font-size: 10px;
+            color: var(--gek-red);
+
+        }
+
+        &Button{
+            width: 100%; 
+            color: #ffffff; 
+
+
+            @include max-devices (md) {
+                font-weight: 700 !important; 
+                height: 43px !important;
+                font-size: 14px !important;
+            }
+
+            &:disabled{
+                opacity: 0.05;
+            }
+        }
+
+        &Error{
+            padding-left: 1rem;
+            padding-right: 1rem; 
+            margin-top: 2rem; 
+            margin-bottom: 2rem; 
+            width: 100%; 
+
+
+            @include max-devices (md) {
+                margin-bottom: 0; 
+                margin-top: 0.5rem; 
+            }
+
+        }
+    }
+
+
+}
+
+.Sepa{
+    margin-bottom: 2rem; 
+    width: 100%; 
+
+
+    @include max-devices (md) {
+        margin-bottom: 10px;
+    }
+
+    &Title{
+        color: #9CA3AF; 
+
+        @include max-devices (md) {
+            font-weight: 600; 
+            color: var(--gek-additional);
+        }
+
+        &Wrapper{
+            margin-bottom: 0.5rem; 
+
+
+            @include max-devices (md) {
+                margin-bottom: 3px;
+                margin-left: 10px;
+                font-size: 10px;
+            }
+
+        }
+    }
+
+    &Value{
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+
+
+        @include max-devices (md) {
+            width: 100%;
+        }
+
+
+
+        &Wrapper{
+
+            @include max-devices (md) {
+                border-style: solid; 
+                color: var(--gek-dark-blue);
+                border-color: var(--gek-light-grey);
+                border-width: 1px;
+                border-radius: 5px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            &Second{
+                display: flex; 
+                align-items: center; 
+                user-select: text; 
+
+
+                @include max-devices (md) {
+                    font-size: 12px;
+                }
+
+            }
+        }
+          
+    }
+}
+
+.Code{
+
+    display: flex; 
+    gap: 2.5rem;
+
+
+    @include max-devices (md) {
+        gap: 5vw;
+    }
+
+    &Inputs{
+
+        &Wrapper{
+            display: flex; 
+            align-items: center; 
+            width: 60%;
+        }
+
+        &Mobile{
+
+            outline-style: none; 
+            height: 100%; 
+            font-size: 12px;
+            color: var(--gek-additional);
+            background: transparent;
+            width: 90%;
+
+            &::placeholder{
+                text-align: center;
+                font-size: 10px;
+                color: var(--gek-light-grey);
+            }
+
+            &Wrapper{
+                display: flex; 
+                overflow: hidden; 
+                justify-content: center; 
+                border-style: solid; 
+                width: 100%; 
+                border-width: 2px;
+                border-color: var(--gek-green);
+                border-radius: 8px;
+                height: 43px;
+            }
+        }
+    }
+
+    &Button{
+        width: 100%; 
+        height: 100% !important;
+        font-weight: 500 !important;
+
+        @include max-devices(md){
+            width: 100% !important; 
+            cursor: pointer !important; 
+            background: var(--gek-green) !important;
+            height: 42px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-weight: bold !important;
+
+        }
+
+        &Wrapper{
+            height: inherit;
+            display: flex; 
+            align-items: center; 
+            width: 40%; 
+        }
+    }
+}

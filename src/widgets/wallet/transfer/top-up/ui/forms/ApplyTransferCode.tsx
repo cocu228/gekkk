@@ -17,6 +17,7 @@ import TransferCodeDescription from "@/widgets/wallet/transfer/components/transf
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { validateInput } from "@/shared/ui/input/model/helpers";
+import styles from "./style.module.scss"
 
 const ApplyTransferCode = () => {
     const {t} = useTranslation();
@@ -64,8 +65,8 @@ const ApplyTransferCode = () => {
     return <div>
         <TransferCodeDescription/>
         
-        <div className="row flex gap-10 md:gap-[5vw]">
-            <div className="col flex items-center w-3/5">
+        <div className={styles.Code}>
+            <div className={styles.CodeInputsWrapper}>
                 {!md ? <Input 
                     value={input} 
                     disabled={loading}
@@ -75,7 +76,7 @@ const ApplyTransferCode = () => {
                     placeholder={t("enter_top_up_code")} type={"text"}
                 />
                 :
-                    <div className="md:h-[43px] w-full border-solid border-[2px] flex justify-center overflow-hidden border-[var(--gek-green)] rounded-[8px]">
+                    <div className={styles.CodeInputsMobileWrapper}>
                         <input
                             value={input}
                             disabled={loading}
@@ -84,32 +85,23 @@ const ApplyTransferCode = () => {
                                     setInput(event.target.value)
                                 }
                             }}
-                            className="outline-none text-[12px] text-[var(--gek-additional)] h-full bg-[transparent] w-[90%] placeholder:text-center placeholder:text-[10px] placeholder:text-[var(--gek-light-grey)]" 
+                            className={styles.CodeInputsMobile} 
                             placeholder={`-${t("enter_top_up_code").toLowerCase()}-`} 
                             type="text"
                          />
                     </div>
                 }
             </div>
-            <div className="col h-inherit flex items-center w-2/5">
-                {!md ? <Button disabled={input === "" || loading} onClick={showModal}
-                        size={"xl"}
-                        className={"w-full  !h-full !font-medium"}>
+            <div className={styles.CodeButtonWrapper}>
+
+                <Button 
+                    disabled={input === "" || loading} 
+                    onClick={showModal}
+                    size={md? undefined : "xl"}
+                    className={styles.CodeButton}
+                >
                     {t("apply")}
                 </Button>
-                :
-                    <button
-                        disabled={input === "" || loading}
-                        onClick={showModal}
-                        className="bg-[var(--gek-green)] cursor-pointer w-full h-[42px] rounded-[8px]"
-                    >
-                        <span 
-                            className="font-bold text-[white] text-[14px] "
-                        >
-                            {t("apply")}
-                        </span>
-                    </button>
-                }
 
                 <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}/>}
                            onCancel={handleCancel} open={isModalOpen}>

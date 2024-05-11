@@ -1,33 +1,5 @@
 @import "../../../../../app/styles/mixins.scss";
 
-.Container{
-
-
-    @include max-devices(md){
-        position: relative;
-        width: 100%;
-        background-color: white;
-        border-radius: 8px;
-        padding: 10px 15px;
-        margin-bottom: 8px;
-    }
-}
-
-.NetworkContainer{
-    @include max-devices(md){
-        position: relative;
-        width: 100%;
-        height: 60px;
-        background-color: white;
-        border-radius: 8px;
-        display: flex;
-        padding-left: 20px;
-        align-items: center;
-        margin-bottom: 8px;
-        cursor: pointer;
-    }
-}
-
 .TextSelectTitle{
     display: flex; 
     margin-bottom: 1.25rem; 
@@ -40,3 +12,107 @@
     color: #1F3446;
     margin-left: 5px;
 }
+
+.NoActions{
+    
+    @include max-devices(md){
+        font-weight: 400;
+        font-size: 12px;
+        color: var(--gek-additional);
+    }
+}
+
+.ToTransfers{
+
+    &Container{
+        @include max-devices(md){
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--gek-additional);
+        }
+    }
+    
+    &Link{
+        color: var(--color-blue-400);
+        cursor: pointer;
+        @include max-devices(md){
+            font-weight: 700; 
+            text-decoration: underline; 
+            color: var(--gek-green);
+        }
+
+    }
+}
+
+.TopUp{
+
+    &MainContainer{
+        display: flex; 
+        position: relative; 
+        justify-content: center; 
+        min-height: 200px;
+
+    }
+
+    &Container{
+
+
+        @include max-devices(md){
+            position: relative;
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+        }
+    }
+
+    &NetworkContainer{
+        @include max-devices(md){
+            position: relative;
+            width: 100%;
+            height: 60px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            padding-left: 20px;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+
+            &Title{
+                font-weight: 700; 
+                font-size: 12px;
+                color: #1F3446;
+            }
+        }
+    }
+
+    &MobileForm{
+        margin-top: 20px;
+        margin-bottom: 10px;
+
+    }
+
+    &AttentionMobile{
+        margin-bottom: 15px;
+        margin-top: 15px;
+
+        &Container{
+            display: flex; 
+            flex-direction: row; 
+            color: var(--gek-red);
+            font-size: 10px;
+            
+            &Icon{
+                display: flex; 
+                align-items: flex-start; 
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+        }
+    }
+
+}
+

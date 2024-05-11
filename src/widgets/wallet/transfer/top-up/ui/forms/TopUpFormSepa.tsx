@@ -4,6 +4,7 @@ import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 // import {storeOrganizations} from "@/shared/store/organizations";
+import styles from "./style.module.scss"
 
 const TopUpFormSepa = () => {
 
@@ -13,16 +14,16 @@ const TopUpFormSepa = () => {
     const {md} = useBreakpoints()
 
     return (<div className="wrapper">
-        <div className="row mb-8 md:mb-[10px] w-full">
+        <div className={styles.Sepa}>
             <div className="col">
-                <div className="row mb-2 md:mb-[3px] md:ml-[10px] md:text-[10px]">
+                <div className={styles.SepaTitleWrapper}>
                     <div className="col">
-                        <span className="text-gray-400 md:text-[var(--gek-additional)] md:font-semibold">{t("account_for_top_up")}:</span>
+                        <span className={styles.SepaTitle}>{t("account_for_top_up")}:</span>
                     </div>
                 </div>
-                <div className="row md:text-[var(--gek-dark-blue)] md:border-solid md:border-[var(--gek-light-grey)] md:border-[1px] md:py-[10px] md:px-[15px] md:rounded-[5px]">
-                    <div className="col md:text-[12px] flex items-center select-text">
-                        <span className='md:w-[100%] overflow-hidden text-ellipsis'>{account.number}</span>
+                <div className={styles.SepaValueWrapper}>
+                    <div className={styles.SepaValueWrapperSecond}>
+                        <span className={styles.SepaValue}>{account.number}</span>
                         <div>
                             <CopyIcon value={account.number}/>
                         </div>
@@ -30,7 +31,7 @@ const TopUpFormSepa = () => {
                 </div>
             </div>
         </div>
-        {/*<div className="row mb-8 md:mb-[10px] w-full">*/}
+        {/*<div className={styles.Sepa}>*/}
         {/*    <div className="col">*/}
         {/*        <div className="row mb-2">*/}
         {/*            <div className="col">*/}
@@ -48,46 +49,46 @@ const TopUpFormSepa = () => {
         {/*        </div>*/}
         {/*    </div>*/}
         {/*</div>*/}
-        <div className="row mb-8 md:mb-[10px] w-full">
+        <div className={styles.Sepa}>
             <div className="col">
-                <div className="row mb-2 md:mb-[3px] md:ml-[10px] md:text-[10px]">
+                <div className={styles.SepaTitleWrapper}>
                     <div className="col">
-                        <span className="text-gray-400 md:text-[var(--gek-additional)] md:font-semibold">{t("recipient")}:</span>
+                        <span className={styles.SepaTitle}>{t("recipient")}:</span>
                     </div>
                 </div>
-                <div className="row md:text-[var(--gek-dark-blue)] md:border-solid md:border-[var(--gek-light-grey)] md:border-[1px] md:py-[10px] md:px-[15px] md:rounded-[5px]">
-                    <div className="col md:text-[12px] flex items-center select-text">
-                        <span className=' md:w-[100%] overflow-hidden text-ellipsis'>{account.name}</span>
+                <div className={styles.SepaValueWrapper}>
+                    <div className={styles.SepaValueWrapperSecond}>
+                        <span className={styles.SepaValue}>{account.name}</span>
                         <CopyIcon value={account.name}/>
                     </div>
                 </div>
             </div>
         </div>
-        <div className="row mb-8 md:mb-[10px] w-full">
+        <div className={styles.Sepa}>
             <div className="col">
-                <div className="row mb-2 md:mb-[3px] md:ml-[10px] md:text-[10px]">
+                <div className={styles.SepaTitleWrapper}>
                     <div className="col">
-                        <span className="text-gray-400 md:text-[var(--gek-additional)] md:font-semibold">{t("the_beneficiary_bank")}:</span>
+                        <span className={styles.SepaTitle}>{t("the_beneficiary_bank")}:</span>
                     </div>
                 </div>
-                <div className="row md:text-[var(--gek-dark-blue)] md:border-solid md:border-[var(--gek-light-grey)] md:border-[1px] md:py-[10px] md:px-[15px] md:rounded-[5px]">
-                    <div className="col md:text-[12px] flex items-center select-text">
-                        <span className=' md:w-[100%] overflow-hidden text-ellipsis'>Papaya Ltd</span>
+                <div className={styles.SepaValueWrapper}>
+                    <div className={styles.SepaValueWrapperSecond}>
+                        <span className={styles.SepaValue}>Papaya Ltd</span>
                         <CopyIcon value={'Papaya Ltd'}/>
                     </div>
                 </div>
             </div>
         </div>
-        <div className="row mb-8 md:mb-[10px] w-full">
+        <div className={styles.Sepa}>
             <div className="col">
-                <div className="row mb-2 md:mb-[3px] md:ml-[10px] md:text-[10px]">
+                <div className={styles.SepaTitleWrapper}>
                     <div className="col">
-                        <span className="text-gray-400 md:text-[var(--gek-additional)] md:font-semibold">{t("bic_of_beneficiary_bank")}:</span>
+                        <span className={styles.SepaTitle}>{t("bic_of_beneficiary_bank")}:</span>
                     </div>
                 </div>
-                <div className="row md:text-[var(--gek-dark-blue)] md:border-solid md:border-[var(--gek-light-grey)] md:border-[1px] md:py-[10px] md:px-[15px] md:rounded-[5px]">
-                    <div className="col md:text-[12px] flex items-center select-text">
-                        <span className=' md:w-[100%] overflow-hidden text-ellipsis'>PAPYMTMTXXX</span>
+                <div className={styles.SepaValueWrapper}>
+                    <div className={styles.SepaValueWrapperSecond}>
+                        <span className={styles.SepaValue}>PAPYMTMTXXX</span>
                         <CopyIcon value={'PAPYMTMTXXX'}/>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import BankCardsCarousel from '@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import NewBankCard from '@/widgets/dashboard/ui/cards/bank-card/NewBankCard';
 import SkeletonCard from '@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard';
 import { t } from 'i18next';
-import { helperFilterList } from '../model/helpers';
+import { helperFilterListGekkard, helperFilterListGekkoin, helperFilterListGekwallet } from '../model/helpers';
 import TokenBar from './TokenBar';
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
@@ -99,7 +99,13 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
 
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
-                helperFilterList(secondaryWallets).map((item) =>
+                (gekkardMode ? 
+                    helperFilterListGekkard(secondaryWallets) 
+                :
+                    gekwalletMode ? 
+                        helperFilterListGekwallet(secondaryWallets) 
+                    : 
+                        helperFilterListGekkoin(secondaryWallets)).map((item) =>
                     <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
 

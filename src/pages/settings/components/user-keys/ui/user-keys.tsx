@@ -17,6 +17,8 @@ import Modal from "@/shared/ui/modal/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
+import Button from "@/shared/ui/button/Button";
+import Input from "@/shared/ui/input/Input";
 
 interface IChallange {
   newCredential:string,
@@ -24,7 +26,7 @@ interface IChallange {
 }
 
 export function UserKeys() {
-    const [code, setCode] = useState<string>('');
+    const [code, setCode] = useState<string>(null);
     const [keyToRemove, setKeyToRemove] = useState<UserKey>();
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
     const keysList = useUserKeys(keyDeleted);
@@ -36,8 +38,7 @@ export function UserKeys() {
     const [challenge, setChallenge] = useState<IChallange>({
       newCredential:"",
       id:"",
-    })
-
+    })    
 
 
     function onRemoveKey(id){
@@ -57,60 +58,67 @@ export function UserKeys() {
     return (
         <MobileWrapper className="w-[90%]">
             <div className={style.addGekkeyBlock}>
-                <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}:</h4>
-                <MobileInput 
-                    wrapperClassName="w-1/2"
-                    className="min-h-[40px]"
-                    placeholder={t("enter_sms_code")} 
+              <div className="flex flex-col w-full">
+                  <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
+                  <hr className="border-[var(--gek-dark-grey)]"/>
+              </div>
+              <div className="flex flex-row justify-between items-center p-[10px]">
+                <span className="md:text-[12px] font-bold text-[#1F3446]">
+                  {t("confirmation_code")}:
+                </span>
+                <Input
+                    allowDigits
+                    wrapperClassName="w-1/2 "
+                    className="!h-[29px] placeholder:!text-[var(--gek-light-grey)] flex placeholder:text-center !px-2"
+                    placeholder={"-" + t("enter_sms_code") + "-"}
                     value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    onChange={({target}) => setCode(target.value)}
                     disabled={!smsSent}
                 />
-            </div>
-            <div className={style.btnsBlock}>
-                <MobileButton  
-                  varitant="light" 
-                  className="w-48"
-                  onClick={()=> {
-                    RegisterOption(setChallenge, setSmsSent)
-                  }}
-                >
-                    {t("send_sms_code")}
-                </MobileButton>
-                <MobileButton 
-                  className="w-24" 
-                  varitant={code ? 'default' : 'disabeled'}
-                  onClick={()=>{
-                    RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
-                    setCode("")
-                  }}  
-                >
-                    {t("create_key")}
-                </MobileButton>
+              </div>
+              <div className={style.btnsBlock}>
+                  <Button  
+                    className={style.Button}
+                    onClick={()=> {
+                      RegisterOption(setChallenge, setSmsSent)
+                    }}
+                  >
+                      {t("send_sms")}
+                  </Button>
+                  <Button 
+                    className={style.Button}
+                    onClick={()=>{
+                      RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                      setCode("")
+                    }}
+                    disabled={!smsSent || !code}
+                  >
+                      {t("create_key")}
+                  </Button>
+              </div>
             </div>
 
             <div className={style.keysWrap}>
                 {keysList.map((key,index) => <div className={style.keysItem}>
-                <div className="w-4/5 overflow-hidden">
-                {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
+                  <div className="w-4/5 overflow-hidden">
+                    {/* timestampToDateFormat(getUnixTime(parseISO(key?.utc_create))) */}
                     <p className={style.keyItemDate}>{formatDate(getUnixTime(parseISO(key?.utc_create)))}</p>
                     <p className={style.keyItemDate}>{t("type")}: {key.key_type}</p>
                     <h4 className={style.keyItemDate}>{t("public_key")}: {key?.public_key}</h4>
-                </div>
-                <div className={style.keyBtnWrap}>
-                    <MobileButton
-                      className={`w-full ${style.button}`}
+                  </div>
+                  <div className={style.keyBtnWrap}>
+                    <Button
+                      className={`w-full ${index===0 ? "current" : "remove"} ${style.Button}`}
                       onClick={()=>{
                           showModal()
                           setKeyToRemove(key)
                       }}
-                      varitant={index === 0 ? 'warn' : 'alarm'}
                     >
                       <span className="capitalize">
                         {index === 0 ? t("current") : t("remove")}
                       </span>
-                    </MobileButton>
-                </div>
+                    </Button>
+                  </div>
                 </div>)
                 }
                 {!keysList.length && (

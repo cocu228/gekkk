@@ -1,3 +1,5 @@
+@import "@styles/mixins.scss";
+
 .button {
     height: 45px;
 }
@@ -5,30 +7,52 @@
 .addGekkeyBlock {
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     border-radius: 0.5rem;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 10px 20px var(--color-gray-200);
-    padding: 40px;
+    // box-shadow: 0 10px 20px var(--color-gray-200);
+    padding: 10px 3%;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .addGekkeyTitle {
     color: #1F3446;
     font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
+    padding: 10px 10px;
+    @include max-devices(md){
+        font-size: 12px;
+    }
 
 }
 
 .btnsBlock {
     display: flex;
     flex-direction: row;
-    margin-top: 2.5rem;
     min-height: 45px;
-    gap: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.Button{
+    background: var(--gek-green) !important;
+    font-size: 14px;
+    font-weight: bold !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:disabled{
+        background: var(--gek-mid-grey) !important;
+    }
+
+
 }
 
 .keysWrap {
@@ -40,7 +64,7 @@
 }
 
 .keysItem {
-    max-height: 500px;
+    max-height: 62px;
     gap: 0.75rem;
     justify-content: space-between;
     align-items: center;
@@ -49,16 +73,20 @@
     border-radius: 0.5rem;
     width: 100%;
     background-color: #ffffff;
-    box-shadow: 0 10px 20px var(--color-gray-200);
-    padding: 40px;
-    margin-top: 1.5rem;
+    padding: 10px;
 }
 
 .keyItemDate {
     color: #3A5E66;
     font-family: Inter;
-    font-size: 14px;
-    font-weight: 500;
+    @include max-devices(md){
+        font-size: 10px;
+    }
+
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .keyBtnWrap {
@@ -66,5 +94,32 @@
     align-items: center;
     justify-content: center;
     min-height: 45px;
-    width: 20%;
+    padding: 10px;
+    gap: 5px;
+
+    :global(.current){
+        background: var(--gek-background) !important;
+        border: 2px solid var(--gek-orange);
+        color: var(--gek-orange);
+        border-radius: 5px;
+        @include max-devices(md){
+            height: 27px;
+            font-size: 10px;
+            max-width: 80px;
+        }
+    
+    }
+
+    :global(.remove){
+        background: var(--gek-background) !important;
+        border: 2px solid var(--gek-red);
+        color: var(--gek-red);
+        border-radius: 5px;
+        @include max-devices(md){
+            height: 27px;
+            font-size: 10px;
+            max-width: 80px;
+        }
+
+    }
 }

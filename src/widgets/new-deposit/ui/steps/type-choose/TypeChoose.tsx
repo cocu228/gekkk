@@ -1,6 +1,6 @@
 import Radio from '@/shared/ui/radio';
 import Loader from "@/shared/ui/loader";
-import {useContext, useState} from 'react';
+import {memo, useContext, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from '@/shared/lib/(orval)axios';
@@ -15,8 +15,10 @@ import {formatAsNumberAndDot} from '@/shared/lib/formatting-helper';
 import {getTypeDescriptions} from "@/widgets/new-deposit/model/helpers";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import {actionResSuccess, getCookieData, uncoverResponse} from '@/shared/lib/helpers';
+import {useTranslation} from "react-i18next";
 
-const TypeChoose = () => {
+const TypeChoose = memo(() => {
+
     const {
         type,
         amount,
@@ -32,6 +34,8 @@ const TypeChoose = () => {
 
     if (!currencies) return null
 
+    const { t } = useTranslation();
+
     const descriptions = getTypeDescriptions(isGke);
     const [modalLoading, setModalLoading] = useState<boolean>(false);
     const [redirectCurrency, setRedirectCurrency] = useState<string>(null);
@@ -46,14 +50,14 @@ const TypeChoose = () => {
 
     const customBalanceValidator = (wallet: ICtxCurrency) => {
         return (value) => ({
-            validated: +value <= +wallet.balance,
+            validated: +value <= +wallet.balance.user_balance,
             errorMessage: <>
                 You don't have enough funds.
                 Please <span
                     className="text-blue-400 hover:cursor-pointer hover:underline"
                     onClick={() => {
                         setRedirectCurrency(wallet.$const);
-                        TopUpModal.showModal();
+                        // TopUpModal.showModal();
                     }}
                 >top up</span> your {wallet.$const} account.
             </>
@@ -131,16 +135,16 @@ const TypeChoose = () => {
                 <div className="w-full">
                     <InputCurrency.Validator
                         description={`Minimum deposit amount is ${minAmount} ${eurgWallet.$const}`}
-                        value={amount.toString()}
+                        value={+amount}
                         validators={[
                             customBalanceValidator(eurgWallet),
-                            validateMinimumAmount(minAmount)
+                            validateMinimumAmount(minAmount, +amount, eurgWallet.$const, t)
                         ]}
                     >
                         <InputCurrency.PercentSelector header={'Enter deposit amount'} currency={eurgWallet} onSelect={onAmountChange}>
                             <InputCurrency.DisplayBalance currency={eurgWallet}>
                                 <InputCurrency
-                                    value={amount}
+                                    value={amount.toString()}
                                     onChange={(v) => onAmountChange(formatAsNumberAndDot(v))}
                                     currency={eurgWallet.$const}
                                 />
@@ -151,10 +155,10 @@ const TypeChoose = () => {
 
                 {!isGke ? null : <div className="w-full mt-[27px]">
                     <InputCurrency.Validator
-                        value={amount.toString()}
+                        value={+amount}
                         validators={[
                             customBalanceValidator(gkeWallet),
-                            validateMinimumAmount(minAmount)
+                            validateMinimumAmount(minAmount, +amount, gkeWallet.$const, t)
                         ]}
                     >
                         <InputCurrency.DisplayBalance currency={gkeWallet}>
@@ -189,6 +193,6 @@ const TypeChoose = () => {
             {/*</Modal>*/}
         </div>
     );
-};
+});
 
 export default TypeChoose;

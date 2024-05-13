@@ -13,7 +13,13 @@ export const walletsGeneration = (currencies: Map<string, ICtxCurrency>, wallets
     wallets.forEach(wallet => {
         currencies.set(wallet.currency, {
             ...currencies.get(wallet.currency),
-            balance: wallet
+            balance: wallet,
+            // lockOrders: wallet.lock_orders,
+            // userBalance: wallet.user_balance,
+            // lockInBalance: wallet.lock_in_balance,
+            // lockOutBalance: wallet.lock_out_balance,
+            // userBalanceEUREqu: wallet.user_balance_EUR_equ,
+            // availableBalance: isNumber(wallet.free_balance) ? new Decimal(wallet.free_balance) : null,
         });
     });
 

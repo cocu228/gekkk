@@ -1,14 +1,13 @@
 import style from './style.module.scss' 
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
-import { TxInfoProps } from '../model/types';
+import { TxInfoProps } from '../../model/types';
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { useEffect, useRef, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import { apiUpdateTxPartnerInfo } from "@/shared/(orval)api/gek";
-import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
 
 interface InputRef {
   focus: () => void;
@@ -83,7 +82,7 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
               <Button
                 variant='greenTransfer'
                 onClick={() => setPartnerInfo(input)}
-                disabled={input === "" || containsNonLatinCharacters(input)}
+                disabled={input === ""}
                 size={"xl"}
                 className="w-full"
               >

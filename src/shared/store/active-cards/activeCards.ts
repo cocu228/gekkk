@@ -22,19 +22,16 @@ export const CardStatusDescriptions: Record<string, string> = {
 }
 
 export interface IStoreBankCards {
-    //refreshKey: string;
     loading: boolean;
     mainCard: ICardData | null;
     activeCards: ICardData[] | null;
     getActiveCards: () => Promise<void>;
-    //updateCard: (card: IResCard) => void;
 }
 
 export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
     loading: false,
     mainCard: null,
     activeCards: null,
-    //refreshKey: null,
     getActiveCards: async () => {
         set((state) => ({
             ...state,
@@ -49,16 +46,5 @@ export const storeActiveCards = create<IStoreBankCards>()(devtools((set) => ({
             refreshKey: randomId(),
             activeCards: data.result,
             mainCard: data.result.find(c => c.productType === 'MAIN')
-        }));},
-    // updateCard: (card: IResCard) => {
-    //     set((state) => {
-    //         return ({
-    //             ...state,
-    //             refreshKey: randomId(),
-    //             activeCards: [
-    //                 ...state.activeCards.filter(c => c.cardId !== card.cardId),
-    //                 card
-    //             ]
-    //         });
-    //     });}
+        }));}
 })));

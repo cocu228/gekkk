@@ -1,12 +1,7 @@
-import { formatForHistoryMobile } from '@/shared/lib/date-helper';
 import styles from './style.module.scss';
-import { useState } from 'react';
-import { UserLoginLog } from '@/shared/(orval)api/auth/model/userLoginLog';
 import { useLoginList } from '../model/use-login-list';
 import Loader from '@/shared/ui/loader';
-import { formatDate } from '../../user-keys/model/date-formater';
 import { t } from 'i18next';
-import { Typography } from '@/shared/ui/typography/typography';
 import { getDate, getTimeAndTimeZone } from "../model/date-formaters";
 import { getUnixTime, parseISO } from 'date-fns';
 

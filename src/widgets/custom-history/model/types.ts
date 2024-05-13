@@ -1,8 +1,8 @@
-import { Card, TransactTypeEnum } from "@/shared/(orval)api/gek/model";
+import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
 
 export interface ISelectTxTypes {
-    label: string;
     t: string;
+    label: string;
     value: TransactTypeEnum[];
 }
 
@@ -15,4 +15,9 @@ export interface ISelectAssets {
 export interface ISelectCard {
     label: string;
     value: string;
+}
+
+export interface IDateRange {
+    to: Date | null;
+    from: Date | null;
 }

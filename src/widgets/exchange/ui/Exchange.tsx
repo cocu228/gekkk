@@ -12,7 +12,6 @@ import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { useContext, useEffect, useState } from "react";
 import PageHead from "@/shared/ui/page-head/PageHead";
 import SplitGrid from "@/shared/ui/split-grid/SplitGrid";
-import InputCurrency from "@/shared/ui/input-currency/ui";
 import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { apiCreateOrder } from "@/shared/(orval)api/gek";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
@@ -24,16 +23,9 @@ import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
 import DepthOfMarket from "@/widgets/exchange/ui/depth-of-market/DepthOfMarket";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import ParticipantsNumber from "@/shared/ui/participants-number/ParticipantsNumber";
-import OperationResult from "@/widgets/exchange/ui/operation-result/OperationResult";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { useTranslation } from "react-i18next";
-import {
-  validateBalance,
-  validateMinimumAmount,
-} from "@/shared/config/validators";
-import Decimal from "decimal.js";
 import useError from "@/shared/model/hooks/useError";
-import InlineProperty from "@/shared/ui/inline-property";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import InlineData from "./inline-data/InlineData";

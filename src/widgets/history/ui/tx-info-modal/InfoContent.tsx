@@ -1,23 +1,23 @@
 import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
+import style from './style.module.scss';
 import Loader from "@/shared/ui/loader";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { TxInfoProps } from "../../model/types";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import InfoConfirmPartner from "@/widgets/history/ui/InfoConfirmPartner";
-import { actionResSuccess, isNull } from "@/shared/lib/helpers";
-import {AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
-import { AddressTxOut } from "@/shared/(orval)api/gek/model";
+import InfoConfirmPartner from "./InfoConfirmPartner";
 import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
-import style from './style.module.scss';
-import { TxInfoProps } from "../model/types";
+import { formatForCustomer } from "@/shared/lib/date-helper";
+import { actionResSuccess, isNull } from "@/shared/lib/helpers";
+import { AddressTxOut, AdrTxTypeEnum } from "@/shared/(orval)api/gek/model";
 
 const InfoContent = (props: TxInfoProps) => {
   const { t } = useTranslation();
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
+
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
   const loading = isNull(state) && isAvailableType;

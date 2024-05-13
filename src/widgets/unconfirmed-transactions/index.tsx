@@ -2,13 +2,13 @@ import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {IconApp} from "@/shared/ui/icons/icon-app";
-import InfoContent from "../history/ui/InfoContent";
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import {useContext, useEffect, useState} from "react";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
+import InfoContent from "../history/ui/tx-info-modal/InfoContent";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
 

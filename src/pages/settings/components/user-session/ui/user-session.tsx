@@ -1,8 +1,6 @@
-import { formatForHistoryMobile } from '@/shared/lib/date-helper';
 import styles from './style.module.scss';
 import { UserSession as UserSessionT } from '@/shared/(orval)api/auth/model';
 import Loader from '@/shared/ui/loader';
-import { Typography } from '@/shared/ui/typography/typography';
 import { getDate, getTime } from "../model/date-formaters";
 import { useSession } from '../model/use-sessions';
 import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
@@ -11,7 +9,6 @@ import { useState } from 'react';
 import Modal from '@/shared/ui/modal/Modal';
 import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
-import { formatDate } from '../../user-keys/model/date-formater';
 import { useTranslation } from 'react-i18next';
 import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 

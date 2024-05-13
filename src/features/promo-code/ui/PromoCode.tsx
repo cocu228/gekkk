@@ -6,7 +6,6 @@ import { apiApplyCode } from "@/shared/(orval)api/gek";
 import { promoCodeMessage } from "@/shared/config/message";
 import useValidation from "@/shared/model/hooks/useValidation";
 import { validateStatus } from "@/features/promo-code/model";
-import { containsNonLatinCharacters } from "@/widgets/history/model/helpers";
 import { useTranslation } from "react-i18next";
 import buttonStyles from "@/widgets/wallet/transfer/withdraw/ui/forms/styles.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -109,8 +108,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               disabled={
                 valInput === "" ||
                 loading ||
-                isCodeApplied ||
-                containsNonLatinCharacters(valInput)
+                isCodeApplied
               }
             >
               {t("confirm")}

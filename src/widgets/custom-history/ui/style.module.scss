@@ -54,64 +54,6 @@
     padding: 0 10px 0 20px;
 }
 
-.histWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.TableHead {
-  background-color: #E7E7E7;
-  color: #9D9D9D;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 10px 15px;
-  align-items: center;
-
-  @include max-devices("md") {
-    font-size: 12px;
-  }
-}
-
-.TableBody {
-  display: inherit;
-  position: relative;
-  //min-height: 140px;
-  background-color: #f9f9fa;
-  border: 1px solid #eff3f8;
-  border-radius: 1px 1px 8px 8px;
-
-  & > .Row {
-    align-items: center;
-    box-sizing: border-box;
-    gap: 8px;
-    color: #282828;
-    padding: 8px 15px;
-    font-size: 12px;
-    justify-content: space-between;
-    //line-height: 1.6;
-    //min-height: 56px;
-    //padding: 10px 23px 8px 22px;
-    position: relative;
-    text-align: left;
-    transition: .2s;
-    width: 100%;
-
-    @include max-devices("md") {
-      font-size: 12px;
-    }
-
-    :hover {
-      box-shadow: 0 1px 81px rgba(0, 0, 0, 0.1);
-      transition: .2s;
-    }
-
-    &:not(:last-child) {
-      border-bottom: 1px solid #eff3f8;
-    }
-  }
-}
-
 .MainContainerMobile{
   display: flex;
   padding: 10px 5px;
@@ -120,6 +62,7 @@
   gap: 5px;
   align-self: stretch;
 }
+
 .DataMobile{
   display: flex;
   padding: 5px 10px 0px 10px;
@@ -136,6 +79,7 @@
   line-height: 12px; /* 100% */
   gap: 10px;
 }
+
 .InfoMobile{
   display: flex;
   position: relative;
@@ -347,6 +291,12 @@
   justify-content: space-between;
   gap: 10px;
   border-radius: 8px;
+}
+
+.NoCardsTitle {
+  display: flex;
+  font-size: 12px;
+  justify-content: center;
 }
 
 .SelectTitle {

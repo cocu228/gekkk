@@ -22,5 +22,6 @@ export const apiGetClientDetails = () =>
     headers: {
         ApplicationId: "GEKKARD",
         ProductId: "GEKKARD",
-    }
+    },
+    withCredentials: true
   });

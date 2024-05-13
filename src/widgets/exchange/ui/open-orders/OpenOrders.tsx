@@ -17,7 +17,6 @@ import { useContext, useEffect, useState } from "react";
 import { CtxCurrencies } from "@/processes/CurrenciesContext";
 import { GetOrderListOut } from "@/shared/(orval)api/gek/model";
 import OrderProperties from "./order-properties/OrderProperties";
-import SecondaryTabGroup from "@/shared/ui/tabs-group/secondary";
 import { apiGetOrders, apiCancelOrder } from "@/shared/(orval)api/gek";
 import {
   actionResSuccess,

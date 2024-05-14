@@ -41,8 +41,6 @@ const SidebarDesktop = () => {
         gkeWallet = currencies.get("GKE");
     }
 
-    console.log(gkeWallet)
-
     return (
         <div className={`${styles.Sidebar} flex flex-col justify-between`}>
             <div className="wrapper">
@@ -94,13 +92,13 @@ const SidebarDesktop = () => {
                                 </div>
                                 <div className="row w-full font-mono">
                                     <span className={styles.Sum}>
-                                        {(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance?.lock_in_balance, gkeWallet.roundPrec)) ?? '-'} GKE
+                                        {(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance?.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE
                                     </span>
                                 </div>
                                 {gkeWallet && gkeWallet.balance !== undefined &&
                                     <div className={"row w-full flex justify-between"}>
                                         <div>
-                                            {!gkeWallet.balance?.lock_in_balance ? null :
+                                            {!gkeWallet.balance.lock_in_balance ? null :
                                                 <span className={styles.Income}>
                                                     +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                                 </span>}

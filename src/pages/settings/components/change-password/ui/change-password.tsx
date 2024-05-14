@@ -36,6 +36,10 @@ export function ChangePassword() {
     setConfirmCode(e.target.value);
   };
 
+  const handleEyeClick = () => {
+    
+  }
+
   return (
     <MobileWrapper className="w-full">
       <div className={styles.passwordWrap}>
@@ -48,15 +52,16 @@ export function ChangePassword() {
                     value={newPass}
                     onChange={(e)=>{setNewPass(e.target.value)}}
                     /> */}
-          <Input
-            allowDigits
-            allowSymbols
-            onChange={passSave}
-            value={newPass}
-            wrapperClassName="w-1/2"
-            className="min-h-[40px]"
-            placeholder={t("enter_new_password")}
-          />
+            <Input
+              eye={true}
+              allowDigits
+              allowSymbols
+              onChange={passSave}
+              value={newPass}
+              wrapperClassName="w-1/2"
+              className="min-h-[40px] h-[52px]"
+              placeholder={t("enter_new_password")}
+            />
         </div>
         <div className={styles.passwordLine}>
           <h4 className={styles.inputTitle}>{t("confirm_password")}:</h4>
@@ -70,12 +75,13 @@ export function ChangePassword() {
             }}
           /> */}
           <Input
+            eye={true}
             allowDigits
             allowSymbols
             onChange={passConfirm}
             value={confirmNewPass}
             wrapperClassName="w-1/2"
-            className="min-h-[40px]"
+            className="min-h-[40px] h-[52px]"
             placeholder={t("confirm_new_password")}
           />
         </div>

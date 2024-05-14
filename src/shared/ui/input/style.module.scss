@@ -39,6 +39,14 @@
   }
 }
 
+.EyeStyles {
+  position: relative;
+
+  input {
+    padding: 1rem 2.2rem 1rem 1.25rem !important;
+  }
+}
+
 .TransfersInput{
   height: 32px;
   position: relative;
@@ -61,4 +69,16 @@
     }
   }
 
+}
+
+.EyeBlock {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  @media screen and (max-width: 767px) {
+    right: 10px;
+  }
 }

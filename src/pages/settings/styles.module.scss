@@ -301,14 +301,19 @@
     border-radius: 0.5rem;
     padding: 40px;
     width: 100%;
-    margin-top: 1.25rem;
+    margin-bottom: 10px;
+
+    &:first-child {
+        margin-top: 1.25rem;
+    }
 
     &Title {
         color: #3A5E66;
         font-family: Inter;
         font-size: 10px;
-        font-weight: 400;
+        font-weight: 600;
         line-height: 20px;
+        text-transform: capitalize;
     }
 
     &Text {

@@ -122,9 +122,9 @@ export function UserKeys() {
                 </div>)
                 }
                 {!keysList.length && (
-                    <div className='relative mt-32'>
-                        <Loader className="top-1/2 left-1/2"/>
-                    </div>
+                <div className='relative mt-32 w-full'>
+                  <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]"/>
+                </div>
                 )}
             </div>
           

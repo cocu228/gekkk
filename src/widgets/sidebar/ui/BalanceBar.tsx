@@ -12,6 +12,7 @@ import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Carousel from '@/shared/ui/carousel';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
 type Props = {
     NavLinkEvent: () => void,
@@ -34,8 +35,8 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
     let ethWallet: ICtxCurrency = null
     let secondaryWallets: ICtxCurrency[] = [];
 
-    const gekwalletMode = global.VITE_APP_TYPE.toLowerCase().includes("gekwallet");
-    const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+    const gekwalletMode = IS_GEKKWALLET_APP();
+    const gekkardMode = IS_GEKKARD_APP();
     
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");

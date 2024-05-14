@@ -18,6 +18,7 @@ import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import {IS_GEKKARD_APP} from "@/shared/lib";
 
 const History = memo(function ({
   to,
@@ -45,7 +46,7 @@ const History = memo(function ({
     threshold: 0.9,
   });
 
-  const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+  const gekkardMode = IS_GEKKARD_APP();
 
   const requestHistory = async (cancelToken = null) => {
     setLoading(true);

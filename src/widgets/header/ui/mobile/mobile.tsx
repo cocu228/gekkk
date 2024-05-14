@@ -27,6 +27,7 @@ const HeaderMobile = ({ items, actions }) => {
     const {md} = useContext(BreakpointsContext);
 
     const tab = params.get("tab");
+    const settingsTab = params.get("sessionsSection");
 
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
@@ -59,6 +60,31 @@ const HeaderMobile = ({ items, actions }) => {
     // const isOpen = storyToggleSidebar(state => state.isOpen);
     // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
+    const settingsTabTitle = () => {
+        switch(settingsTab) {
+            case `personal-information`:
+                return t('personal_information')
+            case 'app-version':
+                return t('app_version')
+            case 'language':
+                return t('language')
+            case 'change-password':
+                return t('change_password')
+            case 'user-keys':
+                return t('user_keys')      
+            case 'history':
+                return t('history')
+            case 'user-sessions':
+                return t('user_sessions')
+            case 'pricing':
+                return t('pricing')
+            case 'my-reports':
+                return t('my_reports')                       
+            default:
+                return t('settings')    
+        }
+    }
+
     return <>
         <header className={styles.Header}>
 
@@ -88,11 +114,20 @@ const HeaderMobile = ({ items, actions }) => {
                         <IconApp className="rotate-[180deg] m-[0_5vw]" size={13} code="t08" color="#fff" />
                         <span className={styles.HeaderTitle}>Custom search</span>
                     </div>
+                ) : settingsTab ? (
+                    (
+                        <div className="flex items-center w-full" onClick={() => { navigate('/settings') }} data-testid="HeaderMenuContainer">
+                            <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
+                            <span className={styles.HeaderTitle}>{settingsTabTitle()}</span>
+                        </div>
+                    )
                 ) : (
-                    <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
-                        <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
-                        <span className={styles.HeaderTitle}>{headerTitle()}</span>
-                    </div>
+                    (
+                        <div className="flex items-center w-full" onClick={() => { navigate('/') }} data-testid="HeaderMenuContainer">
+                            <IconApp className="rotate-[180deg] m-[0_5vw] cursor-pointer" size={13} code="t08" color="#fff" />
+                            <span className={styles.HeaderTitle}>{headerTitle()}</span>
+                        </div>
+                    )
                 )
             }
 

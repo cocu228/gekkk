@@ -7,6 +7,7 @@ import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 import {useMatch} from "react-router-dom";
+import {IS_GEKKARD_APP} from "@/shared/lib";
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     const {md} = useBreakpoints();
@@ -20,8 +21,10 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
         return value !== null && value !== 0;
     });
 
-    return global.VITE_APP_TYPE === "GEKKARD" ? (
+    return IS_GEKKARD_APP() ? (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
+
+
             <ModalTrxInfoProvider>
                 {md ? null : <>
                     {isActive && <UnconfirmedTransactions/>}
@@ -35,7 +38,7 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
                 </div>
             </ModalTrxInfoProvider>
         </div>
-    ) : (<>{children}</>)
+    ) : (<div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>{children}</div>)
 }
 
 export default Content;

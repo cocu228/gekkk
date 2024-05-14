@@ -19,6 +19,7 @@ import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IChallange {
   newCredential:string,
@@ -33,6 +34,7 @@ export function UserKeys() {
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
+    const navigate = useNavigate()
 
     const [smsSent, setSmsSent] = useState<boolean>(false)
     const [challenge, setChallenge] = useState<IChallange>({
@@ -58,7 +60,7 @@ export function UserKeys() {
     return (
         <MobileWrapper className="w-[90%]">
             <div className={style.addGekkeyBlock}>
-              <div className="flex flex-col w-full">
+              {smsSent && <><div className="flex flex-col w-full">
                   <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
                   <hr className="border-[var(--gek-dark-grey)]"/>
               </div>
@@ -75,25 +77,30 @@ export function UserKeys() {
                     onChange={({target}) => setCode(target.value)}
                     disabled={!smsSent}
                 />
-              </div>
+              </div></>}
               <div className={style.btnsBlock}>
                   <Button  
-                    className={style.Button}
+                    variant="greenTransfer"
+                    className={style.Button + " w-[120px]"}
                     onClick={()=> {
-                      RegisterOption(setChallenge, setSmsSent)
+                      if(!smsSent){
+                        RegisterOption(setChallenge, setSmsSent)
+                      }else{
+                        RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                        setCode("")
+                      }
                     }}
-                  >
-                      {t("send_sms")}
-                  </Button>
-                  <Button 
-                    className={style.Button}
-                    onClick={()=>{
-                      RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
-                      setCode("")
-                    }}
-                    disabled={!smsSent || !code}
                   >
                       {t("create_key")}
+                  </Button>
+                  <Button 
+                    variant="whiteGreenTransfer"
+                    className="w-full"
+                    onClick={()=>{
+                      navigate("/settings")
+                    }}
+                  >
+                      {t("back")}
                   </Button>
               </div>
             </div>

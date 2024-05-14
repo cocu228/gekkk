@@ -11,6 +11,7 @@ import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
 import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import Button from '@/shared/ui/button/Button';
 
 
 export function UserSession() {
@@ -33,30 +34,30 @@ export function UserSession() {
                                 {getDate(session.utc_create)}
                             </div>
                         ): null}
-                        <div className='substrate substrate w-full rounded-lg flex flex-row justify-between items-center'>
+                        <div className='substrate h-[100px] md:h-[76px] !p-[10px] w-full rounded-lg flex flex-row justify-between items-center'>
                             <div className={'flex flex-col'}>
                                 <h4 className={styles.sessionItemTitle}>{getTime(getUnixTime(parseISO(session?.utc_create)))}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("login_type")}: {session.login_type}</h4>
                                 <h4 className={styles.sessionItemTitle}>{session.user_agent}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("ip")}: {session.ip}</h4>
                             </div>
-                            <MobileButton 
-                                varitant={isCurrent(index) ? 'disabeled' : 'alarm'}  
+                            <Button 
                                 className={styles.button}
                                 onClick={()=>{
                                     showModal()
                                     setSessionToRemove(session)
                                 }}
+                                disabled={isCurrent(index)}
                             >
                                 <span className='capitalize'>{isCurrent(index) ? t("current") : t("close")}</span>
-                            </MobileButton>
+                            </Button>
                         </div>
                     </>)
                     }
                     {(sessions?.length > 1) &&
                     <div className='m-5 min-h-[45px]'>
                         <MobileButton
-                            className='h-full p-2'
+                            className='h-full text-[100%] md:!text-[14px] p-2'
                             varitant='alarm'
                             onClick={()=>{
                                 closeAllSessions();

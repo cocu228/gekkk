@@ -46,7 +46,13 @@ const Input = React.forwardRef(
         {
           eye && (
             <div className={styles.EyeBlock} onClick={() => setEyeState(!eyeState)} >
-              <IconApp color='#285E69' size={13} code="t41" />
+              {
+                eyeState ? (
+                  <IconApp color='#285E69' size={13} code="t41" />
+                ) : (
+                  <IconApp color='#285E69' size={13} code="t71" />
+                )
+              }
             </div>
           )
         }

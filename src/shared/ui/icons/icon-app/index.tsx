@@ -13,6 +13,6 @@ export const IconApp:FC<IProps> = ({code,size,color,className, onClick}) => {
     
 
     return (
-        <svg width={size} onClick={onClick} className={`${className && className}`} fill={color} stroke={color} height={size}><use href={`/img/gek_icons_lib2.svg?v2#${code}`}></use></svg>
+        <svg width={size} onClick={onClick} className={`${className && className}`} fill={color} stroke={color} height={size}><use href={`/img/gek_icons_lib3.svg?v2#${code}`}></use></svg>
     )
 }

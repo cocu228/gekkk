@@ -1,7 +1,7 @@
 import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useError from "@/shared/model/hooks/useError";
@@ -112,10 +112,13 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                         </div>
                     </Checkbox>
                 </div>
-                <div className="row">
-                    <Button disabled={isInputEmptyOrNull || isInputMoreThanBalance || loading} className="w-full" size="xl"
-                            onClick={onCreateCode}>{t("confirm")}
-                    </Button>
+                <div className="flex justify-center row">
+                    <Button
+                        size="lg"
+                        disabled={isInputEmptyOrNull || isInputMoreThanBalance || loading}
+                        className="w-full"
+                        onClick={onCreateCode}
+                    >{t("confirm")}</Button>
                 </div>
                 {localErrorInfoBox && <div className="row mt-4">{localErrorInfoBox}</div>}
             </>

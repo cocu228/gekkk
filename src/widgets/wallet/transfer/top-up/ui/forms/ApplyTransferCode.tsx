@@ -1,5 +1,5 @@
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import {apiApplyCode} from "@/shared/(orval)api/gek";
@@ -97,7 +97,7 @@ const ApplyTransferCode = () => {
                 <Button 
                     disabled={input === "" || loading} 
                     onClick={showModal}
-                    size={md? undefined : "xl"}
+                    size={md ? "md" : "lg"}
                     className={styles.CodeButton}
                 >
                     {t("apply")}
@@ -120,8 +120,8 @@ const ApplyTransferCode = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col">
-                                        <Button className="w-full" size={"xl"} onClick={() => {
+                                    <div className="flex justify-center col">
+                                        <Button className="w-full" size="lg" onClick={() => {
                                             handleCancel()
                                         }}>{t("done")}</Button>
                                     </div>

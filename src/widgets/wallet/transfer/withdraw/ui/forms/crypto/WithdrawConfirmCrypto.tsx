@@ -1,6 +1,6 @@
 import {useCallback, useContext, useState, memo, useRef, useEffect} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";
@@ -313,14 +313,15 @@ const WithdrawConfirmCrypto = memo(
                 ) : (
                   <div className={styles.ButtonContainer}>
                     <Button
+                      size="lg"
                       htmlType={"submit"}
                       disabled={
                         input === "" &&
                         (stageReq.status === 0 || stageReq.status === 1)
                       }
                       className={styles.ButtonTwo}
-                      size={"xl"}
-                      variant='whiteGreenTransfer'
+                      color='green'
+                      skeleton
                     >
                       {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
                     </Button>
@@ -328,9 +329,10 @@ const WithdrawConfirmCrypto = memo(
                       onClick={() => {
                         handleCancel();
                       }}
-                      variant='whiteGreenTransfer'
+                      color='green'
+                      skeleton
                       className={styles.ButtonTwo}
-                      size={"xl"}
+                      size="lg"
                     >
                       {t("cancel")}
                     </Button>
@@ -494,7 +496,7 @@ const WithdrawConfirmCrypto = memo(
                     input === "" &&
                     (stageReq.status === 0 || stageReq.status === 1)
                   }
-                  size={"xl"}
+                  size="lg"
                 >
                   {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
                 </Button>
@@ -725,7 +727,7 @@ const WithdrawConfirmCrypto = memo(
                               (stageReq.status === 0 || stageReq.status === 1)
                             }
                             className={styles.ButtonTwo}
-                            variant='greenTransfer'
+                            color="green"
                           >
                             {t(
                               stageReq.status === 2
@@ -738,9 +740,10 @@ const WithdrawConfirmCrypto = memo(
                             onClick={() => {
                               handleCancel();
                             }}
-                            variant='whiteGreenTransfer'
+                            color='green'
+                            skeleton
                             className={styles.ButtonTwo}
-                            size={"xl"}
+                            size="lg"
                           >
                             {t("cancel")}
                           </Button>

@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
@@ -41,9 +41,9 @@ function ModalTrxStatusSuccess({
         >
             {onReceipt === null ? null : (
                 <Button
-                    size='xl'
+                    skeleton
+                    color='green'
                     className='w-full'
-                    variant='whiteGreenTransfer'
                     onClick={onReceipt}
                 >
                     <IconApp size={20} code="t58" color="#2BAB72" />  {t("receipt")}
@@ -51,8 +51,7 @@ function ModalTrxStatusSuccess({
             )}
 
             <Button
-                size='xl'
-                variant="blueTransfer"
+                color='green'
                 className='w-full'
                 onClick={handleCancel}
             >

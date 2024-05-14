@@ -6,7 +6,7 @@ import styles from "@/widgets/header/ui/menu/style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, setCookieData, uncoverResponse} from "@/shared/lib/helpers";
@@ -136,9 +136,10 @@ export const EnableNotifications = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[50px] h-[50px]"}/> :
                             <Button
+                                size="lg"
                                 onClick={handleCancel}
                                 className="w-full"
                             >{t("close")}</Button>}
@@ -191,10 +192,10 @@ export const GekkoinInvestPlatform = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button
-                                size="sm"
+                                size="lg"
                                 onClick={onClick}
                                 className="w-full"
                             >{t("confirm")}</Button>}

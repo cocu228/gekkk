@@ -3,7 +3,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { MASK_PHONE } from "@/shared/config/mask";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
@@ -187,8 +187,8 @@ const WithdrawFormPhoneNumber = () => {
 
       <div className={styles.ButtonContainerCenter}>
         <Button
-          size={"xl"}
-          variant='greenTransfer'
+          size="lg"
+          color="green"
           onClick={showModal}
           className={styles.Button}
           disabled={!isValid || inputCurrValid.value}

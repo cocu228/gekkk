@@ -2,7 +2,7 @@ import React, {useCallback, useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import {Modal as ModalAnt} from "antd"
 import {useNavigate} from 'react-router-dom';
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
 import {debounce} from "@/shared/lib/helpers";
@@ -137,9 +137,9 @@ const WithdrawFormBroker = () => {
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
-            <div className="col">
+            <div className="flex justify-center col">
                 <Button
-                    size={"xl"}
+                    size='lg'
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full">
@@ -265,11 +265,11 @@ const WithdrawFormBroker = () => {
         <div className={styles.Button}>
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
+                    size="lg"
+                    color='green'
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full"
-                    variant='greenTransfer'
                 >
                     {t("transfer")}
                 </Button>

@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import {apiPaymentSepa} from "@/shared/api";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
@@ -192,8 +192,8 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             
             <Form onFinish={onConfirm}>
                 <div className="row mt-4 mb-4">
-                    <div className="col">
-                        <Button size={"xl"}
+                    <div className="flex justify-center col">
+                        <Button size="lg"
                                 className="w-full"
                                 htmlType={"submit"}
                         >{t("confirm")}</Button>
@@ -288,13 +288,12 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             <Form onFinish={onConfirm}>
                 <div className="row mt-4 mb-4">
                     <div className={styles.ButtonContainer}>
-                        <Button variant='greenTransfer'
-                                size={"xl"}
+                        <Button color='green'
                                 className={styles.ButtonTwo}
                                 htmlType={"submit"}
                         >{t("confirm")}</Button>
-                        <Button variant='whiteGreenTransfer'
-                                size={"xl"}
+                        <Button color='green'
+                                skeleton
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
                         >{t("cancel")}</Button>

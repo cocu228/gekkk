@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {ClientDetails} from "@/shared/(orval)api/gek/model";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 
 export function PersonalInformation() {
     const {t} = useTranslation();
@@ -68,9 +68,9 @@ export function PersonalInformation() {
                 </>}
                 {xl && 
                 <div className={styles.downBtnWrap}>
-                    <Button 
+                    <Button
+                        color="blue"
                         onClick={resetState}
-                        className="!w-[120px] !h-[43px] !bg-[var(--gek-additional)] text-[14px] !font-bold"
                     >
                         {t("back")}
                     </Button>

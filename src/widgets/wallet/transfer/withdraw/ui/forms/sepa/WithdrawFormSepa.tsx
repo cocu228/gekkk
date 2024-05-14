@@ -3,7 +3,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import Select from "@/shared/ui/select/Select";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
@@ -206,8 +206,8 @@ const WithdrawFormSepa = () => {
 
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
-                    variant='greenTransfer'
+                    size="lg"
+                    color='green'
                     onClick={showModal}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}

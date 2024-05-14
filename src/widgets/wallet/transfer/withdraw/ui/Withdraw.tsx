@@ -5,7 +5,7 @@ import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
 import {getChosenNetwork, isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "./forms/sepa/WithdrawFormSepa";
-import WithdrawFormSwift from "./forms/WithdrawFormSwift";
+import WithdrawFormSwift from "./forms/(no-usages)WithdrawFormSwift";
 import WithdrawFormCardToCard from "./forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "./forms/broker/WithdrawFormBroker";
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";

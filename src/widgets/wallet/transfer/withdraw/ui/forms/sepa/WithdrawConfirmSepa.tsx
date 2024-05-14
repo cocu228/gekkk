@@ -1,5 +1,5 @@
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { CtxRootData } from "@/processes/RootContext";
 import { apiPaymentSepa, IResCommission, IResResult } from "@/shared/api";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -273,8 +273,8 @@ const WithdrawConfirmSepa = ({
           <div className="col relative">
             <div className={styles.ButtonContainer + " px-4"}>
               <Button
-                size={"xl"}
-                variant='greenTransfer'
+                size="lg"
+                color='green'
                 disabled={!total}
                 onClick={onConfirm}
                 className={styles.ButtonTwo}
@@ -283,8 +283,9 @@ const WithdrawConfirmSepa = ({
               </Button>
 
               <Button
-                size={"xl"}
-                variant='whiteGreenTransfer'
+                skeleton
+                size="lg"
+                color='green'
                 className={styles.ButtonTwo}
                 onClick={() => {
                   handleCancel();

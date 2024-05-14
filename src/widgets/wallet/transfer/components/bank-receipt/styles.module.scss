@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   display: flex;
-  overflow-y: scroll;
+  overflow-y: hidden;
   align-items: center;
   background: white;
   flex-direction: column;
@@ -145,6 +145,7 @@
 }
 
 .ButtonContainer {
+  width: 100%;
   display: flex;
   margin-top: 16px;
   justify-content: center;

@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {
@@ -273,8 +273,8 @@ const WithdrawFormCrypto = () => {
         <div className={styles.Button + 'mb-0'}>
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
-                    variant='greenTransfer'
+                    size="lg"
+                    color='green'
                     className={'w-full'}
                     onClick={showModal}
                     disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}

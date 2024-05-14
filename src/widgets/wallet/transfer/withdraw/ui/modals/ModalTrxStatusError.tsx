@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
@@ -30,10 +30,10 @@ function ModalTrxStatusError({}: IParams) {
             </div>
             <div className={styles.ButtonContainerCenter + " mt-[30px]"}>
                 <Button
+                    size='lg'
+                    color="blue"
                     className='w-full'
                     onClick={handleCancel}
-                    size='xl'
-                    variant="blueTransfer"
                 >
                     {t("close")}
                 </Button>

@@ -2,7 +2,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { useContext, useEffect, useState } from "react";
 import UniversalTransferConfirm from "./UniversalTransferConfirm";
@@ -184,11 +184,11 @@ const UniversalTransferForm = () => {
 
       <div className={styles.ButtonContainerCenter}>
         <Button
-          size={"xl"}
+          size="lg"
+          color='green'
           className={styles.Button}
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}
-          variant='greenTransfer'
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>

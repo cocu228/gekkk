@@ -2,7 +2,7 @@ import {addDays} from "date-fns";
 import {useContext, useEffect, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";
@@ -130,12 +130,12 @@ const GkeCashbackProgram = () => {
             </div>
 
             <div className="row mb-4">
-                <div className="col">
+                <div className="flex justify-center col">
                     <Button
+                        size="lg"
+                        className="w-full"
                         disabled={inputCurrValid.value}
                         onClick={lockConfirmModal.showModal}
-                        className="w-full"
-                        size={"xl"}
                     >
                         {t("lock_tokens", {currency: currency.$const})}
                     </Button>
@@ -167,9 +167,9 @@ const GkeCashbackProgram = () => {
                     endDate={addDays(new Date(), 30)}
                 />
 
-                <div className="mt-6 md:mt-12">
+                <div className="mt-6 md:mt-12 flex justify-center">
                     <Button
-                        size="xl"
+                        size="lg"
                         className="w-full"
                         onClick={async () => {
                             setInputCurr("");

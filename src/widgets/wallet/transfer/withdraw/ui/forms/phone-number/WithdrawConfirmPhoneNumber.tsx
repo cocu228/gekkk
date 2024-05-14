@@ -3,7 +3,7 @@ import styles from "../styles.module.scss";
 import {formatAsNumber} from "@/shared/lib";
 import {useTranslation} from "react-i18next";
 import {apiGetUas} from "@/shared/(orval)api";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxModalTrxResult} from "../../../model/context";
 import {useContext, useEffect, useRef, useState} from "react";
@@ -257,17 +257,16 @@ const WithdrawConfirmPhoneNumber = ({
                 <div className="row mt-4">
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
-                            <Button 
-                                size={"xl"}
-                                variant='greenTransfer'
+                            <Button
+                                color="green"
                                 onClick={onConfirm}
                                 disabled={!totalCommission}
                                 className={styles.ButtonTwo}
                             >{t("confirm")}</Button>
 
                             <Button
-                                size={"xl"}
-                                variant='whiteGreenTransfer'
+                                skeleton
+                                color="green"
                                 className={styles.ButtonTwo}
                                 onClick={()=>{
                                     handleCancel();

@@ -1,7 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from 'react-router-dom';
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {CtxRootData} from '@/processes/RootContext';
 import UseModal from "@/shared/model/hooks/useModal";
 import {debounce} from "@/shared/lib/helpers";
@@ -170,8 +170,8 @@ const WithdrawFormPapaya = () => {
             <div className={styles.Button}>
                 <div className={styles.ButtonContainerCenter}>
                     <Button
-                        size={"xl"}
-                        variant='greenTransfer'
+                        size="lg"
+                        color='green'
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}

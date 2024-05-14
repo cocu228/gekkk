@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import stylesForms from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
 import {formatForCustomer, formatForHistoryMobile, formatForHistoryTimeMobile} from "@/shared/lib/date-helper";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import GTable from "@/shared/ui/grid-table/";
 import {useContext, useEffect, useState} from "react";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
@@ -232,8 +232,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     return !md ? <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button size={"sm"} variant='gray' onClick={() => onBtnConfirm(code)}
-                    className={"!py-3 !h-[fit-content]"}>{t("confirm")}</Button>}
+            <Button skeleton color='green' onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
 
         <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>
@@ -249,8 +248,8 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col">
-                        <Button className="w-full" size={"xl"} onClick={() => {
+                    <div className="flex justify-center col">
+                        <Button className="w-full" size="lg" onClick={() => {
                             handleCancel()
                         }}>{t("done")}</Button>
                     </div>
@@ -259,8 +258,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         </Modal>
     </> : <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button variant='greenTransfer' size={"sm"} onClick={showModal}
-                    className={"!py-3 w-full !h-[fit-content]"}><span className="text-[12px]">{t("confirm")}</span></Button>}
+            <Button color='green' onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
 
         <ModalAnt closable={false} footer={null} title={<ModalTitle handleCancel={handleCancel} title={t("confirm_code")}/>} open={isModalOpen}
                onCancel={handleCancel}>
@@ -299,10 +297,10 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={stylesForms.ButtonContainer}>
-                    <Button variant='greenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                    <Button color='green' className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
                         {t("confirm")}
                     </Button>
-                    <Button variant='whiteGreenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={handleCancel}>
+                    <Button color='green' skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

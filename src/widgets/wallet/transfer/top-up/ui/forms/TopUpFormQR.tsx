@@ -2,7 +2,7 @@ import {useContext} from "react";
 import ReactQRCode from "react-qr-code";
 import {apiCreateAddress} from "@/shared/(orval)api/gek";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import useError from "@/shared/model/hooks/useError";
@@ -93,13 +93,17 @@ const TopUpFormQR = () => {
                     {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
                 </span>
             </div>
-            <Button 
-                onClick={onCreateAddress} 
-                htmlType="submit"
-                className={styles.GenerateQRAttentionButton}
-            >
-                {t("generate_address")}
-            </Button>
+            <div className="flex justify-center w-full">
+                <Button
+                    size="lg"
+                    color="blue"
+                    htmlType="submit"
+                    className="w-full"
+                    onClick={onCreateAddress}
+                >
+                    {t("generate_address")}
+                </Button>
+            </div>
         </div>
         <div className={styles.GenerateQRAttentionError}>
             {localErrorInfoBox}

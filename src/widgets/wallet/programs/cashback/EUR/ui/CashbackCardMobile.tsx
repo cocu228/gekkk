@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import styles from './style.module.scss';
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useModal from '@/shared/model/hooks/useModal';

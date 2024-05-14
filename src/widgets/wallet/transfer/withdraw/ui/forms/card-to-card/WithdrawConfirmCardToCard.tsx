@@ -1,7 +1,7 @@
 import {Skeleton} from "antd";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission} from "@/shared/api";
@@ -15,8 +15,6 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
 import { maskFullCardNumber } from "@/shared/lib";
-import StatusModalSuccess from "../../modals/ModalTrxStatusSuccess";
-import StatusModalError from "../../modals/ModalTrxStatusError";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
@@ -249,8 +247,8 @@ const WithdrawConfirmCardToCard = ({
 
             <Form onFinish={onConfirm}>
                 <div className="row my-5">
-                    <div className="col">
-                        <Button size={"xl"}
+                    <div className="flex justify-center col">
+                        <Button size="lg"
                                 htmlType={"submit"}
                                 className="w-full"
                                 disabled={!totalCommission}
@@ -395,16 +393,16 @@ const WithdrawConfirmCardToCard = ({
                 <div className="row my-5">
                     <div className={styles.ButtonContainer}>
                         <Button 
-                                size={"xl"}
                                 htmlType={"submit"}
                                 className={styles.ButtonTwo}
                                 disabled={!totalCommission}
-                                variant='greenTransfer'
+                                color="green"
                         >{t("confirm")}</Button>
-                        <Button size={"xl"}
-                                onClick={handleCancel}
-                                className={styles.ButtonTwo}
-                                variant='whiteGreenTransfer'
+                        <Button
+                            skeleton
+                            color="green"
+                            onClick={handleCancel}
+                            className={styles.ButtonTwo}
                         >{t("cancel")}</Button>
                     </div>
                 </div>

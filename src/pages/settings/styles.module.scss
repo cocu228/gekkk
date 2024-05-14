@@ -168,7 +168,7 @@
 
 .perItemTitle {
     font-family: Inter;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 18px;
     text-align: left;
@@ -176,6 +176,7 @@
     padding-bottom: 0.5rem;
 
     @media screen and (max-width: 767px) {
+        font-size: 10px;
         padding-bottom: 0;
     }
 }
@@ -183,13 +184,15 @@
 .perItemSubtitle {
     user-select: text;
     color: #3A5E66;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 400;
     font-family: Inter;
     line-height: 20px;
 
     @media screen and (max-width: 767px) {
         margin-bottom: 4px;
+        font-size: 10px;
+
     }
 }
 

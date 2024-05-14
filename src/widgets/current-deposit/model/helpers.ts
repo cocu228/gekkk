@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import {GetDepositOut} from "@/shared/api/model";
+import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import {PercentageType, StructedDepositStrategy} from "@/shared/config/deposits/types";
 import StructedDepositStrategies from "@/shared/config/deposits/structed-strategies";
 
@@ -22,9 +22,9 @@ export interface IDepositStrategyData {
 
 export function getDepositStrategyData(depType: number): IDepositStrategyData {
     depType = depType > 100 ? depType - 100 : depType;
-    
+
     const strategy = StructedDepositStrategies.find(s => Math.trunc(s.id / 10) === Math.trunc(depType / 10));
-    
+
     return {
         strategy: strategy,
         percentageType: strategy?.percentageTypes[depType % 10],

@@ -56,7 +56,7 @@ const DepositProperties = ({className}: IParams) => {
 
                     <InlineProperty
                         left="Returns rate"
-                        rightClassName={type === DepositType.STRUCTED ? '' : ''}
+                        // rightClassName={type === DepositType.STRUCTED ? '' : ''}
                         right={type === DepositType.FIXED
                             ? `${isGke ? '1,6' : '0,8'}% per month`
                             : `${risePercent}/${dropPercent}`}

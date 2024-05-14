@@ -47,7 +47,7 @@ function CurrentDepositType({
                 )}
                 
                 <div className='flex gap-2 items-center'>
-                    <img width={24} height={24} src="/img/icon/DepositStrategyIcon.svg" alt="strategy" />
+                    <img width={24} height={24} src="/img/icon/DepositIcon.svg" alt="strategy" />
 
                     <p className='font-medium'>
                         {isFixed ? 'Fixed rate' : `${strategy.name} strategy`}

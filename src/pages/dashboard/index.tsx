@@ -1,19 +1,7 @@
 import {useContext} from 'react';
-// import {getCookieData, randomId} from "@/shared/lib/helpers";
-import History from "@/widgets/history/ui/History";
-// import PageHead from '@/shared/ui/page-head/PageHead';
-// import TabsGroupPrimary from '@/shared/ui/tabs-group/primary';
-import CardsLayout from '@/widgets/dashboard/ui/layouts/CardsLayout';
-import CryptoAssets from "@/widgets/dashboard/ui/layouts/AssetsLayout";
 import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
-// import {auth} from "@/processes/firebaseConfig";
-// import {onIdTokenChanged} from "firebase/auth";
-import Button from "@/shared/ui/button/Button";
-import TabsGroupPrimary from "@/shared/ui/tabs-group/primary";
 import {randomId} from "@/shared/lib/helpers";
 import {useTranslation} from "react-i18next";
-import PageHead from "@/shared/ui/page-head/PageHead";
-import { BannersAndMyReward } from '@/widgets/BannersAndMyReward';
 import VersionsLayout from "@/widgets/dashboard/ui/layouts/VersionsLayout";
 
 

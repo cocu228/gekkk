@@ -106,23 +106,21 @@ const Support = () => {
                 marginBottom: "40px",
                 minHeight: "640px"
             }} className="substrate flex flex-col w-full">
-                <div  onClick={() => {
-                    document.getElementById("chat").classList.toggle("isOpen")
-                }}  className={styles.ChatUs}>
-                    <div className={styles.IconWrap}>
-                        <IconApp code='t25' size={25} color='#29354C' />
-                    </div>
-                    <div className={styles.Main}>
-                        <div className={styles.MainTitle}>{t("Chat")}</div>
-                        <div
-                            className={styles.MainDescription}>{t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}</div>
-                    </div>
-                    <div className={styles.Arrow}>
-                        <IconApp code='t08' size={12} color='#9D9D9D' />
-                    </div>
-                </div>
                 
-                <div className="row flex flex-wrap gap-8">
+                <div className="row flex flex-wrap justify-evenly gap-8 xl:flex-col">
+                    <div  onClick={() => {
+                        document.getElementById("chat").classList.toggle("isOpen")
+                    }}  className="col w-25 flex flex-col xl:max-w-full max-w-[33%]">
+                        <div className='row mb-3 flex flex-wrap gap-2'>
+                            <IconApp code='t25' size={22} color='#00b894' />
+                            <p className="text-gray-400 font-semibold">{t("chat_us")}</p>
+                        </div>
+                        <p
+                            className="text-lg font-bold cursor-pointer"
+                        >
+                            {t("to_get_advice_from_our_bank_s_support_service_open_the_chat")}
+                        </p>
+                    </div>
                     <div className="col w-25 flex flex-col">
                         <div className="row mb-3 flex flex-wrap gap-2">
                             <IconApp code='t29' size={22} color='#00b894' />

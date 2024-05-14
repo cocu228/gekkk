@@ -1,1 +1,0 @@
-export const tabs = ['Last Transactions', 'Custom search'];

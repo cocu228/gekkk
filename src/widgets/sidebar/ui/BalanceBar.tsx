@@ -5,13 +5,14 @@ import BankCardsCarousel from '@/shared/ui/bank-cards-carousel/ui/BankCardsCarou
 import NewBankCard from '@/widgets/dashboard/ui/cards/bank-card/NewBankCard';
 import SkeletonCard from '@/widgets/dashboard/ui/cards/skeleton-card/SkeletonCard';
 import { t } from 'i18next';
-import { helperFilterList } from '../model/helpers';
+import { helperFilterListGekkard, helperFilterListGekkoin, helperFilterListGekwallet } from '../model/helpers';
 import TokenBar from './TokenBar';
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
 import { storeActiveCards } from '@/shared/store/active-cards/activeCards';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Carousel from '@/shared/ui/carousel';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
 type Props = {
     NavLinkEvent: () => void,
@@ -34,8 +35,8 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
     let ethWallet: ICtxCurrency = null
     let secondaryWallets: ICtxCurrency[] = [];
 
-    const gekwalletMode = global.VITE_APP_TYPE.toLowerCase().includes("gekwallet");
-    const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
+    const gekwalletMode = IS_GEKKWALLET_APP();
+    const gekkardMode = IS_GEKKARD_APP();
     
     if (currencies !== null) {
         eurWallet = currencies.get("EUR");
@@ -99,7 +100,13 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
 
             {/* User assets collapse */}
             {!secondaryWallets.length ? null : (
-                helperFilterList(secondaryWallets).map((item) =>
+                (gekkardMode ? 
+                    helperFilterListGekkard(secondaryWallets) 
+                :
+                    gekwalletMode ? 
+                        helperFilterListGekwallet(secondaryWallets) 
+                    : 
+                        helperFilterListGekkoin(secondaryWallets)).map((item) =>
                     <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
 

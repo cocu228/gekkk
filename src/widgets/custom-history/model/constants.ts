@@ -1,11 +1,10 @@
-import { TransactTypeEnum } from "@/shared/(orval)api/gek/model/transactTypeEnum";
 import { ISelectTxTypes } from "./types";
 
 export const dateFormat = 'YYYY-MM-DD';
 
 export const options: ISelectTxTypes[] = [
     {
-        label: 'top up', t: "top_up_wallet",value: [1,3,5] 
+        label: 'top up', t: "top_up_wallet",value: [3,5] 
     },
     {
         label: 'withdraw', t: "withdraw",value: [1,4,6] 
@@ -20,4 +19,3 @@ export const options: ISelectTxTypes[] = [
         label: 'rewards',t: "rewards", value: [17, 18] 
     },
 ];
-

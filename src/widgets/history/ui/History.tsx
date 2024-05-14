@@ -1,122 +1,64 @@
-import dayjs from "dayjs";
-import { memo, useContext, useEffect, useState } from "react";
-import Button from "@/shared/ui/button/Button";
-import { DatePicker } from "antd";
-import { HistoryProps, TabKey } from "../model/types";
-import { historyTabs } from "../model/helpers";
-import { formatForApi, formatForHistoryMobile } from "@/shared/lib/date-helper";
-import { startOfMonth } from "date-fns";
-import styles from "./style.module.scss";
-import TransactionInfo from "@/widgets/history/ui/TransactionInfo";
-import { CtxRootData } from "@/processes/RootContext";
-import { actionResSuccess } from "@/shared/lib/helpers";
-import Loader from "@/shared/ui/loader";
 import axios from "axios";
-import { useTranslation } from "react-i18next";
-import {
-  GetHistoryTrasactionOut,
-  TransactTypeEnum,
-} from "@/shared/(orval)api/gek/model";
-import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
-import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import { useMatch } from "react-router-dom";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import InfoContent from "./InfoContent";
-import useModal from "@/shared/model/hooks/useModal";
+import Loader from "@/shared/ui/loader";
+import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
+import { formatDate } from "../model/helpers";
+import { HistoryProps } from "../model/types";
+import { useTranslation } from "react-i18next";
+import TxInfoRow from "./tx-info-row/TxInfoRow";
+import useModal from "@/shared/model/hooks/useModal";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import TxInfoModal from "./tx-info-modal/InfoContent";
+import { CtxRootData } from "@/processes/RootContext";
+import { formatForApi } from "@/shared/lib/date-helper";
+import { actionResSuccess } from "@/shared/lib/helpers";
+import { memo, useContext, useEffect, useState } from "react";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
-
-const { RangePicker } = DatePicker;
+import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
+import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
+import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import {IS_GEKKARD_APP} from "@/shared/lib";
 
 const History = memo(function ({
-  currenciesFilter,
+  to,
+  from,
   types,
-  includeFiat,
-  date,
-  currTab,
   className,
+  includeFiat,
+  tab = 'last_txs',
+  currenciesFilter
 }: Partial<HistoryProps>) {
-  const { t } = useTranslation();
-
-  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});
-
-  const { isModalOpen, showModal, handleCancel } = useModal();
-  const { refreshKey } = useContext(CtxRootData);
-  const [activeTab] = useState<string>(
-    currTab ? currTab.Key : historyTabs[0].Key
-  );
-  const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
-  const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(
-    listHistory[listHistory.length - 1]
-  );
+  const {t} = useTranslation();
+  const {md} = useContext(BreakpointsContext);
+  const {refreshKey} = useContext(CtxRootData);
   const [loading, setLoading] = useState(false);
-  const [lazyLoading, setLazyLoading] = useState(false);
-  const [allTxVisibly, setAllTxVisibly] = useState(false);
-  const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs(startOfMonth(new Date())),
-    dayjs(),
-  ]);
-  const { md } = useContext(BreakpointsContext);
-  const isHistoryPage = !!useMatch("history");
+  const {isModalOpen, showModal, handleCancel} = useModal();
+  const [lazyLoading, setLazyLoading] = useState<boolean>(false);
+  const [allTxVisibly, setAllTxVisibly] = useState<boolean>(false);
+  const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
+  const [selectedItem, setSelectedItem] = useState<GetHistoryTrasactionOut>({});
+  const [nextKey, setNextKey] = useState<string>(
+    listHistory[listHistory.length - 1]?.next_key
+  );
 
-  const { isIntersecting, ref } = useIntersectionObserver({
+  const {isIntersecting, ref} = useIntersectionObserver({
     threshold: 0.9,
   });
 
-  const gekkardMode = global.VITE_APP_TYPE.toLowerCase().includes("gekkard");
-
-  useEffect(() => {
-    if (
-      md &&
-      isIntersecting &&
-      !allTxVisibly &&
-      !(listHistory?.length < 10) &&
-      lastValue?.next_key !== "::0"
-    ) {
-      (async () => {
-        setLazyLoading(true);
-
-        const { data } = await apiGetHistoryTransactions({
-          currencies: currenciesFilter,
-          tx_types: types,
-          next_key: lastValue.next_key,
-          limit: 10,
-          include_fiat: gekkardMode ? includeFiat : false,
-          end: date ? formatForApi(date[1].toDate()).toString() : null,
-          start: date ? formatForApi(date[0].toDate()).toString() : null,
-        });
-
-        if (data.result.length < 10) setAllTxVisibly(true);
-
-        setListHistory((prevState) => [...prevState, ...data.result]);
-        setLazyLoading(false);
-      })();
-    }
-  }, [isIntersecting]);
-
-  const onUpdateTxInfo = (txId: string, senderName: string) => {
-    const tx = listHistory.find(t => t.id_transaction === txId);
-    tx.partner_info = senderName;
-  }
+  const gekkardMode = IS_GEKKARD_APP();
 
   const requestHistory = async (cancelToken = null) => {
     setLoading(true);
     setAllTxVisibly(false);
-
-    if (date)
-      console.log(
-        formatForApi(date[0].toDate()),
-        formatForApi(date[1].toDate())
-      );
 
     const response = await apiGetHistoryTransactions(
       {
         limit: 10,
         tx_types: types,
         currencies: currenciesFilter,
-        end: date ? formatForApi(date[1].toDate()).toString() : null,
-        start: date ? formatForApi(date[0].toDate()).toString() : null,
+        end: to ? formatForApi(to).toString() : null,
+        start: from ? formatForApi(from).toString() : null,
         include_fiat: gekkardMode ? includeFiat : false,
       },
       { cancelToken }
@@ -130,237 +72,140 @@ const History = memo(function ({
     setLoading(false);
   };
 
-  const requestMoreHistory = async ({
-    currencies,
-    txTypes
-  }: {
-    currencies: string[];
-    txTypes: TransactTypeEnum[];
-  }) => {
+  const requestMoreHistory = async () => {
     setLazyLoading(true);
 
     const { data } = await apiGetHistoryTransactions({
-      currencies: currencies,
-      tx_types: txTypes,
-      next_key: lastValue.next_key,
       limit: 10,
+      tx_types: types,
+      next_key: nextKey,
+      currencies: currenciesFilter,
       include_fiat: gekkardMode ? includeFiat : false,
     });
 
-    if (data.result.length < 10) setAllTxVisibly(true);
+    if (data.result.length < 10) {
+      setAllTxVisibly(true);
+    }
 
     setListHistory((prevState) => [...prevState, ...data.result]);
     setLazyLoading(false);
   };
+
+  const onUpdateTxInfo = (txId: string, senderName: string) => {
+    const tx = listHistory.find(t => t.id_transaction === txId);
+    tx.partner_info = senderName;
+  }
+
   useEffect(() => {
-    setLastValue(listHistory[listHistory.length - 1]);
+    if (
+      md &&
+      isIntersecting &&
+      !allTxVisibly &&
+      !(listHistory?.length < 10) &&
+      nextKey !== "::0"
+    ) {
+      (async () => {
+        setLazyLoading(true);
+
+        const { data } = await apiGetHistoryTransactions({
+          limit: 10,
+          tx_types: types,
+          next_key: nextKey,
+          currencies: currenciesFilter,
+          end: to ? formatForApi(to).toString() : null,
+          include_fiat: gekkardMode ? includeFiat : false,
+          start: from ? formatForApi(from).toString() : null,
+        });
+
+        if (data.result.length < 10) {
+          setAllTxVisibly(true);
+        }
+
+        setListHistory((prevState) => [...prevState, ...data.result]);
+        setLazyLoading(false);
+      })();
+    }
+  }, [isIntersecting]);
+
+  useEffect(() => {
+    setNextKey(listHistory[listHistory.length - 1]?.next_key);
   }, [listHistory]);
 
   useEffect(() => {
     const cancelTokenSource = axios.CancelToken.source();
 
     (async () => {
-      try {
-        if (activeTab !== TabKey.CUSTOM) {
-          await requestHistory(cancelTokenSource.token);
-        } else {
-          await requestHistory();
-        }
-      } catch (err: unknown) {
-        console.log(err);
-      }
+      await requestHistory(cancelTokenSource.token);
     })();
 
     return () => cancelTokenSource.cancel();
-  }, [refreshKey, activeTab, currenciesFilter]);
+  }, [refreshKey, tab, currenciesFilter]);
+  
+  return loading ? (
+      <Loader className="h-[100px] relative"/>
+    ) : (<>
+      <div id={"History"} className={`${styles.Container} ${className}`}>
+        {!listHistory.length ? (
+          <span>{t("no_have_any_transaction")}</span>
+        ) : listHistory.map((item, index) => {
+          const doesPrevDateTimeExist = listHistory[index - 1]?.datetime !== undefined;
 
-  if (!loading && !isHistoryPage && !listHistory.length) {
-    return (
-      <div
-        id="MainContainerHistoryMobile"
-        className={styles.MainContainerMobile + " h-[100px] relative"}
-      >
-        <span>{t("no_transactions_warning")}</span>
-      </div>
-    );
-  }
-  if (loading) {
-    return (
-      <div
-        id="MainContainerHistoryMobile"
-        className={"h-[100px] relative"}
-      >
-        <Loader />
-      </div>
-    );
-  }
-  if (!md) {
-    return (
-      <>
-        <div id={"History"} className="wrapper max-w-[600px] m-auto">
-          {activeTab === TabKey.CUSTOM && (
-            <div className="flex flex-col mb-3">
-              {t("enter_period")}
-              <div className="flex grow-0 p-2">
-                <RangePicker
-                  className="w-full"
-                  value={customDate}
-                  onChange={setCustomDate}
-                />
-                <Button
-                  className="ml-3"
-                  disabled={loading || !customDate}
-                  onClick={() => requestHistory()}
+          return (
+            <div key={item.id_transaction} ref={ref}>
+              {/* Date wrapper */}
+              {!doesPrevDateTimeExist ? (
+                <div className={styles.DateLine} key={index}>
+                  {formatDate(item.datetime)}
+                </div>
+              ) : (
+                formatDate(listHistory[index].datetime) !==
+                  formatDate(listHistory[index - 1].datetime) && (
+                  <div className={styles.DateLine}>
+                    {formatDate(item.datetime)}
+                  </div>
+                )
+              )}
+
+              {/* Tx info row */}
+              <TxInfoRow
+                setItem={setSelectedItem}
+                showModal={showModal}
+                item={item}
+                key={item.id_transaction}
+              />
+            </div>
+          );
+        })}
+        
+        {/* See more button */}
+        {(listHistory.length >= 10 && !allTxVisibly) && (
+          <div className="row mt-3">
+            <div className="col flex justify-center relative">
+              {lazyLoading || md ? (
+                <Loader className={"w-[24px] h-[24px]"} />
+              ) : (
+                <span
+                  onClick={requestMoreHistory}
+                  className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
-                  {t("apply")}
-                </Button>
-              </div>
+                  {t("see_more")}
+                  <IconApp size={10} code="t08" className="rotate-90 ml-2" color="#B4C0CD" />
+                </span>
+              )}
             </div>
-          )}
-          {listHistory.length > 0 ? (
-            listHistory.map((item, index) => {
-              const doesPrevDateTimeExist =
-                listHistory[index - 1]?.datetime !== undefined;
-              return (
-                <>
-                  {!doesPrevDateTimeExist ? (
-                    <div className={styles.DataMobile} key={index}>
-                      {formatForHistoryMobile(item.datetime)}
-                    </div>
-                  ) : (
-                    formatForHistoryMobile(listHistory[index].datetime) !==
-                      formatForHistoryMobile(
-                        listHistory[index - 1].datetime
-                      ) && (
-                      <div className={styles.DataMobile}>
-                        {formatForHistoryMobile(item.datetime)}
-                      </div>
-                    )
-                  )}
-                  <TransactionInfo
-                    setItem={setSelectedItem}
-                    showModal={showModal}
-                    item={item}
-                    key={item.id_transaction}
-                  />
-                </>
-              );
-            })
-          ) : (
-            <div className={styles.Row}>
-              <span>{t("no_have_any_transaction")}</span>
-            </div>
-          )}
-          {!loading && listHistory.length >= 10 && !allTxVisibly && (
-            <div className="row mt-3">
-              <div className="col flex justify-center relative">
-                {lazyLoading ? (
-                  <div className="h-[30px]">
-
-                    <Loader className={" w-[24px] h-[24px] top-[4px]"} />
-                  </div>
-                ) : (
-                  <span
-                    onClick={() => {
-                      requestMoreHistory({
-                        currencies: currenciesFilter,
-                        txTypes: types,
-                      });
-                    }}
-                    className="text-gray-400 cursor-pointer inline-flex items-center"
-                  >
-                    {t("see_more")}
-                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-r" color="#B4C0CD" />
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-        <Modal
-          width={450}
-          closable={false}
-          title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
-          onCancel={handleCancel}
-          open={isModalOpen}
-        >
-            <InfoContent
-              {...selectedItem}
-              handleCancel={handleCancel}
-              onUpdateTxInfo={onUpdateTxInfo}
-            />
-        </Modal>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <div id={"History"} className={`wrapper ${className}`}>
-        <div
-          id="MainContainerHistoryMobile"
-          className={styles.MainContainerMobile}
-        >
-          {listHistory.map((item, index) => {
-            const doesPrevDateTimeExist =
-              listHistory[index - 1]?.datetime !== undefined;
-            return (
-              <div key={item.id_transaction} ref={ref}>
-                {!doesPrevDateTimeExist ? (
-                  <div className={styles.DataMobile} key={index}>
-                    {formatForHistoryMobile(item.datetime)}
-                  </div>
-                ) : (
-                  formatForHistoryMobile(listHistory[index].datetime) !==
-                    formatForHistoryMobile(listHistory[index - 1].datetime) && (
-                    <div className={styles.DataMobile}>
-                      {formatForHistoryMobile(item.datetime)}
-                    </div>
-                  )
-                )}
-                <TransactionInfo
-                  setItem={setSelectedItem}
-                  showModal={showModal}
-                  item={item}
-                  key={item.id_transaction}
-                />
-              </div>
-            );
-          })}
-          {!loading && listHistory.length >= 10 && !allTxVisibly && (
-            <div className="row mt-3">
-              <div className="col flex justify-center relative">
-                {lazyLoading ? (
-                  <Loader className={" w-[24px] h-[24px] top-[4px]"} />
-                ) : md ? (
-                  <Loader className={" w-[24px] h-[24px] top-[4px]"} />
-                ) : (
-                  <span
-                    onClick={() => {
-                      requestMoreHistory({
-                        currencies: currenciesFilter,
-                        txTypes: types,
-                      });
-                    }}
-                    className="text-gray-400 cursor-pointer inline-flex items-center"
-                  >
-                    {t("see_more")}
-                    <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+
+      {/* Tx info modal */}
       <Modal
         width={450}
         closable={false}
-        title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
-        onCancel={handleCancel}
         open={isModalOpen}
+        onCancel={handleCancel}
+        title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
       >
-        <InfoContent
+        <TxInfoModal
           {...selectedItem}
           handleCancel={handleCancel}
           onUpdateTxInfo={onUpdateTxInfo}

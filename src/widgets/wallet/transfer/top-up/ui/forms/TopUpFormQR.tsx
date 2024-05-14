@@ -8,11 +8,16 @@ import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/
 import useError from "@/shared/model/hooks/useError";
 import {getChosenNetwork} from "../../../model/helpers";
 import { useTranslation } from "react-i18next";
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import styles from "./style.module.scss"
 
 const TopUpFormQR = () => {
     const {$const, name} = useContext(CtxWalletData);
     const [localErrorHunter, , localErrorInfoBox] = useError();
     const {t} = useTranslation()
+    const {md} = useBreakpoints()
     const {
         setRefresh,
         setLoading,
@@ -33,22 +38,34 @@ const TopUpFormQR = () => {
     
     return addressesForQR !== null && (addressesForQR !== undefined ? <>
 
-        <div className="row text-right pb-10 flex justify-center items-center flex-col">
+        <div className={styles.QRContainer}>
 
-            <h3 className="font-medium text-fs24 mb-7 text-center">{t("send_to_this")} <b>{$const} {name}</b> {t("address_small")}</h3>
+            <h3 className={styles.QRSendText}>{t("send_to_this")} <b>{$const} {name}</b> {t("address_small")}</h3>
 
-            <div className="wrapper w-[max-content] border-1 border-[#A5B7C5] border-solid p-4 rounded-md">
-                <div style={{height: "auto", margin: "0 auto", maxWidth: 120, width: "100%"}}>
+            <div className={styles.QRWrapper}>
+                <div className={styles.QRWrapperSecond}>
                     <ReactQRCode
-                        style={{height: "auto", maxWidth: "120px", minWidth: "100%", width: "100%"}}
+                        className={styles.QRWrapperThird}
                         value={addressesForQR}
                         viewBox={`0 0 148 148`}
                     />
                 </div>
             </div>
-            <div className="row mt-8 w-full">
+            {!md ? <div className={styles.QRFieldDesktop}>
                 <ClipboardField value={addressesForQR}/>
             </div>
+            :
+                <div className={styles.QRFieldMobile}>
+                    <div className="col">
+                        <div className={styles.QRFieldMobileWrapper}>
+                            <div className={styles.QRFieldMobileWrapperSecond}>
+                                <span className={styles.QRFieldMobileValue}>{addressesForQR}</span>
+                                <CopyIcon value={addressesForQR}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         {/* <div className="row flex flex-col mb-8">
             <div className="col mb-4">
@@ -66,14 +83,25 @@ const TopUpFormQR = () => {
                 <span><b className="text-red-800">2</b> network confirmation</span>
             </div>
         </div> */}
-    </> : <>
-        <div className="row mt-8 px-4 mb-8 w-full">
-            <Button onClick={onCreateAddress} htmlType="submit"
-                    className="w-full disabled:opacity-5 !text-white">
-                Generate address
+    </> :  <>
+        <div className={styles.GenerateQR}>
+            <div className={styles.GenerateQRAttention}>
+                <div className={styles.GenerateQRAttentionIcon}>
+                    <IconApp code="t27" size={15} color="var(--gek-red)"/>
+                </div>
+                <span className={styles.GenerateQRAttentionText}>
+                    {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
+                </span>
+            </div>
+            <Button 
+                onClick={onCreateAddress} 
+                htmlType="submit"
+                className={styles.GenerateQRAttentionButton}
+            >
+                {t("generate_address")}
             </Button>
         </div>
-        <div className="row mt-8 px-4 mb-8 w-full">
+        <div className={styles.GenerateQRAttentionError}>
             {localErrorInfoBox}
         </div>
     </>)

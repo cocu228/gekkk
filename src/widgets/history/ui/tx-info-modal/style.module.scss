@@ -1,0 +1,53 @@
+@import "@styles/mixins";
+
+.ModalWrap {
+  padding: 0 5%;
+}
+
+.BorderLine {
+  color: #3A5E66;
+  height: 1px;
+  border-width: 0;
+  margin-bottom: 10px;
+  background: var(--gek-light-grey);
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.InfoItemTitle {
+  color: var(--gek-additional);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.InfoItemValue, .InfoItemAddress, .InfoItemHash{
+  color: var(--gek-dark-blue);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1rem;
+}
+
+.InfoItemValue, .InfoItemAddress {
+  user-select: text;
+}
+
+.InfoItemAddress, .InfoItemHash {
+  display: block;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.InfoItemHash {
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.CopyBlock {
+  display: flex;
+  align-items: center;
+}

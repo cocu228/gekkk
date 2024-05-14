@@ -1,87 +1,49 @@
-import styles from "./style.module.scss";
-import { useContext, useEffect, useRef, useState } from "react";
-import { CtxWalletNetworks } from "../wallet/transfer/model/context";
-import type { DatePickerProps } from "antd";
-import { DatePicker, Space, Select } from "antd";
 import dayjs from "dayjs";
-import { dateFormat } from "./const";
-import Button from "@/shared/ui/button/Button";
-import { GetHistoryTrasactionOut, TransactTypeEnum } from "@/shared/(orval)api/gek/model";
-import { apiAssets, apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
-import { formatForApi } from "@/shared/lib/date-helper";
-import {
-  actionResSuccess,
-  getFlagsFromMask,
-  getRoundingValue,
-  useQuery,
-} from "@/shared/lib/helpers";
-import { historyTabs } from "../history/model/helpers";
-import { options } from "./const";
-import { CtxRootData } from "@/processes/RootContext";
-import { ISelectAssets, ISelectCard } from "./types";
-import Loader from "@/shared/ui/loader";
-import { maskCurrencyFlags } from "@/shared/config/mask-currency-flags";
-import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
-import History from "../history/ui/History";
-import { useTranslation } from "react-i18next";
-import { formatCardNumber } from "../dashboard/model/helpers";
-import { useIntersectionObserver } from "../history/hooks/useIntersectionObserver";
-import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { format } from "date-fns";
-import { IconApp } from "@/shared/ui/icons/icon-app";
-import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
+import Loader from "@/shared/ui/loader";
+import styles from "./style.module.scss";
+import { DatePicker, Space } from "antd";
 import Input from "@/shared/ui/input/Input";
+import type { DatePickerProps } from "antd";
+import Button from "@/shared/ui/button/Button";
+import { useTranslation } from "react-i18next";
+import History from "../../history/ui/History";
+import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxRootData } from "@/processes/RootContext";
+import { IconCoin } from "@/shared/ui/icons/icon-coin";
+import { getRoundingValue } from "@/shared/lib/helpers";
+import { dateFormat, options } from "../model/constants";
+import { ISelectCard, ISelectTxTypes } from "../model/types";
+import { useContext, useEffect, useRef, useState } from "react";
+import { formatCardNumber } from "../../dashboard/model/helpers";
+import { TransactTypeEnum } from "@/shared/(orval)api/gek/model";
+import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
+import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 
-interface typeT {
-  label: string;
-  t: string;
-  value: TransactTypeEnum[];
-}
-
-interface cardT {
-  label: string;
-  value: string
-}
-
-export default function customSearch() {
-  const [currencyListVisibility, setCurrencyListVisibility] = useState(false);
-  const [typeListVisibility, setTypeListVisibility] = useState(false);
-  const [cardListVisibility, setCardListVisibility] = useState(false);
-  const [curr, setCurr] = useState<string>('EURG');
-
+// TODO: clean up
+function CustomHistory() {
   const inputRef = useRef(null);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const { t } = useTranslation();
+  const { refreshKey } = useContext(CtxRootData);
   const { currencies } = useContext(CtxCurrencies);
+  const [curr, setCurr] = useState<string>('EURG');
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
+  
   const [date, setDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
     dayjs("2022-01-01", dateFormat),
     dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
   ]);
-  const [activeTab] = useState<string>(historyTabs[0].Key);
 
-  const [selectedAsset, setSelectedAsset] = useState<ISelectAssets>({
-    label: "Gekkoin EUR",
-    value: "EURG",
-  });
-  const [listHistory, setListHistory] = useState<GetHistoryTrasactionOut[]>([]);
-  const [selectedCard, setSelectedCard] = useState<cardT>({value: '', label: ''});
-  const loadActiveCards = storeActiveCards((state) => state.getActiveCards);
-  const cards = storeActiveCards((state) => state.activeCards);
+  const {
+    activeCards: cards,
+    loading: cardsLoading,
+    getActiveCards: loadActiveCards
+  } = storeActiveCards(state => state);
   const [cardsOptions, setCardsOptions] = useState<ISelectCard[]>([]);
+  const [selectedCard, setSelectedCard] = useState<ISelectCard>({value: '', label: ''});
 
-  const { md } = useBreakpoints();
-  
-
-  const [lastValue, setLastValue] = useState<GetHistoryTrasactionOut>(
-    listHistory[listHistory.length - 1]
-  );
-
-  const { isIntersecting } = useIntersectionObserver({
-    threshold: 0.9,
-  });
-
-  const { t } = useTranslation();
-
+  // remove
   const translatedOptions = options.map((el) => {
     return {
       ...el,
@@ -89,18 +51,21 @@ export default function customSearch() {
     };
   });
 
-  const [allTxVisibly, setAllTxVisibly] = useState(false);
+  // remove
+  const [fiat, setFiat] = useState<boolean>(false);
   const [apply, setApply] = useState<boolean>(false);
-  const [type, setType] = useState<typeT>(translatedOptions[0]);
-  const [fiat, setFiat] = useState<boolean>(false)
+  const [type, setType] = useState<ISelectTxTypes>(translatedOptions[0]);
 
-  const [historyData, setHistoryData] = useState({
+  // remove
+  const [historyData, setHistoryData] = useState<{
+    assets: string[];
+    includeFiat?: boolean;
+    types: TransactTypeEnum[];
+  }>({
     assets: [curr],
     types: type.value,
     includeFiat: fiat,
   });
-
-  const { refreshKey } = useContext(CtxRootData);
 
   const handleStartDateChange: DatePickerProps["onChange"] = (
     newDate
@@ -112,48 +77,34 @@ export default function customSearch() {
     newDate
   ) => {
     setDate([date[0], newDate]);
-  };
+  }
 
   const handleReset = () => {
     setDate([
       dayjs("2022-01-01", dateFormat),
       dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
     ]);
-    setCurr('EURG')
-    setType(translatedOptions[0])
-    setFiat(false)
-  };
-
-
-  const loadAssets = async () => {
-    const assets = await apiAssets();
-    actionResSuccess(assets).success(() => {
-      const { result } = assets.data;
-
-      const formatedResult = result.map((elem) => {
-        const isFiat = getFlagsFromMask(
-          elem.flags,
-          maskCurrencyFlags
-        ).fiatCurrency;
-        return { value: elem?.code, label: elem?.name, isFiat };
-      });
-    });
+    setFiat(false);
+    setCurr('EURG');
+    setSelector(null);
+    setType(translatedOptions[0]);
   };
 
   const applyHandler = () => {
     setHistoryData({
       assets: [curr],
       types: type.value,
-      includeFiat: selectedAsset.isFiat,
+      includeFiat: fiat,
     });
   };
 
   useEffect(() => {
     (async () => {
-      await loadAssets();
-      await loadActiveCards();
+      if (curr === 'EUR') {
+        await loadActiveCards();
+      }
     })();
-  }, []);
+  }, [curr]);
 
   useEffect(() => {
     if (cards) {
@@ -167,38 +118,7 @@ export default function customSearch() {
 
   useEffect(() => {
     applyHandler();
-  }, [refreshKey, activeTab]);
-
-  useEffect(() => {
-    if (
-      md &&
-      isIntersecting &&
-      !allTxVisibly &&
-      !(listHistory?.length < 10) &&
-      lastValue?.next_key !== "::0"
-    ) {
-      (async () => {
-
-        const { data } = await apiGetHistoryTransactions({
-          currencies: historyData.assets,
-          tx_types: historyData.types,
-          next_key: lastValue.next_key,
-          limit: 10,
-          include_fiat: historyData.includeFiat,
-          end: date ? formatForApi(date[1].toDate()).toString() : null,
-          start: date ? formatForApi(date[0].toDate()).toString() : null,
-        });
-
-        if (data.result.length < 10) setAllTxVisibly(true);
-
-        setListHistory((prevState) => [...prevState, ...data.result]);
-      })();
-    }
-  }, [isIntersecting]);
-
-  useEffect(() => {
-    setLastValue(listHistory[listHistory.length - 1]);
-  }, [listHistory]);
+  }, [refreshKey]);
 
   function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
     return (
@@ -226,6 +146,7 @@ export default function customSearch() {
     setSearchValue(e.target.value.trim().toLowerCase());
   };
 
+  // refactor display of selectors
   return (
     <>
       <div className={styles.wrapper}>
@@ -254,7 +175,7 @@ export default function customSearch() {
             <div
               className={styles.SelectBlock}
               onClick={() => {
-                setCurrencyListVisibility(!currencyListVisibility)
+                setSelector('currency');
                 setApply(false);
               }}
             >
@@ -286,7 +207,7 @@ export default function customSearch() {
             <div
               className={styles.SelectBlock}
               onClick={() => {
-                setTypeListVisibility(!typeListVisibility)
+                setSelector('type');
                 setApply(false);
               }}
             >
@@ -315,7 +236,7 @@ export default function customSearch() {
                 <div
               className={styles.SelectBlock}
               onClick={() => {
-                setCardListVisibility(!cardListVisibility)
+                setSelector('card');
                 setApply(false);
               }}                       
             >
@@ -339,10 +260,9 @@ export default function customSearch() {
                 </div>
               </div>
             </div>
-              )
-            }
+          )}
           </div>
-          {currencyListVisibility && (
+          {selector === 'currency' && (
             <div className="w-full mt-[15px]">
               <span className={styles.CurrencyListTitle}>Select Currency</span>
               <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
@@ -369,7 +289,7 @@ export default function customSearch() {
                       onClick={() => {
                         setCurr(currency.$const);
                         setFiat(currency.currency.flags.fiatCurrency)
-                        setCurrencyListVisibility(false);
+                        setSelector(null);
                       }}
                     >
                       <div className="ml-2 flex flex-row p-2 gap-5 justify-center items-center ">
@@ -408,7 +328,7 @@ export default function customSearch() {
               )}
             </div>
           )}
-          {typeListVisibility && (
+          {selector === 'type' && (
             <div className={styles.TypeList}>
               <span className={styles.CurrencyListTitle}>Select type</span>
               {
@@ -417,7 +337,7 @@ export default function customSearch() {
                   className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[color:var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
                   onClick={() => {
                     setType(item)
-                    setTypeListVisibility(false)  
+                    setSelector(null)  
                   }}
                 >
                   <div className="ml-5 flex flex-row p-2 gap-5 justify-center items-center ">
@@ -430,24 +350,27 @@ export default function customSearch() {
               }
             </div>
           )}
-          {cardListVisibility && (
+          {selector === 'card' && (
             <div className={styles.TypeList}>
               <span className={styles.CurrencyListTitle}>Select card</span>
-              {
-                cardsOptions.map((item, ind) => (
+              {cardsLoading
+                ? <Loader className="relative"/>
+                : cardsOptions.length <= 0
+                ? <span className={styles.NoCardsTitle}>{t("no_active_cards")}</span>
+                : cardsOptions.map((item, ind) => (
                   <div
-                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
-                  onClick={() => {
-                    setSelectedCard(item)
-                    setCardListVisibility(false)  
-                  }}
-                >
-                  <div className="ml-5 flex flex-row p-2 gap-5 justify-center items-center ">
-                    <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
-                      {item.label}
-                    </span>
+                    className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] rounded-lg cursor-pointer"
+                    onClick={() => {
+                      setSelectedCard(item)
+                      setSelector(null)  
+                    }}
+                  >
+                    <div className="ml-5 flex flex-row p-2 gap-5 justify-center items-center ">
+                      <span className="text-[12px] h-full flex items-center text-[#1F3446] font-bold">
+                        {item.label}
+                      </span>
+                    </div>
                   </div>
-                </div>
                 ))
               }
             </div>
@@ -480,13 +403,17 @@ export default function customSearch() {
       </div>
       {apply && (
         <History
-          currTab={historyTabs[1]}
-          currenciesFilter={historyData.assets}
+          tab="custom"
+          className="mt-2"
+          to={date[1].toDate()}
+          from={date[0].toDate()}
           types={historyData.types}
           includeFiat={historyData.includeFiat}
-          date={date}
+          currenciesFilter={historyData.assets}
         />
       )}
     </>
   );
 }
+
+export default CustomHistory;

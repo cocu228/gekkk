@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import Modal from "@/shared/ui/modal/Modal";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { apiCloseRoom } from "@/shared/(orval)api";
 import useModal from "@/shared/model/hooks/useModal";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";
@@ -203,9 +203,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
               })}
         </div>
 
-        <div className="mt-16 sm:mt-14">
+        <div className="mt-16 sm:mt-14 flex justify-center">
           <Button
-            size="xl"
+            size="lg"
             className="w-full"
             onClick={() => {
               apiCloseRoom({

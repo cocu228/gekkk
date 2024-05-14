@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 import { format, addDays } from "date-fns";
 import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { ordersTabs } from "../../model/heplers";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import { CtxRootData } from "@/processes/RootContext";
@@ -301,14 +301,14 @@ function OpenOrders({ refreshKey }: IParams) {
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="flex gap-4 mt-8 sm:mt-4 h-[43px]">
-          <Button size="sm" className="w-full" onClick={cancelOrder}>
+        <div className="flex gap-4 mt-8 sm:mt-4 h-[43px] justify-between">
+          <Button className="w-full" onClick={cancelOrder}>
             {t("exchange.cancel_order")}
           </Button>
 
           <Button
-            size="sm"
-            variant='gray'
+            skeleton
+            color='gray'
             className="w-full"
             onClick={cancelOrderModal.handleCancel}
           >

@@ -6,7 +6,6 @@ import {INewCardState, IStep, newCardContext} from './newCardContext';
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {storeActiveCards} from "@/shared/store/active-cards/activeCards";
 import {ClientDetails} from "@/shared/(orval)api/gek/model";
-import Button from "@/shared/ui/button/Button";
 
 export function NewCard({
     accountDetails,

@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { randomId } from "@/shared/lib/helpers";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { CtxExchangeData } from "../model/context";
 import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";
@@ -295,8 +295,8 @@ function Exchange() {
 
               <div className={`mt-7 ${styles.GridFooter}`}>
                 <Button
+                  size="lg"
                   className="w-full"
-                  size="xl"
                   disabled={
                     (!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) ||
                     hasValidationError
@@ -368,7 +368,7 @@ function Exchange() {
                     {t("exchange.broker_exchange_fee")}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex justify-between gap-4">
                     <Button
                       disabled={loading}
                       className="w-full"
@@ -378,7 +378,7 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      variant='gray'
+                      color='gray'
                       disabled={loading}
                       className="w-full"
                       onClick={confirmModal.handleCancel}
@@ -465,8 +465,8 @@ function Exchange() {
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-8 sm:mt-4">
-          <Button size="xl" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+        <div className="mt-8 sm:mt-4 flex justify-center">
+          <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
             } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
       </Modal>

@@ -4,7 +4,7 @@ import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {apiGetUas} from "@/shared/(orval)api";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import {IconApp} from '@/shared/ui/icons/icon-app';
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
@@ -160,19 +160,17 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
-                            variant='greenTransfer'
+                            color='green'
                             onClick={() => onContinue(true)}
                             className={styles.Button}
-                            size='xl'
                         >
                             {t("confirm")}
                         </Button>
 
                         <Button
-                            variant='decline'
+                            color='red'
                             onClick={() => onContinue(false)}
                             className={styles.Button}
-                            size='xl'
                         >
                             {t("decline")}
                         </Button>

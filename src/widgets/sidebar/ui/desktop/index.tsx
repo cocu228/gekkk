@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { CtxRootData } from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";
@@ -180,9 +180,9 @@ const SidebarDesktop = () => {
                         t("are_you_sure_leave", { currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2 })
                     }
                 </div>
-                <div className="mt-16 sm:mt-14">
+                <div className="mt-16 sm:mt-14 flex justify-center">
                     <Button
-                        size="xl"
+                        size="lg"
                         className="w-full"
                         onClick={() => {
                             if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {

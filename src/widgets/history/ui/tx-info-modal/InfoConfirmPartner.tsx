@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import { TxInfoProps } from '../../model/types';
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { useEffect, useRef, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";
@@ -80,10 +80,10 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
             </div>
             <div className="flex justify-center w-[40%]">
               <Button
-                variant='greenTransfer'
+                size={"lg"}
+                color='green'
                 onClick={() => setPartnerInfo(input)}
                 disabled={input === ""}
-                size={"xl"}
                 className="w-full"
               >
                 <span className="font-bold">{t("apply")}</span>
@@ -109,9 +109,9 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
           <div className="row flex gap-3">
             <div className="col w-full">
               <Button
+                size="lg"
                 onClick={confirmPartnerInfo}
-                size={"xl"}
-                className="w-full !font-medium"
+                className="w-full"
               >
                 <span className="font-bold">{t("confirm")}</span>
               </Button>

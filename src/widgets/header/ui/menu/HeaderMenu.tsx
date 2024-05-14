@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef, useState } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import RefreshButton from "@/shared/ui/refresh-button";
 import { TPropsHeaderMenu } from "@/widgets/header/model/types";
 import { storeAccounts } from "@/shared/store/accounts/accounts";
@@ -6,7 +6,6 @@ import styles from "@/widgets/header/ui/menu/style.module.scss";
 import DropdownMenuFunctions from "../../model/dropdown-menu-functions";
 import { useTranslation } from "react-i18next";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import Button from "@/shared/ui/button/Button";
 
 const HeaderMenu = ({
   children,

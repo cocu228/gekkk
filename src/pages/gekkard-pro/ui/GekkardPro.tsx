@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import styles from "./styles.module.scss"
-import Button from "@/shared/ui/button/Button"
+import Button from "@/shared/ui/!button/Button"
 import { Switch } from "antd"
 import { useNavigate } from "react-router-dom"
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider"
@@ -49,18 +49,17 @@ export const GekkardPro = (props: Props) => {
             </div>
             <div className={styles.Buttons}>
                 <Button
-                    variant="greenTransfer"
-                    className={styles.ButtonsProceed}
-                    size="xl"
+                    color="green"
                     onClick={handleProceed}
+                    className={styles.ButtonsProceed}
                 >
                     {t("proceed")}
                 </Button>
                 <Button
-                    variant="whiteGreenTransfer"
-                    className={styles.ButtonsBack}
-                    size="xl"
+                    skeleton
+                    color="green"
                     onClick={handleBack}
+                    className={styles.ButtonsBack}
                 >
                     {t("back")}
                 </Button>

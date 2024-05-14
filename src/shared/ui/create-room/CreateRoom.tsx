@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import UseError from "@/shared/model/hooks/useError";
 import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
@@ -120,11 +120,10 @@ function CreateRoom({
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 sm:mt-11">
+        <div className="mt-6 sm:mt-11 flex justify-center">
           <Button
+            size="lg"
             disabled={!(from.currency && to.currency)}
-            size="xl"
-            className="w-full"
             onClick={() => {
               setLoading(true);
 

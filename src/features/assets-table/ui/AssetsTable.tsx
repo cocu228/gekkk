@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GTable from "@/shared/ui/grid-table/";
 import { getAlignment, getWidth } from "../model/helpers";
 import { AssetTableKeys } from "../model/types";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { apiGetRates } from "@/shared/(orval)api/gek";
 import ETokensConst from "@/shared/config/coins/constants";
@@ -246,9 +246,9 @@ const AssetsTable = ({
 
                       {key === AssetTableKeys.ACTIONS && (
                         <Button
-                          size={"sm"}
+                          skeleton
+                          color='gray'
                           className="w-[60px]"
-                          variant='darkBlue'
                           onClick={(e) => {
                             scrollToTop();
                             e.stopPropagation();

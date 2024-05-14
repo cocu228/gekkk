@@ -1,7 +1,7 @@
 import { Form } from "antd";
 import { memo, useState } from "react";
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { apiApplyCode } from "@/shared/(orval)api/gek";
 import { promoCodeMessage } from "@/shared/config/message";
 import useValidation from "@/shared/model/hooks/useValidation";
@@ -102,8 +102,8 @@ const PromoCode = memo(({handleCancel}: IProps) => {
 
           <div className={buttonStyles.ButtonContainer}>
             <Button
-              htmlType={"submit"}
-              variant="greenTransfer"
+              color="green"
+              htmlType="submit"
               className={buttonStyles.ButtonTwo}
               disabled={
                 valInput === "" ||
@@ -114,8 +114,8 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               {t("confirm")}
             </Button>
             <Button
-              variant={"whiteGreenTransfer"}
-              size={"xl"}
+              skeleton
+              color="green"
               className={buttonStyles.ButtonTwo}
               onClick={handleCancel}
             >

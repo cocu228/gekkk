@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import Button from '@/shared/ui/button/Button';
+import Button from '@/shared/ui/!button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
 import {apiOrderNewCard} from "@/shared/api/bank/order-new-card";
@@ -179,8 +179,8 @@ export function ConfirmationNewCard() {
         </div>
 
         <div className={styles.confFooterBtns}>
-            <Button disabled={loading} onClick={onConfirm}>{t("order_card")}</Button>
-            <Button variant='gray'  onClick={() => {
+            <Button disabled={loading} className='w-full' onClick={onConfirm}>{t("order_card")}</Button>
+            <Button skeleton color='gray' className='w-full' onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
         </div>

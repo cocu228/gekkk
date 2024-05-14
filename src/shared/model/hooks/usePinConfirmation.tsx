@@ -4,7 +4,7 @@ import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { $axios } from "@/shared/lib/(orval)axios";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { MASK_CODE } from "@/shared/config/mask";
 import { InternalAxiosRequestConfig } from "axios";
 import useMask from "@/shared/model/hooks/useMask";
@@ -121,9 +121,8 @@ const usePinConfirmation = (): TypeUseConfirmation => {
           </div>
           Loading: {loading.toString()}
           <div className="mb-4">{localErrorInfoBox}</div>
-          <div>
+          <div className="flex justify-center w-full">
             <Button
-              size={"xl"}
               disabled={!code}
               onClick={confirm}
               className="w-full"

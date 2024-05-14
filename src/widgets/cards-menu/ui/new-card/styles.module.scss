@@ -82,9 +82,10 @@
 }
 
 .confFooterBtns {
-    display: flex;
-    gap: 24px;
+    display: grid;
     padding-top: 28px;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
 }
 
 .issueTitle {
@@ -181,9 +182,10 @@
 }
 
 .issueFooter {
-    display: flex;
+    display: grid;
     padding-top: 48px;
-    gap: 24px;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
 }
 
 .OrderText {

@@ -20,34 +20,6 @@
     }
 }
 
-.button {
-    min-width: 100px;
-    width: 100px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px !important;
-    border: 2px solid var(--gek-red) !important;
-    background: var(--gek-background) !important;
-    color: var(--gek-red) !important;
-
-    &:disabled{
-        border: 0px !important;
-        color: #ffffff !important;
-        background: var(--gek-mid-grey) !important;
-    }
-
-
-    @include max-devices(md){
-        font-size: 10px;
-        height: 27px !important;
-        width: 80px !important;
-        font-weight: 600;
-        min-width: 80px !important;
-    }
-}
-
 .sessionWrap {
     display: flex;
     flex-direction: column;

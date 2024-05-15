@@ -185,7 +185,6 @@ const UniversalTransferForm = () => {
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
-          color='green'
           className={styles.Button}
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}

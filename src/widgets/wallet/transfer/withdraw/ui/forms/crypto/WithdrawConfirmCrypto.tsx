@@ -320,7 +320,6 @@ const WithdrawConfirmCrypto = memo(
                         (stageReq.status === 0 || stageReq.status === 1)
                       }
                       className={styles.ButtonTwo}
-                      color='green'
                       skeleton
                     >
                       {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
@@ -329,7 +328,6 @@ const WithdrawConfirmCrypto = memo(
                       onClick={() => {
                         handleCancel();
                       }}
-                      color='green'
                       skeleton
                       className={styles.ButtonTwo}
                       size="lg"
@@ -727,7 +725,6 @@ const WithdrawConfirmCrypto = memo(
                               (stageReq.status === 0 || stageReq.status === 1)
                             }
                             className={styles.ButtonTwo}
-                            color="green"
                           >
                             {t(
                               stageReq.status === 2
@@ -740,7 +737,6 @@ const WithdrawConfirmCrypto = memo(
                             onClick={() => {
                               handleCancel();
                             }}
-                            color='green'
                             skeleton
                             className={styles.ButtonTwo}
                             size="lg"

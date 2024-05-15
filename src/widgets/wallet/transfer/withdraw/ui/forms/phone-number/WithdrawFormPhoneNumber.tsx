@@ -188,7 +188,6 @@ const WithdrawFormPhoneNumber = () => {
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
-          color="green"
           onClick={showModal}
           className={styles.Button}
           disabled={!isValid || inputCurrValid.value}

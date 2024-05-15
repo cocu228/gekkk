@@ -79,7 +79,6 @@ export function ChangePassword() {
         </div>
         <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
           <Button
-            color="green"
             className="w-full"
             disabled={!valid || !(newPass === confirmNewPass)}
             onClick={() => {
@@ -93,7 +92,6 @@ export function ChangePassword() {
             {t("send_code")}
           </Button>
           <Button
-            color="green"
             className="w-full"
             disabled={!(newPass === confirmNewPass && changeCodeSent)}
             onClick={() => {

@@ -258,7 +258,6 @@ const WithdrawConfirmPhoneNumber = ({
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
                             <Button
-                                color="green"
                                 onClick={onConfirm}
                                 disabled={!totalCommission}
                                 className={styles.ButtonTwo}
@@ -266,7 +265,6 @@ const WithdrawConfirmPhoneNumber = ({
 
                             <Button
                                 skeleton
-                                color="green"
                                 className={styles.ButtonTwo}
                                 onClick={()=>{
                                     handleCancel();

@@ -206,7 +206,6 @@ const UniversalTransferConfirm = ({
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
                             <Button htmlType={"submit"}
-                                color='green'
                                 onClick={onConfirm}
                                 className={styles.ButtonTwo}
                             >
@@ -215,7 +214,6 @@ const UniversalTransferConfirm = ({
 
                             <Button
                                 skeleton
-                                color='green'
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
                             >

@@ -73,7 +73,6 @@ export function UserKeys() {
               </div></>}
               <div className={style.btnsBlock}>
                   <Button  
-                    color="green"
                     className={style.Button + " w-[120px]"}
                     onClick={()=> {
                       if(!smsSent){
@@ -88,7 +87,6 @@ export function UserKeys() {
                   </Button>
                   <Button
                     skeleton
-                    color="green"
                     className="w-full"
                     onClick={()=>{
                       navigate("/settings")

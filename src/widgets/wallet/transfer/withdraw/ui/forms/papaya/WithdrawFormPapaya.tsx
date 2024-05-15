@@ -171,7 +171,6 @@ const WithdrawFormPapaya = () => {
                 <div className={styles.ButtonContainerCenter}>
                     <Button
                         size="lg"
-                        color='green'
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}

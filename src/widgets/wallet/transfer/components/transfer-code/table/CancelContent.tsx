@@ -205,10 +205,10 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={styles.ButtonContainer}>
-                    <Button color='green' className={styles.ButtonTwo} size="lg" onClick={onBtnCancel}>
+                    <Button className={styles.ButtonTwo} size="lg" onClick={onBtnCancel}>
                         {t("confirm")}
                     </Button>
-                    <Button skeleton color='green' className={styles.ButtonTwo} size="lg" onClick={handleCancel}>
+                    <Button skeleton className={styles.ButtonTwo} size="lg" onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

@@ -232,7 +232,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     return !md ? <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button skeleton color='green' onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
+            <Button skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
 
         <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>
@@ -258,7 +258,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         </Modal>
     </> : <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button color='green' onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
+            <Button onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
 
         <ModalAnt closable={false} footer={null} title={<ModalTitle handleCancel={handleCancel} title={t("confirm_code")}/>} open={isModalOpen}
                onCancel={handleCancel}>
@@ -297,10 +297,10 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={stylesForms.ButtonContainer}>
-                    <Button color='green' className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                    <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
                         {t("confirm")}
                     </Button>
-                    <Button color='green' skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
+                    <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

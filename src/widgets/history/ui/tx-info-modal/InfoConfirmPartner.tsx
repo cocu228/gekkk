@@ -81,7 +81,6 @@ export const InfoConfirmPartner = (props: TxInfoProps) => {
             <div className="flex justify-center w-[40%]">
               <Button
                 size={"lg"}
-                color='green'
                 onClick={() => setPartnerInfo(input)}
                 disabled={input === ""}
                 className="w-full"

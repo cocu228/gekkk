@@ -266,7 +266,6 @@ const WithdrawFormBroker = () => {
             <div className={styles.ButtonContainerCenter}>
                 <Button
                     size="lg"
-                    color='green'
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full"

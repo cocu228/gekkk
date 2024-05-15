@@ -396,11 +396,9 @@ const WithdrawConfirmCardToCard = ({
                                 htmlType={"submit"}
                                 className={styles.ButtonTwo}
                                 disabled={!totalCommission}
-                                color="green"
                         >{t("confirm")}</Button>
                         <Button
                             skeleton
-                            color="green"
                             onClick={handleCancel}
                             className={styles.ButtonTwo}
                         >{t("cancel")}</Button>

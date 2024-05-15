@@ -263,7 +263,7 @@ const CreateTransferCode = () => {
                 
             </div>}     
         <div className={styles.ButtonContainerCenter}>
-            <Button color='green' disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+            <Button disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
                 onCreateCode()
                 showModal()
             }} size="lg" className="w-full">{t("create_transfer_code")}</Button>

@@ -288,11 +288,11 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             <Form onFinish={onConfirm}>
                 <div className="row mt-4 mb-4">
                     <div className={styles.ButtonContainer}>
-                        <Button color='green'
+                        <Button
                                 className={styles.ButtonTwo}
                                 htmlType={"submit"}
                         >{t("confirm")}</Button>
-                        <Button color='green'
+                        <Button
                                 skeleton
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}

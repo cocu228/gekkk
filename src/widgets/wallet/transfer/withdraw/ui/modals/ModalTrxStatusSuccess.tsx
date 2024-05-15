@@ -42,7 +42,6 @@ function ModalTrxStatusSuccess({
             {onReceipt === null ? null : (
                 <Button
                     skeleton
-                    color='green'
                     className='w-full'
                     onClick={onReceipt}
                 >
@@ -51,7 +50,6 @@ function ModalTrxStatusSuccess({
             )}
 
             <Button
-                color='green'
                 className='w-full'
                 onClick={handleCancel}
             >

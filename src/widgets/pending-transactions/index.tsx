@@ -160,7 +160,6 @@ export const PendingTransactions = () => {
 
                     <div className="flex flex-1 justify-between">
                         <Button
-                            color='green'
                             onClick={() => onContinue(true)}
                             className={styles.Button}
                         >

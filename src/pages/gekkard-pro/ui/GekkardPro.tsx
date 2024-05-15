@@ -49,7 +49,6 @@ export const GekkardPro = (props: Props) => {
             </div>
             <div className={styles.Buttons}>
                 <Button
-                    color="green"
                     onClick={handleProceed}
                     className={styles.ButtonsProceed}
                 >
@@ -57,7 +56,6 @@ export const GekkardPro = (props: Props) => {
                 </Button>
                 <Button
                     skeleton
-                    color="green"
                     onClick={handleBack}
                     className={styles.ButtonsBack}
                 >

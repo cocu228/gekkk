@@ -246,9 +246,9 @@ const AssetsTable = ({
 
                       {key === AssetTableKeys.ACTIONS && (
                         <Button
-                          size={"sm"}
+                          skeleton
+                          color='gray'
                           className="w-[60px]"
-                          variant='darkBlue'
                           onClick={(e) => {
                             scrollToTop();
                             e.stopPropagation();

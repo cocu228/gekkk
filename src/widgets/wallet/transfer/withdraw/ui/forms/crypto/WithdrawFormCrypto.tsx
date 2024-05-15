@@ -273,8 +273,7 @@ const WithdrawFormCrypto = () => {
         <div className={styles.Button + 'mb-0'}>
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
-                    variant='greenTransfer'
+                    size="lg"
                     className={'w-full'}
                     onClick={showModal}
                     disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}

@@ -72,7 +72,7 @@ const CreateTransferCode = () => {
         <TransferCodeDescription/>
         
         <div className="row mb-5">
-            <Button onClick={showModal} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
+            <Button onClick={showModal} size="lg" className="w-full">{t("create_transfer_code")}</Button>
             <Modal
                 padding
                 onCancel={handleCancel}
@@ -144,8 +144,8 @@ const CreateTransferCode = () => {
                             </div>
                             <div className={styles.ButtonContainerCenter}>
                                 <Button
-                                    variant="blueTransfer"
-                                    size="xl"
+                                    size="lg"
+                                    color="blue"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
                                 >
@@ -170,8 +170,8 @@ const CreateTransferCode = () => {
                             </div>
                             <div className="w-full">
                                 <Button
-                                    variant="blueTransfer"
-                                    size="xl"
+                                    size="lg"
+                                    color="blue"
                                     className="w-full mt-5"
                                     onClick={()=>{setIsHelpClicked(false)}}
                                 >
@@ -263,10 +263,10 @@ const CreateTransferCode = () => {
                 
             </div>}     
         <div className={styles.ButtonContainerCenter}>
-            <Button variant='greenTransfer' disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
+            <Button disabled={!inputCurr.value.number || (!(validateBalance(currency, navigate, t)(inputCurr.value.number)).validated)} onClick={()=>{
                 onCreateCode()
                 showModal()
-            }} size={"xl"} className="w-full !font-medium">{t("create_transfer_code")}</Button>
+            }} size="lg" className="w-full">{t("create_transfer_code")}</Button>
             <MoadlAnt 
                 footer={null} 
                 onCancel={()=>{

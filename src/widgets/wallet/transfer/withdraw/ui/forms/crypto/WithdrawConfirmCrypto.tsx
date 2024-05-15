@@ -313,14 +313,14 @@ const WithdrawConfirmCrypto = memo(
                 ) : (
                   <div className={styles.ButtonContainer}>
                     <Button
+                      size="lg"
                       htmlType={"submit"}
                       disabled={
                         input === "" &&
                         (stageReq.status === 0 || stageReq.status === 1)
                       }
                       className={styles.ButtonTwo}
-                      size={"xl"}
-                      variant='whiteGreenTransfer'
+                      skeleton
                     >
                       {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
                     </Button>
@@ -328,9 +328,9 @@ const WithdrawConfirmCrypto = memo(
                       onClick={() => {
                         handleCancel();
                       }}
-                      variant='whiteGreenTransfer'
+                      skeleton
                       className={styles.ButtonTwo}
-                      size={"xl"}
+                      size="lg"
                     >
                       {t("cancel")}
                     </Button>
@@ -494,7 +494,7 @@ const WithdrawConfirmCrypto = memo(
                     input === "" &&
                     (stageReq.status === 0 || stageReq.status === 1)
                   }
-                  size={"xl"}
+                  size="lg"
                 >
                   {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
                 </Button>
@@ -725,7 +725,6 @@ const WithdrawConfirmCrypto = memo(
                               (stageReq.status === 0 || stageReq.status === 1)
                             }
                             className={styles.ButtonTwo}
-                            variant='greenTransfer'
                           >
                             {t(
                               stageReq.status === 2
@@ -738,9 +737,9 @@ const WithdrawConfirmCrypto = memo(
                             onClick={() => {
                               handleCancel();
                             }}
-                            variant='whiteGreenTransfer'
+                            skeleton
                             className={styles.ButtonTwo}
-                            size={"xl"}
+                            size="lg"
                           >
                             {t("cancel")}
                           </Button>

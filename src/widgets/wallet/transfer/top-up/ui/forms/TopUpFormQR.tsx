@@ -93,13 +93,17 @@ const TopUpFormQR = () => {
                     {t("you_should_send_only")} <b>{$const}</b> {t("you_should_send_only_2")}
                 </span>
             </div>
-            <Button 
-                onClick={onCreateAddress} 
-                htmlType="submit"
-                className={styles.GenerateQRAttentionButton}
-            >
-                {t("generate_address")}
-            </Button>
+            <div className="flex justify-center w-full">
+                <Button
+                    size="lg"
+                    color="blue"
+                    htmlType="submit"
+                    className="w-full"
+                    onClick={onCreateAddress}
+                >
+                    {t("generate_address")}
+                </Button>
+            </div>
         </div>
         <div className={styles.GenerateQRAttentionError}>
             {localErrorInfoBox}

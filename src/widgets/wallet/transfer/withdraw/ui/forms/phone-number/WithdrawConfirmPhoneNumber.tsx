@@ -257,17 +257,14 @@ const WithdrawConfirmPhoneNumber = ({
                 <div className="row mt-4">
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
-                            <Button 
-                                size={"xl"}
-                                variant='greenTransfer'
+                            <Button
                                 onClick={onConfirm}
                                 disabled={!totalCommission}
                                 className={styles.ButtonTwo}
                             >{t("confirm")}</Button>
 
                             <Button
-                                size={"xl"}
-                                variant='whiteGreenTransfer'
+                                skeleton
                                 className={styles.ButtonTwo}
                                 onClick={()=>{
                                     handleCancel();

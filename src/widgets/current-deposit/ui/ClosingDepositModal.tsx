@@ -64,7 +64,7 @@ const ClosingDepositModal = ({
             </div>
 
             <Button
-                variant="gray"
+                color="gray"
                 className="w-full rounded-b disabled:opacity-50"
                 onClick={onDepositClose}
             >{t("confirm")}</Button>

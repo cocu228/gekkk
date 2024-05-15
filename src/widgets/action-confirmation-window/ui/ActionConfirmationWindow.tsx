@@ -135,9 +135,9 @@ const ActionConfirmationWindow = () => {
 
         <div className="mb-4">{localErrorInfoBox}</div>
 
-        <div>
+        <div className="flex justify-center w-full">
           <Button
-            size={"xl"}
+            size="lg"
             disabled={!code}
             onClick={onConfirm}
             className="w-full mt-4"

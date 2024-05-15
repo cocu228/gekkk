@@ -78,6 +78,9 @@
 }
 
 .GridFooter {
+  display: grid;
+  justify-items: center;
+
   @include max-devices("md") {
     grid-column: span 2;
   }

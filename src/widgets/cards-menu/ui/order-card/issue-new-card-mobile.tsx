@@ -1,12 +1,9 @@
 import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
-import { Typography as Tp } from '@/shared/ui/typography/typography';
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {ValidateOrderCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';

@@ -5,7 +5,7 @@ import ChoseNetwork from "@/widgets/wallet/transfer/ChoseNetwork";
 import {CtxWalletNetworks, CtxWalletData} from '@/widgets/wallet/transfer/model/context';
 import {getChosenNetwork, isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import WithdrawFormSepa from "./forms/sepa/WithdrawFormSepa";
-import WithdrawFormSwift from "./forms/WithdrawFormSwift";
+// import WithdrawFormSwift from "./forms/(no-usages)WithdrawFormSwift";
 import WithdrawFormCardToCard from "./forms/card-to-card/WithdrawFormCardToCard";
 import WithdrawFormBroker from "./forms/broker/WithdrawFormBroker";
 import {getFinalFee} from "@/widgets/wallet/transfer/withdraw/model/helper";
@@ -42,21 +42,21 @@ const Withdraw = memo(() => {
         
         switch (networkType) {
             case 150:
-                return <WithdrawFormPapaya/>;
+                return <WithdrawFormPapaya/>; // EURG to EUR exchange (EURG)
             case 151:
-                return <WithdrawFormSepa/>;
-            case 152:
-                return <WithdrawFormSwift/>;
+                return <WithdrawFormSepa/>; // SEPA (EUR)
+            // case 152:
+            //     return <WithdrawFormSwift/>;
             case 153:
-                return <WithdrawFormCardToCard/>;
+                return <WithdrawFormCardToCard/>; // Card to card (EUR)
             case 154:
-                return <WithdrawFormBroker/>;
+                return <WithdrawFormBroker/>; // EUR to EURG exchange (EUR)
             case 155:
-                return <WithdrawFormPhoneNumber/>;
+                return <WithdrawFormPhoneNumber/>; // To contact (EUR)
             case 230:
-                return <UniversalTransferForm/>;
+                return <UniversalTransferForm/>; // To Gekkard user by contact (Crypto)
             case 231:
-                return <CreateTransferCode/>;
+                return <CreateTransferCode/>; // Code (Crypto)
             default:
                 return <div>
                     {t("no_actions_for_network")}

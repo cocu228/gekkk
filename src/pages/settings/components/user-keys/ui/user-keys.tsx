@@ -1,13 +1,9 @@
 import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
-import { Typography } from "@/shared/ui/typography/typography"
-import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
-import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import style from './style.module.scss'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserKeys } from "../model/use-user-keys";
 import { t } from "i18next";
 import Loader from "@/shared/ui/loader";
-import { timestampToDateFormat } from '@/features/chat/model/helpers';
 import getUnixTime from "date-fns/getUnixTime";
 import { formatDate } from "../model/date-formater";
 import parseISO from "date-fns/parseISO";
@@ -19,7 +15,7 @@ import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface IChallange {
   newCredential:string,
@@ -32,7 +28,6 @@ export function UserKeys() {
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
     const keysList = useUserKeys(keyDeleted);
     const {isModalOpen, handleCancel, showModal} = useModal();
-    const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
     const navigate = useNavigate()
 
@@ -44,16 +39,14 @@ export function UserKeys() {
 
 
     function onRemoveKey(id){
-        apiRemoveKey({key_id: id}).then(res=>{
-            setKeyDeleted(n=>!n)
-        })
+      apiRemoveKey({key_id: id}).then(res=>{
+          setKeyDeleted(n=>!n)
+      })
     }
 
     function onCloseSession(id){
-        apiCloseSessions({id: id}).then(res=>{      
-          setSessionClosed(n=>!n)
-        })
-      }
+      apiCloseSessions({id: id});
+    }
 
 
 
@@ -80,7 +73,6 @@ export function UserKeys() {
               </div></>}
               <div className={style.btnsBlock}>
                   <Button  
-                    variant="greenTransfer"
                     className={style.Button + " w-[120px]"}
                     onClick={()=> {
                       if(!smsSent){
@@ -93,8 +85,8 @@ export function UserKeys() {
                   >
                       {t("create_key")}
                   </Button>
-                  <Button 
-                    variant="whiteGreenTransfer"
+                  <Button
+                    skeleton
                     className="w-full"
                     onClick={()=>{
                       navigate("/settings")
@@ -115,7 +107,10 @@ export function UserKeys() {
                   </div>
                   <div className={style.keyBtnWrap}>
                     <Button
-                      className={`w-full ${index===0 ? "current" : "remove"} ${style.Button}`}
+                      skeleton
+                      custom={index === 0}
+                      color={index === 0 ? null : "red"}
+                      className={`w-full ${index === 0 ? style.CurentButton : ""}`}
                       onClick={()=>{
                           showModal()
                           setKeyToRemove(key)
@@ -136,43 +131,48 @@ export function UserKeys() {
             </div>
           
           <Modal
+              padding
               closable={false}
               open={isModalOpen}
               title={keyToRemove?t('remove_key'):t("close_session")}
               width={400}
               footer={
                 <div className='w-full flex justify-center gap-2'>
-                  {keyToRemove ? <><MobileButton
+                  {keyToRemove ? <><Button
+                    color="blue"
                     onClick={()=>{
                       onRemoveKey(keyToRemove.id)
                       handleCancel()
                     }}
                     >
                     {t("remove")}
-                  </MobileButton>
-                  <MobileButton
+                  </Button>
+                  <Button
+                    color="blue"
                     onClick={()=>{
                       handleCancel()
                       setKeyToRemove(null)
                     }}
                   >
                     {t("cancel")}
-                  </MobileButton> </>:<> <MobileButton
+                  </Button> </>:<> <Button
+                    color="blue"
                     onClick={()=>{
                       onCloseSession(sessionToRemove.id)
                       handleCancel()
                     }}
                     >
                     {t("close")}
-                  </MobileButton>
-                  <MobileButton
+                  </Button>
+                  <Button
+                    color="blue"
                     onClick={()=>{
                       setSessionToRemove(null)
                       handleCancel()
                     }}
                   >
                     {t("cancel")}
-                  </MobileButton> </>
+                  </Button> </>
         
                   }
                 </div>

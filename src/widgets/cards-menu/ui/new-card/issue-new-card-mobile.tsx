@@ -1,16 +1,11 @@
 import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
-import Select from '@/shared/ui/select/Select';
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import useMask from "@/shared/model/hooks/useMask";
 import {MASK_PHONE} from "@/shared/config/mask";
 import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
-import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
-import { Typography as Tp } from '@/shared/ui/typography/typography';
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import styles from '../style.module.scss';

@@ -378,7 +378,6 @@ function CustomHistory() {
           <div className={styles.BottomBtnsWrap}>
             <Button
               className={styles.BottomBtn}
-              size="sm"
               onClick={() => {
                 setApply(true);
                 applyHandler();
@@ -388,9 +387,8 @@ function CustomHistory() {
               {t("apply")}
             </Button>
             <Button
-              className={`${styles.BottomBtn} grey`}
-              size="sm"
-              variant="gray"
+              className={`${styles.BottomBtn}`}
+              color="gray"
               onClick={() => {
                 setApply(false);
                 handleReset();

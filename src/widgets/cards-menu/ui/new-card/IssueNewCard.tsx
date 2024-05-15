@@ -205,7 +205,7 @@ export function IssueNewCard() {
                         setStep('ConfirmationNewCard');
                     }}
             >{t("proceed")}</Button>
-            <Button variant='gray' onClick={close}>{t("back")}</Button>
+            <Button skeleton color='gray' className='w-full' onClick={close}>{t("back")}</Button>
         </div>
     </div>
 }

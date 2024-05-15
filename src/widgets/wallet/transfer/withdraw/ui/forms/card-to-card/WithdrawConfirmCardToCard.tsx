@@ -15,8 +15,6 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
 import { maskFullCardNumber } from "@/shared/lib";
-import StatusModalSuccess from "../../modals/ModalTrxStatusSuccess";
-import StatusModalError from "../../modals/ModalTrxStatusError";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 
@@ -249,8 +247,8 @@ const WithdrawConfirmCardToCard = ({
 
             <Form onFinish={onConfirm}>
                 <div className="row my-5">
-                    <div className="col">
-                        <Button size={"xl"}
+                    <div className="flex justify-center col">
+                        <Button size="lg"
                                 htmlType={"submit"}
                                 className="w-full"
                                 disabled={!totalCommission}
@@ -395,16 +393,14 @@ const WithdrawConfirmCardToCard = ({
                 <div className="row my-5">
                     <div className={styles.ButtonContainer}>
                         <Button 
-                                size={"xl"}
                                 htmlType={"submit"}
                                 className={styles.ButtonTwo}
                                 disabled={!totalCommission}
-                                variant='greenTransfer'
                         >{t("confirm")}</Button>
-                        <Button size={"xl"}
-                                onClick={handleCancel}
-                                className={styles.ButtonTwo}
-                                variant='whiteGreenTransfer'
+                        <Button
+                            skeleton
+                            onClick={handleCancel}
+                            className={styles.ButtonTwo}
                         >{t("cancel")}</Button>
                     </div>
                 </div>

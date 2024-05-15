@@ -38,7 +38,7 @@ export function CardHasBeenOrdered() {
 
             <Success />
 
-            <Button variant='gray' onClick={() => {
+            <Button skeleton color='gray' onClick={() => {
                navigate('/'); 
             }}>{t("back_to_main_page")}</Button>
 

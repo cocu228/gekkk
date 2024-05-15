@@ -60,7 +60,7 @@ const OpenDeposit = () => {
                 </p>
             </div>
 
-            <Button variant='text' onClick={conditionsModal.showModal}>
+            <Button onClick={conditionsModal.showModal}>
                 <span className="underline underline-offset-4 text-gray-400 md:text-sm">
                     Early closing conditions →
                 </span>

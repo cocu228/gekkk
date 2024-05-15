@@ -68,9 +68,9 @@ export function PersonalInformation() {
                 </>}
                 {xl && 
                 <div className={styles.downBtnWrap}>
-                    <Button 
+                    <Button
+                        color="blue"
                         onClick={resetState}
-                        className="!w-[120px] !h-[43px] !bg-[var(--gek-additional)] text-[14px] !font-bold"
                     >
                         {t("back")}
                     </Button>

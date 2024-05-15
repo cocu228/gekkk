@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "orval": "orval",
-    "local": "set APP_TYPE=GEKKARD && vite --mode dev.gekkard",
+    "check": "tsc --noEmit && echo Done.",
+    "local": "cross-env APP_TYPE=GEKKARD vite --mode dev.gekkard",
     "gko-local": "cross-env APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
     "PRD-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
     "PRD-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",

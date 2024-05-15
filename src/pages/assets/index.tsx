@@ -130,7 +130,7 @@ const InfoBox = () => {
             className="font-bold underline hover:cursor-pointer"
             onClick={showModal}>{t("crypto_assets.deposits")}</a>.</p>
 
-        <Modal onCancel={handleCancel} open={isModalOpen}>
+        <Modal padding onCancel={handleCancel} open={isModalOpen}>
             <>
                 <div className="row mb-10">
                     <div className="col">
@@ -138,11 +138,14 @@ const InfoBox = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex col justify-center">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
-                            <Button onClick={onClick}
-                                    data-testid="ConfirmToGekkard"
-                                    className="w-full">{t("confirm")}</Button>}
+                            <Button
+                                size="lg"
+                                onClick={onClick}
+                                className="w-full"
+                                data-testid="ConfirmToGekkard"
+                            >{t("confirm")}</Button>}
                     </div>
                 </div>
             </>

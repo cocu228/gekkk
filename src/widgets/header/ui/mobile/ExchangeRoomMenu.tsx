@@ -203,9 +203,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
               })}
         </div>
 
-        <div className="mt-16 sm:mt-14">
+        <div className="mt-16 sm:mt-14 flex justify-center">
           <Button
-            size="xl"
+            size="lg"
             className="w-full"
             onClick={() => {
               apiCloseRoom({

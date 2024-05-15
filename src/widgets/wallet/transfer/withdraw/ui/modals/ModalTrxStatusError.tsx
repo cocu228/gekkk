@@ -30,10 +30,10 @@ function ModalTrxStatusError({}: IParams) {
             </div>
             <div className={styles.ButtonContainerCenter + " mt-[30px]"}>
                 <Button
+                    size='lg'
+                    color="blue"
                     className='w-full'
                     onClick={handleCancel}
-                    size='xl'
-                    variant="blueTransfer"
                 >
                     {t("close")}
                 </Button>

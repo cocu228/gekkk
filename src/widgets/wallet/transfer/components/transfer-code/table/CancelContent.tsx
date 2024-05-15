@@ -41,8 +41,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     }
 
     return !md ? <>
-        <Button onClick={showModal} size={"sm"} variant='gray'
-                className={"!py-3 !h-[fit-content]"}>{t("cancel")}</Button>
+        <Button onClick={showModal} skeleton color='red'>{t("cancel")}</Button>
         <Modal
             closable={false}
             title={<ModalTitle handleCancel={handleCancel} title={t("deleting_transfer_code")}/>}
@@ -99,8 +98,8 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <Button className="w-full" size="xl" onClick={onBtnCancel}>{t("delete_this_code")}
+                <div className="flex justify-center row">
+                    <Button className="w-full" size="lg" onClick={onBtnCancel}>{t("delete_this_code")}
                     </Button>
                 </div>
             </div>}
@@ -147,9 +146,9 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                 </div>
                 
                 <div className="flex flex-row gap-5">
-                    <Button className="w-full" size="xl" onClick={onBtnCancel}>{t("confirm")}
+                    <Button className="w-full" size="lg" onClick={onBtnCancel}>{t("confirm")}
                     </Button>
-                    <Button variant='darkBlue' className="w-full" size="xl" onClick={handleCancel}>{t("cancel")}
+                    <Button skeleton color='blue' className="w-full" size="lg" onClick={handleCancel}>{t("cancel")}
                     </Button>
                 </div>
             </div>) : <div>
@@ -206,10 +205,10 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                     </div>
                 </div>
                 <div className={styles.ButtonContainer}>
-                    <Button variant='greenTransfer' className={styles.ButtonTwo} size="xl" onClick={onBtnCancel}>
+                    <Button className={styles.ButtonTwo} size="lg" onClick={onBtnCancel}>
                         {t("confirm")}
                     </Button>
-                    <Button variant='whiteGreenTransfer' className={styles.ButtonTwo} size="xl" onClick={handleCancel}>
+                    <Button skeleton className={styles.ButtonTwo} size="lg" onClick={handleCancel}>
                         {t("cancel")}
                     </Button>
                 </div>

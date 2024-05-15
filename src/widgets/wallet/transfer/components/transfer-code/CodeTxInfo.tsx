@@ -9,7 +9,6 @@ import type {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { CtxWalletData } from "../../model/context";
-import Decimal from "decimal.js";
 import { useTranslation } from "react-i18next";
 import styles from "../../../transfer/withdraw/ui/forms/styles.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
@@ -142,10 +141,10 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                 </div>
                 <div className={styles.ButtonContainerCenter}>
                     <Button
-                        size="xl"
+                        size="lg"
+                        color="blue"
                         className="w-full mt-4"
                         onClick={onClose}
-                        variant="blueTransfer"
                     >
                         {t("close")}
                     </Button>
@@ -204,10 +203,10 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                 </div>
             </div>}
             {onBtnApply && <div className="row">
-                <div className="col">
+                <div className="flex justify-center col">
                     <Button disabled={loading} onClick={() => onBtnApply(infoCode)}
-                            size={"xl"}
-                            className={"w-full !h-full !font-medium"}>
+                            size="lg"
+                            className={"w-full"}>
                         {t("confirm")}
                     </Button>
                 </div>

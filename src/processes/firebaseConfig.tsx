@@ -1,8 +1,5 @@
-// import {useState} from 'react';
 import {initializeApp} from 'firebase/app';
-import {getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult} from "firebase/auth";
-// import Button from "@/shared/ui/button/Button";
-// import Input from "@/shared/ui/input/Input";
+import {getAuth, RecaptchaVerifier, ConfirmationResult} from "firebase/auth";
 
 declare global {
     interface Window {

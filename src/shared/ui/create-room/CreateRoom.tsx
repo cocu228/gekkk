@@ -120,11 +120,10 @@ function CreateRoom({
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 sm:mt-11">
+        <div className="mt-6 sm:mt-11 flex justify-center">
           <Button
+            size="lg"
             disabled={!(from.currency && to.currency)}
-            size="xl"
-            className="w-full"
             onClick={() => {
               setLoading(true);
 

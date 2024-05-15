@@ -136,9 +136,10 @@ export const EnableNotifications = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[50px] h-[50px]"}/> :
                             <Button
+                                size="lg"
                                 onClick={handleCancel}
                                 className="w-full"
                             >{t("close")}</Button>}
@@ -191,10 +192,10 @@ export const GekkoinInvestPlatform = () => {
                     </div>
                 </div>
                 <div className="row relative">
-                    <div className="col">
+                    <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button
-                                size="sm"
+                                size="lg"
                                 onClick={onClick}
                                 className="w-full"
                             >{t("confirm")}</Button>}

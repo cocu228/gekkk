@@ -41,13 +41,15 @@ export function UserSession() {
                                 <h4 className={styles.sessionItemTitle}>{session.user_agent}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("ip")}: {session.ip}</h4>
                             </div>
-                            <Button 
-                                className={styles.button}
+                            <Button
+                                skeleton
+                                color='red'
+                                className='w-[75px]'
+                                disabled={isCurrent(index)}
                                 onClick={()=>{
                                     showModal()
                                     setSessionToRemove(session)
                                 }}
-                                disabled={isCurrent(index)}
                             >
                                 <span className='capitalize'>{isCurrent(index) ? t("current") : t("close")}</span>
                             </Button>
@@ -56,15 +58,16 @@ export function UserSession() {
                     }
                     {(sessions?.length > 1) &&
                     <div className='m-5 min-h-[45px]'>
-                        <MobileButton
+                        <Button
+                            size='lg'
+                            color='red'
                             className='h-full text-[100%] md:!text-[14px] p-2'
-                            varitant='alarm'
                             onClick={()=>{
                                 closeAllSessions();
                             }}
                         >
                             {t("end_all_other_sessions")}
-                        </MobileButton>
+                        </Button>
                     </div>
                     }
                     {!sessions.length && (
@@ -81,22 +84,24 @@ export function UserSession() {
                 footer={
                     <div className='w-full flex justify-center gap-2'>
                     <> 
-                    <MobileButton
+                    <Button
+                        color='blue'
                         onClick={()=>{
                         closeSession(sessionToRemove);
                         handleCancel()
                         }}
                         >
                         {t("close")}
-                    </MobileButton>
-                    <MobileButton
+                    </Button>
+                    <Button
+                        color='blue'
                         onClick={()=>{
                         setSessionToRemove(null)
                         handleCancel()
                         }}
                     >
                         {t("cancel")}
-                    </MobileButton> 
+                    </Button> 
                     </>
                     </div>
                 }

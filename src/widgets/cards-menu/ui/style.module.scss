@@ -181,9 +181,10 @@
 }
 
 .issueFooter {
-  display: flex;
-  gap: 24px;
+  display: grid;
   padding-top: 48px;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
 }
 
 .mobIssueCardWrap {

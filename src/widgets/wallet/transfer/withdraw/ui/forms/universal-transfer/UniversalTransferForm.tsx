@@ -184,11 +184,10 @@ const UniversalTransferForm = () => {
 
       <div className={styles.ButtonContainerCenter}>
         <Button
-          size={"xl"}
+          size="lg"
           className={styles.Button}
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}
-          variant='greenTransfer'
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>

@@ -23,7 +23,6 @@ import {
   validateMinimumAmount,
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
-import Decimal from "decimal.js";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
@@ -34,7 +33,6 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Card } from "@/shared/(orval)api/gek/model";
 
 const { Option } = Select;
 
@@ -270,9 +268,9 @@ const WithdrawFormCardToCard = () => {
         </Modal>
 
         <div className="row w-full">
-          <div className="col">
+          <div className="flex justify-center col">
             <Button
-              size={"xl"}
+              size="lg"
               className="w-full"
               onClick={showModal}
               disabled={!isValidated || inputCurrValid.value}
@@ -522,8 +520,7 @@ const WithdrawFormCardToCard = () => {
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>
           <Button
-            variant='greenTransfer'
-            size={"xl"}
+            size="lg"
             className="w-full"
             onClick={showModal}
             disabled={!isValidated || inputCurrValid.value}

@@ -104,6 +104,7 @@ const router = createBrowserRouter([
                 element: <GekkardPro/>,
             }
         ],
+        errorElement: <PageProblems code={500}/>
     },
     {
         path: "*",

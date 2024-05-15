@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Switch } from "antd";
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
@@ -63,19 +64,21 @@ const CardsMenu = ({
   });
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await apiGetCards();
-        setAccountDetails(await getAccountDetails());
+    const cancelTokenSource = axios.CancelToken.source();
 
-        setCardsStorage({
-          cards: data.result,
-          refreshKey: randomId(),
-        });
-      } catch (err: unknown) {
-        console.log(err);
-      }
+    (async () => {
+      const { data } = await apiGetCards(null, {
+        cancelToken: cancelTokenSource.token
+      });
+      setAccountDetails(await getAccountDetails());
+      
+      setCardsStorage({
+        cards: data.result,
+        refreshKey: randomId(),
+      });
     })();
+
+    return () => {cancelTokenSource.cancel();};
   }, []);
 
   const updateCard = (card: ICardData) => {

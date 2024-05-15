@@ -1,13 +1,14 @@
+import axios from 'axios';
 import Loader from '@/shared/ui/loader';
 import {Table} from './components/Table';
 import {useEffect, useState} from 'react';
 import {AreaWrapper} from '../AreaWrapper';
 import {useTranslation} from 'react-i18next';
+import styles from '../../styles.module.scss';
 import {apiGetUas} from '@/shared/(orval)api';
 import useError from '@/shared/model/hooks/useError';
 import {StatementsByIBAN, apiGetStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
-import styles from '../../styles.module.scss'
 
 export function MyReports() {
     const [
@@ -22,6 +23,8 @@ export function MyReports() {
     const [statements, setStatements] = useState<{[key: string]: StatementsByIBAN[]}>(null);
 
     useEffect(() => {
+        const cancelTokenSource = axios.CancelToken.source();
+
         (async () => {
             localErrorClear();
             
@@ -33,7 +36,8 @@ export function MyReports() {
                 headers: {
                     Authorization: phone,
                     Token: token
-                }
+                },
+                cancelToken: cancelTokenSource.token
             });
 
             if (data.errors) {
@@ -44,10 +48,10 @@ export function MyReports() {
                 return;
             }
 
-            console.log(data);
-
             setStatements(data.statements);
         })();
+
+        return () => cancelTokenSource.cancel();
     }, []);
 
     return <div className={styles.reportsWrap}>

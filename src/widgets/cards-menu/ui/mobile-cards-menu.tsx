@@ -37,6 +37,7 @@ import MobileModal from "@/shared/ui/modal/MobileModal";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import axios from "axios";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -74,19 +75,21 @@ const MobileCardsMenu = ({
   const setCurrentCard = useCardStore((state) => state.setCard);
 
   useEffect(() => {
+    const cancelTokenSource = axios.CancelToken.source();
+    
     (async () => {
-      try {
-        const { data } = await apiGetCards();
-        setAccountDetails(await getAccountDetails());
+      const { data } = await apiGetCards(null, {
+        cancelToken: cancelTokenSource.token
+      });
+      setAccountDetails(await getAccountDetails());
 
-        setCardsStorage({
-          cards: data.result,
-          refreshKey: randomId(),
-        });
-      } catch (err: unknown) {
-        console.log(err);
-      }
+      setCardsStorage({
+        cards: data.result,
+        refreshKey: randomId(),
+      });
     })();
+
+    return () => {cancelTokenSource.cancel()};
   }, [account]);
 
   const updateCard = (card: ICardData) => {

@@ -104,7 +104,10 @@ const router = createBrowserRouter([
                 element: <GekkardPro/>,
             }
         ],
-        errorElement: <PageProblems code={500}/>
+        // Show exception message only in dev mode
+        ...(import.meta.env.MODE === "dev.gekkard"
+            ? {}
+            : {errorElement: <PageProblems code={500}/>})
     },
     {
         path: "*",

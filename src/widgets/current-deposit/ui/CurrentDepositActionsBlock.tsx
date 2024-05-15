@@ -1,4 +1,4 @@
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import ClosingConditionsModal from '@/widgets/new-deposit/ui/modals/ClosingConditionsModal';
 import { useTranslation } from "react-i18next";

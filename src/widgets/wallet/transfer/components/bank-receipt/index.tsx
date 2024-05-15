@@ -5,7 +5,7 @@ import { apiGetBankReceipt, IReceiptData } from "@/shared/api/bank/get-bank-rece
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { getMethodTitle, getStatusTitle } from "./model/helpers";
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
 import { CtxModalTrxResult } from "../../withdraw/model/context";
 

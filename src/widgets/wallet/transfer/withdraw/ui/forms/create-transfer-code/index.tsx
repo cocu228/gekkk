@@ -1,4 +1,4 @@
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import Modal from "@/shared/ui/modal/Modal";
 import {Modal as MoadlAnt, Switch} from "antd"

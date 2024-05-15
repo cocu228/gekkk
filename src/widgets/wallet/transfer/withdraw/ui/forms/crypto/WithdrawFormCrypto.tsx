@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import {

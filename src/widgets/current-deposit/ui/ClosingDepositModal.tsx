@@ -1,6 +1,6 @@
 import { ModalProps } from "antd";
 import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { IDepositStrategyData } from "../model/helpers";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import { GetDepositOut } from "@/shared/(orval)api/gek/model";

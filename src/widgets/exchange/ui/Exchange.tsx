@@ -3,7 +3,7 @@ import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { randomId } from "@/shared/lib/helpers";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { CtxExchangeData } from "../model/context";
 import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";

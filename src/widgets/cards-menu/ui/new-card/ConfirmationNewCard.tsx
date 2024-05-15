@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
 import {apiOrderNewCard} from "@/shared/api/bank/order-new-card";

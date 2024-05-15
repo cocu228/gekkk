@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { MASK_CODE } from "@/shared/config/mask";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { InternalAxiosRequestConfig } from "axios";

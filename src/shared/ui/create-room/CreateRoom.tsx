@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import UseError from "@/shared/model/hooks/useError";
 import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";

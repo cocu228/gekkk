@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { ModalProps } from "antd";
 import { useContext } from "react";
 import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { getTermEnd } from "../../model/helpers";
 import { CtxNewDeposit } from "../../model/context";
 import InlineProperty from "@/shared/ui/inline-property";

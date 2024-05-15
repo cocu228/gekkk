@@ -1,5 +1,5 @@
 import { useNewCardContext } from "./newCardContext";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ValidateOrderCardState } from "@/widgets/cards-menu/model/helpers";

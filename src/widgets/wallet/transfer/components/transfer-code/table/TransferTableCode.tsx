@@ -1,7 +1,7 @@
 import styles from "./style.module.scss";
 import stylesForms from "../../../../transfer/withdraw/ui/forms/styles.module.scss"
 import {formatForCustomer, formatForHistoryMobile, formatForHistoryTimeMobile} from "@/shared/lib/date-helper";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import GTable from "@/shared/ui/grid-table/";
 import {useContext, useEffect, useState} from "react";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";

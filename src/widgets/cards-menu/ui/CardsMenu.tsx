@@ -8,7 +8,7 @@ import { MouseEvent, useEffect, useState } from "react";
 import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { numberWithSpaces, randomId } from "@/shared/lib/helpers";
 import {

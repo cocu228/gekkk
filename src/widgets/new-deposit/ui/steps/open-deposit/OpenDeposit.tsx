@@ -1,4 +1,4 @@
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from "react";
 import OpenDepositModal from "../../modals/OpenDepositModal";

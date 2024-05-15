@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import Modal from "@/shared/ui/modal/Modal";
 import { Modal as ModalAnt } from "antd";
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
 import { IconCoin } from "@/shared/ui/icons/icon-coin";

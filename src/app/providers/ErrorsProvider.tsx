@@ -2,7 +2,7 @@ import Loader from "@/shared/ui/loader";
 import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import {logout} from "@/shared/lib/helpers";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import {apiGetInfo} from "@/shared/(orval)api/gek";
 import useModal from "@/shared/model/hooks/useModal";

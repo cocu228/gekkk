@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import styles from "./styles.module.scss"
-import Button from "@/shared/ui/!button/Button"
+import Button from "@/shared/ui/button/Button"
 import { Switch } from "antd"
 import { useNavigate } from "react-router-dom"
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider"

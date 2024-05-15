@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {ClientDetails} from "@/shared/(orval)api/gek/model";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 
 export function PersonalInformation() {
     const {t} = useTranslation();

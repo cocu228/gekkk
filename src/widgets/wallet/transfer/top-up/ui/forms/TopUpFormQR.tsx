@@ -2,7 +2,7 @@ import {useContext} from "react";
 import ReactQRCode from "react-qr-code";
 import {apiCreateAddress} from "@/shared/(orval)api/gek";
 import {actionResSuccess} from "@/shared/lib/helpers";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import ClipboardField from "@/shared/ui/clipboard-field/ClipboardField";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import useError from "@/shared/model/hooks/useError";

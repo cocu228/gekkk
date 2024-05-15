@@ -1,5 +1,5 @@
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { CtxRootData } from "@/processes/RootContext";
 import { apiPaymentSepa, IResCommission, IResResult } from "@/shared/api";
 import { useContext, useEffect, useRef, useState } from "react";

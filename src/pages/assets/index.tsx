@@ -11,7 +11,7 @@ import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {$axios} from '@/shared/lib/(orval)axios';
 import useModal from '@/shared/model/hooks/useModal';
 import Modal from '@/shared/ui/modal/Modal';
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
 import {useTranslation} from 'react-i18next';
 import { IconApp } from '@/shared/ui/icons/icon-app';

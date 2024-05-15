@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import Modal from "@/shared/ui/modal/Modal";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { apiCloseRoom } from "@/shared/(orval)api";
 import useModal from "@/shared/model/hooks/useModal";
 import CreateRoom from "@/shared/ui/create-room/CreateRoom";

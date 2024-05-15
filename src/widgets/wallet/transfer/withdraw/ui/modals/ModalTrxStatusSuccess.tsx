@@ -1,4 +1,4 @@
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"

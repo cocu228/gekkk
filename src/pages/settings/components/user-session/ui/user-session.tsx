@@ -11,7 +11,7 @@ import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
 import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 
 
 export function UserSession() {

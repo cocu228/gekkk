@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {apiCodeTxInfo} from "@/shared/(orval)api/gek";
 import Loader from "@/shared/ui/loader";
 import ReactQRCode from "react-qr-code";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import useError from "@/shared/model/hooks/useError";
 import {actionResSuccess} from "@/shared/lib/helpers";
 import type {TxCodesOut} from "@/shared/(orval)api/gek/model";

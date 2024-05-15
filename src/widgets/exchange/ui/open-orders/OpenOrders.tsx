@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 import { format, addDays } from "date-fns";
 import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { ordersTabs } from "../../model/heplers";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import { CtxRootData } from "@/processes/RootContext";

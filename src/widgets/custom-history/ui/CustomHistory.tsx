@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 import { DatePicker, Space } from "antd";
 import Input from "@/shared/ui/input/Input";
 import type { DatePickerProps } from "antd";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { useTranslation } from "react-i18next";
 import History from "../../history/ui/History";
 import { IconApp } from "@/shared/ui/icons/icon-app";

@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from 'react-i18next';

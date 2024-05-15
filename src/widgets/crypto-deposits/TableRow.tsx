@@ -1,4 +1,4 @@
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import React from "react";
 import scss from "@/pages/crypto-deposits/style.module.scss";
 import {HelperClassName} from "@/shared/lib/helper-class-name";

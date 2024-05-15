@@ -4,7 +4,7 @@ import InfoBox from "@/widgets/info-box";
 import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {apiGetUas} from "@/shared/(orval)api";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {IconApp} from '@/shared/ui/icons/icon-app';
 import {CtxRootData} from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";

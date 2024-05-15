@@ -1,5 +1,5 @@
 import Loader from "@/shared/ui/loader";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";

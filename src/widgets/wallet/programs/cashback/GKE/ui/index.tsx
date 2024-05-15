@@ -2,7 +2,7 @@ import {addDays} from "date-fns";
 import {useContext, useEffect, useState} from "react";
 import Modal from '@/shared/ui/modal/Modal';
 import {useNavigate} from "react-router-dom";
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import useModal from '@/shared/model/hooks/useModal';
 import InlineProperty from "@/shared/ui/inline-property";
 import InputCurrency from "@/shared/ui/input-currency/ui";

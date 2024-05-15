@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { scrollToTop } from "@/shared/lib/helpers";
 import { CtxRootData } from "@/processes/RootContext";
 import useModal from "@/shared/model/hooks/useModal";

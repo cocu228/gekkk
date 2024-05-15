@@ -13,7 +13,7 @@ import Modal from "@/shared/ui/modal/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 

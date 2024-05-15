@@ -7,7 +7,7 @@ import CheckList from "../helpers/checklist";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 
 export function ChangePassword() {
   const { t } = useTranslation();

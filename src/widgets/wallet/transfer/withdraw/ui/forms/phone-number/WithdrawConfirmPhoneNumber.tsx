@@ -3,7 +3,7 @@ import styles from "../styles.module.scss";
 import {formatAsNumber} from "@/shared/lib";
 import {useTranslation} from "react-i18next";
 import {apiGetUas} from "@/shared/(orval)api";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
 import {CtxModalTrxResult} from "../../../model/context";
 import {useContext, useEffect, useRef, useState} from "react";

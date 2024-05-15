@@ -3,7 +3,7 @@ import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import { TxInfoProps } from '../../model/types';
 import { useTranslation } from "react-i18next";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { useEffect, useRef, useState } from "react";
 import useError from "@/shared/model/hooks/useError";
 import { actionResSuccess } from "@/shared/lib/helpers";

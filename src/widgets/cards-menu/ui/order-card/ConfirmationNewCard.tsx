@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
 import Select from "@/shared/ui/select/Select";

@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import Loader from "@/shared/ui/loader";
 import Form from '@/shared/ui/form/Form';
 import {apiPaymentSepa} from "@/shared/api";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";

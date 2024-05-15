@@ -1,6 +1,6 @@
 import {useCallback, useContext, useState, memo, useRef, useEffect} from "react";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import { apiCreateWithdraw } from "@/shared/(orval)api/gek";
 import Decimal from "decimal.js";
 import {actionResSuccess, getRandomInt32, isNull} from "@/shared/lib/helpers";

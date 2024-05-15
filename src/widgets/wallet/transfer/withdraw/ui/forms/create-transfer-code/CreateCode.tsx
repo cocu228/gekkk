@@ -1,7 +1,7 @@
 import Loader from "@/shared/ui/loader";
 import {useContext, useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import Button from '@/shared/ui/!button/Button';
+import Button from '@/shared/ui/button/Button';
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import useError from "@/shared/model/hooks/useError";

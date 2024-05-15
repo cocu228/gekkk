@@ -1,5 +1,5 @@
 import Input from "@/shared/ui/input/Input";
-import Button from "@/shared/ui/!button/Button";
+import Button from "@/shared/ui/button/Button";
 import {useContext, useEffect, useState} from "react";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
 import {apiApplyCode} from "@/shared/(orval)api/gek";

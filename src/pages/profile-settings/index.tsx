@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './style.module.scss';
 import IconPersonalId from '@/shared/ui/icons/IconPersonalId';
-import IconStatus from '@/shared/ui/icons/IconStatus';
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 function ProfileSettings() {
@@ -17,7 +16,7 @@ function ProfileSettings() {
                 </div>
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <IconStatus/>
+                        <IconApp code="t70" size={24} color="#2BAB72" />
                         <span className="text-secondary text-sm font-semibold">Current status</span>
                     </div>
                     <div className="text-lg font-bold underline">Verified</div>

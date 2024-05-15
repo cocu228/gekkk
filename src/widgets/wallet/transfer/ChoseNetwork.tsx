@@ -10,7 +10,6 @@ import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "./style.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
 
 interface IProps{
     withdraw?: boolean,
@@ -73,7 +72,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                         :
                         <InfoBox
                             icon={<div className="flex justify-center w-full">
-                                <img width={25} height={25} src="/img/icon/AlertWaring.svg" alt="AlertIcon"/>
+                                <IconApp code="t27" color="var(--gek-orange)" size={25}/>
                             </div>}
                             message={<span>
                                 {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("top_up")})}

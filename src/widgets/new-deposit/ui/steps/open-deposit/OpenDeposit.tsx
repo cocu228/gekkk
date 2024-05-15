@@ -1,4 +1,4 @@
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from "react";
 import OpenDepositModal from "../../modals/OpenDepositModal";
@@ -60,7 +60,7 @@ const OpenDeposit = () => {
                 </p>
             </div>
 
-            <Button variant='text' onClick={conditionsModal.showModal}>
+            <Button onClick={conditionsModal.showModal}>
                 <span className="underline underline-offset-4 text-gray-400 md:text-sm">
                     Early closing conditions →
                 </span>

@@ -1,6 +1,6 @@
 import { ModalProps } from "antd";
 import Modal from "@/shared/ui/modal/Modal";
-import Button from "@/shared/ui/button/Button";
+import Button from "@/shared/ui/!button/Button";
 import { IDepositStrategyData } from "../model/helpers";
 import { formatForCustomer } from "@/shared/lib/date-helper";
 import { GetDepositOut } from "@/shared/(orval)api/gek/model";
@@ -64,7 +64,7 @@ const ClosingDepositModal = ({
             </div>
 
             <Button
-                variant="gray"
+                color="gray"
                 className="w-full rounded-b disabled:opacity-50"
                 onClick={onDepositClose}
             >{t("confirm")}</Button>

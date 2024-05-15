@@ -1,6 +1,4 @@
 import {MobileWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
-import {Typography} from "@/shared/ui/typography/typography"
-import {MobileButton} from "@/shared/ui/mobile-button/mobile-button";
 import styles from '../../../styles.module.scss'
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";

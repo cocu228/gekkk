@@ -120,12 +120,8 @@ export function getFlagsFromMask(mask: number, options: Record<string, number>) 
     const flags: Record<string, boolean> = {};
 
     for (const [flag, value] of Object.entries(options)) {
-        // Complex flag if 1 bits count more than one
-        const binaryVal = value.toString(2);
-        const isComplex = binaryVal.split('').filter(bit => bit === '1').length > 1;
-
-        // Checks maching if complex flag
-        if (isComplex) {
+        // Complex flag if true flags count more than one
+        if ((value & (value - 1)) !== 0) {
             flags[flag] = (value & mask) === value;
             continue;
         }

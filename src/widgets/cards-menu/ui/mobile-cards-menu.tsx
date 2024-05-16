@@ -38,6 +38,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import axios from "axios";
 import Button from "@/shared/ui/button/Button";
 import Modal from "@/shared/ui/modal/Modal";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -321,7 +322,8 @@ const MobileCardsMenu = ({
           </p>
           <div className={styles.HowItWorksBtnWrap}>
             <Button
-              className="w-[115px]"
+              color="blue"
+              className="w-full"
               onClick={() => setSelectedItem("")}
             >
               {t("back")}
@@ -383,6 +385,8 @@ const MobileCardsMenu = ({
 
               <div className={styles.InfoBtnWrap}>
                 <Button
+                  color="blue"
+                  className="w-[70px]"
                   onClick={() => {
                     setSelectedItem("f");
                     confirmationModal.handleCancel();
@@ -512,10 +516,10 @@ const MobileCardsMenu = ({
           </div>
 
           <Modal
-            title={t("confirm_action")}
+            closable={false}
+            title={<ModalTitle title={t("confirm_action")} handleCancel={confirmationModal.handleCancel} />}
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
-            padding
           >
             {loading ? (
               <Loader />
@@ -606,21 +610,22 @@ const MobileCardsMenu = ({
 
                 <Form onFinish={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
-                    <div className={styles.FormBody}>
+                    <div className={(selectedItem === "blockCard" ||
+                        selectedItem === "dailyLimit" ||
+                        selectedItem === "monthlyLimit") ? styles.FormBody : styles.FormBodySingle}>
                       <Button
-                        className={`${styles.lightButton}`}
-                      >
-                        {t("confirm")}
-                      </Button>
+                        text={t("confirm")}
+                        className="w-full"
+                      />
                       {(selectedItem === "blockCard" ||
                         selectedItem === "dailyLimit" ||
                         selectedItem === "monthlyLimit") && (
                         <Button
-                          color="red"
+                          skeleton
+                          text={t("cancel")}
+                          className="w-full"
                           onClick={() => confirmationModal.handleCancel()}
-                        >
-                          {t("cancel")}
-                        </Button>
+                        />
                       )}
                     </div>
                   </div>

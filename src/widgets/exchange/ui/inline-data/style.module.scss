@@ -1,8 +1,14 @@
+@import "@styles/mixins.scss";
+
 .Container {
     gap: 10px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr .75fr .75fr;
+
+    @include max-devices(md){
+        font-size: 12px;
+    }
 }
 
 .Left {

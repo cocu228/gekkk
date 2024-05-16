@@ -332,7 +332,7 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
               <div className="basis-full">
                 <SearchSelect
                   transfers

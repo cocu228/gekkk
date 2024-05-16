@@ -1443,7 +1443,9 @@
     "language_name": "Deutsch",
     "pending_transactions_disabled": "Benachrichtigungen für eingehende Kartentransaktionen sind deaktiviert. Zum Aktivieren senden Sie einen SMS-Code.",
     "select_top_up_type": "Wählen Sie den Aufladungstyp aus",
-    "generate_address": "Adresse generieren"
+    "generate_address": "Adresse generieren",
+    "confirm_the_order": "Bestellung bestätigen",
+    "order_type": "Bestellart"
 
 
 

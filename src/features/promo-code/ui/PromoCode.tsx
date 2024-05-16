@@ -81,13 +81,13 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               promoCodeValidator,
             ]}
           >
-            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[color:var(--gek-mid-grey)]">
+            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[var(--gek-mid-grey)]">
               <Input
                 allowDigits
                 bordered={false}
                 type={"text"}
                 wrapperClassName="w-full"
-                className="text-[10px] text-[color:var(--gek-mid-grey)]"
+                className="text-[10px] text-[var(--gek-mid-grey)]"
                 placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
                 suffix={false}
                 value={valInput}

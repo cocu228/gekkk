@@ -79,7 +79,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "new-room",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -97,7 +97,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "invite-link",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -113,11 +113,11 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "close-room",
                   label: (
                     <DropdownItem
-                      className="w-full border-b-1 border-[color:var(--gek-additional)] bg-[color:var(--gek-light-grey)]"
+                      className="w-full border-b-1 border-[var(--gek-additional)] bg-[var(--gek-light-grey)]"
                       onClick={roomCloseModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[color:var(--gek-red)]">
+                        <span className="font-semibold text-[var(--gek-red)]">
                           {t("close_current_room")}
                         </span>
                         <div className={styles.CloseWrap}>
@@ -131,7 +131,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "back",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={() => navigate("/exchange")}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -238,7 +238,7 @@ const RoomItem = ({
 
   return (
     <DropdownItem
-      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[color:var(--gek-light-grey)]" : ""}`}
+      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[var(--gek-light-grey)]" : ""}`}
       icon={
         <div className={styles.RoomsMenuItemIcon}>
           <IconApp color="red" code="t33" size={20} />

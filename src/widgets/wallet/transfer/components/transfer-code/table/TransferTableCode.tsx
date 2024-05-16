@@ -232,7 +232,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     return !md ? <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
+            <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
 
         <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>

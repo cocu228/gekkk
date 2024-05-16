@@ -18,7 +18,7 @@ function ModalTitle({title, handleCancel}: IProps) {
           <IconApp code='t69' size={20} color='#7B797C'/>
         </div>
     </div>
-    <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66] mt-4 mb-6"/>
+    <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66] mt-4"/>
   </div>
   )
 }

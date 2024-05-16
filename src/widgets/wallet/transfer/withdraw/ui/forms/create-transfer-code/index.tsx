@@ -71,7 +71,7 @@ const CreateTransferCode = () => {
     return !md ? <div>
         <TransferCodeDescription/>
         
-        <div className="row mb-5">
+        <div className="row mb-5 w-full flex justify-center">
             <Button onClick={showModal} size="lg" className="w-full">{t("create_transfer_code")}</Button>
             <Modal
                 padding

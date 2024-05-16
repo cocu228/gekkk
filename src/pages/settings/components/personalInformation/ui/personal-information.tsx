@@ -68,6 +68,7 @@ export function PersonalInformation() {
                 <div className={styles.downBtnWrap}>
                     <Button
                         color="blue"
+                        className="w-full"
                         onClick={resetState}
                     >
                         {t("back")}

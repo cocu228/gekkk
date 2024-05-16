@@ -108,6 +108,7 @@ export function UserKeys() {
                   <div className={style.keyBtnWrap}>
                     <Button
                       skeleton
+                      size="sm"
                       custom={index === 0}
                       color={index === 0 ? null : "red"}
                       className={`w-full ${index === 0 ? style.CurentButton : ""}`}

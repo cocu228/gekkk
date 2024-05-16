@@ -85,7 +85,9 @@ export function UserSession() {
                     <div className='w-full flex justify-center gap-2'>
                     <> 
                     <Button
-                        color='blue'
+                        skeleton
+                        color='red'
+                        className='w-full !max-w-[100%]'
                         onClick={()=>{
                         closeSession(sessionToRemove);
                         handleCancel()
@@ -94,7 +96,9 @@ export function UserSession() {
                         {t("close")}
                     </Button>
                     <Button
-                        color='blue'
+                        skeleton
+                        className='w-full !max-w-[100%]'
+                        color='green'
                         onClick={()=>{
                         setSessionToRemove(null)
                         handleCancel()
@@ -106,7 +110,7 @@ export function UserSession() {
                     </div>
                 }
             >
-                <span>
+                <span className='text-[#285E69] text-[12px] font-normal'>
                     {t("close_session_warning")}
                 </span>
             </Modal>

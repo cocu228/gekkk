@@ -4,7 +4,7 @@ import {
   ChangePass,
 } from "../api/change-password";
 import CheckList from "../helpers/checklist";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -32,6 +32,10 @@ export function ChangePassword() {
   const codeConfirm = (e: any) => {
     setConfirmCode(e.target.value);
   };
+
+  useEffect(() => {
+    console.log('VALID', valid)
+  }, [valid])
 
   return (
     <div className="w-full">
@@ -65,18 +69,22 @@ export function ChangePassword() {
         <div className="flex justify-end">
           <CheckList setValid={setValid} value={newPass} />
         </div>
-        <div className={styles.passwordLine}>
-          <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
-          <Input
-            allowDigits
-            disabled={!changeCodeSent}
-            onChange={codeConfirm}
-            value={confirmCode}
-            wrapperClassName="w-1/2"
-            className="min-h-[40px]"
-            placeholder={t("enter_confirm_code")}
-          />
-        </div>
+        {
+          valid && (
+            <div className={styles.passwordLine}>
+              <h4 className={styles.inputTitle}>{t("confirmation_code")}:</h4>
+              <Input
+                allowDigits
+                disabled={!changeCodeSent}
+                onChange={codeConfirm}
+                value={confirmCode}
+                wrapperClassName="w-1/2"
+                className="min-h-[40px]"
+                placeholder={t("enter_confirm_code")}
+              />
+          </div>
+          )
+        }
         <div className="w-full flex flex-row justify-center min-h-[40px] gap-6">
           <Button
             className="w-full"

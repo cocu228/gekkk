@@ -41,6 +41,8 @@
     "transaction_id": "Идентификатор транзакции",
     "transaction_type": "Тип транзакции",
     "currency": "Валюта",
+    "close_session": "Закрыть сессию",
+    "close_session_warning": "Эта сессия будет закрыта.",
     "amount": "Сумма",
     "fee": "Комиссия",
     "status": "Статус",
@@ -440,6 +442,7 @@
     "transfer_to_contact": "Перевод контакту",
     "templates": "Шаблоны",
     "history": "История",
+    "signHistory": "История входов",
     "withdraw": "Вывод",
 
     "answers_to_common_questions": "Ответы на часто задаваемые вопросы",

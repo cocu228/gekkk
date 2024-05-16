@@ -234,7 +234,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
             <Button skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
 
-        <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
+        <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>
             {localErrorInfoBox ? localErrorInfoBox : <>
                 <div className="row mb-8 mt-2">
@@ -258,7 +258,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         </Modal>
     </> : <>
         {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
+            <Button size="sm" className="w-full" skeleton onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
 
         <ModalAnt closable={false} footer={null} title={<ModalTitle handleCancel={handleCancel} title={t("confirm_code")}/>} open={isModalOpen}
                onCancel={handleCancel}>

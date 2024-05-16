@@ -1,19 +1,13 @@
 import { useNewCardContext } from './newCardContext';
-import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_PHONE} from "@/shared/config/mask";
-import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import styles from '../style.module.scss';
+import Button from '@/shared/ui/button/Button';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
-    const [isValid, validate] = useState<boolean>(false);
-    const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
     const {
         state,
         close,
@@ -21,10 +15,6 @@ export function IssueNewCardMobile() {
         setState,
         switchResidenceAddress
     } = useNewCardContext();
-    
-    useEffect(() => {
-        validate(ValidateNewCardState(state));
-    }, [state]);
     
     return <div>
         <div className='flex flex-col items-center justify-center w-full py-5'>
@@ -160,18 +150,17 @@ export function IssueNewCardMobile() {
                 </div>
             </div>)}
             <div className='h-[55px] flex flex-row w-full justify-center gap-2 pt-3'>
-                <MobileButton 
-                    varitant={state.cardholderName ? 'light' : 'disabeled'} 
-                    className='w-[140px]'
+                <Button 
+                    color='green'
                     onClick={() => {
                         setStep('ConfirmationNewCard');
                     }}
                 >
                     {t("proceed")}   
-                </MobileButton>
-                <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
+                </Button>
+                <Button skeleton color='gray' onClick={close}>
                     {t("back")}   
-                </MobileButton>
+                </Button>
             </div>
         </div>
     </div>

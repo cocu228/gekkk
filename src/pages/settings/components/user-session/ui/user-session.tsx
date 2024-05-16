@@ -3,7 +3,6 @@ import { UserSession as UserSessionT } from '@/shared/(orval)api/auth/model';
 import Loader from '@/shared/ui/loader';
 import { getDate, getTime } from "../model/date-formaters";
 import { useSession } from '../model/use-sessions';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import useModal from '@/shared/model/hooks/useModal';
 import { useState } from 'react';
 import Modal from '@/shared/ui/modal/Modal';

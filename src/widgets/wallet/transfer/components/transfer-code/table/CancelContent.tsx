@@ -41,7 +41,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     }
 
     return !md ? <>
-        <Button onClick={showModal} skeleton color='red'>{t("cancel")}</Button>
+        <Button size="sm" className="w-full" skeleton onClick={showModal} color='red'>{t("cancel")}</Button>
         <Modal
             closable={false}
             title={<ModalTitle handleCancel={handleCancel} title={t("deleting_transfer_code")}/>}
@@ -104,8 +104,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                 </div>
             </div>}
         </Modal></> : <>
-        <Button onClick={showModal} size={"sm"}
-                className={`!py-3 w-full !h-[fit-content] ${style.redBtn}`}><span className='text-[12px]'>{t("cancel")}</span></Button>
+        <Button size="sm" className="w-full" color="red" skeleton onClick={showModal}><span className='text-[12px]'>{t("cancel")}</span></Button>
         <ModalAnt
             title={<ModalTitle handleCancel={handleCancel} title={t("cancel_code")}/>} closable={false} footer={null} open={isModalOpen} onCancel={handleCancel}>
             {!md ? (loading ? <Loader/> : <div>

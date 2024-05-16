@@ -31,13 +31,14 @@ import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import { MenuButton } from "./menu-button/menu-button";
-import MobileModal from "@/shared/ui/modal/MobileModal";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import axios from "axios";
+import Button from "@/shared/ui/button/Button";
+import Modal from "@/shared/ui/modal/Modal";
+import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -320,12 +321,13 @@ const MobileCardsMenu = ({
             {t("to_temporarily_deactivate_daily_and_monthly_limits")}
           </p>
           <div className={styles.HowItWorksBtnWrap}>
-            <MobileButton
-              className="w-[115px]"
+            <Button
+              color="blue"
+              className="w-full"
               onClick={() => setSelectedItem("")}
             >
               {t("back")}
-            </MobileButton>
+            </Button>
           </div>
         </div>
       </div>
@@ -382,14 +384,16 @@ const MobileCardsMenu = ({
               </div>
 
               <div className={styles.InfoBtnWrap}>
-                <MobileButton
+                <Button
+                  color="blue"
+                  className="w-[70px]"
                   onClick={() => {
                     setSelectedItem("f");
                     confirmationModal.handleCancel();
                   }}
                 >
                   {t("close")}
-                </MobileButton>
+                </Button>
               </div>
             </div>
           )}
@@ -511,11 +515,11 @@ const MobileCardsMenu = ({
             </MenuButton>
           </div>
 
-          <MobileModal
-            title={t("confirm_action")}
+          <Modal
+            closable={false}
+            title={<ModalTitle title={t("confirm_action")} handleCancel={confirmationModal.handleCancel} />}
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
-            padding
           >
             {loading ? (
               <Loader />
@@ -606,31 +610,29 @@ const MobileCardsMenu = ({
 
                 <Form onFinish={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
-                    <div className={styles.FormBody}>
-                      <MobileButton
-                        className={`w-[120px] ${styles.lightButton}`}
-                      >
-                        {t("confirm")}
-                      </MobileButton>
+                    <div className={(selectedItem === "blockCard" ||
+                        selectedItem === "dailyLimit" ||
+                        selectedItem === "monthlyLimit") ? styles.FormBody : styles.FormBodySingle}>
+                      <Button
+                        text={t("confirm")}
+                        className="w-full"
+                      />
                       {(selectedItem === "blockCard" ||
                         selectedItem === "dailyLimit" ||
                         selectedItem === "monthlyLimit") && (
-                        <MobileButton
-                          varitant={
-                            selectedItem === "blockCard" ? "alarm" : "outline"
-                          }
-                          className="w-[120px]"
+                        <Button
+                          skeleton
+                          text={t("cancel")}
+                          className="w-full"
                           onClick={() => confirmationModal.handleCancel()}
-                        >
-                          {t("cancel")}
-                        </MobileButton>
+                        />
                       )}
                     </div>
                   </div>
                 </Form>
               </div>
             )}
-          </MobileModal>
+          </Modal>
         </>
       )}
     </div>

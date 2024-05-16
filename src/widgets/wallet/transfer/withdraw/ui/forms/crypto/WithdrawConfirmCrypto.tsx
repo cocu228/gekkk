@@ -320,7 +320,6 @@ const WithdrawConfirmCrypto = memo(
                         (stageReq.status === 0 || stageReq.status === 1)
                       }
                       className={styles.ButtonTwo}
-                      skeleton
                     >
                       {t(stageReq.status === 2 ? "sign_transfer" : "confirm")}
                     </Button>

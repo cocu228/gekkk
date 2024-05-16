@@ -15,7 +15,6 @@ import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../../change-password/api/register-key";
 import Button from "@/shared/ui/button/Button";
 import Input from "@/shared/ui/input/Input";
-import { useNavigate } from "react-router-dom";
 
 interface IChallange {
   newCredential:string,
@@ -29,7 +28,6 @@ export function UserKeys() {
     const keysList = useUserKeys(keyDeleted);
     const {isModalOpen, handleCancel, showModal} = useModal();
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
-    const navigate = useNavigate()
 
     const [smsSent, setSmsSent] = useState<boolean>(false)
     const [challenge, setChallenge] = useState<IChallange>({
@@ -48,12 +46,10 @@ export function UserKeys() {
       apiCloseSessions({id: id});
     }
 
-
-
     return (
         <MobileWrapper className="w-[90%]">
             <div className={style.addGekkeyBlock}>
-              {smsSent && <><div className="flex flex-col w-full">
+              <div className="flex flex-col w-full">
                   <h4 className={style.addGekkeyTitle}>{t("add_new_gekkey")}</h4>
                   <hr className="border-[var(--gek-dark-grey)]"/>
               </div>
@@ -70,29 +66,26 @@ export function UserKeys() {
                     onChange={({target}) => setCode(target.value)}
                     disabled={!smsSent}
                 />
-              </div></>}
+              </div>
+
               <div className={style.btnsBlock}>
                   <Button  
                     className={style.Button + " w-[120px]"}
                     onClick={()=> {
-                      if(!smsSent){
-                        RegisterOption(setChallenge, setSmsSent)
-                      }else{
-                        RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
-                        setCode("")
-                      }
+                      RegisterOption(setChallenge, setSmsSent)
+                    }}
+                  >
+                      {t("send_sms")}
+                  </Button>
+                  <Button
+                    className="w-full"
+                    disabled={!smsSent}
+                    onClick={()=>{
+                      RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
+                      setCode("")
                     }}
                   >
                       {t("create_key")}
-                  </Button>
-                  <Button
-                    skeleton
-                    className="w-full"
-                    onClick={()=>{
-                      navigate("/settings")
-                    }}
-                  >
-                      {t("back")}
                   </Button>
               </div>
             </div>
@@ -108,6 +101,7 @@ export function UserKeys() {
                   <div className={style.keyBtnWrap}>
                     <Button
                       skeleton
+                      size="sm"
                       custom={index === 0}
                       color={index === 0 ? null : "red"}
                       className={`w-full ${index === 0 ? style.CurentButton : ""}`}

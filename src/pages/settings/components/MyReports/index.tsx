@@ -68,7 +68,7 @@ export function MyReports() {
                 </p>
             </AreaWrapper>
         ) : (
-            <AreaWrapper title={t("my_reports")}>
+            <AreaWrapper title={t("my_reports")} nonClose={true} >
                 <Table statements={statements} uasToken={uasToken}/>
             </AreaWrapper>
         ))}  

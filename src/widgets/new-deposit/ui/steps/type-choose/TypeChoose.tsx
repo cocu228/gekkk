@@ -98,6 +98,9 @@ const TypeChoose = memo(() => {
             <div className="wrapper grid grid-cols-2 gap-6 mb-8 w-full xxl:justify-between md:mb-4">
                 {Object.values(DepositType).map((depositType) => (
                     <Radio
+                        name={depositType}
+                        label={depositType}
+                        value={depositType}
                         key={depositType}
                         title={depositType !== DepositType.FIXED ? "Structured" : "Fixed rate"}
                         subtitle={depositType !== DepositType.FIXED ? "Crypto investments with customizable risk/profit" :

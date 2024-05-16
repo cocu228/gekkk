@@ -1,5 +1,4 @@
 import React from "react";
-import {Radio as RadioAntd, RadioProps} from "antd";
 import styles from './styles.module.scss';
 
 type RadioChangeEvent = React.ChangeEvent<{ value: string }>;
@@ -8,7 +7,7 @@ interface RadioButtonProps {
     checked?: boolean;
     title: string;
     name: string;
-    subtitle: string;
+    subtitle: string | JSX.Element;
     value: string;
     label: string;
     onChange: (e: RadioChangeEvent) => void;

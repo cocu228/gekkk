@@ -154,7 +154,6 @@ const WithdrawFormPapaya = () => {
                 width={450}
                 open={isModalOpen}
                 onCancel={handleCancel}
-                padding
                 closable={false}
                 title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             >

@@ -29,10 +29,11 @@ const TypeChoose = memo(() => {
         onIsGkeDepositChange
     } = useContext(CtxNewDeposit);
 
-    // const TopUpModal = useModal();
     const {currencies} = useContext(CtxCurrencies);
 
     if (!currencies) return null
+
+    const TopUpModal = useModal();
 
     const { t } = useTranslation();
 
@@ -173,24 +174,24 @@ const TypeChoose = memo(() => {
                 </div>}
             </div>
 {/*todo to fix this*/}
-            {/*<Modal onCancel={TopUpModal.handleCancel} open={TopUpModal.isModalOpen}>*/}
-            {/*    <>*/}
-            {/*        <div className="row mb-10">*/}
-            {/*            <div className="col">*/}
-            {/*                <p className="font-bold text-sm leading-6 text-center">*/}
-            {/*                    You will be directed to your Gekkard web account.*/}
-            {/*                </p>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div className="row relative">*/}
-            {/*            <div className="col">*/}
-            {/*                {modalLoading*/}
-            {/*                    ? <Loader className={"w-[24px] h-[24px]"}/>*/}
-            {/*                    : <Button onClick={onModalClick} className="w-full">Confirm</Button>}*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </>*/}
-            {/*</Modal>*/}
+            <Modal onCancel={TopUpModal.handleCancel} open={TopUpModal.isModalOpen}>
+                <>
+                    <div className="row mb-10">
+                        <div className="col">
+                            <p className="font-bold text-sm leading-6 text-center">
+                                You will be directed to your Gekkard web account.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="row relative">
+                        <div className="col">
+                            {modalLoading
+                                ? <Loader className={"w-[24px] h-[24px]"}/>
+                                : <Button onClick={onModalClick} className="w-full">Confirm</Button>}
+                        </div>
+                    </div>
+                </>
+            </Modal>
         </div>
     );
 });

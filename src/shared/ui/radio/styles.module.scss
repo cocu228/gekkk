@@ -1,5 +1,9 @@
 .Radio {
-  input ~ span {
+  display: none;
+
+  ~ span {
+    cursor: pointer;
+    border-radius: 50%;
     border: 1px solid var(--color-blue-400) !important;
     background: none !important;
     width: 24px !important;
@@ -7,16 +11,21 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
+  }
 
-    &::after {
-      content: '';
-      position: static !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      background: var(--color-blue-400) !important;
-      transform: scale(1) !important;
-      width: 14px !important;
-      height: 14px !important;
+  &:checked {
+    ~ span {
+      &::after {
+        content: '';
+        border-radius: 50%;
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: var(--color-blue-400) !important;
+        transform: scale(1) !important;
+        width: 14px !important;
+        height: 14px !important;
+      }
     }
   }
 }

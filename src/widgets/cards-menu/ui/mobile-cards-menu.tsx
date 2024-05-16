@@ -32,12 +32,12 @@ import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { MobileMenuItem } from "./menu-item/mobile-menu-item";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { MenuButton } from "./menu-button/menu-button";
-import MobileModal from "@/shared/ui/modal/MobileModal";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import axios from "axios";
 import Button from "@/shared/ui/button/Button";
+import Modal from "@/shared/ui/modal/Modal";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -511,7 +511,7 @@ const MobileCardsMenu = ({
             </MenuButton>
           </div>
 
-          <MobileModal
+          <Modal
             title={t("confirm_action")}
             open={confirmationModal.isModalOpen}
             onCancel={confirmationModal.handleCancel}
@@ -627,7 +627,7 @@ const MobileCardsMenu = ({
                 </Form>
               </div>
             )}
-          </MobileModal>
+          </Modal>
         </>
       )}
     </div>

@@ -130,7 +130,7 @@ const ApplyTransferCode = () => {
                     </Modal>
             </div>
         </div>
-        <div className="row mt-10">
+        <div className="row mt-[20px]">
             <TransferTableCode/>
         </div>
     </div>

@@ -230,7 +230,7 @@ const AssetsTable = ({
 
                       {key === AssetTableKeys.BALANCE && (
                         <div className="flex flex-col justify-evenly min-w-[150px]">
-                          <span className="self-start text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
+                          <span className="self-start text-[12px] text-[var(--gek-dark-grey)] font-regular">
                             {t("free_balance")}:
                           </span>
                           <span className="self-end text-[12px] text-[#1F3446] font-regular">

@@ -18,6 +18,11 @@
   @include max-devices(md){
     font-size: 12px;
     background-color: var(--gek-light-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    height: 35px;
   }
 }
 
@@ -83,5 +88,12 @@
     &:not(:last-child) {
       border-bottom: 1px solid #eff3f8;
     }
+  }
+
+  @include max-devices(md){
+    border: 0px;
+    background-color: #ffffff;
+    min-height: auto;
+    align-items: center;
   }
 }

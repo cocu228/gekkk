@@ -319,24 +319,26 @@ function Exchange() {
             <Modal
               width={400}
               closable={false}
-              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_the_order")}/>}
+              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_place_order")}/>}
               open={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
             >
-              <div className="px-5">
+              <div className="px-5 mt-4">
                 <div className="flex items-center gap-2 mb-4">
                   
-                  <IconApp color="#8F123A" size={24} code="t27" />
+                  <div className="flex items-start">
+                    <IconApp color="#8F123A" size={15} code="t27" />
+                  </div>
 
-                  <span className="text-fs12 text-[color:var(--gek-dark-grey)]">
+                  <span className="text-fs12 md:text-[10px] text-[var(--gek-dark-grey)]">
                     {t("check_your_information_carefully")}
                   </span>
 
                 </div>
 
-                <div className="text-[color:var(--gek-dark-grey)] text-fs12 mb-4">
-                  Order type:{" "}
-                  <span className="font-semibold text-[color:var(--gek-additional)]">
+                <div className="text-[var(--gek-dark-grey)] md:text-[12px] text-fs12 mb-4">
+                  {t("order_type")}:{" "}
+                  <span className="font-semibold text-[var(--gek-additional)]">
                     {isLimitOrder ? "Limit" : "Market"}
                   </span>
                 </div>
@@ -361,10 +363,10 @@ function Exchange() {
                   </>
                 )}
 
-                <div className="my-4">{localErrorInfoBox}</div>
+                {localErrorInfoBox && <div className="my-4">{localErrorInfoBox}</div>}
 
-                <div className="flex flex-col mt-6 md:mt-12 gap-1">
-                  <div className="text-secondary text-xs text-center">
+                <div className="flex flex-col mt-6 md:mt-[20px] gap-1 md:gap-[15px]">
+                  <div className="text-secondary text-xs md:text-[10px] md:text-[var(--new-mid-grey)] text-center">
                     {t("exchange.broker_exchange_fee")}
                   </div>
 
@@ -378,9 +380,8 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      color='gray'
+                      className={styles.CancelButton}
                       disabled={loading}
-                      className="w-full"
                       onClick={confirmModal.handleCancel}
                     >
                       {t("cancel")}

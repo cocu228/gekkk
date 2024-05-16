@@ -1698,7 +1698,9 @@
     "get_gekkard_pro": "Get Gekkard PRO",
     "language_name": "English",
     "select_top_up_type": "Select Top Up type",
-    "generate_address": "Generate address"
+    "generate_address": "Generate address",
+    "confirm_place_order": "Confirm place order",
+    "order_type": "Order type"
 
   }
 }

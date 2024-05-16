@@ -44,7 +44,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         <GTable.Head className={styles.TableHead + " py-4"}>
             <GTable.Row>
                 <GTable.Col className="text-left">
-                    <div data-text={"Code"} className="col">
+                    <div data-text={"Code"}>
                         <span>{t("code")}</span>
                     </div>
                 </GTable.Col>
@@ -91,7 +91,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                         <span className="text-gra-600 text-xs">{it.amount}</span>
                     </GTable.Col>
 
-                    <GTable.Col className="text-center">
+                    <GTable.Col className="text-center flex items-center">
                                 <span className="text-gray-600 text-xs">
                                    {it.state}
                                 </span>
@@ -112,17 +112,17 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             <GTable.Row>
                 <GTable.Col>
                     <div data-text={"Code"} className="col">
-                        <span>{t("code")}</span>
+                        <span className="text-[12px] text-[var(--gek-dark-blue)] font-semibold">{t("code")}</span>
                     </div>
                 </GTable.Col>
                 <GTable.Col>
                     <div data-text={"Status"} className="col ellipsis ellipsis-md">
-                        <span>{t("status")}</span>
+                        <span className="text-[12px] text-[var(--gek-dark-blue)] font-semibold">{t("status")}</span>
                     </div>
                 </GTable.Col>
                 <GTable.Col>
                     <div data-text={"Action"} className="col">
-                        <span>{t("action")}</span>
+                        <span className="text-[12px] text-[var(--gek-dark-blue)] font-semibold">{t("action")}</span>
                     </div>
                 </GTable.Col>
             </GTable.Row>
@@ -132,10 +132,10 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
 
                 return <GTable.Row
-                    className="px-4 py-3 gap-3">
+                    className=" px-2 py-2">
                     <GTable.Col className="px-2">
-                        <div className="row flex items-center">
-                            <div className="flex">
+                        <div className="row flex items-center justify-between">
+                            <div className="flex w-full">
                                 <CodeModalInfo inputCurr={it.amount} code={it.code}/>
                             </div>
                             <div className="col min-w-[14px]">
@@ -149,7 +149,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                         </div>
                         <div className="row">
                             <div className="col">
-                                <span className="text-[color:var(--gek-dark-blue)] text-[10px]">{it.amount} {$const}</span>
+                                <span className="text-[var(--gek-dark-blue)] text-[10px]">{it.amount} {$const}</span>
                             </div>
                         </div>
                     </GTable.Col>
@@ -187,7 +187,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
         </Modal>
     </> : <>
         <span onClick={showModal}
-              className="text-ellipsis whitespace-nowrap overflow-hidden font-semibold w-[70px] text-[color:var(--gek-dark-blue)] text-[12px] cursor-pointer">{code}</span>
+              className="text-ellipsis whitespace-nowrap overflow-hidden font-semibold w-full text-[var(--gek-dark-blue)] text-[12px] cursor-pointer">{code}</span>
 
         <ModalAnt title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} closable={false} open={isModalOpen}
                onCancel={handleCancel}

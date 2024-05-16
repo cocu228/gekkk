@@ -133,7 +133,7 @@ function OpenOrders({ refreshKey }: IParams) {
     <>
       <div className="flex gap-x-4 w-full justify-center">
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-dark-blue)]" : "[color:var(--gek-mid-grey)]"
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[var(--gek-dark-blue)]" : "[var(--gek-mid-grey)]"
             }`}
         >
           {t("exchange.active_orders")}
@@ -146,7 +146,7 @@ function OpenOrders({ refreshKey }: IParams) {
           }
         />
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[color:var(--gek-mid-grey)]" : "[color:var(--gek-dark-blue)]"
+          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[var(--gek-mid-grey)]" : "[var(--gek-dark-blue)]"
             }`}
         >
           {t("exchange.closed_orders")}

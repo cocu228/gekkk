@@ -95,3 +95,12 @@
     }
   }
 }
+
+.CancelButton{
+  width: 100%;
+
+  background: var(--gek-background) !important;
+  border: 2px solid var(--gek-green) !important;
+  border-radius: 8px !important;
+  color: var(--gek-green) !important;
+}

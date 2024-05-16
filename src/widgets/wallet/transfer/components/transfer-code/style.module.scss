@@ -1,0 +1,31 @@
+@import "@styles/mixins.scss";
+
+.Container{
+    margin-bottom: 2.25rem; 
+
+
+    @include max-devices(md) { 
+        margin-bottom: 10px;
+    }
+
+
+    &Secondary{
+
+        @include max-devices (md) {
+            padding: 0; 
+            background: transparent;
+            font-size: 12px;
+            color: var(--gek-additional);
+            text-indent: 5px;
+        }          
+    }
+}
+
+.FundsText{
+    margin-bottom: 1rem; 
+
+
+    @include max-devices (md) { 
+        display: none; 
+    }
+}

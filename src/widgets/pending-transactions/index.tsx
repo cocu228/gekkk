@@ -25,6 +25,7 @@ export const PendingTransactions = () => {
     const [uasToken, setUasToken] = useState<string>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const {showModal, isModalOpen, handleCancel} = useModal();
+    const [txLoading, setTxLoading] = useState<boolean>(false);
     const [state, setState] = useState<IPendingTransaction[]>([]);
     const [uasRequired, setUasRequired] = useState<boolean>(false);
     const {getAccountDetails} = storeAccountDetails(state => state);
@@ -64,22 +65,25 @@ export const PendingTransactions = () => {
     }, [refreshKey, account, uasRequired]);
 
     const onInfoBox = async () => {
+        setLoading(true);
+
         if (!uasRequired) {
             setSelectedTx(state[0]);
             showModal();
-            return;
-        }
+        } else {
+            const {data} = await apiGetUas();
 
-        const {data} = await apiGetUas();
-
-        if (data?.result?.token) {
-            setUasRequired(false);
-            setUasToken(data.result.token);
+            if (data?.result?.token) {
+                setUasRequired(false);
+                setUasToken(data.result.token);
+            }
         }
+        
+        setLoading(false);
     }
 
     const onContinue = async (isConfirm: boolean) => {
-        setLoading(true);
+        setTxLoading(true);
         const {phone} = await getAccountDetails();
 
         const {
@@ -114,14 +118,20 @@ export const PendingTransactions = () => {
             handleCancel();
         }
 
-        setLoading(false);
+        setTxLoading(false);
     }
 
     return (state.length > 0 || uasRequired) && <div className={!md ? 'negative-margin-content' : ''}>
         <InfoBox
             onClick={onInfoBox}
+            className={loading ? styles.LoadingInfoBox : ''}
             message={uasRequired ? t("pending_transactions_disabled") : t("pending_transactions")}
-            icon={<IconApp code='t40' color={"var(--gek-orange)"} size={30}/>}
+            icon={<IconApp
+                size={30}
+                code='t40'
+                className={styles.LoadingInfoBox}
+                color={`var(${loading ? "--gek-green" : "--gek-orange"})`}
+            />}
         />
 
         <Modal
@@ -132,9 +142,9 @@ export const PendingTransactions = () => {
             title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
         >
 
-            {loading && <Loader className='mb-5'/>}
+            {txLoading && <Loader className='mb-5'/>}
 
-            {selectedTx && <div className={loading ? 'collapse' : ''}>
+            {selectedTx && <div className={txLoading ? 'collapse' : ''}>
                 <div className={styles.CardContainer}>
                     <BankCard                        
                         cardNumber={formatCardNumber(selectedTx.pan)}

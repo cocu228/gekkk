@@ -1,7 +1,7 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.87",
+  "version": "2.0.84",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",
@@ -9,15 +9,15 @@
   ],
   "scripts": {
     "orval": "orval",
-    "local": "APP_TYPE=GEKKARD vite --mode dev.gekkard",
-    "gko-local": "APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
-    "PRD-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode prd.gekkard",
-    "PRD-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
-    "STG-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode stg.gekkard",
-    "STG-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
-    "DEV-GEKKARD": "node increment-version && tsc && APP_TYPE=GEKKARD vite build --mode dev.gekkard",
-    "DEV-GEKKOIN": "node increment-version && tsc && APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
-    "DEV-GEKWALLET": "node increment-version && tsc && APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
+    "local": "cross-env APP_TYPE=GEKKARD vite --mode dev.gekkard",
+    "gko-local": "cross-env APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
+    "PRD-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
+    "PRD-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
+    "STG-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode stg.gekkard",
+    "STG-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
+    "DEV-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode dev.gekkard",
+    "DEV-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
+    "DEV-GEKWALLET": "node increment-version && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
   },
   "npm": " > 8",
   "node": " > 16",
@@ -59,6 +59,7 @@
     "zustand": "4.3.6"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "@types/crypto-js": "^4.1.2",
     "@types/elliptic": "^6.4.18",
     "@types/node": "18.14.2",

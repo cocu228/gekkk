@@ -435,9 +435,10 @@ function Exchange() {
               roomInfoModal.handleCancel();
               navigate(`/private-room?roomId=${roomInfo.timetick}`);
             }}
+            onCancel={roomInfoModal.handleCancel}
           />
         ) : (
-          <InviteLink roomInfo={roomInfo} />
+          <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={roomInfo} />
         )}
       </Modal>
 

@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import styles from './style.module.scss';
 import { IconApp } from '../icons/icon-app';
+import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 
 interface Props {
     value: string
@@ -8,6 +9,7 @@ interface Props {
 
 function ClipboardField({value}: Props) {
     const [isCopied, setIsCopied] = useState<boolean>(false);
+    const {md} = useBreakpoints()
 
     const copyTextToClipboard = async (text) => {
         if ('clipboard' in navigator) {
@@ -34,7 +36,7 @@ function ClipboardField({value}: Props) {
         <div className={`flex bg-white items-center md:rounded-lg ${styles.CopyForm}`}>
             <input data-testid="crypto_tech_address" className={styles.Input} type="text" value={isCopied ? 'Copied!' : value} readOnly />
             <button className={styles.Btn} onClick={handleCopyClick}>
-                <IconApp  color='#000' size={22} code='t31' />
+                <IconApp color='var(--gek-green)' size={md ? 15 : 22} code='t31'/>
             </button>
         </div>
     );

@@ -1,9 +1,18 @@
+@import "@styles/mixins.scss";
+
 .CopyForm {
   height: 3.75rem;
   background: var(--color-bgSecondary);
   border: 1px solid var(--color-secondary);
   border-radius: 0.25rem;
   overflow: hidden;
+
+  @include max-devices(md){
+    justify-content: center;
+    height: 51px;
+    border-color: var(--gek-mid-grey);
+    border-radius: 8px;
+  }
 
   .Input {
     padding: 0 1rem 0 1.25rem;
@@ -14,6 +23,13 @@
     outline: none;
     min-width: 0;
     text-overflow: ellipsis;
+
+    @include max-devices(md){
+      padding-right: 0px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--gek-dark-grey);
+    }
   }
 
   .Btn {
@@ -23,5 +39,10 @@
     background: none;
     border: none;
     border-left: 1px solid var(--color-secondary);
+
+    @include max-devices(md){
+      border: 0px;
+      padding-left: 0px;
+    }
   }
 }

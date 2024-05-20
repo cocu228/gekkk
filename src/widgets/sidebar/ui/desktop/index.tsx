@@ -162,7 +162,7 @@ const SidebarDesktop = () => {
                 title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
                 padding
             >
-                <InviteLink roomInfo={selectedRoom} />
+                <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={selectedRoom} />
             </Modal>
 
             <Modal

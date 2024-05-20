@@ -302,6 +302,17 @@
             display: flex; 
             align-items: center; 
             width: 40%; 
+            justify-content: center;
         }
+    }
+}
+
+.TransferTableContainer{
+    margin-top: 20px;
+
+    @include max-devices(md){
+        position: relative;
+        left: -15px;
+        width: calc(100% + 30px);
     }
 }

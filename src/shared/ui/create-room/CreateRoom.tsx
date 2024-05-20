@@ -19,7 +19,7 @@ interface IParams {
   onRoomCreation: (roomInfo: RoomInfo) => void;
   onToCurrencyChange: (value: string) => void;
   onFromCurrencyChange: (value: string) => void;
-  closeModal?: () => void;
+  onCancel?: ()=>void
 }
 
 function CreateRoom({
@@ -29,7 +29,7 @@ function CreateRoom({
   onCurrenciesSwap,
   onToCurrencyChange,
   onFromCurrencyChange,
-  closeModal
+  onCancel
 }: IParams) {
   const [isIco, setIsIco] = useState(false);
   const [purchaseLimit, setPurchaseLimit] = useState(0);
@@ -40,15 +40,19 @@ function CreateRoom({
     <>
       <div className={loading ? "!collapse" : ""}>
         <div className={styles.ModalText}>
-          <IconApp color="#8F123A" size={20} code="t27" />
-          {t("exchange.private_room_allows")}
+          <div>
+            <IconApp color="#8F123A" size={15} code="t27" />
+          </div>
+          <div className="w-[80%]">
+            {t("exchange.private_room_allows")}
+          </div>
         </div>
-        <div className="mt-4">
+        <div className={"mt-4 " + styles.SelectToken}>
           <label
-            className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold"
+            className={styles.Title}
             htmlFor="sell-token"
           >
-            {t("exchange.from")}:
+            {t("exchange.from")}
           </label>
           <TokenSelect
             id="sell-token"
@@ -66,12 +70,12 @@ function CreateRoom({
           </div>
         </div>
 
-        <div className="mt-2">
+        <div className={styles.SelectToken}>
           <label
-            className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold"
+            className={styles.Title}
             htmlFor="get-token"
           >
-            {t("exchange.to")}:
+            {t("exchange.to")}
           </label>
           <TokenSelect
             id="get-token"
@@ -80,20 +84,6 @@ function CreateRoom({
             disabledCurrencies={[from.currency]}
             placeholder={t("exchange.select_token")}
             allowedFlags={[CurrencyFlags.ExchangeAvailable]}
-          />
-        </div>
-
-        <div className={`${styles.LimitInputWrap} mt-6`}>
-          <label className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold" htmlFor="">
-            {t("exchange.purchase_limit")}:
-          </label>
-          <Input
-            className={styles.Input}
-            allowDigits
-            placeholder={t("exchange.it_is_empty")}
-            onChange={(event) => {
-              setPurchaseLimit(+event.target.value)
-            }}
           />
         </div>
 
@@ -115,57 +105,33 @@ function CreateRoom({
             onClick={() => {
               setIsIco(!isIco);
             }}
-            className="hover:cursor-pointer text-smm select-none"
+            className="hover:cursor-pointer text-smm select-none text-[12px] text-[#1F3446]"
           >
             {t("exchange.only_i_can")}
           </span>
         </div>
 
+
+        <div className="mt-6">
+          <label className={styles.Title} htmlFor="">
+            {t("exchange.purchase_limit")}
+          </label>
+          <Input
+            allowDigits
+            className={styles.PurchaseLimit}
+            placeholder={t("exchange.it_is_empty")}
+            onChange={(event) => {
+              setPurchaseLimit(+event.target.value)
+            }}
+          />
+        </div>
+
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 sm:mt-11 gap-[20px] flex justify-center">
+        <div className="mt-6 gap-[20px] sm:mt-6 flex justify-center">
           <Button
-            className="w-full"
-            size="md"
-            disabled={!(from.currency && to.currency)}
-            onClick={() => {
-              setLoading(true);
-
-              apiCreateRoom({
-                currency1: from.currency,
-                currency2: to.currency,
-                flags: isIco ? 1 : 0,
-                to_balance_limit: purchaseLimit,
-              })
-                .then(({ data }) => {
-                  if (data.error) {
-                    localErrorHunter({ code: 0, message: data.error.message });
-                    return;
-                  }
-
-                  onRoomCreation(data.result);
-                })
-                .catch((e) => {
-                  localErrorHunter(e);
-                })
-                .finally(() => {
-                  setLoading(false);
-                });
-            }}
-          >
-            {t('confirm')}
-          </Button>
-          <Button 
-            className="w-full"
-            size="md"
-            color="green"
-            skeleton
-            onClick={closeModal}
-          >
-            {t('cancel')}
-          </Button>
-          {/* <Button
             size="lg"
+            className="!w-[120px]"
             disabled={!(from.currency && to.currency)}
             onClick={() => {
               setLoading(true);
@@ -192,8 +158,15 @@ function CreateRoom({
                 });
             }}
           >
-            {t("exchange.open_private_exchange_room")}
-          </Button> */}
+            {t("confirm")}
+          </Button>
+          <Button
+            className="!w-[120px]"
+            skeleton
+            onClick={onCancel}
+          >
+            {t("cancel")}
+          </Button>
         </div>
       </div>
 

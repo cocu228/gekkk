@@ -54,12 +54,13 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     const {t} = useTranslation();
     const {md} = useBreakpoints() 
 
-    return !md ? <GTable className={`${styles.Table}`}>
-        <GTable.Head className={styles.TableHead + " py-4"}>
+    return (
+        <GTable className={`${styles.Table}`}>
+        <GTable.Head className={styles.TableHead}>
             <GTable.Row>
                 {
                     tableHeads.map((item, ind) => (
-                        <GTable.Col className={`${ind===0 && 'text-left'} ${ind === 1 || ind === 2 && 'col text-ellipsis'}`}>
+                        <GTable.Col className={styles.CodeModalTitle}>
                             <div data-text={item.capitalize()}>
                                 <span>{t(item)}</span>
                             </div>
@@ -73,7 +74,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
                 return <GTable.Row
                     className="px-4 py-3 gap-3">
-                    <GTable.Col>
+                    <GTable.Col className="w-full" >
                         <div className="row flex items-center">
                             <div className="col mr-2">
                                 <CodeModalInfo code={it.code}/>
@@ -84,22 +85,33 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                         </div>
                         <div className="row">
                             <div className="col">
-                                <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
+                                {
+                                    md ? (
+                                        <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
+                                    )  : (
+                                        <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
+                                    )
+                                }
                             </div>
                         </div>
+                        <span className={styles.MobileAmount}>{it.amount} {$const}</span>
                     </GTable.Col>
 
-                    <GTable.Col className="text-center">
-                        <span className="text-gra-600 text-xs">{it.amount}</span>
-                    </GTable.Col>
+                    {
+                        !md && (
+                            <GTable.Col className="text-center">
+                                <span className="text-gra-600 text-xs">{it.amount}</span>
+                            </GTable.Col>
+                        )
+                    }
 
-                    <GTable.Col className="text-center flex items-center">
+                    <GTable.Col className={styles.StatusCol} >
                         <span className="text-gray-600 text-xs">
                             {it.state}
                         </span>
                     </GTable.Col>
 
-                    <GTable.Col className="flex flex-wrap gap-2 justify-center">
+                    <GTable.Col className={styles.StatusCol}>
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
                             <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
 
@@ -109,133 +121,8 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                 <span>{t("no_have_transfer_code")}</span>
             </div>}
         </GTable.Body>
-    </GTable> : <GTable className={`${styles.Table}`}>
-        <GTable.Head className={styles.TableHead + " rounded-[8px_8px_0px_0px]"}>
-            <GTable.Row>
-                {
-                    tableHeads.filter(item => item !== 'amount').map((item, ind) => (
-                        <GTable.Col>
-                            <div data-text={item.capitalize()} className={`col ${ind === 1 && 'ellipsis'}`}>
-                                <span className={styles.TableMobTitle}>{t(item)}</span>
-                            </div>
-                        </GTable.Col>
-                    ))
-                }
-            </GTable.Row>
-        </GTable.Head>
-        <GTable.Body className={styles.TableBody}>
-            {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
-                const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
-
-                return <GTable.Row
-                    className=" px-2 py-2">
-                    <GTable.Col className="px-2">
-                        <div className="row flex items-center justify-between">
-                            <div className="flex w-full">
-                                <CodeModalInfo inputCurr={it.amount} code={it.code}/>
-                            </div>
-                            <div className="col min-w-[14px]">
-                                <CopyIcon value={it.code}/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <span className="text-gray-500 text-[10px]">{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <span className="text-[var(--gek-dark-blue)] text-[10px]">{it.amount} {$const}</span>
-                            </div>
-                        </div>
-                    </GTable.Col>
-                    <GTable.Col className="text-center px-2">
-                                <span className="text-gray-600 text-xs">
-                                   {it.state}
-                                </span>
-                    </GTable.Col>
-
-                    <GTable.Col className="flex flex-wrap gap-2 justify-center">
-                        {visiblyConfirm ? <CodeModalConfirm date={it.dateTxUTC} code={it.code} amount={it.amount} currency={it.currency}/> :
-                            <CancelContent date={it.dateTxUTC} code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
-
-                    </GTable.Col>
-                </GTable.Row>
-            }) : <div className={styles.Row}>
-                <span>{t("no_have_transfer_code")}</span>
-            </div>}
-        </GTable.Body>
     </GTable>
-
-    // return (
-    //     <GTable className={`${styles.Table}`}>
-    //     <GTable.Head className={styles.TableHead}>
-    //         <GTable.Row>
-    //             {
-    //                 tableHeads.map((item, ind) => (
-    //                     <GTable.Col className={styles.CodeModalTitle}>
-    //                         <div data-text={item.capitalize()}>
-    //                             <span>{t(item)}</span>
-    //                         </div>
-    //                     </GTable.Col>
-    //                 ))
-    //             }
-    //         </GTable.Row>
-    //     </GTable.Head>
-    //     <GTable.Body className={styles.TableBody}>
-    //         {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
-    //             const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
-    //             return <GTable.Row
-    //                 className="px-4 py-3 gap-3">
-    //                 <GTable.Col className="w-full" >
-    //                     <div className="row flex items-center">
-    //                         <div className="col mr-2">
-    //                             <CodeModalInfo code={it.code}/>
-    //                         </div>
-    //                         <div className="col min-w-[14px]">
-    //                             <CopyIcon value={it.code}/>
-    //                         </div>
-    //                     </div>
-    //                     <div className="row">
-    //                         <div className="col">
-    //                             {
-    //                                 window.innerWidth < 768 ? (
-    //                                     <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
-    //                                 )  : (
-    //                                     <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
-    //                                 )
-    //                             }
-    //                         </div>
-    //                     </div>
-    //                     <span className={styles.MobileAmount}>{it.amount} {$const}</span>
-    //                 </GTable.Col>
-
-    //                 {
-    //                     window.innerWidth > 768 && (
-    //                         <GTable.Col className="text-center">
-    //                             <span className="text-gra-600 text-xs">{it.amount}</span>
-    //                         </GTable.Col>
-    //                     )
-    //                 }
-
-    //                 <GTable.Col className={styles.StatusCol} >
-    //                     <span className="text-gray-600 text-xs">
-    //                         {it.state}
-    //                     </span>
-    //                 </GTable.Col>
-
-    //                 <GTable.Col className={styles.StatusCol}>
-    //                     {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
-    //                         <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
-
-    //                 </GTable.Col>
-    //             </GTable.Row>
-    //         }) : <div className={styles.Row}>
-    //             <span>{t("no_have_transfer_code")}</span>
-    //         </div>}
-    //     </GTable.Body>
-    // </GTable>
-    // )
+    )
 }
 
 const CodeModalInfo = ({code, inputCurr=null}) => {

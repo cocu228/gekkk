@@ -134,6 +134,11 @@
 .MobileAmount {
   font-size: 10px;
   color: #29354C;
+  display: none;
+
+  @include max-devices(md) {
+    display: block;
+  }
 }
 
 .StatusCol {

@@ -163,7 +163,6 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
           <InviteLink onClose={roomModal.handleCancel} roomInfo={active} />
         ) : (
           <CreateRoom
-            closeModal={roomModal.handleCancel}
             to={to}
             from={from}
             onCurrenciesSwap={() => {

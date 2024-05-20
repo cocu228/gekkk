@@ -20,15 +20,14 @@ import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
-const tableHeads = [
-    'code',
-    'amount',
-    'status',
-    'action'
-]
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
-
+    const [tableHeads, setTableHeads] = useState([
+        'code',
+        'amount',
+        'status',
+        'action'
+    ])
     const {$const} = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
@@ -41,6 +40,15 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
         })()
     }, [$const])
 
+    useEffect(() => {
+        if(window.innerWidth < 768) {
+            setTableHeads([
+                'code',
+                'status',
+                'action'
+            ])
+        }
+    }, [])
 
     const filteredListTxCode = listTxCode.filter(item => item.currency === $const && item.isOwner === isOwner)
     const {t} = useTranslation();
@@ -161,11 +169,11 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     // return (
     //     <GTable className={`${styles.Table}`}>
-    //     <GTable.Head className={styles.TableHead + " py-4"}>
+    //     <GTable.Head className={styles.TableHead}>
     //         <GTable.Row>
     //             {
     //                 tableHeads.map((item, ind) => (
-    //                     <GTable.Col className={`${ind===0 && 'text-left'} ${ind === 1 || ind === 2 && 'col text-ellipsis'}`}>
+    //                     <GTable.Col className={styles.CodeModalTitle}>
     //                         <div data-text={item.capitalize()}>
     //                             <span>{t(item)}</span>
     //                         </div>
@@ -179,7 +187,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     //             const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
     //             return <GTable.Row
     //                 className="px-4 py-3 gap-3">
-    //                 <GTable.Col>
+    //                 <GTable.Col className="w-full" >
     //                     <div className="row flex items-center">
     //                         <div className="col mr-2">
     //                             <CodeModalInfo code={it.code}/>
@@ -190,22 +198,33 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     //                     </div>
     //                     <div className="row">
     //                         <div className="col">
-    //                             <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
+    //                             {
+    //                                 window.innerWidth < 768 ? (
+    //                                     <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
+    //                                 )  : (
+    //                                     <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
+    //                                 )
+    //                             }
     //                         </div>
     //                     </div>
+    //                     <span className={styles.MobileAmount}>{it.amount} {$const}</span>
     //                 </GTable.Col>
 
-    //                 <GTable.Col className="text-center">
-    //                     <span className="text-gra-600 text-xs">{it.amount}</span>
-    //                 </GTable.Col>
+    //                 {
+    //                     window.innerWidth > 768 && (
+    //                         <GTable.Col className="text-center">
+    //                             <span className="text-gra-600 text-xs">{it.amount}</span>
+    //                         </GTable.Col>
+    //                     )
+    //                 }
 
-    //                 <GTable.Col className="text-center flex items-center">
+    //                 <GTable.Col className={styles.StatusCol} >
     //                     <span className="text-gray-600 text-xs">
     //                         {it.state}
     //                     </span>
     //                 </GTable.Col>
 
-    //                 <GTable.Col className="flex flex-wrap gap-2 justify-center">
+    //                 <GTable.Col className={styles.StatusCol}>
     //                     {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
     //                         <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
 

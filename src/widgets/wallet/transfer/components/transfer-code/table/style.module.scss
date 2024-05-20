@@ -13,6 +13,7 @@
   line-height: 24px;
   font-weight: 500;
   padding: 14px 20px 12px;
+  padding: 1rem 0;
   align-items: center;
   grid-template-columns: repeat(12, minmax(20px, 1fr));
   @include max-devices(md){
@@ -23,6 +24,7 @@
     align-items: center;
     padding: 0px;
     height: 35px;
+    border-radius: 8px 8px 0 0;
   }
 }
 
@@ -103,7 +105,7 @@
   font-weight: 700;
   cursor: pointer;
 
-  @media screen and (max-width: 768px) {
+  @include max-devices(md) {
     font-size: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -118,4 +120,30 @@
   font-size: 12px;
   color: #29354C;
   font-weight: 600;
+}
+
+.CodeTime {
+  color: #A6B6C6;
+  font-size: 0.75rem;
+
+  @include max-devices(md) {
+    font-size: 10px;
+  }
+}
+
+.MobileAmount {
+  font-size: 10px;
+  color: #29354C;
+}
+
+.StatusCol {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:nth-child(2) {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }

@@ -424,7 +424,6 @@ function Exchange() {
       >
         {roomType === "default" ? (
           <CreateRoom
-            closeModal={roomInfoModal.handleCancel}
             to={to}
             from={from}
             onCurrenciesSwap={onCurrenciesSwap}

@@ -683,7 +683,7 @@
     "the_beneficiary_bank": "Банк получателя",
     "bic_of_beneficiary_bank": "BIC банка получателя",
     "recipient": "Получатель",
-    "last_transactions": "последние транзакции",
+    "last_transactions": "Последние транзакции",
     "custom_period": "произвольный период",
     "beneficiary_name": "Имя получателя",
     "access_management": "Менеджер доступа",

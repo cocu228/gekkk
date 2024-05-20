@@ -1,5 +1,13 @@
 @import "@styles/mixins";
 
+.PercentSelector {
+  @media screen and (max-width: 405px) {
+    button:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
 .Field {
   position: relative;
   margin-top: 0.4rem;
@@ -31,6 +39,7 @@
     }
   }
 
+  
   &InfoText {
     z-index: 10;
     user-select: none;

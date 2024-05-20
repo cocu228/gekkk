@@ -13,18 +13,6 @@
     transition: all ease-out 0.2s;
   }
 
-  &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
-  }
-
-  &:active {
-    box-shadow: 0 5px 9px rgba(0, 0, 0, 0.16);
-  }
-
-  &:disabled {
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-
   &[data-size="sm"] {
     height: 25px;
     max-width: 81px;

@@ -19,6 +19,7 @@ interface IParams {
   onRoomCreation: (roomInfo: RoomInfo) => void;
   onToCurrencyChange: (value: string) => void;
   onFromCurrencyChange: (value: string) => void;
+  closeModal?: () => void;
 }
 
 function CreateRoom({
@@ -28,6 +29,7 @@ function CreateRoom({
   onCurrenciesSwap,
   onToCurrencyChange,
   onFromCurrencyChange,
+  closeModal
 }: IParams) {
   const [isIco, setIsIco] = useState(false);
   const [purchaseLimit, setPurchaseLimit] = useState(0);
@@ -43,10 +45,10 @@ function CreateRoom({
         </div>
         <div className="mt-4">
           <label
-            className="inline-flex mb-1 text-sm font-medium"
+            className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold"
             htmlFor="sell-token"
           >
-            {t("exchange.from")}
+            {t("exchange.from")}:
           </label>
           <TokenSelect
             id="sell-token"
@@ -66,10 +68,10 @@ function CreateRoom({
 
         <div className="mt-2">
           <label
-            className="inline-flex mb-1 text-sm font-medium"
+            className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold"
             htmlFor="get-token"
           >
-            {t("exchange.to")}
+            {t("exchange.to")}:
           </label>
           <TokenSelect
             id="get-token"
@@ -81,11 +83,12 @@ function CreateRoom({
           />
         </div>
 
-        <div className="mt-6">
-          <label className="inline-flex mb-1 text-sm font-medium" htmlFor="">
-            {t("exchange.purchase_limit")}
+        <div className={`${styles.LimitInputWrap} mt-6`}>
+          <label className="inline-flex mb-1 text-[12px] -md:text-sm font-semibold" htmlFor="">
+            {t("exchange.purchase_limit")}:
           </label>
           <Input
+            className={styles.Input}
             allowDigits
             placeholder={t("exchange.it_is_empty")}
             onChange={(event) => {
@@ -120,8 +123,48 @@ function CreateRoom({
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-6 sm:mt-11 flex justify-center">
+        <div className="mt-6 sm:mt-11 gap-[20px] flex justify-center">
           <Button
+            className="w-full"
+            size="md"
+            disabled={!(from.currency && to.currency)}
+            onClick={() => {
+              setLoading(true);
+
+              apiCreateRoom({
+                currency1: from.currency,
+                currency2: to.currency,
+                flags: isIco ? 1 : 0,
+                to_balance_limit: purchaseLimit,
+              })
+                .then(({ data }) => {
+                  if (data.error) {
+                    localErrorHunter({ code: 0, message: data.error.message });
+                    return;
+                  }
+
+                  onRoomCreation(data.result);
+                })
+                .catch((e) => {
+                  localErrorHunter(e);
+                })
+                .finally(() => {
+                  setLoading(false);
+                });
+            }}
+          >
+            {t('confirm')}
+          </Button>
+          <Button 
+            className="w-full"
+            size="md"
+            color="green"
+            skeleton
+            onClick={closeModal}
+          >
+            {t('cancel')}
+          </Button>
+          {/* <Button
             size="lg"
             disabled={!(from.currency && to.currency)}
             onClick={() => {
@@ -150,7 +193,7 @@ function CreateRoom({
             }}
           >
             {t("exchange.open_private_exchange_room")}
-          </Button>
+          </Button> */}
         </div>
       </div>
 

@@ -34,6 +34,7 @@ import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/Perc
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
+
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
 
@@ -219,10 +220,10 @@ function Exchange() {
         leftColumn={
           <div>
             <div className={`gap-x-5 bg-white ${styles.Grid}`}>
-              <div className="h-full flex flex-col ">
+              <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  {t("exchange.you_pay")}
-                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
+                  {t("exchange.you_pay")}:
+                  <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isBalance={true}
@@ -246,8 +247,8 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-medium text-xs mb-2 mt-3 select-none">
-                  {t("exchange.get_no_less")}
+                <div className="font-semibold text-xs mb-2 mt-3 select-none">
+                  {t("exchange.get_no_less")}:
                 </div>
 
                 <SelectToken
@@ -261,8 +262,8 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-medium mt-4 text-xs">
-                    {t("price")}
+                  <div className="font-semibold mt-4 text-xs">
+                    {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />
                 </div>
@@ -395,6 +396,7 @@ function Exchange() {
         rightColumn={
           !md && (
             <div className="w-full rounded-lg py-4">
+              <span className="text-[15px] ml-[5px] mb-[10px] block text-[#29354C] font-bold">{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
@@ -402,6 +404,7 @@ function Exchange() {
       />
       {md && (
         <div className="w-full rounded-lg">
+          <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
           <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
@@ -421,6 +424,7 @@ function Exchange() {
       >
         {roomType === "default" ? (
           <CreateRoom
+            closeModal={roomInfoModal.handleCancel}
             to={to}
             from={from}
             onCurrenciesSwap={onCurrenciesSwap}

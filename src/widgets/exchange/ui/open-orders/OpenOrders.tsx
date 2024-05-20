@@ -179,7 +179,7 @@ function OpenOrders({ refreshKey }: IParams) {
         {!isLoading ? null : <Loader className="relative mt-10 mb-10" />}
 
         {!(isLoading || ordersList.length) && (
-          <div className="text-center mb-10 mt-3 text-gray-400">
+          <div className="text-center text-[12px] text-[#285E69] mb-[10px] mt-3 rounded-[8px] w-full flex items-center h-[35px] justify-center bg-[#fff]">
             {t("exchange.no_opened_orders")}
           </div>
         )}
@@ -251,7 +251,9 @@ function OpenOrders({ refreshKey }: IParams) {
                 </div>
 
                 {ord.state !== OrderState.OPENED ? null : (
-                  <button
+                  <Button
+                    skeleton
+                    color="red"
                     className={styles.CancelOrderBtn}
                     onClick={() => {
                       setSelectedOrder(ord);
@@ -259,7 +261,7 @@ function OpenOrders({ refreshKey }: IParams) {
                     }}
                   >
                     {t("cancel")}
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

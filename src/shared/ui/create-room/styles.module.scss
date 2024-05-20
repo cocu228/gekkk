@@ -3,10 +3,31 @@
   align-items: flex-start;
   gap: 5px;
   padding-top: 20px;
-  border-top: 1px solid #1f3446;
 
   svg {
     min-width: 20px;
     height: 20px;
+  }
+}
+
+
+.LimitInputWrap {
+  :global(.ant-input) {
+    border-color: #CED4DA !important;
+    box-shadow: none !important;
+
+    &:active, &:focus {
+      border-color: #CED4DA !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.Input {
+  box-shadow: none !important;
+  border-color: #CED4DA;
+  :active, :focus {
+    border-color: #CED4DA !important;
+    box-shadow: none !important;
   }
 }

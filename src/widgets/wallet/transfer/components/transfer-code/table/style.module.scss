@@ -97,3 +97,25 @@
     align-items: center;
   }
 }
+
+.CodeModalTitle {
+  word-break: break-all;
+  font-weight: 700;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 600;
+    width: 100%;
+    color: #29354C;
+  }
+}
+
+.TableMobTitle {
+  font-size: 12px;
+  color: #29354C;
+  font-weight: 600;
+}

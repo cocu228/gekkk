@@ -1,12 +1,14 @@
 ﻿import {useTranslation} from "react-i18next";
 import styles from "./style.module.scss"
+import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 
 const TransferCodeDescription = () => {
 	const {t} = useTranslation();
-	
+	const {md} = useBreakpoints()
+
 	return (
 		<div className={styles.Container}>
-			<div className={`info-box-description ${styles.ContainerSecondary}`}>
+			<div className={`${!md && "info-box-description"} ${styles.ContainerSecondary}`}>
 				<div className={styles.FundsText}>
 					<span className="font-semibold">{t("funds_transfer_code")}</span>
 				</div>

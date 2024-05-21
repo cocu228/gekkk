@@ -31,7 +31,6 @@ export function IssueNewCardMobile() {
                 <span className={styles.mobRowItemTitle}>{t('card_type')}:</span>
                 <div className={styles.newCardSearchBlock}>
                     <SearchSelect className="w-full mt-2 max-h-[50px]"
-                            isMobile
                             placeholder='Select type...'
                             value={t(state.cardType.toLowerCase())}
                             options={[{

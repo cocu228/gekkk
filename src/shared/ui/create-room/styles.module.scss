@@ -48,6 +48,9 @@
 
   &:global(.ant-input){
 
+    height: 50px;
+    border-radius: 6px;
+    border-color: var(--gek-light-grey);
     font-size: 14px !important;
     font-weight: 600 !important;
   }

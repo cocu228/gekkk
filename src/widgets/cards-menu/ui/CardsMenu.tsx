@@ -338,7 +338,7 @@ const CardsMenu = ({
                 leftSecondary={t("available")}
                 leftPrimary={t("set_limit", {
                   period: t(limit.period.toLowerCase()),
-                })}
+                }).capitalize()}
                 rightSecondary={numberWithSpaces(limit.usedLimit) + " EUR"}
                 rightPrimary={numberWithSpaces(limit.currentLimit) + " EUR"}
                 className={`rounded-none -my-[1px]

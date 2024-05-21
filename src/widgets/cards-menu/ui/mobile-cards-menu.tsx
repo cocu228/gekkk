@@ -460,7 +460,7 @@ const MobileCardsMenu = ({
                   leftSecondary={t("available")}
                   leftPrimary={t("set_limit", {
                     period: t(limit.period.toLowerCase()),
-                  })}
+                  }).capitalize()}
                   rightPrimary={numberWithSpaces(limit.currentLimit) + " EUR"}
                   rightSecondary={numberWithSpaces(limit.usedLimit) + " EUR"}
                 />

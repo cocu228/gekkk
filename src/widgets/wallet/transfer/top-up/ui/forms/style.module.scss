@@ -238,7 +238,7 @@
 
     display: flex; 
     gap: 2.5rem;
-
+    margin-top: 15px;
 
     @include max-devices (md) {
         gap: 5vw;

@@ -71,7 +71,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
 
     return !md ? (loading ? <Loader/> : newCode ? <CodeTxInfo onClose={onClose} code={newCode}/> :
             <>
-                <div className="row bg-gray-300 -mx-14 px-14 py-4 mb-6">
+                <div className="row bg-gray-300 -mx-6 px-14 py-4 mb-6">
                     <p>{t("create_special_code")}</p>
                 </div>
                 <div className="row">

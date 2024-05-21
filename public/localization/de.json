@@ -21,6 +21,7 @@
     "next": "Weiter",
     "login": "Anmelden",
     "code": "Code",
+    "the_code_confirmed": "Code bestätigen",
     "sms_code_sent": "SMS mit Einmalcode wurde gesendet an",
     "one-time code": "Einmalcode",
     "phone_code": "Telefoncode",

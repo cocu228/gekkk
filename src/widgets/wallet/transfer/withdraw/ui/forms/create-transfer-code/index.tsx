@@ -74,7 +74,7 @@ const CreateTransferCode = () => {
         <div className="row mb-5 w-full flex justify-center">
             <Button onClick={showModal} size="lg" className="w-full">{t("create_transfer_code")}</Button>
             <Modal
-                padding
+                
                 onCancel={handleCancel}
                 closable={false}
                 title={<ModalTitle handleCancel={handleCancel} title={t("create_transfer_code")}/>}

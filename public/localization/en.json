@@ -21,6 +21,7 @@
     "next": "Next",
     "login": "Login",
     "code": "Code",
+    "the_code_confirmed": "Confirm code",
     "sms_code_sent": "SMS with one-time code was sent to",
     "one-time code": "One-time code",
     "phone_code": "Phone code",

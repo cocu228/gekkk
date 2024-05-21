@@ -60,7 +60,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             <GTable.Row>
                 {
                     tableHeads.map((item, ind) => (
-                        <GTable.Col className={styles.CodeModalTitle}>
+                        <GTable.Col key={ind} className={styles.CodeModalTitle}>
                             <div data-text={item.capitalize()}>
                                 <span>{t(item)}</span>
                             </div>
@@ -75,7 +75,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                 return <GTable.Row
                     className="px-4 py-3 gap-3">
                     <GTable.Col className="w-full" >
-                        <div className="row flex items-center">
+                        <div className="row flex items-center">*
                             <div className="col mr-2">
                                 <CodeModalInfo code={it.code}/>
                             </div>
@@ -114,7 +114,6 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                     <GTable.Col className={styles.StatusCol}>
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
                             <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
-
                     </GTable.Col>
                 </GTable.Row>
             }) : <div className={styles.Row}>
@@ -127,25 +126,40 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
 const CodeModalInfo = ({code, inputCurr=null}) => {
     const {showModal, isModalOpen, handleCancel} = useModal()
-    const {t} = useTranslation() 
+    const {t} = useTranslation()
 
     return <>
         <span onClick={showModal}
               className={styles.CodeModalTitle}>{code}</span>
 
-        <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} open={isModalOpen}
+        <ModalAnt closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} open={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
-        </Modal>
+        </ModalAnt>
     </> 
 }
+
+export const modalDateArray = [
+    {
+        titleKey: 'transaction_code',
+        key: 'code'
+    },
+    {
+        titleKey: 'date',
+        key: 'date'
+    },
+    {
+        titleKey: 'amount',
+        key: 'amount'
+    },
+]
 
 const CodeModalConfirm = ({code, amount, currency, date = null}) => {
     const {t} = useTranslation();
 
     const [loading, setLoading] = useState(false)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+    const [localErrorHunter, localErrorInfoBox] = useError()
     const [success, setSuccess] = useState(null)
     const {md} = useBreakpoints()
     const {showModal, isModalOpen, handleCancel} = useModal()
@@ -172,85 +186,46 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     }, [isModalOpen])
 
-    return !md ? <>
-        {loading ? <div className="w-full h-full relative"><Loader/></div> :
+    const modalKeys = {
+        'code': code,
+        'date': `${formatForHistoryMobile(date)} at ${formatForHistoryTimeMobile(date)}`,
+        'amount': `${amount} ${currency}`,
+    }
+
+    return (
+        <>
+            {loading ? <div className="w-full h-full relative"><Loader/></div> :
             <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
-
-        <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
+            <Modal className="md:m-[0_16px] md:!w-[calc(100%_-_32px)]" closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>
-            {localErrorInfoBox ? localErrorInfoBox : <>
-                <div className="row mb-8 mt-2">
-                    <div className="col">
-                        <p className="text-sm">{t("you_made_transfer")}</p>
-                    </div>
-                </div>
-                <div className="row mb-8">
-                    <div className="col">
-                        <p className="text-xl">{amount} {currency}</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="flex justify-center col">
-                        <Button className="w-full" size="lg" onClick={() => {
-                            handleCancel()
-                        }}>{t("done")}</Button>
-                    </div>
-                </div>
-            </>}
+            <>
+                        {localErrorInfoBox ? localErrorInfoBox : <>
+                            <div>
+                            <div className={stylesForms.ModalRows}>
+                                <div className={styles.ModalDateList}>
+                                    {
+                                        modalDateArray.map((item, ind) => (
+                                            <div key={ind} className={styles.ModalDateListItem}>
+                                                <span className={styles.ModalDateListItemTitle} >{t(item.titleKey)}</span>
+                                                <span className={styles.ModalDateListItemValue}>{modalKeys[item.key]}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                            <div className={stylesForms.ButtonContainer}>
+                                <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                                    {t("confirm")}
+                                </Button>
+                                <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
+                                    {t("cancel")}
+                                </Button>
+                            </div>
+                            </div>
+                        </>}
+                    </>
         </Modal>
-    </> : <>
-        {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button size="sm" className="w-full" skeleton onClick={showModal}><span className="text-[12px]">{t("confirm")}</span></Button>}
-
-        <ModalAnt closable={false} footer={null} title={<ModalTitle handleCancel={handleCancel} title={t("confirm_code")}/>} open={isModalOpen}
-               onCancel={handleCancel}>
-            {localErrorInfoBox ? localErrorInfoBox : <>
-                <div>
-                <div className={stylesForms.ModalRows}>
-                    <div className="row mb-2 mt-5">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("transaction_code")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{code}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("date")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{formatForHistoryMobile(date)} at {formatForHistoryTimeMobile(date)}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("amount")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{amount} {currency}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className={stylesForms.ButtonContainer}>
-                    <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
-                        {t("confirm")}
-                    </Button>
-                    <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
-                        {t("cancel")}
-                    </Button>
-                </div>
-            </div>
-            </>}
-        </ModalAnt>
-    </>
+        </>
+    )   
 }
-
-
 export default TransferTableCode;

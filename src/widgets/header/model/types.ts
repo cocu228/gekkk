@@ -19,4 +19,5 @@ export interface TPropsHeaderMenu {
     className?: string,
     items: THeaderMenuList,
     actions?: TOnActionParams,
+    onStateChange?: (value: boolean) => void
 }

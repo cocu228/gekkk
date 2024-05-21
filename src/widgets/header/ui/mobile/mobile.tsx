@@ -50,7 +50,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `private-room`:
                 return t("exchange_button").capitalize();
             case 'card-menu':
-                return t("card_menu").capitalize()
+                return t("cards").capitalize()
             case 'gekkard-pro':
                 return t("gekkard_pro.title").capitalize()
             default:

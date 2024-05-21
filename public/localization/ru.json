@@ -721,7 +721,6 @@
       "conditions": "Условия",
       "go_to_the_program": "Перейти к программе"
     },
-    "cards_menu": "Меню карт",
     "issue_new_card": "Выпустить новую карту",
     "order_plastic_card": "Заказать пластиковую карту",
     "cashback": "кэшбэк",
@@ -910,7 +909,6 @@
     "funds_are_blocked_for": "Средства блокируются на {{days}} дней.",
     "cashback_is_credited_once_a_month": "Кэшбэк начисляется один раз в месяц в конце расчетного периода",
     "locked_tokens_give_you_access": "Блокировка токенов {{currency}} дает вам доступ к кэшбэку в размере 1% от расходов по карте Gekkard, на ежемесячный оборот в евро",
-    "card_menu": "Меню карты",
     "disable_limits_for_minutes": "Отключить лимиты на {{minutes}} минут",
     "order_new_card": "Заказать новую карту",
     "card_locked": "Карта заблокирована",
@@ -1435,7 +1433,6 @@
     "please_enter_sender_name": "Пожалуйста, введите имя отправителя",
     "enter_sender_name": "Введите имя отправителя",
     "decline": "Отменить",
-    "card_management": "Управление картами",
     "how_it_works": "Как это работает?",
     "the_function_of_setting_disabling_limits_allows": "Функция установки / отключения лимитов позволяет создавать лимиты самостоятельно, которые регулируют ваши расходы по вашей карте. Лимиты применяются к следующим операциям с картой:",
     "cash_withdrawal_from_the_card": "Снятие наличных с карты",

@@ -700,7 +700,6 @@
       "conditions": "Bedingungen",
       "go_to_the_program": "Zur Programmseite"
     },
-    "cards_menu": "Kartenmenü",
     "issue_new_card": "Neue Karte ausstellen",
     "order_plastic_card": "Plastikkarte bestellen",
     "cashback": "Rückvergütung",
@@ -889,7 +888,6 @@
     "funds_are_blocked_for": "Die Mittel werden für {{days}} Tage blockiert.",
     "cashback_is_credited_once_a_month": "Cashback wird einmal im Monat am Ende des Abrechnungszeitraums gutgeschrieben",
     "locked_tokens_give_you_access": "Die Sperrung von {{currency}}-Tokens gewährt Ihnen Zugang zu einem Cashback von 1% auf Gekkard-Kartenausgaben, basierend auf dem monatlichen Umsatz in Euro",
-    "card_menu": "Kartenmenü",
     "disable_limits_for_minutes": "Deaktivieren Sie die Limits für {{minutes}} Minuten",
     "order_new_card": "Neue Karte bestellen",
     "card_locked": "Karte gesperrt",
@@ -1407,7 +1405,6 @@
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
     "decline": "Stornieren",
-    "card_management": "Kartenverwaltung",
     "how_it_works": "Wie funktioniert es?",
     "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
     "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",

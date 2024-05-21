@@ -17,7 +17,7 @@ const CardsMenuButton = memo(({to, className}: IParams) => {
             <NavLink to={to}>
                 <div className={`${styles.MobileButton} ${className}`}>
                     <IconApp code="t22" size={40} color="var(--gek-dark-blue)"/>
-                    <span>{t("card_menu")}</span>
+                    <span>{t("cards")}</span>
                 </div>
             </NavLink>
         </>

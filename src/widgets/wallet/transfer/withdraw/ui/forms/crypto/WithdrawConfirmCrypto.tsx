@@ -31,6 +31,8 @@ import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
+import { CtxRootData } from "@/processes/RootContext";
 
 const initStageConfirm = {
   status: null,
@@ -47,26 +49,28 @@ type TProps = IWithdrawFormCryptoState & {
 
 const WithdrawConfirmCrypto = memo(
   ({ address, amount, recipient, description, handleCancel }: TProps) => {
+    const [form] = useForm();
+    const { md } = useBreakpoints();
+    const [input, setInput] = useState("");
+    const { $const } = useContext(CtxWalletData);
+    const [loading, setLoading] = useState(false);
+    const { setRefresh } = useContext(CtxRootData);
+    const { setContent } = useContext(CtxModalTrxResult);
+    const { displayHistory } = useContext(CtxDisplayHistory);
+    const [localErrorHunter,,localErrorInfoBox] = useError();
+    const [stageReq, setStageReq] = useState(initStageConfirm);
+
     const { networkTypeSelect, networksForSelector, tokenNetworks } =
       useContext(CtxWalletNetworks);
 
     const { label } = networksForSelector.find(
       (it) => it.value === networkTypeSelect
     );
-    const [form] = useForm();
+    
     const {
       id,
       withdraw_fee = 0,
     } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
-    const { $const } = useContext(CtxWalletData);
-    const {setContent} = useContext(CtxModalTrxResult);
-    const { md } = useBreakpoints();
-
-    const [input, setInput] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [localErrorHunter,,localErrorInfoBox] = useError();
-    const [stageReq, setStageReq] = useState(initStageConfirm);
 
     const fragmentReqParams = useRef<
       Omit<CreateWithdrawIn, "client_nonce" | "auto_inner_transfer">
@@ -145,6 +149,8 @@ const WithdrawConfirmCrypto = memo(
           }
           if (result.confirmationStatusCode === 4) {
             handleCancel();
+            setRefresh();
+            displayHistory();
             setContent({content: <ModalTrxStatusSuccess
               onReceipt={() => {
                 getReceipt(result.txId);
@@ -174,10 +180,10 @@ const WithdrawConfirmCrypto = memo(
           content: <GekReceipt txId={txId}/>,
           title: 'Transaction receipt'
       });
-  };
+    };
 
-    const inputChange = (event: any) => {
-      setInput(event.target.value);
+    const inputChange = ({target}: any) => {
+      setInput(target.value);
     };
 
     return (

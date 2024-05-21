@@ -34,9 +34,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
 
     useEffect(() => {
         (async () => {
-
             await getListTxCode()
-
         })()
     }, [$const])
 
@@ -54,7 +52,7 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     const {t} = useTranslation();
     const {md} = useBreakpoints() 
 
-    return (
+    return listTxCode.length === 0 ? null : (
         <GTable className={`${styles.Table}`}>
         <GTable.Head className={styles.TableHead}>
             <GTable.Row>

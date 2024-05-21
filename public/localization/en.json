@@ -1699,7 +1699,8 @@
     "select_top_up_type": "Select Top Up type",
     "generate_address": "Generate address",
     "confirm_place_order": "Confirm place order",
-    "order_type": "Order type"
+    "order_type": "Order type",
+    "actions": "Actions"
 
   }
 }

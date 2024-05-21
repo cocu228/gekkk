@@ -138,7 +138,7 @@ const AssetsTable = ({
                       md
                     )} my-2 ${getWidth(columnKeys, item, md)}`}
                   >
-                    <span className="text-gray-400 font-medium">{item}</span>
+                    <span className="text-gray-400 font-medium">{t(item.toLowerCase()).capitalize()}</span>
                   </GTable.Col>
                 ))}
               </GTable.Row>

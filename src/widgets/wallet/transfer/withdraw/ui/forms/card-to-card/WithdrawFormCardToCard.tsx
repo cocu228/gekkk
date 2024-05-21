@@ -105,7 +105,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("from_card")}</span>
+                <span className="font-medium">{t("from_card")}:</span>
               </div>
             </div>
             <div className="row">
@@ -149,7 +149,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("card_number_title")}</span>
+                <span className="font-medium">{t("card_number_title")}:</span>
               </div>
             </div>
             <div className="row">
@@ -173,7 +173,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("cardholder_name")}</span>
+                <span className="font-medium">{t("cardholder_name")}:</span>
               </div>
             </div>
             <div className="row">
@@ -197,7 +197,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("comment")}</span>
+                <span className="font-medium">{t("comment")}:</span>
               </div>
             </div>
             <div className="row">

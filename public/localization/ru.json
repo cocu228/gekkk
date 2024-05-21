@@ -480,7 +480,7 @@
     "disable_limits": "Отключить лимиты временно",
     "show_card_data": "Показать данные карты",
     "activate_card": "Активировать карту",
-    "block_card": "Заблокироватьы",
+    "block_card": "Заблокировать",
     "unblock_card": "Разблокировать карту",
     "available": "Доступно",
     "set_limit": "{{period}} лимит",
@@ -1470,7 +1470,27 @@
     "select_top_up_type": "Выберите тип пополнения",
     "generate_address": "Создать адрес",
     "confirm_the_order": "Подтвердить размещение ордера",
-    "order_type": "Тип ордера"
+    "order_type": "Тип ордера",
+    "payment_cards": "Платежные карты",
+    "card_info": "Информация о карте",
+    "send_to_card": "Отправить на карту:", 
+    "card_number": "НОМЕР КАРТЫ", 
+    "expiration_date": "Дата истечения срока действия", 
+    "card_cvc": "CVC-код", 
+    "card_owner": "Владелец", 
+    "card_pin": "Пин-код",
+    "card_design": "Дизайн карты", 
+    "delivery_type": "Тип доставки", 
+    "account_owner": "Владелец счета", 
+    "card_issuance": "Выпуск карты", 
+    "card_delivery": "Доставка карты", 
+    "total_fees": "Общие сборы", 
+    "expected_delivery_time": "Ожидаемое время доставки",
+    "order_card": "Заказать карту",
+    "update": "Обновить",
+    "new_asset": "новый криптовалютный актив",
+    "gekkoin_redirect": "Перенаправление Gekkoin",
+    "actions": "Действия"
 
 
 

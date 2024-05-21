@@ -43,7 +43,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                         </span>
                     </div>
                     :
-                        withdraw ? t("select_withdraw_network") : t("select_network")
+                        withdraw ? t("select_withdraw_network") + ":" : t("select_network") + ":"
                 }
 
             <div className="col w-full overflow-hidden">

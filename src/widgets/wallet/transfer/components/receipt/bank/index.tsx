@@ -65,7 +65,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* From name */}
           {!state?.fromName ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Name</span>
+              <span className={styles.InformationBlockItemTitle}>{t("name")}</span>
               <span className={styles.InformationBlockItemValue}>{state.fromName}</span>
             </div>
           )}
@@ -73,7 +73,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* From number */}
           {!state?.fromNumber ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Account number</span>
+              <span className={styles.InformationBlockItemTitle}>{t("account_number")}</span>
               <span className={styles.InformationBlockItemValue}>{state.fromNumber}</span>
             </div>
           )}
@@ -81,7 +81,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* From bank */}
           {!state?.fromBank ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Bank name</span>
+              <span className={styles.InformationBlockItemTitle}>{t("bank_name")}</span>
               <span className={styles.InformationBlockItemValue}>{state.fromBank}</span>
             </div>
           )}
@@ -89,19 +89,19 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* From pan display */}
           {!state?.fromPanDisplay ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Number</span>
+              <span className={styles.InformationBlockItemTitle}>{t("number")}</span>
               <span className={styles.InformationBlockItemValue}>{state.fromPanDisplay}</span>
             </div>
           )}
         </div>
 
         {/* Beneficiary information */}
-        <span className={styles.InformationBlockTitle}>Beneficiary information</span>
+        <span className={styles.InformationBlockTitle}>{t("beneficiary_information")}</span>
         <div className={styles.InformationBlock}>
           {/* To name */}
           {!state?.toName ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Name</span>
+              <span className={styles.InformationBlockItemTitle}>{t("name")}</span>
               <span className={styles.InformationBlockItemValue}>{state.toName}</span>
             </div>
           )}
@@ -109,7 +109,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* To number */}
           {!state?.toNumber ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Account number</span>
+              <span className={styles.InformationBlockItemTitle}>{t("account_number")}</span>
               <span className={styles.InformationBlockItemValue}>{state.toNumber}</span>
             </div>
           )}
@@ -117,7 +117,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* To bank */}
           {!state?.toBank ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Bank name</span>
+              <span className={styles.InformationBlockItemTitle}>{t("bank_name")}</span>
               <span className={styles.InformationBlockItemValue}>{state.toBank}</span>
             </div>
           )}
@@ -129,7 +129,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Payment type */}
           {!state?.paymentType ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Payment type</span>
+              <span className={styles.InformationBlockItemTitle}>{t("payment_type")}</span>
               <span className={styles.InformationBlockItemValue}>{state.paymentType}</span>
             </div>
           )}
@@ -137,7 +137,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Operation type */}
           {!state?.operationType ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Payment type</span>
+              <span className={styles.InformationBlockItemTitle}>{t("payment_type")}</span>
               <span className={styles.InformationBlockItemValue}>{state.operationType}</span>
             </div>
           )}
@@ -145,7 +145,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Currency */}
           {!state?.currency?.code ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Currency</span>
+              <span className={styles.InformationBlockItemTitle}>{t("currency")}</span>
               <span className={styles.InformationBlockItemValue}>{state.currency?.code}</span>
             </div>
           )}
@@ -153,7 +153,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Amount */}
           {!state?.amount ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Amount</span>
+              <span className={styles.InformationBlockItemTitle}>{t("amount")}</span>
               <span className={styles.InformationBlockItemValue}>{Math.abs(+state.amount)} {state.currency?.code ?? null}</span>
             </div>
           )}
@@ -161,7 +161,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Fee */}
           {!state?.fee ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Fee</span>
+              <span className={styles.InformationBlockItemTitle}>{t("fee")}</span>
               <span className={styles.InformationBlockItemValue}>{state.fee} {state.currency?.code ?? null}</span>
             </div>
           )}
@@ -177,7 +177,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
           {/* Payment method */}
           {!state?.paymentToRepeat?.type ? null : (
             <div className={styles.InformationBlockItem}>
-              <span className={styles.InformationBlockItemTitle}>Payment method</span>
+              <span className={styles.InformationBlockItemTitle}>{t("payment_method")}</span>
               <span className={styles.InformationBlockItemValue}>{getMethodTitle(state.paymentToRepeat?.type)}</span>
             </div>
           )}

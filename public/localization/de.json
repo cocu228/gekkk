@@ -1442,7 +1442,29 @@
     "select_top_up_type": "Wählen Sie den Aufladungstyp aus",
     "generate_address": "Adresse generieren",
     "confirm_the_order": "Bestellung bestätigen",
-    "order_type": "Bestellart"
+    "order_type": "Bestellart",
+    "payment_cards": "Zahlungskarten",
+    "card_info": "Karteninformationen",
+    "send_to_card": "Auf Karte senden:", 
+    "card_number": "KARTENNUMMER", 
+    "expiration_date": "Ablaufdatum", 
+    "card_cvc": "CVC-Code", 
+    "card_owner": "Inhaber", 
+    "card_pin": "PIN-Code",
+    "card_design": "Kartendesign", 
+    "delivery_type": "Lieferart", 
+    "account_owner": "Kontoinhaber", 
+    "card_issuance": "Kartenausstellung", 
+    "card_delivery": "Kartenlieferung", 
+    "total_fees": "Gesamtgebühren", 
+    "expected_delivery_time": "Voraussichtliche Lieferzeit",
+    "order_card": "Karte bestellen",
+    "update": "Aktualisieren",
+    "new_asset": "neuer Krypto-Asset",
+    "gekkoin_redirect": "Gekkoin Weiterleitung",
+    "actions": "Aktionen"
+
+
 
 
 

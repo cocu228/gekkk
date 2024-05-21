@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import styles from "./style.module.scss";
 import {useNavigate} from "react-router-dom";
 import {CtxRootData} from "@/processes/RootContext";
@@ -11,34 +11,10 @@ import {useTranslation} from "react-i18next";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 const HeaderDesktop = ({items, actions}) => {
-
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const {account} = useContext(CtxRootData);
-    const {t} = useTranslation()
-
-    let acc = {
-        "name": "Ralf Williams",
-        "phone": "79111111111",
-        "rights": {
-            "none": true,
-            "withdrawBlock": false,
-            "topUpBlock": false,
-            "exchangeBlock": false,
-            "innerTransferBlock": false,
-            "investBlock": false,
-            "logInBlock": false,
-            "allTokensNetworks": false,
-            "isJuridical": false,
-            "gkeBonusBlock": false,
-            "blockAll": false,
-            "juridicalBlock": false,
-            "deleted": false
-        },
-        "number": "MT07PAPY36836000002676370005866",
-        "current": true,
-        "account_id": "PPY6963",
-        "date_update": "2023-12-25T14:12:49.8033333"
-    }
+    const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
     return <>
         <header className={styles.Header}>
@@ -65,7 +41,12 @@ const HeaderDesktop = ({items, actions}) => {
                 </a>
             </div>
             <div className={styles.CommandsMenu}>
-                <HeaderMenu items={items} actions={actions} className="pl-5">
+                <HeaderMenu
+                    items={items}
+                    className="pl-5"
+                    actions={actions}
+                    onStateChange={setIsMenuOpened}
+                >
                     <div className="flex items-center justify-center" data-testid="HeaderMenuContainer">
                         {/* <div className="wrapper flex justify-end"> */}
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
@@ -81,7 +62,12 @@ const HeaderDesktop = ({items, actions}) => {
                         }
 
                         <button className={`${styles.ArrowBtn}`}>
-                            <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
+                            <IconApp
+                                size={14}
+                                code="t08"
+                                color="#fff"
+                                className={`rotate-[${isMenuOpened ? '-90' : '90'}deg]`}
+                            />
                         </button>
                         {/* </div> */}
                     </div>

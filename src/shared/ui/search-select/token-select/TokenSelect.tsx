@@ -13,11 +13,15 @@ interface IParams {
   className?: string;
   allowedFlags?: Array<CurrencyFlags>;
   disabledCurrencies?: Array<string>;
+  postfixIcon?: boolean
+  prefixIcon?: boolean
 }
 
 function TokenSelect({
   disabledCurrencies,
   allowedFlags,
+  postfixIcon = false,
+  prefixIcon = true,
   className,
   ...props
 }: IParams & SelectProps) {
@@ -39,7 +43,8 @@ function TokenSelect({
     <SearchSelect
       className={`${styles.Select} ${className && className}`}
       {...props}
-      prefixIcon={currency && <IconCoin code={currency.$const} />}
+      prefixIcon={prefixIcon && currency && <IconCoin code={currency.$const} />}
+      postfixIcon={postfixIcon && currency && <IconCoin code={currency.$const} />}
     >
       {Array.from(currencies.values())
         .filter(assetsFilter)

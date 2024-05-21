@@ -40,7 +40,6 @@ export function IssueNewCardMobile() {
                 <span className={styles.mobRowItemTitle}>{t('country')}:</span>
                 <div className={styles.mobSelectWrap}>
                     <SearchSelect
-                        isMobile
                         className="w-full"
                         placeholder={t("select_country")}
                         value={state.countryCode}

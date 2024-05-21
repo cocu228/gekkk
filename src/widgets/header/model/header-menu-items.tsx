@@ -21,8 +21,8 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             icon: <IconApp size={18} color="#285E69" code="t13" />
         },
         {
-            item: t("card_management"),
-            id:"cardManagment",
+            item: t("payment_cards"),
+            id:"paymentCards",
             action:{
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"

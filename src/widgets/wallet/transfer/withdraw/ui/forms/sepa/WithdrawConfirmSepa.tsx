@@ -16,8 +16,9 @@ import styles from "../styles.module.scss";
 import { CtxModalTrxResult } from "../../../model/context";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import BankReceipt from "@/widgets/wallet/transfer/components/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 interface IState {
   loading: boolean;
@@ -38,6 +39,7 @@ const WithdrawConfirmSepa = ({
   const {setRefresh} = useContext(CtxRootData);
   const { setContent } = useContext(CtxModalTrxResult);
   const [uasToken, setUasToken] = useState<string>(null);
+  const { displayHistory } = useContext(CtxDisplayHistory);
   const { getAccountDetails } = storeAccountDetails((state) => state);
   const { networkTypeSelect, networksForSelector } =
     useContext(CtxWalletNetworks);
@@ -118,6 +120,7 @@ const WithdrawConfirmSepa = ({
         .then(({ data }) => {
           handleCancel();
           setRefresh();
+          displayHistory();
           setContent({
             content: (
               <ModalTrxStatusSuccess

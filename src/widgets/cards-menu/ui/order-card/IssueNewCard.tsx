@@ -67,7 +67,7 @@ export function IssueNewCard() {
           </div>
         </div>
         <div className={styles.input_block}>
-          <span className={styles.input_title}>City</span>
+          <span className={styles.input_title}>{t("city")}</span>
           <input
             value={state.city}
             onChange={({ target }) => {

@@ -44,7 +44,7 @@ const Header = () => {
         let newItems = [...defaultMenuItems]
 
         accounts
-            .sort(acc => acc.rights[AccountRights.IsJuridical] ? -1 : 1)
+            .sort(acc => acc.current ? 1 : acc.rights[AccountRights.IsJuridical] ? -1 : 0)
             .forEach(acc => {
                 newItems.unshift({
                     id: acc.number,

@@ -1,15 +1,8 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
-import { useNavigate } from "react-router-dom";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
-import InputCurrency from "@/shared/ui/input-currency/ui";
-import {
-  validateBalance,
-  validateMaximumAmount,
-  validateMinimumAmount,
-} from "@/shared/config/validators";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import {
   getFinalFee,
@@ -20,17 +13,26 @@ import {
   CtxWalletData,
 } from "@/widgets/wallet/transfer/model/context";
 import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-import Decimal from "decimal.js";
-import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+
+import style from './styles.module.scss'
+import InputCurrency from "@/shared/ui/input-currency/ui";
+import { PriceInfo } from "./components/PriceInfo";
+import Decimal from "decimal.js";
+import { getWithdrawDesc } from "../../../model/entitys";
+import {
+  validateBalance,
+  validateMaximumAmount,
+  validateMinimumAmount,
+} from "@/shared/config/validators";
+import { useNavigate } from "react-router-dom";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 export interface IWithdrawFormCryptoState {
@@ -38,20 +40,17 @@ export interface IWithdrawFormCryptoState {
   recipient: null | string;
   description: null | string;
 }
+
 const WithdrawFormCrypto = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const qrCodeModal = useModal();
   const { md } = useBreakpoints();
   const currency = useContext(CtxWalletData);
-  const [loading, setLoading] = useState(false);
   const { inputCurr, setInputCurr } = useInputState();
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
-
-  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -60,30 +59,22 @@ const WithdrawFormCrypto = () => {
   });
 
   const {
-    min_withdraw = 0,
-    max_withdraw = 0,
     percent_fee = 0,
     withdraw_fee = 0,
+    min_withdraw = 0,
+    max_withdraw = 0,
   } = getChosenNetwork(tokenNetworks, networkTypeSelect) ?? {};
-
-  const finalFeeEntity = getFinalFee(withdraw_fee, percent_fee);
-
-  const finalFee = finalFeeEntity.value.number;
 
   const onInput = ({ target }) => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
 
-  useEffect(() => {
-    setLoading(true);
-    delayRes(inputCurr.value.number);
-    delayDisplay();
-  }, [inputCurr.value.number]);
+  const finalFee = getFinalFee(withdraw_fee, percent_fee).value.number;
 
-  return Array.isArray(tokenNetworks) && tokenNetworks.length > 0 && (
-    <div className="flex flex-col items-center mt-2">
-      <div className="flex flex-col gap-4 text-gray-400 w-full text-left">
-        <div className="flex flex-col gap-2">
+  return tokenNetworks.length > 0 && (
+    <div className={style.FormWrap}>
+      <div className={style.FormContainer}>
+        <div className={style.FormBlock}>
           <InputCurrency.Validator
             value={new Decimal(inputCurr.value.number)
               .plus(finalFee)
@@ -113,7 +104,6 @@ const WithdrawFormCrypto = () => {
             >
               <InputCurrency.DisplayBalance currency={currency}>
                 <InputCurrency
-                  transfers={md}
                   name={"amount"}
                   value={inputCurr.value.string}
                   currency={currency.$const}
@@ -123,12 +113,9 @@ const WithdrawFormCrypto = () => {
             </InputCurrency.PercentSelector>
           </InputCurrency.Validator>
         </div>
-
-        <div className="flex flex-col gap-[3px]">
-          <span className={styles.TitleColText}>{t("address")}:</span>
-          <Input
-            tranfers={md}
-            bordered={!md}
+        <div className={style.InpBlock}>
+            <span className={style.TitleColText}>{t('address')}:</span>
+            <Input
             allowDigits
             allowSymbols
             value={inputs.address}
@@ -137,11 +124,10 @@ const WithdrawFormCrypto = () => {
             placeholder={t("enter_withdrawal_address")}
             name={"address"}
             suffix={<div onClick={qrCodeModal.showModal}>
-              <IconApp size={25} color="#1F3446" code='t34' />
+              <IconApp className="cursor-pointer" size={25} color="#1F3446" code='t34' />
             </div>}
           />
-        </div>
-
+        </div>   
         <Modal
           open={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
@@ -158,43 +144,23 @@ const WithdrawFormCrypto = () => {
             }}
           />
         </Modal>
-
-        <div className="flex flex-col gap-[3px]">
-          <span className={styles.TitleColText}>
-            {t("recipient")}:
-          </span>
-          <Input
-            tranfers={md}
-            bordered={!md}
-            value={inputs.recipient}
-            onChange={onInput}
-            disabled={!networkTypeSelect}
-            name={"recipient"}
-            placeholder={t("enter_recepients_name")}
-          />
-
-          <span className="text-gray-400 text-[var(--gek-orange)] text-[12px] md:text-[10px]">
-            {!inputs.recipient && t("EW_law")}
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-[3px]">
-          <span className={styles.TitleColText}>
-            {t("desc_optional")}:
-          </span>
-          {md ?
+        <div className={style.InpBlock}>
+            <span className={style.TitleColText}>{t("recipient")}:</span>
             <Input
-              tranfers={md}
-              bordered={!md}
-              allowDigits
-              allowSymbols
-              placeholder={t('enter_description')}
-              name={"description"}
-              value={inputs.description}
+              value={inputs.recipient}
               onChange={onInput}
               disabled={!networkTypeSelect}
+              name={"recipient"}
+              placeholder={t("enter_recepients_name")}
             />
-          :
+
+          <span className={style.LawText}>
+            {!inputs.recipient && t("EW_law")}
+          </span>
+        </div>   
+
+        <div className={style.InpBlock}>
+            <span className={style.TitleColText}>{t("desc_optional")}:</span>
             <TextArea
               allowDigits
               allowSymbols
@@ -204,69 +170,25 @@ const WithdrawFormCrypto = () => {
               onChange={onInput}
               disabled={!networkTypeSelect}
             />
-
-          }
-        </div>
-
-        <div className={styles.PayInfo}>
-          <div className={styles.PayInfoCol}>
-            <div className="row">
-              <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoText}>
-                {t("you_will_get")}:
-              </span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoTextFee}>
-                {t( "fee")}:
-              </span>
-            </div>
-          </div>
-          <div className={styles.PayInfoColValue}>
-
-            <div className={styles.PayInfoCol}>
-              <div className={styles.PayInfoValueFlex}>
-                <span
-                  className={styles.PayInfoValueFlexText}>{inputCurr.value.number + withdraw_fee}</span>
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                {loading ? t("loading") + "..." : <span
-                  className={styles.PayInfoValueFlexText}>{inputCurr.value.number}</span>}
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                {loading ? t("loading") + "..." : <span
-                  className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
-              </div>
-            </div>
-
-            <div className={styles.PayInfoCol}>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-                {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-              {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextFee}>
-                {currency.$const}
-              </span>
-            </div>
-          </div>
-        </div>
+        </div>   
+        <PriceInfo
+          withdraw_fee={withdraw_fee}
+          currencyTitle={currency.$const}
+          amount={inputCurr.value.number}
+        />
 
         <Modal
           width={450}
-          closable={false}
-          title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
           destroyOnClose
-          onCancel={handleCancel}
+          closable={false}
           open={isModalOpen}
+          onCancel={handleCancel}
+          title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
         >
           <WithdrawConfirmCrypto
             {...inputs}
-            amount={inputCurr.value.number}
             handleCancel={handleCancel}
+            amount={inputCurr.value.number}
           />
         </Modal>
 
@@ -274,8 +196,8 @@ const WithdrawFormCrypto = () => {
             <div className={styles.ButtonContainerCenter}>
                 <Button
                     size="lg"
-                    className={'w-full'}
                     onClick={showModal}
+                    className={'w-full'}
                     disabled={isDisabledBtnWithdraw(inputs) || inputCurrValid.value}
                 >
                     {t("transfer")}
@@ -291,7 +213,8 @@ const WithdrawFormCrypto = () => {
               {withdraw_fee === 0
                 ? `${percent_fee}%`
                 : withdraw_fee
-              }</span> {t("per_transaction")}
+              }
+              </span> {t("per_transaction")}
           </span>
         </div>
       )}

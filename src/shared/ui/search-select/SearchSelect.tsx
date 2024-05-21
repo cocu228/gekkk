@@ -4,11 +4,11 @@ import {Select, SelectProps} from 'antd';
 
 interface IParams {
     prefixIcon?: JSX.Element;
-    isMobile?: boolean;
+    postfixIcon?: JSX.Element
     transfers?: boolean
 }
 
-const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children, transfers, ...props}) => {
+const SearchSelect: FC<IParams & SelectProps> = ({postfixIcon, prefixIcon, children, transfers, ...props}) => {
     const [, setValue] = useState<string>(props.value);
     
     const handleChange = (val, option) => {
@@ -39,6 +39,10 @@ const SearchSelect: FC<IParams & SelectProps> = ({prefixIcon, isMobile, children
             >
                 {children}
             </Select>
+
+            {postfixIcon && <div className={styles.SelectPostIcon}>
+                {postfixIcon}
+            </div>}
         </div>
     );
 }

@@ -279,7 +279,7 @@ const CardsMenu = ({
   return (
     <div>
       <div className="flex w-full justify-between items-center mb-2">
-        <span className="font-medium text-lg">{t("cards_menu")}</span>
+        <span className="font-medium text-lg">{t("payment_cards")}</span>
         <span
           onClick={() => setIsNewCardOpened(true)}
           className="underline text-gray-400 hover:cursor-pointer hover:text-gray-600"
@@ -338,7 +338,7 @@ const CardsMenu = ({
                 leftSecondary={t("available")}
                 leftPrimary={t("set_limit", {
                   period: t(limit.period.toLowerCase()),
-                })}
+                }).capitalize()}
                 rightSecondary={numberWithSpaces(limit.usedLimit) + " EUR"}
                 rightPrimary={numberWithSpaces(limit.currentLimit) + " EUR"}
                 className={`rounded-none -my-[1px]

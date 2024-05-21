@@ -16,6 +16,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
 import { maskFullCardNumber } from "@/shared/lib";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 
 interface IState {
@@ -44,6 +45,7 @@ const WithdrawConfirmCardToCard = ({
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const [uasToken, setUasToken] = useState<string>(null);
+    const { displayHistory } = useContext(CtxDisplayHistory);
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -96,6 +98,7 @@ const WithdrawConfirmCardToCard = ({
                     if(res.data.status === "ok"){
                         setSuccess(true)
                         setRefresh();
+                        displayHistory();
                         handleCancel()
                     }else{
                         setErr(true)

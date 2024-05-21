@@ -105,6 +105,10 @@ const TopUp = memo(() => {
     
     }, [networkTypeSelect])
 
+    useEffect(()=>{
+        !type && setNetwork(null) 
+    }, [type])
+
     return (<div className={styles.TopUpMainContainer}>
         {loading ? <Loader/> : <div className='w-full'>
             <div className={styles.TopUpContainer}>

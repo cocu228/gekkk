@@ -1,5 +1,5 @@
 import styles from "./style.module.scss";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CtxRootData } from "@/processes/RootContext";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import HeaderMenu from "@/widgets/header/ui/menu/HeaderMenu";
@@ -12,22 +12,23 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 
 const HeaderMobile = ({ items, actions }) => {
-    const {account} = useContext(CtxRootData);
     const {t} = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {account} = useContext(CtxRootData);
+    const {md} = useContext(BreakpointsContext);
+    const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+    
     const [params] = useSearchParams();
+    const tab = params.get("tab");
     const roomId = params.get('roomId');
-    const homePage = useMatch("/")
-    const transfersPage = useMatch("/transfers") //not used
+    const settingsTab = params.get("sessionsSection");
+
+    const homePage = useMatch("/");
     const exchangePage = useMatch("/exchange");
     const privateRoomPage = useMatch('/private-room');
-    const historyPage = useMatch("/history")
-    const isOnMainPages = !!homePage
-    const navigate = useNavigate()
-    const location = useLocation()
-    const {md} = useContext(BreakpointsContext);
-
-    const tab = params.get("tab");
-    const settingsTab = params.get("sessionsSection");
+    const historyPage = useMatch("/history");
+    const isOnMainPages = !!homePage;
 
     const headerTitle = () => {
         switch (location.pathname.split('/')[1]) {
@@ -50,15 +51,13 @@ const HeaderMobile = ({ items, actions }) => {
             case `private-room`:
                 return t("exchange_button").capitalize();
             case 'card-menu':
-                return t("card_menu").capitalize()
+                return t("cards").capitalize()
             case 'gekkard-pro':
                 return t("gekkard_pro.title").capitalize()
             default:
                 return t(`${location.pathname.slice(1).replace("-", "_")}`).capitalize()
         }
     }
-    // const isOpen = storyToggleSidebar(state => state.isOpen);
-    // const toggleSidebar = useRef(storyToggleSidebar(state => state.toggle));
 
     const settingsTabTitle = () => {
         switch(settingsTab) {
@@ -89,7 +88,12 @@ const HeaderMobile = ({ items, actions }) => {
         <header className={styles.Header}>
 
             {isOnMainPages ?
-                <HeaderMenu items={items} actions={actions} className="pl-5">
+                <HeaderMenu
+                    items={items}
+                    className="pl-5"
+                    actions={actions}
+                    onStateChange={setIsMenuOpened}
+                >
                     <div className="flex items-center justify-start" data-testid="HeaderMenuContainer">
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22} /> :
                             <IconApp code="t10" size={24} color="white"/>
@@ -105,7 +109,12 @@ const HeaderMobile = ({ items, actions }) => {
                         }
 
                         <button className={`${styles.ArrowBtn}`}>
-                            <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
+                            <IconApp
+                                size={14}
+                                code="t08"
+                                color="#fff"
+                                className={`rotate-[${isMenuOpened ? '-90' : '90'}deg]`}
+                            />
                         </button>
                     </div>
                 </HeaderMenu>

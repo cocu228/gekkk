@@ -9,10 +9,9 @@ import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
-import {actionResSuccess, getCookieData, getFormattedIBAN, setCookieData, uncoverResponse} from "@/shared/lib/helpers";
+import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
-import {Switch} from "antd";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
@@ -24,15 +23,22 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
 }>) => {
     if (!number) return null;
     
-    return(
+    return (
         <div className={styles.AccountItem}>
-            <div className={styles.Icon}>
-                <IconApp code="t24" color="#285E69" size={37} />
+            <div className={styles.AccountItemText}>
+                <div className={styles.Icon}>
+                    <IconApp code="t24" color="var(--gek-additional)" size={37} />
+                </div>
+                <div className={styles.AccountInfo}>
+                    <span className={styles.AccountName}>{name}</span>
+                    <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
+                </div>
             </div>
-            <div className={styles.AccountInfo}>
-                <span className={styles.AccountName}>{name}</span>
-                <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
-            </div>
+            {active && (
+                <div className={styles.CurrentIcon}>
+                    <IconApp code="t47" color="var(--gek-green)" size={25} />
+                </div>
+            )}
         </div>
     )
 }

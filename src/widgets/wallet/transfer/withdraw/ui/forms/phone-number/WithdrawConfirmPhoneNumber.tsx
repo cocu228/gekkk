@@ -13,8 +13,9 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import BankReceipt from "@/widgets/wallet/transfer/components/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 interface IParams {
     amount: number;
@@ -47,6 +48,7 @@ const WithdrawConfirmPhoneNumber = ({
     const {setRefresh} = useContext(CtxRootData);
     const {setContent} = useContext(CtxModalTrxResult);
     const [uasToken, setUasToken] = useState<string>(null);
+    const { displayHistory } = useContext(CtxDisplayHistory);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
@@ -114,6 +116,7 @@ const WithdrawConfirmPhoneNumber = ({
             }).then(({data}) => {
                 handleCancel();
                 setRefresh();
+                displayHistory();
                 setContent({
                     content: (
                       <ModalTrxStatusSuccess

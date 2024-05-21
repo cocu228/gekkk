@@ -95,7 +95,6 @@ const Withdraw = memo(() => {
                         </div>
                     </div>
                 </div>}
-
             </>}
         </div>
     );

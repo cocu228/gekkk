@@ -7,7 +7,7 @@ import { getMethodTitle, getStatusTitle } from "./model/helpers";
 import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
-import { CtxModalTrxResult } from "../../withdraw/model/context";
+import { CtxModalTrxResult } from "../../../withdraw/model/context";
 
 interface BankReceiptProps {
   referenceNumber: string;
@@ -37,9 +37,6 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
       if (result.data) {
         setState(result.data);
         setLoading(false);
-      }
-      else {
-
       }
     })();
   }, []);

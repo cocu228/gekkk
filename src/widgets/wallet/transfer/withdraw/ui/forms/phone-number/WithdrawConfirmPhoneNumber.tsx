@@ -13,7 +13,7 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {signHeadersGeneration} from "@/widgets/action-confirmation-window/model/helpers";
-import BankReceipt from "@/widgets/wallet/transfer/components/bank-receipt";
+import BankReceipt from "@/widgets/wallet/transfer/components/receipt/bank";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 
 interface IParams {

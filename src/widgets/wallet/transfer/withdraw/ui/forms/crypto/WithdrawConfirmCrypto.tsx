@@ -29,6 +29,8 @@ import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
+import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
+import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
 
 const initStageConfirm = {
   status: null,
@@ -143,7 +145,11 @@ const WithdrawConfirmCrypto = memo(
           }
           if (result.confirmationStatusCode === 4) {
             handleCancel();
-            setContent({content: <ModalTrxStatusSuccess/>});
+            setContent({content: <ModalTrxStatusSuccess
+              onReceipt={() => {
+                getReceipt(result.txId);
+              }}
+            />});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -154,9 +160,6 @@ const WithdrawConfirmCrypto = memo(
               ...prev,
               autoInnerTransfer: true,
             }));
-          } else if (err.code === 10064) {
-            localErrorHunter(err);
-            form.resetFields();
           } else {
             localErrorHunter(err);
             form.resetFields();
@@ -165,6 +168,13 @@ const WithdrawConfirmCrypto = memo(
 
       setLoading(false);
     };
+
+    const getReceipt = async (txId: number) => {
+      setContent({
+          content: <GekReceipt txId={txId}/>,
+          title: 'Transaction receipt'
+      });
+  };
 
     const inputChange = (event: any) => {
       setInput(event.target.value);

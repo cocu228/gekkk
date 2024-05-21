@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
@@ -17,7 +17,6 @@ import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import { debounce } from "@/shared/lib";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
@@ -48,14 +47,10 @@ const WithdrawFormCrypto = () => {
   const qrCodeModal = useModal();
   const { md } = useBreakpoints();
   const currency = useContext(CtxWalletData);
-  const [loading, setLoading] = useState(false);
   const { inputCurr, setInputCurr } = useInputState();
   const { isModalOpen, showModal, handleCancel } = useModal();
   const { inputCurrValid, setInputCurrValid } = useInputValidateState();
-  const { networkTypeSelect, tokenNetworks, setRefresh } = useContext(CtxWalletNetworks);
-
-  const delayRes = useCallback(debounce((amount) => setRefresh(true, amount), 2000), []);
-  const delayDisplay = useCallback(debounce(() => setLoading(false), 2700), []);
+  const { networkTypeSelect, tokenNetworks } = useContext(CtxWalletNetworks);
 
   const [inputs, setInputs] = useState<IWithdrawFormCryptoState>({
     address: null,
@@ -73,12 +68,6 @@ const WithdrawFormCrypto = () => {
   const onInput = ({ target }) => {
     setInputs((prev) => ({ ...prev, [target.name]: target.value }));
   };
-
-  useEffect(() => {
-    setLoading(true);
-    delayRes(inputCurr.value.number);
-    delayDisplay();
-  }, [inputCurr.value.number]);
 
   const finalFee = getFinalFee(withdraw_fee, percent_fee).value.number;
 

@@ -20,12 +20,12 @@ import OrderProperties from "./order-properties/OrderProperties";
 import { apiGetOrders, apiCancelOrder } from "@/shared/(orval)api/gek";
 import {
   actionResSuccess,
-  getSecondaryTabsAsRecord,
 } from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { RangePickerProps } from "antd/es/date-picker";
 
 const { RangePicker } = DatePicker;
 
@@ -43,14 +43,23 @@ function OpenOrders({ refreshKey }: IParams) {
   const [lazyLoading, setLazyLoading] = useState(false);
   const [allOrdVisibly, setAllOrdVisibly] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [customOrders, setCustomOrders] = useState<boolean>(false)
   const [ordersList, setOrdersList] = useState<GetOrderListOut[]>([]);
   const [activeTab, setActiveTab] = useState<string>(ordersTabs[0].Key);
   const [selectedOrder, setSelectedOrder] = useState<GetOrderListOut>(null);
   const [localErrorHunter, , localErrorInfoBox, localErrorClear] = useError();
-  const [customDate, setCustomDate] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([
-    dayjs(addDays(new Date(), -90)),
-    dayjs(),
-  ]);
+  const [customDateStart, setCustomDateStart] = useState<dayjs.Dayjs>(dayjs(addDays(new Date(), -90)));
+  const [customDateEnd, setCustomDateEnd] = useState<dayjs.Dayjs>(dayjs());
+
+  const disabledDateStart: RangePickerProps['disabledDate'] = (current) => {
+    // Can not select days before today and today
+    return current && (customDateEnd && current > customDateEnd)
+  };
+  const disabledDateEnd: RangePickerProps['disabledDate'] = (current) => {
+    // Can not select days before today and today
+    return current && ((customDateStart && current < customDateStart) || (dayjs().endOf('day') < current));
+  };
+  
 
   useEffect(() => {
     setIsLoading(true);
@@ -75,8 +84,8 @@ function OpenOrders({ refreshKey }: IParams) {
         })
         : await apiGetOrders({
           room_key: roomInfo?.timetick,
-          end: customDate[1].format("YYYY-MM-DD"),
-          start: customDate[0].format("YYYY-MM-DD"),
+          end: customDateEnd.format("YYYY-MM-DD"),
+          start: customDateStart.format("YYYY-MM-DD"),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -102,8 +111,8 @@ function OpenOrders({ refreshKey }: IParams) {
         : await apiGetOrders({
           from_order_id: lastValue.id,
           room_key: roomInfo?.timetick,
-          end: customDate[1].format("YYYY-MM-DD"),
-          start: customDate[0].format("YYYY-MM-DD"),
+          end: customDateEnd.format("YYYY-MM-DD"),
+          start: customDateStart.format("YYYY-MM-DD"),
           ord_states: [127, 198, 199, 200, 210, 211],
         });
 
@@ -129,6 +138,11 @@ function OpenOrders({ refreshKey }: IParams) {
     setOrdersList(ordersList.filter((o) => o.id !== selectedOrder.id));
   };
 
+  useEffect(()=>{
+    setCustomDateStart(dayjs(addDays(new Date(), -90)))
+    setCustomDateEnd(dayjs())
+  },[activeTab])
+
   return (
     <>
       <div className="flex gap-x-4 w-full justify-center">
@@ -151,35 +165,76 @@ function OpenOrders({ refreshKey }: IParams) {
         >
           {t("exchange.closed_orders")}
         </span>
+
+        {activeTab === TabKey.CLOSED && 
+          <button 
+            className="absolute right-[20px]"
+            onClick={()=>{setCustomOrders(n=>!n)}}
+          >
+            <IconApp size={15} code="t30" color="var(--gek-dark-blue)"/>
+          </button>
+        }
       </div>
 
-      {activeTab === TabKey.CLOSED && (
-        <div className="mt-2 mb-4 px-3">
-          {t("enter_period")}
+      {activeTab === TabKey.CLOSED && customOrders && (
+        <div className="rounded-[8px] bg-white p-[10px] flex flex-col items-center justify-center mt-2 mb-4 px-3">
+          <span className="w-full text-center text-[var(--gek-dark-blue)] font-semibold md:text-[12px]">
+            {t("enter_period")}
+          </span>
 
-          <div className="flex grow-0 max-w-[400px]">
-            <RangePicker
-              className="mt-2 w-full"
-              value={customDate}
-              onChange={setCustomDate}
-            />
+          <div className="flex flex-col gap-[10px] grow-0 max-w-[400px]">
+            <div className="flex flex-row justify-evenly items-center gap-[10px]">
+              <DatePicker
+                suffixIcon={<IconApp code="t39" size={20}/>}
+                className="mt-2 w-full !h-[40px] rounded-[5px] !text-[var(--gek-dark-blue)] !font-semibold md:!text-[12px]"
+                value={customDateStart}
+                onChange={setCustomDateStart}
+                disabledDate={disabledDateStart}
+              />
 
-            <Button
-              className="ml-5"
-              disabled={isLoading || !customDate}
-              onClick={requestOrders}
-            >
-              {t("apply")}
-            </Button>
+              <span>-</span>
+
+              <DatePicker
+                suffixIcon={<IconApp code="t39" size={20}/>}
+                className="mt-2 w-full !h-[40px] rounded-[5px] !text-[var(--gek-dark-blue)] !font-semibold md:!text-[12px]"
+                value={customDateEnd}
+                onChange={setCustomDateEnd}
+                disabledDate={disabledDateEnd}
+              />
+            </div>
+
+            <div className="flex flex-row w-full justify-evenly">
+              <Button
+                className="min-w-[120px]"
+                color="blue"
+                disabled={isLoading || !customDateStart || !customDateEnd}
+                onClick={requestOrders}
+              >
+                {t("apply")}
+              </Button>
+              <Button
+                className="min-w-[120px]"
+                color="blue"
+                disabled={isLoading || (!customDateStart && !customDateEnd)}
+                onClick={()=>{
+                  setCustomDateStart(null)
+                  setCustomDateEnd(null)
+                }}
+              >
+                {t("clean")}
+              </Button>
+            </div>
           </div>
         </div>
       )}
 
       <div className="mt-1.5">
-        {!isLoading ? null : <Loader className="relative mt-10 mb-10" />}
+        {!isLoading ? null : <div className="min-h-[70px]">
+          <Loader className="relative mt-10 mb-10" />
+        </div>}
 
         {!(isLoading || ordersList.length) && (
-          <div className="text-center text-[12px] text-[#285E69] mb-[10px] mt-3 rounded-[8px] w-full flex items-center h-[35px] justify-center bg-[#fff]">
+          <div className="text-center text-[12px] text-[#285E69] font-semibold mb-[10px] mt-3 rounded-[8px] w-full flex items-center h-[35px] justify-center bg-[#fff]">
             {t("exchange.no_opened_orders")}
           </div>
         )}
@@ -271,14 +326,18 @@ function OpenOrders({ refreshKey }: IParams) {
           <div className="row mt-3">
             <div className="col flex justify-center relative">
               {lazyLoading ? (
-                <Loader className={"w-[24px] h-[24px] top-[4px]"} />
+                <div className="min-h-[20px]">
+                  <Loader className={"w-[24px] h-[24px] top-[4px]"} />
+                </div>
               ) : (
                 <span
                   onClick={requestMoreOrders}
                   className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
-                  {t("exchange.see_more")}{" "}
-                  <IconApp size={10} code="t08" className="rotate-[90deg] ml-2" color="#B4C0CD" />
+                  <div className="flex flex-row items-center md:text-[10px] text-[var(--gek-mid-grey)]">
+                    {t("exchange.see_more")}{" "}
+                    <IconApp size={12} code="t08" className="rotate-[90deg] ml-2" color="var(--gek-mid-grey)" />
+                  </div>
                 </span>
               )}
             </div>

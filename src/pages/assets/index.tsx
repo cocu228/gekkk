@@ -34,7 +34,6 @@ function Assets() {
         <>
             {!md && <PageHead title={t("crypto_assets.title")} subtitle={t("crypto_assets.subtitle")}/>}
             <div className="wrapper grid grid-cols-1 gap-2 xxl:gap-0">
-                {!md && <InfoBox/>}
                 <div className='flex flex-row '>
                     <div
                         className={!md ? 'substrate w-full col-span-3 z-10 -xl:rounded-r-none': 'w-full'}>

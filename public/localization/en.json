@@ -1701,7 +1701,8 @@
     "generate_address": "Generate address",
     "confirm_place_order": "Confirm place order",
     "order_type": "Order type",
-    "actions": "Actions"
+    "actions": "Actions",
+    "clean": "Clean"
 
   }
 }

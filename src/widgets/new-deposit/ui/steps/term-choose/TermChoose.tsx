@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
+import {useContext} from "react";
+import {CtxNewDeposit} from "@/widgets/new-deposit/model/context";
 import ChooseButton from "../../buttons/choose-button/ChooseButton";
 
 const TermChoose = () => {
-    const { term_in_days: term, onTermChange } = useContext(CtxNewDeposit);
+    const {
+        term_in_days: term,
+        onTermChange
+    } = useContext(CtxNewDeposit);
 
     return (
         <div className="px-10 md:px-3 my-5 md:my-3">

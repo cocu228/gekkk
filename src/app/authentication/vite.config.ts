@@ -10,7 +10,7 @@ export default defineConfig(({mode}) => {
         ...loadEnv(mode, process.cwd() + "/env"),
     };
 
-    const isGekkoin = mode === "devgekkoin"
+    const isGekkoin = mode === "dev.gekkoin"
 
     return {
         base: "./",

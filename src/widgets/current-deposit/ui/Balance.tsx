@@ -1,9 +1,10 @@
 interface IBalance {
-    balance: number,
-    isClosed?: boolean
+    isGke: boolean;
+    balance: number;
+    isClosed?: boolean;
 }
 
-function Balance({balance, isClosed}: IBalance) {
+function Balance({isGke, balance, isClosed}: IBalance) {
     return (
         <div className='column flex gap-5 lg:mb-6 md:items-center md:mb-4'>
             <img
@@ -18,6 +19,9 @@ function Balance({balance, isClosed}: IBalance) {
                 </p>
                 
                 <p className='font-bold text-2xl whitespace-nowrap'>{balance} EURG</p>
+                {isGke && <p className='text-md text-gray-500 whitespace-nowrap'>
+                    Locked tokens: {balance} GKE
+                </p>}
             </div>
         </div>
     )

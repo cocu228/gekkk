@@ -37,6 +37,7 @@ export function validateMaximumAmount(max: number, value: number, $const: string
 export function validateMinimumAmount(min: number, value: number, $const: string, t: TFunction): IValidatorCreator {
     const minDecimal = new Decimal(min)
 
+
     return () => {
         return ({
             validated: minDecimal.lte(value),

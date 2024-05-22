@@ -1,6 +1,8 @@
+import {useContext} from 'react';
 import styles from './styles.module.scss';
-import { IconCoin } from '@/shared/ui/icons/icon-coin';
-import { useContext } from 'react';
+import {CtxRootData} from '@/processes/RootContext';
+import {IconCoin} from '@/shared/ui/icons/icon-coin';
+// import IconDoubleArrows from '@/shared/ui/icons/IconDoubleArrows';
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 
 interface IParams {
@@ -12,23 +14,25 @@ const TokenButton = ({ onClick, tokenCurrency }: IParams) => {
 	const {currencies} = useContext(CtxCurrencies);
 	if (!currencies) return null
 
-	const currency = currencies.get(tokenCurrency);
+	const tokenData = currencies.get(tokenCurrency);
 
 	return (
 		<button
 			onClick={onClick}
 			className={`${styles.TokenButton} h-[60px] rounded-sm w-full px-5 py-3 flex items-center justify-between`}
 		>
-			{!currency ? (
+			{!tokenData ? (
 				<div className='text-gray-400 text-base md:text-sm'>
 					Choose token...
 				</div>
 			) : (
 				<div className="flex gap-4 items-center">
-					<IconCoin width={34} height={34} code={currency.$const} />
-					<p className="font-medium text-sm">{currency.name} ({currency.$const})</p>
+					<IconCoin width={34} height={34} code={tokenData.$const} />
+					<p className="font-medium text-sm">{tokenData.name} ({tokenData.$const})</p>
 				</div>
 			)}
+
+			{/*<IconDoubleArrows />*/}
 		</button>
 	);
 };

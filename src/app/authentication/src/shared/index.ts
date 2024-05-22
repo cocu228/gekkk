@@ -69,6 +69,7 @@ export async function SignIn(silent?: boolean) {
                 publicKey: opt,
                 signal: abortController.signal,
                 // Specify 'conditional' to activate conditional UI
+                //@ts-ignore
                 mediation: 'conditional'
             });
 

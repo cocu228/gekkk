@@ -6,7 +6,8 @@ import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
-import { useMatch } from "react-router-dom";
+import {useMatch} from "react-router-dom";
+import {IS_GEKKARD_APP} from "@/shared/lib";
 
 const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
     const {md} = useBreakpoints();
@@ -16,12 +17,14 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
 
     const isActive = currencies && [...currencies].some(it => {
         const value = it[1].balance?.lock_in_balance;
-        
+
         return value !== null && value !== 0;
     });
 
-    return (
+    return IS_GEKKARD_APP() ? (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
+
+
             <ModalTrxInfoProvider>
                 {md ? null : <>
                     {isActive && <UnconfirmedTransactions/>}
@@ -30,12 +33,12 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
 
                 {md ? null : <ActionConfirmationWindow/>}
                 <div className={`${styles.Content} ${!((isExchange || isPrivateRoom) && md)
-                        ? styles.ContentPadding : ''}`}>
+                    ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
             </ModalTrxInfoProvider>
         </div>
-    )
+    ) : (<div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>{children}</div>)
 }
 
 export default Content;

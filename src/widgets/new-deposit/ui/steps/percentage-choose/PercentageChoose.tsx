@@ -1,12 +1,14 @@
-import { useContext } from "react";
-import { CtxNewDeposit } from "@/widgets/new-deposit/model/context";
+import {useContext} from "react";
+import {getGkePercent} from "@/shared/config/deposits/helpers";
+import {CtxNewDeposit} from "@/widgets/new-deposit/model/context";
 import ChooseButton from "../../buttons/choose-button/ChooseButton";
 
 const PersentageChoose = () => {
     const {
         percentageType,
-        structedStrategy,
-        onPersentageTypeChange
+        structuredStrategy,
+        isGkeDeposit: isGke,
+        onPercentageTypeChange
     } = useContext(CtxNewDeposit);
 
     return (
@@ -16,14 +18,19 @@ const PersentageChoose = () => {
             </p>
 
             <div className="flex">
-                {structedStrategy.percentageTypes.map((pt) => (
-                    <ChooseButton
+                {structuredStrategy.percentageTypes.map((pt) => {
+                    const {
+                        risePercent,
+                        dropPercent
+                    } = getGkePercent(pt, isGke);
+                    
+                    return <ChooseButton
                         isSelected={pt === percentageType}
-                        onClick={() => onPersentageTypeChange(pt)}
+                        onClick={() => onPercentageTypeChange(pt)}
                     >
-                        {pt.risePercentage}/{pt.dropPercentage}
-                    </ChooseButton>
-                ))}
+                        {risePercent}/{dropPercent}
+                    </ChooseButton>;
+                })}
             </div>
         </div>
     )

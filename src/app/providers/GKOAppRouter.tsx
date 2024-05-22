@@ -5,9 +5,9 @@ import Deposit from "@/pages/new-deposit";
 import AppInit from "@/app/providers/AppInit";
 import PageProblems from '@/pages/page-problems/PageProblems';
 import Support from "@/pages/support";
-// import SupportChatUnauthorized from "@/pages/support/chat-unauthorized";
 import ProfileSettings from "@/pages/profile-settings";
-// import SupportChatAuthorized from "@/pages/support/chat-authorized";
+import DepositTypes from "@/pages/deposit-types";
+import CurrentDeposit from "@/pages/current-deposit";
 
 
 const router = createBrowserRouter([
@@ -22,6 +22,14 @@ const router = createBrowserRouter([
             {
                 path: 'open-deposit',
                 element: <Deposit/>
+            },
+            {
+                path: 'deposit-types',
+                element: <DepositTypes/>,
+            },
+            {
+                path: 'deposit/:id',
+                element: <CurrentDeposit/>
             },
             {
                 path: 'support',

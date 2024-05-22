@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
+import {useContext} from "react";
+import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 
 interface IParams {
     children?: React.ReactNode;
@@ -7,7 +7,7 @@ interface IParams {
 }
 
 const RowWrapper = ({ children, className }: IParams) => {
-    const { xl } = useContext(BreakpointsContext);
+    const {xl} = useContext(BreakpointsContext);
 
     return (
         <div

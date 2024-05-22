@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC} from "react";
 import styles from "./style.module.scss";
 
 interface IProps {
@@ -6,13 +6,17 @@ interface IProps {
     className?: string,
     onClick?: () => void;
     size: number | string,
-    color?: string
+    color?: string,
+    lib?: number
 }
 
-export const IconApp:FC<IProps> = ({code,size,color,className, onClick}) => {
-    
+export const IconApp: FC<IProps> = ({code, size, color, className="", onClick, lib = 3}) => {
+
 
     return (
-        <svg width={size} onClick={onClick} className={`${className && className}`} fill={color} stroke={color} height={size}><use href={`/img/gek_icons_lib3.svg?v3#${code}`}></use></svg>
+        <svg width={size} onClick={onClick} className={`${className && className}`} fill={color} stroke={color}
+             height={size}>
+            <use href={`/img/gek_icons_lib${lib}.svg?v${lib}#${code}`}></use>
+        </svg>
     )
 }

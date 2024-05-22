@@ -179,7 +179,7 @@
 .SelectedToken {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items:flex-start;
   gap: 5px;
   color: var(--gek-additional);
   font-size: 14px;

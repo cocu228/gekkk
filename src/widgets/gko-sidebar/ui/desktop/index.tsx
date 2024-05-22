@@ -13,6 +13,7 @@ import {storeInvestments} from "@/shared/store/investments/investments";
 import {CtxCurrencies, ICtxCurrency} from "@/processes/CurrenciesContext";
 import {toLocaleCryptoRounding, toLocaleFiatRounding} from "@/widgets/gko-sidebar/model/helpers";
 import {getFixedDepositTitle, getStructedDepositTitle, scrollToTop} from "@/shared/lib/helpers";
+import {IconApp} from "@/shared/ui/icons/icon-app";
 
 const SidebarDesktop = () => {
     const {t} = useTranslation();
@@ -32,16 +33,16 @@ const SidebarDesktop = () => {
         scrollToTop();
         return (sm || md) ? toggleSidebar.current(false) : null;
     }, [sm, md]);
-    
+
     let eurgWallet: ICtxCurrency = null;
     let gkeWallet: ICtxCurrency = null;
-    
+
     if (currencies !== null) {
         eurgWallet = currencies.get("EURG");
         gkeWallet = currencies.get("GKE");
     }
-    
-    return(
+
+    return (
         <div className={`${styles.Sidebar} flex flex-col justify-between`}>
             <div className="wrapper">
                 {/* EURG wallet */}
@@ -50,7 +51,7 @@ const SidebarDesktop = () => {
                         <div className={`${styles.ItemInactive}`}>
                             <div className="col flex items-center pl-4">
                                 <IconCoin width={50} height={50} code={`EURG`}
-                                     alt="EURG"/>
+                                          alt="EURG"/>
                             </div>
                             <div className="col flex items-center justify-center flex-col pl-5">
                                 <div className="row text-gray-400 w-full mb-1">
@@ -58,18 +59,18 @@ const SidebarDesktop = () => {
                                 </div>
                                 <div className="row w-full font-mono">
                                         <span
-                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.userBalance)) ?? '-'} EURG</span>
+                                            className={styles.Sum}>{(eurgWallet && toLocaleFiatRounding(eurgWallet.balance.user_balance)) ?? '-'} EURG</span>
                                 </div>
                                 {eurgWallet && <div className={"row w-full flex justify-between "}>
                                     <div>
                                         {!eurgWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleFiatRounding(eurgWallet.lockInBalance) ?? '-'}
+                                                    +{toLocaleFiatRounding(eurgWallet.balance.lock_in_balance) ?? '-'}
                                                 </span>}
                                     </div>
                                     <div className=" text-gray-500 font-mono">
                                         {eurgWallet.userBalanceEUREqu === null ? null :
                                             <span className={styles.EuroEqv}>
-                                                    ~ {toLocaleFiatRounding(eurgWallet.userBalanceEUREqu)} €
+                                                    ~ {toLocaleFiatRounding(eurgWallet.balance.user_balance_EUR_equ)} €
                                                 </span>}
                                     </div>
                                 </div>}
@@ -77,7 +78,7 @@ const SidebarDesktop = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 {/* GKE wallet */}
                 <div>
                     <div className={styles.ItemWrapper}>
@@ -92,43 +93,44 @@ const SidebarDesktop = () => {
                                 </div>
                                 <div className="row w-full font-mono">
                                     <span className={styles.Sum}>
-                                        {(gkeWallet && toLocaleCryptoRounding(gkeWallet.userBalance, gkeWallet.roundPrec)) ?? '-'} GKE
+                                        {(gkeWallet && toLocaleCryptoRounding(gkeWallet.balance?.user_balance, gkeWallet.roundPrec)) ?? '-'} GKE
                                     </span>
                                 </div>
-                                {gkeWallet && <div className={"row w-full flex justify-between"}>
-                                    <div>
-                                        {!gkeWallet.lockInBalance ? null : <span className={styles.Income}>
-                                                    +{toLocaleCryptoRounding(gkeWallet.lockInBalance, gkeWallet.roundPrec) ?? '-'}
+                                {gkeWallet && gkeWallet.balance !== undefined &&
+                                    <div className={"row w-full flex justify-between"}>
+                                        <div>
+                                            {!gkeWallet.balance.lock_in_balance ? null :
+                                                <span className={styles.Income}>
+                                                    +{toLocaleCryptoRounding(gkeWallet.balance.lock_in_balance, gkeWallet.roundPrec) ?? '-'}
                                                 </span>}
-                                    </div>
-                                    <div className=" text-gray-500 font-mono">
-                                        {gkeWallet.userBalanceEUREqu === null ? null :
-                                            <span className={styles.EuroEqv}>
-                                                    ~ {toLocaleFiatRounding(gkeWallet.userBalanceEUREqu)} €
+                                        </div>
+                                        <div className=" text-gray-500 font-mono">
+                                            {gkeWallet.balance?.user_balance_EUR_equ ? null :
+                                                <span className={styles.EuroEqv}>
+                                                    ~ {toLocaleFiatRounding(gkeWallet.balance.user_balance_EUR_equ)} €
                                                 </span>}
-                                    </div>
-                                </div>}
+                                        </div>
+                                    </div>}
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 {/* Secondary options wrapper */}
                 <div style={{backgroundColor: "#f7f7f0"}} className="h-[8px] w-full"/>
-                
                 <NavLink onClick={NavLinkEvent} to={"open-deposit"}>
                     <div className={`${styles.Item}`}>
                         <div className="col flex items-center pl-4">
-                            <img width={50} height={50} src={`/img/icon/DepositGradientIcon.svg`}
-                                 alt="DepositGradientIcon"/>
+                                <IconApp lib={3} code="t35" size={50} color="var(--color-gray-400)" />
                         </div>
                         <div className="col flex items-center justify-center flex-col pl-6">
-                            <div className="row w-full mb-1 font-medium"><span className={styles.NavName}>New deposit</span>
+                            <div className="row w-full font-medium"><span
+                                className={styles.NavName}>New deposit</span>
                             </div>
                         </div>
                     </div>
                 </NavLink>
-                
+
                 {/* User assets collapse */}
                 {!investments.length ? null : (
                     <NavCollapse header={"Current deposits"} id={"deposits"}>
@@ -136,8 +138,9 @@ const SidebarDesktop = () => {
                             <NavLink onClick={NavLinkEvent} to={`deposit/${item.id}`} key={item.id}>
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
-                                    <   IconApp code="t66" size={15} color="var(--color-gray-400)" />
-                                        <img alt={"DepositGradientIcon.svg"} className={styles.Icon}
+                                    <IconApp code="t66" size={15} color="var(--color-gray-400)" />
+                                        {/*<IconApp lib={3} code="t36" size={50} color="var(--color-gray-400)" />*/}
+                                        <img style={{marginLeft: "4px"}} alt={"DepositGradientIcon.svg"} className={styles.Icon}
                                              src={"/img/icon/DepositGradientIcon.svg"}/>
                                     </div>
                                     <div className="col w-full flex items-center justify-center flex-col pl-6 pr-2">
@@ -146,13 +149,14 @@ const SidebarDesktop = () => {
                                             {[1, 101].includes(item.dep_type) ? 'Fixed rate' : 'Structured'} deposit
                                         </span>
                                         </div>
-                                        
+
                                         <div className="row w-full">
                                             <span className={styles.Sum}>{item.amount} €</span>
                                         </div>
-                                        
+
                                         <div className="row w-full ellipsis ellipsis-c-none">
-                                        <span className="text-gray-400 text-xs">{(item.dep_type === 1 || item.dep_type === 101)
+                                        <span
+                                            className="text-gray-400 text-xs">{(item.dep_type === 1 || item.dep_type === 101)
                                             ? getFixedDepositTitle(item.isGke)
                                             : getStructedDepositTitle(item.dep_type, item.isGke)}</span>
                                         </div>
@@ -162,14 +166,14 @@ const SidebarDesktop = () => {
                         )}
                     </NavCollapse>
                 )}
-                
+
                 <div className={styles.AssetInfo2 + " text-gray-500 font-mono"}>
                     <span>{t("portfolio_size")}</span>
                     <span>~ <span
                         data-testid="TotalAmount">{toLocaleFiatRounding(+totalAmount) ?? '-'}</span> €</span>
                 </div>
             </div>
-            
+
             <Footer textAlight={"text-left"}/>
         </div>
     );

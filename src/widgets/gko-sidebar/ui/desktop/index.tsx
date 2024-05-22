@@ -139,9 +139,9 @@ const SidebarDesktop = () => {
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
                                     <IconApp code="t66" size={15} color="var(--color-gray-400)" />
-                                        <IconApp lib={3} code="t36" size={50} color="var(--color-gray-400)" />
-                                        {/*<img alt={"DepositGradientIcon.svg"} className={styles.Icon}*/}
-                                        {/*     src={"/img/icon/DepositGradientIcon.svg"}/>*/}
+                                        {/*<IconApp lib={3} code="t36" size={50} color="var(--color-gray-400)" />*/}
+                                        <img style={{marginLeft: "4px"}} alt={"DepositGradientIcon.svg"} className={styles.Icon}
+                                             src={"/img/icon/DepositGradientIcon.svg"}/>
                                     </div>
                                     <div className="col w-full flex items-center justify-center flex-col pl-6 pr-2">
                                         <div className="row w-full">

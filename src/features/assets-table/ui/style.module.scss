@@ -5,9 +5,19 @@
   margin: 0px -40px;
   padding: 12px 40px;
   transition: .2s;
+  min-height: 56px;
+  font-weight: 400;
+  gap: 0.75rem;
+  
+  &:hover {
+    font-weight: 700;
+    cursor: pointer;
+  }
+
     
   @include max-devices('lg') {
     padding: 6px 20px;
+    min-height: 46px;
   }
 
   @include max-devices('md') {
@@ -61,12 +71,114 @@
   background-color: #fff;
   margin-bottom: 9px;
   height: 60px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between;
   
   .InnerName {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1rem;
     color: var(--gek-mid-grey);
-    max-width: 50px;
     text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @media screen and (max-width: 768px) {
+      width: 23vw;
+    }
   }
+}
+
+.RowTextGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.TableRow {
+  &:first-child {
+    @media screen and (max-width: 768px) {
+      margin-left: 12px;
+      width: 23vw;
+    }
+  }
+
+  &:nth-child(2) {
+    @media screen and (max-width: 768px) {
+      min-width: 70px;
+      max-width: 72px;
+    }
+
+    
+    @media screen and (max-width: 340px) {
+      margin-left: 10px;
+    }
+  }
+
+  &:last-child {
+    @media screen and (max-width: 768px) {
+      max-width: 60px;
+      margin-right: 13.5px;
+    }
+  }
+}
+
+.RowItemIcon {
+  max-height: 40px;
+  max-width: 40px;
+  min-width: 40px;
+
+  @media screen and (max-width: 768px) {
+    max-height: 30px;
+    max-width: 30px;
+    min-width: 30px;
+  }
+}
+
+.RowBalanceWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-width: 150px;
+}
+
+.RowBalanceTitle {
+  align-self: flex-start;
+  font-size: 12px;
+  color: var(--gek-dark-grey);
+  font-weight: 400;
+}
+
+.RowBalanceSubtitle {
+  align-self: flex-end;
+  font-size: 12px;
+  color: #1F3446;
+  font-weight: 400;
+}
+
+.SearchValueTitle {
+  text-align: center;
+  color: var(--color-gray-400);
+}
+
+.PriceBlock {
+  display: block;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12.5px;
+  }
+}
+
+.DeskCol {
+  color: var(--color-gray-400);
+  font-weight: 500;
+}
+
+.RowItemInfoGroup {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
 }

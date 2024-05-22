@@ -67,7 +67,7 @@ export function IssueNewCard() {
           </div>
         </div>
         <div className={styles.input_block}>
-          <span className={styles.input_title}>City</span>
+          <span className={styles.input_title}>{t("city")}</span>
           <input
             value={state.city}
             onChange={({ target }) => {
@@ -188,7 +188,7 @@ export function IssueNewCard() {
         >
           {t("proceed")}
         </Button>
-        <Button variant='gray' onClick={close}>
+        <Button color='gray' className="w-full" onClick={close}>
           {t("back")}
         </Button>
       </div>

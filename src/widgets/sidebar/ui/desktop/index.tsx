@@ -162,7 +162,7 @@ const SidebarDesktop = () => {
                 title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
                 padding
             >
-                <InviteLink roomInfo={selectedRoom} />
+                <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={selectedRoom} />
             </Modal>
 
             <Modal
@@ -180,9 +180,9 @@ const SidebarDesktop = () => {
                         t("are_you_sure_leave", { currency1: selectedRoom?.currency1, currency2: selectedRoom?.currency2 })
                     }
                 </div>
-                <div className="mt-16 sm:mt-14">
+                <div className="mt-16 sm:mt-14 flex justify-center">
                     <Button
-                        size="xl"
+                        size="lg"
                         className="w-full"
                         onClick={() => {
                             if (window.location.pathname === `/private-room?roomId=${selectedRoom.timetick}`) {

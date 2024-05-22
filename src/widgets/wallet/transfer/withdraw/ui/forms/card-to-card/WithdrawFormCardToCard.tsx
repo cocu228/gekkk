@@ -23,7 +23,6 @@ import {
   validateMinimumAmount,
 } from "@/shared/config/validators";
 import { useNavigate } from "react-router-dom";
-import Decimal from "decimal.js";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
 import { getWithdrawDesc } from "@/widgets/wallet/transfer/withdraw/model/entitys";
 import { useInputState } from "@/shared/ui/input-currency/model/useInputState";
@@ -34,7 +33,6 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Card } from "@/shared/(orval)api/gek/model";
 
 const { Option } = Select;
 
@@ -107,7 +105,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("from_card")}</span>
+                <span className="font-medium">{t("from_card")}:</span>
               </div>
             </div>
             <div className="row">
@@ -151,7 +149,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("card_number_title")}</span>
+                <span className="font-medium">{t("card_number_title")}:</span>
               </div>
             </div>
             <div className="row">
@@ -175,7 +173,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("cardholder_name")}</span>
+                <span className="font-medium">{t("cardholder_name")}:</span>
               </div>
             </div>
             <div className="row">
@@ -199,7 +197,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("comment")}</span>
+                <span className="font-medium">{t("comment")}:</span>
               </div>
             </div>
             <div className="row">
@@ -270,9 +268,9 @@ const WithdrawFormCardToCard = () => {
         </Modal>
 
         <div className="row w-full">
-          <div className="col">
+          <div className="flex justify-center col">
             <Button
-              size={"xl"}
+              size="lg"
               className="w-full"
               onClick={showModal}
               disabled={!isValidated || inputCurrValid.value}
@@ -334,7 +332,7 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[color:var(--gek-light-grey)]">
+            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
               <div className="basis-full">
                 <SearchSelect
                   transfers
@@ -522,8 +520,7 @@ const WithdrawFormCardToCard = () => {
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>
           <Button
-            variant='greenTransfer'
-            size={"xl"}
+            size="lg"
             className="w-full"
             onClick={showModal}
             disabled={!isValidated || inputCurrValid.value}

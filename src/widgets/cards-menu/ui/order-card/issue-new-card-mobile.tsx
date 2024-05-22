@@ -1,16 +1,13 @@
 import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
-import { Typography as Tp } from '@/shared/ui/typography/typography';
 import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {ValidateOrderCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import styles from '../style.module.scss'
+import Button from '@/shared/ui/button/Button';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -43,7 +40,6 @@ export function IssueNewCardMobile() {
                 <span className={styles.mobRowItemTitle}>{t('country')}:</span>
                 <div className={styles.mobSelectWrap}>
                     <SearchSelect
-                        isMobile
                         className="w-full"
                         placeholder={t("select_country")}
                         value={state.countryCode}
@@ -125,18 +121,17 @@ export function IssueNewCardMobile() {
             </div>
             
             <div className={styles.mobIssueFooter}>
-                <MobileButton 
-                    varitant={'light'} 
-                    className='w-[140px]'
+                <Button 
+                    color="green"
                     onClick={() => {
                         setStep('ConfirmationNewCard');
                     }}
                 >
-                    {t("proceed")}   
-                </MobileButton>
-                <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
-                    {t("back")}   
-                </MobileButton>
+                    {t("proceed")}
+                </Button>
+                <Button skeleton color='gray' onClick={close}>
+                    {t("back")}
+                </Button>
             </div>
         </div>
     </div>

@@ -158,13 +158,13 @@ const NoFeeProgram = () => {
             </div>
 
             <div className="row mb-4">
-                <div className="col">
+                <div className="flex justify-center col">
                     <Button
+                        size="lg"
                         disabled={inputCurrValid.value}
                         onClick={lockConfirmModal.showModal}
                         className="w-full"
-                        size={"xl"}
-                    >{t("lock_tokens", {currency: currency.$const})}
+                        >{t("lock_tokens", {currency: currency.$const})}
                     </Button>
                 </div>
             </div>
@@ -207,9 +207,9 @@ const NoFeeProgram = () => {
                     </div>
                 </div>
                 
-                <div className="mt-6 md:mt-12">
+                <div className="mt-6 md:mt-12 flex justify-center">
                     <Button
-                        size="xl"
+                        size="lg"
                         className="w-full"
                         disabled={inputCurrValid.value}
                         onClick={async () => {

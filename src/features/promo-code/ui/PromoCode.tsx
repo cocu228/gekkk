@@ -81,13 +81,13 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               promoCodeValidator,
             ]}
           >
-            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[color:var(--gek-mid-grey)]">
+            <div className="flex flex-row justify-between items-center border-[1px] border-solid rounded-[8px] border-[var(--gek-mid-grey)]">
               <Input
                 allowDigits
                 bordered={false}
                 type={"text"}
                 wrapperClassName="w-full"
-                className="text-[10px] text-[color:var(--gek-mid-grey)]"
+                className="text-[10px] text-[var(--gek-mid-grey)]"
                 placeholder={"-" + t("header_menu.enter_promo_code").toLowerCase()+ "-"}
                 suffix={false}
                 value={valInput}
@@ -102,8 +102,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
 
           <div className={buttonStyles.ButtonContainer}>
             <Button
-              htmlType={"submit"}
-              variant="greenTransfer"
+              htmlType="submit"
               className={buttonStyles.ButtonTwo}
               disabled={
                 valInput === "" ||
@@ -114,8 +113,7 @@ const PromoCode = memo(({handleCancel}: IProps) => {
               {t("confirm")}
             </Button>
             <Button
-              variant={"whiteGreenTransfer"}
-              size={"xl"}
+              skeleton
               className={buttonStyles.ButtonTwo}
               onClick={handleCancel}
             >

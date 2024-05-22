@@ -79,7 +79,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "new-room",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -97,7 +97,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "invite-link",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={roomModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -113,11 +113,11 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "close-room",
                   label: (
                     <DropdownItem
-                      className="w-full border-b-1 border-[color:var(--gek-additional)] bg-[color:var(--gek-light-grey)]"
+                      className="w-full border-b-1 border-[var(--gek-additional)] bg-[var(--gek-light-grey)]"
                       onClick={roomCloseModal.showModal}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <span className="font-semibold text-[color:var(--gek-red)]">
+                        <span className="font-semibold text-[var(--gek-red)]">
                           {t("close_current_room")}
                         </span>
                         <div className={styles.CloseWrap}>
@@ -131,7 +131,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                   key: "back",
                   label: (
                     <DropdownItem
-                      className="w-full bg-[color:var(--gek-light-grey)]"
+                      className="w-full bg-[var(--gek-light-grey)]"
                       onClick={() => navigate("/exchange")}
                     >
                       <div className="flex justify-between items-center w-full">
@@ -150,7 +150,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
 
       <Modal
         width={450}
-        //className={styles.RoomModal}
+        className={'m-[0_15px] !w-[calc(100%_-_30px)]'}
         open={roomModal.isModalOpen}
         onCancel={roomModal.handleCancel}
         closable={false}
@@ -160,7 +160,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
 
       >
         {active ? (
-          <InviteLink roomInfo={active} />
+          <InviteLink onClose={roomModal.handleCancel} roomInfo={active} />
         ) : (
           <CreateRoom
             to={to}
@@ -179,6 +179,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
             }}
             onToCurrencyChange={(value) => setTo({ ...to, currency: value })}
             onFromCurrencyChange={(value) => setFrom({ ...from, currency: value })}
+            onCancel={roomModal.handleCancel}
           />
         )}
       </Modal>
@@ -203,9 +204,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
               })}
         </div>
 
-        <div className="mt-16 sm:mt-14">
+        <div className="mt-16 sm:mt-14 flex justify-center">
           <Button
-            size="xl"
+            size="lg"
             className="w-full"
             onClick={() => {
               apiCloseRoom({
@@ -238,7 +239,7 @@ const RoomItem = ({
 
   return (
     <DropdownItem
-      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[color:var(--gek-light-grey)]" : ""}`}
+      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[var(--gek-light-grey)]" : ""}`}
       icon={
         <div className={styles.RoomsMenuItemIcon}>
           <IconApp color="red" code="t33" size={20} />

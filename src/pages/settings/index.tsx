@@ -97,20 +97,20 @@ export function Settings() {
                 className={`${styles.itemsList} ${md && styles.itemsListGap}`}
               >
                 <SettingsButton
-                  icon={<IconApp code="t55" size={23} color="#285E69" />}
-                  text={t("personal_information")}
-                  onClick={() => {
-                    setSelectedArea("personal-information");
-                  }}
-                  isSelected={selectedArea === "personal-information"}
-                />
-                <SettingsButton
                   icon={<IconApp code="t53" size={23} color="#285E69" />}
                   text={t("app_version")}
                   onClick={() => {
                     setSelectedArea("app-version");
                   }}
                   isSelected={selectedArea === "app-version"}
+                />
+                <SettingsButton
+                  icon={<IconApp code="t55" size={23} color="#285E69" />}
+                  text={t("personal_information")}
+                  onClick={() => {
+                    setSelectedArea("personal-information");
+                  }}
+                  isSelected={selectedArea === "personal-information"}
                 />
                 <SettingsButton
                   icon={<IconApp code="t52" size={23} color="#285E69" />}
@@ -198,6 +198,12 @@ export function Settings() {
                   <SettingsButton
                     icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("data_protection")}
+                  />
+                </a>
+                <a href="https://gekkard.com/legal-agreements.html">
+                  <SettingsButton
+                    icon={<IconApp code="t42" size={23} color="#285E69" />}
+                    text={t("legal_agreements")}
                   />
                 </a>
               </div>

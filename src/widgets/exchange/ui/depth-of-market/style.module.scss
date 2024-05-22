@@ -1,6 +1,7 @@
 @import "@styles/mixins";
 
 .Wrapper {
+  justify-content: space-between;
   display: flex;
   flex-direction: column;
   height: 100%;

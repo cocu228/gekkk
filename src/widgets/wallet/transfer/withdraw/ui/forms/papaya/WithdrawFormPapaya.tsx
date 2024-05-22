@@ -154,7 +154,6 @@ const WithdrawFormPapaya = () => {
                 width={450}
                 open={isModalOpen}
                 onCancel={handleCancel}
-                padding
                 closable={false}
                 title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
             >
@@ -170,8 +169,7 @@ const WithdrawFormPapaya = () => {
             <div className={styles.Button}>
                 <div className={styles.ButtonContainerCenter}>
                     <Button
-                        size={"xl"}
-                        variant='greenTransfer'
+                        size="lg"
                         className={'w-full'}
                         onClick={showModal}
                         disabled={!inputCurr.value.number || inputCurrValid.value || loading}

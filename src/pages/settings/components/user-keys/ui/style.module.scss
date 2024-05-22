@@ -1,9 +1,5 @@
 @import "@styles/mixins.scss";
 
-.button {
-    height: 45px;
-}
-
 .addGekkeyBlock {
     width: 100%;
     display: flex;
@@ -38,21 +34,6 @@
     display: flex;
     justify-content: center;
     gap: 15px;
-}
-
-.Button{
-    background: var(--gek-green) !important;
-    font-size: 14px;
-    font-weight: bold !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:disabled{
-        background: var(--gek-mid-grey) !important;
-    }
-
-
 }
 
 .keysWrap {
@@ -90,36 +71,48 @@
 }
 
 .keyBtnWrap {
+    gap: 5px;
+    width: 30%;
+    padding: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 45px;
-    padding: 10px;
-    gap: 5px;
+}
 
-    :global(.current){
-        background: var(--gek-background) !important;
-        border: 2px solid var(--gek-orange);
-        color: var(--gek-orange);
-        border-radius: 5px;
-        @include max-devices(md){
-            height: 27px;
-            font-size: 10px;
-            max-width: 80px;
-        }
-    
+.CurentButton {
+    width: 100%;
+    height: 25px;
+    max-width: 81px;
+    font-weight: 600;
+    padding: 0.3125rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    transition: all ease-out 0.2s;
+    color: var(--gek-orange);
+    background: var(--gek-background);
+    border: 2px solid var(--gek-orange);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:disabled {
+      color: var(--gek-mid-grey);
+      background: var(--gek-background);
+      border: 2px solid var(--gek-mid-grey);
+
+      svg {
+        fill: var(--gek-mid-grey);
+        stroke: var(--gek-mid-grey);
+      }
     }
 
-    :global(.remove){
-        background: var(--gek-background) !important;
-        border: 2px solid var(--gek-red);
-        color: var(--gek-red);
-        border-radius: 5px;
-        @include max-devices(md){
-            height: 27px;
-            font-size: 10px;
-            max-width: 80px;
-        }
+    &:not(:disabled):hover {
+      color: var(--gek-background);
+      background: var(--gek-orange);
 
+      svg {
+        fill: var(--gek-background);
+        stroke: var(--gek-background);
+      }
     }
 }

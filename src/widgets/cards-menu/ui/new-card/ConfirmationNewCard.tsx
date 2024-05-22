@@ -179,8 +179,8 @@ export function ConfirmationNewCard() {
         </div>
 
         <div className={styles.confFooterBtns}>
-            <Button disabled={loading} onClick={onConfirm}>{t("order_card")}</Button>
-            <Button variant='gray'  onClick={() => {
+            <Button disabled={loading} className='w-full' onClick={onConfirm}>{t("order_card")}</Button>
+            <Button skeleton color='gray' className='w-full' onClick={() => {
                 setStep('IssueNewCard');
             }}>{t("back")}</Button>
         </div>

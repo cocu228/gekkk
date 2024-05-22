@@ -184,18 +184,17 @@ const UniversalTransferForm = () => {
 
       <div className={styles.ButtonContainerCenter}>
         <Button
-          size={"xl"}
+          size="lg"
           className={styles.Button}
           onClick={showModal}
           disabled={!isValid || inputCurrValid.value}
-          variant='greenTransfer'
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>
       </div>
 
-      <div className="text-[color:var(--gek-mid-grey)] text-[12px] md:text-[10px] my-2 flex justify-center">
-        <div className="text-[color:var(--gek-orange)]">
+      <div className="text-[var(--gek-mid-grey)] text-[12px] md:text-[10px] my-2 flex justify-center">
+        <div className="text-[var(--gek-orange)]">
           <span className="font-semibold">*{t("fee_free")}</span>{" "}
           {t("transfers_to_users_by_number_or_IBAN")}.
         </div>

@@ -257,19 +257,6 @@
 
 .BottomBtn {
   width: 100%;
-  max-width: 120px;
-
-  &:first-child {
-    background: var(--gek-additional);
-    color: #fff !important;
-    font-weight: 700 !important;
-  }
-
-  &:nth-child(2) {
-    background-color: var(--gek-mid-grey) !important;
-    color: var(--gek-dark-blue) !important;
-    font-weight: 700 !important;
-  }
 }
 
 .BottomBtnsWrap {

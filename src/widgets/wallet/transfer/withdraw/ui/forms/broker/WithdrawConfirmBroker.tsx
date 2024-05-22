@@ -16,13 +16,15 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
-    const [loading, setLoading] = useState<boolean>(false);
     const {t} = useTranslation();
     const {md} = useBreakpoints();
     const {setContent} = useContext(CtxModalTrxResult);
+    const [loading, setLoading] = useState<boolean>(false);
+    const { displayHistory } = useContext(CtxDisplayHistory);
 
     const {
         networkTypeSelect,
@@ -84,14 +86,12 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
                     if(response.data.status === "ok"){
                         handleCancel();
                         setRefresh();
+                        displayHistory();
                         setContent({content: <ModalTrxStatusSuccess/>});
                     }
                 }
                 handleCancel();
             })
-
-            
-
         })
     }
 
@@ -192,8 +192,8 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             
             <Form onFinish={onConfirm}>
                 <div className="row mt-4 mb-4">
-                    <div className="col">
-                        <Button size={"xl"}
+                    <div className="flex justify-center col">
+                        <Button size="lg"
                                 className="w-full"
                                 htmlType={"submit"}
                         >{t("confirm")}</Button>
@@ -288,13 +288,12 @@ const WithdrawConfirmBroker = ({amount, handleCancel}) => {
             <Form onFinish={onConfirm}>
                 <div className="row mt-4 mb-4">
                     <div className={styles.ButtonContainer}>
-                        <Button variant='greenTransfer'
-                                size={"xl"}
+                        <Button
                                 className={styles.ButtonTwo}
                                 htmlType={"submit"}
                         >{t("confirm")}</Button>
-                        <Button variant='whiteGreenTransfer'
-                                size={"xl"}
+                        <Button
+                                skeleton
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
                         >{t("cancel")}</Button>

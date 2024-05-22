@@ -121,9 +121,8 @@ const usePinConfirmation = (): TypeUseConfirmation => {
           </div>
           Loading: {loading.toString()}
           <div className="mb-4">{localErrorInfoBox}</div>
-          <div>
+          <div className="flex justify-center w-full">
             <Button
-              size={"xl"}
               disabled={!code}
               onClick={confirm}
               className="w-full"

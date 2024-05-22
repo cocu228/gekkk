@@ -308,7 +308,7 @@ function CustomHistory() {
                         </span>
                       </div>
                       <div className="mr-2 flex flex-col justify-evenly p-2 min-w-[150px]">
-                        <span className="self-start ml-[15%] text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
+                        <span className="self-start ml-[15%] text-[12px] text-[var(--gek-dark-grey)] font-regular">
                           {t("free_balance")}:
                         </span>
                         <span className="self-end text-[12px] text-[#1F3446] font-regular">
@@ -334,7 +334,7 @@ function CustomHistory() {
               {
                 translatedOptions.map((item, ind) => (
                   <div
-                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[color:var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
+                  className="w-full flex justify-between min-h-[60px] mt-2 bg-[white] text-[var(--gek-dark-blue)] active:text-[var(--gek-green)] rounded-lg cursor-pointer"
                   onClick={() => {
                     setType(item)
                     setSelector(null)  
@@ -378,7 +378,6 @@ function CustomHistory() {
           <div className={styles.BottomBtnsWrap}>
             <Button
               className={styles.BottomBtn}
-              size="sm"
               onClick={() => {
                 setApply(true);
                 applyHandler();
@@ -388,9 +387,8 @@ function CustomHistory() {
               {t("apply")}
             </Button>
             <Button
-              className={`${styles.BottomBtn} grey`}
-              size="sm"
-              variant="gray"
+              className={`${styles.BottomBtn}`}
+              color="gray"
               onClick={() => {
                 setApply(false);
                 handleReset();

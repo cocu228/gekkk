@@ -1,24 +1,13 @@
 import { useNewCardContext } from './newCardContext';
-import Button from '@/shared/ui/button/Button';
-import Select from '@/shared/ui/select/Select';
-import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import useMask from "@/shared/model/hooks/useMask";
-import {MASK_PHONE} from "@/shared/config/mask";
-import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
-import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
-import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {Switch} from "antd";
-import { Typography as Tp } from '@/shared/ui/typography/typography';
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import styles from '../style.module.scss';
+import Button from '@/shared/ui/button/Button';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
-    const [isValid, validate] = useState<boolean>(false);
-    const {onInput: onPhoneNumberInput} = useMask(MASK_PHONE);
     const {
         state,
         close,
@@ -26,10 +15,6 @@ export function IssueNewCardMobile() {
         setState,
         switchResidenceAddress
     } = useNewCardContext();
-    
-    useEffect(() => {
-        validate(ValidateNewCardState(state));
-    }, [state]);
     
     return <div>
         <div className='flex flex-col items-center justify-center w-full py-5'>
@@ -46,7 +31,6 @@ export function IssueNewCardMobile() {
                 <span className={styles.mobRowItemTitle}>{t('card_type')}:</span>
                 <div className={styles.newCardSearchBlock}>
                     <SearchSelect className="w-full mt-2 max-h-[50px]"
-                            isMobile
                             placeholder='Select type...'
                             value={t(state.cardType.toLowerCase())}
                             options={[{
@@ -165,18 +149,17 @@ export function IssueNewCardMobile() {
                 </div>
             </div>)}
             <div className='h-[55px] flex flex-row w-full justify-center gap-2 pt-3'>
-                <MobileButton 
-                    varitant={state.cardholderName ? 'light' : 'disabeled'} 
-                    className='w-[140px]'
+                <Button 
+                    color='green'
                     onClick={() => {
                         setStep('ConfirmationNewCard');
                     }}
                 >
                     {t("proceed")}   
-                </MobileButton>
-                <MobileButton varitant='outline' className='w-[140px]' onClick={close}>
+                </Button>
+                <Button skeleton color='gray' onClick={close}>
                     {t("back")}   
-                </MobileButton>
+                </Button>
             </div>
         </div>
     </div>

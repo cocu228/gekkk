@@ -97,7 +97,7 @@ const ApplyTransferCode = () => {
                 <Button 
                     disabled={input === "" || loading} 
                     onClick={showModal}
-                    size={md? undefined : "xl"}
+                    size={md ? "md" : "lg"}
                     className={styles.CodeButton}
                 >
                     {t("apply")}
@@ -120,8 +120,8 @@ const ApplyTransferCode = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col">
-                                        <Button className="w-full" size={"xl"} onClick={() => {
+                                    <div className="flex justify-center col">
+                                        <Button className="w-full" size="lg" onClick={() => {
                                             handleCancel()
                                         }}>{t("done")}</Button>
                                     </div>
@@ -130,7 +130,7 @@ const ApplyTransferCode = () => {
                     </Modal>
             </div>
         </div>
-        <div className="row mt-10">
+        <div className={styles.TransferTableContainer}>
             <TransferTableCode/>
         </div>
     </div>

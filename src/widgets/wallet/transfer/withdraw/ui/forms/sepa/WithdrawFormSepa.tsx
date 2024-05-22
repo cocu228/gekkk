@@ -104,7 +104,7 @@ const WithdrawFormSepa = () => {
                     </div>
                                                     
                     <div className='text-gray-400'>
-                        <span className='text-[color:var(--gek-orange)] text-[10px]'>
+                        <span className='text-[var(--gek-orange)] text-[10px]'>
                             {!inputs.beneficiaryName && "*" + t("EW_law")}
                         </span>
                     </div>
@@ -206,8 +206,7 @@ const WithdrawFormSepa = () => {
 
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
-                    variant='greenTransfer'
+                    size="lg"
                     onClick={showModal}
                     className={styles.Button}
                     disabled={!Object.values(inputs).every(v => v !== null && v !== '') || inputCurrValid.value}

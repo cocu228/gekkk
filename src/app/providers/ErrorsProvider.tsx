@@ -165,10 +165,13 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     into your Gekkard account.
                 </div>
 
-                <Button
-                    onClick={logout}
-                    className='w-full'
-                >Log out</Button>
+                <div className="flex w-full justify-center">
+                    <Button
+                        size="lg"
+                        onClick={logout}
+                        className="w-full"
+                    >Log out</Button>
+                </div>
             </div>)}
         </Modal>
     </>

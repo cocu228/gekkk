@@ -139,7 +139,7 @@ const SidebarDesktop = () => {
                             <NavLink onClick={NavLinkEvent} to={`deposit/${item.id}`} key={item.id}>
                                 <div className={`${styles.Item + " " + ParentClassForCoin}`}>
                                     <div className="col flex items-center pl-4 w-[85px]">
-                                        <SvgArrow width={14} height={14} className={styles.SvgArrow}/>
+                                    <   IconApp code="t66" size={15} color="var(--color-gray-400)" />
                                         <img alt={"DepositGradientIcon.svg"} className={styles.Icon}
                                              src={"/img/icon/DepositGradientIcon.svg"}/>
                                     </div>

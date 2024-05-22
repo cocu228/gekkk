@@ -7,7 +7,7 @@ import "../processes/i18n.config";
 
 declare global {
     interface String {
-        capitalize(): String;
+        capitalize(): string;
     }
 }
 

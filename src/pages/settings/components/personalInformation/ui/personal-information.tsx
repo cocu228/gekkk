@@ -1,6 +1,4 @@
 import {MobileWrapper} from "@/shared/ui/mobile-wrapper/mobile-wrapper"
-import {Typography} from "@/shared/ui/typography/typography"
-import {MobileButton} from "@/shared/ui/mobile-button/mobile-button";
 import styles from '../../../styles.module.scss'
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
@@ -10,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {ClientDetails} from "@/shared/(orval)api/gek/model";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
+import Button from "@/shared/ui/button/Button";
 
 export function PersonalInformation() {
     const {t} = useTranslation();
@@ -67,7 +66,13 @@ export function PersonalInformation() {
                 </>}
                 {xl && 
                 <div className={styles.downBtnWrap}>
-                    <MobileButton onClick={resetState}>{t("back")}</MobileButton>
+                    <Button
+                        color="blue"
+                        className="w-full"
+                        onClick={resetState}
+                    >
+                        {t("back")}
+                    </Button>
                 </div>}
             </div>
         </MobileWrapper>

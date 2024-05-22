@@ -10,7 +10,7 @@ interface IProps{
 function ModalTitle({title, handleCancel}: IProps) {
   return (<div className='flex flex-col'>
     <div className="flex flex-row justify-between items-center w-full">
-        <span className="font-[600] pl-3 text-[14px] md:text-[12px] text-[color:var(--gek-dark-blue)]">
+        <span className="font-[600] pl-3 text-[14px] md:text-[12px] text-[var(--gek-dark-blue)]">
             {title}
         </span>
 
@@ -18,7 +18,7 @@ function ModalTitle({title, handleCancel}: IProps) {
           <IconApp code='t69' size={20} color='#7B797C'/>
         </div>
     </div>
-    <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66] mt-4 mb-6"/>
+    <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66] mt-4"/>
   </div>
   )
 }

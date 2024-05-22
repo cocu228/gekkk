@@ -21,8 +21,8 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             icon: <IconApp size={18} color="#285E69" code="t13" />
         },
         {
-            item: t("card_management"),
-            id:"cardManagment",
+            item: t("payment_cards"),
+            id:"paymentCards",
             action:{
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
@@ -81,7 +81,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "gekkard-pro",
             },
-            icon:<button className="flex text-sm font-normal border bg-[color:var(--gek-dark-blue)] text-[color:var(--gek-background)] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[color:var(--gek-dark-blue)]">{t("get_gekkard_pro")}</button>,
+            icon:<button className="flex text-sm font-normal border bg-[var(--gek-dark-blue)] text-[var(--gek-background)] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[var(--gek-dark-blue)]">{t("get_gekkard_pro")}</button>,
             style:{
                 display:'flex',
                 justifyContent:"center",

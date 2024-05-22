@@ -137,9 +137,9 @@ const WithdrawFormBroker = () => {
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
         </Modal>
         <div className="row w-full mt-4">
-            <div className="col">
+            <div className="flex justify-center col">
                 <Button
-                    size={"xl"}
+                    size='lg'
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full">
@@ -265,11 +265,10 @@ const WithdrawFormBroker = () => {
         <div className={styles.Button}>
             <div className={styles.ButtonContainerCenter}>
                 <Button
-                    size={"xl"}
+                    size="lg"
                     disabled={!inputCurr.value.number || inputCurrValid.value || loading}
                     onClick={showModal}
                     className="w-full"
-                    variant='greenTransfer'
                 >
                     {t("transfer")}
                 </Button>

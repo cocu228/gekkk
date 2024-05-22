@@ -107,7 +107,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                         helperFilterListGekwallet(secondaryWallets) 
                     : 
                         helperFilterListGekkoin(secondaryWallets)).map((item) =>
-                    <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
+                            <TokenBar navLinkEvent={NavLinkEvent} curActive={currency} item={item} key={item.id} />)
             )}
 
             <div className={styles.TotalBal}>

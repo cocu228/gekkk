@@ -11,8 +11,8 @@ import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss"
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
-import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 const initStageConfirm = {
     txId: null,
@@ -33,6 +33,7 @@ const UniversalTransferConfirm = ({
     const {setContent} = useContext(CtxModalTrxResult);
     const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(true);
+    const { displayHistory } = useContext(CtxDisplayHistory);
     const [localErrorHunter, ,localErrorInfoBox,] = useError();
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
     const {label} = networksForSelector.find(it => it.value === networkTypeSelect);
@@ -109,6 +110,7 @@ const UniversalTransferConfirm = ({
                 if (result.confirmationStatusCode === 4) {
                     handleCancel();
                     setRefresh();
+                    displayHistory();
                     setContent({
                         title: 'Successfull transaction',
                         content: <ModalTrxStatusSuccess/>
@@ -207,19 +209,16 @@ const UniversalTransferConfirm = ({
                     <div className="col relative">
                         <div className={styles.ButtonContainer + " px-4"}>
                             <Button htmlType={"submit"}
-                                size={"xl"}
                                 onClick={onConfirm}
-                                variant='greenTransfer'
                                 className={styles.ButtonTwo}
                             >
                                 {t("confirm")}
                             </Button>
 
                             <Button
+                                skeleton
                                 className={styles.ButtonTwo}
                                 onClick={handleCancel}
-                                size={"xl"}
-                                variant='whiteGreenTransfer'
                             >
                                 {t("cancel")}
                             </Button>

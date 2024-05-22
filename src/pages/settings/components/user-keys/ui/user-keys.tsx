@@ -1,13 +1,9 @@
 import { MobileWrapper } from "@/shared/ui/mobile-wrapper/mobile-wrapper"
-import { Typography } from "@/shared/ui/typography/typography"
-import { MobileInput } from "@/shared/ui/mobile-input/mobile-input";
-import { MobileButton } from "@/shared/ui/mobile-button/mobile-button";
 import style from './style.module.scss'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserKeys } from "../model/use-user-keys";
 import { t } from "i18next";
 import Loader from "@/shared/ui/loader";
-import { timestampToDateFormat } from '@/features/chat/model/helpers';
 import getUnixTime from "date-fns/getUnixTime";
 import { formatDate } from "../model/date-formater";
 import parseISO from "date-fns/parseISO";
@@ -31,7 +27,6 @@ export function UserKeys() {
     const [keyDeleted, setKeyDeleted] = useState<boolean>(false);
     const keysList = useUserKeys(keyDeleted);
     const {isModalOpen, handleCancel, showModal} = useModal();
-    const [sessionClosed, setSessionClosed] = useState<boolean>(false);
     const [sessionToRemove, setSessionToRemove] = useState<UserSession>()
 
     const [smsSent, setSmsSent] = useState<boolean>(false)
@@ -42,18 +37,14 @@ export function UserKeys() {
 
 
     function onRemoveKey(id){
-        apiRemoveKey({key_id: id}).then(res=>{
-            setKeyDeleted(n=>!n)
-        })
+      apiRemoveKey({key_id: id}).then(res=>{
+          setKeyDeleted(n=>!n)
+      })
     }
 
     function onCloseSession(id){
-        apiCloseSessions({id: id}).then(res=>{      
-          setSessionClosed(n=>!n)
-        })
-      }
-
-
+      apiCloseSessions({id: id});
+    }
 
     return (
         <MobileWrapper className="w-[90%]">
@@ -76,22 +67,23 @@ export function UserKeys() {
                     disabled={!smsSent}
                 />
               </div>
+
               <div className={style.btnsBlock}>
                   <Button  
-                    className={style.Button}
+                    className={style.Button + " w-[120px]"}
                     onClick={()=> {
                       RegisterOption(setChallenge, setSmsSent)
                     }}
                   >
                       {t("send_sms")}
                   </Button>
-                  <Button 
-                    className={style.Button}
+                  <Button
+                    className="w-full"
+                    disabled={!smsSent}
                     onClick={()=>{
                       RegisterKey(challenge.newCredential, challenge.id, code, setKeyDeleted, setSmsSent)
                       setCode("")
                     }}
-                    disabled={!smsSent || !code}
                   >
                       {t("create_key")}
                   </Button>
@@ -108,7 +100,11 @@ export function UserKeys() {
                   </div>
                   <div className={style.keyBtnWrap}>
                     <Button
-                      className={`w-full ${index===0 ? "current" : "remove"} ${style.Button}`}
+                      skeleton
+                      size="sm"
+                      custom={index === 0}
+                      color={index === 0 ? null : "red"}
+                      className={`w-full ${index === 0 ? style.CurentButton : ""}`}
                       onClick={()=>{
                           showModal()
                           setKeyToRemove(key)
@@ -122,50 +118,55 @@ export function UserKeys() {
                 </div>)
                 }
                 {!keysList.length && (
-                    <div className='relative mt-32'>
-                        <Loader className="top-1/2 left-1/2"/>
-                    </div>
+                <div className='relative mt-32 w-full'>
+                  <Loader className="top-1/2 m-0 left-[50%] translate-x-[-50%]"/>
+                </div>
                 )}
             </div>
           
           <Modal
+              padding
               closable={false}
               open={isModalOpen}
               title={keyToRemove?t('remove_key'):t("close_session")}
               width={400}
               footer={
                 <div className='w-full flex justify-center gap-2'>
-                  {keyToRemove ? <><MobileButton
+                  {keyToRemove ? <><Button
+                    color="blue"
                     onClick={()=>{
                       onRemoveKey(keyToRemove.id)
                       handleCancel()
                     }}
                     >
                     {t("remove")}
-                  </MobileButton>
-                  <MobileButton
+                  </Button>
+                  <Button
+                    color="blue"
                     onClick={()=>{
                       handleCancel()
                       setKeyToRemove(null)
                     }}
                   >
                     {t("cancel")}
-                  </MobileButton> </>:<> <MobileButton
+                  </Button> </>:<> <Button
+                    color="blue"
                     onClick={()=>{
                       onCloseSession(sessionToRemove.id)
                       handleCancel()
                     }}
                     >
                     {t("close")}
-                  </MobileButton>
-                  <MobileButton
+                  </Button>
+                  <Button
+                    color="blue"
                     onClick={()=>{
                       setSessionToRemove(null)
                       handleCancel()
                     }}
                   >
                     {t("cancel")}
-                  </MobileButton> </>
+                  </Button> </>
         
                   }
                 </div>

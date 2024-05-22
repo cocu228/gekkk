@@ -5,8 +5,7 @@ export function MainCardPage() {
     const [isNewCardOpened, setIsNewCardOpened] = useState(false);
 
     return <div>
-        <MobileCardsMenu 
-            isMobile
+        <MobileCardsMenu
             isNewCardOpened={isNewCardOpened}
             setIsNewCardOpened={setIsNewCardOpened} 
         />

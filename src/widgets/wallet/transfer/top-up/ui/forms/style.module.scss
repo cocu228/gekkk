@@ -144,22 +144,6 @@
 
         }
 
-        &Button{
-            width: 100%; 
-            color: #ffffff; 
-
-
-            @include max-devices (md) {
-                font-weight: 700 !important; 
-                height: 43px !important;
-                font-size: 14px !important;
-            }
-
-            &:disabled{
-                opacity: 0.05;
-            }
-        }
-
         &Error{
             padding-left: 1rem;
             padding-right: 1rem; 
@@ -254,7 +238,7 @@
 
     display: flex; 
     gap: 2.5rem;
-
+    margin-top: 15px;
 
     @include max-devices (md) {
         gap: 5vw;
@@ -318,6 +302,17 @@
             display: flex; 
             align-items: center; 
             width: 40%; 
+            justify-content: center;
         }
+    }
+}
+
+.TransferTableContainer{
+    margin-top: 20px;
+
+    @include max-devices(md){
+        position: relative;
+        left: -15px;
+        width: calc(100% + 30px);
     }
 }

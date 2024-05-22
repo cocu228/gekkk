@@ -1,8 +1,8 @@
-import Download from '@/assets/download.svg?react';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {StatementsByIBAN, apiDownloadStatements} from '@/shared/api/statements';
 import {storeAccountDetails} from '@/shared/store/account-details/accountDetails';
 import styles from '../../../styles.module.scss'
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 export function TableRow({
     uasToken,
@@ -40,7 +40,7 @@ export function TableRow({
 
             window.open(URL.createObjectURL(response.data));
         }} className={styles.reportDownloadWrap}>
-            <Download />
+            <IconApp code="t44" size={20} color="currentColor" />
         </div>
     </div>
 }

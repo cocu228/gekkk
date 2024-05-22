@@ -49,18 +49,15 @@ export const GekkardPro = (props: Props) => {
             </div>
             <div className={styles.Buttons}>
                 <Button
-                    variant="greenTransfer"
-                    className={styles.ButtonsProceed}
-                    size="xl"
                     onClick={handleProceed}
+                    className={styles.ButtonsProceed}
                 >
                     {t("proceed")}
                 </Button>
                 <Button
-                    variant="whiteGreenTransfer"
-                    className={styles.ButtonsBack}
-                    size="xl"
+                    skeleton
                     onClick={handleBack}
+                    className={styles.ButtonsBack}
                 >
                     {t("back")}
                 </Button>

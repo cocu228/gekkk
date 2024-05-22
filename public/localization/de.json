@@ -21,6 +21,7 @@
     "next": "Weiter",
     "login": "Anmelden",
     "code": "Code",
+    "the_code_confirmed": "Code bestätigen",
     "sms_code_sent": "SMS mit Einmalcode wurde gesendet an",
     "one-time code": "Einmalcode",
     "phone_code": "Telefoncode",
@@ -40,6 +41,8 @@
     "transaction_id": "Transaktions-ID",
     "transaction_type": "Transaktionstyp",
     "currency": "Währung",
+    "close_session_warning": "Diese Sitzung wird geschlossen.",
+    "close_session": "Sitzung schließen",
     "amount": "Betrag",
     "fee": "Gebühr",
     "status": "Status",
@@ -132,7 +135,7 @@
           "how_can_i_check_gekkard_transactions": "Wie kann ich GEKKARD-Transaktionen und/oder den GEKKARD-Kontostand überprüfen?"
         },
         "personal_information": {
-          "title": "Persönliche Informationen",
+          "title": "Persönliche informationen",
           "answers": {
             "natural_persons": "Natürliche Personen, die oder die mit prominenten öffentlichen Funktionen betraut waren oder sind, mit Ausnahme von mittleren oder niedrigeren Beamten. Weitere Informationen finden Sie unter",
             "general_terms_and_conditions": "Allgemeine Geschäftsbedingungen",
@@ -429,6 +432,7 @@
     "transfer_to_contact": "Überweisung an Kontakt",
     "templates": "Vorlagen",
     "history": "Verlauf",
+    "signHistory": "Anmelde und Signaturverlauf",
     "withdraw": "Abheben",
     "funds_transfer": "Fondstransfer",
     "create_transfer": "Überweisung erstellen",
@@ -697,7 +701,6 @@
       "conditions": "Bedingungen",
       "go_to_the_program": "Zur Programmseite"
     },
-    "cards_menu": "Kartenmenü",
     "issue_new_card": "Neue Karte ausstellen",
     "order_plastic_card": "Plastikkarte bestellen",
     "cashback": "Rückvergütung",
@@ -886,7 +889,6 @@
     "funds_are_blocked_for": "Die Mittel werden für {{days}} Tage blockiert.",
     "cashback_is_credited_once_a_month": "Cashback wird einmal im Monat am Ende des Abrechnungszeitraums gutgeschrieben",
     "locked_tokens_give_you_access": "Die Sperrung von {{currency}}-Tokens gewährt Ihnen Zugang zu einem Cashback von 1% auf Gekkard-Kartenausgaben, basierend auf dem monatlichen Umsatz in Euro",
-    "card_menu": "Kartenmenü",
     "disable_limits_for_minutes": "Deaktivieren Sie die Limits für {{minutes}} Minuten",
     "order_new_card": "Neue Karte bestellen",
     "card_locked": "Karte gesperrt",
@@ -1404,7 +1406,6 @@
     "please_enter_sender_name": "Bitte geben Sie den Absendernamen ein",
     "enter_sender_name": "Absendername eingeben",
     "decline": "Stornieren",
-    "card_management": "Kartenverwaltung",
     "how_it_works": "Wie funktioniert es?",
     "the_function_of_setting_disabling_limits_allows": "Die Funktion zum Festlegen/Deaktivieren von Limits ermöglicht es Ihnen, selbst Limits festzulegen, die Ihre Ausgaben mit Ihrer Karte regulieren. Limits gelten für folgende Kartentransaktionen:",
     "cash_withdrawal_from_the_card": "Bargeldabhebung von der Karte",
@@ -1440,7 +1441,31 @@
     "language_name": "Deutsch",
     "pending_transactions_disabled": "Benachrichtigungen für eingehende Kartentransaktionen sind deaktiviert. Zum Aktivieren senden Sie einen SMS-Code.",
     "select_top_up_type": "Wählen Sie den Aufladungstyp aus",
-    "generate_address": "Adresse generieren"
+    "generate_address": "Adresse generieren",
+    "confirm_the_order": "Bestellung bestätigen",
+    "order_type": "Bestellart",
+    "payment_cards": "Zahlungskarten",
+    "card_info": "Karteninformationen",
+    "send_to_card": "Auf Karte senden:", 
+    "card_number": "KARTENNUMMER", 
+    "expiration_date": "Ablaufdatum", 
+    "card_cvc": "CVC-Code", 
+    "card_owner": "Inhaber", 
+    "card_pin": "PIN-Code",
+    "card_design": "Kartendesign", 
+    "delivery_type": "Lieferart", 
+    "account_owner": "Kontoinhaber", 
+    "card_issuance": "Kartenausstellung", 
+    "card_delivery": "Kartenlieferung", 
+    "total_fees": "Gesamtgebühren", 
+    "expected_delivery_time": "Voraussichtliche Lieferzeit",
+    "order_card": "Karte bestellen",
+    "update": "Aktualisieren",
+    "new_asset": "neuer Krypto-Asset",
+    "gekkoin_redirect": "Gekkoin Weiterleitung",
+    "actions": "Aktionen"
+
+
 
 
 

@@ -138,7 +138,7 @@ const AssetsTable = ({
                       md
                     )} my-2 ${getWidth(columnKeys, item, md)}`}
                   >
-                    <span className="text-gray-400 font-medium">{item}</span>
+                    <span className="text-gray-400 font-medium">{t(item.toLowerCase()).capitalize()}</span>
                   </GTable.Col>
                 ))}
               </GTable.Row>
@@ -230,7 +230,7 @@ const AssetsTable = ({
 
                       {key === AssetTableKeys.BALANCE && (
                         <div className="flex flex-col justify-evenly min-w-[150px]">
-                          <span className="self-start text-[12px] text-[color:var(--gek-dark-grey)] font-regular">
+                          <span className="self-start text-[12px] text-[var(--gek-dark-grey)] font-regular">
                             {t("free_balance")}:
                           </span>
                           <span className="self-end text-[12px] text-[#1F3446] font-regular">
@@ -246,9 +246,9 @@ const AssetsTable = ({
 
                       {key === AssetTableKeys.ACTIONS && (
                         <Button
-                          size={"sm"}
+                          skeleton
+                          color='gray'
                           className="w-[60px]"
-                          variant='darkBlue'
                           onClick={(e) => {
                             scrollToTop();
                             e.stopPropagation();

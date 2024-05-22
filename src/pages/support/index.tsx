@@ -30,7 +30,11 @@ const Support = () => {
                             </div>
                         </NavLink>
                         <div className='w-full'>
-                            <div className={styles.Email}>
+                            <a 
+                                className={styles.Email}
+                                target="_blank"
+                                href="mailto:support@gekkard.com"
+                            >
                                 <div className={styles.Icon}>
                                     <IconApp code='t29' color='#285E69' size={30} />
                                 </div>
@@ -41,7 +45,7 @@ const Support = () => {
                                 <div className={styles.Arrow}>
                                     <IconApp code='t08' size={12} color='#285E69' />
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div className='w-full'>
                             <div  onClick={() => {

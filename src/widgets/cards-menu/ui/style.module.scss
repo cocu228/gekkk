@@ -51,11 +51,11 @@
 }
 
 .InfoBtnWrap {
-  margin-top: 0.75rem;
   display: flex;
+  min-height: 40px;
+  margin-top: 0.75rem;
   flex-direction: row;
   justify-content: end;
-  min-height: 40px;
 }
 
 .infoData {
@@ -69,22 +69,6 @@
 
 .infoPlaceholder {
   color: var(--gek-dark-grey);
-}
-
-.lightButton {
-  border-radius: 10px;
-  font-family: 'Archivo', sans-serif;
-  background-color: var(--gek-additional);
-  min-width: 60px;
-  min-height: 30px;
-  color: white;
-  transition: ease-in-out .2s;
-  :hover {
-      cursor: pointer;
-  }
-  :focus { 
-      outline: none;
-  }
 }
 
 .issueCardTitle {
@@ -181,9 +165,10 @@
 }
 
 .issueFooter {
-  display: flex;
-  gap: 24px;
+  display: grid;
   padding-top: 48px;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
 }
 
 .mobIssueCardWrap {
@@ -317,9 +302,16 @@
 
 .FormBody {
   display: flex;
-  flex-direction: row;
   min-height: 43px;
+  flex-direction: row;
   justify-content: space-between;
+
+  &Single {
+    width: 100%;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .newCardMobileBlock {

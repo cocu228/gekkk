@@ -15,7 +15,6 @@ import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
-import { CardData } from '@/pages/card-menu/components/card-data';
 import { GekkardPro } from '@/pages/gekkard-pro';
 
 const router = createBrowserRouter([
@@ -64,11 +63,7 @@ const router = createBrowserRouter([
                     {
                         path: '',
                         element: <Support/>
-                    },
-                    // {
-                    //     path: 'chat',
-                    //     element: <SupportChatAuthorized/>
-                    // },
+                    }
                 ]
             },
             {
@@ -105,14 +100,14 @@ const router = createBrowserRouter([
                 element: <MainCardPage/>,
             },
             {
-                path: 'card-data',
-                element: <CardData/>,
-            },
-            {
                 path: 'gekkard-pro',
                 element: <GekkardPro/>,
             }
         ],
+        // Show exception message only in dev mode
+        ...(import.meta.env.MODE === "dev.gekkard"
+            ? {}
+            : {errorElement: <PageProblems code={500}/>})
     },
     {
         path: "*",

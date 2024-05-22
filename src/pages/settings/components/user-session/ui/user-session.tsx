@@ -3,7 +3,6 @@ import { UserSession as UserSessionT } from '@/shared/(orval)api/auth/model';
 import Loader from '@/shared/ui/loader';
 import { getDate, getTime } from "../model/date-formaters";
 import { useSession } from '../model/use-sessions';
-import { MobileButton } from '@/shared/ui/mobile-button/mobile-button';
 import useModal from '@/shared/model/hooks/useModal';
 import { useState } from 'react';
 import Modal from '@/shared/ui/modal/Modal';
@@ -11,6 +10,7 @@ import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
 import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import Button from '@/shared/ui/button/Button';
 
 
 export function UserSession() {
@@ -33,41 +33,44 @@ export function UserSession() {
                                 {getDate(session.utc_create)}
                             </div>
                         ): null}
-                        <div className='substrate substrate w-full rounded-lg flex flex-row justify-between items-center'>
+                        <div className='substrate h-[100px] md:h-[76px] !p-[10px] w-full rounded-lg flex flex-row justify-between items-center'>
                             <div className={'flex flex-col'}>
                                 <h4 className={styles.sessionItemTitle}>{getTime(getUnixTime(parseISO(session?.utc_create)))}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("login_type")}: {session.login_type}</h4>
                                 <h4 className={styles.sessionItemTitle}>{session.user_agent}</h4>
                                 <h4 className={styles.sessionItemTitle}>{t("ip")}: {session.ip}</h4>
                             </div>
-                            <MobileButton 
-                                varitant={isCurrent(index) ? 'disabeled' : 'alarm'}  
-                                className={styles.button}
+                            <Button
+                                skeleton
+                                color='red'
+                                className='w-[75px]'
+                                disabled={isCurrent(index)}
                                 onClick={()=>{
                                     showModal()
                                     setSessionToRemove(session)
                                 }}
                             >
                                 <span className='capitalize'>{isCurrent(index) ? t("current") : t("close")}</span>
-                            </MobileButton>
+                            </Button>
                         </div>
                     </>)
                     }
                     {(sessions?.length > 1) &&
                     <div className='m-5 min-h-[45px]'>
-                        <MobileButton
-                            className='h-full p-2'
-                            varitant='alarm'
+                        <Button
+                            size='lg'
+                            color='red'
+                            className='h-full text-[100%] md:!text-[14px] p-2'
                             onClick={()=>{
                                 closeAllSessions();
                             }}
                         >
                             {t("end_all_other_sessions")}
-                        </MobileButton>
+                        </Button>
                     </div>
                     }
                     {!sessions.length && (
-                        <div className='relative mt-32'>
+                        <div className='relative mt-32 min-h-[70px]'>
                             <Loader/>
                         </div>
                     )}
@@ -80,27 +83,33 @@ export function UserSession() {
                 footer={
                     <div className='w-full flex justify-center gap-2'>
                     <> 
-                    <MobileButton
+                    <Button
+                        skeleton
+                        color='red'
+                        className='w-full !max-w-[100%]'
                         onClick={()=>{
                         closeSession(sessionToRemove);
                         handleCancel()
                         }}
                         >
                         {t("close")}
-                    </MobileButton>
-                    <MobileButton
+                    </Button>
+                    <Button
+                        skeleton
+                        className='w-full !max-w-[100%]'
+                        color='green'
                         onClick={()=>{
                         setSessionToRemove(null)
                         handleCancel()
                         }}
                     >
                         {t("cancel")}
-                    </MobileButton> 
+                    </Button> 
                     </>
                     </div>
                 }
             >
-                <span>
+                <span className='text-[#285E69] text-[12px] font-normal'>
                     {t("close_session_warning")}
                 </span>
             </Modal>

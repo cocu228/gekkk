@@ -22,57 +22,58 @@ import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
-
+    const [tableHeads, setTableHeads] = useState([
+        'code',
+        'amount',
+        'status',
+        'action'
+    ])
     const {$const} = useContext(CtxWalletData)
     const listTxCode = storeListTxCode(state => state.listTxCode)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
 
     useEffect(() => {
         (async () => {
-
             await getListTxCode()
-
         })()
     }, [$const])
 
+    useEffect(() => {
+        if(window.innerWidth < 768) {
+            setTableHeads([
+                'code',
+                'status',
+                'action'
+            ])
+        }
+    }, [])
 
     const filteredListTxCode = listTxCode.filter(item => item.currency === $const && item.isOwner === isOwner)
     const {t} = useTranslation();
     const {md} = useBreakpoints() 
 
-    return !md ? <GTable className={`${styles.Table}`}>
-        <GTable.Head className={styles.TableHead + " py-4"}>
+    return listTxCode.length === 0 ? null : (
+        <GTable className={`${styles.Table}`}>
+        <GTable.Head className={styles.TableHead}>
             <GTable.Row>
-                <GTable.Col className="text-left">
-                    <div data-text={"Code"} className="col">
-                        <span>{t("code")}</span>
-                    </div>
-                </GTable.Col>
-                <GTable.Col>
-                    <div data-text={"Amount"} className="col ellipsis ellipsis-md">
-                        <span>{t("amount")}</span>
-                    </div>
-                </GTable.Col>
-                <GTable.Col>
-                    <div data-text={"Status"} className="col ellipsis ellipsis-md">
-                        <span>{t("status")}</span>
-                    </div>
-                </GTable.Col>
-                <GTable.Col>
-                    <div data-text={"Action"} className="col">
-                        <span>{t("action")}</span>
-                    </div>
-                </GTable.Col>
+                {
+                    tableHeads.map((item, ind) => (
+                        <GTable.Col key={ind} className={styles.CodeModalTitle}>
+                            <div data-text={item.capitalize()}>
+                                <span>{t(item)}</span>
+                            </div>
+                        </GTable.Col>
+                    ))
+                }
             </GTable.Row>
         </GTable.Head>
         <GTable.Body className={styles.TableBody}>
             {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
                 const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
-
                 return <GTable.Row
                     className="px-4 py-3 gap-3">
-                    <GTable.Col>
-                        <div className="row flex items-center">
+                    <GTable.Col className="w-full" >
+                        <div className="row flex items-center">*
                             <div className="col mr-2">
                                 <CodeModalInfo code={it.code}/>
                             </div>
@@ -82,87 +83,35 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                         </div>
                         <div className="row">
                             <div className="col">
-                                <span className="text-gray-500 text-xs">{formatForCustomer(it.dateTxUTC)}</span>
+                                {
+                                    md ? (
+                                        <span className={styles.CodeTime}>{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
+                                    )  : (
+                                        <span className={styles.CodeTime}>{formatForCustomer(it.dateTxUTC)}</span>
+                                    )
+                                }
                             </div>
                         </div>
+                        <span className={styles.MobileAmount}>{it.amount} {$const}</span>
                     </GTable.Col>
 
-                    <GTable.Col className="text-center">
-                        <span className="text-gra-600 text-xs">{it.amount}</span>
+                    {
+                        !md && (
+                            <GTable.Col className="text-center">
+                                <span className="text-gra-600 text-xs">{it.amount}</span>
+                            </GTable.Col>
+                        )
+                    }
+
+                    <GTable.Col className={styles.StatusCol} >
+                        <span className="text-gray-600 text-xs">
+                            {it.state}
+                        </span>
                     </GTable.Col>
 
-                    <GTable.Col className="text-center">
-                                <span className="text-gray-600 text-xs">
-                                   {it.state}
-                                </span>
-                    </GTable.Col>
-
-                    <GTable.Col className="flex flex-wrap gap-2 justify-center">
+                    <GTable.Col className={styles.StatusCol}>
                         {visiblyConfirm ? <CodeModalConfirm code={it.code} amount={it.amount} currency={it.currency}/> :
                             <CancelContent code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
-
-                    </GTable.Col>
-                </GTable.Row>
-            }) : <div className={styles.Row}>
-                <span>{t("no_have_transfer_code")}</span>
-            </div>}
-        </GTable.Body>
-    </GTable> : <GTable className={`${styles.Table}`}>
-        <GTable.Head className={styles.TableHead + " rounded-[8px_8px_0px_0px]"}>
-            <GTable.Row>
-                <GTable.Col>
-                    <div data-text={"Code"} className="col">
-                        <span>{t("code")}</span>
-                    </div>
-                </GTable.Col>
-                <GTable.Col>
-                    <div data-text={"Status"} className="col ellipsis ellipsis-md">
-                        <span>{t("status")}</span>
-                    </div>
-                </GTable.Col>
-                <GTable.Col>
-                    <div data-text={"Action"} className="col">
-                        <span>{t("action")}</span>
-                    </div>
-                </GTable.Col>
-            </GTable.Row>
-        </GTable.Head>
-        <GTable.Body className={styles.TableBody}>
-            {filteredListTxCode.length > 0 ? filteredListTxCode.map(it => {
-                const visiblyConfirm = it.stateCode === 3 && it.typeTx === 12 && it.isOwner
-
-                return <GTable.Row
-                    className="px-4 py-3 gap-3">
-                    <GTable.Col className="px-2">
-                        <div className="row flex items-center">
-                            <div className="flex">
-                                <CodeModalInfo inputCurr={it.amount} code={it.code}/>
-                            </div>
-                            <div className="col min-w-[14px]">
-                                <CopyIcon value={it.code}/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <span className="text-gray-500 text-[10px]">{formatForHistoryMobile(it.dateTxUTC)} at {formatForHistoryTimeMobile(it.dateTxUTC)}</span>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col">
-                                <span className="text-[color:var(--gek-dark-blue)] text-[10px]">{it.amount} {$const}</span>
-                            </div>
-                        </div>
-                    </GTable.Col>
-                    <GTable.Col className="text-center px-2">
-                                <span className="text-gray-600 text-xs">
-                                   {it.state}
-                                </span>
-                    </GTable.Col>
-
-                    <GTable.Col className="flex flex-wrap gap-2 justify-center">
-                        {visiblyConfirm ? <CodeModalConfirm date={it.dateTxUTC} code={it.code} amount={it.amount} currency={it.currency}/> :
-                            <CancelContent date={it.dateTxUTC} code={it.code} amount={it.amount} currency={it.currency} confirm={it.typeTx === 12}/>}
-
                     </GTable.Col>
                 </GTable.Row>
             }) : <div className={styles.Row}>
@@ -170,40 +119,45 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
             </div>}
         </GTable.Body>
     </GTable>
+    )
 }
 
 const CodeModalInfo = ({code, inputCurr=null}) => {
-
     const {showModal, isModalOpen, handleCancel} = useModal()
-    const {md} = useBreakpoints()
-    const {t} = useTranslation() 
-    return !md ? <>
-        <span onClick={showModal}
-              className="text-gra-600 font-bold break-all cursor-pointer">{code}</span>
+    const {t} = useTranslation()
 
-        <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} open={isModalOpen}
+    return <>
+        <span onClick={showModal}
+              className={styles.CodeModalTitle}>{code}</span>
+
+        <ModalAnt closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} open={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
-        </Modal>
-    </> : <>
-        <span onClick={showModal}
-              className="text-ellipsis whitespace-nowrap overflow-hidden font-semibold w-[70px] text-[color:var(--gek-dark-blue)] text-[12px] cursor-pointer">{code}</span>
-
-        <ModalAnt title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} closable={false} open={isModalOpen}
-               onCancel={handleCancel}
-               footer={null}
-        >
-            <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
         </ModalAnt>
-    </>
+    </> 
 }
+
+export const modalDateArray = [
+    {
+        titleKey: 'transaction_code',
+        key: 'code'
+    },
+    {
+        titleKey: 'date',
+        key: 'date'
+    },
+    {
+        titleKey: 'amount',
+        key: 'amount'
+    },
+]
 
 const CodeModalConfirm = ({code, amount, currency, date = null}) => {
     const {t} = useTranslation();
 
     const [loading, setLoading] = useState(false)
     const getListTxCode = storeListTxCode(state => state.getListTxCode)
-    const [localErrorHunter, localErrorSpan, localErrorInfoBox, localErrorClear, localIndicatorError] = useError()
+    const [localErrorHunter, localErrorInfoBox] = useError()
     const [success, setSuccess] = useState(null)
     const {md} = useBreakpoints()
     const {showModal, isModalOpen, handleCancel} = useModal()
@@ -230,87 +184,46 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
 
     }, [isModalOpen])
 
-    return !md ? <>
-        {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button size={"sm"} variant='gray' onClick={() => onBtnConfirm(code)}
-                    className={"!py-3 !h-[fit-content]"}>{t("confirm")}</Button>}
+    const modalKeys = {
+        'code': code,
+        'date': `${formatForHistoryMobile(date)} at ${formatForHistoryTimeMobile(date)}`,
+        'amount': `${amount} ${currency}`,
+    }
 
-        <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
+    return (
+        <>
+            {loading ? <div className="w-full h-full relative"><Loader/></div> :
+            <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
+            <Modal className="md:m-[0_16px] md:!w-[calc(100%_-_32px)]" closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
                onCancel={handleCancel}>
-            {localErrorInfoBox ? localErrorInfoBox : <>
-                <div className="row mb-8 mt-2">
-                    <div className="col">
-                        <p className="text-sm">{t("you_made_transfer")}</p>
-                    </div>
-                </div>
-                <div className="row mb-8">
-                    <div className="col">
-                        <p className="text-xl">{amount} {currency}</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <Button className="w-full" size={"xl"} onClick={() => {
-                            handleCancel()
-                        }}>{t("done")}</Button>
-                    </div>
-                </div>
-            </>}
+            <>
+                        {localErrorInfoBox ? localErrorInfoBox : <>
+                            <div>
+                            <div className={stylesForms.ModalRows}>
+                                <div className={styles.ModalDateList}>
+                                    {
+                                        modalDateArray.map((item, ind) => (
+                                            <div key={ind} className={styles.ModalDateListItem}>
+                                                <span className={styles.ModalDateListItemTitle} >{t(item.titleKey)}</span>
+                                                <span className={styles.ModalDateListItemValue}>{modalKeys[item.key]}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                            <div className={stylesForms.ButtonContainer}>
+                                <Button className={stylesForms.ButtonTwo} onClick={()=>{onBtnConfirm(code); handleCancel()}}>
+                                    {t("confirm")}
+                                </Button>
+                                <Button skeleton className={stylesForms.ButtonTwo} onClick={handleCancel}>
+                                    {t("cancel")}
+                                </Button>
+                            </div>
+                            </div>
+                        </>}
+                    </>
         </Modal>
-    </> : <>
-        {loading ? <div className="w-full h-full relative"><Loader/></div> :
-            <Button variant='greenTransfer' size={"sm"} onClick={showModal}
-                    className={"!py-3 w-full !h-[fit-content]"}><span className="text-[12px]">{t("confirm")}</span></Button>}
-
-        <ModalAnt closable={false} footer={null} title={<ModalTitle handleCancel={handleCancel} title={t("confirm_code")}/>} open={isModalOpen}
-               onCancel={handleCancel}>
-            {localErrorInfoBox ? localErrorInfoBox : <>
-                <div>
-                <div className={stylesForms.ModalRows}>
-                    <div className="row mb-2 mt-5">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("transaction_code")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{code}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("date")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{formatForHistoryMobile(date)} at {formatForHistoryTimeMobile(date)}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-2">
-                        <div className="col">
-                            <span className={stylesForms.ModalRowsTitle}>{t("amount")}</span>
-                        </div>
-                    </div>
-                    <div className="row mb-4">
-                        <div className="col text-[#3A5E66] font-semibold">
-                            <span className={stylesForms.ModalRowsValue}>{amount} {currency}</span>
-                        </div>
-                    </div>
-                </div>
-                <div className={stylesForms.ButtonContainer}>
-                    <Button variant='greenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={()=>{onBtnConfirm(code); handleCancel()}}>
-                        {t("confirm")}
-                    </Button>
-                    <Button variant='whiteGreenTransfer' className={stylesForms.ButtonTwo} size="xl" onClick={handleCancel}>
-                        {t("cancel")}
-                    </Button>
-                </div>
-            </div>
-            </>}
-        </ModalAnt>
-    </>
+        </>
+    )   
 }
-
-
 export default TransferTableCode;

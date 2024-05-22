@@ -15,9 +15,8 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss"
 import { maskFullCardNumber } from "@/shared/lib";
-import StatusModalSuccess from "../../modals/ModalTrxStatusSuccess";
-import StatusModalError from "../../modals/ModalTrxStatusError";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 
 
 interface IState {
@@ -46,6 +45,7 @@ const WithdrawConfirmCardToCard = ({
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const [uasToken, setUasToken] = useState<string>(null);
+    const { displayHistory } = useContext(CtxDisplayHistory);
     const cards = storeActiveCards(state => state.activeCards);
     const {getAccountDetails} = storeAccountDetails(state => state);
     const {networkTypeSelect, networksForSelector} = useContext(CtxWalletNetworks);
@@ -98,6 +98,7 @@ const WithdrawConfirmCardToCard = ({
                     if(res.data.status === "ok"){
                         setSuccess(true)
                         setRefresh();
+                        displayHistory();
                         handleCancel()
                     }else{
                         setErr(true)
@@ -249,8 +250,8 @@ const WithdrawConfirmCardToCard = ({
 
             <Form onFinish={onConfirm}>
                 <div className="row my-5">
-                    <div className="col">
-                        <Button size={"xl"}
+                    <div className="flex justify-center col">
+                        <Button size="lg"
                                 htmlType={"submit"}
                                 className="w-full"
                                 disabled={!totalCommission}
@@ -395,16 +396,14 @@ const WithdrawConfirmCardToCard = ({
                 <div className="row my-5">
                     <div className={styles.ButtonContainer}>
                         <Button 
-                                size={"xl"}
                                 htmlType={"submit"}
                                 className={styles.ButtonTwo}
                                 disabled={!totalCommission}
-                                variant='greenTransfer'
                         >{t("confirm")}</Button>
-                        <Button size={"xl"}
-                                onClick={handleCancel}
-                                className={styles.ButtonTwo}
-                                variant='whiteGreenTransfer'
+                        <Button
+                            skeleton
+                            onClick={handleCancel}
+                            className={styles.ButtonTwo}
                         >{t("cancel")}</Button>
                     </div>
                 </div>

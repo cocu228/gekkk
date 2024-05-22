@@ -220,3 +220,11 @@
   //   margin-left: 30px;
   // }
 }
+
+
+.SelectValidatorText {
+  div > span > span > span {
+    color: var(--gek-red);
+    text-decoration: underline;
+  }
+}

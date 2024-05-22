@@ -1,6 +1,5 @@
 import CreateIntelligentAnalysisTask from '@/assets/create-intelligent-analysis-task.svg?react'
 import Balances from '@/assets/balances.svg?react'
-import Account from '@/assets/account.svg?react'
 import Security from '@/assets/security.svg?react'
 import PosMachine from '@/assets/pos-machine.svg?react'
 import Atm from '@/assets/atm.svg?react'
@@ -244,7 +243,7 @@ export const faqAreasMap = (t = (str) => null) => {
       ),
     },
     'personal-information': {
-      icon: <Account />,
+      icon: <IconApp code="t55" size={25} color="currentColor" />,
       title: "support.faq.personal_information.title",
       area: (
         <FAQTemplate

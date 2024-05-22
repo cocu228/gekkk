@@ -34,6 +34,7 @@ import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/Perc
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
+
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
 
@@ -219,10 +220,10 @@ function Exchange() {
         leftColumn={
           <div>
             <div className={`gap-x-5 bg-white ${styles.Grid}`}>
-              <div className="h-full flex flex-col ">
+              <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  {t("exchange.you_pay")}
-                  <PercentSelector onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
+                  {t("exchange.you_pay")}:
+                  <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
                   isBalance={true}
@@ -246,8 +247,8 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-medium text-xs mb-2 mt-3 select-none">
-                  {t("exchange.get_no_less")}
+                <div className="font-semibold text-xs mb-2 mt-3 select-none">
+                  {t("exchange.get_no_less")}:
                 </div>
 
                 <SelectToken
@@ -261,8 +262,8 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-medium mt-4 text-xs">
-                    {t("price")}
+                  <div className="font-semibold mt-4 text-xs">
+                    {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />
                 </div>
@@ -295,8 +296,8 @@ function Exchange() {
 
               <div className={`mt-7 ${styles.GridFooter}`}>
                 <Button
+                  size="lg"
                   className="w-full"
-                  size="xl"
                   disabled={
                     (!isLimitOrder ? +from.amount <= 0 : +price.amount <= 0) ||
                     hasValidationError
@@ -319,24 +320,26 @@ function Exchange() {
             <Modal
               width={400}
               closable={false}
-              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_the_order")}/>}
+              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_place_order")}/>}
               open={confirmModal.isModalOpen}
               onCancel={confirmModal.handleCancel}
             >
-              <div className="px-5">
+              <div className="px-5 mt-4">
                 <div className="flex items-center gap-2 mb-4">
                   
-                  <IconApp color="#8F123A" size={24} code="t27" />
+                  <div className="flex items-start">
+                    <IconApp color="#8F123A" size={15} code="t27" />
+                  </div>
 
-                  <span className="text-fs12 text-[color:var(--gek-dark-grey)]">
+                  <span className="text-fs12 md:text-[10px] text-[var(--gek-dark-grey)]">
                     {t("check_your_information_carefully")}
                   </span>
 
                 </div>
 
-                <div className="text-[color:var(--gek-dark-grey)] text-fs12 mb-4">
-                  Order type:{" "}
-                  <span className="font-semibold text-[color:var(--gek-additional)]">
+                <div className="text-[var(--gek-dark-grey)] md:text-[12px] text-fs12 mb-4">
+                  {t("order_type")}:{" "}
+                  <span className="font-semibold text-[var(--gek-additional)]">
                     {isLimitOrder ? "Limit" : "Market"}
                   </span>
                 </div>
@@ -361,14 +364,14 @@ function Exchange() {
                   </>
                 )}
 
-                <div className="my-4">{localErrorInfoBox}</div>
+                {localErrorInfoBox && <div className="my-4">{localErrorInfoBox}</div>}
 
-                <div className="flex flex-col mt-6 md:mt-12 gap-1">
-                  <div className="text-secondary text-xs text-center">
+                <div className="flex flex-col mt-6 md:mt-[20px] gap-1 md:gap-[15px]">
+                  <div className="text-secondary text-xs md:text-[10px] md:text-[var(--new-mid-grey)] text-center">
                     {t("exchange.broker_exchange_fee")}
                   </div>
 
-                  <div className="flex gap-4">
+                  <div className="flex justify-between gap-4">
                     <Button
                       disabled={loading}
                       className="w-full"
@@ -378,9 +381,8 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      variant='gray'
+                      className={styles.CancelButton}
                       disabled={loading}
-                      className="w-full"
                       onClick={confirmModal.handleCancel}
                     >
                       {t("cancel")}
@@ -394,6 +396,7 @@ function Exchange() {
         rightColumn={
           !md && (
             <div className="w-full rounded-lg py-4">
+              <span className="text-[15px] ml-[5px] mb-[10px] block text-[#29354C] font-bold">{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
             </div>
           )
@@ -401,6 +404,7 @@ function Exchange() {
       />
       {md && (
         <div className="w-full rounded-lg">
+          <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
           <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
@@ -430,9 +434,10 @@ function Exchange() {
               roomInfoModal.handleCancel();
               navigate(`/private-room?roomId=${roomInfo.timetick}`);
             }}
+            onCancel={roomInfoModal.handleCancel}
           />
         ) : (
-          <InviteLink roomInfo={roomInfo} />
+          <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={roomInfo} />
         )}
       </Modal>
 
@@ -465,8 +470,8 @@ function Exchange() {
 
         <div className="mt-4">{localErrorInfoBox}</div>
 
-        <div className="mt-8 sm:mt-4">
-          <Button size="xl" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+        <div className="mt-8 sm:mt-4 flex justify-center">
+          <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
             } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
       </Modal>

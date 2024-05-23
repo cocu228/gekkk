@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import styles from "./styles.module.scss"
 import Button from "@/shared/ui/button/Button"
-import { Switch } from "antd"
+import {Switch as SwitchUi} from "@/shared/ui/!switch"
 import { useNavigate } from "react-router-dom"
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider"
 
@@ -36,9 +36,7 @@ export const GekkardPro = (props: Props) => {
                 </div>
                 <div className={styles.Accept}>
                     <div className={styles.Switch}>
-                        <Switch 
-                            onChange={handleSwitch}
-                        />
+                        <SwitchUi onChange={handleSwitch} />
                     </div>
                     <div className={`${styles.AcceptText} ${!md && styles.DesktopTextLarge}`}>
                         <span>

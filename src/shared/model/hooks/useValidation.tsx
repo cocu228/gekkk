@@ -5,25 +5,6 @@ import { useTranslation } from 'react-i18next';
 function useValidator() {
     const {t} = useTranslation();
 
-
-    const promoCodeValidator = useCallback<RuleRender>(
-        () => ({
-            validator(rule, value = '') {
-                return new Promise((resolve, reject) => {
-
-                    const isAlphaNumeric = /^[0-9A-Z]+$/i.test(value)
-
-                    if (isAlphaNumeric) {
-                        resolve('');
-                    } else {
-                        reject('');
-                    }
-                });
-            },
-        }),
-        [],
-    );
-
     const passwordValidator = useCallback<RuleRender>(
         () => ({
             validator(rule, value = '') {
@@ -59,7 +40,7 @@ function useValidator() {
     );
 
 
-    return {phoneValidator, passwordValidator, promoCodeValidator};
+    return {phoneValidator, passwordValidator};
 }
 
 export default useValidator;

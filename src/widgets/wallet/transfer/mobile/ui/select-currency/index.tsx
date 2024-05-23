@@ -1,5 +1,4 @@
 import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext';
-import { Select } from 'antd'
 import { Dispatch, SetStateAction, useContext } from 'react'
 import { IconApp } from '@/shared/ui/icons/icon-app';
 import { IconCoin } from '@/shared/ui/icons/icon-coin';
@@ -21,7 +20,7 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
   return (
     <div className='w-full relative h-[32px] flex flex-row'>
         <div 
-            className="row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[8px] border-solid border-[var(--gek-light-grey)]"
+            className="row w-full relative cursor-pointer border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[8px] border-solid border-[color:var(--gek-light-grey)]"
             onClick={()=>{
                 setCurr(null)
                 setNetwork(null)
@@ -29,25 +28,19 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
                 navigate("/transfers")
             }}
         >
-            <Select 
-                className='w-full'
-                bordered={false}
-                placeholder={
-                    currency?
-                        <div className='flex w-full h-full justify-start items-center'>
-                            <div className='flex justify-start items-center w-full'>
-                                <div className='min-w-[50px] flex justify-start'>
-                                    <IconCoin height={20} className={`max-h-[36px]`} code={currency}/>
-                                </div>
-                                <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
-                            </div>
+            {
+            currency?
+                <div className='flex pl-[10px] w-full h-full justify-start items-center'>
+                    <div className='flex justify-start items-center w-full'>
+                        <div className='min-w-[50px] flex justify-start'>
+                            <IconCoin height={20} className={`max-h-[36px]`} code={currency}/>
                         </div>
-                    :
-                        <span className='inline-flex justify-center w-full text-[10px] text-[var(--gek-mid-grey)]'>{t("choose_currency")}</span>
-                }
-                notFoundContent={null}
-                suffixIcon={null}
-            />
+                        <span className='text-[12px] text-[#3A5E66]'>{currencies?.get(currency)?.name}</span>
+                    </div>
+                </div>
+            :
+                <span className='inline-flex justify-center w-full text-[10px] text-[#B9B9B5]'>{t("choose_currency")}</span>
+            }
         </div>
         <div className='rounded-r-[8px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>
             <IconApp code='t08' color='#fff' size={12} className={"rotate-90"} />
@@ -56,4 +49,4 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
   )
 }
 
-export default SelectCurrency
+export default SelectCurrency;

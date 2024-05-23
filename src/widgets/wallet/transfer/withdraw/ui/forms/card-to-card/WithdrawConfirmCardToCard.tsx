@@ -248,7 +248,7 @@ const WithdrawConfirmCardToCard = ({
                 </div>
             </>}
 
-            <Form onFinish={onConfirm}>
+            <Form onSubmit={onConfirm}>
                 <div className="row my-5">
                     <div className="flex justify-center col">
                         <Button size="lg"
@@ -392,7 +392,7 @@ const WithdrawConfirmCardToCard = ({
                 </div>
             
 
-            <Form onFinish={onConfirm}>
+            <Form onSubmit={onConfirm}>
                 <div className="row my-5">
                     <div className={styles.ButtonContainer}>
                         <Button 

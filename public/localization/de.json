@@ -1464,7 +1464,12 @@
     "new_asset": "neuer Krypto-Asset",
     "gekkoin_redirect": "Gekkoin Weiterleitung",
     "actions": "Aktionen",
-    "clean": "Löschen"
+    "clean": "Löschen",
+    "created": "Erstellt", 
+    "failed": "Fehlgeschlagen", 
+    "canceled": "Abgebrochen",
+    "finished": "Beendet",
+    "select_type": "Typ auswählen"
 
 
 

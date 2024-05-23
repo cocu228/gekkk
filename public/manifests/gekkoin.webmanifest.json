@@ -1,6 +1,6 @@
 {
-    "name": "Gekkard Web",
-    "short_name": "Gekkard",
+    "name": "Gekkoin Web",
+    "short_name": "Gekkoin",
     "categories": ["business", "finance"],
     "icons": [
         { "src": "/img/favicon/favicon-192x192.png", "type": "image/png", "sizes": "192x192" },

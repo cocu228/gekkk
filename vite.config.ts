@@ -1,12 +1,16 @@
 import {defineConfig, loadEnv} from 'vite';
-import { createHtmlPlugin } from 'vite-plugin-html';
-// import {VitePWA} from 'vite-plugin-pwa'
+import {createHtmlPlugin} from 'vite-plugin-html';
+import {VitePWA} from 'vite-plugin-pwa'
 // import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
+
+import manifestGekkard from "./public/manifests/gekkard.webmanifest.json"
+import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
+import manifestGekwallet from "./public/manifests/gekwallet.webmanifest.json"
 
 export default defineConfig(({mode}) => {
 
@@ -18,6 +22,7 @@ export default defineConfig(({mode}) => {
     };
 
     const isGekkoin = process.env.APP_TYPE === "GEKKOIN";
+    const isGekwallet = process.env.APP_TYPE === "GEKWALLET";
 
     return {
         // base: '',
@@ -77,11 +82,20 @@ export default defineConfig(({mode}) => {
                 minify: true,
                 inject: {
                     data: {
-                        title: isGekkoin ? "Gekkoin" : "Gekkard",
+                        title: isGekwallet ?
+                            "Gekwallet" : isGekkoin ?
+                                "Gekkoin" : "Gekkard",
                     },
                 },
             }),
             svgr(),
+            VitePWA({
+                //@ts-ignore
+                manifest: isGekwallet ?
+                    manifestGekwallet : isGekkoin ?
+                        manifestGekkoin : manifestGekkard,
+                injectRegister: null,
+            }),
             // VitePWA({
             //     registerType: 'autoUpdate',
             //     // includeAssets: ['**/*'],

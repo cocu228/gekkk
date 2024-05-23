@@ -267,7 +267,7 @@ const WithdrawConfirmCrypto = memo(
               <Form
               form={form}
               wrapperClassName="w-full"
-              onFinish={(e) => onConfirm()}
+              onSubmit={() => onConfirm()}
             >
               <div className="w-full row mt-4">
                 <div className="w-full flex flex-row gap-[5px] relative">

@@ -29,7 +29,6 @@ interface IParams{
 const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
     const navigate = useNavigate();
     const {inputCurr, setInputCurr} = useInputState()
-    const {inputCurrValid, setInputCurrValid} = useInputValidateState()
     const [newCode, setNewCode] = useState("");
     const [loading, setLoading] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
@@ -71,7 +70,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
 
     return !md ? (loading ? <Loader/> : newCode ? <CodeTxInfo onClose={onClose} code={newCode}/> :
             <>
-                <div className="row bg-gray-300 -mx-6 px-14 py-4 mb-6">
+                <div className="row bg-gray-300 max-w-[450px] spx-14 py-4 mb-6">
                     <p>{t("create_special_code")}</p>
                 </div>
                 <div className="row">
@@ -79,7 +78,6 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                         <div className="wrapper w-full mb-3 xl:mb-8 md:mb-7">
                             <InputCurrency.Validator
                                 value={inputCurr.value.number}
-                                onError={setInputCurrValid}
                                 validators={[validateBalance(currency, navigate, t)]}
                             >
                                 <InputCurrency.PercentSelector onSelect={setInputCurr}
@@ -87,6 +85,7 @@ const CreateCode = ({code, onClose, inputCurrMobile }: IParams) => {
                                                                currency={currency}>
                                     <InputCurrency.DisplayBalance currency={currency}>
                                         <InputCurrency
+                                            className="mt-1"
                                             value={inputCurr.value.string}
                                             currency={currency.$const}
                                             onChange={setInputCurr}

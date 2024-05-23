@@ -1702,7 +1702,12 @@
     "confirm_place_order": "Confirm place order",
     "order_type": "Order type",
     "actions": "Actions",
-    "clean": "Clean"
+    "clean": "Clean",
+    "created": "Created",
+    "failed": "Failed",
+    "canceled": "Canceled",
+    "finished": "Finished",
+    "select_type": "Select type"
 
   }
 }

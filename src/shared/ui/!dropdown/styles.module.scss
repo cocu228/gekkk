@@ -1,0 +1,35 @@
+.DropdownTriggerWrap {
+    position: relative;
+}
+
+.DropdownTrigger {
+    display: inline-flex; 
+    cursor: pointer;
+    gap: 0.5rem;
+}
+
+.DropdownBody {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: fit-content;
+    z-index: 22;
+    transition: all .3s;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0.3rem 0;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-secondary);
+    background: var(--color-bgPrimary);
+    box-shadow: var(--dropdown-shadow);
+
+    &Active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &Right {
+        left: auto;
+        right: 0;
+    }
+}

@@ -1,6 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
-import {Modal as ModalAnt} from "antd"
+import {useCallback, useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from '@/processes/RootContext';
@@ -19,8 +17,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
-// import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawConfirmCrypto";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { ModalC } from '@/shared/ui/!modal';
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -125,17 +122,14 @@ const WithdrawFormBroker = () => {
                 </div>
             </div>
         </div>
-        
-        <Modal
+        <ModalC
             width={450}
-            open={isModalOpen}
-            onCancel={handleCancel}
-            closable={false}
-            title={<ModalTitle handleCancel={handleCancel} title={t("withdraw_confirmation")}/>}
-            padding
+            active={isModalOpen}
+            onClose={handleCancel}
+            title={t("withdraw_confirmation")}
         >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
-        </Modal>
+        </ModalC>
         <div className="row w-full mt-4">
             <div className="flex justify-center col">
                 <Button
@@ -243,25 +237,20 @@ const WithdrawFormBroker = () => {
                 </div>
             </div>
         </div>
-        
-        <ModalAnt
+        <ModalC
             width={327}
-            open={isModalOpen}
-            onCancel={()=>{
+            active={isModalOpen}
+            onClose={()=>{
                 handleCancel()
             }}
-            closable={false}
-            title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
-            footer={null}
+            title={t("confirm_transaction")}
         >
             <WithdrawConfirmBroker
                 handleCancel={()=>{handleCancel()}}
                 amount={inputCurr.value.number}
             />
-        </ModalAnt>
+        </ModalC>
         
-        {/* <StatusModalError open={isErr} setIsErr={setIsErr}/> TODO
-        <StatusModalSuccess open={isSuccess} setIsSuccess={setIsSuccess}/> */}
         <div className={styles.Button}>
             <div className={styles.ButtonContainerCenter}>
                 <Button

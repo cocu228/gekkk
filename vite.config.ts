@@ -8,10 +8,9 @@ import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
 
-//@ts-ignore
 import manifestGekkard from "./public/manifests/gekkard.webmanifest.json"
-//@ts-ignore
 import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
+import manifestGekwallet from "./public/manifests/gekwallet.webmanifest.json"
 
 export default defineConfig(({mode}) => {
 
@@ -23,6 +22,7 @@ export default defineConfig(({mode}) => {
     };
 
     const isGekkoin = process.env.APP_TYPE === "GEKKOIN";
+    const isGekwallet = process.env.APP_TYPE === "GEKWALLET";
 
     return {
         // base: '',
@@ -82,14 +82,18 @@ export default defineConfig(({mode}) => {
                 minify: true,
                 inject: {
                     data: {
-                        title: isGekkoin ? "Gekkoin" : "Gekkard",
+                        title: isGekwallet ?
+                            "Gekwallet" : isGekkoin ?
+                                "Gekkoin" : "Gekkard",
                     },
                 },
             }),
             svgr(),
             VitePWA({
                 //@ts-ignore
-                manifest: isGekkoin ? manifestGekkoin : manifestGekkard,
+                manifest: isGekwallet ?
+                    manifestGekwallet : isGekkoin ?
+                        manifestGekkoin : manifestGekkard,
                 injectRegister: null,
             }),
             // VitePWA({

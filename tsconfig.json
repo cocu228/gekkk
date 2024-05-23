@@ -43,6 +43,5 @@
     "src/app/chat",
     "src/**/(no-usages)*.ts(x)",
     "src/**/(no-usages)*"
-  ],
-  "references": [{ "path": "./tsconfig.node.json"}]
+  ]
 }

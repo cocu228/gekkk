@@ -88,6 +88,7 @@ export default defineConfig(({mode}) => {
             }),
             svgr(),
             VitePWA({
+                //@ts-ignore
                 manifest: isGekkoin ? manifestGekkoin : manifestGekkard,
                 injectRegister: null,
             }),

@@ -18,6 +18,7 @@
     "STG-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
     "DEV-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode dev.gekkard",
     "DEV-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
+    "PRD-GEKWALLET": "node increment-version && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode prd.gekwallet",
     "DEV-GEKWALLET": "node increment-version && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
   },
   "npm": " > 8",

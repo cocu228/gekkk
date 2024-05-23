@@ -1,11 +1,10 @@
+import {Switch as SwitchC} from '@/shared/ui/!switch'
 import axios from "axios";
-import { Switch } from "antd";
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
 import styles from "./style.module.scss";
 import { MouseEvent, useEffect, useState } from "react";
-import Modal from "@/shared/ui/modal/Modal";
 import MenuItem from "./menu-item/MenuItem";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
@@ -30,7 +29,7 @@ import { formatMonthYear } from "@/widgets/dashboard/model/helpers";
 import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { ModalC } from '@/shared/ui/!modal';
 
 // todo: refactoring
 const CardsMenu = ({
@@ -351,7 +350,7 @@ const CardsMenu = ({
           <MenuItem
             dataItem="disableLimits"
             leftPrimary={t("disable_limits")}
-            rightPrimary={<Switch checked={switchChecked} />}
+            rightPrimary={<SwitchC onChange={null} defaultCheked={switchChecked} />}
             onClick={onClick}
           />
 
@@ -377,11 +376,10 @@ const CardsMenu = ({
             />
           )}
 
-          <Modal
-            closable={false}
-            title={<ModalTitle handleCancel={confirmationModal.handleCancel} title={t("confirm_action")}/>}
-            open={confirmationModal.isModalOpen}
-            onCancel={confirmationModal.handleCancel}
+          <ModalC
+            title={t("confirm_action")}
+            active={confirmationModal.isModalOpen}
+            onClose={confirmationModal.handleCancel}
           >
             {loading ? (
               <Loader />
@@ -462,7 +460,7 @@ const CardsMenu = ({
                   </div>
                 )}
 
-                <Form onFinish={() => onConfirm(selectedItem)}>
+                <Form onSubmit={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
                     <div className="flex justify-center col">
                       <Button
@@ -477,13 +475,13 @@ const CardsMenu = ({
                 </Form>
               </div>
             )}
-          </Modal>
+          </ModalC>
 
-          <Modal
-            title={<ModalTitle handleCancel={cardInfoModal.handleCancel} title={t("card_info")}/>}
-            closable={false}
-            open={cardInfoModal.isModalOpen}
-            onCancel={() => {
+          <ModalC
+            width={450}
+            title={t("card_info")}
+            active={cardInfoModal.isModalOpen}
+            onClose={() => {
               cardInfoModal.handleCancel();
               setCardInfo(null);
             }}
@@ -538,7 +536,7 @@ const CardsMenu = ({
             )}
 
             <Form
-              onFinish={() => {
+              onSubmit={() => {
                 cardInfoModal.handleCancel();
                 setCardInfo(null);
               }}
@@ -551,7 +549,7 @@ const CardsMenu = ({
                 </div>
               </div>
             </Form>
-          </Modal>
+          </ModalC>
         </>
       )}
     </div>

@@ -153,10 +153,7 @@ function CustomHistory() {
         <form className={styles.filters}>
           <h4 className={styles.CustomTitle}>{t("enter_period")}</h4>
           <div>
-            <Space
-              direction="vertical"
-              className="flex flex-row gap-1 font-extrabold pt-2"
-            >
+            <div className="flex flex-row gap-1 text-[14px] font-extrabold pt-2">
               <DatePicker
                 onChange={handleStartDateChange}
                 value={date[0]}
@@ -165,11 +162,12 @@ function CustomHistory() {
               />
               <div className="mb-0">_</div>
               <DatePicker
+                className="max-h-[30px]"
                 onChange={handleFinishDateChange}
                 value={date[1]}
                 suffixIcon={<IconApp code="t39" size={20} color="#29354C" />}
               />
-            </Space>
+            </div>
           </div>
           <div className={styles.SelectWrap}>
             <div

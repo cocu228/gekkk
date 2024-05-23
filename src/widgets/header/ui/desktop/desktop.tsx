@@ -46,7 +46,6 @@ const HeaderDesktop = ({items, actions}) => {
             <div className={styles.CommandsMenu}>
                 <HeaderMenu items={items} actions={actions} className="pl-5">
                     <div className="flex items-center justify-center" data-testid="HeaderMenuContainer">
-                        {/* <div className="wrapper flex justify-end"> */}
                         {account?.rights[AccountRights.IsJuridical] ? <SvgSchema width={32} height={22}/> :
                             <IconApp color="#fff" code='t10' size={20} />}
                         {account?.number &&
@@ -62,21 +61,11 @@ const HeaderDesktop = ({items, actions}) => {
                         <button className={`${styles.ArrowBtn}`}>
                             <IconApp code="t08" size={14} color="#fff" className="rotate-[90deg]" />
                         </button>
-                        {/* </div> */}
                     </div>
                 </HeaderMenu>
                 <div className={styles.HeaderItemsContainer}>
                     <LocalizationMenu/><span className={styles.HeaderMenuTitles}>{t("language_name")}</span>
                 </div>
-                {/* <Box display={"flex"} alignItems={"center"} paddingLeft={"60px"} gap="16px">
-
-                    <Link to="/faq" style={{color: 'white'}}>
-                        <FaqIcon/>
-                    </Link>
-                    <Link to='/settings' style={{color: 'white'}}>
-                        <SettingsIcon/>
-                    </Link>
-                </Box> */}
                 <button onClick={logout}>
                     <div className={styles.HeaderItemsContainer}>
                         <div className="ml-5" data-testid="Logout">

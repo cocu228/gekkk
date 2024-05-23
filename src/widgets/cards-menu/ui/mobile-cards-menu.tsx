@@ -1,4 +1,4 @@
-import { Switch } from "antd";
+import {Switch as SwitchC} from '@/shared/ui/!switch'
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
@@ -35,10 +35,9 @@ import { MenuButton } from "./menu-button/menu-button";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { ModalC } from '@/shared/ui/!modal';
 import axios from "axios";
 import Button from "@/shared/ui/button/Button";
-import Modal from "@/shared/ui/modal/Modal";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -470,7 +469,7 @@ const MobileCardsMenu = ({
           <MobileMenuItem
             dataItem="disableLimits"
             leftPrimary={t("disable_limits_for_minutes", { minutes: 3 })}
-            rightPrimary={<Switch checked={switchChecked} />}
+            rightPrimary={<SwitchC onChange={null} defaultCheked={switchChecked} />}
             onClick={onClick}
           />
 
@@ -515,11 +514,11 @@ const MobileCardsMenu = ({
             </MenuButton>
           </div>
 
-          <Modal
-            closable={false}
-            title={<ModalTitle title={t("confirm_action")} handleCancel={confirmationModal.handleCancel} />}
-            open={confirmationModal.isModalOpen}
-            onCancel={confirmationModal.handleCancel}
+          <ModalC
+            padding
+            title={t("confirm_action")}
+            active={confirmationModal.isModalOpen}
+            onClose={confirmationModal.handleCancel}
           >
             {loading ? (
               <Loader />
@@ -608,7 +607,7 @@ const MobileCardsMenu = ({
                   </div>
                 )}
 
-                <Form onFinish={() => onConfirm(selectedItem)}>
+                <Form onSubmit={() => onConfirm(selectedItem)}>
                   <div className="row my-5">
                     <div className={(selectedItem === "blockCard" ||
                         selectedItem === "dailyLimit" ||
@@ -632,7 +631,7 @@ const MobileCardsMenu = ({
                 </Form>
               </div>
             )}
-          </Modal>
+          </ModalC>
         </>
       )}
     </div>

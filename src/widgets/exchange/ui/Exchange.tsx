@@ -1,13 +1,11 @@
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
 import { useNavigate } from "react-router-dom";
 import { randomId } from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import { CtxExchangeData } from "../model/context";
 import History from "@/widgets/history/ui/History";
 import useModal from "@/shared/model/hooks/useModal";
-import Dropdown from "@/shared/ui/dropdown/Dropdown";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { useContext, useEffect, useState } from "react";
 import PageHead from "@/shared/ui/page-head/PageHead";
@@ -19,7 +17,8 @@ import RoomProperties from "./room-properties/RoomProperties";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import PriceField from "@/widgets/exchange/ui/price-field/PriceField";
 import OpenOrders from "@/widgets/exchange/ui/open-orders/OpenOrders";
-import DropdownItem from "@/shared/ui/dropdown/dropdown-item/DropdownItem";
+import {DropdownCItem} from "@/shared/ui/!dropdown/item"
+import {Dropdown as DropdownC} from "@/shared/ui/!dropdown";
 import DepthOfMarket from "@/widgets/exchange/ui/depth-of-market/DepthOfMarket";
 import { storeListExchangeRooms } from "@/shared/store/exchange-rooms/exchangeRooms";
 import ParticipantsNumber from "@/shared/ui/participants-number/ParticipantsNumber";
@@ -32,8 +31,7 @@ import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
-
+import { ModalC } from "@/shared/ui/!modal";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -96,23 +94,17 @@ function Exchange() {
     switch (roomType) {
       case "default":
         return (
-          <Dropdown
+          <DropdownC 
             isOpen={roomInfoModal.isModalOpen}
             trigger={<span>{t("exchange.title")}</span>}
-            items={[
-              {
-                key: "1",
-                label: (
-                  <DropdownItem
-                    onClick={roomInfoModal.showModal}
-                    icon={<IconApp color="red" code="t33" size={20} />}
-                  >
-                    {t("exchange.create_private_exchange_room")}
-                  </DropdownItem>
-                ),
-              },
-            ]}
-          />
+          >
+            <DropdownCItem
+              onClick={roomInfoModal.showModal}
+              icon={<IconApp color="red" code="t33" size={20} />}
+            >
+              {t("exchange.create_private_exchange_room")}
+            </DropdownCItem>
+          </DropdownC>
         );
       case "creator":
         return `Private room`;
@@ -317,12 +309,11 @@ function Exchange() {
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
-            <Modal
+            <ModalC
               width={400}
-              closable={false}
-              title={<ModalTitle handleCancel={confirmModal.handleCancel} title={t("confirm_place_order")}/>}
-              open={confirmModal.isModalOpen}
-              onCancel={confirmModal.handleCancel}
+              title={t("confirm_the_order")}
+              active={confirmModal.isModalOpen}
+              onClose={confirmModal.handleCancel}
             >
               <div className="px-5 mt-4">
                 <div className="flex items-center gap-2 mb-4">
@@ -381,8 +372,9 @@ function Exchange() {
                     </Button>
 
                     <Button
-                      className={styles.CancelButton}
+                      color='gray'
                       disabled={loading}
+                      className="w-full"
                       onClick={confirmModal.handleCancel}
                     >
                       {t("cancel")}
@@ -390,7 +382,7 @@ function Exchange() {
                   </div>
                 </div>
               </div>
-            </Modal>
+            </ModalC>
           </div>
         }
         rightColumn={
@@ -408,19 +400,13 @@ function Exchange() {
           <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
-      <Modal
-        width={450}
-        open={roomInfoModal.isModalOpen}
-        onCancel={roomInfoModal.handleCancel}
-        padding
-        closable={false}
-        title={<ModalTitle handleCancel={roomInfoModal.handleCancel} title={
-          roomType == "default"
-            ? t("exchange.open_private_exchange_room")
-            : t("invite_link")
-        }/>}
-        
-        className={styles.RoomModal}
+      <ModalC
+        width={500}
+        active={roomInfoModal.isModalOpen}
+        onClose={roomInfoModal.handleCancel}
+        title={roomType == "default"
+        ? t("exchange.open_private_exchange_room")
+        : t("invite_link")}
       >
         {roomType === "default" ? (
           <CreateRoom
@@ -434,22 +420,18 @@ function Exchange() {
               roomInfoModal.handleCancel();
               navigate(`/private-room?roomId=${roomInfo.timetick}`);
             }}
-            onCancel={roomInfoModal.handleCancel}
           />
         ) : (
-          <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={roomInfo} />
+          <InviteLink roomInfo={roomInfo} />
         )}
-      </Modal>
+      </ModalC>
 
-      <Modal
+      <ModalC
         width={450}
-        closable={false}
-        title={<ModalTitle handleCancel={cancelRoomModal.handleCancel} title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
-      } ${t("exchange.private_exchange_room")}`}/>}
-        
-        open={cancelRoomModal.isModalOpen}
-        padding
-        onCancel={cancelRoomModal.handleCancel}
+        title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
+      } ${t("exchange.private_exchange_room")}`}
+        active={cancelRoomModal.isModalOpen}
+        onClose={cancelRoomModal.handleCancel}
       >
         <div className="text-sm">
           {t("exchange.are_you_sure")}{" "}
@@ -474,7 +456,7 @@ function Exchange() {
           <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
             } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
-      </Modal>
+      </ModalC>
     </div>
   );
 }

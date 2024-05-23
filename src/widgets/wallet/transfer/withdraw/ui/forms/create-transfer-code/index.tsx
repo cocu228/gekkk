@@ -1,7 +1,5 @@
 import Button from "@/shared/ui/button/Button";
 import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-code/table/TransferTableCode";
-import Modal from "@/shared/ui/modal/Modal";
-import {Modal as MoadlAnt, Switch} from "antd"
 import CreateCode from "./CreateCode";
 import useModal from "@/shared/model/hooks/useModal";
 import { useTranslation } from 'react-i18next';
@@ -14,15 +12,17 @@ import { useContext, useState } from "react";
 import { CtxWalletData } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import { validateBalance } from "@/shared/config/validators";
-import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { apiCreateTxCode } from "@/shared/(orval)api";
 import { actionResSuccess, getRandomInt32 } from "@/shared/lib";
 import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss"
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { Switch } from "@/shared/ui/!switch";
+import { ModalC } from "@/shared/ui/!modal";
+
 import { CtxRootData } from "@/processes/RootContext";
+import Checkbox from "@/shared/ui/checkbox/Checkbox";
 
 const CreateTransferCode = () => {
     const {t} = useTranslation();
@@ -65,25 +65,24 @@ const CreateTransferCode = () => {
             localErrorHunter(error)
             setLoading(false)
         })
+    }
 
+    const switchHandler = () => {
+        setCheckbox(!checkbox)
     }
 
     return !md ? <div>
         <TransferCodeDescription/>
         
-        <div className="row mb-5 w-full flex justify-center">
+        <div className="row mb-5">
             <Button onClick={showModal} size="lg" className="w-full">{t("create_transfer_code")}</Button>
-            <Modal
-                
-                onCancel={handleCancel}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("create_transfer_code")}/>}
-                open={isModalOpen}
+            <ModalC
+                active={isModalOpen} 
+                onClose={handleCancel} 
+                title={<span className={styles.MainModalTitle}>{t("create_transfer_code")}</span>}
             >
-                <CreateCode
-                    onClose={handleCancel}
-                />
-            </Modal>
+                <CreateCode/>
+            </ModalC>
         </div>
         <div className="row mb-2">
             <h3 className="text-lg font-bold">
@@ -120,24 +119,23 @@ const CreateTransferCode = () => {
         </div>
         <div className="row mb-4">
             {!(!!inputCurr.value.number) &&
-                <span className="text-[10px] text-[var(--gek-mid-grey)] text-[var(--gek-orange)]">
+                <span className="text-[10px] text-[var(--gek-orange)]">
                     *Create a special code with which you can transfer or receive {currency.$const} funds between Gekkoin users with or without your confirmation
                 </span>
             }
         </div>
         <div className="row mb-16 md:mb-2">
             {md ? <div className="flex flex-row gap-4">
-                <Switch onChange={(e) => setCheckbox(e)}/>
+                <Switch defaultCheked={checkbox} onChange={switchHandler} />
                 <div className='flex items-center'>
                     <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
                     <div onClick={()=>{setIsHelpClicked(true)}} className="inline-block relative align-middle w-[14px] ml-1 cursor-help">
                         <IconApp code="t27" color="#2BAB72" size={14} />
                     </div>
-                        <MoadlAnt title={<ModalTitle handleCancel={()=>{setIsHelpClicked(false)}} title={t("use_confirmation")}/>} closable={false} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
-                            <div className="flex flex-row mt-4 items-start">
-                                <div>
-                                    <IconApp code="t27" className="mr-2" color="#2BAB72" size={14} />
-                                </div>
+                        <ModalC active={isHelpClicked} onClose={()=> setIsHelpClicked(false)} title={<span className={styles.MainModalTitle}>{t("use_confirmation")}</span>}>
+                            <hr className="text-[#3A5E66] border-[0px] h-[1px] bg-[#3A5E66]"/>
+                            <div className="flex flex-row mt-4 items-center">
+                                <IconApp code="t27" className="mr-2" color="#2BAB72" size={14} />
                                 <div className="flex items-center">
                                     <span>{t("when_using_confirmation_mobile")}</span>
                                 </div>
@@ -152,7 +150,7 @@ const CreateTransferCode = () => {
                                     {t("close")}
                                 </Button>
                             </div>
-                        </MoadlAnt>
+                        </ModalC>
                 </div>
             </div> : <Checkbox onChange={({target}) => setCheckbox(target.checked)}>
                 <div className='flex items-center'>
@@ -161,7 +159,7 @@ const CreateTransferCode = () => {
                         <img src="/img/icon/HelpIcon.svg" alt="tooltip"/>
                     </div>
 
-                        <MoadlAnt title={t("use_confirmation")} open={isHelpClicked} onCancel={()=>{setIsHelpClicked(false)}} footer={null}>
+                        <ModalC title={t("use_confirmation")} active={isHelpClicked} onClose={()=>{setIsHelpClicked(false)}}>
                             <div>
                                 {/* TODO: image */}
                             </div>
@@ -178,7 +176,7 @@ const CreateTransferCode = () => {
                                     {t("close")}
                                 </Button>
                             </div>
-                        </MoadlAnt>
+                        </ModalC>
                 </div>
             </Checkbox>}
                 
@@ -267,19 +265,21 @@ const CreateTransferCode = () => {
                 onCreateCode()
                 showModal()
             }} size="lg" className="w-full">{t("create_transfer_code")}</Button>
-            <MoadlAnt 
-                footer={null} 
-                onCancel={()=>{
-                    
+            <ModalC 
+                onClose={()=>{
                     handleCancel();
                     setNewCode("")
                 }} 
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
-                open={isModalOpen}
+                title={<span className={styles.MainModalTitle}>{t("confirm_transaction")}</span>}
+                active={isModalOpen}
             >
                 <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
-            </MoadlAnt>
+            </ModalC>
+        </div>
+        <div className="row mb-2">
+            <h3 className="text-lg font-bold">
+                {t("unredeemed_codes_info")}
+            </h3>
         </div>
         <div className="row">
             <TransferTableCode isOwner/>

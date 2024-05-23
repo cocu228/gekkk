@@ -138,7 +138,7 @@ export function ConfirmationNewCard() {
                 <span className={styles.confRowItemTitle}>{t("delivery_type")}</span>
                     <div className='w-[200px]'>
                         <Select className="w-full mt-2"
-                                placeholder='Select type...'
+                                placeholder={t("select_type") + "..."}
                                 value={state.isExpressDelivery ? 'express' : 'standard'}
                                 options={[{
                                     label: 'Standard (0 €)',

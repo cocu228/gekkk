@@ -145,9 +145,9 @@ function OpenOrders({ refreshKey }: IParams) {
 
   return (
     <>
-      <div className="flex gap-x-4 w-full justify-center">
+      <div className={styles.Switch}>
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[var(--gek-dark-blue)]" : "[var(--gek-mid-grey)]"
+          className={`${styles.SwitchText} text-${activeTab === "Opened" ? "[var(--gek-dark-blue)]" : "[var(--gek-mid-grey)]"
             }`}
         >
           {t("exchange.active_orders")}
@@ -160,7 +160,7 @@ function OpenOrders({ refreshKey }: IParams) {
           }
         />
         <span
-          className={`text-[12px] content-around font-semibold text-${activeTab === "Opened" ? "[var(--gek-mid-grey)]" : "[var(--gek-dark-blue)]"
+          className={`${styles.SwitchText} text-${activeTab === "Opened" ? "[var(--gek-mid-grey)]" : "[var(--gek-dark-blue)]"
             }`}
         >
           {t("exchange.closed_orders")}
@@ -177,16 +177,16 @@ function OpenOrders({ refreshKey }: IParams) {
       </div>
 
       {activeTab === TabKey.CLOSED && customOrders && (
-        <div className="rounded-[8px] bg-white p-[10px] flex flex-col items-center justify-center mt-2 mb-4 px-3">
-          <span className="w-full text-center text-[var(--gek-dark-blue)] font-semibold md:text-[12px]">
+        <div className={styles.CustomDateContainer}>
+          <span className={styles.CustomDateContainerEnter}>
             {t("enter_period")}
           </span>
 
-          <div className="flex flex-col gap-[10px] grow-0 max-w-[400px]">
-            <div className="flex flex-row justify-evenly items-center gap-[10px]">
+          <div className={styles.CustomDateContainerSecondary}>
+            <div className={styles.CustomDateContainerPickers}>
               <DatePicker
                 suffixIcon={<IconApp code="t39" size={20}/>}
-                className="mt-2 w-full !h-[40px] rounded-[5px] !text-[var(--gek-dark-blue)] !font-semibold md:!text-[12px]"
+                className={styles.CustomDateContainerPicker}
                 value={customDateStart}
                 onChange={setCustomDateStart}
                 disabledDate={disabledDateStart}
@@ -196,16 +196,16 @@ function OpenOrders({ refreshKey }: IParams) {
 
               <DatePicker
                 suffixIcon={<IconApp code="t39" size={20}/>}
-                className="mt-2 w-full !h-[40px] rounded-[5px] !text-[var(--gek-dark-blue)] !font-semibold md:!text-[12px]"
+                className={styles.CustomDateContainerPicker}
                 value={customDateEnd}
                 onChange={setCustomDateEnd}
                 disabledDate={disabledDateEnd}
               />
             </div>
 
-            <div className="flex flex-row w-full justify-evenly">
+            <div className={styles.CustomDateContainerButtons}>
               <Button
-                className="min-w-[120px]"
+                className={styles.CustomDateContainerButton}
                 color="blue"
                 disabled={isLoading || !customDateStart || !customDateEnd}
                 onClick={requestOrders}
@@ -213,7 +213,7 @@ function OpenOrders({ refreshKey }: IParams) {
                 {t("apply")}
               </Button>
               <Button
-                className="min-w-[120px]"
+                className={styles.CustomDateContainerButton}
                 color="blue"
                 disabled={isLoading || (!customDateStart && !customDateEnd)}
                 onClick={()=>{
@@ -234,7 +234,7 @@ function OpenOrders({ refreshKey }: IParams) {
         </div>}
 
         {!(isLoading || ordersList.length) && (
-          <div className="text-center text-[12px] text-[#285E69] font-semibold mb-[10px] mt-3 rounded-[8px] w-full flex items-center h-[35px] justify-center bg-[#fff]">
+          <div className={styles.NoOpen}>
             {t("exchange.no_opened_orders")}
           </div>
         )}
@@ -259,7 +259,7 @@ function OpenOrders({ refreshKey }: IParams) {
                   </div>
 
                   <span className="text-gray-400">
-                    {ord.state}{" "}
+                    {t(ord.state.toLowerCase()).capitalize()}{" "}
                     {ord.state !== OrderState.FAILED ? null : (
                       <Tooltip
                         text={
@@ -334,7 +334,7 @@ function OpenOrders({ refreshKey }: IParams) {
                   onClick={requestMoreOrders}
                   className="text-gray-400 cursor-pointer inline-flex items-center"
                 >
-                  <div className="flex flex-row items-center md:text-[10px] text-[var(--gek-mid-grey)]">
+                  <div className={styles.SeeMore}>
                     {t("exchange.see_more")}{" "}
                     <IconApp size={12} code="t08" className="rotate-[90deg] ml-2" color="var(--gek-mid-grey)" />
                   </div>

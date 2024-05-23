@@ -35,7 +35,7 @@ export function IssueNewCard() {
                 <span className={styles.rowItemTitle}>{t('card_type')}</span>
                 <div className='w-[150px]'>
                     <Select className="w-full mt-2"
-                            placeholder='Select type...'
+                            placeholder={t("select_type") + "..."}
                             value={t(state.cardType.toLowerCase())}
                             options={[{
                                 label: 'Virtual',

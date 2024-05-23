@@ -1492,7 +1492,12 @@
     "new_asset": "новый криптовалютный актив",
     "gekkoin_redirect": "Перенаправление Gekkoin",
     "actions": "Действия",
-    "clean": "Очистить"
+    "clean": "Очистить",
+    "created": "Создано", 
+    "failed": "Завершено", 
+    "canceled": "Отменено",
+    "finished": "Завершено",
+    "select_type": "Выберите тип" 
 
 
 

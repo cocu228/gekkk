@@ -330,7 +330,7 @@ function CustomHistory() {
           )}
           {selector === 'type' && (
             <div className={styles.TypeList}>
-              <span className={styles.CurrencyListTitle}>Select type</span>
+              <span className={styles.CurrencyListTitle}>{t("select_type")}</span>
               {
                 translatedOptions.map((item, ind) => (
                   <div

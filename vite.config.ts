@@ -1,12 +1,15 @@
 import {defineConfig, loadEnv} from 'vite';
-import { createHtmlPlugin } from 'vite-plugin-html';
-// import {VitePWA} from 'vite-plugin-pwa'
+import {createHtmlPlugin} from 'vite-plugin-html';
+import {VitePWA} from 'vite-plugin-pwa'
 // import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
+
+import manifestGekkard from "public/manifests/gekkard.webmanifest.json"
+import manifestGekkoin from "public/manifests/gekkoin.webmanifest.json"
 
 export default defineConfig(({mode}) => {
 
@@ -82,6 +85,10 @@ export default defineConfig(({mode}) => {
                 },
             }),
             svgr(),
+            VitePWA({
+                manifest: isGekkoin ? manifestGekkoin : manifestGekkard,
+                injectRegister: null,
+            }),
             // VitePWA({
             //     registerType: 'autoUpdate',
             //     // includeAssets: ['**/*'],

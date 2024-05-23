@@ -75,7 +75,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         {
           !active ? (
             <DropdownCItem
-              className="w-full bg-[var(--gek-light-grey)]"
+              className="w-full min-w-[214px] bg-[var(--gek-light-grey)]"
               onClick={roomModal.showModal}
             >
               <div className="flex justify-between items-center w-full">
@@ -88,7 +88,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
           ) : (
             <>
               <DropdownCItem
-                className="w-full bg-[var(--gek-light-grey)]"
+                className="w-full min-w-[214px] bg-[var(--gek-light-grey)]"
                 onClick={roomModal.showModal}
               >
                 <div className="flex justify-between items-center w-full">
@@ -99,7 +99,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                 </div>
               </DropdownCItem>
               <DropdownCItem
-                className="w-full border-b-1 border-[var(--gek-additional)] bg-[var(--gek-light-grey)]"
+                className="w-full min-w-[214px] border-b-1 border-[var(--gek-additional)] bg-[var(--gek-light-grey)]"
                 onClick={roomCloseModal.showModal}
               >
                 <div className="flex justify-between items-center w-full">
@@ -112,7 +112,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
                 </div>
               </DropdownCItem>
               <DropdownCItem
-                className="w-full bg-[var(--gek-light-grey)]"
+                className="w-full min-w-[214px] bg-[var(--gek-light-grey)]"
                 onClick={() => navigate("/exchange")}
               >
                 <div className="flex justify-between items-center w-full">
@@ -212,7 +212,7 @@ const RoomItem = ({
 
   return (
     <DropdownCItem
-      className={`w-full py-2.5 px-2.5 ${isActive ? "bg-[var(--gek-light-grey)]" : ""}`}
+      className={`w-full min-w-[214px] py-2.5 px-2.5 ${isActive ? "bg-[var(--gek-light-grey)]" : ""}`}
       icon={
         <div className={styles.RoomsMenuItemIcon}>
           <IconApp color="red" code="t33" size={20} />

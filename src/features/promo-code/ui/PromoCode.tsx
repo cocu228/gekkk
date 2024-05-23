@@ -56,7 +56,6 @@ const PromoCode = memo(({handleCancel}: IProps) => {
   return (
     <>
       <div className="px-3 md:pb-0">
-        <div className="w-full h-[1px] bg-[#29354c]"></div>
         <form onSubmit={onSubmit} >
         <div className={`wrapper my-6 ${buttonStyles.ModalInfo}`}>
             <div className={buttonStyles.ModalInfoIcon}>

@@ -377,6 +377,7 @@ const CardsMenu = ({
           )}
 
           <ModalC
+            width={450}
             title={t("confirm_action")}
             active={confirmationModal.isModalOpen}
             onClose={confirmationModal.handleCancel}

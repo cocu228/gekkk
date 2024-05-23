@@ -401,6 +401,7 @@ function Exchange() {
         </div>
       )}
       <ModalC
+        padding
         width={500}
         active={roomInfoModal.isModalOpen}
         onClose={roomInfoModal.handleCancel}

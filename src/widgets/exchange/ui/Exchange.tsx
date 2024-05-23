@@ -11,7 +11,6 @@ import Dropdown from "@/shared/ui/dropdown/Dropdown";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 import { useContext, useEffect, useState } from "react";
 import PageHead from "@/shared/ui/page-head/PageHead";
-import SplitGrid from "@/shared/ui/split-grid/SplitGrid";
 import { apiCloseRoom } from "@/shared/(orval)api/gek";
 import { apiCreateOrder } from "@/shared/(orval)api/gek";
 import InviteLink from "@/shared/ui/invite-link/InviteLink";
@@ -216,9 +215,8 @@ function Exchange() {
         />
       )}
 
-      <SplitGrid
-        leftColumn={
-          <div>
+      <div className={styles.MainGrid} >
+        <div className={styles.ExchangeOrdersWrap} >
             <div className={`gap-x-5 bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
@@ -313,7 +311,7 @@ function Exchange() {
               </div>
             </div>
 
-            <div className="mt-4 md:mx-4">
+            <div className="mt-4 md:mx-[10px]">
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
@@ -392,16 +390,11 @@ function Exchange() {
               </div>
             </Modal>
           </div>
-        }
-        rightColumn={
-          !md && (
-            <div className="w-full rounded-lg py-4">
-              <span className="text-[15px] ml-[5px] mb-[10px] block text-[#29354C] font-bold">{t('last_transactions')}</span>
+          <div className={styles.DeskHistoryWrap}>
+              <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
-            </div>
-          )
-        }
-      />
+          </div>
+      </div>
       {md && (
         <div className="w-full rounded-lg">
           <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>

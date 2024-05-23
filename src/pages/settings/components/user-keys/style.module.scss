@@ -116,3 +116,39 @@
       }
     }
 }
+
+
+.CodeInput {
+    height: 29px;
+    display: flex;
+
+
+    &::placeholder {
+        color: #DCDCD9;
+        text-align: center;
+        padding: 0 0.5rem;
+    }
+}
+
+.CodeTitle {
+    font-weight: 700;
+    color: #1f3446;
+
+    @include max-devices(md){
+        font-size: 12px;
+    }
+}
+
+.CodeWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.TabTitleGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

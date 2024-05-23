@@ -72,6 +72,7 @@
   display: grid;
   padding: 1.25rem;
   grid-template-columns: 1.25fr 0.75fr;
+  border-radius: 0.5rem 0 0 0.5rem;
 
   @media screen and (max-width: 360px) {
     padding: 1.25rem 0.75rem;
@@ -104,4 +105,49 @@
   border: 2px solid var(--gek-green) !important;
   border-radius: 8px !important;
   color: var(--gek-green) !important;
+}
+
+.MainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @media screen and (max-width: 1700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.DeskHistoryWrap {
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  background: #fff;
+
+  @media screen and (max-width: 1700px) {
+    background: inherit;
+  }
+}
+
+.DeskHistoryTitle {
+  font-size: 15px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  display: block;
+  color: #29354C;
+  font-weight: 700;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.ExchangeOrdersWrap {
+  background: #fff;
+  border-radius: 0.5rem 0 0 0.5rem;
+
+  @media screen and (max-width: 1700px) {
+    background: inherit;
+    border-radius: none;
+  }
 }

@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {formatForCustomer} from "@/shared/lib/date-helper";
-import styles from '../../../styles.module.scss'
+import styles from '../../styles.module.scss'
 
 interface IVersion {
 	date: string;

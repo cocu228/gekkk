@@ -5,15 +5,13 @@ import { settingsContext } from "./settingsContext";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
-import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { PersonalInformation } from "./components/personalInformation";
 import { Pricing } from "./components/Pricing";
 import { IdentificationStatus } from "./components/IdentificationStatus";
-import { LegalNotices } from "./components/LegalNotices";
 import { MyReports } from "./components/MyReports";
 import { AppVersion } from "./components/app-version";
 import { ChangePassword } from "./components/change-password";
-import { UserKeys } from "./components/user-keys/ui/user-keys";
+import { UserKeys } from "./components/user-keys/index";
 import { LoginAndSignHistory } from "./components/history";
 import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
@@ -24,7 +22,6 @@ const areaMap = {
   "personal-information": <PersonalInformation />,
   "my-reports": <MyReports />,
   "pricing": <Pricing />,
-  "legal-notices": <LegalNotices />,
   "app-version": <AppVersion />,
   "change-password": <ChangePassword />,
   "user-keys": <UserKeys />,
@@ -33,13 +30,59 @@ const areaMap = {
   "language": <LanguageSettings />,
 };
 
-type SettingsSections = keyof typeof areaMap | "";
+const settingsList = [
+  {
+    iconCode: 't53',
+    text: 'app_version',
+    selectArea: 'app-version',
+  },
+  {
+    iconCode: 't55',
+    text: 'personal_information',
+    selectArea: 'personal-information',
+  },
+  {
+    iconCode: 't52',
+    text: 'language',
+    selectArea: 'language',
+  },
+  {
+    iconCode: 't54',
+    text: 'change_password',
+    selectArea: 'change-password',
+  },
+  {
+    iconCode: 't46',
+    text: 'user_keys',
+    selectArea: 'user-keys',
+  },
+  {
+    iconCode: 't45',
+    text: 'history',
+    selectArea: 'history',
+  },
+  {
+    iconCode: 't43',
+    text: 'user_sessions',
+    selectArea: 'user-sessions',
+  },
+  {
+    iconCode: 't61',
+    text: 'pricing',
+    selectArea: 'pricing',
+  },
+  {
+    iconCode: 't09',
+    text: 'my_reports',
+    selectArea: 'my-reports',
+  },
+]
+type SettingsSections = keyof typeof areaMap | "" | string;
 
 export function Settings() {
   const { t } = useTranslation();
   const { xxl, md, lg, xl } = useBreakpoints();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { getAccountDetails } = storeAccountDetails();
   const selectedArea = useMemo(
     () => searchParams.get("sessionsSection") || "",
     [searchParams]
@@ -96,30 +139,19 @@ export function Settings() {
               <div 
                 className={`${styles.itemsList} ${md && styles.itemsListGap}`}
               >
-                <SettingsButton
-                  icon={<IconApp code="t53" size={23} color="#285E69" />}
-                  text={t("app_version")}
-                  onClick={() => {
-                    setSelectedArea("app-version");
-                  }}
-                  isSelected={selectedArea === "app-version"}
-                />
-                <SettingsButton
-                  icon={<IconApp code="t55" size={23} color="#285E69" />}
-                  text={t("personal_information")}
-                  onClick={() => {
-                    setSelectedArea("personal-information");
-                  }}
-                  isSelected={selectedArea === "personal-information"}
-                />
-                <SettingsButton
-                  icon={<IconApp code="t52" size={23} color="#285E69" />}
-                  text={t("language")}
-                  onClick={() => {
-                    setSelectedArea("language");
-                  }}
-                  isSelected={selectedArea === "language"}
-                />
+                {
+                  settingsList.slice(0,3).map((item, ind) => (
+                    <SettingsButton
+                      key={ind}
+                      icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
+                      text={t(item.text)}
+                      onClick={() => {
+                        setSelectedArea(item.selectArea);
+                      }}
+                      isSelected={selectedArea === item.selectArea}
+                    />
+                  ))
+                }
               </div>
             </div>
             <div className={styles.box} >
@@ -131,38 +163,19 @@ export function Settings() {
               <div 
                   className={`${styles.btnsWrap} ${md && styles.btnsWrapGap}`}
               >
-                <SettingsButton
-                    icon={<IconApp code="t54" size={23} color="#285E69" />}
-                    text={t("change_password")}
-                    onClick={() => {
-                      setSelectedArea("change-password");
-                    }}
-                    isSelected={selectedArea === "change-password"}
-                  />
-                  <SettingsButton
-                    icon={<IconApp code="t46" size={23} color="#285E69" />}
-                    text={t("user_keys")}
-                    onClick={() => {
-                      setSelectedArea("user-keys");
-                    }}
-                    isSelected={selectedArea === "user-keys"}
-                  />
-                  <SettingsButton
-                    icon={<IconApp code="t45" size={23} color="#285E69" />}
-                    text={t("login_and_sign_history")}
-                    onClick={() => {
-                      setSelectedArea("history");
-                    }}
-                    isSelected={selectedArea === "history"}
-                  />
-                  <SettingsButton
-                    icon={<IconApp code="t43" size={23} color="#285E69" />}
-                    text={t("user_sessions")}
-                    onClick={() => {
-                      setSelectedArea("user-sessions");
-                    }}
-                    isSelected={selectedArea === "user-sessions"}
-                  />
+                {
+                  settingsList.slice(3,7).map((item, ind) => (
+                    <SettingsButton
+                      key={ind}
+                      icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
+                      text={t(item.text)}
+                      onClick={() => {
+                        setSelectedArea(item.selectArea);
+                      }}
+                      isSelected={selectedArea === item.selectArea}
+                    />
+                  ))
+                }
               </div>
             </div>
             <div className={styles.box} >
@@ -172,28 +185,25 @@ export function Settings() {
                 {md ? t("documents_and_legal_notices") : t("documents")}
               </h2>
               <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
-                <SettingsButton
-                  icon={<IconApp code="t61" size={23} color="#285E69" />}
-                  text={t("pricing")}
-                  onClick={() => {
-                    setSelectedArea("pricing");
-                  }}
-                  isSelected={selectedArea === "pricing"}
-                />
+              {
+                  settingsList.slice(7, settingsList.length).map((item, ind) => (
+                    <SettingsButton
+                      key={ind}
+                      icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
+                      text={t(item.text)}
+                      onClick={() => {
+                        setSelectedArea(item.selectArea);
+                      }}
+                      isSelected={selectedArea === item.selectArea}
+                    />
+                  ))
+                }
                 <a href="https://gekkard.com/terms-and-conditions.html">
                   <SettingsButton
                     icon={<IconApp code="t42" size={23} color="#285E69" />}
                     text={t("terms_and_conditions")}
                   />
                 </a>
-                <SettingsButton
-                  icon={<IconApp code="t09" size={23} color="#285E69" />}
-                  text={t("my_reports")}
-                  onClick={() => {
-                    setSelectedArea("my-reports");
-                  }}
-                  isSelected={selectedArea === "my-reports"}
-                />
                 <a href="https://gekkard.com/data-protection-policy.html">
                   <SettingsButton
                     icon={<IconApp code="t42" size={23} color="#285E69" />}

@@ -35,9 +35,8 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
     const { t } = useTranslation();
 
     return (
-        <GTable.Row
-                  className={`
-                                    grid
+        <div
+                  className={`                          
                                     ${styles.Item}
                                     ${
                                       blockedCurrencies?.includes(
@@ -54,13 +53,13 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                                     ${md && styles.MobileItem}
                                     `}
                   onClick={() => onSelect(currency.$const)}
-                  customTemplateColumns={
-                    !(
-                      md && !!columnKeys.find((c) => c === AssetTableKeys.PRICE)
-                    )
-                      ? null
-                      : "1fr 0.58fr 0.6fr"
-                  }
+                  // customTemplateColumns={
+                  //   !(
+                  //     md && !!columnKeys.find((c) => c === AssetTableKeys.PRICE)
+                  //   )
+                  //     ? null
+                  //     : "1fr 0.58fr 0.6fr"
+                  // }
                 >
                   {columnKeys.map((key: string) => (
                     <div
@@ -137,6 +136,6 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                       )}
                     </div>
                   ))}
-                </GTable.Row>
+                </div>
     )
 }

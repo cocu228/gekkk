@@ -8,8 +8,10 @@ import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
 
-import manifestGekkard from "public/manifests/gekkard.webmanifest.json"
-import manifestGekkoin from "public/manifests/gekkoin.webmanifest.json"
+//@ts-ignore
+import manifestGekkard from "./public/manifests/gekkard.webmanifest.json"
+//@ts-ignore
+import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
 
 export default defineConfig(({mode}) => {
 

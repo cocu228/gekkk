@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -9,6 +10,6 @@
   },
   "include": [
     "vite.config.ts",
-    "public/manifests"
+    "public/manifests/**/*"
   ]
 }

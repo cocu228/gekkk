@@ -1,7 +1,9 @@
 {
   "name": "gekkard.front.v2",
   "private": true,
-  "version": "2.0.92",
+  "gekkard-version": "2.0.92",
+  "gekkoin-version": "2.0.1",
+  "gekwallet-version": "2.0.1",
   "type": "module",
   "workspaces": [
     "./src/shared/(orval)api",
@@ -12,14 +14,14 @@
     "check": "tsc --noEmit && echo Done.",
     "local": "APP_TYPE=GEKKARD vite --mode dev.gekkard",
     "gko-local": "cross-env APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
-    "PRD-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
-    "PRD-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
-    "STG-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode stg.gekkard",
-    "STG-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
-    "DEV-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode dev.gekkard",
-    "DEV-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
-    "PRD-GEKWALLET": "node increment-version && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode prd.gekwallet",
-    "DEV-GEKWALLET": "node increment-version && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
+    "PRD-GEKKARD": "node increment-version gekkard && tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
+    "PRD-GEKKOIN": "node increment-version gekkoin && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
+    "STG-GEKKARD": "node increment-version gekkard && tsc && cross-env APP_TYPE=GEKKARD vite build --mode stg.gekkard",
+    "STG-GEKKOIN": "node increment-version gekkoin && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode stg.gekkoin",
+    "DEV-GEKKARD": "node increment-version gekkard && tsc && cross-env APP_TYPE=GEKKARD vite build --mode dev.gekkard",
+    "DEV-GEKKOIN": "node increment-version gekkoin && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode dev.gekkoin",
+    "PRD-GEKWALLET": "node increment-version gekwallet && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode prd.gekwallet",
+    "DEV-GEKWALLET": "node increment-version gekwallet && tsc && cross-env APP_TYPE=GEKWALLET vite build --mode dev.gekwallet"
   },
   "npm": " > 8",
   "node": " > 16",

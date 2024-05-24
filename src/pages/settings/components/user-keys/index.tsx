@@ -10,6 +10,7 @@ import parseISO from "date-fns/parseISO";
 import useModal from "@/shared/model/hooks/useModal";
 import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
 import Modal from "@/shared/ui/modal/Modal";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
@@ -123,11 +124,17 @@ export function UserKeys() {
                 </div>
                 )}
             </div>
-          
+            <ModalUi 
+              isModalOpen={isModalOpen}
+              handleCancel={handleCancel}
+              title="Test title"
+            >
+              hello world
+            </ModalUi>
           <Modal
               padding
               closable={false}
-              open={isModalOpen}
+              open={false}
               title={keyToRemove?t('remove_key'):t("close_session")}
               width={400}
               footer={

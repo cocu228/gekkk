@@ -34,6 +34,7 @@
     "@headlessui/react": "^2.0.3",
     "@mui/material": "^5.14.20",
     "@stomp/stompjs": "^7.0.0",
+    "@twa-dev/sdk": "^7.0.0",
     "antd": "5.2.3",
     "axios": "^1.6.7",
     "base64url": "^3.0.1",

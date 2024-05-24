@@ -1,3 +1,5 @@
+@import "@styles/mixins.scss";
+
 
 .ModalWrap {
     background-color: #ffffff;
@@ -11,8 +13,11 @@
 }
 
 .DialogPanel {
+    border-radius: 8px;
     width: 100%;
     max-width: 400px;
+    background: #fff;
+    z-index: 160;
 }
 
 .ModalHeader {
@@ -22,4 +27,47 @@
     margin-bottom: 8px;
     align-items: center;
     color: #29354c;
+    border-bottom: 1px solid #29354C;
+    padding: 0 0 10px 10px;
+}
+
+.ModalTitle {
+    font-family: Inter;
+    color: #29354C;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.ModalOverlay {
+    background: rgba(157, 157, 157, 0.8);
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    width: 100vw;
+    overflow-y: auto;
+}
+
+.ModalBody {
+    margin-top: 15px;
+    padding: 0 10px 0 10px;
+}
+
+.ModalContainer {
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+    @include max-devices(md){
+        align-items: start;
+        padding: 40px 1rem 1rem 1rem;
+    }
+}
+
+
+.ModalFooter {
+    margin-top: 15px;
+    padding: 0 10px 0 10px;
+    width: 100%;
 }

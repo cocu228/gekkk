@@ -10,7 +10,7 @@
   "scripts": {
     "orval": "orval",
     "check": "tsc --noEmit && echo Done.",
-    "local": "set APP_TYPE=GEKKARD && vite --mode dev.gekkard",
+    "local": "APP_TYPE=GEKKARD vite --mode dev.gekkard",
     "gko-local": "cross-env APP_TYPE=GEKKOIN vite --mode dev.gekkoin",
     "PRD-GEKKARD": "node increment-version && tsc && cross-env APP_TYPE=GEKKARD vite build --mode prd.gekkard",
     "PRD-GEKKOIN": "node increment-version && tsc && cross-env APP_TYPE=GEKKOIN vite build --mode prd.gekkoin",
@@ -29,6 +29,7 @@
     "@fontsource/archivo": "^5.0.15",
     "@fontsource/azeret-mono": "^5.0.18",
     "@fontsource/inter": "^5.0.15",
+    "@headlessui/react": "^2.0.3",
     "@mui/material": "^5.14.20",
     "@stomp/stompjs": "^7.0.0",
     "antd": "5.2.3",
@@ -61,7 +62,6 @@
     "zustand": "4.3.6"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
     "@types/crypto-js": "^4.1.2",
     "@types/elliptic": "^6.4.18",
     "@types/node": "18.14.2",
@@ -70,6 +70,7 @@
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "3.1.0",
     "autoprefixer": "10.4.13",
+    "cross-env": "^7.0.3",
     "orval": "^6.19.1",
     "path": "0.12.7",
     "postcss": "^8.4.35",

@@ -124,13 +124,7 @@ export function UserKeys() {
                 </div>
                 )}
             </div>
-            <ModalUi 
-              isModalOpen={isModalOpen}
-              handleCancel={handleCancel}
-              title="Test title"
-            >
-              hello world
-            </ModalUi>
+            
           <Modal
               padding
               closable={false}

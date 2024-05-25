@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import Input from "@/shared/ui/input/Input";
 import Modal from "@/shared/ui/modal/Modal";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
@@ -177,7 +178,22 @@ const WithdrawFormCrypto = () => {
           amount={inputCurr.value.number}
         />
 
-        <Modal
+        <ModalUi
+          placeBottom
+          destroyOnClose
+          isModalOpen={isModalOpen}
+          onCancel={handleCancel}
+          // title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+          title={t("confirm_transaction")}
+        >
+          <WithdrawConfirmCrypto
+            {...inputs}
+            handleCancel={handleCancel}
+            amount={inputCurr.value.number}
+          />
+        </ModalUi>
+
+        {/* <Modal
           width={450}
           destroyOnClose
           closable={false}
@@ -190,7 +206,7 @@ const WithdrawFormCrypto = () => {
             handleCancel={handleCancel}
             amount={inputCurr.value.number}
           />
-        </Modal>
+        </Modal> */}
 
         <div className={styles.Button + 'mb-0'}>
             <div className={styles.ButtonContainerCenter}>

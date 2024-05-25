@@ -5,21 +5,24 @@ import { IconApp } from '../icons/icon-app';
 
 interface ModalProps {
     isModalOpen: boolean;
-    handleCancel: () => void;
+    onCancel: () => void;
     title: string;
-    children: ReactNode
-    footer?: ReactNode
+    children: ReactNode;
+    destroyOnClose: boolean;
+    placeBottom?: boolean
 }
 
 export const Modal:FC<ModalProps> = ({
     isModalOpen,
-    handleCancel,
+    onCancel,
     title,
     children,
-    footer
+    destroyOnClose = true,
+    placeBottom
 }) => {
     return (
-        <Transition 
+        <Transition
+            unmount={destroyOnClose}
             enter="linear duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -29,33 +32,27 @@ export const Modal:FC<ModalProps> = ({
             appear 
             show={isModalOpen}
         >
-            <Dialog as="div" className="relative z-[150] focus:outline-none" onClose={handleCancel}>
-                <div className={styles.ModalOverlay}>
-                    <div className={styles.ModalContainer}>
+            <Dialog as="div" unmount={destroyOnClose} className="relative z-[150] focus:outline-none" onClose={onCancel}>
+                <div className={styles.Modal}>
+                    <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
                     <TransitionChild
+                        unmount={destroyOnClose}
                         enter="ease-out duration-300"
-                        enterFrom="opacity-0 transform-[scale(95%)]"
-                        enterTo="opacity-100 transform-[scale(100%)]"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
                         leave="ease-in duration-200"
-                        leaveFrom="opacity-100 transform-[scale(100%)]"
-                        leaveTo="opacity-0 transform-[scale(95%)]"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
                     >
                         <DialogPanel className={styles.DialogPanel} >
                             <div className={styles.ModalWrap}>
                                 <div className={styles.ModalHeader}>
                                     <span className={styles.ModalTitle}>{title}</span>
-                                    <IconApp onClick={handleCancel} code='t26' className='cursor-pointer' size={20} color='#7B797C' />
+                                    <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
                                 </div>
                                 <div className={styles.ModalBody}>
                                     {children}
                                 </div>
-                                {
-                                    footer && (
-                                        <div className={styles.ModalFooter}>
-                                            {footer}
-                                        </div>
-                                    )
-                                }
                             </div>
                         </DialogPanel>
                     </TransitionChild>

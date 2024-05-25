@@ -193,21 +193,6 @@ const WithdrawFormCrypto = () => {
           />
         </ModalUi>
 
-        {/* <Modal
-          width={450}
-          destroyOnClose
-          closable={false}
-          open={isModalOpen}
-          onCancel={handleCancel}
-          title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
-        >
-          <WithdrawConfirmCrypto
-            {...inputs}
-            handleCancel={handleCancel}
-            amount={inputCurr.value.number}
-          />
-        </Modal> */}
-
         <div className={styles.Button + 'mb-0'}>
             <div className={styles.ButtonContainerCenter}>
                 <Button

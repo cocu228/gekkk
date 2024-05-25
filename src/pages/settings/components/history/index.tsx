@@ -27,7 +27,7 @@ export function LoginAndSignHistory() {
            </>)
         }
         {!loginLogList.length && (
-            <div className='relative mt-32 min-h-[70px]'>
+            <div className='relative w-full mt-32 flex justify-center min-h-[70px]'>
                 <Loader/>
             </div>
         )}

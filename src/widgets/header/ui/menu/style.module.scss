@@ -10,17 +10,17 @@
   background-color: transparent;
   width: 100%;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 6px;
+  width: 214px;
 
   &:global(.active) {
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.1);
-    background-color: hsla(0, 0%, 93%);
+    background-color: var(--gek-light-grey);
     max-height: 700px;
-    border: 1px solid var(--color-gray-400);
   }
   @include max-devices(md){
     &:global(.active){
-      background-color: hsla(0, 0%, 93%);
+      background-color: var(--gek-light-grey);
     }
   }
 }
@@ -33,7 +33,8 @@
   color: var(--Dark-blue, var(--gek-dark-blue));
   font-size: 12px;
   font-weight: 600;
-  padding: 12px 12px;
+  padding: 3px 12px;
+  align-items: center;
 
   &.SelectedAccount {
     border: 1px solid var(--color-green);
@@ -78,11 +79,8 @@
 }
 
 .Icon{
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: #FFFFFF;
-  box-shadow: 0px 0px 4px 0px rgba(247, 247, 240, 0.50) inset, 5px 3px 10px 0px rgba(255, 255, 255, 0.05) inset;
-  border: 1px solid var(--Strokes-2, rgba(238, 238, 238, 0.65));
+  display: flex;
+  align-items: center;
 }
 
 .CurrentIcon{

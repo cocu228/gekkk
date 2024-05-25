@@ -16,6 +16,7 @@ import { IconApp } from "@/shared/ui/icons/icon-app";
 import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 
 const hClassName = new HelperClassName(styles)
+
 export const ItemAccount = ({active = false, number, name}: Partial<{
     active: boolean;
     number: string;
@@ -27,7 +28,7 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
         <div className={styles.AccountItem}>
             <div className={styles.AccountItemText}>
                 <div className={styles.Icon}>
-                    <IconApp code="t24" color="var(--gek-additional)" size={37} />
+                    <IconApp code="t24" color={active ? "var(--gek-dark-blue)" : "var(--gek-additional)"} size={30} />
                 </div>
                 <div className={styles.AccountInfo}>
                     <span className={styles.AccountName}>{name}</span>
@@ -54,7 +55,7 @@ export const ItemOrganization = ({active = false, name, number}: Partial<{
         return(
             <div className={styles.AccountItem}>
                 <div className={styles.Icon +" "+ styles.OrganizationIcon}>
-                    <img src={OrganizationMobileIcon}/>
+                    <IconApp code="t48" color={active ? "var(--gek-dark-blue)" : "var(--gek-additional)"} size={30}/>
                 </div>
                 <div className={styles.AccountInfo}>
                     <span>{name}</span>

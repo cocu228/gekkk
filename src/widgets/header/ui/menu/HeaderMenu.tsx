@@ -45,8 +45,8 @@ const HeaderMenu = ({
         >
           {children}
           <div className={`${styles.DropdownMenu} ${isActive ? "active" : ""}`}>
-            <div className="flex justify-end gap-2 px-2 py-1">
-              <span className="text-primary" data-testid="Accounts">
+            <div className="flex justify-end items-center gap-2 px-2 py-1">
+              <span className="text-[var(--gek-additional)] md:text-[12px] font-semibold" data-testid="Accounts">
                 {t("update")}
               </span>
 
@@ -68,8 +68,8 @@ const HeaderMenu = ({
                   className={`${styles.DropdownItem} ${item.id === account?.number ? styles.SelectedAccount : ""} h-full gap-[3%]`}
                   onClick={() => dropdownMenuFunctions.onAction(item.action)}
                 >
-                  {item.icon}
-                  {item.item}
+                  {item.icon && <div>{item.icon}</div>}
+                  <span className="text-[var(--gek-dark-blue)]">{item.item}</span>
                 </button>
               );
             })}

@@ -72,59 +72,61 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
             <RoomItem key={i} room={r} isActive={r.timetick === active?.timetick} />
           ))
         }
-        {
-          !active ? (
-            <DropdownCItem
-              className="w-full min-w-[214px] bg-[#EDEDED]"
-              onClick={roomModal.showModal}
-            >
-              <div className="flex justify-between items-center w-full">
-                <span className="font-semibold text-[#1F3446]">
-                  {t("exchange.new_room")}
-                </span>
-                <IconApp size={22} color="var(--gek-additional)" code="t35" />
-              </div>
-            </DropdownCItem>
-          ) : (
-            <>
+        <div className={styles.LastButtons}>
+          {
+            !active ? (
               <DropdownCItem
-                className="w-full min-w-[214px] bg-[#EDEDED]"
+                className="w-full min-w-[214px] bg-[var(--gek-light-grey)]"
                 onClick={roomModal.showModal}
               >
                 <div className="flex justify-between items-center w-full">
                   <span className="font-semibold text-[#1F3446]">
-                    {t("invite_link")}
+                    {t("exchange.new_room")}
                   </span>
-                  <IconApp size={22} color="var(--gek-additional)" code='t34' />
+                  <IconApp size={22} color="var(--gek-additional)" code="t35" />
                 </div>
               </DropdownCItem>
-              <DropdownCItem
-                className="w-full min-w-[214px] border-b-1 border-[var(--gek-additional)] bg-[#EDEDED]"
-                onClick={roomCloseModal.showModal}
-              >
-                <div className="flex justify-between items-center w-full">
-                  <span className="font-semibold text-[var(--gek-red)]">
-                    {t("close_current_room")}
-                  </span>
-                  <div className={styles.CloseWrap}>
-                    <IconApp size={20} color="var(--gek-red)" code="t69" />
+            ) : (
+              <>
+                <DropdownCItem
+                  className="w-full min-w-[214px] bg-[#EDEDED]"
+                  onClick={roomModal.showModal}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[#1F3446]">
+                      {t("invite_link")}
+                    </span>
+                    <IconApp size={22} color="var(--gek-additional)" code='t34' />
                   </div>
-                </div>
-              </DropdownCItem>
-              <DropdownCItem
-                className="w-full min-w-[214px] bg-[#EDEDED]"
-                onClick={() => navigate("/exchange")}
-              >
-                <div className="flex justify-between items-center w-full">
-                  <span className="font-semibold text-[#1F3446]">
-                    {t("back_to_exchange")}
-                  </span>
-                  <IconApp code='t20' size={22} color="var(--gek-additional)" />
-                </div>
-              </DropdownCItem>
-            </>
-          ) 
-        }
+                </DropdownCItem>
+                <DropdownCItem
+                  className="w-full min-w-[214px] border-b-1 border-[var(--gek-additional)] bg-[#EDEDED]"
+                  onClick={roomCloseModal.showModal}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[var(--gek-red)]">
+                      {t("close_current_room")}
+                    </span>
+                    <div className={styles.CloseWrap}>
+                      <IconApp size={20} color="var(--gek-red)" code="t69" />
+                    </div>
+                  </div>
+                </DropdownCItem>
+                <DropdownCItem
+                  className="w-full min-w-[214px] bg-[#EDEDED]"
+                  onClick={() => navigate("/exchange")}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <span className="font-semibold text-[#1F3446]">
+                      {t("back_to_exchange")}
+                    </span>
+                    <IconApp code='t20' size={22} color="var(--gek-additional)" />
+                  </div>
+                </DropdownCItem>
+              </>
+            )
+          }
+        </div>
       </DropdownC>
 
       <ModalC
@@ -136,7 +138,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         }
       >
         {active ? (
-          <InviteLink roomInfo={active} />
+          <InviteLink onClose={roomModal.handleCancel} roomInfo={active} />
         ) : (
           <CreateRoom
             to={to}
@@ -163,7 +165,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         width={450}
         active={roomCloseModal.isModalOpen}
         onClose={roomCloseModal.handleCancel}
-        title={t("invite_link")}
+        title={t("close_current_room")}
       >
         <div className="pt-5 text-sm">
           {active

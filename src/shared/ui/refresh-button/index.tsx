@@ -15,7 +15,7 @@ const RefreshButton = ({ calloutFunc }: { calloutFunc: (e?: React.MouseEvent<HTM
     return (
         <span className={`cursor-pointer ${styles.UpdateBtn} ${isActiveClass(active)}`}
             onClick={(e) => onClick(e)}>
-            <IconApp size={20} code="t01" color="#285E69" />
+            <IconApp size={18} code="t01" color="var(--gek-additional)" />
         </span>
     );
 }

@@ -67,8 +67,8 @@ const Header = () => {
                     },
                     style: {
                         backgroundColor: "#FFF",
-                        borderRadius: "6px",
-                        marginBottom: "3px"
+                        borderRadius: "8px",
+                        marginBottom: "1px"
                     },
                 })
             })

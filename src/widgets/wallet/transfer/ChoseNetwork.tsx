@@ -78,7 +78,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                 {t("not_a_single_option_aviable", {do: withdraw ? t("to_withdraw") : t("top_up")})}
                                 {!currencies.get($const).flags[CurrencyFlags.ExchangeAvailable]
                                     ? null
-                                    : (<span> {t("or_create")} 
+                                    : (<span> {t("or_create") + " "} 
                                             <span
                                                 className='text-blue-400 hover:cursor-pointer hover:underline'
                                                 onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}

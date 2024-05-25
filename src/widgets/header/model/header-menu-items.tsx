@@ -5,6 +5,7 @@ import {THeaderMenuList} from "@/widgets/header/model/types";
 
 
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import Button from "@/shared/ui/button/Button";
 
 /**
 * @param t translation function
@@ -18,7 +19,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value:"settings"
             },
-            icon: <IconApp size={18} color="#285E69" code="t13" />
+            icon: <IconApp size={18} color="var(--gek-additional)" code="t13" />,
+            style: {
+                padding: "12px 12px"
+            }
         },
         {
             item: t("payment_cards"),
@@ -27,7 +31,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: mobile ? "card-menu" : "wallet?currency=EUR&tab=bank_cards"
             },
-            icon: <IconApp size={18} color="#285E69" code="t22" />
+            icon: <IconApp size={18} color="var(--gek-additional)" code="t22" />,
+            style: {
+                padding: "12px 12px"
+            }
         },
         {
             item: <GekkoinInvestPlatform/>,
@@ -36,7 +43,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp color="#285E69" size={18} code="t21" />
+            icon: <IconApp color="var(--gek-additional)" size={18} code="t21" />,
+            style: {
+                padding: "12px 12px"
+            }
         },
         {
             item: t('header_menu.support'),
@@ -45,7 +55,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "support",
             },
-            icon:<IconApp color="#285E69" size={18} code="t25" />
+            icon:<IconApp color="var(--gek-additional)" size={18} code="t25" />,
+            style: {
+                padding: "12px 12px"
+            }
         },
         ('Notification' in window && Notification?.permission === 'granted' ? null : {
             item: <EnableNotifications/>,
@@ -54,7 +67,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp color="#285E69" size={20} code="t23" />
+            icon: <IconApp color="var(--gek-additional)" size={20} code="t23" />,
+            style: {
+                padding: "12px 12px"
+            }
         }),
         {
             item: t('header_menu.partnership'),
@@ -63,7 +79,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "partnership-program",
             },
-            icon: <IconApp color="#285E69" size={17} code="t17" />
+            icon: <IconApp color="var(--gek-additional)" size={17} code="t17" />,
+            style: {
+                padding: "12px 12px"
+            }
         },
         {
             item: <PromoCodeModal/>,
@@ -72,7 +91,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: null,
                 value: null,
             },
-            icon: <IconApp color="#285E69" size={20} code="t18" />
+            icon: <IconApp color="var(--gek-additional)" size={20} code="t18" />,
+            style:{
+                padding: "12px 12px"
+            }
         },
         {
             item: t(''),
@@ -81,12 +103,16 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "link",
                 value: "gekkard-pro",
             },
-            icon:<button className="flex text-sm font-normal border bg-[var(--gek-dark-blue)] text-[var(--gek-background)] transition-[0.2s] cursor-pointer shadow-[0px_0px_4px_0px_rgba(195,195,195,0.50)_inset] px-6 py-1.5 rounded-lg border-solid border-[var(--gek-dark-blue)]">{t("get_gekkard_pro")}</button>,
+            icon:<Button 
+                    className="!bg-[var(--gek-dark-blue)] !h-[32px] !text-[12px] min-w-[150px] !font-semibold !max-w-[170px]">
+                        {t("get_gekkard_pro")}
+                </Button>,
             style:{
                 display:'flex',
                 justifyContent:"center",
                 width:"100%",
-                alignSelf:"center"
+                alignSelf:"center",
+                padding: "12px 12px"
             }
         },
         {
@@ -96,9 +122,10 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 type: "logout",
                 value: null,
             },
-            icon: <IconApp size={20} code="t20" color="#285E69" />,
+            icon: <IconApp size={20} code="t20" color="var(--gek-additional)" />,
             style: {
-                borderTop: "1px solid var(--color-gray-400)"
+                borderTop: "1px solid var(--gek-dark-blue)",
+                padding: "12px 12px"
             }
         },
     ]

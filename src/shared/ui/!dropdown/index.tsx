@@ -7,10 +7,11 @@ interface DropdownProps {
     isOpen?: boolean,
     onOpen?: (value: boolean) => void | undefined,
     trigger: React.ReactNode,
-    children: ReactNode
+    children: ReactNode,
+    customBodyClassName?: string,
 }
 
-export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position}) => {
+export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position, customBodyClassName}) => {
     const [opened, setOpened] = useState(false)
     const bodyRef = useRef(null)
 
@@ -31,12 +32,12 @@ export const Dropdown:FC<DropdownProps> = ({trigger, children, isOpen, position}
     useOutsideAlerter(bodyRef);
 
     return (
-        <div ref={bodyRef} className={style.DropdownWrap}>
+        <div ref={bodyRef} className={`${style.DropdownWrap}`}>
              <div className={style.DropdownTriggerWrap}  >
                 <div className={style.DropdownTrigger} onClick={() => setOpened(!opened)} >
                     {trigger}
                 </div>
-                <div onClick={() => setOpened(false)} className={`${style.DropdownBody} ${position === 'right' && style.DropdownBodyRight} ${opened && style.DropdownBodyActive}`}>
+                <div onClick={() => setOpened(false)} className={`${style.DropdownBody} ${customBodyClassName} ${position === 'right' && style.DropdownBodyRight} ${opened && style.DropdownBodyActive}`}>
                     {children}
                 </div>
             </div>

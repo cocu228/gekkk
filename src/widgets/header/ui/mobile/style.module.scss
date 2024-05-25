@@ -124,3 +124,10 @@
     fill: var(--gek-additional);
   }
 }
+
+.DropdownBody {
+
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0px !important;
+}

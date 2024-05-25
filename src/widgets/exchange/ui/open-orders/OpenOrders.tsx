@@ -168,7 +168,7 @@ function OpenOrders({ refreshKey }: IParams) {
 
         {activeTab === TabKey.CLOSED && 
           <button 
-            className="absolute right-[20px]"
+            className="absolute right-[5px]"
             onClick={()=>{setCustomOrders(n=>!n)}}
           >
             <IconApp size={15} code="t30" color="var(--gek-dark-blue)"/>

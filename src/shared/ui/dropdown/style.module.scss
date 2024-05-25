@@ -1,13 +1,19 @@
+@import "@styles/mixins.scss";
+
 .DropdownContent {
   padding: 0.3rem 0;
   border-radius: 0.25rem;
-  border: 1px solid var(--color-secondary);
-  background: var(--color-bgPrimary);
+  // border: 1px solid var(--color-secondary);
   box-shadow: var(--dropdown-shadow);
 
   :global(.ant-dropdown-menu) {
     padding: 0;
 
+    :global(.exchange){
+      background: transparent;
+      box-shadow: none;
+
+    }
     :global(.ant-dropdown-menu-item) {
       padding: 0;
 

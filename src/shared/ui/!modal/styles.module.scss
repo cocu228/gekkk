@@ -63,7 +63,7 @@
     padding: 20px 24px;
     box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    color: #29354c;
+    color: var(--gek-dark-blue);
     width: 100%;
 }
 
@@ -73,5 +73,7 @@
     justify-content: space-between;
     margin-bottom: 8px;
     align-items: center;
-    color: #29354c;
+    color: var(--gek-dark-blue);
+    border-bottom: 1px solid var(--gek-dark-blue);
+    padding: 0 0 10px 10px;
 }

@@ -62,7 +62,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                                 className='text-[var(--gek-green)] hover:cursor-pointer underline'
                                                 onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                             >
-                                                {withdraw ? t("sell") : t("buy")} {t("order")}
+                                                {withdraw ? t("sell").toLowerCase() : t("buy").toLowerCase()} {t("order")}
                                             </span>.
                                         </span>
                                     )
@@ -83,7 +83,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                                 className='text-blue-400 hover:cursor-pointer hover:underline'
                                                 onClick={() => navigate(`/exchange?${withdraw ? 'from' : 'to'}=${$const}`)}
                                             >
-                                                {withdraw ? t("sell") : t("buy")} {t("order")}
+                                                {withdraw ? t("sell").toLowerCase() : t("buy").toLowerCase()} {t("order")}
                                             </span>.
                                         </span>
                                     )

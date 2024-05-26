@@ -44,7 +44,7 @@ const About = ({description}: IParams) => {
             </div>
 
             {isEUR ? null : (
-                <div className={`grid gap-5 grid-cols-2 mt-10 ${!md ? "max-w-[320px]" : ""}`}>
+                <div className={`w-full flex flex-row justify-center gap-5 mt-10`}>
                     <Button
                         skeleton
                         color="gray"

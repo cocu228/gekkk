@@ -1469,7 +1469,9 @@
     "failed": "Fehlgeschlagen", 
     "canceled": "Abgebrochen",
     "finished": "Beendet",
-    "select_type": "Typ auswählen"
+    "select_type": "Typ auswählen",
+    "enter_your_online_bank_password_to_confirm_new_card_order": "Geben Sie Ihr Online-Bankpasswort ein, um die Bestellung einer neuen Karte zu bestätigen"
+
 
 
 

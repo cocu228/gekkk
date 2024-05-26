@@ -28,7 +28,7 @@
         padding: 1rem;
     
         @media screen and (max-width: 768px) {
-            align-items: start;
+            align-items: flex-start;
             padding: 40px 1rem 1rem 1rem;
         }
 
@@ -61,14 +61,14 @@
         justify-content: space-between;
         margin-bottom: 8px;
         align-items: center;
-        color: #29354c;
-        border-bottom: 1px solid #29354C;
+        color: var(--gek-dark-blue);
+        border-bottom: 1px solid var(--gek-dark-blue);
         padding: 0 0 10px 10px;
     }
 
     &Title {
         font-family: Inter;
-        color: #29354C;
+        color: var(--gek-dark-blue);
         font-weight: 600;
         font-size: 14px;
     }

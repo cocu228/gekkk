@@ -38,10 +38,10 @@ export function IssueNewCard() {
                             placeholder={t("select_type") + "..."}
                             value={t(state.cardType.toLowerCase())}
                             options={[{
-                                label: 'Virtual',
+                                label: t("virtual"),
                                 value: 'virtual',
                             }, {
-                                label: 'Plastic',
+                                label: t("plastic"),
                                 value: 'plastic',
                             }]}
                             onSelect={(e) => setState({

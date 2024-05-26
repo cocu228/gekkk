@@ -33,7 +33,7 @@ export const ModalC:FC<ModalCProps> = ({title, children, active, onClose, fullWi
                 <div className={style.ModalContent} style={{padding: sidesPadding && '40px'}} >
                     <div className={style.ModalHeader}>
                         {title}
-                        <IconApp onClick={closeHandler} code='t69' size={30} color='#bdc3c7' />
+                        <IconApp onClick={closeHandler} className='cursor-pointer' code='t26' size={20} color='var(--gek-dark-grey)' />
                     </div>
                     <div style={{padding: padding && '0 0 0 20px'}} >
                         {children}

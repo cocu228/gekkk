@@ -6,7 +6,6 @@ import path from "path";
 import svgr from 'vite-plugin-svgr';
 // import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
-import basicSsl from '@vitejs/plugin-basic-ssl';
 
 import manifestGekkard from "./public/manifests/gekkard.webmanifest.json"
 import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
@@ -89,7 +88,6 @@ export default defineConfig(({mode}) => {
                 },
             }),
             svgr(),
-            basicSsl(), 
 
             // PWA plugin
             // VitePWA({

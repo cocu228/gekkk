@@ -202,7 +202,7 @@ export const GekkoinInvestPlatform = () => {
                     <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button
-                                size="lg"
+                                size="md"
                                 onClick={onClick}
                                 className="w-full"
                             >{t("confirm")}</Button>}

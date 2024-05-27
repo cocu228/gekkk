@@ -146,7 +146,9 @@ const History = memo(function ({
     ) : (<>
       <div id={"History"} className={`${styles.Container} ${className}`}>
         {!listHistory.length ? (
-          <span>{t("no_have_any_transaction")}</span>
+          <span className={styles.NoTransactions}>
+            {t("no_have_any_transaction")}
+          </span>
         ) : listHistory.map((item, index) => {
           const doesPrevDateTimeExist = listHistory[index - 1]?.datetime !== undefined;
 

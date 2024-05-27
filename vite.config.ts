@@ -1,15 +1,10 @@
 import {defineConfig, loadEnv} from 'vite';
 import {createHtmlPlugin} from 'vite-plugin-html';
-// import tailwindcss from 'tailwindcss'
 import react from '@vitejs/plugin-react';
 import path from "path";
 import svgr from 'vite-plugin-svgr';
-// import {splitVendorChunkPlugin} from 'vite'
 import {nodePolyfills} from 'vite-plugin-node-polyfills'
-
-import manifestGekkard from "./public/manifests/gekkard.webmanifest.json"
-import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
-import manifestGekwallet from "./public/manifests/gekwallet.webmanifest.json"
+import {copy} from 'vite-plugin-copy';
 
 export default defineConfig(({mode}) => {
     const getVersion = (appType: string | undefined) => {
@@ -91,40 +86,14 @@ export default defineConfig(({mode}) => {
                 },
             }),
             svgr(),
-
-            // PWA plugin
-            // VitePWA({
-            //     //@ts-ignore
-            //     manifest: isGekwallet ?
-            //         manifestGekwallet : isGekkoin ?
-            //             manifestGekkoin : manifestGekkard,
-            //     injectRegister: null,
-            // }),
-
-            // VitePWA({
-            //     registerType: 'autoUpdate',
-            //     // includeAssets: ['**/*'],
-            //     workbox: {
-            //         maximumFileSizeToCacheInBytes: 20000000,
-            //         // globPatterns: ['**/*'],
-            //         globPatterns: ['**/*.{js,css,html,json,webmanifest}'],
-            //         // runtimeCaching: [
-            //         //     {
-            //         //         urlPattern: ({url}) => {
-            //         //             // console.log(url)
-            //         //             // return !!url.pathname.startsWith("/")
-            //         //         },
-            //         //         handler: "StaleWhileRevalidate",
-            //         //         options: {
-            //         //             cacheName: "MyCache"
-            //         //         }
-            //         //     }
-            //         // ]
-            //     },
-            //     devOptions: {
-            //         enabled: true
-            //     }
-            // })
+            copy([{
+                src: isGekkoin
+                    ? './public/manifests/gekkoin/gekkoin.webmanifest.json'
+                    : isGekwallet
+                        ? './public/manifests/gekwallet/gekwallet.webmanifest.json'
+                        : './public/manifests/gekkard/gekkard.webmanifest.json',
+                dest: './public/',
+            }]),
             nodePolyfills({
                 globals: {
                     Buffer: true, // can also be 'build', 'dev', or false

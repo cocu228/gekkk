@@ -63,6 +63,7 @@
     "sha256-uint8array": "^0.10.7",
     "usehooks-ts": "2.9.1",
     "uuid": "^9.0.1",
+    "vite-plugin-copy": "^0.1.6",
     "zustand": "4.3.6"
   },
   "devDependencies": {

@@ -39,9 +39,7 @@ const CreateTransferCode = () => {
     const [checkbox, setCheckbox] = useState(false);
     const [newCode, setNewCode] = useState("");
     const {setRefresh} = useContext(CtxRootData);
-
-    const getListTxCode = storeListTxCode(state => state.getListTxCode);
-    const [localErrorHunter, , localErrorInfoBox] = useError();
+    const {getListTxCode, listTxCode} = storeListTxCode(state => state);
 
     const [isHelpClicked, setIsHelpClicked] = useState<boolean>(false)
 
@@ -62,7 +60,6 @@ const CreateTransferCode = () => {
             await getListTxCode()
             setLoading(false)
         }).reject((error) => {
-            localErrorHunter(error)
             setLoading(false)
         })
     }
@@ -84,14 +81,16 @@ const CreateTransferCode = () => {
                 <CreateCode/>
             </ModalC>
         </div>
-        <div className="row mb-2">
-            <h3 className="text-lg font-bold">
-                {t("unredeemed_codes_info")}
-            </h3>
-        </div>
-        <div className="row">
-            <TransferTableCode isOwner/>
-        </div>
+        {listTxCode.length > 0 && <>
+            <div className="row mb-2">
+                <h3 className="text-lg font-bold">
+                    {t("unredeemed_codes_info")}
+                </h3>
+            </div>
+            <div className="row">
+                <TransferTableCode isOwner/>
+            </div>
+        </>}
     </div> : <div>
         <div className="row">
             <div className="col">
@@ -276,14 +275,16 @@ const CreateTransferCode = () => {
                 <CreateCode onClose={()=>{handleCancel();setNewCode("")}} inputCurrMobile={inputCurr} code={newCode}/>
             </ModalC>
         </div>
-        <div className="row mb-2">
-            <h3 className="text-lg font-bold">
-                {t("unredeemed_codes_info")}
-            </h3>
-        </div>
-        <div className="row">
-            <TransferTableCode isOwner/>
-        </div>
+        {listTxCode.length > 0 && <>
+            <div className="row mb-2">
+                <h3 className="text-lg font-bold">
+                    {t("unredeemed_codes_info")}
+                </h3>
+            </div>
+            <div className="row">
+                <TransferTableCode isOwner/>
+            </div>
+        </>}
     </div>
 }
 

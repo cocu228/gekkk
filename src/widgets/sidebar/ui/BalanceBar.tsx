@@ -57,7 +57,10 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                         : !activeCards ? ""
                             : activeCards?.length === 0 ? (
                                 <Carousel>
-                                    <div onClick={() => navigate('/wallet?currency=EUR&tab=bank_cards&new')}>
+                                    <div onClick={() => navigate(md
+                                        ? '/card-menu'
+                                        : '/wallet?currency=EUR&tab=bank_cards')
+                                    }>
                                         <NewBankCard />
                                     </div>
                                 </Carousel>

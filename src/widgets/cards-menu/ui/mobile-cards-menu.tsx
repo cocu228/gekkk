@@ -385,7 +385,7 @@ const MobileCardsMenu = ({
               <div className={styles.InfoBtnWrap}>
                 <Button
                   color="blue"
-                  className="w-[70px]"
+                  className="!w-[59px] !h-[27px] !text-[10px] !rounded-[5px]"
                   onClick={() => {
                     setSelectedItem("f");
                     confirmationModal.handleCancel();
@@ -480,7 +480,7 @@ const MobileCardsMenu = ({
           />
 
           <a
-            className={`${styles.link} typography-b1`}
+            className={`${styles.link}`}
             onClick={(e) => {
               e.preventDefault();
               setSelectedItem("how-it-works");

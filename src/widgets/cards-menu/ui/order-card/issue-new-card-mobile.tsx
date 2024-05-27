@@ -121,7 +121,8 @@ export function IssueNewCardMobile() {
             </div>
             
             <div className={styles.mobIssueFooter}>
-                <Button 
+                <Button
+                    className='w-full'
                     color="green"
                     onClick={() => {
                         setStep('ConfirmationNewCard');
@@ -129,7 +130,13 @@ export function IssueNewCardMobile() {
                 >
                     {t("proceed")}
                 </Button>
-                <Button skeleton color='gray' onClick={close}>
+                <Button 
+                    className='w-full'
+                    skeleton 
+                    size='md' 
+                    color='green' 
+                    onClick={close}
+                >
                     {t("back")}
                 </Button>
             </div>

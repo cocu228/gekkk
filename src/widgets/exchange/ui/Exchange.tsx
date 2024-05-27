@@ -303,7 +303,7 @@ function Exchange() {
               </div>
             </div>
 
-            <div className="mt-4 md:mx-[10px]">
+            <div className="mt-4 md:mx-4">
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
@@ -382,17 +382,21 @@ function Exchange() {
               </div>
             </ModalC>
           </div>
-          <div className={styles.DeskHistoryWrap}>
+          {!md && (
+            <div className={styles.DeskHistoryWrap}>
               <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
               <History currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
-          </div>
+            </div>
+          )}
       </div>
+
       {md && (
         <div className="w-full rounded-lg">
           <span className="text-[12px] block ml-[19px] mt-[2px] text-[#29354C] font-bold">{t('last_transactions')}</span>
-          <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
+          <History className="mx-4 mb-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
+      
       <ModalC
         padding
         width={500}

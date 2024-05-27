@@ -29,13 +29,13 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
                     <IconApp code="t24" color={active ? "var(--gek-dark-blue)" : "var(--gek-additional)"} size={30} />
                 </div>
                 <div className={styles.AccountInfo}>
-                    <span className={styles.AccountName}>{name}</span>
+                    <span className={styles.AccountName}>{/*name*/}Tatiana Veretennikova</span>
                     <span className={styles.AccountNumber}>{getFormattedIBAN(number)}</span>
                 </div>
             </div>
             {active && (
                 <div className={styles.CurrentIcon}>
-                    <IconApp code="t47" color="var(--gek-green)" size={25} />
+                    <IconApp code="t47" color="var(--gek-green)" size={15} />
                 </div>
             )}
         </div>

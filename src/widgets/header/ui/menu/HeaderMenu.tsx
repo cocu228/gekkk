@@ -69,7 +69,7 @@ const HeaderMenu = ({
                   onClick={() => dropdownMenuFunctions.onAction(item.action)}
                 >
                   {item.icon && <div>{item.icon}</div>}
-                  <span className="text-[var(--gek-dark-blue)]">{item.item}</span>
+                  <span className="text-[var(--gek-dark-blue)] w-full">{item.item}</span>
                 </button>
               );
             })}

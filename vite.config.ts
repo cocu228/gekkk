@@ -88,10 +88,10 @@ export default defineConfig(({mode}) => {
             svgr(),
             copy([{
                 src: isGekkoin
-                    ? './public/manifests/gekkoin/gekkoin.webmanifest.json'
+                    ? './public/manifests/gekkoin/site.webmanifest'
                     : isGekwallet
-                        ? './public/manifests/gekwallet/gekwallet.webmanifest.json'
-                        : './public/manifests/gekkard/gekkard.webmanifest.json',
+                        ? './public/manifests/gekwallet/site.webmanifest'
+                        : './public/manifests/gekkard/site.webmanifest',
                 dest: './public/',
             }]),
             nodePolyfills({

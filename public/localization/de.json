@@ -758,6 +758,7 @@
     "total_amount": "Gesamtbetrag",
     "fee_is_perc": "Die Gebühr beträgt",
     "per_transaction": "pro Transaktion",
+    "fee_is": "Gebühr ist",
     "loading": "Laden",
     "purpose": "Zweck",
     "withdraw_confirmation": "Abhebungsbestätigung",

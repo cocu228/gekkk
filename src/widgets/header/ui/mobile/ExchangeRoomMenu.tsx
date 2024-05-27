@@ -13,7 +13,7 @@ import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
-import { ModalC } from "@/shared/ui/!modal";
+import { Modal } from "@/shared/ui/ModalUi/Modal";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();
@@ -129,10 +129,9 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
         </div>
       </DropdownC>
 
-      <ModalC
-        width={450}
-        active={roomModal.isModalOpen}
-        onClose={roomModal.handleCancel}
+      <Modal
+        isModalOpen={roomModal.isModalOpen}
+        onCancel={roomModal.handleCancel}
         title={
           active ? t("invite_link") : t("exchange.open_private_exchange_room")
         }
@@ -159,12 +158,11 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
             onFromCurrencyChange={(value) => setFrom({ ...from, currency: value })}
           />
         )}
-      </ModalC>
+      </Modal>
 
-      <ModalC
-        width={450}
-        active={roomCloseModal.isModalOpen}
-        onClose={roomCloseModal.handleCancel}
+      <Modal
+        isModalOpen={roomCloseModal.isModalOpen}
+        onCancel={roomCloseModal.handleCancel}
         title={t("close_current_room")}
       >
         <div className="pt-5 text-sm">
@@ -198,7 +196,7 @@ export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
             {t("close_private_exchange_room")}
           </Button>
         </div>
-      </ModalC>
+      </Modal>
     </div>
   );
 };

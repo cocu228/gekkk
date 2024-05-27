@@ -1,7 +1,7 @@
-import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import React, {memo, useCallback, useState} from "react";
 import {CtxModalTrxResult, ITrxResultModalInfo} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 export default memo(function ({children}: { children: React.ReactNode }): JSX.Element | null {
     const {showModal, isModalOpen, handleCancel} = useModal();
@@ -31,14 +31,13 @@ export default memo(function ({children}: { children: React.ReactNode }): JSX.El
         setContent: setContent,
     }}>
         {children}
-        <Modal
-            width={450}
-            open={isModalOpen}
+        <ModalUi
+            isModalOpen={isModalOpen}
             title={state.title}
             onCancel={closeContent}
-            className="max-h-[500px]"
+            placeBottom={window.innerWidth<768}
         >
             {state.content}
-        </Modal>
+        </ModalUi>
     </CtxModalTrxResult.Provider>
 });

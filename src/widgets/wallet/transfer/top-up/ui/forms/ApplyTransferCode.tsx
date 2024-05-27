@@ -5,7 +5,7 @@ import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-cod
 import {apiApplyCode} from "@/shared/(orval)api/gek";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
@@ -14,7 +14,6 @@ import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import {TxCodesOut} from "@/shared/(orval)api/gek/model";
 import TransferCodeDescription from "@/widgets/wallet/transfer/components/transfer-code/TransferCodeDescription";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { validateInput } from "@/shared/ui/input/model/helpers";
 import styles from "./style.module.scss"
@@ -103,8 +102,8 @@ const ApplyTransferCode = () => {
                     {t("apply")}
                 </Button>
 
-                <Modal closable={false} padding title={<ModalTitle handleCancel={handleCancel} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}/>}
-                           onCancel={handleCancel} open={isModalOpen}>
+                <ModalUi placeBottom={window.innerWidth < 768} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
+                           onCancel={handleCancel} isModalOpen={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
                             <CodeTxInfo applyTxCodeInfoBox={applyTxCodeInfoBox} code={input} onBtnApply={onBtnApply}/> :
@@ -127,7 +126,7 @@ const ApplyTransferCode = () => {
                                     </div>
                                 </div>
                             </>}
-                    </Modal>
+                    </ModalUi>
             </div>
         </div>
         <div className={styles.TransferTableContainer}>

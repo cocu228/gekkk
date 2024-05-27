@@ -863,6 +863,7 @@
     "the_minimum_to_withdraw": "The minimum to withdraw",
     "desctiption_optional": "Desctiption (optional)",
     "per_transaction": "per transaction",
+    "fee_is": "Fee is",
     "recipient_name": "Recipient's name",
     "desctiption": "Desctiption",
     "tranfer_confirmation": "Tranfer confirmation",

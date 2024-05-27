@@ -1,7 +1,5 @@
 import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
-import Modal from "@/shared/ui/modal/Modal";
-import { Modal as ModalAnt } from "antd";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
@@ -31,8 +29,8 @@ import { useTranslation } from "react-i18next";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const { Option } = Select;
 
@@ -95,7 +93,6 @@ const WithdrawFormCardToCard = () => {
     }));
   }, [cards]);
   
-
   return !md ? (
     !cards ? (
       <Loader className={"relative"} />
@@ -252,20 +249,18 @@ const WithdrawFormCardToCard = () => {
           </div>
         </div>
 
-        <Modal
-          width={450}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+        <ModalUi
+          title={t("confirm_transaction")}
           onCancel={handleCancel}
-          open={isModalOpen}
-          padding
+          isModalOpen={isModalOpen}
+          placeBottom={window.innerWidth<768}
         >
           <WithdrawConfirmCardToCard
             {...inputs}
             amount={inputCurr.value.number}
             handleCancel={handleCancel}
           />
-        </Modal>
+        </ModalUi>
 
         <div className="row w-full">
           <div className="flex justify-center col">
@@ -304,7 +299,7 @@ const WithdrawFormCardToCard = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className="text-[#1F3446] text-[12px] font-semibold">
+                <span className="text-[#1F3446] text-[12px] ml-[10px] font-semibold">
                   {t("amount")}:
                 </span>
               }
@@ -326,7 +321,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col w-full">
-              <span className="w-full text-[#1F3446] text-[12px] font-semibold">
+              <span className="w-full text-[#1F3446] text-[12px] ml-[10px] font-semibold">
                 {t("from_card")}:
               </span>
             </div>
@@ -375,7 +370,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("to_card")}:
               </span>
             </div>
@@ -403,7 +398,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("cardholder")}:
               </span>
             </div>
@@ -431,7 +426,7 @@ const WithdrawFormCardToCard = () => {
         <div className="flex flex-col">
           <div className="row min-w-[80px] mb-[3px] mr-5">
             <div className="col">
-              <span className="text-[#1F3446] text-[12px] font-semibold">
+              <span className="text-[#1F3446] ml-[10px] text-[12px] font-semibold">
                 {t("description")}:
               </span>
             </div>
@@ -499,23 +494,17 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
 
-      <ModalAnt
-        width={450}
-        closable={false}
-        title={
-          <ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>
-        }
+      <ModalUi
+        title={t("confirm_transaction")}
         onCancel={handleCancel}
-        open={isModalOpen}
-        footer={null}
-        centered
+        isModalOpen={isModalOpen}
       >
         <WithdrawConfirmCardToCard
           {...inputs}
           amount={inputCurr.value.number}
           handleCancel={handleCancel}
         />
-      </ModalAnt>
+      </ModalUi>
 
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>

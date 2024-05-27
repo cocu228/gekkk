@@ -1,7 +1,6 @@
 import axios from "axios";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
 import { formatDate } from "../model/helpers";
 import { HistoryProps } from "../model/types";
 import { useTranslation } from "react-i18next";
@@ -13,12 +12,12 @@ import { CtxRootData } from "@/processes/RootContext";
 import { formatForApi } from "@/shared/lib/date-helper";
 import { actionResSuccess } from "@/shared/lib/helpers";
 import { memo, useContext, useEffect, useState } from "react";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { apiGetHistoryTransactions } from "@/shared/(orval)api/gek";
 import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import {IS_GEKKARD_APP} from "@/shared/lib";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const History = memo(function ({
   to,
@@ -198,19 +197,17 @@ const History = memo(function ({
       </div>
 
       {/* Tx info modal */}
-      <Modal
-        width={450}
-        closable={false}
-        open={isModalOpen}
+      <ModalUi
+        isModalOpen={isModalOpen}
         onCancel={handleCancel}
-        title={<ModalTitle handleCancel={handleCancel} title={t("transaction_info")}/>}
+        title={t('transaction_info')}
       >
         <TxInfoModal
           {...selectedItem}
           handleCancel={handleCancel}
           onUpdateTxInfo={onUpdateTxInfo}
         />
-      </Modal>
+      </ModalUi>
     </>
   );
 });

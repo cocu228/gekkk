@@ -1,5 +1,4 @@
 import {useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
@@ -12,7 +11,7 @@ import Loader from "@/shared/ui/loader";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiPersonalize} from "@/shared/(orval)api";
 import styles from '../new-card/styles.module.scss'
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
@@ -126,11 +125,10 @@ export function ConfirmationNewCard() {
             }}>{t("back")}</Button>
         </div>
 
-        <Modal
-            open={isOpen}
+        <ModalUi
+            isModalOpen={isOpen}
             closable={false}
-            title={<ModalTitle handleCancel={()=>{setIsOpen(false)}} title={t("enter_your_online_bank_password_to_confirm_new_card_order")}/>}
-            padding
+            title={t("enter_your_online_bank_password_to_confirm_new_card_order")}
             onCancel={() => {
                 setIsOpen(false)
             }}
@@ -185,6 +183,6 @@ export function ConfirmationNewCard() {
                     setIsOpen(false);
                 }}>{t("cancel")}</Button>
             </div>
-        </Modal>
+        </ModalUi>
     </>
 }

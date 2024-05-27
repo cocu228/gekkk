@@ -10,11 +10,10 @@ import { CtxRootData } from '@/processes/RootContext';
 import { CtxCurrencies } from '@/processes/CurrenciesContext';
 import { IconApp } from '@/shared/ui/icons/icon-app';
 import NavCollapse from '@/widgets/gko-sidebar/ui/nav-collapse/NavCollapse';
-import Modal from '@/shared/ui/modal/Modal';
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import Button from '@/shared/ui/button/Button';
 import { apiCloseRoom } from '@/shared/(orval)api';
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 type IParams = {
     NavLinkEvent: () => void,
@@ -127,24 +126,18 @@ const ExchangeBar = ({NavLinkEvent}: IParams) => {
             </NavCollapse>
         }
 
-        <Modal
-            padding
-            width={450}
-            closable={false}
-            open={roomInfoModal.isModalOpen}
+        <ModalUi
+            isModalOpen={roomInfoModal.isModalOpen}
             onCancel={roomInfoModal.handleCancel}
-            title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
+            title={t("invite_link")}
         >
             <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={selectedRoom} />
-        </Modal>
+        </ModalUi>
         
-        <Modal
-            padding
-            width={450}
-            closable={false}
-            open={roomCloseModal.isModalOpen}
+        <ModalUi
+            isModalOpen={roomCloseModal.isModalOpen}
             onCancel={roomCloseModal.handleCancel}
-            title={<ModalTitle handleCancel={roomCloseModal.handleCancel} title={t("invite_link")}/>}
+            title={t('invite_link')}
         >
             <div className="pt-5 text-sm">
                 {selectedRoom ?
@@ -170,7 +163,7 @@ const ExchangeBar = ({NavLinkEvent}: IParams) => {
                     }}
                 >{t("close_private_exchange_room")}</Button>
             </div>
-        </Modal>
+        </ModalUi>
     </>
 }
 

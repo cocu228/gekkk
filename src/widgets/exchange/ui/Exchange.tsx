@@ -30,7 +30,7 @@ import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { ModalC } from "@/shared/ui/!modal";
+import { Modal } from "@/shared/ui/ModalUi/Modal";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);
@@ -212,7 +212,7 @@ function Exchange() {
             <div className={`gap-x-5 bg-white ${styles.Grid}`}>
               <div className="h-full flex flex-col justify-between">
                 <div className={styles.FromBlockWrap}>
-                  {t("exchange.you_pay")}:
+                  <span className="md:ml-[7px]">{t("exchange.you_pay")}:</span>
                   <PercentSelector mobileSecHidden onSelect={onFromValueChange} currency={currencies.get(from.currency)} />
                 </div>
                 <SelectToken
@@ -237,7 +237,7 @@ function Exchange() {
                   </div>
                 </div>
 
-                <div className="font-semibold text-xs mb-2 mt-3 select-none">
+                <div className="font-semibold text-xs mb-2 mt-3 select-none md:ml-[7px]">
                   {t("exchange.get_no_less")}:
                 </div>
 
@@ -252,7 +252,7 @@ function Exchange() {
                   allowedFlags={[CurrencyFlags.ExchangeAvailable]}
                 />
                 <div className="mt-3 md:mt-2 ">
-                  <div className="font-semibold mt-4 text-xs">
+                  <div className="font-semibold mt-4 text-xs md:ml-[7px]">
                     {t("price")}:
                   </div>
                   <PriceField disabled={!isLimitOrder} />
@@ -307,11 +307,10 @@ function Exchange() {
               <OpenOrders refreshKey={ordersRefresh} />
             </div>
 
-            <ModalC
-              width={400}
+            <Modal
               title={t("confirm_the_order")}
-              active={confirmModal.isModalOpen}
-              onClose={confirmModal.handleCancel}
+              isModalOpen={confirmModal.isModalOpen}
+              onCancel={confirmModal.handleCancel}
             >
               <div className="px-5 mt-4">
                 <div className="flex items-center gap-2 mb-4">
@@ -380,7 +379,7 @@ function Exchange() {
                   </div>
                 </div>
               </div>
-            </ModalC>
+            </Modal>
           </div>
           <div className={styles.DeskHistoryWrap}>
               <span className={styles.DeskHistoryTitle}>{t('last_transactions')}</span>
@@ -393,11 +392,9 @@ function Exchange() {
           <History className="md:mx-4" currenciesFilter={historyFilter} types={[2, 15, 16, 20]} />
         </div>
       )}
-      <ModalC
-        padding
-        width={500}
-        active={roomInfoModal.isModalOpen}
-        onClose={roomInfoModal.handleCancel}
+      <Modal
+        isModalOpen={roomInfoModal.isModalOpen}
+        onCancel={roomInfoModal.handleCancel}
         title={roomType == "default"
         ? t("exchange.open_private_exchange_room")
         : t("invite_link")}
@@ -418,14 +415,13 @@ function Exchange() {
         ) : (
           <InviteLink roomInfo={roomInfo} />
         )}
-      </ModalC>
+      </Modal>
 
-      <ModalC
-        width={450}
+      <Modal
         title={`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
       } ${t("exchange.private_exchange_room")}`}
-        active={cancelRoomModal.isModalOpen}
-        onClose={cancelRoomModal.handleCancel}
+        isModalOpen={cancelRoomModal.isModalOpen}
+        onCancel={cancelRoomModal.handleCancel}
       >
         <div className="text-sm">
           {t("exchange.are_you_sure")}{" "}
@@ -450,7 +446,7 @@ function Exchange() {
           <Button size="lg" className="w-full" onClick={closeRoom}>{`${roomType === "creator" ? t("exchange.close") : t("exchange.leave")
             } ${t("exchange.private_exchange_room")}`}</Button>
         </div>
-      </ModalC>
+      </Modal>
     </div>
   );
 }

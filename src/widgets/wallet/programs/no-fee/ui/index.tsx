@@ -1,5 +1,4 @@
 import {useContext, useEffect, useState} from "react";
-import Modal from "@/shared/ui/modal/Modal";
 import {useNavigate} from "react-router-dom";
 import Button from '@/shared/ui/button/Button';
 import useModal from "@/shared/model/hooks/useModal";
@@ -15,7 +14,7 @@ import {useTranslation} from 'react-i18next';
 import {CtxRootData} from "@/processes/RootContext";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { uncoverArray } from "@/shared/lib";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const NoFeeProgram = () => {
     const {t} = useTranslation();
@@ -177,13 +176,10 @@ const NoFeeProgram = () => {
                 </div>
             </div>
             
-            <Modal
-                width={400}
-                closable={false}
-                title={<ModalTitle handleCancel={lockConfirmModal.handleCancel} title={t("confirm_locking")}/>}
-                open={lockConfirmModal.isModalOpen}
+            <ModalUi
+                title={t("confirm_locking")}
+                isModalOpen={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
-                padding
             >
                 <div className="mb-2">
                     <NoFeeProperties
@@ -227,7 +223,7 @@ const NoFeeProgram = () => {
                         }}
                     >{t("confirm")}</Button>
                 </div>
-            </Modal>
+            </ModalUi>
         </>
     );
 };

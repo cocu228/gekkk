@@ -48,8 +48,8 @@
   @media screen and (min-width: 770px) {
     font-size: 16px;
   }
-
-  @media screen and (max-width: 360px) {
+  
+  @media screen and (max-width: 460px) {
     font-size: 9px;
   }
 }
@@ -110,12 +110,12 @@
 
 .CurrencyStyles {
   @media screen and (max-width: 460px) {
-    min-width: 95px;
+    min-width: 68px;
   }
 
   @media screen and (max-width: 360px) {
     font-size: 9px;
-    min-width: 75px;
+    min-width: 68px;
   }
 
   button {
@@ -195,8 +195,12 @@
     }
   }
 
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 460px) {
     font-size: 10px;
+  }
+
+  @media screen and (max-width: 360px) {
+
 
     img {
       width: 15px;

@@ -1,4 +1,3 @@
-import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -22,8 +21,8 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const UniversalTransferForm = () => {
   const {md} = useBreakpoints()
@@ -84,7 +83,7 @@ const UniversalTransferForm = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className={styles.TitleColText}>
+                <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
                   {t("amount")}:
                 </span>
               }
@@ -105,8 +104,8 @@ const UniversalTransferForm = () => {
 
       <div className="row mb-5 w-full">
         <div className="row mb-[3px]">
-          <span className={styles.TitleColText}>
-            IBAN, {t("phone_number")}, {t("crypto_wallet")}:
+          <span className={`${styles.TitleColText} m-[0_0_5px_11px]`}>
+            {t('contact')}:
           </span>
         </div>
         <div className="row flex w-full">
@@ -128,8 +127,8 @@ const UniversalTransferForm = () => {
       <div className="row mb-5 w-full">
         <div className="row mb-[3px]">
           <div className="col">
-            <span className={styles.TitleColText}>
-              {t("comment_optional")}:
+            <span className={`${styles.TitleColText} ml-[12px]`}>
+              {t("description")}:
             </span>
           </div>
         </div>
@@ -166,22 +165,61 @@ const UniversalTransferForm = () => {
         </div>
       </div>
       
-      <Modal
-        width={450}
+      <ModalUi
+        placeBottom={window.innerWidth<768}
         destroyOnClose
-        open={isModalOpen}
+        isModalOpen={isModalOpen}
         onCancel={handleCancel}
-        closable={false}
-        title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
-
+        title={t("confirm_transaction")}
       >
         <UniversalTransferConfirm
           {...inputs}
           handleCancel={handleCancel}
           amount={inputCurr.value.number}
         />
-      </Modal>
+      </ModalUi>
+      <div className={styles.PayInfo}>
+          <div className={styles.PayInfoCol}>
+            <div className="row">
+              <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+            </div>
+            <div className="row">
+              <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
+            </div>
+            <div className="row">
+              <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
+            </div>
+          </div>
+          <div className={styles.PayInfoColValue}>
+            <div className={styles.PayInfoCol}>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexText}>
+                  {inputCurr.value.number}
+                </span>
+              </div>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexText}>
+                  {inputCurr.value.number}
+                </span>
+              </div>
+              <div className={styles.PayInfoValueFlex}>
+                <span className={styles.PayInfoValueFlexTextFee}>-</span>
+              </div>
+            </div>
 
+            <div className={styles.PayInfoCol}>
+              <span className={styles.PayInfoValueFlexTextCurrency}>
+                {currency.$const}
+              </span>
+              <span className={styles.PayInfoValueFlexTextCurrency}>
+                {currency.$const}
+              </span>
+              <span className={styles.PayInfoValueFlexTextFee}>
+                {currency.$const}
+              </span>
+            </div>
+          </div>
+        </div>
       <div className={styles.ButtonContainerCenter}>
         <Button
           size="lg"
@@ -191,13 +229,11 @@ const UniversalTransferForm = () => {
         >
           <span className={styles.ButtonLabel}>{t("transfer")}</span>
         </Button>
-      </div>
-
-      <div className="text-[var(--gek-mid-grey)] text-[12px] md:text-[10px] my-2 flex justify-center">
-        <div className="text-[var(--gek-orange)]">
-          <span className="font-semibold">*{t("fee_free")}</span>{" "}
-          {t("transfers_to_users_by_number_or_IBAN")}.
-        </div>
+        <span className="block font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
+          {t('fee_is')}
+          <span className="uppercase font-bold"> 0 eurg </span>
+          {t("per_transaction")}
+        </span>
       </div>
     </div>
   );

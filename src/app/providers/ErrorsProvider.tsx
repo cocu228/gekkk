@@ -1,6 +1,5 @@
 import Loader from "@/shared/ui/loader";
 import InfoBox from "@/widgets/info-box";
-import Modal from "@/shared/ui/modal/Modal";
 import {logout} from "@/shared/lib/helpers";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from "@/shared/lib/(orval)axios";
@@ -14,6 +13,7 @@ import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-contex
 import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-provider-types";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
@@ -143,22 +143,14 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             </CtxNeedConfirm.Provider>
         </CtxOfflineMode.Provider>
 
-        <Modal
-            closable={false}
-            open={isModalOpen}
+        <ModalUi
+            isModalOpen={isModalOpen}
             title='Account generation'
-            padding
+            noBorder
+            closable={false}
+            onCancel={() => null}
         >
-            {isAccountOpened ? (<div>
-                <div className='relative mb-10'>
-                    This is your first time logging in to Gekkard and you do not have any accounts created yet.
-                    Please wait, we are creating a new account for you. The process may take a few minutes...
-                </div>
-
-                <div className='relative'>
-                    <Loader/>
-                </div>
-            </div>) : (<div>
+            <div>
                 <div className='mb-10'>
                     Your bank account is still in the creation process,
                     please wait for the account to be generated and re-authorize
@@ -172,8 +164,8 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                         className="w-full"
                     >Log out</Button>
                 </div>
-            </div>)}
-        </Modal>
+            </div>
+        </ModalUi>
     </>
 }
 

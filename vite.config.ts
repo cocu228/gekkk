@@ -12,11 +12,14 @@ import manifestGekkoin from "./public/manifests/gekkoin.webmanifest.json"
 import manifestGekwallet from "./public/manifests/gekwallet.webmanifest.json"
 
 export default defineConfig(({mode}) => {
+    const getVersion = (appType: string | undefined) => {
+        return JSON.stringify(require('./package.json')[`${appType?.toLowerCase()}-version`])
+    }
 
     process.env = {
         ...process.env,
         ...loadEnv(mode, process.cwd() + "/env"),
-        VITE_APP_VERSION: JSON.stringify(require('./package.json').version),
+        VITE_APP_VERSION: getVersion(process.env.APP_TYPE),
         VITE_APP_TYPE: process.env.APP_TYPE,
     };
 

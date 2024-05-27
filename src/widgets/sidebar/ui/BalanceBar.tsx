@@ -55,7 +55,7 @@ const BalanceBar = ({ NavLinkEvent }: Props) => {
                     {cardsLoading
                         ? <SkeletonCard/>
                         : !activeCards ? ""
-                            : activeCards?.length !== 0 ? (
+                            : activeCards?.length === 0 ? (
                                 <Carousel>
                                     <div onClick={() => navigate(md
                                         ? '/card-menu'

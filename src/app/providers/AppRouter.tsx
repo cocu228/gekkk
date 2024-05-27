@@ -8,14 +8,13 @@ import PageProblems from '@/pages/page-problems/PageProblems';
 import ProfileSettings from "@/pages/profile-settings";
 import Support from "@/pages/support/";
 import PartnershipProgram from "@/pages/partnership-program";
-// import SupportChatAuthorized from '@/pages/support/chat-authorized';
-// import SupportChatUnauthorized from '@/pages/support/chat-unauthorized';
 import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
 import { GekkardPro } from '@/pages/gekkard-pro';
+import { IS_GEKKARD_APP } from '@/shared/lib';
 
 const router = createBrowserRouter([
     {
@@ -26,20 +25,6 @@ const router = createBrowserRouter([
                 path: '',
                 element: <Dashboard/>
             },
-            // Used in Gekkoin
-            // {
-            //     path: 'new-deposit',
-            //     children: [
-            //         {
-            //             path: '',
-            //             element: <Deposit/>,
-            //         }
-            //     ]
-            // },
-            // {
-            //     path: 'deposit-types',
-            //     element: <CryptoDeposits/>,
-            // },
             {
                 path: 'partnership-program',
                 element: <PartnershipProgram/>,
@@ -48,14 +33,6 @@ const router = createBrowserRouter([
                 path: "transfers",
                 element: <Transfers/>
                 
-            },
-            {
-                path: 'exchange',
-                element: <Exchange/>
-            },
-            {
-                path: 'private-room',
-                element: <Exchange/>
             },
             {
                 path: 'support',
@@ -82,11 +59,6 @@ const router = createBrowserRouter([
                 path: 'profile-settings',
                 element: <ProfileSettings/>
             },
-            // Used in Gekkoin
-            // {
-            //     path: 'deposit/:id',
-            //     element: <CurrentDeposit/>
-            // },
             {
                 path: 'faq',
                 element: <Faq />
@@ -96,13 +68,23 @@ const router = createBrowserRouter([
                 element: <Settings />
             },
             {
-                path: 'card-menu',
-                element: <MainCardPage/>,
-            },
-            {
                 path: 'gekkard-pro',
                 element: <GekkardPro/>,
-            }
+            },
+            ...(IS_GEKKARD_APP() ? [
+                {
+                    path: 'card-menu',
+                    element: <MainCardPage/>,
+                },
+                {
+                    path: 'exchange',
+                    element: <Exchange/>
+                },
+                {
+                    path: 'private-room',
+                    element: <Exchange/>
+                }
+            ] : [])
         ],
         // Show exception message only in dev mode
         ...(import.meta.env.MODE === "dev.gekkard"

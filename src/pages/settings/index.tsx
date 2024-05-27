@@ -16,6 +16,7 @@ import { LoginAndSignHistory } from "./components/history";
 import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { IS_GEKKARD_APP } from "@/shared/lib";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -36,11 +37,13 @@ const settingsList = [
     text: 'app_version',
     selectArea: 'app-version',
   },
-  {
-    iconCode: 't55',
-    text: 'personal_information',
-    selectArea: 'personal-information',
-  },
+  ...(IS_GEKKARD_APP() ?
+    [{
+      iconCode: 't55',
+      text: 'personal_information',
+      selectArea: 'personal-information',
+    }] : []
+  ),
   {
     iconCode: 't52',
     text: 'language',
@@ -140,7 +143,10 @@ export function Settings() {
                 className={`${styles.itemsList} ${md && styles.itemsListGap}`}
               >
                 {
-                  settingsList.slice(0,3).map((item, ind) => (
+                  (IS_GEKKARD_APP()
+                    ? settingsList.slice(0,3)
+                    : settingsList.slice(0,2)
+                  ).map((item, ind) => (
                     <SettingsButton
                       key={ind}
                       icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
@@ -178,46 +184,49 @@ export function Settings() {
                 }
               </div>
             </div>
-            <div className={styles.box} >
-              <h2 
-                className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
-              >
-                {md ? t("documents_and_legal_notices") : t("documents")}
-              </h2>
-              <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
-              {
-                  settingsList.slice(7, settingsList.length).map((item, ind) => (
+            
+            {IS_GEKKARD_APP() && (
+              <div className={styles.box} >
+                <h2 
+                  className={`${styles.accessTitle} ${!md && styles.accessTitleColor} ${md && styles.accessTitleWeight} ${md && styles.accessTitleSize}`}
+                >
+                  {md ? t("documents_and_legal_notices") : t("documents")}
+                </h2>
+                <div className={`${styles.itemsList} ${md && styles.itemsListGap}`} >
+                {
+                    settingsList.slice(7, settingsList.length).map((item, ind) => (
+                      <SettingsButton
+                        key={ind}
+                        icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
+                        text={t(item.text)}
+                        onClick={() => {
+                          setSelectedArea(item.selectArea);
+                        }}
+                        isSelected={selectedArea === item.selectArea}
+                      />
+                    ))
+                  }
+                  <a href="https://gekkard.com/terms-and-conditions.html">
                     <SettingsButton
-                      key={ind}
-                      icon={<IconApp code={item.iconCode} size={23} color="#285E69" />}
-                      text={t(item.text)}
-                      onClick={() => {
-                        setSelectedArea(item.selectArea);
-                      }}
-                      isSelected={selectedArea === item.selectArea}
+                      icon={<IconApp code="t42" size={23} color="#285E69" />}
+                      text={t("terms_and_conditions")}
                     />
-                  ))
-                }
-                <a href="https://gekkard.com/terms-and-conditions.html">
-                  <SettingsButton
-                    icon={<IconApp code="t42" size={23} color="#285E69" />}
-                    text={t("terms_and_conditions")}
-                  />
-                </a>
-                <a href="https://gekkard.com/data-protection-policy.html">
-                  <SettingsButton
-                    icon={<IconApp code="t42" size={23} color="#285E69" />}
-                    text={t("data_protection")}
-                  />
-                </a>
-                <a href="https://gekkard.com/legal-agreements.html">
-                  <SettingsButton
-                    icon={<IconApp code="t42" size={23} color="#285E69" />}
-                    text={t("legal_agreements")}
-                  />
-                </a>
+                  </a>
+                  <a href="https://gekkard.com/data-protection-policy.html">
+                    <SettingsButton
+                      icon={<IconApp code="t42" size={23} color="#285E69" />}
+                      text={t("data_protection")}
+                    />
+                  </a>
+                  <a href="https://gekkard.com/legal-agreements.html">
+                    <SettingsButton
+                      icon={<IconApp code="t42" size={23} color="#285E69" />}
+                      text={t("legal_agreements")}
+                    />
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
         {area}

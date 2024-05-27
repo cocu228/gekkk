@@ -1,4 +1,3 @@
-import React from 'react'
 import {createBrowserRouter, RouterProvider,} from 'react-router-dom';
 import Dashboard from '@/pages/dashboard'
 import Deposit from "@/pages/new-deposit";
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
                         path: '',
                         element: <Support/>
                     },
-                    // {
-                    //     path: 'chat',
-                    //     element: <SupportChatAuthorized/>
-                    // },
                 ]
             },
             {
@@ -53,11 +48,11 @@ const router = createBrowserRouter([
                 element: <ProfileSettings/>
             },
         ],
+        // Show exception message only in dev mode
+        ...(import.meta.env.MODE === "dev.gekkoin"
+            ? {}
+            : {errorElement: <PageProblems code={500}/>})
     },
-    // {
-    //     path: 'chat',
-    //     element: <SupportChatUnauthorized/>
-    // },
     {
         path: "*",
         element: <PageProblems/>

@@ -9,6 +9,7 @@ import TransfersButton from "@/shared/ui/ButtonsMobile/Transfers";
 import ExchangeButton from "@/shared/ui/ButtonsMobile/Exchange";
 import HistoryButton from "@/shared/ui/ButtonsMobile/History";
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { IS_GEKKARD_APP, IS_GEKKWALLET_APP } from "@/shared/lib";
 
 
 export function BottomMenu(){
@@ -47,10 +48,11 @@ export function BottomMenu(){
         )}
 
         <div className={styles.BottomMobile}>
-            <div className={
-                styles.BottomMenuMobile + " "
-                + (needBottomPadding && styles.AddBottomMenuPadding)}
-            >
+            <div className={`
+                ${styles.BottomMenuMobile}
+                ${IS_GEKKWALLET_APP() ? styles.Gekwallet : ""}
+                ${needBottomPadding ? styles.AddBottomMenuPadding : ""}
+            `}>
                 <FundsButton
                     to="/"
                     className={styles.BottomMenuMobileButtons + " "
@@ -67,13 +69,15 @@ export function BottomMenu(){
                     isActive={isOnTransferPage}
                 />
 
-                <ExchangeButton
-                    to="/exchange"
-                    className={styles.BottomMenuMobileButtons + " "
-                        + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
-                    }
-                    isActive={isExchangePage}
-                />
+                {IS_GEKKARD_APP() && (
+                    <ExchangeButton
+                        to="/exchange"
+                        className={styles.BottomMenuMobileButtons + " "
+                            + ((isExchangePage || isPrivateRoom) && styles.BottomMenuMobileButtonsActive)
+                        }
+                        isActive={isExchangePage}
+                    />
+                )}
 
                 <HistoryButton
                     to="history"

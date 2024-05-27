@@ -10,6 +10,7 @@ import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import BalanceBar from "../BalanceBar";
 import PendingTransactions from "@/widgets/pending-transactions";
+import { IS_GEKKARD_APP } from "@/shared/lib";
 
 const SidebarMobile = () => {
   const { account } = useContext(CtxRootData);
@@ -26,7 +27,7 @@ const SidebarMobile = () => {
   }, [sm, md]);
 
   useEffect(() => {
-    if (account) {
+    if (account && IS_GEKKARD_APP()) {
       getRoomsList();
       getActiveCards();
     }
@@ -47,7 +48,7 @@ const SidebarMobile = () => {
   return (
     <div id="sidebar" className={`${styles.Sidebar} flex flex-col`}>
       <UnconfirmedTransactions/>
-      <PendingTransactions/>
+      {IS_GEKKARD_APP() && <PendingTransactions/>}
 
       <div className="flex flex-col" ref={refreshCont} >
         <BalanceBar NavLinkEvent={NavLinkEvent} />

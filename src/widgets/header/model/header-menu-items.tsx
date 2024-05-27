@@ -6,6 +6,7 @@ import {THeaderMenuList} from "@/widgets/header/model/types";
 
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import Button from "@/shared/ui/button/Button";
+import { IS_GEKKARD_APP } from "@/shared/lib";
 
 /**
 * @param t translation function
@@ -24,7 +25,7 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
                 padding: "12px 12px"
             }
         },
-        {
+        IS_GEKKARD_APP() && {
             item: t("payment_cards"),
             id:"paymentCards",
             action:{

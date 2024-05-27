@@ -131,7 +131,7 @@ function Wallet() {
                                 <TopUpButton to={`/wallet?currency=${currency}&tab=top_up`}/>
                                 <TransfersButton isActive to={`/transfers?currency=${currency}`}/>
 
-                                {!isEUR
+                                {!IS_GEKKARD_APP() ? null : !isEUR
                                     ? <ExchangeButton isActive to={`/exchange?from=${currency}`}/>
                                     : <CardsMenuButton to={"/card-menu"}/>
                                 }

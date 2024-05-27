@@ -12,6 +12,10 @@
     align-items: center;
     overflow: hidden;
 
+    &.Gekwallet {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     &Buttons {
         height: 100%;
         color: #9D9D9D;
@@ -25,6 +29,7 @@
         }
     }
 }
+
 .BottomMobile {
     position: fixed;
     left: 0;

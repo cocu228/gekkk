@@ -25,6 +25,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { RangePickerProps } from "antd/es/date-picker";
 import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Switch as SwitchUi} from "@/shared/ui/!switch/index";
 
 const { RangePicker } = DatePicker;
 
@@ -151,9 +152,10 @@ function OpenOrders({ refreshKey }: IParams) {
         >
           {t("exchange.active_orders")}
         </span>
-        <Switch
-          className={styles.SwitchWrap}
-          defaultChecked={activeTab === ordersTabs[0].Key}
+        <SwitchUi
+          alwaysOn
+          // className={styles.SwitchWrap}
+          defaultCheked={activeTab === ordersTabs[0].Key}
           onChange={(isCheked) =>
             setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
           }

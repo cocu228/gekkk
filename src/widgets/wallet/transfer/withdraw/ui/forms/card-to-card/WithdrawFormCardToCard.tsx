@@ -4,10 +4,8 @@ import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
 import useMask from "@/shared/model/hooks/useMask";
 import useModal from "@/shared/model/hooks/useModal";
-import { IconCoin } from "@/shared/ui/icons/icon-coin";
 import { useContext, useEffect, useState } from "react";
 import { MASK_BANK_CARD_NUMBER } from "@/shared/config/mask";
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import { storeActiveCards } from "@/shared/store/active-cards/activeCards";
 import { formatCardNumber } from "@/widgets/dashboard/model/helpers";
 import {
@@ -31,6 +29,8 @@ import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Select as SelectUi } from "@/shared/ui/selectUi/Select";
+
 
 const { Option } = Select;
 
@@ -92,6 +92,22 @@ const WithdrawFormCardToCard = () => {
         : null,
     }));
   }, [cards]);
+
+
+  // const [query, setQuery] = useState('')
+  // const [selected, setSelected] = useState(cards[1])
+
+  // const filteredPeople =
+  //   query === ''
+  //     ? cards
+  //     : cards.filter((person) => {
+  //         return person.name.toLowerCase().includes(query.toLowerCase())
+  //       })
+
+  const transformedList = cards.map(item => ({
+    id: item.cardId,
+    name: formatCardNumber(item.displayPan)
+  }));
   
   return !md ? (
     !cards ? (
@@ -107,37 +123,16 @@ const WithdrawFormCardToCard = () => {
             </div>
             <div className="row">
               <div className="col">
-                <SearchSelect
-                  value={inputs.selectedCard}
-                  notFoundContent={
-                    <div className="my-3">{t("no_active_cards")}</div>
-                  }
-                  placeholder={
-                    <span className="font-normal text-gray-400">
-                      {t("choose_source_card")}
-                    </span>
-                  }
-                  prefixIcon={
-                    inputs.selectedCard ? <IconCoin code={"EUR"} /> : null
-                  }
-                  onChange={(val: string) => {
+                <SelectUi
+                  list={transformedList}
+                  placeholderText="-select card-"
+                  onSelect={(val) => {
                     setInputs(() => ({
                       ...inputs,
                       selectedCard: val,
                     }));
                   }}
-                >
-                  {cards
-                    ?.filter((c) => c.cardStatus === "ACTIVE")
-                    .map((c) => (
-                      <Option
-                        value={c.cardId}
-                        label={formatCardNumber(c.displayPan)}
-                      >
-                        <div>{formatCardNumber(c.displayPan)}</div>
-                      </Option>
-                    ))}
-                </SearchSelect>
+                />
               </div>
             </div>
           </div>
@@ -327,37 +322,18 @@ const WithdrawFormCardToCard = () => {
             </div>
           </div>
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
-            <div className="row w-full relative border-r-[0px] items-center overflow-hidden flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
+            <div className="row w-full relative border-r-[0px] items-center flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
               <div className="basis-full">
-                <SearchSelect
-                  transfers
-                  value={inputs.selectedCard}
-                  notFoundContent={
-                    <div className="my-3">{t("no_active_cards")}</div>
-                  }
-                  placeholder={
-                    <span className="font-normal text-gray-400">
-                      {t("choose_source_card")}
-                    </span>
-                  }
-                  onChange={(val: string) => {
+              <SelectUi
+                  list={transformedList}
+                  placeholderText="-select card-"
+                  onSelect={(val) => {
                     setInputs(() => ({
                       ...inputs,
                       selectedCard: val,
                     }));
                   }}
-                >
-                  {cards
-                    ?.filter((c) => c.cardStatus === "ACTIVE")
-                    .map((c) => (
-                      <Option
-                        value={c.cardId}
-                        label={formatCardNumber(c.displayPan)}
-                      >
-                        <div>{formatCardNumber(c.displayPan)}</div>
-                      </Option>
-                    ))}
-                </SearchSelect>
+                />
               </div>
             </div>
             <div className='rounded-tr-[5px] rounded-br-[5px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>

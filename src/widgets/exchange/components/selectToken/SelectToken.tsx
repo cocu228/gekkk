@@ -68,6 +68,7 @@ export const SelectToken: FC<SelectTokenProps> = ({
                 <span className={styles.SelectPreTitle}>
                   {t("exchange.select_token")}
                 </span>
+                <IconApp code="t08" size={12} color="#3A5E66" className="rotate-[90deg]" />
               </>
             ) : (
               <span className={styles.SelectedToken}>
@@ -75,14 +76,14 @@ export const SelectToken: FC<SelectTokenProps> = ({
                   <IconCoin className={styles.Ico} code={currency} />
                   {currency}
                 </div>
-               
+                <IconApp code="t08" size={12} color="#3A5E66" className="rotate-[90deg]" />
               </span>
+              
             )}
           </CurrencySelector>
         </div>
 
         <div className={styles.InputBody}>
-          <IconApp code="t08" size={8} color="#3A5E66" className="rotate-[90deg]" />
           <input
             value={value}
             disabled={!currency}

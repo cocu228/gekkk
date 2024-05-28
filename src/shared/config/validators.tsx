@@ -1,8 +1,6 @@
 import {NavigateFunction} from "react-router-dom";
 import {ICtxCurrency} from "@/processes/CurrenciesContext";
 import Decimal from "decimal.js";
-import {toNumberInputCurrency} from "@/shared/ui/input-currency/model/helpers";
-import { useTranslation } from 'react-i18next';
 import {TFunction} from "i18next";
 
 export type IValidatorCreator = (value: number) => IValidationResult;

@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -8,10 +8,11 @@ import { apiCreateRoom } from "@/shared/(orval)api/gek";
 import { RoomInfo } from "@/shared/(orval)api/gek/model";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
-import TokenSelect from "@/shared/ui/search-select/token-select/TokenSelect";
 import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import {Select} from "../selectUi/Select";
+import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 
 interface IParams {
   to: IExchangeField;
@@ -21,7 +22,6 @@ interface IParams {
   onToCurrencyChange: (value: string) => void;
   onFromCurrencyChange: (value: string) => void;
   onCancel?: ()=>void
-  
 }
 
 function CreateRoom({
@@ -38,6 +38,24 @@ function CreateRoom({
   const [loading, setLoading] = useState<boolean>(false);
   const [localErrorHunter, , localErrorInfoBox] = UseError();
   const {md} = useBreakpoints()
+  const { currencies } = useContext(CtxCurrencies);
+
+  const allowedFlags = [CurrencyFlags.ExchangeAvailable]
+
+  const assetsFilter = (asset: ICtxCurrency) => {
+    if (allowedFlags) {
+      return Object.values(allowedFlags).some((f) => asset.flags[f]);
+    }
+
+    return true;
+  };
+
+  const [tokensList, setTokensList] = useState<ICtxCurrency[]>(Array.from(currencies.values()).filter(assetsFilter))
+
+  const transformedList = tokensList.map(item => ({
+    id: item.$const,
+    name: item.name
+  }));
 
   return (
     <>
@@ -57,16 +75,15 @@ function CreateRoom({
           >
             {t("exchange.from")}:
           </label>
-          <TokenSelect
-            prefixIcon={false}
-            postfixIcon
-            id="sell-token"
-            value={from.currency}
-            onSelect={onFromCurrencyChange}
+          <Select
+            isToken
             disabledCurrencies={[to.currency]}
-            placeholder={t("exchange.select_token")}
-            allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+            tokenId={from.currency}
+            list={transformedList}
+            placeholderText="-select-"
+            onSelect={onFromCurrencyChange}
           />
+          
         </div>
         
         <div className="flex w-full justify-center mt-2">
@@ -82,15 +99,13 @@ function CreateRoom({
           >
             {t("exchange.to")}:
           </label>
-          <TokenSelect
-            prefixIcon={false}
-            postfixIcon
-            id="get-token"
-            value={to.currency}
-            onSelect={onToCurrencyChange}
+          <Select
             disabledCurrencies={[from.currency]}
-            placeholder={t("exchange.select_token")}
-            allowedFlags={[CurrencyFlags.ExchangeAvailable]}
+            isToken
+            tokenId={to.currency}
+            list={transformedList}
+            placeholderText="-select-"
+            onSelect={onToCurrencyChange}
           />
         </div>
 

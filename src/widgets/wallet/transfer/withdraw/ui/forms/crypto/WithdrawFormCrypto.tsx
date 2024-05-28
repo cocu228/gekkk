@@ -177,7 +177,6 @@ const WithdrawFormCrypto = () => {
         />
 
         <ModalUi
-          placeBottom
           isModalOpen={isModalOpen}
           onCancel={handleCancel}
           title={t("confirm_transaction")}

@@ -55,13 +55,15 @@ const Validator: FC<IParams> = (({
             }
         }
     }, [value])
+
+    console.log('errr', error)
     
     return (
         <div>
             <CtxInputCurrencyValid.Provider value={!isNull(error)}>
             {children}
             <div className={className}>
-                {isNull(error) ? <span className='mt-0.5 ml-[10px] text-green md:text-[#F8A73E] text-fs10'>{description}</span> :
+                {!isNull(error) &&
                     <div className="flex ml-[12px] mt-[6px] gap-1 items-center">
                         <div className="mt-[1px]">
                             <IconApp color="#EB5454" code="t56" size={13} />

@@ -144,15 +144,5 @@
 .SwitchWrap {
   transform: rotate(180deg);
   
-  :global(.ant-switch-inner) {
-    background: #2BAB72 !important;
-  }
 
-  :global(.ant-switch-handle) {
-    border-radius: 50%;
-    
-    &::before {
-      background-color: #285E69 !important;
-    }
-  }
 }

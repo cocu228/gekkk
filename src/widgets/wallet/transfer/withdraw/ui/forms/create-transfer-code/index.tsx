@@ -125,7 +125,7 @@ const CreateTransferCode = () => {
           </div>
         </div>
       </div>
-      <div className="row mb-4">
+      <div className="row mb-4 mt-[10px]">
         {!!!inputCurr.value.number && (
           <span className="text-[10px] text-[var(--gek-orange)] ml-[10px] leading-[12.5px] block">
             *Create a special code with which you can transfer or receive{" "}
@@ -136,7 +136,7 @@ const CreateTransferCode = () => {
       </div>
       <div className="row mb-16 md:mb-2">
         {md ? (
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 ml-[10px]">
             <Switch defaultCheked={checkbox} onChange={switchHandler} />
             <div className="flex items-center">
               <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
@@ -328,10 +328,7 @@ const CreateTransferCode = () => {
           />
         </Modal>
       </div>
-      <div className="row mb-2">
-        <h3 className="text-lg font-bold">{t("unredeemed_codes_info")}</h3>
-      </div>
-      <div className="row">
+      <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[15px]">
         <TransferTableCode isOwner />
       </div>
     </div>

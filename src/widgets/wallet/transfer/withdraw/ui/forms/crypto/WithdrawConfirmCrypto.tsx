@@ -189,7 +189,7 @@ const WithdrawConfirmCrypto = memo(
     return (
       <>
         <div className="flex justify-center">
-          <div className="flex flex-col items-start self-center w-[90%]">
+          <div className="flex flex-col items-start self-center w-full">
             <div className={style.MobileWarnBlock}>
               <IconApp color="#8F123A" size={50} code="t27" />
               <span className={styles.ModalInfoText}>

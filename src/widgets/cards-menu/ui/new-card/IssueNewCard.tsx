@@ -6,7 +6,7 @@ import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
-import {Switch} from "antd";
+import {Switch as SwitchUi} from "@/shared/ui/!switch/index";
 import Select from '@/shared/ui/select/Select';
 import styles from './styles.module.scss'
 
@@ -86,8 +86,8 @@ export function IssueNewCard() {
                         <span className={styles.issueTextGroupTitle}>{t('delivery_address')}</span>
                         <span className={styles.issueTextGroupSubtitle}>{t('same_as_the_residence_address')}</span>
                     </div>
-                    <Switch
-                        checked={state.isResidenceAddress}
+                    <SwitchUi
+                        defaultCheked={state.isResidenceAddress}
                         onChange={switchResidenceAddress}
                     />
                 </div>

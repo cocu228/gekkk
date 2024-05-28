@@ -9,8 +9,7 @@ import { formatDate } from "./model/date-formater";
 import parseISO from "date-fns/parseISO";
 import useModal from "@/shared/model/hooks/useModal";
 import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
-import Modal from "@/shared/ui/modal/Modal";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
@@ -124,14 +123,18 @@ export function UserKeys() {
                 </div>
                 )}
             </div>
-          <Modal
-              padding
+            <ModalUi
               closable={false}
-              open={false}
-              title={keyToRemove?t('remove_key'):t("close_session")}
-              width={400}
-              footer={
-                <div className='w-full flex justify-center gap-2'>
+              noBorder
+              onCancel={handleCancel}
+              placeBottom={window.innerWidth<768}
+              isModalOpen={isModalOpen}
+              title={keyToRemove ? `${t('remove_key')}` : `${t('close_session')}`}
+            >
+              <span>
+                {keyToRemove?t("remove_key_warning"):t("close_session_warning")}
+              </span>
+              <div className='w-full flex mt-[20px] justify-center gap-2'>
                   {keyToRemove ? <><Button
                     color="blue"
                     onClick={()=>{
@@ -170,12 +173,7 @@ export function UserKeys() {
         
                   }
                 </div>
-              }
-          >
-              <span>
-                {keyToRemove?t("remove_key_warning"):t("close_session_warning")}
-              </span>
-          </Modal>
+            </ModalUi>
         </MobileWrapper>
     )
 }

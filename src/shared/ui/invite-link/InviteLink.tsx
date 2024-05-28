@@ -51,7 +51,7 @@ function InviteLink({roomInfo = null, onClose = null}: IParams) {
             <div className={styles.ButtonWrapper}>
                 <Button
                     color='blue'
-                    className='!w-[120px]'
+                    className='!w-[120px] mt-[10px]'
                     onClick={onClose}
                 >
                     {t("close")}

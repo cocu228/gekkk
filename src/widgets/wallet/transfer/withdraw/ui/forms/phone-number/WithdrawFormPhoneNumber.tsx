@@ -1,5 +1,4 @@
 import styles from "../styles.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -23,8 +22,8 @@ import {
 } from "@/widgets/wallet/transfer/model/context";
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const WithdrawFormPhoneNumber = () => {
   const {md} = useBreakpoints()
@@ -84,7 +83,7 @@ const WithdrawFormPhoneNumber = () => {
             <InputCurrency.PercentSelector
               currency={currency}
               header={
-                <span className={styles.TitleColText}>
+                <span className={`${styles.TitleColText} ml-[10px]`}>
                   {t("amount")}:
                 </span>
               }
@@ -105,7 +104,7 @@ const WithdrawFormPhoneNumber = () => {
         <div className="col">
           <div className="row mb-[3px]">
             <div className="col">
-              <span className={styles.TitleColText}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>
                 {t("phone_number")}:
               </span>
             </div>
@@ -131,7 +130,7 @@ const WithdrawFormPhoneNumber = () => {
         <div className="col">
           <div className="row mb-[3px]">
             <div className="col">
-              <span className={styles.TitleColText}>
+              <span className={`${styles.TitleColText} ml-[10px]`}>
                 {t("description")}:
               </span>
             </div>
@@ -170,20 +169,20 @@ const WithdrawFormPhoneNumber = () => {
         </div>
       </div>
 
-      <Modal
-        width={450}
+      <ModalUi
+        placeBottom={window.innerWidth < 768}
+        zIndex
         destroyOnClose
-        open={isModalOpen}
+        isModalOpen={isModalOpen}
         onCancel={handleCancel}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                title={t("confirm_transaction")}
       >
         <WithdrawConfirmPhoneNumber
           {...inputs}
           amount={inputCurr.value.number}
           handleCancel={handleCancel}
         />
-      </Modal>
+      </ModalUi>
 
       <div className={styles.ButtonContainerCenter}>
         <Button

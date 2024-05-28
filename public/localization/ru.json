@@ -779,6 +779,7 @@
     "total_amount": "Общая сумма",
     "fee_is_perc": "Комиссия составляет",
     "per_transaction": "за каждую транзакцию",
+    "fee_is": "Плата",
     "loading": "Загрузка",
     "purpose": "Цель",
     "withdraw_confirmation": "Подтверждение вывода средств",

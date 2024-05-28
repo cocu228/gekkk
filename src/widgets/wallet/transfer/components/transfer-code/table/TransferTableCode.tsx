@@ -7,8 +7,7 @@ import {useContext, useEffect, useState} from "react";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import Modal from "@/shared/ui/modal/Modal";
-import {Modal as ModalAnt} from "antd"
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "../CodeTxInfo";
 import CancelContent from "./CancelContent";
@@ -18,8 +17,6 @@ import {actionResSuccess} from "@/shared/lib/helpers";
 import useError from "@/shared/model/hooks/useError";
 import { useTranslation } from 'react-i18next';
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
-
 
 const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
     const [tableHeads, setTableHeads] = useState([
@@ -130,10 +127,10 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
         <span onClick={showModal}
               className={styles.CodeModalTitle}>{code}</span>
 
-        <ModalAnt closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("your_transfer_code")}/>} open={isModalOpen}
+        <ModalUi title={t("your_transfer_code")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
-        </ModalAnt>
+        </ModalUi>
     </> 
 }
 
@@ -194,12 +191,12 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         <>
             {loading ? <div className="w-full h-full relative"><Loader/></div> :
             <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
-            <Modal className="md:m-[0_16px] md:!w-[calc(100%_-_32px)]" closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("the_code_confirmed")}/>} open={isModalOpen}
+            <ModalUi placeBottom={window.innerWidth<768} title={t("the_code_confirmed")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
             <>
                         {localErrorInfoBox ? localErrorInfoBox : <>
                             <div>
-                            <div className={stylesForms.ModalRows}>
+                            <div className={stylesForms.ModalRows}>3
                                 <div className={styles.ModalDateList}>
                                     {
                                         modalDateArray.map((item, ind) => (
@@ -222,7 +219,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                             </div>
                         </>}
                     </>
-        </Modal>
+        </ModalUi>
         </>
     )   
 }

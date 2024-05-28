@@ -51,7 +51,7 @@ const HeaderMobile = ({ items, actions }) => {
             case `private-room`:
                 return t("exchange_button").capitalize();
             case 'card-menu':
-                return t("cards").capitalize()
+                return t("payment_cards").capitalize()
             case 'gekkard-pro':
                 return t("gekkard_pro.title").capitalize()
             default:
@@ -118,6 +118,7 @@ const HeaderMobile = ({ items, actions }) => {
                         </button>
                     </div>
                 </HeaderMenu>
+                
                 : tab === 'custom' ? (
                     <div className="flex items-center w-full" onClick={() => { navigate('/history') }} data-testid="HeaderMenuContainer">
                         <IconApp className="rotate-[180deg] m-[0_5vw]" size={13} code="t08" color="#fff" />
@@ -139,7 +140,6 @@ const HeaderMobile = ({ items, actions }) => {
                     )
                 )
             }
-
             {!(exchangePage || privateRoomPage) ? null : (
                 <div className="flex items-center justify-end w-[20%] gap-2 pr-2" data-testid="ExchangeRoomMenu">
                     <ExchangeRoomMenu roomId={roomId}/>

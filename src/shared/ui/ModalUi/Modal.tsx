@@ -8,8 +8,11 @@ interface ModalProps {
     onCancel: () => void;
     title: string;
     children: ReactNode;
-    destroyOnClose: boolean;
-    placeBottom?: boolean
+    destroyOnClose?: boolean;
+    placeBottom?: boolean;
+    noBorder?: boolean;
+    closable?: boolean;
+    zIndex?: boolean;
 }
 
 export const Modal:FC<ModalProps> = ({
@@ -18,7 +21,10 @@ export const Modal:FC<ModalProps> = ({
     title,
     children,
     destroyOnClose = true,
-    placeBottom
+    placeBottom,
+    noBorder,
+    zIndex,
+    closable = true
 }) => {
     return (
         <Transition
@@ -32,8 +38,8 @@ export const Modal:FC<ModalProps> = ({
             appear 
             show={isModalOpen}
         >
-            <Dialog as="div" unmount={destroyOnClose} className="relative z-[150] focus:outline-none" onClose={onCancel}>
-                <div className={styles.Modal}>
+            <Dialog as="div" unmount={destroyOnClose} className={`relative ${zIndex ? 'z-[160]' : 'z-[150]'} focus:outline-none`} onClose={onCancel}>
+                <div className={`${styles.Modal} ${noBorder && styles.ModalNoBorder}`}>
                     <div className={`${styles.ModalContainer} ${placeBottom && styles.ModalContainerBottom}`}>
                     <TransitionChild
                         unmount={destroyOnClose}
@@ -47,8 +53,12 @@ export const Modal:FC<ModalProps> = ({
                         <DialogPanel className={styles.DialogPanel} >
                             <div className={styles.ModalWrap}>
                                 <div className={styles.ModalHeader}>
-                                    <span className={styles.ModalTitle}>{title}</span>
-                                    <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
+                                    <span className={styles.ModalTitle}>{title}</span>                                      
+                                    {
+                                        closable && (
+                                            <IconApp onClick={onCancel} code='t26' className={styles.ModalClose} size={20} color='#7B797C' />
+                                        ) 
+                                    }
                                 </div>
                                 <div className={styles.ModalBody}>
                                     {children}

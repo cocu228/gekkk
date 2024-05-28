@@ -177,7 +177,7 @@ function CustomHistory() {
                 setApply(false);
               }}
             >
-              <span className={styles.SelectTitle}>Currency:</span>
+              <span className={styles.SelectTitle}>{t("currency")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   curr && styles.SelectCurrencyActive
@@ -185,7 +185,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!curr ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       <IconCoin
@@ -209,7 +209,7 @@ function CustomHistory() {
                 setApply(false);
               }}
             >
-              <span className={styles.SelectTitle}>Type:</span>
+              <span className={styles.SelectTitle}>{t("type")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   type && styles.SelectCurrencyActive
@@ -217,7 +217,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!type ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       {type.label}
@@ -238,7 +238,7 @@ function CustomHistory() {
                 setApply(false);
               }}                       
             >
-              <span className={styles.SelectTitle}>Card:</span>
+              <span className={styles.SelectTitle}>{t("card")}:</span>
               <div
                 className={`${styles.SelectActive} ${
                   selectedCard.value && styles.SelectCurrencyActive
@@ -246,7 +246,7 @@ function CustomHistory() {
               >
                 <div className={styles.SelectPickedValue}>
                   {!selectedCard.value ? (
-                    <span className={styles.NonePickedTitle}>-select-</span>
+                    <span className={styles.NonePickedTitle}>-{t("select")}-</span>
                   ) : (
                     <span className={styles.SelectActiveToken}>
                       {selectedCard.label}
@@ -262,7 +262,7 @@ function CustomHistory() {
           </div>
           {selector === 'currency' && (
             <div className="w-full mt-[15px]">
-              <span className={styles.CurrencyListTitle}>Select Currency</span>
+              <span className={styles.CurrencyListTitle}>{t("select_currency")}</span>
               <div className="bg-[white] h-[40px] items-center border-solid w-full flex gap-[9px] px-[18px] py-2.5 rounded-lg">
                 <IconApp size={20} code="t12" color="#000" />
                 <Input

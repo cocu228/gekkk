@@ -3,7 +3,6 @@ import {useContext, useState} from "react";
 import {HelperClassName} from "@/shared/lib/helper-class-name";
 import SvgSchema from "@/shared/ui/icons/IconSchema";
 import styles from "@/widgets/header/ui/menu/style.module.scss";
-import Modal from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import PromoCode from "@/features/promo-code/ui/PromoCode";
 import Button from "@/shared/ui/button/Button";
@@ -11,9 +10,8 @@ import {$axios} from "@/shared/lib/(orval)axios";
 import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
-import OrganizationMobileIcon from "@public/img/icon/OrganizationMobileIcon.svg"
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const hClassName = new HelperClassName(styles)
 
@@ -37,7 +35,7 @@ export const ItemAccount = ({active = false, number, name}: Partial<{
             </div>
             {active && (
                 <div className={styles.CurrentIcon}>
-                    <IconApp code="t47" color="var(--gek-green)" size={25} />
+                    <IconApp code="t47" color="var(--gek-green)" size={15} />
                 </div>
             )}
         </div>
@@ -92,9 +90,9 @@ export const PromoCodeModal = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.promo_code")}
         </button>
-        <Modal closable={false} title={<ModalTitle handleCancel={handleCancel} title={t("header_menu.activate_promo_code")}/>} onCancel={handleCancel} open={isModalOpen} footer={null} width="454px">
+        <ModalUi title={t("header_menu.activate_promo_code")} onCancel={handleCancel} isModalOpen={isModalOpen}>
             <PromoCode handleCancel={handleCancel}/>
-        </Modal>
+        </ModalUi>
     </>
 }
 
@@ -125,10 +123,11 @@ export const EnableNotifications = () => {
             {t("header_menu.enable_notifications")}
         </button>
 
-        <Modal
-            padding
+        <ModalUi
+            noBorder
+            title="&nbsp;"
             closable={false}
-            open={isModalOpen}
+            isModalOpen={isModalOpen}
             onCancel={handleCancel}
         >
             <>
@@ -153,7 +152,7 @@ export const EnableNotifications = () => {
                     </div>
                 </div>
             </>
-        </Modal>
+        </ModalUi>
     </>
 }
 
@@ -186,11 +185,10 @@ export const GekkoinInvestPlatform = () => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.gekkoin_invest_platform")}
         </button>
-        <Modal
-            closable={false}
-            open={isModalOpen}
+        <ModalUi
+            isModalOpen={isModalOpen}
             onCancel={handleCancel}
-            title={<ModalTitle handleCancel={handleCancel} title={t("gekkoin_redirect")}/>}
+            title={t('gekkoin_redirect')}
         >
             <>
                 <div className="row mt-4 mb-6">
@@ -202,13 +200,13 @@ export const GekkoinInvestPlatform = () => {
                     <div className="flex justify-center col">
                         {loading ? <Loader className={"w-[24px] h-[24px]"}/> :
                             <Button
-                                size="lg"
+                                size="md"
                                 onClick={onClick}
                                 className="w-full"
                             >{t("confirm")}</Button>}
                     </div>
                 </div>
             </>
-        </Modal>
+        </ModalUi>
     </>
 }

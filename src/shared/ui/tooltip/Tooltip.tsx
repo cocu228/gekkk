@@ -1,49 +1,44 @@
-import {useContext} from 'react';
-import Modal from '../modal/Modal';
-import styles from './style.module.scss';
-import useModal from '@/shared/model/hooks/useModal';
-import {BreakpointsContext} from '@/app/providers/BreakpointsProvider';
+import { useContext } from "react";
+import { Modal as ModalUi } from "../ModalUi/Modal";
+import styles from "./style.module.scss";
+import useModal from "@/shared/model/hooks/useModal";
+import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 
 type TooltipParams = {
-    children?: JSX.Element | never[],
-    text: String | JSX.Element
-}
+  children?: JSX.Element | never[];
+  text: String | JSX.Element;
+};
 
-const Tooltip = ({children, text}: TooltipParams) => {
-    const tooltipModal = useModal(); 
-    const {xl} = useContext(BreakpointsContext);
+const Tooltip = ({ children, text }: TooltipParams) => {
+  const tooltipModal = useModal();
+  const { xl } = useContext(BreakpointsContext);
 
-    return (
-        <div
-            className={`inline-block absolute`}
-            onClick={() => {
-                if (xl && !tooltipModal.isModalOpen)
-                    tooltipModal.showModal();
-            }}
+  return (
+    <div
+      className={`inline-block absolute`}
+      onClick={() => {
+        if (xl && !tooltipModal.isModalOpen) tooltipModal.showModal();
+      }}
+    >
+      <div className={`${styles.Child}`}>{children}</div>
+
+      <div
+        className={`${styles.TooltipContent} xl:hidden absolute z-20 invisible w-[300px] ease-out duration-500 bg-white text-gray-400 text-left p-[10px] border-r-[4px] shadow-md whitespace-pre-line text-sm`}
+      >
+        {text}
+      </div>
+
+      {!xl ? null : (
+        <ModalUi
+          title="Increased rate program"
+          isModalOpen={tooltipModal.isModalOpen}
+          onCancel={tooltipModal.handleCancel}
         >
-            <div className={`${styles.Child}`}>
-                {children}
-            </div>
-
-            <div className={`${styles.TooltipContent} xl:hidden absolute z-20 invisible w-[300px] ease-out duration-500 bg-white text-gray-400 text-left p-[10px] border-r-[4px] shadow-md whitespace-pre-line text-sm`}>
-                {text}
-            </div>
-
-            {!xl ? null : (
-                <Modal
-                    width={400}
-                    title="Increased rate program"
-                    open={tooltipModal.isModalOpen}
-                    onCancel={tooltipModal.handleCancel}
-                    padding
-                >
-                    <div className='mb-10'>
-                        {text}
-                    </div>
-                </Modal>
-            )}
-        </div>
-    );
+          <div className="mb-10">{text}</div>
+        </ModalUi>
+      )}
+    </div>
+  );
 };
 
 export default Tooltip;

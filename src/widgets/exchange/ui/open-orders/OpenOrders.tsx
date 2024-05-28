@@ -3,7 +3,6 @@ import { DatePicker, Switch } from "antd";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
 import { format, addDays } from "date-fns";
-import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { ordersTabs } from "../../model/heplers";
@@ -24,8 +23,8 @@ import {
 import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { RangePickerProps } from "antd/es/date-picker";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const { RangePicker } = DatePicker;
 
@@ -153,7 +152,7 @@ function OpenOrders({ refreshKey }: IParams) {
           {t("exchange.active_orders")}
         </span>
         <Switch
-          className="rotate-180"
+          className={styles.SwitchWrap}
           defaultChecked={activeTab === ordersTabs[0].Key}
           onChange={(isCheked) =>
             setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)
@@ -214,7 +213,7 @@ function OpenOrders({ refreshKey }: IParams) {
               </Button>
               <Button
                 className={styles.CustomDateContainerButton}
-                color="blue"
+                color="gray"
                 disabled={isLoading || (!customDateStart && !customDateEnd)}
                 onClick={()=>{
                   setCustomDateStart(null)
@@ -345,13 +344,10 @@ function OpenOrders({ refreshKey }: IParams) {
         )}
       </div>
 
-      <Modal
-        width={450}
-        closable={false}
-        title={<ModalTitle handleCancel={cancelOrderModal.handleCancel} title={t("exchange.cancel_order")}/>}
-        open={cancelOrderModal.isModalOpen}
+      <ModalUi
+        title={t('exchange.cancel_order')}
+        isModalOpen={cancelOrderModal.isModalOpen}
         onCancel={cancelOrderModal.handleCancel}
-        padding
       >
         <div className="text-sm mb-4"> {t("exchange.cancel_this_order")}</div>
         <div className="font-medium mb-2">
@@ -376,7 +372,7 @@ function OpenOrders({ refreshKey }: IParams) {
             {t("cancel")}
           </Button>
         </div>
-      </Modal>
+      </ModalUi>
     </>
   );
 }

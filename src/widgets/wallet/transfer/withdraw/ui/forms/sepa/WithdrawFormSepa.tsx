@@ -1,5 +1,4 @@
 import {useContext, useEffect, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
 import Select from "@/shared/ui/select/Select";
@@ -17,8 +16,8 @@ import {transferDescriptions} from "@/widgets/wallet/transfer/withdraw/model/tra
 import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
+import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -69,7 +68,7 @@ const WithdrawFormSepa = () => {
                                 <InputCurrency.PercentSelector
                                     currency={currency}
                                     onSelect={setInputCurr}
-                                    header={<span className={styles.TitleColText}>{t("amount")}:</span>}
+                                    header={<span className={`${styles.TitleColText} ml-[10px]`}>{t("amount")}:</span>}
                                 >
                                 <InputCurrency
                                     transfers={md}
@@ -87,7 +86,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("beneficiary_name")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("beneficiary_name")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -114,7 +113,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("IBAN")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("IBAN")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -135,7 +134,7 @@ const WithdrawFormSepa = () => {
                 <div className="col">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("transfer_desc")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("transfer_desc")}:</span>
                         </div>
                     </div>
                     <div className="row">
@@ -158,7 +157,7 @@ const WithdrawFormSepa = () => {
                 <div className="col w-full">
                     <div className="row mb-[3px]">
                         <div className="col">
-                            <span className={styles.TitleColText}>{t("comment")}:</span>
+                            <span className={`${styles.TitleColText} ml-[10px]`}>{t("comment")}:</span>
                         </div>
                     </div>
                     <div className="row w-full">
@@ -189,20 +188,20 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
             
-            <Modal
-                width={450}
+            <ModalUi
+                placeBottom={window.innerWidth < 768}
+                zIndex
                 destroyOnClose
-                open={isModalOpen}
+                isModalOpen={isModalOpen}
                 onCancel={handleCancel}
-                closable={false}
-                title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
+                title={t("confirm_transaction")}
             >
                 <WithdrawConfirmSepa
                     {...inputs}
                     handleCancel={handleCancel}
                     amount={inputCurr.value.number}
                 />
-            </Modal>
+            </ModalUi>
 
             <div className={styles.ButtonContainerCenter}>
                 <Button

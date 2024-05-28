@@ -62,12 +62,11 @@
 }
 
 .AccountItem{
-  gap: 12px;
+  gap: 6px;
   width: 100%;
   display: flex;
   border-radius: 8px;
   align-items: center;
-  align-self: stretch;
   flex-direction: row;
   background-color: #FFF;
   justify-content: space-between;
@@ -85,7 +84,6 @@
 
 .CurrentIcon{
   display: flex;
-  padding-right: 10px;
   justify-content: flex-end;
 }
 
@@ -97,15 +95,17 @@
 }
 .AccountName{
   color: var(--Dark-blue, var(--gek-dark-blue));
-  font-family: Inter;
   font-size: 12px;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 130px;
   font-style: normal;
   font-weight: 700;
   line-height: 20px; /* 166.667% */
 }
 .AccountNumber{
   color: var(--Dark-blue, var(--gek-dark-blue));
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 500;

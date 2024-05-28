@@ -1,7 +1,6 @@
 import { $axios } from "@/shared/lib";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
-import Modal from "@/shared/ui/modal/Modal";
 import { useTranslation } from "react-i18next";
 import Button from "@/shared/ui/button/Button";
 import { MASK_CODE } from "@/shared/config/mask";
@@ -12,7 +11,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import { useContext, useEffect, useState } from "react";
 import { CtxNeedConfirm } from "@/processes/errors-provider-context";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 interface IState {
   code: string;
@@ -93,11 +92,10 @@ const ActionConfirmationWindow = () => {
   };
 
   return (
-    <Modal
-      open={isModalOpen}
+    <ModalUi
+      isModalOpen={isModalOpen}
       closable={false}
-      title={<ModalTitle handleCancel={handleCancel} title={t("identity_verification")}/>}
-      padding
+      title={t('identity_verification')}
       onCancel={() => {
         handleCancel();
         localErrorClear();
@@ -105,7 +103,7 @@ const ActionConfirmationWindow = () => {
     >
       {loading && <Loader className="" />}
 
-      <div className={loading ? "collapse" : ""}>
+      <div className={loading ? "collapse" : "mt-[30px]"}>
         <div className="row -mt-5 mb-5">
           <div className="col">
             <span className="text-gray-600">
@@ -146,7 +144,7 @@ const ActionConfirmationWindow = () => {
           </Button>
         </div>
       </div>
-    </Modal>
+    </ModalUi>
   );
 };
 

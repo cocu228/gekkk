@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import Input from "@/shared/ui/input/Input";
-import Modal from "@/shared/ui/modal/Modal";
 import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
@@ -21,8 +20,6 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import QrcodeScanner from "@/shared/ui/qrcode-scanner/QrcodeScanner";
-import ModalTitle from "@/shared/ui/modal/modal-title/ModalTitle";
-
 import style from './styles.module.scss'
 import InputCurrency from "@/shared/ui/input-currency/ui";
 import { PriceInfo } from "./components/PriceInfo";
@@ -100,7 +97,7 @@ const WithdrawFormCrypto = () => {
           >
             <InputCurrency.PercentSelector
               currency={currency}
-              header={<span className={styles.TitleColText}>{t("amount")}:</span>}
+              header={<span className={`${styles.TitleColText} ml-[10px]`}>{t("amount")}:</span>}
               onSelect={setInputCurr}
             >
               <InputCurrency.DisplayBalance currency={currency}>
@@ -115,7 +112,7 @@ const WithdrawFormCrypto = () => {
           </InputCurrency.Validator>
         </div>
         <div className={style.InpBlock}>
-            <span className={style.TitleColText}>{t('address')}:</span>
+            <span className={`${styles.TitleColText} ml-[10px]`}>{t('address')}:</span>
             <Input
             allowDigits
             allowSymbols
@@ -129,10 +126,11 @@ const WithdrawFormCrypto = () => {
             </div>}
           />
         </div>   
-        <Modal
-          open={qrCodeModal.isModalOpen}
+        <ModalUi
+          isModalOpen={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
-          padding
+          title="&nbsp;"
+          noBorder
         >
           <QrcodeScanner
             onSuccess={(value: string) => {
@@ -144,9 +142,9 @@ const WithdrawFormCrypto = () => {
               qrCodeModal.handleCancel();
             }}
           />
-        </Modal>
+        </ModalUi>
         <div className={style.InpBlock}>
-            <span className={style.TitleColText}>{t("recipient")}:</span>
+            <span className={`${styles.TitleColText} ml-[10px]`}>{t("recipient")}:</span>
             <Input
               value={inputs.recipient}
               onChange={onInput}
@@ -161,7 +159,7 @@ const WithdrawFormCrypto = () => {
         </div>   
 
         <div className={style.InpBlock}>
-            <span className={style.TitleColText}>{t("desc_optional")}:</span>
+            <span className={`${styles.TitleColText} ml-[10px]`}>{t("desc_optional")}:</span>
             <TextArea
               allowDigits
               allowSymbols
@@ -180,10 +178,8 @@ const WithdrawFormCrypto = () => {
 
         <ModalUi
           placeBottom
-          destroyOnClose
           isModalOpen={isModalOpen}
           onCancel={handleCancel}
-          // title={<ModalTitle handleCancel={handleCancel} title={t("confirm_transaction")}/>}
           title={t("confirm_transaction")}
         >
           <WithdrawConfirmCrypto

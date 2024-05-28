@@ -18,3 +18,23 @@
   font-weight: 600;
   margin: 5px 0 4px 10px;
 }
+
+.NoTransactions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 100%;
+  background: white;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gek-additional);
+  border-radius: 8px;
+  margin-top: 10px;
+
+  @include max-devices(md){
+    font-size: 12px;
+  }
+
+
+}

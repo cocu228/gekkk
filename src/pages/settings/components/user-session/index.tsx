@@ -5,13 +5,11 @@ import { getDate, getTime } from "./model/date-formaters";
 import { useSession } from './model/use-sessions';
 import useModal from '@/shared/model/hooks/useModal';
 import { useState } from 'react';
-import Modal from '@/shared/ui/modal/Modal';
 import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 import Button from '@/shared/ui/button/Button';
-
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 export function UserSession() {
     const {sessions, closeAllSessions, closeSession} = useSession();
@@ -75,13 +73,16 @@ export function UserSession() {
                         </div>
                     )}
                 </div>
-                <Modal
-                closable={false}
-                open={isModalOpen}
-                title={<ModalTitle handleCancel={handleCancel} title={t("close_session")}/>}
-                width={400}
-                footer={
-                    <div className={styles.ModalFooter}>
+                <ModalUi
+                placeBottom={window.innerWidth<768}
+                isModalOpen={isModalOpen}
+                title={t('close_session')}
+                onCancel={handleCancel}
+            >
+                <span className={styles.CloseTitle}>
+                    {t("close_session_warning")}
+                </span>
+                <div className={styles.ModalFooter}>
                     <> 
                     <Button
                         skeleton
@@ -107,12 +108,7 @@ export function UserSession() {
                     </Button> 
                     </>
                     </div>
-                }
-            >
-                <span className={styles.CloseTitle}>
-                    {t("close_session_warning")}
-                </span>
-            </Modal>
+            </ModalUi>
         </>
     );
 }

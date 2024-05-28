@@ -10,12 +10,11 @@ import {AssetTableKeys} from '@/features/assets-table/model/types';
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {$axios} from '@/shared/lib/(orval)axios';
 import useModal from '@/shared/model/hooks/useModal';
-import Modal from '@/shared/ui/modal/Modal';
 import Button from '@/shared/ui/button/Button';
 import Loader from '@/shared/ui/loader';
 import {useTranslation} from 'react-i18next';
 import { IconApp } from '@/shared/ui/icons/icon-app';
-
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 function Assets() {
     const {t} = useTranslation();
@@ -129,7 +128,7 @@ const InfoBox = () => {
             className="font-bold underline hover:cursor-pointer"
             onClick={showModal}>{t("crypto_assets.deposits")}</a>.</p>
 
-        <Modal padding onCancel={handleCancel} open={isModalOpen}>
+        <ModalUi onCancel={handleCancel} isModalOpen={isModalOpen} title='&nbsp;' noBorder>
             <>
                 <div className="row mb-10">
                     <div className="col">
@@ -148,7 +147,7 @@ const InfoBox = () => {
                     </div>
                 </div>
             </>
-        </Modal>
+        </ModalUi>
     </div>
 }
 

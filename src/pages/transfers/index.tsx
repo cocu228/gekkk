@@ -2,7 +2,6 @@ import { CtxCurrencies, ICtxCurrency } from '@/processes/CurrenciesContext'
 import { useQuery } from '@/shared/lib'
 import Loader from '@/shared/ui/loader'
 import TransfersWrapper from '@/widgets/wallet/transfer/mobile/model/TransfersWrapper'
-import ChoseNetworkMobile from '@/widgets/wallet/transfer/mobile/ui/choose-network-mobile'
 import GetDisplayedForm from '@/widgets/wallet/transfer/mobile/ui/get-displayed-form'
 import SelectCurrency from '@/widgets/wallet/transfer/mobile/ui/select-currency'
 import NetworkProvider from '@/widgets/wallet/transfer/model/NetworkProvider'
@@ -10,6 +9,7 @@ import { CtxWalletData } from '@/widgets/wallet/transfer/model/context'
 import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import HistoryWrapper from './history-wrapper/HistoryWrapper'
+import ChooseNetworkMobile from '@/widgets/wallet/transfer/mobile/ui/choose-network-mobile'
 
 export default function Transfers() {
   const query = useQuery();
@@ -66,7 +66,7 @@ export default function Transfers() {
             setCurr={setCurr}
           />
           {curr && 
-            <ChoseNetworkMobile 
+            <ChooseNetworkMobile 
               loading={loading} 
               setNetwork={setNetwork} 
               network={network} 
@@ -94,7 +94,7 @@ export default function Transfers() {
                   setNetwork={setNetwork}
                 />
                 {curr && 
-                  <ChoseNetworkMobile 
+                  <ChooseNetworkMobile 
                       loading={loading} 
                       setNetwork={setNetwork} 
                       network={network} 

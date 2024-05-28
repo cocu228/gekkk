@@ -98,18 +98,17 @@ export const getDefaultItems = (t?: TFunction, mobile?: boolean): THeaderMenuLis
             }
         },
         {
-            item: t(''),
+            item: <Button 
+                className="!bg-[var(--gek-dark-blue)] !h-[32px] !text-[12px] min-w-[150px] !font-semibold !max-w-[170px]">
+                    {t("get_gekkard_pro")}
+            </Button>,
             id: 'GetGekkardPRO',
             action: {
                 type: "link",
                 value: "gekkard-pro",
             },
-            icon:<Button 
-                    className="!bg-[var(--gek-dark-blue)] !h-[32px] !text-[12px] min-w-[150px] !font-semibold !max-w-[170px]">
-                        {t("get_gekkard_pro")}
-                </Button>,
             style:{
-                display:'flex',
+                display:'grid',
                 justifyContent:"center",
                 width:"100%",
                 alignSelf:"center",

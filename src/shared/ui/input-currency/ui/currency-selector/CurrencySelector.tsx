@@ -1,11 +1,10 @@
 import styles from '../style.module.scss';
 import React, {FC, useState} from "react";
-import Modal from "@/shared/ui/modal/Modal";
 import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
 import { useTranslation } from 'react-i18next';
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 interface IParams {
     disabled?: boolean;
@@ -50,31 +49,29 @@ const CurrencySelector: FC<IParams> = ({
             </button>
         </div>
 
-        <Modal 
-            className='max-h-[450px]' 
-            width={450}
-            closable={false}
-            title={<ModalTitle handleCancel={handleCloseTokenSelect} title={t("select_a_token")}/>} 
-            open={tokenSelectOpen} 
+        <ModalUi 
+            title={t("select_a_token")}
+            isModalOpen={tokenSelectOpen} 
             onCancel={handleCloseTokenSelect}
-            padding
         >
-            <AssetsTable
-                modal
-                className='-mx-4 -mt-8 min-h-[500px]'
-                balanceFilter={balanceFilter}
-                onSelect={($const: string) => {
-                    onSelect($const);
-                    handleCloseTokenSelect();
-                }}
-                blockedCurrencies={excludedCurrencies}
-                allowedFlags={allowedFlags}
-                columnKeys={[
-                    AssetTableKeys.NAME,
-                    AssetTableKeys.BALANCE
-                ]}
-            />
-        </Modal>
+            <div className='mt-[50px]'>
+                <AssetsTable
+                    modal
+                    className='-mx-4 -mt-8 min-h-[500px]'
+                    balanceFilter={balanceFilter}
+                    onSelect={($const: string) => {
+                        onSelect($const);
+                        handleCloseTokenSelect();
+                    }}
+                    blockedCurrencies={excludedCurrencies}
+                    allowedFlags={allowedFlags}
+                    columnKeys={[
+                        AssetTableKeys.NAME,
+                        AssetTableKeys.BALANCE
+                    ]}
+                />
+            </div>
+        </ModalUi>
     </>)
 }
 

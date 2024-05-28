@@ -71,6 +71,10 @@
         color: var(--gek-dark-blue);
         font-weight: 600;
         font-size: 14px;
+
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
     }
 
     &Body {
@@ -85,5 +89,11 @@
         &:hover {
             stroke: #000;
         }
+    }
+}
+
+.ModalNoBorder {
+    .ModalHeader {
+        border-bottom: none;
     }
 }

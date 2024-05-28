@@ -1,7 +1,6 @@
 import Loader from '@/shared/ui/loader';
 import styles from './style.module.scss';
 import InfoBox from "@/widgets/info-box";
-import Modal from "@/shared/ui/modal/Modal";
 import {useTranslation} from 'react-i18next';
 import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
@@ -11,12 +10,12 @@ import useModal from "@/shared/model/hooks/useModal";
 import {useContext, useEffect, useState} from "react";
 import {formatCardNumber} from '../dashboard/model/helpers';
 import BankCard from "../dashboard/ui/cards/bank-card/BankCard";
-import ModalTitle from '@/shared/ui/modal/modal-title/ModalTitle';
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts';
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get-pending-transactions.ts";
+import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -134,12 +133,10 @@ export const PendingTransactions = () => {
             />}
         />
 
-        <Modal
-            width={450}
-            open={isModalOpen}
+        <ModalUi
+            isModalOpen={isModalOpen}
             onCancel={handleCancel}
-            closable={false}
-            title={<ModalTitle handleCancel={handleCancel} title={t('please_verify_transaction')}/>}
+            title={t('please_verify_transaction')}
         >
 
             {txLoading && <Loader className='mb-5'/>}
@@ -186,7 +183,7 @@ export const PendingTransactions = () => {
                     </div>
                 </div>
             </div>}
-        </Modal>
+        </ModalUi>
     </div>
 }
 

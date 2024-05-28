@@ -89,6 +89,8 @@ export default memo(function () {
         await new Promise(resolve => setTimeout(resolve, 1000));
     };
 
+    console.log({md})
+
     return (
         <CtxRootData.Provider
             value={{
@@ -102,9 +104,7 @@ export default memo(function () {
                 <SystemNotifications>
                     <CurrenciesProvider>
                         {isNewLayout ? (
-                            <>
-                                <Outlet/>
-                            </>
+                            <Outlet/>
                         ) : (
                             <>
                                 <Header/>
@@ -119,24 +119,20 @@ export default memo(function () {
                                         }
                                     >
                                         <Main>
-                                            {md ? <>
-                                                <ActionConfirmationWindow/>
-
-                                                {isHomePage ? (
-                                                    <>
+                                            {md ? (
+                                                <>
+                                                    <ActionConfirmationWindow/>
+                                                    {isHomePage ? (
                                                         <Sidebar/>
-                                                    </>
-                                                ) : (
-                                                    <>
+                                                    ) : (
                                                         <Content>
                                                             <Outlet/>
                                                         </Content>
-                                                    </>
-                                                )}
-                                            </> : (
+                                                    )}
+                                                </>
+                                            ) : (
                                                 <>
                                                     <Sidebar/>
-
                                                     <Content>
                                                         <Outlet/>
                                                     </Content>
@@ -161,7 +157,6 @@ export default memo(function () {
                                         ) : (
                                             <>
                                                 <Sidebar/>
-
                                                 <Content>
                                                     <Outlet/>
                                                 </Content>
@@ -169,7 +164,6 @@ export default memo(function () {
                                         )}
                                     </Main>
                                 )}
-
                                 {md && <BottomMenu/>}
                             </>
                         )}

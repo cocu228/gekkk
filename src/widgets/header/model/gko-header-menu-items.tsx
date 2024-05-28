@@ -124,6 +124,7 @@ export const getDefaultItems = (t?: TFunction): THeaderMenuList => {
                 type: "logout",
                 value: null,
             },
+            icon: <IconApp size={20} code="t20" color="var(--gek-additional)" />,
             style: {
                 borderTop: "1px solid var(--color-gray-400)",
                 padding: "12px 12px"

@@ -6246,11 +6246,11 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-"workspaces-api@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\(orval)api":
+"workspaces-api@file:C:\\Users\\abalayan\\code\\gekkard.front\\src\\shared\\(orval)api":
   version "1.0.0"
   resolved "file:src/shared/(orval)api"
 
-"workspaces-library@file:C:\\Users\\ReZuCoS\\Repositories\\gekkard.front\\src\\shared\\lib":
+"workspaces-library@file:C:\\Users\\abalayan\\code\\gekkard.front\\src\\shared\\lib":
   version "1.0.0"
   resolved "file:src/shared/lib"
 

@@ -9,7 +9,7 @@ import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/Ac
 import {useMatch} from "react-router-dom";
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
-const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
+const Content: FC<PropsWithChildren> = ({children}) => {
     const {md} = useBreakpoints();
     const isExchange = !!useMatch('/exchange');
     const isPrivateRoom = !!useMatch('/private-room');
@@ -21,16 +21,17 @@ const Content: FC<PropsWithChildren> = ({children}): JSX.Element | null => {
         return value !== null && value !== 0;
     });
 
-    const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP
+    const isGEKAndGEKW = IS_GEKKARD_APP() || IS_GEKKWALLET_APP()
 
     return isGEKAndGEKW ? (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
             <ModalTrxInfoProvider>
-                {md ? null : <>
-                    {isActive && <UnconfirmedTransactions/>}
-                    <PendingTransactions/>
-                </>}
-
+                {md ? null : (
+                    <>
+                        {isActive && <UnconfirmedTransactions/>}
+                        {!IS_GEKKWALLET_APP() && <PendingTransactions/>}
+                    </>
+                )}
                 {md ? null : <ActionConfirmationWindow/>}
                 <div className={`${styles.Content} ${!((isExchange || isPrivateRoom) && md)
                     ? styles.ContentPadding : ''}`}>

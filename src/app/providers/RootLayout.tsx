@@ -89,71 +89,37 @@ export default memo(function () {
         await new Promise(resolve => setTimeout(resolve, 1000));
     };
 
-    console.log({md})
-
     return (
-        <CtxRootData.Provider
-            value={{
-                account,
-                setAccount: setAccount,
-                setRefresh: setRefresh,
-                refreshKey,
-            }}
-        >
-            {
-                <SystemNotifications>
-                    <CurrenciesProvider>
-                        {isNewLayout ? (
-                            <Outlet/>
-                        ) : (
-                            <>
-                                <Header/>
-                                {md ? (
-                                    <ReactPullToRefresh
-                                        canFetchMore
-                                        pullDownThreshold={50}
-                                        maxPullDownDistance={75}
-                                        onRefresh={handleRefresh}
-                                        refreshingContent={
-                                            <IconApp code="t01" color="#29354C" size={20}/>
-                                        }
-                                    >
-                                        <Main>
-                                            {md ? (
-                                                <>
-                                                    <ActionConfirmationWindow/>
-                                                    {isHomePage ? (
-                                                        <Sidebar/>
-                                                    ) : (
-                                                        <Content>
-                                                            <Outlet/>
-                                                        </Content>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Sidebar/>
-                                                    <Content>
-                                                        <Outlet/>
-                                                    </Content>
-                                                </>
-                                            )}
-                                        </Main>
-                                    </ReactPullToRefresh>
-                                ) : (
+        <CtxRootData.Provider value={{ account, refreshKey, setAccount, setRefresh }}>
+            <SystemNotifications>
+                <CurrenciesProvider>
+                    {isNewLayout ? (
+                        <Outlet/>
+                    ) : (
+                        <>
+                            <Header/>
+                            {md ? (
+                                <ReactPullToRefresh
+                                    canFetchMore
+                                    pullDownThreshold={50}
+                                    maxPullDownDistance={75}
+                                    onRefresh={handleRefresh}
+                                    refreshingContent={
+                                        <IconApp code="t01" color="#29354C" size={20}/>
+                                    }
+                                >
                                     <Main>
                                         {md ? (
-                                            isHomePage ? (
-                                                <>
+                                            <>
+                                                <ActionConfirmationWindow/>
+                                                {isHomePage ? (
                                                     <Sidebar/>
-                                                </>
-                                            ) : (
-                                                <>
+                                                ) : (
                                                     <Content>
                                                         <Outlet/>
                                                     </Content>
-                                                </>
-                                            )
+                                                )}
+                                            </>
                                         ) : (
                                             <>
                                                 <Sidebar/>
@@ -163,13 +129,32 @@ export default memo(function () {
                                             </>
                                         )}
                                     </Main>
-                                )}
-                                {md && <BottomMenu/>}
-                            </>
-                        )}
-                    </CurrenciesProvider>
-                </SystemNotifications>
-            }
+                                </ReactPullToRefresh>
+                            ) : (
+                                <Main>
+                                    {md ? (
+                                        isHomePage ? (
+                                            <Sidebar/>
+                                        ) : (
+                                            <Content>
+                                                <Outlet/>
+                                            </Content>
+                                        )
+                                    ) : (
+                                        <>
+                                            <Sidebar/>
+                                            <Content>
+                                                <Outlet/>
+                                            </Content>
+                                        </>
+                                    )}
+                                </Main>
+                            )}
+                            {md && <BottomMenu/>}
+                        </>
+                    )}
+                </CurrenciesProvider>
+            </SystemNotifications>
         </CtxRootData.Provider>
     );
 });

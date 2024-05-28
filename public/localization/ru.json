@@ -55,7 +55,7 @@
 
     "accordance_with_terms_conditions": "В соответствии с Условиями и положениями, ваша бонусная программа будет завершена по истечении 30 дней по вашей просьбе.",
     "directed_to_gekkoin": "Вы будете перенаправлены на ваш личный аккаунт Gekkoin, где вы сможете открыть депозиты с фиксированным доходом или депозиты, привязанные к изменениям курса выбранной вами криптовалюты.",
-
+    "directed_to_gekkard": "Вы будете перенаправлены в ваш личный кошелек Gekkard.",
     "header_menu": {
       "logout": "Выйти",
       "dashboard": "Главная",
@@ -67,6 +67,7 @@
       "deposit_types": "Типы депозитов",
       "activate_promo_code": "Активировать промокод",
       "gekkoin_invest_platform": "Инвестиционная платформа Gekkoin",
+      "gekkard_invest_platform": "Gekkard кошелек",
       "gekkard_personal_account": "Персональный аккаунт Gekkard",
       "enable_notifications": "Включить уведомления"
     },
@@ -1492,6 +1493,7 @@
     "update": "Обновить",
     "new_asset": "новый криптовалютный актив",
     "gekkoin_redirect": "Перенаправление Gekkoin",
+    "gekkard_redirect": "Перенаправление Gekkard",
     "actions": "Действия",
     "clean": "Очистить",
     "created": "Создано", 

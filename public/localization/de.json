@@ -62,9 +62,9 @@
       "partnership": "Partnerschaftsprogramm",
       "enter_promo_code": "Promo-Code eingeben",
       "activate_promo_code": "Aktiviere Promo-Code",
-      "gekkard_invest_platform": "Gekkard Investitionsplattform",
       "enable_notifications": "Benachrichtigungen aktivieren",
-      "gekkoin_invest_platform": "Gekkoin Investitionsplattform"
+      "gekkoin_invest_platform": "Gekkoin Investitionsplattform",
+      "gekkard_invest_platform": "Gekkard Brieftasche"
     },
     "support": {
       "title": "Support",
@@ -1464,6 +1464,7 @@
     "update": "Aktualisieren",
     "new_asset": "neuer Krypto-Asset",
     "gekkoin_redirect": "Gekkoin Weiterleitung",
+    "gekkard_redirect": "Gekkard Weiterleitung",
     "actions": "Aktionen",
     "clean": "Löschen",
     "created": "Erstellt", 

@@ -3,7 +3,7 @@ export type TOnActionParams = Array<{
     action: (value?: THeaderMenuList[0]["action"]["value"]) => void
 }>
 
-export type THeaderMenuList = Array<{
+export interface IHeaderMenuList {
     item: string | JSX.Element,
     id?: null | number | string,
     action?: {
@@ -12,7 +12,9 @@ export type THeaderMenuList = Array<{
     },
     icon?:string | JSX.Element,
     style?: object
-}>
+}
+
+export type THeaderMenuList = IHeaderMenuList[]
 
 export interface TPropsHeaderMenu {
     children: JSX.Element,

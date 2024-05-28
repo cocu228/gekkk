@@ -54,8 +54,7 @@ const HeaderDesktop = ({ items, actions }) => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <header className={styles.Header}>
+    <header className={styles.Header}>
         <div className={styles.ContainerLogo}>
           <a onClick={() => navigate("/")}>
             {IS_GEKKARD_APP() ? (
@@ -67,10 +66,7 @@ const HeaderDesktop = ({ items, actions }) => {
         </div>
         <div className={styles.CommandsMenu}>
           <HeaderMenu items={items} actions={actions} className="pl-5">
-            <div
-              className="flex items-center justify-center"
-              data-testid="HeaderMenuContainer"
-            >
+            <div className="flex items-center justify-center" data-testid="HeaderMenuContainer">
               {account?.rights[AccountRights.IsJuridical] ? (
                 <SvgSchema width={32} height={22} />
               ) : (
@@ -79,13 +75,11 @@ const HeaderDesktop = ({ items, actions }) => {
               {account?.number && (
                 <div className="wrapper flex flex-col justify-center  self-stretch">
                   <span className={styles.Name}>{account?.name}</span>
-
                   <span className={styles.Number}>
                     {getFormattedIBAN(account?.number)}
                   </span>
                 </div>
               )}
-
               <button className={`${styles.ArrowBtn}`}>
                 <IconApp
                   code="t08"
@@ -114,8 +108,7 @@ const HeaderDesktop = ({ items, actions }) => {
             </div>
           </button>
         </div>
-      </header>
-    </>
+    </header>
   );
 };
 

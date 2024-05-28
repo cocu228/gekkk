@@ -23,7 +23,6 @@ const Header = () => {
     const defaultMenuItems = useMemo(() => getDefaultItems(t, md), [i18n.language, md]);
     const [items, setItems] = useState(defaultMenuItems);
 
-
     console.log(import.meta.env.MODE)
 
     const actionsForMenuFunctions: TOnActionParams = useMemo(() => [
@@ -72,13 +71,10 @@ const Header = () => {
                     },
                 })
             })
-
         setItems(!account.rights[AccountRights.IsJuridical]
             ? newItems
             : newItems.filter(i => !(i.id === 'investPlatform' || i.id === 'partnership'))
         );
-
-
     }, [account?.rights, defaultMenuItems]);
 
     return md

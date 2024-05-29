@@ -31,10 +31,15 @@
   letter-spacing: 0.12rem;  
 }
 .CardStatus {
-  color: var(--gek-red);  
-  font-weight: bold;
-  padding-top: 5%;
   flex: 1 0;
+  padding-top: 5%;
+  font-weight: bold;
+  color: var(--gek-red);  
+
+  &.White {
+    font-size: 14px;
+    color: var(--gek-background);
+  }
 }
 .CardNumber {
   font-size: 90%; 

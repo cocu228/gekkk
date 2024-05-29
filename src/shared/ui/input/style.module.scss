@@ -2,13 +2,16 @@
 
 .Input {
   display: flex;
-
+  width: 100%;
+  border: 1px solid var(--gek-light-grey);
+  border-radius: 6px;
+  outline: none;
   :global(.ant-input) {
     padding: 1.25rem;
     border-radius: 8px;
-    border-color: var(--gek-light-grey);  
-    font-weight: 400;  
-    color: var(--gek-dark-blue);    
+    border-color: var(--gek-light-grey);
+    font-weight: 400;
+    color: var(--gek-dark-blue);
 
     @include max-devices('sm') {
       padding: 1rem 1.25rem;
@@ -37,6 +40,22 @@
       background-color: var(--color-gray-300) !important;
     }
   }
+}
+
+.PrefixWrap{
+  display: flex;
+  flex-direction: row;
+}
+.InputWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.Caption{
+  font-size: 10px;
+  color: var(--gek-orange);
 }
 
 .EyeStyles {

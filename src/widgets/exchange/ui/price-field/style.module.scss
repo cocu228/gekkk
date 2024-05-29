@@ -2,6 +2,7 @@
 
 
 .Wrap {
+  width: 100%;
   :global(.ant-input-affix-wrapper-focused) {
     border: 1px solid var(--gek-light-grey) !important;
     box-shadow: none !important;
@@ -18,18 +19,15 @@
 .Field {
   position: relative;
   margin-top: 0.4rem;
-  height: 50px;
+  height: 64px;
   padding: 0 12px;
-  border: 1px solid var(--gek-light-grey) !important;
-  border-radius: 8px;
   text-align: right;  
-  outline: none;
 
+  width: 100%;
   &:active {
     outline: none !important;
     border: none !important;
   }
-
 
 
   :focus {
@@ -75,6 +73,7 @@
   &SwitchBtn {
     display: inline-flex;
     padding: 0;
+    padding-left: 10px;
     background: none;
     border: none;
     white-space: nowrap;

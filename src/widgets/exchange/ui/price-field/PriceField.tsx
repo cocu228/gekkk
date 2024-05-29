@@ -21,7 +21,8 @@ function PriceField({ disabled }: { disabled?: boolean }) {
     onPriceAmountChange(formatAsNumberAndDot(event.target.value));
   };
 
-  return (
+
+    return (
     <div className={styles.Wrap} >
       <Input
       allowDigits
@@ -31,6 +32,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
       placeholder={`-${t("exchange.enter_price").toLowerCase()}-`}
       disabled={!(from.currency && to.currency) || disabled}
       value={!amount ? "" : amount}
+      caption={'asdasdasd'}
       prefix={
         to.currency &&
         from.currency && (
@@ -48,8 +50,7 @@ function PriceField({ disabled }: { disabled?: boolean }) {
             </button>
           </div>
         )
-      }
-    />
+      }/>
     </div>
   );
 }

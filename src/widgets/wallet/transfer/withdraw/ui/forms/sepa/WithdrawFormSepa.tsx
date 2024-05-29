@@ -93,19 +93,15 @@ const WithdrawFormSepa = () => {
                         <div className="col">
                             <Input
                                 tranfers={md}
+                                className={styles.Input}
                                 bordered={!md}
                                 value={inputs.beneficiaryName}
                                 onChange={onInput}
                                 placeholder={t("enter_beneficiary_name")}
                                 name={"beneficiaryName"}
+                                caption= {!inputs.beneficiaryName && "*" + t("EW_law")}
                             />
                         </div>
-                    </div>
-                                                    
-                    <div className='text-gray-400'>
-                        <span className='text-[var(--gek-orange)] text-[10px]'>
-                            {!inputs.beneficiaryName && "*" + t("EW_law")}
-                        </span>
                     </div>
                 </div>
             </div>
@@ -120,6 +116,7 @@ const WithdrawFormSepa = () => {
                         <div className="col">
                             <Input 
                                 tranfers={md}
+                                className={styles.Input}
                                 bordered={!md}
                                 value={inputs.accountNumber} 
                                 onChange={onInput}
@@ -165,6 +162,7 @@ const WithdrawFormSepa = () => {
                             {md?
                                 <Input
                                     tranfers={md}
+                                    className={styles.Input}
                                     bordered={!md}
                                     allowDigits
                                     allowSymbols

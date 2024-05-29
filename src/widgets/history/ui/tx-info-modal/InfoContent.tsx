@@ -58,7 +58,7 @@ const InfoContent = (props: TxInfoProps) => {
                 </span>
               </div>
             </div>
-            <div>
+            <div className={style.CopyBlock}>
               <div className={style.InfoItem}>
                 <div className="col w-auto">
                   <span className={style.InfoItemTitle}>
@@ -76,6 +76,7 @@ const InfoContent = (props: TxInfoProps) => {
                   </span>
                 </div>
               </div>
+              <CopyIcon value={props.id_transaction} />
             </div>
             <div className={style.InfoItem}>
               <div className="col w-auto">
@@ -169,28 +170,31 @@ const InfoContent = (props: TxInfoProps) => {
                 state.txType === AdrTxTypeEnum[8] ? null : (
                   <div>
                     {state.addressFrom && (
-                      <div className={style.InfoItem}>
-                        <div className="flex flex-col">
-                          <div>
-                            <span className={style.InfoItemTitle}>
-                              {t("address_from")}
-                            </span>
-                          </div>
-                          <div 
-                            className="cursor-pointer"
-                            onClick={()=>{
-                              navigator.clipboard.writeText(state.addressFrom)
-                            }}  
-                          >
-                            <span className={style.InfoItemAddress}>
-                              {state.addressFrom}
-                            </span>
+                      <div className={style.CopyBlock}>
+                        <div className={style.InfoItem}>
+                          <div className="flex flex-col">
+                            <div>
+                              <span className={style.InfoItemTitle}>
+                                {t("address_from")}
+                              </span>
+                            </div>
+                            <div 
+                              className="cursor-pointer"
+                              onClick={()=>{
+                                navigator.clipboard.writeText(state.addressFrom)
+                              }}  
+                            >
+                              <span className={style.InfoItemAddress}>
+                                {state.addressFrom}
+                              </span>
+                            </div>
                           </div>
                         </div>
+                        <CopyIcon value={state.addressFrom} />
                       </div>
                     )}
                     {state.addressTo && (
-                      <div>
+                      <div className={style.CopyBlock}>
                         <div className={style.InfoItem}>
                           <div>
                             <span className={style.InfoItemTitle}>
@@ -203,11 +207,12 @@ const InfoContent = (props: TxInfoProps) => {
                               navigator.clipboard.writeText(state.addressTo)
                             }}
                           >
-                            <span className={style.InfoItemValue}>
+                            <span className={style.InfoItemAddress}>
                               {state.addressTo}
                             </span>
                           </div>
                         </div>
+                        <CopyIcon value={state.addressTo} />
                       </div>
                     )}
                     {state.tokenNetwork && (
@@ -234,9 +239,7 @@ const InfoContent = (props: TxInfoProps) => {
                           {t("transaction")}
                         </span>
                       </div>
-                      <div 
-                        className="cursor-pointer"
-                      >
+                      <div className="cursor-pointer">
                         <a
                           target={"_blank"}
                           href={state.explorerBaseAddress + state.txHash}

@@ -2,18 +2,18 @@
 
 .HistoryTxRow {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  grid-row: 1fr 1fr;
-  font-size: small;
-  background-color: white;
   cursor: pointer;
-  white-space: nowrap;
+  font-size: small;
+  grid-row: 1fr 1fr;
   user-select: none;
+  white-space: nowrap;
+  background-color: white;
+  border: 1px transparent solid;
+  grid-template-columns: auto 1fr auto auto;
 
   &:hover {
     background-color: #f9f9fa;
     border: 1px var(--gek-light-grey) solid;
-    
   }
 
   border-radius: 8px;

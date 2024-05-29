@@ -21,7 +21,6 @@ import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import styles from "../styles.module.scss";
 import style from './styles.module.scss'
-import { PriceInfo } from "./components/PriceInfo";
 import FormItem from "@/shared/ui/form/form-item/FormItem";
 import Input from "@/shared/ui/input/Input";
 import Timer from "@/shared/model/hooks/useTimer";
@@ -29,7 +28,6 @@ import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
-import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
@@ -262,7 +260,53 @@ const WithdrawConfirmCrypto = memo(
               </div>
             </>
           )}
-            <PriceInfo currencyTitle={$const} amount={amount} withdraw_fee={withdraw_fee} />
+            <div className={styles.PayInfo}>
+              <div className={styles.PayInfoCol}>
+                  <div className="row">
+                      <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
+                  </div>
+                  <div className="row">
+                  <span className={styles.PayInfoText}>
+                      {t("you_will_get")}:
+                  </span>
+                  </div>
+                  <div className="row">
+                      <span className={styles.PayInfoTextFee}>
+                          {t("fee")}:
+                      </span>
+                  </div>
+              </div>
+              <div className={styles.PayInfoColValue}>
+            
+                  <div className={styles.PayInfoCol}>
+                      <div className={styles.PayInfoValueFlex}>
+                          <span
+                              className={styles.PayInfoValueFlexText}>{amount}</span>
+                      </div>
+                      <div className={styles.PayInfoValueFlex}>
+                          {loading ? t("loading")+"..." : <span
+                              className={styles.PayInfoValueFlexText}>{amount + withdraw_fee}</span>}
+                      </div>
+                      <div className={styles.PayInfoValueFlex}>
+                          {loading ? t("loading")+"..." : <span
+                              className={styles.PayInfoValueFlexTextFee}>{withdraw_fee}</span>}
+                      </div>
+                  </div>
+                  
+                  <div className={styles.PayInfoCol}>
+                      <span className={styles.PayInfoValueFlexTextCurrency}>
+                          {$const}
+                      </span>
+                      <span className={styles.PayInfoValueFlexTextCurrency}>
+                          {$const}
+                      </span>
+                      <span className={styles.PayInfoValueFlexTextFee}>
+                          {$const}
+                      </span>
+                  </div>
+              </div>
+            </div>
+
             <div className="w-full">
               <Form
               form={form}

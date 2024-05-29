@@ -242,7 +242,7 @@ const InfoContent = (props: TxInfoProps) => {
                       <div className="cursor-pointer">
                         <a
                           target={"_blank"}
-                          href={state.explorerBaseAddress + state.txHash}
+                          href={!isNaN(Number(state.txHash)) ? null : (state.explorerBaseAddress + state.txHash)}
                           className={style.InfoItemHash}
                         >
                           {state.txHash}

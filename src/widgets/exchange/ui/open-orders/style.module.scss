@@ -142,7 +142,9 @@
 }
 
 .SwitchWrap {
-  transform: rotate(180deg);
-  
+  background: #2BAB72;
 
+  div {
+      background: #285E69;
+  }
 }

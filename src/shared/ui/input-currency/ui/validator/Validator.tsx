@@ -55,8 +55,6 @@ const Validator: FC<IParams> = (({
             }
         }
     }, [value])
-
-    console.log('errr', error)
     
     return (
         <div>

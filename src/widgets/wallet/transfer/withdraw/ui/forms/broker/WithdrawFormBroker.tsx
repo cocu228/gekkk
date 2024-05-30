@@ -76,7 +76,7 @@ const WithdrawFormBroker = () => {
                         validateMinimumAmount(min_withdraw, inputCurr.value.number, currency.$const, t),
                         validateBalance(currency, navigate, t)]}>
                     <InputCurrency.PercentSelector onSelect={setInputCurr}
-                                                   header={<span className='text-gray-600 font-medium'>{t("amount")}:</span>}
+                                                   header={<span className='text-gray-600 font-medium ml-[10px] mb-[5px]'>{t("amount")}:</span>}
                                                    currency={currency}>
                         <InputCurrency.DisplayBalance currency={currency}>
                             <InputCurrency

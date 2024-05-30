@@ -29,10 +29,10 @@
     }
 }
 
-.SwitchAlwaysOn {
-    background: #2BAB72 !important;
-
-    .SwitchItem {
-        background: #285E69 !important
+.SwitchDisabled {
+    background: var(--gek-mid-grey) !important;
+    
+    div {
+        background: var(--gek-dark-grey) !important;
     }
 }

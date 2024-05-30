@@ -132,141 +132,15 @@ const WithdrawConfirmCardToCard = ({
             })));
         })();
     }, []);
-    
-    return !md ? <div>
-        {loading && <Loader className='justify-center'/>}
-        
-        <div className={loading ? 'collapse' : ''}>
-            <div className="row mb-5">
-                <div className="col">
-                    <div className="p-4 bg-gray-300">
-                        <div className="wrapper flex flex-col">
-                            <div className="row mb-1">
-                                <div className="col">
-                                    <span className="text-red-800">{t("please_note")}</span>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <span className="text-gray-400">
-                                        {t("use_withdraw_addr_supported")}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("network")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{label}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("sender_card_number")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{formatCardNumber(cards?.find(c => c.cardId === selectedCard).displayPan)}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("recepient_card_number")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{cardNumber}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("recepient_name")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{cardholderName}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("amount")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    <span>{amount ?? '-'} {$const}</span>
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("fee")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {totalCommission !== undefined ? (
-                        <span>{totalCommission.commission ?? '-'} {$const}</span>
-                    ) : (
-                        <Skeleton.Input style={{height: 16}} active/>
-                    )}
-                </div>
-            </div>
-            <div className="row mb-2">
-                <div className="col">
-                    <span className="text-gray-400">{t("total_amount")}</span>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                    {totalCommission !== undefined ? (
-                        <span>{totalCommission.total ?? '-'} {$const}</span>
-                    ) : (
-                        <Skeleton.Input style={{height: 16}} active/>
-                    )}
-                </div>
-            </div>
-            {!comment ? null : <>
-                <div className="row mb-2">
-                    <div className="col">
-                        <span className="text-gray-400">{t("comment")}</span>
-                    </div>
-                </div>
-                <div className="row mb-4">
-                    <div className="col">
-                        <span>{comment}</span>
-                    </div>
-                </div>
-            </>}
 
-            <Form onSubmit={onConfirm}>
-                <div className="row my-5">
-                    <div className="flex justify-center col">
-                        <Button size="lg"
-                                htmlType={"submit"}
-                                className="w-full"
-                                disabled={!totalCommission}
-                        >{t("confirm")}</Button>
-                    </div>
-                </div>
-            </Form>
-        </div>
-    </div> : <div>
+    return (
+        <div>
         {loading && <Loader className='justify-center'/>}
         
         <div className={loading ? 'collapse' : ''}>
                 <div className="row mb-5">
                     <div className="col">
-                        <div className="p-4">
+                        <div className="p-[1rem_1rem_10px_0]">
                             <div className={`wrapper ${styles.ModalInfo}`}>
                                 <div className={styles.ModalInfoIcon}>
                                     <div className="col">
@@ -285,53 +159,53 @@ const WithdrawConfirmCardToCard = ({
                     </div>
                 </div>
                 <div className={styles.ModalRows}>
-                    {label && <> <div className="row mb-2">
+                    {label && <> <div className="row">
                         <div className="col">
                             <span className={styles.ModalRowsTitle}>{t("type_transaction")}</span>
                         </div>
                     </div>
-                    <div className="row mb-4">
+                    <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold">
                             <span className={styles.ModalRowsValue}>{label}</span>
                         </div>
                     </div> </>}
-                    {cards?.filter(c => c.cardStatus === "ACTIVE")[0] && <> <div className="row mb-2">
+                    {cards?.filter(c => c.cardStatus === "ACTIVE")[0] && <> <div className="row">
                         <div className="col">
                             <span className={styles.ModalRowsTitle} >{t("from_card")}</span>
                         </div>
                     </div>
-                    <div className="row mb-4">
+                    <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold ">
                             <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{formatCardNumber(`${cards?.filter(c => c.cardStatus === "ACTIVE")[0].displayPan}`)}</span>
                         </div>
                     </div> </>}
-                    {cardNumber && <> <div className="row mb-2">
+                    {cardNumber && <> <div className="row">
                         <div className="col">
                             <span className={styles.ModalRowsTitle} >{t("to_card")}</span>
                         </div>
                     </div>
-                    <div className="row mb-4">
+                    <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold ">
                             <span className={styles.ModalRowsValue + " break-keep text-nowrap text-ellipsis"}>{maskFullCardNumber(cardNumber)}</span>
                         </div>
                     </div> </>}
-                    {cardholderName && <> <div className="row mb-2">
+                    {cardholderName && <> <div className="row">
                         <div className="col">
                             <span className={styles.ModalRowsTitle}>{t("cardholder")}</span>
                         </div>
                     </div>
-                    <div className="row mb-4">
+                    <div className="row mb-1">
                         <div className="col text-[#3A5E66] font-semibold">
                             <span className={styles.ModalRowsValue}>{cardholderName}</span>
                         </div>
                     </div> </>}
                     {comment && <>
-                        <div className="row mb-2">
+                        <div className="row">
                             <div className="col">
                                 <span className={styles.ModalRowsTitle}>{t('description')}</span>
                             </div>
                         </div>
-                        <div className="row mb-4">
+                        <div className="row mb-2">
                             <div className="col text-[#3A5E66] font-semibold">
                                 <span className={styles.ModalRowsValue}>{comment}</span>
                             </div>
@@ -410,6 +284,7 @@ const WithdrawConfirmCardToCard = ({
             </Form>
         </div>
     </div>
+    )
 }
 
 export default WithdrawConfirmCardToCard;

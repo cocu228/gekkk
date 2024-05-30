@@ -36,7 +36,7 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
             <div className="row mb-8">
                 <div className="col">
                     <div className={`info-box-note w-auto`}>
-                        <span>{t("this_code_can_be_used")}</span>
+                        <span className="text-[#7B797C] md:text-[12px] text-[14px]">{t("this_code_can_be_used")}</span>
                     </div>
                 </div>
             </div>
@@ -48,16 +48,6 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                             value={infoCode.code}
                             viewBox={`0 0 148 148`}
                         />
-                    </div>
-                </div>
-                <div className="col mt-3 w-[100%]">
-                    <div className="row flex">
-                        <div className="col">
-                            <span className="text-gray-400 mr-2 text-[15px] sm:text-[13px]">{t("confirmation")}:</span>
-                        </div>
-                        <div className="col">
-                            <span>{infoCode.typeTx === 12 ? <span className="text-[green] text-[14px] sm:text-[12px]">{t("on")}</span> : t("off")}</span>
-                        </div>
                     </div>
                 </div>
                 <div className="row w-full mt-[20px]">
@@ -86,14 +76,14 @@ const CodeTxInfo = ({code, onBtnApply = null, applyTxCodeInfoBox=null, inputCurr
                     </div>
                 </div>
             </div>
-                <div className="row mt-4 w-full md:flex md:justify-center">
+                <div className="row mt-2 w-full md:flex md:justify-center">
                     <ClipboardField value={infoCode.code}/>
                 </div>
                 <div className={styles.ButtonContainerCenter}>
                     <Button
                         size="lg"
                         color="blue"
-                        className="w-full mt-4"
+                        className="w-[120px] h-[43px] mt-4"
                         onClick={onClose}
                     >
                         {t("close")}

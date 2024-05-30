@@ -153,8 +153,7 @@ function OpenOrders({ refreshKey }: IParams) {
           {t("exchange.active_orders")}
         </span>
         <SwitchUi
-          alwaysOn
-          // className={styles.SwitchWrap}
+          className={styles.SwitchWrap}
           defaultCheked={activeTab === ordersTabs[0].Key}
           onChange={(isCheked) =>
             setActiveTab(isCheked ? ordersTabs[0].Key : ordersTabs[1].Key)

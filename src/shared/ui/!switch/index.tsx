@@ -5,25 +5,25 @@ interface SwitchProps {
     onChange?: (state: boolean) => void;
     defaultCheked?: boolean
     className?: string;
-    alwaysOn?: boolean
+    disabled?: boolean
 }
 
-export const Switch:FC<SwitchProps> = ({onChange, defaultCheked, className, alwaysOn}) => {
+export const Switch:FC<SwitchProps> = ({onChange, defaultCheked, className, disabled = false}) => {
     const [isCheked, setIsChecked] = useState(defaultCheked)
 
     const switchHandler = () => {
-        setIsChecked(!isCheked)
-        onChange(isCheked)
+      setIsChecked(!isCheked)
+      onChange(isCheked)
     }
 
     return (
+      <div
+        onClick={switchHandler}
+        className={`${style.SwitchWrap} ${disabled && style.SwitchDisabled} ${isCheked && style.SwitchWrapActive} ${className}`}
+      >
         <div
-            onClick={switchHandler}
-            className={`${style.SwitchWrap} ${alwaysOn && style.SwitchAlwaysOn} ${isCheked && style.SwitchWrapActive} ${className}`}
-          >
-            <div
-              className={`${style.SwitchItem} ${isCheked && style.SwitchItemActive}`}
-            ></div>
-          </div>
+          className={`${style.SwitchItem} ${isCheked && style.SwitchItemActive}`}
+        ></div>
+      </div>
     )
 }

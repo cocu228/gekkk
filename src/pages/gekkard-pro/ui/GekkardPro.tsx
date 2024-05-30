@@ -38,7 +38,7 @@ export const GekkardPro = (props: Props) => {
                 </div>
                 <div className={styles.Accept}>
                     <div className={styles.Switch}>
-                        <SwitchUi className="pointer-events-none" onChange={handleSwitch} />
+                        <SwitchUi disabled onChange={handleSwitch} />
                     </div>
                     <div className={`${styles.AcceptText} ${!md && styles.DesktopTextLarge}`}>
                         <span>

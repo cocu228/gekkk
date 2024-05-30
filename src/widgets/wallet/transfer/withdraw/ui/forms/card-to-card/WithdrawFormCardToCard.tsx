@@ -118,7 +118,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("from_card")}:</span>
+                <span className="font-medium ml-[10px]">{t("from_card")}:</span>
               </div>
             </div>
             <div className="row">
@@ -141,7 +141,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("card_number_title")}:</span>
+                <span className="font-medium ml-[10px]">{t("card_number_title")}:</span>
               </div>
             </div>
             <div className="row">
@@ -165,7 +165,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("cardholder_name")}:</span>
+                <span className="font-medium ml-[10px]">{t("cardholder_name")}:</span>
               </div>
             </div>
             <div className="row">
@@ -189,7 +189,7 @@ const WithdrawFormCardToCard = () => {
           <div className="col">
             <div className="row mb-2">
               <div className="col">
-                <span className="font-medium">{t("comment")}:</span>
+                <span className="font-medium ml-[10px]">{t("comment")}:</span>
               </div>
             </div>
             <div className="row">
@@ -228,7 +228,7 @@ const WithdrawFormCardToCard = () => {
               <InputCurrency.PercentSelector
                 currency={currency}
                 header={
-                  <span className="text-gray-600 font-medium">
+                  <span className="text-gray-600 font-medium ml-[10px] mb-[7px]">
                     {t("amount")}:
                   </span>
                 }

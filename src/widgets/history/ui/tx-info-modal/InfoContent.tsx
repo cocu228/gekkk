@@ -2,25 +2,43 @@ import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
 import style from './style.module.scss';
 import Loader from "@/shared/ui/loader";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import { TxInfoProps } from "../../model/types";
 import useError from "@/shared/model/hooks/useError";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
 import InfoConfirmPartner from "./InfoConfirmPartner";
-import { apiAddressTxInfo } from "@/shared/(orval)api/gek";
-import { formatForCustomer } from "@/shared/lib/date-helper";
-import { actionResSuccess, isNull } from "@/shared/lib/helpers";
-import { AddressTxOut, AdrTxTypeEnum } from "@/shared/(orval)api/gek/model";
+import {apiAddressTxInfo} from "@/shared/(orval)api/gek";
+import {formatForCustomer} from "@/shared/lib/date-helper";
+import {actionResSuccess, isNull} from "@/shared/lib/helpers";
+import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
+import Button from "@/shared/ui/button/Button";
+import {IconApp} from "@/shared/ui/icons/icon-app";
+import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
+import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
+  const {md} = useBreakpoints();
   const { t } = useTranslation();
+  const { setContent } = useContext(CtxModalTrxResult);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 
   const isAvailableType = props.tx_type === 3 || props.tx_type === 4;
   const isNeedConfirm = props.tx_type === 3 && props.partner_info === "";
   const loading = isNull(state) && isAvailableType;
+
+  const handleOnReceipt = () => {
+    if (md) {
+      // TODO: For Mobile Version
+    } else {
+      setContent({
+        content: <GekReceipt txId={props.id_transaction}/>,
+        title: 'Transaction receipt'
+      })
+    }
+  }
 
   useEffect(() => {
     if (isAvailableType) {
@@ -256,6 +274,21 @@ const InfoContent = (props: TxInfoProps) => {
             </>
           )}
           {isNeedConfirm && <InfoConfirmPartner {...props} />}
+          <div className={"w-full flex justify-between mt-3"}>
+            <Button
+                skeleton
+                className='w-full'
+                onClick={handleOnReceipt}
+            >
+              <IconApp size={20} code="t58" color="#2BAB72"/> {t("receipt")}
+            </Button>
+            <Button
+                className='w-full'
+                onClick={props.handleCancel}
+            >
+              {t("close")}
+            </Button>
+          </div>
         </div>
       )}
     </div>

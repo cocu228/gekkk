@@ -129,7 +129,7 @@ const WithdrawConfirmCrypto = memo(
 
       actionResSuccess(response)
         .success(() => {
-          const result: any = response.data?.result;
+          const result = response.data?.result;
 
           if (
             reSendCode ||
@@ -149,11 +149,7 @@ const WithdrawConfirmCrypto = memo(
             handleCancel();
             setRefresh();
             displayHistory();
-            setContent({content: <ModalTrxStatusSuccess
-              onReceipt={() => {
-                getReceipt(result.txId);
-              }}
-            />});
+            setContent({content: <ModalTrxStatusSuccess onReceipt={getReceipt(result.txId)}/>});
           } else {
             localErrorHunter({ message: "Something went wrong.", code: 1 });
           }
@@ -173,7 +169,7 @@ const WithdrawConfirmCrypto = memo(
       setLoading(false);
     };
 
-    const getReceipt = async (txId: number) => {
+    const getReceipt = (txId: string) => async () => {
       setContent({
           content: <GekReceipt txId={txId}/>,
           title: 'Transaction receipt'

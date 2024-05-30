@@ -6,6 +6,8 @@
   border: 1px solid var(--gek-light-grey);
   border-radius: 6px;
   outline: none;
+  box-sizing: border-box;
+
   :global(.ant-input) {
     padding: 1.25rem;
     border-radius: 8px;
@@ -16,7 +18,7 @@
     @include max-devices('sm') {
       padding: 1rem 1.25rem;
     }
-    
+
     @include max-devices(md) {
       font-size: 12px;
     }
@@ -30,7 +32,7 @@
       color: var(--gek-mid-grey);
       font-size: 0.7rem;
       padding-right: 5px;
-    }   
+    }
 
     &:focus {
       border-color: var(--gek-light-grey);
@@ -50,6 +52,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 12px;
 }
 
 

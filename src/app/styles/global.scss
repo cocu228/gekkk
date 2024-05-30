@@ -15,6 +15,10 @@
   }
 }
 
+#root, html, body {
+  overflow-x: hidden;
+}
+
 .ptr {
   height: calc(100vh - 55px) !important; // 55px - размер header
   overscroll-behavior-y: none;

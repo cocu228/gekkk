@@ -7,7 +7,7 @@ import { CtxModalTrxResult } from '../../model/context';
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
-    onReceipt?: () => void;
+    onReceipt?: (() => (void | Promise<void>)) | null;
 }
 
 function ModalTrxStatusSuccess({
@@ -33,12 +33,7 @@ function ModalTrxStatusSuccess({
                 </NavLink>
             </span>
         </div>
-
-        <div className={(onReceipt !== null
-                ? styles.ButtonContainer
-                : styles.ButtonContainerCenter
-            ) + " mt-[10px] md:mt-[30px] px-4"}
-        >
+        <div className={(onReceipt !== null ? styles.ButtonContainer : styles.ButtonContainerCenter) + " mt-[10px] md:mt-[30px] px-4"}>
             {onReceipt === null ? null : (
                 <Button
                     skeleton

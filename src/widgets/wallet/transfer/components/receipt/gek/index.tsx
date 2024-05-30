@@ -11,7 +11,7 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { isNumber } from "@/shared/lib";
 
 interface BankReceiptProps {
-  txId: number;
+  txId: string;
 }
 
 type IState = AddressTxOut & {
@@ -29,7 +29,7 @@ const GekReceipt: FC<BankReceiptProps> = ({ txId }) => {
     (async () => {
       const {name} = await getAccountDetails();
       const result = await apiAddressTxInfo({
-        tx_id: txId
+        tx_id: +txId
       });
 
       if (result.data) {

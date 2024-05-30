@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
 import { useContext } from 'react';
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 type IParams = {}
 
 function ModalTrxStatusError({}: IParams) {
   const {t} = useTranslation();
-  const {handleCancel} = useContext(GlobalCtxModalContext);
+  const {handleCancel} = useContext(CtxGlobalModalContext);
 
   return (
         <div className='w-full flex flex-col gap-[30px] items-center my-8 md:mb-4'>

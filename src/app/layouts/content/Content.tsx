@@ -3,7 +3,7 @@ import {FC, PropsWithChildren, useContext} from "react";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import PendingTransactions from "@/widgets/pending-transactions";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
-import GlobalCtxModalProvider from "@/app/providers/GlobalCtxModalProvider";
+import CtxGlobalModalProvider from "@/app/providers/CtxGlobalModalProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
 import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 import {useMatch} from "react-router-dom";
@@ -25,7 +25,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
 
     return isGEKAndGEKW ? (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
-            <GlobalCtxModalProvider>
+            <CtxGlobalModalProvider>
                 {md ? null : (
                     <>
                         {isActive && <UnconfirmedTransactions/>}
@@ -37,7 +37,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                     ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
-            </GlobalCtxModalProvider>
+            </CtxGlobalModalProvider>
         </div>
     ) : (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>{children}</div>

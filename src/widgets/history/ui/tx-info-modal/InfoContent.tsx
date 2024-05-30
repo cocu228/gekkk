@@ -14,14 +14,14 @@ import {actionResSuccess, isNull} from "@/shared/lib/helpers";
 import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
   const { t } = useTranslation();
-  const { setContent } = useContext(GlobalCtxModalContext);
+  const { setContent } = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
   const [state, setState] = useState<AddressTxOut | null>(null);
 

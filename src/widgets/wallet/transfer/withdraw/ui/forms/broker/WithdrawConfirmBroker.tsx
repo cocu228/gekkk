@@ -7,7 +7,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {CtxRootData} from "@/processes/RootContext";
 import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { apiGetUas } from "@/shared/(orval)api";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
@@ -22,7 +22,7 @@ import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDi
 const WithdrawConfirmBroker = ({amount, handleCancel}) => {
     const {t} = useTranslation();
     const {md} = useBreakpoints();
-    const {setContent} = useContext(GlobalCtxModalContext);
+    const {setContent} = useContext(CtxGlobalModalContext);
     const [loading, setLoading] = useState<boolean>(false);
     const { displayHistory } = useContext(CtxDisplayHistory);
 

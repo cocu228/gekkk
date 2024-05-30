@@ -1,4 +1,4 @@
-import React, {FC, memo, PropsWithChildren, useCallback, useMemo, useState} from "react";
+import {FC, memo, PropsWithChildren, useCallback, useMemo, useState, createContext} from "react";
 import useModal from "@/shared/model/hooks/useModal";
 import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
 
@@ -12,9 +12,9 @@ export interface ITrxResultContext {
     setContent: (config: ITrxResultModalInfo) => void;
 }
 
-export const GlobalCtxModalContext = React.createContext<ITrxResultContext>(null)
+export const CtxGlobalModalContext = createContext<ITrxResultContext>(null)
 
-const GlobalCtxModalProvider: FC<PropsWithChildren> = ({children}) => {
+const CtxGlobalModalProvider: FC<PropsWithChildren> = ({children}) => {
     const {showModal, isModalOpen, handleCancel} = useModal();
     const [state, setState] = useState({
         title: 'Transaction status',
@@ -43,7 +43,7 @@ const GlobalCtxModalProvider: FC<PropsWithChildren> = ({children}) => {
     }), [])
 
     return (
-        <GlobalCtxModalContext.Provider value={value}>
+        <CtxGlobalModalContext.Provider value={value}>
             {children}
             <ModalUi
                 isModalOpen={isModalOpen}
@@ -53,8 +53,8 @@ const GlobalCtxModalProvider: FC<PropsWithChildren> = ({children}) => {
             >
                 {state.content}
             </ModalUi>
-        </GlobalCtxModalContext.Provider>
+        </CtxGlobalModalContext.Provider>
     )
 };
 
-export default memo(GlobalCtxModalProvider)
+export default memo(CtxGlobalModalProvider)

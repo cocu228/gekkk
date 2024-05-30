@@ -4,7 +4,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {CtxWalletData, CtxWalletNetworks} from "@/widgets/wallet/transfer/model/context";
 import {apiInternalTransfer} from "@/shared/(orval)api/gek";
 import {actionResSuccess, getRandomInt32, uncoverResponse} from "@/shared/lib/helpers";
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import {CtxRootData} from "@/processes/RootContext";
 import useError from "@/shared/model/hooks/useError";
 import {CreateWithdrawOut} from "@/shared/(orval)api/gek/model";
@@ -30,7 +30,7 @@ const UniversalTransferConfirm = ({
     const {t} = useTranslation();
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
-    const {setContent} = useContext(GlobalCtxModalContext);
+    const {setContent} = useContext(CtxGlobalModalContext);
     const [stage, setStage] = useState(initStageConfirm);
     const [loading, setLoading] = useState<boolean>(true);
     const { displayHistory } = useContext(CtxDisplayHistory);

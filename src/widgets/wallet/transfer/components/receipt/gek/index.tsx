@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 import { apiAddressTxInfo } from "@/shared/(orval)api";
 import { AddressTxOut } from "@/shared/(orval)api/gek/model";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
@@ -22,7 +22,7 @@ const GekReceipt: FC<BankReceiptProps> = ({ txId }) => {
   const { t } = useTranslation();
   const [state, setState] = useState<IState>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { handleCancel } = useContext(GlobalCtxModalContext);
+  const { handleCancel } = useContext(CtxGlobalModalContext);
   const { getAccountDetails } = storeAccountDetails((state) => state);
 
   useEffect(() => {

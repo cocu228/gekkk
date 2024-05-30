@@ -7,7 +7,7 @@ import { getMethodTitle, getStatusTitle } from "./model/helpers";
 import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import { formatDateTime } from "@/widgets/dashboard/model/helpers";
-import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
+import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
 
 interface BankReceiptProps {
   referenceNumber: string;
@@ -18,7 +18,7 @@ const BankReceipt: FC<BankReceiptProps & any> = ({ referenceNumber, uasToken }) 
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [state, setState] = useState<IReceiptData>(null);
-  const { handleCancel } = useContext(GlobalCtxModalContext);
+  const { handleCancel } = useContext(CtxGlobalModalContext);
   const { getAccountDetails } = storeAccountDetails((state) => state);
 
   useEffect(() => {

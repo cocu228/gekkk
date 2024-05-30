@@ -25,6 +25,7 @@
   width: 100%;
 
 
+
   &:active {
     outline: none !important;
     border: none !important;
@@ -93,5 +94,12 @@
   &.disabled {
     pointer-events: none;
     background: var(--gek-light-grey);
+  }
+}
+
+@media (max-width: 768px){
+  .Field {
+    height: 50px;
+    font-size: 12px;
   }
 }

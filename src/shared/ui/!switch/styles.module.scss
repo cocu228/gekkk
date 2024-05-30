@@ -30,6 +30,7 @@
 }
 
 .SwitchDisabled {
+    pointer-events: none;
     background: var(--gek-mid-grey) !important;
     
     div {

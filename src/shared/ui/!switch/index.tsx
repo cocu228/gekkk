@@ -12,22 +12,18 @@ export const Switch:FC<SwitchProps> = ({onChange, defaultCheked, className, disa
     const [isCheked, setIsChecked] = useState(defaultCheked)
 
     const switchHandler = () => {
-        if(disabled) {
-          return null
-        } else {
-          setIsChecked(!isCheked)
-          onChange(isCheked)
-        }
+      setIsChecked(!isCheked)
+      onChange(isCheked)
     }
 
     return (
+      <div
+        onClick={switchHandler}
+        className={`${style.SwitchWrap} ${disabled && style.SwitchDisabled} ${isCheked && style.SwitchWrapActive} ${className}`}
+      >
         <div
-            onClick={switchHandler}
-            className={`${style.SwitchWrap} ${disabled && style.SwitchDisabled} ${isCheked && style.SwitchWrapActive} ${className}`}
-          >
-            <div
-              className={`${style.SwitchItem} ${isCheked && style.SwitchItemActive}`}
-            ></div>
-          </div>
+          className={`${style.SwitchItem} ${isCheked && style.SwitchItemActive}`}
+        ></div>
+      </div>
     )
 }

@@ -121,10 +121,17 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                       )}
 
                       {key === AssetTableKeys.ACTIONS && (
-                        <Button
-                          skeleton
-                          color='gray'
-                          className="w-[60px]"
+                        <>
+                          <span className={`${styles.PriceBlock} ${styles.PriceBlockMobile}`}>
+                              {!rates || rates[currency.$const] === 0
+                                ? "—"
+                                : `${getCurrencyRounding(
+                                    rates[currency.$const]
+                                  )} €`}
+                          </span>
+                          <Button
+                          color='blue'
+                          className={styles.RowBuyBtn}
                           onClick={(e) => {
                             scrollToTop();
                             e.stopPropagation();
@@ -133,7 +140,8 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                         >
                           {t("crypto_assets.buy")}
                         </Button>
-                      )}
+                        </>
+                      )}  
                     </div>
                   ))}
                 </div>

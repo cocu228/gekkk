@@ -132,7 +132,7 @@ const AssetsTable = ({
               <GTable.Row>
                 {columnKeys.map((item: string) => (
                   <GTable.Col
-                    className={`flex ${getAlignment(
+                    className={`flex ${styles.TableColTitle} ${getAlignment(
                       columnKeys,
                       item,
                       md

@@ -29,6 +29,9 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
+  @media screen and (max-width: 992px) {
+    padding: 12px 5px;
+  }
 
   @include max-devices('md') {
     margin: 0;
@@ -123,6 +126,13 @@
     }
   }
 
+  &:nth-child(2) {
+    @media screen and (max-width: 992px) {
+      justify-content: end;
+      text-align: end;
+    }
+  }
+
   &:last-child {
     @media screen and (max-width: 768px) {
       max-width: 60px;
@@ -174,12 +184,23 @@
 
   @media screen and (max-width: 768px) {
     font-size: 12.5px;
+    text-wrap: nowrap;
+    display: none;
   }
 }
 
 .DeskCol {
   color: var(--color-gray-400);
   font-weight: 500;
+
+}
+
+.TableColTitle {
+  &:nth-child(2) {
+    @media screen and (max-width: 992px) {
+      justify-content: end;      
+    }
+  }
 }
 
 .RowItemInfoGroup {
@@ -187,4 +208,23 @@
   align-items: center;
   width: 100%;
   gap: 0.75rem;
+}
+
+.PriceBlockMobile {
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+}
+
+.RowBuyBtn {
+  width: 60px;
+
+  @media screen and (max-width: 768px) {
+    min-width: 66px;
+    height: 30px !important;
+  }
 }

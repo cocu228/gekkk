@@ -3,8 +3,8 @@ import {FC, PropsWithChildren, useContext} from "react";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
 import PendingTransactions from "@/widgets/pending-transactions";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
+import GlobalCtxModalProvider from "@/app/providers/GlobalCtxModalProvider";
 import UnconfirmedTransactions from "@/widgets/unconfirmed-transactions";
-import ModalTrxInfoProvider from "@/widgets/wallet/transfer/withdraw/model/ModalTrxInfoProvider";
 import ActionConfirmationWindow from "@/widgets/action-confirmation-window/ui/ActionConfirmationWindow";
 import {useMatch} from "react-router-dom";
 import {IS_GEKKARD_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
@@ -25,7 +25,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
 
     return isGEKAndGEKW ? (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>
-            <ModalTrxInfoProvider>
+            <GlobalCtxModalProvider>
                 {md ? null : (
                     <>
                         {isActive && <UnconfirmedTransactions/>}
@@ -37,7 +37,7 @@ const Content: FC<PropsWithChildren> = ({children}) => {
                     ? styles.ContentPadding : ''}`}>
                     {children}
                 </div>
-            </ModalTrxInfoProvider>
+            </GlobalCtxModalProvider>
         </div>
     ) : (
         <div className="w-full h-full md:mb-3 mb-10" style={{overflow: 'hidden'}}>{children}</div>

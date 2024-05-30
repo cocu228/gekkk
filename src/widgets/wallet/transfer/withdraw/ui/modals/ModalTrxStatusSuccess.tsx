@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from "../forms/styles.module.scss"
 import { useContext } from 'react';
-import { CtxModalTrxResult } from '../../model/context';
+import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
 import { IconApp } from '@/shared/ui/icons/icon-app';
 
 interface IParams {
@@ -14,7 +14,7 @@ function ModalTrxStatusSuccess({
     onReceipt = null
 }: IParams) {
   const {t} = useTranslation();
-  const {handleCancel} = useContext(CtxModalTrxResult);
+  const {handleCancel} = useContext(GlobalCtxModalContext);
 
   return (
     <div className='w-full flex flex-col gap-[30px] items-center my-8 md:mb-4'>

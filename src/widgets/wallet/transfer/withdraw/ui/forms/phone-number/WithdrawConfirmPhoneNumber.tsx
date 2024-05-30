@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {apiGetUas} from "@/shared/(orval)api";
 import Button from "@/shared/ui/button/Button";
 import {CtxRootData} from "@/processes/RootContext";
-import {CtxModalTrxResult} from "../../../model/context";
+import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
 import {useContext, useEffect, useRef, useState} from "react";
 import {apiPaymentContact, IResCommission, IResResult} from "@/shared/api";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
@@ -46,7 +46,7 @@ const WithdrawConfirmPhoneNumber = ({
     const {account} = useContext(CtxRootData);
     const {$const} = useContext(CtxWalletData);
     const {setRefresh} = useContext(CtxRootData);
-    const {setContent} = useContext(CtxModalTrxResult);
+    const {setContent} = useContext(GlobalCtxModalContext);
     const [uasToken, setUasToken] = useState<string>(null);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const {getAccountDetails} = storeAccountDetails(state => state);

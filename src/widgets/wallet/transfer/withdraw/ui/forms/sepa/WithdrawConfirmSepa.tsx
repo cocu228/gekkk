@@ -13,7 +13,7 @@ import { storeAccountDetails } from "@/shared/store/account-details/accountDetai
 import { signHeadersGeneration } from "@/widgets/action-confirmation-window/model/helpers";
 import { useTranslation } from "react-i18next";
 import styles from "../styles.module.scss";
-import { CtxModalTrxResult } from "../../../model/context";
+import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
 import ModalTrxStatusError from "../../modals/ModalTrxStatusError";
 import ModalTrxStatusSuccess from "../../modals/ModalTrxStatusSuccess";
 import BankReceipt from "@/widgets/wallet/transfer/components/receipt/bank";
@@ -37,7 +37,7 @@ const WithdrawConfirmSepa = ({
   const { account } = useContext(CtxRootData);
   const { $const } = useContext(CtxWalletData);
   const {setRefresh} = useContext(CtxRootData);
-  const { setContent } = useContext(CtxModalTrxResult);
+  const { setContent } = useContext(GlobalCtxModalContext);
   const [uasToken, setUasToken] = useState<string>(null);
   const { displayHistory } = useContext(CtxDisplayHistory);
   const { getAccountDetails } = storeAccountDetails((state) => state);

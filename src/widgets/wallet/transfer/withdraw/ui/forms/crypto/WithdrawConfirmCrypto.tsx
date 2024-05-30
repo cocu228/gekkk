@@ -11,7 +11,7 @@ import {getChosenNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import {IWithdrawFormCryptoState} from "@/widgets/wallet/transfer/withdraw/ui/forms/crypto/WithdrawFormCrypto";
 import {IUseInputState} from "@/shared/ui/input-currency/model/useInputState";
 import {useForm} from "antd/es/form/Form";
-import {CtxModalTrxResult} from "@/widgets/wallet/transfer/withdraw/model/context";
+import {GlobalCtxModalContext} from "@/app/providers/GlobalCtxModalProvider";
 import {CreateWithdrawIn} from "@/shared/(orval)api/gek/model";
 import {formatAsNumber} from "@/shared/lib/formatting-helper";
 import {SignTX} from "./signTX";
@@ -53,7 +53,7 @@ const WithdrawConfirmCrypto = memo(
     const { $const } = useContext(CtxWalletData);
     const [loading, setLoading] = useState(false);
     const { setRefresh } = useContext(CtxRootData);
-    const { setContent } = useContext(CtxModalTrxResult);
+    const { setContent } = useContext(GlobalCtxModalContext);
     const { displayHistory } = useContext(CtxDisplayHistory);
     const [localErrorHunter,,localErrorInfoBox] = useError();
     const [stageReq, setStageReq] = useState(initStageConfirm);

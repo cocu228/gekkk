@@ -16,6 +16,7 @@
   height: 100%;
   padding: 20px;
   background: #fff;
+  margin: 0 auto;
   box-sizing: border-box;
   border: 1px solid var(--gek-light-grey);
 
@@ -148,5 +149,5 @@
   width: 100%;
   display: flex;
   margin-top: 16px;
-  justify-content: center;
+  justify-content: space-between;
 }

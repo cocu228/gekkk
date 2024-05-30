@@ -18,6 +18,7 @@
       "invalid_password": "Check that the password is 8+ characters, contains at least one of each: number, upper case character, special character.",
       "invalid_phone": "Please enter your full number"
     },
+    "download": "Download",
     "next": "Next",
     "login": "Login",
     "code": "Code",

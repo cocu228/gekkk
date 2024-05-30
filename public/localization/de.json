@@ -18,6 +18,7 @@
       "invalid_password": "Es sind nur Zahlen erlaubt, Mindestlänge 6 Zeichen",
       "invalid_phone": "Bitte geben Sie Ihre vollständige Nummer ein"
     },
+    "download": "Herunterladen",
     "next": "Weiter",
     "login": "Anmelden",
     "code": "Code",

@@ -90,9 +90,6 @@ const HeaderDesktop = ({ items, actions }) => {
               </button>
             </div>
           </HeaderMenu>
-          <Tooltip text="asdasd">
-            <h1>asdasd</h1>
-          </Tooltip>
           <div className={styles.HeaderItemsContainer}>
             <LocalizationMenu />
             <span className={styles.HeaderMenuTitles}>

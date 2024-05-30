@@ -30,6 +30,7 @@ const InfoContent = (props: TxInfoProps) => {
   const loading = isNull(state) && isAvailableType;
 
   const handleOnReceipt = () => {
+    props.handleCancel()
     if (md) {
       // TODO: For Mobile Version
     } else {
@@ -58,7 +59,6 @@ const InfoContent = (props: TxInfoProps) => {
 
   return (
     <div className="min-h-[400px]">
-      {" "}
       {localErrorInfoBox ? (
         localErrorInfoBox
       ) : loading ? (

@@ -12,6 +12,7 @@ type IParams = {
     tranfers?: boolean;
     eye?: boolean;
     caption?: string;
+    size?: 'sm' | 'md';
     prefix?: React.ReactNode
 };
 
@@ -26,6 +27,7 @@ const Input = React.forwardRef(
       eye,
       prefix,
       caption,
+      size = 'md',
       ...props
     }: IParams,
     ref: React.Ref<HTMLInputElement>
@@ -35,17 +37,19 @@ const Input = React.forwardRef(
 
     return (
         <>
-            <div
-                className={`${styles.Input} ${
-                    wrapperClassName || ""
-                }  ${tranfers && styles.TransfersInput} ${eye && styles.EyeStyles} ${md ? styles.InputMobileWrapper : styles.InputDesktopWrapper}`}
-            >
+        <div
+            data-size={size}
+            className={`${styles.Input} ${
+                wrapperClassName || ""
+            } ${tranfers ? styles.TransfersInput : ""} ${eye ? styles.EyeStyles : ""} ${
+                size === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper
+            }`}>
                 <div className={styles.InputWrapper}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={md ? styles.InputMobile : styles.InputDesktop}
+                            className={ size === 'md' ? styles.InputDesktop : styles.InputMobile}
                             type={eyeState ? 'password' : ''}
                             {...props}
                             ref={ref}
@@ -56,7 +60,6 @@ const Input = React.forwardRef(
                             }}
                         />
                     </div>
-
                 </div>
                 {
                     eye && (

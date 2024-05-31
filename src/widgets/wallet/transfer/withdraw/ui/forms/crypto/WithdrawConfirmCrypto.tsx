@@ -28,7 +28,7 @@ import Loader from "@/shared/ui/loader";
 import Button from "@/shared/ui/button/Button";
 import InfoBox from "@/widgets/info-box";
 import Form from "@/shared/ui/form/Form";
-import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
+import ReceiptData from "@/widgets/receipt/receiptData";
 import { CtxDisplayHistory } from "@/pages/transfers/history-wrapper/model/CtxDisplayHistory";
 import { CtxRootData } from "@/processes/RootContext";
 
@@ -171,7 +171,7 @@ const WithdrawConfirmCrypto = memo(
 
     const getReceipt = (txId: string) => async () => {
       setContent({
-          content: <GekReceipt txId={txId}/>,
+          content: <ReceiptData txId={txId}/>,
           title: 'Transaction receipt'
       });
     };

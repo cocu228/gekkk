@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {FC, useCallback, useContext, useEffect, useRef, useState} from "react";
 import styles from "./styles.module.scss";
 import { useTranslation } from "react-i18next";
@@ -9,7 +10,7 @@ import { apiAddressTxInfo } from "@/shared/(orval)api";
 import { AddressTxOut } from "@/shared/(orval)api/gek/model";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
 import {IconApp} from "@/shared/ui/icons/icon-app";
-import Gek from "@/widgets/wallet/transfer/components/receipt/gek/ui/Gek/Gek";
+import ReceiptInfo from "@/widgets/receipt/receiptData/ui/receiptInfo";
 
 interface BankReceiptProps {
   txId: string;
@@ -19,7 +20,7 @@ type IState = AddressTxOut & {
   senderName?: string;
 }
 
-const GekReceipt: FC<BankReceiptProps> = ({ txId }) => {
+const ReceiptData: FC<BankReceiptProps> = ({ txId }) => {
   const { t } = useTranslation();
   const componentRef = useRef<HTMLDivElement | null>(null)
   const [state, setState] = useState<IState>(null);
@@ -54,13 +55,13 @@ const GekReceipt: FC<BankReceiptProps> = ({ txId }) => {
   return (
     <div className={styles.Wrapper}>
       {loading && <Loader/>}
-      <Gek ref={componentRef} state={state} txId={txId} loading={loading} />
+      <ReceiptInfo ref={componentRef} state={state} txId={txId} loading={loading} />
       {handleCancel === null ? null : (
         <div className={styles.ButtonContainer}>
           <ReactToPrint
               trigger={trigger}
               content={content}
-              documentTitle={txId}
+              documentTitle={dayjs().format("dd-MM-YYYY_hh-mm-hh")}
           />
           <Button
             color="blue"
@@ -75,4 +76,4 @@ const GekReceipt: FC<BankReceiptProps> = ({ txId }) => {
   );
 };
 
-export default GekReceipt;
+export default ReceiptData;

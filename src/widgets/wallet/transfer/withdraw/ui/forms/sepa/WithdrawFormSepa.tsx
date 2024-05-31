@@ -93,7 +93,6 @@ const WithdrawFormSepa = () => {
                         <div className="col">
                             <Input
                                 tranfers={md}
-                                className={styles.Input}
                                 bordered={!md}
                                 value={inputs.beneficiaryName}
                                 onChange={onInput}
@@ -116,7 +115,6 @@ const WithdrawFormSepa = () => {
                         <div className="col">
                             <Input 
                                 tranfers={md}
-                                className={styles.Input}
                                 bordered={!md}
                                 value={inputs.accountNumber} 
                                 onChange={onInput}
@@ -162,7 +160,6 @@ const WithdrawFormSepa = () => {
                             {md?
                                 <Input
                                     tranfers={md}
-                                    className={styles.Input}
                                     bordered={!md}
                                     allowDigits
                                     allowSymbols

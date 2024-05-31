@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { validateInput } from "./model/helpers";
 import { IconApp } from "../icons/icon-app";
+import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 type IParams = {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -30,20 +31,21 @@ const Input = React.forwardRef(
     ref: React.Ref<HTMLInputElement>
   ) => {
     const [eyeState, setEyeState] = useState(false)
+    const {md} = useBreakpoints();
 
     return (
         <>
             <div
                 className={`${styles.Input} ${
-                    wrapperClassName ? wrapperClassName : ""
-                } ${tranfers && styles.TransfersInput} ${eye && styles.EyeStyles}`}
+                    wrapperClassName || ""
+                }  ${tranfers && styles.TransfersInput} ${eye && styles.EyeStyles} ${md ? styles.InputMobileWrapper : styles.InputDesktopWrapper}`}
             >
                 <div className={styles.InputWrapper}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={styles.InputWrap}
+                            className={md ? styles.InputMobile : styles.InputDesktop}
                             type={eyeState ? 'password' : ''}
                             {...props}
                             ref={ref}

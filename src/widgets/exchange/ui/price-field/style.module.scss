@@ -19,11 +19,11 @@
 .Field {
   position: relative;
   margin-top: 0.4rem;
-  height: 64px;
   text-align: right;  
   outline: none;
+  background-color: var(--gek-white);
   width: 100%;
-
+  height: 50px;
 
 
   &:active {
@@ -75,7 +75,6 @@
   &SwitchBtn {
     display: inline-flex;
     padding: 0;
-    padding-left: 10px;
     background: none;
     border: none;
     white-space: nowrap;
@@ -99,7 +98,7 @@
 
 @media (max-width: 768px){
   .Field {
-    height: 50px;
-    font-size: 12px;
+    height: 46px;
+    font-size: 10px;
   }
 }

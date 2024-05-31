@@ -12,7 +12,7 @@ interface IGekPdfProps {
     loading: boolean;
 }
 
-const Gek = forwardRef<HTMLDivElement | null, IGekPdfProps>(({state, txId, loading}, ref) => {
+const ReceiptInfo = forwardRef<HTMLDivElement | null, IGekPdfProps>(({state, txId, loading}, ref) => {
     return (
         <div ref={ref} className={styles.Block + (!loading ? '' : ' collapse')}>
             <div className={styles.Header}>
@@ -121,4 +121,4 @@ const Gek = forwardRef<HTMLDivElement | null, IGekPdfProps>(({state, txId, loadi
     )
 })
 
-export default Gek
+export default ReceiptInfo

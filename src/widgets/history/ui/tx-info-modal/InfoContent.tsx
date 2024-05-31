@@ -15,7 +15,7 @@ import {AddressTxOut, AdrTxTypeEnum} from "@/shared/(orval)api/gek/model";
 import Button from "@/shared/ui/button/Button";
 import {IconApp} from "@/shared/ui/icons/icon-app";
 import {CtxGlobalModalContext} from "@/app/providers/CtxGlobalModalProvider";
-import GekReceipt from "@/widgets/wallet/transfer/components/receipt/gek";
+import ReceiptData from "@/widgets/receipt/receiptData";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
@@ -35,7 +35,7 @@ const InfoContent = (props: TxInfoProps) => {
       // TODO: For Mobile Version
     } else {
       setContent({
-        content: <GekReceipt txId={props.id_transaction}/>,
+        content: <ReceiptData txId={props.id_transaction}/>,
         title: 'Transaction receipt'
       })
     }

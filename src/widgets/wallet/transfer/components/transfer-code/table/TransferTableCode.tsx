@@ -70,11 +70,11 @@ const TransferTableCode = ({isOwner = false}: { isOwner?: boolean }) => {
                 return <GTable.Row
                     className="px-4 py-3 gap-3">
                     <GTable.Col className="w-full" >
-                        <div className="row flex items-center">*
-                            <div className="col mr-2">
+                        <div className="row flex w-full items-center pr-[6px]">
+                            <div className="col pr-[15px] w-full">
                                 <CodeModalInfo code={it.code}/>
                             </div>
-                            <div className="col min-w-[14px]">
+                            <div className={styles.CopyIcon}>
                                 <CopyIcon value={it.code}/>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
 
     return <>
         <span onClick={showModal}
-              className={styles.CodeModalTitle}>{code}</span>
+              className={styles.CodeModalTitle}>*{code}</span>
 
         <ModalUi title={t("your_transfer_code")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>

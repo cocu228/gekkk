@@ -39,7 +39,7 @@ function SelectCurrency({currency, setCurr, setNetwork, setCurrency}: IProps) {
                     </div>
                 </div>
             :
-                <span className='inline-flex justify-center w-full text-[10px] text-[#B9B9B5]'>{t("choose_currency")}</span>
+                <span className='inline-flex justify-center w-full text-[10px] text-[#B9B9B5]'>-select-</span>
             }
         </div>
         <div className='rounded-r-[8px] h-full min-w-[22px] flex justify-center items-center bg-[#3A5E66]'>

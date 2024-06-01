@@ -14,20 +14,17 @@
     cursor: pointer;
   }
 
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
 
 
   &Blocked {
     opacity: 50%;
     pointer-events: none;
   }
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
 
 
-      
-  @include max-devices('lg') {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
   @media screen and (max-width: 992px) {
     padding: 12px 5px;
@@ -40,6 +37,15 @@
     // padding: 0 20px;
   }
 
+}
+
+.ItemTable {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  @include max-devices('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .ItemsList {
@@ -158,6 +164,12 @@
   flex-direction: column;
   justify-content: space-evenly;
   min-width: 150px;
+
+  @media screen and (max-width: 400px) {
+    min-width: 100px;
+    text-align: end;
+    align-items: end;
+  }
 }
 
 .RowBalanceTitle {
@@ -165,6 +177,10 @@
   font-size: 12px;
   color: var(--gek-dark-grey);
   font-weight: 400;
+
+  @media screen and (max-width: 400px) {
+    align-self: flex-end;
+  }
 }
 
 .RowBalanceSubtitle {
@@ -227,4 +243,9 @@
     min-width: 66px;
     height: 30px !important;
   }
+}
+
+.ItemEven {
+  margin: 0 -45px;
+  padding: 12px 43px;
 }

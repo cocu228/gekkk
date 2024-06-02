@@ -1,6 +1,7 @@
 import { ActiveBonusProgram } from '@/shared/api/bank/deals';
 import styles from '../ui/style.module.scss';
 import { useEffect, useState } from 'react';
+import { IconApp } from '@/shared/ui/icons/icon-app';
 
 
 
@@ -17,7 +18,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightOrange,
       mobileModalColor: styles.CashbackCardLightOrange,
-      iconPath: "/img/cashback/one-cashback.svg",
+      icon:  <IconApp lib={2} code='t76' size={107} color='#A2BEB8'/>,
       isActive: false
     },
     {
@@ -30,7 +31,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
-      iconPath: "/img/cashback/exchange-without-comission.svg",
+      icon: <IconApp lib={2} code='t74' size={107} color='#A2BEB8'/>,
       isActive: false
     }
   ],
@@ -45,7 +46,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightGreen,
       mobileModalColor: styles.CashbackCardLightGreen,
-      iconPath: "/img/cashback/monthly-payout.svg",
+      icon: <IconApp lib={2} code='t75' size={107} color='#A2BEB8'/>,
       isActive: false
     },
     {
@@ -59,7 +60,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
-      iconPath: "/img/cashback/exchange-without-comission.svg",
+      icon: <IconApp lib={2} code='t74' size={107} color='#A2BEB8'/>, 
       isActive: false
     }
   ],
@@ -74,7 +75,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightGreen,
       mobileModalColor: styles.CashbackCardLightGreen,
-      iconPath: "/img/cashback/monthly-payout.svg",
+      icon: <IconApp lib={2} code='t75' size={107} color='#A2BEB8'/>,
       isActive: false
     },
     {
@@ -88,7 +89,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightOrange,
       mobileModalColor: styles.CashbackCardLightOrange,
-      iconPath: "/img/cashback/one-cashback.svg",
+      icon: <IconApp lib={2} code='t76' size={107} color='#A2BEB8'/>,
       isActive: false
     },
     {
@@ -101,7 +102,7 @@ export const dealsData = {
       ],
       className: styles.CashbackCardLightBlue,
       mobileModalColor: styles.CashbackCardLightBlue,
-      iconPath: "/img/cashback/exchange-without-comission.svg",
+      icon: <IconApp lib={2} code='t74' size={107} color='#A2BEB8'/>,
       isActive: false
     }
   ]

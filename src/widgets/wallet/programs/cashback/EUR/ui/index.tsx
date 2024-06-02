@@ -19,7 +19,7 @@ function Programs() {
                         id,
                         name,
                         isActive,
-                        iconPath,
+                        icon,
                         className,
                         conditions,
                         accrualPeriod,
@@ -33,7 +33,7 @@ function Programs() {
                             name={name}
                             cashbackId={id}
                             isActive={isActive}
-                            iconPath={iconPath}
+                            icon={icon}
                             className={className}
                             conditions={conditions}
                             accrualPeriod={accrualPeriod}
@@ -44,7 +44,7 @@ function Programs() {
                             name={name}
                             cashbackId={id}
                             isActive={isActive}
-                            iconPath={iconPath}
+                            icon={icon}
                             className={className}
                             conditions={conditions}
                             accrualPeriod={accrualPeriod}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import styles from './styles.module.scss'
 import { SettingsButton } from "@/shared/ui/ButtonsMobile/settings-button";
 import { settingsContext } from "./settingsContext";
@@ -17,6 +17,9 @@ import { UserSession } from "./components/user-session";
 import { LanguageSettings } from "./components/language";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { IS_GEKKARD_APP } from "@/shared/lib";
+import { settingsList } from "./model/constants";
+import { apiAdminPanel } from "@/shared/api/various/admin-panel";
+import { CtxRootData } from "@/processes/RootContext";
 
 const areaMap = {
   "identification-status": <IdentificationStatus />,
@@ -31,61 +34,14 @@ const areaMap = {
   "language": <LanguageSettings />,
 };
 
-const settingsList = [
-  {
-    iconCode: 't53',
-    text: 'app_version',
-    selectArea: 'app-version',
-  },
-  ...(IS_GEKKARD_APP() ?
-    [{
-      iconCode: 't55',
-      text: 'personal_information',
-      selectArea: 'personal-information',
-    }] : []
-  ),
-  {
-    iconCode: 't52',
-    text: 'language',
-    selectArea: 'language',
-  },
-  {
-    iconCode: 't54',
-    text: 'change_password',
-    selectArea: 'change-password',
-  },
-  {
-    iconCode: 't46',
-    text: 'user_keys',
-    selectArea: 'user-keys',
-  },
-  {
-    iconCode: 't45',
-    text: 'history',
-    selectArea: 'history',
-  },
-  {
-    iconCode: 't43',
-    text: 'user_sessions',
-    selectArea: 'user-sessions',
-  },
-  {
-    iconCode: 't61',
-    text: 'pricing',
-    selectArea: 'pricing',
-  },
-  {
-    iconCode: 't09',
-    text: 'my_reports',
-    selectArea: 'my-reports',
-  },
-]
 type SettingsSections = keyof typeof areaMap | "" | string;
 
 export function Settings() {
   const { t } = useTranslation();
-  const { xxl, md, lg, xl } = useBreakpoints();
+  const {account} = useContext(CtxRootData);
+  const { xxl, md, xl } = useBreakpoints();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
   const selectedArea = useMemo(
     () => searchParams.get("sessionsSection") || "",
     [searchParams]
@@ -108,7 +64,15 @@ export function Settings() {
 
   useEffect(() => {
     setSelectedArea(selectedArea);
-  }, []);
+
+    (async () => {
+      const response = await apiAdminPanel();
+      
+      if (response.status !== 401) {
+        setShowAdminPanel(true);
+      }
+    })();
+  }, [account]);
 
   return (
     <settingsContext.Provider
@@ -224,6 +188,15 @@ export function Settings() {
                       text={t("legal_agreements")}
                     />
                   </a>
+                  {/* Admin panel button */}
+                  {showAdminPanel && (
+                    <a href="https://gate-dev.gekkard.com:6789/adm">
+                      <SettingsButton
+                        icon={null}
+                        text={"Admin panel"}
+                      />
+                    </a>
+                  )}
                 </div>
               </div>
             )}

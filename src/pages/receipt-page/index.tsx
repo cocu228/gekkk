@@ -9,7 +9,7 @@ const ReceiptPage: FC = () => {
 
     return (
         <div className={"wrapper"}>
-            <ReceiptData txId={txId} />
+            <ReceiptData isMobile txId={txId} />
         </div>
     )
 }

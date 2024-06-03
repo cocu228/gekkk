@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./style.module.scss";
 import { validateInput } from "./model/helpers";
-import { IconApp } from "../icons/icon-app";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 type IParams = {
@@ -36,13 +35,12 @@ const Input = React.forwardRef(
     }: IParams,
     ref: React.Ref<HTMLInputElement>
   ) => {
-    const [eyeState, setEyeState] = useState(false)
     const {md} = useBreakpoints();
 
     return (
         <>
         <div
-            data-size={size}
+            data-size={size === null ? md : size === 'md'}
             className={`${styles.Input} ${
                 wrapperClassName || ""
             } ${
@@ -54,7 +52,6 @@ const Input = React.forwardRef(
                         )}
                         <input
                             className={ size === 'md' ? styles.InputDesktop : styles.InputMobile}
-                            type={eyeState ? 'password' : ''}
                             {...props}
                             ref={ref}
                             name={name}

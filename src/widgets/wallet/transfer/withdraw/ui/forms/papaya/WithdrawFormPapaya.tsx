@@ -17,7 +17,7 @@ import WithdrawConfirmCrypto from "@/widgets/wallet/transfer/withdraw/ui/forms/c
 import {useTranslation} from "react-i18next";
 import {useBreakpoints} from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormPapaya = () => {
     const {t} = useTranslation();
@@ -149,7 +149,7 @@ const WithdrawFormPapaya = () => {
                 </div>
             </div>
 
-            <ModalUi
+            <Modal
                 placeBottom={window.innerWidth<768}
                 isModalOpen={isModalOpen}
                 onCancel={handleCancel}
@@ -162,7 +162,7 @@ const WithdrawFormPapaya = () => {
                     handleCancel={handleCancel}
                     amount={new Decimal(inputCurr.value.number).minus(withdraw_fee).toNumber()}
                 />
-            </ModalUi>
+            </Modal>
 
             <div className={styles.Button}>
                 <div className={styles.ButtonContainerCenter}>

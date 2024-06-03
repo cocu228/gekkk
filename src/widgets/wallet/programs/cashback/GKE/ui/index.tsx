@@ -18,7 +18,7 @@ import {CtxRootData} from "@/processes/RootContext";
 import {uncoverArray} from "@/shared/lib";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 const GkeCashbackProgram = () => {
     const {t} = useTranslation();
@@ -149,7 +149,7 @@ const GkeCashbackProgram = () => {
                 </div>
             </div>
 
-            <ModalUi
+            <Modal
                 title={t("confirm_locking")}
                 isModalOpen={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
@@ -182,7 +182,7 @@ const GkeCashbackProgram = () => {
                         }}
                     >{t("confirm")}</Button>
                 </div>
-            </ModalUi>
+            </Modal>
         </>
     );
 };

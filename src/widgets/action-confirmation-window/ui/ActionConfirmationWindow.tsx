@@ -11,7 +11,7 @@ import useModal from "@/shared/model/hooks/useModal";
 import useError from "@/shared/model/hooks/useError";
 import { useContext, useEffect, useState } from "react";
 import { CtxNeedConfirm } from "@/processes/errors-provider-context";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IState {
   code: string;
@@ -92,7 +92,7 @@ const ActionConfirmationWindow = () => {
   };
 
   return (
-    <ModalUi
+    <Modal
       isModalOpen={isModalOpen}
       closable={false}
       title={t('identity_verification')}
@@ -144,7 +144,7 @@ const ActionConfirmationWindow = () => {
           </Button>
         </div>
       </div>
-    </ModalUi>
+    </Modal>
   );
 };
 

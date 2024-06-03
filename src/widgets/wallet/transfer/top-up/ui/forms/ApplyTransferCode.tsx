@@ -5,7 +5,7 @@ import TransferTableCode from "@/widgets/wallet/transfer/components/transfer-cod
 import {apiApplyCode} from "@/shared/(orval)api/gek";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import useModal from "@/shared/model/hooks/useModal";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 import CodeTxInfo from "@/widgets/wallet/transfer/components/transfer-code/CodeTxInfo";
 import Loader from "@/shared/ui/loader";
 import {CtxRootData} from "@/processes/RootContext";
@@ -102,7 +102,7 @@ const ApplyTransferCode = () => {
                     {t("apply")}
                 </Button>
 
-                <ModalUi placeBottom={window.innerWidth < 768} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
+                <Modal placeBottom={window.innerWidth < 768} title={infoCode ? t("code_applied_successfully") : t("transfer_code_info")}
                            onCancel={handleCancel} isModalOpen={isModalOpen}>
 
                         {loading ? <Loader/> : !infoCode ?
@@ -126,7 +126,7 @@ const ApplyTransferCode = () => {
                                     </div>
                                 </div>
                             </>}
-                    </ModalUi>
+                    </Modal>
             </div>
         </div>
         <div className={styles.TransferTableContainer}>

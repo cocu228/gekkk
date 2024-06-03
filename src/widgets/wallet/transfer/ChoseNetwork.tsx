@@ -1,7 +1,6 @@
 import {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import InfoBox from "@/widgets/info-box";
 import {useNavigate} from "react-router-dom";
-import Select from "@/shared/ui/select/Select";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {CtxWalletNetworks, CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import {CtxCurrencies} from "@/processes/CurrenciesContext";
@@ -10,6 +9,7 @@ import {isCryptoNetwork} from "@/widgets/wallet/transfer/model/helpers";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "./style.module.scss"
 import { IconApp } from "@/shared/ui/icons/icon-app";
+import { Select } from '@/shared/ui/Select';
 
 interface IProps{
     withdraw?: boolean,
@@ -46,7 +46,7 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                         withdraw ? <span className="ml-[10px]">{t("select_withdraw_network") + ":"}</span> : <span className="ml-[10px]">{t("select_network") + ":"}</span>
                 }
 
-            <div className="col w-full overflow-hidden">
+            <div className="col w-full">
                 {Array.isArray(networksForSelector) &&
                     networksForSelector.length === 0 ?
                         md ? <div className={styles.NoOptions}>
@@ -124,14 +124,12 @@ const ChoseNetwork = ({withdraw = false, network, setNetwork}: IProps) => {
                                         </div>
                                     </div>
                                 :
-                                    <Select 
-                                        data-testid="network_selector" 
-                                        className="w-full mt-2"
-                                        placeholder={"Networks not found"} value={networkTypeSelect}
-                                        onSelect={setNetworkType}
-                                        options={networksForSelector}
-                                        listHeight={md?200:500}
-                                    />
+                                <Select
+                                    placeholder={"Networks not found"} 
+                                    value={networkTypeSelect ? networksForSelector.filter(item => item.value === networkTypeSelect)[0].label : 151}
+                                    typeChange={setNetworkType} 
+                                    options={networksForSelector}
+                                />
                 }
             </div>
         </div>

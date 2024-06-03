@@ -1,4 +1,4 @@
-import {Switch as SwitchC} from '@/shared/ui/!switch'
+import {Switch} from '@/shared/ui/Switch'
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
 import Form from "@/shared/ui/form/Form";
@@ -35,9 +35,9 @@ import { MenuButton } from "./menu-button/menu-button";
 import { useCardStore } from "../model/currentCardStore";
 import { CtxRootData } from "@/processes/RootContext";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { ModalC } from '@/shared/ui/!modal';
 import axios from "axios";
 import Button from "@/shared/ui/button/Button";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 // todo: refactoring
 const MobileCardsMenu = ({
@@ -469,7 +469,7 @@ const MobileCardsMenu = ({
           <MobileMenuItem
             dataItem="disableLimits"
             leftPrimary={t("disable_limits_for_minutes", { minutes: 3 })}
-            rightPrimary={<SwitchC onChange={null} defaultCheked={switchChecked} />}
+            rightPrimary={<Switch onChange={null} defaultCheked={switchChecked} />}
             onClick={onClick}
           />
 
@@ -514,11 +514,10 @@ const MobileCardsMenu = ({
             </MenuButton>
           </div>
 
-          <ModalC
-            padding
+          <Modal
             title={t("confirm_action")}
-            active={confirmationModal.isModalOpen}
-            onClose={confirmationModal.handleCancel}
+            isModalOpen={confirmationModal.isModalOpen}
+            onCancel={confirmationModal.handleCancel}
           >
             {loading ? (
               <Loader />
@@ -631,7 +630,7 @@ const MobileCardsMenu = ({
                 </Form>
               </div>
             )}
-          </ModalC>
+          </Modal>
         </>
       )}
     </div>

@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js';
 import {useEffect, useState} from 'react';
 import {apiGetRates} from '@/shared/(orval)api/gek';
-import {SkeletonInput} from '@/shared/ui/!skeleton/SkeletonInput';
+import { SkeletonInput } from '@/shared/ui/Skeleton/SkeletonInput';
 import {getCurrencyRounding} from '@/shared/lib/number-format-helper';
 import {IDepositStrategyData, getDepositCurrentProfit} from '../model/helpers';
 

@@ -7,7 +7,7 @@ import {useContext, useEffect, useState} from "react";
 import {storeListTxCode} from "@/shared/store/tx-codes/list-tx-code";
 import {CtxWalletData} from "@/widgets/wallet/transfer/model/context";
 import CopyIcon from "@/shared/ui/copy-icon/CopyIcon";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal } from "@/shared/ui/modal/Modal";
 import useModal from "@/shared/model/hooks/useModal";
 import CodeTxInfo from "../CodeTxInfo";
 import CancelContent from "./CancelContent";
@@ -127,10 +127,10 @@ const CodeModalInfo = ({code, inputCurr=null}) => {
         <span onClick={showModal}
               className={styles.CodeModalTitle}>*{code}</span>
 
-        <ModalUi title={t("your_transfer_code")} isModalOpen={isModalOpen}
+        <Modal title={t("your_transfer_code")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
             <CodeTxInfo onClose={handleCancel} inputCurr={inputCurr} code={code}/>
-        </ModalUi>
+        </Modal>
     </> 
 }
 
@@ -191,7 +191,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
         <>
             {loading ? <div className="w-full h-full relative"><Loader/></div> :
             <Button className="w-full" size="sm" skeleton onClick={() => onBtnConfirm(code)}>{t("confirm")}</Button>}
-            <ModalUi placeBottom={window.innerWidth<768} title={t("the_code_confirmed")} isModalOpen={isModalOpen}
+            <Modal placeBottom={window.innerWidth<768} title={t("the_code_confirmed")} isModalOpen={isModalOpen}
                onCancel={handleCancel}>
             <>
                         {localErrorInfoBox ? localErrorInfoBox : <>
@@ -219,7 +219,7 @@ const CodeModalConfirm = ({code, amount, currency, date = null}) => {
                             </div>
                         </>}
                     </>
-        </ModalUi>
+        </Modal>
         </>
     )   
 }

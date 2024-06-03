@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Modal as ModalUi } from "../ModalUi/Modal";
+import { Modal } from "../modal/Modal";
 import styles from "./style.module.scss";
 import useModal from "@/shared/model/hooks/useModal";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
@@ -29,13 +29,13 @@ const Tooltip = ({ children, text }: TooltipParams) => {
       </div>
 
       {!xl ? null : (
-        <ModalUi
+        <Modal
           title="Increased rate program"
           isModalOpen={tooltipModal.isModalOpen}
           onCancel={tooltipModal.handleCancel}
         >
           <div className="mb-10">{text}</div>
-        </ModalUi>
+        </Modal>
       )}
     </div>
   );

@@ -9,7 +9,7 @@ import parseISO from 'date-fns/parseISO';
 import getUnixTime from 'date-fns/getUnixTime';
 import { useTranslation } from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export function UserSession() {
     const {sessions, closeAllSessions, closeSession} = useSession();
@@ -73,7 +73,7 @@ export function UserSession() {
                         </div>
                     )}
                 </div>
-                <ModalUi
+                <Modal
                 placeBottom={window.innerWidth<768}
                 isModalOpen={isModalOpen}
                 title={t('close_session')}
@@ -108,7 +108,7 @@ export function UserSession() {
                     </Button> 
                     </>
                     </div>
-            </ModalUi>
+            </Modal>
         </>
     );
 }

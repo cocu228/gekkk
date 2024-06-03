@@ -1,4 +1,4 @@
-import {Switch as SwitchC} from '@/shared/ui/!switch'
+import {Switch} from '@/shared/ui/Switch'
 import axios from "axios";
 import { NewCard } from "./new-card";
 import Loader from "@/shared/ui/loader";
@@ -29,7 +29,7 @@ import { formatMonthYear } from "@/widgets/dashboard/model/helpers";
 import { useSearchParams } from "react-router-dom";
 import { OrderCard } from "@/widgets/cards-menu/ui/order-card";
 import { storeAccountDetails } from "@/shared/store/account-details/accountDetails";
-import { ModalC } from '@/shared/ui/!modal';
+import {Modal} from "@/shared/ui/modal/Modal";
 
 // todo: refactoring
 const CardsMenu = ({
@@ -350,7 +350,7 @@ const CardsMenu = ({
           <MenuItem
             dataItem="disableLimits"
             leftPrimary={t("disable_limits")}
-            rightPrimary={<SwitchC onChange={null} defaultCheked={switchChecked} />}
+            rightPrimary={<Switch onChange={null} defaultCheked={switchChecked} />}
             onClick={onClick}
           />
 
@@ -376,11 +376,11 @@ const CardsMenu = ({
             />
           )}
 
-          <ModalC
-            width={450}
-            title={t("confirm_action")}
-            active={confirmationModal.isModalOpen}
-            onClose={confirmationModal.handleCancel}
+          <Modal
+              isModalOpen={confirmationModal.isModalOpen}
+              title={t("confirm_action")}
+              onCancel={confirmationModal.handleCancel}
+              placeBottom={window.innerWidth < 768}
           >
             {loading ? (
               <Loader />
@@ -476,13 +476,12 @@ const CardsMenu = ({
                 </Form>
               </div>
             )}
-          </ModalC>
+          </Modal>
 
-          <ModalC
-            width={450}
+          <Modal
             title={t("card_info")}
-            active={cardInfoModal.isModalOpen}
-            onClose={() => {
+            isModalOpen={cardInfoModal.isModalOpen}
+            onCancel={() => {
               cardInfoModal.handleCancel();
               setCardInfo(null);
             }}
@@ -550,7 +549,7 @@ const CardsMenu = ({
                 </div>
               </div>
             </Form>
-          </ModalC>
+          </Modal>
         </>
       )}
     </div>

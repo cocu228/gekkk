@@ -22,7 +22,7 @@ import { useInputValidateState } from "@/shared/ui/input-currency/model/useInput
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 const UniversalTransferForm = () => {
   const {md} = useBreakpoints()
@@ -165,7 +165,7 @@ const UniversalTransferForm = () => {
         </div>
       </div>
       
-      <ModalUi
+      <Modal
         placeBottom={window.innerWidth<768}
         destroyOnClose
         isModalOpen={isModalOpen}
@@ -177,7 +177,7 @@ const UniversalTransferForm = () => {
           handleCancel={handleCancel}
           amount={inputCurr.value.number}
         />
-      </ModalUi>
+      </Modal>
       <div className={styles.PayInfo}>
           <div className={styles.PayInfoCol}>
             <div className="row">

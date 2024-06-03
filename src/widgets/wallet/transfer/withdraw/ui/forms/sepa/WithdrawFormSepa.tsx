@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import Input from "@/shared/ui/input/Input";
 import {useNavigate} from "react-router-dom";
-import Select from "@/shared/ui/select/Select";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import WithdrawConfirmSepa from "./WithdrawConfirmSepa";
@@ -17,7 +16,8 @@ import {getInitialProps, useTranslation} from "react-i18next";
 import styles from "../styles.module.scss"
 import TextArea from '@/shared/ui/input/text-area/TextArea';
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
+import { Select } from '@/shared/ui/Select';
 
 const WithdrawFormSepa = () => {
     const {t} = useTranslation();
@@ -139,15 +139,15 @@ const WithdrawFormSepa = () => {
                     </div>
                     <div className="row">
                         <div className="col">
-                            <Select className="w-full"
-                                    onChange={(v: unknown) => setInputs(() => ({
-                                        ...inputs,
-                                        transferDescription: v
-                                    }))}
-                                    name={"transferDescription"}
-                                    options={transferDescriptionsTranslated}
-                                    placeholder={t("transfer_details.name")}
-                                    value={inputs.transferDescription}
+                            <Select
+                                onChange={(v: unknown) => setInputs(() => ({
+                                    ...inputs,
+                                    transferDescription: v
+                                }))}
+                                listHeight={250}
+                                options={transferDescriptionsTranslated}
+                                placeholder={t("transfer_details.name")}
+                                value={inputs.transferDescription}
                             />
                         </div>
                     </div>
@@ -188,7 +188,7 @@ const WithdrawFormSepa = () => {
                 </div>
             </div>
             
-            <ModalUi
+            <Modal
                 placeBottom={window.innerWidth < 768}
                 zIndex
                 destroyOnClose
@@ -201,7 +201,7 @@ const WithdrawFormSepa = () => {
                     handleCancel={handleCancel}
                     amount={inputCurr.value.number}
                 />
-            </ModalUi>
+            </Modal>
 
             <div className={styles.ButtonContainerCenter}>
                 <Button

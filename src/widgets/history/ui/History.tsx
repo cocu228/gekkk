@@ -17,7 +17,7 @@ import { GetHistoryTrasactionOut } from "@/shared/(orval)api/gek/model";
 import { BreakpointsContext } from "@/app/providers/BreakpointsProvider";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import {IS_GEKKARD_APP} from "@/shared/lib";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 const History = memo(function ({
   to,
@@ -199,7 +199,7 @@ const History = memo(function ({
       </div>
 
       {/* Tx info modal */}
-      <ModalUi
+      <Modal
         isModalOpen={isModalOpen}
         onCancel={handleCancel}
         title={t('transaction_info')}
@@ -209,7 +209,7 @@ const History = memo(function ({
           handleCancel={handleCancel}
           onUpdateTxInfo={onUpdateTxInfo}
         />
-      </ModalUi>
+      </Modal>
     </>
   );
 });

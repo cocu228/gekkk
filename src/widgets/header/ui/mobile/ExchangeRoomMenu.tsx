@@ -13,7 +13,7 @@ import CreateRoom from "@/shared/ui/create-room/CreateRoom";
 import { IExchangeField } from "@/widgets/exchange/model/types";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { DropdownCItem } from "@/shared/ui/!dropdown/item";
-import { Modal } from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const ExchangeRoomMenu = ({ roomId }: { roomId: string }) => {
   const { t } = useTranslation();

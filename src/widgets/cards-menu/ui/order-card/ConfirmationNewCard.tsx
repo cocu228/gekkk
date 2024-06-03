@@ -3,7 +3,6 @@ import {useTranslation} from 'react-i18next';
 import Button from '@/shared/ui/button/Button';
 import {useNewCardContext} from './newCardContext';
 import {CtxRootData} from "@/processes/RootContext";
-import Select from "@/shared/ui/select/Select";
 import {getAddressPartOrEmpty} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
 import {apiDeliveryOptions, IDeliveryOption} from "@/shared/api/bank/get-delivery-options";
@@ -11,7 +10,8 @@ import Loader from "@/shared/ui/loader";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
 import {apiPersonalize} from "@/shared/(orval)api";
 import styles from '../new-card/styles.module.scss'
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
+import { Select } from '@/shared/ui/Select';
 
 export function ConfirmationNewCard() {
     const {t} = useTranslation();
@@ -78,20 +78,25 @@ export function ConfirmationNewCard() {
             <div className={styles.confRowItem}>
                     <span className={styles.confRowItemTitle}>{t("delivery_type")}</span>
                     <div className='w-[200px]'>
-                        <Select className="w-full mt-2"
-                            placeholder={t("select_type") + "..."}
-                            value={state.isExpressDelivery ? 'express' : 'standard'}
-                            options={[{
-                                label: 'Standard (0 €)',
-                                value: 'standard',
-                            }, {
-                                label: `Express (${deliveryOption.cost} €)`,
-                                value: 'express',
-                            }]}
-                            onSelect={(e: 'express' | 'standard') => setState({
-                                ...state,
-                                isExpressDelivery: e === 'express'
-                            })}/>
+                    <Select
+                                mobile={true}
+                                placeholder='Select type...'
+                                value={state.isExpressDelivery ? 'Express (26 €)' : 'Standart (0 €)'}
+                                options={[{
+                                    label: 'Standard (0 €)',
+                                    value: 'standard',
+                                }, {
+                                    label: `Express (${deliveryOption.cost} €)`,
+                                    value: 'express',
+                                }]}
+                                onChange={(e: 'Express (26 €)' | 'standard') => {
+                                    console.log('TYYYPE', e)
+                                    setState({
+                                        ...state,
+                                        isExpressDelivery: e === 'Express (26 €)'
+                                    })
+                                }} 
+                            />
                 </div>
             </div>
         </div>
@@ -125,7 +130,7 @@ export function ConfirmationNewCard() {
             }}>{t("back")}</Button>
         </div>
 
-        <ModalUi
+        <Modal
             isModalOpen={isOpen}
             closable={false}
             title={t("enter_your_online_bank_password_to_confirm_new_card_order")}
@@ -183,6 +188,6 @@ export function ConfirmationNewCard() {
                     setIsOpen(false);
                 }}>{t("cancel")}</Button>
             </div>
-        </ModalUi>
+        </Modal>
     </>
 }

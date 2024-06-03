@@ -13,7 +13,7 @@ import {CtxNeedConfirm, CtxOfflineMode} from "@/processes/errors-provider-contex
 import {IStateErrorProvider, IServiceErrorProvider} from "@/processes/errors-provider-types";
 import {skipList, HunterErrorsApi, hunterErrorStatus} from "@/processes/errors-provider-helpers";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 // todo: refactor this
 const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
@@ -143,7 +143,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
             </CtxNeedConfirm.Provider>
         </CtxOfflineMode.Provider>
 
-        <ModalUi
+        <Modal
             isModalOpen={isModalOpen}
             title='Account generation'
             noBorder
@@ -165,7 +165,7 @@ const ErrorsProvider: FC<PropsWithChildren & { offline: boolean }> = function ({
                     >Log out</Button>
                 </div>
             </div>
-        </ModalUi>
+        </Modal>
     </>
 }
 

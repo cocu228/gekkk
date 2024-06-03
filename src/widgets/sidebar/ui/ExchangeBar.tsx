@@ -13,7 +13,7 @@ import NavCollapse from '@/widgets/gko-sidebar/ui/nav-collapse/NavCollapse';
 import InviteLink from '@/shared/ui/invite-link/InviteLink';
 import Button from '@/shared/ui/button/Button';
 import { apiCloseRoom } from '@/shared/(orval)api';
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 type IParams = {
     NavLinkEvent: () => void,
@@ -126,15 +126,15 @@ const ExchangeBar = ({NavLinkEvent}: IParams) => {
             </NavCollapse>
         }
 
-        <ModalUi
+        <Modal
             isModalOpen={roomInfoModal.isModalOpen}
             onCancel={roomInfoModal.handleCancel}
             title={t("invite_link")}
         >
             <InviteLink onClose={roomInfoModal.handleCancel} roomInfo={selectedRoom} />
-        </ModalUi>
+        </Modal>
         
-        <ModalUi
+        <Modal
             isModalOpen={roomCloseModal.isModalOpen}
             onCancel={roomCloseModal.handleCancel}
             title={t('invite_link')}
@@ -163,7 +163,7 @@ const ExchangeBar = ({NavLinkEvent}: IParams) => {
                     }}
                 >{t("close_private_exchange_room")}</Button>
             </div>
-        </ModalUi>
+        </Modal>
     </>
 }
 

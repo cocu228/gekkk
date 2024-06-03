@@ -14,7 +14,7 @@ import {useTranslation} from 'react-i18next';
 import {CtxRootData} from "@/processes/RootContext";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import { uncoverArray } from "@/shared/lib";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 const NoFeeProgram = () => {
     const {t} = useTranslation();
@@ -176,7 +176,7 @@ const NoFeeProgram = () => {
                 </div>
             </div>
             
-            <ModalUi
+            <Modal
                 title={t("confirm_locking")}
                 isModalOpen={lockConfirmModal.isModalOpen}
                 onCancel={lockConfirmModal.handleCancel}
@@ -223,7 +223,7 @@ const NoFeeProgram = () => {
                         }}
                     >{t("confirm")}</Button>
                 </div>
-            </ModalUi>
+            </Modal>
         </>
     );
 };

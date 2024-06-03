@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 /// TODO: в событие onChange, проблема с типизацией.
 
-interface SelectCProps {
+interface SelectProps {
     placeholder: string
     mobile?: boolean
     options: any[]
@@ -17,7 +17,7 @@ interface SelectCProps {
     typeChange?: (id:any) => void;
 }
 
-export const SelectC:FC<SelectCProps> = ({
+export const Select:FC<SelectProps> = ({
     placeholder,
     options,
     onChange,

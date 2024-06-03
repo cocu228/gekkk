@@ -1,5 +1,5 @@
 ﻿import {Switch} from "antd";
-import {Switch as SwitchUi} from "@/shared/ui/!switch/index";
+import {Switch as SwitchUi} from "@/shared/ui/Switch/index";
 import Tooltip from "@/shared/ui/tooltip/Tooltip";
 import React, {useContext, useState} from "react";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";

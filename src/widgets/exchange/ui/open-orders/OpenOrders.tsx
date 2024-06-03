@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { DatePicker, Switch } from "antd";
+import { DatePicker } from "antd";
 import Loader from "@/shared/ui/loader";
 import styles from "./style.module.scss";
 import { format, addDays } from "date-fns";
@@ -24,10 +24,8 @@ import useError from "@/shared/model/hooks/useError";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { IconApp } from "@/shared/ui/icons/icon-app";
 import { RangePickerProps } from "antd/es/date-picker";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
-import {Switch as SwitchUi} from "@/shared/ui/!switch/index";
-
-const { RangePicker } = DatePicker;
+import { Modal } from "@/shared/ui/modal/Modal";
+import {Switch } from "@/shared/ui/Switch/index";
 
 interface IParams {
   refreshKey?: string;
@@ -152,7 +150,7 @@ function OpenOrders({ refreshKey }: IParams) {
         >
           {t("exchange.active_orders")}
         </span>
-        <SwitchUi
+        <Switch
           className={styles.SwitchWrap}
           defaultCheked={activeTab === ordersTabs[0].Key}
           onChange={(isCheked) =>
@@ -345,7 +343,7 @@ function OpenOrders({ refreshKey }: IParams) {
         )}
       </div>
 
-      <ModalUi
+      <Modal
         title={t('exchange.cancel_order')}
         isModalOpen={cancelOrderModal.isModalOpen}
         onCancel={cancelOrderModal.handleCancel}
@@ -373,7 +371,7 @@ function OpenOrders({ refreshKey }: IParams) {
             {t("cancel")}
           </Button>
         </div>
-      </ModalUi>
+      </Modal>
     </>
   );
 }

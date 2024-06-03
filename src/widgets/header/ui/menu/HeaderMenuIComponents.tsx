@@ -11,7 +11,7 @@ import Loader from "@/shared/ui/loader";
 import {actionResSuccess, getCookieData, getFormattedIBAN, uncoverResponse} from "@/shared/lib/helpers";
 import {BreakpointsContext} from "@/app/providers/BreakpointsProvider";
 import {IconApp} from "@/shared/ui/icons/icon-app";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 import {IS_GEKKOIN_APP, IS_GEKKWALLET_APP} from "@/shared/lib";
 
 const hClassName = new HelperClassName(styles)
@@ -89,9 +89,9 @@ export const PromoCodeModal = ({active = false}) => {
         <button className="w-full text-left" onClick={showModal}>
             {t("header_menu.promo_code")}
         </button>
-        <ModalUi title={t("header_menu.activate_promo_code")} onCancel={handleCancel} isModalOpen={isModalOpen}>
+        <Modal title={t("header_menu.activate_promo_code")} onCancel={handleCancel} isModalOpen={isModalOpen}>
             <PromoCode handleCancel={handleCancel}/>
-        </ModalUi>
+        </Modal>
     </>
 }
 
@@ -120,7 +120,7 @@ export const EnableNotifications = () => {
             <button onClick={onClick} className="w-full text-left">
                 {t("header_menu.enable_notifications")}
             </button>
-            <ModalUi
+            <Modal
                 noBorder
                 title="&nbsp;"
                 closable={false}
@@ -147,7 +147,7 @@ export const EnableNotifications = () => {
                             >{t("close")}</Button>}
                     </div>
                 </div>
-            </ModalUi>
+            </Modal>
         </>
     )
 }
@@ -187,7 +187,7 @@ export const GekkoinInvestPlatform = () => {
             <button className="w-full text-left" onClick={showModal}>
                 {buttonTitle}
             </button>
-            <ModalUi
+            <Modal
                 isModalOpen={isModalOpen}
                 onCancel={handleCancel}
                 title={redirectedTitle}
@@ -210,7 +210,7 @@ export const GekkoinInvestPlatform = () => {
                         }
                     </div>
                 </div>
-            </ModalUi>
+            </Modal>
         </>
     );
 }

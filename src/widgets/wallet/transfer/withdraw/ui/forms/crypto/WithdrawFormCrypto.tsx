@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import Input from "@/shared/ui/input/Input";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import useModal from "@/shared/model/hooks/useModal";
 import { getChosenNetwork } from "@/widgets/wallet/transfer/model/helpers";
@@ -133,7 +133,7 @@ const WithdrawFormCrypto = () => {
             </div>}
           />
         </div>   
-        <ModalUi
+        <Modal
           isModalOpen={qrCodeModal.isModalOpen}
           onCancel={qrCodeModal.handleCancel}
           title="&nbsp;"
@@ -149,7 +149,7 @@ const WithdrawFormCrypto = () => {
               qrCodeModal.handleCancel();
             }}
           />
-        </ModalUi>
+        </Modal>
         <div className={style.InpBlock}>
             <span className={`${styles.TitleColText} ml-[10px]`}>{t("recipient")}:</span>
             <Input
@@ -225,7 +225,7 @@ const WithdrawFormCrypto = () => {
             </div>
         </div>
 
-        <ModalUi
+        <Modal
           isModalOpen={isModalOpen}
           onCancel={handleCancel}
           title={t("confirm_transaction")}
@@ -235,7 +235,7 @@ const WithdrawFormCrypto = () => {
             handleCancel={handleCancel}
             amount={inputCurr.value.number}
           />
-        </ModalUi>
+        </Modal>
 
         <div className={styles.Button + 'mb-0'}>
             <div className={styles.ButtonContainerCenter}>

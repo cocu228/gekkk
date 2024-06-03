@@ -11,7 +11,7 @@ import { CurrencyFlags } from "@/shared/config/mask-currency-flags";
 import styles from "./styles.module.scss";
 import { IconApp } from "../icons/icon-app";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import {Select} from "../selectUi/Select";
+import {Select} from "../SearchSelect/Select";
 import { CtxCurrencies, ICtxCurrency } from "@/processes/CurrenciesContext";
 
 interface IParams {

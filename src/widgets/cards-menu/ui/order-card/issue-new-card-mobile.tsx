@@ -3,11 +3,11 @@ import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {ValidateOrderCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import styles from '../style.module.scss'
 import Button from '@/shared/ui/button/Button';
+import { Select } from '@/shared/ui/Select';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -39,20 +39,20 @@ export function IssueNewCardMobile() {
             <div className={styles.mobRowItem}>
                 <span className={styles.mobRowItemTitle}>{t('country')}:</span>
                 <div className={styles.mobSelectWrap}>
-                    <SearchSelect
-                        className="w-full"
-                        placeholder={t("select_country")}
-                        value={state.countryCode}
-                        notFoundContent={<span>{t("country_not_found")}</span>}
-                        options={deliveryCountriesList.map(c => ({
-                            label: c.name,
-                            value: c.code
-                        }))}
-                        onSelect={(code) => setState({
-                            ...state,
-                            countryCode: code
-                        })}
-                    />
+                <Select
+                    mobile
+                    placeholder={t("select_country")}
+                    value={state.countryCode}
+                    options={deliveryCountriesList.map(c => ({
+                        label: c.name,
+                        value: c.code
+                    }))}
+                    listHeight={250}
+                    onChange={(code) => setState({
+                        ...state,
+                        countryCode: code
+                    })}
+                />
                 </div>
             </div>
 

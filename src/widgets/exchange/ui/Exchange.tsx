@@ -30,7 +30,7 @@ import InlineData from "./inline-data/InlineData";
 import { SelectToken } from "../components/selectToken/SelectToken";
 import PercentSelector from "@/shared/ui/input-currency/ui/percent-selector/PercentSelector";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Modal } from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 function Exchange() {
   const { currencies } = useContext(CtxCurrencies);

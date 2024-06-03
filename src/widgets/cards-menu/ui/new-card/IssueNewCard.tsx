@@ -4,11 +4,10 @@ import {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
 import {ValidateNewCardState} from "@/widgets/cards-menu/model/helpers";
 import {deliveryCountriesList} from "@/shared/config/delivery-coutries-list";
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {CloseWindowButton} from "@/shared/ui/CloseWindowButton";
-import {Switch as SwitchUi} from "@/shared/ui/!switch/index";
-import Select from '@/shared/ui/select/Select';
+import {Switch} from "@/shared/ui/Switch/index";
 import styles from './styles.module.scss'
+import { Select } from '@/shared/ui/Select';
 
 export function IssueNewCard() {
     const {t} = useTranslation();
@@ -34,20 +33,21 @@ export function IssueNewCard() {
             <div className={`${styles.issueRowItem} ${styles.issueRowItemBorder}`}>
                 <span className={styles.rowItemTitle}>{t('card_type')}</span>
                 <div className='w-[150px]'>
-                    <Select className="w-full mt-2"
-                            placeholder={t("select_type") + "..."}
-                            value={t(state.cardType.toLowerCase())}
-                            options={[{
-                                label: t("virtual"),
-                                value: 'virtual',
-                            }, {
-                                label: t("plastic"),
-                                value: 'plastic',
-                            }]}
-                            onSelect={(e) => setState({
-	                            ...state,
-	                            cardType: e.toUpperCase()
-                            })}
+                    <Select
+                        mobile
+                        placeholder='Select type...'
+                        value={t(state.cardType.toLowerCase())}
+                        options={[{
+                            label: 'Virtual',
+                            value: 'virtual',
+                        }, {
+                            label: 'Plastic',
+                            value: 'plastic',
+                        }]}
+                        onChange={(e) => setState({
+                            ...state,
+                            cardType: e.toUpperCase()
+                        })}
                     />
                 </div>
             </div>
@@ -86,23 +86,23 @@ export function IssueNewCard() {
                         <span className={styles.issueTextGroupTitle}>{t('delivery_address')}</span>
                         <span className={styles.issueTextGroupSubtitle}>{t('same_as_the_residence_address')}</span>
                     </div>
-                    <SwitchUi
+                    <Switch
                         defaultCheked={state.isResidenceAddress}
                         onChange={switchResidenceAddress}
                     />
                 </div>
                 <span className={styles.issueTextGroupTitle}>{t('country')}</span>
                 <div className='w-[250px] mb-[12px]'>
-                    <SearchSelect
-                        className="w-full mt-2"
-                        placeholder={t("select_country")+"..."}
+                    <Select
+                        listHeight={250}
+                        mobile
+                        placeholder='Select country...'
                         value={state.countryCode}
-                        notFoundContent={<span>{t("country_not_found")}</span>}
                         options={deliveryCountriesList.map(c => ({
                             label: c.name,
                             value: c.code
                         }))}
-                        onSelect={(code) => setState({
+                        onChange={(code) => setState({
                             ...state,
                             countryCode: code
                         })}

@@ -1,5 +1,4 @@
-import {ModalProps} from "antd";
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "@/shared/ui/modal/Modal"
 import Button from "@/shared/ui/button/Button";
 import {GetDepositOut} from "@/shared/(orval)api/gek/model";
 import {IDepositStrategyData} from "../model/helpers";
@@ -11,8 +10,9 @@ import Loader from "@/shared/ui/loader";
 import useError from "@/shared/model/hooks/useError";
 import {storeInvestments} from "@/shared/store/investments/investments";
 
-type IParams = ModalProps & {
+type IParams = {
     isFixed: boolean;
+    open: boolean;
     onCancel: () => void;
     strategyData: IDepositStrategyData;
     investment: GetDepositOut & {isGke: boolean};
@@ -67,7 +67,7 @@ const ClosingDepositModal = ({
     }
     
     return (
-        <Modal open={open} onCancel={onCancel} {...props}>
+        <Modal title='&nbsp;' isModalOpen={open} onCancel={onCancel}>
             <div className={loading ? 'collapse' : ''}>
                 <p className="font-bold text-xl mb-6 md:text-lg md:mb-5">Closing your deposit</p>
                 <div className="mb-4">

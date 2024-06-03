@@ -18,8 +18,8 @@ import { storeListTxCode } from "@/shared/store/tx-codes/list-tx-code";
 import useError from "@/shared/model/hooks/useError";
 import styles from "../styles.module.scss";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import { Switch } from "@/shared/ui/!switch";
-import { Modal } from "@/shared/ui/ModalUi/Modal";
+import { Switch } from "@/shared/ui/Switch";
+import { Modal } from "@/shared/ui/modal/Modal";
 import { CtxRootData } from "@/processes/RootContext";
 import Checkbox from "@/shared/ui/checkbox/Checkbox";
 

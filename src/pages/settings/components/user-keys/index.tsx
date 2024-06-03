@@ -9,7 +9,7 @@ import { formatDate } from "./model/date-formater";
 import parseISO from "date-fns/parseISO";
 import useModal from "@/shared/model/hooks/useModal";
 import { UserKey } from "@/shared/(orval)api/auth/model/userKey";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 import { apiCloseSessions, apiRemoveKey } from "@/shared/(orval)api/auth";
 import { UserSession } from "@/shared/(orval)api/auth/model/userSession";
 import { RegisterKey, RegisterOption } from "../change-password/api/register-key";
@@ -123,7 +123,7 @@ export function UserKeys() {
                 </div>
                 )}
             </div>
-            <ModalUi
+            <Modal
               closable={false}
               noBorder
               onCancel={handleCancel}
@@ -173,7 +173,7 @@ export function UserKeys() {
         
                   }
                 </div>
-            </ModalUi>
+            </Modal>
         </MobileWrapper>
     )
 }

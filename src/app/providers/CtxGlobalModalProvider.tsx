@@ -1,6 +1,6 @@
 import {FC, memo, PropsWithChildren, useCallback, useMemo, useState, createContext} from "react";
 import useModal from "@/shared/model/hooks/useModal";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 export interface ITrxResultModalInfo {
     title?: string;
@@ -45,14 +45,14 @@ const CtxGlobalModalProvider: FC<PropsWithChildren> = ({children}) => {
     return (
         <CtxGlobalModalContext.Provider value={value}>
             {children}
-            <ModalUi
+            <Modal
                 isModalOpen={isModalOpen}
                 title={state.title}
                 onCancel={closeContent}
                 placeBottom={window.innerWidth < 768}
             >
                 {state.content}
-            </ModalUi>
+            </Modal>
         </CtxGlobalModalContext.Provider>
     )
 };

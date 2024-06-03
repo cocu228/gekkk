@@ -16,7 +16,7 @@ import {
   getTransactionSignParams,
 } from "@/shared/lib/crypto-service";
 import { useTranslation } from "react-i18next";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IState {
   code: string;
@@ -90,7 +90,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
   };
 
   const confirmationModal = (
-    <ModalUi
+    <Modal
       isModalOpen={isModalOpen}
       title={t("confirm_action")}
       noBorder
@@ -132,7 +132,7 @@ const usePinConfirmation = (): TypeUseConfirmation => {
           </div>
         </div>
       )}
-    </ModalUi>
+    </Modal>
   );
 
   return {

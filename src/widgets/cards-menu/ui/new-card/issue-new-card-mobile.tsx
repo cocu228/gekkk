@@ -1,10 +1,10 @@
 import { useNewCardContext } from './newCardContext';
 import { useTranslation } from 'react-i18next';
-import SearchSelect from "@/shared/ui/search-select/SearchSelect";
 import {Switch} from "antd";
 import { MobileInput } from '@/shared/ui/mobile-input/mobile-input';
 import styles from '../style.module.scss';
 import Button from '@/shared/ui/button/Button';
+import { Select } from '@/shared/ui/Select';
 
 export function IssueNewCardMobile() {
     const {t} = useTranslation();
@@ -30,20 +30,21 @@ export function IssueNewCardMobile() {
             <div className={styles.issueRowItem}>
                 <span className={styles.mobRowItemTitle}>{t('card_type')}:</span>
                 <div className={styles.newCardSearchBlock}>
-                    <SearchSelect className="w-full mt-2 max-h-[50px]"
-                            placeholder={t("select_type") + "..."}
-                            value={t(state.cardType.toLowerCase())}
-                            options={[{
-                                label: 'Virtual',
-                                value: 'virtual',
-                            }, {
-                                label: 'Plastic',
-                                value: 'plastic',
-                            }]}
-                            onSelect={(e) => setState({
-	                            ...state,
-	                            cardType: e.toUpperCase()
-                            })}
+                    <Select
+                        mobile
+                        placeholder='Select type...'
+                        value={t(state.cardType.toLowerCase())}
+                        options={[{
+                            label: 'Virtual',
+                            value: 'virtual',
+                        }, {
+                            label: 'Plastic',
+                            value: 'plastic',
+                        }]}
+                        onChange={(e) => setState({
+                            ...state,
+                            cardType: e.toUpperCase()
+                        })}
                     />
                 </div>
             </div>

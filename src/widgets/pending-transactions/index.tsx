@@ -15,7 +15,7 @@ import {apiSetPendingTxStatus} from '@/shared/api/bank/set-pending-tx-status.ts'
 import {storeAccountDetails} from "@/shared/store/account-details/accountDetails";
 import {generateJWT, getTransactionSignParams} from '@/shared/lib/crypto-service';
 import {IPendingTransaction, apiPendingTransactions} from "@/shared/api/bank/get-pending-transactions.ts";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const PendingTransactions = () => {
     const {t} = useTranslation();
@@ -133,7 +133,7 @@ export const PendingTransactions = () => {
             />}
         />
 
-        <ModalUi
+        <Modal
             isModalOpen={isModalOpen}
             onCancel={handleCancel}
             title={t('please_verify_transaction')}
@@ -183,7 +183,7 @@ export const PendingTransactions = () => {
                     </div>
                 </div>
             </div>}
-        </ModalUi>
+        </Modal>
     </div>
 }
 

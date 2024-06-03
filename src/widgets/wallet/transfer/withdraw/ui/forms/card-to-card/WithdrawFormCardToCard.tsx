@@ -1,4 +1,3 @@
-import { Select } from "antd";
 import Loader from "@/shared/ui/loader";
 import Input from "@/shared/ui/input/Input";
 import Button from "@/shared/ui/button/Button";
@@ -28,11 +27,9 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import styles from "../styles.module.scss";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import { IconApp } from "@/shared/ui/icons/icon-app";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
-import { Select as SelectUi } from "@/shared/ui/selectUi/Select";
+import {Modal} from "@/shared/ui/modal/Modal";
+import { Select } from "@/shared/ui/SearchSelect/Select";
 
-
-const { Option } = Select;
 
 const WithdrawFormCardToCard = () => {
   const currency = useContext(CtxWalletData);
@@ -123,7 +120,7 @@ const WithdrawFormCardToCard = () => {
             </div>
             <div className="row">
               <div className="col">
-                <SelectUi
+                <Select
                   list={transformedList}
                   placeholderText="-select card-"
                   onSelect={(val) => {
@@ -244,7 +241,7 @@ const WithdrawFormCardToCard = () => {
           </div>
         </div>
 
-        <ModalUi
+        <Modal
           title={t("confirm_transaction")}
           onCancel={handleCancel}
           isModalOpen={isModalOpen}
@@ -255,7 +252,7 @@ const WithdrawFormCardToCard = () => {
             amount={inputCurr.value.number}
             handleCancel={handleCancel}
           />
-        </ModalUi>
+        </Modal>
 
         <div className="row w-full">
           <div className="flex justify-center col">
@@ -324,7 +321,7 @@ const WithdrawFormCardToCard = () => {
           <div className="w-full relative h-[32px] cursor-pointer flex flex-row">
             <div className="row w-full relative border-r-[0px] items-center flex flex-row font-medium border-[1px] rounded-l-[5px] border-solid border-[var(--gek-light-grey)]">
               <div className="basis-full">
-              <SelectUi
+              <Select
                   list={transformedList}
                   placeholderText="-select card-"
                   onSelect={(val) => {
@@ -470,7 +467,7 @@ const WithdrawFormCardToCard = () => {
         </div>
       </div>
 
-      <ModalUi
+      <Modal
         title={t("confirm_transaction")}
         onCancel={handleCancel}
         isModalOpen={isModalOpen}
@@ -480,7 +477,7 @@ const WithdrawFormCardToCard = () => {
           amount={inputCurr.value.number}
           handleCancel={handleCancel}
         />
-      </ModalUi>
+      </Modal>
 
       <div className="row w-full mb-[10px]">
         <div className={styles.ButtonContainerCenter}>

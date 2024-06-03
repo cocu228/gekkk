@@ -23,7 +23,7 @@ import {
 import { useInputValidateState } from "@/shared/ui/input-currency/model/useInputValidateState";
 import TextArea from "@/shared/ui/input/text-area/TextArea";
 import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
-import {Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormPhoneNumber = () => {
   const {md} = useBreakpoints()
@@ -169,7 +169,7 @@ const WithdrawFormPhoneNumber = () => {
         </div>
       </div>
 
-      <ModalUi
+      <Modal
         placeBottom={window.innerWidth < 768}
         zIndex
         destroyOnClose
@@ -182,7 +182,7 @@ const WithdrawFormPhoneNumber = () => {
           amount={inputCurr.value.number}
           handleCancel={handleCancel}
         />
-      </ModalUi>
+      </Modal>
 
       <div className={styles.ButtonContainerCenter}>
         <Button

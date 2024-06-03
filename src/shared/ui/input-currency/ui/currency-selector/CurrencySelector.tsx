@@ -4,7 +4,7 @@ import AssetsTable from "@/features/assets-table/ui/AssetsTable";
 import {CurrencyFlags} from "@/shared/config/mask-currency-flags";
 import {AssetTableKeys} from "@/features/assets-table/model/types";
 import { useTranslation } from 'react-i18next';
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 interface IParams {
     disabled?: boolean;
@@ -49,7 +49,7 @@ const CurrencySelector: FC<IParams> = ({
             </button>
         </div>
 
-        <ModalUi 
+        <Modal 
             title={t("select_a_token")}
             isModalOpen={tokenSelectOpen} 
             onCancel={handleCloseTokenSelect}
@@ -71,7 +71,7 @@ const CurrencySelector: FC<IParams> = ({
                     ]}
                 />
             </div>
-        </ModalUi>
+        </Modal>
     </>)
 }
 

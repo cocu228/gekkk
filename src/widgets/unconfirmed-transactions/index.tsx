@@ -9,7 +9,7 @@ import {apiGetHistoryTransactions} from "@/shared/(orval)api/gek";
 import InfoContent from "../history/ui/tx-info-modal/InfoContent";
 import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 import {GetHistoryTrasactionOut} from "@/shared/(orval)api/gek/model";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 export const UnconfirmedTransactions = () => {
     const {t} = useTranslation();
@@ -51,7 +51,7 @@ export const UnconfirmedTransactions = () => {
                 icon={<IconApp code="t62" color={'var(--gek-orange)'} size={30}/>}
             />
 
-            <ModalUi
+            <Modal
                 isModalOpen={isModalOpen}
                 onCancel={handleCancel}
                 title={t('please_enter_sender_name')}
@@ -67,7 +67,7 @@ export const UnconfirmedTransactions = () => {
                         }
                     }}
                 />
-            </ModalUi>
+            </Modal>
         </div>
     );
 }

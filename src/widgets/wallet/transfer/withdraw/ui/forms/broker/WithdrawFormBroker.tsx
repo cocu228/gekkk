@@ -17,7 +17,7 @@ import {useInputValidateState} from "@/shared/ui/input-currency/model/useInputVa
 import {useTranslation} from "react-i18next";
 import { useBreakpoints } from '@/app/providers/BreakpointsProvider';
 import styles from "../styles.module.scss"
-import { ModalC } from '@/shared/ui/!modal';
+import {Modal} from "@/shared/ui/modal/Modal";
 
 const WithdrawFormBroker = () => {
     const {t} = useTranslation();
@@ -122,14 +122,13 @@ const WithdrawFormBroker = () => {
                 </div>
             </div>
         </div>
-        <ModalC
-            width={450}
-            active={isModalOpen}
-            onClose={handleCancel}
+        <Modal
+            isModalOpen={isModalOpen}
+            onCancel={handleCancel}
             title={t("withdraw_confirmation")}
         >
             <WithdrawConfirmBroker amount={inputCurr.value.number} handleCancel={handleCancel}/>
-        </ModalC>
+        </Modal>
         <div className="row w-full mt-4">
             <div className="flex justify-center col">
                 <Button
@@ -237,10 +236,9 @@ const WithdrawFormBroker = () => {
                 </div>
             </div>
         </div>
-        <ModalC
-            width={327}
-            active={isModalOpen}
-            onClose={()=>{
+        <Modal
+            isModalOpen={isModalOpen}
+            onCancel={()=>{
                 handleCancel()
             }}
             title={t("confirm_transaction")}
@@ -249,7 +247,7 @@ const WithdrawFormBroker = () => {
                 handleCancel={()=>{handleCancel()}}
                 amount={inputCurr.value.number}
             />
-        </ModalC>
+        </Modal>
         
         <div className={styles.Button}>
             <div className={styles.ButtonContainerCenter}>

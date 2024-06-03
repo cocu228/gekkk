@@ -1,7 +1,7 @@
 import Radio from '@/shared/ui/radio';
 import Loader from "@/shared/ui/loader";
 import {memo, useContext, useState} from 'react';
-import Modal from "@/shared/ui/modal/Modal";
+import {Modal} from "@/shared/ui/modal/Modal";
 import Button from "@/shared/ui/button/Button";
 import {$axios} from '@/shared/lib/(orval)axios';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
@@ -177,7 +177,7 @@ const TypeChoose = memo(() => {
                 </div>}
             </div>
 {/*todo to fix this*/}
-            <Modal onCancel={TopUpModal.handleCancel} open={TopUpModal.isModalOpen}>
+            <Modal title='&nbsp;' onCancel={TopUpModal.handleCancel} isModalOpen={TopUpModal.isModalOpen}>
                 <>
                     <div className="row mb-10">
                         <div className="col">

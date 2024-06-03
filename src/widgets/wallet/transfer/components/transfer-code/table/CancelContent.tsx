@@ -10,7 +10,7 @@ import { useBreakpoints } from "@/app/providers/BreakpointsProvider";
 import { formatForHistoryMobile, formatForHistoryTimeMobile } from "@/shared/lib/date-helper";
 import style from './style.module.scss'
 import { modalDateArray } from "./TransferTableCode";
-import { Modal as ModalUi} from "@/shared/ui/ModalUi/Modal";
+import { Modal } from "@/shared/ui/modal/Modal";
 
 const CancelContent = ({code, amount, confirm, currency, date = null}) => {
     const {t} = useTranslation();
@@ -41,7 +41,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
 
     return <>
     <Button size="sm" className="w-full" color="red" skeleton onClick={showModal}><span className='text-[12px]'>{t("cancel")}</span></Button>
-    <ModalUi
+    <Modal
         title={t("cancel_code")} isModalOpen={isModalOpen} onCancel={handleCancel}>
             {loading ? <Loader/> : <div>
             <div className="row w-full py-4 mb-6">
@@ -67,7 +67,7 @@ const CancelContent = ({code, amount, confirm, currency, date = null}) => {
                 </Button>
             </div>
         </div>}
-    </ModalUi></>
+    </Modal></>
 }
 
 export default CancelContent;

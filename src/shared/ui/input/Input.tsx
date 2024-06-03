@@ -30,7 +30,7 @@ const Input = React.forwardRef(
       value,
       name,
       placeholder,
-      size = 'md',
+      size = 'sm',
       ...props
     }: IParams,
     ref: React.Ref<HTMLInputElement>
@@ -44,14 +44,14 @@ const Input = React.forwardRef(
             className={`${styles.Input} ${
                 wrapperClassName || ""
             } ${
-                size === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper
+                size === 'sm' ? styles.InputMobileWrapper : styles.InputDesktopWrapper
             }`}>
                 <div className={styles.InputWrapper}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={ size === 'md' ? styles.InputDesktop : styles.InputMobile}
+                            className={ size === 'sm' ? styles.InputMobile : styles.InputDesktop}
                             {...props}
                             ref={ref}
                             name={name}

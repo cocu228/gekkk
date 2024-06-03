@@ -26,7 +26,7 @@ function CustomHistory() {
   const { t } = useTranslation();
   const { refreshKey } = useContext(CtxRootData);
   const { currencies } = useContext(CtxCurrencies);
-  const [curr, setCurr] = useState<string>('EURG');
+  const [curr, setCurr] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>("");
   const [selector, setSelector] = useState<'type' | 'card' | 'currency' | null>(null);
   
@@ -54,7 +54,7 @@ function CustomHistory() {
   // remove
   const [fiat, setFiat] = useState<boolean>(false);
   const [apply, setApply] = useState<boolean>(false);
-  const [type, setType] = useState<ISelectTxTypes>(translatedOptions[0]);
+  const [type, setType] = useState<ISelectTxTypes | null>(null);
 
   // remove
   const [historyData, setHistoryData] = useState<{
@@ -63,7 +63,7 @@ function CustomHistory() {
     types: TransactTypeEnum[];
   }>({
     assets: [curr],
-    types: type.value,
+    types: type?.value,
     includeFiat: fiat,
   });
 
@@ -85,15 +85,15 @@ function CustomHistory() {
       dayjs(format(new Date(), "yyyy-MM-dd"), dateFormat),
     ]);
     setFiat(false);
-    setCurr('EURG');
+    setCurr('');
     setSelector(null);
-    setType(translatedOptions[0]);
+    setType(null);
   };
 
   const applyHandler = () => {
     setHistoryData({
       assets: [curr],
-      types: type.value,
+      types: type?.value,
       includeFiat: fiat,
     });
   };

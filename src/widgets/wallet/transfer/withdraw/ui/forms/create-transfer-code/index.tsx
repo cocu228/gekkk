@@ -71,7 +71,8 @@ const CreateTransferCode = () => {
   };
 
   return !md ? (
-    <div>
+    <>
+      <div>
       <TransferCodeDescription />
 
       <div className="row mb-5">
@@ -93,9 +94,74 @@ const CreateTransferCode = () => {
         <TransferTableCode isOwner />
       </div>
     </div>
+    <Checkbox onChange={({ target }) => setCheckbox(target.checked)}>
+    <div className="flex items-center">
+      {t("use_confirmation")}
+      <div
+        onClick={() => {
+          setIsHelpClicked(true);
+        }}
+        className="inline-block relative align-middle w-[14px] ml-1 cursor-help"
+      >
+        <img src="/img/icon/HelpIcon.svg" alt="tooltip" />
+      </div>
+
+      <Modal
+        title={t("use_confirmation")}
+        isModalOpen={isHelpClicked}
+        onCancel={() => {
+          setIsHelpClicked(false);
+        }}
+      >
+        <div>{/* TODO: image */}</div>
+        <div className="flex items-center">
+          <span>{t("when_using_confirmation")}</span>
+        </div>
+        <div className="w-full">
+          <Button
+            size="lg"
+            color="blue"
+            className="w-full mt-5"
+            onClick={() => {
+              setIsHelpClicked(false);
+            }}
+          >
+            {t("close")}
+          </Button>
+        </div>
+      </Modal>
+    </div>
+  </Checkbox>
+    <div className="row">
+          <div className="col">
+            <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
+              <div className="col flex flex-col w-[max-content] gap-2">
+                <div className="row">
+                  <span>{t("you_will_pay")}</span>
+                </div>
+                <div className="row">
+                  <span>{t("you_will_get")}</span>
+                </div>
+                <div className="row">
+                  <span>{t("fee")}</span>
+                </div>
+              </div>
+              <div className="col flex flex-col w-[max-content] gap-2">
+                <div className="row flex items-end">
+                  <span className="w-full text-start">
+                    {inputCurr.value.number} {currency.$const}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </>
   ) : (
     <div>
-      <div className="row">
+      <div className={styles.MobWrap}>
+        <div className={styles.MobWrapBlock}>
+        <div className="row">
         <div className="col">
           <div className="wrapper w-full">
             <InputCurrency.Validator
@@ -135,8 +201,7 @@ const CreateTransferCode = () => {
         )}
       </div>
       <div className="row mb-16 md:mb-2">
-        {md ? (
-          <div className="flex flex-row gap-4 ml-[10px]">
+      <div className="flex flex-row gap-4 ml-[10px]">
             <Switch defaultCheked={checkbox} onChange={switchHandler} />
             <div className="flex items-center">
               <span className="text-[12px] mr-4">{t("use_confirmation")}</span>
@@ -179,116 +244,53 @@ const CreateTransferCode = () => {
               </Modal>
             </div>
           </div>
-        ) : (
-          <Checkbox onChange={({ target }) => setCheckbox(target.checked)}>
-            <div className="flex items-center">
-              {t("use_confirmation")}
-              <div
-                onClick={() => {
-                  setIsHelpClicked(true);
-                }}
-                className="inline-block relative align-middle w-[14px] ml-1 cursor-help"
-              >
-                <img src="/img/icon/HelpIcon.svg" alt="tooltip" />
-              </div>
-
-              <Modal
-                title={t("use_confirmation")}
-                isModalOpen={isHelpClicked}
-                onCancel={() => {
-                  setIsHelpClicked(false);
-                }}
-              >
-                <div>{/* TODO: image */}</div>
-                <div className="flex items-center">
-                  <span>{t("when_using_confirmation")}</span>
-                </div>
-                <div className="w-full">
-                  <Button
-                    size="lg"
-                    color="blue"
-                    className="w-full mt-5"
-                    onClick={() => {
-                      setIsHelpClicked(false);
-                    }}
-                  >
-                    {t("close")}
-                  </Button>
-                </div>
-              </Modal>
-            </div>
-          </Checkbox>
-        )}
       </div>
-      {!md ? (
-        <div className="row">
-          <div className="col">
-            <div className="row flex gap-4 text-gray-400 font-medium mb-4 mt-6 text-sm">
-              <div className="col flex flex-col w-[max-content] gap-2">
+      <div className="flex w-full justify-center">
+          <div className="w-full max-w-[200px]">
+            <div className={styles.PayInfo}>
+              <div className={styles.PayInfoCol}>
                 <div className="row">
-                  <span>{t("you_will_pay")}</span>
+                  <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
                 </div>
                 <div className="row">
-                  <span>{t("you_will_get")}</span>
+                  <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
                 </div>
                 <div className="row">
-                  <span>{t("fee")}</span>
+                  <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
                 </div>
               </div>
-              <div className="col flex flex-col w-[max-content] gap-2">
-                <div className="row flex items-end">
-                  <span className="w-full text-start">
-                    {inputCurr.value.number} {currency.$const}
+              <div className={styles.PayInfoColValue}>
+                <div className={styles.PayInfoCol}>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexText}>
+                      {inputCurr.value.number}
+                    </span>
+                  </div>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexText}>
+                      {inputCurr.value.number}
+                    </span>
+                  </div>
+                  <div className={styles.PayInfoValueFlex}>
+                    <span className={styles.PayInfoValueFlexTextFee}>-</span>
+                  </div>
+                </div>
+
+                <div className={styles.PayInfoCol}>
+                  <span className={styles.PayInfoValueFlexTextCurrency}>
+                    {currency.$const}
+                  </span>
+                  <span className={styles.PayInfoValueFlexTextCurrency}>
+                    {currency.$const}
+                  </span>
+                  <span className={styles.PayInfoValueFlexTextFee}>
+                    {currency.$const}
                   </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      ) : (
-        <div className={styles.PayInfo}>
-          <div className={styles.PayInfoCol}>
-            <div className="row">
-              <span className={styles.PayInfoText}>{t("you_will_pay")}:</span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoText}>{t("you_will_get")}:</span>
-            </div>
-            <div className="row">
-              <span className={styles.PayInfoTextFee}>{t("fee")}:</span>
-            </div>
-          </div>
-          <div className={styles.PayInfoColValue}>
-            <div className={styles.PayInfoCol}>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexText}>
-                  {inputCurr.value.number}
-                </span>
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexText}>
-                  {inputCurr.value.number}
-                </span>
-              </div>
-              <div className={styles.PayInfoValueFlex}>
-                <span className={styles.PayInfoValueFlexTextFee}>-</span>
-              </div>
-            </div>
-
-            <div className={styles.PayInfoCol}>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-                {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextCurrency}>
-                {currency.$const}
-              </span>
-              <span className={styles.PayInfoValueFlexTextFee}>
-                {currency.$const}
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
       <div className={styles.ButtonContainerCenter}>
         <Button
           disabled={
@@ -305,7 +307,7 @@ const CreateTransferCode = () => {
         >
           {t("create_transfer_code")}
         </Button>
-        <span className="block mt-[14px] font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
+        <span className="block mt-[9px] mb-[10px] font-normal text-[#B9B9B5] text-[10px] font-[Inter]">
           {t('fee_is')}
           <span className="uppercase font-bold"> 0 eurg </span>
           {t("per_transaction")}
@@ -328,7 +330,9 @@ const CreateTransferCode = () => {
           />
         </Modal>
       </div>
-      <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[15px]">
+        </div>
+      </div>
+      <div className="row bg-[#F7F7F0] m-[0_-20px] pt-[10px]">
         <TransferTableCode isOwner />
       </div>
     </div>

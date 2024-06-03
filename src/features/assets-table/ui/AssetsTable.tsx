@@ -26,6 +26,7 @@ interface IParams {
   columnKeys: Array<AssetTableKeys>;
   blockedCurrencies?: Array<string>;
   onSelect?: (currency: string) => void;
+  isModal?: boolean;
 }
 
 function searchTokenFilter(currency: ICtxCurrency, searchValue: string) {
@@ -43,6 +44,7 @@ const AssetsTable = ({
   blockedCurrencies,
   allowedFlags,
   onSelect,
+  isModal
 }: IParams) => {
   const inputRef = useRef(null);
   const { lg, md } = useContext(BreakpointsContext);
@@ -154,6 +156,7 @@ const AssetsTable = ({
               .filter((value) => searchTokenFilter(value, searchValue))
               .map((currency, index) => (
                 <AssetsTableRow key={index}
+                  isModal={isModal}
                   currency={currency} 
                   blockedCurrencies={blockedCurrencies}
                   index={index}

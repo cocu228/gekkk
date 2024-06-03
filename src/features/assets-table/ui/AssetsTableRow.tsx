@@ -19,7 +19,8 @@ interface AssetsTableRowProps {
     index: number;
     onSelect: (currency:string) => void;
     columnKeys: AssetTableKeys[]
-    rates: Record<constants, number>
+    rates: Record<constants, number>;
+    isModal?: boolean
 };
 
 export const AssetsTableRow:FC<AssetsTableRowProps> = ({
@@ -28,7 +29,8 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
     index,
     onSelect,
     columnKeys,
-    rates
+    rates,
+    isModal = true
 }) => {
     const { lg, md } = useContext(BreakpointsContext);
     const navigate = useNavigate();
@@ -47,9 +49,13 @@ export const AssetsTableRow:FC<AssetsTableRowProps> = ({
                                     }
                                     ${
                                       !md && !evenOrOdd(index)
-                                        ? "bg-gray-main"
+                                        ? `bg-gray-main`
                                         : ""
                                     }
+
+                                    ${!evenOrOdd(index) && !isModal && styles.ItemEven}
+                                    ${!isModal && styles.ItemTable}
+                                    
                                     ${md && styles.MobileItem}
                                     `}
                   onClick={() => onSelect(currency.$const)}

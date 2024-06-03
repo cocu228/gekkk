@@ -110,6 +110,8 @@
   word-break: break-all;
   font-weight: 700;
   cursor: pointer;
+  width: 100%;
+  display: block;
 
   @include max-devices(md) {
     font-size: 12px;
@@ -218,4 +220,15 @@
 
 .CancelInfoItemGreen {
   color: rgb(43, 182, 115)
+}
+
+
+.CopyIcon {
+  flex-direction: column;
+  min-width: 14px;
+  margin-right: 25px;
+
+  svg {
+    margin: 0 !important;
+  }
 }

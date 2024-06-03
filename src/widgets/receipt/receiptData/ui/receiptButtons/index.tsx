@@ -16,6 +16,19 @@ interface IReceiptButtonsProps {
 const ReceiptButtons: FC<IReceiptButtonsProps> = ({onCancel, isLoading, isMobile, componentRef}) => {
     const {t} = useTranslation();
 
+    const handleOnShare = async () => {
+        if (navigator.canShare && navigator.canShare({text: "hello"}) && navigator.share) {
+            console.log("Can Share")
+            try {
+                await navigator.share({text: "hello"})
+            } catch (e) {
+                console.log(e);
+            }
+        } else {
+            console.log("Can`t Share")
+        }
+    }
+
     const content = () => componentRef;
     const trigger = useCallback(() => (
         <Button skeleton disabled={isLoading} className='w-full'>
@@ -26,7 +39,7 @@ const ReceiptButtons: FC<IReceiptButtonsProps> = ({onCancel, isLoading, isMobile
     return (
         <div className={styles.ButtonContainer}>
             {isMobile ? (
-                <Button skeleton disabled={isLoading} className='w-full'>
+                <Button skeleton disabled={isLoading} className='w-full' onClick={handleOnShare}>
                     <IconApp size={20} code="t38" color="#2BAB72"/> {t("share")}
                 </Button>
             ) : (

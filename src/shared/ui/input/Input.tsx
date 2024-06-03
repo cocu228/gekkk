@@ -9,11 +9,13 @@ type IParams = {
     allowDigits?: boolean;
     allowSymbols?: boolean;
     wrapperClassName?: string;
-    tranfers?: boolean;
     eye?: boolean;
     caption?: string;
     size?: 'sm' | 'md';
-    prefix?: React.ReactNode
+    value?: string;
+    name?: string;
+    placeholder?: string;
+    prefix?: React.ReactNode;
 };
 
 const Input = React.forwardRef(
@@ -23,10 +25,12 @@ const Input = React.forwardRef(
       allowDigits,
       allowSymbols,
       wrapperClassName,
-      tranfers = false,
       eye,
       prefix,
       caption,
+      value,
+      name,
+      placeholder,
       size = 'md',
       ...props
     }: IParams,
@@ -41,7 +45,7 @@ const Input = React.forwardRef(
             data-size={size}
             className={`${styles.Input} ${
                 wrapperClassName || ""
-            } ${tranfers ? styles.TransfersInput : ""} ${eye ? styles.EyeStyles : ""} ${
+            } ${eye ? styles.EyeStyles : ""} ${
                 size === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper
             }`}>
                 <div className={styles.InputWrapper}>
@@ -53,6 +57,9 @@ const Input = React.forwardRef(
                             type={eyeState ? 'password' : ''}
                             {...props}
                             ref={ref}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
                             onChange={(event) => {
                                 if (validateInput(event, allowDigits, allowSymbols)) {
                                     onChange(event);

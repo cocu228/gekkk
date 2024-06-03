@@ -68,29 +68,28 @@
   }
 }
 
-.TransfersInput{
-  height: 32px;
-  position: relative;
-  overflow: hidden;
-  align-items: center;
-  border: 1px solid var(--gek-light-grey);
-  border-radius: 5px;
-  width: 100%;
-  :global(.ant-input) {
-    @include max-devices(md) {
-      padding-left: 15px !important;
-      font-size: 12px !important;
-      color: var(--gek-additional);
-    }
-  }
-
-  :global(.ant-input-affix-wrapper){
-    @include max-devices(md) {
-      padding-left: 0px; 
-    }
-  }
-
-}
+//.TransfersInput{
+//  height: 32px;
+//  position: relative;
+//  overflow: hidden;
+//  align-items: center;
+//  border: 1px solid var(--gek-light-grey);
+//  border-radius: 5px;
+//  width: 100%;
+//  :global(.ant-input) {
+//    @include max-devices(md) {
+//      padding-left: 15px !important;
+//      font-size: 12px !important;
+//      color: var(--gek-additional);
+//    }
+//  }
+//
+//  :global(.ant-input-affix-wrapper){
+//    @include max-devices(md) {
+//      padding-left: 0px;
+//    }
+//  }
+//}
 
 .EyeBlock {
   cursor: pointer;
@@ -116,13 +115,16 @@
 
 .InputMobile{
   overflow: hidden;
-  align-items: center;
   width: 100%;
   outline: none;
-  padding-top: 5px;
+  padding-top: 8px;
+  font-size: 12px;
 }
 
 .InputDesktop{
+  overflow: hidden;
   outline: none;
   padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
 }

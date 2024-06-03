@@ -15,6 +15,7 @@ import Transfers from '@/pages/transfers';
 import { MainCardPage } from '@/pages/card-menu';
 import { GekkardPro } from '@/pages/gekkard-pro';
 import { IS_GEKKARD_APP } from '@/shared/lib';
+import ReceiptPage from "@/pages/receipt-page";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: 'history',
                 element: <HistoryPage/>
+            },
+            {
+                path: 'receipt',
+                element: <ReceiptPage/>
             },
             {
                 path: 'wallet',

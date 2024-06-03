@@ -1,5 +1,6 @@
 import Decimal from "decimal.js";
 import { AxiosResponse } from "axios";
+import {createSearchParams, useLocation, useNavigate} from "react-router-dom";
 import style from './style.module.scss';
 import Loader from "@/shared/ui/loader";
 import {useContext, useEffect, useState} from "react";
@@ -20,6 +21,8 @@ import {useBreakpoints} from "@/app/providers/BreakpointsProvider";
 
 const InfoContent = (props: TxInfoProps) => {
   const {md} = useBreakpoints();
+  const navigate = useNavigate();
+  const location = useLocation()
   const { t } = useTranslation();
   const { setContent } = useContext(CtxGlobalModalContext);
   const [localErrorHunter, , localErrorInfoBox] = useError();
@@ -32,7 +35,16 @@ const InfoContent = (props: TxInfoProps) => {
   const handleOnReceipt = () => {
     props.handleCancel()
     if (md) {
-      // TODO: For Mobile Version
+      const searchParams = new URLSearchParams(location.search)
+      const search = searchParams.get("currency") ? { currency: searchParams.get("currency") } : {}
+      const params = createSearchParams({
+        txId: props.id_transaction,
+        ...search
+      })
+      navigate({
+        pathname: "/receipt",
+        search: params.toString()
+      })
     } else {
       setContent({
         content: <ReceiptData txId={props.id_transaction}/>,

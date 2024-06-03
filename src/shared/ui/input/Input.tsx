@@ -30,28 +30,26 @@ const Input = React.forwardRef(
       value,
       name,
       placeholder,
-      size = 'sm',
+      size,
       ...props
     }: IParams,
     ref: React.Ref<HTMLInputElement>
   ) => {
     const {md} = useBreakpoints();
-
+    const inputSize = size || (md ? 'md' : 'sm');
     return (
         <>
         <div
-            data-size={size === null ? md : size === 'md'}
+            data-size={inputSize}
             className={`${styles.Input} ${
                 wrapperClassName || ""
-            } ${
-                size === 'sm' ? styles.InputMobileWrapper : styles.InputDesktopWrapper
-            }`}>
+            }${inputSize === 'sm' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
                 <div className={styles.InputWrapper}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
                         <input
-                            className={ size === 'sm' ? styles.InputMobile : styles.InputDesktop}
+                            className={ inputSize === 'sm' ? styles.InputDesktop : styles.InputMobile}
                             {...props}
                             ref={ref}
                             name={name}

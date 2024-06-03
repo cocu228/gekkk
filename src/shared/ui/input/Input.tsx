@@ -9,7 +9,7 @@ type IParams = {
     allowDigits?: boolean;
     allowSymbols?: boolean;
     wrapperClassName?: string;
-    eye?: boolean;
+    suffix?: boolean;
     caption?: string;
     size?: 'sm' | 'md';
     value?: string;
@@ -25,7 +25,7 @@ const Input = React.forwardRef(
       allowDigits,
       allowSymbols,
       wrapperClassName,
-      eye,
+      suffix,
       prefix,
       caption,
       value,
@@ -45,7 +45,7 @@ const Input = React.forwardRef(
             data-size={size}
             className={`${styles.Input} ${
                 wrapperClassName || ""
-            } ${eye ? styles.EyeStyles : ""} ${
+            } ${
                 size === 'md' ? styles.InputDesktopWrapper : styles.InputMobileWrapper
             }`}>
                 <div className={styles.InputWrapper}>
@@ -69,15 +69,9 @@ const Input = React.forwardRef(
                     </div>
                 </div>
                 {
-                    eye && (
-                        <div className={styles.EyeBlock} onClick={() => setEyeState(!eyeState)}>
-                            {
-                                eyeState ? (
-                                    <IconApp color='#285E69' size={13} code="t41"/>
-                                ) : (
-                                    <IconApp color='#285E69' size={13} code="t71"/>
-                                )
-                            }
+                    suffix && (
+                        <div className={styles.SuffixBlock}>
+                            {suffix}
                         </div>
                     )
                 }

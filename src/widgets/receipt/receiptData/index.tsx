@@ -10,6 +10,7 @@ import ReceiptButtons from "@/widgets/receipt/receiptData/ui/receiptButtons";
 
 interface BankReceiptProps {
   txId: string;
+  onCancel?: () => void
   isMobile?: boolean
 }
 
@@ -17,7 +18,7 @@ type IState = AddressTxOut & {
   senderName?: string;
 }
 
-const ReceiptData: FC<BankReceiptProps> = ({ txId, isMobile }) => {
+const ReceiptData: FC<BankReceiptProps> = ({ txId, isMobile, onCancel }) => {
   const componentRef = useRef<HTMLDivElement | null>(null)
   const [state, setState] = useState<IState>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -49,7 +50,7 @@ const ReceiptData: FC<BankReceiptProps> = ({ txId, isMobile }) => {
           componentRef={componentRef.current}
           isMobile={isMobile}
           isLoading={loading}
-          onCancel={handleCancel}
+          onCancel={onCancel ? onCancel : handleCancel}
       />
     </div>
   );

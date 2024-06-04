@@ -12,10 +12,10 @@ import {Faq} from '@/pages/faq';
 import {Settings} from '@/pages/settings';
 import HistoryPage from "@/pages/history-page";
 import Transfers from '@/pages/transfers';
-import { MainCardPage } from '@/pages/card-menu';
 import { GekkardPro } from '@/pages/gekkard-pro';
 import { IS_GEKKARD_APP } from '@/shared/lib';
 import ReceiptPage from "@/pages/receipt-page";
+import CardsMenu from '@/widgets/!cards-menu/ui';
 
 const router = createBrowserRouter([
     {
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
             ...(IS_GEKKARD_APP() ? [
                 {
                     path: 'card-menu',
-                    element: <MainCardPage/>,
+                    element: <CardsMenu/>,
                 },
                 {
                     path: 'exchange',

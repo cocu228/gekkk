@@ -1,5 +1,5 @@
-import {FC, useState} from 'react'
 import style from './styles.module.scss'
+import {FC, useEffect, useState} from 'react'
 
 interface SwitchProps {
     onChange?: (state: boolean) => void;
@@ -10,6 +10,10 @@ interface SwitchProps {
 
 export const Switch:FC<SwitchProps> = ({onChange, defaultCheked, className, disabled = false}) => {
     const [isCheked, setIsChecked] = useState(defaultCheked)
+
+    useEffect(() => {
+      setIsChecked(defaultCheked)
+    }, [defaultCheked])
 
     const switchHandler = () => {
       setIsChecked(!isCheked)

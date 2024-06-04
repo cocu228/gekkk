@@ -7,8 +7,8 @@ type IParams = {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     allowDigits?: boolean;
     allowSymbols?: boolean;
-    wrapperClassName?: string;
-    suffix?: boolean;
+    className?: string;
+    suffix?: React.ReactNode;
     caption?: string;
     size?: 'sm' | 'md';
     value?: string;
@@ -23,7 +23,7 @@ const Input = React.forwardRef(
       onChange,
       allowDigits,
       allowSymbols,
-      wrapperClassName,
+      className,
       suffix,
       prefix,
       caption,
@@ -42,9 +42,8 @@ const Input = React.forwardRef(
         <div
             data-size={inputSize}
             className={`${styles.Input} ${
-                wrapperClassName || ""
+                className || ""
             }${inputSize === 'sm' ? styles.InputDesktopWrapper : styles.InputMobileWrapper}`}>
-                <div className={styles.InputWrapper}>
                     <div className={styles.PrefixWrap}>
                         {prefix && (<span className={styles.Prefix}>{prefix}</span>
                         )}
@@ -62,7 +61,6 @@ const Input = React.forwardRef(
                             }}
                         />
                     </div>
-                </div>
                 {
                     suffix && (
                         <div className={styles.SuffixBlock}>

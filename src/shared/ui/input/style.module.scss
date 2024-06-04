@@ -46,11 +46,6 @@
 .PrefixWrap{
   display: flex;
   flex-direction: row;
-}
-
-.InputWrapper{
-  display: flex;
-  flex-direction: column;
   width: 100%;
   padding: 0 12px;
 }
@@ -92,13 +87,14 @@
 //}
 
 .SuffixBlock {
-  position: absolute;
+  position: relative;
   right: 20px;
-  top: 50%;
+  top: 80%;
   transform: translateY(-50%);
 
   @media screen and (max-width: 767px) {
     right: 10px;
+    transform: translateY(-70%);
   }
 }
 

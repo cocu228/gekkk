@@ -22,7 +22,10 @@
 
 .Token{
   padding-top: 8px;
-  padding-right: 5px;
+  padding-right: 20px;
+  font-size: 1rem;
+  color: #1F3446;
+  font-weight: bold;
 }
 
 .Input {
@@ -33,11 +36,16 @@
   background: none;
   border: none;
   font-size: 1rem;
+  color: #1F3446;
   line-height: 1;
   outline: none;
 
   &:not(:last-child) {
     padding-bottom: 0.1rem;
+  }
+  @include max-devices("md") {
+      padding-top: 14px;
+      font-size: 1rem;
   }
 }
 
@@ -47,19 +55,22 @@
   height: 64px;
   padding: 0 12px;
   border: 1px solid var(--color-secondary);
-  border-radius: 4px;
+  border-radius: 8px;
 
   @include max-devices("md") {
     height: 56px;
     padding-right: 8px;
     margin-top: 0.3rem;
+    ::placeholder{
+      font-size: 10px;
+    }
   }
 
   &InfoText {
     z-index: 10;
     user-select: none;
     margin-left: 12px;
-    margin-top: -20px;
+    margin-top: -23px;
     line-height: 1rem;
     position: absolute;
     font-size: 0.75rem;

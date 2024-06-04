@@ -151,11 +151,8 @@ const WithdrawFormCrypto = () => {
               disabled={!networkTypeSelect}
               name={"recipient"}
               placeholder={t("enter_recepients_name")}
+              caption={!inputs.recipient && t("EW_law")}
             />
-
-          <span className={style.LawText}>
-            {!inputs.recipient && t("EW_law")}
-          </span>
         </div>   
 
         <div className={style.InpBlock}>

@@ -17,6 +17,7 @@ interface IParams {
     className?: string;
     onChange: (value: string) => void;
     transfers?: boolean;
+    name?:string;
 }
 
 const InputField: FC<IParams> & {
@@ -24,7 +25,7 @@ const InputField: FC<IParams> & {
     DisplayBalance: typeof DisplayBalance;
     PercentSelector: typeof PercentSelector;
     CurrencySelector: typeof CurrencySelector;
-} = ({ currency, value, wrapperClassName, disabled = false, className, onChange, transfers }) => {
+} = ({ currency, value, wrapperClassName, disabled = false, className, onChange, name }) => {
     const inputCurrencyValid = useContext(CtxInputCurrencyValid);
     const { t } = useTranslation();
     const { md } = useBreakpoints();
@@ -34,6 +35,7 @@ const InputField: FC<IParams> & {
             <div >
                 <input
                     type="text"
+                    name={name}
                     disabled={disabled || !currency}
                     className={styles.Input}
                     value={value}

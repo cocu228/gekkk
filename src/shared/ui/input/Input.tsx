@@ -15,6 +15,7 @@ type IParams = {
     name?: string;
     placeholder?: string;
     prefix?: React.ReactNode;
+    disabled?: boolean;
 };
 
 const Input = React.forwardRef(
@@ -31,6 +32,7 @@ const Input = React.forwardRef(
       name,
       placeholder,
       size,
+      disabled,
       ...props
     }: IParams,
     ref: React.Ref<HTMLInputElement>
@@ -51,6 +53,7 @@ const Input = React.forwardRef(
                             className={ inputSize === 'sm' ? styles.InputDesktop : styles.InputMobile}
                             {...props}
                             ref={ref}
+                            disabled={disabled}
                             name={name}
                             value={value}
                             placeholder={placeholder}

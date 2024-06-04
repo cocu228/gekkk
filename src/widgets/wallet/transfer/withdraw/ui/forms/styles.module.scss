@@ -113,10 +113,23 @@
     }
 
     &Text{
+        font-size: 14px;
+        font-weight: 400;
+        font-family: Inter;
         color:#3A5E66;
         text-wrap: nowrap;
+
+        @media screen and (max-width: 768px) {
+            font-size: 12px;
+        }
         &Fee{
             color: #9D9D9D;
+            font-size: 14px;
+            font-weight: 400;
+
+            @media screen and (max-width: 768px) {
+                font-size: 12px;
+            }
         }
     }
 
@@ -138,16 +151,26 @@
                 color: #9D9D9D;
                 text-align: start;
                 text-wrap: nowrap;
-
                 max-width: 20vw;
+                font-weight: 600;
+                font-size: 14px;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 12px;
+                }
             }
         }
         &TextCurrency{
+            font-size: 14px;
             width: 100%; 
             font-weight: 600; 
             color: #1F3446;
             text-align: start;
             text-wrap: nowrap;
+
+            @media screen and (max-width: 768px) {
+                font-size: 12px;
+            }
         }
     }
 }

@@ -20,13 +20,13 @@
 
     &::placeholder {
       font-weight: normal;
-      @include max-devices(md) {
-        color: var(--gek-light-grey);
-        font-size: 12px !important;
-      }
-      color: var(--gek-mid-grey);
-      font-size: 0,7rem;
+      color: #B9B9B5 !important;
+      font-size: 12px;
       padding-right: 5px;
+
+      @media screen and (max-width: 768px) {
+        font-size: 10px !important;
+      }
     }   
 
     &:focus {

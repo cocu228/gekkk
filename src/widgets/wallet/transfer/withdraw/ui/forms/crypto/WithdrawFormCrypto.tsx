@@ -157,7 +157,7 @@ const WithdrawFormCrypto = () => {
 
         <div className={style.InpBlock}>
             <span className={`${styles.TitleColText} ml-[10px]`}>{t("desc_optional")}:</span>
-            <TextArea
+            <Input
               allowDigits
               allowSymbols
               placeholder={t('enter_description')}

@@ -51,7 +51,7 @@ const InputField: FC<IParams> & {
                         {currency ?? t("select_a_token")}
                     </span>
 
-                    {currency && <IconCoin width={34} height={34} code={currency}/>}
+                    {currency && <IconCoin width={40} height={40} code={currency}/>}
                 </div>
             </div>
         </div>

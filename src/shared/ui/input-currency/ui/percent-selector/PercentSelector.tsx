@@ -56,6 +56,7 @@ const PercentSelector: FC<IParams> = ({
                     <PercentBtn onClick={() => onBtnClick(new Decimal(25))}>25%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(new Decimal(50))}>50%</PercentBtn>
                     <PercentBtn onClick={() => onBtnClick(new Decimal(75))}>75%</PercentBtn>
+                   {/*TODO  Recalculate 100% taking fee*/}
                     <PercentBtn onClick={() => onBtnClick(new Decimal(100))}>100%</PercentBtn>
                 </div>
             </div>

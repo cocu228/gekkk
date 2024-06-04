@@ -72,7 +72,7 @@ const Input = React.forwardRef(
                     )
                 }
             </div>
-            {caption && (<text className={styles.Caption}>{caption}</text>)}
+            <div className='display: flex'>{caption && (<text className={styles.Caption}>*{caption}</text>)}</div>
         </>
     );
   }

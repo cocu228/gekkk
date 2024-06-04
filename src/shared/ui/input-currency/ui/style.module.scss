@@ -35,17 +35,18 @@
   flex-grow: 1;
   background: none;
   border: none;
+  font-weight: bold;
   font-size: 1rem;
   color: #1F3446;
   line-height: 1;
   outline: none;
-
   &:not(:last-child) {
     padding-bottom: 0.1rem;
   }
   @include max-devices("md") {
       padding-top: 14px;
       font-size: 1rem;
+
   }
 }
 
@@ -56,7 +57,9 @@
   padding: 0 12px;
   border: 1px solid var(--color-secondary);
   border-radius: 8px;
-
+  ::placeholder{
+    font-weight: normal;
+  }
   @include max-devices("md") {
     height: 56px;
     padding-right: 8px;

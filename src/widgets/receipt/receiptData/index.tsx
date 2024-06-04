@@ -47,7 +47,7 @@ const ReceiptData: FC<BankReceiptProps> = ({ txId, isMobile, onCancel }) => {
       {loading && <Loader/>}
       <ReceiptInfo ref={componentRef} state={state} txId={txId} loading={loading} />
       <ReceiptButtons
-          componentRef={componentRef}
+          componentRef={componentRef.current}
           isMobile={isMobile}
           isLoading={loading}
           onCancel={onCancel ? onCancel : handleCancel}

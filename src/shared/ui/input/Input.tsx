@@ -39,6 +39,15 @@ const Input = React.forwardRef(
   ) => {
     const {md} = useBreakpoints();
     const inputSize = size || (md ? 'md' : 'sm');
+
+    const [showCaption, setShowCaption] = useState(true);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          if (validateInput(event, allowDigits, allowSymbols)) {
+              onChange(event);
+              setShowCaption(event.target.value.length === 0);
+          }
+      };
     return (
         <>
         <div
@@ -57,11 +66,7 @@ const Input = React.forwardRef(
                             name={name}
                             value={value}
                             placeholder={placeholder}
-                            onChange={(event) => {
-                                if (validateInput(event, allowDigits, allowSymbols)) {
-                                    onChange(event);
-                                }
-                            }}
+                            onChange={handleChange}
                         />
                     </div>
                 {
@@ -72,7 +77,7 @@ const Input = React.forwardRef(
                     )
                 }
             </div>
-            <div className='display: flex'>{caption && (<text className={styles.Caption}>*{caption}</text>)}</div>
+            {caption && showCaption ? <div className='display: flex'><text className={styles.Caption}>*{caption}</text></div> : ''}
         </>
     );
   }
